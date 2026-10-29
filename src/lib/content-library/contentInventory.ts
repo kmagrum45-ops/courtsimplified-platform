@@ -63,6 +63,7 @@ import {
 import { CASE_JUDGMENT_MESSAGE, CHAT_NO_MATCH_MESSAGE, DEFLECTION_MESSAGE } from "./referralResources";
 import { PRESENTATION_CHECKLISTS } from "./presentationHelp";
 import { OFFICIAL_URLS } from "../case-system/stage-map/citations";
+import { collectNextStepCardItems } from "./nextStepCardInventory";
 import { DOCTRINE_SEED_LIBRARY } from "../case-system/knowledge/doctrineSeedLibrary";
 import {
   IMMEDIATE_DANGER_MESSAGE,
@@ -209,6 +210,10 @@ export function collectContentInventory(): ContentItem[] {
       }),
     );
   }
+
+  // ---- The next-step card (2026-10-29): every form, fee, filing, service and rule line ----
+  // One item per line per step, versioned by SHA-256. See nextStepCardInventory.ts.
+  items.push(...collectNextStepCardItems());
 
   // ---- Pathway descriptions (new in Step 3) ----
   for (const description of PATHWAY_DESCRIPTIONS) {

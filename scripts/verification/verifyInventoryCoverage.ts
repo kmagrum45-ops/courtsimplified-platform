@@ -28,16 +28,41 @@
  * it is indexed. CLAUDE.md §5 permits a maintained list; the maintenance here
  * is one entry when a new body of content is written, with an obvious cause.
  *
+ * The next-step cards (added 2026-10-29) are the exception to "a list": their
+ * lines come from one data file, nextStepPractical.ts, so the check is a
+ * property of that file — every field of the card's view is named, every
+ * line each step's card shows is an item for that step, and every plain
+ * line, fee and fixed sentence the file exports is indexed with its quote.
+ * A new kind of card line, or a new line, fails here until it is indexed.
+ *
  * The UNINDEXED half is the more useful one. It names what is still outside,
  * so that "268 items" is never again read as "everything".
  *
  * Run: node --import tsx scripts/verification/verifyInventoryCoverage.ts
  */
 
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { collectContentInventory } from "../../src/lib/content-library/contentInventory";
+import {
+  NEXT_STEP_CARD_EXCLUDED,
+  NEXT_STEP_CARD_FIELDS,
+  exportedCardLines,
+  feeText,
+  formText,
+  ruleText,
+} from "../../src/lib/content-library/nextStepCardInventory";
+import {
+  CARD_TEXT,
+  FEES,
+  FEES_IF_CLAIMED_LABEL,
+  STEP_PRACTICAL,
+  practicalFor,
+  type PracticalCourt,
+} from "../../src/lib/content-library/nextStepPractical";
+import { sha256Hex } from "../../src/lib/content-library/sha256";
 import { PROCEDURAL_STAGES } from "../../src/lib/content-library/proceduralStages";
 import {
   IMMEDIATE_DANGER_MESSAGE,
@@ -160,7 +185,130 @@ const texts = new Set(inventory.map((entry) => entry.text));
 }
 
 // ---------------------------------------------------------------------------
-// 4. What is STILL outside the packet
+// 4. The next-step cards (2026-10-29)
+// ---------------------------------------------------------------------------
+//
+// The card (NextStepPractical.tsx, nextStepPractical.ts) showed forms, fees,
+// filing and service lines and quoted rules on every step and was in no
+// review packet. Each check below is a property of nextStepPractical.ts's
+// own data, not a count, so it fails when the card gains a line the
+// inventory does not hold and never when the card is improved.
+
+{
+  const card = inventory.filter((entry) => entry.type === "next-step-card");
+  const cardTexts = new Set(card.map((entry) => entry.text));
+  const cardByStage = new Map<string, Set<string>>();
+  for (const entry of card) {
+    if (!cardByStage.has(entry.stage)) cardByStage.set(entry.stage, new Set());
+    cardByStage.get(entry.stage)!.add(entry.text);
+  }
+  const courtOf = (stepId: string): PracticalCourt =>
+    stepId.startsWith("civil:") ? "civil" : stepId.startsWith("family:") ? "family" : "small-claims";
+
+  // (a) Every field the card's view has is named, with the kinds it is indexed as.
+  const fieldsSeen = new Set<string>();
+  for (const stepId of Object.keys(STEP_PRACTICAL)) {
+    for (const responding of [false, true]) {
+      const view = practicalFor(stepId, courtOf(stepId), "", responding);
+      if (view) for (const key of Object.keys(view)) fieldsSeen.add(key);
+    }
+  }
+  const unnamed = [...fieldsSeen].filter((key) => !(key in NEXT_STEP_CARD_FIELDS));
+  if (unnamed.length === 0 && fieldsSeen.size > 0) {
+    pass(`every field of the next-step card's view (${fieldsSeen.size}) is named in NEXT_STEP_CARD_FIELDS`);
+  } else {
+    fail(
+      "the next-step card has a field the inventory does not know",
+      `${unnamed.join(", ")}\nAdd it to NEXT_STEP_CARD_FIELDS (nextStepCardInventory.ts) and index its lines.`,
+    );
+  }
+
+  // (b) Every step whose card shows anything has, for each line of that card
+  //     (both sides, no city, no story), an inventory item with the exact text.
+  const missingOnStep: string[] = [];
+  for (const stepId of Object.keys(STEP_PRACTICAL)) {
+    for (const responding of [false, true]) {
+      const view = practicalFor(stepId, courtOf(stepId), "", responding);
+      if (!view) continue;
+      const shown = [
+        ...view.forms.map((form) => formText(form.court, form.number)),
+        ...view.forms.flatMap((form) => (form.note ? [form.note.say] : [])),
+        ...view.fees.map(feeText),
+        ...view.feeNotes.map((line) => line.say),
+        ...(view.feeWaiver ? [view.feeWaiver.say] : []),
+        ...view.filing.map((line) => line.say),
+        ...(view.courtOffices?.place ?? []).map((line) => line.say),
+        ...view.serving.map((line) => line.say),
+        ...view.noticeHow.map((line) => line.say),
+        ...view.also.map(ruleText),
+        ...view.afterNotice.map((line) => line.say),
+      ];
+      const indexed = cardByStage.get(stepId) ?? new Set<string>();
+      for (const text of shown) if (!indexed.has(text)) missingOnStep.push(`${stepId}${responding ? " (responding)" : ""}: ${text.slice(0, 80)}`);
+    }
+  }
+  if (missingOnStep.length === 0) {
+    pass("every line of every step's next-step card is an inventory item for that step");
+  } else {
+    fail(`${missingOnStep.length} next-step card line(s) are not in the inventory for their step`, missingOnStep.slice(0, 15).join("\n"));
+  }
+
+  // (c) Every plain line, fee and fixed sentence nextStepPractical.ts exports
+  //     is indexed somewhere, with its quote carried: a line shown only for
+  //     some words or places is still a line someone reads.
+  // One say can rest on different quotes in different courts, so the pair is the key.
+  const pair = (text: string, quote: string) => JSON.stringify([text, quote]);
+  const pairs = new Set(card.map((entry) => pair(entry.text, entry.quote ?? "")));
+  const lines = [...exportedCardLines().keys()];
+  const unindexedLines = lines.filter((line) => !pairs.has(pair(line.say, line.cite.quote)));
+  const unindexedFees = Object.values(FEES).filter((fee) => !cardTexts.has(feeText(fee)));
+  const sentences = [...Object.values(CARD_TEXT), FEES_IF_CLAIMED_LABEL].filter((text) => !cardTexts.has(text));
+  if (lines.length > 0 && unindexedLines.length + unindexedFees.length + sentences.length === 0) {
+    pass(`all ${lines.length} exported card lines, ${Object.keys(FEES).length} fees and ${Object.values(CARD_TEXT).length + 1} fixed sentences are indexed, each line with its quote`);
+  } else {
+    fail(
+      "a next-step card line, fee or fixed sentence is not in the inventory",
+      [...unindexedLines.map((line) => line.say), ...unindexedFees.map(feeText), ...sentences].map((text) => `  ${text.slice(0, 90)}`).slice(0, 15).join("\n"),
+    );
+  }
+
+  // (d) Every card item carries a source (a form's link, or a rule's URL) unless it is the card's own sentence.
+  const sourceless = card.filter((entry) => !entry.id.startsWith("next-step:card:") && !entry.sourceUrl);
+  if (card.length > 0 && sourceless.length === 0) {
+    pass("every next-step card item carries its source URL");
+  } else {
+    fail("a next-step card item reaches the packet with no source", sourceless.map((entry) => `  ${entry.id}`).slice(0, 15).join("\n"));
+  }
+
+  // (e) Ids are unique and follow next-step:<stepId>:<kind>:<key>.
+  const cardIds = new Set(card.map((entry) => entry.id));
+  const badShape = card.filter((entry) => !entry.id.startsWith(`next-step:${entry.stage}:`));
+  if (card.length > 0 && cardIds.size === card.length && badShape.length === 0) {
+    pass(`all ${card.length} next-step card items have their own id, next-step:<stepId>:<kind>:<key>`);
+  } else {
+    fail("next-step card ids collide or are misshapen", badShape.map((entry) => `  ${entry.id}`).slice(0, 10).join("\n"));
+  }
+
+  // (f) The card's version is SHA-256 (pure TypeScript, since the inventory reaches client pages); check it against node:crypto.
+  const samples = ["", "abc", "“Form 7A — Plaintiff’s Claim” $108", "x".repeat(55), "y".repeat(64), ...card.slice(0, 20).map((entry) => entry.text)];
+  const wrongHash = samples.filter((text) => sha256Hex(text) !== createHash("sha256").update(text, "utf8").digest("hex"));
+  const wrongVersion = card.filter((entry) => entry.version !== parseInt(createHash("sha256").update(entry.text, "utf8").digest("hex").slice(0, 12), 16));
+  if (wrongHash.length === 0 && wrongVersion.length === 0) {
+    pass("the next-step card versions are SHA-256 of their text");
+  } else {
+    fail("the SHA-256 used for next-step card versions disagrees with node:crypto", `${wrongHash.length} sample(s), ${wrongVersion.length} item(s)`);
+  }
+
+  const byKind = new Map<string, number>();
+  for (const entry of card) {
+    const kind = entry.id.slice(`next-step:${entry.stage}:`.length).split(":")[0];
+    byKind.set(kind, (byKind.get(kind) ?? 0) + 1);
+  }
+  console.log(`      next-step card: ${card.length} items (${cardTexts.size} distinct texts) — ${[...byKind].map(([kind, n]) => `${kind} ${n}`).join(", ")}`);
+}
+
+// ---------------------------------------------------------------------------
+// 5. What is STILL outside the packet
 // ---------------------------------------------------------------------------
 
 /**
@@ -222,6 +370,8 @@ const UNINDEXED: Array<{ what: string; where: string; reason: string }> = [
       "stating what they do. Closest of these to legal content and flagged in " +
       "the report for licensee review of the wording.",
   },
+  // Next-step card lines built from a date or the person's own words (nextStepCardInventory.ts).
+  ...NEXT_STEP_CARD_EXCLUDED,
 ];
 
 {
