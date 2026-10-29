@@ -252,6 +252,15 @@ jobs:
       - name: Never ask twice -- the story pack's held check, known repeats and chat wording table
         run: npm run test:never-ask-twice
 
+      - name: Chrome 29 Oct -- forms built from the case file (known problems listed)
+        run: npm run test:forms-from-case-file
+
+      - name: Chrome 29 Oct -- flow items C, D3, H (known problems listed)
+        run: npm run test:chrome-29oct-flow
+
+      - name: Chrome 29 Oct -- safety, deadlines, family court (known problems listed)
+        run: npm run test:chrome-29oct-safety
+
       - name: A changed side sets aside the old side's facts, in every area
         run: npm run test:side-change
 
@@ -659,6 +668,8 @@ jobs:
           tests/browser/retest-471.spec.ts
           tests/browser/stage-rule.spec.ts
           tests/browser/items-8-12.spec.ts
+          tests/browser/retest-29oct-flow.spec.ts
+          tests/browser/never-ask-twice-reading.spec.ts
           --reporter=line --workers=1
 
       # A failure that does not reproduce locally needs the page as CI saw it.
