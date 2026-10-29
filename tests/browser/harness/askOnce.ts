@@ -21,6 +21,8 @@
  *   the step page's dates    [data-testid=stage-answer-date-question][data-question-id]
  *   the review's own boxes    [data-testid=intake-entry][data-empty=true] (an empty box asks for its fact)
  *   the Small Claims form    [data-testid=sc-intake-documents][data-empty=true] ("What documents already exist?", nothing ticked)
+ *   the story's events       [data-testid=event-candidate]: a date box left empty while its own quoted
+ *                            sentence gives that date (fact dateInOwnSentence, given by the story)
  * And, never ask twice (site owner, 28 Oct), the places that ask in words, found by what the
  * page already renders (no site change); their fact is read from their words by the test's own
  * table (chatQuestionFacts.ts), never by the site's wording map:
@@ -46,6 +48,11 @@
  * yet -- Add it"), which is not a question; a date question there, or any second offer, fails.
  * The screen is the page's path, and the builder's step.
  *
+ * THE SAVED CONVERSATION SHOWN AGAIN (site owner, 29 Oct). After a reload the Small Claims guided
+ * chat shows its earlier questions and replies. Each ask carries the reply shown under it; it is
+ * excused (restoredAsk) only when that reply is the one already recorded for the question in this
+ * case. Shown with no reply, or with another reply, it is asked again and counts.
+ *
  * HELD CHECK (never ask twice, 28 Oct). When a question is recorded, the saved case is read at
  * that moment through the site's own case file (caseFileOf), and the facts it holds as the
  * person's own (confirmed) are kept on the question. A question whose fact is held answered
@@ -61,7 +68,9 @@ import type { Violation } from "./knownRepeats";
 import type { SituationAnswers } from "./situation";
 
 export type HeldState = "answered" | "unsure";
-export type Asked = { kind: "ask" | "answer"; surface: string; id: string; screen: string; text: string; at: number; held?: Record<string, HeldState> };
+export type Asked = { kind: "ask" | "answer"; surface: string; id: string; screen: string; text: string; at: number; held?: Record<string, HeldState>;
+  /** Small Claims guided only: the person's reply shown under the question (an ask) or given to it (an answer). */
+  reply?: string };
 
 const SCAN = `(() => {
   if (window.__askOnceInstalled) return;
@@ -76,8 +85,10 @@ const SCAN = `(() => {
     return url.pathname.replace(/\\/cases\\/[^/]+/, "/cases/:id") + (step ? "?step=" + step : "");
   };
   const now = () => Date.now() * 1000 + (order++ % 1000);
-  const emit = (kind, surface, id, text) => window.__recordAsk({ kind, surface, id, screen: screen(), text: (text || "").replace(/\\s+/g, " ").slice(0, 160), at: now() });
-  const answer = (surface, id) => { const key = surface + "|" + id; if (answered.has(key)) return; answered.add(key); emit("answer", surface, id, skipped.has(key) ? "unsure" : ""); };
+  const emit = (kind, surface, id, text, reply) => window.__recordAsk({ kind, surface, id, screen: screen(), text: (text || "").replace(/\\s+/g, " ").slice(0, 160), at: now(), ...(typeof reply === "string" ? { reply: reply.replace(/\\s+/g, " ").trim().slice(0, 500) } : {}) });
+  const answer = (surface, id, reply) => { const key = surface + "|" + id; if (answered.has(key)) return; answered.add(key); emit("answer", surface, id, skipped.has(key) ? "unsure" : "", reply); };
+  // Small Claims guided: the person's reply shown right under a question (a user message before the next question), if any.
+  const replyAfter = (el) => { const all = [...document.querySelectorAll("[data-testid=guided-message]")]; for (const m of all.slice(all.indexOf(el) + 1)) { if (m.getAttribute("data-from") === "user") return words(m); if (m.hasAttribute("data-question-id")) return undefined; } return undefined; };
   const words = (el) => (el ? el.innerText || el.textContent || "" : "").replace(/\\s+/g, " ").trim();
   const headed = (selector, heading) => [...document.querySelectorAll(selector)].filter((h) => words(h) === heading).map((h) => h.parentElement).filter(Boolean);
   // The Forms page's questions: the section that says "Answer these and we will show the official forms".
@@ -91,6 +102,8 @@ const SCAN = `(() => {
     ["situation", "[data-testid=situation-questions]", (el) => [el.getAttribute("data-question")]],
     ["chat", "[data-testid=guided-form-question]", (el) => [el.getAttribute("data-key")]],
     ["chat-story", "[data-testid=guided-form-from-story]", (el) => (el.getAttribute("data-group") || "").split(" ")],
+    // Each ask carries the reply shown under it, if any (replyAfter): restoredAsk() tells the saved
+    // conversation shown again after a reload from a question asked again.
     ["sc-chat", "[data-testid=guided-message][data-question-id]", (el) => [el.getAttribute("data-question-id")]],
     ["sc-proposal", "[data-testid=story-proposal-row]", (el) => [el.getAttribute("data-question-id")]],
     ["review", "[data-testid=intake-initial-question][data-answered=false]", (el) => [el.getAttribute("data-question")]],
@@ -104,6 +117,25 @@ const SCAN = `(() => {
     ["end", "[data-testid=case-file-line][data-state=unsure] [data-testid=case-file-answer-now]", (el) => [el.closest("[data-testid=case-file-line]").getAttribute("data-question")]],
     ["claim-kind", "[data-testid=claim-kind-chooser]", () => ["claim-kind-suggestion"]],
     ["sc-form", "[data-testid=sc-intake-documents][data-empty=true]", () => ["filedDocuments"]],
+    // "Things that may have happened in your case" (EventCandidateSurface): each candidate quotes the
+    // person's own sentence. A date box left empty while that very sentence gives the date asks for
+    // it again (Chrome 29 Oct, finding 1: "March 2026" in the story, "When, in your words" asked).
+    // "when": the words box empty while the sentence names a month and year (or a full day);
+    // "exact-date": the picker empty while the sentence names a full day with its year. A month and
+    // year alone does not give the day, so the picker beside it is not counted here.
+    ["event-candidate", "[data-testid=event-candidate]", (el) => {
+      const fp = el.getAttribute("data-fingerprint") || "";
+      const sentence = words(el.querySelector("[data-testid=event-candidate-sentence]"));
+      const fullDay = /\\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\\.? \\d{1,2}(?:st|nd|rd|th)?,? \\d{4}\\b|\\b\\d{1,2} (?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\\.? \\d{4}\\b/.test(sentence);
+      const monthYear = fullDay || /\\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\\.?,? \\d{4}\\b/.test(sentence);
+      const box = [...el.querySelectorAll("label")].find((label) => words(label.querySelector("span")) === "When, in your words");
+      const text = box ? box.querySelector("input") : null;
+      const date = el.querySelector("input[type=date]");
+      const out = [];
+      if (text && steadyEmpty("ev-when:" + fp, monthYear && !text.value.trim())) out.push("when");
+      if (date && steadyEmpty("ev-date:" + fp, fullDay && !date.value)) out.push("exact-date");
+      return out;
+    }],
     // Never ask twice (28 Oct): the places that ask in words. The id is the question's own words.
     ["home-reading", "[data-testid=case-understanding-questions] li", (el) => [words(el.querySelector("label > span"))]],
     ["law", "[data-testid=sourced-question-current]", (el) => [words(el.querySelector("label"))]],
@@ -144,7 +176,7 @@ const SCAN = `(() => {
           const key = surface + "|" + id + "|" + screen();
           if (seen.has(key)) continue;
           seen.add(key);
-          emit("ask", surface, id, el.innerText);
+          emit("ask", surface, id, el.innerText, surface === "sc-chat" ? replyAfter(el) : undefined);
         }
       }
     }
@@ -172,7 +204,7 @@ const SCAN = `(() => {
     const questions = [...document.querySelectorAll("[data-testid=guided-message][data-question-id]")];
     const users = document.querySelectorAll("[data-testid=guided-message][data-from=user]").length;
     const lastQuestion = questions.length ? questions[questions.length - 1].getAttribute("data-question-id") : null;
-    if (scQuestion && users > scUsers) answer("sc-chat", scQuestion);
+    if (scQuestion && users > scUsers) { const replies = document.querySelectorAll("[data-testid=guided-message][data-from=user]"); answer("sc-chat", scQuestion, words(replies[replies.length - 1])); }
     if (lastQuestion !== scQuestion) scUsers = users;
     scQuestion = lastQuestion;
     // Proposals: the rows confirmed when the card goes.
@@ -228,6 +260,8 @@ const WORDED = new Set(["chat-reply", "home-reading", "law", "confirm-next", "fo
 
 /** The facts a recorded question asks for, on any surface. A question whose words name no fact asks for a fact of its own. */
 export function factsOfAsk(item: Pick<Asked, "surface" | "id" | "text">): string[] {
+  // A date box beside the person's own sentence that already gives that date (SCAN's event-candidate).
+  if (item.surface === "event-candidate") return ["dateInOwnSentence"];
   if (WORDED.has(item.surface)) { const facts = factsOfWords(item.id); return facts.length ? facts : [`${item.surface}:${item.id}`]; }
   if (item.surface === "service-method") return ["serviceMethod"];
   if (item.surface === "form-field") {
@@ -334,11 +368,14 @@ export type Repeat = { fact: string; given: Asked; asks: Asked[] };
  * The situation answers give every fact they settle, first.
  */
 export function factsAskedTwice(events: readonly Asked[], situation: SituationAnswers | false): Repeat[] {
-  const asks = events.filter((item) => item.kind === "ask");
+  const asks = events.filter((item) => item.kind === "ask" && !restoredAsk(item, events));
   const given = new Map<string, Asked>();
   const situationGiven: Asked = { kind: "answer", surface: "situation", id: "answers", screen: "/", text: "the situation questions", at: 0 };
   for (const fact of factsFromSituation(situation)) given.set(fact, situationGiven);
   for (const fact of unsureFromSituation(situation)) given.set(fact, { ...situationGiven, text: "unsure" });
+  // The story gives the dates its own sentences hold: an event candidate is recorded as asking only
+  // when the sentence it quotes names the date its box leaves empty (SCAN's event-candidate surface).
+  given.set("dateInOwnSentence", { kind: "answer", surface: "story", id: "story", screen: "/", text: "the person's own sentence", at: 0 });
   const firstAsk = (surface: string, id: string) => asks.find((item) => item.surface === surface && item.id === id);
   // Answers, in order, give their question's facts.
   for (const item of events.filter((event) => event.kind === "answer").sort((a, b) => a.at - b.at)) {
@@ -352,7 +389,9 @@ export function factsAskedTwice(events: readonly Asked[], situation: SituationAn
     for (const fact of factsOfAsk(ask)) {
       const gave = given.get(fact);
       if (!gave || ask.at <= gave.at) continue;
-      if (gave.surface === ask.surface && gave.id === ask.id && gave.screen === ask.screen) continue;
+      // The same question on the same screen is not asked again -- except a Small Claims guided question,
+      // which restoredAsk() alone excuses (shown again with the same reply); with none or another, it counts.
+      if (ask.surface !== "sc-chat" && gave.surface === ask.surface && gave.id === ask.id && gave.screen === ask.screen) continue;
       // An unsure fact, offered once more at the end: allowed once.
       if (gave.text === "unsure" && END_SURFACES.has(ask.surface) && !offeredAgain.has(fact)) { offeredAgain.add(fact); continue; }
       const repeat = repeats.get(fact) ?? { fact, given: gave, asks: [] };
@@ -364,6 +403,17 @@ export function factsAskedTwice(events: readonly Asked[], situation: SituationAn
 }
 
 /**
+ * THE SAVED CONVERSATION SHOWN AGAIN (site owner, 29 Oct). After a reload ("Update your story") the
+ * Small Claims guided chat shows its earlier questions with their replies. Such a question is not
+ * asked again ONLY when the reply shown under it is the very reply already recorded for that question
+ * in this case. Shown with no reply, or with another reply, it is a new ask and counts like any other.
+ */
+export function restoredAsk(item: Asked, events: readonly Asked[]): boolean {
+  if (item.kind !== "ask" || item.surface !== "sc-chat" || !item.reply) return false;
+  return events.some((event) => event.kind === "answer" && event.surface === "sc-chat" && event.id === item.id && event.at < item.at && event.reply === item.reply);
+}
+
+/**
  * THE HELD CHECK. Every question asked while the saved case held its fact as the person's own:
  * held answered, it fails; held unsure, it may be offered once more at the end (END_SURFACES),
  * once per fact, and any other offer fails. The situation questions are the start, not a repeat.
@@ -371,7 +421,7 @@ export function factsAskedTwice(events: readonly Asked[], situation: SituationAn
 export function heldViolations(events: readonly Asked[]): Violation[] {
   const violations: Violation[] = [];
   const offeredAgain = new Set<string>();
-  for (const ask of [...events].filter((item) => item.kind === "ask").sort((a, b) => a.at - b.at)) {
+  for (const ask of [...events].filter((item) => item.kind === "ask" && !restoredAsk(item, events)).sort((a, b) => a.at - b.at)) {
     if (ask.surface === "situation" || !ask.held) continue;
     for (const [fact, state] of Object.entries(ask.held)) {
       if (state === "unsure" && END_SURFACES.has(ask.surface) && !offeredAgain.has(fact)) { offeredAgain.add(fact); continue; }

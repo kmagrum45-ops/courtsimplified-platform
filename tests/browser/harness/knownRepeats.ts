@@ -66,6 +66,11 @@ export const KNOWN_REPEATS: readonly KnownRepeat[] = [
     surface: "form-field", fact: "wants", auditRow: 7,
     reason: "The Small Claims form's \"what do you want\" box stays empty after the review recorded the answer (or \"I don't know yet\"), so the form asks it once more after the review's own last offer.",
   },
+  // Chrome 29 Oct (finding 1), seen in the story pack's step 6 ("Update your story"): Small Claims only.
+  {
+    surface: "event-candidate", questionId: "when", auditRow: 2,
+    reason: "\"Things that may have happened in your case\" quotes the person's sentence \"... in March 2026 ...\" and leaves \"When, in your words\" empty: dateInSentence (src/lib/case-system/casePosition.ts:808) reads only a full day or a day and month, so a month and year gives nothing to emptyDraft (app/builder/_components/EventCandidateSurface.tsx:72,84). Checked to fail in scripts/verification/verifyChrome29OctFlow.ts until fixed.",
+  },
   {
     surface: "form-field", fact: "amount", auditRow: 7,
     reason: "The Small Claims form's amount box stays empty after the review recorded the amount question (or \"I don't know yet\"), so the form asks it once more after the review's own last offer.",
