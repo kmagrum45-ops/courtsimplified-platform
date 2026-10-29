@@ -824,7 +824,7 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     id: "sc-date-defence-filed",
     courtArea: "small-claims",
     appliesWhen: { field: "defenceFiled", op: "equals", value: true },
-    text: "If a defence has been filed, what date was it filed?",
+    text: "If a defence has been filed, what date was the first defence filed, by any defendant?",
     examples: ["2026-03-02", "3 April 2026", "April 3 2026"],
     answerType: "date",
     allowUnknown: true,

@@ -30,7 +30,7 @@ import { renderStageAnswerOrRefuse, renderStageRulesOnly } from "../../../../src
 import { findStage, isSpecialStage } from "../../../../src/lib/case-system/stage-map/stageMap";
 import { caseDatesFrom } from "../../../../src/lib/case-system/deadlines/deadlineEvents";
 import { computedDeadlinesFor } from "../../../../src/lib/content-library/computedDeadline";
-import { dateQuestionsForStep, isDateQuestionId } from "../../../../src/lib/case-system/casePosition";
+import { dateQuestionsFor, isDateQuestionId, isDefendantCount, withDefenceTwins } from "../../../../src/lib/case-system/casePosition";
 import { notABarExceptions, servedWhenLines } from "../../../../src/lib/content-library/nextStepPractical";
 import {
   STAGE_ANSWER_UNAVAILABLE_MESSAGE,
@@ -42,6 +42,8 @@ type Body = {
   courtPath?: unknown;
   confirmedFacts?: unknown;
   dateAnswers?: unknown;
+  /** How many defendants the case has, if the person said ("one", "several", "not-sure"). */
+  defendants?: unknown;
 };
 
 async function postGuidance(request: Request) {
@@ -83,7 +85,10 @@ async function postGuidance(request: Request) {
       if (isDateQuestionId(key) && typeof value === "string" && value.length <= 32) answers[key] = value;
     }
   }
-  const dates = caseDatesFrom(answers);
+  // One defendant: a day given to either defence question is the other's too (owner, 28 Oct).
+  const defendants = isDefendantCount(body.defendants) ? body.defendants : null;
+  const dates = caseDatesFrom(withDefenceTwins(answers, defendants, courtPath));
+  const { questions: dateQuestions, askDefendants, defendantsMatter } = dateQuestionsFor(stageId, defendants);
 
   const outcome = renderStageAnswerOrRefuse(stageId, facts, dates, scope);
 
@@ -91,7 +96,9 @@ async function postGuidance(request: Request) {
     return NextResponse.json({
       outcome: "rendered",
       answer: outcome.answer,
-      dateQuestions: dateQuestionsForStep(stageId),
+      dateQuestions,
+      askDefendants,
+      defendantsMatter,
       nextStep: nextStepSummary(stageId, dates),
     });
   }
@@ -118,7 +125,9 @@ async function postGuidance(request: Request) {
       return NextResponse.json({
         outcome: "rendered",
         answer: rulesOnly,
-        dateQuestions: dateQuestionsForStep(stageId),
+        dateQuestions,
+        askDefendants,
+        defendantsMatter,
         nextStep: nextStepSummary(stageId, dates),
       });
     }

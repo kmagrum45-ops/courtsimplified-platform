@@ -1865,7 +1865,9 @@ const DEFENDANT: CaseStage[] = [
         what: "If you want to make a defendant's claim (Form 10A), it can be issued without the court's leave",
         qualifier: "After that, it may be issued only with leave of the court, and only before trial or default judgment.",
         countFrom: "the day the defence is filed",
-        countFromEvent: "first-defence-filed",
+        // r. 10.01 (2): "within 20 days after the day on which the defence is filed" -- this defendant's own
+        // defence, not the first by any defendant (e-Laws, O. Reg. 258/98 as consolidated 2025-10-14, read 2026-10-28).
+        countFromEvent: "own-defence-filed",
         length: { unit: "days", count: 20 },
         regime: "small-claims-rules",
         rule: C.R_10_01_DEFENDANTS_CLAIM,
@@ -1920,7 +1922,9 @@ const DEFENDANT: CaseStage[] = [
         what: "A defendant's claim (Form 10A) can be issued without the court's leave",
         qualifier: "After that, it may be issued only with leave of the court, and only before trial or default judgment.",
         countFrom: "the day the defence is filed",
-        countFromEvent: "first-defence-filed",
+        // r. 10.01 (2): "within 20 days after the day on which the defence is filed" -- this defendant's own
+        // defence, not the first by any defendant (e-Laws, O. Reg. 258/98 as consolidated 2025-10-14, read 2026-10-28).
+        countFromEvent: "own-defence-filed",
         length: { unit: "days", count: 20 },
         regime: "small-claims-rules",
         rule: C.R_10_01_DEFENDANTS_CLAIM,

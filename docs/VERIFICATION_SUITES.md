@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-193 documented, 26 without a header.
+194 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -68,6 +68,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:date-entry-points` | **Every entry point reads a date the same way (step 1, gate A: the same-behaviour check).**<br>What it checks: at least 40 real-world phrasings ("Oct 6", "6 Oct 2026", "2026-10-06", "last Tuesday", "10/06/2026", "Feb 30, 2026", "6 octobre 2026" ...) are fed, unchanged, through every place that reads a date the person typed or wrote: - the date boxes: th |
 | `npm run test:db-environments` | **Nothing in this repository says "dev" when it means production, and no**<br>migration can reach production without passing staging. |
 | `npm run test:deadlines` | **Does the deadline engine count correctly?**<br>Every case here is one somebody could actually be in, and every one of them is a date a person would get wrong by reasoning casually. A deadline that is right in the ordinary case and wrong across a long weekend is not 95% correct; it is a trap that springs ex |
+| `npm run test:defence-dates` | **THE TWO DEFENCE DATES, AND THE SMALL CLAIMS r. 10.01 COUNT (site owner, 2026-10-28).**<br>Checks, as properties across the whole stage map (casePosition.ts, caseFile.ts, stageMap.ts): - every deadline under Small Claims r. 10.01 (2) ("within 20 days after the day on which the defence is filed") counts from the defendant's OWN defence, never the fir |
 | `npm run test:depth-questions` | **Verifies the intake depth layer, offline.**<br>COSTS NOTHING. Every decision the depth layer makes about WHICH questions are asked is pure, so all four load-bearing properties are checkable without a single API call. The only model involvement is the voice lead-in, which is exercised by the paraphrase harn |
 | `npm run test:described-evidence` | **"No evidence identified" must only be said when it is true.**<br>evidenceIntelligenceEngine raises a high-severity "No evidence identified" gap when the normalized intake holds no evidence items. The keyword extractor that fills that list knows seven categories, so a user who listed invoices, contracts, photos, a bill of sa |
 | `npm run test:document-link` | **OPEN, SAVE AND DELETE AN UPLOADED FILE (Charter re-test 2026-10-26).**<br>Checks, as properties, through the route itself (app/api/workspace/documents/link) with the database and storage stood in: - a link is made only for the signed-in owner's own file that is not being deleted: no sign-in, a bad id, someone else's file and a file  |

@@ -283,6 +283,7 @@ export default function CaseOverviewPage() {
               laterDates={unsureDateQuestions(caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master))}
               initialDateAnswers={withCaseFileDates(position.dateAnswers, caseFileOf(readCheckpoint(master.intakeCheckpoint, courtPath), master), fullDayIn)}
               initialService={position.service}
+              initialDefendants={position.defendants ?? null}
               motionToChange={position.motionToChange ?? null}
               // Once a date counted here is saved, the case is read again, so
               // the Timeline and Case file tabs show it without a reload

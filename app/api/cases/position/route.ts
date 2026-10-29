@@ -1,7 +1,7 @@
 /**
  * POST /api/cases/position: records where the user says their case is.
  *
- * In:  { caseId, confirmedStage?, confirmedStageFrom?, motionToChange?, stepId?, dateAnswers?, service?, claimKind? }
+ * In:  { caseId, confirmedStage?, confirmedStageFrom?, motionToChange?, stepId?, dateAnswers?, service?, claimKind?, defendants? }
  * Out: { position } or { error }
  *
  * Writes `master_result.position` and nothing else in master_result. Every
@@ -78,7 +78,7 @@ export async function POST(request: Request) {
   // One shared save path for the case record (updateCaseRecord.ts, 2026-10-14
   // audit): the same guarded read-change-write, with a short pause between
   // retries, instead of this route's own copy of it.
-  const patch = { confirmedStage: body.confirmedStage, confirmedStageFrom: body.confirmedStageFrom, motionToChange: body.motionToChange, stepId: body.stepId, dateAnswers: body.dateAnswers, service: body.service, claimKind: body.claimKind };
+  const patch = { confirmedStage: body.confirmedStage, confirmedStageFrom: body.confirmedStageFrom, motionToChange: body.motionToChange, stepId: body.stepId, dateAnswers: body.dateAnswers, service: body.service, claimKind: body.claimKind, defendants: body.defendants };
   const saved = await updateMasterResult(
     supabase as unknown as CaseRecordClient,
     { caseId, userId: user.id },

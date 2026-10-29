@@ -36,11 +36,12 @@ import { factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
 import { parseRecordedAmount } from "../format/recordedAmount";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
+import { isDefendantCount, withDefenceTwins } from "../casePosition";
 
 /** The case file's slots, in the order "What we have so far" shows them. */
 export const SLOT_FACTS = [
   "side", "court", "stage", "filed", "papers", "servedDate", "amount", "otherParty", "children",
-  "married", "marriedWhere", "claimKind", "wants", "whenHappened", "conferenceDate", "defenceFiled",
+  "married", "marriedWhere", "claimKind", "wants", "whenHappened", "conferenceDate", "defenceFiled", "defendants",
   "outcome", "urgent", "courtDate",
 ] as const;
 export type SlotFact = (typeof SLOT_FACTS)[number];
@@ -204,6 +205,8 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   if (typeof position.stepId === "string" && position.stepId) give(file, "stage", position.stepId, "step");
   // Likewise a kind of claim they chose themselves.
   if (typeof position.claimKind === "string" && (position.claimKind === "not-sure" || isKindOfClaim(position.claimKind))) give(file, "claimKind", position.claimKind, "claim-kind");
+  // How many defendants, as the person answered on the step page (owner, 28 Oct; casePosition.ts).
+  if (isDefendantCount(position.defendants)) give(file, "defendants", position.defendants, "defendants");
 
   // 1. The situation answers: the person's own, never tied to the story.
   const situation = situationOf(sections);
@@ -418,10 +421,6 @@ const DATE_QUESTIONS_OF: Partial<Record<SlotFact, readonly string[]>> = {
   courtDate: ["case-date-trial-date"],
 };
 
-/** Date questions that ask for the same moment under different ids (the Small Claims and the civil step maps). */
-const SAME_MOMENT: readonly (readonly string[])[] = [
-  ["sc-date-defence-filed", "case-date-own-defence-delivered"],
-];
 
 /** The step page's date questions for each day the person said they do not know (offered once more at the end). */
 export function unsureDateQuestions(file: CaseFile): string[] {
@@ -502,11 +501,10 @@ export function withCaseFileDates(answered: Record<string, string>, file: CaseFi
     const day = isRealIsoDate(words) ? words : readDay(words);
     if (day) out[id] = day;
   }
-  for (const group of SAME_MOMENT) {
-    const day = group.map((id) => out[id]).find(Boolean);
-    if (day) for (const id of group) if (!out[id]) out[id] = day;
-  }
-  return out;
+  // A defendant's own defence and the first defence by any defendant are one day only when there is
+  // one defendant (owner, 28 Oct); otherwise each is its own answer (casePosition.withDefenceTwins).
+  const defendants = file.defendants.state === "answered" && isDefendantCount(file.defendants.value) ? file.defendants.value : null;
+  return withDefenceTwins(out, defendants, court);
 }
 
 /** The date answers to keep on a saved position: none that only repeats a day the case file holds elsewhere. */

@@ -522,6 +522,9 @@ jobs:
       - name: The staging cleanup deletes only leftover harness accounts, and never touches production
         run: npm run test:clean-staging
 
+      - name: The two defence dates follow the number of defendants, and r. 10.01 counts from the defendant's own defence
+        run: npm run test:defence-dates
+
       - name: Drafts are saved on the user's own case and hold only their record
         run: npm run test:case-drafts
 
