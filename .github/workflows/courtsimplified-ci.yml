@@ -522,6 +522,9 @@ jobs:
       - name: The staging cleanup deletes only leftover harness accounts, and never touches production
         run: npm run test:clean-staging
 
+      - name: A save of the step or dates still on its way survives a reload, a typed address or a closed tab
+        run: npm run test:pending-position-saves
+
       - name: Drafts are saved on the user's own case and hold only their record
         run: npm run test:case-drafts
 

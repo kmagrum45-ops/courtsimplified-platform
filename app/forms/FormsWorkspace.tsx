@@ -32,7 +32,7 @@ import {
   type FormsCourtPath,
 } from "../../src/lib/case-system/formsSelectedCase";
 import GetHelp from "../_components/GetHelp";
-import { caseRouteWrite } from "../builder/_components/positionSave";
+import { replayPendingFormApplicability, saveFormApplicabilityQueued } from "../builder/_components/positionSave";
 import { formSummaryFor } from "../../src/lib/content-library/forms/formSummaries";
 import { OFFICIAL_FORMS_FETCHED_AT, officialFormFor } from "../../src/lib/content-library/forms/officialFormLink";
 import { assertApprovedUserContent } from "../../src/lib/content-library/outputGuard";
@@ -469,6 +469,8 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
         return;
       }
 
+      // A choice an earlier page in this tab left on its way is sent first, so it is read back here.
+      await replayPendingFormApplicability(caseId, session.access_token);
       const response = await fetch(
         `/api/cases/form-applicability?caseId=${encodeURIComponent(caseId)}`,
         { headers: { Authorization: `Bearer ${session.access_token}` } },
@@ -634,7 +636,11 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
   const mappingStage = applicableStage(masterResult);
 
   function savedAnswerFor(question: ApplicabilityQuestion): unknown {
-    return question.field_path.split(".").reduce<unknown>((value, part) => asRecord(value)?.[part], formApplicability);
+    // The choices are held as { group: { field } }, without the path's leading "formApplicability", as the
+    // route stores and returns them and as updateApplicability writes them. Read from the root, every
+    // choice was "not answered": the select never showed one and the save sent none (28 Oct; since #98).
+    const [, group, field] = question.field_path.split(".");
+    return asRecord(asRecord(formApplicability)?.[group])?.[field];
   }
 
   function suggestionFor(question: ApplicabilityQuestion) {
@@ -676,12 +682,9 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
     }
     const patch = onlyPatch ?? applicabilityPatch();
     // The route rewrites the case's row: sent from inside the case's one write
-    // queue (positionSave.ts, 2026-10-14), never beside another save of it.
-    const response = await caseRouteWrite(caseId, "/api/cases/form-applicability", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
-      body: JSON.stringify({ caseId, formApplicability: patch }),
-    });
+    // queue (positionSave.ts, 2026-10-14), never beside another save of it, and
+    // written down in this tab first, so a reload while it waits does not lose it (28 Oct).
+    const response = await saveFormApplicabilityQueued(caseId, patch, session.access_token);
     const result = response ? await response.json().catch(() => ({})) : {};
     if (!response?.ok) {
       setApplicabilityError(result.error || "Could not save form confirmations.");

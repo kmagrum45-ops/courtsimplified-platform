@@ -15,6 +15,15 @@
 import { applyPositionPatch, readCasePosition, type PositionPatch } from "../../../src/lib/case-system/casePosition";
 import { updateMasterResult } from "../../../src/lib/case-system/updateCaseRecord";
 import { situationOfCase, withoutSituationDates } from "../../../src/lib/case-system/situation/situation";
+import {
+  addPendingPositionSave,
+  casesWithPendingPositionSaves,
+  mergePositionPatches,
+  readPendingPositionSaves,
+  RESEND_HEADER,
+  settlePendingPositionSave,
+  takePendingPositionSaves,
+} from "../../../src/lib/case-system/storage/pendingPositionSaves";
 
 /*
  * ONE QUEUE FOR EVERY WRITE TO A CASE'S ROW THAT A PAGE STARTS (2026-10-14,
@@ -201,7 +210,10 @@ type DirectSaveDetail = {
 export function databaseAnswered(error: unknown): boolean {
   const record = (error && typeof error === "object" ? error : {}) as { code?: unknown; message?: unknown; name?: unknown };
   if (typeof record.code === "string" && record.code.trim()) return true;
-  return /abort|timed? ?out/i.test(`${String(record.name ?? "")} ${String(record.message ?? "")}`);
+  // Our own time limit (AbortSignal.timeout gives a TimeoutError) means the database was too slow to
+  // answer. A plain abort is not an answer: it is what a request cut off as its page goes reports in
+  // some browsers ("AbortError" in Firefox), and that save must be kept (third fresh review, 28 Oct).
+  return /timeout|timed? ?out/i.test(`${String(record.name ?? "")} ${String(record.message ?? "")}`);
 }
 
 async function directSave(
@@ -319,7 +331,10 @@ export function setPositionClientForChecks(db: PositionWriteClient | null, route
   routeForChecks = route;
 }
 
-async function post(caseId: string, patch: Record<string, unknown>, hold: (pending: Promise<unknown>) => void): Promise<DirectSaveOutcome> {
+/** Whether anything answered a save: the database (saved, refused, an error or its time limit) or the route (any reply). */
+type Heard = { answered: boolean };
+
+async function post(caseId: string, patch: Record<string, unknown>, hold: (pending: Promise<unknown>) => void, heard: Heard = { answered: false }): Promise<DirectSaveOutcome> {
   try {
     // Imported on use: pure helpers in modules that import this one are read
     // by checks that must not construct the Supabase client.
@@ -328,6 +343,7 @@ async function post(caseId: string, patch: Record<string, unknown>, hold: (pendi
     // A request given up on still holds the queue until it has finished.
     hold(direct.finished);
     const { outcome, databaseBusy } = await direct.result;
+    if (outcome !== "failed" || databaseBusy) heard.answered = true;
     if (outcome !== "failed") return outcome;
     // The route writes the same row in the same database. When the database
     // itself answered with an error or ran past the time, it would only add
@@ -338,18 +354,28 @@ async function post(caseId: string, patch: Record<string, unknown>, hold: (pendi
     if (routeForChecks) {
       const routed = routeForChecks(patch);
       hold(routed);
-      return (await routed) ? "saved" : "failed";
+      const ok = await routed;
+      // A check's route that says true or false has answered; one that never settles has not.
+      heard.answered = true;
+      return ok ? "saved" : "failed";
     }
     if (!supabase) return "failed";
     const {
       data: { session },
     } = await supabase.auth.getSession();
     if (!session?.access_token) return "failed";
-    const routed = postWithTimeout("/api/cases/position", {
+    const routed = fetch("/api/cases/position", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
       body: JSON.stringify({ caseId, ...patch }),
-    });
+      signal: AbortSignal.timeout(POSITION_SAVE_TIMEOUT_MS),
+    }).then(
+      (response) => {
+        heard.answered = true;
+        return response.ok;
+      },
+      () => false,
+    );
     hold(routed);
     return (await routed) ? "saved" : "failed";
   } catch {
@@ -448,14 +474,220 @@ function track<T>(caseId: string, work: Promise<T>): Promise<T> {
  * saved is left out when its turn comes (so a save queued just before it
  * counts), and nothing is sent when all of it has been.
  */
-export function savePositionQueuedOutcome(caseId: string, wanted: Record<string, unknown>, options: { onlyUnsaved?: boolean } = {}): Promise<DirectSaveOutcome> {
+export function savePositionQueuedOutcome(caseId: string, wanted: Record<string, unknown>, options: { onlyUnsaved?: boolean; writtenAt?: number } = {}): Promise<DirectSaveOutcome> {
+  // A save an earlier page in this tab left unfinished goes first, so this newer one lands over it.
+  replayPendingPositionSaves(caseId);
+  // Written down before it is sent, crossed off once the case holds it (pendingPositionSaves.ts).
+  // A save sent again keeps the time it was first written down, so the age limit holds across pages.
+  const pending = { id: `${Date.now().toString(36)}-${(pendingCounter += 1)}`, at: options.writtenAt ?? Date.now(), patch: wanted };
+  addPendingPositionSave(caseId, pending);
+  watchPageClose(caseId);
+  listenForPageClose();
+  const heard: Heard = { answered: false };
   return runCaseWrite(caseId, async (hold) => {
     const patch = options.onlyUnsaved ? unsavedPositionPatch(caseId, wanted) : wanted;
-    if (!patch) return "saved";
-    const outcome = await post(caseId, patch, hold);
+    if (!patch) {
+      heard.answered = true;
+      return "saved";
+    }
+    const outcome = await post(caseId, patch, hold, heard);
     if (outcome === "saved") rememberSaved(caseId, patch);
     return outcome;
-  }).catch((): DirectSaveOutcome => "failed");
+  })
+    .catch((): DirectSaveOutcome => "failed")
+    .then((outcome) => {
+      // Answered -- saved, refused, or failed with the database's own answer -- it is crossed off: a
+      // failed save already says "not saved" here, and sending it later could put it over a newer
+      // choice (fresh review, 28 Oct). Kept only when nothing answered at all, or the page has gone:
+      // a request the browser cancels as the page goes gets no answer, whichever event comes first.
+      if (heard.answered && !pageLeaving) settlePendingPositionSave(caseId, pending.id);
+      return outcome;
+    });
+}
+
+/*
+ * WHAT A PAGE LEFT UNSAVED IS SENT BY THE NEXT (28 Oct, #488 at real speed). The queue above lives
+ * in the page's memory: a reload or a typed address while a save waited its turn lost it, and the
+ * case page never had the date the next-step page had counted. Each save is written down in this
+ * tab first (pendingPositionSaves.ts); the first save to or read of a case on a new page sends what
+ * is still written down for it, merged in order, before anything else of that case. A closed tab
+ * sends it as it closes (watchPageClose). Both go through the same guarded read-change-write, so a
+ * save that had in fact landed changes nothing when it is sent again.
+ */
+let pendingCounter = 0;
+const replayed = new Set<string>();
+
+/** Set only by checks: forgets which cases this "page" has replayed, as a new page load would. */
+export function resetPageForChecks() {
+  replayed.clear();
+  replayedPatches.clear();
+  formsReplayed.clear();
+  formsWatched.clear();
+  pageLeaving = false;
+  watched.clear();
+  chains.clear();
+  inFlight.clear();
+  savedParts.clear();
+}
+
+/** What this page sent for each case from an earlier page (so a page that read the case before it landed can show it). */
+const replayedPatches = new Map<string, Record<string, unknown>>();
+
+/** Sends, once per page, what an earlier page in this tab left unsaved for this case. */
+export function replayPendingPositionSaves(caseId: string): void {
+  if (replayed.has(caseId)) return;
+  replayed.add(caseId);
+  const writtenAt = readPendingPositionSaves(caseId)[0]?.at;
+  const left = takePendingPositionSaves(caseId);
+  if (!left) return;
+  replayedPatches.set(caseId, left);
+  // Shown over what the page read only until it has landed: then the case holds it, and a newer
+  // choice made on this page is never covered by it (fresh review, 28 Oct).
+  void savePositionQueuedOutcome(caseId, left, { writtenAt }).then(() => {
+    replayedPatches.delete(caseId);
+  });
+}
+
+/** What an earlier page in this tab left unsaved for this case: being sent by this page, or still written down. Reads only. */
+export function unsavedFromEarlierPage(caseId: string): Record<string, unknown> | null {
+  return replayedPatches.get(caseId) ?? (replayed.has(caseId) ? null : mergePositionPatches(readPendingPositionSaves(caseId).map((entry) => entry.patch)));
+}
+
+/**
+ * The case as just read, with what this page is sending from an earlier page already applied.
+ * The builder reads the case through the intake store before any save can run, so a reload of the
+ * next-step page showed the date as not given while it was on its way (28 Oct, family): the same
+ * applyPositionPatch the save uses puts it on the page at once.
+ */
+export function withReplayedPosition(master: Record<string, unknown>, caseId: string, courtPath: string | null): Record<string, unknown> {
+  replayPendingPositionSaves(caseId);
+  const patch = replayedPatches.get(caseId);
+  if (!patch) return master;
+  const applied = applyPositionPatch(readCasePosition(master, courtPath), patch as PositionPatch, courtPath, new Date());
+  return applied.ok ? { ...master, position: applied.position } : master;
+}
+
+/*
+ * A CLOSED TAB SENDS WHAT IS STILL WRITTEN DOWN. Session storage dies with the tab, so as the page
+ * goes (pagehide) each case's unsaved parts are sent to the position route with keepalive, which the
+ * browser finishes after the page has gone. The sign-in token is read while the page is still here.
+ */
+const watched = new Set<string>();
+let accessToken: string | null = null;
+let pageCloseListening = false;
+
+function watchPageClose(caseId: string) {
+  watched.add(caseId);
+  if (typeof window === "undefined" || clientForChecks) return;
+  void import("@/src/lib/supabase/client")
+    .then(({ supabase }) => supabase.auth.getSession())
+    .then(({ data }) => {
+      accessToken = data.session?.access_token ?? accessToken;
+    })
+    .catch(() => {});
+  listenForPageClose();
+}
+
+/**
+ * Set once the page is going (a reload, a typed address, a closed tab): from then on a save whose
+ * request the browser cancels is not crossed off, because it was cut off, not finished. Set on
+ * pagehide only, which cannot be cancelled and comes before the page's requests are cancelled --
+ * not on beforeunload, where "Leave site?" can be answered Stay and the page goes on (second fresh
+ * review, 28 Oct: then nothing on that page was ever crossed off).
+ */
+let pageLeaving = false;
+
+/** What the page does as it goes. Exported for checks. */
+export function pageGoing() {
+  pageLeaving = true;
+  sendPendingAsPageCloses();
+}
+
+function listenForPageClose() {
+  if (pageCloseListening || typeof window === "undefined") return;
+  pageCloseListening = true;
+  window.addEventListener("pagehide", () => pageGoing());
+  // Back from the browser's page cache: the page is here again, and its saves finish normally.
+  window.addEventListener("pageshow", (event) => {
+    if ((event as PageTransitionEvent).persisted) pageLeaving = false;
+  });
+}
+
+type CloseSend = { caseId: string; url: string; method: "POST" | "PATCH"; body: Record<string, unknown> };
+
+/** What the page sends as it closes: each watched case's unsaved parts, merged in order. Exported for checks. */
+export function pendingSendsAsPageCloses(): CloseSend[] {
+  const positions = casesWithPendingPositionSaves(watched)
+    .map((caseId) => ({ caseId, patch: mergePositionPatches(readPendingPositionSaves(caseId).map((entry) => entry.patch)) }))
+    .filter((send): send is { caseId: string; patch: Record<string, unknown> } => Boolean(send.patch))
+    .map(({ caseId, patch }): CloseSend => ({ caseId, url: "/api/cases/position", method: "POST", body: { caseId, ...patch } }));
+  const choices = casesWithPendingPositionSaves(formsWatched, "formApplicability")
+    .map((caseId) => ({ caseId, patch: mergePositionPatches(readPendingPositionSaves(caseId, Date.now(), "formApplicability").map((entry) => entry.patch), "formApplicability") }))
+    .filter((send): send is { caseId: string; patch: Record<string, unknown> } => Boolean(send.patch))
+    .map(({ caseId, patch }): CloseSend => ({ caseId, url: "/api/cases/form-applicability", method: "PATCH", body: { caseId, formApplicability: patch } }));
+  return [...positions, ...choices];
+}
+
+function sendPendingAsPageCloses() {
+  if (!accessToken) return;
+  for (const { url, method, body } of pendingSendsAsPageCloses()) {
+    try {
+      void fetch(url, {
+        method,
+        keepalive: true,
+        // Tried once by the route: a case changed since is not written over (RESEND_HEADER).
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}`, [RESEND_HEADER]: "1" },
+        body: JSON.stringify(body),
+      }).catch(() => {});
+    } catch {
+      // Nothing more can be done as the page goes; the next page in this tab sends it again.
+    }
+  }
+}
+
+/*
+ * THE FORMS PAGE'S "DOES THIS FORM APPLY" CHOICES, THE SAME WAY (owner, 28 Oct). They go through
+ * the case's queue to /api/cases/form-applicability, so a reload while one waited lost it as a date
+ * was lost. Written down first (kind "formApplicability"), crossed off once the route has answered;
+ * the next Forms page in this tab sends what is left before it reads the choices.
+ */
+const formsReplayed = new Set<string>();
+const formsWatched = new Set<string>();
+/** Set only by checks: what the forms route answers instead of the network. */
+let formsRouteForChecks: ((body: Record<string, unknown>) => Promise<Response | null>) | null = null;
+export function setFormsRouteForChecks(route: typeof formsRouteForChecks) {
+  formsRouteForChecks = route;
+}
+
+/** Saves the Forms page's choices through the case's queue, written down first. Returns the route's answer (null: none). */
+export async function saveFormApplicabilityQueued(caseId: string, formApplicability: Record<string, unknown>, token: string, writtenAt?: number): Promise<Response | null> {
+  await replayPendingFormApplicability(caseId, token);
+  const pending = { id: `${Date.now().toString(36)}-${(pendingCounter += 1)}`, at: writtenAt ?? Date.now(), patch: formApplicability };
+  addPendingPositionSave(caseId, pending, "formApplicability");
+  formsWatched.add(caseId);
+  accessToken = token;
+  listenForPageClose();
+  const body = { caseId, formApplicability };
+  const response = formsRouteForChecks
+    ? await formsRouteForChecks(body)
+    : await caseRouteWrite(caseId, "/api/cases/form-applicability", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify(body),
+      });
+  // Answered, whatever the answer: crossed off (the page says when it did not save). Kept when no
+  // answer came (null: no reply at all, as when the browser cancels it as the page goes), or the page has gone.
+  if (response && !pageLeaving) settlePendingPositionSave(caseId, pending.id, "formApplicability");
+  return response;
+}
+
+/** Sends, once per page, the Forms choices an earlier page in this tab left unsaved; resolves once sent. */
+export async function replayPendingFormApplicability(caseId: string, token: string): Promise<void> {
+  if (formsReplayed.has(caseId)) return;
+  formsReplayed.add(caseId);
+  const writtenAt = readPendingPositionSaves(caseId, Date.now(), "formApplicability")[0]?.at;
+  const left = takePendingPositionSaves(caseId, "formApplicability");
+  if (left) await saveFormApplicabilityQueued(caseId, left, token, writtenAt);
 }
 
 /** Saves the person's own choice to the case, after any write to it already on its way. */
@@ -567,6 +799,8 @@ export function trackPositionWork<T>(caseId: string, work: Promise<T>): Promise<
  * read and a write of a second or two.
  */
 export async function positionSavesSettled(caseId: string, maxWaitMs = 15_000): Promise<void> {
+  // What an earlier page in this tab left unsaved is sent first, and waited for like any other save.
+  replayPendingPositionSaves(caseId);
   const deadline = Date.now() + maxWaitMs;
   for (;;) {
     const pending = [...(inFlight.get(caseId) ?? [])];

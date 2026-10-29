@@ -690,7 +690,9 @@ assert.deepEqual(
 
 const applicabilityRouteSource = readFileSync("app/api/cases/form-applicability/route.ts", "utf8");
 assert.match(applicabilityRouteSource, /getAuthenticatedUser\(request\)[\s\S]*getAuthenticatedOwnedCase\(request, user, caseId\)/, "Form applicability must load the authenticated owner case before update");
-assert.match(applicabilityRouteSource, /updateMasterResult\(supabase, \{ caseId \}, \(stored\) => mergeFormApplicability\(stored, patch\)\)/, "Only the merged canonical master_result may be updated for the selected case, over what is stored now");
+// The write is only the merge, over what is stored now; how many times it is tried (a resend as the
+// page closes is tried once, 28 Oct) is allowed as a further argument and changes nothing written.
+assert.match(applicabilityRouteSource, /updateMasterResult\(supabase, \{ caseId \}, \(stored\) => mergeFormApplicability\(stored, patch\)(?:, [^()]*(?:\([^()]*\))?[^()]*)?\)/, "Only the merged canonical master_result may be updated for the selected case, over what is stored now");
 assert.match(applicabilityRouteSource, /resolveExactFormMapping\(/, "Live recommendations must use the exact mapping resolver");
 assert.match(applicabilityRouteSource, /\.eq\("authority_bundle_version", "ontario-beta-form-mapping-v1"\)/, "The live journey must be limited to the verified exact core-form bundle");
 assert.match(applicabilityRouteSource, /getCanonicalFormLookup\(\{ canonicalFormId: resolved\.canonicalFormId, courtType: resolved\.canonicalFormCourtType \}\)/, "Live recommendations must retain exact canonical ID and court type");
@@ -700,7 +702,12 @@ assert.doesNotMatch(applicabilityRouteSource, /ALLOWED_(?:FIELDS|VALUES)|eligibi
 assert.doesNotMatch(applicabilityRouteSource, /localStorage|official_title.*(?:ILIKE|LIKE)|form_number.*(?:ILIKE|LIKE)|Form 14B|16B\.1|Automatic Order/i);
 
 assert.match(formsPageSource, /\/api\/cases\/form-applicability\?caseId=/, "The selected-case Forms journey must load server-verified recommendations");
-assert.match(formsPageSource, /method: "PATCH"[\s\S]*formApplicability: patch/, "The Forms page must save only applicability confirmations through the server path");
+// The page saves through the shared queued save (28 Oct: written down first, so a reload does not
+// lose it), which sends the confirmations -- and only them -- to the server route by PATCH.
+assert.match(formsPageSource, /saveFormApplicabilityQueued\(caseId, patch, session\.access_token\)/, "The Forms page must save only applicability confirmations through the server path");
+const queuedSaveSource = readFileSync("app/builder/_components/positionSave.ts", "utf8");
+const queuedSave = queuedSaveSource.slice(queuedSaveSource.indexOf("export async function saveFormApplicabilityQueued"), queuedSaveSource.indexOf("export async function replayPendingFormApplicability"));
+assert.match(queuedSave, /const body = \{ caseId, formApplicability \};[\s\S]*caseRouteWrite\(caseId, "\/api\/cases\/form-applicability", \{\s*method: "PATCH"[\s\S]*body: JSON\.stringify\(body\)/, "The Forms page must save only applicability confirmations through the server path");
 assert.match(formsPageSource, /applicabilityQuestions\.map\(\(question\)/, "The Forms page must render mapping question metadata generically");
 assert.match(formsPageSource, /setApplicabilityQuestions\(Array\.isArray\(result\.applicabilityQuestions\)/, "The Forms page must use only server-provided question metadata");
 assert.doesNotMatch(formsPageSource, /needsSmallClaims|needsFamily|needsCivil|eligibilityConfirmed|requestedRemedyType|respondingToPlaintiffsClaim|isGeneralApplication|isDivorceApplication|isGeneralAction/, "No form-specific confirmation UI branches may remain");
