@@ -330,6 +330,10 @@ function seed() {
   // A court_forms row OUTSIDE anon's window, to prove the window is enforced.
   sql.push(`${insertSql("court_forms", "outside-window", { category: lit("civil"), province: lit("ontario") })};`);
   for (const t of manifest.serverOnly) sql.push(`${insertSql(t, "server")};`);
+  // Ledger rows can only be written by a signed-in operator, so the fixtures are too.
+  sql.push(`SELECT set_config('request.jwt.claims', ${lit(JSON.stringify({ sub: OPERATOR, role: "authenticated" }))}, true);`);
+  for (const spec of Object.values(manifest.appendOnlyLedgers)) sql.push(`${spec.insert("seed-1")};`, `${spec.insert("seed-2")};`);
+  sql.push(`SELECT set_config('request.jwt.claims', '', true);`);
   for (const who of ["victim", "attacker"]) {
     sql.push(
       `INSERT INTO storage.objects (id, bucket_id, name, owner) VALUES (${lit(uuidFor(`obj:${who}`))}, 'case-evidence', ${lit(`${OWNERS[who]}/${rowIdOf("cases", who)}/file.pdf`)}, ${lit(OWNERS[who])});`,
@@ -425,12 +429,13 @@ function structural() {
     ...Object.keys(manifest.userOwned),
     ...Object.keys(manifest.catalogue),
     ...manifest.serverOnly,
+    ...Object.keys(manifest.appendOnlyLedgers),
     ...Object.keys(manifest.views),
   ]);
 
   for (const rel of relations) {
     check(`classified:${rel.name}`, declared.has(rel.name),
-      declared.has(rel.name) ? "" : "not in rlsManifest.mjs — decide whether it is userOwned, catalogue, serverOnly or a view");
+      declared.has(rel.name) ? "" : "not in rlsManifest.mjs — decide whether it is userOwned, catalogue, serverOnly, an appendOnlyLedger or a view");
     if (rel.kind === "r" || rel.kind === "p") {
       check(`rls-enabled:${rel.name}`, rel.rls, rel.rls ? "" : "RLS is OFF: every grant on this table is live");
     }
@@ -454,7 +459,7 @@ function structural() {
   );
   check("grants:anon-has-no-write", anonWrites.length === 0, anonWrites.join(", "));
 
-  const privateTables = [...Object.keys(manifest.userOwned), ...manifest.serverOnly];
+  const privateTables = [...Object.keys(manifest.userOwned), ...manifest.serverOnly, ...Object.keys(manifest.appendOnlyLedgers)];
   const anonOnPrivate = query(
     `SELECT table_name || ':' || privilege_type FROM information_schema.role_table_grants
      WHERE table_schema = 'public' AND grantee IN ('anon','PUBLIC')
@@ -713,6 +718,74 @@ function catalogueMatrix() {
 }
 
 // ---------------------------------------------------------------------------
+// 3a. Append-only ledgers (content_reviews, 2026-10-30)
+// ---------------------------------------------------------------------------
+
+/**
+ * Only a listed operator adds a row, in their own name, dated by the database; only
+ * operators and the server read; NOBODY changes, deletes or truncates — not the
+ * operator, not the service role, not the table owner — and the rows form one chain.
+ */
+function ledgerMatrix() {
+  for (const [table, spec] of Object.entries(manifest.appendOnlyLedgers)) {
+    const t = `public.${table}`;
+    const p = (s) => `ledger:${table}:${s}`;
+    const col = columnsOf(table).find((c) => c.name !== "id")?.name ?? "id";
+
+    const svc = count("service_role", null, `SELECT 1 FROM ${t}`);
+    control(`${table}:fixture-present`, n(svc) >= 2, describe(svc));
+    const opReads = count("authenticated", "operator", `SELECT 1 FROM ${t}`);
+    control(`${table}:operator-reads-every-row`, n(opReads) === n(svc), `${describe(opReads)} of ${n(svc)}`);
+
+    for (const [role, who] of [["anon", null], ["authenticated", "attacker"]]) {
+      const r = count(role, who, `SELECT 1 FROM ${t}`);
+      check(p(`${who ?? role}-cannot-read`), (r.denied !== undefined || n(r) === 0) && n(opReads) >= 1, describe(r));
+    }
+
+    // Insert: the operator can, in their own name and dated now; nobody else can.
+    const own = as("authenticated", "operator",
+      `WITH w AS (${spec.insert("operator")} RETURNING reviewer_id, reviewed_at) ` +
+      `SELECT count(*) FROM w WHERE reviewer_id = ${lit(OPERATOR)} AND reviewed_at >= date_trunc('milliseconds', now())`);
+    control(`${table}:operator-inserts-in-own-name-dated-by-the-database`, n(own) === 1, describe(own));
+    for (const [role, who] of [["anon", null], ["authenticated", "attacker"], ["service_role", null]]) {
+      const r = as(role, who, `WITH w AS (${spec.insert(`${who ?? role}-write`)} RETURNING 1) SELECT count(*) FROM w`);
+      check(p(`${who ?? role}-cannot-insert`), blocked(r), describe(r), r);
+    }
+    const named = as("authenticated", "operator",
+      `WITH w AS (INSERT INTO ${t} (item_id, before_text, quote_check, result, reviewer_id, reviewed_at) ` +
+      `VALUES ('rls-probe:backdated', 'x', 'no-quote', 'approved', ${lit(VICTIM)}, '2000-01-01') RETURNING 1) SELECT count(*) FROM w`);
+    check(p("operator-cannot-supply-reviewer-or-date"), blocked(named), describe(named), named);
+
+    // Change, delete, truncate: refused for every role, the operator included.
+    for (const [role, who] of [["authenticated", "operator"], ["authenticated", "attacker"], ["service_role", null], ["anon", null]]) {
+      const label = who ?? role;
+      const upd = affected(role, who, `UPDATE ${t} SET "${col}" = "${col}"`);
+      check(p(`${label}-cannot-update`), blocked(upd), describe(upd), upd);
+      const del = affected(role, who, `DELETE FROM ${t}`);
+      check(p(`${label}-cannot-delete`), blocked(del), describe(del), del);
+      // A successful TRUNCATE leaves zero rows, which blocked() would read as refused.
+      const tr = as(role, who, `TRUNCATE ${t}; SELECT 1`);
+      check(p(`${label}-cannot-truncate`), tr.denied === "42501", describe(tr));
+    }
+    // The table owner, as the dashboard's SQL editor would be: only the trigger stands in the way.
+    for (const stmt of [`UPDATE ${t} SET "${col}" = "${col}"`, `DELETE FROM ${t}`, `TRUNCATE ${t}`]) {
+      const r = psql(`BEGIN;\n${stmt};\nROLLBACK;`);
+      check(p(`owner-refused-${stmt.split(" ")[0].toLowerCase()}`), r.sqlstate === "42501" && /append-only/.test(r.stderr),
+        r.sqlstate ? `refused (${r.sqlstate})` : "the owner's statement went through");
+    }
+
+    // The chain: every row's prev_row_hash is the row before's row_hash, and ids have no gap.
+    const chain = as("authenticated", "operator",
+      `${spec.insert("chain-1")}; ${spec.insert("chain-2")}; ` +
+      `SELECT count(*) FROM (SELECT id, prev_row_hash, lag(row_hash) OVER w AS p, lag(id) OVER w AS pid ` +
+      `FROM ${t} WINDOW w AS (ORDER BY id)) q ` +
+      `WHERE prev_row_hash <> coalesce(p, repeat('0', 64)) OR id <> coalesce(pid, 0) + 1`);
+    check(p("rows-form-one-gapless-chain"), chain.value === "0",
+      chain.value === undefined ? describe(chain) : `${chain.value} row(s) out of chain`);
+  }
+}
+
+// ---------------------------------------------------------------------------
 // 3b. The CanLII lease and allowance behave (20261007090000, 2026-10-07)
 // ---------------------------------------------------------------------------
 
@@ -826,6 +899,7 @@ function main() {
     structural();
     userOwnedMatrix();
     catalogueMatrix();
+    ledgerMatrix();
     storageMatrix();
     canliiLeaseBehaviour();
 

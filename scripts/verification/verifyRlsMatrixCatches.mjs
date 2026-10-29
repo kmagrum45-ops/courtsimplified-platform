@@ -4,10 +4,11 @@
  *
  * WHAT THIS CATCHES: a test:rls-matrix that has gone blind. An RLS suite's worst
  * failure is the quiet one: zero rows is both "blocked" and "the test is broken", so a
- * suite can drift into passing everything. This plants twelve real regressions — RLS
+ * suite can drift into passing everything. This plants fourteen real regressions — RLS
  * switched off, a policy opened to every user, a server-only table opened to anon, a
  * new table nobody classified, cross-user storage reads, a public bucket, a callable
- * SECURITY DEFINER function, row forgery, and each of the four 2026-10-02 fixes undone — and
+ * SECURITY DEFINER function, row forgery, each of the four 2026-10-02 fixes undone, and the
+ * content review record made editable or writable by anyone signed in — and
  * asserts the suite exits non-zero naming the right check each time.
  *
  * A planted change must be caught by the check named for it, not merely by "something
@@ -82,6 +83,17 @@ const plants = [
     what: "the family form view running as its owner again (F1 undone)",
     sql: `ALTER VIEW public.family_form_lookup SET (security_invoker = false); GRANT UPDATE, DELETE ON public.family_form_lookup TO authenticated;`,
     expect: ["view:family_form_lookup:authenticated-cannot-write"],
+  },
+  {
+    what: "the review record made editable (its refusing trigger dropped, UPDATE granted back)",
+    sql: `DROP TRIGGER content_reviews_refuse_update_delete ON public.content_reviews;
+          GRANT UPDATE ON public.content_reviews TO service_role;`,
+    expect: ["ledger:content_reviews:service_role-cannot-update", "ledger:content_reviews:owner-refused-update"],
+  },
+  {
+    what: "the review record writable by any signed-in account",
+    sql: `CREATE OR REPLACE FUNCTION public.is_site_operator() RETURNS boolean LANGUAGE sql STABLE AS $$ SELECT auth.uid() IS NOT NULL $$;`,
+    expect: ["ledger:content_reviews:attacker-cannot-insert", "ledger:content_reviews:attacker-cannot-read"],
   },
 ];
 
