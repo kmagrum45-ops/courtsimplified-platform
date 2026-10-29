@@ -46,7 +46,7 @@ import { join, relative } from "node:path";
 
 import { OWNER_LIVE_TESTING, isInScope } from "../../src/lib/case-system/policy/a2iScope";
 import {
-  FORM_COMPLETION_PAUSED,
+  formFillingEnabled,
   aiAnalysisTextToUsers,
   caseUnderstandingEnabled,
   checkedAnswersEnabled,
@@ -76,6 +76,10 @@ const read = (path: string) => readFileSync(join(ROOT, path), "utf8");
 
 /** Vercel production, as it is configured: VERCEL_ENV and no feature switch (verified 2026-10-29). */
 const PRODUCTION: Record<string, string | undefined> = { VERCEL_ENV: "production" };
+// The site reads "is this production?" from the server's own settings too (capabilityAccess.ts
+// onProductionDeployment), so code that takes no env argument (isInScope, runCaseReview) must see
+// production the way the live server does.
+process.env.VERCEL_ENV = "production";
 
 type Letter = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m";
 type Result = { ok: boolean; detail: string; unverifiable?: boolean };
@@ -202,7 +206,7 @@ add("a", "decision-help-off", () => ({ ok: isOff(documentAnalysisEnabled(PRODUCT
 // isInScope("formCompletion"), so a runtime switch of OWNER_LIVE_TESTING
 // cannot reach it; the check calls isInScope itself (what the constant is).
 // ---------------------------------------------------------------------------
-add("b", "form-filling-paused", () => ({ ok: (FORM_COMPLETION_PAUSED as boolean) === true, detail: "FORM_COMPLETION_PAUSED is true (/api/generate-form refuses, /forms shows the paused notice)" }));
+add("b", "form-filling-paused", () => ({ ok: isOff(formFillingEnabled(PRODUCTION, { userId: null })), detail: "official form filling is off on production for a person not on the tester list (/api/generate-form refuses, /forms shows the paused notice)" }));
 add("b", "drafting-scope-off", () => ({ ok: isOff(isInScope("formCompletion")), detail: "isInScope(\"formCompletion\") is off (claim / responding drafts)" }));
 
 // ---------------------------------------------------------------------------
@@ -508,7 +512,8 @@ add("m", "quote-shown", () => ({ ok: showsQuote(read("app/builder/_components/Gu
 // synthetic bad input.
 // ---------------------------------------------------------------------------
 const SELF_TESTS: { name: string; rejects: () => boolean | Promise<boolean> }[] = [
-  { name: "switch predicate rejects a switch that is on", rejects: () => !isOff(documentAnalysisEnabled(PRODUCTION, true)) },
+  // A plain "on" value: on production the site now refuses every override that would turn a switch on.
+  { name: "switch predicate rejects a switch that is on", rejects: () => !isOff(true) },
   { name: "c: gate predicate rejects an ungated panel", rejects: () => !renderedBehindSwitch("<div>{confirmed ? <CaseReviewPanel /> : null}</div>", "CaseReviewPanel", CASE_REVIEW_GATE).ok },
   { name: "d: production-refusal predicate rejects a writer with no guard", rejects: () => writesData("db.from('cases').insert(row)") && !refusesInProduction("db.from('cases').insert(row)") },
   { name: "f: leak predicate finds a name in a raw body", rejects: () => leaked([{ messages: [{ content: "Sarah Jones owes" }] }], ["Sarah"]).length === 1 },
