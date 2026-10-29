@@ -25,6 +25,6 @@ export function runRecordsDir(): string {
 }
 
 /** Appends one record (a JSON line) to this run's file of that name. */
-export function appendRecord(file: "ask-once.jsonl" | "claim-kind.jsonl" | "findings.jsonl", record: unknown): void {
+export function appendRecord(file: "ask-once.jsonl" | "claim-kind.jsonl" | "findings.jsonl" | "never-ask-twice.jsonl", record: unknown): void {
   fs.appendFileSync(path.join(runRecordsDir(), file), JSON.stringify(record) + "\n");
 }

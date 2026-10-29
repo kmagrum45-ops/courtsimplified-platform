@@ -249,6 +249,9 @@ jobs:
       - name: The case file holds every fact once, and no screen asks a held fact again
         run: npm run test:case-file
 
+      - name: Never ask twice -- the story pack's held check, known repeats and chat wording table
+        run: npm run test:never-ask-twice
+
       - name: A changed side sets aside the old side's facts, in every area
         run: npm run test:side-change
 
