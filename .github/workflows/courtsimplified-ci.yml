@@ -137,6 +137,11 @@ jobs:
       - name: Case RLS policy contract verification
         run: npm run test:case-rls-contract
 
+      # The content review record stays append-only, operator-only and hash-chained
+      # as its migration writes it, and no later migration undoes that. Reads SQL only.
+      - name: Content reviews migration keeps its guarantees
+        run: npm run test:content-reviews-migration
+
       # Builds a private Postgres from supabase/migrations/ and attacks every table,
       # view, function and the evidence bucket as anon, two users and the service role.
       # Uses the PostgreSQL the ubuntu runner ships; no Supabase project, no secrets.

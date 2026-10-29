@@ -106,6 +106,24 @@ export const catalogue = {
 // 2026-10-15: per-visitor AI limits and the built-in error log (migration 20261015090000).
 export const serverOnly = ["ai_call_log", "site_operators", "canlii_cache", "canlii_api_state", "canlii_user_usage", "ai_rate_limits", "server_errors"];
 
+/**
+ * Append-only ledgers: a row is added only by a signed-in account listed in
+ * site_operators (the database itself refuses everyone else, the service role
+ * included), read only by operators and the server, and never changed, deleted
+ * or truncated by any role — a trigger refuses it, the table owner included.
+ *
+ * content_reviews (2026-10-30, 20261030090000): the hash-chained record of
+ * every content review. `insert(label)` is a row as a reviewer writes it,
+ * naming only the columns the INSERT grant allows; the database sets the rest.
+ */
+export const appendOnlyLedgers = {
+  content_reviews: {
+    insert: (label) =>
+      `INSERT INTO public.content_reviews (item_id, before_text, quote_check, result) ` +
+      `VALUES ('rls-probe:${label}', 'Probe text ${label}', 'no-quote', 'approved')`,
+  },
+};
+
 export const views = {
   court_form_master_view: { readers: ["anon", "authenticated"] },
   court_form_clean_view: { readers: ["anon", "authenticated"] },
