@@ -1,10 +1,11 @@
 import { internalWordingIn } from "../copy/rawKeys";
 import { answeredInStory, caseFileOfChat } from "./answeredInStory";
-import { chatQuestionToAsk, type CaseFile } from "../caseFile/caseFile";
+import { chatQuestionToAsk, type CaseFile, type ChatTurn } from "../caseFile/caseFile";
 import {
   buildConversationIntelligence,
   CasePartnerCourtContext,
   CasePartnerConversationMessage,
+  chatTurnsOf,
 } from "./conversationIntelligenceEngine";
 
 import { sentenceFromRecord, userStory } from "../userStory";
@@ -876,6 +877,7 @@ function buildEvidenceAnswer(args: {
   legalReasoning: CoordinatedReasoningPackage;
   investigation: ReturnType<typeof buildCaseInvestigation>;
   recorded?: string[];
+  turns?: readonly ChatTurn[];
 }): string {
   // What the person already said they have, in their own words (#469 re-test: the
   // reply asked what proof they had when the story listed it).
@@ -890,7 +892,9 @@ function buildEvidenceAnswer(args: {
   ]);
 
   // Once something is recorded, "what proof do you already have" is not asked again.
-  const stillNeeded = recorded.length ? evidenceNeeds.filter((need) => !/^what proof do you already have/i.test(clean(need))) : evidenceNeeds;
+  const stillNeeded = (recorded.length ? evidenceNeeds.filter((need) => !/^what proof do you already have/i.test(clean(need))) : evidenceNeeds)
+    // A question in the list asked earlier in this conversation and replied to is not asked again (askedAndReplied).
+    .filter((need) => !clean(need).endsWith("?") || chatQuestionToAsk(null, clean(need), args.turns) === clean(need));
 
   if (stillNeeded.length === 0) {
     return opening || assistantText("assistant:evidence:none");
@@ -968,6 +972,8 @@ function buildBestQuestion(args: {
   knownStory?: string;
   /** The saved case file: the chat asks no fact it holds (caseFile.ts chatMayAsk). */
   caseFile?: CaseFile | null;
+  /** This conversation: a question asked and replied to is not asked again (caseFile.ts askedAndReplied). */
+  turns?: readonly ChatTurn[];
 }): string {
   const selectedQuestion =
     args.intelligence.selectedNextQuestion;
@@ -988,7 +994,7 @@ function buildBestQuestion(args: {
   const reasoningQuestion = firstItem(
     // By fact (caseFile.ts chatQuestionToAsk): the question, its open part once its fact is held, or none.
     args.legalReasoning.reasoningSummary.firstQuestions
-      .map((question) => chatQuestionToAsk(args.caseFile, question))
+      .map((question) => chatQuestionToAsk(args.caseFile, question, args.turns))
       .filter((question): question is string => Boolean(question) && !answeredInStory(question as string, args.knownStory ?? "")),
   );
 
@@ -1001,9 +1007,9 @@ function buildBestQuestion(args: {
   // Dates the case file holds leave only the other dates open (chatQuestionToAsk), never the whole question.
   const datesInStory = args.intelligence.extractedFacts.some((fact) => fact.category === "date" && fact.confidence !== "low");
   return [
-    datesInStory ? null : chatQuestionToAsk(args.caseFile, assistantText("assistant:question:part-dates")),
-    assistantText("assistant:question:part-proof"),
-    chatQuestionToAsk(args.caseFile, assistantText("assistant:question:part-outcome")),
+    datesInStory ? null : chatQuestionToAsk(args.caseFile, assistantText("assistant:question:part-dates"), args.turns),
+    chatQuestionToAsk(null, assistantText("assistant:question:part-proof"), args.turns),
+    chatQuestionToAsk(args.caseFile, assistantText("assistant:question:part-outcome"), args.turns),
   ].filter(Boolean).join(" ");
 }
 
@@ -1072,6 +1078,8 @@ function buildDirectAnswer(args: {
   knownStory?: string;
   /** The saved case file: the chat asks no fact it holds (caseFile.ts chatMayAsk). */
   caseFile?: CaseFile | null;
+  /** This conversation: a question asked and replied to is not asked again (caseFile.ts askedAndReplied). */
+  turns?: readonly ChatTurn[];
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
   investigation: ReturnType<typeof buildCaseInvestigation>;
@@ -1104,6 +1112,8 @@ function buildGeneralAnswer(args: {
   knownStory?: string;
   /** The saved case file: the chat asks no fact it holds (caseFile.ts chatMayAsk). */
   caseFile?: CaseFile | null;
+  /** This conversation: a question asked and replied to is not asked again (caseFile.ts askedAndReplied). */
+  turns?: readonly ChatTurn[];
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
   investigation: ReturnType<typeof buildCaseInvestigation>;
@@ -1183,6 +1193,7 @@ function buildGeneralAnswer(args: {
     legalReasoning: args.legalReasoning,
     knownStory: args.knownStory,
     caseFile: args.caseFile,
+    turns: args.turns,
   });
   // Not "what proof do you already have" when the person has said what they have
   // (#470 re-test: it followed a reply quoting their own list of evidence).
@@ -1216,6 +1227,8 @@ function buildAnswer(args: {
   knownStory?: string;
   /** The saved case file: the chat asks no fact it holds (caseFile.ts chatMayAsk). */
   caseFile?: CaseFile | null;
+  /** This conversation: a question asked and replied to is not asked again (caseFile.ts askedAndReplied). */
+  turns?: readonly ChatTurn[];
   conversation: CasePartnerConversationMessage[];
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
@@ -1233,6 +1246,7 @@ function buildAnswer(args: {
       recorded: args.recordedEvidence,
       knownStory: args.knownStory,
       caseFile: args.caseFile,
+    turns: args.turns,
       intelligence: args.intelligence,
       legalReasoning: args.legalReasoning,
       investigation: args.investigation,
@@ -1273,6 +1287,7 @@ function buildAnswer(args: {
     recordedEvidence: args.recordedEvidence,
     knownStory: args.knownStory,
     caseFile: args.caseFile,
+    turns: args.turns,
     askedQuestion: /\?\s*$/.test(args.message.trim()) || /^(what|how|when|where|who|why|which|can|could|do|does|did|should|is|are|will|would)\b/i.test(args.message.trim()),
     intelligence: args.intelligence,
     legalReasoning: args.legalReasoning,
@@ -1394,6 +1409,7 @@ export function runGuidedAssistantOrchestrator(
         recordedEvidence: recordedEvidenceOf(input.caseMemory),
         knownStory: savedStoryOf(input.caseMemory),
         caseFile: caseFileOfChat(input.caseMemory),
+        turns: chatTurnsOf(conversation),
         conversation,
         intelligence: conversationIntelligence,
         legalReasoning,

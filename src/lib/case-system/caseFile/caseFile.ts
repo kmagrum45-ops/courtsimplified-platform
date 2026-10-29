@@ -32,7 +32,7 @@ import type { Checkpoint } from "../intakeCheckpoint";
 import { freshSections } from "../storyBasis";
 import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation } from "../situation/situation";
 import { isKindOfClaim } from "../intake/claimKind";
-import { chatQuestionOf, factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
+import { chatQuestionOf, chatSentencesFor, factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
 import { parseRecordedAmount } from "../format/recordedAmount";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
@@ -384,10 +384,33 @@ export function chatMayAsk(file: CaseFile | null | undefined, questionId: string
  * is left (factsOfQuestion.ts CHAT_QUESTIONS; row 1 review, 29 Oct: a compound question was dropped
  * whole once its fact was held, so when they first found out was never asked).
  */
-export function chatQuestionToAsk(file: CaseFile | null | undefined, words: string): string | null {
+export function chatQuestionToAsk(file: CaseFile | null | undefined, words: string, conversation: readonly ChatTurn[] = []): string | null {
   const question = chatQuestionOf(words);
-  if (chatMayAsk(file, question.asks)) return words;
-  return question.open ?? null;
+  if (chatMayAsk(file, question.asks) && !askedAndReplied(conversation, words)) return words;
+  return question.open && !askedAndReplied(conversation, question.open) ? question.open : null;
+}
+
+/** One turn of a chat's own conversation: the chat's message (with its question id, where it has one) or the person's. */
+export type ChatTurn = { role: string; text: string; questionId?: string };
+
+/**
+ * THE CONVERSATION CHECK (site owner, 29 Oct; CI story pack m19-laptop-repair: the follow-up chat
+ * asked "What proof do you already have...?", the person replied, and a later reply asked it again).
+ * Whether this chat already asked the question in this conversation and the person replied after
+ * it: by its question id where it has one (a turn's questionId, or the chat id its words ask by, so
+ * the same fact in other words counts), else by its exact words. Asked and not replied to (nothing
+ * from the person after it), it may be asked again. A person's reply is not saved to the case file,
+ * so the case file cannot know; every chat checks its own conversation with this.
+ */
+export function askedAndReplied(conversation: readonly ChatTurn[], words: string): boolean {
+  if (!conversation.length) return false;
+  const key = chatQuestionOf(words).asks;
+  const shown = [...new Set([words, ...chatSentencesFor(key)])].map((item) => item.trim().toLowerCase()).filter(Boolean);
+  return conversation.some((turn, index) =>
+    turn.role === "assistant" &&
+    (turn.questionId === words || turn.questionId === key || shown.some((item) => turn.text.toLowerCase().includes(item))) &&
+    conversation.slice(index + 1).some((later) => later.role === "user"),
+  );
 }
 
 /** The case file section after the person answers "not sure" to a question: each of its facts kept as unsure. */

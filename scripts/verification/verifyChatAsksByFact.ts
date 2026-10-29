@@ -25,8 +25,13 @@
  *   4. The questions one at a time (GuidedFormChat) offer an unsure fact again as the story's
  *      suggestion only once: never after the review's "I don't know yet" (CI 29 Oct, family-safety:
  *      the children offered again on the results page).
+ *   5. The conversation check, through the real chat route in all three areas: a question the chat
+ *      asked and the person replied to is not asked again later in the conversation (by its fact, or its
+ *      exact words); asked and not replied to, it may be; a compound one drops to its open part (CI story
+ *      pack 29 Oct, m19-laptop-repair: "What proof do you already have...?" asked again after a reply).
  *
- * Failure it exists to catch: any chat asking again, in any wording, for a fact the case file holds.
+ * Failure it exists to catch: any chat asking again, in any wording, for a fact the case file holds,
+ * or a question it already asked in this conversation and the person replied to.
  */
 import { readFileSync } from "node:fs";
 import path from "node:path";
@@ -215,6 +220,50 @@ async function asked(court: Court, setup: Setup, wants: "unsure" | "answered" | 
     check("skipped only in the questions, the story may still suggest them once", chatOnly.children.state === "unsure" && !offeredOnceMore(chatOnly, "children", skippedOnly));
     const chat = readFileSync(path.join(ROOT, "app/builder/_components/GuidedFormChat.tsx"), "utf8");
     check("GuidedFormChat asks through the one chat gate and bounds the story's offer by offeredOnceMore", /!chatMayAsk\(file, field\.key\)/.test(chat) && /offeredOnceMore\(file, fact/.test(chat));
+  }
+
+  // 5. THE CONVERSATION CHECK (site owner, 29 Oct; CI story pack m19-laptop-repair): a chat never asks
+  //    again a question it already asked in this conversation that the person replied to. Through the
+  //    real chat route, in all three areas: no question sentence of a later reply asks a fact (by the
+  //    test's own wording table), or the exact words, of a question in an earlier reply -- every earlier
+  //    reply was followed by the person's message.
+  {
+    const STORIES: Record<Court, string> = {
+      "small-claims": "Test Repair Shop kept my laptop on May 12, 2026 and charged me $900 for a repair they never did.",
+      civil: "My laptop was left at Test Repair Shop on May 12, 2026 and they kept it and charged $900.",
+      family: "We separated on May 12, 2026 and cannot agree about our son.",
+    };
+    const TALKS = [
+      ["What should I gather first?", "How long do I have to respond?"],
+      ["How long do I have to respond?", "What should I gather first?", "What is the most important thing I should clarify next?"],
+      ["I am not sure what to do.", "ok", "thanks", "What evidence am I missing?"],
+    ];
+    let compared = 0;
+    for (const court of ["small-claims", "civil", "family"] as const) for (const talk of TALKS) {
+      const checkpoint = { version: 1, flowId: ID, courtPath: court, revision: ID, sections: { story: { text: STORIES[court] } } } as unknown as Checkpoint;
+      const log = console.log, info = console.info;
+      console.log = () => undefined; console.info = () => undefined;
+      const replies = await chatReplies(court, STORIES[court], talk, {}, { intakeCheckpoint: checkpoint }).finally(() => { console.log = log; console.info = info; });
+      const askedBefore = new Map<string, string>();
+      const repeats: string[] = [];
+      replies.forEach((reply, index) => {
+        const here = questionSentences(reply).map((sentence) => ({ sentence, keys: factsOfWords(sentence).length ? factsOfWords(sentence) : [sentence] }));
+        for (const { sentence, keys } of here) for (const key of keys) if (askedBefore.has(key)) repeats.push(`reply ${index + 1} asks ${key} again: "${sentence}" (asked: "${askedBefore.get(key)}")`);
+        for (const { sentence, keys } of here) for (const key of keys) if (!askedBefore.has(key)) askedBefore.set(key, sentence);
+        compared += here.length;
+      });
+      check(`${court}, ${JSON.stringify(talk)}: no question asked and replied to is asked again in the conversation`, repeats.length === 0, repeats.join(" | "));
+    }
+    check("the conversation check compared some questions", compared >= 6, String(compared));
+
+    // The shared check itself: a question asked and NOT replied to may be asked again; a compound one
+    // asked and replied to drops to its open part.
+    const PROOF = "What proof do you already have, such as messages, emails, screenshots, witnesses, court papers, recordings, receipts, or transcripts?";
+    check("asked, the person replied: not asked again (nor the same fact in other words)", chatQuestionToAsk(null, PROOF, [{ role: "assistant", text: `To keep your case record complete: ${PROOF}` }, { role: "user", text: "How long do I have?" }]) === null && chatQuestionToAsk(null, "What proof do you currently have?", [{ role: "assistant", text: PROOF }, { role: "user", text: "ok" }]) === null);
+    check("asked and not replied to: it may be asked again", chatQuestionToAsk(null, PROOF, [{ role: "user", text: "What should I gather?" }, { role: "assistant", text: PROOF }]) === PROOF);
+    const DATES = "What are the main dates, including when the problem happened and when you first found out about it?";
+    check("a compound question asked and replied to drops to its open part", chatQuestionToAsk(null, DATES, [{ role: "assistant", text: "What are the main dates?" }, { role: "user", text: "May 12" }]) === "When did you first find out about the problem, and are there other important dates?");
+    check("a question id asked and replied to (the Small Claims chat's messages) is not asked again", chatQuestionToAsk(null, "sc-remedy-sought", [{ role: "assistant", text: "What outcome are you asking the court to order?", questionId: "sc-remedy-sought" }, { role: "user", text: "My $900 back" }]) === null);
   }
 
   if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }

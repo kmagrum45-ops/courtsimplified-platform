@@ -112,6 +112,7 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   "chat:court-date": ["courtDate"],
   "chat:amount": ["amount"],
   "chat:served-date": ["servedDate"],
+  "chat:proof": ["evidence"],
 };
 
 /** The facts a question asks for: its listed facts, or a fact of its own (its id). */
@@ -164,6 +165,10 @@ const CHAT_QUESTIONS: Record<string, ChatQuestion> = {
   // The general question's parts (assistantBlocks.ts).
   "What are the main dates?": { asks: "chat:main-dates", open: "Are there other important dates?" },
   "What outcome are you seeking?": { asks: "chat:outcome" },
+  // What proof they have (buildQuestions; the general question's part): a fact the case file does not
+  // hold, so only the conversation check stops it (CI 29 Oct, m19-laptop-repair).
+  "What proof do you already have, such as messages, emails, screenshots, witnesses, court papers, recordings, receipts, or transcripts?": { asks: "chat:proof" },
+  "What proof do you currently have?": { asks: "chat:proof" },
 };
 /** A chat sentence built with names in it: the parties it names, to confirm (asks only who the other party is). */
 const CHAT_ASKS: [RegExp, string][] = [
@@ -183,6 +188,11 @@ export function chatQuestionOf(words: string): ChatQuestion {
   if (own) return { asks: own };
   const fact = factOfAskedText(text);
   return { asks: (fact && CHAT_ID_OF_FACT[fact]) || text };
+}
+
+/** The chat's own sentences that ask by this id (or are this open part): how a conversation shows it was asked. */
+export function chatSentencesFor(key: string): string[] {
+  return Object.entries(CHAT_QUESTIONS).flatMap(([words, question]) => [...(question.asks === key ? [words] : []), ...(question.open === key ? [question.open] : [])]);
 }
 
 /** The chat question id a chat sentence asks by. */
