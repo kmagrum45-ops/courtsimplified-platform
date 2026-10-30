@@ -66,24 +66,6 @@
     },
     {
       "kind": "asked-twice",
-      "fact": "claimKind",
-      "where": "review@/builder",
-      "court": "civil",
-      "route": "form",
-      "who": "signed-in",
-      "reason": "Seen by the carry test in the civil form signed-in run on review@/builder: twice: What kind of case is it? Pick everything that fits. Contract / agreement dispute Negligence / harm / damages Institution (given at chat:issues@/builder \"What kind of case is it? Pick everything that fits. Why we ask: Different kinds "
-    },
-    {
-      "kind": "asked-twice",
-      "fact": "claimKind",
-      "where": "review-entry@/builder",
-      "court": "civil",
-      "route": "form",
-      "who": "signed-in",
-      "reason": "Seen by the carry test in the civil form signed-in run on review-entry@/builder: twice: What the case is about Not recorded (given at chat:issues@/builder \"What kind of case is it? Pick everything that fits. Why we ask: Different kinds \")"
-    },
-    {
-      "kind": "asked-twice",
       "fact": "wants",
       "where": "form-field@/builder",
       "court": "civil",
@@ -111,21 +93,12 @@
     },
     {
       "kind": "asked-twice",
-      "fact": "wants",
-      "where": "review@/builder",
+      "fact": "claimKind",
+      "where": "chat@/builder",
       "court": "civil",
       "route": "form",
       "who": "signed-in",
-      "reason": "Seen by the carry test in the civil form signed-in run on review@/builder: held: What would you like the court to order? I do not know yet (held unsure)"
-    },
-    {
-      "kind": "asked-twice",
-      "fact": "urgent",
-      "where": "review@/builder",
-      "court": "civil",
-      "route": "form",
-      "who": "signed-in",
-      "reason": "Seen by the carry test in the civil form signed-in run on review@/builder: held: Is anything urgent, like a deadline or hearing coming up soon? I do not know yet (held unsure)"
+      "reason": "Seen by the carry test in the civil form signed-in run on chat@/builder: twice: What kind of case is it? Pick everything that fits. Why we ask: Different kinds of cases have different rules and forms, (given at review:issues@/builder \"What kind of case is it? Pick everything that fits. Contract / agreement dispu"
     },
     {
       "kind": "asked-twice",
@@ -147,12 +120,21 @@
     },
     {
       "kind": "asked-twice",
-      "fact": "claimKind",
-      "where": "chat@/builder",
+      "fact": "wants",
+      "where": "review@/builder",
       "court": "civil",
       "route": "form",
       "who": "signed-in",
-      "reason": "Seen by the carry test in the civil form signed-in run on chat@/builder: held: What kind of case is it? Pick everything that fits. Why we ask: Different kinds of cases have different rules and forms, (held answered)"
+      "reason": "Seen by the carry test in the civil form signed-in run on review@/builder: held: What would you like the court to order? I do not know yet (held unsure)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "urgent",
+      "where": "review@/builder",
+      "court": "civil",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the civil form signed-in run on review@/builder: held: Is anything urgent, like a deadline or hearing coming up soon? I do not know yet (held unsure)"
     },
     {
       "kind": "returned-after-removal",
@@ -219,30 +201,12 @@
     },
     {
       "kind": "asked-twice",
-      "fact": "otherParty",
-      "where": "review-entry@/builder",
-      "court": "civil",
-      "route": "questions",
-      "who": "guest",
-      "reason": "Seen by the carry test in the civil questions guest run on review-entry@/builder: twice: The other side (given at chat:otherParty@/builder \"unsure\")"
-    },
-    {
-      "kind": "asked-twice",
-      "fact": "otherParty",
-      "where": "review@/builder",
-      "court": "civil",
-      "route": "questions",
-      "who": "guest",
-      "reason": "Seen by the carry test in the civil questions guest run on review@/builder: twice: Who is the other side (a person or a business)? You can leave the name for later. Use “A builder” (from your story) I do (given at chat:otherParty@/builder \"unsure\")"
-    },
-    {
-      "kind": "asked-twice",
       "fact": "wants",
       "where": "form-field@/builder",
       "court": "civil",
       "route": "questions",
       "who": "guest",
-      "reason": "Seen by the carry test in the civil questions guest run on form-field@/builder: held: What do you want ordered? (held unsure)"
+      "reason": "Seen by the carry test in the civil questions guest run on form-field@/builder: twice: What do you want ordered? (given at chat:legalRemedy@/builder \"unsure\")"
     },
     {
       "kind": "asked-twice",
@@ -251,7 +215,7 @@
       "court": "civil",
       "route": "questions",
       "who": "guest",
-      "reason": "Seen by the carry test in the civil questions guest run on review-entry@/builder: held: What you want (held unsure)"
+      "reason": "Seen by the carry test in the civil questions guest run on review-entry@/builder: twice: What you want (given at chat:legalRemedy@/builder \"unsure\")"
     },
     {
       "kind": "asked-twice",
@@ -261,6 +225,24 @@
       "route": "questions",
       "who": "guest",
       "reason": "Seen by the carry test in the civil questions guest run on review-entry@/builder: held: Anything urgent (held unsure)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review@/builder",
+      "court": "civil",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil questions guest run on review@/builder: held: Who is the other side (a person or a business)? You can leave the name for later. Use “A builder” (from your story) I do (held answered)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review-entry@/builder",
+      "court": "civil",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil questions guest run on review-entry@/builder: held: The other side (held answered)"
     },
     {
       "kind": "asked-twice",
@@ -471,24 +453,6 @@
     },
     {
       "kind": "asked-twice",
-      "fact": "claimKind",
-      "where": "review@/builder",
-      "court": "family",
-      "route": "form",
-      "who": "signed-in",
-      "reason": "Seen by the carry test in the family form signed-in run on review@/builder: twice: What is the case about? Pick everything that applies. Decision-making responsibility / custody Parenting time / access ( (given at chat:issues@/builder \"What the case is about: Parenting time / access The children: Daughter, age 6 Fr"
-    },
-    {
-      "kind": "asked-twice",
-      "fact": "claimKind",
-      "where": "review-entry@/builder",
-      "court": "family",
-      "route": "form",
-      "who": "signed-in",
-      "reason": "Seen by the carry test in the family form signed-in run on review-entry@/builder: twice: What the case is about Not recorded (given at chat:issues@/builder \"What the case is about: Parenting time / access The children: Daughter, age 6 Fr\")"
-    },
-    {
-      "kind": "asked-twice",
       "fact": "children",
       "where": "review-entry@/builder",
       "court": "family",
@@ -507,21 +471,12 @@
     },
     {
       "kind": "asked-twice",
-      "fact": "children",
-      "where": "review@/builder",
+      "fact": "claimKind",
+      "where": "chat@/builder",
       "court": "family",
       "route": "form",
       "who": "signed-in",
-      "reason": "Seen by the carry test in the family form signed-in run on review@/builder: held: Tell us about the children: how many, how old, and who they live with now. Use “Daughter, age 6” (from your story) I do (held unsure)"
-    },
-    {
-      "kind": "asked-twice",
-      "fact": "urgent",
-      "where": "review@/builder",
-      "court": "family",
-      "route": "form",
-      "who": "signed-in",
-      "reason": "Seen by the carry test in the family form signed-in run on review@/builder: held: Is anything urgent, like a deadline this week, a safety worry, or someone about to move away with a child? I do not know (held unsure)"
+      "reason": "Seen by the carry test in the family form signed-in run on chat@/builder: twice: What is the case about? Pick everything that applies. Why we ask: Each issue has its own forms and steps, so this keeps (given at review:issues@/builder \"What is the case about? Pick everything that applies. Decision-making responsib"
     },
     {
       "kind": "asked-twice",
@@ -543,12 +498,21 @@
     },
     {
       "kind": "asked-twice",
-      "fact": "claimKind",
-      "where": "chat@/builder",
+      "fact": "children",
+      "where": "review@/builder",
       "court": "family",
       "route": "form",
       "who": "signed-in",
-      "reason": "Seen by the carry test in the family form signed-in run on chat@/builder: held: What is the case about? Pick everything that applies. Why we ask: Each issue has its own forms and steps, so this keeps (held answered)"
+      "reason": "Seen by the carry test in the family form signed-in run on review@/builder: held: Tell us about the children: how many, how old, and who they live with now. Use “Daughter, age 6” (from your story) I do (held unsure)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "urgent",
+      "where": "review@/builder",
+      "court": "family",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the family form signed-in run on review@/builder: held: Is anything urgent, like a deadline this week, a safety worry, or someone about to move away with a child? I do not know (held unsure)"
     },
     {
       "kind": "returned-after-removal",
@@ -840,15 +804,6 @@
     },
     {
       "kind": "asked-twice",
-      "fact": "otherParty",
-      "where": "review-entry@/builder?step=form",
-      "court": "small-claims",
-      "route": "form",
-      "who": "guest",
-      "reason": "Seen by the carry test in the small-claims form guest run on review-entry@/builder?step=form: held: The other party (held answered)"
-    },
-    {
-      "kind": "asked-twice",
       "fact": "whenHappened",
       "where": "review@/builder?step=form",
       "court": "small-claims",
@@ -864,6 +819,15 @@
       "route": "form",
       "who": "guest",
       "reason": "Seen by the carry test in the small-claims form guest run on review@/builder?step=form: held: What outcome are you asking the court to order? I do not know yet (held unsure)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review-entry@/builder?step=form",
+      "court": "small-claims",
+      "route": "form",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims form guest run on review-entry@/builder?step=form: held: The other party (held answered)"
     },
     {
       "kind": "screens-disagree",
@@ -966,33 +930,6 @@
     },
     {
       "kind": "asked-twice",
-      "fact": "wants",
-      "where": "review-entry@/builder?step=form",
-      "court": "small-claims",
-      "route": "review",
-      "who": "guest",
-      "reason": "Seen by the carry test in the small-claims review guest run on review-entry@/builder?step=form: twice: Goal (given at review:sc-remedy-sought@/builder \"unsure\")"
-    },
-    {
-      "kind": "asked-twice",
-      "fact": "wants",
-      "where": "form-field@/builder?step=form",
-      "court": "small-claims",
-      "route": "review",
-      "who": "guest",
-      "reason": "Seen by the carry test in the small-claims review guest run on form-field@/builder?step=form: twice: (given at review:sc-remedy-sought@/builder \"unsure\")"
-    },
-    {
-      "kind": "asked-twice",
-      "fact": "wants",
-      "where": "review@/builder?step=form",
-      "court": "small-claims",
-      "route": "review",
-      "who": "guest",
-      "reason": "Seen by the carry test in the small-claims review guest run on review@/builder?step=form: twice: What outcome are you asking the court to order? I do not know yet (given at review:sc-remedy-sought@/builder \"unsure\")"
-    },
-    {
-      "kind": "asked-twice",
       "fact": "whenHappened",
       "where": "form-field@/builder?step=form",
       "court": "small-claims",
@@ -1011,12 +948,39 @@
     },
     {
       "kind": "asked-twice",
+      "fact": "wants",
+      "where": "form-field@/builder?step=form",
+      "court": "small-claims",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims review guest run on form-field@/builder?step=form: twice: (given at review:sc-remedy-sought@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "review-entry@/builder?step=form",
+      "court": "small-claims",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims review guest run on review-entry@/builder?step=form: twice: Goal (given at review:sc-remedy-sought@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "review@/builder?step=form",
+      "court": "small-claims",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims review guest run on review@/builder?step=form: twice: What outcome are you asking the court to order? I do not know yet (given at review:sc-remedy-sought@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
       "fact": "amount",
       "where": "form-field@/builder?step=form",
       "court": "small-claims",
       "route": "review",
       "who": "guest",
-      "reason": "Seen by the carry test in the small-claims review guest run on form-field@/builder?step=form: twice: (given at review:sc-amount-claimed@/builder \"\")"
+      "reason": "Seen by the carry test in the small-claims review guest run on form-field@/builder?step=form: twice: (given at review:sc-amount-claimed@/builder \"What is the total dollar amount you are claiming? I do not know yet\")"
     },
     {
       "kind": "asked-twice",
@@ -1110,6 +1074,15 @@
     },
     {
       "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review-entry@/builder?step=form",
+      "court": "small-claims",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims form signed-in run on review-entry@/builder?step=form: held: The other party (held answered)"
+    },
+    {
+      "kind": "asked-twice",
       "fact": "whenHappened",
       "where": "review@/builder?step=form",
       "court": "small-claims",
@@ -1125,15 +1098,6 @@
       "route": "form",
       "who": "signed-in",
       "reason": "Seen by the carry test in the small-claims form signed-in run on review@/builder?step=form: held: What outcome are you asking the court to order? I do not know yet (held unsure)"
-    },
-    {
-      "kind": "asked-twice",
-      "fact": "otherParty",
-      "where": "review-entry@/builder?step=form",
-      "court": "small-claims",
-      "route": "form",
-      "who": "signed-in",
-      "reason": "Seen by the carry test in the small-claims form signed-in run on review-entry@/builder?step=form: held: The other party (held answered)"
     },
     {
       "kind": "screens-disagree",
