@@ -23,6 +23,7 @@ import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadChe
 import { canonicalJson } from "../../src/lib/case-system/canonicalJson";
 import { WorkingButton } from "./Working";
 import { saveThenLeave } from "./leaveAfterSave";
+import { courtOfSavedRow, SAVED_COURT_COLUMNS } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
 
 async function readAuthSession() {
   const request = new IntakeRequest();
@@ -148,8 +149,9 @@ function CourtFromCase() {
       signedInUser: async () => (await supabase.auth.getSession()).data.session?.user.id ?? null,
       savedCourtOf: async (id, userId) => {
         if (!intakeId(id)) return null;
-        const { data: row } = await supabase.from("cases").select("court_path").eq("id", id).eq("user_id", userId).maybeSingle();
-        return (row as { court_path?: string } | null)?.court_path ?? null;
+        // The court through the case file (caseFileOfMaster.ts courtOfSavedRow): the saved case's own court, the column only as its fallback.
+        const { data: row } = await supabase.from("cases").select(SAVED_COURT_COLUMNS).eq("id", id).eq("user_id", userId).maybeSingle();
+        return courtOfSavedRow(row);
       },
     }).then((to) => { if (active) window.location.replace(to); }).catch(() => {
       if (active) window.location.replace(addressWithoutACase("chooser") ?? "/dashboard");
