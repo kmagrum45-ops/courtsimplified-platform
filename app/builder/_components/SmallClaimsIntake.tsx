@@ -32,7 +32,7 @@ import type {
 } from "../../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 
 import { supabase } from "../../../src/lib/supabase/client";
-import { runClientSafetyCheck } from "../../../src/lib/case-system/intake/clientSafetyCheck";
+import { ensureSafetyChecked, safetyConcernFromAnalysis, type ClientSafetyResult } from "../../../src/lib/case-system/intake/clientSafetyCheck";
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
 import {
   assignReferences,
@@ -72,6 +72,8 @@ export type SmallClaimsAnalysisResponse = {
   reasoningMode?: "structured-ai" | "deterministic-fallback";
   analysisAvailable?: boolean;
   authenticated?: boolean;
+  /** The route's own safety check on the analysed text (analysisSafetyGate.ts). */
+  safety?: unknown;
   error?: string;
 };
 
@@ -490,13 +492,33 @@ function buildCaseDirection(input: SmallClaimsIntelligenceInput): string {
 // src/lib/case-system/intake/clientSafetyCheck.ts, rather than being restated
 // per caller.
 
-type SafetyCheckOutcome = {
+export type SafetyCheckOutcome = {
   /** Step 6d: the user asked for legal advice rather than describing events. */
   requestsLegalAdvice?: boolean;
   halted: boolean;
   haltMessage?: string;
   distressAcknowledgment?: string;
+  /** The check failed twice (ensureSafetyChecked). Never read as clear: the analyze route checks again and records it. */
+  failed?: boolean;
 };
+
+/** A safety result as the Small Claims screens act on it: halt on danger, acknowledge distress. */
+export function smallClaimsSafetyOutcome(result: ClientSafetyResult): SafetyCheckOutcome {
+  if (result.classification === "immediate-danger") {
+    return { halted: true, haltMessage: result.userMessage, requestsLegalAdvice: result.requestsLegalAdvice };
+  }
+  if (result.classification === "distress") {
+    return { halted: false, distressAcknowledgment: result.userMessage, requestsLegalAdvice: result.requestsLegalAdvice };
+  }
+  return { halted: false, requestsLegalAdvice: result.requestsLegalAdvice, ...(result.failed ? { failed: true } : {}) };
+}
+
+/** When the browser's check failed: what the analyze route's own check found, if it was a concern (else null). */
+export function lateSafetyOutcome(pre: SafetyCheckOutcome, response: unknown): SafetyCheckOutcome | null {
+  if (!pre.failed) return null;
+  const concern = safetyConcernFromAnalysis(response);
+  return concern ? smallClaimsSafetyOutcome(concern) : null;
+}
 
 /**
  * Session 17 -- the form's own path to the identical safety pass guided
@@ -517,7 +539,7 @@ type SafetyCheckOutcome = {
  * technical hiccup, same philosophy as every other AI feature in this
  * codebase.
  */
-async function runFormSafetyCheck(storyText: string): Promise<SafetyCheckOutcome> {
+export async function runFormSafetyCheck(storyText: string): Promise<SafetyCheckOutcome> {
   /*
    * TWO CHANGES, 2026-09-17.
    *
@@ -537,15 +559,8 @@ async function runFormSafetyCheck(storyText: string): Promise<SafetyCheckOutcome
     data: { session },
   } = await supabase.auth.getSession().catch(() => ({ data: { session: null } }));
 
-  const result = await runClientSafetyCheck(storyText, session?.access_token);
-
-  if (result.classification === "immediate-danger") {
-    return { halted: true, haltMessage: result.userMessage, requestsLegalAdvice: result.requestsLegalAdvice };
-  }
-  if (result.classification === "distress") {
-    return { halted: false, distressAcknowledgment: result.userMessage, requestsLegalAdvice: result.requestsLegalAdvice };
-  }
-  return { halted: false, requestsLegalAdvice: result.requestsLegalAdvice };
+  // Tried once more on a failure; a second failure is "failed", never clear (item N, 2026-10-29).
+  return smallClaimsSafetyOutcome(await ensureSafetyChecked(storyText, session?.access_token));
 }
 
 /**
@@ -987,6 +1002,15 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         signal,
         intakeGuidanceHeaders(recovery),
       );
+      // The browser's check failed: the route checked the same story itself.
+      const late = lateSafetyOutcome(safety, response);
+      if (late?.halted) {
+        setSafetyHalted(true);
+        setSafetyHaltMessage(late.haltMessage || "");
+        setIsAnalyzing(false);
+        return;
+      }
+      if (late?.distressAcknowledgment) setDistressAcknowledgment(late.distressAcknowledgment);
       const result = response.result!;
       const payload: StoredCaseData = {
         ...result.payload,

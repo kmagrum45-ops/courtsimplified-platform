@@ -26,7 +26,8 @@ import type { FamilyCanonicalIntakeResult } from "@/src/lib/case-system/orchestr
 import { supabase } from "@/src/lib/supabase/client";
 import { userStory } from "@/src/lib/case-system/userStory";
 import {
-  runClientSafetyCheck,
+  ensureSafetyChecked,
+  safetyConcernFromAnalysis,
   type ClientSafetyClassification,
 } from "@/src/lib/case-system/intake/clientSafetyCheck";
 import { FAMILY_RESOURCE_TOPICS } from "@/src/lib/case-system/intake/familySafetyResources";
@@ -640,12 +641,15 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
      * should be asked specifically whether continuing is right here, or
      * whether family should halt like Small Claims does.
      */
+    // A check that failed twice is "failed", never clear; the route checks again and records it (item N).
+    let safetyFailed = true;
     try {
       const {
         data: { session },
       } = await supabase.auth.getSession();
 
-      const safety = await runClientSafetyCheck(facts, session?.access_token);
+      const safety = await ensureSafetyChecked(facts, session?.access_token);
+      safetyFailed = safety.status === "failed";
       await validateIntakeResponse(signal);
       signal.throwIfAborted();
       setSafetyClassification(safety.classification);
@@ -720,6 +724,13 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
 
       if (!response.ok || !body.ok || !body.result) {
         throw new Error(body.error || "Family analysis could not be completed.");
+      }
+      // The browser's check failed: the route checked the same story itself.
+      // Family shows the resources and continues, as it does for its own check.
+      const late = safetyFailed ? safetyConcernFromAnalysis(body) : null;
+      if (late) {
+        setSafetyClassification(late.classification);
+        setSafetyMessage(late.userMessage || "");
       }
 
       const result = body.result;

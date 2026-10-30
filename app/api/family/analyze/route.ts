@@ -5,6 +5,13 @@ import { runFamilyIntakeCanonicalIntegration } from "@/src/lib/case-system/orche
 import type { FamilyMasterCaseInput } from "@/src/lib/case-system/familyMasterCaseEngine";
 import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
+import {
+  analysisCaseId,
+  analysisStoryText,
+  checkStoryBeforeAnalysis,
+  type AnalysisSafetyDependencies,
+} from "@/src/lib/case-system/intake/analysisSafetyGate";
+import { withAiCallIdentity } from "@/src/lib/audit/aiCallLog";
 
 export const runtime = "nodejs";
 // As Small Claims: the analysis researches before it writes (test:analysis-time-budget).
@@ -211,7 +218,23 @@ function errorResponse(error: string, status: number) {
   return NextResponse.json({ ok: false, error }, { status });
 }
 
-async function postGuidance(request: NextRequest) {
+type FamilyRouteDependencies = {
+  authenticate: typeof getAuthenticatedUser;
+  analyze: typeof runFamilyIntakeCanonicalIntegration;
+  hasExternalAiKey: () => boolean;
+  /** The safety check's steps (analysisSafetyGate.ts); the real ones unless a test stands one in. */
+  safety: Partial<AnalysisSafetyDependencies>;
+};
+
+function createFamilyPost(overrides: Partial<FamilyRouteDependencies> = {}) {
+  const dependencies: FamilyRouteDependencies = {
+    authenticate: getAuthenticatedUser,
+    analyze: runFamilyIntakeCanonicalIntegration,
+    hasExternalAiKey: hasConfiguredServerAi,
+    safety: {},
+    ...overrides,
+  };
+  return async function postGuidance(request: NextRequest) {
   const contentLength = Number(request.headers.get("content-length") || 0);
 
   if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) {
@@ -242,10 +265,23 @@ async function postGuidance(request: NextRequest) {
   }
 
   try {
-    const authenticated = Boolean(await getAuthenticatedUser(request));
+    const user = await dependencies.authenticate(request);
+    const authenticated = Boolean(user);
     const allowExternalCognition =
-      authenticated && hasConfiguredServerAi();
-    const result = await runFamilyIntakeCanonicalIntegration(body.input, {
+      authenticated && dependencies.hasExternalAiKey();
+    // The safety check, on the exact text this analysis reads, before it
+    // starts -- whichever door the person came through (analysisSafetyGate.ts).
+    const caseId = analysisCaseId(request);
+    const safety = await withAiCallIdentity({ userId: user?.id ?? null, caseId }, () =>
+      checkStoryBeforeAnalysis(request, {
+        court: "family",
+        storyText: analysisStoryText(body.input, longTextFields),
+        userId: user?.id ?? null,
+        caseId,
+        aiAvailable: allowExternalCognition,
+      }, dependencies.safety),
+    );
+    const result = await dependencies.analyze(body.input, {
       allowExternalCognition,
     });
     const fallbackUsed = result.brain.intelligence.cognitionMode === "fallback";
@@ -259,14 +295,16 @@ async function postGuidance(request: NextRequest) {
           ? "structured-ai"
           : "deterministic-fallback",
       analysisAvailable: allowExternalCognition && !fallbackUsed,
+      safety,
     });
   } catch {
     console.error("Family canonical intake analysis failed.");
     return errorResponse("Family intake analysis could not be completed.", 500);
   }
+  };
 }
 
-export const POST = withConfirmedGuidance(postGuidance, { court: "family", requireRevision: true });
+export const POST = withConfirmedGuidance(createFamilyPost(), { court: "family", requireRevision: true });
 
 /** Offline contract tests exercise the existing validator/engine without bypassing the HTTP export. */
-export function createFamilyAnalyzePost() { return postGuidance; }
+export function createFamilyAnalyzePost(overrides: Partial<FamilyRouteDependencies> = {}) { return createFamilyPost(overrides); }

@@ -552,6 +552,9 @@ jobs:
       - name: Every safety signal the intake can raise is covered
         run: npm run test:safety-coverage
 
+      - name: No analysis without a safety-check result, on every analyze route; a failed check is recorded, never clear
+        run: npm run test:analysis-safety
+
       - name: Family and civil ask one question at a time, never one already answered
         run: npm run test:guided-form-chat
 

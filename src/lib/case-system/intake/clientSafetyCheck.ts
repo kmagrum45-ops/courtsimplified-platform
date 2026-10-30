@@ -18,6 +18,12 @@
  * body, or a missing API key all return "clear". A legitimate user is never
  * blocked from their own case by a technical fault in a classifier. Classification outages never block intake. Fixed safety resources remain
  * available independently of authentication, AI availability and confirmation.
+ *
+ * But a failure is never TREATED as clear (site owner, 2026-10-29, item N):
+ * the result carries `failed`, and callers go through ensureSafetyChecked
+ * below, which retries once and reports `status: "failed"`. The analyze
+ * routes then check the analysed text themselves and record the result in
+ * the case (analysisSafetyGate.ts).
  */
 
 export type ClientSafetyClassification = "immediate-danger" | "distress" | "clear";
@@ -90,4 +96,54 @@ export async function runClientSafetyCheck(
   } catch {
     return { ...CLEAR, failed: true };
   }
+}
+
+/**
+ * The one client path before an analysis (site owner, 2026-10-29, item N):
+ * every Continue that asks for an analysis calls this, never
+ * runClientSafetyCheck on its own.
+ *
+ * A failed check (refused, rate limited, timed out, unreachable) is tried
+ * once more. If it fails again the result is `status: "failed"` -- never
+ * "clear" -- and the caller carries on: the analyze route runs the check
+ * itself on the text it analyses and records the result in the case
+ * (analysisSafetyGate.ts), so a browser failure is never the last word.
+ */
+export type EnsuredSafetyResult = ClientSafetyResult & {
+  status: "clear" | "concern" | "failed";
+  attempts: number;
+};
+
+export async function ensureSafetyChecked(
+  storyText: string,
+  accessToken?: string | null,
+  run: typeof runClientSafetyCheck = runClientSafetyCheck,
+): Promise<EnsuredSafetyResult> {
+  let attempts = 1;
+  let result = await run(storyText, accessToken);
+  if (result.failed) {
+    attempts = 2;
+    result = await run(storyText, accessToken);
+  }
+  const status = result.failed ? "failed" : result.classification === "clear" ? "clear" : "concern";
+  return { ...result, status, attempts };
+}
+
+/**
+ * The server's own check, as the analyze routes return it (`safety`). Used
+ * when the browser's check failed: a concern the server found is shown with
+ * the same danger handling. Anything else -- clear, failed, missing -- is
+ * null, and nothing is shown.
+ */
+export function safetyConcernFromAnalysis(body: unknown): ClientSafetyResult | null {
+  const safety = body && typeof body === "object" ? (body as { safety?: unknown }).safety : undefined;
+  if (!safety || typeof safety !== "object") return null;
+  const record = safety as { status?: unknown; classification?: unknown; requestsLegalAdvice?: unknown; userMessage?: unknown };
+  if (record.status !== "concern") return null;
+  if (record.classification !== "immediate-danger" && record.classification !== "distress") return null;
+  return {
+    classification: record.classification,
+    requestsLegalAdvice: record.requestsLegalAdvice === true,
+    userMessage: typeof record.userMessage === "string" ? record.userMessage : undefined,
+  };
 }

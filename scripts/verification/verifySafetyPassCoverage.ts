@@ -89,7 +89,7 @@ function narrativeIntakeComponents(): string[] {
 }
 
 /** The two legitimate ways to reach the pass. */
-const CLIENT_CALL = /runClientSafetyCheck\s*\(/;
+const CLIENT_CALL = /(?:runClientSafetyCheck|ensureSafetyChecked)\s*\(/;
 const SERVER_TURN = /orchestrateIntakeTurn|\/api\/intake\/guided-turn/;
 
 function main(): void {
@@ -147,8 +147,77 @@ function main(): void {
     );
   }
 
+  verifyCheckBeforeEveryAnalysis();
+
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
   if (failures) process.exitCode = 1;
+}
+
+/** Every .ts/.tsx file under a directory, recursively. */
+function filesUnder(relative: string): string[] {
+  const out: string[] = [];
+  const walk = (dir: string) => {
+    for (const entry of fs.readdirSync(path.join(REPO_ROOT, dir), { withFileTypes: true })) {
+      const child = path.join(dir, entry.name);
+      if (entry.isDirectory()) { if (entry.name !== "node_modules") walk(child); }
+      else if (/\.tsx?$/.test(entry.name)) out.push(child);
+    }
+  };
+  walk(relative);
+  return out;
+}
+
+/*
+ * Item N (site owner, 2026-10-29): no analysis without a safety-check result,
+ * on every route, through one shared path. Asserted as properties found by
+ * scanning, so a new analyze route or a new button that asks for an analysis
+ * is picked up without editing a list.
+ *
+ *   SERVER: a route that runs an analysis engine calls
+ *   checkStoryBeforeAnalysis (analysisSafetyGate.ts) before the engine.
+ *   CLIENT: a screen that asks for an analysis runs the shared check first
+ *   (ensureSafetyChecked, or the Small Claims runFormSafetyCheck built on
+ *   it), and nothing outside clientSafetyCheck.ts calls the bare
+ *   runClientSafetyCheck, which reads a failure as clear.
+ */
+function verifyCheckBeforeEveryAnalysis(): void {
+  const ENGINE = /\b(?:analyzeSmallClaimsWithBrain|runCivilIntakeCanonicalIntegration|runFamilyIntakeCanonicalIntegration)\b/;
+  const routes = filesUnder(path.join("app", "api")).filter((file) => /route\.ts$/.test(file) && ENGINE.test(read(file)));
+  check("the analyze routes were found (the scan is not silently empty)", routes.length >= 3, routes.join(", "));
+  for (const file of routes) {
+    const text = read(file);
+    // The engine's first call: its injected name, else the engine itself.
+    const gate = text.search(/checkStoryBeforeAnalysis\(/);
+    const engine = text.search(/(?:dependencies\.analyze|analyzeSmallClaimsWithBrain|runCivilIntakeCanonicalIntegration|runFamilyIntakeCanonicalIntegration)\(/);
+    check(
+      `${file} runs the safety check before its analysis`,
+      gate >= 0 && (engine < 0 || gate < engine),
+      "An analyze route must await checkStoryBeforeAnalysis on the text it analyses before the engine runs (analysisSafetyGate.ts).",
+    );
+  }
+
+  const ASKS = /\/api\/(?:small-claims|civil|family)\/analyze|\brequestSmallClaimsAnalysis\s*\(/;
+  const SHARED = /\b(?:ensureSafetyChecked|runFormSafetyCheck)\s*\(/;
+  const clients = filesUnder("app").filter((file) => !file.startsWith(path.join("app", "api")));
+  const askers = clients.filter((file) => {
+    // The definition of requestSmallClaimsAnalysis posts to the route itself; its callers are what count.
+    const uses = read(file).replace(/export async function requestSmallClaimsAnalysis[\s\S]*?\r?\n}\r?\n/, "");
+    return ASKS.test(uses);
+  });
+  check("screens that ask for an analysis were found", askers.length >= 3, askers.join(", "));
+  for (const file of askers) {
+    check(
+      `${file} runs the shared safety check before asking for an analysis`,
+      SHARED.test(read(file)),
+      "Use ensureSafetyChecked (clientSafetyCheck.ts) before the analysis request: one retry, and a failure is never read as clear.",
+    );
+  }
+  for (const file of [...clients, ...filesUnder("src")]) {
+    if (file.endsWith("clientSafetyCheck.ts")) continue;
+    if (/runClientSafetyCheck\s*\(/.test(read(file))) {
+      check(`${file} goes through ensureSafetyChecked, not the bare runClientSafetyCheck`, false);
+    }
+  }
 }
 
 const isDirect = process.argv[1] ? import.meta.url === pathToFileURL(process.argv[1]).href : false;

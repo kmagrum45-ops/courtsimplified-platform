@@ -70,6 +70,9 @@ async function main() {
   const post = createSmallClaimsAnalyzePost({
     authenticate: async () => ({ id: "synthetic-user" }) as never,
     hasExternalAiKey: () => true,
+    // The safety check runs before every analysis (analysisSafetyGate.ts);
+    // stood in here so this offline suite makes no model call.
+    safety: { apiKey: () => "offline", runSafety: async () => ({ classification: "clear", requestsLegalAdvice: false }) },
     analyze: async (input, options) => {
       receivedInput = input;
       externalReasoningEnabled = options?.allowExternalCognition === true;
