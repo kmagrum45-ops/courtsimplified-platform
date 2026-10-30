@@ -14,7 +14,7 @@ test("Small Claims guided route: review edits update the existing unsent story",
   await fakeAccount(page);
   await openBuilder(page, "small-claims");
   await page.getByRole("button", { name: "Answer questions one at a time with AI help" }).click();
-  const story = page.getByRole("textbox", { name: "Tell us what happened..." });
+  const story = page.getByRole("textbox", { name: "Tell us what happened in your own words" });
   await story.fill(STORY);
   await saveCaseStory(page);
   await page.getByTestId("intake-start-review").click();

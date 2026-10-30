@@ -31,6 +31,7 @@ import {
   type IssueKind,
 } from "../../src/lib/content-library/crossForumNotes";
 import { WorkingButton } from "./Working";
+import StoryGuidance from "./StoryGuidance";
 
 const pathLabels: Record<BuilderDraftCourtPath, string> = {
   family: "Family",
@@ -483,7 +484,7 @@ function HomeLocationGateContent() {
             <label className="block"><span className="font-semibold text-[#16302b]">Province or territory</span><select aria-label="Province or territory" value={province} onChange={() => {}} className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3 text-[#16302b]"><option value="Ontario">Ontario (beta — other provinces are added later)</option></select></label>
             <label className="block"><span className="font-semibold text-[#16302b]">City or municipality</span><input ref={cityRef} aria-label="City or municipality" value={city} onChange={(event) => { requestRef.current.cancel(); setChecking(false); setCity(event.target.value); }} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="City or municipality" /></label>
           </div>
-          <label className="mt-5 block"><span className="font-semibold text-[#16302b]">Tell us what happened in your own words</span><textarea aria-label="Tell us what happened in your own words" value={facts} onChange={(event) => { requestRef.current.cancel(); setChecking(false); setFacts(event.target.value); setSuggestion(null); }} className="mt-2 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="Share the main events, people involved, and what you are trying to resolve." /></label>
+          <label className="mt-5 block"><span className="font-semibold text-[#16302b]">Tell us what happened in your own words</span><StoryGuidance id="home-story-guidance" /><textarea aria-label="Tell us what happened in your own words" aria-describedby="home-story-guidance" value={facts} onChange={(event) => { requestRef.current.cancel(); setChecking(false); setFacts(event.target.value); setSuggestion(null); }} className="mt-2 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" /></label>
 
           {requestError && <p role="alert" className="mt-4 text-sm text-red-700">{requestError}</p>}
           {requestError && !understood && (

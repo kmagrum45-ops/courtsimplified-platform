@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CompassQuestionIcon } from "./CourtTypeIcons";
+import StoryGuidance from "./StoryGuidance";
 import { COURT_PATH_FINDER_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
 
@@ -119,8 +120,9 @@ export default function NotSureCourtGuide() {
 
           <label className="mt-4 block">
             What happened
+            <StoryGuidance id="finder-story-guidance" className="mt-1" />
             <textarea
-              aria-label="Guide what happened" id="finder-facts" aria-invalid={attempted && missing.includes("facts")} aria-describedby={attempted && missing.includes("facts") ? "finder-errors" : undefined}
+              aria-label="Guide what happened" id="finder-facts" aria-invalid={attempted && missing.includes("facts")} aria-describedby={attempted && missing.includes("facts") ? "finder-story-guidance finder-errors" : "finder-story-guidance"}
               value={facts}
               onChange={(e) => setFacts(e.target.value)}
               className="mt-1 w-full rounded border p-2"

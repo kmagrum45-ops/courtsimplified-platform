@@ -83,6 +83,9 @@ jobs:
       - name: "Intake start screens: fixed province, no duplicate court-type picker"
         run: npm run test:intake-start-screens
 
+      - name: "Every story box shows the one shared guidance text, and no box its own"
+        run: npm run test:story-guidance
+
       - name: The user's own words shown back, and story dates offered for deadlines
         run: npm run test:user-story
 
@@ -697,7 +700,20 @@ jobs:
           tests/browser/items-8-12.spec.ts
           tests/browser/retest-29oct-flow.spec.ts
           tests/browser/never-ask-twice-reading.spec.ts
+          tests/browser/story-box-guidance.spec.ts
           --reporter=line --workers=1
+
+      # The story-box spec saves a full-page screenshot of every story box at desktop and
+      # phone width (story-<box>-<width>.png). Kept on every run, pass or fail, so the
+      # owner can look at each box without running anything. Synthetic stories only.
+      - name: Keep story box screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: story-box-screenshots
+          path: test-results/**/story-*.png
+          retention-days: 14
+          if-no-files-found: warn
 
       # A failure that does not reproduce locally needs the page as CI saw it.
       # These specs use synthetic accounts only and keep traces off, so this

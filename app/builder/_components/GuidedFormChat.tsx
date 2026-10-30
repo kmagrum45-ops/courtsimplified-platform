@@ -5,6 +5,7 @@ import { askedAndReplied, caseFileOf, chatMayAsk, offeredOnceMore, slotsOfQuesti
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { openSituationChange } from "../../_components/SituationQuestions";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
+import StoryGuidance from "../../_components/StoryGuidance";
 
 /**
  * ONE QUESTION AT A TIME, OVER THE COURT'S OWN FORM (build order Step 2C,
@@ -41,6 +42,8 @@ export type GuidedField = {
   /** Why it matters, in plain words about what the answer is used for. */
   why: string;
   kind: "text" | "longtext" | "choice" | "multi";
+  /** This box takes the person's story: it shows the one story guidance (copy/storyGuidance.ts). */
+  story?: boolean;
   options?: GuidedChoice[];
   /** Asked only when this holds for the current values. */
   when?: (values: GuidedValues) => boolean;
@@ -395,6 +398,7 @@ export default function GuidedFormChat({
             </p>
           ) : null}
           <p className="mt-1 text-sm text-[#4d675f]">Why we ask: {current.why}</p>
+          {current.story ? <StoryGuidance id="guided-form-story-guidance" /> : null}
           {current.kind === "choice" ? (
             <div className="mt-3 grid gap-2">
               {(current.options ?? []).map((option) => (
@@ -433,6 +437,7 @@ export default function GuidedFormChat({
           ) : current.kind === "longtext" ? (
             <textarea
               aria-label={partial ? partial.question : current.question}
+              aria-describedby={current.story ? "guided-form-story-guidance" : undefined}
               value={boxValue}
               onChange={(event) => editBox(event.target.value)}
               className="mt-3 min-h-28 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"

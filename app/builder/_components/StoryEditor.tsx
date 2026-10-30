@@ -1,6 +1,7 @@
 "use client";
 
 import { useIntakeState } from "../../_components/IntakeRecovery";
+import StoryGuidance from "../../_components/StoryGuidance";
 
 /**
  * "Case story" with "Edit case story", the same in Small Claims, Family and civil
@@ -68,8 +69,11 @@ export default function StoryEditor({
         </button>
       ) : (
         <>
+          {/* The one story guidance (copy/storyGuidance.ts), visible while typing. */}
+          <StoryGuidance id={`${ids.draft}-guidance`} className="mt-3" />
           <textarea
             aria-label={label}
+            aria-describedby={`${ids.draft}-guidance`}
             data-testid={ids.draft}
             value={shown}
             onChange={(event) => setStored({ text: event.target.value, base: unsaved ? draft.base : story })}
