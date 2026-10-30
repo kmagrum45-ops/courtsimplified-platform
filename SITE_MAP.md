@@ -285,7 +285,7 @@ Every screen a person sees, and the shared piece each one reads a fact from. Pat
 
 **Case page shell (layout).** `app/cases/[id]/layout.tsx`. Header with court label, title, the situation line (`:276-277`) or an older side sentence (`:254-259`), and "Last updated" (`:279`). Builds the shared `CaseHome` context (`:172-196`): `responding` via `userIsResponding` (`:177`) and the step via `caseStepFor` (`src/lib/case-system/caseStep.ts:80`, `layout.tsx:193`). Every tab reads these from `useCaseHome()` (`app/cases/_components/CaseHomeContext.tsx`). A gate screen at `:249` shows the situation line when the intake is not current.
 
-**Case overview tab.** `app/cases/[id]/page.tsx`. Safety notice, "What we have so far" (`CaseFilePanel`, `:208`), stage confirmation, "What your records say" (`:251`), the step panel, the overview panel. Confirmed stage: saved position, else the situation answers (`stageRecordedFromAnswers`, `:128-129`).
+**Case overview tab.** `app/cases/[id]/page.tsx`. Safety notice (once, when the story names danger), "What we have so far" (`CaseFilePanel`, `:208`), stage confirmation, "What your records say" (`:251`), the step panel, the overview panel. Confirmed stage: saved position, else the situation answers (`stageRecordedFromAnswers`, `:128-129`).
 
 **"What we have so far".** `app/cases/_components/CaseFilePanel.tsx`, fed `caseFileOf(checkpoint, master)` at `app/cases/[id]/page.tsx:209`. One row per slot (`LABEL` map `:18-37`); values by `shownValue` (`:47-62`) using `inWords`/`optionWords` (`src/lib/case-system/copy/rawKeys.ts:20-25`), `CLAIM_TYPES`, `findStage`, and finally `slotText(slot, formatForCourt)`.
 
@@ -310,6 +310,8 @@ Every screen a person sees, and the shared piece each one reads a fact from. Pat
 **Forms page.** `/forms` (`app/forms/FormsWorkspace.tsx`), also the bottom of the Forms tab. Has its own stage reader, `applicableStage` (`:1450`) — see Bypasses.
 
 **Dashboard.** `app/dashboard/page.tsx`. A card per case: court, title, "Court stage: ..." from `caseStageWords`, else `getStageLabel(settledStage(position))` (`:84-94`), "Updated" with `formatDate` (`:123`).
+
+**Safety line and support lines (29 Oct).** Every page's footer (`app/layout.tsx`) renders `app/_components/SafetyFooterLine.tsx`: "If you feel you are in immediate danger, call 911", with a link to `/support` (`app/support/page.tsx`), which lists the reviewed support lines (`src/lib/content-library/supportLines.ts`, from `IMMEDIATE_DANGER_MESSAGE`) with their ontario.ca sources. The fuller safety notice (`app/_components/SafetyNotice.tsx`, on the builder and the case page) shows only when the story names danger (`storySuggestsDanger`), once for the same words (`src/lib/case-system/intake/safetyNoticeOnce.ts`, kept in the browser's localStorage). The review panel holds no safety box. Family keeps its own safety questions and who-to-contact box. Checked by `npm run test:safety-footer`.
 
 **Error screens.** `app/error.tsx`, `app/builder/error.tsx`, `app/cases/error.tsx`, all rendering `app/_components/PageError.tsx` ("Something went wrong showing this page", error message and digest). No case facts.
 

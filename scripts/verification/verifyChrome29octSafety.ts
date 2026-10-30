@@ -98,12 +98,12 @@ void DANGER_WORDS;
 
 // ---- E2. Helplines on a case with no danger --------------------------------
 // IntakeReviewPanel is a client component reading the browser store; the
-// property is checked on its source: the helpline block is guarded by a family
-// or danger condition. Replace with a rendered check when the block moves to a
-// pure function.
+// property is checked on its source: it holds no helpline block, or the block is
+// guarded by a family or danger condition (site owner, 2026-10-29: the block is
+// gone; every page's footer carries the 911 line and a link to the support lines).
 const panel = readFileSync(join(process.cwd(), "app/_components/IntakeReviewPanel.tsx"), "utf8");
-const line = panel.split(/\r?\n/).find((text) => text.includes('data-testid="intake-safety-resources"')) ?? "";
-const guarded = /(?:courtPath\s*===\s*"family"|storySuggestsDanger\(|safetyConcern)[^<]*&&\s*<details[^>]*intake-safety-resources/.test(line);
+const helplineLines = panel.split(/\r?\n/).filter((text) => text.includes('data-testid="intake-safety-resources"') || /IMMEDIATE_DANGER_MESSAGE|Assaulted Women/.test(text));
+const guarded = helplineLines.every((text) => /^\s*import\b/.test(text) || /(?:courtPath\s*===\s*"family"|storySuggestsDanger\(|safetyConcern)[^<]*&&\s*<details[^>]*intake-safety-resources/.test(text));
 check("E2-helplines-guarded", guarded, "IntakeReviewPanel's helplines (IMMEDIATE_DANGER_MESSAGE) shown only for family or a story that names danger");
 
 // ---- F1. "Christmas 2025" ---------------------------------------------------

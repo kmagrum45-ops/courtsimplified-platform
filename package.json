@@ -184,6 +184,7 @@
     "test:deadlines": "tsx scripts/verification/verifyDeadlineEngine.ts",
     "test:chrome-29oct-safety": "tsx scripts/verification/verifyChrome29octSafety.ts",
     "test:testing-notice": "tsx scripts/verification/verifyTestingNotice.ts",
+    "test:safety-footer": "tsx scripts/verification/verifySafetyFooter.ts",
     "test:readability": "tsx scripts/verification/verifyReadability.ts",
     "test:verifier": "tsx scripts/verification/verifyVerifierRejects.ts",
     "content:draft": "tsx scripts/content/draftStageAnswers.ts",

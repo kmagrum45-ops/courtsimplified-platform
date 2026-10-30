@@ -202,7 +202,7 @@ export default function CaseOverviewPage() {
         </section>
       ) : null}
 
-      {/* Kept open while the story mentions threats, fear or violence (SafetyNotice.tsx). */}
+      {/* Shown once, when the story first names threats, fear or violence (SafetyNotice.tsx). */}
       <SafetyNotice story={record.story ?? ""} />
 
       {/* The case file (caseFile.ts): everything the person has told us, each asked once. */}

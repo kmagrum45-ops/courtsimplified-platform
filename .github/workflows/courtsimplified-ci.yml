@@ -273,6 +273,9 @@ jobs:
       - name: The testing notice says the owner's words, from one copy; no Law Society approval wording
         run: npm run test:testing-notice
 
+      - name: Safety line in every footer; the danger notice once; no open helplines box
+        run: npm run test:safety-footer
+
       - name: A changed side sets aside the old side's facts, in every area
         run: npm run test:side-change
 

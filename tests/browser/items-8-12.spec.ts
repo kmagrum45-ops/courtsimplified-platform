@@ -2,9 +2,10 @@
  * ITEMS 8 TO 12 OF JASON'S 2026-10-24 LIST, EACH PROVED IN A REAL BROWSER.
  *
  *   8  The safety notice shows on the first screen after a story that mentions threats,
- *      fear or violence, and stays open on the results and the case page -- in civil,
- *      Small Claims and Family, on the questions route and the form route. No notice for
- *      a story with none of that.
+ *      fear or violence, at that moment and once (site owner, 2026-10-29): not again on
+ *      the case page for the same words -- in civil, Small Claims and Family, on the
+ *      questions route and the form route. No notice for a story with none of that. The
+ *      911 footer line is on every screen either way.
  *   9  "Show my next step" never fails silently: a failed next step shows a plain message
  *      and Try again, and Try again gets the next step.
  *   10 Change on the situation answers never leaves the papers picture stuck on screen.
@@ -97,7 +98,7 @@ async function openCasePage(page: Page, rows: Rows) {
 // ---------------------------------------------------------------------------
 for (const court of ["small-claims", "civil", "family"] as const) {
   for (const route of ["questions", "form"] as const) {
-    test(`8. ${AREA[court]} (${route}): a story with threats and fear shows the safety notice on the first screen, and it stays open on the results and the case page`, async ({ page }) => {
+    test(`8. ${AREA[court]} (${route}): a story with threats and fear shows the safety notice on the first screen, once: not again on the case page`, async ({ page }) => {
       test.setTimeout(240_000);
       const rows = await startFromHome(page, court, DANGER[court]);
       const notice = page.getByTestId("safety-notice");
@@ -105,12 +106,12 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       await expect(notice).toContainText("911");
       await expect(notice).toContainText("Victim Support Line: 1-888-579-2888");
       await takeRoute(page, court, route);
-      await expect(notice, "still shown while answering").toBeVisible();
       await confirmAndShowNextStep(page);
-      await expect(notice, "open on the results page").toBeVisible();
       if (court === "family") await expect(page.getByTestId("family-safety-resources"), "the Family support box is open on the results page").toHaveAttribute("open", "");
       await openCasePage(page, rows);
-      await expect(page.getByTestId("safety-notice"), "open on the case page").toBeVisible({ timeout: 60_000 });
+      await expect(page.getByTestId("case-file").or(page.getByText("Where your case is")).first()).toBeVisible({ timeout: 60_000 });
+      await expect(page.getByTestId("safety-notice"), "not shown again on the case page for the same words").toHaveCount(0);
+      await expect(page.getByTestId("safety-footer-line"), "the 911 footer line is still there").toContainText("If you feel you are in immediate danger, call 911");
       if (court === "family") await expect(page.getByTestId("family-safety-resources"), "the Family support box is open on the case page").toHaveAttribute("open", "");
     });
 
