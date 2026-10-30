@@ -1,0 +1,127 @@
+name: CourtSimplified carry end to end
+
+# The end-to-end carry test (tests/browser/carry-end-to-end.spec.ts): one story per court through
+# each route (questions one at a time, review + "Show my next step", whole form; guest and signed
+# in), reload, sign-in, a change, a removal, a second case in the same tab. Counts four things:
+# asked-twice, returned-after-removal, wrong-case, screens-disagree; any not on the baseline
+# (tests/browser/harness/carryBaseline.json) fails. The real save path: real staging accounts and
+# rows; only the routes that would call a model are stood in. No AI spend.
+#
+# Its own workflow because nine long runs do not fit the browser-regression job's 25 minutes: one
+# machine per court (three runs each), then one job that adds the three parts up and prints
+#   CARRY COUNTS asked-twice=N returned-after-removal=N wrong-case=N screens-disagree=N
+# and the stale baseline entries.
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  carry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    strategy:
+      fail-fast: false
+      matrix:
+        court: [small-claims, civil, family]
+
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
+      NEXT_TELEMETRY_DISABLED: 1
+      AI_RATE_LIMITS: local
+      # Staging only: the STAGING_* secrets first; the guard step refuses production by ref.
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.STAGING_SUPABASE_URL || secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.STAGING_SUPABASE_PUBLISHABLE_KEY || secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.STAGING_SUPABASE_PUBLISHABLE_KEY || secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.STAGING_SUPABASE_SERVICE_ROLE_KEY || secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Refuse a production database
+        run: node --import tsx scripts/walkthrough/guard.ts
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Site access password for this run only
+        run: |
+          pw="$(openssl rand -hex 24)"
+          echo "::add-mask::$pw"
+          echo "SITE_ACCESS_PASSWORD=$pw" >> "$GITHUB_ENV"
+
+      - name: Production build
+        run: npm run build
+
+      - name: Start the site
+        run: |
+          nohup npx next start -p 3100 > server.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -s -o /dev/null http://localhost:3100; then echo "up"; exit 0; fi
+            sleep 2
+          done
+          echo "server did not start"; tail -50 server.log; exit 1
+
+      - name: The carry test (${{ matrix.court }})
+        env:
+          PLAYWRIGHT_BASE_URL: http://localhost:3100
+        run: npx playwright test tests/browser/carry-end-to-end.spec.ts --grep "carry end to end -- ${{ matrix.court }} " --reporter=line --workers=1
+
+      - name: Keep the records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: carry-records-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.court }}
+          path: |
+            carry-records/**
+            test-results/**/error-context.md
+          retention-days: 14
+          if-no-files-found: ignore
+
+  totals:
+    needs: carry
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download the three parts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: carry-records-${{ github.run_id }}-${{ github.run_attempt }}-*
+          path: carry-parts
+
+      - name: The four counts, and stale baseline entries
+        run: npm run -s carry:totals -- carry-parts
+
+      - name: Keep the totals
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: carry-totals-${{ github.run_id }}-${{ github.run_attempt }}
+          path: carry-parts/totals.json
+          retention-days: 14
+          if-no-files-found: ignore

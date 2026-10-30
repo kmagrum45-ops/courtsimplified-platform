@@ -258,6 +258,9 @@ jobs:
       - name: Never ask twice -- the story pack's held check, known repeats and chat wording table
         run: npm run test:never-ask-twice
 
+      - name: The carry test's baseline may only shrink -- no entry added compared with main
+        run: npm run test:carry-baseline
+
       - name: Every chat asks by fact -- a fact the saved case holds is never asked by a chat (row 1)
         run: npm run test:chat-asks-by-fact
 

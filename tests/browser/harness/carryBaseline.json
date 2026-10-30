@@ -1,0 +1,4 @@
+{
+  "_about": "The end-to-end carry test's known violations (tests/browser/harness/carryCounts.ts). One entry per violation the site still makes: kind, fact, where (the screen), optional court/route, and a reason in words. Started EMPTY on 30 Oct 2026: entries come only from what a CI run of tests/browser/carry-end-to-end.spec.ts recorded, never from a guess. May only shrink: scripts/verification/verifyCarryBaseline.ts fails a PR that adds an entry compared with origin/main. Empty = the test asserts zero.",
+  "entries": []
+}

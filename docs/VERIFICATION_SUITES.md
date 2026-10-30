@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-202 documented, 26 without a header.
+203 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -26,6 +26,8 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:assistant-context` | **Owned-context and canonical engine contracts, plus actual anonymous HTTP**<br>refusals. Full guidance is no longer available through anonymous fallback. Core factories isolate offline behavior; staging walkthroughs cover real auth. |
 | `npm run test:assistant-law` | **"The law on your question" in the Court Assistant**<br>(src/lib/case-system/retrieval/researchQuestion.ts, /api/assistant/law). |
 | `npm run test:canlii` | **Court decisions from CanLII: the rules CanLII's Terms of Use (2026) set for**<br>this feature hold in code (docs/SOURCING_NOTES.md, "CanLII"). |
+| `npm run test:carry` | **THE END-TO-END CARRY TEST: ONE STORY, CARRIED FROM INTAKE THROUGH EVERY QUESTION AND STEP**<br>(site owner, 30 Oct: "a fact given once is known everywhere, never asked again, never refilled after the person removed it, never shown on the wrong case"). |
+| `npm run test:carry-baseline` | **THE CARRY BASELINE MAY ONLY SHRINK (site owner, 30 Oct: the end-to-end carry test "asserts zero").**<br>The end-to-end carry test (tests/browser/carry-end-to-end.spec.ts) fails any violation not listed in tests/browser/harness/carryBaseline.json. This suite checks, without a browser: - every baseline entry names a kind (asked-twice, returned-after-removal, wrong |
 | `npm run test:case-drafts` | **Drafts are saved on the user's own case, hold only what the user gave us,**<br>and never cross from one case to another. |
 | `npm run test:case-events` | **The case-event vocabulary stays sourced, and the untyped option stays**<br>first-class. |
 | `npm run test:case-file` | **THE CASE FILE: EVERY FACT ASKED ONCE (caseFile.ts, Jason 2026-10-24).**<br>Checks, as properties rather than today's values: - each place an answer is kept today fills the same slot (the situation answers, the civil and Family forms, the Small Claims guided answers, the review's answers, the Family triage, the saved position), with i |
@@ -184,7 +186,6 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:story-basis` | **One record of which story version each story-derived answer was based on.**<br>What it checks (storyBasis.ts): an answer is tagged with the story version it was stored under; when the story changes, every older answer is stale in all three areas (Small Claims, civil, family): emptied in the view screens read, never shown as current, and  |
 | `npm run test:story-data-registry` | **Every place that stores data is listed, with where it stands when the story changes.**<br>What it checks (storyDataRegistry.ts, intakeStorageKeys.ts, storyDataScan.ts): - every intake section the code uses, every master_result key it writes and every table it writes is in the registry with one class, and every listed one is still used (an unused li |
 | `npm run test:story-facts` | **EACH FACT THE STORY GIVES, IN PLAIN WORDS (Charter re-test, 27 Oct, root cause 1).**<br>Checks, as properties, on the six cases Chrome re-tested (messy pack cases 11, 14, 16, 19 and 20, and the Charter claim), through the readers "What we have so far" and the questions use (caseFile/storyFacts.ts, storyLines.ts, storyAnswers.ts childrenFromStory) |
-| `npm run test:story-guidance` | **Every box that asks a person for their story shows the same guidance, from one**<br>place (site owner, 30 Oct). |
 | `npm run test:story-pack` | **Runs the story pack (tests/browser/story-pack.spec.ts) and prints its findings,**<br>grouped by what failed. Exits non-zero when there are any, so it can gate a PR. |
 | `npm run test:story-pack-records` | **EACH STORY-PACK RUN KEEPS ITS OWN RECORDS (site owner, 2026-10-27).**<br>Checks, as properties: - two runs with different run ids write to different folders, and neither touches the other; - the folder is outside test-results/, which Playwright empties at the start of every run; - the story pack writes its ask-once, claim-kind and  |
 | `npm run test:story-pack-shards` | **THE STORY PACK'S PARTS RUN EXACTLY THE WHOLE PACK, EACH TEST ONCE (site owner, 2026-10-29).**<br>CI shares the story pack across machines (courtsimplified-story-pack.yml: a matrix of parts, each `--fully-parallel --shard=<part>/<parts>`). Checks, as properties: - the parts the workflow lists are 1..N, and every part runs `--shard=<part>/N` with that N; -  |
