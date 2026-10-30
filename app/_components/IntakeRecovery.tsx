@@ -169,6 +169,10 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
   const [unsaved, setUnsaved] = useState<{ court: IntakeCourt; flowId: string; signedIn: boolean } | null>(null);
   const discardAllowed = useRef(false);
   const generation = useRef(0);
+  // Signed in: edits from this tab that did not reach the account, offered back while the saved record is shown.
+  const [draftNotice, setDraftNotice] = useState<{ stale: boolean; working: boolean; message: string | null } | null>(null);
+  const draftActions = useRef<{ save: () => Promise<void>; discard: () => void } | null>(null);
+  const draftSaved = useRef(false);
 
   useEffect(() => {
     let active = true;
@@ -178,6 +182,8 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
       const epoch = ++generation.current;
       disposeStore();
       setRecovery(null);
+      setDraftNotice(null);
+      draftActions.current = null;
       setFailed(false);
       setConflict(false);
       const current = () => active && epoch === generation.current;
@@ -196,8 +202,23 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         const saved = readCheckpoint(row?.master_result.intakeCheckpoint, court, flowId);
         if (row?.master_result.intakeCheckpoint && !saved) throw new Error("This case has an incompatible intake checkpoint. No other case has been opened.");
         let serverRevision = saved?.revision ?? null;
-        const initialConflict = Boolean(session && row && session.serverRevision !== serverRevision && session.checkpoint.revision !== serverRevision);
-        let snapshot: Checkpoint = session?.checkpoint ?? saved ?? { version: 1, flowId, courtPath: court, revision: crypto.randomUUID(), sections: {} };
+        /*
+         * THE SAVED RECORD ALWAYS WINS (site owner, 2026-10-30). Signed in with a saved
+         * row, the page opens the saved checkpoint. Edits in this tab that did not reach
+         * the account are kept aside as a flagged draft and offered back ("Not saved yet:
+         * save or discard"); they are never applied silently.
+         * Guests have no saved row: the tab is their only store, so the tab still wins.
+         * A guest intake carried in at sign-in has no row yet (a carried session with a
+         * row is refused above), so it is not a draft against anything and is unchanged.
+         */
+        const savedWins = Boolean(ownerId && row && saved);
+        const sameContent = (a: Checkpoint, b: Checkpoint) => canonicalJson(migrateStory(a).sections) === canonicalJson(migrateStory(b).sections);
+        const unsent = savedWins && session && session.checkpoint.revision !== serverRevision && session.pending !== false && !sameContent(session.checkpoint, saved!) ? session.checkpoint : null;
+        let draft: Checkpoint | null = unsent ?? (savedWins && session?.draft && !sameContent(session.draft, saved!) ? session.draft : null);
+        // Made on an older saved version than the one now shown: saving it replaces the newer one.
+        const draftStale = Boolean(unsent && session && session.serverRevision !== serverRevision);
+        const initialConflict = !savedWins && Boolean(session && row && session.serverRevision !== serverRevision && session.checkpoint.revision !== serverRevision);
+        let snapshot: Checkpoint = (savedWins ? saved : session?.checkpoint ?? saved) ?? { version: 1, flowId, courtPath: court, revision: crypto.randomUUID(), sections: {} };
         snapshot = JSON.parse(JSON.stringify(snapshot)) as Checkpoint;
         snapshot.inputRevision ??= snapshot.revision;
         // One copy of the story: older checkpoints move theirs into sections.story once, here.
@@ -237,7 +258,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         const step = snapshot.sections.builder?.step;
         if (address.pathname === "/builder" && address.searchParams.get("step") === "results") {
           // Preserve the existing completed-case route; an interrupted unsaved analysis resumes intake.
-          const pending = Boolean(session && session.checkpoint.revision !== serverRevision);
+          const pending = savedWins ? Boolean(draft) : Boolean(session && session.checkpoint.revision !== serverRevision);
           if (row && guidanceIsCurrent(row.master_result, court, row.id) && !pending && !initialConflict) {
             window.location.replace(`/cases/${encodeURIComponent(row.id)}`);
             return;
@@ -251,13 +272,14 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           window.history.replaceState(null, "", `${address.pathname}?${address.searchParams}`);
         }
         let caseId = row?.id ?? null;
-        let dirty = migrated || Boolean(session && session.checkpoint.revision !== serverRevision);
+        // The saved record shown is not an unsent edit; the draft waits for the person's choice.
+        let dirty = migrated || (!savedWins && Boolean(session && session.checkpoint.revision !== serverRevision));
         let timer: ReturnType<typeof setTimeout> | undefined;
         let flight: Promise<void> | null = null;
         const invalid = new Set<string>();
         // `pending`: something entered here has not reached the account (still saving,
         // a failed save, or no case created yet). Default values a form writes are not.
-        const cache = () => writeIntakeSession(sessionStorage, { version: 2, ownerId, caseId, serverRevision, checkpoint: snapshot, ...(!ownerId ? { workflowStatus } : { pending: dirty || !caseId, ...(session?.carried && !caseId ? { carried: true } : {}) }) });
+        const cache = () => writeIntakeSession(sessionStorage, { version: 2, ownerId, caseId, serverRevision, checkpoint: snapshot, ...(!ownerId ? { workflowStatus } : { pending: dirty || !caseId, ...(session?.carried && !caseId ? { carried: true } : {}), ...(draft ? { draft } : {}) }) });
         const failure = (message: string) => { if (current()) { setFailed(true); setNotice(message); } };
         const flush = async (signal?: AbortSignal): Promise<void> => {
           signal?.throwIfAborted();
@@ -489,8 +511,41 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           document.removeEventListener("visibilitychange", interruption);
           window.removeEventListener("online", interruption);
         };
+        // "Save them": the draft goes over the saved record through the one save path
+        // (flush -> saveCheckpoint, with its conflict check), then the case reopens from it.
+        // "Discard them": the draft is dropped; the saved record stays.
+        draftActions.current = {
+          save: async () => {
+            if (!draft || !current()) return;
+            const before = snapshot;
+            const beforeStatus = workflowStatus;
+            setDraftNotice((value) => value && { ...value, working: true, message: null });
+            snapshot = { ...migrateStory(draft), revision: crypto.randomUUID() };
+            dirty = true;
+            try { await flush(); } catch {
+              if (!current()) return;
+              snapshot = before; workflowStatus = beforeStatus; dirty = false; cache();
+              setDraftNotice((value) => value && { ...value, working: false, message: "They were not saved. The saved record is still shown; see the message above, then try again or discard them." });
+              return;
+            }
+            if (!current()) return;
+            draft = null; cache();
+            draftSaved.current = true;
+            setDraftNotice(null);
+            setAttempt((value) => value + 1);
+          },
+          discard: () => {
+            if (!current()) return;
+            draft = null;
+            if (!cache()) failure("This tab could not retain your text. Copy it before leaving.");
+            setDraftNotice(null);
+            setNotice("The changes from this tab were discarded. Your saved case is shown.");
+          },
+        };
         if (!cache()) failure("This tab cannot retain your pending intake text. Copy it before leaving.");
-        else setNotice(ownerId ? (dirty ? "Pending answers recovered in this tab. Saving…" : caseId ? "Intake saved to your account." : "Answers will be saved to your account as you type.") : "Guest progress stays in this tab only. Seeing your next steps needs a free account; sign in from here and what you entered comes with you.");
+        else setNotice(draftSaved.current ? "The changes from this tab were saved to your account." : ownerId ? (dirty ? "Pending answers recovered in this tab. Saving…" : caseId ? "Intake saved to your account." : "Answers will be saved to your account as you type.") : "Guest progress stays in this tab only. Seeing your next steps needs a free account; sign in from here and what you entered comes with you.");
+        draftSaved.current = false;
+        if (draft) setDraftNotice({ stale: draftStale, working: false, message: null });
         setRecovery(store);
         if (initialConflict) { setConflict(true); failure("Another tab changed this intake. Your pending text is shown here for you to copy. Open the saved case separately before resolving the difference."); }
         else if (dirty && ownerId) void flush().catch(() => {});
@@ -528,6 +583,14 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
       {(recovery || failed) && (!recovery?.ownerId || failed) && <a className="underline" href={`/login?next=${encodeURIComponent(here)}`} onClick={(event) => { event.preventDefault(); startSignIn(); }}>{recovery && !recovery.ownerId ? "Sign in or create a free account (what you entered comes with you)" : "Sign in for account recovery"}</a>}
       {conflict && recovery?.getCaseId() && <a className="underline" href={`/builder?path=${court}&caseId=${recovery.getCaseId()}`} target="_blank" rel="noopener noreferrer">Open the saved intake separately</a>}
       {!recovery && failed && <> · <a className="underline" href={`/builder?path=${court}`}>Start a new intake</a></>}
+      {recovery && draftNotice && <div role="alert" data-testid="unsaved-draft" className="mt-2 rounded-2xl border border-[#ead9a7] bg-[#fffaf0] p-3 text-[#5c4a14]">
+        <p><strong>Not saved yet:</strong> some changes in this tab did not reach your account. Your saved case is shown.{draftNotice.stale ? " They were made on an earlier saved version; saving them replaces the newer one." : ""}</p>
+        {draftNotice.message && <p className="mt-1">{draftNotice.message}</p>}
+        <div className="mt-2 flex flex-wrap gap-3">
+          <WorkingButton data-testid="unsaved-draft-save" className="rounded bg-[#2f7d67] px-3 py-1 text-white" working={draftNotice.working} workingLabel="Saving them…" onClick={() => draftActions.current?.save()}>Save them</WorkingButton>
+          <button type="button" data-testid="unsaved-draft-discard" className="rounded border px-3 py-1" disabled={draftNotice.working} onClick={() => draftActions.current?.discard()}>Discard them</button>
+        </div>
+      </div>}
     </div>
     {recovery ? <SituationGate court={court} ownerId={recovery.ownerId ?? null}><IntakeReviewPanel />{children}</SituationGate> : null}
   </Context.Provider>;
@@ -757,7 +820,8 @@ function readHeldIntake(ownerId: string | null): { court: IntakeCourt; flowId: s
     if (value.version !== 2 || value.ownerId !== ownerId || (court !== "small-claims" && court !== "family" && court !== "civil") || !intakeId(checkpoint.flowId)) return null;
     // Signed in: held only when something entered has not reached the account. A
     // version check alone counted a form writing its defaults as unsaved text.
-    const saved = ownerId !== null && (typeof value.pending === "boolean" ? !value.pending : value.caseId !== null && value.serverRevision === checkpoint.revision);
+    // A draft kept aside beside the saved record (the saved record always wins) is unsaved text too.
+    const saved = ownerId !== null && !value.draft && (typeof value.pending === "boolean" ? !value.pending : value.caseId !== null && value.serverRevision === checkpoint.revision);
     const sections = record(checkpoint.sections) as Checkpoint["sections"];
     return !saved && storyOf(migrateStory({ ...(checkpoint as Checkpoint), sections }).sections).trim() ? { court, flowId: checkpoint.flowId as string, signedIn: ownerId !== null } : null;
   } catch { return null; }
