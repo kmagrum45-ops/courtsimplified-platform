@@ -352,6 +352,11 @@ async function main() {
     );
     const stale = [...FIXED_HOST.keys()].filter((file) => !scriptFiles.includes(file));
     check("every fixed-host declaration names a file that still fetches", stale.length === 0, stale.join(", "));
+    // The carry workflow is declared for its own local site only (owner, 30 Oct): every address
+    // it names must be http://localhost, so the declaration cannot quietly cover another host.
+    const carryHosts = [...read(".github/workflows/courtsimplified-carry.yml").matchAll(/\b(?:https?|wss?):\/\/[^\s"'`;)]+/gi)].map((m) => m[0]);
+    const notLocal = carryHosts.filter((url) => !/^http:\/\/localhost(?::\d+)?(?:\/|$)/i.test(url));
+    check("the carry workflow fetches only its own local site (http://localhost)", carryHosts.length > 0 && notLocal.length === 0, notLocal.join(", "));
     check(
       "fetchDecisionPages.sh still refuses CanLII URLs",
       /\*canlii\*\) echo "REFUSED \(CanLII is never fetched\)/.test(read("scripts/sources/fetchDecisionPages.sh")),
