@@ -86,9 +86,11 @@ async function formWithEvidenceConfirmed(page: Page, court: Court, saved: Return
     await openBuilder(page, court, { city: "Kingston", story: court === "civil" ? CIVIL_STORY : FAMILY_STORY });
     await page.getByTestId("guided-form-show-form").click();
   }
-  const evidence = page.getByLabel("Evidence you have", { exact: true });
-  await evidence.pressSequentially("Contract and bank receipt", { delay: 40 });
-  await evidence.blur();
+  // The area form's own box (the review's copy is labelled "Review: ..."); typed as a person types.
+  const evidence = page.getByLabel(/^s*Evidence you haves*$/).first();
+  await evidence.click();
+  await page.keyboard.type("Contract and bank receipt", { delay: 40 });
+  await page.keyboard.press("Tab");
   await expect.poll(async () => JSON.stringify((await saved())?.master_result?.intakeCheckpoint ?? null), { timeout: 30_000 }).toContain("Contract and bank receipt");
   await confirmReview(page, "evidence");
   return evidence;
@@ -103,7 +105,7 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       await evidence.click();
       await page.keyboard.press("End");
       for (let index = 0; index < "Contract and bank receipt".length; index++) await page.keyboard.press("Backspace", { delay: 30 });
-      await evidence.blur();
+      await page.keyboard.press("Tab");
       await expect.poll(async () => JSON.stringify((await saved())?.master_result?.intakeCheckpoint ?? null), { timeout: 30_000 }).not.toContain("Contract and bank receipt");
       await expect(page.getByTestId("intake-review"), "removing a confirmed answer cancels the confirmation").not.toHaveAttribute("data-phase", "user-confirmed", { timeout: 20_000 });
     });
@@ -117,7 +119,7 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       await evidence.click();
       await page.keyboard.press("End");
       await page.keyboard.type(" and texts", { delay: 40 });
-      await evidence.blur();
+      await page.keyboard.press("Tab");
       await expect.poll(async () => JSON.stringify((await saved())?.master_result?.intakeCheckpoint ?? null), { timeout: 30_000 }).toContain("receipt and texts");
       await expect(page.getByTestId("intake-review"), "changing a confirmed answer cancels the confirmation").not.toHaveAttribute("data-phase", "user-confirmed", { timeout: 20_000 });
     });
