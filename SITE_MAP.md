@@ -983,7 +983,7 @@ The story readers: side, filed papers, children, dates, goal, other party.
 
 - Reads (3): **src/lib/case-system/claimAmount.ts**, **src/lib/case-system/dates.ts**, **src/lib/case-system/sentences.ts**
 - Read by (5): app/_components/IntakeRecovery.tsx, **app/builder/_components/guidedFields.ts**, **src/lib/case-system/caseFile/storyLines.ts**, **src/lib/case-system/intakeReview.ts**, src/lib/security/requestNames.ts
-- Checked by (8): scripts/verification/verifyCharterRetest.ts, scripts/verification/verifyClaimAmount.ts, scripts/verification/verifyDateEntryPoints.ts, scripts/verification/verifyFactSources.ts, scripts/verification/verifyFormsFromCaseFile.ts, scripts/verification/verifyGuidedFormChat.ts, scripts/verification/verifyStoryAnswers.ts, scripts/verification/verifyStoryFacts.ts
+- Checked by (9): scripts/verification/verifyCharterRetest.ts, scripts/verification/verifyClaimAmount.ts, scripts/verification/verifyClaimKindOneValue.ts, scripts/verification/verifyDateEntryPoints.ts, scripts/verification/verifyFactSources.ts, scripts/verification/verifyFormsFromCaseFile.ts, scripts/verification/verifyGuidedFormChat.ts, scripts/verification/verifyStoryAnswers.ts, scripts/verification/verifyStoryFacts.ts
 
 ### app/builder/_components/guidedFields.ts
 
