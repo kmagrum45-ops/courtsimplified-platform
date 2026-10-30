@@ -1,5 +1,5 @@
 import { officialFormFor } from "@/src/lib/content-library/forms/officialFormLink";
-import { FEES_IF_CLAIMED_LABEL, SOURCE_SAVED_ON, practicalFor, type PlainLine, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
+import { CARD_TEXT, FEES_IF_CLAIMED_LABEL, SOURCE_SAVED_ON, practicalFor, type PlainLine, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
 import { officialUrl, sourceName, type RuleCitation } from "@/src/lib/case-system/stage-map/citations";
 
 /**
@@ -118,7 +118,7 @@ export default function NextStepPractical({
             // support financial statement as his form). Folded, with the rule.
             <details data-testid="next-step-forms-if-claimed" className="mt-2">
               <summary className="cursor-pointer font-semibold text-[#2f7d67]">
-                Only if the case has that kind of claim ({view.formsIfClaimed.length})
+                {CARD_TEXT.formsIfClaimed} ({view.formsIfClaimed.length})
               </summary>
               <ul className="mt-1 space-y-1">
                 {view.formsIfClaimed.map((form) => {
@@ -140,7 +140,7 @@ export default function NextStepPractical({
               </ul>
             </details>
           ) : null}
-          <p className="text-xs text-[#4d675f]">From the official Ontario Court Forms site. Check the version date there before you file.</p>
+          <p className="text-xs text-[#4d675f]">{CARD_TEXT.formsSource}</p>
         </div>
       ) : null}
 
@@ -216,8 +216,7 @@ export default function NextStepPractical({
                 ))}
               </ul>
               <p className="text-xs text-[#4d675f]">
-                From the courts&apos; own location pages, read {view.courtOffices.source.readOn}. The court named on your papers is the one for
-                your case.{" "}
+                From the courts&apos; own location pages, read {view.courtOffices.source.readOn}. {CARD_TEXT.officesSource}{" "}
                 <a href={`/courthouses?court=${court}`} className="underline">
                   All courthouses
                 </a>
@@ -234,7 +233,7 @@ export default function NextStepPractical({
         <div data-testid="next-step-garnishee">
           <p className="font-semibold">Naming the employer</p>
           <p className="mt-1">
-            You wrote: “{view.garnishee.quote}” The rules give these ways forward; which to use is your choice.
+            You wrote: “{view.garnishee.quote}” {CARD_TEXT.garnisheeChoice}
           </p>
           <ul className="mt-1 space-y-1">
             {view.garnishee.lines.map((line) => (

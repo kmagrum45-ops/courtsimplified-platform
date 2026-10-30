@@ -239,6 +239,18 @@ export function familyFeeNotesFor(claims: FamilyClaims | null, exemptionLeads: b
  * Divorce Act. Support under FLA Part III is inside the exemption, so the
  * fold's condition names a divorce, property and the home, not support.
  */
+/**
+ * The card's fixed sentences (NextStepPractical.tsx), kept here so the review
+ * inventory indexes the exact words the card shows (contentInventory, type
+ * "next-step-card"). Moved from the component unchanged, 2026-10-29.
+ */
+export const CARD_TEXT = {
+  formsIfClaimed: "Only if the case has that kind of claim",
+  formsSource: "From the official Ontario Court Forms site. Check the version date there before you file.",
+  garnisheeChoice: "The rules give these ways forward; which to use is your choice.",
+  officesSource: "The court named on your papers is the one for your case.",
+} as const;
+
 export const FEES_IF_CLAIMED_LABEL = "Only if the case also asks for a divorce, or claims property or the matrimonial home";
 
 /**
@@ -504,6 +516,8 @@ export const SC_COURIER_RULE = scrCite(
   "r. 8.07.1 (2)",
   "Service of a document sent by courier is deemed to be effective on the fifth day following the date on which the courier verifies to the sender that the document was delivered.",
 );
+/** The courier line the mail timing lines carry; a constant so the review inventory can index it. */
+export const SC_COURIER_LINE: PlainLine = { say: "A courier is the same: service counts on the fifth day after the courier confirms delivery.", cite: SC_COURIER_RULE };
 export const SC_SOONER_WAYS: PlainLine[] = [
   {
     say: "By email, service counts on the day the email is sent, or the next day if it is sent between 4 p.m. and midnight. It goes to the last email address the other side or their representative gave.",
@@ -820,7 +834,7 @@ export function mailTimingLines(today: string, deadline: string): PlainLine[] {
     : `Service by mail counts only on the fifth day after mailing. To count by your last day, ${formatLongDate(deadline)}, it must be mailed no later than ${lastMailing === today ? "today, " : ""}${formatLongDate(lastMailing)}.`;
   return [
     { say, cite: SC_MAIL_RULE },
-    { say: "A courier is the same: service counts on the fifth day after the courier confirms delivery.", cite: SC_COURIER_RULE },
+    SC_COURIER_LINE,
     ...SC_SOONER_WAYS,
   ];
 }
@@ -1657,7 +1671,7 @@ export function supportOnly(claims: FamilyClaims): boolean {
  * folded under r. 13 (1) (a) and (b) only when the person's words show no
  * support or money at all. Never removed.
  */
-const FINANCIAL_STATEMENT_WHEN: PlainLine = {
+export const FINANCIAL_STATEMENT_WHEN: PlainLine = {
   say: "A financial statement (Form 13 or 13.1) is needed when an application, answer or motion claims support or property, or the matrimonial home. If the other side's papers make that claim against you, you must serve and file one within your time to answer, even if you file no answer.",
   cite: flr(
     "r. 13 (1) (a), (b)",
@@ -1681,7 +1695,7 @@ export const FINANCIAL_STATEMENT_WHEN_RESPONDING_MOTION: PlainLine = {
 export function financialStatementNoteFor(stepId: string): PlainLine {
   return /motion-to-change|change-final-order/.test(stepId) ? FINANCIAL_STATEMENT_WHEN_RESPONDING_MOTION : FINANCIAL_STATEMENT_WHEN_RESPONDING;
 }
-const PARENTING_AFFIDAVIT_WHEN: PlainLine = {
+export const PARENTING_AFFIDAVIT_WHEN: PlainLine = {
   say: "The parenting affidavit (Form 35.1) is needed when an application, answer or motion to change claims decision-making responsibility, parenting time or contact.",
   cite: FAM_PARENTING_AFFIDAVIT,
 };
@@ -1826,11 +1840,11 @@ function claimKindsNamedIn(what: string): ("parenting" | "support" | "property" 
  * r. 5 (1)). The offices for the person's city come from the courts' own
  * location pages (courts/courtLocations.ts, checked by test:court-locations).
  */
-const FAMILY_SAME_PLACE: PlainLine = {
+export const FAMILY_SAME_PLACE: PlainLine = {
   say: "Every step in your case, except enforcing an order, takes place in the municipality where the case was started (or moved to). The court is named on the papers.",
   cite: flr("r. 5 (4)", "All steps in the case, other than enforcement, shall take place in the municipality where the case is started or transferred."),
 };
-const FAMILY_CHANGE_PLACE: PlainLine[] = [
+export const FAMILY_CHANGE_PLACE: PlainLine[] = [
   {
     say: "A motion to change is started where a new case would be.",
     cite: flr("r. 15 (4)", "Rule 5 (where a case starts) applies to a motion to change a final order or agreement as if the motion were a new case."),
@@ -1966,7 +1980,7 @@ export function familyCourtOfficesFor(stepId: string, city: string): CourtOffice
  * business. Plain-language companion to R_6_01_PLACE's verbatim quote, same
  * shape as FAMILY_SAME_PLACE above.
  */
-const SMALL_CLAIMS_PLACE: PlainLine = {
+export const SMALL_CLAIMS_PLACE: PlainLine = {
   say: "The right Small Claims court location is the one where your claim arose, or where the defendant lives or carries on business -- not simply where you live. Living in a city does not, by itself, make that city the proper court location.",
   cite: R_6_01_PLACE,
 };
@@ -2783,7 +2797,7 @@ export function practicalFor(
  * the Superior Court). Keyed on the person's own words; a suggestion of what
  * the rule says, never a judgment of the case.
  */
-const CORPORATION_NEEDS_LAWYER: PlainLine = {
+export const CORPORATION_NEEDS_LAWYER: PlainLine = {
   say: "In this court, a company (a corporation) must be represented by a lawyer, unless the court gives permission for someone else.",
   cite: rcp("r. 15.01 (2)", "A party to a proceeding that is a corporation shall be represented by a lawyer, except with leave of the court."),
 };
