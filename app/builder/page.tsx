@@ -125,7 +125,8 @@ import FirstUseAcknowledgement from "../_components/FirstUseAcknowledgement";
 import LegalInformationNotice from "../_components/LegalInformationNotice";
 
 import { supabase } from "../../src/lib/supabase/client";
-import { BUILDER_LAST_CASE_KEY, COURT_PATH_FINDER_KEY, SHARED_STORAGE_KEYS } from "../../src/lib/case-system/storage/intakeStorageKeys";
+import { COURT_PATH_FINDER_KEY, SHARED_STORAGE_KEYS } from "../../src/lib/case-system/storage/intakeStorageKeys";
+import { openCaseFromAddress } from "../../src/lib/case-system/openCase";
 import { userStory } from "@/src/lib/case-system/userStory";
 import { canonicalJson } from "@/src/lib/case-system/canonicalJson";
 
@@ -260,19 +261,16 @@ function BuilderPageContent() {
   const validateIntakeResponse = useValidateIntakeResponse();
   const searchParams = useSearchParams();
 
-  const queryCaseId = searchParams.get("caseId");
+  // Which case is open: the address and nothing else (openCase.ts, rule 1).
+  const openCase = useMemo(() => openCaseFromAddress(searchParams), [searchParams]);
+  const queryCaseId = openCase.caseId;
 
-  const initialPath = useMemo<CourtPath | null>(() => {
-    const raw = searchParams.get("path");
+  const initialPath: CourtPath | null = openCase.court;
 
-    if (raw === "family" || raw === "small-claims" || raw === "civil") {
-      return raw;
-    }
-
-    return null;
-  }, [searchParams]);
-
-  const courtPath = initialPath || "family";
+  // Never a default court: the intake boundary renders this page only with a court in
+  // the address (an id without one is given its case's own saved court, else the chooser;
+  // openCase.ts addressWithSavedCourt).
+  const courtPath = initialPath as CourtPath;
 
   const [chatSessionId, setChatSessionId] = useState(() =>
     createChatSessionId(courtPath),
@@ -415,20 +413,6 @@ function BuilderPageContent() {
    * Continue button that silently would not enable until it was filled.
    */
   const [hydrated, setHydrated] = useState(false);
-  /*
-   * Set the moment this mount loads a fresh story hand-off -- either the
-   * court-path finder's COURT_PATH_FINDER_KEY or the home page's
-   * GUEST_INTAKE_SESSION_STORAGE_KEY (both below) -- so the stale-case
-   * recovery effect (search caseIdRecoveryDecidedRef) knows not to clobber it.
-   * Found 2026-10-16 from the site owner's own live test: starting a brand
-   * new Small Claims case, right after finishing an earlier one, landed on
-   * the OLD case with its OLD story, because that recovery effect reads
-   * BUILDER_LAST_CASE_KEY and injects its caseId into the URL whenever the
-   * court path matches -- with no way to tell "this tab lost its place and
-   * should resume" from "this is an intentional new case of the same type".
-   * A hand-off that just set a fresh story IS that distinction.
-   */
-  const freshStoryHandoffRef = useRef(Boolean(recovery));
   /*
    * EACH BUILDER STEP IS A BACK STOP (2026-10-06).
    *
@@ -615,7 +599,6 @@ function BuilderPageContent() {
         try {
           const guide = JSON.parse(temporaryGuide) as { province?: string; city?: string; facts?: string };
           if (guide.province === "Ontario" && guide.city?.trim() && guide.facts?.trim()) {
-            freshStoryHandoffRef.current = true;
             setConfirmedLocation({ province: "Ontario", city: guide.city.trim() });
             setHomeStory(guide.facts.trim());
             return;
@@ -860,31 +843,27 @@ function BuilderPageContent() {
       const stage = getStageForPersistence(analysis, caseData);
       const now = new Date().toISOString();
 
+      /*
+       * ONLY THE INTAKE STORE CREATES A CASE, under the id already in the address
+       * (?intake=), site owner's rule 1 (30 Oct). This used to insert a case of its
+       * own here, under a new id the address never named. Now: have the store save
+       * (which creates the case under the address's id), and if there is still no
+       * case, stop with the visible "could not be saved" message and its "Try saving
+       * again" button. Nothing typed is lost; it stays in the store and this tab.
+       * npm run test:open-case.
+       */
       if (!finalCaseId && user) {
-        const { data, error } = await supabase
-          .from("cases")
-          .insert({
-            user_id: user.id,
-            court_path: courtPath,
-            title: "New CourtSimplified Case",
-            status: "active",
-            current_stage: stage,
-            master_result: {
-              source: "builder-created-shell",
-              lifecycleStage: "intake-started",
-              updatedAt: now,
-            },
-          })
-          .select("id")
-          .single();
-
-        if (error) {
-          setSaveError(error.message);
+        try {
+          await recovery?.flush();
+        } catch {
+          // The store's own notice says what failed; the message below offers the retry.
+        }
+        finalCaseId = recovery?.getCaseId() || "";
+        if (!finalCaseId) {
+          setSaveError("This case is not saved to your account yet, so there is nothing to add these next steps to.");
           setSavingMaster(false);
           return;
         }
-
-        finalCaseId = data.id;
       }
 
       /*
@@ -1486,177 +1465,22 @@ function BuilderPageContent() {
    */
   const resultsVisible = intakeConfirmed && Boolean(analysis) && analysisInputRevision.current === reviewView?.checkpoint.inputRevision && Boolean(reviewView && analysisFactsRevision.current === factsRevision(reviewView.checkpoint)) && stepParam === "results";
 
-  // The case this tab last saved, so a reload of the results step reopens it.
-  useEffect(() => {
-    const id = savedCaseId();
-    if (!id) return;
-    try {
-      sessionStorage.setItem(BUILDER_LAST_CASE_KEY, JSON.stringify({ caseId: id, courtPath }));
-    } catch {
-      // Storage unavailable: a reload then starts a fresh intake, as before.
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [masterCaseId, queryCaseId, courtPath]);
-
   /*
-   * A reload (or a Forward after the tab forgot its state) lands on
-   * ?step=results with nothing in memory. Open the case that was saved
-   * instead of showing an empty page; without one, start the intake.
+   * NO REMEMBERED LAST CASE (site owner's rule 1, 30 Oct 2026).
+   *
+   * This page used to keep the case it last saved in tab storage
+   * (courtSimplifiedBuilderLastCase) and, on an address with no case id, put
+   * that case back into the address: on a reload of ?step=results, and on a
+   * fresh mount on ?step=guided or ?step=form (6, 15 and 16 Oct). It was a
+   * remembered last case overriding the address, and it opened an older case
+   * when a new one was meant -- guarded since by freshStoryHandoffRef and
+   * mountedStepRef, each added after a live test found the previous guard
+   * missing a door. All of it is gone. Which case is open is the address alone
+   * (openCase.ts): every intake carries its id in ?intake= from the moment it
+   * starts, so a reload resumes from the address; an address on a step with no
+   * id goes to My cases when signed in, and a guest is asked about the one
+   * unsaved intake in the tab (IntakeRecovery.tsx). npm run test:open-case.
    */
-  useEffect(() => {
-    if (!hydrated || stepParam !== "results" || analysis || queryCaseId) return;
-    // Same guard as the guided/form recovery below: a fresh story hand-off
-    // landing on this mount is an intentional new case and must never be
-    // overwritten with an old one of the same court type, even though this
-    // exact effect was not the one the 2026-10-16 live test happened to hit
-    // (it only fires on ?step=results). It shares the same flaw and the
-    // same fix belongs in both places.
-    if (freshStoryHandoffRef.current) return;
-    let last: { caseId?: string; courtPath?: string } | null = null;
-    try {
-      last = JSON.parse(sessionStorage.getItem(BUILDER_LAST_CASE_KEY) || "null");
-    } catch {
-      last = null;
-    }
-    if (last?.caseId && last.courtPath === courtPath) {
-      router.replace(`/cases/${encodeURIComponent(last.caseId)}`);
-      return;
-    }
-    const url = new URL(window.location.href);
-    url.searchParams.delete("step");
-    window.history.replaceState(null, "", `${url.pathname}?${url.searchParams.toString()}`);
-  }, [hydrated, stepParam, analysis, queryCaseId, courtPath, router]);
-
-  /*
-   * The same "tab forgot its state" problem as the results-step recovery
-   * above, but for the guided intake step, which had no recovery at all: a
-   * reload, or any full remount of this page (not just a reload -- leaving
-   * and coming back without the SPA navigation pushStep() uses), on
-   * ?step=guided with no caseId in the URL starts the intake completely from
-   * scratch, even when this tab already saved answers for this exact case.
-   * GuidedSmallClaimsIntake only resumes what's already answered (the
-   * `previous` prop) when `queryCaseId` is set, and nothing writes caseId
-   * into this page's own URL during intake -- only when navigating away to
-   * /cases/<id>.
-   *
-   * Covers both "guided" and "form": GuidedSmallClaimsIntake already has a
-   * late-arriving-`previous` effect (`previousTaken` ref, gated on
-   * `!started`) built for exactly this kind of async backfill, so adding
-   * caseId to the URL after mount is enough to make it resume correctly.
-   * SmallClaimsIntake (the "form" step) originally read `storedValues` only
-   * in its initial useState initializer, with no such backfill -- extending
-   * this effect to "form" without that would have updated the URL without
-   * fixing what's on screen until the next reload. Gave it the matching
-   * `storedValuesTaken`/`userEditedRef` backfill (2026-10-15) before
-   * extending this effect, so both steps now resume correctly.
-   *
-   * Found 2026-10-15 from live testing: finishing the guided intake, then
-   * reopening "Answer questions one at a time with AI help" re-asked
-   * everything, including the opening story, from zero.
-   */
-  /*
-   * This must act on a fresh mount of this page only, never on an in-session
-   * Browser Back/Forward -- a Page Walkthrough run on 2026-10-15 found every
-   * Small Claims persona failing at exactly Browser Forward after Back: a
-   * first attempt tried to detect Back/Forward with a `popstate` listener,
-   * but that lost a race against Next's own router (which also reacts to
-   * the same `popstate` and, on this evidence, finishes updating the URL and
-   * re-running this effect before the listener's flag was set), so it still
-   * fired. The intake panels already "stay mounted while hidden" (see the
-   * comment above), so an in-session Back/Forward never remounts this page
-   * -- only leaving the builder entirely and coming back (the real bug this
-   * exists for) does. Deciding once per mount, rather than per Back/Forward,
-   * sidesteps the race instead of trying to win it.
-   */
-  const caseIdRecoveryDecidedRef = useRef(false);
-  /*
-   * THE STEP THIS PAGE MOUNTED ON, WHICH IS NOT THE STEP IT IS SHOWING.
-   *
-   * *** WHY THE "DECIDE ONCE PER MOUNT" REF ABOVE WAS NOT ENOUGH (2026-10-16) ***
-   *
-   * `caseIdRecoveryDecidedRef` is only set on the first run that gets PAST the
-   * guided/form guard. Mount on the chooser -- `/builder?path=small-claims`, which
-   * the dashboard's "Start a new case" opens -- and `stepParam` is null, so this
-   * effect returns at that guard having decided nothing. The moment the person
-   * enters a city and picks "Answer questions one at a time with AI help",
-   * `stepParam` becomes "guided", the effect runs for real, finds the previous
-   * case in BUILDER_LAST_CASE_KEY, and injects its caseId into the URL.
-   *
-   * So the person asked for a new case and got the old one's story and location
-   * back. `freshStoryHandoffRef` did not save them: it is only set by the home
-   * page's and the court-path finder's hand-offs, and arriving at the chooser
-   * from the dashboard is neither.
-   *
-   * The distinction that actually matters is WHERE THE PAGE CAME IN. A tab that
-   * lost its place and should resume re-enters directly on ?step=guided or
-   * ?step=form. Somebody starting a new case enters on the chooser and walks
-   * forward to guided/form. Both end up with the same `stepParam`, so the step
-   * being shown cannot tell them apart -- only the step it mounted on can.
-   */
-  const mountedStepRef = useRef<string | null>(null);
-  const mountedStepDecidedRef = useRef(false);
-  if (!mountedStepDecidedRef.current) {
-    mountedStepDecidedRef.current = true;
-    mountedStepRef.current = stepParam;
-  }
-
-  /*
-   * A new case started from the chooser forgets the last one.
-   *
-   * The second half of the same fix. Without this, the stale caseId sits in
-   * sessionStorage for the rest of the tab's life, so the NEXT thing that reads it
-   * -- a reload of the results step, or any future recovery path -- still reopens
-   * the finished case. Arriving at the chooser with no caseId is an intentional
-   * new case, and the whole purpose of that key is "this tab lost its place";
-   * a tab that is deliberately starting over has not lost its place.
-   *
-   * Only on a mount that is BOTH on the chooser and without a caseId. Opening a
-   * saved case (?caseId=...) must leave the key alone.
-   */
-  useEffect(() => {
-    if (!hydrated || queryCaseId) return;
-    if (mountedStepRef.current === "guided" || mountedStepRef.current === "form") return;
-    try {
-      sessionStorage.removeItem(BUILDER_LAST_CASE_KEY);
-    } catch {
-      // Storage unavailable: nothing was stored to clear.
-    }
-    /*
-     * `hydrated` and `queryCaseId` are the complete dependency list: the step this
-     * mount came in on is read from a ref, so it deliberately does not appear here
-     * and does not re-trigger when the person walks forward to guided or form.
-     * That is the whole point — an eslint-disable was added here at first and was
-     * unnecessary, which lint caught.
-     */
-  }, [hydrated, queryCaseId]);
-
-  useEffect(() => {
-    if (!hydrated || queryCaseId) return;
-    if (stepParam !== "guided" && stepParam !== "form") return;
-    /*
-     * Recovery is for a tab that RE-ENTERED on the intake, not one that walked
-     * here from the chooser. See mountedStepRef above.
-     */
-    if (mountedStepRef.current !== "guided" && mountedStepRef.current !== "form") return;
-    if (caseIdRecoveryDecidedRef.current) return;
-    caseIdRecoveryDecidedRef.current = true;
-    // A fresh story hand-off just landed on this mount (the home page or the
-    // court-path finder) -- that is an intentional new case, not a tab that
-    // lost its place, so it must never be overwritten with an old one of the
-    // same court type. See freshStoryHandoffRef above for the live-test bug
-    // this guards against (2026-10-16).
-    if (freshStoryHandoffRef.current) return;
-    let last: { caseId?: string; courtPath?: string } | null = null;
-    try {
-      last = JSON.parse(sessionStorage.getItem(BUILDER_LAST_CASE_KEY) || "null");
-    } catch {
-      last = null;
-    }
-    if (!last?.caseId || last.courtPath !== courtPath) return;
-    const url = new URL(window.location.href);
-    url.searchParams.set("caseId", last.caseId);
-    router.replace(`${url.pathname}?${url.searchParams.toString()}`);
-  }, [hydrated, stepParam, queryCaseId, courtPath, router]);
 
   const respondingSide = userIsResponding({
     confirmedStage,

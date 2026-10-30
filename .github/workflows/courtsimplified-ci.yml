@@ -194,6 +194,12 @@ jobs:
       - name: Account recovery UX verification
         run: npm run test:account-recovery-ux
 
+      - name: The address wins (a page opening a case from its address is rendered per request)
+        run: npm run test:address-wins
+
+      - name: One case id decides which case is open (the address alone, never a remembered last case)
+        run: npm run test:open-case
+
       - name: Builder persistence reliability verification
         run: npm run test:builder-persistence
 
@@ -701,6 +707,7 @@ jobs:
           tests/browser/retest-29oct-flow.spec.ts
           tests/browser/never-ask-twice-reading.spec.ts
           tests/browser/story-box-guidance.spec.ts
+          tests/browser/address-opens-chosen-case.spec.ts
           --reporter=line --workers=1
 
       # The story-box spec saves a full-page screenshot of every story box at desktop and

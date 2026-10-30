@@ -9,9 +9,10 @@
  *
  * THE THIRD BUG (a brand new case silently landing on an old one of the same
  * court type) needs a real saved case to reproduce honestly and is covered
- * instead by the static property check in verifyNoStaleIntake.ts ("every
- * stale-case recovery effect checks freshStoryHandoffRef") -- a live version
- * of that one is a good follow-up, not something to ship unverified here.
+ * instead by the static property check in verifyNoStaleIntake.ts (since
+ * 30 Oct: "no code reads or writes a remembered last case", the recovery that
+ * caused it having been removed; test:open-case) and, live, by
+ * address-opens-chosen-case.spec.ts.
  *
  * Until this run, NOTHING in the test suite opened the home page's story
  * flow at all: every existing browser spec (guest-intake.spec.ts,

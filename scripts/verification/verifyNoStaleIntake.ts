@@ -19,10 +19,10 @@
  * suite's checks name specific effects by pattern and neither new recovery
  * effect existed yet when they were written -- a new door into old territory
  * this suite was never widened to watch. Check 7 below closes that door by
- * property, not by naming the two known effects: ANY code that reads
- * BUILDER_LAST_CASE_KEY to redirect must first check freshStoryHandoffRef, so
- * a third such effect added later is caught here too, not just the two that
- * exist today.
+ * property: since 2026-10-30 (the site owner's rule 1, the address alone
+ * decides which case is open) NO code anywhere may read or write the
+ * remembered last case (BUILDER_LAST_CASE_KEY); earlier it only required each
+ * read to be guarded, and the guards kept missing doors.
  *
  * The rule now: saved work is opened from the workspace (it comes from the
  * account). An explicit active flow can recover its owner/case/court-scoped
@@ -172,152 +172,27 @@ check(
 const newCase = builder.match(/setChatSessionId\(createChatSessionId\(courtPath\)\);[\s\S]{0,200}?router\.replace\(`\/builder\?path=/);
 check("starting a new case clears the story", Boolean(newCase && /setHomeStory\(""\)/.test(newCase[0])));
 
-// 7. (2026-10-16) ANY code that reads BUILDER_LAST_CASE_KEY to redirect this
-//    tab into an old case must first rule out that a fresh story hand-off
-//    just landed on this mount. Checked by property -- every occurrence of
-//    the read, not just the two effects known to exist today -- so a third
-//    one added later and left unguarded fails here instead of shipping.
-const lastCaseReads: number[] = [];
-{
-  const needle = "sessionStorage.getItem(BUILDER_LAST_CASE_KEY)";
-  let from = 0;
-  for (;;) {
-    const at = builder.indexOf(needle, from);
-    if (at === -1) break;
-    lastCaseReads.push(at);
-    from = at + needle.length;
-  }
-}
-check("there are stale-case recovery reads to guard (sanity)", lastCaseReads.length >= 2, String(lastCaseReads.length));
-const unguarded = lastCaseReads.filter((at) => {
-  const windowStart = Math.max(0, at - 1500);
-  const before = builder.slice(windowStart, at);
-  // The guard must be the LAST relevant statement before the read, inside
-  // this same effect -- not merely present somewhere upstream in the file.
-  const lastEffectStart = before.lastIndexOf("useEffect(() => {");
-  const scoped = lastEffectStart === -1 ? before : before.slice(lastEffectStart);
-  return !/freshStoryHandoffRef\.current\)\s*return;/.test(scoped);
-});
+// 7. (2026-10-16; strengthened 2026-10-30) No remembered last case, anywhere.
+//
+//    Until 30 Oct this check required every read of BUILDER_LAST_CASE_KEY to be
+//    guarded by freshStoryHandoffRef, and check 8 required the guided/form
+//    recovery to test the step the page MOUNTED on. Both guards were added after
+//    a live test found the previous one missing a door (16 Oct, twice), and the
+//    owner's Chrome check of 30 Oct found the same family again. The site owner's
+//    rule 1 ends the family instead of guarding it: the address alone decides
+//    which case is open (openCase.ts), so no code may read a remembered last
+//    case at all. Asserted over every source file, not just the builder, so a
+//    new reader anywhere is caught. Stronger than what it replaces: the guarded
+//    reads it allowed are now failures. (npm run test:open-case checks the
+//    resolver itself.)
+const lastCaseReaders = [...walk(path.join(ROOT, "app")), ...walk(path.join(ROOT, "src"))]
+  .filter((file) => /\.(ts|tsx)$/.test(file) && !file.endsWith(path.join("storage", "intakeStorageKeys.ts")))
+  .filter((file) => /BUILDER_LAST_CASE_KEY|courtSimplifiedBuilderLastCase/.test(strip(readFileSync(file, "utf8"))))
+  .map((file) => path.relative(ROOT, file).split(path.sep).join("/"));
+check("no code reads or writes a remembered last case (BUILDER_LAST_CASE_KEY)", lastCaseReaders.length === 0, lastCaseReaders.join(", "));
 check(
-  "every stale-case recovery effect checks freshStoryHandoffRef before redirecting",
-  unguarded.length === 0,
-  `${unguarded.length} of ${lastCaseReads.length} unguarded`,
-);
-// A property, not a count: every hand-off that sets a starting story marks the
-// ref first. (It pinned "two sources" until Part 3 removed the older home-page
-// format, leaving the court-path finder's.)
-const handoffStories = [...builder.matchAll(/setHomeStory\(\w+\.facts/g)];
-check(
-  "every fresh story hand-off marks freshStoryHandoffRef so the guard above has something to check",
-  handoffStories.length > 0 &&
-    handoffStories.every((match) => /freshStoryHandoffRef\.current\s*=\s*true;/.test(builder.slice(Math.max(0, (match.index ?? 0) - 300), match.index))),
-);
-
-// ---------------------------------------------------------------------------
-// 8. (2026-10-16, second pass) Recovery runs only for a tab that RE-ENTERED on
-//    the intake -- never for one that walked there from the chooser.
-// ---------------------------------------------------------------------------
-
-/*
- * *** CHECK 7 WAS SATISFIED BY THE BROKEN CODE, WHICH IS WHY THIS EXISTS ***
- *
- * Check 7 requires every stale-case recovery effect to test `freshStoryHandoffRef`
- * before redirecting. The effect that caused the live bug DID test it. The bug
- * happened anyway, because that ref is only set by two hand-offs -- the home page's
- * and the court-path finder's -- and the path the site owner actually took sets
- * neither:
- *
- *   dashboard "Start a new case" -> /builder?path=small-claims  (the chooser)
- *     -> type a city -> "Answer questions one at a time with AI help"
- *
- * On that mount `stepParam` is null, so the recovery effect returns at its
- * guided/form guard WITHOUT setting its decide-once ref. Choosing AI help flips
- * `stepParam` to "guided", the effect finally runs, reads BUILDER_LAST_CASE_KEY,
- * and injects the FINISHED case's id into the URL -- bringing back its story and
- * location.
- *
- * So the property check 7 asserts is necessary and not sufficient, and a check that
- * passes against code with the bug in it is the thing to fix. The distinction that
- * actually works is WHERE THE PAGE CAME IN: a tab that lost its place re-enters
- * directly on ?step=guided or ?step=form; somebody starting a new case enters on
- * the chooser and walks forward. Both show the same `stepParam`, so only the step
- * the page MOUNTED on can tell them apart.
- *
- * Asserted as a property, not against the two effects that exist today: a third
- * recovery effect added later is caught by the same loop.
- */
-/*
- * Scoped to the effects that are REACHABLE BY WALKING FORWARD from the chooser,
- * which means the ones gated on ?step=guided or ?step=form.
- *
- * The results-step recovery is deliberately exempt, and the distinction is real
- * rather than a convenience. It fires only on `?step=results` with no analysis in
- * state — a results page that was reloaded, where resuming is the correct
- * behaviour. Walking forward from the chooser cannot reach it, because arriving at
- * results that way always has `analysis` set and the effect returns. Requiring a
- * mounted-on-intake guard there would break the resume it exists for.
- *
- * It is still covered, by the other half of the fix: a fresh chooser mount clears
- * BUILDER_LAST_CASE_KEY, so no reader of that key — this one included, and any
- * added later — can resurrect a case the person deliberately left.
- */
-const walkableReads = lastCaseReads.filter((at) => {
-  const before = builder.slice(Math.max(0, at - 1500), at);
-  const lastEffectStart = before.lastIndexOf("useEffect(() => {");
-  const scoped = lastEffectStart === -1 ? before : before.slice(lastEffectStart);
-  return /stepParam\s*!==\s*"guided"/.test(scoped) || /stepParam\s*!==\s*"form"/.test(scoped);
-});
-check(
-  "there is a guided/form recovery effect to guard (sanity)",
-  walkableReads.length >= 1,
-  String(walkableReads.length),
-);
-const unmountGuarded = walkableReads.filter((at) => {
-  const before = builder.slice(Math.max(0, at - 1500), at);
-  const lastEffectStart = before.lastIndexOf("useEffect(() => {");
-  const scoped = lastEffectStart === -1 ? before : before.slice(lastEffectStart);
-  // A guard on the step this mount came in on, whatever the ref is called.
-  return !/mounted[A-Za-z]*Ref\.current\s*!==/.test(scoped);
-});
-check(
-  "every guided/form recovery effect also requires the page to have MOUNTED on the intake step",
-  unmountGuarded.length === 0,
-  `${unmountGuarded.length} of ${walkableReads.length} would still fire when walked to from the chooser`,
-);
-
-/*
- * And the ref must genuinely capture MOUNT state. A ref assigned inside an effect
- * that re-runs per step would hold the current step, making the guard above a
- * tautology that always passes -- the same shape of mistake as check 7.
- *
- * So it is assigned exactly once, in render, behind a decided-once flag.
- */
-check(
-  "the mounted-step ref is captured once in render, not reassigned per step",
-  /mountedStepDecidedRef\.current\s*=\s*true;/.test(builder) &&
-    (builder.match(/mountedStepRef\.current\s*=\s*stepParam;/g) ?? []).length === 1,
-);
-
-/*
- * The other half of the fix: a new case started from the chooser forgets the last
- * one, so no later reader of that key can reopen a finished case. Only on a mount
- * that is both on the chooser AND without a caseId -- opening a saved case
- * (?caseId=...) must leave the key alone.
- */
-check(
-  "a fresh chooser mount with no caseId clears BUILDER_LAST_CASE_KEY",
-  /removeItem\(BUILDER_LAST_CASE_KEY\)/.test(builder),
-);
-check(
-  "that clear is skipped when a caseId is present, so opening a saved case keeps it",
-  (() => {
-    const at = builder.indexOf("removeItem(BUILDER_LAST_CASE_KEY)");
-    if (at === -1) return false;
-    const before = builder.slice(Math.max(0, at - 800), at);
-    const lastEffectStart = before.lastIndexOf("useEffect(() => {");
-    const scoped = lastEffectStart === -1 ? before : before.slice(lastEffectStart);
-    return /queryCaseId\)\s*return;/.test(scoped) && /mounted[A-Za-z]*Ref\.current\s*===/.test(scoped);
-  })(),
+  "the builder takes its case id from the address resolver, nothing else",
+  /const queryCaseId = openCase\.caseId;/.test(builder) && /openCaseFromAddress\(searchParams\)/.test(builder),
 );
 
 console.log(failures ? `\n${failures} failure(s).` : "\nAll checks passed.");

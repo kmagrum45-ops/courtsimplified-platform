@@ -209,7 +209,7 @@ export default function CaseOverviewPage() {
       <CaseFilePanel
         file={caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master)}
         changeHref={builderHref(caseRecord)}
-        situationHref={`${builderHref(caseRecord)}&situation=change`}
+        situationHref={`${builderHref(caseRecord)}${builderHref(caseRecord).includes("?") ? "&" : "?"}situation=change`}
         stepHref="#next-heading"
         deadlines={countedStepDeadlines(position.stepId ?? situationStep ?? (homeStepId || null), position.dateAnswers)}
       />

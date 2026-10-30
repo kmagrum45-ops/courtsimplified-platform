@@ -5,12 +5,13 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-202 documented, 26 without a header.
+204 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
 | `npm run test:a2i-guard` | **The A2I guard: each of the 13 statements the site makes in its application**<br>to the Law Society of Ontario's Access to Innovation (A2I) sandbox, as checks that fail when the site breaks the statement. |
 | `npm run test:a2i-scope` | **The platform only does what A2I has approved.**<br>COSTS NOTHING. Pure data checks. |
+| `npm run test:address-wins` | **THE ADDRESS WINS: a page that reads its case or court from the address opens**<br>the case the address names (npm run test:address-wins). |
 | `npm run test:ai-call-log-sink` | **Does a test run write to the live database? It must not.**<br>COSTS NOTHING. No model call, no network, no database — which is the entire point, and is asserted rather than assumed: the Supabase client factory is replaced with one that throws, and the check fails if anything builds a client. |
 | `npm run test:ai-call-logging` | **Every model call is attributable in the audit log.**<br>COSTS NOTHING. Reads source off disk. No network, no AI, no database. |
 | `npm run test:ai-models` | **Every model call in the app takes its model from aiModels.ts, and the**<br>parameters sent match what that kind of model accepts. |
@@ -128,6 +129,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:no-store` | **Every OpenAI request carries `store: false`, and no call site can bypass it.**<br>COSTS NOTHING. Reads source off disk and calls the factory with a fake key. No network, no model call. |
 | `npm run test:notice-step` | **A claim whose kind can need written notice before suing is pointed to that**<br>notice step first, and only when the person's own words place it. |
 | `npm run test:official-forms` | **The official-forms watch reads the Ontario Court Forms pages correctly, and**<br>the recorded official list covers every live form the regulations name. |
+| `npm run test:open-case` | **ONE CASE ID DECIDES WHICH CASE IS OPEN: the address, and nothing else**<br>(npm run test:open-case). |
 | `npm run test:openai-cost` | **OpenAI spending stays under control.**<br>WHAT IT CATCHES (2026-10-08: October's spend reached about $396 against a $100 budget, $205.76 of it prompt-cache WRITES that were almost never read back): - a call to a GPT-5.6+ model going out without prompt_cache_options, so the whole prompt is written to t |
 | `npm run test:output-guard` | **Arbitrary model text cannot reach a user, and every user-facing model call**<br>returns structured output. |
 | `npm run test:overview-labels` | **Guards the two leaks the browser scenario harness found on 2026-08-22, across**<br>16 and 8 scenarios respectively: |

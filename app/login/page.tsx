@@ -7,6 +7,7 @@ import type { AuthError } from "@supabase/supabase-js";
 import { supabase } from "../../src/lib/supabase/client";
 import { readIntakeSession, writeIntakeSession } from "../../src/lib/case-system/intakeCheckpoint";
 import { carryGuestIntake } from "../../src/lib/case-system/guestCarry";
+import { openCaseFromAddress } from "../../src/lib/case-system/openCase";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
 import { WorkingButton } from "../_components/Working";
 
@@ -123,9 +124,10 @@ export default function LoginPage() {
        * explicit return to this verified owner's exact intake flow keeps its
        * tab checkpoint; the builder rechecks ownership of the saved case. */
       const destination = afterSignIn();
-      const params = new URL(destination, window.location.origin).searchParams;
-      const court = params.get("path");
-      const flow = params.get("caseId") || params.get("intake");
+      // The case it returns to is the one its address names (openCase.ts, rule 1).
+      const returningTo = openCaseFromAddress(new URL(destination, window.location.origin).searchParams);
+      const court = returningTo.court;
+      const flow = returningTo.caseId || returningTo.intake;
       // Only this exact flow belonging to the authenticated owner survives cleanup.
       const own = data.user && flow && (court === "family" || court === "civil" || court === "small-claims")
         ? readIntakeSession(sessionStorage, flow, data.user.id, court) : null;

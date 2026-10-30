@@ -188,7 +188,8 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     holdsCaseContent: false,
     storyData: "not-story",
     note:
-      "The id and court path of the case this tab's builder last saved, so a reload of the results " +
+      "RETIRED 2026-10-30 (site owner's rule 1: the address alone decides which case is open, openCase.ts): " +
+      "nothing reads or writes it (test:open-case). It held the id and court path of the case this tab's builder last saved, so a reload of the results " +
       "step reopens that case instead of a blank intake (2026-10-06). An id, never case content.",
   },
 
