@@ -126,11 +126,11 @@ const check = (name: string, ok: boolean, detail = "") => {
 
 function selfTest(allowed: AllowedEntry[], found: Found[]) {
   // A planted new copy: a screen that keeps the claim type in its own state.
-  const planted = scanGuard(ROOT, { "app/builder/_components/PlantedCopy.tsx": "const [draftClaimTypeId, setDraftClaimTypeId] = useState(null);" });
+  const planted = scanGuard(ROOT, { "app/__case_file_guard_self_test__/PlantedCopy.tsx": "const [draftClaimTypeId, setDraftClaimTypeId] = useState(null);" });
   const withPlant = judge([...found, ...planted], allowed, allowed);
-  check("self-test: a planted new copy (a screen's own draftClaimTypeId) fails as a new copy", withPlant.newCopies.some((item) => item.file === "app/builder/_components/PlantedCopy.tsx"));
+  check("self-test: a planted new copy (a screen's own draftClaimTypeId) fails as a new copy", withPlant.newCopies.some((item) => item.file === "app/__case_file_guard_self_test__/PlantedCopy.tsx"));
   // A planted added entry: someone allows the planted copy instead of reading the case file.
-  const addedEntry: AllowedEntry = { row: 5, fact: "claim type", pattern: "ct.draftClaimTypeId", file: "app/builder/_components/PlantedCopy.tsx", reason: "Planted by the self-test: an entry added to the allowed list." };
+  const addedEntry: AllowedEntry = { row: 5, fact: "claim type", pattern: "ct.draftClaimTypeId", file: "app/__case_file_guard_self_test__/PlantedCopy.tsx", reason: "Planted by the self-test: an entry added to the allowed list." };
   const withAdded = judge([...found, ...planted], [...allowed, addedEntry], allowed);
   check("self-test: an entry added to the allowed list fails, even when it makes the copy allowed", withAdded.added.length === 1 && withAdded.newCopies.length === 0);
   // A stale entry: a place moved into the case file still listed.
