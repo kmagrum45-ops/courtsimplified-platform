@@ -468,8 +468,12 @@ const CATEGORY_CUES: [RegExp, string][] = [
   [LOAN_WORDS, "A loan or debt"],
   [/\b(bit|bite|bitten|fell|slipped|injur\w*)\b/i, "A personal injury (a fall, an animal bite, or similar)"],
   [/\b(defam\w*|lies about me|posted about me|rumou?rs?)\b/i, "Something said about you (defamation)"],
-  [/\b(car|vehicle|truck|collision)\b/i, "A vehicle-related dispute"],
-  [/\b(damaged|damage to)\b/i, "Property damage"],
+  // A vehicle only when the same sentence says it crashed, hit or was damaged, or it is theirs: a truck merely
+  // parked outside named a vehicle dispute for "A moving company broke my dining table" (carry, Small Claims
+  // second case). "[^.!?]*" keeps both words in one sentence.
+  [/\b(car|vehicle|truck)\b[^.!?]*\b(hit|crash\w*|collid\w*|damag\w*|dent\w*|scratch\w*|accident|rear-ended|backed into)\b|\b(hit|crash\w*|collid\w*|damag\w*|dent\w*|scratch\w*|accident|rear-ended|backed into)\b[^.!?]*\b(car|vehicle|truck)\b|\bcollision\b|\bmy (car|vehicle|truck)\b/i, "A vehicle-related dispute"],
+  // "broke" of a thing, never of an agreement ("broke the contract", "broke the lease", "broke up", "broke down").
+  [/\b(damaged|damage to|smashed|cracked|shattered|destroyed|ruined)\b|\b(broke|broken)\b(?!\s+(?:(?:the|our|my|their|his|her|a|an|its)\s+)?(?:contract|lease|agreement|promise|deal|law|laws|rules?|terms|news|up|down|in|off)\b)/i, "Property damage"],
   [/\b(invoice\w*|unpaid)\b/i, "Unpaid money owed to you"],
   [/\b(bought|purchase\w*|refund)\b/i, "A consumer purchase problem"],
   [/\b(contract|agreement)\b/i, "A contract or agreement dispute"],

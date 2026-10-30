@@ -51,12 +51,13 @@ import { caseFileOfMaster, claimKindOfMaster } from "../../src/lib/case-system/c
 import { claimKindAiContext, classifyClaimTypeBody } from "../../src/lib/case-system/caseFile/aiCaseContext";
 import { suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";
 import { readCheckpoint, type Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
-import { remainingEssentialQuestions, transitionReview } from "../../src/lib/case-system/intakeReview";
+import { remainingEssentialQuestions, suggestInitialAnswers, transitionReview } from "../../src/lib/case-system/intakeReview";
 import { caseFileFromMasterResult, deterministicFindings } from "../../src/lib/case-system/caseReview/caseReview";
 import { caseFactsText, readCaseRecord } from "../../src/lib/case-system/caseRecord";
 import IntelligenceOverviewPanel from "../../app/builder/_components/IntelligenceOverviewPanel";
 import StatementOfClaimSurface from "../../app/builder/_components/StatementOfClaimSurface";
 import CaseFilePanel from "../../app/cases/_components/CaseFilePanel";
+import { familyIssuesFromStory } from "../../app/builder/_components/storyAnswers";
 import { inWords } from "../../src/lib/case-system/copy/rawKeys";
 
 let failures = 0;
@@ -240,6 +241,18 @@ const surface = strip(readFileSync("app/builder/_components/StatementOfClaimSurf
 const props = /export type StatementOfClaimSurfaceProps = \{([\s\S]*?)\r?\n\};/.exec(surface)?.[1] ?? "";
 const propNames = [...props.matchAll(/^\s*(\w+)\??:/gm)].map((match) => match[1]);
 check("the Form 7A section takes its facts from the case file only (its props: the case file, this visit's element record, a callback)", propNames.length > 0 && propNames.every((name) => ["caseFile", "elementStatesThisVisit", "onStateMapChange"].includes(name)), propNames.join(", "));
+
+// 10. Rule 4 for the kind, from the story's own words (carry, the second cases, 30 Oct): a story that
+// names the kind is offered it to tick, and never a kind it does not name.
+{
+  const scSuggested = (story: string) => suggestInitialAnswers({ version: 1, flowId: FLOW, courtPath: "small-claims", revision: REVISION, sections: { story: { text: story } } } as unknown as Checkpoint)["sc-orient-dispute-category"];
+  check("rule 4, Small Claims: \"broke my dining table\" with a truck merely parked outside is property damage, not a vehicle dispute", scSuggested("A moving company broke my dining table in May 2026. Their plum-yellow truck was parked outside. I have photos.") === "Property damage", String(scSuggested("A moving company broke my dining table in May 2026. Their plum-yellow truck was parked outside. I have photos.")));
+  check("rule 4, Small Claims: a vehicle in a crash is still a vehicle dispute", scSuggested("A truck rear-ended my car on the 401.") === "A vehicle-related dispute" && scSuggested("My car was damaged in the parking lot.") === "A vehicle-related dispute");
+  check("rule 4, Small Claims: breaking an agreement is never property damage", scSuggested("My landlord broke the lease.") !== "Property damage" && scSuggested("They broke the contract.") !== "Property damage");
+  const familyOffer = familyIssuesFromStory("Synthetic: we separated in May 2026 and cannot agree on dividing the house. The plum-yellow house is in both names.");
+  check("rule 4, Family: \"dividing the house\" is offered as dividing property, with the person's sentence", Boolean(familyOffer?.value.includes("property-division") && /dividing the house/.test(familyOffer.quote)), JSON.stringify(familyOffer));
+  check("rule 4, Family: a question names nothing (\"Who keeps the house?\")", familyIssuesFromStory("Who keeps the house?") === null);
+}
 
 if (failures) {
   console.log(`\n${failures} check(s) failed.`);

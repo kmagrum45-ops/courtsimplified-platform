@@ -27,6 +27,10 @@
  *      ("Fill in the form yourself"); each signed in, and the results page reloaded (a saved case
  *      reopened) wherever it shows the overview again.
  *   4. A guest: the kind given in the review is held; the review, reopened, never asks it again.
+ *   5. Rule 4 on the carry test's second-case stories (Family, Small Claims; guest and signed in): a
+ *      story that names the kind is offered it to tick, never asked from scratch or offered another kind.
+ * The story box is found by its shared label (STORY_LABEL): its words changed in #535 and the spec's
+ * own copy of the old words failed every Small Claims test here (CI run 41137393734).
  *
  * Civil and Family show no kind of claim on the overview, the Form 7A section or "Check my case
  * file" (all three are Small Claims only); their one place ("What we have so far", from the issues
@@ -51,6 +55,7 @@ import { deleteHarnessUser } from "./harness/realTestSession";
 import { recordInitialUnknowns } from "./harness/intakeReview";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { openBuilder } from "./harness/builderGate";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
@@ -64,7 +69,7 @@ async function startSmallClaims(page: Page, story: string) {
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(story);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(story);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?.*intake=/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
@@ -315,50 +320,72 @@ test("claim type, one value: a guest gives the kind in the review; it is never a
 });
 
 /**
- * Civil and Family (owner, 30 Oct: claim type is not done while civil or Family still asks): the kind
- * given in the review ("What kind of case is it?" / "What is the case about?") is never asked by the
- * questions one at a time afterwards -- on the same page, after a reload, guest and signed in. Through the
- * real save path (the signed-in case saved to staging and read back). The carry test found it asked
- * again (chat@/builder, every civil and Family run, runs 5, 6 and two runs on 5fcc9a31).
+ * RULE 4 FOR THE KIND OF CLAIM, ON THE SECOND CASE (owner, 30 Oct): a story that names the kind is
+ * offered it to tick ("From what you told us ... Is that right?" / "(suggested from your story)"), never
+ * asked from scratch, and never offered a kind it does not name. The carry test's second-case stories:
+ *   Family B: "we separated in May 2026 and cannot agree on dividing the house" -- asked "What is the
+ *     case about?" with nothing offered (run 41137395354, family runs, chat@/builder,
+ *     step=the second case from the dashboard, page=claimKind:not-asked).
+ *   Small Claims B: "A moving company broke my dining table ... Their plum-yellow truck was parked
+ *     outside" -- offered "A vehicle-related dispute" (from "truck") instead of "Property damage".
+ * Civil B ("a supplier never delivered the machine I ordered") names no kind in its own words, so it is
+ * not here: the civil reader offers only kinds the words name, never a legal reading of the facts.
+ * Through the real save path: signed in, the case saved to staging and read back; and as a guest.
+ * Stand-ins: serveModelStandIns (model routes), the harness's situation answers.
  */
-const AREA_STORY = {
-  civil: "Synthetic: I hired a builder in March 2026 to build an addition to my home and they abandoned the job in June 2026. I have the contract and emails.",
-  family: "Synthetic: my former partner and I separated in 2025. Our daughter, age 6, lives with me. I want a parenting schedule.",
+const SECOND_CASE = {
+  family: "Synthetic: we separated in May 2026 and cannot agree on dividing the house. The plum-yellow house is in both names.",
+  smallClaims: "A moving company broke my dining table in May 2026. Their plum-yellow truck was parked outside. I have photos.",
 } as const;
-const AREA_ISSUE = { civil: "contract", family: "parenting-time" } as const;
 
-for (const area of ["civil", "family"] as const) {
-  for (const who of ["guest", "signed-in"] as const) {
-    test(`claim type, one value: ${area}, ${who} -- the kind given in the review is never asked by the questions one at a time`, async ({ page }) => {
-      test.setTimeout(300_000);
-      let userId: string | null = null;
-      if (who === "signed-in") userId = await authenticateRealTestUser(page, { realCases: true });
-      try {
-        await serveModelStandIns(page, area, userId ?? undefined);
-        await openBuilder(page, area, { city: "Kingston", story: AREA_STORY[area], situation: STARTING_NOTHING_FILED });
-        await page.waitForURL(/\/builder\?.*intake=/, { timeout: 60_000 }).catch(() => {});
-        await openReview(page);
-        const issues = page.locator('[data-testid=intake-initial-question][data-question="issues"]');
-        await expect(issues, "the review asks the kind once").toHaveCount(1, { timeout: 60_000 });
-        await issues.locator(`input[data-testid=intake-field-pick][value="${AREA_ISSUE[area]}"]`).check();
-        await issues.getByTestId("intake-field-save").click();
-        const chatAsksKind = page.locator('[data-testid=guided-form-question][data-key="issues"]');
-        const showChat = page.getByRole("button", { name: "Answer one question at a time instead" });
-        const chatAsked = async (where: string) => {
-          if (await showChat.isVisible().catch(() => false)) await showChat.click();
-          await expect(page.getByTestId("guided-form-chat")).toBeVisible({ timeout: 60_000 });
-          await page.waitForTimeout(1_500);
-          expect.soft(await chatAsksKind.count(), `the questions one at a time do not ask the kind again (${where})`).toBe(0);
-        };
-        await chatAsked("same page");
-        // Signed in: the answer reaches the saved case before the reload (the real save path).
-        if (who === "signed-in") await expect(page.getByTestId("intake-save-status")).toContainText(/saved/i, { timeout: 60_000 });
-        await page.reload();
-        await expect(page.getByTestId("intake-review")).toBeVisible({ timeout: 60_000 });
-        await chatAsked("after a reload");
-      } finally {
-        if (userId) await deleteHarnessUser(userId);
+for (const who of ["guest", "signed-in"] as const) {
+  test(`claim type, rule 4: Family, ${who} -- "dividing the house" is offered to tick, not asked from scratch`, async ({ page }) => {
+    test.setTimeout(300_000);
+    let userId: string | null = null;
+    if (who === "signed-in") userId = await authenticateRealTestUser(page, { realCases: true });
+    try {
+      await serveModelStandIns(page, "family", userId ?? undefined);
+      await openBuilder(page, "family", { city: "Kingston", story: SECOND_CASE.family, situation: STARTING_NOTHING_FILED });
+      await page.waitForURL(/\/builder\?.*intake=/, { timeout: 60_000 }).catch(() => {});
+      // The questions one at a time, as the person answers them, until "What is the case about?".
+      const question = page.getByTestId("guided-form-question");
+      let key = "";
+      for (let turn = 0; turn < 20; turn++) {
+        await expect(question).toBeVisible({ timeout: 60_000 });
+        key = (await question.getAttribute("data-key")) ?? "";
+        if (key === "issues") break;
+        const yes = question.getByTestId("guided-form-from-story-yes");
+        if (await yes.isVisible().catch(() => false)) await yes.click();
+        else if (key === "yourRole") await question.getByTestId("guided-option-applicant").click();
+        else await question.getByTestId("guided-form-skip").click();
+        await expect.poll(async () => (await question.getAttribute("data-key").catch(() => null)) ?? "", { timeout: 30_000 }).not.toBe(key);
       }
-    });
-  }
+      expect(key, "the chat reaches the kind of case").toBe("issues");
+      const offer = question.getByTestId("guided-form-from-story");
+      await expect(offer, "the kind the story names is offered to tick, not asked from scratch").toBeVisible({ timeout: 10_000 });
+      expect.soft(JSON.parse((await offer.getAttribute("data-value")) ?? "[]"), "the offer is what the words name: dividing property").toContain("property-division");
+    } finally {
+      if (userId) await deleteHarnessUser(userId);
+    }
+  });
+
+  test(`claim type, rule 4: Small Claims, ${who} -- "broke my dining table" is offered as property damage, never a vehicle dispute`, async ({ page }) => {
+    test.setTimeout(300_000);
+    await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+    let userId: string | null = null;
+    if (who === "signed-in") userId = await authenticateRealTestUser(page, { realCases: true });
+    else await grantSiteAccess(page);
+    try {
+      await serveModelStandIns(page, "small-claims", userId ?? undefined);
+      await startSmallClaims(page, SECOND_CASE.smallClaims);
+      await openReview(page);
+      const kind = page.locator('[data-question="sc-orient-dispute-category"]');
+      await expect(kind, "the review asks the kind (nothing has given it)").toHaveCount(1, { timeout: 60_000 });
+      const suggested = kind.getByRole("button", { name: /\(suggested from your story\)$/ });
+      await expect(suggested, "the kind the story names is suggested").toHaveCount(1, { timeout: 10_000 });
+      expect.soft((await suggested.innerText()).trim(), "property damage, the kind the words name (\"broke my dining table\")").toBe("Property damage (suggested from your story)");
+    } finally {
+      if (userId) await deleteHarnessUser(userId);
+    }
+  });
 }

@@ -676,7 +676,9 @@ export function familyIssuesFromStory(story: string): { value: string[]; quote: 
     ["child-support", /\bchild support\b/i],
     ["parenting-time", /\bparenting\b|\baccess to (?:my|our|the) (?:son|daughter|child|children|kids?)\b/i],
     ["decision-making-responsibility", /\bdecision[- ]making\b|\bcustody\b/i],
-    ["property-division", /\bequali[sz]ation\b|\bdivid\w* (?:the |our )?(?:property|assets)\b/i],
+    // "dividing the house" names dividing property in the person's own words (carry run 41137395354, Family
+    // second case: "cannot agree on dividing the house" was asked "What is the case about?" with nothing offered).
+    ["property-division", /\bequali[sz]ation\b|\bdivid\w* (?:up )?(?:the |our |my )?(?:property|assets|house|home|condo|belongings)\b/i],
   ];
   const values: string[] = [];
   const quotes: string[] = [];
