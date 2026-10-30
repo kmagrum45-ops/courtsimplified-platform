@@ -13,12 +13,18 @@
  * with the story, and with exactly one new case created; the older case is never
  * written to. The carry rules themselves: verifyGuestCarry.
  *
+ * Two more from the owner's Chrome check of #524 (2026-10-30): the danger notice a guest
+ * already saw is not shown again after sign-in (resetIntake keeps the fingerprint at
+ * sign-in), and a footer link and the header's My Workspace each go there on one click
+ * while signed-in text is unsaved (leaveAfterSave.ts).
+ *
  * Synthetic throughout: auth and the cases table are answered in the browser, so
  * no account is created and nothing reaches a database or the AI.
  */
 import { expect, test, type Page } from "@playwright/test";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { confirmInitialInformation } from "./harness/intakeReview";
+import { autoAnswerSituation } from "./harness/situation";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -34,7 +40,7 @@ type Master = Record<string, unknown> & { workflowStatus?: Record<string, unknow
 type Row = Record<string, unknown> & { id: string; user_id: string; updated_at: string; master_result: Master };
 
 /** Signed out until the login form is submitted; then a synthetic account owning OLDER_ROW. */
-async function syntheticAccount(page: Page) {
+async function syntheticAccount(page: Page, options: { failCreates?: boolean } = {}) {
   const user = { id: OWNER, aud: "authenticated", role: "authenticated", email: "synthetic@example.invalid", app_metadata: {}, user_metadata: {}, created_at: "2026-01-01T00:00:00Z" };
   const token = () => [btoa(JSON.stringify({ alg: "HS256", typ: "JWT" })), btoa(JSON.stringify({ sub: OWNER, exp: Math.floor(Date.now() / 1000) + 3600 })), "synthetic-signature"].join(".");
   const session = () => ({ access_token: token(), refresh_token: "synthetic-refresh", expires_at: Math.floor(Date.now() / 1000) + 3600, expires_in: 3600, token_type: "bearer", user });
@@ -57,6 +63,7 @@ async function syntheticAccount(page: Page) {
     if (!url.pathname.endsWith("/cases")) return route.fulfill({ json: [] });
     const id = url.searchParams.get("id")?.replace(/^eq\./, "");
     if (req.method() === "POST") {
+      if (options.failCreates) return route.fulfill({ status: 500, json: { message: "Synthetic: the save fails" } });
       const row = req.postDataJSON() as Row;
       writes.push(`insert ${row.id}`);
       if (rows.has(row.id)) return route.fulfill({ status: 409, json: { message: "duplicate key" } });
@@ -81,12 +88,12 @@ async function syntheticAccount(page: Page) {
   return { rows, writes };
 }
 
-async function guestIntake(page: Page): Promise<string> {
+async function guestIntake(page: Page, story = STORY): Promise<string> {
   await grantSiteAccess(page);
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(STORY);
+  await page.getByLabel("Tell us what happened in your own words").fill(story);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const flow = new URL(page.url()).searchParams.get("intake");
@@ -155,4 +162,63 @@ test("sign-up from a page with no return address goes back to the intake, in one
   await page.locator('[data-testid="header-sign-in"]:visible').first().click();
   await submitLogin(page, "signup");
   await expectOneNewCase(page, guestFlow, account);
+});
+
+// ---------------------------------------------------------------------------
+// The owner's Chrome check on the #524 preview (2026-10-30).
+// ---------------------------------------------------------------------------
+const DANGER_STORY = "Synthetic guest story: I paid Test Renovations Ltd. $4,000 in March for a deck and they never built it. The owner threatened me and I am scared to go back there.";
+
+test("the danger notice a guest already saw is not shown again on the builder after they sign in and the case moves to the account", async ({ page }) => {
+  test.setTimeout(240_000);
+  await autoAnswerSituation(page);
+  const account = await syntheticAccount(page);
+  const guestFlow = await guestIntake(page, DANGER_STORY);
+  await expect(page.getByTestId("safety-notice"), "the guest's builder shows it, once").toBeVisible({ timeout: 60_000 });
+  await page.locator('[data-testid="header-sign-in"]:visible').first().click();
+  await submitLogin(page, "login");
+  await page.waitForURL(url => url.pathname === "/builder" && url.searchParams.get("intake") !== guestFlow, { timeout: 60_000 });
+  await expect.poll(() => account.rows.size, { message: "the guest case moved into the account", timeout: 60_000 }).toBe(2);
+  await expect(page.getByTestId("intake-save-status")).toContainText("saved to your account", { timeout: 60_000 });
+  // The notice decides after the page draws; give it the time it takes, then it must not be there.
+  await page.waitForTimeout(2_000);
+  await expect(page.getByTestId("safety-notice"), "not shown again for the same words after sign-in").toHaveCount(0);
+  const kept = await page.evaluate(() => sessionStorage.getItem("courtSimplifiedSafetyNoticeShown") ?? "");
+  expect(kept, "a fingerprint, never the words").not.toMatch(/renovations|threatened|scared/i);
+});
+
+test("a footer link and the header's My Workspace each go there on one click, straight after the page loads, while signed-in text is unsaved", async ({ page }) => {
+  test.setTimeout(240_000);
+  // The save that creates the case fails, so the intake's text stays pending in this tab:
+  // the state in which the leave-guard (leaveAfterSave.ts) took a link click and dropped it.
+  const account = await syntheticAccount(page, { failCreates: true });
+  const guestFlow = await guestIntake(page);
+  await page.locator('[data-testid="header-sign-in"]:visible').first().click();
+  await submitLogin(page, "login");
+  await page.waitForURL(url => url.pathname === "/builder" && url.searchParams.get("intake") !== guestFlow, { timeout: 60_000 });
+  const builder = page.url();
+  // Unsaved text: the browser's "Leave site?" question may come; the person answers Leave.
+  page.on("dialog", dialog => void dialog.accept());
+
+  // Footer: one click, straight after load (no wait for the network to settle).
+  await page.goto(builder, { waitUntil: "domcontentloaded" });
+  await page.getByTestId("safety-footer-line").getByRole("link", { name: "Other support lines" }).click();
+  await page.waitForURL(/\/support$/, { timeout: 30_000 });
+  await expect(page.getByTestId("support-lines")).toBeVisible();
+
+  // Header: one click on My Workspace, straight after load, then again once the failed save has
+  // armed the leave-guard (the state the owner's click met).
+  await page.goto(builder, { waitUntil: "domcontentloaded" });
+  const workspace = page.locator("header").getByRole("link", { name: "My Workspace" }).filter({ visible: true }).first();
+  await workspace.click();
+  await page.waitForURL(/\/dashboard/,{ timeout: 30_000 });
+  await page.goto(builder, { waitUntil: "domcontentloaded" });
+  await expect(page.getByTestId("intake-save-status")).toContainText("could not be saved", { timeout: 60_000 });
+  await page.getByTestId("safety-footer-line").getByRole("link", { name: "Other support lines" }).click();
+  await page.waitForURL(/\/support$/, { timeout: 30_000 });
+  await page.goto(builder, { waitUntil: "domcontentloaded" });
+  await expect(page.getByTestId("intake-save-status")).toContainText("could not be saved", { timeout: 60_000 });
+  await page.locator("header").getByRole("link", { name: "My Workspace" }).filter({ visible: true }).first().click();
+  await page.waitForURL(/\/dashboard/,{ timeout: 30_000 });
+  expect(account.rows.size, "nothing was created: every save failed").toBe(1);
 });

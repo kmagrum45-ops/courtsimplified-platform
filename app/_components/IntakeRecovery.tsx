@@ -21,6 +21,7 @@ import FirstUseAcknowledgement from "./FirstUseAcknowledgement";
 import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt } from "../../src/lib/case-system/intakeCheckpoint";
 import { canonicalJson } from "../../src/lib/case-system/canonicalJson";
 import { WorkingButton } from "./Working";
+import { saveThenLeave } from "./leaveAfterSave";
 
 async function readAuthSession() {
   const request = new IntakeRequest();
@@ -415,15 +416,10 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           },
         };
         const interruption = () => { if (dirty && current()) void flush().catch(() => {}); };
+        // Save, then go where the person clicked -- always, even if the save fails (leaveAfterSave.ts).
         const navigate = (event: MouseEvent) => {
-          if (!ownerId || !dirty || event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
           const anchor = event.target instanceof Element ? event.target.closest("a[href]") : null;
-          if (!(anchor instanceof HTMLAnchorElement) || anchor.target === "_blank" || anchor.hasAttribute("download")) return;
-          const target = new URL(anchor.href);
-          if (target.origin !== window.location.origin || target.href === window.location.href) return;
-          event.preventDefault();
-          event.stopPropagation();
-          void flush().then(() => { if (current()) window.location.assign(target.href); }).catch(() => {});
+          saveThenLeave(event, anchor instanceof HTMLAnchorElement ? anchor : null, { pending: Boolean(ownerId) && dirty, here: window.location.href }, () => flush(), (href) => window.location.assign(href));
         };
         const beforeUnload = (event: BeforeUnloadEvent) => { if (dirty && ownerId) { event.preventDefault(); } };
         document.addEventListener("click", navigate, true);

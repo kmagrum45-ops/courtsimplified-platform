@@ -180,6 +180,8 @@ for (const entry of [
     await confirmAndShowNextStep(page);
     const box = page.getByTestId("family-safety-resources");
     await expect(box, "the box is on every Family case").toHaveCount(1);
+    // One box in the page, hidden copies included (owner's Chrome check, 30 Oct: FamilyIntake carried a hidden twin).
+    await expect(page.getByRole("heading", { name: "Support if family violence is part of your situation", includeHidden: true }), "exactly one support box in the page, hidden ones counted").toHaveCount(1);
     if (entry.open) await expect(box, "open: the story says the person is in danger now").toHaveAttribute("open", "");
     else await expect(box, "closed: no danger in the story").not.toHaveAttribute("open", /.*/);
     await expect(box, "the support information is the same").toContainText("Who to contact, and how");
