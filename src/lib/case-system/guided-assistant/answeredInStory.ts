@@ -7,17 +7,18 @@
  * answers it; the question is dropped when the story (or the conversation) has it. Dates are read
  * by the one date reader (dates.ts).
  *
- * And a question the person has answered anywhere else (the questions, the review, the step page)
- * is not asked again: each question below names the case-file fact it asks for, and the chat is
- * given the facts the case file holds (Charter re-test 27 Oct: the chat asked "what outcome are
- * you seeking?" after the person had said what they want, and "What exactly did they do or fail
- * to do?" after a story saying exactly that).
+ * And a question whose fact the saved case file holds is not asked: the chat asks by FACT, through
+ * the one gate (caseFile.ts chatMayAsk), never by its own wording. Held means given anywhere (the
+ * questions, the review, the step page) or answered "I don't know yet": the chat is never where an
+ * unsure fact is offered once more (never ask twice, row 1, 29 Oct: "What are you trying to get or
+ * fix through the legal process?" after the review recorded "I don't know yet" for what they want).
+ * Charter re-test 27 Oct: "what outcome are you seeking?" after the person had said what they want,
+ * and "What exactly did they do or fail to do?" after a story saying exactly that.
  *
  * Pure. States no law.
  */
 import { dateMentionsIn } from "../dates";
-import { caseFileOf, SLOT_FACTS, type SlotFact } from "../caseFile/caseFile";
-import { factOfAskedText } from "../caseFile/factsOfQuestion";
+import { caseFileOf, chatQuestionToAsk, type CaseFile } from "../caseFile/caseFile";
 import { readCheckpoint } from "../intakeCheckpoint";
 
 const ANSWERED_BY: [RegExp, (known: string) => boolean][] = [
@@ -36,21 +37,24 @@ const ANSWERED_BY: [RegExp, (known: string) => boolean][] = [
 /** What happened: the story itself says it, once it is more than a line. */
 const ASKS_WHAT_HAPPENED = /\bwhat exactly did (?:they|he|she|it|the [a-z ]+?) do\b|\bwhat exactly happened\b|\bwhat did (?:they|he|she) do or fail to do\b/i;
 
-/** The facts the saved case file holds an answer for (caseFile.ts), from the chat's case memory. */
-export function answeredFactsOf(caseMemory: unknown): ReadonlySet<SlotFact> {
-  const master = caseMemory && typeof caseMemory === "object" ? (caseMemory as { masterResult?: unknown }).masterResult : null;
+/** The saved case file the chat reads (caseFile.ts), from its case memory (the saved case's master result); null when there is none. */
+export function caseFileOfChat(caseMemory: unknown): CaseFile | null {
+  if (!caseMemory || typeof caseMemory !== "object") return null;
+  const master = (caseMemory as { masterResult?: unknown }).masterResult;
   const stored = master && typeof master === "object" ? (master as { intakeCheckpoint?: { courtPath?: unknown } }).intakeCheckpoint : null;
-  const court = stored?.courtPath;
-  if (court !== "small-claims" && court !== "civil" && court !== "family") return new Set();
-  const file = caseFileOf(readCheckpoint(stored, court), master);
-  return new Set(SLOT_FACTS.filter((fact) => file[fact].state === "answered"));
+  // The checkpoint's own court, else the saved case's (the route passes it as `path`).
+  const court = stored?.courtPath ?? (caseMemory as { path?: unknown }).path;
+  if (!master || (court !== "small-claims" && court !== "civil" && court !== "family")) return null;
+  return caseFileOf(stored ? readCheckpoint(stored, court) : null, master);
 }
 
-/** Whether the story, the conversation or the case file already answers this question. */
-export function answeredInStory(question: string, known: string, facts: ReadonlySet<SlotFact> = new Set()): boolean {
-  // The one reader of which fact a question asks for (caseFile/factsOfQuestion.ts).
-  const fact = factOfAskedText(question);
-  if (fact && facts.has(fact as SlotFact)) return true;
+/**
+ * Whether the story, the conversation or the case file already answers this question as it stands
+ * (a compound question whose fact is held is not asked as it stands: its open part may be, through
+ * caseFile.ts chatQuestionToAsk).
+ */
+export function answeredInStory(question: string, known: string, file: CaseFile | null = null): boolean {
+  if (chatQuestionToAsk(file, question) !== question) return true;
   if (ASKS_WHAT_HAPPENED.test(question) && known.trim().length >= 80) return true;
   if (!known.trim()) return false;
   return ANSWERED_BY.some(([asks, answered]) => asks.test(question) && answered(known));

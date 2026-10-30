@@ -1,5 +1,5 @@
-import { answeredFactsOf, answeredInStory } from "./answeredInStory";
-import type { SlotFact } from "../caseFile/caseFile";
+import { answeredInStory, caseFileOfChat } from "./answeredInStory";
+import { chatQuestionToAsk, type CaseFile, type ChatTurn } from "../caseFile/caseFile";
 import { sentences as sharedSentences } from "../sentences";
 import { findDates, findDayMonthWithoutYear, mentionsDate, mentionsRelativeDate } from "../dates";
 import {
@@ -610,6 +610,11 @@ function confidenceFromSignals(count: number): CasePartnerConfidence {
   if (count >= 5) return "high";
   if (count >= 2) return "medium";
   return "low";
+}
+
+/** The conversation as the conversation check reads it (caseFile.ts ChatTurn). */
+export function chatTurnsOf(conversation: CasePartnerConversationMessage[] = []): ChatTurn[] {
+  return conversation.map((item) => ({ role: item.role, text: item.content }));
 }
 
 function getConversationText(conversation: CasePartnerConversationMessage[] = []): string {
@@ -1851,14 +1856,21 @@ function buildQuestions(args: {
   conversationText: string;
   /** The saved story and timeline: a question they answer is not asked (answeredInStory.ts). */
   knownText?: string;
-  /** The facts the saved case file holds: a question asking for one is not asked (answeredInStory.ts). */
-  knownFacts?: ReadonlySet<SlotFact>;
+  /** The saved case file: a question whose fact it holds (answered or unsure) is not asked (caseFile.ts chatMayAsk). */
+  caseFile?: CaseFile | null;
+  /** This conversation: a question it asked that the person replied to is not asked again (caseFile.ts askedAndReplied). */
+  conversation?: readonly ChatTurn[];
 }): CasePartnerQuestion[] {
   const questions: CasePartnerQuestion[] = [];
 
-  function pushQuestion(question: CasePartnerQuestion) {
+  function pushQuestion(asked: CasePartnerQuestion) {
+    // By fact, through the one gate: the question, its open part once its fact is held, or nothing
+    // (caseFile.ts chatQuestionToAsk; factsOfQuestion.ts CHAT_QUESTIONS).
+    const words = chatQuestionToAsk(args.caseFile, asked.question, args.conversation);
+    if (!words) return;
+    const question = words === asked.question ? asked : { ...asked, question: words };
     if (wasQuestionAlreadyAsked(question.question, args.conversationText)) return;
-    if (answeredInStory(question.question, `${args.knownText ?? ""} ${args.conversationText}`, args.knownFacts)) return;
+    if (answeredInStory(question.question, `${args.knownText ?? ""} ${args.conversationText}`)) return;
     if (questions.some((existing) => existing.question === question.question)) return;
     questions.push(question);
   }
@@ -2230,7 +2242,8 @@ export function buildConversationIntelligence(
     actors: inferredActors,
     conversationText,
     knownText: savedCaseText(input.caseMemory),
-    knownFacts: answeredFactsOf(input.caseMemory),
+    caseFile: caseFileOfChat(input.caseMemory),
+    conversation: chatTurnsOf(input.conversation),
   });
 
   const questions: CasePartnerQuestion[] =

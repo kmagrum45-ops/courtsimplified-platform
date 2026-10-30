@@ -31,22 +31,8 @@ export type KnownRepeat = {
 };
 
 export const KNOWN_REPEATS: readonly KnownRepeat[] = [
-  {
-    surface: "chat-reply", fact: "wants", auditRow: 1,
-    reason: "The follow-up chat's closing questions are fixed sentences (conversationIntelligenceEngine.ts) that do not read the case file, so it asks what the person wants to get or fix after they said so.",
-  },
-  {
-    surface: "chat-reply", fact: "filed", auditRow: 1,
-    reason: "The follow-up chat asks whether anything has been filed, served or ordered even when the start answers or the forms already said so; its fixed question does not read the case file.",
-  },
-  {
-    surface: "chat-reply", fact: "whenHappened", auditRow: 1,
-    reason: "The follow-up chat asks for the main dates, including when the problem happened, after the person gave when it happened; its fixed question does not read the case file.",
-  },
-  {
-    surface: "chat-reply", fact: "children", stories: ["w6-family-children"], auditRow: 1,
-    reason: "Site owner, 28 Oct: the follow-up chat asks about the children after the Family questions recorded them; the chat's question does not read the case file. On the list until the chat reads it.",
-  },
+  // Row 1 (the chats asking by wording) fixed 29 Oct: every chat asks by fact through the one gate
+  // (caseFile.ts chatMayAsk), checked by test:chat-asks-by-fact; its four entries are deleted.
   // Row 3, seen in never-ask-twice-reading.spec.ts (a fixed reading in place of the model's).
   {
     surface: "form-field", fact: "wants", stories: ["home-reading-sc-form"], auditRow: 3,
@@ -65,6 +51,18 @@ export const KNOWN_REPEATS: readonly KnownRepeat[] = [
   {
     surface: "form-field", fact: "wants", auditRow: 7,
     reason: "The Small Claims form's \"what do you want\" box stays empty after the review recorded the answer (or \"I don't know yet\"), so the form asks it once more after the review's own last offer.",
+  },
+  // Seen 29 Oct once the recorder counts a reply in the follow-up chat as answering the question before it
+  // (owner's rule): m19-laptop-repair (review); then CI 29 Oct (20d20725, the whole pack): sc-unclear (review) and
+  // m04-tenant (review) -- every Small Claims story whose results-page chat asks the proof question before the form's
+  // empty evidence box (the whole pack's records: these three only). Listed by story, not open to every story, so a
+  // new story that shows it still fails and is looked at. The person replies to "What proof do you already have...?" with a
+  // different question ("How long do I have to respond?"). Owner (29 Oct, option 1): the owner of this entry is the
+  // EVIDENCE conversion (save follow-up chat replies as the person's evidence answer, and the form reads it from
+  // the case file). It may be removed only when that conversion passes on every route. The recorder rule is NOT narrowed.
+  {
+    surface: "form-field", fact: "evidence", stories: ["m19-laptop-repair", "sc-unclear", "m04-tenant"], auditRow: 7,
+    reason: "The results-page follow-up chat asked \"What proof do you already have...?\" and the person replied; the Small Claims form's evidence box then asked for the evidence again: a follow-up chat reply is not saved to the case file as the evidence answer, and the form's evidence box does not read the case file.",
   },
   // Chrome 29 Oct (finding 1), seen in the story pack's step 6 ("Update your story"): Small Claims only.
   {

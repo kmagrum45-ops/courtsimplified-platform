@@ -39,7 +39,8 @@
  * person's reply; a confirmed proposal; a saved date; a triage question that moves on
  * without "not yet"; a recorded stage; an accepted kind of claim; a story-reading question
  * with words typed in its box; a law question moved on from (with words, or skipped: unsure);
- * a service method chosen; a form field filled.
+ * a service method chosen; a form field filled; a follow-up chat reply followed by the person's next
+ * message (its question sentences; the same words in a later reply are asked again, chatReplyReader).
  *
  * "NOT SURE" COUNTS AS ASKED (Jason, 2026-10-24). A skip, "I don't know yet", "not yet" or
  * "I don't know the date" is an answer too: the fact is given as unsure, and asking it
@@ -68,9 +69,13 @@ import type { Violation } from "./knownRepeats";
 import type { SituationAnswers } from "./situation";
 
 export type HeldState = "answered" | "unsure";
+/**
+ * `occurrence`: which of the follow-up chat's replies a question was in (and which reply a person's
+ * answer answers), so the same words in a later reply are a new question; absent on every other surface.
+ */
 export type Asked = { kind: "ask" | "answer"; surface: string; id: string; screen: string; text: string; at: number; held?: Record<string, HeldState>;
   /** Small Claims guided only: the person's reply shown under the question (an ask) or given to it (an answer). */
-  reply?: string };
+  reply?: string; occurrence?: string };
 
 const SCAN = `(() => {
   if (window.__askOnceInstalled) return;
@@ -166,6 +171,7 @@ const SCAN = `(() => {
   }, true);
   const visible = (el) => !el.checkVisibility || el.checkVisibility();
   const chatSeen = new Map();
+  const chatAnswered = new Set();
   const scan = () => {
     for (const [surface, selector, ids] of surfaces) {
       const found = typeof selector === "function" ? selector() : document.querySelectorAll(selector);
@@ -188,6 +194,19 @@ const SCAN = `(() => {
       chatSeen.set(index, text);
       window.__recordAsk({ kind: "ask", surface: "chat-reply-raw", id: String(index), screen: screen(), text: text.slice(0, 6000), at: now() });
     });
+    // The follow-up chat: a person's reply answers the questions of the assistant's reply before it (as a
+    // reply answers a Small Claims guided question). Each reply of theirs once, by its place in the chat.
+    const transcript = document.querySelector("[data-testid=case-partner-transcript]");
+    if (transcript && visible(transcript)) {
+      let assistant = -1, user = -1;
+      for (const child of transcript.children) {
+        if (child.matches("div.mr-auto")) assistant += 1;
+        else if (child.matches("div.ml-auto")) {
+          user += 1;
+          if (assistant >= 0 && !chatAnswered.has(user)) { chatAnswered.add(user); window.__recordAsk({ kind: "answer", surface: "chat-reply-raw", id: String(assistant), screen: screen(), text: "", at: now() }); }
+        }
+      }
+    }
     // Situation questions: each one answered as it moves on (they cannot be skipped).
     const sq = document.querySelector("[data-testid=situation-questions]");
     const nextSituation = sq && visible(sq) ? sq.getAttribute("data-question") : null;
@@ -307,27 +326,51 @@ export function withHeldFacts(item: Asked, read: ((fact: string) => HeldState | 
 }
 
 /**
+ * The follow-up chat's raw records, read into questions and answers (site owner, 29 Oct). A reply,
+ * whole, becomes one question per question sentence, once per reply (its place in the chat): a reply
+ * re-drawn as it grows, or the saved chat shown again on another screen, is not asked again; the same
+ * words in a LATER reply are a new question. A person's reply answers the question sentences of the
+ * assistant's reply before it, once (as for the Small Claims guided chat: a question followed by the
+ * person's reply is answered). Any other record passes through.
+ */
+export function chatReplyReader(): (item: Asked) => Asked[] {
+  const chatSentences = new Set<string>();
+  const inReply = new Map<string, Asked[]>();
+  const answeredReplies = new Set<string>();
+  return (item) => {
+    if (item.surface !== "chat-reply-raw") return [item];
+    const reply = item.id;
+    if (item.kind === "answer") {
+      if (answeredReplies.has(reply)) return [];
+      answeredReplies.add(reply);
+      const asked = inReply.get(reply) ?? [];
+      return asked.map((ask, order) => ({ kind: "answer", surface: "chat-reply", id: ask.id, screen: ask.screen, text: "", at: item.at + order / 1000, occurrence: item.id }));
+    }
+    const out: Asked[] = [];
+    let order = 0;
+    for (const sentence of questionSentences(item.text)) {
+      const key = `${sentence}|${reply}`;
+      if (chatSentences.has(key)) continue;
+      chatSentences.add(key);
+      const ask: Asked = { ...item, surface: "chat-reply", id: sentence, text: sentence.slice(0, 160), at: item.at + order++ / 1000, occurrence: item.id };
+      inReply.set(reply, [...(inReply.get(reply) ?? []), ask]);
+      out.push(ask);
+    }
+    return out;
+  };
+}
+
+/**
  * Starts recording on this page (every later navigation too). Returns the list it fills.
  * `held`, when given, is asked at the moment each question is recorded which of its facts the
  * saved case holds (heldInRows); the answer is kept on the question for heldViolations.
  */
 export async function recordAsks(page: Page, options: { held?: () => ((fact: string) => HeldState | null) | null } = {}): Promise<Asked[]> {
   const asked: Asked[] = [];
-  const chatSentences = new Set<string>();
+  const readChat = chatReplyReader();
   const withHeld = (item: Asked): Asked => withHeldFacts(item, item.kind === "ask" && options.held ? options.held() : null);
   await page.exposeFunction("__recordAsk", (item: Asked) => {
-    // A chat reply, whole: one question per question sentence, each once per screen.
-    if (item.surface === "chat-reply-raw") {
-      let order = 0;
-      for (const sentence of questionSentences(item.text)) {
-        const key = `${sentence}|${item.screen}`;
-        if (chatSentences.has(key)) continue;
-        chatSentences.add(key);
-        asked.push(withHeld({ ...item, surface: "chat-reply", id: sentence, text: sentence.slice(0, 160), at: item.at + order++ / 1000 }));
-      }
-      return;
-    }
-    asked.push(withHeld(item));
+    for (const read of readChat(item)) asked.push(withHeld(read));
   });
   await page.addInitScript(SCAN);
   return asked;
@@ -391,7 +434,8 @@ export function factsAskedTwice(events: readonly Asked[], situation: SituationAn
       if (!gave || ask.at <= gave.at) continue;
       // The same question on the same screen is not asked again -- except a Small Claims guided question,
       // which restoredAsk() alone excuses (shown again with the same reply); with none or another, it counts.
-      if (ask.surface !== "sc-chat" && gave.surface === ask.surface && gave.id === ask.id && gave.screen === ask.screen) continue;
+      // And a follow-up chat question only within the same reply (occurrence): the same words in a later reply count.
+      if (ask.surface !== "sc-chat" && gave.surface === ask.surface && gave.id === ask.id && gave.screen === ask.screen && gave.occurrence === ask.occurrence) continue;
       // An unsure fact, offered once more at the end: allowed once.
       if (gave.text === "unsure" && END_SURFACES.has(ask.surface) && !offeredAgain.has(fact)) { offeredAgain.add(fact); continue; }
       const repeat = repeats.get(fact) ?? { fact, given: gave, asks: [] };

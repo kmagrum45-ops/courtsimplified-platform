@@ -13,6 +13,10 @@
  *   - a fact held unsure may be offered once more at the end, and a second offer fails, as does
  *     an offer anywhere else;
  *   - a violation on the known list is excused, in its stories only, and any other is not;
+ *   - no known repeat excuses a chat question (row 1 fixed 29 Oct; test:chat-asks-by-fact);
+ *   - the court order or agreement in place is a fact of its own (not filed), and the follow-up chat's
+ *     repeats are caught: a person's reply answers the assistant's reply before it, the same words in a
+ *     later reply are asked again, and a reply re-drawn (or the saved chat shown on another screen) is not;
  *   - the test's own wording table maps the chat's row-1 questions (what they want, whether
  *     anything is filed, the main dates) by its own rows, not by the site's wording map, and the
  *     depth question "How much is still owing" to the amount.
@@ -23,7 +27,7 @@
  */
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { END_SURFACES, factsAskedTwice, factsOfAsk, heldFacts, heldInRows, heldViolations, repeatViolations, withHeldFacts, type Asked } from "../../tests/browser/harness/askOnce";
+import { END_SURFACES, chatReplyReader, factsAskedTwice, factsOfAsk, heldFacts, heldInRows, heldViolations, repeatViolations, withHeldFacts, type Asked } from "../../tests/browser/harness/askOnce";
 import { KNOWN_REPEATS, knownRepeatFor, splitKnown, type KnownRepeat, type Violation } from "../../tests/browser/harness/knownRepeats";
 import { QUESTION_WORDS, factsOfWords, questionSentences } from "../../tests/browser/harness/chatQuestionFacts";
 import { DEPTH_QUESTIONS } from "../../src/lib/case-system/intake/depth/elementQuestionRegistry";
@@ -44,8 +48,10 @@ const ask = (surface: string, id: string, text = id): Asked => ({ kind: "ask", s
 {
   const bad = KNOWN_REPEATS.filter((entry) => !(entry.reason.trim().split(/\s+/).length >= 8) || !Number.isInteger(entry.auditRow) || entry.auditRow < 1 || entry.auditRow > 12 || (entry.fact === undefined && entry.questionId === undefined) || !entry.surface);
   check("every known repeat has a reason in words, an audit row 1-12, a surface, and a fact or question", bad.length === 0, JSON.stringify(bad));
-  check("the list holds the site owner's entry: children asked twice in the w6-family-children chat", KNOWN_REPEATS.some((entry) => entry.surface === "chat-reply" && entry.fact === "children" && entry.stories?.includes("w6-family-children")));
-  check("the list holds the audit's row 1 chat questions (wants, filed, main dates)", ["wants", "filed", "whenHappened"].every((fact) => KNOWN_REPEATS.some((entry) => entry.auditRow === 1 && entry.surface === "chat-reply" && entry.fact === fact)));
+  // Row 1 is fixed (29 Oct): every chat asks by fact through the one gate (caseFile.ts chatMayAsk),
+  // checked through the route by test:chat-asks-by-fact. No entry may excuse a chat question again.
+  const chatExcuses = KNOWN_REPEATS.filter((entry) => entry.surface === "chat-reply" || entry.surface === "chat" || entry.surface === "chat-story");
+  check("no known repeat excuses a chat question (row 1 fixed: the chats read the case file)", chatExcuses.length === 0, JSON.stringify(chatExcuses));
 }
 
 // 2. The held check: a question whose fact the saved case holds fails; one it does not hold passes.
@@ -84,11 +90,13 @@ const ask = (surface: string, id: string, text = id): Asked => ({ kind: "ask", s
 
 // 4. The known list excuses its own entries, in its stories, and nothing else.
 {
+  // A list of its own (the real list changes as the site is fixed: row 1 was deleted on 29 Oct).
+  const list: KnownRepeat[] = [{ surface: "chat-reply", fact: "children", stories: ["w6-family-children"], reason: "a test entry", auditRow: 1 }];
   const children: Violation = { rule: "held", fact: "children", surface: "chat-reply", id: "Are there any children involved?", screen: "/builder", text: "", detail: "held answered" };
-  check("a known repeat is excused in its story", knownRepeatFor(children, "w6-family-children") !== null);
-  check("the same repeat in another story is not excused", knownRepeatFor(children, "m17-common-law-house") === null);
+  check("a known repeat is excused in its story", knownRepeatFor(children, "w6-family-children", list) !== null);
+  check("the same repeat in another story is not excused", knownRepeatFor(children, "m17-common-law-house", list) === null);
   const stranger: Violation = { ...children, surface: "review-entry", fact: "amount" };
-  const split = splitKnown([children, stranger], "w6-family-children");
+  const split = splitKnown([children, stranger], "w6-family-children", list);
   check("an unknown violation is not excused", split.known.length === 1 && split.unknown.length === 1 && split.unknown[0] === stranger);
   const blank: KnownRepeat[] = [{ surface: "review-entry", reason: "an entry naming neither a fact nor a question excuses nothing", auditRow: 7 }];
   check("an entry naming neither a fact nor a question excuses nothing", knownRepeatFor(stranger, "any", blank) === null);
@@ -132,6 +140,47 @@ const ask = (surface: string, id: string, text = id): Asked => ({ kind: "ask", s
   check("the depth questions \"How much is still owing\" are asked for the amount", owing.length > 0 && owing.every((question) => factsOfAsk({ surface: "sc-chat", id: question.id, text: question.text }).includes("amount")), owing.map((question) => question.id).join());
   check("words that name no fact ask for a fact of their own", factsOfWords("Shall I explain the next step again?").length === 0 && factsOfAsk({ surface: "chat-reply", id: "Shall I explain the next step again?", text: "" })[0] === "chat-reply:Shall I explain the next step again?");
   check("the step page's service method asks for serviceMethod", factsOfAsk({ surface: "service-method", id: "serviceMethod:sc-date-claim-served", text: "" }).join() === "serviceMethod");
+}
+
+// 6. The court order or agreement in place is a fact of its own, and the follow-up chat's repeats are caught
+//    (site owner, 29 Oct: "Is there already a court order or agreement?" no longer asks "filed", but asking
+//    it twice must still be a repeat). The recorder reads the chat as it does the Small Claims guided chat:
+//    the person's reply answers the questions of the assistant's reply before it; the same sentence in a
+//    later reply is a new question; the same reply re-drawn is not.
+{
+  const ORDER = "Is there already a court order or agreement?";
+  check("(1) \"Is there already a court order or agreement?\" asks for the court order in place, not filed", factsOfWords(ORDER).join() === "existingOrder", factsOfWords(ORDER).join());
+  check("(1) \"What order or arrangement exists right now?\" asks for the court order in place", factsOfWords("What order or arrangement exists right now?").join() === "existingOrder");
+  const compound = factsOfWords("Is there already a court order, agreement, upcoming conference, motion, or court date?");
+  check("(1) the Family framework's compound question asks for the order in place and the court date, not filed", compound.includes("existingOrder") && compound.includes("courtDate") && !compound.includes("filed"), compound.join());
+
+  const SCREEN = "/builder?step=results";
+  const raw = (kind: "ask" | "answer", bubble: number, text: string, at: number): Asked => ({ kind, surface: "chat-reply-raw", id: String(bubble), screen: SCREEN, text, at });
+  const read = (events: Asked[]) => { const reader = chatReplyReader(); return events.flatMap((item) => reader(item)); };
+  // (2) Asked, answered by a reply, then asked again in a later reply: a repeat of the court order fact.
+  const twice = read([
+    raw("ask", 1, `Thanks for that.\n${ORDER}`, 1000),
+    raw("answer", 1, "", 2000),
+    raw("ask", 2, `I recorded that update.\n${ORDER}`, 3000),
+  ]);
+  const repeats = factsAskedTwice(twice, false);
+  check("(2) asked, answered by the person's reply, then asked again in a later chat reply: a repeat of the court order fact", repeats.some((repeat) => repeat.fact === "existingOrder" && repeat.asks.length === 1), JSON.stringify(twice.map((item) => `${item.kind}:${item.id}`)));
+  // (3) Asked once and still on screen as the reply is re-drawn (growing, then the same): no repeat.
+  const once = read([
+    raw("ask", 1, "Thanks", 1000),
+    raw("ask", 1, `Thanks for that.\n${ORDER}`, 1500),
+    raw("ask", 1, `Thanks for that.\n${ORDER}`, 1800),
+  ]);
+  check("(3) asked once and still on screen across re-draws: one question, no repeat", once.filter((item) => item.kind === "ask").length === 1 && factsAskedTwice(once, false).length === 0, JSON.stringify(once.map((item) => `${item.kind}:${item.id}`)));
+  // And answered, then the same reply re-drawn: still no repeat.
+  const redrawn = read([raw("ask", 1, ORDER, 1000), raw("answer", 1, "", 2000), raw("ask", 1, ORDER, 2500)]);
+  check("(3) answered, then the same reply re-drawn: no repeat", factsAskedTwice(redrawn, false).length === 0, JSON.stringify(redrawn.map((item) => `${item.kind}:${item.id}`)));
+  // The saved chat shown again on another screen (the case page reloads it): the same replies, not new questions.
+  const elsewhere = read([raw("ask", 1, ORDER, 1000), raw("answer", 1, "", 2000), { ...raw("ask", 1, ORDER, 5000), screen: "/cases/:id" }, { ...raw("answer", 1, "", 5100), screen: "/cases/:id" }]);
+  check("(3) the saved chat shown again on another screen: no repeat", factsAskedTwice(elsewhere, false).length === 0, JSON.stringify(elsewhere.map((item) => `${item.kind}:${item.id}@${item.screen}`)));
+  // And a reply with no question answered by a reply gives nothing; another fact asked in the later reply is not a repeat.
+  const other = read([raw("ask", 1, ORDER, 1000), raw("answer", 1, "", 2000), raw("ask", 2, "What proof do you currently have?", 3000)]);
+  check("(2) a different question in the later reply is not a repeat", factsAskedTwice(other, false).length === 0);
 }
 
 if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }

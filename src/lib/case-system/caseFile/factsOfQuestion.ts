@@ -102,6 +102,17 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   serviceDetailsText: ["claimServed"],
   evidenceText: ["evidence"],
   disputeCategory: ["claimKind"],
+  // The follow-up chat's own questions, by the fact each asks for ENTIRELY (never ask twice, row 1,
+  // 29 Oct): the chat asks by fact, through the one gate, never by comparing its own wording. Which
+  // chat sentence asks by which id is CHAT_QUESTIONS below.
+  "chat:main-dates": ["whenHappened"],
+  "chat:anything-filed": ["filed"],
+  "chat:outcome": ["wants"],
+  "chat:other-party": ["otherParty"],
+  "chat:court-date": ["courtDate"],
+  "chat:amount": ["amount"],
+  "chat:served-date": ["servedDate"],
+  "chat:proof": ["evidence"],
 };
 
 /** The facts a question asks for: its listed facts, or a fact of its own (its id). */
@@ -123,6 +134,70 @@ const ASKS_FOR: [RegExp, CaseFact][] = [
 
 export function factOfAskedText(question: string): CaseFact | null {
   return ASKS_FOR.find(([asks]) => asks.test(question))?.[1] ?? null;
+}
+
+/**
+ * EVERY CHAT QUESTION THAT ASKS A CASE-FILE FACT, BY ITS EXACT WORDS (row 1 review, 29 Oct). A
+ * question is given an id only for facts it asks about ENTIRELY. A compound question (the fact and
+ * something the case file does not hold: when they first found out, the order in place now, how an
+ * amount was worked out, what was done) names its `open` part, asked instead once the fact is held,
+ * so the rest is never lost. A sentence that asks about a fact only in part, and has no part the
+ * case file holds whole, is not listed: it is asked as before ("Is there already a court order or
+ * agreement?" -- an order or agreement in place is not "anything filed": a new case and a motion to
+ * change are different steps). Words not listed are read by the one word reader (factOfAskedText),
+ * and a dynamic sentence by CHAT_ASKS. Checked both ways by test:chat-asks-by-fact.
+ */
+export type ChatQuestion = { asks: string; open?: string };
+const CHAT_QUESTIONS: Record<string, ChatQuestion> = {
+  // conversationIntelligenceEngine.ts buildQuestions.
+  "What are the main dates, including when the problem happened and when you first found out about it?": { asks: "chat:main-dates", open: "When did you first find out about the problem, and are there other important dates?" },
+  "Has anything already been filed, served, ordered, scheduled, or decided by a court or tribunal?": { asks: "chat:anything-filed", open: "Has a court or tribunal already ordered, scheduled or decided anything?" },
+  "What are you trying to get or fix through the legal process?": { asks: "chat:outcome" },
+  // Its issue frameworks.
+  "What order or arrangement exists right now, and what are you trying to change?": { asks: "chat:outcome", open: "What order or arrangement exists right now?" },
+  "Is there already a court order, agreement, upcoming conference, motion, or court date?": { asks: "chat:court-date", open: "Is there already a court order or agreement?" },
+  "Which public actor is involved, and what exactly did they do or fail to do?": { asks: "chat:other-party", open: "What exactly did they do or fail to do?" },
+  "Has anything already been filed, ordered, appealed, reviewed, or decided by a court or tribunal?": { asks: "chat:anything-filed", open: "Has a court or tribunal already ordered, reviewed or decided anything, or has anything been appealed?" },
+  // The reasoning profiles' first questions (legalReasoningProfiles.ts).
+  "How much money are you claiming and how did you calculate it?": { asks: "chat:amount", open: "How did you work out the amount you are claiming?" },
+  "What are you asking the court to change?": { asks: "chat:outcome" },
+  "Which public actor is involved?": { asks: "chat:other-party" },
+  // The general question's parts (assistantBlocks.ts).
+  "What are the main dates?": { asks: "chat:main-dates", open: "Are there other important dates?" },
+  "What outcome are you seeking?": { asks: "chat:outcome" },
+  // What proof they have (buildQuestions; the general question's part): a fact the case file does not
+  // hold, so only the conversation check stops it (CI 29 Oct, m19-laptop-repair).
+  "What proof do you already have, such as messages, emails, screenshots, witnesses, court papers, recordings, receipts, or transcripts?": { asks: "chat:proof" },
+  "What proof do you currently have?": { asks: "chat:proof" },
+};
+/** A chat sentence built with names in it: the parties it names, to confirm (asks only who the other party is). */
+const CHAT_ASKS: [RegExp, string][] = [
+  [/^From what you described, it sounds like this may involve [^?]*\. Is that right, or is the main concern with someone else\?$/, "chat:other-party"],
+];
+const CHAT_ID_OF_FACT: Partial<Record<CaseFact, string>> = {
+  wants: "chat:outcome", amount: "chat:amount", servedDate: "chat:served-date", filed: "chat:anything-filed",
+  otherParty: "chat:other-party", whenHappened: "chat:main-dates",
+};
+
+/** How a chat sentence asks: its listed id and open part; else by CHAT_ASKS; else the one word reader; else a fact of its own (its words). */
+export function chatQuestionOf(words: string): ChatQuestion {
+  const text = words.trim();
+  const listed = CHAT_QUESTIONS[text];
+  if (listed) return listed;
+  const own = CHAT_ASKS.find(([asks]) => asks.test(text))?.[1];
+  if (own) return { asks: own };
+  const fact = factOfAskedText(text);
+  return { asks: (fact && CHAT_ID_OF_FACT[fact]) || text };
+}
+
+/** The chat's own sentences that ask by this id (or are this open part): how a conversation shows it was asked. */
+export function chatSentencesFor(key: string): string[] {
+  return Object.entries(CHAT_QUESTIONS).flatMap(([words, question]) => [...(question.asks === key ? [words] : []), ...(question.open === key ? [question.open] : [])]);
+}
+
+/** The chat question id a chat sentence asks by. */
+export function chatQuestionId(words: string): string {
+  return chatQuestionOf(words).asks;
 }
 
 export function factsOfQuestion(id: string, surface?: string): string[] {

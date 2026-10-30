@@ -32,7 +32,7 @@ import type { Checkpoint } from "../intakeCheckpoint";
 import { freshSections } from "../storyBasis";
 import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation } from "../situation/situation";
 import { isKindOfClaim } from "../intake/claimKind";
-import { factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
+import { chatQuestionOf, chatSentencesFor, factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
 import { parseRecordedAmount } from "../format/recordedAmount";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
@@ -368,6 +368,51 @@ export function askable(file: CaseFile, candidates: readonly string[], surface?:
   return candidates.filter((id) => nextQuestion(file, [id], { surface }) === id);
 }
 
+/**
+ * THE GATE FOR EVERY CHAT (never ask twice, row 1, 29 Oct). A chat question is asked only when the
+ * one gate lets it: a fact the file holds, answered or "not sure", is not asked by a chat. A chat is
+ * never where an unsure fact is offered once more (that is the review, or the story's own
+ * suggestion), and the next step shows it folded ("not known yet -- Add it"). No file: nothing held.
+ */
+export function chatMayAsk(file: CaseFile | null | undefined, questionId: string): boolean {
+  return !file || nextQuestion(file, [questionId]) === questionId;
+}
+
+/**
+ * What a chat asks for one of its question sentences: the sentence, when the gate lets its fact be
+ * asked; its open part (what the case file does not hold) when the fact is held; null when nothing
+ * is left (factsOfQuestion.ts CHAT_QUESTIONS; row 1 review, 29 Oct: a compound question was dropped
+ * whole once its fact was held, so when they first found out was never asked).
+ */
+export function chatQuestionToAsk(file: CaseFile | null | undefined, words: string, conversation: readonly ChatTurn[] = []): string | null {
+  const question = chatQuestionOf(words);
+  if (chatMayAsk(file, question.asks) && !askedAndReplied(conversation, words)) return words;
+  return question.open && !askedAndReplied(conversation, question.open) ? question.open : null;
+}
+
+/** One turn of a chat's own conversation: the chat's message (with its question id, where it has one) or the person's. */
+export type ChatTurn = { role: string; text: string; questionId?: string };
+
+/**
+ * THE CONVERSATION CHECK (site owner, 29 Oct; CI story pack m19-laptop-repair: the follow-up chat
+ * asked "What proof do you already have...?", the person replied, and a later reply asked it again).
+ * Whether this chat already asked the question in this conversation and the person replied after
+ * it: by its question id where it has one (a turn's questionId, or the chat id its words ask by, so
+ * the same fact in other words counts), else by its exact words. Asked and not replied to (nothing
+ * from the person after it), it may be asked again. A person's reply is not saved to the case file,
+ * so the case file cannot know; every chat checks its own conversation with this.
+ */
+export function askedAndReplied(conversation: readonly ChatTurn[], words: string): boolean {
+  if (!conversation.length) return false;
+  const key = chatQuestionOf(words).asks;
+  const shown = [...new Set([words, ...chatSentencesFor(key)])].map((item) => item.trim().toLowerCase()).filter(Boolean);
+  return conversation.some((turn, index) =>
+    turn.role === "assistant" &&
+    (turn.questionId === words || turn.questionId === key || shown.some((item) => turn.text.toLowerCase().includes(item))) &&
+    conversation.slice(index + 1).some((later) => later.role === "user"),
+  );
+}
+
 /** The case file section after the person answers "not sure" to a question: each of its facts kept as unsure. */
 export function withUnsure(section: Record<string, unknown> | undefined, questionId: string, surface?: string): Record<string, unknown> {
   const current = object(section);
@@ -384,6 +429,16 @@ export function withOfferedAtEnd(section: Record<string, unknown> | undefined, f
 
 export function offeredAtEnd(sections: Record<string, unknown> | undefined): SlotFact[] {
   return strings(object(object(sections)[CASE_FILE_SECTION]).offeredAtEnd).filter(isSlot);
+}
+
+/**
+ * Whether an unsure fact has had its one more offer: the review recorded "I don't know yet" for it
+ * (the review is that offer), or it was offered again at the end. After that it is never offered
+ * again, not even as the story's suggestion; the next step shows it folded (CI 29 Oct, family-safety).
+ */
+export function offeredOnceMore(file: CaseFile, fact: SlotFact, sections: Record<string, unknown> | undefined): boolean {
+  const source = file[fact].source;
+  return offeredAtEnd(sections).includes(fact) || (source?.kind === "answer" && source.question.startsWith("review:"));
 }
 
 /** The slots a review box or question holds (its facts that are slots). */

@@ -24,7 +24,7 @@
 import { alreadyAsked, caseFileOf, unsureDateQuestions } from "../../src/lib/case-system/caseFile/caseFile";
 import { factOfAskedText } from "../../src/lib/case-system/caseFile/factsOfQuestion";
 import { remainingEssentialQuestions } from "../../src/lib/case-system/intakeReview";
-import { answeredFactsOf, answeredInStory } from "../../src/lib/case-system/guided-assistant/answeredInStory";
+import { answeredInStory, caseFileOfChat } from "../../src/lib/case-system/guided-assistant/answeredInStory";
 import { onSideChange } from "../../src/lib/case-system/sideChange";
 import { civilGuidedFields, familyGuidedFields, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, FAMILY_ISSUE_OPTIONS, FAMILY_FILED_OPTIONS } from "../../app/builder/_components/guidedFields";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
@@ -65,8 +65,8 @@ for (const court of ["civil", "family", "small-claims"] as const) {
   check(`${court}: the question for it counts as asked`, alreadyAsked(file, court === "family" ? "goal" : court === "civil" ? "legalRemedy" : "sc-remedy-sought"));
   const remaining = remainingEssentialQuestions(stored).map((question) => question.id);
   check(`${court}: the review does not ask it again`, !remaining.some((id) => ["goal", "legalRemedy", "sc-remedy-sought", "remedySought"].includes(id)), remaining.join(", "));
-  const facts = answeredFactsOf({ masterResult: { intakeCheckpoint: stored } });
-  check(`${court}: the chat does not ask it again`, answeredInStory("What outcome are you seeking?", "", facts));
+  const held = caseFileOfChat({ masterResult: { intakeCheckpoint: stored } });
+  check(`${court}: the chat does not ask it again`, answeredInStory("What outcome are you seeking?", "", held));
 }
 // Without the home answer it is still asked (control).
 const without = remainingEssentialQuestions(checkpoint("civil", {})).map((question) => question.id);

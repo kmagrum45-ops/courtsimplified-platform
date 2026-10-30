@@ -1,7 +1,7 @@
 "use client";
 
 import { useIntakeReviewView, useIntakeState } from "../../_components/IntakeRecovery";
-import { alreadyAsked, caseFileOf, slotsOfQuestion } from "../../../src/lib/case-system/caseFile/caseFile";
+import { askedAndReplied, caseFileOf, chatMayAsk, offeredOnceMore, slotsOfQuestion } from "../../../src/lib/case-system/caseFile/caseFile";
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { openSituationChange } from "../../_components/SituationQuestions";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
@@ -197,10 +197,19 @@ export default function GuidedFormChat({
     const file = caseFileOf(checkpoint);
     // A fact they said they did not know, which their story states, is offered once as the
     // story's suggestion ("Is that right?"); without a story suggestion it is not asked again.
-    const unsureWithStory = (field: GuidedField) => slotsOfQuestion(field.key).every((fact) => file[fact].state === "unsure") && Boolean(field.fromStory?.(values));
-    return new Set(fields.filter((field) => !isAnswered(field, values[field.key]) && alreadyAsked(file, field.key) && !unsureWithStory(field)).map((field) => field.key));
+    // Once in all: not after the review recorded "I don't know yet" for it (the review was its one
+    // more offer), nor after it was offered again at the end (CI 29 Oct, family-safety: the review's
+    // "I don't know yet" about the children, then the results page offered the children again).
+    const unsureWithStory = (field: GuidedField) => {
+      const facts = slotsOfQuestion(field.key);
+      return facts.length > 0 && facts.every((fact) => file[fact].state === "unsure" && !offeredOnceMore(file, fact, checkpoint.sections)) && Boolean(field.fromStory?.(values));
+    };
+    // The one gate for every chat (caseFile.ts chatMayAsk): a fact the file holds is not asked here.
+    return new Set(fields.filter((field) => !isAnswered(field, values[field.key]) && !chatMayAsk(file, field.key) && !unsureWithStory(field)).map((field) => field.key));
   }, [checkpoint, fields, values]);
-  const pending = useMemo(() => pendingFields(fields, values, skipped).filter((field) => !heldElsewhere.has(field.key)), [fields, values, skipped, heldElsewhere]);
+  // The conversation check (caseFile.ts askedAndReplied): a question this chat asked and the person replied to is not asked again.
+  const replied = useMemo(() => heard.flatMap(({ question, reply }) => [{ role: "assistant", text: question }, { role: "user", text: reply }]), [heard]);
+  const pending = useMemo(() => pendingFields(fields, values, skipped).filter((field) => !heldElsewhere.has(field.key) && !askedAndReplied(replied, field.question)), [fields, values, skipped, heldElsewhere, replied]);
   const current = changing ? fields.find((field) => field.key === changing) ?? null : pending[0] ?? null;
   // An unsent reply belongs to its question, including when the form changes which question comes next.
   const [drafts, setDrafts] = useIntakeState<Record<string, string | string[]>>("form-chat", "drafts", {});
