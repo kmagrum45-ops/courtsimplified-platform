@@ -9,7 +9,7 @@
  * foundation for guided intake's actual data shape; see the session
  * report in docs/INTAKE_STATUS.md for the reasoning).
  *
- * Input shape is deliberately SmallClaimsIntelligenceInput -- the exact
+ * Input shape is deliberately the fields of SmallClaimsIntelligenceInput it reads -- the exact
  * type mapGuidedIntakeToSmallClaimsInput() produces and the fixture
  * harness's PipelineRun.mappedInput already is (pipelineRunner.ts) --
  * not a new shape invented for this file.
@@ -117,8 +117,17 @@ export type UnrecordedElementForDraft = {
   name: string;
 };
 
+/**
+ * The fields the draft reads, and only those: the Form 7A section builds them from the case file
+ * on every Small Claims route (site owner, 30 Oct), the fixtures pass a whole intake input.
+ */
+export type StatementOfClaimDraftInput = Pick<
+  SmallClaimsIntelligenceInput,
+  "yourName" | "yourAddress" | "otherParty" | "defendantAddress" | "amountClaimed" | "facts" | "timeline" | "goal"
+>;
+
 export function draftStatementOfClaimParticulars(
-  input: SmallClaimsIntelligenceInput,
+  input: StatementOfClaimDraftInput,
   matchedClaimType: MatchedClaimTypeForDraft | null,
   unrecordedElements: UnrecordedElementForDraft[] = [],
 ): StatementOfClaimDraft {

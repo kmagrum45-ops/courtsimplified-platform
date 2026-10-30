@@ -21,6 +21,12 @@
  *   2. A fresh case: nothing names the kind, "I don't know yet" in the review, then the kind picked
  *      from the overview's list, the case page reloaded: the overview, "What we have so far" and
  *      "Check my case file" agree.
+ *   3. Every Small Claims route draws the Form 7A section from the case file, with the overview's
+ *      kind (site owner, 30 Oct: it was drawn only after the questions one at a time): the questions
+ *      one at a time (1), the review alone ("Show my next step" from the chooser), and the whole form
+ *      ("Fill in the form yourself"); each signed in, and the results page reloaded (a saved case
+ *      reopened) wherever it shows the overview again.
+ *   4. A guest: the kind given in the review is held; the review, reopened, never asks it again.
  *
  * Civil and Family show no kind of claim on the overview, the Form 7A section or "Check my case
  * file" (all three are Small Claims only); their one place ("What we have so far", from the issues
@@ -43,6 +49,7 @@ import { serveModelStandIns } from "./harness/thisCommitServer";
 import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { deleteHarnessUser } from "./harness/realTestSession";
 import { recordInitialUnknowns } from "./harness/intakeReview";
+import { grantSiteAccess } from "./harness/siteAccess";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
@@ -136,6 +143,18 @@ async function checkMyCaseFile(page: Page): Promise<string> {
   return card.innerText();
 }
 
+/**
+ * The Form 7A section beside the overview, on every Small Claims route: drawn, with the overview's
+ * kind of claim, and never "has not been confirmed" (site owner, 30 Oct). Required, not "when shown".
+ */
+async function form7AAgrees(page: Page, words: string, where: string) {
+  const form7A = page.getByTestId("statement-of-claim-surface");
+  await expect(form7A, `the Form 7A section is drawn (${where})`).toHaveCount(1, { timeout: 60_000 });
+  const shown = await form7A.innerText();
+  expect.soft(shown, `the Form 7A section never says the kind is not confirmed (${where})`).not.toMatch(/has not been confirmed/i);
+  expect.soft(shown, `the Form 7A section shows the overview's kind (${where})`).toContain(words);
+}
+
 /** The kind of claim the overview shows, by its own line. */
 async function overviewKind(page: Page): Promise<{ label: string; words: string }> {
   const value = page.getByTestId("claim-kind").first();
@@ -163,13 +182,7 @@ test("claim type, one value: the owner's defamation flow (Small Claims, case alr
     // The results page.
     const shown = await overviewKind(page);
     expect.soft(shown, "the overview shows the person's answer as theirs").toEqual({ label: "Kind of dispute (your answer)", words: DEFAMATION });
-    const form7A = page.getByTestId("statement-of-claim-surface");
-    test.info().annotations.push({ type: "Form 7A section", description: (await form7A.count()) ? "shown" : "not shown" });
-    if (await form7A.count()) {
-      const words = await form7A.innerText();
-      expect.soft(words, "the Form 7A section never says the kind is not confirmed").not.toMatch(/has not been confirmed/i);
-      expect.soft(words, "the Form 7A section shows the same kind").toContain(DEFAMATION);
-    }
+    await form7AAgrees(page, DEFAMATION, "questions one at a time");
     expect.soft(await checkMyCaseFile(page), "\"Check my case file\" agrees on the results page").not.toMatch(NOT_CONFIRMED);
 
     // The case page.
@@ -234,4 +247,68 @@ test("claim type, one value: a fresh case, the kind picked on the overview, the 
   } finally {
     await deleteHarnessUser(userId);
   }
+});
+
+/**
+ * Every other Small Claims route to the results page: the review alone ("Show my next step" from the
+ * chooser, which opens the form and runs it) and the whole form ("Fill in the form yourself"). The kind
+ * is given in the review, as a person gives it. The overview, the Form 7A section and "Check my case
+ * file" agree; reloaded, the page (if it shows the overview again) still agrees.
+ */
+for (const route of ["review", "form"] as const) {
+  test(`claim type, one value: the Form 7A section on the ${route === "review" ? "review alone (Show my next step)" : "whole form"} route, signed in`, async ({ page }) => {
+    test.setTimeout(600_000);
+    await autoAnswerSituation(page, { where: "going", started: "me", stage: "plaintiff:defendant-noted-in-default" });
+    const userId = await authenticateRealTestUser(page, { realCases: true });
+    try {
+      await serveModelStandIns(page, "small-claims", userId);
+      await startSmallClaims(page, DEFAMATION_STORY);
+      if (route === "form") {
+        await page.getByRole("button", { name: "Fill in the form yourself" }).click();
+        const box = page.getByLabel("Case story", { exact: true });
+        if ((await box.count()) && !(await box.inputValue()).trim()) await box.fill(DEFAMATION_STORY);
+        const save = page.locator('[data-testid$="story-save"]:visible').first();
+        if ((await save.count()) && (await save.isEnabled())) await save.click();
+      }
+      await reviewAndConfirm(page, DEFAMATION);
+      const shown = await overviewKind(page);
+      expect.soft(shown, "the overview shows the person's answer as theirs").toEqual({ label: "Kind of dispute (your answer)", words: DEFAMATION });
+      await form7AAgrees(page, shown.words, route);
+      expect.soft(await checkMyCaseFile(page), "\"Check my case file\" agrees").not.toMatch(NOT_CONFIRMED);
+
+      // Reloaded: the saved case reopened. Wherever the overview is drawn again, the Form 7A section is too, with the same kind.
+      await page.reload();
+      await page.waitForLoadState("networkidle").catch(() => {});
+      const overviewAgain = await page.getByTestId("claim-kind").first().isVisible({ timeout: 60_000 }).catch(() => false);
+      test.info().annotations.push({ type: "reloaded", description: overviewAgain ? "overview shown again" : "overview not shown on reload" });
+      if (overviewAgain) await form7AAgrees(page, (await overviewKind(page)).words, `${route}, reloaded`);
+    } finally {
+      await deleteHarnessUser(userId);
+    }
+  });
+}
+
+/** A guest (no account): the kind given in the review is held, and the review reopened never asks it again. */
+test("claim type, one value: a guest gives the kind in the review; it is never asked again", async ({ page }) => {
+  test.setTimeout(300_000);
+  await autoAnswerSituation(page, { where: "going", started: "me", stage: "plaintiff:defendant-noted-in-default" });
+  await grantSiteAccess(page);
+  await serveModelStandIns(page, "small-claims");
+  await startSmallClaims(page, DEFAMATION_STORY);
+  await openReview(page);
+  const kindQuestion = page.locator('[data-question="sc-orient-dispute-category"]');
+  await expect(kindQuestion, "the review asks the kind once (nothing has given it)").toHaveCount(1, { timeout: 60_000 });
+  await kindQuestion.getByRole("button", { name: DEFAMATION, exact: true }).click();
+  await recordInitialUnknowns(page);
+  await page.getByTestId("intake-review-acknowledgement").check();
+  await page.getByTestId("intake-confirm").click();
+  const panel = page.getByTestId("intake-review");
+  await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
+  await page.getByTestId("intake-view-review").click();
+  expect.soft(await page.locator('[data-question="sc-orient-dispute-category"]').count(), "the review does not ask \"What kind of dispute is this?\" again").toBe(0);
+  await page.reload();
+  await expect(panel).toBeVisible({ timeout: 60_000 });
+  const view = page.getByTestId("intake-view-review");
+  if (await view.isVisible().catch(() => false)) await view.click();
+  expect.soft(await page.locator('[data-question="sc-orient-dispute-category"]').count(), "reloaded, the review still does not ask it").toBe(0);
 });

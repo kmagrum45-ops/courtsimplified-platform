@@ -28,8 +28,16 @@
  * claimTypeUserConfirmed, no checkpoint), an older unticked match, a fresh case with nothing, civil
  * and Family (the issues picked: route-implied).
  *
- * Failure it exists to catch: any screen reading the kind of claim from its own copy again.
+ * Every Small Claims route (site owner, 30 Oct): the questions one at a time, the review alone
+ * ("Show my next step" from the chooser) and the whole form ("Fill in the form yourself") each save
+ * the case differently; each saved shape is run through every screen above, and the builder's own
+ * source is checked so the Form 7A section is drawn on every Small Claims route from the case file
+ * alone (its render depends on no route's own state, and it takes no fact but the case file).
+ *
+ * Failure it exists to catch: any screen reading the kind of claim from its own copy again, or the
+ * Form 7A section drawn on one route only (it was, from the questions one at a time's own copy).
  */
+import { readFileSync } from "node:fs";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { caseFileOf, claimKindOf, claimKindLine, alreadyAsked, type CaseFile } from "../../src/lib/case-system/caseFile/caseFile";
@@ -80,7 +88,8 @@ function screens(master: Record<string, unknown>, court: Area = "small-claims") 
   const file: CaseFile = caseFileOf(checkpoint, master);
   const held = claimKindOf(file, inWords);
   const overview = text(renderToStaticMarkup(createElement(IntelligenceOverviewPanel, { analysis: { ...(ANALYSIS as object), courtPath: court } as never, intake: (master.intakeData ?? null) as never, confirmedStage: "already-started" as never, caseId: null, claimKind: held })));
-  const form7A = court === "small-claims" ? text(renderToStaticMarkup(createElement(StatementOfClaimSurface, { claimKind: held, initialElementStateMap: {}, mappedInput: { facts: DEFAMATION_STORY } as never }))) : "";
+  // The Form 7A section as the builder draws it on every Small Claims route: from the same case file.
+  const form7A = court === "small-claims" ? text(renderToStaticMarkup(createElement(StatementOfClaimSurface, { caseFile: file }))) : "";
   const caseFilePanel = text(renderToStaticMarkup(createElement(CaseFilePanel, { file, changeHref: "/b", situationHref: "/s", stepHref: "/t" })));
   const review = deterministicFindings(caseFileFromMasterResult(master, court));
   const stillNeeded = checkpoint ? remainingEssentialQuestions(checkpoint, true, master).map((question) => question.id) : [];
@@ -162,6 +171,37 @@ check("civil issues picked: source route-implied", civil.held.source === "route-
 const familyCase = savedCase(checkpointOf("family", { family: { issues: ["child-support"] } }));
 const family = agrees("Family issues picked", familyCase, claimKindOf(caseFileOfMaster(familyCase, "family"), inWords).words ?? "?", "family");
 check("Family issues picked: source route-implied", family.held.source === "route-implied");
+
+// 8. Every Small Claims route, as each saves the case: the review alone ("Show my next step" from the
+// chooser runs the form), the whole form, the questions one at a time (1 above). Signed in or a guest
+// saves the same checkpoint (the guest's in the browser, then carried), so the shapes are the same.
+const reviewAlone = savedCase(checkpointOf("small-claims", { ...GOING_NOTED, builder: { step: "form", initialAnswers: { "sc-orient-dispute-category": DEFAMATION_WORDS } } }));
+agrees("review alone route (Show my next step)", reviewAlone, DEFAMATION_WORDS);
+const wholeForm = savedCase(checkpointOf("small-claims", { ...GOING_NOTED, builder: { step: "form", initialAnswers: { "sc-orient-dispute-category": DEFAMATION_WORDS } }, "small-claims": { input: { facts: DEFAMATION_STORY, amountClaimed: "10000", otherParty: "Jordan Testperson", filedDocuments: ["plaintiffs-claim"] } } }));
+agrees("whole form route", wholeForm, DEFAMATION_WORDS);
+const wholeFormPicked = savedCase(checkpointOf("small-claims", { ...GOING_NOTED, builder: { step: "form" }, "small-claims": { input: { facts: DEFAMATION_STORY } } }), {}, { position: { claimKind: "sc-claim-defamation-libel-slander" } });
+agrees("whole form route, kind picked on the overview", wholeFormPicked, "Defamation (libel or slander)");
+// A fresh case on the whole form: the section is drawn and claims no kind as the person's.
+const freshForm = savedCase(checkpointOf("small-claims", { situation: { record: { where: "starting", started: "me", filed: "nothing", court: "small-claims" } }, story: { text: "Test Decks Ltd. owes me money for a deck. I have the contract." }, builder: { step: "form" } }));
+const freshFormScreens = agrees("fresh case, whole form route", freshForm, null);
+check("fresh case, whole form route: the Form 7A section is drawn (says no kind is recorded yet)", /Form 7A/.test(freshFormScreens.form7A) && /No kind of claim is recorded/.test(freshFormScreens.form7A), freshFormScreens.form7A.slice(0, 200));
+
+// 9. The builder draws the Form 7A section on every Small Claims route, from the case file alone.
+const strip = (source: string) => source.replace(/\{\/\*[\s\S]*?\*\/\}/g, "").replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
+const builder = strip(readFileSync("app/builder/page.tsx", "utf8"));
+const renderAt = builder.indexOf("<StatementOfClaimSurface");
+const opening = builder.lastIndexOf("{", renderAt);
+const condition = builder.slice(opening, renderAt);
+const element = builder.slice(renderAt, builder.indexOf("/>", renderAt));
+const ROUTE_STATE = ["draftInput", "smallClaimsMode", "visibleMode", "startedModes", "lastGuidedResult", "guidedAnalyzing", "handleGuidedComplete", "stepParam"];
+check("builder: the Form 7A section's render depends on no one route's own state", renderAt > 0 && !ROUTE_STATE.some((name) => condition.includes(name)), condition.trim());
+check("builder: the Form 7A section is drawn for Small Claims (the court, not the route, decides)", /courtPath === "small-claims"/.test(condition), condition.trim());
+check("builder: the Form 7A section is given the case file, and the same file the overview's kind comes from", /caseFile=\{builderCaseFile\}/.test(element) && /claimKindOf\(builderCaseFile\)/.test(builder), element);
+check("builder: the Form 7A section is given no fact of its own (no mappedInput, no claim kind copy)", !/mappedInput=|claimKind=|draftInput/.test(element), element);
+const surface = strip(readFileSync("app/builder/_components/StatementOfClaimSurface.tsx", "utf8"));
+const props = /export type StatementOfClaimSurfaceProps = \{([\s\S]*?)\r?\n\};/.exec(surface)?.[1] ?? "";
+const propNames = [...props.matchAll(/^\s*(\w+)\??:/gm)].map((match) => match[1]);
+check("the Form 7A section takes its facts from the case file only (its props: the case file, this visit's element record, a callback)", propNames.length > 0 && propNames.every((name) => ["caseFile", "elementStatesThisVisit", "onStateMapChange"].includes(name)), propNames.join(", "));
 
 if (failures) {
   console.log(`\n${failures} check(s) failed.`);

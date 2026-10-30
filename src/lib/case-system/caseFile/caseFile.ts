@@ -36,6 +36,7 @@ import { isKindOfClaim, kindFromStory, storyQuoteFor, wordsInStory } from "../in
 import { CLAIM_TYPES } from "../intake/claimTypes";
 import { chatQuestionOf, chatSentencesFor, factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
 import { parseRecordedAmount } from "../format/recordedAmount";
+import type { StatementOfClaimDraftInput } from "../statementOfClaimDraftEngine";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
 
@@ -76,6 +77,12 @@ export type CaseFile = Record<SlotFact, Slot> & {
   savedStory?: string;
   /** The story's words a ticked suggestion was shown with (kept with the tick). */
   claimKindQuote?: string;
+  /**
+   * What the person recorded for each element of their kind of claim (the depth questions, the Form 7A
+   * section's "I have this" / "I don't have this"), as the saved case keeps it: read by the Form 7A
+   * section on every Small Claims route, never rebuilt from a screen's copy (site owner, 30 Oct).
+   */
+  elementStates?: Record<string, unknown>;
 };
 
 /** Where the case file keeps what it adds: the facts answered "not sure", and those offered again at the end. */
@@ -351,6 +358,9 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
     }
     else file.claimKindProposal ??= { claimTypeId: extra.confirmedClaimTypeId, quote: typeof extra.claimTypeQuote === "string" ? extra.claimTypeQuote : null };
   }
+  // The element record the analysis saved with the case (the depth phase's answers), for the Form 7A section.
+  const savedElementStates = object(extra.elementStateMap);
+  if (Object.keys(savedElementStates).length) file.elementStates = savedElementStates;
   for (const answer of Array.isArray(object(master).intakeAnswers) ? (object(master).intakeAnswers as unknown[]) : []) {
     const item = object(answer);
     if (typeof item.questionId === "string" && typeof item.answerText === "string") answers[item.questionId] ??= item.answerText;
@@ -458,7 +468,7 @@ export function claimKindOf(file: CaseFile, listWords: (codes: string[]) => stri
       words = listWords(value.filter((item): item is string => typeof item === "string"));
     }
   }
-  const story = file.story?.trim() ? file.story : file.savedStory ?? "";
+  const story = storyOfFile(file);
   // A ticked suggestion keeps the story's words it was shown with, as its source (checked to be in the story).
   const tickedKind = source === "confirmed" && claimTypeId ? CLAIM_TYPES.find((claimType) => claimType.id === claimTypeId) : undefined;
   const quote = tickedKind ? (file.claimKindQuote ? wordsInStory(story, file.claimKindQuote) : null) ?? storyQuoteFor(story, tickedKind) : null;
@@ -478,6 +488,23 @@ export function claimKindOf(file: CaseFile, listWords: (codes: string[]) => stri
     }
   }
   return { state: slot.state, claimTypeId, words, source, askedBy: question || null, quote, proposal };
+}
+
+/** The story the case file holds: the checkpoint's, else (an older saved case) the story it saved. */
+export function storyOfFile(file: CaseFile): string {
+  return file.story?.trim() ? file.story : file.savedStory ?? "";
+}
+
+/**
+ * The Form 7A draft's fields, from the case file only (site owner, 30 Oct: the section is drawn on
+ * every Small Claims route, never from one route's own copy): the story, and the amount and what they
+ * want as the case file words them (slotText). Party names and addresses are never filled in here:
+ * the person types them in the section, so an empty one stays empty and the draft says "[... to be
+ * confirmed]".
+ */
+export function form7ADraftFields(file: CaseFile, formatDay: (iso: string) => string): StatementOfClaimDraftInput {
+  const said = (fact: "amount" | "wants") => (file[fact].state === "answered" ? slotText(file[fact], formatDay) : "");
+  return { yourName: "", yourAddress: "", otherParty: "", defendantAddress: "", amountClaimed: said("amount"), facts: storyOfFile(file), timeline: "", goal: said("wants") };
 }
 
 /**

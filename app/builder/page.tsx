@@ -64,7 +64,6 @@ import type { ServiceMethod } from "@/src/lib/case-system/deadlines/serviceEffec
 import { mapGuidedIntakeToSmallClaimsInput } from "./_components/guidedIntakeToSmallClaimsInput";
 import StatementOfClaimSurface from "./_components/StatementOfClaimSurface";
 import { COURT_DOCUMENT_DRAFTING_ENABLED } from "@/src/lib/case-system/policy/courtDocumentDrafting";
-import type { SmallClaimsIntelligenceInput } from "@/src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 import type { ElementStateMap } from "@/src/lib/case-system/intake/depth/elementStateMap";
 import CivilIntake from "./_components/CivilIntake";
 import FamilyStatusTriage, {
@@ -332,7 +331,6 @@ function BuilderPageContent() {
   // Session 48 — inputs the Statement of Claim surface needs. Retained from
   // the completing guided turn rather than rebuilt, so the readiness gate reads
   // the same element states the depth phase produced.
-  const [draftInput, setDraftInput] = useState<SmallClaimsIntelligenceInput | null>(null);
   const [draftElementStateMap, setDraftElementStateMap] = useState<ElementStateMap>({});
   // Guided intake produces real IntakeFacts. Retained so the save site can
   // persist them -- see the intakeFacts block in masterPayload for why.
@@ -1296,8 +1294,8 @@ function BuilderPageContent() {
       const heldNow = claimKindOf(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult));
       const mappedInput = mapGuidedIntakeToSmallClaimsInput({ ...result, facts: { ...(result.facts ?? {}), ...(situationFacts.side ? { role: situationFacts.side } : {}), ...(situationFacts.claimFiled !== undefined ? { claimFiled: situationFacts.claimFiled } : {}) } }, confirmedLocation, homeStory, kindForAnalysis(heldNow));
 
-      // Retained for the Statement of Claim surface below.
-      setDraftInput(mappedInput);
+      // The element record the depth questions made, until the analysis saves it with the case (the
+      // Form 7A section reads the case file's saved copy first).
       setDraftElementStateMap((result.elementStateMap as ElementStateMap) || {});
       // Guided intake produces real IntakeFacts — claimFiled, claimServed,
       // defenceFiled among them. Retained so the save site can persist them;
@@ -1473,7 +1471,8 @@ function BuilderPageContent() {
 
   // The kind of claim, from the case file: the one value the overview, the Form 7A section and the
   // notice step read (site owner, 29 Oct: they read three different copies and disagreed).
-  const heldClaimKind = claimKindOf(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult));
+  const builderCaseFile = caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult);
+  const heldClaimKind = claimKindOf(builderCaseFile);
   const respondingSide = userIsResponding({
     confirmedStage,
     caseData,
@@ -2480,19 +2479,18 @@ function BuilderPageContent() {
             {confirmedStage ? <EvidenceUploadCard caseId={savedCaseId()} /> : null}
             {confirmedStage ? <CaseReviewPanel caseId={savedCaseId()} /> : null}
             {/*
-              The Statement of Claim stays gated, and not by oversight — see
-              the note in the spec. It needs `draftInput`, a
-              SmallClaimsIntelligenceInput built during the run, which no load
-              path reconstructs.
+              The Form 7A section on every Small Claims route (site owner, 30 Oct): the questions one
+              at a time, the whole form, "Show my next step" and a saved case reopened. It reads the
+              case file only (the same file the overview's kind of claim comes from), never a copy
+              one route built during its run (it was drawn only after the questions one at a time).
             */}
             {/* Paused with official-form completion: see FORM_COMPLETION_PAUSED in phaseScope.ts. */}
             {/* Never for a defendant: a served person was shown "Preparing your
                 Plaintiff's Claim (Form 7A)" (page review, 2026-10-06). */}
-            {draftInput && !FORM_COMPLETION_PAUSED && !respondingSide ? (
+            {courtPath === "small-claims" && !respondingSide && !FORM_COMPLETION_PAUSED ? (
               <StatementOfClaimSurface
-                claimKind={heldClaimKind}
-                initialElementStateMap={draftElementStateMap}
-                mappedInput={draftInput}
+                caseFile={builderCaseFile}
+                elementStatesThisVisit={draftElementStateMap}
                 onStateMapChange={setDraftElementStateMap}
               />
             ) : null}

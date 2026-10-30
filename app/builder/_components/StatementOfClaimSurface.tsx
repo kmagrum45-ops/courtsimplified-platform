@@ -13,12 +13,12 @@ import {
   type ElementStateMap,
 } from "@/src/lib/case-system/intake/depth/elementStateMap";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
-import { claimKindLine, type ClaimKindHeld } from "@/src/lib/case-system/caseFile/caseFile";
+import { claimKindLine, claimKindOf, form7ADraftFields, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
+import { formatForCourt } from "@/src/lib/case-system/dates";
 import {
   draftStatementOfClaimParticulars,
   type StatementOfClaimDraft,
 } from "@/src/lib/case-system/statementOfClaimDraftEngine";
-import type { SmallClaimsIntelligenceInput } from "@/src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 
 import { COURT_DOCUMENT_DRAFTING_ENABLED as CLAIM_DRAFTING_ENABLED } from "@/src/lib/case-system/policy/courtDocumentDrafting";
 import ScopePreviewNotice from "./ScopePreviewNotice";
@@ -72,17 +72,21 @@ const FORMS_PAGE = {
 
 export type StatementOfClaimSurfaceProps = {
   /**
-   * The kind of claim, from the case file (caseFile.ts claimKindOf): the same value the overview,
-   * "Check my case file" and the review show (site owner, 29 Oct: this section said "A claim type
-   * has not been confirmed" beside the overview's "Kind of dispute (your answer)"). Its checklist
-   * follows the catalogue kind the answer names, or the one the story shows (labelled so).
+   * The case file (caseFile.ts caseFileOf), the ONLY thing this section reads its facts from, on every
+   * Small Claims route: the questions one at a time, the whole form, "Show my next step", a saved case
+   * reopened (site owner, 30 Oct: it was drawn only after the questions one at a time, from that run's
+   * own copy). The kind of claim is claimKindOf(caseFile): the same value the overview, "Check my case
+   * file" and the review show (29 Oct: this section said "A claim type has not been confirmed" beside
+   * the overview's "Kind of dispute (your answer)"). Its checklist follows the catalogue kind the
+   * answer names, or the one the story shows (labelled so).
    */
-  claimKind: ClaimKindHeld;
-  /** Produced by the depth layer. Edited here by attestation; same structure. */
-  initialElementStateMap: ElementStateMap;
-  /** What the mapper produced from guided intake. */
-  mappedInput: SmallClaimsIntelligenceInput;
-  /** Persist attestation + party details back to the case file. */
+  caseFile: CaseFile;
+  /**
+   * The element record the depth questions made in this visit, before the analysis saved it with the
+   * case (the case file's elementStates is the saved one, read first). Edited here by attestation.
+   */
+  elementStatesThisVisit?: ElementStateMap;
+  /** Persist attestation back to the page. */
   onStateMapChange?: (map: ElementStateMap) => void;
 };
 
@@ -94,12 +98,13 @@ type PartyDetails = {
 };
 
 export default function StatementOfClaimSurface({
-  claimKind,
-  initialElementStateMap,
-  mappedInput,
+  caseFile,
+  elementStatesThisVisit,
   onStateMapChange,
 }: StatementOfClaimSurfaceProps) {
-  const [stateMap, setStateMap] = useState<ElementStateMap>(initialElementStateMap);
+  const claimKind = claimKindOf(caseFile);
+  const mappedInput = useMemo(() => form7ADraftFields(caseFile, formatForCourt), [caseFile]);
+  const [stateMap, setStateMap] = useState<ElementStateMap>(() => ({ ...((caseFile.elementStates ?? {}) as ElementStateMap), ...(elementStatesThisVisit ?? {}) }));
   const [confirmedRemedyId, setConfirmedRemedyId] = useState<string | null>(null);
   const [answerDrafts, setAnswerDrafts] = useState<Record<string, string>>({});
   const [party, setParty] = useState<PartyDetails>({
