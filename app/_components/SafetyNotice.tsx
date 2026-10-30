@@ -19,7 +19,7 @@
  */
 import { useEffect, useState } from "react";
 import { storySuggestsDanger } from "@/src/lib/case-system/intake/dangerWords";
-import { readShownKeys, recordShownKey, safetyNoticeToShow } from "@/src/lib/case-system/intake/safetyNoticeOnce";
+import { decideSafetyNotice } from "@/src/lib/case-system/intake/safetyNoticeOnce";
 import { safetyNoticeStore } from "@/src/lib/case-system/storage/safetyNoticeStore";
 import { VICTIM_SUPPORT_LINE } from "@/src/lib/content-library/supportLines";
 
@@ -32,11 +32,8 @@ export default function SafetyNotice({ story }: { story: string }) {
   const [showing, setShowing] = useState<string | null>(null);
   useEffect(() => {
     let live = true;
-    const store = safetyNoticeStore();
-    void safetyNoticeToShow(story, readShownKeys(store)).then((decision) => {
-      if (!live || !decision.show) return;
-      if (decision.fingerprint) recordShownKey(store, decision.fingerprint);
-      setShowing(story);
+    void decideSafetyNotice(story, window.location.pathname, safetyNoticeStore()).then((show) => {
+      if (live && show) setShowing(story);
     });
     return () => { live = false; };
   }, [story]);

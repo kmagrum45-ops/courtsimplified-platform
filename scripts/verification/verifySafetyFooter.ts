@@ -25,6 +25,10 @@
  *   no-words-stored   what the browser keeps for "shown once" contains no word of the
  *                     story (a one-way fingerprint only), under a registered key that
  *                     sign-out clears.
+ *   journey           screen by screen through one tab: not on the home page while the
+ *                     story is typed; shown on the builder (the first screen after the
+ *                     story) and through a remount there; not again on the case page
+ *                     or a reload; shown for new danger words. No words stored.
  *   once-wired        the notice the builder and the case page render is the one that
  *                     uses that decision.
  *
@@ -141,10 +145,57 @@ async function main() {
   check("no-words-stored", Boolean(stored) && leaked.length === 0 && registered,
     `the stored value names no word of the story (leaked: ${leaked.join(", ") || "none"}; stored: ${stored ? `${stored.length} chars` : "nothing"}) and its key is in the storage registry, so sign-out clears it (${registered})`);
 
+  // journey: the screens a person passes through, each mounting SafetyNotice the way the
+  // site does (IntakeRecovery mounts it on the home page once the situation is answered,
+  // on every builder screen, and the case page mounts it), each running the decision
+  // SafetyNotice's effect runs, against one tab's store. The notice must be visible on
+  // the first screen after the story (the builder), stay through a remount there, and not
+  // come back on the case page, on a reload, or in a later mount; new words naming danger
+  // show it again. On a commit without decideSafetyNotice (3e30ca6a), the effect body of
+  // that commit's SafetyNotice is run instead: safetyNoticeToShow + recordShownKey, on
+  // every screen (it had no screen rule).
+  type Mod = {
+    decideSafetyNotice?: (story: string, pathname: string, store: Pick<Storage, "getItem" | "setItem">) => Promise<boolean>;
+    startNewPageLoad?: () => void;
+    safetyNoticeToShow: (story: string, shown: readonly string[]) => unknown;
+    readShownKeys: (store: Pick<Storage, "getItem">) => string[];
+    recordShownKey: (store: Pick<Storage, "getItem" | "setItem">, key: string) => void;
+  };
+  const mod = once as unknown as Mod | null;
+  const tab = new Map<string, string>();
+  const tabStore = { getItem: (name: string) => tab.get(name) ?? null, setItem: (name: string, value: string) => void tab.set(name, value) };
+  const mount = async (story: string, pathname: string): Promise<boolean> => {
+    if (!mod) return false;
+    if (mod.decideSafetyNotice) return mod.decideSafetyNotice(story, pathname, tabStore);
+    const decision = (await mod.safetyNoticeToShow(story, mod.readShownKeys(tabStore))) as { show: boolean; fingerprint: string | null } | string | null;
+    const fingerprint = typeof decision === "string" ? decision : decision?.fingerprint ?? null;
+    const show = typeof decision === "string" ? true : Boolean(decision?.show);
+    if (show && fingerprint) mod.recordShownKey(tabStore, fingerprint);
+    return show;
+  };
+  const newLoad = () => mod?.startNewPageLoad?.();
+  const journey: [string, boolean][] = [];
+  newLoad();
+  journey.push(["home page, story typed (not a screen after the story)", await mount(danger, "/")]);
+  newLoad();
+  const onBuilder = await mount(danger, "/builder");
+  journey.push(["builder, first screen after the story: SHOWN", onBuilder]);
+  journey.push(["builder, same screen remounted: still shown", await mount(danger, "/builder")]);
+  newLoad();
+  journey.push(["case page, same words: not again", await mount(danger, "/cases/synthetic-case")]);
+  newLoad();
+  journey.push(["builder reloaded, same words: not again", await mount(danger, "/builder")]);
+  journey.push(["builder, new words naming danger: shown", await mount(`${danger} He said he would hurt me.`, "/builder")]);
+  const expected = [false, true, true, false, false, true];
+  const wrong = journey.filter(([, got], index) => got !== expected[index]);
+  check("journey", Boolean(mod) && wrong.length === 0, `screen by screen: ${journey.map(([what, got]) => `${what} -> ${got ? "shown" : "hidden"}`).join("; ")}`);
+  const leakedAfterJourney = words.filter((word) => [...tab.values()].join(" ").toLowerCase().includes(word));
+  check("journey-no-words-stored", leakedAfterJourney.length === 0, `the tab's store after the journey names none of the story's words (leaked: ${leakedAfterJourney.join(", ")})`);
+
   // once-wired
   const notice = read("app/_components/SafetyNotice.tsx");
-  check("once-wired", /safetyNoticeToShow\(/.test(notice) && /recordShownKey\(/.test(notice) && /<SafetyNotice\b/.test(read("app/_components/IntakeRecovery.tsx")) && /<SafetyNotice\b/.test(read("app/cases/[id]/page.tsx")),
-    "SafetyNotice decides with safetyNoticeToShow and records what it showed, and it is the notice the builder and the case page render");
+  check("once-wired", /decideSafetyNotice\(story, window\.location\.pathname/.test(notice) && /<SafetyNotice\b/.test(read("app/_components/IntakeRecovery.tsx")) && /<SafetyNotice\b/.test(read("app/cases/[id]/page.tsx")),
+    "SafetyNotice decides with decideSafetyNotice on its own screen (the journey above), and it is the notice the builder and the case page render");
 
   console.log(failures ? `\n${failures} failure(s)` : "\nAll checks pass.");
   process.exit(failures ? 1 : 0);

@@ -42,6 +42,47 @@ export async function safetyNoticeToShow(story: string, shown: readonly string[]
   return { show: true, fingerprint };
 }
 
+/**
+ * THE SCREENS THE NOTICE IS SHOWN ON: the ones after the story -- the builder and the
+ * case pages. Not the home page, where the story is still being typed: shown there, it
+ * was recorded as shown before the person pressed Continue, so the builder (the first
+ * screen after the story) never showed it. That was the fault CI's first run of
+ * items-8-12 test 8 found on 2026-10-30.
+ */
+export const SAFETY_NOTICE_SCREENS = ["/builder", "/cases/"] as const;
+
+export function safetyNoticeShowsOn(pathname: string): boolean {
+  return SAFETY_NOTICE_SCREENS.some((screen) => pathname === screen || pathname.startsWith(screen.endsWith("/") ? screen : `${screen}/`));
+}
+
+/**
+ * Fingerprint -> the screen it was shown on, in this page load only (memory, never
+ * stored). A remount on the same screen (React's development double mount, the intake
+ * provider re-keyed when the case is saved) keeps the notice; another screen, or a new
+ * page load, does not show it again.
+ */
+const shownThisLoad = new Map<string, string>();
+
+/** For tests: a new page load forgets what this load showed (the tab's record stays). */
+export function startNewPageLoad(): void {
+  shownThisLoad.clear();
+}
+
+/**
+ * The one decision SafetyNotice makes, for these words on this screen: show, once. Records
+ * the fingerprint (never the words) in the tab's store the first time it decides to show.
+ */
+export async function decideSafetyNotice(story: string, pathname: string, store: Pick<Storage, "getItem" | "setItem"> | null | undefined): Promise<boolean> {
+  if (!safetyNoticeShowsOn(pathname) || !storySuggestsDanger(story)) return false;
+  const fingerprint = await safetyNoticeFingerprint(story);
+  if (!fingerprint) return true;
+  if (shownThisLoad.get(fingerprint) === pathname) return true;
+  if (readShownKeys(store).includes(fingerprint)) return false;
+  recordShownKey(store, fingerprint);
+  shownThisLoad.set(fingerprint, pathname);
+  return true;
+}
+
 /** Reads the shown fingerprints from a browser store; a missing or broken entry is an empty list. */
 export function readShownKeys(store: Pick<Storage, "getItem"> | null | undefined): string[] {
   try {
