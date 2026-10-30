@@ -28,6 +28,7 @@ import { createStageAnswerPost } from "../../app/api/case/stage-answer/route";
 import { guidanceIsCurrent } from "../../src/lib/case-system/intakeReview";
 
 import { grantSiteAccess } from "./harness/siteAccess";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 type UnderstandBody = {
   ok: true;
@@ -121,7 +122,7 @@ test("the date suggestion reads the story, and a new round of questions starts w
   // more naturally-worded story so this test does not depend on guessing the
   // per-question cue-word matching too.
   await page
-    .getByLabel("Tell us what happened in your own words")
+    .getByLabel(STORY_LABEL, { exact: true })
     .fill("My neighbour's dog bit me and I had to pay vet bills. This happened on September 13, 2026.");
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
 

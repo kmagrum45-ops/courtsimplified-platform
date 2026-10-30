@@ -22,6 +22,7 @@ import { factsAskedTwice, factsOfAsk, heldInRows, heldViolations, recordAsks, re
 import { splitKnown } from "./harness/knownRepeats";
 import { serveFromThisCommit } from "./harness/thisCommitServer";
 import { appendRecord } from "./harness/packRecords";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 const STORY = "I built a deck for my neighbour in Sudbury in August 2026. He agreed to pay $2,400 when it was done and never paid. I have the texts where he agreed.";
 const WANTS = "What would you like the court to order?";
@@ -48,7 +49,7 @@ test("home reading: its questions are recorded, an answer counts as given, and n
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(STORY);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(STORY);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await expect(page.getByTestId("case-understanding-questions")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel(WANTS).fill(ANSWER);

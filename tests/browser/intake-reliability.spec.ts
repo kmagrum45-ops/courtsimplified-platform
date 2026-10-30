@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { grantSiteAccess } from "./harness/siteAccess";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off" });
 
@@ -29,7 +30,7 @@ for (const [court, label] of [["small-claims", "Small Claims"], ["family", "Fami
     });
     await page.goto(`/?path=${court}`, { timeout: 120_000 });
     await page.getByLabel("City or municipality").fill("Ottawa");
-    await page.getByLabel("Tell us what happened in your own words").fill("Synthetic description for intake request regression testing.");
+    await page.getByLabel(STORY_LABEL, { exact: true }).fill("Synthetic description for intake request regression testing.");
     await page.getByRole("button", { name: `Continue to ${label} intake` }).click();
     const first = page.getByLabel("Question 0?", { exact: true });
     await expect(first).toBeVisible({ timeout: 60_000 });
@@ -71,7 +72,7 @@ test("editing the story cancels an older reading without losing the new story", 
   });
   await page.goto("/?path=small-claims", { timeout: 120_000 });
   await page.getByLabel("City or municipality").fill("Ottawa");
-  const story = page.getByLabel("Tell us what happened in your own words");
+  const story = page.getByLabel(STORY_LABEL, { exact: true });
   await story.fill("The original synthetic description.");
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await received;

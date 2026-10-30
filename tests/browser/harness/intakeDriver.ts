@@ -15,6 +15,7 @@ import { grantSiteAccess } from "./siteAccess";
 import { authStorageKey, mintRealTestSession } from "./realTestSession";
 
 import type { SelectedScenario } from "./scenarioSelection";
+import { STORY_LABEL } from "../../../src/lib/case-system/copy/storyGuidance";
 
 /**
  * Signed-in state so intakes reach the overview on the structured-ai path,
@@ -243,7 +244,7 @@ export async function runScenario(
     await page.goto(`/builder?path=${scenario.courtPath}`, { waitUntil: "domcontentloaded" });
     await page.getByLabel("Province or territory").selectOption("Ontario");
     await page.getByLabel("City or municipality").fill(city);
-    await page.getByLabel("Tell us what happened in your own words").fill(facts);
+    await page.getByLabel(STORY_LABEL, { exact: true }).fill(facts);
     // The gate button is disabled until React has processed the province, city
     // and story changes (app/builder/page.tsx line ~750). Clicking without
     // waiting races the re-render, which is why one path passed and two failed.

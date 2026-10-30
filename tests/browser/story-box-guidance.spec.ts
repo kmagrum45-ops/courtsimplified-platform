@@ -9,6 +9,10 @@
  *   - the text the box is described by (aria-describedby) is exactly
  *     STORY_GUIDANCE (src/lib/case-system/copy/storyGuidance.ts), and every
  *     visible story-guidance block on the page says the same;
+ *   - no box's accessible name repeats the guidance's opening words, and the
+ *     boxes named for the story (home page, Small Claims chat, Family and civil
+ *     story question) are named STORY_LABEL, shown as visible text where the
+ *     box has a visible label or question;
  *   - at phone width, the box and its submit / continue / save button sit inside
  *     the viewport's width, the page does not scroll sideways, and the button can
  *     be scrolled into view;
@@ -30,7 +34,7 @@
  * CI only: Playwright here starts a dev server (playwright.config.ts).
  */
 import { expect, test, type Locator, type Page, type TestInfo } from "@playwright/test";
-import { STORY_GUIDANCE } from "../../src/lib/case-system/copy/storyGuidance";
+import { STORY_GUIDANCE, STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 import { openBuilder } from "./harness/builderGate";
 import { saveCaseStory } from "./harness/intakeReview";
 import { grantSiteAccess } from "./harness/siteAccess";
@@ -42,15 +46,23 @@ const STORY = "Synthetic story: a contractor was paid $9,000 in May 2026 to fix 
 const DESKTOP = { width: 1280, height: 900 };
 const PHONE = { width: 390, height: 844 };
 
-type Box = { box: Locator; button: Locator };
+/** named: the box is named for the story (STORY_LABEL); label: the visible text that shows that name, if any. */
+type Box = { box: Locator; button: Locator; named?: boolean; label?: Locator };
+/** The guidance's opening words (its first clause), which no box's name may repeat (site owner, 30 Oct). */
+const OPENING = STORY_GUIDANCE.split(/[,.]/)[0];
+const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 /** Desktop then phone: the guidance, the screenshots, and at phone width the fit. */
 async function checkBox(page: Page, testInfo: TestInfo, name: string, open: (page: Page) => Promise<Box>) {
   await page.setViewportSize(DESKTOP);
-  const { box, button } = await open(page);
+  const { box, button, named, label } = await open(page);
   for (const size of [DESKTOP, PHONE]) {
     await page.setViewportSize(size);
     await expect(box, `${name}: the story box is shown`).toBeVisible({ timeout: 60_000 });
+
+    await expect(box, `${name}: the box's name does not repeat the guidance's opening words`).not.toHaveAccessibleName(new RegExp(`${escapeRegExp(OPENING)}|in your own words`, "i"));
+    if (named) await expect(box, `${name}: the box is named by the shared label`).toHaveAccessibleName(STORY_LABEL);
+    if (label) await expect(label, `${name}: the shared label is shown by the box`).toBeVisible();
 
     const describedBy = (await box.getAttribute("aria-describedby")) ?? "";
     const guidanceId = describedBy.split(/\s+/).find((id) => /story-guidance|-guidance$/.test(id));
@@ -84,7 +96,7 @@ async function homeBox(page: Page): Promise<Box> {
   await grantSiteAccess(page);
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
-  return { box: page.getByLabel("Tell us what happened in your own words"), button: page.getByRole("button", { name: /^Continue to .* intake$/ }) };
+  return { box: page.getByLabel(STORY_LABEL, { exact: true }), button: page.getByRole("button", { name: /^Continue to .* intake$/ }), named: true, label: page.locator("label").getByText(STORY_LABEL, { exact: true }) };
 }
 
 async function finderBox(page: Page): Promise<Box> {
@@ -103,7 +115,7 @@ async function smallClaimsFormBox(page: Page): Promise<Box> {
 async function smallClaimsGuidedBox(page: Page): Promise<Box> {
   await openBuilder(page, "small-claims");
   await page.getByRole("button", { name: "Answer questions one at a time with AI help" }).click();
-  return { box: page.getByRole("textbox", { name: "Tell us what happened in your own words" }), button: page.getByRole("button", { name: "Send", exact: true }) };
+  return { box: page.getByRole("textbox", { name: STORY_LABEL, exact: true }), button: page.getByRole("button", { name: "Send", exact: true }), named: true };
 }
 
 function guidedQuestionsBox(court: "family" | "civil") {
@@ -111,7 +123,7 @@ function guidedQuestionsBox(court: "family" | "civil") {
     await openBuilder(page, court);
     const question = page.getByTestId("guided-form-question");
     await expect(question).toHaveAttribute("data-key", "facts", { timeout: 60_000 });
-    return { box: question.getByRole("textbox"), button: page.getByTestId("guided-form-next") };
+    return { box: question.getByRole("textbox"), button: page.getByTestId("guided-form-next"), named: true, label: question.getByText(STORY_LABEL, { exact: true }) };
   };
 }
 

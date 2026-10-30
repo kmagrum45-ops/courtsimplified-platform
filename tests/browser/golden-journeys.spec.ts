@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 import { grantSiteAccess } from "./harness/siteAccess";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 const casePartnerPlaceholder =
   "Ask about an important date, document, or case detail.";
@@ -103,7 +104,7 @@ test("warm Small Claims builder", async ({ page, request, baseURL }) => {
       await waitForCourtPathLocationGate(page);
       await page.getByLabel("Province or territory").selectOption("Ontario");
       await page.getByLabel("City or municipality").fill("Toronto");
-      await page.getByLabel("Tell us what happened in your own words").fill("A payment was missed.");
+      await page.getByLabel(STORY_LABEL, { exact: true }).fill("A payment was missed.");
       await continueKeepingDeclaredPath(page, "Small Claims");
       await page.getByRole("button", { name: "Fill in the form yourself" }).click();
       await expect(page.getByLabel("Amount claimed or disputed")).toBeVisible({
@@ -130,7 +131,7 @@ test("Small Claims: one story reaches reviewable intake", async ({ page }) => {
     await waitForCourtPathLocationGate(page);
     await page.getByLabel("Province or territory").selectOption("Ontario");
     await page.getByLabel("City or municipality").fill("Toronto");
-    await page.getByLabel("Tell us what happened in your own words").fill(narrative);
+    await page.getByLabel(STORY_LABEL, { exact: true }).fill(narrative);
     await continueKeepingDeclaredPath(page, "Small Claims");
     await page.getByRole("button", { name: "Fill in the form yourself" }).click();
   });
@@ -181,13 +182,13 @@ test("Home court cards lead directly to their selected structured intake", async
     // Session 14 removed the story field from this shared gate for Small
     // Claims specifically -- whichever mode is chosen collects it instead.
     if (journey.path !== "small-claims") {
-      await page.getByLabel("Tell us what happened in your own words").fill(`A ${journey.title} case needs review.`);
+      await page.getByLabel(STORY_LABEL, { exact: true }).fill(`A ${journey.title} case needs review.`);
     }
     await page.getByRole("button", { name: journey.path === "small-claims" ? "Continue" : `Continue with ${journey.title} questions`, exact: journey.path === "small-claims" }).click();
     if (journey.path === "small-claims") await page.getByRole("button", { name: "Fill in the form yourself" }).click();
     if (journey.path === "civil") await expect(page.getByLabel("Your role")).toBeVisible();
     else await expect(page.getByText(journey.heading, { exact: true })).toBeVisible();
-    await expect(page.getByLabel("Tell us what happened in your own words")).toHaveCount(0);
+    await expect(page.getByLabel(STORY_LABEL, { exact: true })).toHaveCount(0);
     await expect(page.getByRole("button", { name: "Edit case story" })).toBeVisible();
     await expect(page.getByText("Location: Toronto, Ontario.")).toBeVisible();
     await expect(page.getByText("AI Case Partner", { exact: true })).toHaveCount(0);
@@ -280,7 +281,7 @@ test("Case Partner carries confirmed Small Claims location and displays a date f
   await waitForCourtPathLocationGate(page);
   await page.getByLabel("Province or territory").selectOption("Ontario");
   await page.getByLabel("City or municipality").fill("Ottawa");
-  await page.getByLabel("Tell us what happened in your own words").fill("Synthetic alleged false text messages were communicated to two third parties.");
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill("Synthetic alleged false text messages were communicated to two third parties.");
   await continueKeepingDeclaredPath(page, "Small Claims");
   await page.getByRole("button", { name: "Fill in the form yourself" }).click();
   await page.getByLabel("Your role").selectOption("Plaintiff / claimant");

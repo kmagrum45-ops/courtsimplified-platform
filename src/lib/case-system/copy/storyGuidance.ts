@@ -19,3 +19,13 @@
  */
 export const STORY_GUIDANCE =
   "Tell us what happened in your own words, as much as you can remember. Include who was involved, what happened, dates (even approximate), where it took place, any amounts of money, what you have already done about it, and what you want to happen. Don’t worry if you don’t know something; you can leave it out. Please don’t include your social insurance number, or bank or card numbers.";
+
+/**
+ * The name every story box that is named for the story carries: its visible
+ * label and accessible name (home page, Small Claims chat), and the civil/Family
+ * one-at-a-time story question (site owner, 30 Oct). It must not repeat the
+ * guidance's opening words: the home label used to read "Tell us what happened
+ * in your own words", right above guidance starting with the same words.
+ * `npm run test:story-guidance` checks no story box's name repeats them.
+ */
+export const STORY_LABEL = "Your story";

@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 import { grantSiteAccess } from "./harness/siteAccess";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 const journeys = [
   { path: "family", label: "Family", issue: "Parenting time / access" },
@@ -18,7 +19,7 @@ for (const journey of journeys) {
     await page.getByTestId("court-path-location-gate-ready").waitFor({ state: "visible" });
     await page.getByLabel("Province or territory").selectOption("Ontario");
     await page.getByLabel("City or municipality").fill("Ottawa");
-    await page.getByLabel("Tell us what happened in your own words").fill("Synthetic saved facts for a focused review.");
+    await page.getByLabel(STORY_LABEL, { exact: true }).fill("Synthetic saved facts for a focused review.");
     await page.getByRole("button", { name: `Continue to ${journey.label} intake` }).click();
     if (journey.path === "civil") await page.getByLabel("Your role").selectOption("plaintiff");
     await page.getByRole("button", { name: journey.issue }).click();

@@ -29,6 +29,14 @@
  *      happened in your own words below…").
  *   5. Every one-at-a-time question that takes the story (guidedFields.ts,
  *      key "facts") is marked `story: true`, so GuidedFormChat shows the text.
+ *   6. No story box's label, question or accessible name repeats the guidance's
+ *      opening words (site owner, 30 Oct: the home label "Tell us what happened
+ *      in your own words" sat right above helper text starting with the same
+ *      words). "Repeats" is any run of three words from the guidance's first
+ *      clause, read from the constant, so a reworded constant is followed.
+ *   7. The boxes named for the story (home page, Small Claims chat, the
+ *      civil/Family story question) take their name from the shared STORY_LABEL,
+ *      not a literal of their own.
  *
  * The host list is a list that must be maintained: a story box moved to a new
  * file is added to it, a one-line change with an obvious cause. Each host must
@@ -206,6 +214,61 @@ check("5. every one-at-a-time question that takes the story is marked story: tru
   if (facts.length === 0) problems.push("guidedFields.ts: no question with key \"facts\" found (the check needs updating if the story question moved)");
   for (const match of facts) {
     if (!/\bstory: true\b/.test(match[0])) problems.push(`guidedFields.ts:${source.slice(0, match.index).split("\n").length}: the story question is not marked story: true`);
+  }
+  return problems;
+})());
+
+/** Three-word runs of the guidance's first clause ("tell us what", "in your own", ...). */
+const wordsOf = (text: string) => text.toLowerCase().match(/[a-z’']+/g) ?? [];
+const firstClauseWords = wordsOf(constantText.split(/[,.]/)[0] ?? "");
+const openingRuns = firstClauseWords.slice(0, -2).map((_, i) => firstClauseWords.slice(i, i + 3).join(" "));
+const repeatsOpening = (text: string) => openingRuns.find((run) => ` ${wordsOf(text).join(" ")} `.includes(` ${run} `)) ?? null;
+const storyLabel = constantSource.match(/export const STORY_LABEL\s*=\s*"([^"]+)"/)?.[1] ?? "";
+
+/** The text that names each story box: its aria-label, the visible label text by its guidance, and the story questions. */
+const GUIDED_FIELDS = "app/builder/_components/guidedFields.ts";
+const guidedSource = read(GUIDED_FIELDS);
+const factsEntries = [...guidedSource.matchAll(/\{\s*key: "facts",[\s\S]*?\n\s{4}\}/g)].map((m) => ({ text: m[0], line: guidedSource.slice(0, m.index).split("\n").length }));
+const names: { where: string; text: string }[] = [];
+for (const { file, line, tag } of boxes) {
+  for (const m of (attribute(tag, "aria-label") ?? "").matchAll(/"([^"]*)"|`([^`]*)`/g)) names.push({ where: `${file}:${line} aria-label`, text: m[1] ?? m[2] });
+}
+for (const file of HOSTS) {
+  const lines = read(file).split("\n");
+  lines.forEach((text, index) => {
+    if (!/<StoryGuidance\s/.test(text)) return;
+    for (const m of text.matchAll(/>([^<>{}]+)</g)) names.push({ where: `${file}:${index + 1} label`, text: m[1] });
+    const before = (lines[index - 1] ?? "").trim();
+    if (before && !/[<>{}]/.test(before)) names.push({ where: `${file}:${index} label`, text: before });
+  });
+}
+for (const { text, line } of factsEntries) {
+  for (const m of text.matchAll(/\b(label|question): "([^"]*)"/g)) names.push({ where: `${GUIDED_FIELDS}:${line} ${m[1]}`, text: m[2] });
+}
+
+check("6. no story box's label, question or accessible name repeats the guidance's opening words", (() => {
+  if (openingRuns.length === 0) return ["could not read the guidance's first clause"];
+  const problems: string[] = [];
+  if (storyLabel && repeatsOpening(storyLabel)) problems.push(`STORY_LABEL "${storyLabel}" repeats "${repeatsOpening(storyLabel)}"`);
+  for (const { where, text } of names) {
+    const run = repeatsOpening(text);
+    if (run) problems.push(`${where}: "${text.trim()}" repeats the guidance's opening words ("${run}")`);
+  }
+  return problems;
+})());
+
+check("7. the boxes named for the story take their name from the shared STORY_LABEL", (() => {
+  if (!storyLabel) return [`${constantFile} does not export STORY_LABEL as one string`];
+  const problems: string[] = [];
+  const home = read("app/_components/HomeLocationGate.tsx");
+  const homeBox = textareaTags(home).find(({ tag }) => /home-story-guidance/.test(tag));
+  if (!homeBox || attribute(homeBox.tag, "aria-label") !== "{STORY_LABEL}") problems.push("HomeLocationGate.tsx: the story box's aria-label is not {STORY_LABEL}");
+  if (!/>\{STORY_LABEL\}<\/span><StoryGuidance id="home-story-guidance"/.test(home)) problems.push("HomeLocationGate.tsx: the visible label above the guidance is not {STORY_LABEL}");
+  const chat = read("app/builder/_components/GuidedSmallClaimsIntake.tsx");
+  const chatBox = textareaTags(chat).find(({ tag }) => /guided-story-guidance/.test(tag));
+  if (!chatBox || !/:\s*STORY_LABEL\s*\}$/.test(attribute(chatBox.tag, "aria-label") ?? "")) problems.push("GuidedSmallClaimsIntake.tsx: the story box's aria-label is not STORY_LABEL");
+  for (const { text, line } of factsEntries) {
+    if (!/\blabel: STORY_LABEL\b/.test(text) || !/\bquestion: STORY_LABEL\b/.test(text)) problems.push(`${GUIDED_FIELDS}:${line}: the story question's label and question are not STORY_LABEL`);
   }
   return problems;
 })());

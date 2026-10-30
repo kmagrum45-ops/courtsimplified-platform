@@ -42,6 +42,7 @@ import { asksForDate } from "../../src/lib/case-system/dates";
 import { internalWordingIn, rawKeysIn } from "../../src/lib/case-system/copy/rawKeys";
 import { CHARTER_STORIES, MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, type Route } from "./storyPackMore";
 import { appendRecord } from "./harness/packRecords";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 // Actions wait up to 60 s: on a slow runner the story is read, and a guided turn answered,
 // in more than 20 s, and a button still disabled then is waiting, not broken.
@@ -260,7 +261,7 @@ async function smallClaims(page: Page, story: Story, viaReview: boolean): Promis
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(story.story);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(story.story);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
@@ -361,7 +362,7 @@ async function smallClaimsForm(page: Page, story: Story): Promise<string | null>
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(story.story);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(story.story);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
@@ -738,7 +739,7 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       await page.goto("/?path=small-claims");
       await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
       await page.getByLabel("City or municipality").fill("Sudbury");
-      await page.getByLabel("Tell us what happened in your own words").fill(story.story);
+      await page.getByLabel(STORY_LABEL, { exact: true }).fill(story.story);
       await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
       await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
       const acknowledgement = page.getByTestId("acknowledgement-checkbox");
@@ -998,8 +999,8 @@ test("retest-477 repeat: the story reading is told that nothing is filed yet and
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Ottawa");
-  await page.getByLabel("Tell us what happened in your own words").fill(story.story);
-  await page.getByLabel("Tell us what happened in your own words").blur();
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(story.story);
+  await page.getByLabel(STORY_LABEL, { exact: true }).blur();
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   expect(sent.length, "the story was sent to be read").toBeGreaterThan(0);
@@ -1397,7 +1398,7 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["family", "family-sp
     page.on("console", (message) => { if (/Confirm refused/.test(message.text())) warnings.push(message.text()); });
     await page.goto(`/?path=${court}`, { waitUntil: "domcontentloaded" });
     await page.getByLabel("City or municipality").fill("Ottawa");
-    await page.getByLabel("Tell us what happened in your own words").fill(story.story);
+    await page.getByLabel(STORY_LABEL, { exact: true }).fill(story.story);
     await page.getByRole("button", { name: `Continue to ${PATH_WORDS[court]} intake` }).click();
     const card = page.getByTestId("case-understanding");
     await expect(card).toBeVisible({ timeout: 120_000 });
@@ -1843,7 +1844,7 @@ test("28oct working states: the story-suggestions card says it is working, and a
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(story.story);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(story.story);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");

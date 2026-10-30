@@ -14,6 +14,7 @@
 
 import type { GuidedChoice, GuidedField, GuidedValues } from "./GuidedFormChat";
 import { SERVED_LINE, storyHintsForDates } from "../../../src/lib/case-system/casePosition";
+import { STORY_LABEL } from "../../../src/lib/case-system/copy/storyGuidance";
 import {
   amountFromStory,
   childrenFromStory,
@@ -90,8 +91,8 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
   const fields: GuidedField[] = [
     {
       key: "facts",
-      label: "Your story",
-      question: "In your own words, what is happening in your family situation?",
+      label: STORY_LABEL,
+      question: STORY_LABEL,
       why: "Everything else we show you starts from this, so we read it before asking anything else.",
       kind: "longtext",
       story: true,
@@ -200,8 +201,8 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
   const fields: GuidedField[] = [
     {
       key: "facts",
-      label: "Your story",
-      question: "In your own words, what happened?",
+      label: STORY_LABEL,
+      question: STORY_LABEL,
       why: "Everything else we show you starts from this, so we read it before asking anything else.",
       kind: "longtext",
       story: true,
