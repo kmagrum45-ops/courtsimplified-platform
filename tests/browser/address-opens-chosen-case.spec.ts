@@ -31,6 +31,7 @@
  */
 import { expect, test, type Page } from "@playwright/test";
 import { grantSiteAccess } from "./harness/siteAccess";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 import { passSituationGate } from "./harness/situation";
 import { situationSection, withKnownCourt } from "../../src/lib/case-system/situation/situation";
 
@@ -142,7 +143,7 @@ async function guestCaseThenSignIn(page: Page, court: Court): Promise<string> {
   await page.goto(`/?path=${court}`);
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Ottawa");
-  await page.getByLabel("Tell us what happened in your own words").fill(STORY[court]);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(STORY[court]);
   await page.getByRole("button", { name: `Continue to ${LABEL[court]} intake` }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const guestFlow = new URL(page.url()).searchParams.get("intake");
@@ -163,7 +164,7 @@ async function newCaseFromMyCases(page: Page, court: Court): Promise<string> {
   const id = new URL(page.url()).searchParams.get("intake")!;
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Ottawa");
-  await page.getByLabel("Tell us what happened in your own words").fill(STORY[court]);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(STORY[court]);
   understandOff.delete(page);
   await page.getByRole("button", { name: `Continue to ${LABEL[court]} intake` }).click();
   await page.getByTestId("case-understanding-continue-suggested").click();
