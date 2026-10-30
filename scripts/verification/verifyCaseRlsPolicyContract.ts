@@ -17,7 +17,15 @@ const baselineSchema = readdirSync(migrationsDir)
   .map((file) => readFileSync(path.join(migrationsDir, file), "utf8"))
   .join("\n");
 
-assert.match(builder, /user_id:\s*user\.id/, "Case creation must use the authenticated user's ID.");
+// Case creation must use the authenticated user's ID. Since rule 1 (owner, 30 Oct) only the
+// intake store creates a case (createCheckpointCase, under the address's id); the builder's own
+// insert was removed. So: the store stamps the owner id, its caller checks that id IS the signed-in
+// user just before creating, and the builder creates no case row at all.
+const checkpoint = readFileSync("src/lib/case-system/intakeCheckpoint.ts", "utf8");
+const recovery = readFileSync("app/_components/IntakeRecovery.tsx", "utf8");
+assert.match(checkpoint, /createCheckpointCase\(db: Db, ownerId: string[\s\S]{0,200}\.insert\(\{[\s\S]{0,120}user_id:\s*ownerId/, "Case creation must use the authenticated user's ID (the store stamps the owner id).");
+assert.match(recovery, /auth\?\.user\.id !== ownerId\)[^\n]*throw[\s\S]{0,900}createCheckpointCase\(supabase, ownerId/, "Case creation must use the authenticated user's ID (the caller checks it is the signed-in user before creating).");
+assert.doesNotMatch(builder, /from\(\s*["']cases["']\s*\)\s*\.(?:insert|upsert)\(/, "The builder must not create a case row; only the intake store does.");
 // Asserts the property -- the update that writes the case's master_result is
 // scoped to the selected case id -- not today's spelling of the payload. It
 // used to require `master_result: masterPayload,` exactly, and failed when the
