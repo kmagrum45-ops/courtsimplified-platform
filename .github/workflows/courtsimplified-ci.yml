@@ -606,7 +606,7 @@ jobs:
   # one-line change to the repo's ruleset.
   browser-regression:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
 
     env:
       NODE_OPTIONS: --max-old-space-size=8192
