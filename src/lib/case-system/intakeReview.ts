@@ -184,8 +184,10 @@ function materialFacts(checkpoint: Checkpoint): Map<string, string> {
   const onStep = (step: string): Checkpoint => ({ ...checkpoint, sections: { ...checkpoint.sections, builder: { ...checkpoint.sections.builder, step } } });
   const views = checkpoint.courtPath === "small-claims" ? [onStep("form"), onStep("guided")] : [checkpoint];
   const facts = new Map<string, string>();
+  // Every answer the confirm screen shows counts, the "optional later details" included: removing
+  // or changing "Evidence you have" after Confirm said nothing, the case stayed "confirmed" (Chrome
+  // check of #514's preview, 29 Oct). What the screen never shows is never part of a confirmation.
   for (const entry of views.flatMap(view => reviewEntries(view))) {
-    if (OPTIONAL.has(entry.field)) continue;
     // Unknown is not a fact: an empty field or "not sure" is the same as no answer.
     if (entry.section !== STORY_SECTION && (entry.value === "" || entry.value === "not-sure" || (Array.isArray(entry.value) && entry.value.length === 0))) continue;
     const key = JSON.stringify([entry.section, entry.nested, entry.field]);
