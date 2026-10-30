@@ -26,6 +26,5 @@ export const KNOWN_PROBLEMS_29OCT_FORMS: KnownProblem[] = [
   { id: "B2", test: "B2 family drafts carry the dates the story gives", reason: "The family chat asks no timeline; marriage and separation dates are not case-file facts; the drafts read only intake.timeline." },
   { id: "B3", test: "B3 small-claims form starting values carry what the case file holds", reason: "The form's starting values come from storedIntakeValues (intakeData only), never caseFileOf, so the chat's and home reading's answers do not pre-fill it." },
   { id: "B4", test: "B4 small-claims chat defence evidence carries 'I have pictures'", reason: "The case file has no evidence fact; the Defence draft reads only intake.evidence, set only by the chat's evidence question." },
-  { id: "B5", test: "B5 family issues offered from the story cover each issue it names", reason: "familyIssuesFromStory (storyAnswers.ts) knows a few exact phrases; 'time with the kids' and 'split the house' are not among them." },
   { id: "B6", test: "B6 small-claims optional details come back when the case is reopened", reason: "Saved in intakeData.extra, but storedIntakeValues (caseRecord.ts) does not carry agreementDetails, paymentHistory, deadlineDetails or defenceResponse back to the form." },
 ];

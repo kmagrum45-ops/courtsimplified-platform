@@ -674,11 +674,13 @@ export function familyIssuesFromStory(story: string): { value: string[]; quote: 
     ["sale-of-home", /\b(?:sell|selling|sale of|sold)\b(?:\s+\w+){0,3}?\s+(?:home|house|condo|place)\b/i],
     ["spousal-support", /\bspousal support\b/i],
     ["child-support", /\bchild support\b/i],
-    ["parenting-time", /\bparenting\b|\baccess to (?:my|our|the) (?:son|daughter|child|children|kids?)\b/i],
+    // "time with the kids" is parenting time in the person's own words (known problem B5).
+    ["parenting-time", /\bparenting\b|\baccess to (?:my|our|the) (?:son|daughter|child|children|kids?)\b|\btime with (?:my|our|the) (?:son|daughter|child|children|kids?)\b/i],
     ["decision-making-responsibility", /\bdecision[- ]making\b|\bcustody\b/i],
     // "dividing the house" names dividing property in the person's own words (carry run 41137395354, Family
     // second case: "cannot agree on dividing the house" was asked "What is the case about?" with nothing offered).
-    ["property-division", /\bequali[sz]ation\b|\bdivid\w* (?:up )?(?:the |our |my )?(?:property|assets|house|home|condo|belongings)\b/i],
+    // Known problem B5 (knownProblems29octForms.ts): "split the house" likewise.
+    ["property-division", /\bequali[sz]ation\b|\b(?:divid\w*|split\w*) (?:up )?(?:the |our |my )?(?:property|assets|house|home|condo|belongings)\b/i],
   ];
   const values: string[] = [];
   const quotes: string[] = [];
