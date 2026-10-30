@@ -70,6 +70,7 @@ export const TABLES: Record<string, StoryDataEntry> = {
   workspace_documents: { storyData: "not-story", note: "Documents the person uploaded." },
   workspace_document_text: { storyData: "not-story", note: "Text read from uploaded documents." },
   ai_call_log: { storyData: "not-story", note: "Call metadata only, no story text." },
+  server_errors: { storyData: "not-story", note: "Server error records: route, kind and a scrubbed message, no request body, story or names. An AI call log write that fails is recorded here (aiCallLog.ts reportWriteFailure)." },
   canlii_cache: { storyData: "not-story", note: "CanLII API metadata cache." },
   pdf_overlay_fields: { storyData: "not-story", note: "Field positions on court PDFs." },
   case_intakes: { storyData: "legacy", note: "No code writes or reads it (Part 2). Any rows left are for the site owner to check; nothing here reads them." },
