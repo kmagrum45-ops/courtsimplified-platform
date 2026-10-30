@@ -148,3 +148,16 @@ Total: **about 23–38 days (estimate)** without (e).
 ### Order (superseded by `docs/ACCOUNTS_AND_ACCESS_PLAN.md`, section E)
 
 (g) the tests wait on the save → the tab-copy rule with the draft handling ((a) and (f)) → fact states (b) with the stage conversion → the question engine (c) → the old readers (d) retired inside each fact conversion. None of this replaces the fact-by-fact method; it makes each conversion smaller. There is to be no single large rewrite.
+
+### Rule 5 item: the Form 7A section on the finished-case page (owner, 30 Oct; not in #536)
+
+A finished Small Claims case reloads onto its case page (`app/_components/IntakeRecovery.tsx:247`:
+guidance current → `/cases/<id>`), which draws no Form 7A section. #536 draws it on every builder route
+(guided, whole form, one at a time) from the case file. Under rule 5 (every screen shows the same
+value), the case page gets the same section, read only from the case file (`form7ADraftFields`,
+`elementStates`), never from a screen's copy.
+
+- **Carry check:** the carry test counts a missing or different Form 7A section on the finished-case
+  page as `screens-disagree / form-7a-section`, as it already does on the builder routes.
+- **Days:** 1–2 (estimate).
+- **Placement:** after #536, with the stage conversion or as its own small PR (owner's choice).
