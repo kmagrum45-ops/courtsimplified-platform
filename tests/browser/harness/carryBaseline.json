@@ -740,24 +740,6 @@
       "reason": "Seen by the carry test in the family review guest run on chat@/builder: held: What is the case about? Pick everything that applies. Why we ask: Each issue has its own forms and steps, so this keeps (held answered)"
     },
     {
-      "kind": "screens-disagree",
-      "fact": "form-7a-section",
-      "where": "form-7a (after confirm)",
-      "court": "small-claims",
-      "route": "form",
-      "who": "guest",
-      "reason": "Seen by the carry test in the small-claims form guest run on form-7a (after confirm): the Form 7A section (\"Preparing your Plaintiff's Claim (Form 7A)\") was not drawn after \"Show my next step\" on the form route, while the other screens show the case"
-    },
-    {
-      "kind": "screens-disagree",
-      "fact": "form-7a-section",
-      "where": "form-7a (after change and removal)",
-      "court": "small-claims",
-      "route": "form",
-      "who": "guest",
-      "reason": "Seen by the carry test in the small-claims form guest run on form-7a (after change and removal): the Form 7A section (\"Preparing your Plaintiff's Claim (Form 7A)\") was not drawn after \"Show my next step\" on the form route, while the other screens show the case"
-    },
-    {
       "kind": "asked-twice",
       "fact": "whenHappened",
       "where": "form-field@/builder?step=form",
@@ -911,24 +893,6 @@
       "reason": "Seen by the carry test in the small-claims questions guest run on review-entry@/builder?step=form: held: The other party (held answered)"
     },
     {
-      "kind": "screens-disagree",
-      "fact": "form-7a-section",
-      "where": "form-7a (after confirm)",
-      "court": "small-claims",
-      "route": "review",
-      "who": "guest",
-      "reason": "Seen by the carry test in the small-claims review guest run on form-7a (after confirm): the Form 7A section (\"Preparing your Plaintiff's Claim (Form 7A)\") was not drawn after \"Show my next step\" on the review route, while the other screens show the case"
-    },
-    {
-      "kind": "screens-disagree",
-      "fact": "form-7a-section",
-      "where": "form-7a (after change and removal)",
-      "court": "small-claims",
-      "route": "review",
-      "who": "guest",
-      "reason": "Seen by the carry test in the small-claims review guest run on form-7a (after change and removal): the Form 7A section (\"Preparing your Plaintiff's Claim (Form 7A)\") was not drawn after \"Show my next step\" on the review route, while the other screens show the case"
-    },
-    {
       "kind": "asked-twice",
       "fact": "whenHappened",
       "where": "form-field@/builder?step=form",
@@ -1008,24 +972,6 @@
       "route": "review",
       "who": "guest",
       "reason": "Seen by the carry test in the small-claims review guest run on review-entry@/builder?step=form: held: The other party (held answered)"
-    },
-    {
-      "kind": "screens-disagree",
-      "fact": "form-7a-section",
-      "where": "form-7a (after confirm)",
-      "court": "small-claims",
-      "route": "form",
-      "who": "signed-in",
-      "reason": "Seen by the carry test in the small-claims form signed-in run on form-7a (after confirm): the Form 7A section (\"Preparing your Plaintiff's Claim (Form 7A)\") was not drawn after \"Show my next step\" on the form route, while the other screens show the case"
-    },
-    {
-      "kind": "screens-disagree",
-      "fact": "form-7a-section",
-      "where": "form-7a (after change and removal)",
-      "court": "small-claims",
-      "route": "form",
-      "who": "signed-in",
-      "reason": "Seen by the carry test in the small-claims form signed-in run on form-7a (after change and removal): the Form 7A section (\"Preparing your Plaintiff's Claim (Form 7A)\") was not drawn after \"Show my next step\" on the form route, while the other screens show the case"
     },
     {
       "kind": "asked-twice",
@@ -1179,24 +1125,6 @@
       "route": "questions",
       "who": "signed-in",
       "reason": "Seen by the carry test in the small-claims questions signed-in run on review-entry@/builder?step=form: held: The other party (held answered)"
-    },
-    {
-      "kind": "screens-disagree",
-      "fact": "form-7a-section",
-      "where": "form-7a (after confirm)",
-      "court": "small-claims",
-      "route": "review",
-      "who": "signed-in",
-      "reason": "Seen by the carry test in the small-claims review signed-in run on form-7a (after confirm): the Form 7A section (\"Preparing your Plaintiff's Claim (Form 7A)\") was not drawn after \"Show my next step\" on the review route, while the other screens show the case"
-    },
-    {
-      "kind": "screens-disagree",
-      "fact": "form-7a-section",
-      "where": "form-7a (after change and removal)",
-      "court": "small-claims",
-      "route": "review",
-      "who": "signed-in",
-      "reason": "Seen by the carry test in the small-claims review signed-in run on form-7a (after change and removal): the Form 7A section (\"Preparing your Plaintiff's Claim (Form 7A)\") was not drawn after \"Show my next step\" on the review route, while the other screens show the case"
     },
     {
       "kind": "asked-twice",
