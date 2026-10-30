@@ -5,7 +5,7 @@
  * person said mentions threats, fear or violence (storySuggestsDanger, the screen the
  * safety question already uses), this box is shown at that moment -- the screen where
  * those words first appear -- and once: the same words never bring it back on a later
- * page or visit (safetyNoticeOnce.ts). Site owner, 2026-10-29: "The fuller support
+ * page in this tab (safetyNoticeOnce.ts; a fingerprint, never the words). Site owner, 2026-10-29: "The fuller support
  * information shows only when what the person said indicates danger, at that moment,
  * once." Every page's footer carries the 911 line and the other support lines
  * (SafetyFooterLine.tsx), so the help is never out of reach after the box is gone.
@@ -19,23 +19,28 @@
  */
 import { useEffect, useState } from "react";
 import { storySuggestsDanger } from "@/src/lib/case-system/intake/dangerWords";
-import { readShownKeys, recordShownKey, safetyNoticeKey, safetyNoticeToShow } from "@/src/lib/case-system/intake/safetyNoticeOnce";
+import { readShownKeys, recordShownKey, safetyNoticeToShow } from "@/src/lib/case-system/intake/safetyNoticeOnce";
+import { safetyNoticeStore } from "@/src/lib/case-system/storage/safetyNoticeStore";
 import { VICTIM_SUPPORT_LINE } from "@/src/lib/content-library/supportLines";
 
 export const VICTIM_SERVICES_URL = "https://www.ontario.ca/page/victim-services-ontario";
 export const VICTIM_SUPPORT_VERIFIED = "2026-10-24";
 
 export default function SafetyNotice({ story }: { story: string }) {
-  // The key this mount decided to show for; kept while the same words are on screen.
+  // The words this mount decided to show for; kept while the same words are on screen.
+  // Only a one-way fingerprint is stored (safetyNoticeOnce.ts), never the words.
   const [showing, setShowing] = useState<string | null>(null);
   useEffect(() => {
-    const store = typeof window === "undefined" ? null : window.localStorage;
-    const key = safetyNoticeToShow(story, readShownKeys(store));
-    if (!key) return;
-    recordShownKey(store, key);
-    setShowing(key);
+    let live = true;
+    const store = safetyNoticeStore();
+    void safetyNoticeToShow(story, readShownKeys(store)).then((decision) => {
+      if (!live || !decision.show) return;
+      if (decision.fingerprint) recordShownKey(store, decision.fingerprint);
+      setShowing(story);
+    });
+    return () => { live = false; };
   }, [story]);
-  if (!showing || !storySuggestsDanger(story) || safetyNoticeKey(story) !== showing) return null;
+  if (showing === null || !storySuggestsDanger(story) || showing !== story) return null;
   return (
     <section data-testid="safety-notice" role="note" className="mx-auto my-4 max-w-6xl rounded-2xl border-2 border-[#b45309] bg-[#fff7ed] px-5 py-4 text-sm leading-6 text-[#3b2a12]">
       <p className="font-semibold">If you are in immediate danger, please call 911.</p>

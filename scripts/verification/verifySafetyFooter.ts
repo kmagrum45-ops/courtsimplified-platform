@@ -22,6 +22,9 @@
  *   calm <court>      a Small Claims or civil story naming no danger brings no notice.
  *   once              a story naming danger brings the notice at that moment; the same
  *                     words never bring it again; new words naming danger do.
+ *   no-words-stored   what the browser keeps for "shown once" contains no word of the
+ *                     story (a one-way fingerprint only), under a registered key that
+ *                     sign-out clears.
  *   once-wired        the notice the builder and the case page render is the one that
  *                     uses that decision.
  *
@@ -98,21 +101,45 @@ async function main() {
   check("no-open-box", !/intake-safety-resources|IMMEDIATE_DANGER_MESSAGE|Assaulted Women/.test(panel) && phaseOpened.length === 0,
     `the review panel holds no helpline box and no <details> is opened by the phase (opened by phase: ${phaseOpened.join(", ") || "none"}; panel box: ${/intake-safety-resources/.test(panel)})`);
 
-  // calm / once
-  const once = await load<{ safetyNoticeToShow: (story: string, shown: readonly string[]) => string | null }>("../../src/lib/case-system/intake/safetyNoticeOnce");
+  // calm / once. The decision may be sync or async and may return the fingerprint or
+  // { show, fingerprint }; both are read, so this suite runs on either shape.
+  type Decision = string | null | { show: boolean; fingerprint: string | null };
+  const once = await load<{
+    safetyNoticeToShow: (story: string, shown: readonly string[]) => Decision | Promise<Decision>;
+    recordShownKey: (store: Pick<Storage, "getItem" | "setItem">, key: string) => void;
+    SAFETY_NOTICE_SHOWN_KEY: string;
+  }>("../../src/lib/case-system/intake/safetyNoticeOnce");
+  const decide = async (story: string, shown: string[]) => {
+    const result = once ? await once.safetyNoticeToShow(story, shown) : null;
+    if (result === null || typeof result === "string") return { show: result !== null, fingerprint: result };
+    return result;
+  };
   const calm: Record<string, string> = {
     "small-claims": "Synthetic story: my former landlord kept my $1,500 deposit when I moved out in June 2026. I have the lease.",
     civil: "Synthetic story: my former business partner owes me $80,000 under our agreement from May 2026. I have the agreement.",
     "small-claims bakery": "Synthetic story: I run a bakery. A cafe ordered $3,200 of cakes in March 2026 and never paid the invoice.",
   };
   for (const [court, story] of Object.entries(calm)) {
-    check(`calm ${court}`, Boolean(once) && once!.safetyNoticeToShow(story, []) === null, `no notice for a story naming no danger (decision module ${once ? "present" : "missing"})`);
+    check(`calm ${court}`, Boolean(once) && !(await decide(story, [])).show, `no notice for a story naming no danger (decision module ${once ? "present" : "missing"})`);
   }
   const danger = "Synthetic story: my former landlord threatened me when I asked for my $1,500 deposit back in June 2026. I am scared to go back there.";
-  const first = once?.safetyNoticeToShow(danger, []) ?? null;
-  const again = first && once ? once.safetyNoticeToShow(danger, [first]) : "unset";
-  const changed = first && once ? once.safetyNoticeToShow(`${danger} He said he would hurt me.`, [first]) : null;
-  check("once", Boolean(first) && again === null && Boolean(changed), `shown at that moment (${Boolean(first)}), not again for the same words (${again === null}), shown for new words naming danger (${Boolean(changed)})`);
+  const first = await decide(danger, []);
+  const again = first.fingerprint ? await decide(danger, [first.fingerprint]) : { show: true };
+  const changed = first.fingerprint ? await decide(`${danger} He said he would hurt me.`, [first.fingerprint]) : { show: false };
+  check("once", Boolean(once) && first.show && !again.show && changed.show, `shown at that moment (${first.show}), not again for the same words (${!again.show}), shown for new words naming danger (${changed.show})`);
+
+  // no-words-stored: what the browser keeps names none of the person's words (a shared
+  // computer must not keep their story), and the key is registered so sign-out clears it.
+  const memory = new Map<string, string>();
+  const fakeStore = { getItem: (name: string) => memory.get(name) ?? null, setItem: (name: string, value: string) => void memory.set(name, value) };
+  if (once && first.fingerprint) once.recordShownKey(fakeStore, first.fingerprint);
+  const stored = [...memory.values()].join(" ").toLowerCase();
+  const words = [...new Set(danger.toLowerCase().match(/[a-z]{4,}/g) ?? [])];
+  const leaked = words.filter((word) => stored.includes(word));
+  const registry = await load<{ INTAKE_STORAGE_KEYS: { key: string; scope: string }[] }>("../../src/lib/case-system/storage/intakeStorageKeys");
+  const registered = Boolean(once?.SAFETY_NOTICE_SHOWN_KEY) && (registry?.INTAKE_STORAGE_KEYS ?? []).some((entry) => entry.key === once!.SAFETY_NOTICE_SHOWN_KEY);
+  check("no-words-stored", Boolean(stored) && leaked.length === 0 && registered,
+    `the stored value names no word of the story (leaked: ${leaked.join(", ") || "none"}; stored: ${stored ? `${stored.length} chars` : "nothing"}) and its key is in the storage registry, so sign-out clears it (${registered})`);
 
   // once-wired
   const notice = read("app/_components/SafetyNotice.tsx");

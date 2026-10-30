@@ -104,6 +104,17 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     note: "Which guest intake this tab chose to bring into an account, set when the guest presses Sign in from it. Read once by the login page; expires after 30 minutes.",
   },
   {
+    key: "courtSimplifiedSafetyNoticeShown",
+    area: "session",
+    scope: "guest",
+    matches: "exact",
+    holdsCaseContent: false,
+    storyData: "not-story",
+    note:
+      "Short one-way fingerprints (SHA-256 hex prefixes) of the stories the danger notice was already shown for, so it shows once (safetyNoticeOnce.ts, 2026-10-29). " +
+      "Never the words themselves. sessionStorage, so it dies with the tab and is not left on a shared computer; cleared on sign-out with the rest of the registry.",
+  },
+  {
     key: "courtSimplifiedNotSureGuide",
     area: "session",
     scope: "guest",
@@ -426,6 +437,7 @@ export const PARSED_MESSAGES_KEY = "courtsimplified_parsed_messages";
 export const BUILDER_LAST_CASE_KEY = "courtSimplifiedBuilderLastCase";
 export const PENDING_POSITION_SAVE_KEY = "courtSimplifiedPendingPositionSave:";
 export const PENDING_FORM_APPLICABILITY_KEY = "courtSimplifiedPendingFormApplicability:";
+export const SAFETY_NOTICE_SHOWN_KEY = "courtSimplifiedSafetyNoticeShown";
 
 /** Every individually-named constant, for the registry-coverage check. */
 export const NAMED_STORAGE_KEYS = [
@@ -441,4 +453,5 @@ export const NAMED_STORAGE_KEYS = [
   BUILDER_LAST_CASE_KEY,
   PENDING_POSITION_SAVE_KEY,
   PENDING_FORM_APPLICABILITY_KEY,
+  SAFETY_NOTICE_SHOWN_KEY,
 ] as const;
