@@ -29,6 +29,10 @@
  *                     story is typed; shown on the builder (the first screen after the
  *                     story) and through a remount there; not again on the case page
  *                     or a reload; shown for new danger words. No words stored.
+ *   notice shows/hidden  the emergency notice's rule (site owner, 2026-10-30), through
+ *                     the shared decision: shown only when the person says they are in
+ *                     danger, afraid for their safety, or threatened or hurt now; not for
+ *                     past events, ordinary conflict, "threatened to sue", or Family alone.
  *   once-wired        the notice the builder and the case page render is the one that
  *                     uses that decision.
  *
@@ -43,6 +47,7 @@ import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+import { MUST_FLAG, MUST_NOT_FLAG, NOTICE_MUST_SHOW, NOTICE_MUST_NOT_SHOW } from "./dangerExamples";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail: string) {
@@ -191,6 +196,21 @@ async function main() {
   check("journey", Boolean(mod) && wrong.length === 0, `screen by screen: ${journey.map(([what, got]) => `${what} -> ${got ? "shown" : "hidden"}`).join("; ")}`);
   const leakedAfterJourney = words.filter((word) => [...tab.values()].join(" ").toLowerCase().includes(word));
   check("journey-no-words-stored", leakedAfterJourney.length === 0, `the tab's store after the journey names none of the story's words (leaked: ${leakedAfterJourney.join(", ")})`);
+
+  // notice rule (site owner, 2026-10-30): the shared decision every SafetyNotice runs
+  // (decideSafetyNotice, on the builder, in a fresh tab) shows the notice only when the
+  // person says they are in danger, afraid for their safety, or threatened or hurt now --
+  // never for a past event with no present danger, ordinary conflict, a legal threat or a
+  // Family case on its own. The earlier lists (MUST_FLAG / MUST_NOT_FLAG) hold too.
+  for (const [texts, want] of [[[...MUST_FLAG, ...NOTICE_MUST_SHOW], true], [[...MUST_NOT_FLAG, ...NOTICE_MUST_NOT_SHOW], false]] as const) {
+    for (const text of texts) {
+      mod?.startNewPageLoad?.();
+      const fresh = new Map<string, string>();
+      const freshStore = { getItem: (name: string) => fresh.get(name) ?? null, setItem: (name: string, value: string) => void fresh.set(name, value) };
+      const got = mod?.decideSafetyNotice ? await mod.decideSafetyNotice(text, "/builder", freshStore) : null;
+      check(`notice ${want ? "shows" : "hidden"}: ${text.slice(0, 70)}`, got === want, `the notice ${want ? "must show" : "must not show"} (got ${got === null ? "no shared decision" : got ? "shown" : "hidden"})`);
+    }
+  }
 
   // once-wired
   const notice = read("app/_components/SafetyNotice.tsx");

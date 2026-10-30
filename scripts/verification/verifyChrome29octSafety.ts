@@ -30,6 +30,7 @@
  * What failure it exists to catch: each item the owner found, before it is
  * fixed, and its return after.
  */
+import { MUST_FLAG, MUST_NOT_FLAG } from "./dangerExamples";
 import { DANGER_WORDS, storySuggestsDanger } from "../../src/lib/case-system/intake/dangerWords";
 import { storyLines } from "../../src/lib/case-system/caseFile/storyLines";
 import { emptyCaseFile } from "../../src/lib/case-system/caseFile/caseFile";
@@ -63,31 +64,8 @@ const check = (name: string, ok: boolean, detail: string) => {
 // ---- E1. The danger screen and negation ------------------------------------
 // Both lists are what a fix must keep true. A phrasing that states danger must
 // flag; a sentence that only denies it must not.
-export const MUST_FLAG = [
-  "he hit me",
-  "I'm afraid of him",
-  "He threatened me last week.",
-  "He said he would kill me.",
-  "He never hit me until last month, and now he does when he drinks.",
-  "There was no violence before, but he hit me on Sunday.",
-  "I'm scared he'll take the kids and not come back.",
-  "He is not violent with the kids but he hits me.",
-  "I don't feel safe at home.",
-  "I'm not safe with him.",
-  "He follows me to work.",
-  // Owner, 29 Oct: a threat with a denial in the same sentence is still a threat. When unsure, flagged.
-  "he threatens me but no violence yet",
-];
-export const MUST_NOT_FLAG = [
-  "No violence. He's a good dad just unreliable.",
-  "He never hit me.",
-  "There has never been any violence.",
-  "He's not violent, just late with payments.",
-  "I'm not afraid of him, I just want a schedule.",
-  "No threats, no abuse, he's just disorganized.",
-  "There is no abuse in our relationship.",
-  "The bakery invoice for the wedding cake is still unpaid.",
-];
+// The lists live in dangerExamples.ts, shared with the emergency notice's checks (verifySafetyFooter.ts).
+export { MUST_FLAG, MUST_NOT_FLAG };
 for (const text of MUST_FLAG) check(`E1-flag ${text}`, storySuggestsDanger(text), "flags danger");
 for (const text of MUST_NOT_FLAG) check(`E1-no-flag ${text}`, !storySuggestsDanger(text), "does not flag a denial");
 // The same screen writes the case file's "Safety" line (storyLines.ts).

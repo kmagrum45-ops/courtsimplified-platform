@@ -130,6 +130,42 @@ for (const court of ["small-claims", "civil", "family"] as const) {
 }
 
 // ---------------------------------------------------------------------------
+// 8b. The emergency notice's rule (site owner, 2026-10-30): only when the person says they
+// are in danger, afraid for their safety, or threatened or hurt now. Not for a legal
+// threat, not for a Family case on its own. The footer line and /support are there for
+// everyone. The decision is storyNamesPresentDanger (dangerWords.ts), the one rule every
+// SafetyNotice reads; the terminal suite test:safety-footer holds it to the same cases.
+// ---------------------------------------------------------------------------
+const NOTICE_CASES: { name: string; court: Court; story: string; shows: boolean }[] = [
+  { name: "(a) a threat and fear now", court: "small-claims", shows: true,
+    story: "Synthetic story: He threatened me and I'm scared. He owes me $2,000 for the car I sold him in May 2026. I have the bill of sale." },
+  { name: "(b) not safe at home", court: "family", shows: true,
+    story: "Synthetic story: we separated in May 2026 and I don't feel safe at home. I want a parenting order for our son, age 6." },
+  { name: "(c) a legal threat only", court: "small-claims", shows: false,
+    story: "Synthetic story: The customer threatened to sue me over the invoice. I finished his renovation in April 2026 and he has not paid me the $4,000 balance. I have the invoice." },
+  { name: "(d) a Family case with no danger", court: "family", shows: false,
+    story: "Synthetic story: our relationship ended last year. We have two children, ages 4 and 7, who live with me. I want child support; he has paid nothing since March 2026." },
+];
+for (const entry of NOTICE_CASES) {
+  test(`8b. ${AREA[entry.court]} ${entry.name}: the emergency notice ${entry.shows ? "shows" : "does not show"}; the footer line and the support lines are there`, async ({ page }) => {
+    test.setTimeout(180_000);
+    await startFromHome(page, entry.court, entry.story);
+    const footer = page.getByTestId("safety-footer-line");
+    await expect(footer, "(e) the footer line").toContainText("If you feel you are in immediate danger, call 911");
+    await page.waitForLoadState("networkidle").catch(() => {});
+    if (entry.shows) {
+      await expect(page.getByTestId("safety-notice"), "the first screen after the story shows the notice").toBeVisible();
+      await expect(page.getByTestId("safety-notice")).toContainText("911");
+    } else {
+      await expect(page.getByTestId("safety-notice"), "no emergency notice").toHaveCount(0);
+    }
+    await footer.getByRole("link", { name: "Other support lines" }).click();
+    await page.waitForURL(/\/support$/, { timeout: 60_000 });
+    await expect(page.getByTestId("support-lines"), "(e) the support lines page").toContainText("Assaulted Women's Helpline: 1-866-863-0511");
+  });
+}
+
+// ---------------------------------------------------------------------------
 // 9. A failed next step is never silent.
 // ---------------------------------------------------------------------------
 for (const route of ["questions", "form"] as const) {

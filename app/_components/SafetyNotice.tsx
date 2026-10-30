@@ -1,9 +1,11 @@
 "use client";
 
 /**
- * THE SAFETY NOTICE (item 8, 2026-10-24; shown once since 2026-10-29). When what the
- * person said mentions threats, fear or violence (storySuggestsDanger, the screen the
- * safety question already uses), this box is shown at that moment -- the screen where
+ * THE SAFETY NOTICE (item 8, 2026-10-24; shown once since 2026-10-29; narrowed
+ * 2026-10-30). Only when the person writes that they themselves are in danger, afraid for
+ * their safety, or being threatened or hurt now (storyNamesPresentDanger, dangerWords.ts:
+ * not past events with no present danger, not ordinary conflict, not a legal threat such
+ * as "threatened to sue", not because the case is Family), this box is shown at that moment -- the screen where
  * those words first appear -- and once: the same words never bring it back on a later
  * page in this tab (safetyNoticeOnce.ts; a fingerprint, never the words). Site owner, 2026-10-29: "The fuller support
  * information shows only when what the person said indicates danger, at that moment,
@@ -18,7 +20,7 @@
  * A screen for when to show help, never a finding about anyone. No advice, no scoring.
  */
 import { useEffect, useState } from "react";
-import { storySuggestsDanger } from "@/src/lib/case-system/intake/dangerWords";
+import { storyNamesPresentDanger } from "@/src/lib/case-system/intake/dangerWords";
 import { decideSafetyNotice } from "@/src/lib/case-system/intake/safetyNoticeOnce";
 import { safetyNoticeStore } from "@/src/lib/case-system/storage/safetyNoticeStore";
 import { VICTIM_SUPPORT_LINE } from "@/src/lib/content-library/supportLines";
@@ -37,7 +39,7 @@ export default function SafetyNotice({ story }: { story: string }) {
     });
     return () => { live = false; };
   }, [story]);
-  if (showing === null || !storySuggestsDanger(story) || showing !== story) return null;
+  if (showing === null || !storyNamesPresentDanger(story) || showing !== story) return null;
   return (
     <section data-testid="safety-notice" role="note" className="mx-auto my-4 max-w-6xl rounded-2xl border-2 border-[#b45309] bg-[#fff7ed] px-5 py-4 text-sm leading-6 text-[#3b2a12]">
       <p className="font-semibold">If you are in immediate danger, please call 911.</p>

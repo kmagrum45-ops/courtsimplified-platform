@@ -6,7 +6,7 @@
  * fingerprints of the stories the notice was already shown for, it returns the
  * fingerprint to record and show, or null. The same words never show it twice; new
  * words that name danger show it at that moment. The danger screen is
- * storySuggestsDanger (dangerWords.ts), unchanged.
+ * storyNamesPresentDanger (dangerWords.ts), the emergency notice's rule (site owner, 2026-10-30).
  *
  * WHAT IS STORED: only a short one-way fingerprint (the first 16 hex characters of the
  * SHA-256 of the story, trimmed, spaces collapsed, lower-cased), never the words -- on a
@@ -16,7 +16,7 @@
  *
  * A screen for when to show help, never a finding about anyone. No advice, no scoring.
  */
-import { storySuggestsDanger } from "./dangerWords";
+import { storyNamesPresentDanger } from "./dangerWords";
 import { SAFETY_NOTICE_SHOWN_KEY } from "../storage/intakeStorageKeys";
 
 export { SAFETY_NOTICE_SHOWN_KEY };
@@ -36,7 +36,7 @@ export async function safetyNoticeFingerprint(story: string): Promise<string | n
  * could be made).
  */
 export async function safetyNoticeToShow(story: string, shown: readonly string[]): Promise<{ show: boolean; fingerprint: string | null }> {
-  if (!storySuggestsDanger(story)) return { show: false, fingerprint: null };
+  if (!storyNamesPresentDanger(story)) return { show: false, fingerprint: null };
   const fingerprint = await safetyNoticeFingerprint(story);
   if (fingerprint && shown.includes(fingerprint)) return { show: false, fingerprint };
   return { show: true, fingerprint };
@@ -73,7 +73,7 @@ export function startNewPageLoad(): void {
  * the fingerprint (never the words) in the tab's store the first time it decides to show.
  */
 export async function decideSafetyNotice(story: string, pathname: string, store: Pick<Storage, "getItem" | "setItem"> | null | undefined): Promise<boolean> {
-  if (!safetyNoticeShowsOn(pathname) || !storySuggestsDanger(story)) return false;
+  if (!safetyNoticeShowsOn(pathname) || !storyNamesPresentDanger(story)) return false;
   const fingerprint = await safetyNoticeFingerprint(story);
   if (!fingerprint) return true;
   if (shownThisLoad.get(fingerprint) === pathname) return true;
