@@ -67,6 +67,7 @@ export const BEHAVIOURS: Behaviour[] = [
       { pattern: /timeZone:\s*"America\/Toronto"/, means: "today in Ontario worked out again; use todayInOntario" },
     ],
     allowed: [
+      { file: "src/lib/case-system/intake/dangerWords.ts", contains: "const PRESENT = ", why: "PRESENT: whether a sentence speaks of now (\"still\", \"last week\") for the emergency notice; reads tense, never a date" },
       { file: "app/builder/_components/storyAnswers.ts", contains: "^(?:(?:yesterday|today|tonight|tomorrow|last|next|this|in|on|then|now|so", why: "LEAD_WORDS: words stripped from the front of a name (\"Yesterday Sam\"); reads names, not dates, and takes its month and weekday names from dates.ts" },
       { file: "app/builder/_components/storyAnswers.ts", contains: "const ONLY_WHEN = ", why: "ONLY_WHEN: tells a phrase that is only a time apart from a fact; reads which words are a fact, not a date" },
       { file: "src/lib/canlii/canliiServer.ts", contains: "Date.parse(data.fetched_at)", why: "a timestamp this site stored, not anything a person wrote" },

@@ -1,3 +1,4 @@
+import { sentences } from "../sentences";
 /**
  * Words that suggest the person may be in danger from someone: threats,
  * violence, harassment, fear for their safety. A screen for whether to ask the
@@ -66,5 +67,5 @@ function sentenceNamesPresentDanger(sentence: string): boolean {
 
 /** Whether the person's words say THEY are in danger now: the emergency notice's one rule. */
 export function storyNamesPresentDanger(text: string): boolean {
-  return text.split(/(?<=[.!?])\s+|\n+/).some((sentence) => sentenceNamesPresentDanger(sentence));
+  return sentences(text).some((sentence) => sentenceNamesPresentDanger(sentence));
 }
