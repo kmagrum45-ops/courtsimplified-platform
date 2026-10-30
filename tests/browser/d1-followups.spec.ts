@@ -87,7 +87,7 @@ async function formWithEvidenceConfirmed(page: Page, court: Court, saved: Return
     await page.getByTestId("guided-form-show-form").click();
   }
   // The area form's own box (the review's copy is labelled "Review: ..."); typed as a person types.
-  const evidence = page.getByLabel(/^s*Evidence you haves*$/).first();
+  const evidence = page.getByRole("textbox", { name: /^Evidence you have/ }).first();
   await evidence.click();
   await page.keyboard.type("Contract and bank receipt", { delay: 40 });
   await page.keyboard.press("Tab");
