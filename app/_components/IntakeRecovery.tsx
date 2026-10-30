@@ -640,7 +640,7 @@ export function useValidateIntakeResponse() {
 }
 
 /** The person's story: the one copy every screen reads and every edit writes. */
-/** The safety notice for the intake's story, on every builder screen once the story is written (SafetyNotice.tsx). */
+/** The safety notice for the intake's story: shown once, on the screen where words naming danger first appear (SafetyNotice.tsx). */
 function IntakeSafetyNotice() {
   const [story] = useStory();
   return <SafetyNotice story={story} />;

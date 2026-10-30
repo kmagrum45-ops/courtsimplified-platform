@@ -124,10 +124,14 @@ function main(): void {
   // resources and authenticated safety checks must not depend on confirmation.
   {
     const route = read(path.join("app", "api", "intake", "safety-check", "route.ts"));
-    const panel = read(path.join("app", "_components", "IntakeReviewPanel.tsx"));
+    // Since 2026-10-29 (site owner) the fixed resources are the safety line in every
+    // page's footer, rendered by the root layout, with its link to /support -- not a
+    // box in the review panel. Available on every page, confirmed or not.
+    const layout = read(path.join("app", "layout.tsx"));
+    const support = read(path.join("app", "support", "page.tsx"));
     check("paid safety classification requires server authentication", /dependencies\.authenticate\(request\)/.test(route));
     check("safety checks do not wait for intake confirmation", !/withConfirmedGuidance/.test(route));
-    check("fixed safety resources remain available during intake", /data-testid="intake-safety-resources"/.test(panel) && /IMMEDIATE_DANGER_MESSAGE/.test(panel));
+    check("fixed safety resources remain available during intake", /<footer[\s\S]*<SafetyFooterLine\s*\/>[\s\S]*<\/footer>/.test(layout) && /SUPPORT_LINES_TEXT/.test(support));
   }
 
   // ---- The shared helper must fail open ----

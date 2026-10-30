@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-200 documented, 26 without a header.
+201 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -157,6 +157,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:rls-matrix-catches` | **The RLS suite fails on every kind of hole it exists to find. Proved by planting each**<br>one and watching it go red. |
 | `npm run test:rules-corpus` | **The vendored corpus is complete, current, and actually on disk.**<br>COSTS NOTHING. Reads the vendored files. No network — `rules:check` is the one that goes out, and it is a monthly job rather than a test. |
 | `npm run test:safety-coverage` | **Every court path that accepts a free-text narrative runs the safety pass**<br>before extraction. |
+| `npm run test:safety-footer` | **THE SAFETY NOTICE, AS THE SITE OWNER SET IT ON 2026-10-29 (verbatim): "always one**<br>small-print line in the footer, 'If you feel you are in immediate danger, call 911', with a link to the other support lines. No open box and no 'available without an AI safety check' wording for anyone. The fuller support information shows only when what the p |
 | `npm run test:safety-regression` | **Permanent regression suite for safetyPass.ts -- the 11 cases from**<br>Sessions 4 and 5 plus three from the 2026-09-28 story review, wired into CI (npm run test:safety-regression), same pattern as test:intake-coverage. |
 | `npm run test:server-error-log` | **test:server-error-log -- the built-in error log records a server error**<br>without anything that identifies a person (src/lib/monitoring/ serverErrorLog.ts, instrumentation.ts; 2026-10-14 audit). |
 | `npm run test:service-dates` | **When service counts from (serviceEffectiveDate.ts, build order Step 2D,**<br>2026-10-12). |

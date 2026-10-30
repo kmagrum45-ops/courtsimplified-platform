@@ -29,13 +29,6 @@ export const KNOWN_PROBLEMS_29OCT_SAFETY: KnownProblem[] = [
     ],
   },
   {
-    id: "E2-helplines-everywhere",
-    reason:
-      "The results page shows the domestic-violence helplines (Assaulted Women's Helpline, Fem'aide) on every case in every area, including a bakery invoice in Small Claims, open after the review is confirmed.",
-    test: SUITE,
-    checks: ["E2-helplines-guarded"],
-  },
-  {
     id: "F1-christmas-not-a-date",
     reason:
       "\"Christmas 2025\" is read as the year 2025 only, so no limitation date is counted, and nothing asks for the day either.",

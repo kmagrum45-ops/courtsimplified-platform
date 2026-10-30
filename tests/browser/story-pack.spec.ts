@@ -1145,10 +1145,12 @@ test("conference audit case 16 as a respondent: asked what happened since servic
   await expect(page.getByText("Your step", { exact: true }).locator(".."), "the timeline: the step").toContainText("Case conference scheduled", { timeout: 60_000 });
 });
 
-// Item 7: the safety help box is open on the results page, in every area, for any story (it was
-// folded unless the story used words of danger; the danger notice itself still shows only then).
+// Item 7, as the site owner reset it on 2026-10-29: no safety box is open, or shown, on a Small
+// Claims or civil case whose story names no danger; every page carries the footer line "If you
+// feel you are in immediate danger, call 911" with its link to the support lines. Family keeps
+// its own safety questions; its who-to-contact box is there, closed unless the story names present danger (owner, 30 Oct).
 for (const [court, id] of [["small-claims", "sc-loan-friend"], ["civil", "civil-deposit"], ["family", "family-spousal"]] as const) {
-  test(`retest-477 item 7: the safety help box is open on the results page -- ${court}`, async ({ page }) => {
+  test(`retest-477 item 7: no safety box on a case with no danger; the 911 footer line on every screen -- ${court}`, async ({ page }) => {
     test.setTimeout(240_000);
     const story = byId(id);
     await grantSiteAccess(page);
@@ -1157,10 +1159,14 @@ for (const [court, id] of [["small-claims", "sc-loan-friend"], ["civil", "civil-
     await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
     if (court === "small-claims") await smallClaims(page, story, true);
     else { await openBuilder(page, court, { story: story.story }); await guidedQuestions(page, story, true); await answerInReview(page, story); }
-    await expect(page.getByTestId("intake-safety-resources"), "folded while answering").not.toHaveAttribute("open", "");
+    await expect(page.getByTestId("safety-footer-line"), "the footer line while answering").toContainText("If you feel you are in immediate danger, call 911");
+    await expect(page.getByTestId("safety-notice"), "no safety box while answering").toHaveCount(0);
     await confirmAndContinue(page);
-    await expect(page.getByTestId("intake-safety-resources"), "open on the results page").toHaveAttribute("open", "");
-    if (court === "family") await expect(page.getByTestId("family-safety-resources"), "Family's who-to-contact box is open too").toHaveAttribute("open", "");
+    if (court !== "family") await expect(page.locator("details[open]").filter({ hasText: /911|Helpline|Victim Support/ }), "no safety box open on the results page").toHaveCount(0);
+    await expect(page.getByTestId("safety-notice"), "no safety notice on the results page").toHaveCount(0);
+    await expect(page.getByTestId("safety-footer-line").getByRole("link", { name: "Other support lines" }), "the footer links to the support lines").toHaveAttribute("href", "/support");
+    // Owner, 30 Oct: closed on a Family case with no danger; it opens only when the story says the person is in danger now.
+    if (court === "family") await expect(page.getByTestId("family-safety-resources"), "Family's who-to-contact box is there, closed").not.toHaveAttribute("open", /.*/);
   });
 }
 

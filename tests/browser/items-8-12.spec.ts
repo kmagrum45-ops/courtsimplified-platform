@@ -2,9 +2,10 @@
  * ITEMS 8 TO 12 OF JASON'S 2026-10-24 LIST, EACH PROVED IN A REAL BROWSER.
  *
  *   8  The safety notice shows on the first screen after a story that mentions threats,
- *      fear or violence, and stays open on the results and the case page -- in civil,
- *      Small Claims and Family, on the questions route and the form route. No notice for
- *      a story with none of that.
+ *      fear or violence, at that moment and once (site owner, 2026-10-29): not again on
+ *      the case page for the same words -- in civil, Small Claims and Family, on the
+ *      questions route and the form route. No notice for a story with none of that. The
+ *      911 footer line is on every screen either way.
  *   9  "Show my next step" never fails silently: a failed next step shows a plain message
  *      and Try again, and Try again gets the next step.
  *   10 Change on the situation answers never leaves the papers picture stuck on screen.
@@ -97,7 +98,7 @@ async function openCasePage(page: Page, rows: Rows) {
 // ---------------------------------------------------------------------------
 for (const court of ["small-claims", "civil", "family"] as const) {
   for (const route of ["questions", "form"] as const) {
-    test(`8. ${AREA[court]} (${route}): a story with threats and fear shows the safety notice on the first screen, and it stays open on the results and the case page`, async ({ page }) => {
+    test(`8. ${AREA[court]} (${route}): a story with threats and fear shows the safety notice on the first screen, once: not again on the case page`, async ({ page }) => {
       test.setTimeout(240_000);
       const rows = await startFromHome(page, court, DANGER[court]);
       const notice = page.getByTestId("safety-notice");
@@ -105,12 +106,12 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       await expect(notice).toContainText("911");
       await expect(notice).toContainText("Victim Support Line: 1-888-579-2888");
       await takeRoute(page, court, route);
-      await expect(notice, "still shown while answering").toBeVisible();
       await confirmAndShowNextStep(page);
-      await expect(notice, "open on the results page").toBeVisible();
-      if (court === "family") await expect(page.getByTestId("family-safety-resources"), "the Family support box is open on the results page").toHaveAttribute("open", "");
+      if (court === "family") await expect(page.getByTestId("family-safety-resources"), "the Family support box is open on the results page: the story says the person is scared now").toHaveAttribute("open", "");
       await openCasePage(page, rows);
-      await expect(page.getByTestId("safety-notice"), "open on the case page").toBeVisible({ timeout: 60_000 });
+      await expect(page.getByTestId("case-file").or(page.getByText("Where your case is")).first()).toBeVisible({ timeout: 60_000 });
+      await expect(page.getByTestId("safety-notice"), "not shown again on the case page for the same words").toHaveCount(0);
+      await expect(page.getByTestId("safety-footer-line"), "the 911 footer line is still there").toContainText("If you feel you are in immediate danger, call 911");
       if (court === "family") await expect(page.getByTestId("family-safety-resources"), "the Family support box is open on the case page").toHaveAttribute("open", "");
     });
 
@@ -121,11 +122,68 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       await takeRoute(page, court, route);
       await confirmAndShowNextStep(page);
       await expect(page.getByTestId("safety-notice"), "none on the results page").toHaveCount(0);
+      if (court === "family") await expect(page.getByTestId("family-safety-resources"), "the Family support box is there, closed (owner, 30 Oct)").not.toHaveAttribute("open", /.*/);
       await openCasePage(page, rows);
       await expect(page.getByTestId("case-file").or(page.getByText("Where your case is")).first()).toBeVisible({ timeout: 60_000 });
       await expect(page.getByTestId("safety-notice"), "none on the case page").toHaveCount(0);
     });
   }
+}
+
+// ---------------------------------------------------------------------------
+// 8b. The emergency notice's rule (site owner, 2026-10-30): only when the person says they
+// are in danger, afraid for their safety, or threatened or hurt now. Not for a legal
+// threat, not for a Family case on its own. The footer line and /support are there for
+// everyone. The decision is storyNamesPresentDanger (dangerWords.ts), the one rule every
+// SafetyNotice reads; the terminal suite test:safety-footer holds it to the same cases.
+// ---------------------------------------------------------------------------
+const NOTICE_CASES: { name: string; court: Court; story: string; shows: boolean }[] = [
+  { name: "(a) a threat and fear now", court: "small-claims", shows: true,
+    story: "Synthetic story: He threatened me and I'm scared. He owes me $2,000 for the car I sold him in May 2026. I have the bill of sale." },
+  { name: "(b) not safe at home", court: "family", shows: true,
+    story: "Synthetic story: we separated in May 2026 and I don't feel safe at home. I want a parenting order for our son, age 6." },
+  { name: "(c) a legal threat only", court: "small-claims", shows: false,
+    story: "Synthetic story: The customer threatened to sue me over the invoice. I finished his renovation in April 2026 and he has not paid me the $4,000 balance. I have the invoice." },
+  { name: "(d) a Family case with no danger", court: "family", shows: false,
+    story: "Synthetic story: our relationship ended last year. We have two children, ages 4 and 7, who live with me. I want child support; he has paid nothing since March 2026." },
+];
+for (const entry of NOTICE_CASES) {
+  test(`8b. ${AREA[entry.court]} ${entry.name}: the emergency notice ${entry.shows ? "shows" : "does not show"}; the footer line and the support lines are there`, async ({ page }) => {
+    test.setTimeout(180_000);
+    await startFromHome(page, entry.court, entry.story);
+    const footer = page.getByTestId("safety-footer-line");
+    await expect(footer, "(e) the footer line").toContainText("If you feel you are in immediate danger, call 911");
+    await page.waitForLoadState("networkidle").catch(() => {});
+    if (entry.shows) {
+      await expect(page.getByTestId("safety-notice"), "the first screen after the story shows the notice").toBeVisible();
+      await expect(page.getByTestId("safety-notice")).toContainText("911");
+    } else {
+      await expect(page.getByTestId("safety-notice"), "no emergency notice").toHaveCount(0);
+    }
+    await footer.getByRole("link", { name: "Other support lines" }).click();
+    await page.waitForURL(/\/support$/, { timeout: 60_000 });
+    await expect(page.getByTestId("support-lines"), "(e) the support lines page").toContainText("Assaulted Women's Helpline: 1-866-863-0511");
+  });
+}
+
+// 8c. The Family "Support if family violence is part of your situation" box (owner, 2026-10-30):
+// on every Family case, closed by default, open only when the emergency notice's rule fires.
+// Its support information is the same either way.
+for (const entry of [
+  { name: "no danger", story: "Synthetic story: our relationship ended last year. We have two children, ages 4 and 7, who live with me. I want child support; he has paid nothing since March 2026.", open: false },
+  { name: "scared he will hurt me", story: "Synthetic story: we separated in May 2026. I’m scared he will hurt me. I want a parenting order for our son, age 6.", open: true },
+]) {
+  test(`8c. Family, ${entry.name}: the who-to-contact box is ${entry.open ? "open" : "closed"} on the results page`, async ({ page }) => {
+    test.setTimeout(240_000);
+    await startFromHome(page, "family", entry.story);
+    await takeRoute(page, "family", "questions");
+    await confirmAndShowNextStep(page);
+    const box = page.getByTestId("family-safety-resources");
+    await expect(box, "the box is on every Family case").toHaveCount(1);
+    if (entry.open) await expect(box, "open: the story says the person is in danger now").toHaveAttribute("open", "");
+    else await expect(box, "closed: no danger in the story").not.toHaveAttribute("open", /.*/);
+    await expect(box, "the support information is the same").toContainText("Who to contact, and how");
+  });
 }
 
 // ---------------------------------------------------------------------------

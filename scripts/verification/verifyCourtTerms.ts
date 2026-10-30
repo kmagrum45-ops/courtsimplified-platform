@@ -53,7 +53,7 @@ function withoutComments(text: string): string {
 }
 
 /** Model prompts and matchers: words a person may write, never shown to them. */
-const NOT_SHOWN_FILES = /intake[\\/]caseReader\.ts$|courtPathClassifier\.ts$|guided-assistant[\\/]conversationIntelligenceEngine\.ts$|[\\/]events[\\/]stepEvent\.ts$|casePosition\.ts$|storyAnswers\.ts$|StageAnswerPanel\.tsx$/;
+const NOT_SHOWN_FILES = /intake[\\/]caseReader\.ts$|courtPathClassifier\.ts$|guided-assistant[\\/]conversationIntelligenceEngine\.ts$|[\\/]events[\\/]stepEvent\.ts$|casePosition\.ts$|storyAnswers\.ts$|StageAnswerPanel\.tsx$|intake[\\/]dangerWords\.ts$/;
 /** A line that is a matcher: a regular expression, or an entry of a list of phrases a person might write. */
 function isMatcherLine(lines: string[], index: number): boolean {
   const line = lines[index];
