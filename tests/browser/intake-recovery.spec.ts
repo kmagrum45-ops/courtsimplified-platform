@@ -3,6 +3,7 @@ import { confirmInitialInformation, saveCaseStory } from "./harness/intakeReview
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { openBuilder } from "./harness/builderGate";
 import { grantSiteAccess } from "./harness/siteAccess";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 const OWNER = "11111111-1111-4111-8111-111111111111";
@@ -82,7 +83,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     const account = await fakeAccount(page);
     await openBuilder(page, court);
     if (court === "small-claims") await page.getByRole("button", { name: "Answer questions one at a time with AI help" }).click();
-    const question = court === "small-claims" ? page.getByRole("textbox", { name: "Tell us what happened in your own words" }) : page.getByTestId("guided-form-question").getByRole("textbox");
+    const question = court === "small-claims" ? page.getByRole("textbox", { name: STORY_LABEL, exact: true }) : page.getByTestId("guided-form-question").getByRole("textbox");
     await question.fill(STORY);
     await expect.poll(() => JSON.stringify([...account.rows.values()])).toContain(STORY);
     await page.reload();
@@ -127,7 +128,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     });
     await page.goto(`/?path=${court}`);
     await page.getByLabel("City or municipality").fill("Ottawa");
-    const story = page.getByLabel("Tell us what happened in your own words");
+    const story = page.getByLabel(STORY_LABEL, { exact: true });
     await story.fill(STORY);
     await saveCaseStory(page);
     const label = court === "small-claims" ? "Small Claims" : court === "family" ? "Family" : "Civil";
@@ -147,7 +148,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await grantSiteAccess(page);
     await page.route("**/api/**", route => route.fulfill({ status: 503, json: { ok: false } }));
     await page.goto(`/?path=${court}`);
-    const story = page.getByLabel("Tell us what happened in your own words");
+    const story = page.getByLabel(STORY_LABEL, { exact: true });
     await story.fill(STORY);
     await saveCaseStory(page);
     await page.getByLabel("City or municipality").fill("Ottawa");

@@ -41,6 +41,7 @@ import { alreadyAsked, askedAndReplied, caseFileOf } from "@/src/lib/case-system
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { WorkingButton, WorkingNote } from "@/app/_components/Working";
 import StoryGuidance from "@/app/_components/StoryGuidance";
+import { STORY_LABEL } from "@/src/lib/case-system/copy/storyGuidance";
 
 type IntakeFacts = Record<string, string | number | boolean>;
 
@@ -1650,7 +1651,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             disabled={loading}
             onChange={(event) => setInputText(event.target.value)}
             placeholder={depthActive || currentQuestion ? "Your answer..." : undefined}
-            aria-label={depthActive || currentQuestion ? undefined : "Tell us what happened in your own words"}
+            aria-label={depthActive || currentQuestion ? undefined : STORY_LABEL}
             aria-describedby={depthActive || currentQuestion ? undefined : "guided-story-guidance"}
             className="min-h-12 flex-1 rounded-2xl border border-[#d8e6df] px-4 py-3 text-sm"
             onKeyDown={(event) => {

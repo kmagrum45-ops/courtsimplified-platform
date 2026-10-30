@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 import { grantSiteAccess } from "./harness/siteAccess";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test("FAM-ADOPTION-ADULT-001 shows a safe adult step-parent adoption overview", async ({ page }) => {
   test.setTimeout(30_000);
@@ -11,7 +12,7 @@ test("FAM-ADOPTION-ADULT-001 shows a safe adult step-parent adoption overview", 
   await page.getByTestId("court-path-location-gate-ready").waitFor({ state: "visible" });
   await page.getByLabel("Province or territory").selectOption("Ontario");
   await page.getByLabel("City or municipality").fill("Ottawa");
-  await page.getByLabel("Tell us what happened in your own words").fill("A 20-year-old adult wants adoption by a long-term step-parent after living with her mother and step-parent for approximately 15 years. Her biological father has not been involved for years and cannot currently be located.");
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill("A 20-year-old adult wants adoption by a long-term step-parent after living with her mother and step-parent for approximately 15 years. Her biological father has not been involved for years and cannot currently be located.");
   await page.getByRole("button", { name: "Continue to Family intake" }).click();
   await page.getByRole("button", { name: "Adoption — step-parent, relative, or adult adoption" }).click();
   await page.getByLabel("Adoption details").fill("The person to be adopted is 20, wants adoption, is an Ontario resident, and the applicant is a step-parent. The biological father cannot currently be located; reasonable efforts to contact him are recorded.");

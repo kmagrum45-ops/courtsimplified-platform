@@ -25,6 +25,7 @@ import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { autoAnswerSituation, STARTING_NOTHING_FILED, type SituationAnswers } from "./harness/situation";
 import { confirmAndShowNextStep } from "./harness/servedOnce";
 import { openBuilder } from "./harness/builderGate";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "retain-on-failure", navigationTimeout: 120_000, actionTimeout: 20_000 });
 
@@ -51,7 +52,7 @@ async function startFromHome(page: Page, court: Court, story: string, situation:
   await page.goto(`/?path=${court}`);
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(story);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(story);
   await page.getByRole("button", { name: `Continue to ${AREA[court]} intake` }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
@@ -282,7 +283,7 @@ test("12. A blank city says what is missing", async ({ page }) => {
   await grantSiteAccess(page);
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
-  await page.getByLabel("Tell us what happened in your own words").fill(CALM["small-claims"]);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(CALM["small-claims"]);
   await expect(page.getByTestId("location-missing")).toContainText("city or municipality");
   await expect(page.getByRole("button", { name: "Continue to Small Claims intake" })).toBeDisabled();
 });

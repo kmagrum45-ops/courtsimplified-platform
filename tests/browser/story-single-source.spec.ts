@@ -15,6 +15,7 @@ import { expect, test, type Page } from "@playwright/test";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { recordInitialUnknowns } from "./harness/intakeReview";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -52,7 +53,7 @@ for (const court of ["small-claims", "family"] as const) {
       await grantSiteAccess(page);
       await startPage(page, court);
       await page.getByLabel("City or municipality").fill("Sudbury");
-      await page.getByLabel("Tell us what happened in your own words").fill(ORIGINAL);
+      await page.getByLabel(STORY_LABEL, { exact: true }).fill(ORIGINAL);
       await continueFromStart(page, court);
 
       const panel = page.getByTestId("intake-review");
@@ -75,7 +76,7 @@ for (const court of ["small-claims", "family"] as const) {
       await originalAppearsNowhere(page, account?.rows);
 
       await page.goBack();
-      const startStory = page.getByLabel("Tell us what happened in your own words");
+      const startStory = page.getByLabel(STORY_LABEL, { exact: true });
       await expect(startStory, "Back shows the corrected story on the start page").toHaveValue(CORRECTION);
       await originalAppearsNowhere(page, account?.rows);
 
@@ -98,7 +99,7 @@ test("first click on Continue to intake proceeds when the understanding step is 
   await page.goto("/?path=family");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(ORIGINAL);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(ORIGINAL);
   await page.getByRole("button", { name: "Continue to Family intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   expect(understood, "the understanding route answered").toBe(1);
@@ -115,7 +116,7 @@ test("Back after a correction never shows the old story's reading as current", a
   // After startPage, whose own court-path answer would otherwise win.
   await page.route("**/api/classify-court-path", (route) => route.fulfill({ json: { primaryPath: "civil", confidence: 0.95, reasoning: "Synthetic reading of the original story." } }));
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(ORIGINAL);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(ORIGINAL);
   await page.getByRole("button", { name: "Continue to Family intake" }).click();
   await expect(page.getByTestId("court-path-suggestion")).toBeVisible();
   await page.getByTestId("court-path-suggestion-keep").click();
@@ -132,7 +133,7 @@ test("Back after a correction never shows the old story's reading as current", a
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
 
   await page.goBack();
-  await expect(page.getByLabel("Tell us what happened in your own words")).toHaveValue(CORRECTION);
+  await expect(page.getByLabel(STORY_LABEL, { exact: true })).toHaveValue(CORRECTION);
   await expect(page.getByTestId("court-path-suggestion"), "the old reading is not shown as current").toHaveCount(0);
   await expect(page.getByTestId("reading-outdated")).toContainText("Your story has changed since it was last read");
 });

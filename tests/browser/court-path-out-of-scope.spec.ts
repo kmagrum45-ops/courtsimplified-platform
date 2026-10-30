@@ -3,6 +3,7 @@ import { test, expect } from "@playwright/test";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { classificationScenarios } from "../../scripts/verification/scenarioRegistry";
 import { OUT_OF_SCOPE_FORUMS } from "../../src/lib/case-system/intelligence/outOfScopeForums";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 /**
  * Proves the out-of-scope forum fix (August 2026 audit) end to end through
@@ -34,7 +35,7 @@ for (const scenario of keywordScenarios) {
 
     await page.getByLabel("Province or territory").selectOption("Ontario");
     await page.getByLabel("City or municipality").fill("Toronto");
-    await page.getByLabel("Tell us what happened in your own words").fill(scenario.story);
+    await page.getByLabel(STORY_LABEL, { exact: true }).fill(scenario.story);
 
     const continueButton = page.getByRole("button", { name: /Continue to Civil intake/ });
     await expect(continueButton).toBeEnabled({ timeout: 10_000 });

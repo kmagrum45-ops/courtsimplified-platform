@@ -17,6 +17,7 @@ import { expect, test } from "@playwright/test";
 
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 /** Generous: the first navigation after a dev-server restart pays for a cold compile. */
 const SLOW = { timeout: 120_000 };
@@ -170,7 +171,7 @@ test("a signed-in user's old browser draft is never shown in the gate or the bui
   await page.goto("/?path=small-claims", SLOW);
   await page.getByTestId("court-path-location-gate-ready").waitFor({ state: "visible", timeout: 60_000 });
   expect(await page.getByTestId("saved-case-panel").count(), "gate offered to resume a browser draft").toBe(0);
-  expect(await page.getByLabel("Tell us what happened in your own words").inputValue()).toBe("");
+  expect(await page.getByLabel(STORY_LABEL, { exact: true }).inputValue()).toBe("");
 
   await page.goto("/builder?path=small-claims", SLOW);
   await page.waitForTimeout(2500);

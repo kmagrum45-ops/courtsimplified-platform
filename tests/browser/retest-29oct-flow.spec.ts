@@ -49,6 +49,7 @@ import { openBuilder } from "./harness/builderGate";
 import { recordInitialUnknowns, saveCaseStory } from "./harness/intakeReview";
 import { countedStepDeadlines } from "../../src/lib/case-system/caseFile/stepDeadlines";
 import { formatForCourt } from "../../src/lib/case-system/dates";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
@@ -86,7 +87,7 @@ async function smallClaimsGuided(page: Page) {
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Kingston");
-  await page.getByLabel("Tell us what happened in your own words").fill(STORY);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(STORY);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
@@ -270,7 +271,7 @@ async function reachNextStep(page: import("@playwright/test").Page) {
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Ottawa");
-  await page.getByLabel("Tell us what happened in your own words").fill(STORY);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(STORY);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
@@ -403,7 +404,7 @@ test("retest-29oct D1: typing into the form's timeline after Confirm keeps the c
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Kingston");
-  await page.getByLabel("Tell us what happened in your own words").fill(STORY);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(STORY);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?.*intake=/, { timeout: 60_000 });
   const intake = new URL(page.url()).searchParams.get("intake");

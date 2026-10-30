@@ -4,6 +4,7 @@ import { openBuilder } from "./harness/builderGate";
 import { answerSituation, autoAnswerSituation } from "./harness/situation";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 const STORY = "Synthetic initial case information: I need help organizing this matter and the relevant dates.";
@@ -14,7 +15,7 @@ test("Small Claims guided route: review edits update the existing unsent story",
   await fakeAccount(page);
   await openBuilder(page, "small-claims");
   await page.getByRole("button", { name: "Answer questions one at a time with AI help" }).click();
-  const story = page.getByRole("textbox", { name: "Tell us what happened in your own words" });
+  const story = page.getByRole("textbox", { name: STORY_LABEL, exact: true });
   await story.fill(STORY);
   await saveCaseStory(page);
   await page.getByTestId("intake-start-review").click();

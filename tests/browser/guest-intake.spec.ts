@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 import { grantSiteAccess } from "./harness/siteAccess";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 const paths = [
   { path: "family", label: "Family", area: "Family Intake" },
@@ -28,7 +29,7 @@ async function begin(page: import("@playwright/test").Page, journey: typeof path
     return;
   }
 
-  await page.getByLabel("Tell us what happened in your own words").fill("A private logged-out intake needs review.");
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill("A private logged-out intake needs review.");
   await page.getByRole("button", { name: `Continue with ${journey.label} questions` }).click();
 }
 

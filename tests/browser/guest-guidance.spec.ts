@@ -15,6 +15,7 @@ import { expect, test, type Page } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { confirmInitialInformation } from "./harness/intakeReview";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -56,7 +57,7 @@ test("small-claims guest: switching route keeps the confirmation; Show my next s
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(STORY["small-claims"]);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(STORY["small-claims"]);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
@@ -96,7 +97,7 @@ test("guests are told up front, and signing in from the intake marks it to come 
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await expect(page.getByText("To see your next steps, you will need a free account")).toBeVisible();
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(STORY.family);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(STORY.family);
   await page.getByRole("button", { name: "Continue to Family intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const flow = new URL(page.url()).searchParams.get("intake");

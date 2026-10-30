@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 import { grantSiteAccess } from "./harness/siteAccess";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 for (const journey of [
   { path: "family", label: "Family", heading: "Family Intake" },
@@ -15,7 +16,7 @@ for (const journey of [
     await page.getByTestId("court-path-location-gate-ready").waitFor({ state: "visible" });
     await page.getByLabel("Province or territory").selectOption("Ontario");
     await page.getByLabel("City or municipality").fill("Ottawa");
-    await page.getByLabel("Tell us what happened in your own words").fill("A test case is being started.");
+    await page.getByLabel(STORY_LABEL, { exact: true }).fill("A test case is being started.");
     await page.getByRole("button", { name: `Continue to ${journey.label} intake` }).click();
     // Session 14 put a mode-selector screen ("Fill in the form yourself" vs.
     // guided mode) in front of the Small Claims structured intake -- click
@@ -36,7 +37,7 @@ test("ordinary intake typing does not change the reader's scroll position", asyn
   await page.getByTestId("court-path-location-gate-ready").waitFor({ state: "visible" });
   await page.evaluate(() => window.scrollTo(0, 180));
   const before = await page.evaluate(() => window.scrollY);
-  await page.getByLabel("Tell us what happened in your own words").evaluate((element) => {
+  await page.getByLabel(STORY_LABEL, { exact: true }).evaluate((element) => {
     const textarea = element as HTMLTextAreaElement;
     textarea.value = "Typing should not move the reader away from this field.";
     textarea.dispatchEvent(new Event("input", { bubbles: true }));

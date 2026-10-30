@@ -25,6 +25,7 @@ import { expect, test, type Page } from "@playwright/test";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { confirmInitialInformation } from "./harness/intakeReview";
 import { autoAnswerSituation } from "./harness/situation";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -93,7 +94,7 @@ async function guestIntake(page: Page, story = STORY): Promise<string> {
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(story);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(story);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const flow = new URL(page.url()).searchParams.get("intake");

@@ -17,6 +17,7 @@ import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { passSituationGate } from "./harness/situation";
 import { serveFromThisCommit } from "./harness/thisCommitServer";
 import { confirmAndShowNextStep, expectServedNotAskedOnNextStep, expectServedOfferedOnceInReview } from "./harness/servedOnce";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -30,7 +31,7 @@ async function smallClaimsFromStart(page: Page, story = SC_STORY) {
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(story);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(story);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
@@ -201,9 +202,9 @@ test("Small Claims guided: a saved story shows as text with Send and Edit; an ou
   await page.getByRole("button", { name: "Answer questions one at a time with AI help" }).click();
   const saved = page.getByTestId("guided-saved-story");
   await expect(saved, "the saved story is visible, not hidden in an empty-looking box").toContainText(SC_STORY);
-  await expect(page.getByRole("textbox", { name: "Tell us what happened in your own words" })).toHaveCount(0);
+  await expect(page.getByRole("textbox", { name: STORY_LABEL, exact: true })).toHaveCount(0);
   await saved.getByRole("button", { name: "Edit my story" }).click();
-  await expect(page.getByRole("textbox", { name: "Tell us what happened in your own words" }), "editing shows the story itself").toHaveValue(SC_STORY);
+  await expect(page.getByRole("textbox", { name: STORY_LABEL, exact: true }), "editing shows the story itself").toHaveValue(SC_STORY);
 
   // A conversation that read an earlier version of the story.
   await page.evaluate(() => {
