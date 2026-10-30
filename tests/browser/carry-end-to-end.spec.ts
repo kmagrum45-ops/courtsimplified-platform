@@ -176,8 +176,13 @@ async function passNotice(page: Page) {
     // The notice decides after the page draws (it reads the account first): give it that moment.
     await page.waitForTimeout(1_500);
     if (await acknowledgement.isVisible().catch(() => false)) {
-      await acknowledgement.check();
-      await page.getByTestId("acknowledgement-continue").click();
+      // The one owner of the notice (CI run 41105152720: a locator handler passed it in the middle of this
+      // check(), the notice went away, and check() waited 60 s on a box no longer there). Tick only an
+      // unticked box, press Continue only when it is enabled; the notice must then go, or the step fails.
+      if (!(await acknowledgement.isChecked().catch(() => true))) await acknowledgement.check({ timeout: 10_000 }).catch(() => {});
+      const proceed = page.getByTestId("acknowledgement-continue");
+      if (await proceed.isEnabled().catch(() => false)) await proceed.click({ timeout: 10_000 }).catch(() => {});
+      await expect(page.getByTestId("first-use-acknowledgement"), "the first-use notice is passed").toBeHidden({ timeout: 30_000 });
       continue;
     }
     if (await situation.isVisible().catch(() => false)) { await answerSituation(page, situationAnswersFor(page)); continue; }
@@ -500,12 +505,8 @@ for (const { court, route, who } of RUNS) {
     const track = TRACK[court];
     await grantSiteAccess(page);
     await autoAnswerSituation(page, STARTING_NOTHING_FILED);
-    // The first-use notice, whenever it comes before an action (it is per account, so it comes again
-    // after a guest signs in). Assertions are covered by passNotice.
-    await page.addLocatorHandler(page.getByTestId("acknowledgement-checkbox"), async () => {
-      await page.getByTestId("acknowledgement-checkbox").check();
-      await page.getByTestId("acknowledgement-continue").click();
-    }, { noWaitAfter: true });
+    // The first-use notice has ONE owner, passNotice (and builderGate.openBuilder inside it): no locator
+    // handler, which raced them both (CI run 41105152720, every guest run and civil's "give the story").
 
     // Who the person is: a real staging account (signed in from the start, or signed in from the builder).
     let userId: string | null = null;
