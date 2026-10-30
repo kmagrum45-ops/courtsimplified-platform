@@ -524,16 +524,23 @@ for (const { court, route, who } of RUNS) {
     let current = "";
     let held: Map<string, HeldState> | null = null;
     const admin = harnessAdmin();
+    // The held map is ONE case's: read for `current`, kept only if `current` is still that case when
+    // the read returns, and emptied with `current` when a case is left (segment). Carry run 4 (30 Oct):
+    // while the second case's story was given, `current` still named the first case, so the second
+    // case's chat asking "What kind of case is it?" was judged against the first case's saved answer
+    // ("held answered", every civil and Family run).
     const refresh = setInterval(async () => {
-      if (!signedIn || !current) return;
-      const { data } = await admin.from("cases").select("master_result").eq("id", current).eq("user_id", userId as string).maybeSingle();
+      const reading = current;
+      if (!signedIn || !reading) return;
+      const { data } = await admin.from("cases").select("master_result").eq("id", reading).eq("user_id", userId as string).maybeSingle();
+      if (current !== reading) return;
       held = data ? heldFacts((data as { master_result: unknown }).master_result, court) : null;
     }, 3_000);
     const asked: Asked[] = await recordAsks(page, { held: () => (held ? (fact: string) => held!.get(fact) ?? null : null) });
     const segments: { from: number; to: number; key: "a" | "b" }[] = [];
     let segmentStart = 0;
     let segmentKey: "a" | "b" = "a";
-    const segment = (key: "a" | "b") => { segments.push({ from: segmentStart, to: asked.length, key: segmentKey }); segmentStart = asked.length; segmentKey = key; held = null; };
+    const segment = (key: "a" | "b") => { segments.push({ from: segmentStart, to: asked.length, key: segmentKey }); segmentStart = asked.length; segmentKey = key; held = null; current = ""; };
 
     await serveModelStandIns(page, court, userId ?? undefined);
 
