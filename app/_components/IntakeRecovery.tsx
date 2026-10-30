@@ -8,7 +8,7 @@ import { IntakeRequest } from "./intakeRequest";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useSyncExternalStore, type Dispatch, type ReactNode, type SetStateAction } from "react";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
 import { usePathname, useSearchParams } from "next/navigation";
-import { addressWithSavedCourt, addressWithoutACase, namesACase, openCaseFromAddress, withoutACase } from "../../src/lib/case-system/openCase";
+import { addressWithoutACase, boundaryView, courtFromCaseAddress, openCaseFromAddress, withoutACase } from "../../src/lib/case-system/openCase";
 import { supabase } from "../../src/lib/supabase/client";
 import { COURT_PATH_FINDER_KEY, GUEST_INTAKE_SESSION_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
 import { onSideChange } from "../../src/lib/case-system/sideChange";
@@ -104,12 +104,14 @@ export function IntakeRecoveryBoundary({ children }: { children: ReactNode }) {
   const open = openCaseFromAddress(useSearchParams());
   const pathname = usePathname();
   const { court: path, caseId, intake: flow } = open;
-  // The builder with no court and no id names nothing to open: the chooser, never a guessed court or case.
-  if (!path && pathname === "/builder" && !namesACase(open)) return <NoCaseInAddress />;
-  // An id with no court: never a default court. The court comes from that case's own row, else the chooser.
-  if (!path && pathname === "/builder") return <CourtFromCase />;
-  // Other pages (the home page) show their own start without a court.
-  if (!path) return <>{children}</>;
+  // One decision (openCase.ts boundaryView, exercised by test:open-case):
+  // the builder with no court and no id names nothing to open: the chooser, never a guessed court or case;
+  // an id with no court: never a default court, the court comes from that case's own row, else the chooser;
+  // other pages (the home page) show their own start without a court.
+  const view = boundaryView(open, pathname);
+  if (view === "no-case") return <NoCaseInAddress />;
+  if (view === "court-from-case") return <CourtFromCase />;
+  if (view === "children" || !path) return <>{children}</>;
   return <RecoveryProvider key={`${path}:${caseId ?? ""}:${flow ?? ""}`} court={path} selectedId={caseId} requestedFlow={flow}>{children}</RecoveryProvider>;
 }
 
@@ -139,20 +141,15 @@ function NoCaseInAddress() {
 function CourtFromCase() {
   useEffect(() => {
     let active = true;
-    void (async () => {
-      const { data } = await supabase.auth.getSession();
-      const user = data.session?.user ?? null;
-      const address = new URL(window.location.href);
-      const open = openCaseFromAddress(address.searchParams);
-      const id = open.caseId || open.intake;
-      let saved: string | null = null;
-      if (user && id && intakeId(id)) {
-        const { data: row } = await supabase.from("cases").select("court_path").eq("id", id).eq("user_id", user.id).maybeSingle();
-        saved = (row as { court_path?: string } | null)?.court_path ?? null;
-      }
-      if (!active) return;
-      window.location.replace(addressWithSavedCourt(open, saved, { pathname: address.pathname, signedIn: Boolean(user), search: address.search }));
-    })().catch(() => {
+    // The decision is courtFromCaseAddress (openCase.ts, exercised by test:open-case); here only the reads.
+    void courtFromCaseAddress(window.location.href, {
+      signedInUser: async () => (await supabase.auth.getSession()).data.session?.user.id ?? null,
+      savedCourtOf: async (id, userId) => {
+        if (!intakeId(id)) return null;
+        const { data: row } = await supabase.from("cases").select("court_path").eq("id", id).eq("user_id", userId).maybeSingle();
+        return (row as { court_path?: string } | null)?.court_path ?? null;
+      },
+    }).then((to) => { if (active) window.location.replace(to); }).catch(() => {
       if (active) window.location.replace(addressWithoutACase("chooser") ?? "/dashboard");
     });
     return () => { active = false; };

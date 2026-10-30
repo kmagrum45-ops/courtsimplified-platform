@@ -116,3 +116,36 @@ export function addressWithSavedCourt(open: OpenCase, savedCourt: string | null 
   if (open.step) params.set("step", open.step);
   return `${where.pathname}?${params.toString()}`;
 }
+
+/**
+ * What the intake boundary (IntakeRecoveryBoundary, IntakeRecovery.tsx) renders
+ * for an address. One decision, called by the boundary itself and by
+ * test:open-case, so the check exercises what the page does.
+ *   "no-case"         the builder, no court, no id: the chooser (NoCaseInAddress)
+ *   "court-from-case" the builder, an id, no court: the case's own court (CourtFromCase)
+ *   "children"        another page with no court (the home page's own start)
+ *   "store"           a court in the address: the intake store for the id it names
+ */
+export function boundaryView(open: OpenCase, pathname: string): "no-case" | "court-from-case" | "children" | "store" {
+  if (open.court) return "store";
+  if (pathname !== "/builder") return "children";
+  return namesACase(open) ? "court-from-case" : "no-case";
+}
+
+/**
+ * Where CourtFromCase sends an address with an id and no court: the same address
+ * under that case's own saved court, else the chooser. `signedInUser` and
+ * `savedCourtOf` are the browser's account and its read of the case row (the
+ * owner's own row only); they are passed in so this module reads nothing itself.
+ */
+export async function courtFromCaseAddress(
+  href: string,
+  read: { signedInUser: () => Promise<string | null>; savedCourtOf: (id: string, userId: string) => Promise<string | null> },
+): Promise<string> {
+  const address = new URL(href);
+  const open = openCaseFromAddress(address.searchParams);
+  const userId = await read.signedInUser();
+  const id = open.caseId || open.intake;
+  const saved = userId && id ? await read.savedCourtOf(id, userId) : null;
+  return addressWithSavedCourt(open, saved, { pathname: address.pathname, signedIn: Boolean(userId), search: address.search });
+}

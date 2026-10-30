@@ -843,31 +843,27 @@ function BuilderPageContent() {
       const stage = getStageForPersistence(analysis, caseData);
       const now = new Date().toISOString();
 
+      /*
+       * ONLY THE INTAKE STORE CREATES A CASE, under the id already in the address
+       * (?intake=), site owner's rule 1 (30 Oct). This used to insert a case of its
+       * own here, under a new id the address never named. Now: have the store save
+       * (which creates the case under the address's id), and if there is still no
+       * case, stop with the visible "could not be saved" message and its "Try saving
+       * again" button. Nothing typed is lost; it stays in the store and this tab.
+       * npm run test:open-case.
+       */
       if (!finalCaseId && user) {
-        const { data, error } = await supabase
-          .from("cases")
-          .insert({
-            user_id: user.id,
-            court_path: courtPath,
-            title: "New CourtSimplified Case",
-            status: "active",
-            current_stage: stage,
-            master_result: {
-              source: "builder-created-shell",
-              lifecycleStage: "intake-started",
-              updatedAt: now,
-            },
-          })
-          .select("id")
-          .single();
-
-        if (error) {
-          setSaveError(error.message);
+        try {
+          await recovery?.flush();
+        } catch {
+          // The store's own notice says what failed; the message below offers the retry.
+        }
+        finalCaseId = recovery?.getCaseId() || "";
+        if (!finalCaseId) {
+          setSaveError("This case is not saved to your account yet, so there is nothing to add these next steps to.");
           setSavingMaster(false);
           return;
         }
-
-        finalCaseId = data.id;
       }
 
       /*

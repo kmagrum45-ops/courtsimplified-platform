@@ -40,8 +40,21 @@
  *      without a court; an id with no court opens under that case's own saved
  *      court (addressWithSavedCourt), else the chooser.
  *
- * Check 7 stand-in: the saved court is passed to addressWithSavedCourt as a
- * value (CourtFromCase reads it from the case row in the browser; no database here).
+ *   8. Only the intake store creates a case (createCheckpointCase, under the
+ *      ?intake= id): the builder's own cases.insert under a new id is gone; with no
+ *      case yet it has the store save, then stops with its visible save error
+ *      and "Try saving again". No page calls POST /api/cases.
+ *   9. The boundary's real decision: boundaryView (what IntakeRecoveryBoundary
+ *      renders) and courtFromCaseAddress (where CourtFromCase goes) are run for an
+ *      id with no court: a saved court opens that case under it, same id, step
+ *      kept; none saved -> My cases (signed in) or the start page (guest).
+ *      Checks 8-9 failed 6 ways on 6c9163b3; with the Family default put back
+ *      temporarily (in the saved-court rule, or the boundary rendering the
+ *      builder) checks 7/9 fail 2 and 1 ways.
+ *
+ * Stand-ins, checks 7 and 9: the saved court is passed as a value, and the
+ * signed-in account and the read of the case row's court_path are functions
+ * over an in-memory Map (CourtFromCase reads the owner's row in the browser).
  *
  * Stand-ins: a plain object in place of sessionStorage/localStorage and a string
  * in place of document.cookie (check 1); source read off disk for checks 3-6.
@@ -150,7 +163,7 @@ async function main() {
   const recovery = strip(read("app/_components/IntakeRecovery.tsx"));
   const boundary = recovery.match(/export function IntakeRecoveryBoundary[\s\S]*?\n\}/)?.[0] ?? "";
   check("the intake boundary keys its provider by the resolver's answer", /openCaseFromAddress\(useSearchParams\(\)\)/.test(boundary) && /key=\{`\$\{path\}:\$\{caseId \?\? ""\}:\$\{flow \?\? ""\}`\}/.test(boundary));
-  check("the intake boundary sends a builder with no court and no id to the chooser", /NoCaseInAddress/.test(boundary) && /namesACase\(open\)/.test(boundary));
+  check("the intake boundary sends a builder with no court and no id to the chooser", /NoCaseInAddress/.test(boundary) && boundary.includes("boundaryView(open, pathname)"));
   const noId = recovery.match(/if \(!requestedFlow && !selectedId\) \{[\s\S]*?writeIntakeSession\(/)?.[0] ?? "";
   check("with no id, the chooser is decided before any new intake is created", /withoutACase\(openCaseFromAddress\(/.test(noId) && /window\.location\.replace\(elsewhere\)/.test(noId));
   for (const [file, label] of [["app/builder/page.tsx", "the builder"], ["app/forms/FormsWorkspace.tsx", "/forms"], ["app/legal-principles/page.tsx", "/legal-principles"], ["app/login/page.tsx", "sign-in's return"], ["src/lib/case-system/guestCarry.ts", "the guest carry"]] as const) {
@@ -180,11 +193,12 @@ async function main() {
   const builderSource = strip(read("app/builder/page.tsx"));
   check("the builder has no default court", !/initialPath\s*(?:\|\||\?\?)\s*["'](?:family|civil|small-claims)["']/.test(builderSource) && !/const courtPath\s*=\s*[^;]*(?:\|\||\?\?)\s*["'](?:family|civil|small-claims)["']/.test(builderSource));
   check("the intake boundary never shows the builder without a court: the case's own court, else the chooser", (() => {
-    // Both builder guards come before the line that lets other pages (the home page) render without a court.
-    const guard = boundary.search(/if \(!path && pathname === "\/builder"\) return <CourtFromCase \/>;/);
-    const noCase = boundary.search(/if \(!path && pathname === "\/builder" && !namesACase\(open\)\) return <NoCaseInAddress \/>;/);
-    const others = boundary.search(/if \(!path\) return <>\{children\}<\/>;/);
-    return guard !== -1 && noCase !== -1 && (others === -1 || (guard < others && noCase < others));
+    // The boundary renders what boundaryView decides (check 9 runs that decision), before anything else.
+    const decide = boundary.indexOf("const view = boundaryView(open, pathname);");
+    const toCourt = boundary.indexOf('if (view === "court-from-case") return <CourtFromCase />;');
+    const toChooser = boundary.indexOf('if (view === "no-case") return <NoCaseInAddress />;');
+    const others = boundary.indexOf("return <>{children}</>;");
+    return decide !== -1 && toCourt > decide && toChooser > decide && others > toCourt && others > toChooser;
   })());
   if (mod) {
     const m = mod as Mod & { addressWithSavedCourt?: (open: Open, saved: string | null | undefined, where: { pathname: string; signedIn: boolean }) => string };
@@ -199,6 +213,55 @@ async function main() {
       check("a guest (no saved row to read): the start page, never a default", fn(m.openCaseFromAddress(new URLSearchParams(`intake=${A}`)), null, { pathname: "/builder", signedIn: false }) === "/");
     }
   }
+
+  // ---------- 8. Only the intake store creates a case, under the id the address names ----------
+  // The builder's saveMasterCase inserted a case of its own (supabase.from("cases").insert, new id
+  // the address never named) when the store had none yet. Removed 30 Oct: the store saves, and with
+  // still no case the save stops with its visible error and "Try saving again".
+  const creators = sources
+    .filter((file) => !rel(file).startsWith("app/api/") && rel(file) !== "src/lib/case-system/intakeCheckpoint.ts")
+    .filter((file) => /\.from\(\s*["']cases["']\s*\)\s*\.(?:insert|upsert)\(/.test(strip(readFileSync(file, "utf8"))))
+    .map(rel);
+  check("no page creates a case row except the intake store (createCheckpointCase, under the address's id)", creators.length === 0, creators.join(", "));
+  const store = strip(read("src/lib/case-system/intakeCheckpoint.ts"));
+  check("the intake store creates a case under the flow id (the ?intake= id in the address)", /export async function createCheckpointCase[\s\S]{0,600}?\.from\("cases"\)\.insert\(\{[\s\S]{0,200}?id: (?:snapshot|checkpoint)\.flowId/.test(store));
+  // POST /api/cases can create a case under a server-made id; no page calls it.
+  const apiCallers = sources.filter((file) => !rel(file).startsWith("app/api/") && /["'`]\/api\/cases["'`?]/.test(strip(readFileSync(file, "utf8")))).map(rel);
+  check("no page calls POST /api/cases (the server route that could create a case the address does not name)", apiCallers.length === 0, apiCallers.join(", "));
+  const save = builderSource.match(/async function saveMasterCase\(\) \{[\s\S]*?finalCaseId = recovery\?\.getCaseId\(\) \|\| "";[\s\S]{0,300}?return;/)?.[0] ?? "";
+  check("with no case yet, the builder has the store save, then stops with its visible save error (no case of its own)", /await recovery\?\.flush\(\)/.test(save) && /setSaveError\(/.test(save) && /data-testid="save-retry"/.test(builderSource));
+
+  // ---------- 9. The boundary's real decision for an id with no court ----------
+  // Calls boundaryView and courtFromCaseAddress, the functions IntakeRecoveryBoundary and
+  // CourtFromCase run (wiring checked in check 7 and below). Stand-ins: the signed-in account
+  // and the read of the case row's court_path are passed in as functions over a Map.
+  if (mod) {
+    const m = mod as Mod & {
+      boundaryView?: (open: Open, pathname: string) => string;
+      courtFromCaseAddress?: (href: string, read: { signedInUser: () => Promise<string | null>; savedCourtOf: (id: string, userId: string) => Promise<string | null> }) => Promise<string>;
+    };
+    check("the boundary's decision and CourtFromCase's are functions the check can run", typeof m.boundaryView === "function" && typeof m.courtFromCaseAddress === "function");
+    if (m.boundaryView && m.courtFromCaseAddress) {
+      const view = (search: string, pathname = "/builder") => m.boundaryView!(m.openCaseFromAddress(new URLSearchParams(search)), pathname);
+      check("the boundary: an id with no court goes to CourtFromCase, never the builder", view(`caseId=${A}&step=results`) === "court-from-case" && view(`intake=${A}`) === "court-from-case");
+      check("the boundary: no id and no court goes to the chooser; a court opens the store; the home page keeps its start", view("") === "no-case" && view(`path=civil&caseId=${A}`) === "store" && view("", "/") === "children");
+      const OWNER = "owner-1";
+      const rows = new Map<string, string>([[A, "civil"], [B, "unknown"]]);
+      const asOwner = { signedInUser: async () => OWNER, savedCourtOf: async (id: string, user: string) => (user === OWNER ? rows.get(id) ?? null : null) };
+      const asGuest = { signedInUser: async () => null, savedCourtOf: async () => { throw new Error("a guest has no row to read"); } };
+      const saved = new URL(await m.courtFromCaseAddress(`https://site.test/builder?caseId=${A}&step=results&situation=change`, asOwner), "https://site.test");
+      check("a saved court: that case opens under its own court, same id, step kept", saved.pathname === "/builder" && saved.searchParams.get("path") === "civil" && saved.searchParams.get("caseId") === A && saved.searchParams.get("step") === "results" && saved.searchParams.get("situation") === "change", saved.href);
+      const viaIntake = new URL(await m.courtFromCaseAddress(`https://site.test/builder?intake=${A}`, asOwner), "https://site.test");
+      check("the same for an intake id", viaIntake.searchParams.get("path") === "civil" && viaIntake.searchParams.get("intake") === A);
+      const none = await m.courtFromCaseAddress(`https://site.test/builder?caseId=99999999-0000-4000-8000-000000000000&step=guided`, asOwner);
+      const notACourt = await m.courtFromCaseAddress(`https://site.test/builder?caseId=${B}`, asOwner);
+      check("no saved court, signed in: My cases, never a default court", none === "/dashboard" && notACourt === "/dashboard", `${none} | ${notACourt}`);
+      const guest = await m.courtFromCaseAddress(`https://site.test/builder?intake=${A}&step=form`, asGuest);
+      check("a guest: the start page, never a default court", guest === "/", guest);
+    }
+  }
+  const courtFromCase = recovery.match(/function CourtFromCase\(\) \{[\s\S]*?\n\}/)?.[0] ?? "";
+  check("CourtFromCase goes where courtFromCaseAddress says, reading only the owner's own row", /courtFromCaseAddress\(window\.location\.href,/.test(courtFromCase) && /window\.location\.replace\(to\)/.test(courtFromCase) && /\.eq\("user_id", userId\)/.test(courtFromCase));
 
   console.log(failures ? `\n${failures} failure(s).` : "\nAll open-case checks passed.");
   if (failures) process.exitCode = 1;
