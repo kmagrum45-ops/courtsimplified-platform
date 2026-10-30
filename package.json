@@ -182,6 +182,7 @@
     "law-map:check": "node --import tsx scripts/law-map/checkLawMap.ts",
     "test:deadlines": "tsx scripts/verification/verifyDeadlineEngine.ts",
     "test:chrome-29oct-safety": "tsx scripts/verification/verifyChrome29octSafety.ts",
+    "test:testing-notice": "tsx scripts/verification/verifyTestingNotice.ts",
     "test:readability": "tsx scripts/verification/verifyReadability.ts",
     "test:verifier": "tsx scripts/verification/verifyVerifierRejects.ts",
     "content:draft": "tsx scripts/content/draftStageAnswers.ts",
