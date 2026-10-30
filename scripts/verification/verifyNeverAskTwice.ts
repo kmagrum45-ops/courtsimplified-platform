@@ -27,7 +27,7 @@
  */
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { END_SURFACES, chatReplyReader, factsAskedTwice, factsOfAsk, heldFacts, heldInRows, heldViolations, repeatViolations, withHeldFacts, type Asked } from "../../tests/browser/harness/askOnce";
+import { ASK_ONCE_SCAN, END_SURFACES, chatQuestionAnswered, chatReplyReader, factsAskedTwice, factsOfAsk, heldFacts, heldInRows, heldViolations, repeatViolations, withHeldFacts, type Asked } from "../../tests/browser/harness/askOnce";
 import { KNOWN_REPEATS, knownRepeatFor, splitKnown, type KnownRepeat, type Violation } from "../../tests/browser/harness/knownRepeats";
 import { QUESTION_WORDS, factsOfWords, questionSentences } from "../../tests/browser/harness/chatQuestionFacts";
 import { DEPTH_QUESTIONS } from "../../src/lib/case-system/intake/depth/elementQuestionRegistry";
@@ -181,6 +181,26 @@ const ask = (surface: string, id: string, text = id): Asked => ({ kind: "ask", s
   // And a reply with no question answered by a reply gives nothing; another fact asked in the later reply is not a repeat.
   const other = read([raw("ask", 1, ORDER, 1000), raw("answer", 1, "", 2000), raw("ask", 2, "What proof do you currently have?", 3000)]);
   check("(2) a different question in the later reply is not a repeat", factsAskedTwice(other, false).length === 0);
+}
+
+// A civil or Family chat question that left the screen (carry run 4, 30 Oct): answered only when the person
+// pressed an answer control, skipped it, or the chat is still on screen and moved on. The whole chat hidden
+// ("Show the whole form instead") with nothing pressed is NOT an answer: it was recorded as one, so the
+// review then asking that fact, which the person had never given, read as "asked twice".
+{
+  check("chat left: an answer pressed is an answer", chatQuestionAnswered({ pressedAnswer: true, skipped: false, chatStillShown: false }));
+  check("chat left: a skip is recorded (as unsure)", chatQuestionAnswered({ pressedAnswer: false, skipped: true, chatStillShown: false }));
+  check("chat left: still on screen and moved on (sent with Enter) is an answer", chatQuestionAnswered({ pressedAnswer: false, skipped: false, chatStillShown: true }));
+  check("chat left: the whole chat hidden with nothing pressed is NOT an answer", !chatQuestionAnswered({ pressedAnswer: false, skipped: false, chatStillShown: false }));
+  const scan = ASK_ONCE_SCAN();
+  let parses = true;
+  try { new Function(scan); } catch { parses = false; }
+  check("the recorder script parses, and its chat answer goes through chatQuestionAnswered", parses && scan.includes("chatQuestionAnswered({ pressedAnswer: chatPressed.has(chatKey)"));
+  // The run-4 sequence: the chat shows "What kind of case is it?", the person opens the whole form (no
+  // answer recorded), the review asks it: one question, not a repeat. Pressed and answered, the review asking again is one.
+  const kindAsk = (surface: string, id: string, at: number): Asked => ({ kind: "ask", surface, id, screen: "/builder", text: "What kind of case is it?", at });
+  check("chat hidden unanswered, then the review asks the kind: not a repeat", factsAskedTwice([kindAsk("chat", "issues", 1), kindAsk("review", "issues", 3)], false).length === 0);
+  check("chat answered, then the review asks the kind: a repeat (the rule is unchanged)", factsAskedTwice([kindAsk("chat", "issues", 1), { kind: "answer", surface: "chat", id: "issues", screen: "/builder", text: "", at: 2 }, kindAsk("review", "issues", 3)], false).length === 1);
 }
 
 if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }

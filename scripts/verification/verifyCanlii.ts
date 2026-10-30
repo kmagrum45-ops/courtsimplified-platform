@@ -312,6 +312,7 @@ async function main() {
       [".github/workflows/courtsimplified-walkthrough.yml", "the site under test"],
       [".github/workflows/courtsimplified-ci.yml", "the local site under test (browser-regression job polls http://localhost:3100)"],
       [".github/workflows/courtsimplified-story-pack.yml", "the local site under test (the story pack polls http://localhost:3100)"],
+      [".github/workflows/courtsimplified-carry.yml", "the local site under test (the carry test polls http://localhost:3100)"],
       ["scripts/ai/spendGuard.mjs", "OpenAI's Costs API (api.openai.com)"],
       ["scripts/ai/openaiCredit.mjs", "OpenAI's chat completions API (api.openai.com), one token to see whether the balance is empty"],
       ["scripts/diagnose-auth-email.mjs", "Supabase"],
@@ -351,6 +352,11 @@ async function main() {
     );
     const stale = [...FIXED_HOST.keys()].filter((file) => !scriptFiles.includes(file));
     check("every fixed-host declaration names a file that still fetches", stale.length === 0, stale.join(", "));
+    // The carry workflow is declared for its own local site only (owner, 30 Oct): every address
+    // it names must be http://localhost, so the declaration cannot quietly cover another host.
+    const carryHosts = [...read(".github/workflows/courtsimplified-carry.yml").matchAll(/\b(?:https?|wss?):\/\/[^\s"'`;)]+/gi)].map((m) => m[0]);
+    const notLocal = carryHosts.filter((url) => !/^http:\/\/localhost(?::\d+)?(?:\/|$)/i.test(url));
+    check("the carry workflow fetches only its own local site (http://localhost)", carryHosts.length > 0 && notLocal.length === 0, notLocal.join(", "));
     check(
       "fetchDecisionPages.sh still refuses CanLII URLs",
       /\*canlii\*\) echo "REFUSED \(CanLII is never fetched\)/.test(read("scripts/sources/fetchDecisionPages.sh")),

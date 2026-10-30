@@ -1,0 +1,1283 @@
+{
+  "_about": "The end-to-end carry test's known violations (tests/browser/harness/carryCounts.ts). One entry per violation the site still makes: kind, fact, where (the screen), optional court/route, and a reason in words. Started EMPTY on 30 Oct 2026: entries come only from what a CI run of tests/browser/carry-end-to-end.spec.ts recorded, never from a guess. May only shrink: scripts/verification/verifyCarryBaseline.ts fails a PR that adds an entry compared with origin/main. Empty = the test asserts zero.",
+  "entries": [
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "overview (after change and removal)",
+      "court": "civil",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the civil form signed-in run on overview (after change and removal): \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case file (after change and removal)",
+      "court": "civil",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the civil form signed-in run on case file (after change and removal): \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case page (after change and removal)",
+      "court": "civil",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the civil form signed-in run on case page (after change and removal): \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "first case from the dashboard",
+      "court": "civil",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the civil form signed-in run on first case from the dashboard: \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "form (first case by address, after the second case)",
+      "court": "civil",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the civil form signed-in run on form (first case by address, after the second case): \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case file (first case by address, after the second case)",
+      "court": "civil",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the civil form signed-in run on case file (first case by address, after the second case): \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case page (first case by address, after the second case)",
+      "court": "civil",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the civil form signed-in run on case page (first case by address, after the second case): \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "form-field@/builder",
+      "court": "civil",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the civil form signed-in run on form-field@/builder: twice: What do you want ordered? (given at review:legalRemedy@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "review-entry@/builder",
+      "court": "civil",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the civil form signed-in run on review-entry@/builder: twice: What you want (given at review:legalRemedy@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "urgent",
+      "where": "review-entry@/builder",
+      "court": "civil",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the civil form signed-in run on review-entry@/builder: twice: Anything urgent (given at review:urgent@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "claimKind",
+      "where": "chat@/builder",
+      "court": "civil",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the civil form signed-in run on chat@/builder: twice: What kind of case is it? Pick everything that fits. Why we ask: Different kinds of cases have different rules and forms, (given at review:issues@/builder \"What kind of case is it? Pick everything that fits. Contract / agreement dispu"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review@/builder",
+      "court": "civil",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the civil form signed-in run on review@/builder: held: Who is the other side (a person or a business)? You can leave the name for later. Use “A builder” (from your story) I do (held answered)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review-entry@/builder",
+      "court": "civil",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the civil form signed-in run on review-entry@/builder: held: The other side (held answered)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "review@/builder",
+      "court": "civil",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the civil form signed-in run on review@/builder: held: What would you like the court to order? I do not know yet (held unsure)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "urgent",
+      "where": "review@/builder",
+      "court": "civil",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the civil form signed-in run on review@/builder: held: Is anything urgent, like a deadline or hearing coming up soon? I do not know yet (held unsure)"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "overview (after change and removal)",
+      "court": "civil",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil questions guest run on overview (after change and removal): \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case file (after change and removal)",
+      "court": "civil",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil questions guest run on case file (after change and removal): \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case page (after change and removal)",
+      "court": "civil",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil questions guest run on case page (after change and removal): \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "first case from the dashboard",
+      "court": "civil",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil questions guest run on first case from the dashboard: \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "form (first case by address, after the second case)",
+      "court": "civil",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil questions guest run on form (first case by address, after the second case): \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case file (first case by address, after the second case)",
+      "court": "civil",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil questions guest run on case file (first case by address, after the second case): \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case page (first case by address, after the second case)",
+      "court": "civil",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil questions guest run on case page (first case by address, after the second case): \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "form-field@/builder",
+      "court": "civil",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil questions guest run on form-field@/builder: twice: What do you want ordered? (given at chat:legalRemedy@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "review-entry@/builder",
+      "court": "civil",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil questions guest run on review-entry@/builder: twice: What you want (given at chat:legalRemedy@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "urgent",
+      "where": "review-entry@/builder",
+      "court": "civil",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil questions guest run on review-entry@/builder: held: Anything urgent (held unsure)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review@/builder",
+      "court": "civil",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil questions guest run on review@/builder: held: Who is the other side (a person or a business)? You can leave the name for later. Use “A builder” (from your story) I do (held answered)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review-entry@/builder",
+      "court": "civil",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil questions guest run on review-entry@/builder: held: The other side (held answered)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "claimKind",
+      "where": "chat@/builder",
+      "court": "civil",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil questions guest run on chat@/builder: held: What kind of case is it? Pick everything that fits. Why we ask: Different kinds of cases have different rules and forms, (held answered)"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "overview (after change and removal)",
+      "court": "civil",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil review guest run on overview (after change and removal): \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case file (after change and removal)",
+      "court": "civil",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil review guest run on case file (after change and removal): \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case page (after change and removal)",
+      "court": "civil",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil review guest run on case page (after change and removal): \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "first case from the dashboard",
+      "court": "civil",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil review guest run on first case from the dashboard: \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "form (first case by address, after the second case)",
+      "court": "civil",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil review guest run on form (first case by address, after the second case): \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case file (first case by address, after the second case)",
+      "court": "civil",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil review guest run on case file (first case by address, after the second case): \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case page (first case by address, after the second case)",
+      "court": "civil",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil review guest run on case page (first case by address, after the second case): \"Testwood Contracting Ltd.\" shown again after the person removed it"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "review@/builder",
+      "court": "civil",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil review guest run on review@/builder: twice: What would you like the court to order? I do not know yet (given at chat:legalRemedy@/builder \"What would you like the court to order? Why we ask: What you're asking for shape\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "review-entry@/builder",
+      "court": "civil",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil review guest run on review-entry@/builder: twice: What you want (given at chat:legalRemedy@/builder \"What would you like the court to order? Why we ask: What you're asking for shape\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "form-field@/builder",
+      "court": "civil",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil review guest run on form-field@/builder: twice: What do you want ordered? (given at chat:legalRemedy@/builder \"What would you like the court to order? Why we ask: What you're asking for shape\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "urgent",
+      "where": "review-entry@/builder",
+      "court": "civil",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil review guest run on review-entry@/builder: twice: Anything urgent (given at review:urgent@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review-entry@/builder",
+      "court": "civil",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil review guest run on review-entry@/builder: twice: The other side (given at review:otherParty@/builder \"Who is the other side (a person or a business)? You can leave the name for later\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "urgent",
+      "where": "review@/builder",
+      "court": "civil",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil review guest run on review@/builder: held: Is anything urgent, like a deadline or hearing coming up soon? I do not know yet (held unsure)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review@/builder",
+      "court": "civil",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil review guest run on review@/builder: held: Who is the other side (a person or a business)? You can leave the name for later. Use “A builder” (from your story) I do (held answered)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "claimKind",
+      "where": "chat@/builder",
+      "court": "civil",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil review guest run on chat@/builder: held: What kind of case is it? Pick everything that fits. Why we ask: Different kinds of cases have different rules and forms, (held answered)"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "overview (after change and removal)",
+      "court": "family",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the family form signed-in run on overview (after change and removal): \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case file (after change and removal)",
+      "court": "family",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the family form signed-in run on case file (after change and removal): \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case page (after change and removal)",
+      "court": "family",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the family form signed-in run on case page (after change and removal): \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "first case from the dashboard",
+      "court": "family",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the family form signed-in run on first case from the dashboard: \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "form (first case by address, after the second case)",
+      "court": "family",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the family form signed-in run on form (first case by address, after the second case): \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case file (first case by address, after the second case)",
+      "court": "family",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the family form signed-in run on case file (first case by address, after the second case): \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case page (first case by address, after the second case)",
+      "court": "family",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the family form signed-in run on case page (first case by address, after the second case): \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "children",
+      "where": "review-entry@/builder",
+      "court": "family",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the family form signed-in run on review-entry@/builder: twice: The children (given at review:childrenInfo@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "urgent",
+      "where": "review-entry@/builder",
+      "court": "family",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the family form signed-in run on review-entry@/builder: twice: Anything urgent (given at review:urgent@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "claimKind",
+      "where": "chat@/builder",
+      "court": "family",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the family form signed-in run on chat@/builder: twice: What is the case about? Pick everything that applies. Why we ask: Each issue has its own forms and steps, so this keeps (given at review:issues@/builder \"What is the case about? Pick everything that applies. Decision-making responsib"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review@/builder",
+      "court": "family",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the family form signed-in run on review@/builder: held: What is the other person's name? You can leave this for later. I do not know yet (held answered)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review-entry@/builder",
+      "court": "family",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the family form signed-in run on review-entry@/builder: held: The other person (held answered)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "children",
+      "where": "review@/builder",
+      "court": "family",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the family form signed-in run on review@/builder: held: Tell us about the children: how many, how old, and who they live with now. Use “Daughter, age 6” (from your story) I do (held unsure)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "urgent",
+      "where": "review@/builder",
+      "court": "family",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the family form signed-in run on review@/builder: held: Is anything urgent, like a deadline this week, a safety worry, or someone about to move away with a child? I do not know (held unsure)"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "overview (after change and removal)",
+      "court": "family",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family questions guest run on overview (after change and removal): \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case file (after change and removal)",
+      "court": "family",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family questions guest run on case file (after change and removal): \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case page (after change and removal)",
+      "court": "family",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family questions guest run on case page (after change and removal): \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "first case from the dashboard",
+      "court": "family",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family questions guest run on first case from the dashboard: \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "form (first case by address, after the second case)",
+      "court": "family",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family questions guest run on form (first case by address, after the second case): \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case file (first case by address, after the second case)",
+      "court": "family",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family questions guest run on case file (first case by address, after the second case): \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case page (first case by address, after the second case)",
+      "court": "family",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family questions guest run on case page (first case by address, after the second case): \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "urgent",
+      "where": "review-entry@/builder",
+      "court": "family",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family questions guest run on review-entry@/builder: held: Anything urgent (held unsure)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review@/builder",
+      "court": "family",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family questions guest run on review@/builder: held: What is the other person's name? You can leave this for later. I do not know yet (held answered)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review-entry@/builder",
+      "court": "family",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family questions guest run on review-entry@/builder: held: The other person (held answered)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "claimKind",
+      "where": "chat@/builder",
+      "court": "family",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family questions guest run on chat@/builder: held: What is the case about? Pick everything that applies. Why we ask: Each issue has its own forms and steps, so this keeps (held answered)"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "overview (after change and removal)",
+      "court": "family",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family review guest run on overview (after change and removal): \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case file (after change and removal)",
+      "court": "family",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family review guest run on case file (after change and removal): \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case page (after change and removal)",
+      "court": "family",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family review guest run on case page (after change and removal): \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "first case from the dashboard",
+      "court": "family",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family review guest run on first case from the dashboard: \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "form (first case by address, after the second case)",
+      "court": "family",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family review guest run on form (first case by address, after the second case): \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case file (first case by address, after the second case)",
+      "court": "family",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family review guest run on case file (first case by address, after the second case): \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "case page (first case by address, after the second case)",
+      "court": "family",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family review guest run on case page (first case by address, after the second case): \"Jordan Testwood\" shown again after the person removed it"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "children",
+      "where": "review-entry@/builder",
+      "court": "family",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family review guest run on review-entry@/builder: twice: The children (given at review:childrenInfo@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "urgent",
+      "where": "review-entry@/builder",
+      "court": "family",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family review guest run on review-entry@/builder: twice: Anything urgent (given at review:urgent@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review-entry@/builder",
+      "court": "family",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family review guest run on review-entry@/builder: twice: The other person (given at review:otherParty@/builder \"What is the other person's name? You can leave this for later. I do not know yet\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "children",
+      "where": "review@/builder",
+      "court": "family",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family review guest run on review@/builder: held: Tell us about the children: how many, how old, and who they live with now. Use “Daughter, age 6” (from your story) I do (held unsure)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "urgent",
+      "where": "review@/builder",
+      "court": "family",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family review guest run on review@/builder: held: Is anything urgent, like a deadline this week, a safety worry, or someone about to move away with a child? I do not know (held unsure)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review@/builder",
+      "court": "family",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family review guest run on review@/builder: held: What is the other person's name? You can leave this for later. I do not know yet (held answered)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "claimKind",
+      "where": "chat@/builder",
+      "court": "family",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family review guest run on chat@/builder: held: What is the case about? Pick everything that applies. Why we ask: Each issue has its own forms and steps, so this keeps (held answered)"
+    },
+    {
+      "kind": "screens-disagree",
+      "fact": "form-7a-section",
+      "where": "form-7a (after confirm)",
+      "court": "small-claims",
+      "route": "form",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims form guest run on form-7a (after confirm): the Form 7A section (\"Preparing your Plaintiff's Claim (Form 7A)\") was not drawn after \"Show my next step\" on the form route, while the other screens show the case"
+    },
+    {
+      "kind": "screens-disagree",
+      "fact": "form-7a-section",
+      "where": "form-7a (after change and removal)",
+      "court": "small-claims",
+      "route": "form",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims form guest run on form-7a (after change and removal): the Form 7A section (\"Preparing your Plaintiff's Claim (Form 7A)\") was not drawn after \"Show my next step\" on the form route, while the other screens show the case"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "whenHappened",
+      "where": "form-field@/builder?step=form",
+      "court": "small-claims",
+      "route": "form",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims form guest run on form-field@/builder?step=form: twice: (given at review:sc-orient-when-happened@/builder?step=form \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "form-field@/builder?step=form",
+      "court": "small-claims",
+      "route": "form",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims form guest run on form-field@/builder?step=form: twice: (given at review:sc-remedy-sought@/builder?step=form \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "review-entry@/builder?step=form",
+      "court": "small-claims",
+      "route": "form",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims form guest run on review-entry@/builder?step=form: twice: Goal (given at review:sc-remedy-sought@/builder?step=form \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "dateInOwnSentence",
+      "where": "event-candidate@/builder?step=form",
+      "court": "small-claims",
+      "route": "form",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims form guest run on event-candidate@/builder?step=form: twice: “I hired a deck builder in March 2026 to build a deck at my home.” What kind of step was this? Choose… Something else ha (given at story:story@/ \"the person's own sentence\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "dateInOwnSentence",
+      "where": "event-candidate@/builder?step=results",
+      "court": "small-claims",
+      "route": "form",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims form guest run on event-candidate@/builder?step=results: twice: “I hired a deck builder in March 2026 to build a deck at my home.” What kind of step was this? Choose… Something else ha (given at story:story@/ \"the person's own sentence\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "whenHappened",
+      "where": "review@/builder?step=form",
+      "court": "small-claims",
+      "route": "form",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims form guest run on review@/builder?step=form: held: Roughly when did the situation that led to this claim happen? Use “March 2026” (from your story) I do not know yet (held unsure)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "review@/builder?step=form",
+      "court": "small-claims",
+      "route": "form",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims form guest run on review@/builder?step=form: held: What outcome are you asking the court to order? I do not know yet (held unsure)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review-entry@/builder?step=form",
+      "court": "small-claims",
+      "route": "form",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims form guest run on review-entry@/builder?step=form: held: The other party (held answered)"
+    },
+    {
+      "kind": "screens-disagree",
+      "fact": "amount",
+      "where": "overview (after change and removal)",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims questions guest run on overview (after change and removal): still shows the old value \"$6,400\" after the person changed it to \"$7,250\""
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "review-entry@/builder?step=form",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims questions guest run on review-entry@/builder?step=form: twice: Goal (given at sc-chat:sc-remedy-sought@/builder?step=guided \"What outcome are you asking the court to order?\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "form-field@/builder?step=form",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims questions guest run on form-field@/builder?step=form: twice: (given at sc-chat:sc-remedy-sought@/builder?step=guided \"What outcome are you asking the court to order?\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "whenHappened",
+      "where": "form-field@/builder?step=form",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims questions guest run on form-field@/builder?step=form: twice: (given at sc-chat:sc-orient-when-happened@/builder?step=guided \"Roughly when did the situation that led to this claim happen?\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "amount",
+      "where": "form-field@/builder?step=form",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims questions guest run on form-field@/builder?step=form: twice: (given at sc-chat:sc-amount-claimed@/builder?step=guided \"What is the total dollar amount you are claiming?\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "dateInOwnSentence",
+      "where": "event-candidate@/builder?step=form",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims questions guest run on event-candidate@/builder?step=form: twice: “I hired a deck builder in March 2026 to build a deck at my home.” What kind of step was this? Choose… Something else ha (given at story:story@/ \"the person's own sentence\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "dateInOwnSentence",
+      "where": "event-candidate@/builder?step=guided",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims questions guest run on event-candidate@/builder?step=guided: twice: “I hired a deck builder in March 2026 to build a deck at my home.” What kind of step was this? Choose… Something else ha (given at story:story@/ \"the person's own sentence\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "dateInOwnSentence",
+      "where": "event-candidate@/builder?step=results",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims questions guest run on event-candidate@/builder?step=results: twice: “I hired a deck builder in March 2026 to build a deck at my home.” What kind of step was this? Choose… Something else ha (given at story:story@/ \"the person's own sentence\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review-entry@/builder?step=form",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims questions guest run on review-entry@/builder?step=form: held: The other party (held answered)"
+    },
+    {
+      "kind": "screens-disagree",
+      "fact": "form-7a-section",
+      "where": "form-7a (after confirm)",
+      "court": "small-claims",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims review guest run on form-7a (after confirm): the Form 7A section (\"Preparing your Plaintiff's Claim (Form 7A)\") was not drawn after \"Show my next step\" on the review route, while the other screens show the case"
+    },
+    {
+      "kind": "screens-disagree",
+      "fact": "form-7a-section",
+      "where": "form-7a (after change and removal)",
+      "court": "small-claims",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims review guest run on form-7a (after change and removal): the Form 7A section (\"Preparing your Plaintiff's Claim (Form 7A)\") was not drawn after \"Show my next step\" on the review route, while the other screens show the case"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "whenHappened",
+      "where": "form-field@/builder?step=form",
+      "court": "small-claims",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims review guest run on form-field@/builder?step=form: twice: (given at review:sc-orient-when-happened@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "whenHappened",
+      "where": "review@/builder?step=form",
+      "court": "small-claims",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims review guest run on review@/builder?step=form: twice: Roughly when did the situation that led to this claim happen? Use “March 2026” (from your story) I do not know yet (given at review:sc-orient-when-happened@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "form-field@/builder?step=form",
+      "court": "small-claims",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims review guest run on form-field@/builder?step=form: twice: (given at review:sc-remedy-sought@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "review-entry@/builder?step=form",
+      "court": "small-claims",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims review guest run on review-entry@/builder?step=form: twice: Goal (given at review:sc-remedy-sought@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "review@/builder?step=form",
+      "court": "small-claims",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims review guest run on review@/builder?step=form: twice: What outcome are you asking the court to order? I do not know yet (given at review:sc-remedy-sought@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "amount",
+      "where": "form-field@/builder?step=form",
+      "court": "small-claims",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims review guest run on form-field@/builder?step=form: twice: (given at review:sc-amount-claimed@/builder \"What is the total dollar amount you are claiming? I do not know yet\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "dateInOwnSentence",
+      "where": "event-candidate@/builder?step=form",
+      "court": "small-claims",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims review guest run on event-candidate@/builder?step=form: twice: “I hired a deck builder in March 2026 to build a deck at my home.” What kind of step was this? Choose… Something else ha (given at story:story@/ \"the person's own sentence\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "dateInOwnSentence",
+      "where": "event-candidate@/builder?step=results",
+      "court": "small-claims",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims review guest run on event-candidate@/builder?step=results: twice: “I hired a deck builder in March 2026 to build a deck at my home.” What kind of step was this? Choose… Something else ha (given at story:story@/ \"the person's own sentence\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review-entry@/builder?step=form",
+      "court": "small-claims",
+      "route": "review",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims review guest run on review-entry@/builder?step=form: held: The other party (held answered)"
+    },
+    {
+      "kind": "screens-disagree",
+      "fact": "form-7a-section",
+      "where": "form-7a (after confirm)",
+      "court": "small-claims",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims form signed-in run on form-7a (after confirm): the Form 7A section (\"Preparing your Plaintiff's Claim (Form 7A)\") was not drawn after \"Show my next step\" on the form route, while the other screens show the case"
+    },
+    {
+      "kind": "screens-disagree",
+      "fact": "form-7a-section",
+      "where": "form-7a (after change and removal)",
+      "court": "small-claims",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims form signed-in run on form-7a (after change and removal): the Form 7A section (\"Preparing your Plaintiff's Claim (Form 7A)\") was not drawn after \"Show my next step\" on the form route, while the other screens show the case"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "whenHappened",
+      "where": "form-field@/builder?step=form",
+      "court": "small-claims",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims form signed-in run on form-field@/builder?step=form: twice: (given at review:sc-orient-when-happened@/builder?step=form \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "form-field@/builder?step=form",
+      "court": "small-claims",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims form signed-in run on form-field@/builder?step=form: twice: (given at review:sc-remedy-sought@/builder?step=form \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "review-entry@/builder?step=form",
+      "court": "small-claims",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims form signed-in run on review-entry@/builder?step=form: twice: Goal (given at review:sc-remedy-sought@/builder?step=form \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "dateInOwnSentence",
+      "where": "event-candidate@/builder?step=form",
+      "court": "small-claims",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims form signed-in run on event-candidate@/builder?step=form: twice: “I hired a deck builder in March 2026 to build a deck at my home.” What kind of step was this? Choose… Something else ha (given at story:story@/ \"the person's own sentence\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "dateInOwnSentence",
+      "where": "event-candidate@/builder?step=results",
+      "court": "small-claims",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims form signed-in run on event-candidate@/builder?step=results: twice: “I hired a deck builder in March 2026 to build a deck at my home.” What kind of step was this? Choose… Something else ha (given at story:story@/ \"the person's own sentence\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review-entry@/builder?step=form",
+      "court": "small-claims",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims form signed-in run on review-entry@/builder?step=form: held: The other party (held answered)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "whenHappened",
+      "where": "review@/builder?step=form",
+      "court": "small-claims",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims form signed-in run on review@/builder?step=form: held: Roughly when did the situation that led to this claim happen? Use “March 2026” (from your story) I do not know yet (held unsure)"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "review@/builder?step=form",
+      "court": "small-claims",
+      "route": "form",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims form signed-in run on review@/builder?step=form: held: What outcome are you asking the court to order? I do not know yet (held unsure)"
+    },
+    {
+      "kind": "screens-disagree",
+      "fact": "amount",
+      "where": "overview (after change and removal)",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims questions signed-in run on overview (after change and removal): still shows the old value \"$6,400\" after the person changed it to \"$7,250\""
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "review-entry@/builder?step=form",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims questions signed-in run on review-entry@/builder?step=form: twice: Goal (given at sc-chat:sc-remedy-sought@/builder?step=guided \"What outcome are you asking the court to order?\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "form-field@/builder?step=form",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims questions signed-in run on form-field@/builder?step=form: twice: (given at sc-chat:sc-remedy-sought@/builder?step=guided \"What outcome are you asking the court to order?\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "whenHappened",
+      "where": "form-field@/builder?step=form",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims questions signed-in run on form-field@/builder?step=form: twice: (given at sc-chat:sc-orient-when-happened@/builder?step=guided \"Roughly when did the situation that led to this claim happen?\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "amount",
+      "where": "form-field@/builder?step=form",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims questions signed-in run on form-field@/builder?step=form: twice: (given at sc-chat:sc-amount-claimed@/builder?step=guided \"What is the total dollar amount you are claiming?\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "dateInOwnSentence",
+      "where": "event-candidate@/builder?step=form",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims questions signed-in run on event-candidate@/builder?step=form: twice: “I hired a deck builder in March 2026 to build a deck at my home.” What kind of step was this? Choose… Something else ha (given at story:story@/ \"the person's own sentence\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "dateInOwnSentence",
+      "where": "event-candidate@/builder?step=guided",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims questions signed-in run on event-candidate@/builder?step=guided: twice: “I hired a deck builder in March 2026 to build a deck at my home.” What kind of step was this? Choose… Something else ha (given at story:story@/ \"the person's own sentence\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "dateInOwnSentence",
+      "where": "event-candidate@/builder?step=results",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims questions signed-in run on event-candidate@/builder?step=results: twice: “I hired a deck builder in March 2026 to build a deck at my home.” What kind of step was this? Choose… Something else ha (given at story:story@/ \"the person's own sentence\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review-entry@/builder?step=form",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims questions signed-in run on review-entry@/builder?step=form: held: The other party (held answered)"
+    },
+    {
+      "kind": "screens-disagree",
+      "fact": "form-7a-section",
+      "where": "form-7a (after confirm)",
+      "court": "small-claims",
+      "route": "review",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims review signed-in run on form-7a (after confirm): the Form 7A section (\"Preparing your Plaintiff's Claim (Form 7A)\") was not drawn after \"Show my next step\" on the review route, while the other screens show the case"
+    },
+    {
+      "kind": "screens-disagree",
+      "fact": "form-7a-section",
+      "where": "form-7a (after change and removal)",
+      "court": "small-claims",
+      "route": "review",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims review signed-in run on form-7a (after change and removal): the Form 7A section (\"Preparing your Plaintiff's Claim (Form 7A)\") was not drawn after \"Show my next step\" on the review route, while the other screens show the case"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "whenHappened",
+      "where": "form-field@/builder?step=form",
+      "court": "small-claims",
+      "route": "review",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims review signed-in run on form-field@/builder?step=form: twice: (given at review:sc-orient-when-happened@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "whenHappened",
+      "where": "review@/builder?step=form",
+      "court": "small-claims",
+      "route": "review",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims review signed-in run on review@/builder?step=form: twice: Roughly when did the situation that led to this claim happen? Use “March 2026” (from your story) I do not know yet (given at review:sc-orient-when-happened@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "form-field@/builder?step=form",
+      "court": "small-claims",
+      "route": "review",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims review signed-in run on form-field@/builder?step=form: twice: (given at review:sc-remedy-sought@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "review-entry@/builder?step=form",
+      "court": "small-claims",
+      "route": "review",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims review signed-in run on review-entry@/builder?step=form: twice: Goal (given at review:sc-remedy-sought@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "wants",
+      "where": "review@/builder?step=form",
+      "court": "small-claims",
+      "route": "review",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims review signed-in run on review@/builder?step=form: twice: What outcome are you asking the court to order? I do not know yet (given at review:sc-remedy-sought@/builder \"unsure\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "amount",
+      "where": "form-field@/builder?step=form",
+      "court": "small-claims",
+      "route": "review",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims review signed-in run on form-field@/builder?step=form: twice: (given at review:sc-amount-claimed@/builder \"What is the total dollar amount you are claiming? I do not know yet\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "dateInOwnSentence",
+      "where": "event-candidate@/builder?step=form",
+      "court": "small-claims",
+      "route": "review",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims review signed-in run on event-candidate@/builder?step=form: twice: “I hired a deck builder in March 2026 to build a deck at my home.” What kind of step was this? Choose… Something else ha (given at story:story@/ \"the person's own sentence\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "dateInOwnSentence",
+      "where": "event-candidate@/builder?step=results",
+      "court": "small-claims",
+      "route": "review",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims review signed-in run on event-candidate@/builder?step=results: twice: “I hired a deck builder in March 2026 to build a deck at my home.” What kind of step was this? Choose… Something else ha (given at story:story@/ \"the person's own sentence\")"
+    },
+    {
+      "kind": "asked-twice",
+      "fact": "otherParty",
+      "where": "review-entry@/builder?step=form",
+      "court": "small-claims",
+      "route": "review",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims review signed-in run on review-entry@/builder?step=form: held: The other party (held answered)"
+    }
+  ]
+}
