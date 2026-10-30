@@ -51,6 +51,8 @@ type Recovery = {
   /** `reaffirm`: the person answered this again (true: the whole field; a key: that one answer), so it is based on the current story even when the value is unchanged. */
   put: (section: string, key: string, value: unknown, touched?: boolean, external?: boolean, fromReview?: boolean, reaffirm?: true | string) => void;
   flush: (signal?: AbortSignal) => Promise<void>;
+  /** Told each time the person's latest change is kept: "account" (saved to the case) or "tab" (a guest's, kept in this tab). */
+  subscribeSaved: (listener: (where: "account" | "tab") => void) => () => void;
   validate: (signal?: AbortSignal) => Promise<void>;
   getCaseId: () => string | null;
   flowId: string;
@@ -159,6 +161,8 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         let view: ReviewView = { checkpoint: snapshot, workflowStatus };
         const listeners = new Set<() => void>();
         const fieldListeners = new Map<string, Set<() => void>>();
+        const savedListeners = new Set<(where: "account" | "tab") => void>();
+        let tabTimer: ReturnType<typeof setTimeout> | undefined;
         const emit = () => { view = { checkpoint: snapshot, workflowStatus }; listeners.forEach(listener => listener()); };
         let acknowledgedInput = inputRevision(snapshot);
         const leases = new WeakMap<AbortSignal, string>();
@@ -251,6 +255,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             cache();
             setFailed(false);
             setNotice(dirty ? "Newer answers are waiting to save…" : "Intake saved to your account.");
+            if (!dirty) savedListeners.forEach(listener => listener("account"));
           };
           flight = work().catch((error: unknown) => { failure(error instanceof Error && !["TypeError", "SyntaxError"].includes(error.name) ? error.message : "Your intake could not be saved. Please retry."); throw error; }).finally(() => { flight = null; });
           await flight;
@@ -328,6 +333,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             return () => { group.delete(listener); };
           },
           subscribe: listener => { listeners.add(listener); return () => { listeners.delete(listener); }; },
+          subscribeSaved: listener => { savedListeners.add(listener); return () => { savedListeners.delete(listener); }; },
           getReview: () => view,
           transition: async (action, expectedInput) => {
             await flush();
@@ -393,6 +399,10 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             if (ownerId) {
               clearTimeout(timer);
               timer = setTimeout(() => { void flush().catch(() => {}); }, 400);
+            } else {
+              // A guest's change is kept in this tab at once; said once they pause.
+              clearTimeout(tabTimer);
+              tabTimer = setTimeout(() => { if (current()) savedListeners.forEach(listener => listener("tab")); }, 600);
             }
           },
           flush,
@@ -476,7 +486,43 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
       {!recovery && failed && <> · <a className="underline" href={`/builder?path=${court}`}>Start a new intake</a></>}
     </div>
     {recovery ? <SituationGate court={court} ownerId={recovery.ownerId ?? null}><IntakeReviewPanel />{children}</SituationGate> : null}
+    {recovery ? <BoxSavedNote recovery={recovery} /> : null}
   </Context.Provider>;
+}
+
+/**
+ * "Saved", beside the box just changed (Chrome check of #514's preview, 29 Oct: typing in a form
+ * box gave no word that it was kept; the only note is the status line at the top of the page).
+ * One note for every intake box in all three areas -- the Small Claims, civil and Family forms and
+ * the review -- since every change goes through the one store: it follows the last box typed or
+ * picked in, and shows under it once that change is kept, then goes away by itself.
+ */
+function BoxSavedNote({ recovery }: { recovery: Recovery }) {
+  const last = useRef<HTMLElement | null>(null);
+  const [shown, setShown] = useState<{ top: number; left: number; words: string } | null>(null);
+  useEffect(() => {
+    const changed = (event: Event) => {
+      const target = event.target;
+      if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement) last.current = target;
+    };
+    document.addEventListener("input", changed, true);
+    document.addEventListener("change", changed, true);
+    let hide: ReturnType<typeof setTimeout> | undefined;
+    const unsubscribe = recovery.subscribeSaved((where) => {
+      const box = last.current;
+      if (!box || !box.isConnected) return;
+      const rect = box.getBoundingClientRect();
+      // Placed on the screen where the box is now (fixed: the page's own containers move an absolute note).
+      setShown({ top: rect.bottom + 4, left: rect.left, words: where === "account" ? "Saved" : "Saved in this tab" });
+      clearTimeout(hide);
+      hide = setTimeout(() => setShown(null), 3_000);
+    });
+    // A note placed under a box no longer under it once the page scrolls: it goes.
+    const scrolled = () => setShown(null);
+    window.addEventListener("scroll", scrolled, { passive: true });
+    return () => { document.removeEventListener("input", changed, true); document.removeEventListener("change", changed, true); window.removeEventListener("scroll", scrolled); clearTimeout(hide); unsubscribe(); };
+  }, [recovery]);
+  return shown ? <p data-testid="box-saved-note" role="status" style={{ position: "fixed", top: shown.top, left: shown.left }} className="z-40 rounded bg-[#e8f4ef] px-2 py-0.5 text-xs font-semibold text-[#16302b] shadow">{shown.words}</p> : null;
 }
 
 /**

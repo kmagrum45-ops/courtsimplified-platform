@@ -24,7 +24,7 @@
  *      review, 29 Oct): an answer added after Confirm keeps the confirmation but
  *      outdates next steps made without it (guidanceIsCurrent false, guidanceNeedsUpdate
  *      true, the analysis gate refuses with "Update them", never "confirm again");
- *      a change that is not a fact (later evidence) leaves them current; the case page
+ *      a change that is not a fact (the form's open view) leaves them current; the case page
  *      and Forms show the update control; the builder compares the facts revision.
  *   6. A date given on the next-step page ("Add it", "Work out your dates":
  *      StageAnswerPanel.tsx countDeadline) needs no remaking of the next steps (D1,
@@ -42,6 +42,12 @@
  *      steps are outdated; an answer that WAS confirmed, typed over key by key, still
  *      cancels it. Compared with the facts as confirmed (confirmedAnswerChanged, the
  *      marks recorded by transitionReview), never with the last key press.
+ *   8. WHAT THE CONFIRM SCREEN SHOWS IS WHAT WAS CONFIRMED (Chrome check of #514's
+ *      preview, 29 Oct: "Evidence you have" removed after Confirm left the case
+ *      "confirmed"). On every route, an "optional later detail" shown on the confirm
+ *      screen, removed or changed key by key after Confirm, cancels the confirmation;
+ *      something the screen never shows (the form's open view, `mode`) added, changed
+ *      and removed leaves the confirmation and the facts revision alone.
  *
  * What failure this catches: the browser and server drifting apart again, so a
  * confirmation the server keeps is dropped in the tab (or the reverse), a changed
@@ -54,7 +60,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { inputRevision, applyFactRevisions, existingFactChanged, factsRevision, guidanceIsCurrent, guidanceNeedsUpdate, remainingEssentialQuestions, renewsInputRevision, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
+import { reviewEntries, inputRevision, applyFactRevisions, existingFactChanged, factsRevision, guidanceIsCurrent, guidanceNeedsUpdate, remainingEssentialQuestions, renewsInputRevision, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
 import { withConfirmedGuidance } from "../../src/lib/security/intakeGuidanceGate";
 import { saveCheckpoint, type Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { readCasePosition } from "../../src/lib/case-system/casePosition";
@@ -125,8 +131,9 @@ async function main() {
       const { done } = confirmed(base);
       const guidance = { guidanceInputRevision: REVISION, guidanceFactsRevision: REVISION };
       assert.equal(guidanceIsCurrent({ intakeCheckpoint: base, workflowStatus: done, ...guidance }, route.court, FLOW), true, "next steps made from the confirmed facts are current");
-      // Not a fact: later evidence. Nothing is outdated.
-      const evidence = edited(base, route.answers({ goal: "Synthetic: payment of the $6,000 owed.", evidence: ["Synthetic receipt"] }));
+      // Not a fact: something the confirm screen never shows (the form's open view). Nothing is outdated.
+      // (Later evidence used to be the example; it IS shown on the confirm screen, so it counts: check 8.)
+      const evidence = edited(base, route.answers({ goal: "Synthetic: payment of the $6,000 owed.", mode: "form" }));
       assert.equal(applyFactRevisions(done, base, evidence), false);
       assert.equal(guidanceIsCurrent({ intakeCheckpoint: evidence, workflowStatus: done, ...guidance }, route.court, FLOW), true, "a change that is not a fact outdated the next steps");
       // A fact added: saved through the server as the browser sends it.
@@ -252,6 +259,41 @@ async function main() {
       assert.equal(guidanceNeedsUpdate(added, route.court, FLOW), true, "the next steps are not offered for updating");
       const changed = await typeInto("goal", "Synthetic: payment of the $6,000 owed, and costs", {});
       assert.notEqual(reviewPhase(changed.workflowStatus as Record<string, unknown>, changed.intakeCheckpoint as Checkpoint), "user-confirmed", "a confirmed answer typed over kept the confirmation");
+    });
+  }
+
+  for (const route of ROUTES) {
+    await check(`${route.name}: an optional answer shown on the confirm screen, removed or changed key by key after Confirm, cancels it; something never shown leaves it alone`, async () => {
+      const evidence = "Contract and bank receipt";
+      const shown = { goal: "Synthetic: payment of the $6,000 owed.", evidence };
+      const base = checkpoint(route.court, route.answers(shown));
+      assert(reviewEntries(base).some((entry) => entry.field === "evidence" && entry.value === evidence), "the evidence is on the confirm screen");
+      const { done } = confirmed(base);
+      // Each value in turn, written and saved as the page does (the store's step, then saveCheckpoint).
+      const writeEach = async (values: Record<string, unknown>[]) => {
+        const { db, master } = fakeDb(route.court, { intakeCheckpoint: base, workflowStatus: done });
+        let previous = base;
+        let workflow: Record<string, unknown> = done;
+        let serverRevision = REVISION;
+        for (const [index, values_] of values.entries()) {
+          const revision = `66666666-6666-4666-8666-${String(index + 1).padStart(12, "0")}`;
+          const next: Checkpoint = { ...previous, revision, sections: { ...previous.sections, ...route.answers(values_), builder: previous.sections.builder } };
+          applyFactRevisions(workflow, previous, next);
+          assert((await saveCheckpoint(db, OWNER, FLOW, next, serverRevision, () => true, inputRevision(next) !== inputRevision(previous), false)).ok);
+          serverRevision = revision;
+          workflow = master().workflowStatus as Record<string, unknown>;
+          previous = master().intakeCheckpoint as Checkpoint;
+        }
+        return master();
+      };
+      const phase = (master: Record<string, unknown>) => reviewPhase(master.workflowStatus as Record<string, unknown>, master.intakeCheckpoint as Checkpoint);
+      const removed = await writeEach([...Array(evidence.length).keys()].map((index) => ({ ...shown, evidence: evidence.slice(0, evidence.length - index - 1) })));
+      assert.notEqual(phase(removed), "user-confirmed", "a confirmed optional answer removed key by key kept the confirmation");
+      const changed = await writeEach([..." and texts"].map((_, index) => ({ ...shown, evidence: evidence + " and texts".slice(0, index + 1) })));
+      assert.notEqual(phase(changed), "user-confirmed", "a confirmed optional answer changed key by key kept the confirmation");
+      const neverShown = await writeEach([{ ...shown, mode: "form" }, { ...shown, mode: "chat" }, { ...shown }]);
+      assert.equal(phase(neverShown), "user-confirmed", "something the confirm screen never shows cancelled the confirmation");
+      assert.equal(factsRevision(neverShown.intakeCheckpoint as Checkpoint), factsRevision(base), "something the confirm screen never shows outdated the next steps");
     });
   }
 
