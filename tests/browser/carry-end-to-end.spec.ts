@@ -643,11 +643,18 @@ for (const { court, route, who } of RUNS) {
         await openFromDashboard(page, run.caseA);
         judge(run, "first case from the dashboard", {}, await page.locator("body").innerText());
       });
-      // Then the second case the same way: it must show itself, not the first.
+      // Then the second case the same way: it must show itself, not the first. Its questions are the
+      // second case's, counted against the second case (its own held map and answers): run 41137395354
+      // found all six civil/Family claimKind entries here, case B's own chat asking B's kind (never given
+      // in B: page=claimKind:not-asked) judged against case A's saved answer.
+      segment("b");
+      current = run.caseB;
       await run.step("the second case from the dashboard", async () => {
         await openFromDashboard(page, run.caseB);
         judge(run, "second case from the dashboard", {}, await page.locator("body").innerText(), "b");
       });
+      segment("a");
+      current = run.caseA;
       await run.step("the first case by its address", async () => {
         await readBuilder(run, "first case by address, after the second case");
         await readCasePage(run, "first case by address, after the second case");
