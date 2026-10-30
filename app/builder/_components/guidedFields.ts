@@ -94,6 +94,7 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       question: "In your own words, what is happening in your family situation?",
       why: "Everything else we show you starts from this, so we read it before asking anything else.",
       kind: "longtext",
+      story: true,
     },
     {
       key: "yourRole",
@@ -203,6 +204,7 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
       question: "In your own words, what happened?",
       why: "Everything else we show you starts from this, so we read it before asking anything else.",
       kind: "longtext",
+      story: true,
     },
     {
       key: "yourRole",

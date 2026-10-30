@@ -332,7 +332,8 @@ async function guidedSmallClaims(page: Page, persona: Persona, steps: Step[]) {
   await expect(chooseGuided).toBeVisible({ timeout: 60_000 });
   await capture(page, persona, steps, "mode-chooser");
   await chooseGuided.click();
-  const input = page.getByPlaceholder(/Tell us what happened/i);
+  // The story box is named, not placeholdered: its guidance is the shared text above it (StoryGuidance, 30 Oct).
+  const input = page.getByRole("textbox", { name: /Tell us what happened/i });
   await expect(input).toBeVisible({ timeout: 60_000 });
   await capture(page, persona, steps, "guided-start");
   await input.fill(persona.story);

@@ -82,7 +82,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     const account = await fakeAccount(page);
     await openBuilder(page, court);
     if (court === "small-claims") await page.getByRole("button", { name: "Answer questions one at a time with AI help" }).click();
-    const question = court === "small-claims" ? page.getByRole("textbox", { name: "Tell us what happened..." }) : page.getByTestId("guided-form-question").getByRole("textbox");
+    const question = court === "small-claims" ? page.getByRole("textbox", { name: "Tell us what happened in your own words" }) : page.getByTestId("guided-form-question").getByRole("textbox");
     await question.fill(STORY);
     await expect.poll(() => JSON.stringify([...account.rows.values()])).toContain(STORY);
     await page.reload();

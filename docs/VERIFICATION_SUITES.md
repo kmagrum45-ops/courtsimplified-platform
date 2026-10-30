@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-201 documented, 26 without a header.
+202 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -184,6 +184,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:story-basis` | **One record of which story version each story-derived answer was based on.**<br>What it checks (storyBasis.ts): an answer is tagged with the story version it was stored under; when the story changes, every older answer is stale in all three areas (Small Claims, civil, family): emptied in the view screens read, never shown as current, and  |
 | `npm run test:story-data-registry` | **Every place that stores data is listed, with where it stands when the story changes.**<br>What it checks (storyDataRegistry.ts, intakeStorageKeys.ts, storyDataScan.ts): - every intake section the code uses, every master_result key it writes and every table it writes is in the registry with one class, and every listed one is still used (an unused li |
 | `npm run test:story-facts` | **EACH FACT THE STORY GIVES, IN PLAIN WORDS (Charter re-test, 27 Oct, root cause 1).**<br>Checks, as properties, on the six cases Chrome re-tested (messy pack cases 11, 14, 16, 19 and 20, and the Charter claim), through the readers "What we have so far" and the questions use (caseFile/storyFacts.ts, storyLines.ts, storyAnswers.ts childrenFromStory) |
+| `npm run test:story-guidance` | **Every box that asks a person for their story shows the same guidance, from one**<br>place (site owner, 30 Oct). |
 | `npm run test:story-pack` | **Runs the story pack (tests/browser/story-pack.spec.ts) and prints its findings,**<br>grouped by what failed. Exits non-zero when there are any, so it can gate a PR. |
 | `npm run test:story-pack-records` | **EACH STORY-PACK RUN KEEPS ITS OWN RECORDS (site owner, 2026-10-27).**<br>Checks, as properties: - two runs with different run ids write to different folders, and neither touches the other; - the folder is outside test-results/, which Playwright empties at the start of every run; - the story pack writes its ask-once, claim-kind and  |
 | `npm run test:story-pack-shards` | **THE STORY PACK'S PARTS RUN EXACTLY THE WHOLE PACK, EACH TEST ONCE (site owner, 2026-10-29).**<br>CI shares the story pack across machines (courtsimplified-story-pack.yml: a matrix of parts, each `--fully-parallel --shard=<part>/<parts>`). Checks, as properties: - the parts the workflow lists are 1..N, and every part runs `--shard=<part>/N` with that N; -  |

@@ -201,9 +201,9 @@ test("Small Claims guided: a saved story shows as text with Send and Edit; an ou
   await page.getByRole("button", { name: "Answer questions one at a time with AI help" }).click();
   const saved = page.getByTestId("guided-saved-story");
   await expect(saved, "the saved story is visible, not hidden in an empty-looking box").toContainText(SC_STORY);
-  await expect(page.getByRole("textbox", { name: "Tell us what happened..." })).toHaveCount(0);
+  await expect(page.getByRole("textbox", { name: "Tell us what happened in your own words" })).toHaveCount(0);
   await saved.getByRole("button", { name: "Edit my story" }).click();
-  await expect(page.getByRole("textbox", { name: "Tell us what happened..." }), "editing shows the story itself").toHaveValue(SC_STORY);
+  await expect(page.getByRole("textbox", { name: "Tell us what happened in your own words" }), "editing shows the story itself").toHaveValue(SC_STORY);
 
   // A conversation that read an earlier version of the story.
   await page.evaluate(() => {

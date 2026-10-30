@@ -40,6 +40,7 @@ import { storyQuoteFor } from "@/src/lib/case-system/intake/claimKind";
 import { alreadyAsked, askedAndReplied, caseFileOf } from "@/src/lib/case-system/caseFile/caseFile";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { WorkingButton, WorkingNote } from "@/app/_components/Working";
+import StoryGuidance from "@/app/_components/StoryGuidance";
 
 type IntakeFacts = Record<string, string | number | boolean>;
 
@@ -1430,8 +1431,8 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           </div>
         ) : messages.length === 0 ? (
           <p className="text-sm text-[#5a736a]">
-            Describe what happened in your own words below to get started. CourtSimplified will ask
-            follow-up questions one at a time.
+            Send your story below to get started. CourtSimplified will ask follow-up questions one at
+            a time.
           </p>
         ) : (
           shownMessages.slice(0, heldFrom).map((message, index) => (
@@ -1628,7 +1629,11 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         showing through the gap instead of a premature "complete" label.
       */}
       {readingOutdated || (!started && showSavedStory && story.trim()) ? null : !halted && (proposalDrafts || suggestionFirst) ? null : !halted && (!intakeComplete || depthActive || loading) ? (
-        <div className="mt-4 flex gap-2">
+        <div className="mt-4">
+        {/* Before any question, this box takes the story: it shows the one story guidance
+            (copy/storyGuidance.ts) instead of a placeholder of its own (owner, 30 Oct). */}
+        {!(depthActive || currentQuestion) ? <StoryGuidance id="guided-story-guidance" className="mb-2" /> : null}
+        <div className="flex gap-2">
           <textarea
             // Keyed to the question actually on screen, the same fix already
             // applied to QuestionHelp just below (`key={currentQuestion.id}`,
@@ -1644,9 +1649,9 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             value={inputText}
             disabled={loading}
             onChange={(event) => setInputText(event.target.value)}
-            placeholder={
-              depthActive || currentQuestion ? "Your answer..." : "Tell us what happened..."
-            }
+            placeholder={depthActive || currentQuestion ? "Your answer..." : undefined}
+            aria-label={depthActive || currentQuestion ? undefined : "Tell us what happened in your own words"}
+            aria-describedby={depthActive || currentQuestion ? undefined : "guided-story-guidance"}
             className="min-h-12 flex-1 rounded-2xl border border-[#d8e6df] px-4 py-3 text-sm"
             onKeyDown={(event) => {
               if (event.key === "Enter" && !event.shiftKey) {
@@ -1664,6 +1669,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           >
             Send
           </WorkingButton>
+        </div>
         </div>
       ) : (
         <div className="mt-4">
