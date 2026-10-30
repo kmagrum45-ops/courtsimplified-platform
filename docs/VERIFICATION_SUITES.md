@@ -8,6 +8,7 @@ the file, so this index cannot drift away from what the suites actually do.
 204 documented, 26 without a header.
 202 documented, 26 without a header.
 199 documented, 26 without a header.
+200 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
