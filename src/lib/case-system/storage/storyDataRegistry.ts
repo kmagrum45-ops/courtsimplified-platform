@@ -44,6 +44,7 @@ export const MASTER_RESULT_KEYS: Record<string, StoryDataEntry> = {
   guidanceInputRevision: { storyData: "not-story", note: "Which confirmed input the guidance was built from; the gate compares it." },
   guidanceFactsRevision: { storyData: "not-story", note: "Which version of the facts the guidance was built from (intakeCheckpoint.factsRevision); an answer added after Confirm outdates it (D1 review)." },
   derivedFrom: { storyData: "not-story", note: "Which events and input the analysis saw (caseAnalysisFreshness.ts)." },
+  safetyCheck: { storyData: "not-story", note: "The safety check run before the last analysis: status (clear, concern or failed), failure kind, attempts and a sha256 of the text checked, never its words (analysisSafetyGate.ts). Every analysis checks again, so a changed story never reuses it." },
   intakeData: { storyData: "analysis-gate", note: "The input the last analysis read, including its story; shown only while it matches the confirmed facts, and compared on re-analysis (positionForStory)." },
   intakeFacts: { storyData: "analysis-gate", note: "Facts the last analysis read." },
   intakeAnalysis: { storyData: "analysis-gate", note: "The last analysis." },

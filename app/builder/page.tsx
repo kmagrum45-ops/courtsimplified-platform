@@ -36,7 +36,9 @@ import { ChildSupportTableCard } from "./_components/ChildSupportTableCard";
 import ChildSupportIntake from "./_components/ChildSupportIntake";
 import { childSupportPrefill } from "./_components/childSupportPrefill";
 import SmallClaimsIntake, {
+  lateSafetyOutcome,
   requestSmallClaimsAnalysis,
+  runFormSafetyCheck,
 } from "./_components/SmallClaimsIntake";
 import GuidedSmallClaimsIntake, {
   type GuidedIntakeCompletionResult,
@@ -462,6 +464,8 @@ function BuilderPageContent() {
     return () => request.cancel();
   }, [queryCaseId, courtPath]);
   const [guidedAnalysisError, setGuidedAnalysisError] = useState("");
+  // The safety check's words for this route, when it found danger or distress (item N, 2026-10-29).
+  const [guidedSafety, setGuidedSafety] = useState<{ halt?: string; distress?: string }>({});
   // The guided route's analysis, shown beside "Show my next step" at the top too (L27).
   // A failed next step is never silent: the message, and Try again with the same answers (item 9).
   const lastGuidedResult = useRef<GuidedIntakeCompletionResult | null>(null);
@@ -1132,6 +1136,9 @@ function BuilderPageContent() {
               // page and chat refused guidance (409) and the tab saw "Another tab changed
               // this intake" (#465 re-test E and G). Always the record just read.
               ...(storedMaster.intakeCheckpoint !== undefined ? { intakeCheckpoint: storedMaster.intakeCheckpoint } : {}),
+              // The safety check's record is the analyze route's (analysisSafetyGate.ts), written
+              // during this analysis; masterPayload's copy is the one from when the page opened.
+              ...(storedMaster.safetyCheck !== undefined ? { safetyCheck: storedMaster.safetyCheck } : {}),
               workflowStatus: { ...asRecord(masterPayload.workflowStatus), ...asRecord(storedMaster.workflowStatus) },
               derivedFrom,
               intakeFacts,
@@ -1298,6 +1305,7 @@ function BuilderPageContent() {
 
     setGuidedAnalyzing(true);
     setGuidedAnalysisError("");
+    setGuidedSafety({});
 
     try {
       await guidedRequest.current.run(async (signal) => {
@@ -1327,6 +1335,18 @@ function BuilderPageContent() {
           .map(([questionId, suggestion]) => [questionId, suggestion.value]),
       );
 
+      // The safety check before the analysis, as on the form: this route reached
+      // the analysis with none when the story came from the home page or the
+      // review panel (item N, 2026-10-29). Danger stops here; distress is shown;
+      // a failed check carries on, and the route checks and records it itself.
+      const safety = await runFormSafetyCheck([mappedInput.facts, mappedInput.urgent].filter((text) => text.trim()).join("\n\n"));
+      signal.throwIfAborted();
+      if (safety.halted) {
+        setGuidedSafety({ halt: safety.haltMessage || "" });
+        return;
+      }
+      if (safety.distressAcknowledgment) setGuidedSafety({ distress: safety.distressAcknowledgment });
+
       // The active case, so the run sees the events the user confirmed.
       const response = await requestSmallClaimsAnalysis(
         mappedInput,
@@ -1334,6 +1354,12 @@ function BuilderPageContent() {
         signal,
         intakeGuidanceHeaders(recovery),
       );
+      const late = lateSafetyOutcome(safety, response);
+      if (late?.halted) {
+        setGuidedSafety({ halt: late.haltMessage || "" });
+        return;
+      }
+      if (late?.distressAcknowledgment) setGuidedSafety({ distress: late.distressAcknowledgment });
       const analysisResult = response.result!;
       const payload: StoredCaseData = {
         ...analysisResult.payload,
@@ -2333,6 +2359,16 @@ function BuilderPageContent() {
                 />
                 {guidedAnalyzing ? (
                   <AnalyzingNote />
+                ) : null}
+                {guidedSafety.halt ? (
+                  <div data-testid="guided-safety-halt" className="mt-4 whitespace-pre-wrap rounded-2xl border border-red-200 bg-red-50 p-4 text-sm leading-6 text-red-800">
+                    {guidedSafety.halt}
+                  </div>
+                ) : null}
+                {guidedSafety.distress ? (
+                  <div data-testid="guided-safety-distress" className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900">
+                    {guidedSafety.distress}
+                  </div>
                 ) : null}
                 {guidedAnalysisError ? (
                   <div role="alert" data-testid="guided-analysis-error" className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">

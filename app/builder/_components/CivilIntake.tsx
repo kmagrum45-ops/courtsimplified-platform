@@ -36,7 +36,7 @@ import type {
   CivilCanonicalIntakeResult,
 } from "../../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
 import { supabase } from "../../../src/lib/supabase/client";
-import { runClientSafetyCheck } from "../../../src/lib/case-system/intake/clientSafetyCheck";
+import { ensureSafetyChecked, safetyConcernFromAnalysis } from "../../../src/lib/case-system/intake/clientSafetyCheck";
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
 import {
   assignReferences,
@@ -709,12 +709,15 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
      * that difference is itself a question for the clinical reviewer
      * (OUTSTANDING_ISSUES section 0a).
      */
+    // A check that failed twice is "failed", never clear; the route checks again and records it (item N).
+    let safetyFailed = true;
     try {
       const {
         data: { session },
       } = await supabase.auth.getSession();
 
-      const safety = await runClientSafetyCheck(input.facts, session?.access_token);
+      const safety = await ensureSafetyChecked(input.facts, session?.access_token);
+      safetyFailed = safety.status === "failed";
       await validateIntakeResponse(signal);
       signal.throwIfAborted();
       setAsksForAdvice(safety.requestsLegalAdvice);
@@ -770,6 +773,15 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
       if (!response.ok || !body.ok || !body.result) {
         throw new Error(body.error || "Civil analysis could not be completed.");
       }
+      // The browser's check failed: the route checked the same story itself.
+      const late = safetyFailed ? safetyConcernFromAnalysis(body) : null;
+      if (late?.classification === "immediate-danger") {
+        setSafetyHalt(late.userMessage || "");
+        setIsAnalyzing(false);
+        submissionInFlight.current = false;
+        return;
+      }
+      if (late?.classification === "distress") setSafetyNotice(late.userMessage || "");
 
       const result = body.result;
       const masterResult = result.civilMasterResult;

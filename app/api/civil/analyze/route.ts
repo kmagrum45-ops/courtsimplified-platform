@@ -10,6 +10,13 @@ import {
   getAuthenticatedUser,
 } from "@/src/lib/supabase/serverAuth";
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
+import {
+  analysisCaseId,
+  analysisStoryText,
+  checkStoryBeforeAnalysis,
+  type AnalysisSafetyDependencies,
+} from "@/src/lib/case-system/intake/analysisSafetyGate";
+import { withAiCallIdentity } from "@/src/lib/audit/aiCallLog";
 
 export const runtime = "nodejs";
 // As Small Claims: the analysis researches before it writes (test:analysis-time-budget).
@@ -75,6 +82,8 @@ type CivilRouteDependencies = {
   loadOwnedMasterResult: typeof getAuthenticatedOwnedCaseMasterResult;
   analyze: typeof runCivilIntakeCanonicalIntegration;
   hasExternalAiKey: () => boolean;
+  /** The safety check's steps (analysisSafetyGate.ts); the real ones unless a test stands one in. */
+  safety: Partial<AnalysisSafetyDependencies>;
 };
 
 export function createCivilAnalyzePost(
@@ -85,6 +94,7 @@ export function createCivilAnalyzePost(
     loadOwnedMasterResult: getAuthenticatedOwnedCaseMasterResult,
     analyze: runCivilIntakeCanonicalIntegration,
     hasExternalAiKey: hasConfiguredServerAi,
+    safety: {},
     ...overrides,
   };
 
@@ -116,13 +126,25 @@ export function createCivilAnalyzePost(
     }
     const allowExternalCognition =
       authenticated && dependencies.hasExternalAiKey();
+    // The safety check, on the exact text this analysis reads, before it
+    // starts -- whichever door the person came through (analysisSafetyGate.ts).
+    const caseId = analysisCaseId(request, body.input.caseId);
+    const safety = await withAiCallIdentity({ userId: user?.id ?? null, caseId }, () =>
+      checkStoryBeforeAnalysis(request, {
+        court: "civil",
+        storyText: analysisStoryText(body.input, longFields),
+        userId: user?.id ?? null,
+        caseId,
+        aiAvailable: allowExternalCognition,
+      }, dependencies.safety),
+    );
     const result = await dependencies.analyze(body.input, {
       allowExternalCognition,
       existingMasterResult,
     });
     const fallbackUsed = result.brain.intelligence.cognitionMode === "fallback";
     const analysisAvailable = allowExternalCognition && !fallbackUsed;
-    return NextResponse.json({ ok: true, result, authenticated, reasoningMode: analysisAvailable ? "structured-ai" : "deterministic-fallback", analysisAvailable });
+    return NextResponse.json({ ok: true, result, authenticated, reasoningMode: analysisAvailable ? "structured-ai" : "deterministic-fallback", analysisAvailable, safety });
   } catch {
     console.error("Civil canonical intake analysis failed.");
     return errorResponse("Civil intake analysis could not be completed.", 500);

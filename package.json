@@ -140,6 +140,7 @@
     "test:storage-keys": "node --import tsx scripts/verification/verifyStorageKeys.ts",
     "test:reset-intake": "node --import tsx scripts/verification/verifyResetIntake.ts",
     "test:safety-coverage": "node --import tsx scripts/verification/verifySafetyPassCoverage.ts",
+    "test:analysis-safety": "node --import tsx scripts/verification/verifyAnalysisSafetyGate.ts",
     "content:export": "node --import tsx scripts/content/exportReviewPacket.ts",
     "content:import": "node --import tsx scripts/content/importReviewResults.ts",
     "test:strategy": "node --import tsx scripts/verification/verifyStrategy.ts",
