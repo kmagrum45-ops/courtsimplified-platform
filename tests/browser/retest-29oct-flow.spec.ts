@@ -134,36 +134,41 @@ async function smallClaimsForm(page: Page) {
   await box.blur();
 }
 
-/** Civil or Family questions one at a time: stop early, confirm, answer the next question. */
-async function guidedForm(page: Page, court: "civil" | "family") {
+/**
+ * Civil or Family questions one at a time: stop early, confirm, then add one fact the case does not hold.
+ *
+ * Before #515 the added answer was the next question of the chat. That question was always one the
+ * review had just recorded "I do not know yet" for, offered again from the story -- which the owner's
+ * rule now forbids (an unsure fact is offered once more only, in the review or as the story's
+ * suggestion; never asked again afterwards), so after Confirm the chat rightly has nothing left to
+ * ask. A fact neither the story, the start answers nor the review gives is "Evidence still missing":
+ * no question of the chat or the review asks it, and its box on this area's own form is empty. It is
+ * answered there, on the same area's intake (CivilIntake.tsx / FamilyIntake.tsx), so Continue is still
+ * that area's Continue: the D1 property is unchanged -- a first value added after Confirm keeps the
+ * confirmation, and Continue goes to the next step.
+ */
+async function guidedForm(page: Page, court: "civil" | "family", rows: Map<string, Record<string, unknown>>) {
   await openBuilder(page, court, { city: "Kingston", story: court === "civil" ? CIVIL_STORY : FAMILY_STORY });
   const question = page.getByTestId("guided-form-question");
   await expect(question).toBeVisible({ timeout: 60_000 });
   await confirmHere(page);
 
-  // One more answer to the question on screen: whatever it asks, a first answer to it.
-  await expect(question, "a question is still open to answer after Confirm").toBeVisible({ timeout: 30_000 });
-  const key = await question.getAttribute("data-key");
-  const textbox = question.getByRole("textbox");
-  // The question may offer what the story says ("Is that right?"): "Yes, that's right" is the answer.
-  const fromStory = page.getByTestId("guided-form-from-story-yes");
-  if (await fromStory.isVisible().catch(() => false)) await fromStory.click();
-  else {
-    if (await textbox.count()) {
-      await expect(textbox.first(), `the "${key}" answer was empty: this adds a fact`).toHaveValue("");
-      await textbox.first().fill(court === "civil" ? "Synthetic: Test Builder Ltd., a contractor in Kingston." : "Synthetic: one daughter, age 6.");
-    } else await question.locator("[data-testid^=guided-option-], [data-testid^=guided-check-]").first().click();
-    const next = question.getByTestId("guided-form-next");
-    if (await next.count()) await next.click();
-  }
-  await expect(page.getByTestId("guided-form-question").and(page.locator(`[data-key="${key}"]`)), "the answer was taken").toHaveCount(0, { timeout: 30_000 });
+  // One more answer, after Confirm: a fact nothing has given yet, in a box that was empty.
+  await page.getByTestId("guided-form-show-form").click();
+  const box = page.locator("label").filter({ has: page.locator("span.font-semibold", { hasText: /^Evidence still missing$/ }) }).locator("textarea");
+  await expect(box, "the box answered after Confirm was empty: this adds a fact, it changes none").toHaveValue("");
+  const added = court === "civil" ? "Synthetic: the signed change order from April 2026." : "Synthetic: our daughter's school attendance record.";
+  await box.fill(added);
+  await box.blur();
+  // The answer was taken: saved with the case.
+  await expect.poll(() => JSON.stringify([...rows.values()].map((row) => (row.master_result as Record<string, unknown> | undefined)?.intakeCheckpoint ?? null)), { timeout: 30_000 }).toContain(added.slice(11, 40));
 }
 
-const ROUTES: Record<Route, { court: "small-claims" | "civil" | "family"; run: (page: Page) => Promise<void> }> = {
+const ROUTES: Record<Route, { court: "small-claims" | "civil" | "family"; run: (page: Page, rows: Map<string, Record<string, unknown>>) => Promise<void> }> = {
   guided: { court: "small-claims", run: smallClaimsGuided },
   form: { court: "small-claims", run: smallClaimsForm },
-  civil: { court: "civil", run: (page) => guidedForm(page, "civil") },
-  family: { court: "family", run: (page) => guidedForm(page, "family") },
+  civil: { court: "civil", run: (page, rows) => guidedForm(page, "civil", rows) },
+  family: { court: "family", run: (page, rows) => guidedForm(page, "family", rows) },
 };
 
 for (const route of Object.keys(NAMES) as Route[]) {
@@ -177,7 +182,7 @@ for (const route of Object.keys(NAMES) as Route[]) {
     const account = await fakeAccount(page);
     await serveFromThisCommit(page, ROUTES[route].court, account.rows as unknown as Map<string, Record<string, unknown>>);
 
-    await ROUTES[route].run(page);
+    await ROUTES[route].run(page, account.rows as unknown as Map<string, Record<string, unknown>>);
     await page.waitForTimeout(3_000);
 
     // The wanted property: still confirmed, and the next step loads with no "needs confirming" line.
