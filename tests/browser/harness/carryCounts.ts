@@ -130,7 +130,7 @@ export const COUNTS_LINE = /^CARRY COUNTS(?: [^=]+?)? asked-twice=(\d+) returned
 // Outside test-results/, which Playwright empties at the start of every run.
 export const CARRY_RECORDS = "carry-records";
 
-export type CarryRunRecord = { run: string; court: string; route: string; who: string; violations: CarryViolation[]; known: number; unknown: number; unreached: string[]; notDrawn?: string[] };
+export type CarryRunRecord = { run: string; court: string; route: string; who: string; violations: CarryViolation[]; known: number; unknown: number; unreached: string[] };
 
 export function writeRunRecord(record: CarryRunRecord): string {
   fs.mkdirSync(CARRY_RECORDS, { recursive: true });

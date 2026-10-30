@@ -21,7 +21,9 @@
  *   (3) wrong-case: a page addressed to one case (its id in the address) showing the other case's
  *       marker or values, or the second case opening under the first case's id;
  *   (4) screens-disagree: one fact read from each screen showing a value other than the one the person
- *       gave (or the old one after a change), including the same screen before and after a reload or sign-in.
+ *       gave (or the old one after a change), including the same screen before and after a reload or sign-in;
+ *       and on every Small Claims route, the Form 7A section not drawn after "Show my next step" (owner,
+ *       30 Oct: it must appear on every route) -- fact "form-7a-section", screen "form-7a (<when>)".
  *
  * WHAT FAILURE IT CATCHES. Any of the four not on the baseline (harness/carryBaseline.json, each entry
  * with its fact and reason) fails the run; a baseline entry no run matched is reported as stale
@@ -119,8 +121,6 @@ const RUNS: { court: Court; route: RouteName; who: Who }[] = [
 class Run {
   violations: CarryViolation[] = [];
   unreached: string[] = [];
-  /** Screens this route's page does not draw at all (reported in the record, never read as a zero). */
-  notDrawn: string[] = [];
   /** The tracked facts' state, as the person left them. */
   changed = false;
   removed = false;
@@ -460,11 +460,11 @@ async function readOverview(run: Run, when: string) {
   if (run.court === "small-claims") {
     await surface.waitFor({ state: "visible", timeout: 30_000 }).catch(() => {});
     if (await surface.isVisible().catch(() => false)) judge(run, `form-7a (${when})`, {}, await surface.innerText());
-    // The site draws the section only after the questions one at a time (page.tsx:1319 sets draftInput
-    // there and nowhere else; :2678 reads it): there it must be reached; on the form and review routes the
-    // page has no such section, which is recorded (notDrawn) and printed, not counted as reached.
-    else if (run.route === "questions") run.unreached.push(`form-7a (${when}): the Form 7A section was not shown`);
-    else run.notDrawn.push(`form-7a (${when}): not drawn on the ${run.route} route (draftInput is set only by the questions' completion, app/builder/page.tsx:1319)`);
+    // Owner (30 Oct): the Form 7A section must appear on every Small Claims route. Missing, it is a
+    // COUNTED violation (screens-disagree, fact "form-7a-section", screen "form-7a (<when>)"), so it can be
+    // listed in the baseline like any other and fails the run until it is. Today main draws it only after
+    // the questions one at a time (app/builder/page.tsx:1319 sets draftInput there and nowhere else; :2678).
+    else run.add("screens-disagree", "form-7a-section", `form-7a (${when})`, `the Form 7A section ("Preparing your Plaintiff's Claim (Form 7A)") was not drawn after "Show my next step" on the ${run.route} route, while the other screens show the case`);
   }
 }
 
@@ -651,10 +651,9 @@ for (const { court, route, who } of RUNS) {
     }
 
     const { known, unknown } = splitByBaseline(run.violations, readBaseline());
-    writeRunRecord({ run: run.name, court, route, who, violations: run.violations, known: known.length, unknown: unknown.length, unreached: run.unreached, notDrawn: run.notDrawn });
+    writeRunRecord({ run: run.name, court, route, who, violations: run.violations, known: known.length, unknown: unknown.length, unreached: run.unreached });
     console.log(countsLine(countsOf(run.violations), `[${run.name}]`));
     for (const item of run.unreached) console.log(`CARRY UNREACHED [${run.name}] ${item}`);
-    for (const item of run.notDrawn) console.log(`CARRY NOT DRAWN [${run.name}] ${item}`);
     for (const item of unknown) console.log(`CARRY NEW ${item.kind} ${item.fact} @ ${item.where}: ${item.detail}`);
     expect(run.unreached, "every step of the run was reached (a count from a step never reached is not a zero)").toEqual([]);
     expect(unknown.map((item) => `${item.kind} ${item.fact} @ ${item.where}: ${item.detail}`), "no violation outside the baseline (harness/carryBaseline.json)").toEqual([]);
