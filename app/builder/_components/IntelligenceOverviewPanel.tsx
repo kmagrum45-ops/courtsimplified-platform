@@ -4,6 +4,7 @@ import AppliedLawPanel from "../../_components/AppliedLawPanel";
 import CheckedAnswerPanel from "../../_components/CheckedAnswerPanel";
 import StrategyPanel from "../../_components/StrategyPanel";
 import ResearchPanel from "../../_components/ResearchPanel";
+import { useDisplaySwitches } from "../../_components/DisplaySwitches";
 import {
   filingFactsFromDocuments,
   isQuestionAlreadyAnswered,
@@ -113,6 +114,7 @@ const GENERIC_CONFIRM_QUESTION = "What important fact should be confirmed next?"
 
 export default function IntelligenceOverviewPanel({ analysis, intake, confirmedStage = null, caseId = null, chosenClaimKind = null, heldKind = null, stageWords = null, roleWords = null }: Props) {
   const [chosenKind, setChosenKind] = useState<string | null>(chosenClaimKind);
+  const { researchStep } = useDisplaySwitches();
   const caseStage = (confirmedStage || analysis.caseStage) as typeof analysis.caseStage;
   const role = textField(intake, "yourRole");
   // Only selections that record an actual filing. The Small Claims intake
@@ -334,7 +336,11 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // CLAIM_TYPES entries yet), same as courtPoints.
   const commonDefences: SourcedListItem[] = claimTypeContent ? claimTypeContent.commonDefences : [];
   // The rules that matter most first, named once; their words stay under "What we looked into" (lawBehind.ts).
-  const lawBehind = lawBehindThis(analysis.research?.findings ?? [], analysis.appliedLaw ?? []);
+  // The research switch, off, hides research saved with a case too, not only new research (2026-10-29: the owner
+  // switched it off and a live case still showed it). Decided on the server (DisplaySwitches.tsx); the
+  // saved research is left in place.
+  const research = researchStep ? analysis.research : undefined;
+  const lawBehind = lawBehindThis(research?.findings ?? [], analysis.appliedLaw ?? []);
   // 2026-09-28. Labelled rows instead of one run-on paragraph that ended with
   // the whole story pasted in. Values are still the user's own words, shown
   // as entered -- nothing is corrected or restated -- and the story sits
@@ -434,7 +440,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
         {lawBehind.lines.length > 0 && <p className="mt-2 text-xs text-[#6b8078]">The words of each are under &ldquo;What we looked into&rdquo;.</p>}
         {lawBehind.quoted.length > 0 && <div className={lawBehind.lines.length ? "mt-4" : ""}><AppliedLawPanel items={lawBehind.quoted} /></div>}
       </Card>}
-      {analysis.research && analysis.research.findings.length > 0 && <Card title="What we looked into"><ResearchPanel findings={analysis.research.findings} /></Card>}
+      {research && research.findings.length > 0 && <Card title="What we looked into"><ResearchPanel findings={research.findings} /></Card>}
       {/* The "What the rules say about starting a Small Claims action" card was
           removed on 2026-10-14 (CLAUDE.md s. 2a, one copy of procedure): the
           step panel shows the starting step, its form and deadlines from the

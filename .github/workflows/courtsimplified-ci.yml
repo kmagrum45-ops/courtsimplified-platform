@@ -346,6 +346,9 @@ jobs:
       - name: Research step counts only answers code can find in the passage
         run: npm run test:research-step
 
+      - name: Research switched off hides saved research too, on every page that shows it
+        run: npm run test:research-display-switch
+
       - name: A missing law becomes a verified source, or nothing
         run: npm run test:source-requests
 

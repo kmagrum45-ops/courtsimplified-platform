@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-197 documented, 26 without a header.
+198 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -145,6 +145,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:reasoning-text-gate` | **The unsourced reasoning prose does not leave the coordinator on any user-facing**<br>path, and the profiles it comes from are still unsourced. |
 | `npm run test:recorded-amount` | **A recorded amount is formatted when it is a plain number, and returned**<br>untouched when it is not. |
 | `npm run test:reference-not-shipped` | **Nothing under `app/` or `src/` reads the non-shipping reference folders, and no**<br>commercial publication is a corpus source. |
+| `npm run test:research-display-switch` | **RESEARCH_STEP=off hides the research SAVED with a case, on every page that shows it.**<br>WHAT IT CATCHES (2026-10-29): the owner set RESEARCH_STEP=off on production and "What we looked into" still showed on their live case. The switch only stopped NEW research (courtSimplifiedBrain.ts); the research saved in master_result.intakeAnalysis.research i |
 | `npm run test:research-step` | **The research step (src/lib/case-system/retrieval/researchStory.ts): the**<br>model chooses the questions and reads the passages, and code decides what counts as an answer. |
 | `npm run test:reset-intake` | **resetIntake clears everything an intake left behind, and nothing it should**<br>not. |
 | `npm run test:responding-draft` | **The side responding to a case is offered a draft of its response -- Defence**<br>(Small Claims Form 9A), Statement of Defence (civil Form 18A), Answer (family Form 10) -- built only from its own answers. |
