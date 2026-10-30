@@ -39,6 +39,9 @@ export const NOTICE_MUST_SHOW = [
   "Synthetic story: my former business partner threatened me after I asked for the $80,000 he owes me under our agreement in May 2026. I am afraid of him. I have the agreement.",
   "Synthetic story: we separated in May 2026. He threatened me in front of our son, age 6, and I am scared to meet him alone. I want a parenting order.",
   "He hit me years ago, and last week he came to my door and hit me again.",
+  // Owner, 30 Oct: fear that harm will come to the person or the children shows it.
+  "I'm afraid he'll hurt the kids.",
+  "I'm afraid for my safety.",
 ];
 /** Past events with no present danger, ordinary conflict, legal threats, a Family case on its own. */
 export const NOTICE_MUST_NOT_SHOW = [
@@ -52,4 +55,9 @@ export const NOTICE_MUST_NOT_SHOW = [
   "I'm afraid of losing my deposit.",
   "He got a restraining order against his brother in 2019.",
   "My neighbour is angry about the fence and we argue about it.",
+  // Owner, 30 Oct: fear about custody is not danger. The safety question (storySuggestsDanger,
+  // MUST_FLAG) still asks about it; the emergency notice does not show for it.
+  "I'm scared he'll take the kids.",
+  "I'm afraid I'll lose my children.",
+  "I'm scared he'll take the kids and not come back.",
 ];

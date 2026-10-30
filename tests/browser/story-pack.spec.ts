@@ -1148,7 +1148,7 @@ test("conference audit case 16 as a respondent: asked what happened since servic
 // Item 7, as the site owner reset it on 2026-10-29: no safety box is open, or shown, on a Small
 // Claims or civil case whose story names no danger; every page carries the footer line "If you
 // feel you are in immediate danger, call 911" with its link to the support lines. Family keeps
-// its own safety questions and its who-to-contact box as they are.
+// its own safety questions; its who-to-contact box is there, closed unless the story names present danger (owner, 30 Oct).
 for (const [court, id] of [["small-claims", "sc-loan-friend"], ["civil", "civil-deposit"], ["family", "family-spousal"]] as const) {
   test(`retest-477 item 7: no safety box on a case with no danger; the 911 footer line on every screen -- ${court}`, async ({ page }) => {
     test.setTimeout(240_000);
@@ -1165,7 +1165,8 @@ for (const [court, id] of [["small-claims", "sc-loan-friend"], ["civil", "civil-
     if (court !== "family") await expect(page.locator("details[open]").filter({ hasText: /911|Helpline|Victim Support/ }), "no safety box open on the results page").toHaveCount(0);
     await expect(page.getByTestId("safety-notice"), "no safety notice on the results page").toHaveCount(0);
     await expect(page.getByTestId("safety-footer-line").getByRole("link", { name: "Other support lines" }), "the footer links to the support lines").toHaveAttribute("href", "/support");
-    if (court === "family") await expect(page.getByTestId("family-safety-resources"), "Family's who-to-contact box is open too").toHaveAttribute("open", "");
+    // Owner, 30 Oct: closed on a Family case with no danger; it opens only when the story says the person is in danger now.
+    if (court === "family") await expect(page.getByTestId("family-safety-resources"), "Family's who-to-contact box is there, closed").not.toHaveAttribute("open", /.*/);
   });
 }
 

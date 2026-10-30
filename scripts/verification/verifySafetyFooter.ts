@@ -202,7 +202,9 @@ async function main() {
   // person says they are in danger, afraid for their safety, or threatened or hurt now --
   // never for a past event with no present danger, ordinary conflict, a legal threat or a
   // Family case on its own. The earlier lists (MUST_FLAG / MUST_NOT_FLAG) hold too.
-  for (const [texts, want] of [[[...MUST_FLAG, ...NOTICE_MUST_SHOW], true], [[...MUST_NOT_FLAG, ...NOTICE_MUST_NOT_SHOW], false]] as const) {
+  // A MUST_FLAG sentence the owner ruled out for the notice (fear about custody) is held to NOTICE_MUST_NOT_SHOW.
+  const noticeShows = [...MUST_FLAG, ...NOTICE_MUST_SHOW].filter((text) => !NOTICE_MUST_NOT_SHOW.includes(text));
+  for (const [texts, want] of [[noticeShows, true], [[...MUST_NOT_FLAG, ...NOTICE_MUST_NOT_SHOW], false]] as const) {
     for (const text of texts) {
       mod?.startNewPageLoad?.();
       const fresh = new Map<string, string>();

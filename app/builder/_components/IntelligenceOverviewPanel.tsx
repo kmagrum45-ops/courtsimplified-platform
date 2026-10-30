@@ -21,6 +21,7 @@ import type { AnalysisResult, StoredCaseData } from "./builderTypes";
 import { documentInWords, roleInWords, stageInWords } from "@/src/lib/case-system/copy/caseWords";
 import { formatRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
 import { FAMILY_RESOURCE_TOPICS } from "../../../src/lib/case-system/intake/familySafetyResources";
+import { storyNamesPresentDanger } from "../../../src/lib/case-system/intake/dangerWords";
 import { parseRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
 import { JURISDICTION_ROUTES } from "../../../src/lib/case-system/intake/jurisdictionRoutes";
 import { routesForConfirmedClaimType } from "../../../src/lib/case-system/intake/jurisdictionRouteRelevance";
@@ -324,6 +325,8 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
 
   const familyResources =
     analysis.courtPath === "family" ? FAMILY_RESOURCE_TOPICS : [];
+  // Closed on every Family case; open only when the story says the person is in danger now (owner, 30 Oct), by the emergency notice's one rule.
+  const familyResourcesOpen = storyNamesPresentDanger(userStory(intake));
 
   const courtPoints: SourcedListItem[] = claimTypeContent ? claimTypeContent.courtPoints : [];
   // General information about what defences commonly arise for this TYPE of
@@ -525,11 +528,9 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
       )}
       {familyResources.length > 0 && familyResources.map((topic) => (
         <Card key={topic.id} title={topic.title}>
-          {/* Collapsed: still on every family case, never assessed against
-              the user's facts, but no longer a full section above their next
-              step when they said there are no safety concerns (page review,
-              2026-10-06). Open on the results page in every case (#477 re-test, item 7; before, only when the story mentioned threats, fear or violence). */}
-          <details open data-testid="family-safety-resources">
+          {/* On every Family case, never assessed against the person's facts. Closed unless the story
+              says they are in danger now (site owner, 2026-10-30; before, open on every Family case). */}
+          <details open={familyResourcesOpen} data-testid="family-safety-resources">
           <summary className="cursor-pointer font-semibold text-[#2f7d67]">Who to contact, and how</summary>
           <p className="mt-2 whitespace-pre-line">{topic.content}</p>
           <ul className="mt-3 list-disc space-y-1 pl-5">

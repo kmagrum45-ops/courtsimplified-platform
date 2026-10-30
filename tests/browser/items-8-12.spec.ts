@@ -107,7 +107,7 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       await expect(notice).toContainText("Victim Support Line: 1-888-579-2888");
       await takeRoute(page, court, route);
       await confirmAndShowNextStep(page);
-      if (court === "family") await expect(page.getByTestId("family-safety-resources"), "the Family support box is open on the results page").toHaveAttribute("open", "");
+      if (court === "family") await expect(page.getByTestId("family-safety-resources"), "the Family support box is open on the results page: the story says the person is scared now").toHaveAttribute("open", "");
       await openCasePage(page, rows);
       await expect(page.getByTestId("case-file").or(page.getByText("Where your case is")).first()).toBeVisible({ timeout: 60_000 });
       await expect(page.getByTestId("safety-notice"), "not shown again on the case page for the same words").toHaveCount(0);
@@ -122,6 +122,7 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       await takeRoute(page, court, route);
       await confirmAndShowNextStep(page);
       await expect(page.getByTestId("safety-notice"), "none on the results page").toHaveCount(0);
+      if (court === "family") await expect(page.getByTestId("family-safety-resources"), "the Family support box is there, closed (owner, 30 Oct)").not.toHaveAttribute("open", /.*/);
       await openCasePage(page, rows);
       await expect(page.getByTestId("case-file").or(page.getByText("Where your case is")).first()).toBeVisible({ timeout: 60_000 });
       await expect(page.getByTestId("safety-notice"), "none on the case page").toHaveCount(0);
@@ -162,6 +163,26 @@ for (const entry of NOTICE_CASES) {
     await footer.getByRole("link", { name: "Other support lines" }).click();
     await page.waitForURL(/\/support$/, { timeout: 60_000 });
     await expect(page.getByTestId("support-lines"), "(e) the support lines page").toContainText("Assaulted Women's Helpline: 1-866-863-0511");
+  });
+}
+
+// 8c. The Family "Support if family violence is part of your situation" box (owner, 2026-10-30):
+// on every Family case, closed by default, open only when the emergency notice's rule fires.
+// Its support information is the same either way.
+for (const entry of [
+  { name: "no danger", story: "Synthetic story: our relationship ended last year. We have two children, ages 4 and 7, who live with me. I want child support; he has paid nothing since March 2026.", open: false },
+  { name: "scared he will hurt me", story: "Synthetic story: we separated in May 2026. I’m scared he will hurt me. I want a parenting order for our son, age 6.", open: true },
+]) {
+  test(`8c. Family, ${entry.name}: the who-to-contact box is ${entry.open ? "open" : "closed"} on the results page`, async ({ page }) => {
+    test.setTimeout(240_000);
+    await startFromHome(page, "family", entry.story);
+    await takeRoute(page, "family", "questions");
+    await confirmAndShowNextStep(page);
+    const box = page.getByTestId("family-safety-resources");
+    await expect(box, "the box is on every Family case").toHaveCount(1);
+    if (entry.open) await expect(box, "open: the story says the person is in danger now").toHaveAttribute("open", "");
+    else await expect(box, "closed: no danger in the story").not.toHaveAttribute("open", /.*/);
+    await expect(box, "the support information is the same").toContainText("Who to contact, and how");
   });
 }
 
