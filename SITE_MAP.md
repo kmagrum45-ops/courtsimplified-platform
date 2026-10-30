@@ -103,6 +103,8 @@ The sections below follow the same order.
 
 **`src/lib/case-system/caseFile/caseFileOfMaster.ts`** — the case file of a saved case (its checkpoint and saved position), for a reader that has only `master_result`: `caseFileOfMaster`, `claimKindOfMaster`. Read by `caseRecord.ts` (`readCaseRecord`) and `caseReview.ts` (`caseFileFromMasterResult`), so "Check my case file" and the AI's fact text read the same slots as the screens.
 
+**`src/lib/case-system/caseFile/aiCaseContext.ts`** — the case context an AI call is given, from the case file (rule 8, 30 Oct), claim type only so far: `claimKindAiContext` (the story and side as held, the person's kind as known, a suggestion open only while none is held, the kinds turned down only to be left out), `classifyClaimTypeBody` (the guided chat's `/api/intake/classify-claim-type` request). Every other AI prompt still builds its own context (inventory rows 133-147).
+
 **`src/lib/case-system/caseFile/factsOfQuestion.ts`** — which fact each question asks for.
 - Owns: the `FACTS` map from question id (situation, civil/Family fields, Small Claims guided ids, step-page date ids, triage ids) to facts. An unlisted question is its own fact.
 
