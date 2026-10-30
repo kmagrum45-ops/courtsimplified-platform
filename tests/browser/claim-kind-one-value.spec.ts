@@ -50,6 +50,7 @@ import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { deleteHarnessUser } from "./harness/realTestSession";
 import { recordInitialUnknowns } from "./harness/intakeReview";
 import { grantSiteAccess } from "./harness/siteAccess";
+import { openBuilder } from "./harness/builderGate";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
@@ -312,3 +313,52 @@ test("claim type, one value: a guest gives the kind in the review; it is never a
   if (await view.isVisible().catch(() => false)) await view.click();
   expect.soft(await page.locator('[data-question="sc-orient-dispute-category"]').count(), "reloaded, the review still does not ask it").toBe(0);
 });
+
+/**
+ * Civil and Family (owner, 30 Oct: claim type is not done while civil or Family still asks): the kind
+ * given in the review ("What kind of case is it?" / "What is the case about?") is never asked by the
+ * questions one at a time afterwards -- on the same page, after a reload, guest and signed in. Through the
+ * real save path (the signed-in case saved to staging and read back). The carry test found it asked
+ * again (chat@/builder, every civil and Family run, runs 5, 6 and two runs on 5fcc9a31).
+ */
+const AREA_STORY = {
+  civil: "Synthetic: I hired a builder in March 2026 to build an addition to my home and they abandoned the job in June 2026. I have the contract and emails.",
+  family: "Synthetic: my former partner and I separated in 2025. Our daughter, age 6, lives with me. I want a parenting schedule.",
+} as const;
+const AREA_ISSUE = { civil: "contract", family: "parenting-time" } as const;
+
+for (const area of ["civil", "family"] as const) {
+  for (const who of ["guest", "signed-in"] as const) {
+    test(`claim type, one value: ${area}, ${who} -- the kind given in the review is never asked by the questions one at a time`, async ({ page }) => {
+      test.setTimeout(300_000);
+      let userId: string | null = null;
+      if (who === "signed-in") userId = await authenticateRealTestUser(page, { realCases: true });
+      try {
+        await serveModelStandIns(page, area, userId ?? undefined);
+        await openBuilder(page, area, { city: "Kingston", story: AREA_STORY[area], situation: STARTING_NOTHING_FILED });
+        await page.waitForURL(/\/builder\?.*intake=/, { timeout: 60_000 }).catch(() => {});
+        await openReview(page);
+        const issues = page.locator('[data-testid=intake-initial-question][data-question="issues"]');
+        await expect(issues, "the review asks the kind once").toHaveCount(1, { timeout: 60_000 });
+        await issues.locator(`input[data-testid=intake-field-pick][value="${AREA_ISSUE[area]}"]`).check();
+        await issues.getByTestId("intake-field-save").click();
+        const chatAsksKind = page.locator('[data-testid=guided-form-question][data-key="issues"]');
+        const showChat = page.getByRole("button", { name: "Answer one question at a time instead" });
+        const chatAsked = async (where: string) => {
+          if (await showChat.isVisible().catch(() => false)) await showChat.click();
+          await expect(page.getByTestId("guided-form-chat")).toBeVisible({ timeout: 60_000 });
+          await page.waitForTimeout(1_500);
+          expect.soft(await chatAsksKind.count(), `the questions one at a time do not ask the kind again (${where})`).toBe(0);
+        };
+        await chatAsked("same page");
+        // Signed in: the answer reaches the saved case before the reload (the real save path).
+        if (who === "signed-in") await expect(page.getByTestId("intake-save-status")).toContainText(/saved/i, { timeout: 60_000 });
+        await page.reload();
+        await expect(page.getByTestId("intake-review")).toBeVisible({ timeout: 60_000 });
+        await chatAsked("after a reload");
+      } finally {
+        if (userId) await deleteHarnessUser(userId);
+      }
+    });
+  }
+}

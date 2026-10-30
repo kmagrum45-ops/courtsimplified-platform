@@ -64,6 +64,7 @@ import type { Page } from "@playwright/test";
 import { factsOfQuestion } from "../../../src/lib/case-system/caseFile/factsOfQuestion";
 import { caseFileOf, SLOT_FACTS } from "../../../src/lib/case-system/caseFile/caseFile";
 import { readCheckpoint } from "../../../src/lib/case-system/intakeCheckpoint";
+import { GUEST_INTAKE_SESSION_KEY } from "../../../src/lib/case-system/storage/intakeStorageKeys";
 import { factsOfWords, questionSentences } from "./chatQuestionFacts";
 import type { Violation } from "./knownRepeats";
 import type { SituationAnswers } from "./situation";
@@ -75,7 +76,14 @@ export type HeldState = "answered" | "unsure";
  */
 export type Asked = { kind: "ask" | "answer"; surface: string; id: string; screen: string; text: string; at: number; held?: Record<string, HeldState>;
   /** Small Claims guided only: the person's reply shown under the question (an ask) or given to it (an answer). */
-  reply?: string; occurrence?: string };
+  reply?: string; occurrence?: string;
+  /**
+   * DIAGNOSTIC ONLY (30 Oct): nothing that counts reads these. The page's address (its case id), the
+   * test's step when the ask was seen, and the page's OWN case file state for the asked facts (read
+   * from the tab's intake copy, the snapshot the page itself shows), to tell a page that does not hold
+   * a fact the saved case holds from a gate that asks a fact the page holds.
+   */
+  address?: string; step?: string; pageHeld?: Record<string, string>; tab?: string };
 
 /**
  * WHEN A CIVIL OR FAMILY CHAT QUESTION THAT LEFT THE SCREEN WAS ANSWERED (30 Oct). Answered: the person
@@ -104,7 +112,9 @@ const SCAN = `(() => {
     return url.pathname.replace(/\\/cases\\/[^/]+/, "/cases/:id") + (step ? "?step=" + step : "");
   };
   const now = () => Date.now() * 1000 + (order++ % 1000);
-  const emit = (kind, surface, id, text, reply) => window.__recordAsk({ kind, surface, id, screen: screen(), text: (text || "").replace(/\\s+/g, " ").slice(0, 160), at: now(), ...(typeof reply === "string" ? { reply: reply.replace(/\\s+/g, " ").trim().slice(0, 500) } : {}) });
+  // Diagnostic only: the address, and for an ask the tab's intake copy (the page's own snapshot).
+  const tabCopy = () => { try { return sessionStorage.getItem(${JSON.stringify(GUEST_INTAKE_SESSION_KEY)}) || undefined; } catch { return undefined; } };
+  const emit = (kind, surface, id, text, reply) => window.__recordAsk({ kind, surface, id, screen: screen(), text: (text || "").replace(/\\s+/g, " ").slice(0, 160), at: now(), address: location.pathname + location.search, ...(kind === "ask" ? { tab: tabCopy() } : {}), ...(typeof reply === "string" ? { reply: reply.replace(/\\s+/g, " ").trim().slice(0, 500) } : {}) });
   const answer = (surface, id, reply) => { const key = surface + "|" + id; if (answered.has(key)) return; answered.add(key); emit("answer", surface, id, skipped.has(key) ? "unsure" : "", reply); };
   // Small Claims guided: the person's reply shown right under a question (a user message before the next question), if any.
   const replyAfter = (el) => { const all = [...document.querySelectorAll("[data-testid=guided-message]")]; for (const m of all.slice(all.indexOf(el) + 1)) { if (m.getAttribute("data-from") === "user") return words(m); if (m.hasAttribute("data-question-id")) return undefined; } return undefined; };
@@ -336,6 +346,31 @@ export function heldInRows(rows: Map<string, Record<string, unknown>>, court: "s
 }
 
 /** A question with the facts the saved case holds for it, at this moment (none kept when it holds none). */
+/** Diagnostic only: the step, and the page's own case file state for the ask's facts, from its tab copy (then dropped). */
+export function withPageHeld(item: Asked, step?: string): Asked {
+  const { tab, ...rest } = item;
+  const out: Asked = step ? { ...rest, step } : rest;
+  if (item.kind !== "ask" || !tab) return out;
+  try {
+    const checkpoint = (JSON.parse(tab) as { checkpoint?: { courtPath?: string } }).checkpoint;
+    const court = checkpoint?.courtPath;
+    if (court !== "small-claims" && court !== "civil" && court !== "family") return out;
+    const file = caseFileOf(readCheckpoint(checkpoint, court), undefined);
+    const pageHeld: Record<string, string> = {};
+    for (const fact of factsOfAsk(item)) if ((SLOT_FACTS as readonly string[]).includes(fact)) pageHeld[fact] = file[fact as (typeof SLOT_FACTS)[number]].state;
+    return Object.keys(pageHeld).length ? { ...out, pageHeld } : out;
+  } catch { return out; }
+}
+
+/** Diagnostic only: an ask's case id, step and page state, in one line for the records. */
+export function diagnosticOf(ask: Pick<Asked, "address" | "step" | "pageHeld">): string | undefined {
+  if (!ask.address && !ask.step && !ask.pageHeld) return undefined;
+  const address = ask.address ? new URL(ask.address, "http://x") : null;
+  const id = address ? address.searchParams.get("intake") ?? address.searchParams.get("caseId") ?? /\/cases\/([^/?]+)/.exec(address.pathname)?.[1] ?? "" : "";
+  const page = ask.pageHeld ? Object.entries(ask.pageHeld).map(([fact, state]) => `${fact}:${state}`).join(",") : "";
+  return [`case=${id.slice(0, 8) || "none"}`, `step=${ask.step ?? "?"}`, `page=${page || "-"}`].join(" ");
+}
+
 export function withHeldFacts(item: Asked, read: ((fact: string) => HeldState | null) | null): Asked {
   if (!read || item.kind !== "ask") return item;
   const held: Record<string, HeldState> = {};
@@ -386,10 +421,10 @@ export function chatReplyReader(): (item: Asked) => Asked[] {
 /** The script the recorder installs in the page, for the suites that check it parses and keeps its rules. */
 export const ASK_ONCE_SCAN = (): string => SCAN;
 
-export async function recordAsks(page: Page, options: { held?: () => ((fact: string) => HeldState | null) | null } = {}): Promise<Asked[]> {
+export async function recordAsks(page: Page, options: { held?: () => ((fact: string) => HeldState | null) | null; step?: () => string } = {}): Promise<Asked[]> {
   const asked: Asked[] = [];
   const readChat = chatReplyReader();
-  const withHeld = (item: Asked): Asked => withHeldFacts(item, item.kind === "ask" && options.held ? options.held() : null);
+  const withHeld = (item: Asked): Asked => withPageHeld(withHeldFacts(item, item.kind === "ask" && options.held ? options.held() : null), options.step?.());
   await page.exposeFunction("__recordAsk", (item: Asked) => {
     for (const read of readChat(item)) asked.push(withHeld(read));
   });
@@ -490,7 +525,7 @@ export function heldViolations(events: readonly Asked[]): Violation[] {
     if (ask.surface === "situation" || !ask.held) continue;
     for (const [fact, state] of Object.entries(ask.held)) {
       if (state === "unsure" && END_SURFACES.has(ask.surface) && !offeredAgain.has(fact)) { offeredAgain.add(fact); continue; }
-      violations.push({ rule: "held", fact, surface: ask.surface, id: ask.id, screen: ask.screen, text: ask.text, detail: `held ${state}` });
+      violations.push({ rule: "held", fact, surface: ask.surface, id: ask.id, screen: ask.screen, text: ask.text, detail: `held ${state}`, diag: diagnosticOf(ask) });
     }
   }
   return violations;
@@ -498,5 +533,5 @@ export function heldViolations(events: readonly Asked[]): Violation[] {
 
 /** The repeats of factsAskedTwice, one violation per question asked again. */
 export function repeatViolations(repeats: readonly Repeat[]): Violation[] {
-  return repeats.flatMap((repeat) => repeat.asks.map((ask) => ({ rule: "twice" as const, fact: repeat.fact, surface: ask.surface, id: ask.id, screen: ask.screen, text: ask.text, detail: `given at ${repeat.given.surface}:${repeat.given.id}@${repeat.given.screen} "${repeat.given.text.slice(0, 80)}"` })));
+  return repeats.flatMap((repeat) => repeat.asks.map((ask) => ({ rule: "twice" as const, fact: repeat.fact, surface: ask.surface, id: ask.id, screen: ask.screen, text: ask.text, detail: `given at ${repeat.given.surface}:${repeat.given.id}@${repeat.given.screen} "${repeat.given.text.slice(0, 80)}"`, diag: diagnosticOf(ask) })));
 }

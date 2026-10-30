@@ -48,6 +48,8 @@ export type CarryViolation = {
   where: string;
   /** What was seen, for a person reading the record. Never a secret: synthetic stories only. */
   detail: string;
+  /** Diagnostic only, never compared: the case id in the address, the step, and the page's own state for the fact (askOnce.ts diagnosticOf). */
+  diag?: string;
 };
 
 export type CarryBaselineEntry = {

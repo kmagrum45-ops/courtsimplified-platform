@@ -85,6 +85,8 @@ export type Violation = {
   text: string;
   /** For "held": the slot's state; for "twice": where it was given. */
   detail: string;
+  /** Diagnostic only (never decides anything): the ask's case id, step and the page's own state for the fact (askOnce.ts diagnosticOf). */
+  diag?: string;
 };
 
 /** The entry that excuses a violation in this story, or null. */
