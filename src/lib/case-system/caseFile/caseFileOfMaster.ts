@@ -37,3 +37,22 @@ export function caseFileOfMaster(master: unknown, courtPath?: string | null): Ca
 export function claimKindOfMaster(master: unknown, courtPath?: string | null): ClaimKindHeld {
   return claimKindOf(caseFileOfMaster(master, courtPath));
 }
+
+/**
+ * The columns a court read of a saved case row needs (courtOfSavedRow): its saved case and, as the
+ * fallback inside this reader only, the row's own court column.
+ */
+export const SAVED_COURT_COLUMNS = "court_path, master_result";
+
+/**
+ * THE COURT OF A SAVED CASE ROW, through the case file (rule 2, 30 Oct): the court the case file holds
+ * (the person's situation answer, else its checkpoint's court), else the row's court column, else null.
+ * Read by the builder's "an id with no court" path (IntakeRecovery savedCourtOf), never the column alone.
+ */
+export function courtOfSavedRow(row: unknown): "small-claims" | "civil" | "family" | null {
+  const record = object(row);
+  const column = typeof record.court_path === "string" && AREAS.has(record.court_path) ? record.court_path : null;
+  const file = caseFileOfMaster(record.master_result, column);
+  const held = file.court.state === "answered" && typeof file.court.value === "string" && AREAS.has(file.court.value) ? file.court.value : null;
+  return (held ?? column ?? areaOfMaster(record.master_result)) as "small-claims" | "civil" | "family" | null;
+}

@@ -879,7 +879,7 @@ The case file of a saved case (its checkpoint and saved position), for readers t
 
 - Reads (2): **src/lib/case-system/caseFile/caseFile.ts**, src/lib/case-system/intakeCheckpoint.ts
 - Read by (2): **src/lib/case-system/caseRecord.ts**, src/lib/case-system/caseReview/caseReview.ts
-- Checked by (1): scripts/verification/verifyClaimKindOneValue.ts
+- Checked by (2): scripts/verification/verifyCaseFile.ts, scripts/verification/verifyClaimKindOneValue.ts
 
 ### src/lib/case-system/caseFile/factsOfQuestion.ts
 
