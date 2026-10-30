@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-200 documented, 26 without a header.
+199 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -18,7 +18,6 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:amendment-trails` | **Every vendored source's recent amendments, and whether anyone traced them.**<br>COSTS NOTHING. Reads docs/sources/ off disk. No network. |
 | `npm run test:amount-consistency` | **The amount claimed and the amount asked for must agree, or the user is told.**<br>Found 2026-09-27: a case-review story claimed $6,200 and asked the court to order $5,000, and the output never said so. amountConsistency.ts now warns. |
 | `npm run test:amount-notes` | **The amount the user recorded is set against the court's money limits at**<br>the step where they start their claim -- correctly on each side of each limit, conditionally, and with its provisions. |
-| `npm run test:analysis-safety` | **No analysis runs without a safety-check result for the story, on every**<br>analyze route, and a failed check is recorded as failed -- never clear. |
 | `npm run test:analysis-time-budget` | **The next-step analysis finishes inside the time the page and the server allow.**<br>What it checks: research's limit plus the main reasoning call's limit (plus a margin for the rest) fit inside how long the page waits (ANALYSIS_TIMEOUT_MS), and the page stops waiting before every area's analysis route reaches its maxDuration; the reasoning ca |
 | `npm run test:anon-grants` | **No migration grants anon write access, and no policy applies to PUBLIC.**<br>COSTS NOTHING. Reads supabase/migrations/*.sql off disk. No database connection, no network. |
 | `npm run test:answer-key-reader` | **THE ANSWER KEY'S READER (tests/answer-key/readAnswerKey.ts): reads a (case, field, expected)**<br>table as CSV, tab-separated or Markdown, the same rows from each; refuses a row with an empty cell, a header without the three columns, and a case and field given twice. |
@@ -42,7 +41,6 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:case-write-queue` | **No two writes to the same case's row are in flight at once from the builder,**<br>the case pages and the Forms page, and nothing can stall their one queue. |
 | `npm run test:catalogue-verified` | **A catalogue entry's verifiedAt vouches for the text that was verified, and**<br>for nothing else. |
 | `npm run test:charter-retest` | **THE CHARTER CLAIM AGAINST POLICE, RE-TESTED (Chrome on the live site, 2026-10-26).**<br>Each fix sits in one shared piece; each check asserts its property, so a screen or path that goes around the piece fails here: - the review shows only what fits the side and the claim, every field in written words (intakeReview.ts: ISSUE_ONLY, a field's own `w |
-| `npm run test:chat-asks-by-fact` | **THE CHAT ASKS BY FACT: A FACT THE SAVED CASE HOLDS IS NEVER ASKED BY A CHAT (never ask twice, row 1, 29 Oct).**<br>The follow-up chat closed its replies with fixed sentences ("What are you trying to get or fix through the legal process?", "What are the main dates...?", "Has anything already been filed...?") that did not read the case file, so it asked what the person wants |
 | `npm run test:chat-first-line` | **The follow-up chat's replies read from the confirmed intake (L47), tested the**<br>way a person's message reaches it live. |
 | `npm run test:chat-plain-words` | **THE CHAT SPEAKS PLAINLY AND DOES NOT ASK WHAT IT HAS (Charter re-test, 27 Oct, root cause 4).**<br>Checks, as properties, through the chat's own route (app/api/guided-assistant) with a saved case in all three areas (a Charter claim, a Small Claims debt, a civil debt, a family case): - no reply carries the site's reasoning machinery: a profile's name, an inv |
 | `npm run test:check-oracles` | **No check can be satisfied by a comment. A check's oracle must be independent of the**<br>implementation's description of itself. |
