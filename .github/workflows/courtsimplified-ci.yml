@@ -269,6 +269,12 @@ jobs:
 
       - name: Every chat asks by fact -- a fact the saved case holds is never asked by a chat (row 1)
         run: npm run test:chat-asks-by-fact
+      # The allowed list may only shrink: compared with origin/main's copy, so main is fetched first
+      # (the checkout is shallow and has only this commit).
+      - name: The case file guard -- no new copy of a case fact outside the case file, the allowed list only shrinks
+        run: |
+          git fetch --no-tags --depth=1 origin main:refs/remotes/origin/main
+          npm run test:case-file-guard
 
       - name: Chrome 29 Oct -- forms built from the case file (known problems listed)
         run: npm run test:forms-from-case-file
