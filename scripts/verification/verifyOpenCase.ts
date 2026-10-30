@@ -34,6 +34,14 @@
  *      any new intake), the builder, /forms, /legal-principles, sign-in's return.
  *   6. "Continue with <court>" and creating an intake put the new id and its own
  *      court in the address (HomeLocationGate, IntakeRecovery).
+ *   7. Never a default court (added on top of 9f544fb5, where it failed 4 ways):
+ *      builderHref sends a case with no known court to its own page; the
+ *      builder has no `|| "family"`; the boundary never renders the builder
+ *      without a court; an id with no court opens under that case's own saved
+ *      court (addressWithSavedCourt), else the chooser.
+ *
+ * Check 7 stand-in: the saved court is passed to addressWithSavedCourt as a
+ * value (CourtFromCase reads it from the case row in the browser; no database here).
  *
  * Stand-ins: a plain object in place of sessionStorage/localStorage and a string
  * in place of document.cookie (check 1); source read off disk for checks 3-6.
@@ -153,6 +161,44 @@ async function main() {
   const gate = strip(read("app/_components/HomeLocationGate.tsx"));
   check("\"Continue with <court>\" opens the intake just created, with its own court", /router\.push\(`\/builder\?path=\$\{chosenPath\}&intake=\$\{flowId\}`\)/.test(gate) && /router\.push\(`\/builder\?path=\$\{chosenPath\}&intake=\$\{recovery\.flowId\}`\)/.test(gate));
   check("a new intake's id goes into the address the moment it starts", /if \(!requestedFlow && !selectedId\) \{[\s\S]*?writeIntakeSession\([\s\S]{0,400}?url\.searchParams\.set\("intake", flowId\)/.test(recovery));
+
+  // ---------- 7. Never a default court ----------
+  // The builder ran an address with a case id and no court as Family
+  // (`initialPath || "family"`), and the case pages' builderHref wrote such an
+  // address for a case whose court was not known. The court comes from the
+  // address, else from that case's own saved row, else the chooser.
+  try {
+    const home = (await import("../../app/cases/_components/CaseHomeContext")) as unknown as { builderHref: (record: { id: string; court_path?: string | null }) => string };
+    const unknown = home.builderHref({ id: A, court_path: "unknown" });
+    const missing = home.builderHref({ id: A, court_path: null });
+    const known = home.builderHref({ id: A, court_path: "civil" });
+    check("builderHref never writes a builder address without a court (unknown court: the case's own page)", ![unknown, missing].some((href) => href.startsWith("/builder") && !/[?&]path=/.test(href)) && unknown === `/cases/${A}` && missing === `/cases/${A}`, `${unknown} | ${missing}`);
+    check("builderHref keeps a known court and the case id", known.startsWith("/builder?") && /[?&]path=civil/.test(known) && known.includes(A));
+  } catch (error) {
+    check("builderHref can be checked", false, error instanceof Error ? error.message.split("\n")[0] : String(error));
+  }
+  const builderSource = strip(read("app/builder/page.tsx"));
+  check("the builder has no default court", !/initialPath\s*(?:\|\||\?\?)\s*["'](?:family|civil|small-claims)["']/.test(builderSource) && !/const courtPath\s*=\s*[^;]*(?:\|\||\?\?)\s*["'](?:family|civil|small-claims)["']/.test(builderSource));
+  check("the intake boundary never shows the builder without a court: the case's own court, else the chooser", (() => {
+    // Both builder guards come before the line that lets other pages (the home page) render without a court.
+    const guard = boundary.search(/if \(!path && pathname === "\/builder"\) return <CourtFromCase \/>;/);
+    const noCase = boundary.search(/if \(!path && pathname === "\/builder" && !namesACase\(open\)\) return <NoCaseInAddress \/>;/);
+    const others = boundary.search(/if \(!path\) return <>\{children\}<\/>;/);
+    return guard !== -1 && noCase !== -1 && (others === -1 || (guard < others && noCase < others));
+  })());
+  if (mod) {
+    const m = mod as Mod & { addressWithSavedCourt?: (open: Open, saved: string | null | undefined, where: { pathname: string; signedIn: boolean }) => string };
+    const fn = m.addressWithSavedCourt;
+    check("the resolver has one rule for an id with no court in the address", typeof fn === "function");
+    if (fn) {
+      const open = m.openCaseFromAddress(new URLSearchParams(`caseId=${A}&step=results`));
+      const viaRow = fn(open, "civil", { pathname: "/builder", signedIn: true });
+      const target = new URL(viaRow, "http://local");
+      check("an id with no court opens under that case's own saved court, same id", target.pathname === "/builder" && target.searchParams.get("path") === "civil" && target.searchParams.get("caseId") === A && target.searchParams.get("step") === "results", viaRow);
+      check("no saved court found: the case chooser, never a default", fn(open, null, { pathname: "/builder", signedIn: true }) === "/dashboard" && fn(open, "unknown", { pathname: "/builder", signedIn: true }) === "/dashboard");
+      check("a guest (no saved row to read): the start page, never a default", fn(m.openCaseFromAddress(new URLSearchParams(`intake=${A}`)), null, { pathname: "/builder", signedIn: false }) === "/");
+    }
+  }
 
   console.log(failures ? `\n${failures} failure(s).` : "\nAll open-case checks passed.");
   if (failures) process.exitCode = 1;

@@ -68,9 +68,15 @@ export function caseTitle(record: CaseRecord): string {
   return caseTitleFromIntake(intake.otherParty, record.court_path);
 }
 
-export function builderHref(record: CaseRecord): string {
-  const params = new URLSearchParams({ caseId: record.id });
-  if (record.court_path && record.court_path !== "unknown") params.set("path", record.court_path);
+/**
+ * The builder for this case, under its own court. A case whose court is not one
+ * the builder knows gets its own page instead: a builder address with no court
+ * used to open under Family (never a default court, 30 Oct; test:open-case).
+ */
+export function builderHref(record: Pick<CaseRecord, "id" | "court_path">): string {
+  const court = record.court_path;
+  if (court !== "small-claims" && court !== "family" && court !== "civil") return `/cases/${encodeURIComponent(record.id)}`;
+  const params = new URLSearchParams({ caseId: record.id, path: court });
   return `/builder?${params.toString()}`;
 }
 

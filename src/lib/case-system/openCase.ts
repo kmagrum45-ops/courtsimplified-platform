@@ -97,3 +97,22 @@ export function withoutACase(open: OpenCase, where: { pathname: string; signedIn
 export function addressWithoutACase(choice: ReturnType<typeof withoutACase>): string | null {
   return choice === "chooser" ? CASE_CHOOSER : choice === "start" ? START_PAGE : null;
 }
+
+/**
+ * An address that names a case or intake but no court (30 Oct, "never guess"):
+ * the builder used to run it as Family. The court comes from that case's own
+ * saved row (`savedCourt`, its court_path, read by the caller for the signed-in
+ * owner); the same address with that court added, the same id. With no saved
+ * court (no row, a guest, an unknown value): the chooser, never a default.
+ */
+export function addressWithSavedCourt(open: OpenCase, savedCourt: string | null | undefined, where: { pathname: string; signedIn: boolean; search?: string }): string {
+  const saved = court(savedCourt ?? null);
+  if (!saved || !where.signedIn) return where.signedIn ? CASE_CHOOSER : START_PAGE;
+  // Everything else the address says (e.g. ?situation=change) is kept.
+  const params = new URLSearchParams(where.search ?? "");
+  params.set("path", saved);
+  if (open.caseId) params.set("caseId", open.caseId);
+  if (open.intake) params.set("intake", open.intake);
+  if (open.step) params.set("step", open.step);
+  return `${where.pathname}?${params.toString()}`;
+}

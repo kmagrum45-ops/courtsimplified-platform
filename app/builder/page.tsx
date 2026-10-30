@@ -267,7 +267,10 @@ function BuilderPageContent() {
 
   const initialPath: CourtPath | null = openCase.court;
 
-  const courtPath = initialPath || "family";
+  // Never a default court: the intake boundary renders this page only with a court in
+  // the address (an id without one is given its case's own saved court, else the chooser;
+  // openCase.ts addressWithSavedCourt).
+  const courtPath = initialPath as CourtPath;
 
   const [chatSessionId, setChatSessionId] = useState(() =>
     createChatSessionId(courtPath),
