@@ -7,7 +7,8 @@ import { applyFactRevisions, factsRevision, guidanceIsCurrent, inputRevision, re
 import { IntakeRequest } from "./intakeRequest";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useSyncExternalStore, type Dispatch, type ReactNode, type SetStateAction } from "react";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { addressWithoutACase, namesACase, openCaseFromAddress, withoutACase } from "../../src/lib/case-system/openCase";
 import { supabase } from "../../src/lib/supabase/client";
 import { COURT_PATH_FINDER_KEY, GUEST_INTAKE_SESSION_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
 import { onSideChange } from "../../src/lib/case-system/sideChange";
@@ -99,12 +100,32 @@ export function intakeGuidanceHeaders(recovery: Recovery | null): Record<string,
 
 /** The existing case row is authoritative; this boundary connects unfinished UI fields to it. */
 export function IntakeRecoveryBoundary({ children }: { children: ReactNode }) {
-  const params = useSearchParams();
-  const path = params.get("path");
-  const caseId = params.get("caseId");
-  const flow = params.get("intake");
-  if (path !== "small-claims" && path !== "family" && path !== "civil") return <>{children}</>;
+  // Which case is open comes from the address alone (openCase.ts, rule 1).
+  const open = openCaseFromAddress(useSearchParams());
+  const pathname = usePathname();
+  const { court: path, caseId, intake: flow } = open;
+  // The builder with no court and no id names nothing to open: the chooser, never a guessed court or case.
+  if (!path && pathname === "/builder" && !namesACase(open)) return <NoCaseInAddress />;
+  if (!path) return <>{children}</>;
   return <RecoveryProvider key={`${path}:${caseId ?? ""}:${flow ?? ""}`} court={path} selectedId={caseId} requestedFlow={flow}>{children}</RecoveryProvider>;
+}
+
+/**
+ * An address that names no case on a page that needs one: My cases when signed in,
+ * the start page for a guest (openCase.ts). Never a remembered case.
+ */
+function NoCaseInAddress() {
+  useEffect(() => {
+    let active = true;
+    void supabase.auth.getSession().then(({ data }) => {
+      if (!active) return;
+      const open = openCaseFromAddress(new URL(window.location.href).searchParams);
+      const to = addressWithoutACase(withoutACase(open, { pathname: window.location.pathname, signedIn: Boolean(data.session?.user) }));
+      if (to) window.location.replace(to);
+    });
+    return () => { active = false; };
+  }, []);
+  return <div className="mx-auto max-w-6xl px-6 py-3 text-sm" role="status" data-testid="no-case-in-address">Opening your cases…</div>;
 }
 
 function RecoveryProvider({ court, selectedId, requestedFlow, children }: { court: IntakeCourt; selectedId: string | null; requestedFlow: string | null; children: ReactNode }) {
@@ -171,6 +192,10 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           // (a guest's, or text not yet saved to the account): ask first.
           const held = readHeldIntake(ownerId);
           if (held && !discardAllowed.current) { setUnsaved(held); setNotice("You have an unsaved case in this tab."); return; }
+          // No id in the address: never a remembered case. Signed in and returning to a
+          // builder step, the person picks the case from My cases (openCase.ts, rule 1).
+          const elsewhere = addressWithoutACase(withoutACase(openCaseFromAddress(new URL(window.location.href).searchParams), { pathname: window.location.pathname, signedIn: Boolean(ownerId) }));
+          if (elsewhere) { window.location.replace(elsewhere); return; }
           discardAllowed.current = false;
           if (!ownerId && window.location.pathname === "/") resetIntakeInBrowser();
           if (!writeIntakeSession(sessionStorage, { version: 2, ownerId, caseId: null, serverRevision: null, checkpoint: snapshot })) throw new Error("This tab cannot retain intake text. Please enable session storage before continuing.");

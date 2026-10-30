@@ -17,13 +17,17 @@
  *   (b) the same, Family then Small Claims.
  *   (c) civil after Small Claims.
  *   (d) "Open" on each of two saved cases from My cases opens that case.
+ *   (e) No id in the address: signed in, My cases (the case chooser), never the
+ *       last case opened, even with an older build's remembered case planted in
+ *       the tab; a guest on the builder with no court, the start page.
  *
  * Stand-ins (synthetic, nothing reaches a database or the AI): Supabase auth
  * (sign-in returns a synthetic session) and the cases table are answered in the
  * browser; /api/case/understand returns a fixed reading for the second case (and
  * "off" for the first, so the court-path check runs, answered "no suggestion");
- * every other /api/** call answers 503. The site's own pages, router, intake store
- * and save path run as they are.
+ * every other /api/** call answers 503. In (e) the test plants the remembered last
+ * case an older build kept (sessionStorage courtSimplifiedBuilderLastCase). The
+ * site's own pages, router, intake store and save path run as they are.
  */
 import { expect, test, type Page } from "@playwright/test";
 import { grantSiteAccess } from "./harness/siteAccess";
@@ -207,4 +211,44 @@ test("Open on each of two saved cases from My cases opens that case", async ({ p
     await settled(page);
     await myCases(page);
   }
+});
+
+/*
+ * (e) No id in the address: the case chooser, never the last case (site owner's
+ * rule 1, 30 Oct; src/lib/case-system/openCase.ts, npm run test:open-case).
+ * Signed in, a case is opened first, so a "last case" exists to be remembered;
+ * the key an older build kept it under is also planted in the tab, standing for
+ * that build's memory. Then the addresses that used to reopen it: the results
+ * step and the guided step with no id, and the builder with no court and no id.
+ * Each lands on My cases. Each is a full load (page.goto), as a reload or a
+ * typed address is.
+ */
+test("no id in the address: signed in, the case chooser, never the last case opened", async ({ page }) => {
+  test.setTimeout(300_000);
+  const A = "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa";
+  await syntheticAccount(page, [savedCase(A, "small-claims", STORY["small-claims"])]);
+  await grantSiteAccess(page);
+  await page.goto("/login");
+  await submitLogin(page);
+  await page.waitForURL((url) => url.pathname === "/dashboard", { timeout: 60_000 });
+  await page.locator(`[data-testid="dashboard-case"][href*="${A}"]`).first().click();
+  await expectBuilderOn(page, "small-claims", A, STORY.family.slice(0, 40));
+  await settled(page);
+  await page.evaluate((id) => sessionStorage.setItem("courtSimplifiedBuilderLastCase", JSON.stringify({ caseId: id, courtPath: "small-claims" })), A);
+  for (const address of ["/builder?path=small-claims&step=results", "/builder?path=small-claims&step=guided", "/builder"]) {
+    await page.goto(address);
+    await page.waitForURL((url) => url.pathname === "/dashboard", { timeout: 60_000 });
+    await expect(page.getByTestId("dashboard-start"), `${address}: the case chooser`).toBeVisible({ timeout: 60_000 });
+    expect(page.url(), `${address}: never the last case`).not.toContain(A);
+  }
+});
+
+test("no id in the address: a guest on the builder with no court goes to the start page, not a guessed court or case", async ({ page }) => {
+  test.setTimeout(120_000);
+  await syntheticAccount(page);
+  await grantSiteAccess(page);
+  await page.goto("/");
+  await page.evaluate(() => sessionStorage.setItem("courtSimplifiedBuilderLastCase", JSON.stringify({ caseId: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa", courtPath: "family" })));
+  await page.goto("/builder");
+  await page.waitForURL((url) => url.pathname === "/" && !url.searchParams.get("intake") && !url.searchParams.get("caseId"), { timeout: 60_000 });
 });

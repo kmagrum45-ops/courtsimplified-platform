@@ -197,6 +197,9 @@ jobs:
       - name: The address wins (a page opening a case from its address is rendered per request)
         run: npm run test:address-wins
 
+      - name: One case id decides which case is open (the address alone, never a remembered last case)
+        run: npm run test:open-case
+
       - name: Builder persistence reliability verification
         run: npm run test:builder-persistence
 

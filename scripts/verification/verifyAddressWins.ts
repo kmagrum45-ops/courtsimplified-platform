@@ -96,7 +96,8 @@ try {
 }
 
 // ---------- 2. Every page that opens a case from its address is rendered per request ----------
-const CASE_PARAM = /(?:searchParams|params)\.get\(\s*["'](?:path|caseId|intake)["']\s*\)/;
+// A direct read, or the shared resolver (src/lib/case-system/openCase.ts, test:open-case).
+const CASE_PARAM = /(?:searchParams|params)\.get\(\s*["'](?:path|caseId|intake)["']\s*\)|openCaseFromAddress\(/;
 function walk(dir: string, out: string[] = []): string[] {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);

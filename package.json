@@ -108,6 +108,7 @@
     "test:recorded-amount": "node --import tsx scripts/verification/verifyRecordedAmount.ts",
     "test:reachability": "node --import tsx scripts/verification/verifyReachability.ts",
     "test:address-wins": "node --import tsx scripts/verification/verifyAddressWins.ts",
+    "test:open-case": "node --import tsx scripts/verification/verifyOpenCase.ts",
     "test:readiness-gate": "node --import tsx scripts/verification/verifyReadinessGate.ts",
     "test:reasoning-contract": "node --import tsx scripts/verification/verifyReasoningContract.ts",
     "test:safety-regression": "node --import tsx scripts/verification/verifySafetyPassRegression.ts",

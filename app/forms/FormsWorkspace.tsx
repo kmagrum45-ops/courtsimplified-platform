@@ -40,6 +40,7 @@ import { formKey, formsStageNote, leadFormsFirst } from "../../src/lib/content-l
 import { situationLine, situationOfCase, stageFromSituation } from "@/src/lib/case-system/situation/situation";
 import { FILE_OPEN_FAILED, openAfterCheck, saveFile } from "@/src/lib/case-workspace/fileFetch";
 import { WorkingButton } from "../_components/Working";
+import { openCaseFromAddress } from "@/src/lib/case-system/openCase";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -361,8 +362,10 @@ type FormsWorkspaceProps = {
 function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedded = false, leadForms = [] }: FormsWorkspaceProps) {
   const searchParams = useSearchParams();
 
-  const initialPath = getCourtPath(courtPathProp ?? searchParams.get("path"));
-  const initialCaseId = caseIdProp ?? (searchParams.get("caseId") || "");
+  // The case and court come from the address alone (openCase.ts, rule 1).
+  const fromAddress = openCaseFromAddress(searchParams);
+  const initialPath = getCourtPath(courtPathProp ?? fromAddress.court);
+  const initialCaseId = caseIdProp ?? (fromAddress.caseId || "");
 
   const [path, setPath] = useState<CourtPath>(initialPath);
   const [caseId] = useState(initialCaseId);
