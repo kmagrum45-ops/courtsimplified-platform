@@ -55,8 +55,7 @@ import {
   type IntakeQuestion,
 } from "../../../src/lib/case-system/intake/questionBank";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
-import { CLAIM_TYPES } from "../../../src/lib/case-system/intake/claimTypes";
-import { kindFromStory } from "../../../src/lib/case-system/intake/claimKind";
+import { analysisClaimType, caseFileOf, claimKindOf, kindForAnalysis } from "../../../src/lib/case-system/caseFile/caseFile";
 
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
@@ -173,14 +172,8 @@ function mergeStoredValuesIntoInput(
     filedDocuments: Array.isArray(values.documentStatus)
       ? (values.documentStatus as SmallClaimsIntelligenceInput["filedDocuments"])
       : base.filedDocuments,
-    // 2026-10-16 live bug: a claim type the guided route already confirmed
-    // (saved to extra.confirmedClaimTypeId, now in storedIntakeValues' own
-    // allow-list) never carried into the form route at all -- never merged
-    // here, so "kind of claim not clear yet" showed even for a saved case
-    // that already had one.
-    ...(values.confirmedClaimTypeId || base.confirmedClaimTypeId
-      ? { confirmedClaimTypeId: String(values.confirmedClaimTypeId || base.confirmedClaimTypeId) }
-      : {}),
+    // The kind of claim is not carried in the form's values: the form reads it from the case
+    // file (caseFile.ts claimKindOf), the one place every screen reads it (site owner, 29 Oct).
   };
 }
 
@@ -445,7 +438,7 @@ function buildMissingPrompt(input: SmallClaimsIntelligenceInput): string {
   return `Still useful to add: ${missing.join(", ")}.`;
 }
 
-function buildCaseDirection(input: SmallClaimsIntelligenceInput): string {
+function buildCaseDirection(input: SmallClaimsIntelligenceInput, kindWords: string | null): string {
   const issues = inferIssuesFromStory(input);
   const stage = inferStage(input);
 
@@ -469,16 +462,11 @@ function buildCaseDirection(input: SmallClaimsIntelligenceInput): string {
   // Nothing is guessed before there is a story (page review, 2026-10-06: a
   // blank form read "Likely direction: starting case · not yet classified").
   if (!hasText(input.facts)) return "";
-  // 2026-10-16 live bug: a claim type the guided route already confirmed
-  // (now carried into `input` by mergeStoredValuesIntoInput above) is the
-  // real answer, over the weaker generic-issue guesser below -- reopening a
-  // saved case showed "kind of claim not clear yet" even when one had
-  // already been settled.
-  const confirmedClaimType = input.confirmedClaimTypeId
-    ? CLAIM_TYPES.find((claimType) => claimType.id === input.confirmedClaimTypeId)
-    : null;
-  const issueText = confirmedClaimType
-    ? confirmedClaimType.name
+  // The kind of claim the case file holds (the person's answer, from any route) is the real
+  // answer, over the weaker generic-issue guesser below (2026-10-16 live bug: reopening a saved
+  // case showed "kind of claim not clear yet" when one had been given).
+  const issueText = kindWords
+    ? kindWords
     : issues.length
       ? issues.map((issue) => labels[issue]).join(", ")
       : "kind of claim not clear yet";
@@ -721,7 +709,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
     () => [],
   );
 
-  const inferredDirection = useMemo(() => buildCaseDirection(input), [input]);
+  // The kind of claim, from the case file (site owner, 29 Oct): only the person's own, never a proposal.
+  const heldKind = recovery ? claimKindOf(caseFileOf(recovery.getReview().checkpoint)) : null;
+  const heldKindWords = heldKind?.state === "answered" ? heldKind.words : null;
+  const inferredDirection = useMemo(() => buildCaseDirection(input, heldKindWords), [input, heldKindWords]);
   const missingPrompt = useMemo(() => buildMissingPrompt(input), [input]);
   const inferredIssues = useMemo(() => inferIssuesFromStory(input), [input]);
   const inferredDisputeCategory = useMemo(() => {
@@ -964,7 +955,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       const untouchedDefault = input.filedDocuments.length === 0 || (input.filedDocuments.length === 1 && input.filedDocuments[0] === "nothing");
       // 2026-10-16 live bug: this route never matched a claim type at all, so
       // the overview's evidence checklist, court points and common defences
-      // (all driven by confirmedClaimTypeId) never appeared for anyone who
+      // (all driven by the kind of claim) never appeared for anyone who
       // filled in the form instead of using the guided chat. Matched here on
       // "Case story" alone -- the same single field the guided route matches
       // its opening story against -- via the same settledClaimTypeMatch bar
@@ -972,9 +963,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       // scattered-word candidate is left out rather than auto-applied: this
       // route has no suggestion card to ask the person about it (CLAUDE.md
       // §4, suggest never decide).
-      // Kinds of claim only, with the story's words that show it (claimKind.ts, step 2b).
-      const matched = hasText(input.facts) ? kindFromStory(input.facts, CLAIM_TYPES) : null;
-      const matchedClaimTypeId = matched?.claimType.id ?? null;
+      // Kinds of claim only, from the case file: the person's, else the one the story shows
+      // (claimKind.ts, step 2b), the same value every screen shows (site owner, 29 Oct).
+      const kindNow = claimKindOf(recovery ? caseFileOf(recovery.getReview().checkpoint) : { ...caseFileOf(null), story: input.facts, area: "small-claims" });
+      const analysisKind = hasText(input.facts) ? kindForAnalysis(kindNow) : null;
       // Answers given in the review panel count here too, where the form left them empty
       // (re-test round 7: after "start the questions again" they were the only answers).
       const panel = recovery ? panelAnswerFacts(recovery.getReview().checkpoint) : {};
@@ -993,7 +985,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             : input.filedDocuments.length > 0
               ? input.filedDocuments
               : ["nothing"],
-        ...(matchedClaimTypeId ? { confirmedClaimTypeId: matchedClaimTypeId } : {}),
+        ...analysisClaimType(analysisKind),
       };
 
       const response = await requestSmallClaimsAnalysis(
@@ -1022,12 +1014,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             authenticated: response.authenticated === true,
             completedAt: new Date().toISOString(),
           },
-          // Never user-confirmed on this route -- there is no suggestion card
-          // here, only the automatic exact-phrase match above. Matches
-          // IntelligenceOverviewPanel.tsx's claimTypeUserConfirmed read, which
-          // words the "Kind of claim..." label honestly either way (see the
-          // guided route's same field, app/builder/page.tsx).
-          ...(matchedClaimTypeId ? { claimTypeUserConfirmed: false, claimTypeQuote: matched!.quote } : {}),
+          // No "confirmed" flag or quote of its own (29 Oct): the case file says whose the kind is.
           // The side and filing the situation answers settle, as the person's own (stageFromAnswers.ts).
           ...(fromStart.role === "plaintiff" || fromStart.role === "defendant"
             ? { personAnswers: { side: fromStart.role, ...(fromStart.role === "plaintiff" && fromStart.claimFiled !== undefined ? { claimFiled: fromStart.claimFiled } : {}) } }

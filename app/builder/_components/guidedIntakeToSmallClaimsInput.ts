@@ -30,6 +30,8 @@ import type {
 } from "../../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 import type { UniversalStage } from "./builderTypes";
 import type { GuidedIntakeCompletionResult } from "./GuidedSmallClaimsIntake";
+import { CLAIM_TYPES } from "../../../src/lib/case-system/intake/claimTypes";
+import { analysisClaimType } from "../../../src/lib/case-system/caseFile/caseFile";
 
 const KNOWN_SMALL_CLAIMS_ISSUES = new Set<SmallClaimsIssue>([
   "unpaid-money",
@@ -161,6 +163,12 @@ export function mapGuidedIntakeToSmallClaimsInput(
   result: GuidedIntakeCompletionResult,
   location: { province: "Ontario"; city: string },
   initialStory: string,
+  /**
+   * The kind of claim the analysis follows, from the case file (caseFile.ts claimKindOf: the
+   * person's kind, else the one the story shows), never a second reading of the guided result
+   * (site owner, 29 Oct). Null when the case file has none.
+   */
+  claimTypeId: string | null = null,
 ): SmallClaimsIntelligenceInput {
   const filedDocuments = mapFiledDocuments(result.facts);
   const issues = mapDisputeCategoryToIssues(result.facts.disputeCategory);
@@ -222,10 +230,10 @@ export function mapGuidedIntakeToSmallClaimsInput(
     // recorded -- STATES ONLY (the answers are already in the story fields).
     // Lets the analysis show the sourced catalogue's elements and questions
     // instead of model prose. Omitted entirely when nothing was confirmed.
-    ...(result.matchedClaimType?.claimTypeId
+    ...(claimTypeId
       ? {
-          confirmedClaimTypeId: result.matchedClaimType.claimTypeId,
-          ...(elementStatesOf(result.elementStateMap) ? { elementStates: elementStatesOf(result.elementStateMap) } : {}),
+          ...analysisClaimType(claimTypeId),
+          ...(elementStatesOf(result.elementStateMap, claimTypeId) ? { elementStates: elementStatesOf(result.elementStateMap, claimTypeId) } : {}),
         }
       : {}),
   };
@@ -236,10 +244,14 @@ const RECORD_STATES = new Set(["provided", "cannot-provide", "not-yet"]);
 /** { elementId: state } from the depth phase's map, dropping anything malformed. */
 function elementStatesOf(
   map: Record<string, unknown> | undefined,
+  claimTypeId: string,
 ): Record<string, "provided" | "cannot-provide" | "not-yet"> | undefined {
   if (!map) return undefined;
+  // Only this kind's own elements: the depth phase ran on a kind that may not be the one the case file holds now.
+  const own = new Set(CLAIM_TYPES.find((claimType) => claimType.id === claimTypeId)?.plaintiffElements.map((element) => element.id) ?? []);
   const out: Record<string, "provided" | "cannot-provide" | "not-yet"> = {};
   for (const [elementId, record] of Object.entries(map)) {
+    if (!own.has(elementId)) continue;
     const state = (record as { state?: unknown } | null)?.state;
     if (typeof state === "string" && RECORD_STATES.has(state)) {
       out[elementId] = state as "provided" | "cannot-provide" | "not-yet";

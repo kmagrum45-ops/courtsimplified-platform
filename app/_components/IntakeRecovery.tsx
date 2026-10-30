@@ -38,6 +38,8 @@ type Recovery = {
   subscribeField: (section: string, field: string, listener: () => void) => () => void;
   subscribe: (listener: () => void) => () => void;
   getReview: () => ReviewView;
+  /** The saved case as last read or written (its master_result), so the review reads the same case file as the results page; null for a guest. */
+  getSavedMaster: () => Record<string, unknown> | null;
   transition: (action: "review" | "collect" | "confirm", expectedInput: string) => Promise<void>;
   /** Each route registers the action that turns its confirmed answers into guidance. */
   registerContinue: (key: ContinueKey, handler: () => void) => () => void;
@@ -206,6 +208,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         const migrated = snapshot !== unmigrated;
         if (migrated) snapshot = { ...snapshot, revision: crypto.randomUUID() };
         let workflowStatus = ownerId ? record(row?.master_result.workflowStatus) : session?.workflowStatus ?? { intakeCompleted: false };
+        let savedMaster: Record<string, unknown> | null = ownerId && row ? record(row.master_result) : null;
         let view: ReviewView = { checkpoint: snapshot, workflowStatus };
         const listeners = new Set<() => void>();
         const fieldListeners = new Map<string, Set<() => void>>();
@@ -291,6 +294,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
               }
               if (outcome.ok) {
                 workflowStatus = record(outcome.master.workflowStatus);
+                savedMaster = record(outcome.master);
                 const committed = readCheckpoint(outcome.master.intakeCheckpoint, court, caseId);
                 if (committed) savedInput = inputRevision(committed);
                 if (committed && inputRevision(snapshot) === inputRevision(sent) && inputRevision(committed) !== inputRevision(sent)) { snapshot = { ...snapshot, inputRevision: inputRevision(committed) }; remember(snapshot); }
@@ -383,6 +387,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           },
           subscribe: listener => { listeners.add(listener); return () => { listeners.delete(listener); }; },
           getReview: () => view,
+          getSavedMaster: () => savedMaster,
           transition: async (action, expectedInput) => {
             await flush();
             if (!current() || inputRevision(snapshot) !== expectedInput) {
@@ -395,6 +400,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
               if (!result.ok) { failure("Your review could not be saved. Your answers remain here; retry before continuing."); throw new Error("Review was not saved. Please retry."); }
               if (!current()) return;
               workflowStatus = record(result.master.workflowStatus);
+              savedMaster = record(result.master);
               if (inputRevision(snapshot) !== expectedInput) {
                 workflowStatus = reconcileReview(view.workflowStatus, view.checkpoint, snapshot);
                 emit(); cache();

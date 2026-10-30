@@ -211,7 +211,7 @@ add("b", "drafting-scope-off", () => ({ ok: isOff(isInScope("formCompletion")), 
 const CASE_FILE: ConfirmedCaseFile = {
   courtPath: "small-claims", role: "Plaintiff / claimant", stage: "starting-case",
   story: "I lent my neighbour $1,200 in March and he has not paid it back.", yourName: "", otherParty: "",
-  otherPartyAddress: "", amountText: "$1,200", timelineText: "", evidenceText: "", goalText: "", confirmedClaimTypeId: null, filedDocuments: [],
+  otherPartyAddress: "", amountText: "$1,200", timelineText: "", evidenceText: "", goalText: "", claimTypeId: null, filedDocuments: [],
 };
 add("c", "ai-review-off", async () => {
   let located = false;

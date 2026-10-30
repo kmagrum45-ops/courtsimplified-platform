@@ -70,7 +70,7 @@
     "fact": "claim type",
     "pattern": "ct.matchedClaimType",
     "file": "app/_components/IntakeReviewPanel.tsx",
-    "reason": "Found by the guard's scan beside inventory row 1 (the same store or reader, in a file the inventory did not name): claim type :: app/builder/_components/GuidedSmallClaimsIntake.tsx:585 (guided.matchedClaimType)",
+    "reason": "Beside row 1, kept: the review's names for hidden stale answers, including the checkpoint key guided.matchedClaimType. A label, not a copy.",
     "scanFound": true
   },
   {
@@ -575,7 +575,7 @@
     "fact": "claim type",
     "pattern": "ct.matchedClaimType",
     "file": "app/api/intake/depth-turn/route.ts",
-    "reason": "Found by the guard's scan beside inventory row 1 (the same store or reader, in a file the inventory did not name): claim type :: app/builder/_components/GuidedSmallClaimsIntake.tsx:585 (guided.matchedClaimType)",
+    "reason": "Beside row 1, kept: the depth phase runs on the guided route's kind (its element questions); it is sent by the guided screen from the checkpoint.",
     "scanFound": true
   },
   {
@@ -615,7 +615,7 @@
     "fact": "claim type",
     "pattern": "ct.extra.confirmedClaimTypeId",
     "file": "app/api/small-claims/analyze/route.ts",
-    "reason": "Found by the guard's scan beside inventory row 2 (the same store or reader, in a file the inventory did not name): claim type :: app/builder/page.tsx:1357-1367 (handleGuidedComplete)",
+    "reason": "Beside row 2, kept: the analysis engine's input field for the kind of claim, validated here. Since 29 Oct every route fills it from the case file (caseFile.ts kindForAnalysis / analysisClaimType); the engine still echoes its input into intakeData.extra (row 131), which only caseFileOf reads, as an older case's fallback.",
     "scanFound": true
   },
   {
@@ -1174,21 +1174,6 @@
     "reason": "Inventory row 117: story / answers :: checkpoint form-chat.heard (GuidedFormChat.tsx:177), form-chat.drafts (:206)"
   },
   {
-    "row": 10,
-    "fact": "claim type",
-    "pattern": "ct.matchedClaimType",
-    "file": "app/builder/_components/guidedIntakeToSmallClaimsInput.ts",
-    "reason": "Inventory row 10: claim type :: app/builder/_components/guidedIntakeToSmallClaimsInput.ts:62-67,166,225"
-  },
-  {
-    "row": 2,
-    "fact": "claim type",
-    "pattern": "ct.extra.confirmedClaimTypeId",
-    "file": "app/builder/_components/guidedIntakeToSmallClaimsInput.ts",
-    "reason": "Found by the guard's scan beside inventory row 2 (the same store or reader, in a file the inventory did not name): claim type :: app/builder/page.tsx:1357-1367 (handleGuidedComplete)",
-    "scanFound": true
-  },
-  {
     "row": 25,
     "fact": "stage",
     "pattern": "st.inferStage",
@@ -1265,7 +1250,7 @@
     "fact": "claim type",
     "pattern": "ct.matchedClaimType",
     "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
-    "reason": "Inventory row 1: claim type :: app/builder/_components/GuidedSmallClaimsIntake.tsx:585 (guided.matchedClaimType)"
+    "reason": "Inventory row 1, kept (29 Oct): the guided route writes its story match and the person's tick to the checkpoint (guided.matchedClaimType), which caseFileOf reads (ticked: the person's; unticked: a proposal). The writer of a case-file store, not a reader; it goes when the guided route writes the claimKind slot itself."
   },
   {
     "row": 136,
@@ -1368,41 +1353,6 @@
     "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
     "reason": "Found by the guard's scan beside inventory row 147 (the same store or reader, in a file the inventory did not name): AI :: src/lib/case-system/intake/depth/orchestrateDepthTurn.ts (/api/intake/depth-turn:245)",
     "scanFound": true
-  },
-  {
-    "row": 7,
-    "fact": "claim type",
-    "pattern": "ct.extra.confirmedClaimTypeId",
-    "file": "app/builder/_components/IntelligenceOverviewPanel.tsx",
-    "reason": "Inventory row 7: claim type :: app/builder/_components/IntelligenceOverviewPanel.tsx:115,149-172"
-  },
-  {
-    "row": 7,
-    "fact": "claim type",
-    "pattern": "ct.claimTypeUserConfirmed",
-    "file": "app/builder/_components/IntelligenceOverviewPanel.tsx",
-    "reason": "Inventory row 7: claim type :: app/builder/_components/IntelligenceOverviewPanel.tsx:115,149-172"
-  },
-  {
-    "row": 7,
-    "fact": "claim type",
-    "pattern": "ct.claimTypeQuote",
-    "file": "app/builder/_components/IntelligenceOverviewPanel.tsx",
-    "reason": "Inventory row 7: claim type :: app/builder/_components/IntelligenceOverviewPanel.tsx:115,149-172"
-  },
-  {
-    "row": 4,
-    "fact": "claim type",
-    "pattern": "ct.position.claimKind",
-    "file": "app/builder/_components/IntelligenceOverviewPanel.tsx",
-    "reason": "Inventory row 4: claim type :: app/builder/_components/IntelligenceOverviewPanel.tsx:570 (ClaimKindChooser)"
-  },
-  {
-    "row": 7,
-    "fact": "claim type",
-    "pattern": "ct.claimKindShown",
-    "file": "app/builder/_components/IntelligenceOverviewPanel.tsx",
-    "reason": "Inventory row 7: claim type :: app/builder/_components/IntelligenceOverviewPanel.tsx:115,149-172"
   },
   {
     "row": 14,
@@ -1580,45 +1530,6 @@
     "file": "app/builder/_components/respondingSide.ts",
     "reason": "Found by the guard's scan beside inventory row 92 (the same store or reader, in a file the inventory did not name): side :: src/lib/case-system/caseRecord.ts:91 (sideFromParts)",
     "scanFound": true
-  },
-  {
-    "row": 3,
-    "alsoRows": [
-      8
-    ],
-    "fact": "claim type",
-    "pattern": "ct.extra.confirmedClaimTypeId",
-    "file": "app/builder/_components/SmallClaimsIntake.tsx",
-    "reason": "Inventory row 3: claim type :: app/builder/_components/SmallClaimsIntake.tsx:962-1006"
-  },
-  {
-    "row": 3,
-    "fact": "claim type",
-    "pattern": "ct.claimTypeUserConfirmed",
-    "file": "app/builder/_components/SmallClaimsIntake.tsx",
-    "reason": "Inventory row 3: claim type :: app/builder/_components/SmallClaimsIntake.tsx:962-1006"
-  },
-  {
-    "row": 3,
-    "fact": "claim type",
-    "pattern": "ct.claimTypeQuote",
-    "file": "app/builder/_components/SmallClaimsIntake.tsx",
-    "reason": "Inventory row 3: claim type :: app/builder/_components/SmallClaimsIntake.tsx:962-1006"
-  },
-  {
-    "row": 6,
-    "fact": "claim type",
-    "pattern": "ct.matchedClaimTypeId",
-    "file": "app/builder/_components/SmallClaimsIntake.tsx",
-    "reason": "Found by the guard's scan beside inventory row 6 (the same store or reader, in a file the inventory did not name): claim type :: app/builder/_components/StatementOfClaimSurface.tsx:96,108,174",
-    "scanFound": true
-  },
-  {
-    "row": 9,
-    "fact": "claim type",
-    "pattern": "ct.kindFromStory",
-    "file": "app/builder/_components/SmallClaimsIntake.tsx",
-    "reason": "Inventory row 9: claim type :: app/builder/_components/SmallClaimsIntake.tsx:59 (kindFromStory)"
   },
   {
     "row": 24,
@@ -1805,13 +1716,6 @@
     "reason": "Inventory row 98: side :: stageFromAnswers.ts:190 (sideInAnswer)"
   },
   {
-    "row": 6,
-    "fact": "claim type",
-    "pattern": "ct.matchedClaimTypeId",
-    "file": "app/builder/_components/StatementOfClaimSurface.tsx",
-    "reason": "Inventory row 6: claim type :: app/builder/_components/StatementOfClaimSurface.tsx:96,108,174"
-  },
-  {
     "row": 82,
     "fact": "outcome / wants",
     "pattern": "wo.confirmedRemedyId",
@@ -1868,57 +1772,6 @@
     "pattern": "ch.childrenFromStory",
     "file": "app/builder/_components/storyAnswers.ts",
     "reason": "Inventory row 110: children :: storyAnswers.ts:226,299"
-  },
-  {
-    "row": 2,
-    "fact": "claim type",
-    "pattern": "ct.matchedClaimType",
-    "file": "app/builder/page.tsx",
-    "reason": "Inventory row 2: claim type :: app/builder/page.tsx:1357-1367 (handleGuidedComplete)"
-  },
-  {
-    "row": 2,
-    "fact": "claim type",
-    "pattern": "ct.extra.confirmedClaimTypeId",
-    "file": "app/builder/page.tsx",
-    "reason": "Inventory row 2: claim type :: app/builder/page.tsx:1357-1367 (handleGuidedComplete)"
-  },
-  {
-    "row": 2,
-    "fact": "claim type",
-    "pattern": "ct.claimTypeUserConfirmed",
-    "file": "app/builder/page.tsx",
-    "reason": "Inventory row 2: claim type :: app/builder/page.tsx:1357-1367 (handleGuidedComplete)"
-  },
-  {
-    "row": 2,
-    "fact": "claim type",
-    "pattern": "ct.claimTypeQuote",
-    "file": "app/builder/page.tsx",
-    "reason": "Inventory row 2: claim type :: app/builder/page.tsx:1357-1367 (handleGuidedComplete)"
-  },
-  {
-    "row": 4,
-    "fact": "claim type",
-    "pattern": "ct.position.claimKind",
-    "file": "app/builder/page.tsx",
-    "reason": "Found by the guard's scan beside inventory row 4 (the same store or reader, in a file the inventory did not name): claim type :: app/builder/_components/IntelligenceOverviewPanel.tsx:570 (ClaimKindChooser)",
-    "scanFound": true
-  },
-  {
-    "row": 5,
-    "fact": "claim type",
-    "pattern": "ct.draftClaimTypeId",
-    "file": "app/builder/page.tsx",
-    "reason": "Inventory row 5: claim type :: app/builder/page.tsx:336, :1312 (draftClaimTypeId)"
-  },
-  {
-    "row": 6,
-    "fact": "claim type",
-    "pattern": "ct.matchedClaimTypeId",
-    "file": "app/builder/page.tsx",
-    "reason": "Found by the guard's scan beside inventory row 6 (the same store or reader, in a file the inventory did not name): claim type :: app/builder/_components/StatementOfClaimSurface.tsx:96,108,174",
-    "scanFound": true
   },
   {
     "row": 13,
@@ -2468,14 +2321,6 @@
     "scanFound": true
   },
   {
-    "row": 4,
-    "fact": "claim type",
-    "pattern": "ct.position.claimKind",
-    "file": "app/cases/[id]/page.tsx",
-    "reason": "Found by the guard's scan beside inventory row 4 (the same store or reader, in a file the inventory did not name): claim type :: app/builder/_components/IntelligenceOverviewPanel.tsx:570 (ClaimKindChooser)",
-    "scanFound": true
-  },
-  {
     "row": 16,
     "alsoRows": [
       40
@@ -2791,13 +2636,6 @@
     "reason": "Inventory row 114: story :: src/lib/case-system/caseStep.ts stepStoryText; casePosition.ts:721 storyWithTimeline"
   },
   {
-    "row": 11,
-    "fact": "claim type",
-    "pattern": "ct.extra.confirmedClaimTypeId",
-    "file": "src/lib/case-system/caseRecord.ts",
-    "reason": "Inventory row 11: claim type :: src/lib/case-system/caseRecord.ts:160 (readCaseRecord.claimTypeId)"
-  },
-  {
     "row": 39,
     "fact": "stage",
     "pattern": "st.confirmedStage",
@@ -2943,13 +2781,6 @@
     "pattern": "mn.caseFactsText",
     "file": "src/lib/case-system/caseRecord.ts",
     "reason": "Inventory row 129: many :: src/lib/case-system/caseRecord.ts:127-167 (readCaseRecord) and :227 (caseFactsText)"
-  },
-  {
-    "row": 12,
-    "fact": "claim type",
-    "pattern": "ct.extra.confirmedClaimTypeId",
-    "file": "src/lib/case-system/caseReview/caseReview.ts",
-    "reason": "Inventory row 12: claim type :: src/lib/case-system/caseReview/caseReview.ts:255 (caseFileFromMasterResult)"
   },
   {
     "row": 76,
@@ -3643,19 +3474,11 @@
     "reason": "Inventory row 28: stage/status :: src/lib/case-system/intake/caseStageDerivation.ts:76 (deriveCaseStage)"
   },
   {
-    "row": 7,
-    "fact": "claim type",
-    "pattern": "ct.claimKindShown",
-    "file": "src/lib/case-system/intake/claimKind.ts",
-    "reason": "Found by the guard's scan beside inventory row 7 (the same store or reader, in a file the inventory did not name): claim type :: app/builder/_components/IntelligenceOverviewPanel.tsx:115,149-172",
-    "scanFound": true
-  },
-  {
     "row": 9,
     "fact": "claim type",
     "pattern": "ct.kindFromStory",
     "file": "src/lib/case-system/intake/claimKind.ts",
-    "reason": "Found by the guard's scan beside inventory row 9 (the same store or reader, in a file the inventory did not name): claim type :: app/builder/_components/SmallClaimsIntake.tsx:59 (kindFromStory)",
+    "reason": "Beside row 9, kept: the one rule for reading a kind of claim from the story; caseFile.ts claimKindOf calls it to make the PROPOSAL (never the fact).",
     "scanFound": true
   },
   {
@@ -3693,7 +3516,7 @@
     "fact": "claim type",
     "pattern": "ct.extra.confirmedClaimTypeId",
     "file": "src/lib/case-system/intake/claimTypeOverviewContent.ts",
-    "reason": "Found by the guard's scan beside inventory row 2 (the same store or reader, in a file the inventory did not name): claim type :: app/builder/page.tsx:1357-1367 (handleGuidedComplete)",
+    "reason": "Beside row 2, kept: a parameter name of the overview's content builder, which is given the case file's kind (claimKindLine) by the overview.",
     "scanFound": true
   },
   {
@@ -3701,7 +3524,7 @@
     "fact": "claim type",
     "pattern": "ct.kindFromStory",
     "file": "src/lib/case-system/intake/claimTypeOverviewContent.ts",
-    "reason": "Found by the guard's scan beside inventory row 9 (the same store or reader, in a file the inventory did not name): claim type :: app/builder/_components/SmallClaimsIntake.tsx:59 (kindFromStory)",
+    "reason": "Beside row 9, kept: the overview content builder's own story reading when it is given no kind; the overview always gives it the case file's kind now.",
     "scanFound": true
   },
   {
@@ -3770,7 +3593,7 @@
     "fact": "claim type",
     "pattern": "ct.extra.confirmedClaimTypeId",
     "file": "src/lib/case-system/intake/jurisdictionRouteRelevance.ts",
-    "reason": "Found by the guard's scan beside inventory row 2 (the same store or reader, in a file the inventory did not name): claim type :: app/builder/page.tsx:1357-1367 (handleGuidedComplete)",
+    "reason": "Beside row 2, kept: a parameter name of the jurisdiction-route filter, which is given the case file's kind by the overview.",
     "scanFound": true
   },
   {
@@ -4183,7 +4006,7 @@
     "fact": "claim type",
     "pattern": "ct.extra.confirmedClaimTypeId",
     "file": "src/lib/case-system/intelligence/smallClaimsIntelligenceEngine.ts",
-    "reason": "Found by the guard's scan beside inventory row 2 (the same store or reader, in a file the inventory did not name): claim type :: app/builder/page.tsx:1357-1367 (handleGuidedComplete)",
+    "reason": "Beside row 2, kept: the analysis engine's own input field (filled from the case file since 29 Oct) and its echo into the payload's extra (row 131).",
     "scanFound": true
   },
   {
@@ -4411,7 +4234,7 @@
     "fact": "claim type",
     "pattern": "ct.matchedClaimType",
     "file": "src/lib/case-system/sideChange.ts",
-    "reason": "Found by the guard's scan beside inventory row 1 (the same store or reader, in a file the inventory did not name): claim type :: app/builder/_components/GuidedSmallClaimsIntake.tsx:585 (guided.matchedClaimType)",
+    "reason": "Beside row 1, kept: the side-change rule empties the checkpoint's guided.matchedClaimType with the old side's answers (case file maintenance).",
     "scanFound": true
   },
   {
@@ -4505,7 +4328,7 @@
     "fact": "claim type",
     "pattern": "ct.matchedClaimType",
     "file": "src/lib/case-system/statementOfClaimDraftEngine.ts",
-    "reason": "Found by the guard's scan beside inventory row 1 (the same store or reader, in a file the inventory did not name): claim type :: app/builder/_components/GuidedSmallClaimsIntake.tsx:585 (guided.matchedClaimType)",
+    "reason": "Beside row 1, kept: the draft engine's comment and input type name the guided result's kind; the builder now passes it the case file's kind (claimKindOf).",
     "scanFound": true
   },
   {
@@ -4641,7 +4464,7 @@
     "fact": "claim type",
     "pattern": "ct.matchedClaimType",
     "file": "src/lib/case-system/storyBasis.ts",
-    "reason": "Found by the guard's scan beside inventory row 1 (the same store or reader, in a file the inventory did not name): claim type :: app/builder/_components/GuidedSmallClaimsIntake.tsx:585 (guided.matchedClaimType)",
+    "reason": "Beside row 1, kept: the story-version rule tags and empties guided.matchedClaimType with the story it was read from (case file maintenance).",
     "scanFound": true
   },
   {

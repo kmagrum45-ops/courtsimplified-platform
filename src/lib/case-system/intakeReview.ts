@@ -336,14 +336,20 @@ export function canReview(checkpoint: Checkpoint): boolean {
 }
 
 /** Reuse the existing initial selectors. Unknown/skipped is an answer, never an invented fact. */
-export function remainingEssentialQuestions(stored: Checkpoint, includeUnknown = false): { id: string; label: string }[] {
+/**
+ * `master`: the saved case, when there is one, so the review reads the same case file as the
+ * results and case pages (its saved position: a kind of claim picked on the overview, a step, the
+ * step page's dates). Site owner, 29 Oct: the review listed "What kind of dispute is this?" as still
+ * needed while the overview showed the person's answer.
+ */
+export function remainingEssentialQuestions(stored: Checkpoint, includeUnknown = false, master?: unknown): { id: string; label: string }[] {
   // The case file is the one gate (caseFile.ts): a question whose fact is held anywhere is not
   // asked again here, and never blocks Confirm. A fact the person said they did not know gets
   // its one more offer in this review (Jason, 2026-10-24, option 1), as ONE field: its box when
   // the review shows one, otherwise this question (listed with `includeUnknown`, never required).
   // Those this review marked "I don't know yet" stay listed (marked) so they can be changed.
   const unknown = new Set(Array.isArray(stored.sections.builder?.initialUnknowns) ? stored.sections.builder.initialUnknowns as string[] : []);
-  const file = caseFileOf(stored);
+  const file = caseFileOf(stored, master);
   // Only the boxes the review shows: essential ones, and optional ones with something in them.
   const boxFacts = new Set(reviewEntries(stored).filter(entry => entry.essential || !(entry.value === "" || (Array.isArray(entry.value) && entry.value.length === 0))).flatMap(entry => slotsOfQuestion(entry.field)));
   // Each unsure fact once: a fact already offered by a box, or by an earlier question here, is not offered again.
@@ -525,13 +531,13 @@ function whenItHappened(story: string): string | null {
   return `${MONTH_WORDS_EN[month - 1]} ${year}`;
 }
 
-export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, action: "review" | "collect" | "confirm", expectedInputRevision: string, now: string): ObjectValue {
+export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, action: "review" | "collect" | "confirm", expectedInputRevision: string, now: string, master?: unknown): ObjectValue {
   if (inputRevision(checkpoint) !== expectedInputRevision) throw new Error("The initial facts changed. Please review the current information again.");
   if (action === "collect") return invalidateReview(workflow);
   if (!canReview(checkpoint)) throw new Error("Add your city and a description of your situation before reviewing.");
   if (action === "confirm" && reviewPhase(workflow, checkpoint) === "user-confirmed") return workflow;
   if (action === "confirm" && reviewPhase(workflow, checkpoint) !== "reviewing") throw new Error("Review the current information before confirming it.");
-  if (action === "confirm" && remainingEssentialQuestions(checkpoint).length) throw new Error("Answer the remaining initial questions, or explicitly mark what you do not know, before confirming.");
+  if (action === "confirm" && remainingEssentialQuestions(checkpoint, false, master).length) throw new Error("Answer the remaining initial questions, or explicitly mark what you do not know, before confirming.");
   return { ...workflow, intakeCompleted: action === "confirm", intakeReview: { version: 1, reviewedRevision: expectedInputRevision, ...(action === "confirm" ? { confirmedRevision: expectedInputRevision, confirmedAt: now, confirmedFacts: confirmedFactMarks(checkpoint) } : {}) } };
 }
 

@@ -16,7 +16,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import StatementOfClaimSurface from "../../app/builder/_components/StatementOfClaimSurface";
 
 const html = renderToStaticMarkup(createElement(StatementOfClaimSurface, {
-  matchedClaimTypeId: "sc-claim-contractor-took-deposit-and-left",
+  claimKind: { state: "answered", claimTypeId: "sc-claim-contractor-took-deposit-and-left", words: "Contractor took a deposit and left", source: "confirmed", askedBy: "claim-kind-suggestion", quote: null, proposal: null },
   initialElementStateMap: {},
   mappedInput: { facts: "Synthetic: a contractor took a $3,000 deposit and never did the work." } as never,
   onStateMapChange: () => {},

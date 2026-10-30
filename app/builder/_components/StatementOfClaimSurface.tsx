@@ -13,6 +13,7 @@ import {
   type ElementStateMap,
 } from "@/src/lib/case-system/intake/depth/elementStateMap";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
+import { claimKindLine, type ClaimKindHeld } from "@/src/lib/case-system/caseFile/caseFile";
 import {
   draftStatementOfClaimParticulars,
   type StatementOfClaimDraft,
@@ -70,8 +71,13 @@ const FORMS_PAGE = {
  */
 
 export type StatementOfClaimSurfaceProps = {
-  /** The claim type the user confirmed. Null means the gate holds at step 1. */
-  matchedClaimTypeId: string | null;
+  /**
+   * The kind of claim, from the case file (caseFile.ts claimKindOf): the same value the overview,
+   * "Check my case file" and the review show (site owner, 29 Oct: this section said "A claim type
+   * has not been confirmed" beside the overview's "Kind of dispute (your answer)"). Its checklist
+   * follows the catalogue kind the answer names, or the one the story shows (labelled so).
+   */
+  claimKind: ClaimKindHeld;
   /** Produced by the depth layer. Edited here by attestation; same structure. */
   initialElementStateMap: ElementStateMap;
   /** What the mapper produced from guided intake. */
@@ -88,7 +94,7 @@ type PartyDetails = {
 };
 
 export default function StatementOfClaimSurface({
-  matchedClaimTypeId,
+  claimKind,
   initialElementStateMap,
   mappedInput,
   onStateMapChange,
@@ -104,9 +110,11 @@ export default function StatementOfClaimSurface({
   });
   const [showDraft, setShowDraft] = useState(false);
 
+  const kindLine = claimKindLine(claimKind);
+  const kindId = kindLine?.claimTypeId ?? null;
   const claimType = useMemo(
-    () => CLAIM_TYPES.find((candidate) => candidate.id === matchedClaimTypeId) || null,
-    [matchedClaimTypeId],
+    () => CLAIM_TYPES.find((candidate) => candidate.id === kindId) || null,
+    [kindId],
   );
 
   const gate = useMemo(
@@ -171,7 +179,7 @@ export default function StatementOfClaimSurface({
     );
   }
 
-  if (!matchedClaimTypeId || !claimType) {
+  if (!kindId || !claimType) {
     return (
       <section
         data-testid="statement-of-claim-surface"
@@ -179,10 +187,18 @@ export default function StatementOfClaimSurface({
         className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6"
       >
         <h2 className="text-xl font-bold text-[#10231f]">Preparing your Plaintiff&apos;s Claim (Form 7A)</h2>
-        <p className="mt-2 text-sm text-[#4d675f]">
-          A claim type has not been confirmed for this case yet. Once it is, this section will show
-          what a claim of that kind generally involves.
-        </p>
+        {kindLine ? (
+          // Their answer, as every screen shows it; it names no single kind in the catalogue, so there is no checklist for it yet.
+          <p className="mt-2 text-sm text-[#4d675f]" data-testid="statement-of-claim-kind">
+            {kindLine.label}: {kindLine.words}. This section shows what a claim generally involves for
+            the kinds of claim it has checklists for; your answer does not name one of them yet.
+          </p>
+        ) : (
+          <p className="mt-2 text-sm text-[#4d675f]">
+            No kind of claim is recorded for this case yet. Once you give it, this section will show
+            what a claim of that kind generally involves.
+          </p>
+        )}
       </section>
     );
   }
@@ -194,6 +210,7 @@ export default function StatementOfClaimSurface({
       className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6"
     >
       <h2 className="text-xl font-bold text-[#10231f]">Preparing your Plaintiff&apos;s Claim (Form 7A)</h2>
+      {kindLine ? <p className="mt-1 text-sm text-[#10231f]" data-testid="statement-of-claim-kind">{kindLine.label}: {kindLine.words}</p> : null}
       <p className="mt-2 text-sm text-[#4d675f]">
         {FORM_7A_RULE.text}{" "}
         <a

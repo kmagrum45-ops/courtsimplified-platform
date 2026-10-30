@@ -2,7 +2,7 @@
 
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
-import { caseFileOf, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, claimKindOf, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
 
 /** The Small Claims side and filing answer the situation answers settle, in the stage map's terms. */
@@ -333,7 +333,6 @@ function BuilderPageContent() {
   // the completing guided turn rather than rebuilt, so the readiness gate reads
   // the same element states the depth phase produced.
   const [draftInput, setDraftInput] = useState<SmallClaimsIntelligenceInput | null>(null);
-  const [draftClaimTypeId, setDraftClaimTypeId] = useState<string | null>(null);
   const [draftElementStateMap, setDraftElementStateMap] = useState<ElementStateMap>({});
   // Guided intake produces real IntakeFacts. Retained so the save site can
   // persist them -- see the intakeFacts block in masterPayload for why.
@@ -501,7 +500,7 @@ function BuilderPageContent() {
     }
     // The review panel's answers are answers too (re-test round 7).
     const panel = view ? panelAnswerFacts(view.checkpoint) : {};
-    void handleGuidedComplete({ facts: { ...panel, ...(saved.facts ?? {}) } as GuidedIntakeCompletionResult["facts"], answeredIds: Array.isArray(saved.answeredIds) ? saved.answeredIds as string[] : [], matchedClaimType: (saved.matchedClaimType ?? null) as GuidedIntakeCompletionResult["matchedClaimType"], storyText: homeStory, answers: (Array.isArray(saved.earlierAnswers) ? saved.earlierAnswers : []) as NonNullable<GuidedIntakeCompletionResult["answers"]> });
+    void handleGuidedComplete({ facts: { ...panel, ...(saved.facts ?? {}) } as GuidedIntakeCompletionResult["facts"], answeredIds: Array.isArray(saved.answeredIds) ? saved.answeredIds as string[] : [], storyText: homeStory, answers: (Array.isArray(saved.earlierAnswers) ? saved.earlierAnswers : []) as NonNullable<GuidedIntakeCompletionResult["answers"]> });
   });
   useContinueHandler("choose", () => {
     pushStep("form");
@@ -1292,11 +1291,13 @@ function BuilderPageContent() {
         if (!(await prepareCaseGuidance())) return;
       // The side and filing are the situation answers, current even before the next guided turn (step 2).
       const situationFacts = personAnswersFromSituation(situation);
-      const mappedInput = mapGuidedIntakeToSmallClaimsInput({ ...result, facts: { ...(result.facts ?? {}), ...(situationFacts.side ? { role: situationFacts.side } : {}), ...(situationFacts.claimFiled !== undefined ? { claimFiled: situationFacts.claimFiled } : {}) } }, confirmedLocation, homeStory);
+      // The kind of claim the analysis follows, from the case file (the person's, else the one the
+      // story shows), the same value every screen shows (site owner, 29 Oct).
+      const heldNow = claimKindOf(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult));
+      const mappedInput = mapGuidedIntakeToSmallClaimsInput({ ...result, facts: { ...(result.facts ?? {}), ...(situationFacts.side ? { role: situationFacts.side } : {}), ...(situationFacts.claimFiled !== undefined ? { claimFiled: situationFacts.claimFiled } : {}) } }, confirmedLocation, homeStory, kindForAnalysis(heldNow));
 
       // Retained for the Statement of Claim surface below.
       setDraftInput(mappedInput);
-      setDraftClaimTypeId(result.matchedClaimType?.claimTypeId || null);
       setDraftElementStateMap((result.elementStateMap as ElementStateMap) || {});
       // Guided intake produces real IntakeFacts — claimFiled, claimServed,
       // defenceFiled among them. Retained so the save site can persist them;
@@ -1355,21 +1356,9 @@ function BuilderPageContent() {
           // rather than rebuilding its own (design section 5). Absent when no
           // claim type was confirmed or the user skipped — both legitimate.
           ...(result.elementStateMap ? { elementStateMap: result.elementStateMap } : {}),
-          // 2026-09-28. The claim type MATCHED for this case, or null when
-          // none was. The overview reads this instead of re-matching the
-          // story, so its cards follow this match rather than a separate
-          // keyword match that can disagree with it.
-          confirmedClaimTypeId: result.matchedClaimType?.claimTypeId ?? null,
-          // 2026-10-16 live bug: the field above is named "confirmed" but an
-          // exact-phrase story match reaches it with the person never having
-          // seen or been asked about the claim type -- no card, no message,
-          // nothing names it before the results page. True only when the
-          // person clicked "that's right" on the suggestion card
-          // (GuidedSmallClaimsIntake.tsx's resolveSuggestion). The overview
-          // panel reads this to word its label honestly either way.
-          claimTypeUserConfirmed: result.matchedClaimType?.userConfirmed === true,
-          // The story's words the kind was shown with (claimKind.ts): its source on every later screen.
-          ...(result.matchedClaimType?.quote ? { claimTypeQuote: result.matchedClaimType.quote } : {}),
+          // The kind of claim is not copied here (29 Oct): it lives in the case file (the guided
+          // answers and the ticked or proposed match in the checkpoint, the overview's pick in the
+          // position), read through caseFile.ts claimKindOf by every screen.
           // Follow-up answers, kept with the case so a return visit doesn't ask them again (Step 2A).
           ...(result.sourcedAnswers?.length ? { sourcedAnswers: result.sourcedAnswers } : {}),
           // The side and filing answers the person gave or confirmed in the
@@ -1482,6 +1471,9 @@ function BuilderPageContent() {
    * unsaved intake in the tab (IntakeRecovery.tsx). npm run test:open-case.
    */
 
+  // The kind of claim, from the case file: the one value the overview, the Form 7A section and the
+  // notice step read (site owner, 29 Oct: they read three different copies and disagreed).
+  const heldClaimKind = claimKindOf(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult));
   const respondingSide = userIsResponding({
     confirmedStage,
     caseData,
@@ -2462,11 +2454,8 @@ function BuilderPageContent() {
                 picture={casePicture}
                 motionToChange={motionLead && motionChoice ? { answer: motionChoice, readingKind: motionLead.kind } : null}
                 noticeStepId={suggestedNoticeStep({
-                  claimTypeId:
-                    draftClaimTypeId ||
-                    (typeof asRecord(caseData?.extra).confirmedClaimTypeId === "string"
-                      ? (asRecord(caseData?.extra).confirmedClaimTypeId as string)
-                      : null),
+                  // The case file's kind, else the one it proposes from the story: the notice step is a suggestion too.
+                  claimTypeId: kindForAnalysis(heldClaimKind),
                   story: userStory(caseData),
                   courtPath,
                 })}
@@ -2486,7 +2475,7 @@ function BuilderPageContent() {
               </details>
             ) : null}
             {confirmedStage && (
-              <IntelligenceOverviewPanel analysis={analysis} intake={caseData} confirmedStage={confirmedStage} roleWords={courtPath ? situationAnswers(courtPath, situation).roleWords ?? null : null} stageWords={findStage(savedPosition.stepId ?? stepFromSituation(situation, courtPath) ?? "")?.title ?? null} caseId={savedCaseId()} chosenClaimKind={savedPosition.claimKind ?? null} heldKind={caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult).claimKind} />
+              <IntelligenceOverviewPanel analysis={analysis} intake={caseData} confirmedStage={confirmedStage} roleWords={courtPath ? situationAnswers(courtPath, situation).roleWords ?? null : null} stageWords={findStage(savedPosition.stepId ?? stepFromSituation(situation, courtPath) ?? "")?.title ?? null} caseId={savedCaseId()} claimKind={heldClaimKind} />
             )}
             {confirmedStage ? <EvidenceUploadCard caseId={savedCaseId()} /> : null}
             {confirmedStage ? <CaseReviewPanel caseId={savedCaseId()} /> : null}
@@ -2501,7 +2490,7 @@ function BuilderPageContent() {
                 Plaintiff's Claim (Form 7A)" (page review, 2026-10-06). */}
             {draftInput && !FORM_COMPLETION_PAUSED && !respondingSide ? (
               <StatementOfClaimSurface
-                matchedClaimTypeId={draftClaimTypeId}
+                claimKind={heldClaimKind}
                 initialElementStateMap={draftElementStateMap}
                 mappedInput={draftInput}
                 onStateMapChange={setDraftElementStateMap}

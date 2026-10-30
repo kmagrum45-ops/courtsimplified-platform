@@ -93,8 +93,10 @@ export default function IntakeReviewPanel() {
   const revision = inputRevision(checkpoint);
   // Optional details with nothing in them are not shown (re-test 2026-10-18).
   const entries = reviewEntries(checkpoint).filter(entry => entry.essential || !empty(entry.value));
-  const remaining = remainingEssentialQuestions(checkpoint);
-  const unanswered = remainingEssentialQuestions(checkpoint, true);
+  // The saved case's own case file (its saved position too), the same one the results and case pages read (29 Oct).
+  const savedMaster = recovery.getSavedMaster();
+  const remaining = remainingEssentialQuestions(checkpoint, false, savedMaster ?? undefined);
+  const unanswered = remainingEssentialQuestions(checkpoint, true, savedMaster ?? undefined);
   const listed = [
     ...unanswered,
     ...answeredHere.filter(id => !unanswered.some(question => question.id === id)).map(id => ({ id, label: reviewQuestionField(checkpoint.courtPath, id)?.question ?? QUESTION_BANK.find(item => item.id === id)?.text ?? id })),
@@ -122,7 +124,7 @@ export default function IntakeReviewPanel() {
   const fresh = { ...checkpoint, sections: freshSections(checkpoint) };
   // The case file (caseFile.ts): an empty box whose fact was given, or answered "not sure",
   // somewhere else shows that answer instead of asking for it again.
-  const caseFile = caseFileOf(checkpoint);
+  const caseFile = caseFileOf(checkpoint, savedMaster ?? undefined);
   // Only an answer is shown in place of the box: a "not sure" fact is offered here once more, in its box.
   const answeredSlot = (field: string) => slotsOfQuestion(field).map(fact => caseFile[fact]).find(item => item.state === "answered") ?? null;
   // A "not sure" fact gets ONE box here (its one more offer): a later box for the same fact shows "Not sure yet".

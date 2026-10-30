@@ -301,22 +301,23 @@ check("the form reopens with their story, not the labelled record", stored.facts
 check("the confirmed stage wins over the intake's", stored.caseStage === "responding");
 check("nothing entered, nothing filled", Object.keys(storedIntakeValues({})).length === 0);
 
-// 2026-10-16 live bug: a claim type the guided route already confirmed
-// never carried into the form route at all -- storedIntakeValues' own
-// allow-list simply never listed it, so a saved case with one showed "kind
-// of claim not clear yet" when reopened.
-const withClaimType = storedIntakeValues({
+// 2026-10-16 live bug: a claim type the guided route already confirmed never carried into the form
+// route ("kind of claim not clear yet" when reopened). Since 29 Oct the form reads the kind from the
+// case file, never a copy in the form's values (site owner: one place): the record gives the kind
+// the case file holds, and the form's starting values carry none of their own.
+const savedWithKind = {
   intakeData: {
     courtPath: "small-claims",
     facts: "A contractor took a $3,000 deposit and never did the work.",
-    extra: { confirmedClaimTypeId: "sc-claim-breach-of-contract-services" },
+    extra: { confirmedClaimTypeId: "sc-claim-breach-of-contract-services", claimTypeUserConfirmed: true },
   },
-});
+};
 check(
-  "the form reopens with the claim type the guided route already confirmed",
-  withClaimType.confirmedClaimTypeId === "sc-claim-breach-of-contract-services",
-  JSON.stringify(withClaimType.confirmedClaimTypeId),
+  "the record gives the claim type the case file holds (an older saved case's ticked kind)",
+  readCaseRecord(savedWithKind, "small-claims").claimTypeId === "sc-claim-breach-of-contract-services",
+  JSON.stringify(readCaseRecord(savedWithKind, "small-claims").claimKind),
 );
+check("the form's starting values keep no copy of the claim type", !("confirmedClaimTypeId" in storedIntakeValues(savedWithKind)));
 
 // ---- the pages read the record ------------------------------------------------
 const root = path.resolve(__dirname, "../..");

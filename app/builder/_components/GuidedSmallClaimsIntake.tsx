@@ -240,8 +240,8 @@ export type DepthClientQuestion = {
 export type GuidedIntakeCompletionResult = {
   facts: IntakeFacts;
   answeredIds: string[];
-  /** Retained across turns like evidenceGuidance -- null if no claim type ever matched. */
-  matchedClaimType: MatchedClaimType | null;
+  /** Retained across turns like evidenceGuidance -- null if no claim type ever matched. Kept in the checkpoint (guided.matchedClaimType), which the case file reads; the results page reads the kind only from the case file (29 Oct). */
+  matchedClaimType?: MatchedClaimType | null;
   /**
    * Per-element record state from the depth phase, when it ran.
    *
@@ -687,7 +687,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           // The case file is the one gate (caseFile.ts): a question whose fact the person
           // gave anywhere (the review, the form, the step page), or said "not sure" to, is
           // sent as answered, so it is never asked here again.
-          answeredIds: [...new Set([...newAnsweredIds, ...(reviewView ? QUESTION_BANK.filter((question) => alreadyAsked(caseFileOf(reviewView.checkpoint), question.id)).map((question) => question.id) : []), ...repliedInThisChat()])],
+          answeredIds: [...new Set([...newAnsweredIds, ...(reviewView ? QUESTION_BANK.filter((question) => alreadyAsked(caseFileOf(reviewView.checkpoint, recovery?.getSavedMaster() ?? undefined), question.id)).map((question) => question.id) : []), ...repliedInThisChat()])],
           newStoryText,
           answeredQuestionId,
           confirmedAnswers,

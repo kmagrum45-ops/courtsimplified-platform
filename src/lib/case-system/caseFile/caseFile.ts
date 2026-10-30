@@ -30,8 +30,10 @@
  */
 import type { Checkpoint } from "../intakeCheckpoint";
 import { freshSections } from "../storyBasis";
+import { storyOfMaster } from "../intakeStory";
 import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation } from "../situation/situation";
-import { isKindOfClaim } from "../intake/claimKind";
+import { isKindOfClaim, kindFromStory, storyQuoteFor, wordsInStory } from "../intake/claimKind";
+import { CLAIM_TYPES } from "../intake/claimTypes";
 import { chatQuestionOf, chatSentencesFor, factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
 import { parseRecordedAmount } from "../format/recordedAmount";
 import { firstWordedDate, isRealIsoDate } from "../dates";
@@ -62,6 +64,18 @@ export type CaseFile = Record<SlotFact, Slot> & {
   sideWords?: string;
   /** The story as it is now, for the lines "What we have so far" quotes from it (storyLines.ts). */
   story?: string;
+  /**
+   * A kind of claim made by the site, not the person (the guided route's story match or the
+   * classifier's suggestion not yet ticked, or an older saved case's unticked match): a PROPOSAL,
+   * offered with the story's words, never the claimKind slot's value (site owner, 29 Oct).
+   */
+  claimKindProposal?: { claimTypeId: string; quote: string | null };
+  /** The area the file is for (the checkpoint's court), so readers know whether a Small Claims kind applies. */
+  area?: string;
+  /** An older saved case with no checkpoint story: the story it saved, read only to word a proposal (claimKindOf). */
+  savedStory?: string;
+  /** The story's words a ticked suggestion was shown with (kept with the tick). */
+  claimKindQuote?: string;
 };
 
 /** Where the case file keeps what it adds: the facts answered "not sure", and those offered again at the end. */
@@ -202,8 +216,8 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // it wins over the stage given at the start (reviewer, 2026-10-24: a later correction never won).
   const position = object(object(master).position);
   if (typeof position.stepId === "string" && position.stepId) give(file, "stage", position.stepId, "step");
-  // Likewise a kind of claim they chose themselves.
-  if (typeof position.claimKind === "string" && (position.claimKind === "not-sure" || isKindOfClaim(position.claimKind))) give(file, "claimKind", position.claimKind, "claim-kind");
+  // Likewise a kind of claim they chose themselves (the overview's list, CLAIM_KIND_QUESTION).
+  if (typeof position.claimKind === "string" && (position.claimKind === "not-sure" || isKindOfClaim(position.claimKind))) give(file, "claimKind", position.claimKind, CLAIM_KIND_QUESTION);
 
   // 1. The situation answers: the person's own, never tied to the story.
   const situation = situationOf(sections);
@@ -285,8 +299,15 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
       else give(file, fact, captured, id);
     }
   }
+  // The guided route's kind: the person's when they ticked it ("That's right"), else a proposal only.
   const matched = object(guided.matchedClaimType);
-  if (typeof matched.claimTypeId === "string" && matched.userConfirmed === true && isKindOfClaim(matched.claimTypeId)) give(file, "claimKind", matched.claimTypeId, "claim-kind-suggestion");
+  if (typeof matched.claimTypeId === "string" && isKindOfClaim(matched.claimTypeId)) {
+    if (matched.userConfirmed === true) {
+      give(file, "claimKind", matched.claimTypeId, CLAIM_KIND_TICKED);
+      if (typeof matched.quote === "string") file.claimKindQuote ??= matched.quote;
+    }
+    else file.claimKindProposal ??= { claimTypeId: matched.claimTypeId, quote: typeof matched.quote === "string" ? matched.quote : null };
+  }
 
   // 4. The review's answers, and its "I don't know yet".
   const builder = object(sections.builder);
@@ -320,12 +341,23 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // 7. The saved case: dates given on the step page, the stage and kind of claim chosen there.
   const dates = object(position.dateAnswers);
   for (const [id, value] of Object.entries(dates)) for (const fact of slotsOf(id)) give(file, fact, value, id);
+  // An older saved case (before 29 Oct) kept the kind in the analysis copy (intakeData.extra): read
+  // here only, as a fallback: ticked, it is the person's; unticked, a proposal (claim type, rule 3).
   const extra = object(object(object(master).intakeData).extra);
-  if (typeof extra.confirmedClaimTypeId === "string" && extra.claimTypeUserConfirmed === true && isKindOfClaim(extra.confirmedClaimTypeId)) give(file, "claimKind", extra.confirmedClaimTypeId, "claim-kind-suggestion");
+  if (typeof extra.confirmedClaimTypeId === "string" && isKindOfClaim(extra.confirmedClaimTypeId)) {
+    if (extra.claimTypeUserConfirmed === true) {
+      give(file, "claimKind", extra.confirmedClaimTypeId, CLAIM_KIND_TICKED);
+      if (typeof extra.claimTypeQuote === "string") file.claimKindQuote ??= extra.claimTypeQuote;
+    }
+    else file.claimKindProposal ??= { claimTypeId: extra.confirmedClaimTypeId, quote: typeof extra.claimTypeQuote === "string" ? extra.claimTypeQuote : null };
+  }
   for (const answer of Array.isArray(object(master).intakeAnswers) ? (object(master).intakeAnswers as unknown[]) : []) {
     const item = object(answer);
     if (typeof item.questionId === "string" && typeof item.answerText === "string") answers[item.questionId] ??= item.answerText;
-    if (typeof item.questionId === "string") for (const fact of slotsOf(item.questionId)) give(file, fact, item.answerText, item.questionId);
+    // The saved copy of the guided answers gives the kind of claim only for a case with no checkpoint
+    // (an older saved case): where the checkpoint is read, its answers are the one copy, so an answer
+    // emptied there (a side change, the story-version rule) is not brought back from this copy.
+    if (typeof item.questionId === "string") for (const fact of slotsOf(item.questionId)) if (!(fact === "claimKind" && checkpoint)) give(file, fact, item.answerText, item.questionId);
   }
   file.answers = answers;
   // The papers filed, as answered in any area's list (case 16: "the filed application and answer").
@@ -339,7 +371,127 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   const listed = [...fromStart, ...forms.flatMap(([values]) => [values.documents, values.filedDocuments]).flatMap((value) => strings(value))].filter((item) => item !== "nothing" && item !== "not-sure");
   if (listed.length) file.documents = [...new Set(listed)];
   file.story = String(object(sections.story).text ?? "");
+  file.area = checkpoint?.courtPath ?? court ?? undefined;
+  if (!file.story.trim() && master) file.savedStory = storyOfMaster(master) ?? undefined;
   return file;
+}
+
+/** The question id the overview's "Which kind of claim is this?" list answers (saved as position.claimKind). */
+export const CLAIM_KIND_QUESTION = "claim-kind";
+/** A kind the site suggested and the person ticked ("That's right"): theirs from then on. */
+export const CLAIM_KIND_TICKED = "claim-kind-suggestion";
+
+/**
+ * The kind of claim the analysis follows, as the analysis engine's input field: the case file's kind
+ * (claimKindOf), else the one it proposes from the story (the overview then labels its cards "this
+ * matches"). The one place that field is filled from, on every route (site owner, 29 Oct).
+ */
+export function kindForAnalysis(held: ClaimKindHeld): string | null {
+  return held.claimTypeId ?? held.proposal?.claimTypeId ?? null;
+}
+/** The analysis input's field for a kind of claim the case file gave (kindForAnalysis), or nothing. */
+export function analysisClaimType(claimTypeId: string | null): { confirmedClaimTypeId?: string } {
+  return claimTypeId ? { confirmedClaimTypeId: claimTypeId } : {};
+}
+
+/** The patch that keeps the person's pick from the overview's list with the saved case (read first by caseFileOf). */
+export function claimKindAnswer(value: string): { claimKind: string } {
+  return { claimKind: value };
+}
+
+/**
+ * Where the kind of claim the file holds came from (site owner, 29 Oct: "one fact with a source"):
+ *   person-said    their own answer ("What kind of dispute is this?", the overview's list, a form);
+ *   confirmed      a kind the site suggested from the story, ticked by the person;
+ *   route-implied  the issues they picked on an area's form (Family, civil), which choose the route.
+ * A kind read from the story, or by the classifier, and not ticked is a `proposal`, never the fact.
+ */
+export type ClaimKindSource = "person-said" | "confirmed" | "route-implied";
+export type ClaimKindHeld = {
+  /** The claimKind slot's state: answered, unsure ("not sure"), or not asked. */
+  state: SlotState;
+  /** The catalogue's kind of claim (an sc-claim-* id) the answer names, or null (a kind in words only). */
+  claimTypeId: string | null;
+  /** What every screen shows for it: the person's words, or the catalogue's name for a kind they picked. */
+  words: string | null;
+  source: ClaimKindSource | null;
+  /** The question the answer was given to (CLAIM_KIND_QUESTION for the overview's list), or null. */
+  askedBy: string | null;
+  /** For a suggestion the person ticked: the story's words it was shown with (checked to be in the story), else null. */
+  quote: string | null;
+  /** A kind made by the site and not ticked: offered with the story's words, never counted as held. */
+  proposal: { claimTypeId: string; words: string; quote: string } | null;
+};
+
+/**
+ * Answers to "What kind of dispute is this?" that name exactly one kind of claim in the catalogue,
+ * so the claim's own checklists can follow the answer. Only a one-to-one name: "Property damage"
+ * or "A vehicle-related dispute" cover several kinds and stay words (the person picks the kind).
+ */
+const DISPUTE_KIND: Record<string, string> = {
+  defamation: "sc-claim-defamation-libel-slander",
+  [DISPUTE_CATEGORY_WORDS.defamation]: "sc-claim-defamation-libel-slander",
+};
+
+const kindName = (id: string) => CLAIM_TYPES.find((claimType) => claimType.id === id)?.name ?? null;
+
+/**
+ * THE KIND OF CLAIM, AS THE CASE FILE HOLDS IT: every screen, card, checklist and AI prompt that
+ * needs the kind of claim reads it here (site owner, 29 Oct). A separate "confirmed" flag never
+ * blocks it: the person's own answer counts as soon as it is given.
+ */
+export function claimKindOf(file: CaseFile, listWords: (codes: string[]) => string = (codes) => codes.join(", ")): ClaimKindHeld {
+  const slot = file.claimKind;
+  const question = slot.source?.kind === "answer" ? slot.source.question : "";
+  const source: ClaimKindSource | null = slot.state === "not-asked" ? null : question === CLAIM_KIND_TICKED ? "confirmed" : /^(?:civil|family):issues$/.test(question) ? "route-implied" : "person-said";
+  let claimTypeId: string | null = null;
+  let words: string | null = null;
+  if (slot.state === "answered") {
+    const value = slot.value;
+    if (typeof value === "string" && isKindOfClaim(value)) {
+      claimTypeId = kindName(value) ? value : null;
+      words = kindName(value) ?? value;
+    } else if (typeof value === "string" && value.trim()) {
+      words = DISPUTE_CATEGORY_WORDS[value] ?? value.trim();
+      claimTypeId = DISPUTE_KIND[value] ?? DISPUTE_KIND[words] ?? null;
+    } else if (Array.isArray(value) && value.length) {
+      words = listWords(value.filter((item): item is string => typeof item === "string"));
+    }
+  }
+  const story = file.story?.trim() ? file.story : file.savedStory ?? "";
+  // A ticked suggestion keeps the story's words it was shown with, as its source (checked to be in the story).
+  const tickedKind = source === "confirmed" && claimTypeId ? CLAIM_TYPES.find((claimType) => claimType.id === claimTypeId) : undefined;
+  const quote = tickedKind ? (file.claimKindQuote ? wordsInStory(story, file.claimKindQuote) : null) ?? storyQuoteFor(story, tickedKind) : null;
+  // A proposal is offered only while nothing is held: it never covers the person's answer (rule 4).
+  let proposal: ClaimKindHeld["proposal"] = null;
+  if (slot.state === "not-asked" && (file.area === "small-claims" || file.area === undefined)) {
+    const stored = file.claimKindProposal;
+    const name = stored ? kindName(stored.claimTypeId) : null;
+    if (stored && name) {
+      const kind = CLAIM_TYPES.find((claimType) => claimType.id === stored.claimTypeId)!;
+      // The story's own words for it: the words recorded with it, checked to be in the story, or its signal phrase.
+      const quote = (stored.quote ? wordsInStory(story, stored.quote) : null) ?? storyQuoteFor(story, kind);
+      if (quote) proposal = { claimTypeId: stored.claimTypeId, words: name, quote };
+    } else if (!stored && story.trim()) {
+      const read = kindFromStory(story, CLAIM_TYPES);
+      if (read) proposal = { claimTypeId: read.claimType.id, words: read.claimType.name, quote: read.quote };
+    }
+  }
+  return { state: slot.state, claimTypeId, words, source, askedBy: question || null, quote, proposal };
+}
+
+/**
+ * The one line every screen shows for the kind of claim (the overview, the case file panel, the
+ * Form 7A section): its label by source, the words, the catalogue kind its checklists follow, and
+ * whether it is held (the person's) or only proposed. Null when there is neither: the screen asks.
+ */
+export function claimKindLine(held: ClaimKindHeld): { label: string; words: string; claimTypeId: string | null; quote: string | null; held: boolean } | null {
+  if (held.state === "answered" && held.words) {
+    const label = held.askedBy === CLAIM_KIND_QUESTION ? "Kind of claim you chose" : held.source === "confirmed" ? "Kind of claim you confirmed" : held.source === "route-implied" ? "Kind of dispute (from what you picked)" : "Kind of dispute (your answer)";
+    return { label, words: held.words, claimTypeId: held.claimTypeId, quote: held.quote, held: true };
+  }
+  if (held.proposal) return { label: "Kind of claim this matches", words: held.proposal.words, claimTypeId: held.proposal.claimTypeId, quote: held.proposal.quote, held: false };
+  return null;
 }
 
 /** Whether a question would ask for something the file already holds (an answer, or "not sure"). */
