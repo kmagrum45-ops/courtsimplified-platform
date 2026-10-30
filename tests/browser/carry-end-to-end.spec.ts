@@ -56,6 +56,7 @@
  * served build: PLAYWRIGHT_BASE_URL=... npx playwright test tests/browser/carry-end-to-end.spec.ts
  */
 import { expect, test, type Locator, type Page } from "@playwright/test";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { createRealTestAccount, deleteHarnessUser, harnessAdmin } from "./harness/realTestSession";
 import { grantSiteAccess } from "./harness/siteAccess";
@@ -200,7 +201,7 @@ async function giveStory(page: Page, court: Court, story: string) {
     await page.goto("/?path=small-claims");
     await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
     await page.getByLabel("City or municipality").fill("Kingston");
-    await page.getByLabel("Tell us what happened in your own words").fill(story);
+    await page.getByLabel(STORY_LABEL, { exact: true }).fill(story);
     await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
     await page.waitForURL(/\/builder\?.*intake=/, { timeout: 60_000 });
     await expect(page.getByTestId("acknowledgement-checkbox").or(page.getByRole("button", { name: "Fill in the form yourself" })).first()).toBeVisible({ timeout: 60_000 });
