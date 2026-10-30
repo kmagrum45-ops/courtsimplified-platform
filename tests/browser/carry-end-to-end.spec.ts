@@ -14,7 +14,8 @@
  * one value and removes the other on the form; reloads and walks every screen again; starts a
  * second case in the same tab; goes back to the first through the dashboard and its address.
  * It counts four things and prints them on one fixed line, also written to carry-records/:
- *   CARRY COUNTS <run> asked-twice=N returned-after-removal=N wrong-case=N screens-disagree=N
+ *   CARRY COUNTS <run> asked-twice=N returned-after-removal=N wrong-case=N screens-disagree=N unreached=N
+ *   (the four counts, then the steps the run could not reach, kept apart from them)
  *   (1) asked-twice: the story pack's recorder (harness/askOnce.ts factsAskedTwice + heldViolations,
  *       the held check reading the saved staging row through caseFileOf), per case;
  *   (2) returned-after-removal: the removed value shown, refilled or offered on any screen after removal;
@@ -29,8 +30,11 @@
  * with its fact and reason) fails the run; a baseline entry no run matched is reported as stale
  * (scripts/browser/carryTotals.ts). verifyCarryBaseline.ts (CI typecheck job) rejects a PR that adds a
  * baseline entry compared with origin/main, so the counts only go down; with the file empty the test
- * asserts zero. A step the test could not reach (a screen missing, a button renamed) also fails the run:
- * a count from a run that never reached the screen is not a zero.
+ * asserts zero. A step the test could not reach (a screen missing, a button renamed) also fails the run
+ * (a count from a run that never reached the screen is not a zero) unless it is listed: kind "unreached",
+ * its run (court, route, guest or signed-in), the step's name and a reason (owner, 30 Oct: #533 merges with
+ * run 4's list); a listed step now reached is reported stale. scripts/browser/carrySeed.ts builds the
+ * entries from a run's carry-records.
  *
  * THE REAL SAVE PATH (site owner, 29 Oct). Real page typing; every save through the site's own routes
  * and client code to the real STAGING database (realTestSession.ts refuses production); real staging
@@ -59,7 +63,7 @@ import { answerSituation, autoAnswerSituation, situationAnswersFor, STARTING_NOT
 import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns, type Court } from "./harness/thisCommitServer";
 import { factsAskedTwice, heldFacts, heldViolations, recordAsks, repeatViolations, type Asked, type HeldState } from "./harness/askOnce";
-import { countsLine, countsOf, readBaseline, shows, splitByBaseline, writeRunRecord, type CarryKind, type CarryViolation } from "./harness/carryCounts";
+import { countsLine, countsOf, readBaseline, shows, splitByBaseline, splitUnreached, writeRunRecord, type CarryKind, type CarryViolation } from "./harness/carryCounts";
 import { asksForDate } from "../../src/lib/case-system/dates";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
@@ -132,7 +136,7 @@ class Run {
   add(kind: CarryKind, fact: string, where: string, detail: string) {
     const key = `${kind}|${fact}|${where}`;
     if (this.violations.some((item) => `${item.kind}|${item.fact}|${item.where}` === key)) return;
-    this.violations.push({ kind, run: this.name, court: this.court, route: this.route, fact, where, detail: detail.replace(/\s+/g, " ").slice(0, 240) });
+    this.violations.push({ kind, run: this.name, court: this.court, route: this.route, who: this.who, fact, where, detail: detail.replace(/\s+/g, " ").slice(0, 240) });
   }
   /** A step that must be reached for the counts to mean anything; a failure is recorded and the run goes on. */
   async step(name: string, body: () => Promise<void>) {
@@ -651,12 +655,16 @@ for (const { court, route, who } of RUNS) {
       }
     }
 
-    const { known, unknown } = splitByBaseline(run.violations, readBaseline());
+    const baseline = readBaseline();
+    const { known, unknown } = splitByBaseline(run.violations, baseline);
+    // Steps not reached: a listed one is known (it may be listed, kind "unreached"); a new one fails the run.
+    const steps = splitUnreached({ court, route, who }, run.unreached, baseline);
     writeRunRecord({ run: run.name, court, route, who, violations: run.violations, known: known.length, unknown: unknown.length, unreached: run.unreached });
-    console.log(countsLine(countsOf(run.violations), `[${run.name}]`));
-    for (const item of run.unreached) console.log(`CARRY UNREACHED [${run.name}] ${item}`);
+    console.log(countsLine(countsOf(run.violations), run.unreached.length, `[${run.name}]`));
+    for (const { item } of steps.known) console.log(`CARRY UNREACHED (listed) [${run.name}] ${item}`);
+    for (const item of steps.unknown) console.log(`CARRY UNREACHED [${run.name}] ${item}`);
     for (const item of unknown) console.log(`CARRY NEW ${item.kind} ${item.fact} @ ${item.where}: ${item.detail}`);
-    expect(run.unreached, "every step of the run was reached (a count from a step never reached is not a zero)").toEqual([]);
+    expect(steps.unknown, "every step of the run was reached, or is listed as not reached yet (a count from a step never reached is not a zero)").toEqual([]);
     expect(unknown.map((item) => `${item.kind} ${item.fact} @ ${item.where}: ${item.detail}`), "no violation outside the baseline (harness/carryBaseline.json)").toEqual([]);
   });
 }

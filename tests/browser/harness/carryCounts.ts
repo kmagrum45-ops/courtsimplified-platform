@@ -11,13 +11,16 @@
  *   wrong-case              a page addressed to one case (its id in the address) showing another case;
  *   screens-disagree        one fact, read from two screens (or one screen before and after a reload,
  *                           a sign-in, a change), showing different values.
+ * And, kept apart from the four, the steps a run could not reach (`unreached`): a count from a screen
+ * never reached is not a zero.
  *
- * "ASSERTS ZERO". Every violation the site makes today is listed in carryBaseline.json, one entry each,
- * with the fact it belongs to and a reason a person can read. A violation that matches no entry fails
- * the test. An entry that matches nothing in a run is reported as stale (the site was fixed: delete it).
- * scripts/verification/verifyCarryBaseline.ts (CI, typecheck job) fails a PR that ADDS an entry compared
- * with origin/main, so the counts can only go down, and the test asserts zero once the file is empty.
- * The baseline started EMPTY on purpose: entries come only from what a real CI run recorded, never
+ * "ASSERTS ZERO". Every violation the site makes today, and every step the test cannot reach yet, is
+ * listed in carryBaseline.json, one entry each, with the run it belongs to and a reason a person can
+ * read. A violation or an unreached step that matches no entry fails the run; a listed one is reported
+ * as known; an entry that matches nothing in a run that could have shown it is reported as stale (fixed:
+ * delete it). scripts/verification/verifyCarryBaseline.ts (CI, typecheck job) fails a PR that ADDS an
+ * entry of any kind compared with origin/main, so the list only shrinks, and the test asserts zero once
+ * it is empty. Entries come only from what a real CI run recorded (scripts/browser/carrySeed.ts), never
  * from a guess.
  *
  * Pure: no browser, no network (the terminal suite runs every function here).
@@ -27,6 +30,9 @@ import path from "node:path";
 
 export const CARRY_KINDS = ["asked-twice", "returned-after-removal", "wrong-case", "screens-disagree"] as const;
 export type CarryKind = (typeof CARRY_KINDS)[number];
+/** What a baseline entry may list: one of the four, or a step not reached. */
+export const BASELINE_KINDS = [...CARRY_KINDS, "unreached"] as const;
+export type BaselineKind = (typeof BASELINE_KINDS)[number];
 
 export type CarryViolation = {
   kind: CarryKind;
@@ -34,6 +40,8 @@ export type CarryViolation = {
   run: string;
   court: string;
   route: string;
+  /** "guest" or "signed-in". */
+  who?: string;
   /** The fact it belongs to (a case-file slot, "story", or "case" for a wrong case). */
   fact: string;
   /** Where it was seen: the screen (and for asked-twice the surface:screen). */
@@ -43,15 +51,20 @@ export type CarryViolation = {
 };
 
 export type CarryBaselineEntry = {
-  kind: CarryKind;
+  kind: BaselineKind;
+  /** The fact (for "unreached": the step's name, as the run records it before its first ": "). */
   fact: string;
+  /** The screen (for "unreached": "step"). */
   where: string;
-  /** Only in these courts / routes; every one when absent. */
+  /** Only in these courts / routes / who; every one when absent (an "unreached" entry names all three). */
   court?: string;
   route?: string;
-  /** Why the site still does it, in plain words (at least eight words). */
+  who?: string;
+  /** Why the site (or the test) still does it, in plain words (at least eight words). */
   reason: string;
 };
+
+export type RunIdentity = { court: string; route: string; who?: string };
 
 export const BASELINE_PATH = "tests/browser/harness/carryBaseline.json";
 
@@ -62,15 +75,16 @@ export function readBaseline(file = BASELINE_PATH): CarryBaselineEntry[] {
 
 /** The key two baseline entries are compared by (the terminal check's "added" test). */
 export function entryKey(entry: CarryBaselineEntry): string {
-  return [entry.kind, entry.fact, entry.where, entry.court ?? "*", entry.route ?? "*"].join("|");
+  return [entry.kind, entry.fact, entry.where, entry.court ?? "*", entry.route ?? "*", entry.who ?? "*"].join("|");
 }
 
+const runFits = (entry: CarryBaselineEntry, run: RunIdentity) =>
+  (entry.court === undefined || entry.court === run.court) &&
+  (entry.route === undefined || entry.route === run.route) &&
+  (entry.who === undefined || entry.who === run.who);
+
 export function baselineEntryFor(violation: CarryViolation, list: readonly CarryBaselineEntry[]): CarryBaselineEntry | null {
-  return list.find((entry) =>
-    entry.kind === violation.kind && entry.fact === violation.fact && entry.where === violation.where &&
-    (entry.court === undefined || entry.court === violation.court) &&
-    (entry.route === undefined || entry.route === violation.route),
-  ) ?? null;
+  return list.find((entry) => entry.kind === violation.kind && entry.fact === violation.fact && entry.where === violation.where && runFits(entry, violation)) ?? null;
 }
 
 export function splitByBaseline(violations: readonly CarryViolation[], list: readonly CarryBaselineEntry[]) {
@@ -84,15 +98,43 @@ export function splitByBaseline(violations: readonly CarryViolation[], list: rea
   return { known, unknown };
 }
 
-/** Entries no violation matched (in the runs that could have shown them): the site was fixed; delete them. */
-export function staleEntries(list: readonly CarryBaselineEntry[], violations: readonly CarryViolation[], runs: readonly { court: string; route: string }[]): CarryBaselineEntry[] {
-  return list.filter((entry) =>
-    runs.some((run) => (entry.court === undefined || entry.court === run.court) && (entry.route === undefined || entry.route === run.route)) &&
-    !violations.some((violation) => baselineEntryFor(violation, [entry]) !== null),
-  );
+/** The step's name of an unreached record ("sign in from the builder: TimeoutError ..." -> "sign in from the builder"). */
+export function unreachedStep(item: string): string {
+  const at = item.indexOf(": ");
+  return (at === -1 ? item : item.slice(0, at)).trim();
 }
 
-/** Entries in `now` that `before` does not have: a PR may not add any. */
+export function unreachedEntryFor(run: RunIdentity, item: string, list: readonly CarryBaselineEntry[]): CarryBaselineEntry | null {
+  const step = unreachedStep(item);
+  return list.find((entry) => entry.kind === "unreached" && entry.fact === step && runFits(entry, run)) ?? null;
+}
+
+/** A run's unreached steps split into listed (known) and new (each fails the run). */
+export function splitUnreached(run: RunIdentity, unreached: readonly string[], list: readonly CarryBaselineEntry[]) {
+  const known: { item: string; entry: CarryBaselineEntry }[] = [];
+  const unknown: string[] = [];
+  for (const item of unreached) {
+    const entry = unreachedEntryFor(run, item, list);
+    if (entry) known.push({ item, entry });
+    else unknown.push(item);
+  }
+  return { known, unknown };
+}
+
+/**
+ * Entries nothing matched, in the runs that could have shown them: the site (or the test) was fixed;
+ * delete them. An "unreached" entry is stale when every run it fits reached that step.
+ */
+export function staleEntries(list: readonly CarryBaselineEntry[], violations: readonly CarryViolation[], runs: readonly (RunIdentity & { unreached?: readonly string[] })[]): CarryBaselineEntry[] {
+  return list.filter((entry) => {
+    const fitting = runs.filter((run) => runFits(entry, run));
+    if (!fitting.length) return false;
+    if (entry.kind === "unreached") return !fitting.some((run) => (run.unreached ?? []).some((item) => unreachedStep(item) === entry.fact));
+    return !violations.some((violation) => baselineEntryFor(violation, [entry]) !== null);
+  });
+}
+
+/** Entries in `now` that `before` does not have: a PR may not add any, of any kind. */
 export function addedEntries(before: readonly CarryBaselineEntry[], now: readonly CarryBaselineEntry[]): CarryBaselineEntry[] {
   const had = new Set(before.map(entryKey));
   return now.filter((entry) => !had.has(entryKey(entry)));
@@ -103,9 +145,11 @@ export function badEntries(list: readonly CarryBaselineEntry[]): { entry: CarryB
   const bad: { entry: CarryBaselineEntry; why: string }[] = [];
   const keys = new Set<string>();
   for (const entry of list) {
-    if (!(CARRY_KINDS as readonly string[]).includes(entry.kind)) bad.push({ entry, why: `kind must be one of ${CARRY_KINDS.join(", ")}` });
-    if (!entry.fact?.trim()) bad.push({ entry, why: "names no fact" });
+    if (!(BASELINE_KINDS as readonly string[]).includes(entry.kind)) bad.push({ entry, why: `kind must be one of ${BASELINE_KINDS.join(", ")}` });
+    if (!entry.fact?.trim()) bad.push({ entry, why: "names no fact (or step)" });
     if (!entry.where?.trim()) bad.push({ entry, why: "names no screen (where)" });
+    if (entry.kind === "unreached" && (!entry.court || !entry.route || !entry.who)) bad.push({ entry, why: "an unreached step names its run: court, route and who" });
+    if (entry.who !== undefined && entry.who !== "guest" && entry.who !== "signed-in") bad.push({ entry, why: "who is guest or signed-in" });
     if (!entry.reason || entry.reason.trim().split(/\s+/).length < 8) bad.push({ entry, why: "the reason is not in words (at least eight)" });
     if (keys.has(entryKey(entry))) bad.push({ entry, why: "listed twice" });
     keys.add(entryKey(entry));
@@ -121,11 +165,15 @@ export function countsOf(violations: readonly CarryViolation[]): CarryCounts {
   return counts;
 }
 
-/** The one fixed, greppable line: `CARRY COUNTS asked-twice=N returned-after-removal=N wrong-case=N screens-disagree=N`. */
-export function countsLine(counts: CarryCounts, label = ""): string {
-  return `CARRY COUNTS${label ? ` ${label}` : ""} ${CARRY_KINDS.map((kind) => `${kind}=${counts[kind]}`).join(" ")}`;
+/**
+ * The one fixed, greppable line:
+ * `CARRY COUNTS asked-twice=N returned-after-removal=N wrong-case=N screens-disagree=N unreached=N`
+ * (the four counts, then the steps not reached, kept apart).
+ */
+export function countsLine(counts: CarryCounts, unreached: number, label = ""): string {
+  return `CARRY COUNTS${label ? ` ${label}` : ""} ${CARRY_KINDS.map((kind) => `${kind}=${counts[kind]}`).join(" ")} unreached=${unreached}`;
 }
-export const COUNTS_LINE = /^CARRY COUNTS(?: [^=]+?)? asked-twice=(\d+) returned-after-removal=(\d+) wrong-case=(\d+) screens-disagree=(\d+)$/;
+export const COUNTS_LINE = /^CARRY COUNTS(?: [^=]+?)? asked-twice=(\d+) returned-after-removal=(\d+) wrong-case=(\d+) screens-disagree=(\d+) unreached=(\d+)$/;
 
 // Outside test-results/, which Playwright empties at the start of every run.
 export const CARRY_RECORDS = "carry-records";
@@ -139,7 +187,7 @@ export function writeRunRecord(record: CarryRunRecord): string {
   return file;
 }
 
-/** Every run record under a folder (the CI totals job downloads all three parts into one). */
+/** Every run record under a folder (the CI totals job downloads all the parts into one). */
 export function readRunRecords(dir = CARRY_RECORDS): CarryRunRecord[] {
   if (!fs.existsSync(dir)) return [];
   const out: CarryRunRecord[] = [];
@@ -152,6 +200,25 @@ export function readRunRecords(dir = CARRY_RECORDS): CarryRunRecord[] {
   };
   walk(dir);
   return out;
+}
+
+/**
+ * Baseline entries for what runs recorded (scripts/browser/carrySeed.ts): one per violation and per
+ * unreached step, each limited to its own run (court, route, who), with a reason naming what was seen.
+ */
+export function seedEntries(records: readonly CarryRunRecord[]): CarryBaselineEntry[] {
+  const out = new Map<string, CarryBaselineEntry>();
+  const put = (entry: CarryBaselineEntry) => { if (!out.has(entryKey(entry))) out.set(entryKey(entry), entry); };
+  for (const record of records) {
+    const run = { court: record.court, route: record.route, who: record.who };
+    for (const violation of record.violations) {
+      put({ kind: violation.kind, fact: violation.fact, where: violation.where, ...run, reason: `Seen by the carry test in the ${record.run} run on ${violation.where}: ${violation.detail}` });
+    }
+    for (const item of record.unreached) {
+      put({ kind: "unreached", fact: unreachedStep(item), where: "step", ...run, reason: `The carry test could not reach this step in the ${record.run} run: ${item.slice(unreachedStep(item).length + 2) || item}` });
+    }
+  }
+  return [...out.values()];
 }
 
 /**
