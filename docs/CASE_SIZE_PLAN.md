@@ -120,3 +120,31 @@ This is a new suite, `test:case-size-equivalence`, run in CI on every PR of step
 - Production changes of any kind, without the owner's go-ahead.
 - Migrations: a JSON clean-up needs none. If a column is ever dropped, the owner applies it.
 - The `VACUUM FULL` on staging. The owner has the steps (28 Oct).
+
+## The case store design (evaluated 2026-10-30, adopted in principle by the owner)
+
+The owner proposed seven parts (a to g). Each was checked against the code on `fact/claim-type`
+(PR #536, based on main 14e58e93). **Every day count below is an estimate, not a measurement.**
+
+| Part | Exists today | Missing | Days (estimate) |
+|---|---|---|---|
+| **(a) One case store, filled from the saved record, written through per fact; a stale write refused; the saved record always wins** | A save carries the checkpoint revision and is refused as `intake-conflict` when it does not match (`src/lib/case-system/intakeCheckpoint.ts:96`). The row update is compare-and-set on `updated_at` (`src/lib/case-system/updateCaseRecord.ts:87`). | **On load, the tab copy wins over the saved record wholesale** (`app/_components/IntakeRecovery.tsx:204`, `session?.checkpoint ?? saved`): the rule-2 gap. A conflict only stops the page ("Another tab changed this intake", `:294`). Each screen keeps its own copy in memory. | 4–6 |
+| **(b) Each fact with value, source, state and version** | A slot has a state (`not-asked`, `answered`, `unsure`), a source (an answer, or the story with its quote) and `confirmed` (`src/lib/case-system/caseFile/caseFile.ts:50-52`). | A "removed" state exists only for claim type (`claimKindRemoved`, `:89`), which is why 42 carry entries are "returned after removal". No "derived" source. No per-fact version. **No migration needed**: `master_result` is JSON, and a `caseFile` section is already reserved in the checkpoint (`CASE_FILE_SECTION`, `:93`). | 2–3 |
+| **(c) One question engine: the claim type's required facts minus the confirmed, skipped and removed ones; a changed answer reopens the questions that depend on it** | The shared gate exists: `nextQuestion`, `askable`, `chatMayAsk` (`caseFile.ts:548-569`). | Each screen passes its own candidate list. There is no single list of required facts per claim type driving every screen (the elements live in `elementProofEngine` and the claim types). A changed answer cancels the whole confirmation (`reconcileReview`, `intakeCheckpoint.ts:113`); no dependent question is reopened on its own. | 5–8 |
+| **(d) The old snapshot readers kept alive by a read-only view generated from the record, then deleted** | The guard and the site map count them. | **Far more than about 15**: 603 allowed entries in 169 files (`caseFileGuardAllowed.json`) and 42 bypasses in `SITE_MAP.md`. `getCaseValues` fills forms with `deepPick` over the whole row, so the view must pass this plan's equivalence test. | 8–15, spread over the conversions |
+| **(e) Guests on the same store interface, moved into the account at sign-in** | Guests use the same checkpoint shape in tab storage. `carryGuestIntake` (`src/lib/case-system/guestCarry.ts:73`) moves it into the account as a new case, never into an existing one. | **Dropped** by the owner's decision of 30 Oct to remove guest cases (see `docs/ACCOUNTS_AND_ACCESS_PLAN.md`). | — |
+| **(f) A failed save kept as a flagged unsaved draft and offered back, never silently applied** | `pending` on the tab session; the "You have an unsaved case in this tab" warning; a retry button; a visible failure note. | On reload, unsent edits are **applied silently**: the same line 204, because the tab copy becomes the page. They are not offered back to save or discard. | 2–3 |
+| **(g) Tests wait on the save request or the "Saved" signal, not on polling** | A save-status element with a status or alert role (`IntakeRecovery.tsx:533`, `intake-save-status`). | The carry test polls the saved row every 3 seconds (`tests/browser/carry-end-to-end.spec.ts:535`), and 13 browser specs wait fixed times. This is the cause of the carry entries that come and go between runs. The status element carries no saved revision a test could wait for. | 2–3 |
+
+Total: **about 23–38 days (estimate)** without (e).
+
+### The four changes to the design (adopted)
+
+1. **Merge per fact on a conflict.** The record already refuses a stale write. On a conflict, re-read the record and re-apply only the facts this person changed. Stop and ask only when the same fact changed on both sides. Each fact carries the revision at which it last changed; there is no full versioning system.
+2. **The tab is a buffer of unsent edits, never a source of answers.** The saved record always wins. Unsent edits sit on top of it, marked, and are offered back ("Not saved yet: … Save / Discard"). This one change at `IntakeRecovery.tsx:204` delivers both (a) and (f).
+3. **A small table of dependencies, not a general graph.** For example: claim type → its elements; side → its forms; stage → its dates.
+4. **(e) "A new case, never a merge"** was the fourth change. It no longer applies, because guest cases are removed.
+
+### Order (superseded by `docs/ACCOUNTS_AND_ACCESS_PLAN.md`, section E)
+
+(g) the tests wait on the save → the tab-copy rule with the draft handling ((a) and (f)) → fact states (b) with the stage conversion → the question engine (c) → the old readers (d) retired inside each fact conversion. None of this replaces the fact-by-fact method; it makes each conversion smaller. There is to be no single large rewrite.
