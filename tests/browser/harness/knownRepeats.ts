@@ -52,6 +52,13 @@ export const KNOWN_REPEATS: readonly KnownRepeat[] = [
     surface: "form-field", fact: "wants", auditRow: 7,
     reason: "The Small Claims form's \"what do you want\" box stays empty after the review recorded the answer (or \"I don't know yet\"), so the form asks it once more after the review's own last offer.",
   },
+  // Seen 29 Oct once the recorder counts a reply in the follow-up chat as answering the question before it
+  // (owner's rule): m19-laptop-repair (review). Fixed by converting the evidence fact (owner's plan, 29 Oct:
+  // one fact at a time through the case file), not by a screen-by-screen change.
+  {
+    surface: "form-field", fact: "evidence", stories: ["m19-laptop-repair"], auditRow: 7,
+    reason: "The results-page follow-up chat asked \"What proof do you already have...?\" and the person replied; the Small Claims form's evidence box then asked for the evidence again: a follow-up chat reply is not saved to the case file as the evidence answer, and the form's evidence box does not read the case file.",
+  },
   // Chrome 29 Oct (finding 1), seen in the story pack's step 6 ("Update your story"): Small Claims only.
   {
     surface: "event-candidate", questionId: "when", auditRow: 2,
