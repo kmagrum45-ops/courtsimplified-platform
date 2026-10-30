@@ -7,6 +7,14 @@ import HideDuringIntake from "./_components/HideDuringIntake";
 import NotSureCourtGuide from "./_components/NotSureCourtGuide";
 import { CoinsIcon, FamilyIcon, ScalesIcon } from "./_components/CourtTypeIcons";
 
+/**
+ * RENDERED PER REQUEST, SO THE ADDRESS WINS (owner's Chrome check, 30 Oct): the
+ * home page opens the intake its address names (?path=, ?intake=). Prerendered, a
+ * client-side visit could open an earlier visit's address instead. See
+ * scripts/verification/verifyAddressWins.ts (npm run test:address-wins).
+ */
+export const dynamic = "force-dynamic";
+
 const courtPaths = [
   {
     title: "Small Claims",

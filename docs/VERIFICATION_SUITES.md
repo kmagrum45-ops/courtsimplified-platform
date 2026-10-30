@@ -11,6 +11,7 @@ the file, so this index cannot drift away from what the suites actually do.
 |---|---|
 | `npm run test:a2i-guard` | **The A2I guard: each of the 13 statements the site makes in its application**<br>to the Law Society of Ontario's Access to Innovation (A2I) sandbox, as checks that fail when the site breaks the statement. |
 | `npm run test:a2i-scope` | **The platform only does what A2I has approved.**<br>COSTS NOTHING. Pure data checks. |
+| `npm run test:address-wins` | **THE ADDRESS WINS: a page that reads its case or court from the address opens**<br>the case the address names (npm run test:address-wins). |
 | `npm run test:ai-call-log-sink` | **Does a test run write to the live database? It must not.**<br>COSTS NOTHING. No model call, no network, no database — which is the entire point, and is asserted rather than assumed: the Supabase client factory is replaced with one that throws, and the check fails if anything builds a client. |
 | `npm run test:ai-call-logging` | **Every model call is attributable in the audit log.**<br>COSTS NOTHING. Reads source off disk. No network, no AI, no database. |
 | `npm run test:ai-models` | **Every model call in the app takes its model from aiModels.ts, and the**<br>parameters sent match what that kind of model accepts. |
