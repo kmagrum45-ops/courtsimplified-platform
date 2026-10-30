@@ -6,6 +6,8 @@ Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
 204 documented, 26 without a header.
+202 documented, 26 without a header.
+199 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -59,6 +61,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:citations` | **EVERY CITATION THE SITE SHOWS SAYS EXACTLY WHAT IT CITES (Charter re-test, 27 Oct, root cause 5).**<br>Runs over the whole library: every quoted citation in the stage map (its steps, deadlines, moves and final steps), the rules shown beside published sentences, the practical lines (forms, fees, filing, service), and every source's name. For each it asserts, as  |
 | `npm run test:cited-provisions` | **Every cited provision is vendored, and no not-in-force replacement is**<br>undeclared or stale. |
 | `npm run test:claim-amount` | **The amount offered as "the amount claimed" is the one owed, claimed or the**<br>damage -- never an amount already paid, a fee or a price -- and nothing is offered when the story leaves it unclear (claimAmount.ts). |
+| `npm run test:claim-kind-one-value` | **CLAIM TYPE: ONE FACT, ONE VALUE ON EVERY SCREEN (site owner, 29 Oct; the first fact moved into**<br>the case file). |
 | `npm run test:claim-library` | **Everything the public claims library shows is approved library content.**<br>COSTS NOTHING. Pure data; no model call. |
 | `npm run test:claim-surface` | **Verifies the Statement of Claim wiring: gate -> attestation -> draft.**<br>COSTS NOTHING. The gate is pure, the drafting engine is deterministic by hard constraint, and attestation is user input. No model is involved at any point in this surface, so all three constraints are checkable offline. |
 | `npm run test:claim-type-matcher` | **The claim-type matcher works on prose a person would actually write.**<br>COSTS NOTHING. Pure string matching, no AI, no network. |

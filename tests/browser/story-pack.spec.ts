@@ -335,7 +335,7 @@ async function smallClaimsGuided(page: Page, story: Story): Promise<number> {
     const answer = /add the year/i.test(text) ? "October 6, 2026"
       : asksForDate(text) ? "October 6"
       : /bringing this claim|responding to a claim/i.test(text) ? (story.side === "defendant" ? "Responding to a claim (defendant)" : "Bringing the claim (plaintiff)")
-      : /kind of dispute/i.test(text) ? "A contract or agreement dispute"
+      : /kind of dispute/i.test(text) ? (story.dispute ?? "A contract or agreement dispute")
       : /filed|served/i.test(text) ? "No"
       : "I don't know";
     const before = await page.locator("[data-testid=guided-message]").count();
@@ -467,6 +467,34 @@ function checkClaimKind(run: string, where: string, text: string, story: Story) 
   }
 }
 
+/**
+ * Claim type, one value (site owner, 29 Oct): when the page shows a kind of claim the case file holds
+ * (the overview's line, data-claim-kind-held="yes"), every other place on the page that shows or asks
+ * it -- the Form 7A section, "Check my case file", "What we have so far", the overview's own chooser --
+ * shows the same words and none asks it. Read from the page itself, after the real save path.
+ * Checked without a browser by scripts/verification/verifyClaimKindOneValue.ts.
+ */
+async function checkOneClaimKind(run: string, where: string, page: Page, story: Story, route: Route) {
+  const kind = page.locator('[data-testid="claim-kind"][data-claim-kind-held="yes"]').first();
+  const held = (await kind.count()) > 0;
+  const words = held ? (await kind.innerText()).split("\n")[0].trim() : "";
+  // The person's own answer to "What kind of dispute is this?" on the guided route is the kind shown.
+  if (story.court === "small-claims" && story.dispute && route === "questions" && where === "results") {
+    note(run, where, "the kind of dispute the person gave is the kind shown", held && words === story.dispute, words || "(no kind held)");
+  }
+  if (!held) return;
+  note(run, where, "a kind of claim held is not asked again on this page", (await page.getByTestId("claim-kind-chooser").count()) === 0);
+  const form7A = page.getByTestId("statement-of-claim-surface");
+  if (await form7A.count()) {
+    const shown = await form7A.innerText();
+    note(run, where, "the Form 7A section shows the same kind of claim", shown.includes(words) && !/has not been confirmed/i.test(shown), shown.slice(0, 240));
+  }
+  const body = await page.locator("body").innerText();
+  note(run, where, "\"Check my case file\" never says the kind of claim is not confirmed beside it", !/haven't confirmed what kind of claim/i.test(body));
+  const line = page.locator('[data-testid="case-file-line"][data-fact="claimKind"]');
+  if (await line.count()) note(run, where, "\"What we have so far\" shows the same kind of claim", (await line.first().innerText()).includes(words), await line.first().innerText());
+}
+
 for (const story of STORIES) {
   for (const route of story.routes ?? (["questions", "review"] as Route[])) {
     test(`${story.id} (${route})`, async ({ page }) => {
@@ -514,6 +542,7 @@ for (const story of STORIES) {
       const results = await page.locator("body").innerText();
       checkText(run, "results", results); await checkToggles(run, "results", page);
       checkClaimKind(run, "results", results, story);
+      await checkOneClaimKind(run, "results", page, story, route);
       if (settles(story)) {
         note(run, "results", "a stage the answers settle is not asked again", !results.includes("Which of these fits your case best?"));
       }
@@ -551,6 +580,7 @@ for (const story of STORIES) {
         // The header's own side line, for either side (only the responding side had one).
         note(run, "case page", "names the person's side", SIDE_LINE[story.side].test(casePage));
         checkClaimKind(run, "case page", casePage, story);
+        await checkOneClaimKind(run, "case page", page, story, route);
         if (settles(story)) note(run, "case page", "a stage the answers settle is not asked again", !casePage.includes("Which of these fits your case best?"));
       } else note(run, "case page", "the case was saved", false);
 

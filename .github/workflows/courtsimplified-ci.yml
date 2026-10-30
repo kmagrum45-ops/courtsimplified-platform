@@ -276,6 +276,9 @@ jobs:
           git fetch --no-tags --depth=1 origin main:refs/remotes/origin/main
           npm run test:case-file-guard
 
+      - name: Claim type -- one value from the case file on every screen (overview, Check my case file, review, Form 7A, AI fact text)
+        run: npm run test:claim-kind-one-value
+
       - name: Chrome 29 Oct -- forms built from the case file (known problems listed)
         run: npm run test:forms-from-case-file
 
