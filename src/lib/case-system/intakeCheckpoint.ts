@@ -1,5 +1,5 @@
 /** Intake answers and explicit review transitions on the existing owned case record. */
-import { existingFactChanged, inputRevision, reconcileReview, transitionReview } from "./intakeReview";
+import { confirmedAnswerChanged, existingFactChanged, inputRevision, reconcileReview, reviewPhase, transitionReview } from "./intakeReview";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { updateMasterResult } from "./updateCaseRecord";
 import { CASE_REQUEST_TIMEOUT_MS, runCaseWrite } from "../../../app/builder/_components/positionSave";
@@ -12,6 +12,12 @@ export type Checkpoint = {
   courtPath: IntakeCourt;
   revision: string;
   inputRevision?: string;
+  /**
+   * Renewed on every change of the material facts, including an answer added after Confirm,
+   * which keeps `inputRevision` (D1). Guidance built from earlier facts is outdated
+   * (intakeReview.ts guidanceIsCurrent); absent, it is `inputRevision` (factsRevision()).
+   */
+  factsRevision?: string;
   sections: Record<string, Record<string, unknown>>;
 };
 export type IntakeSession = {
@@ -47,7 +53,7 @@ export function readCheckpoint(value: unknown, court: IntakeCourt, flowId?: stri
   const item = record(value);
   try {
     if (item.version !== 1 || item.courtPath !== court || !intakeId(item.flowId) || !intakeId(item.revision) ||
-      (flowId && item.flowId !== flowId) || (item.inputRevision !== undefined && !intakeId(item.inputRevision)) || !item.sections || Array.isArray(item.sections) || typeof item.sections !== "object" ||
+      (flowId && item.flowId !== flowId) || (item.inputRevision !== undefined && !intakeId(item.inputRevision)) || (item.factsRevision !== undefined && !intakeId(item.factsRevision)) || !item.sections || Array.isArray(item.sections) || typeof item.sections !== "object" ||
       !safeJson(item.sections) || new TextEncoder().encode(JSON.stringify(item)).length > MAX_CHECKPOINT_BYTES) return null;
     if (Object.values(item.sections).some((section) => !section || typeof section !== "object" || Array.isArray(section))) return null;
     return item as Checkpoint;
@@ -99,7 +105,11 @@ export async function saveCheckpoint(db: Db, ownerId: string, caseId: string, sn
      * story) cancelled the confirmation on the first "Show my next step" (re-test
      * 2026-10-18).
      */
-    const mustRenew = Boolean(previous && (proof.reviewedRevision || proof.confirmedRevision) && inputRevision(previous) === inputRevision(snapshot) && existingFactChanged(previous, snapshot));
+    // Once confirmed, the same rule as the browser (confirmedAnswerChanged): only an answer that was
+    // confirmed, changed or removed. Against the last save, a box typed into after Confirm counted
+    // each save as a change and cancelled it (Chrome check of #514's preview, 29 Oct).
+    const confirmedNow = Boolean(previous && reviewPhase(workflow, previous) === "user-confirmed");
+    const mustRenew = Boolean(previous && (proof.reviewedRevision || proof.confirmedRevision) && inputRevision(previous) === inputRevision(snapshot) && (confirmedNow ? confirmedAnswerChanged(workflow, previous!, snapshot) : existingFactChanged(previous!, snapshot)));
     const committed = mustRenew ? { ...snapshot, inputRevision: snapshot.revision } : snapshot;
     const changed = materialEdited || Boolean(previous && inputRevision(previous) !== inputRevision(committed));
     return { ...master, intakeCheckpoint: committed, ...(changed ? { workflowStatus: reconcileReview(workflow, previous ?? snapshot, committed, fromReview) } : {}) };

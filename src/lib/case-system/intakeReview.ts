@@ -218,7 +218,74 @@ export function existingFactChanged(previous: Checkpoint, next: Checkpoint): boo
   return false;
 }
 
+/**
+ * THE ONE RULE for whether a person's change starts a new input revision, used by the
+ * browser store (IntakeRecovery.tsx put and "Start the questions again"); the server's
+ * safety net (intakeCheckpoint.ts saveCheckpoint) applies the same existingFactChanged.
+ *
+ * Once the intake is confirmed, only an answer the person already had being changed or
+ * removed cancels the confirmation; an answer that only ADDS a fact keeps it. The browser
+ * used to renew on any difference, so one more answer after Confirm took the tick away
+ * and "Continue to your next steps" sent the person back to the review, on every route
+ * (Chrome re-test 29 Oct, D1), while the server would have kept it.
+ *
+ * Before Confirm any material change renews, so a tick given before a late answer is
+ * asked for again ("You changed an answer. Please tick to confirm again.").
+ */
+export function renewsInputRevision(workflow: ObjectValue, previous: Checkpoint, next: Checkpoint): boolean {
+  if (reviewPhase(workflow, previous) === "user-confirmed") return confirmedAnswerChanged(workflow, previous, next);
+  return materialInitialFacts(next) !== materialInitialFacts(previous);
+}
+
+/** A short, stable mark of one fact's value: enough to tell that it changed, without keeping a copy. */
+function fingerprint(value: string): string {
+  let hash = 0x811c9dc5;
+  for (let index = 0; index < value.length; index++) { hash ^= value.charCodeAt(index); hash = Math.imul(hash, 0x01000193) >>> 0; }
+  return `${hash.toString(16)}:${value.length}`;
+}
+
+/** Each material fact's mark, as confirmed: recorded with the confirmation (transitionReview). */
+export function confirmedFactMarks(checkpoint: Checkpoint): Record<string, string> {
+  return Object.fromEntries([...materialFacts(checkpoint)].map(([key, value]) => [key, fingerprint(value)]));
+}
+
+/**
+ * After Confirm: was an answer the person CONFIRMED changed or removed? Compared with the facts
+ * as they stood at the click (intakeReview.confirmedFacts), never with the last key press: a box
+ * empty at Confirm, typed into one key at a time, is one added answer, not a string of changed
+ * ones (Chrome check of #514's preview, 29 Oct: typing into "Important dates / timeline" after
+ * Confirm cancelled it, because "Ma" counted as changing "M"). A confirmation recorded before the
+ * marks existed falls back to the previous state (existingFactChanged).
+ */
+export function confirmedAnswerChanged(workflow: ObjectValue, previous: Checkpoint, next: Checkpoint): boolean {
+  const marks = object(object(workflow.intakeReview).confirmedFacts);
+  if (!Object.keys(marks).length) return existingFactChanged(previous, next);
+  const now = confirmedFactMarks(next);
+  return Object.entries(marks).some(([key, mark]) => now[key] !== mark);
+}
+
+/**
+ * The browser store's one step for a change of the person's answers (IntakeRecovery.tsx put and
+ * "Start the questions again"): any change of the facts renews `factsRevision`, so next steps
+ * made before it are outdated; `inputRevision` is renewed only when renewsInputRevision says
+ * so. Sets them on `next`; true when the input revision was renewed (the review is reconciled).
+ */
+export function applyFactRevisions(workflow: ObjectValue, previous: Checkpoint, next: Checkpoint): boolean {
+  if (materialInitialFacts(next) !== materialInitialFacts(previous)) next.factsRevision = next.revision;
+  if (!renewsInputRevision(workflow, previous, next)) return false;
+  next.inputRevision = next.revision;
+  return true;
+}
+
 export const inputRevision = (checkpoint: Checkpoint) => checkpoint.inputRevision ?? checkpoint.revision;
+/**
+ * Which version of the facts the guidance must have been built from. An answer added after
+ * Confirm keeps the confirmation (renewsInputRevision) but not the guidance: the next steps
+ * were made without it, so they are outdated until made again (D1 review, 29 Oct).
+ */
+export const factsRevision = (checkpoint: Checkpoint) => checkpoint.factsRevision ?? inputRevision(checkpoint);
+/** The facts version the stored guidance was built from (older guidance: its input revision). */
+export const guidanceFactsRevision = (master: unknown): unknown => object(master).guidanceFactsRevision ?? object(master).guidanceInputRevision;
 /** Shared UI/API policy. Legacy booleans never establish explicit confirmation. */
 export function confirmedIntakeRevision(master: unknown, court?: string | null, caseId?: string): string | null {
   const record = object(master);
@@ -232,7 +299,21 @@ export function confirmedIntakeRevision(master: unknown, court?: string | null, 
 /** A confirmed revision cannot reveal analysis produced for earlier facts. */
 export function guidanceIsCurrent(master: unknown, court?: string | null, caseId?: string): boolean {
   const revision = confirmedIntakeRevision(master, court, caseId);
-  return Boolean(revision && object(master).guidanceInputRevision === revision);
+  if (!revision || object(master).guidanceInputRevision !== revision) return false;
+  // confirmedIntakeRevision read this checkpoint already, so it is valid for this court.
+  const checkpoint = object(object(master).intakeCheckpoint) as unknown as Checkpoint;
+  // An answer added after Confirm keeps the confirmation, never next steps made without it (D1 review).
+  return guidanceFactsRevision(master) === factsRevision(checkpoint);
+}
+
+/**
+ * Confirmed, with next steps made for the confirmed information, but an answer has been added
+ * since: the confirmation stands and only the next steps need making again ("Update them"),
+ * never "review again".
+ */
+export function guidanceNeedsUpdate(master: unknown, court?: string | null, caseId?: string): boolean {
+  const revision = confirmedIntakeRevision(master, court, caseId);
+  return Boolean(revision && object(master).guidanceInputRevision === revision && !guidanceIsCurrent(master, court, caseId));
 }
 
 /** An unfinished case API returns intake/user records, never cached procedural output. */
@@ -451,7 +532,7 @@ export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, 
   if (action === "confirm" && reviewPhase(workflow, checkpoint) === "user-confirmed") return workflow;
   if (action === "confirm" && reviewPhase(workflow, checkpoint) !== "reviewing") throw new Error("Review the current information before confirming it.");
   if (action === "confirm" && remainingEssentialQuestions(checkpoint).length) throw new Error("Answer the remaining initial questions, or explicitly mark what you do not know, before confirming.");
-  return { ...workflow, intakeCompleted: action === "confirm", intakeReview: { version: 1, reviewedRevision: expectedInputRevision, ...(action === "confirm" ? { confirmedRevision: expectedInputRevision, confirmedAt: now } : {}) } };
+  return { ...workflow, intakeCompleted: action === "confirm", intakeReview: { version: 1, reviewedRevision: expectedInputRevision, ...(action === "confirm" ? { confirmedRevision: expectedInputRevision, confirmedAt: now, confirmedFacts: confirmedFactMarks(checkpoint) } : {}) } };
 }
 
 /**
