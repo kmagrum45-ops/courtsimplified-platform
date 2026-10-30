@@ -199,7 +199,10 @@ test("Open on each of two saved cases from My cases opens that case", async ({ p
   await page.waitForURL((url) => url.pathname === "/dashboard", { timeout: 60_000 });
   for (const [id, court, other] of [[A, "small-claims", STORY.family], [B, "family", STORY["small-claims"]], [A, "small-claims", STORY.family]] as [string, Court, string][]) {
     await expect(page.getByTestId("dashboard-case").first()).toBeVisible({ timeout: 60_000 });
-    await page.locator(`[data-testid="dashboard-case"][href*="${id}"]`).first().click();
+    // My cases shows the latest case on top and folds the rest under "Other cases"; open the fold as a person would.
+    const card = page.locator(`[data-testid="dashboard-case"][href*="${id}"]`).first();
+    if (!(await card.isVisible())) await page.getByTestId("dashboard-other-cases").locator("summary").click();
+    await card.click();
     await expectBuilderOn(page, court, id, other.slice(0, 40));
     await settled(page);
     await myCases(page);
