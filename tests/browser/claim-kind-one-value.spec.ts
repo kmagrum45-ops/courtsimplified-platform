@@ -112,6 +112,13 @@ async function guidedUntilKind(page: Page, kind: string): Promise<boolean> {
   return false;
 }
 
+/**
+ * A review choice by its words, marked or not as the story's suggestion ("... (suggested from your story)"):
+ * the review marks the kind the story names, so an exact name missed it (local run on 16c9f945).
+ */
+const escapeForRegExp = (text: string) => text.replace(/[.*+?^$(){}|[\]\\]/g, "\\$&");
+const choiceNamed = (words: string) => new RegExp("^" + escapeForRegExp(words) + "(?: \\(suggested from your story\\))?$");
+
 /** The review: the kind of dispute answered here if not yet, everything else "I don't know yet", Confirm. */
 /** "Stop initial questions and review" (once it is enabled), unless the review is already open. */
 async function openReview(page: Page) {
@@ -129,7 +136,7 @@ async function reviewAndConfirm(page: Page, kind: string | null) {
   const panel = page.getByTestId("intake-review");
   await openReview(page);
   const kindQuestion = page.locator('[data-question="sc-orient-dispute-category"]');
-  if (kind && (await kindQuestion.count())) await kindQuestion.getByRole("button", { name: kind, exact: true }).click();
+  if (kind && (await kindQuestion.count())) await kindQuestion.getByRole("button", { name: choiceNamed(kind) }).click();
   await recordInitialUnknowns(page);
   await page.getByTestId("intake-review-acknowledgement").check();
   await page.getByTestId("intake-confirm").click();
@@ -282,12 +289,16 @@ for (const route of ["review", "form"] as const) {
       await form7AAgrees(page, shown.words, route);
       expect.soft(await checkMyCaseFile(page), "\"Check my case file\" agrees").not.toMatch(NOT_CONFIRMED);
 
-      // Reloaded: the saved case reopened. Wherever the overview is drawn again, the Form 7A section is too, with the same kind.
+      // Reloaded: the saved case reopened. A completed case reloads onto its case page (IntakeRecovery.tsx,
+      // guidance current -> /cases/<id>), which shows the overview but has no Form 7A section (a builder
+      // section): there the overview's kind must still be the person's. On the builder, the section is drawn too.
       await page.reload();
       await page.waitForLoadState("networkidle").catch(() => {});
       const overviewAgain = await page.getByTestId("claim-kind").first().isVisible({ timeout: 60_000 }).catch(() => false);
-      test.info().annotations.push({ type: "reloaded", description: overviewAgain ? "overview shown again" : "overview not shown on reload" });
-      if (overviewAgain) await form7AAgrees(page, (await overviewKind(page)).words, `${route}, reloaded`);
+      const onBuilder = new URL(page.url()).pathname === "/builder";
+      test.info().annotations.push({ type: "reloaded", description: `${onBuilder ? "builder" : new URL(page.url()).pathname}; ${overviewAgain ? "overview shown again" : "overview not shown"}` });
+      if (overviewAgain) expect.soft(await overviewKind(page), `the overview still shows the person's answer (${route}, reloaded)`).toEqual({ label: "Kind of dispute (your answer)", words: DEFAMATION });
+      if (overviewAgain && onBuilder) await form7AAgrees(page, (await overviewKind(page)).words, `${route}, reloaded`);
     } finally {
       await deleteHarnessUser(userId);
     }
@@ -304,7 +315,7 @@ test("claim type, one value: a guest gives the kind in the review; it is never a
   await openReview(page);
   const kindQuestion = page.locator('[data-question="sc-orient-dispute-category"]');
   await expect(kindQuestion, "the review asks the kind once (nothing has given it)").toHaveCount(1, { timeout: 60_000 });
-  await kindQuestion.getByRole("button", { name: DEFAMATION, exact: true }).click();
+  await kindQuestion.getByRole("button", { name: choiceNamed(DEFAMATION) }).click();
   await recordInitialUnknowns(page);
   await page.getByTestId("intake-review-acknowledgement").check();
   await page.getByTestId("intake-confirm").click();
