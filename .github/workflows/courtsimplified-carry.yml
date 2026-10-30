@@ -7,8 +7,8 @@ name: CourtSimplified carry end to end
 # (tests/browser/harness/carryBaseline.json) fails. The real save path: real staging accounts and
 # rows; only the routes that would call a model are stood in. No AI spend.
 #
-# Its own workflow because nine long runs do not fit the browser-regression job's 25 minutes: one
-# machine per court (three runs each), then one job that adds the three parts up and prints
+# Its own workflow because twelve long runs do not fit the browser-regression job's 25 minutes: one
+# machine per part (Small Claims: six runs over two machines; civil and Family: three each), then one job that adds the parts up and prints
 #   CARRY COUNTS asked-twice=N returned-after-removal=N wrong-case=N screens-disagree=N
 # and the stale baseline entries.
 
@@ -25,7 +25,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        court: [small-claims, civil, family]
+        include:
+          # Small Claims: six runs (every route, guest and signed in) over two machines, by who.
+          - part: small-claims-guest
+            grep: "carry end to end -- small-claims (questions|review|form) guest$"
+          - part: small-claims-signed-in
+            grep: "carry end to end -- small-claims (questions|review|form) signed-in$"
+          - part: civil
+            grep: "carry end to end -- civil "
+          - part: family
+            grep: "carry end to end -- family "
 
     env:
       NODE_OPTIONS: --max-old-space-size=8192
@@ -74,16 +83,16 @@ jobs:
           done
           echo "server did not start"; tail -50 server.log; exit 1
 
-      - name: The carry test (${{ matrix.court }})
+      - name: The carry test (${{ matrix.part }})
         env:
           PLAYWRIGHT_BASE_URL: http://localhost:3100
-        run: npx playwright test tests/browser/carry-end-to-end.spec.ts --grep "carry end to end -- ${{ matrix.court }} " --reporter=line --workers=1
+        run: npx playwright test tests/browser/carry-end-to-end.spec.ts --grep "${{ matrix.grep }}" --reporter=line --workers=1
 
       - name: Keep the records
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: carry-records-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.court }}
+          name: carry-records-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.part }}
           path: |
             carry-records/**
             test-results/**/error-context.md

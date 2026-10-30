@@ -3,8 +3,9 @@
  * (site owner, 30 Oct: "a fact given once is known everywhere, never asked again, never refilled
  * after the person removed it, never shown on the wrong case").
  *
- * WHAT IT CHECKS. Nine runs: each court (Small Claims, civil, Family) through each route (the
- * questions one at a time, the review then "Show my next step", the whole form), guest or signed
+ * WHAT IT CHECKS. Twelve runs: each court (Small Claims, civil, Family) through each route (the
+ * questions one at a time, the review then "Show my next step", the whole form); Small Claims (the
+ * owner's demo court) guest AND signed in on every route, civil and Family guest or signed
  * in. Each run: gives the story; answers each question once; gives two tracked facts in the form
  * (a value to CHANGE later and a value to REMOVE later, both typed by the person and absent from
  * the story, so seeing them anywhere is unambiguous); reloads; a guest signs in from the builder
@@ -44,7 +45,7 @@
  * The next-step analysis and "Check my case file" run on the site's own server, which in CI holds no
  * model key, so they use the site's deterministic engines.
  *
- * Run: CI only (.github/workflows/courtsimplified-carry.yml, one machine per court, against a production
+ * Run: CI only (.github/workflows/courtsimplified-carry.yml, four machines of three runs (Small Claims by guest / signed in), against a production
  * build on port 3100 and staging). Not runnable on the owner's machine (no dev server). Locally against a
  * served build: PLAYWRIGHT_BASE_URL=... npx playwright test tests/browser/carry-end-to-end.spec.ts
  */
@@ -52,7 +53,7 @@ import { expect, test, type Locator, type Page } from "@playwright/test";
 import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { createRealTestAccount, deleteHarnessUser, harnessAdmin } from "./harness/realTestSession";
 import { grantSiteAccess } from "./harness/siteAccess";
-import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
+import { answerSituation, autoAnswerSituation, situationAnswersFor, STARTING_NOTHING_FILED } from "./harness/situation";
 import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns, type Court } from "./harness/thisCommitServer";
 import { factsAskedTwice, heldFacts, heldViolations, recordAsks, repeatViolations, type Asked, type HeldState } from "./harness/askOnce";
@@ -104,15 +105,22 @@ const MARK_B = /plum-yellow/i;
 const SIDE: Record<Court, "plaintiff" | "applicant"> = { "small-claims": "plaintiff", civil: "plaintiff", family: "applicant" };
 const ISSUE: Record<Court, string> = { "small-claims": "", civil: "contract", family: "parenting-time" };
 
-const RUNS: { court: Court; route: RouteName; who: Who }[] = (["small-claims", "civil", "family"] as Court[]).flatMap((court) => [
-  { court, route: "questions" as RouteName, who: "guest" as Who },
-  { court, route: "review" as RouteName, who: "guest" as Who },
-  { court, route: "form" as RouteName, who: "signed-in" as Who },
-]);
+const ROUTES: RouteName[] = ["questions", "review", "form"];
+/**
+ * Small Claims (the owner's demo court, 30 Oct): every route, guest AND signed in (six runs, split
+ * over two CI machines by who). Civil and Family: each route once, guest on the questions and review,
+ * signed in on the form.
+ */
+const RUNS: { court: Court; route: RouteName; who: Who }[] = [
+  ...ROUTES.flatMap((route) => (["guest", "signed-in"] as Who[]).map((who) => ({ court: "small-claims" as Court, route, who }))),
+  ...(["civil", "family"] as Court[]).flatMap((court) => ROUTES.map((route) => ({ court, route, who: (route === "form" ? "signed-in" : "guest") as Who }))),
+];
 
 class Run {
   violations: CarryViolation[] = [];
   unreached: string[] = [];
+  /** Screens this route's page does not draw at all (reported in the record, never read as a zero). */
+  notDrawn: string[] = [];
   /** The tracked facts' state, as the person left them. */
   changed = false;
   removed = false;
@@ -128,7 +136,12 @@ class Run {
   }
   /** A step that must be reached for the counts to mean anything; a failure is recorded and the run goes on. */
   async step(name: string, body: () => Promise<void>) {
-    try { await body(); } catch (error) { this.unreached.push(`${name}: ${String(error).split("\n")[0].slice(0, 200)}`); }
+    try { await body(); } catch (error) {
+      // The first line and the locator it waited on (CI run 41096555611 recorded only "toBeVisible() failed").
+      const message = String(error).replace(/\u001b\[[0-9;]*m/g, "");
+      const waited = /Locator: (.*)/.exec(message)?.[1] ?? /waiting for (.*)/.exec(message)?.[1] ?? "";
+      this.unreached.push(`${name}: ${message.split("\n")[0].slice(0, 160)}${waited ? ` [waited on ${waited.trim().slice(0, 200)}]` : ""}`);
+    }
   }
 }
 
@@ -141,9 +154,35 @@ function idOf(page: Page): string {
   return url.searchParams.get("intake") ?? url.searchParams.get("caseId") ?? "";
 }
 
+/**
+ * Gets the builder to its intake: the first-use notice (shown once PER ACCOUNT, keyed by user id in
+ * FirstUseAcknowledgement.tsx, so a guest who signs in meets it again on the builder) and the
+ * situation questions, whenever either comes, then waits for the intake itself. CI run 41096555611:
+ * every guest run stopped right after sign-in because the notice stood in front of the form, and an
+ * expect() does not trigger a locator handler (only actions do).
+ */
 async function passNotice(page: Page) {
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
-  if (await acknowledgement.isVisible().catch(() => false)) { await acknowledgement.check(); await page.getByTestId("acknowledgement-continue").click(); }
+  const situation = page.getByTestId("situation-questions");
+  const ready = page.getByTestId("intake-review")
+    .or(page.getByTestId("guided-form-question"))
+    .or(page.getByTestId("guided-form-show-form"))
+    .or(page.getByRole("button", { name: "Fill in the form yourself" }))
+    .or(page.getByTestId("sc-intake-otherParty"))
+    .or(page.getByTestId("completed-case-overview"))
+    .or(page.locator("[data-testid=guided-message]").first());
+  for (let round = 0; round < 5; round++) {
+    await expect(acknowledgement.or(situation).or(ready).first()).toBeVisible({ timeout: 60_000 });
+    // The notice decides after the page draws (it reads the account first): give it that moment.
+    await page.waitForTimeout(1_500);
+    if (await acknowledgement.isVisible().catch(() => false)) {
+      await acknowledgement.check();
+      await page.getByTestId("acknowledgement-continue").click();
+      continue;
+    }
+    if (await situation.isVisible().catch(() => false)) { await answerSituation(page, situationAnswersFor(page)); continue; }
+    return;
+  }
 }
 
 /** The story given at the start: the home page for Small Claims, the builder's first question elsewhere. */
@@ -174,7 +213,28 @@ async function signInFromBuilder(run: Run, account: { email: string; password: s
   await page.getByRole("button", { name: "Login", exact: true }).last().click();
   await page.waitForURL((url) => url.pathname === "/builder" && Boolean(url.searchParams.get("intake")) && url.searchParams.get("intake") !== before, { timeout: 90_000 });
   run.caseA = idOf(page);
+  // The account meets the first-use notice again (it is kept per account): pass it, as the person does.
+  await passNotice(page);
   await expect(page.getByTestId("intake-save-status")).toContainText(/saved/i, { timeout: 60_000 });
+}
+
+/**
+ * Opens a case from My cases with an in-app click (the router-cache path of PR #532). My cases folds
+ * older cases under "Other cases" (dashboard-other-cases, a <details>): opened first when the case is
+ * in it (CI run 41096555611: the first case was folded once the second existed).
+ */
+async function openFromDashboard(page: Page, id: string) {
+  await page.goto("/dashboard");
+  await expect(page.getByTestId("dashboard-case").first()).toBeVisible({ timeout: 60_000 });
+  const link = page.locator(`a[href*="${id}"]`).first();
+  if (!(await link.isVisible().catch(() => false))) {
+    const fold = page.getByTestId("dashboard-other-cases");
+    if ((await fold.count()) && (await fold.getAttribute("open")) === null) await fold.locator("summary").first().click();
+  }
+  await expect(link).toBeVisible({ timeout: 30_000 });
+  await link.click();
+  await page.waitForURL((url) => url.href.includes(id), { timeout: 60_000 });
+  await page.waitForTimeout(3_000);
 }
 
 /** The Small Claims questions one at a time, each answered once, the tracked facts with the person's values. */
@@ -321,7 +381,10 @@ async function answerReview(run: Run) {
 /** Confirm, then "Show my next step": the overview. */
 async function confirmAndShow(run: Run) {
   const { page, court } = run;
-  await page.goto(`/builder?path=${court}&intake=${run.caseA}${court === "small-claims" ? "&step=form" : ""}`);
+  // Small Claims questions continue from the questions (step=guided): only that route's completion
+  // draws the Form 7A section (app/builder/page.tsx:1319 setDraftInput, read at :2678).
+  const step = court !== "small-claims" ? "" : run.route === "questions" ? "&step=guided" : "&step=form";
+  await page.goto(`/builder?path=${court}&intake=${run.caseA}${step}`);
   await passNotice(page);
   await answerReview(run);
   const panel = page.getByTestId("intake-review");
@@ -397,7 +460,11 @@ async function readOverview(run: Run, when: string) {
   if (run.court === "small-claims") {
     await surface.waitFor({ state: "visible", timeout: 30_000 }).catch(() => {});
     if (await surface.isVisible().catch(() => false)) judge(run, `form-7a (${when})`, {}, await surface.innerText());
-    else run.unreached.push(`form-7a (${when}): the Form 7A section was not shown`);
+    // The site draws the section only after the questions one at a time (page.tsx:1319 sets draftInput
+    // there and nowhere else; :2678 reads it): there it must be reached; on the form and review routes the
+    // page has no such section, which is recorded (notDrawn) and printed, not counted as reached.
+    else if (run.route === "questions") run.unreached.push(`form-7a (${when}): the Form 7A section was not shown`);
+    else run.notDrawn.push(`form-7a (${when}): not drawn on the ${run.route} route (draftInput is set only by the questions' completion, app/builder/page.tsx:1319)`);
   }
 }
 
@@ -433,6 +500,12 @@ for (const { court, route, who } of RUNS) {
     const track = TRACK[court];
     await grantSiteAccess(page);
     await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+    // The first-use notice, whenever it comes before an action (it is per account, so it comes again
+    // after a guest signs in). Assertions are covered by passNotice.
+    await page.addLocatorHandler(page.getByTestId("acknowledgement-checkbox"), async () => {
+      await page.getByTestId("acknowledgement-checkbox").check();
+      await page.getByTestId("acknowledgement-continue").click();
+    }, { noWaitAfter: true });
 
     // Who the person is: a real staging account (signed in from the start, or signed in from the builder).
     let userId: string | null = null;
@@ -551,22 +624,13 @@ for (const { court, route, who } of RUNS) {
       segment("a");
       current = run.caseA;
       await run.step("back to the first case from the dashboard", async () => {
-        await page.goto("/dashboard");
-        const link = page.locator(`a[href*="${run.caseA}"]`).first();
-        await expect(link).toBeVisible({ timeout: 60_000 });
-        await link.click();
-        await page.waitForURL((url) => url.href.includes(run.caseA), { timeout: 60_000 });
-        await page.waitForTimeout(3_000);
+        await openFromDashboard(page, run.caseA);
         judge(run, "first case from the dashboard", {}, await page.locator("body").innerText());
-        // Then the second case the same way: it must show itself, not the first.
-        await page.goto("/dashboard");
-        const second = page.locator(`a[href*="${run.caseB}"]`).first();
-        if (run.caseB && (await second.isVisible({ timeout: 30_000 }).catch(() => false))) {
-          await second.click();
-          await page.waitForURL((url) => url.href.includes(run.caseB), { timeout: 60_000 });
-          await page.waitForTimeout(3_000);
-          judge(run, "second case from the dashboard", {}, await page.locator("body").innerText(), "b");
-        }
+      });
+      // Then the second case the same way: it must show itself, not the first.
+      await run.step("the second case from the dashboard", async () => {
+        await openFromDashboard(page, run.caseB);
+        judge(run, "second case from the dashboard", {}, await page.locator("body").innerText(), "b");
       });
       await run.step("the first case by its address", async () => {
         await readBuilder(run, "first case by address, after the second case");
@@ -587,8 +651,10 @@ for (const { court, route, who } of RUNS) {
     }
 
     const { known, unknown } = splitByBaseline(run.violations, readBaseline());
-    writeRunRecord({ run: run.name, court, route, who, violations: run.violations, known: known.length, unknown: unknown.length, unreached: run.unreached });
+    writeRunRecord({ run: run.name, court, route, who, violations: run.violations, known: known.length, unknown: unknown.length, unreached: run.unreached, notDrawn: run.notDrawn });
     console.log(countsLine(countsOf(run.violations), `[${run.name}]`));
+    for (const item of run.unreached) console.log(`CARRY UNREACHED [${run.name}] ${item}`);
+    for (const item of run.notDrawn) console.log(`CARRY NOT DRAWN [${run.name}] ${item}`);
     for (const item of unknown) console.log(`CARRY NEW ${item.kind} ${item.fact} @ ${item.where}: ${item.detail}`);
     expect(run.unreached, "every step of the run was reached (a count from a step never reached is not a zero)").toEqual([]);
     expect(unknown.map((item) => `${item.kind} ${item.fact} @ ${item.where}: ${item.detail}`), "no violation outside the baseline (harness/carryBaseline.json)").toEqual([]);
