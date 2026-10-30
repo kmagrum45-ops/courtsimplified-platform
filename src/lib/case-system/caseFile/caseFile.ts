@@ -83,6 +83,10 @@ export type CaseFile = Record<SlotFact, Slot> & {
    * section on every Small Claims route, never rebuilt from a screen's copy (site owner, 30 Oct).
    */
   elementStates?: Record<string, unknown>;
+  /** The AI's suggested kind waiting for the person's "That's right" / "Not quite" (the guided route). */
+  claimKindPending?: { claimTypeId: string; quote: string | null };
+  /** Kinds the person said are not theirs ("Not quite"): never offered again, never sent to an AI as known. */
+  claimKindRemoved?: string[];
 };
 
 /** Where the case file keeps what it adds: the facts answered "not sure", and those offered again at the end. */
@@ -315,6 +319,11 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
     }
     else file.claimKindProposal ??= { claimTypeId: matched.claimTypeId, quote: typeof matched.quote === "string" ? matched.quote : null };
   }
+  // The AI's suggestion waiting for an answer, and the kinds the person turned down (aiCaseContext.ts).
+  const pending = object(guided.pendingSuggestion);
+  if (typeof pending.claimTypeId === "string" && isKindOfClaim(pending.claimTypeId)) file.claimKindPending = { claimTypeId: pending.claimTypeId, quote: typeof pending.quote === "string" ? pending.quote : null };
+  const turnedDown = strings(guided.rejectedSuggestionIds);
+  if (turnedDown.length) file.claimKindRemoved = turnedDown;
 
   // 4. The review's answers, and its "I don't know yet".
   const builder = object(sections.builder);
@@ -358,6 +367,10 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
     }
     else file.claimKindProposal ??= { claimTypeId: extra.confirmedClaimTypeId, quote: typeof extra.claimTypeQuote === "string" ? extra.claimTypeQuote : null };
   }
+  // An older saved case with no checkpoint kept the issues picked on a civil or Family form only in its
+  // analysis copy: read here only, as a fallback (route-implied, like the form's own answer).
+  const savedArea = court ?? object(object(master).intakeData).courtPath;
+  if (!checkpoint && (savedArea === "civil" || savedArea === "family") && strings(extra.issues).length) give(file, "claimKind", strings(extra.issues), `${savedArea}:issues`);
   // The element record the analysis saved with the case (the depth phase's answers), for the Form 7A section.
   const savedElementStates = object(extra.elementStateMap);
   if (Object.keys(savedElementStates).length) file.elementStates = savedElementStates;

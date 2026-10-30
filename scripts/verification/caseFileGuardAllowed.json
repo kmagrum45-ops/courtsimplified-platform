@@ -1316,13 +1316,6 @@
     "scanFound": true
   },
   {
-    "row": 116,
-    "fact": "story",
-    "pattern": "sy.guidedTranscript",
-    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
-    "reason": "Inventory row 116: story :: checkpoint guided.messages, guided.suggestionStoryText (GuidedSmallClaimsIntake.tsx:542,594)"
-  },
-  {
     "row": 118,
     "fact": "story / answers",
     "pattern": "sy.sourcedAnswers",

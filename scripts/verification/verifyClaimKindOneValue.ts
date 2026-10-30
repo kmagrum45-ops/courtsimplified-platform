@@ -34,6 +34,12 @@
  * source is checked so the Form 7A section is drawn on every Small Claims route from the case file
  * alone (its render depends on no route's own state, and it takes no fact but the case file).
  *
+ * Also: the Family forms' parenting question offered from the issues the case file holds (an older
+ * case through the case file's fallback; an issue removed never offered back from the analysis copy),
+ * and rule 8: the claim-type AI call's context built from the case file (aiCaseContext.ts) -- the
+ * story and side as held, the person's kind as known, a suggestion open only while none is held, the
+ * kinds turned down sent only to be left out, never as known.
+ *
  * Failure it exists to catch: any screen reading the kind of claim from its own copy again, or the
  * Form 7A section drawn on one route only (it was, from the questions one at a time's own copy).
  */
@@ -41,7 +47,9 @@ import { readFileSync } from "node:fs";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { caseFileOf, claimKindOf, claimKindLine, alreadyAsked, type CaseFile } from "../../src/lib/case-system/caseFile/caseFile";
-import { caseFileOfMaster } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
+import { caseFileOfMaster, claimKindOfMaster } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
+import { claimKindAiContext, classifyClaimTypeBody } from "../../src/lib/case-system/caseFile/aiCaseContext";
+import { suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";
 import { readCheckpoint, type Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { remainingEssentialQuestions, transitionReview } from "../../src/lib/case-system/intakeReview";
 import { caseFileFromMasterResult, deterministicFindings } from "../../src/lib/case-system/caseReview/caseReview";
@@ -79,6 +87,8 @@ const GOING_NOTED: Record<string, unknown> = { situation: { record: { where: "go
 const GUIDED_DEFAMATION = { guided: { answeredIds: ["sc-orient-dispute-category"], facts: { role: "plaintiff", disputeCategory: "defamation" }, earlierAnswers: [{ questionId: "sc-orient-dispute-category", answerText: DEFAMATION_WORDS }] }, builder: { step: "guided" } };
 
 const text = (html: string) => html.replace(/<[^>]+>/g, " ").replace(/&quot;/g, '"').replace(/&#x27;/g, "'").replace(/&amp;/g, "&").replace(/&ldquo;|&rdquo;/g, '"').replace(/\s+/g, " ").trim();
+/** Source without its comments, for the checks that read the code itself. */
+const strip = (source: string) => source.replace(/\{\/\*[\s\S]*?\*\/\}/g, "").replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
 const ANALYSIS = { courtPath: "small-claims", caseStage: "already-started", completedForms: [], receivedForms: [], requiredNextForms: [], notNeededNow: [], detectedIssues: [], inferredFacts: [], missingInformation: [], risksAndGaps: [], guidance: [], summary: "", legalIssues: [], detectedClaimTypes: [], research: { findings: [] }, appliedLaw: [] } as never;
 
 /** What every screen shows or asks for the kind of claim, each through its own code. */
@@ -186,8 +196,36 @@ const freshForm = savedCase(checkpointOf("small-claims", { situation: { record: 
 const freshFormScreens = agrees("fresh case, whole form route", freshForm, null);
 check("fresh case, whole form route: the Form 7A section is drawn (says no kind is recorded yet)", /Form 7A/.test(freshFormScreens.form7A) && /No kind of claim is recorded/.test(freshFormScreens.form7A), freshFormScreens.form7A.slice(0, 200));
 
+// 8b. The Family forms' "Does your case include a claim about decision-making, parenting time or contact?"
+// is offered from the issues the case file holds (route-implied), on a case with its checkpoint and on an
+// older one with only the analysis copy (the case file's fallback), never from that copy by itself.
+const parentingQuestion = [{ field_path: "formApplicability.family.hasDecisionMakingParentingTimeOrContactClaim", choices: [{ value: true }, { value: false }] }] as never;
+const parentingCase = savedCase(checkpointOf("family", { family: { issues: ["parenting-time"] } }));
+check("Family parenting issue picked: the forms' question is offered 'yes' from the case file", suggestApplicability(parentingQuestion, readCaseRecord(parentingCase, "family"), parentingCase)[0]?.value === true);
+const olderParenting = { intakeData: { courtPath: "family", extra: { issues: ["decision-making-responsibility"] } } };
+check("Family parenting issue, older saved case (analysis copy only): offered 'yes' through the case file's fallback", suggestApplicability(parentingQuestion, readCaseRecord(olderParenting, "family"), olderParenting)[0]?.value === true && claimKindOfMaster(olderParenting, "family").source === "route-implied");
+const removedParenting = savedCase(checkpointOf("family", { family: { issues: ["child-support"] } }), { issues: ["parenting-time"] });
+check("Family: an issue removed from the form is not offered back from the analysis copy", suggestApplicability(parentingQuestion, readCaseRecord(removedParenting, "family"), removedParenting).length === 0);
+
+// 8c. Rule 8: the claim-type AI call's case context comes from the case file (aiCaseContext.ts), never
+// the screen: the story and side as the file holds them, the kind held as known, an open suggestion only
+// while nothing is held, the kinds turned down sent only as kinds to leave out, never as known.
+const pendingCase = savedCase(checkpointOf("small-claims", { ...GOING_NOTED, guided: { pendingSuggestion: { claimTypeId: "sc-claim-unpaid-debt-services", claimTypeName: "x", quote: "money" }, rejectedSuggestionIds: ["sc-claim-defamation-libel-slander"] } }));
+const pendingContext = claimKindAiContext(caseFileOfMaster(pendingCase, "small-claims"));
+check("rule 8: the AI context's story is the case file's", pendingContext.story === DEFAMATION_STORY);
+check("rule 8: the AI context's side is the case file's (the situation answers)", pendingContext.side === "plaintiff", String(pendingContext.side));
+check("rule 8: nothing held, the pending suggestion is open, not known", pendingContext.confirmed === null && pendingContext.openSuggestion?.claimTypeId === "sc-claim-unpaid-debt-services");
+check("rule 8: a kind turned down is sent only to be left out", pendingContext.removed.includes("sc-claim-defamation-libel-slander") && pendingContext.openSuggestion?.claimTypeId !== "sc-claim-defamation-libel-slander");
+const pendingBody = classifyClaimTypeBody(pendingContext, "reject", "sc-claim-unpaid-debt-services");
+check("rule 8: the classify-claim-type body carries only story, side, the answer and the kinds turned down", JSON.stringify(Object.keys(pendingBody ?? {}).sort()) === JSON.stringify(["action", "claimTypeId", "facts", "priorRejectedIds", "storyText"]) && JSON.stringify(pendingBody?.facts) === JSON.stringify({ role: "plaintiff" }), JSON.stringify(pendingBody));
+check("rule 8: a suggestion already turned down is never sent again", classifyClaimTypeBody(pendingContext, "confirm", "sc-claim-defamation-libel-slander") === null);
+const heldContext = claimKindAiContext(caseFileOfMaster(owner, "small-claims"));
+check("rule 8: the person's kind is the known one, and no suggestion is open over it", heldContext.confirmed?.words === DEFAMATION_WORDS && heldContext.confirmed?.source === "person-said" && heldContext.openSuggestion === null);
+const guidedChat = strip(readFileSync("app/builder/_components/GuidedSmallClaimsIntake.tsx", "utf8"));
+const classifyCall = guidedChat.slice(guidedChat.indexOf("/api/intake/classify-claim-type"), guidedChat.indexOf("/api/intake/classify-claim-type") + 400);
+check("rule 8: the guided chat sends the classify-claim-type body built from the case file", /classifyClaimTypeBody\(\s*claimKindAiContext\(caseFileOf\(/.test(guidedChat) && /body: JSON\.stringify\(requestBody\)/.test(classifyCall), classifyCall);
+
 // 9. The builder draws the Form 7A section on every Small Claims route, from the case file alone.
-const strip = (source: string) => source.replace(/\{\/\*[\s\S]*?\*\/\}/g, "").replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
 const builder = strip(readFileSync("app/builder/page.tsx", "utf8"));
 const renderAt = builder.indexOf("<StatementOfClaimSurface");
 const opening = builder.lastIndexOf("{", renderAt);

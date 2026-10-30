@@ -136,10 +136,11 @@ function suggest(
   }
 
   // "Does your case include a claim about decision-making, parenting time or contact?"
+  // The issues they picked are the kind of claim the case file holds (route-implied, caseFile.ts
+  // claimKindOf), read from the record (readCaseRecord), never the analysis copy (inventory row 155).
   if (last === "hasDecisionMakingParentingTimeOrContactClaim") {
-    const issues = asRecord(asRecord(master.intakeData).extra).issues;
-    const list = Array.isArray(issues) ? issues.map(String) : [];
-    if (list.some((issue) => /decision|custody|parenting|access|contact/i.test(issue))) {
+    const picked = record.claimKind?.state === "answered" && record.claimKind.source === "route-implied" ? record.claimKind.words ?? "" : "";
+    if (/decision|custody|parenting|access|contact/i.test(picked)) {
       return { value: true, reason: "The issues you chose include parenting.", firm: true };
     }
   }

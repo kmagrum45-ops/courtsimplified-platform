@@ -38,6 +38,7 @@ import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
 import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
 import { storyQuoteFor } from "@/src/lib/case-system/intake/claimKind";
 import { alreadyAsked, askedAndReplied, caseFileOf } from "@/src/lib/case-system/caseFile/caseFile";
+import { claimKindAiContext, classifyClaimTypeBody } from "@/src/lib/case-system/caseFile/aiCaseContext";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { WorkingButton, WorkingNote } from "@/app/_components/Working";
 import StoryGuidance from "@/app/_components/StoryGuidance";
@@ -590,13 +591,12 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   // into matchedClaimType, evidenceGuidance, or claimGuidance until the
   // user says yes via handleConfirmSuggestion below.
   const [pendingSuggestion, setPendingSuggestion] = useIntakeState<MatchedClaimType | null>("guided", "pendingSuggestion", null);
-  // The exact story text the pending suggestion was classified from --
-  // confirming/rejecting re-uses this same text rather than re-sending
-  // whatever the user has typed since.
-  const [suggestionStoryText, setSuggestionStoryText] = useIntakeState("guided", "suggestionStoryText", "");
+  // Confirming or turning it down sends the story the case file holds (aiCaseContext.ts, 30 Oct),
+  // no longer a copy kept here of the text it was classified from.
   // Ids already rejected in this suggestion cycle -- capped at one retry,
   // enforced server-side too (claimTypeSuggestionResolution.ts).
-  const [rejectedSuggestionIds, setRejectedSuggestionIds] = useIntakeState<string[]>("guided", "rejectedSuggestionIds", []);
+  // Kept in the checkpoint, read back through the case file (claimKindRemoved, aiCaseContext.ts).
+  const [, setRejectedSuggestionIds] = useIntakeState<string[]>("guided", "rejectedSuggestionIds", []);
   const [resolvingSuggestion, setResolvingSuggestion] = useState(false);
   const [noClaimTypeMatch, setNoClaimTypeMatch] = useIntakeState("guided", "noClaimTypeMatch", false);
 
@@ -722,7 +722,6 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       }
       if (result.suggestedClaimType && newStoryText) {
         setPendingSuggestion(result.suggestedClaimType);
-        setSuggestionStoryText(newStoryText);
         setRejectedSuggestionIds([]);
         setNoClaimTypeMatch(false);
       }
@@ -859,6 +858,18 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     try {
       await suggestionRequest.current.run(async (signal) => {
         await beforeIntakeAI(signal);
+      // The case context from the case file (aiCaseContext.ts, rule 8): the story, the side and the kinds
+      // turned down as the case file holds them, never this screen's copies; the card answered is the person's click.
+      const requestBody = classifyClaimTypeBody(
+        claimKindAiContext(caseFileOf(recovery?.getReview().checkpoint ?? reviewView?.checkpoint ?? null, recovery?.getSavedMaster() ?? undefined)),
+        action,
+        pendingSuggestion.claimTypeId,
+      );
+      if (!requestBody) {
+        setPendingSuggestion(null);
+        setError("Your story is needed before this suggestion can be checked. Add it above, then try again.");
+        return;
+      }
       const {
         data: { session },
       } = await supabase.auth.getSession();
@@ -870,13 +881,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           "Content-Type": "application/json",
           ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
         },
-        body: JSON.stringify({
-          storyText: suggestionStoryText,
-          facts,
-          action,
-          claimTypeId: pendingSuggestion.claimTypeId,
-          priorRejectedIds: rejectedSuggestionIds,
-        }),
+        body: JSON.stringify(requestBody),
       });
 
       const json = await response.json();
