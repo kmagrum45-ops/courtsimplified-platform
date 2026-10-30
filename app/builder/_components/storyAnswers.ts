@@ -655,58 +655,79 @@ export function courtDateFromStory(story: string): StoryAnswer | null {
   return { value: `${what.charAt(0).toUpperCase()}${what.slice(1)} on ${match[2].replace(/,?\s+(\d{4})$/, ", $1")}`, quote: match[0] };
 }
 
+/** One kind of dispute a court's form offers, and the words in a story that support it. */
+export type KindCue = readonly [value: string, words: RegExp];
+
 /**
- * Civil: the kinds of case the story's own words name, as the form's options, for the person to
- * confirm (Charter re-test 2026-10-26: a Charter claim against police showed the 30-item list with
- * nothing ticked). Only what the words name -- the Charter, the police -- never a legal reading of
- * the facts (no "assault" from "handcuffed", no "negligence" from an injury).
+ * THE ONE READER OF A STORY FOR ITS KIND OF DISPUTE, in all three courts (owner, 30 Oct): Small Claims'
+ * "What kind of dispute is this?" (intakeReview.ts suggestInitialAnswers), civil's "What kind of case is
+ * it?" and Family's "What is the case about?" (guidedFields.ts fromStory, the review's offer). Each court
+ * has its own table of cues in this one shape; each cue counts only in a plain sentence (plainMatch: never
+ * in a question, a doubt or a "no"), and that sentence is kept as the offer's quote. What it returns is a
+ * SUGGESTION the person ticks or leaves ("From what you told us ... Is that right?", "(suggested from your
+ * story)"), never an answer by itself (CLAUDE.md s. 4). `first`: the court asks for one kind (Small
+ * Claims), else every kind the story supports, in the table's order.
  */
-/**
- * Family: what the case is about, as the form's options, where the story's own words name it
- * (26 Oct re-test, case 14: a story naming a divorce, selling the house, spousal support and
- * parenting was asked "What is the case about?" with nothing offered). Only the words themselves --
- * never a reading of the facts (no "safety concerns" from a threat, no "relocation" from a city) --
- * and only in a plain sentence: a question, a doubt or a "no" names nothing.
- */
-export function familyIssuesFromStory(story: string): { value: string[]; quote: string } | null {
-  const named: [string, RegExp][] = [
-    ["divorce", /\bdivorc\w*/i],
-    ["sale-of-home", /\b(?:sell|selling|sale of|sold)\b(?:\s+\w+){0,3}?\s+(?:home|house|condo|place)\b/i],
-    ["spousal-support", /\bspousal support\b/i],
-    ["child-support", /\bchild support\b/i],
-    // "time with the kids" is parenting time in the person's own words (known problem B5).
-    ["parenting-time", /\bparenting\b|\baccess to (?:my|our|the) (?:son|daughter|child|children|kids?)\b|\btime with (?:my|our|the) (?:son|daughter|child|children|kids?)\b/i],
-    ["decision-making-responsibility", /\bdecision[- ]making\b|\bcustody\b/i],
-    // "dividing the house" names dividing property in the person's own words (carry run 41137395354, Family
-    // second case: "cannot agree on dividing the house" was asked "What is the case about?" with nothing offered).
-    // Known problem B5 (knownProblems29octForms.ts): "split the house" likewise.
-    ["property-division", /\bequali[sz]ation\b|\b(?:divid\w*|split\w*) (?:up )?(?:the |our |my )?(?:property|assets|house|home|condo|belongings)\b/i],
-  ];
+export function kindsFromStory(story: string, cues: readonly KindCue[], options: { first?: boolean } = {}): { value: string[]; quote: string } | null {
   const values: string[] = [];
   const quotes: string[] = [];
-  for (const [value, words] of named) {
+  for (const [value, words] of cues) {
     const sentence = firstPlain(story, words);
     if (!sentence || /\?\s*$/.test(sentence)) continue;
     values.push(value);
     if (!quotes.includes(sentence)) quotes.push(sentence);
+    if (options.first) break;
   }
   return values.length ? { value: values, quote: quotes.join(" ") } : null;
 }
 
+/**
+ * Family: what the case is about, as the form's options, where the story's own words name it
+ * (26 Oct re-test, case 14: a story naming a divorce, selling the house, spousal support and
+ * parenting was asked "What is the case about?" with nothing offered). Only the words themselves --
+ * never a reading of the facts (no "safety concerns" from a threat) -- and only in a plain sentence.
+ */
+export const FAMILY_KIND_CUES: readonly KindCue[] = [
+  ["divorce", /\bdivorc\w*/i],
+  ["sale-of-home", /\b(?:sell|selling|sale of|sold)\b(?:\s+\w+){0,3}?\s+(?:home|house|condo|place)\b/i],
+  ["spousal-support", /\bspousal support\b/i],
+  ["child-support", /\bchild support\b/i],
+  // "time with the kids" is parenting time in the person's own words (known problem B5).
+  ["parenting-time", /\bparenting\b|\baccess to (?:my|our|the) (?:son|daughter|child|children|kids?)\b|\btime with (?:my|our|the) (?:son|daughter|child|children|kids?)\b/i],
+  ["decision-making-responsibility", /\bdecision[- ]making\b|\bcustody\b/i],
+  // "dividing the house" / "split the house" name dividing property (carry run 41137395354, Family second
+  // case; known problem B5).
+  ["property-division", /\bequali[sz]ation\b|\b(?:divid\w*|split\w*) (?:up )?(?:the |our |my )?(?:property|assets|house|home|condo|belongings)\b/i],
+  ["relocation", /\b(?:move|moving|relocat\w*)\b(?:\s+\w+){0,4}?\s+with (?:my|our|the) (?:son|daughter|child|children|kids?)\b/i],
+  ["adoption", /\badopt(?:ion|ing|ed)?\b/i],
+];
+
+/**
+ * Civil: the kinds of case the story supports, as the form's options, for the person to confirm
+ * (Charter re-test 2026-10-26: a Charter claim against police showed the 30-item list with nothing
+ * ticked; owner 30 Oct: "a supplier never delivered the machine I ordered" supports a contract dispute
+ * and is offered, as in Small Claims, never asked from scratch).
+ */
+export const CIVIL_KIND_CUES: readonly KindCue[] = [
+  ["charter", /\bcharter\b/i],
+  ["police-conduct", /\bpolice\b|\bpolice officers?\b|\bconstables?\b/i],
+  ["defamation", /\bdefam\w*|\blibel\w*|\bslander\w*/i],
+  ["human-rights", /\bdiscriminat\w*|\bhuman rights\b/i],
+  ["contract", /\b(?:contract|agreement)\b|\b(?:never|didn'?t|did not|failed to) deliver\w*|\bnot delivered\b|\bordered\b|\babandoned the (?:job|work|project)\b|\bnever (?:finished|completed)\b/i],
+  ["debt", /\bowes? me\b|\bowed me\b|\bunpaid\b|\bnever (?:paid|repaid) (?:me|us|back)\b|\b(?:lent|loaned)\b/i],
+  ["professional-negligence", /\b(?:lawyer|accountant|doctor|dentist|engineer|architect|surgeon)\b[^.!?]*\b(?:mistake|error|negligen\w*|missed|botched)\b/i],
+  ["negligence", /\bnegligen\w*|\bcareless\w*|\binjur\w*|\bslipped\b|\bfell\b/i],
+  ["employment", /\b(?:fired|dismissed|terminated|wrongful dismissal|laid off)\b/i],
+  ["fraud-misrepresentation", /\bfraud\w*|\bscam\w*|\bmisrepresent\w*|\blied to (?:me|us)\b/i],
+  ["property", /\bproperty line\b|\beasement\b|\btrespass\w*|\bboundary\b/i],
+  ["estate", /(?<!real )\bestate\b|\bprobate\b|\bexecutor\b|\binheritance\b/i],
+  ["privacy", /\bprivacy\b|\bpersonal information\b/i],
+];
+
+export function familyIssuesFromStory(story: string): { value: string[]; quote: string } | null {
+  return kindsFromStory(story, FAMILY_KIND_CUES);
+}
+
 export function civilIssuesFromStory(story: string): { value: string[]; quote: string } | null {
-  const named: [string, RegExp][] = [
-    ["charter", /\bcharter\b/i],
-    ["police-conduct", /\bpolice\b|\bpolice officers?\b|\bconstables?\b/i],
-    ["defamation", /\bdefam\w*|\blibel\w*|\bslander\w*/i],
-    ["human-rights", /\bdiscriminat\w*|\bhuman rights\b/i],
-  ];
-  const values: string[] = [];
-  const quotes: string[] = [];
-  for (const [value, words] of named) {
-    const sentence = sentences(story).find((candidate) => words.test(candidate) && !/\?\s*$/.test(candidate));
-    if (!sentence) continue;
-    values.push(value);
-    if (!quotes.includes(sentence)) quotes.push(sentence);
-  }
-  return values.length ? { value: values, quote: quotes.join(" ") } : null;
+  return kindsFromStory(story, CIVIL_KIND_CUES);
 }

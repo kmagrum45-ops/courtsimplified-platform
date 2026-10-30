@@ -328,24 +328,27 @@ test("claim type, one value: a guest gives the kind in the review; it is never a
  *     step=the second case from the dashboard, page=claimKind:not-asked).
  *   Small Claims B: "A moving company broke my dining table ... Their plum-yellow truck was parked
  *     outside" -- offered "A vehicle-related dispute" (from "truck") instead of "Property damage".
- * Civil B ("a supplier never delivered the machine I ordered") names no kind in its own words, so it is
- * not here: the civil reader offers only kinds the words name, never a legal reading of the facts.
+ *   Civil B: "a supplier never delivered the machine I ordered" -- asked "What kind of case is it?" with
+ *     nothing offered; it supports a contract dispute and is offered, as in Small Claims (owner, 30 Oct).
  * Through the real save path: signed in, the case saved to staging and read back; and as a guest.
  * Stand-ins: serveModelStandIns (model routes), the harness's situation answers.
  */
 const SECOND_CASE = {
   family: "Synthetic: we separated in May 2026 and cannot agree on dividing the house. The plum-yellow house is in both names.",
+  civil: "Synthetic: a supplier never delivered the machine I ordered in April 2026. The plum-yellow invoice is all I have.",
   smallClaims: "A moving company broke my dining table in May 2026. Their plum-yellow truck was parked outside. I have photos.",
 } as const;
 
+const AREA_OFFER = { family: { words: "dividing the house", value: "property-division", side: "applicant" }, civil: { words: "never delivered the machine I ordered", value: "contract", side: "plaintiff" } } as const;
+
 for (const who of ["guest", "signed-in"] as const) {
-  test(`claim type, rule 4: Family, ${who} -- "dividing the house" is offered to tick, not asked from scratch`, async ({ page }) => {
+  for (const area of ["family", "civil"] as const) test(`claim type, rule 4: ${area}, ${who} -- "${AREA_OFFER[area].words}" is offered to tick, not asked from scratch`, async ({ page }) => {
     test.setTimeout(300_000);
     let userId: string | null = null;
     if (who === "signed-in") userId = await authenticateRealTestUser(page, { realCases: true });
     try {
-      await serveModelStandIns(page, "family", userId ?? undefined);
-      await openBuilder(page, "family", { city: "Kingston", story: SECOND_CASE.family, situation: STARTING_NOTHING_FILED });
+      await serveModelStandIns(page, area, userId ?? undefined);
+      await openBuilder(page, area, { city: "Kingston", story: SECOND_CASE[area], situation: STARTING_NOTHING_FILED });
       await page.waitForURL(/\/builder\?.*intake=/, { timeout: 60_000 }).catch(() => {});
       // The questions one at a time, as the person answers them, until "What is the case about?".
       const question = page.getByTestId("guided-form-question");
@@ -356,14 +359,14 @@ for (const who of ["guest", "signed-in"] as const) {
         if (key === "issues") break;
         const yes = question.getByTestId("guided-form-from-story-yes");
         if (await yes.isVisible().catch(() => false)) await yes.click();
-        else if (key === "yourRole") await question.getByTestId("guided-option-applicant").click();
+        else if (key === "yourRole") await question.getByTestId(`guided-option-${AREA_OFFER[area].side}`).click();
         else await question.getByTestId("guided-form-skip").click();
         await expect.poll(async () => (await question.getAttribute("data-key").catch(() => null)) ?? "", { timeout: 30_000 }).not.toBe(key);
       }
       expect(key, "the chat reaches the kind of case").toBe("issues");
       const offer = question.getByTestId("guided-form-from-story");
       await expect(offer, "the kind the story names is offered to tick, not asked from scratch").toBeVisible({ timeout: 10_000 });
-      expect.soft(JSON.parse((await offer.getAttribute("data-value")) ?? "[]"), "the offer is what the words name: dividing property").toContain("property-division");
+      expect.soft(JSON.parse((await offer.getAttribute("data-value")) ?? "[]"), `the offer is the kind the story supports: ${AREA_OFFER[area].value}`).toContain(AREA_OFFER[area].value);
     } finally {
       if (userId) await deleteHarnessUser(userId);
     }

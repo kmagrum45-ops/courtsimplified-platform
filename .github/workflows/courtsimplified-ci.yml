@@ -279,6 +279,9 @@ jobs:
       - name: Claim type -- one value from the case file on every screen (overview, Check my case file, review, Form 7A, AI fact text)
         run: npm run test:claim-kind-one-value
 
+      - name: The kind of dispute a story supports, offered to tick, in all three courts through one reader
+        run: npm run test:kind-from-story
+
       - name: Chrome 29 Oct -- forms built from the case file (known problems listed)
         run: npm run test:forms-from-case-file
 

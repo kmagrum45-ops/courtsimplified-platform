@@ -7,7 +7,7 @@ import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
 import { freshSections } from "./storyBasis";
 import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
 import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../../app/builder/_components/guidedFields";
-import { amountFromStory, goalFromStory } from "../../../app/builder/_components/storyAnswers";
+import { amountFromStory, goalFromStory, kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 import { alreadyAsked, caseFileOf, slotsOfQuestion } from "./caseFile/caseFile";
@@ -461,22 +461,24 @@ const SIDE_CUES: [RegExp, string][] = [
   // ("a contractor took a $3,000 deposit and never did the work", re-test 2026-10-18).
   [/\b(owes? me|owed me|never paid|did not pay|didn't pay|won't pay|refused to (pay|refund|return)|kept my|i want to sue|i want (my|the) money|never came back|left the work|did not return|i paid|we paid|paid (him|her|them|a|an|the)|took (my|our|a|an|the)\b[^.]{0,30}\b(deposit|money|payment)|never (did|finished|completed|delivered|showed up|started))\b/i, "Bringing the claim (plaintiff)"],
 ];
-const CATEGORY_CUES: [RegExp, string][] = [
+/** Small Claims' cue table for "What kind of dispute is this?", read by the one shared reader (storyAnswers.ts kindsFromStory). */
+export const SMALL_CLAIMS_KIND_CUES: readonly KindCue[] = [
   // A contractor's deposit is about the work, so this comes before "deposit".
-  [/\b(contractor|renovat\w*|repair\w*|roof\w*|plumb\w*|electrician|landscap\w*|mechanic)\b/i, "Work or a service you paid for (e.g. a contractor)"],
-  [/\bdeposit\b/i, "A deposit that wasn't returned"],
-  [LOAN_WORDS, "A loan or debt"],
-  [/\b(bit|bite|bitten|fell|slipped|injur\w*)\b/i, "A personal injury (a fall, an animal bite, or similar)"],
-  [/\b(defam\w*|lies about me|posted about me|rumou?rs?)\b/i, "Something said about you (defamation)"],
+  ["Work or a service you paid for (e.g. a contractor)", /\b(contractor|renovat\w*|repair\w*|roof\w*|plumb\w*|electrician|landscap\w*|mechanic)\b/i],
+  ["A deposit that wasn't returned", /\bdeposit\b/i],
+  ["A loan or debt", LOAN_WORDS],
+  // "fell" of a person, never of a thing that "fell apart" or "fell off".
+  ["A personal injury (a fall, an animal bite, or similar)", /\b(bit|bite|bitten|slipped|tripped|injur\w*)\b|\bfell\b(?!\s+(?:apart|off|through|behind|short|out of)\b)/i],
+  ["Something said about you (defamation)", /\b(defam\w*|lies about me|posted about me|rumou?rs?)\b/i],
   // A vehicle only when the same sentence says it crashed, hit or was damaged, or it is theirs: a truck merely
   // parked outside named a vehicle dispute for "A moving company broke my dining table" (carry, Small Claims
   // second case). "[^.!?]*" keeps both words in one sentence.
-  [/\b(car|vehicle|truck)\b[^.!?]*\b(hit|crash\w*|collid\w*|damag\w*|dent\w*|scratch\w*|accident|rear-ended|backed into)\b|\b(hit|crash\w*|collid\w*|damag\w*|dent\w*|scratch\w*|accident|rear-ended|backed into)\b[^.!?]*\b(car|vehicle|truck)\b|\bcollision\b|\bmy (car|vehicle|truck)\b/i, "A vehicle-related dispute"],
+  ["A vehicle-related dispute", /\b(car|vehicle|truck)\b[^.!?]*\b(hit|crash\w*|collid\w*|damag\w*|dent\w*|scratch\w*|accident|rear-ended|backed into)\b|\b(hit|crash\w*|collid\w*|damag\w*|dent\w*|scratch\w*|accident|rear-ended|backed into)\b[^.!?]*\b(car|vehicle|truck)\b|\bcollision\b|\bmy (car|vehicle|truck)\b/i],
   // "broke" of a thing, never of an agreement ("broke the contract", "broke the lease", "broke up", "broke down").
-  [/\b(damaged|damage to|smashed|cracked|shattered|destroyed|ruined)\b|\b(broke|broken)\b(?!\s+(?:(?:the|our|my|their|his|her|a|an|its)\s+)?(?:contract|lease|agreement|promise|deal|law|laws|rules?|terms|news|up|down|in|off)\b)/i, "Property damage"],
-  [/\b(invoice\w*|unpaid)\b/i, "Unpaid money owed to you"],
-  [/\b(bought|purchase\w*|refund)\b/i, "A consumer purchase problem"],
-  [/\b(contract|agreement)\b/i, "A contract or agreement dispute"],
+  ["Property damage", /\b(damaged|damage to|smashed|cracked|shattered|destroyed|ruined)\b|\b(broke|broken)\b(?!\s+(?:(?:the|our|my|their|his|her|a|an|its)\s+)?(?:contract|lease|agreement|promise|deal|law|laws|rules?|terms|news|up|down|in|off)\b)/i],
+  ["Unpaid money owed to you", /\b(invoice\w*|unpaid)\b/i],
+  ["A consumer purchase problem", /\b(bought|purchase\w*|refund)\b/i],
+  ["A contract or agreement dispute", /\b(contract|agreement)\b/i],
 ];
 
 /**
@@ -500,9 +502,10 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
   if (side) out["sc-orient-role"] = side[1];
   // Someone billed for work they did and was not paid is owed money, whatever the work was
   // (re-test round 7: an unpaid renovation invoice was suggested as "a service you paid for").
-  const owedForWork = /\b(invoice\w*|unpaid|never paid|did not pay|didn't pay|won't pay)\b/i.test(story) && !/\b(i|we) paid\b|\bdeposit\b/i.test(story);
-  const category = owedForWork ? [/./, "Unpaid money owed to you"] as const : CATEGORY_CUES.find(([cue]) => cue.test(story));
-  if (category) out["sc-orient-dispute-category"] = category[1];
+  // A loan named ("I lent my cousin $2,000 and she never paid it back") is a loan, not money owed for work.
+  const owedForWork = /\b(invoice\w*|unpaid|never paid|did not pay|didn't pay|won't pay)\b/i.test(story) && !/\b(i|we) paid\b|\bdeposit\b/i.test(story) && !LOAN_WORDS.test(story);
+  const category = owedForWork ? "Unpaid money owed to you" : kindsFromStory(story, SMALL_CLAIMS_KIND_CUES, { first: true })?.value[0];
+  if (category) out["sc-orient-dispute-category"] = category;
   // The amount and the outcome, read as the form already reads them (storyAnswers.ts).
   const amount = amountFromStory(story);
   if (amount) out["sc-amount-claimed"] = amount.value;
