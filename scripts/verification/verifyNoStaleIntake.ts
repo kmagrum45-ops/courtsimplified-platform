@@ -108,7 +108,9 @@ check(
 // 3. Signing in clears before navigating.
 const login = strip(read("app/login/page.tsx"));
 const afterSignIn = login.slice(login.indexOf("signInWithPassword("));
-const resetAt = afterSignIn.indexOf("resetIntakeInBrowser()");
+// The login page's clear, with or without the sign-in flag (which keeps only the safety notice's fingerprints).
+const loginReset = /resetIntakeInBrowser(({ signingIn: true })?)/;
+const resetAt = afterSignIn.search(loginReset);
 // Any navigation, not a pinned destination: sign-in now returns to the page
 // that sent the user (?next=), and the property is that clearing comes first.
 const pushAt = afterSignIn.indexOf("router.push(");
@@ -116,8 +118,8 @@ check("sign-in clears the browser before opening the workspace", resetAt !== -1 
 const afterSignUp = login.slice(login.indexOf("signUp("), login.indexOf("signInWithPassword("));
 check(
   "sign-up with an immediate session clears too",
-  afterSignUp.indexOf("resetIntakeInBrowser()") !== -1 &&
-    afterSignUp.indexOf("resetIntakeInBrowser()") < afterSignUp.indexOf("router.push("),
+  afterSignUp.search(loginReset) !== -1 &&
+    afterSignUp.search(loginReset) < afterSignUp.indexOf("router.push("),
 );
 
 // 4. Signing out clears, however it happens.

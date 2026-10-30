@@ -55,6 +55,13 @@ export type IntakeStorageKey = {
   holdsCaseContent: boolean;
   /** What it holds relative to the story (StoryDataClass; verifyStoryDataRegistry). */
   storyData: StoryDataClass;
+  /**
+   * Kept when the login page clears the browser at sign-in (resetIntake's `signingIn`),
+   * still cleared at sign-out. Only for a key that holds no case content: today the
+   * safety notice's fingerprints, so "shown once" holds when a guest case moves into an
+   * account (owner's Chrome check, 2026-10-30).
+   */
+  keptAtSignIn?: true;
   note: string;
 };
 
@@ -110,9 +117,11 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     matches: "exact",
     holdsCaseContent: false,
     storyData: "not-story",
+    keptAtSignIn: true,
     note:
       "Short one-way fingerprints (SHA-256 hex prefixes) of the stories the danger notice was already shown for, so it shows once (safetyNoticeOnce.ts, 2026-10-29). " +
-      "Never the words themselves. sessionStorage, so it dies with the tab and is not left on a shared computer; cleared on sign-out with the rest of the registry.",
+      "Never the words themselves. sessionStorage, so it dies with the tab and is not left on a shared computer; cleared on sign-out with the rest of the registry. " +
+      "Kept at sign-in (keptAtSignIn), so a notice a guest already saw is not shown again when their case moves into the account (2026-10-30).",
   },
   {
     key: "courtSimplifiedNotSureGuide",

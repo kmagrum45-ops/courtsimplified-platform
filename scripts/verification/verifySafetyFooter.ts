@@ -35,6 +35,14 @@
  *                     past events, ordinary conflict, "threatened to sue", or Family alone.
  *   once-wired        the notice the builder and the case page render is the one that
  *                     uses that decision.
+ *   once-across-sign-in  a notice a guest saw on the builder is not shown again after the
+ *                     login page's clear (the case moved into the account); sign-out
+ *                     still clears the fingerprint (owner's Chrome check, 2026-10-30).
+ *   links-never-dropped  a link clicked while signed-in text is unsaved goes there once
+ *                     the save settles, failed or not (the footer link and My Workspace
+ *                     that "did nothing"); IntakeRecovery uses that shared guard.
+ *   one-family-box    the Family support box is rendered by one component, the
+ *                     overview's family-safety-resources (FamilyIntake had a hidden twin).
  *
  * What failure it exists to catch: the helplines box opened on every case (a bakery
  * invoice), the AI-check wording returning, the footer line dropped off a page, and the
@@ -218,6 +226,75 @@ async function main() {
   const notice = read("app/_components/SafetyNotice.tsx");
   check("once-wired", /decideSafetyNotice\(story, window\.location\.pathname/.test(notice) && /<SafetyNotice\b/.test(read("app/_components/IntakeRecovery.tsx")) && /<SafetyNotice\b/.test(read("app/cases/[id]/page.tsx")),
     "SafetyNotice decides with decideSafetyNotice on its own screen (the journey above), and it is the notice the builder and the case page render");
+
+  // once-across-sign-in (owner's Chrome check, 2026-10-30): a guest saw the notice on the
+  // builder, signed in, and the case moved to the account; the first builder view after
+  // sign-in showed it again. The login page's clear (resetIntake) removed the fingerprint.
+  // Here: the guest's builder shows it; the login page's sign-in clear runs on the same tab
+  // store, as the login page calls it; the next builder load does not show it again. A
+  // sign-out still clears it.
+  const resetMod = await load<{ resetIntake: (args: Record<string, unknown>) => unknown }>("../../src/lib/case-system/storage/resetIntake");
+  const signInTab = new Map<string, string>();
+  const clearable = (map: Map<string, string>) => ({
+    getItem: (name: string) => map.get(name) ?? null,
+    setItem: (name: string, value: string) => void map.set(name, value),
+    removeItem: (name: string) => void map.delete(name),
+    get length() { return map.size; },
+    key: (index: number) => [...map.keys()][index] ?? null,
+  });
+  const signInStore = clearable(signInTab);
+  const loginSource = read("app/login/page.tsx");
+  // The arguments the login page passes to its clear, read from the page itself.
+  const loginArgs = [...loginSource.matchAll(/resetIntakeInBrowser\(([^)]*)\)/g)].map((match) => match[1].trim());
+  const signInArgs = loginArgs[0] && /signingIn:\s*true/.test(loginArgs[0]) ? { signingIn: true } : {};
+  newLoad();
+  const guestBuilder = mod?.decideSafetyNotice ? await mod.decideSafetyNotice(danger, "/builder", signInStore) : false;
+  resetMod?.resetIntake({ session: signInStore, ...signInArgs });
+  newLoad();
+  const afterSignIn = mod?.decideSafetyNotice ? await mod.decideSafetyNotice(danger, "/builder", signInStore) : true;
+  const signOutTab = new Map<string, string>(signInTab);
+  resetMod?.resetIntake({ session: clearable(signOutTab) });
+  check("once-across-sign-in", guestBuilder && !afterSignIn && loginArgs.length >= 2 && loginArgs.every((args) => args === loginArgs[0]),
+    `guest builder shows it (${guestBuilder}); after the login page's clear (${JSON.stringify(loginArgs)}) the builder does not show it again (${!afterSignIn}); both login paths clear the same way`);
+  check("sign-out-clears-fingerprint", Boolean(once) && !signOutTab.has(once!.SAFETY_NOTICE_SHOWN_KEY),
+    "a sign-out clear (resetIntake with no sign-in flag) still removes the fingerprints");
+
+  // links-never-dropped (owner's Chrome check, 2026-10-30): the footer "Other support
+  // lines" did nothing on the first click, and the header "My Workspace" did not respond.
+  // Both are ordinary links; the intake's leave-guard (IntakeRecovery) takes every
+  // same-site link click while signed-in text is unsaved, saves, and navigated only if the
+  // save succeeded and the intake had not re-opened -- otherwise the click was dropped.
+  // The shared guard must always go where the person clicked once the save settles.
+  const leave = await load<{ saveThenLeave: (event: unknown, anchor: unknown, state: { pending: boolean; here: string }, save: () => Promise<unknown>, go: (href: string) => void) => string | null }>("../../app/_components/leaveAfterSave");
+  const here = "https://courtsimplified.test/builder?path=family&intake=synthetic";
+  const click = () => ({ defaultPrevented: false, button: 0, ctrlKey: false, metaKey: false, shiftKey: false, altKey: false, prevented: false, preventDefault() { this.prevented = true; }, stopPropagation() {} });
+  const link = (href: string) => ({ href, target: "", hasAttribute: () => false });
+  const outcomes: string[] = [];
+  for (const [what, save] of [["save fails", () => Promise.reject(new Error("synthetic"))], ["save succeeds", () => Promise.resolve()]] as const) {
+    for (const href of ["https://courtsimplified.test/support", "https://courtsimplified.test/dashboard"]) {
+      let went = "";
+      const event = click();
+      leave?.saveThenLeave(event, link(href), { pending: true, here }, save, (to) => { went = to; });
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      if (went !== href) outcomes.push(`${what}, ${href}: went to ${JSON.stringify(went)}`);
+    }
+  }
+  const idle = click();
+  const untouched = leave ? leave.saveThenLeave(idle, link("https://courtsimplified.test/support"), { pending: false, here }, () => Promise.resolve(), () => {}) === null && !idle.prevented : false;
+  const recoverySource = read("app/_components/IntakeRecovery.tsx");
+  const wired = /saveThenLeave\(/.test(recoverySource) && !/event\.preventDefault\(\);\s*event\.stopPropagation\(\);\s*void flush\(\)/.test(recoverySource);
+  check("links-never-dropped", Boolean(leave) && outcomes.length === 0 && untouched && wired,
+    `a link clicked while signed-in text is unsaved goes there once the save settles, failed or not (${leave ? outcomes.join("; ") || "ok" : "no shared leave guard"}); nothing is taken when nothing is pending (${untouched}); IntakeRecovery's click guard is the shared one (${wired})`);
+
+  // one-family-box (owner's Chrome check, 2026-10-30): a Family overview carried a second,
+  // hidden copy of "Support if family violence is part of your situation" -- FamilyIntake's
+  // own panel, inside the builder's intake section that is hidden once results show. The
+  // support box is rendered by exactly one component, the overview's family-safety-resources.
+  const renderers = walk("app").filter((path) => /\.tsx$/.test(path) && /FAMILY_RESOURCE_TOPICS\s*[.[]|FAMILY_RESOURCE_TOPICS\s*:/.test(read(path).replace(/^import .*$/gm, "")));
+  const overviewOwns = /data-testid="family-safety-resources"/.test(read("app/builder/_components/IntelligenceOverviewPanel.tsx"));
+  check("one-family-box", renderers.length === 1 && overviewOwns && /IntelligenceOverviewPanel\.tsx$/.test(renderers[0] ?? ""),
+    `the family support box is rendered by one component, the overview's family-safety-resources (rendered by: ${renderers.join(", ") || "none"})`);
 
   console.log(failures ? `\n${failures} failure(s)` : "\nAll checks pass.");
   process.exit(failures ? 1 : 0);

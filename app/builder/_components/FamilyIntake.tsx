@@ -30,7 +30,6 @@ import {
   safetyConcernFromAnalysis,
   type ClientSafetyClassification,
 } from "@/src/lib/case-system/intake/clientSafetyCheck";
-import { FAMILY_RESOURCE_TOPICS } from "@/src/lib/case-system/intake/familySafetyResources";
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
 import {
   assignReferences,
@@ -875,11 +874,14 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
         intake below stays fully usable — this path never halts.
 
         The wording is NOT generated and NOT assembled here: `safetyMessage` is
-        safetyPass.ts's fixed constant, and the resources are
-        FAMILY_RESOURCE_TOPICS, whose own header records that each phone number
-        was individually fetched from an ontario.ca page and quoted verbatim.
-        Nothing on this panel is a judgment about this user's facts beyond the
-        classification itself.
+        safetyPass.ts's fixed constant. Nothing on this panel is a judgment
+        about this user's facts beyond the classification itself.
+
+        ONE SUPPORT BOX (owner's Chrome check, 2026-10-30): the "Support if
+        family violence is part of your situation" box is the overview's
+        family-safety-resources (IntelligenceOverviewPanel.tsx), on every
+        Family case. Its copy here was a second, hidden one: this panel sits in
+        the builder's intake section, which is hidden once the results show.
       */}
       {asksForAdvice && (
         <div className="mt-5">
@@ -887,40 +889,15 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
         </div>
       )}
 
-      {safetyClassification !== "clear" && (
+      {safetyClassification !== "clear" && safetyMessage && (
         <div
           role="note"
           aria-live="polite"
           className="mt-5 rounded-2xl border-2 border-[#c2410c] bg-[#fff7ed] p-5"
         >
-          {safetyMessage && (
-            <p className="whitespace-pre-line text-[15px] font-semibold leading-7 text-[#7c2d12]">
-              {safetyMessage}
-            </p>
-          )}
-
-          {FAMILY_RESOURCE_TOPICS.map((topic) => (
-            <div key={topic.id} className={safetyMessage ? "mt-5" : ""}>
-              <h3 className="text-base font-bold text-[#7c2d12]">{topic.title}</h3>
-              <p className="mt-2 whitespace-pre-line text-[15px] leading-7 text-[#7c2d12]">
-                {topic.content}
-              </p>
-              <ul className="mt-3 space-y-1">
-                {topic.citations.map((citation) => (
-                  <li key={citation.officialUrl} className="text-xs leading-5 text-[#9a3412]">
-                    <a
-                      href={citation.officialUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="underline"
-                    >
-                      {citation.sourceName}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <p className="whitespace-pre-line text-[15px] font-semibold leading-7 text-[#7c2d12]">
+            {safetyMessage}
+          </p>
 
           <p className="mt-5 text-sm leading-6 text-[#7c2d12]">
             Your intake below is saved and you can carry on with it whenever you
