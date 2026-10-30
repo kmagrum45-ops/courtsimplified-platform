@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-197 documented, 26 without a header.
+198 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -185,6 +185,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:story-pack-records` | **EACH STORY-PACK RUN KEEPS ITS OWN RECORDS (site owner, 2026-10-27).**<br>Checks, as properties: - two runs with different run ids write to different folders, and neither touches the other; - the folder is outside test-results/, which Playwright empties at the start of every run; - the story pack writes its ask-once, claim-kind and  |
 | `npm run test:story-pack-shards` | **THE STORY PACK'S PARTS RUN EXACTLY THE WHOLE PACK, EACH TEST ONCE (site owner, 2026-10-29).**<br>CI shares the story pack across machines (courtsimplified-story-pack.yml: a matrix of parts, each `--fully-parallel --shard=<part>/<parts>`). Checks, as properties: - the parts the workflow lists are 1..N, and every part runs `--shard=<part>/N` with that N; -  |
 | `npm run test:strategy` | **Case strategy stays switched off, sourced, and never grades a case.**<br>WHAT IT CATCHES (retrieval/strategy.ts, /api/case/strategy, 2026-10-08): - strategy answering on the live site: on unless STRATEGY=off (site owner, 2026-10-12), and the page hides it only with NEXT_PUBLIC_STRATEGY=off; - the route answering someone not signed  |
+| `npm run test:testing-notice` | **THE YELLOW TESTING NOTICE'S WORDS (site owner, 2026-10-29). The notice**<br>(ScopePreviewNotice.tsx) no longer says the site is waiting for the Law Society of Ontario's Access to Innovation approval; it says what the owner set: the site was built by self-represented litigants, it uses AI governed by rules, and what it shows has not be |
 | `npm run test:three-area` | **Canonical three-area engines and core payload validators, entirely offline.**<br>HTTP confirmation/ownership enforcement is exercised separately by verifyIntakeGuidanceGate. Keeps source integration, specialized outputs and malformed-input coverage intact. |
 | `npm run test:tidy-wording` | **The spelling check can only fix spelling — never change what the user said.**<br>COSTS NOTHING. Pure validator runs, no model call. |
 | `npm run test:time-ran-out` | **A step whose time is "still running" is never shown beside a counted date that has passed.**<br>What it checks: each stage with whenTimeRunsOut links one of its OWN deadlines to a stage that exists, is a went-wrong stage, and that the map's own distinguishedFrom already tells apart from it (both ways) by whether the time has run out -- so the link adds n |

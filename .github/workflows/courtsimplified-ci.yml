@@ -267,6 +267,9 @@ jobs:
       - name: Chrome 29 Oct -- safety, deadlines, family court (known problems listed)
         run: npm run test:chrome-29oct-safety
 
+      - name: The testing notice says the owner's words, from one copy; no Law Society approval wording
+        run: npm run test:testing-notice
+
       - name: A changed side sets aside the old side's facts, in every area
         run: npm run test:side-change
 
