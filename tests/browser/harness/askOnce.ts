@@ -77,7 +77,21 @@ export type Asked = { kind: "ask" | "answer"; surface: string; id: string; scree
   /** Small Claims guided only: the person's reply shown under the question (an ask) or given to it (an answer). */
   reply?: string; occurrence?: string };
 
+/**
+ * WHEN A CIVIL OR FAMILY CHAT QUESTION THAT LEFT THE SCREEN WAS ANSWERED (30 Oct). Answered: the person
+ * pressed one of its answer controls (Next, "Yes" to the story's words, an option), or skipped it (an
+ * "unsure"), or the chat is still on screen and moved on (an answer typed and sent with Enter). NOT
+ * answered: the whole chat left the screen with no answer pressed ("Show the whole form instead", a
+ * page change). The recorder counted that as an answer, so the review asking the same fact later read
+ * as "asked twice" (carry run 4, civil and Family form route: "given at chat:issues" while the review
+ * line said "What the case is about: Not recorded"; the person had never answered it). Embedded in SCAN.
+ */
+export function chatQuestionAnswered(left: { pressedAnswer: boolean; skipped: boolean; chatStillShown: boolean }): boolean {
+  return left.pressedAnswer || left.skipped || left.chatStillShown;
+}
+
 const SCAN = `(() => {
+  const chatQuestionAnswered = ${chatQuestionAnswered.toString()};
   if (window.__askOnceInstalled) return;
   window.__askOnceInstalled = true;
   const seen = new Set();
@@ -150,12 +164,15 @@ const SCAN = `(() => {
     ["form-field", "input[data-testid^=sc-intake-], textarea[data-testid^=sc-intake-], select[data-testid^=sc-intake-]", (el) => { const key = el.getAttribute("data-testid").slice("sc-intake-".length); return steadyEmpty("sc:" + key, el.type !== "file" && el.value === "") ? ["sc:" + key] : []; }],
     ["form-field", formLabels, (el) => { const label = words(el.querySelector(":scope > span.font-semibold")); return steadyEmpty("label:" + label, el.querySelector(":scope > textarea:not([data-testid])").value === "") ? ["label:" + label] : []; }],
   ];
+  const chatPressed = new Set();
   let chatKey = null, triageKey = null, scQuestion = null, scUsers = 0, situationKey = null, lawKey = null, lawValue = "";
   // Skips and "not yet" give nothing: their question is not answered.
   document.addEventListener("click", (event) => {
     const target = event.target instanceof Element ? event.target.closest("[data-testid]") : null;
     const id = target ? target.getAttribute("data-testid") : "";
     if (id === "guided-form-skip" && chatKey) skipped.add("chat|" + chatKey);
+    // An answer control of the chat's question, pressed: that question is answered (chatQuestionAnswered).
+    if (chatKey && (id === "guided-form-next" || id === "guided-form-from-story-yes" || id.startsWith("guided-option-"))) chatPressed.add(chatKey);
     if (id === "triage-answer-not-yet" && triageKey) skipped.add("triage|" + triageKey);
     // The proposal card: read the ticks at the click itself. The scan runs every 200 ms, and an
     // untick followed at once by "continue" could otherwise leave the card's last-scanned ticks,
@@ -212,10 +229,11 @@ const SCAN = `(() => {
     const nextSituation = sq && visible(sq) ? sq.getAttribute("data-question") : null;
     if (situationKey && situationKey !== nextSituation) answer("situation", situationKey);
     situationKey = nextSituation;
-    // Chat (civil, Family): a question left without Skip was answered.
+    // Chat (civil, Family): a question that left the screen, answered only as chatQuestionAnswered says.
     const cq = document.querySelector("[data-testid=guided-form-question]");
     const nextChat = cq && visible(cq) ? cq.getAttribute("data-key") : null;
-    if (chatKey && chatKey !== nextChat) answer("chat", chatKey);
+    const chatShown = document.querySelector("[data-testid=guided-form-chat]");
+    if (chatKey && chatKey !== nextChat && chatQuestionAnswered({ pressedAnswer: chatPressed.has(chatKey), skipped: skipped.has("chat|" + chatKey), chatStillShown: Boolean(chatShown && visible(chatShown)) })) answer("chat", chatKey);
     chatKey = nextChat;
     // Review: a question shown answered.
     for (const el of document.querySelectorAll("[data-testid=intake-initial-question][data-answered=true]")) answer("review", el.getAttribute("data-question"));
@@ -365,6 +383,9 @@ export function chatReplyReader(): (item: Asked) => Asked[] {
  * `held`, when given, is asked at the moment each question is recorded which of its facts the
  * saved case holds (heldInRows); the answer is kept on the question for heldViolations.
  */
+/** The script the recorder installs in the page, for the suites that check it parses and keeps its rules. */
+export const ASK_ONCE_SCAN = (): string => SCAN;
+
 export async function recordAsks(page: Page, options: { held?: () => ((fact: string) => HeldState | null) | null } = {}): Promise<Asked[]> {
   const asked: Asked[] = [];
   const readChat = chatReplyReader();
