@@ -42,6 +42,7 @@
     "test:upcoming-deadline": "node --import tsx scripts/verification/verifyUpcomingDeadline.ts",
     "test:intake-start-screens": "node --import tsx scripts/verification/verifyIntakeStartScreens.ts",
     "test:story-guidance": "node --import tsx scripts/verification/verifyStoryGuidance.ts",
+    "test:signup-confirm-message": "node --import tsx scripts/verification/verifySignupConfirmMessage.ts",
     "test:fixed-regimes": "node --import tsx scripts/verification/verifyFixedRegimes.ts",
     "test:court-path-classifier": "node --import tsx scripts/verification/verifyCourtPathClassifier.ts",
     "test:depth-questions": "node --import tsx scripts/verification/verifyDepthQuestions.ts",

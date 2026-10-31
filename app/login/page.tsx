@@ -10,6 +10,15 @@ import { carryGuestIntake } from "../../src/lib/case-system/guestCarry";
 import { openCaseFromAddress } from "../../src/lib/case-system/openCase";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
 import { WorkingButton } from "../_components/Working";
+import {
+  ACCOUNT_EXISTS_MESSAGE,
+  EMAIL_NOT_CONFIRMED_MESSAGE,
+  SIGN_IN_FAILED_MESSAGE,
+  isEmailNotConfirmedError,
+  isExistingAccountSignUp,
+  signUpConfirmEmailMessage,
+  signUpEmailRedirectTo,
+} from "../../src/lib/case-system/copy/authMessages";
 
 /**
  * Supabase Auth returns a specific error code for most signup failures, but
@@ -30,7 +39,7 @@ function signUpErrorMessage(error: AuthError): string {
       return "We're temporarily unable to send email — please try again in a few minutes.";
     case "email_exists":
     case "user_already_exists":
-      return "An account with that email already exists — try signing in instead.";
+      return ACCOUNT_EXISTS_MESSAGE;
     case "email_address_invalid":
       return "That email address isn't valid. Please check it and try again.";
     default:
@@ -77,6 +86,9 @@ export default function LoginPage() {
         const { data, error } = await supabase.auth.signUp({
           email: email.trim(),
           password,
+          // The confirmation link comes back to this same site (live, staging or
+          // a preview), as the sign-in link does. Must be in Supabase's Redirect URLs.
+          options: { emailRedirectTo: signUpEmailRedirectTo(window.location.origin) },
         });
 
         if (error) {
@@ -84,18 +96,26 @@ export default function LoginPage() {
           return;
         }
 
-        // NO CONFIRMATION EMAIL IS SENT. `mailer_autoconfirm` is true on the
-        // Supabase project (a deliberate, non-default setting -- see
-        // docs/ARCHITECTURE.md), so a new signup is confirmed immediately and
-        // Supabase returns a session.
+        // An address that already has a confirmed account: with confirmation on,
+        // Supabase answers with no error, no session and a user with no
+        // identities, and sends nothing (authMessages.ts explains the source).
+        if (isExistingAccountSignUp(data)) {
+          setError(ACCOUNT_EXISTS_MESSAGE);
+          return;
+        }
+
+        // Whether a confirmation email is sent depends on the Supabase project.
+        // Production requires confirmation (`mailer_autoconfirm` false, see
+        // CLAUDE.md s. 6): Supabase sends a confirmation link and returns NO
+        // session, and the person cannot sign in until they open it. Staging
+        // keeps autoconfirm on, so the account is confirmed at once and a
+        // session comes back.
         //
-        // This used to say "Check your email for confirmation", which sent
-        // every new user to an inbox to wait for a message that was never
-        // going to arrive, while they were in fact already signed in.
-        //
-        // The session is read rather than assumed: if autoconfirm is ever
-        // turned off, `session` comes back null and the branch below tells the
-        // user the truth for that configuration instead.
+        // The session is read rather than assumed. The no-session branch used
+        // to say "Account created. You can sign in with those details now.",
+        // which on production sent people to sign in before they could (the
+        // sign-in then failed with "Email not confirmed"). The words live in
+        // copy/authMessages.ts; `npm run test:signup-confirm-message` checks them.
         if (data.session) {
           // A new account starts with nothing from this browser, except the guest
           // intake this person chose to bring with them (guestCarry.ts).
@@ -106,7 +126,8 @@ export default function LoginPage() {
           return;
         }
 
-        setSuccess("Account created. You can sign in with those details now.");
+        // No session: the address must be confirmed by email before signing in.
+        setSuccess(signUpConfirmEmailMessage(data.user?.email ?? email));
         return;
       }
 
@@ -116,7 +137,10 @@ export default function LoginPage() {
       });
 
       if (error) {
-        setError("We could not sign you in with those details. Please try again.");
+        // Signed up but not confirmed yet (production requires it): say so plainly.
+        // Only for that code; a wrong password and an unknown address both come back
+        // as invalid_credentials and get the same generic message.
+        setError(isEmailNotConfirmedError(error) ? EMAIL_NOT_CONFIRMED_MESSAGE : SIGN_IN_FAILED_MESSAGE);
         return;
       }
 
