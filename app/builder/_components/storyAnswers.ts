@@ -716,8 +716,11 @@ export const CIVIL_KIND_CUES: readonly KindCue[] = [
   ["contract", /\b(?:contract|agreement)\b|\b(?:never|didn'?t|did not|failed to) deliver\w*|\bnot delivered\b|\bordered\b|\babandoned the (?:job|work|project)\b|\bnever (?:finished|completed)\b/i],
   ["debt", /\bowes? me\b|\bowed me\b|\bunpaid\b|\bnever (?:paid|repaid) (?:me|us|back)\b|\b(?:lent|loaned)\b/i],
   // One sentence at a time (kindsFromStory reads through sentences.ts), so ".*" stays inside it.
-  ["professional-negligence", /\b(?:lawyer|accountant|doctor|dentist|engineer|architect|surgeon)\b.*\b(?:mistake|error|negligen\w*|missed|botched)\b/i],
-  ["negligence", /\bnegligen\w*|\bcareless\w*|\binjur\w*|\bslipped\b|\bfell\b/i],
+  // Their own professional, with a failure named ("my lawyer missed the deadline"); never a doctor merely
+  // seen beside missed work (verifyCharterRetest: "I saw a doctor on June 5 and missed 2 weeks of work").
+  ["professional-negligence", /\bmy (?:lawyer|accountant|doctor|dentist|engineer|architect|surgeon)\b.*\b(?:made a mistake|negligen\w*|missed (?:the |a |my )?(?:deadline|diagnosis|filing)|botched)\b/i],
+  // Only the words: never negligence read from an injury (verifyCharterRetest: "for the injury").
+  ["negligence", /\bnegligen\w*|\bcareless\w*|\breckless\w*/i],
   ["employment", /\b(?:fired|dismissed|terminated|wrongful dismissal|laid off)\b/i],
   ["fraud-misrepresentation", /\bfraud\w*|\bscam\w*|\bmisrepresent\w*|\blied to (?:me|us)\b/i],
   ["property", /\bproperty line\b|\beasement\b|\btrespass\w*|\bboundary\b/i],

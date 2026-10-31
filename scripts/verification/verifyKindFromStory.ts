@@ -66,7 +66,10 @@ const CIVIL: Case[] = [
   { story: "Synthetic: My Charter rights were breached when I was searched without a warrant.", offered: "charter" },
   { story: "Synthetic: A newspaper published a column that defamed me.", offered: "defamation" },
   { story: "Synthetic: I was refused an apartment because of my disability and that is discrimination.", offered: "human-rights" },
-  { story: "Synthetic: I slipped on an unsalted walkway at the mall and was injured.", offered: "negligence" },
+  { story: "Synthetic: The mall was negligent and never salted the walkway where I fell.", offered: "negligence" },
+  // Never negligence read from an injury, never a professional from a doctor merely seen (verifyCharterRetest).
+  { story: "Synthetic: I was injured when I slipped at the mall.", offered: null, never: ["negligence"] },
+  { story: "Synthetic: I saw a doctor on June 5 and missed 2 weeks of work.", offered: null, never: ["professional-negligence"] },
   { story: "Synthetic: My lawyer missed the deadline to file my appeal.", offered: "professional-negligence" },
   { story: "Synthetic: I was fired without notice after eleven years.", offered: "employment" },
   { story: "Synthetic: The seller lied to us about the flooding in the basement.", offered: "fraud-misrepresentation" },
