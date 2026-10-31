@@ -154,6 +154,7 @@ function groupOf(stage: { id: string; side: string }): string {
 export { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
 import { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
 import { isLeaveSentence, withLeaveRulesQuoted } from "@/src/lib/content-library/leaveRuleWords";
+import { ADD_IT_LATER, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
 
 export function orderGroupsForReader<T extends { side: string; label: string }>(
   groups: readonly T[],
@@ -1389,9 +1390,9 @@ export default function StageAnswerPanel({
    */
   suggestedStepId?: string | null;
   /**
-   * Date questions whose day the person said they do not know, already offered once more
-   * in the review (Jason, 2026-10-24, option 1): shown folded with "Add it", which is not a
-   * second question (the case file, caseFile.ts).
+   * Date questions whose day the person said they do not know (caseFile.ts unsureDateQuestions):
+   * never asked again (site owner, 31 Oct), shown folded as "Not answered yet: add it when you know"
+   * (askCopy.ts NOT_ANSWERED_YET) with "Add it", which the person may open; never a second question.
    */
   laterDates?: readonly string[];
   /** Told what the person chose (dates and step), so a page that remounts this panel can show it again; called just AFTER the save to the case is queued, so positionSavesSettled(caseId) inside it waits for that save. */
@@ -1878,8 +1879,8 @@ export default function StageAnswerPanel({
               if (laterDates.includes(question.id) && !dateAnswers[question.id] && !openedLater[question.id]) {
                 return (
                   <p key={question.id} data-testid="stage-answer-date-later" className="text-sm text-[#16302b]">
-                    <span className="font-semibold">{shortLabel(dateQuestionTextFor(question, serving(question.id)))}:</span> not known yet.{" "}
-                    <button type="button" onClick={() => setOpenedLater((now) => ({ ...now, [question.id]: true }))} className="font-semibold text-[#2f7d67] underline">Add it</button>
+                    <span className="font-semibold">{shortLabel(dateQuestionTextFor(question, serving(question.id)))}:</span> <span data-testid="not-answered-yet">{NOT_ANSWERED_YET}.</span>{" "}
+                    <button type="button" onClick={() => setOpenedLater((now) => ({ ...now, [question.id]: true }))} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</button>
                   </p>
                 );
               }

@@ -16,6 +16,9 @@
  * every date box is), and "Remove this answer". Side, court, stage and papers are not changed here:
  * they choose the court and its steps, so they are changed with the start questions at the top.
  *
+ * With `adding` it is the "Add it" of a fact not answered yet (NotAnsweredYet.tsx, site owner 31 Oct):
+ * the same choices and the same write path, and nothing to remove.
+ *
  * Restates the person's own answers; states no law.
  */
 import { useEffect, useRef, useState } from "react";
@@ -24,6 +27,7 @@ import { CASE_FILE_SECTION, withChange, type ChangeInput, type SlotFact } from "
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { CIVIL_ISSUE_OPTIONS, FAMILY_ISSUE_OPTIONS } from "../builder/_components/guidedFields";
 import { dateAnswerCheck } from "../../src/lib/case-system/dates";
+import { ADD_IT_LATER } from "../../src/lib/case-system/copy/askCopy";
 
 /** Each fact's name, as "What we have so far" and the review show it. */
 export const FACT_LABEL: Record<SlotFact, string> = {
@@ -72,7 +76,7 @@ export function changeChoices(fact: SlotFact, court: string | null | undefined):
   return { kind: "text", day: DAYS.has(fact) };
 }
 
-export default function ChangeAnswer({ fact, court, startOpen = false, current }: { fact: SlotFact; court: string | null | undefined; startOpen?: boolean; current?: unknown }) {
+export default function ChangeAnswer({ fact, court, startOpen = false, current, adding = false }: { fact: SlotFact; court: string | null | undefined; startOpen?: boolean; current?: unknown; /** For a fact not answered yet ("I don't know"): "Add it", nothing to remove (askCopy.ts NOT_ANSWERED_YET). */ adding?: boolean }) {
   const recovery = useIntakeRecovery();
   const [open, setOpen] = useState(startOpen);
   const [typed, setTyped] = useState("");
@@ -95,10 +99,10 @@ export default function ChangeAnswer({ fact, court, startOpen = false, current }
     setNote(more ?? "");
     if (!more) save({ state: "answered", value: words });
   };
-  if (!open) return <span data-testid="change-answer" data-fact={fact}>{" "}<button type="button" data-testid="change-answer-open" onClick={() => setOpen(true)} className="font-semibold text-[#2f7d67] underline">Change</button></span>;
+  if (!open) return <span data-testid="change-answer" data-fact={fact}>{" "}<button type="button" data-testid="change-answer-open" onClick={() => setOpen(true)} className="font-semibold text-[#2f7d67] underline">{adding ? ADD_IT_LATER : "Change"}</button></span>;
   return (
     <span ref={box} data-testid="change-answer" data-fact={fact} data-open="true" className="mt-2 block rounded-xl border border-[#d8e6df] p-3">
-      <span className="block font-semibold">Change: {label}</span>
+      <span className="block font-semibold">{adding ? "Add" : "Change"}: {label}</span>
       {choices.kind === "choice" ? (
         <span className="mt-1 flex flex-wrap gap-2">{choices.options.map((option) => <button key={option.value} type="button" data-testid="change-answer-choice" onClick={() => save({ state: "answered", value: option.value })} className="rounded border px-3 py-1">{option.label}</button>)}</span>
       ) : choices.kind === "multi" ? (
@@ -116,7 +120,7 @@ export default function ChangeAnswer({ fact, court, startOpen = false, current }
       )}
       {note ? <span data-testid="change-answer-needs-more" className="mt-1 block text-sm text-[#8a4b12]">{note}</span> : null}
       <span className="mt-2 flex flex-wrap gap-3">
-        <button type="button" data-testid="change-answer-remove" onClick={() => save({ state: "removed" })} className="text-sm font-semibold text-[#8a4b12] underline">Remove this answer</button>
+        {adding ? null : <button type="button" data-testid="change-answer-remove" onClick={() => save({ state: "removed" })} className="text-sm font-semibold text-[#8a4b12] underline">Remove this answer</button>}
         <button type="button" data-testid="change-answer-cancel" onClick={() => { setOpen(false); setNote(""); }} className="text-sm underline">Cancel</button>
       </span>
     </span>

@@ -10,6 +10,8 @@ import { withServedDate } from "../builder/_components/guidedFields";
 import { dateAnswerCheck, formatForCourt, isDateQuestion } from "../../src/lib/case-system/dates";
 import { caseFileOf, claimKindOf, slotsOfQuestion, slotText, SLOT_FACTS, type CaseFile, type Slot, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import ChangeAnswer, { changeChoices, FACT_LABEL } from "./ChangeAnswer";
+import NotAnsweredYet from "./NotAnsweredYet";
+import { ADD_IT_LATER } from "../../src/lib/case-system/copy/askCopy";
 import { inWords } from "../../src/lib/case-system/copy/rawKeys";
 import { isDateQuestionId } from "../../src/lib/case-system/casePosition";
 import { situationAnswers, situationOf } from "../../src/lib/case-system/situation/situation";
@@ -18,7 +20,7 @@ import StoryEditor from "../builder/_components/StoryEditor";
 import { freshSections, staleAnswerKeys, storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
 import StoryChangedNotice from "./StoryChangedNotice";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
-import { canReview, changedAfterConfirm, initialAnswersOf, reviewQuestionField, inputRevision, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
+import { canReview, changedAfterConfirm, initialAnswersOf, reviewQuestionField, inputRevision, notAnsweredYet, remainingEssentialQuestions, reviewBoxState, reviewEntries, reviewPhase, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
 import NextStepStatus, { nextStepPressed, useNextStepReading } from "./NextStepStatus";
 import { WorkingNote } from "./Working";
 import { UseSuggestion } from "./UseSuggestion";
@@ -106,12 +108,17 @@ export default function IntakeReviewPanel() {
   // The saved case's own case file (its saved position too), the same one the results and case pages read (29 Oct).
   const savedMaster = recovery.getSavedMaster();
   const caseFileNow = caseFileOf(checkpoint, savedMaster ?? undefined);
-  const remaining = remainingEssentialQuestions(checkpoint, false, savedMaster ?? undefined);
-  const unanswered = remainingEssentialQuestions(checkpoint, true, savedMaster ?? undefined);
+  // Still to answer: only what nobody has answered or said "not sure" to (the case file's one gate).
+  const remaining = remainingEssentialQuestions(checkpoint, savedMaster ?? undefined);
+  // Said "I don't know" or "not sure" anywhere (site owner, 31 Oct): a quiet line, never asked again here.
+  const quietLines = notAnsweredYet(checkpoint, savedMaster ?? undefined);
+  const quietQuestions = quietLines.filter(line => line.question);
+  const quietFacts = quietLines.filter(line => !line.question);
   const listed = [
-    ...unanswered,
+    ...remaining,
+    ...quietQuestions,
     // A question whose fact was since changed with "Change" is not offered here with its older answer.
-    ...answeredHere.filter(id => !unanswered.some(question => question.id === id) && !slotsOfQuestion(id).some(fact => caseFileNow[fact].changed)).map(id => ({ id, label: reviewQuestionField(checkpoint.courtPath, id)?.question ?? QUESTION_BANK.find(item => item.id === id)?.text ?? id })),
+    ...answeredHere.filter(id => !remaining.some(question => question.id === id) && !quietQuestions.some(question => question.id === id) && !slotsOfQuestion(id).some(fact => caseFileNow[fact].changed)).map(id => ({ id, label: reviewQuestionField(checkpoint.courtPath, id)?.question ?? QUESTION_BANK.find(item => item.id === id)?.text ?? id })),
   ];
   // Each question stays where it first appeared: an answered one moved to the end of the list,
   // so the questions jumped while the person was answering them (#471 re-test).
@@ -120,6 +127,7 @@ export default function IntakeReviewPanel() {
   /** The answer a civil or Family question holds now, as the form keeps it. */
   const fieldValue = (id: string): unknown => checkpoint.courtPath === "civil" ? (checkpoint.sections.civil?.input as Record<string, unknown> | undefined)?.[id] : checkpoint.sections.family?.[id];
   const unknowns = Array.isArray(checkpoint.sections.builder?.initialUnknowns) ? checkpoint.sections.builder.initialUnknowns as string[] : [];
+/** "I do not know yet" for a review question, ticked or taken back (the review's own record, builder.initialUnknowns). */  const setUnknown = (id: string, unknown: boolean) => { const current = Array.isArray(recovery.read("builder", "initialUnknowns")) ? recovery.read("builder", "initialUnknowns") as string[] : []; recovery.put("builder", "initialUnknowns", unknown ? [...current.filter(item => item !== id), id] : current.filter(item => item !== id), true, false, true); };  const unknownBox = (id: string) => <label className="mt-1 block"><input type="checkbox" data-testid="intake-unknown" checked={unknowns.includes(id)} disabled={busy} onChange={event => setUnknown(id, event.target.checked)} /> I do not know yet</label>;
   const suggestions = suggestInitialAnswers(checkpoint);
   const story = storyOf(checkpoint.sections);
   const city = locationOf(checkpoint.sections)?.city ?? "";
@@ -137,26 +145,18 @@ export default function IntakeReviewPanel() {
   // The case file (caseFile.ts): an empty box whose fact was given, or answered "not sure",
   // somewhere else shows that answer instead of asking for it again.
   const caseFile = caseFileNow;
-  // Only an answer is shown in place of the box: a "not sure" fact is offered here once more, in its box.
-  const answeredSlot = (field: string) => slotsOfQuestion(field).map(fact => caseFile[fact]).find(item => item.state === "answered") ?? null;
-  // A "not sure" fact gets ONE box here (its one more offer): a later box for the same fact shows "Not sure yet".
-  const offeredInBox = new Set<string>();
-  const duplicateUnsure = new Set<string>();
-  for (const entry of entries) {
-    if (!empty(entry.value) || entry.fromStart || answeredSlot(entry.field)) continue;
-    const unsure = slotsOfQuestion(entry.field).filter(fact => caseFile[fact].state === "unsure");
-    if (!unsure.length) continue;
-    if (unsure.every(fact => offeredInBox.has(fact))) duplicateUnsure.add(entry.field);
-    else for (const fact of unsure) offeredInBox.add(fact);
-  }
-  const heldSlot = (field: string) => answeredSlot(field) ?? (duplicateUnsure.has(field) ? slotsOfQuestion(field).map(fact => caseFile[fact]).find(item => item.state === "unsure") ?? null : null);
+  // Each box by the one rule (intakeReview.ts reviewBoxState): an answer given elsewhere is shown in
+  // place of an empty box; a fact said "not sure" anywhere shows the quiet line, never a box asking for
+  // it again (site owner, 31 Oct: it replaced option 1's one more offer here).
+  const heldSlot = (entry: ReviewEntry) => reviewBoxState(entry, caseFile) === "held" ? slotsOfQuestion(entry.field).map(fact => caseFile[fact]).find(item => item.state === "answered") ?? null : null;
+  const notYetFact = (entry: ReviewEntry) => reviewBoxState(entry, caseFile) === "not-yet" ? slotsOfQuestion(entry.field).find(fact => caseFile[fact].state === "unsure") : undefined;
   // ONE CHANGE PATH (rule 6, 31 Oct): a fact changed or removed with "Change" shows the case file's
   // value on its box, never the form's own older copy; so does the fact the case page asked to change.
   const changedFact = (field: string): [SlotFact, Slot] | null => slotsOfQuestion(field).map(fact => [fact, caseFile[fact]] as [SlotFact, Slot]).find(([fact, slot]) => slot.changed || (fact === "claimKind" && slot.state === "answered") || (fact === changeFact && (slot.state === "answered" || slot.removed))) ?? null;
   const court = checkpoint.courtPath;
   // Facts with no box of their own here (the Small Claims kind of claim), held, changed, or asked for from the case page.
   const covered = new Set(entries.flatMap(entry => slotsOfQuestion(entry.field)));
-  const extraFacts = SLOT_FACTS.filter(fact => !covered.has(fact) && changeChoices(fact, court) && (fact === changeFact || caseFile[fact].changed || (fact === "claimKind" && caseFile[fact].state === "answered")));
+  const extraFacts = SLOT_FACTS.filter(fact => !covered.has(fact) && changeChoices(fact, court) && caseFile[fact].state !== "unsure" && (fact === changeFact || caseFile[fact].changed || (fact === "claimKind" && caseFile[fact].state === "answered")));
   /** A held answer in words, as every screen shows it (the kind of claim through claimKindOf). */
   const heldWords = (file: CaseFile, fact: SlotFact | undefined, slot: Slot) => fact === "claimKind" && slot.state === "answered" ? claimKindOf(file, inWords).words ?? slotText(slot, formatForCourt) : Array.isArray(slot.value) ? inWords(slot.value) : slotText(slot, formatForCourt);
   /** The held line: the answer, where it came from, and "Change" (ChangeAnswer, the one write path). */
@@ -280,14 +280,15 @@ export default function IntakeReviewPanel() {
     {showEntries && <>
       <p>{phase === "user-confirmed" ? "This is what you confirmed. Changing anything here means confirming again." : "Edit the information below, or return to the intake controls to change choices. Empty answers remain unknown."}</p>
       <div className="mt-4 grid gap-4 md:grid-cols-2">
-        {entries.map(entry => { const changed = changedFact(entry.field); const held = changed ? changed[1] : empty(entry.value) && !entry.fromStart ? heldSlot(entry.field) : null; const heldFact = changed ? changed[0] : held ? slotsOfQuestion(entry.field).find(fact => caseFile[fact] === held) : undefined; return <div key={`${entry.section}:${entry.nested ?? ""}:${entry.field}`} data-testid="intake-entry" data-field={entry.field} data-empty={empty(entry.value) && !entry.fromStart && !held ? "true" : "false"} className="block text-sm">
+        {entries.map(entry => { const changed = changedFact(entry.field); const held = changed ? changed[1] : heldSlot(entry); const notYet = changed || held ? undefined : notYetFact(entry); const heldFact = changed ? changed[0] : held ? slotsOfQuestion(entry.field).find(fact => caseFile[fact] === held) : undefined; return <div key={`${entry.section}:${entry.nested ?? ""}:${entry.field}`} data-testid="intake-entry" data-field={entry.field} data-empty={empty(entry.value) && !entry.fromStart && !held && !notYet ? "true" : "false"} className="block text-sm">
           {entry.label}{!entry.essential && " (optional later detail)"}
           {entry.hint && empty(entry.value) && <span className="block text-[#4d675f]">{entry.hint}</span>}
-          {entry.fromStory && empty(entry.value) ? <UseSuggestion testId="intake-entry-from-story" disabled={busy} onUse={() => edit(entry, entry.fromStory!.value)} what={entry.fromStory.value.length > 160 ? `${entry.fromStory.value.slice(0, 157)}…` : entry.fromStory.value} className="mt-1 block rounded border px-3 py-1 text-left text-sm" /> : null}
+          {entry.fromStory && empty(entry.value) && !notYet ? <UseSuggestion testId="intake-entry-from-story" disabled={busy} onUse={() => edit(entry, entry.fromStory!.value)} what={entry.fromStory.value.length > 160 ? `${entry.fromStory.value.slice(0, 157)}…` : entry.fromStory.value} className="mt-1 block rounded border px-3 py-1 text-left text-sm" /> : null}
           {staleKeys.has(`${entry.section}.${entry.nested ? `${entry.nested}.` : ""}${entry.field}`) && <span data-testid="intake-answer-stale" className="block text-[#7a4b12]">Answered for an earlier version of your story. Answer it again, or start the questions again.</span>}
           {/* The story: a draft saved with "Save story", as in the form (#470 re-test: typing here
               changed the story at once and set every answer aside). */}
           {held ? heldLine(heldFact, held, `Review: ${entry.label}`)
+          : notYet ? <NotAnsweredYet fact={notYet} court={court} startOpen={notYet === changeFact} />
           : entry.section === STORY_SECTION && entry.field === "text" ? <div className="mt-1"><StoryEditor section={checkpoint.courtPath} story={String(entry.value)} onSave={text => edit(entry, text)} startOpen draftField="reviewStoryDraft" label={`Review: ${entry.label}`} heading={null} showStory={false} ids={{ toggle: "review-story-edit", draft: "review-story-draft", save: "review-story-save" }} /></div>
           : entry.fromStart ? <p className="mt-1" data-testid="intake-entry-from-start" aria-label={`Review: ${entry.label}`}>{Array.isArray(entry.value) ? entry.value.map(value => shown(entry, value)).join(", ") : typeof entry.value === "string" ? shown(entry, entry.value) : String(entry.value)} <span className="text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
           : Array.isArray(entry.value) ? <div role="group" aria-label={`Review: ${entry.label}`}>{entry.value.length ? entry.value.map(value => <label key={value} className="mr-3 block"><input type="checkbox" checked disabled={busy} onChange={() => edit(entry, (entry.value as string[]).filter(item => item !== value))} /> {shown(entry, value)}</label>) : <span>Not recorded</span>}</div>
@@ -303,6 +304,7 @@ export default function IntakeReviewPanel() {
         </div>; })}
       </div>
       {extraFacts.length > 0 && <div className="mt-4 grid gap-2 text-sm" data-testid="intake-held-facts">{extraFacts.map(fact => <div key={fact}>{heldLine(fact, caseFile[fact], `Review: ${FACT_LABEL[fact]}`, FACT_LABEL[fact])}</div>)}</div>}
+{/* Facts said "not sure" with no box and no question here: the quiet line, with "Add it" (site owner, 31 Oct). */}      {quietFacts.length > 0 && <div className="mt-4 grid gap-2 text-sm" data-testid="intake-not-answered-yet">{quietFacts.map(line => <NotAnsweredYet key={line.id} fact={line.facts[0]} court={court} name={FACT_LABEL[line.facts[0]]} startOpen={line.facts[0] === changeFact} />)}</div>}
       {phase === "reviewing" && hiddenStale.length > 0 && <fieldset className="mt-5" data-testid="intake-hidden-stale"><legend>Other answers given for an earlier version of your story</legend>{hiddenStale.map(key => <div key={key} className="my-3" data-testid="intake-hidden-stale-item" data-key={key}>
         <p className="font-semibold">{HIDDEN_ANSWER_NAMES[key] ?? HIDDEN_ANSWER_NAMES[key.split(".").slice(0, 2).join(".")] ?? "An earlier answer"}</p>
         <p className="whitespace-pre-line text-[#4d675f]">{shownAnswer(key)}</p>
@@ -313,10 +315,22 @@ export default function IntakeReviewPanel() {
           a question answered here moves to its own group, still changeable, never under "Remaining" (owner's
           Chrome check, 31 Oct: "What is the case about?" stayed listed as remaining after "Dividing property"
           was saved). */}
-      {phase === "reviewing" && shownQuestions.length > 0 && <fieldset className="mt-5" data-testid="intake-initial-questions"><legend>Initial questions</legend><p><span data-testid="intake-remaining-count">{(() => { const left = shownQuestions.filter(question => unanswered.some(item => item.id === question.id)).length; return left === 0 ? "Nothing here is still to answer." : `${left} still to answer.`; })()}</span> Answer these here or in the intake controls, or record that you do not know. A suggestion read from your story is only a suggestion until you choose it. Evidence research is optional.</p>{shownQuestions.map(question => {
+      {phase === "reviewing" && shownQuestions.length > 0 && <fieldset className="mt-5" data-testid="intake-initial-questions"><legend>Initial questions</legend><p><span data-testid="intake-remaining-count">{(() => { const left = shownQuestions.filter(question => remaining.some(item => item.id === question.id)).length; return left === 0 ? "Nothing here is still to answer." : `${left} still to answer.`; })()}</span> Answer these here or in the intake controls, or record that you do not know. A suggestion read from your story is only a suggestion until you choose it. Evidence research is optional.</p>{shownQuestions.map(question => {
         const bank = QUESTION_BANK.find(item => item.id === question.id);
         const suggested = suggestions[question.id];
-        const answered = !unanswered.some(item => item.id === question.id);
+        const answered = !remaining.some(item => item.id === question.id);
+        // Said "not sure" (here or anywhere): the quiet line in its place, never the question again (site owner, 31 Oct).
+        const quiet = quietQuestions.find(item => item.id === question.id);
+        if (quiet) {
+          const fact = quiet.facts.find(item => changeChoices(item, court));
+          // No fact to add here through "Change" (the day a claim was issued): "Add it" takes back "I do not know yet", so the question opens again.
+          const reopen = !fact && quiet.markedHere ? <>{" "}<button type="button" data-testid="not-answered-yet-add" disabled={busy} onClick={() => setUnknown(question.id, false)} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</button></> : undefined;
+          return <div key={question.id} className="my-4" data-testid="intake-initial-question" data-question={question.id} data-answered="not-yet" data-unknown={unknowns.includes(question.id) ? "true" : "false"}>
+            <p className="font-semibold">{question.label}</p>
+            <NotAnsweredYet fact={fact ?? quiet.facts[0]} court={court} startOpen={Boolean(fact) && fact === changeFact} control={reopen} />
+            {quiet.markedHere ? unknownBox(question.id) : null}
+          </div>;
+        }
         return <div key={question.id} className="my-4" data-testid="intake-initial-question" data-question={question.id} data-answered={answered ? "true" : "false"} data-unknown={unknowns.includes(question.id) ? "true" : "false"}>
           <p className="font-semibold">{question.label}</p>
           {/* Answered, it keeps its place (owner, earlier rule) and says so with the answer in words, never
@@ -348,7 +362,7 @@ export default function IntakeReviewPanel() {
             }
             return <div className="mt-1"><div className="flex flex-wrap items-center gap-2">{field.fromStory && !answered ? <UseSuggestion testId="intake-field-from-story" disabled={busy} onUse={() => answerField(question.id, field.fromStory!)} what={field.fromStory} className="rounded border px-3 py-1" /> : null}<input type="text" aria-label={`Answer: ${question.label}`} placeholder="Your answer" value={dates[question.id] ?? ""} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => typedField(question.id, (typed) => field.needsMore?.(typed) ?? dateAnswerCheck(field.question, typed))} onKeyDown={event => { if (event.key === "Enter") typedField(question.id, (typed) => field.needsMore?.(typed) ?? dateAnswerCheck(field.question, typed)); }} className="min-w-[16rem] flex-1 rounded border px-3 py-1" /></div>{fieldNotes[question.id] ? <p data-testid="intake-field-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[question.id]}</p> : null}</div>;
           })()}
-          <label className="mt-1 block"><input type="checkbox" data-testid="intake-unknown" checked={unknowns.includes(question.id)} disabled={busy} onChange={event => { const current = Array.isArray(recovery.read("builder", "initialUnknowns")) ? recovery.read("builder", "initialUnknowns") as string[] : []; recovery.put("builder", "initialUnknowns", event.target.checked ? [...current.filter(id => id !== question.id), question.id] : current.filter(id => id !== question.id), true, false, true); }} /> I do not know yet</label>
+          {unknownBox(question.id)}
         </div>;
       })}</fieldset>}
       {phase === "reviewing" ? <>

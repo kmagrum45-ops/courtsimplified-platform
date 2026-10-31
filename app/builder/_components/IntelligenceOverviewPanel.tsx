@@ -40,6 +40,7 @@ import { savePositionQueued } from "./positionSave";
 import { changedWords, claimKindAnswer, claimKindLine, CLAIM_KIND_QUESTION, type CaseFile, type ClaimKindHeld } from "@/src/lib/case-system/caseFile/caseFile";
 import { WorkingButton } from "@/app/_components/Working";
 import { UseSuggestion } from "@/app/_components/UseSuggestion";
+import { ADD_IT_LATER, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
 
 type Props = {
   analysis: AnalysisResult;
@@ -569,7 +570,7 @@ function ClaimKindOffer({ caseId, claimTypeId, words, onChosen }: { caseId: stri
  * link stays). The person's choice is kept in the case file (caseFile.ts claimKindAnswer).
  */
 function ClaimKindChooser({ caseId, chosen, onChosen, saidNotSure = false }: { caseId: string | null; chosen: string | null; onChosen: (value: string) => void; saidNotSure?: boolean }) {
-  // Folded once they said "not sure" (here, or in the review, its one more offer): "Choose it" stays.
+  // Folded once they said "not sure" (here, or anywhere): never asked again, the quiet line with "Add it" (site owner, 31 Oct).
   const [open, setOpen] = useState(chosen !== "not-sure" && !saidNotSure);
   const [pick, setPick] = useState("");
   const [failed, setFailed] = useState(false);
@@ -587,7 +588,7 @@ function ClaimKindChooser({ caseId, chosen, onChosen, saidNotSure = false }: { c
     setOpen(false);
   };
   if (!open) {
-    return <span>Not sure yet. <button type="button" data-testid="claim-kind-choose" onClick={() => setOpen(true)} className="font-semibold text-[#2f7d67] underline">Choose it</button></span>;
+    return <span><span data-testid="not-answered-yet" data-fact="claimKind">{NOT_ANSWERED_YET}.</span> <button type="button" data-testid="claim-kind-choose" onClick={() => setOpen(true)} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</button></span>;
   }
   return (
     <span data-testid="claim-kind-chooser" className="block">

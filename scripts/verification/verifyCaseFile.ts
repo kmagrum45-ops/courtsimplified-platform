@@ -7,8 +7,8 @@
  *     Family triage, the saved position), with its source and as the person's own;
  *   - "not sure" (the review's "I don't know yet", a skip, an "I don't know" typed, the day
  *     not known) is kept as unsure and counts as asked; a real answer is never covered by it;
- *   - nextQuestion never returns a question whose fact the file holds, in any area, and at
- *     the end offers each unsure fact once, never a second time;
+ *   - nextQuestion never returns a question whose fact the file holds, answered or unsure, in any
+ *     area, and has no "offered once more at the end" (site owner, 31 Oct);
  *   - amounts are kept as numbers;
  *   - a day given anywhere is the step page's answer for the same moment, and never frozen
  *     into the saved position;
@@ -20,7 +20,7 @@
  */
 import { slotText, type SlotFact, slotsOfQuestion, alreadyAsked, askable, caseFileOf, nextQuestion, withCaseFileDates, withoutCaseFileDates, withUnsure, isUnsureAnswer, CASE_FILE_SECTION } from "../../src/lib/case-system/caseFile/caseFile";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
-import { remainingEssentialQuestions, reviewEntries } from "../../src/lib/case-system/intakeReview";
+import { notAnsweredYet, remainingEssentialQuestions, reviewBoxState, reviewEntries } from "../../src/lib/case-system/intakeReview";
 import { dateAnswerCheck } from "../../src/lib/case-system/dates";
 import { FAMILY_ISSUE_OPTIONS } from "../../app/builder/_components/guidedFields";
 import { situationOf, withSituationDates } from "../../src/lib/case-system/situation/situation";
@@ -52,9 +52,9 @@ const checkpoint = (courtPath: Checkpoint["courtPath"], sections: Record<string,
 {
   const unknownDay = caseFileOf(checkpoint("civil", { situation: { record: { where: "served", papers: "not-sure", receivedOn: "unknown", court: "civil", courtFrom: "choice" } } }));
   check("\"I don't know the date\" is kept as unsure", unknownDay.servedDate.state === "unsure" && unknownDay.papers.state === "unsure");
-  check("an unsure fact is not asked again before the end", nextQuestion(unknownDay, ["serviceDetails", "otherParty"]) === "otherParty");
-  check("at the end, the unsure fact is offered once more", nextQuestion(unknownDay, ["serviceDetails"], { atEnd: true }) === "serviceDetails");
-  check("and not a second time", nextQuestion(unknownDay, ["serviceDetails"], { atEnd: true, offered: ["servedDate"] }) === null);
+  check("an unsure fact is not asked again", nextQuestion(unknownDay, ["serviceDetails", "otherParty"]) === "otherParty");
+  // Site owner, 31 Oct (replaces option 1's "offered once more at the end"): never asked again, at any point.
+  check("nor at the end: the gate has no second offer", nextQuestion(unknownDay, ["serviceDetails"]) === null && nextQuestion(unknownDay, ["serviceDetails"], { atEnd: true } as never) === null);
   const review = caseFileOf(checkpoint("small-claims", { builder: { initialUnknowns: ["sc-amount-claimed"] } }));
   check("the review's \"I don't know yet\" is unsure, and asked nowhere else", review.amount.state === "unsure" && alreadyAsked(review, "amountClaimed") && alreadyAsked(review, "amountClaimedText"));
   const skipped = caseFileOf(checkpoint("family", { "form-chat": { skipped: ["childrenInfo"] } }));
@@ -127,22 +127,21 @@ const checkpoint = (courtPath: Checkpoint["courtPath"], sections: Record<string,
   check("a step chosen is the stage", file.stage.state === "answered" && alreadyAsked(file, "stage-confirmation"));
 }
 
-// 7. Option 1 (Jason, 2026-10-24): a "not sure" fact gets its one more offer in the review,
-// as ONE field, and never blocks Confirm.
+// 7. The site owner's rule of 31 Oct (it replaced option 1's "one more offer" in the review): a
+// "not sure" fact is never asked again in the review -- no question, no box asking for it -- is
+// shown once as a quiet line, and never blocks Confirm. (test:not-sure-never-asked covers every court
+// and every way of saying it.)
 {
   for (const court of ["small-claims", "civil", "family"] as const) {
     const served = checkpoint(court, { story: { text: "Synthetic story.", location: { province: "Ontario", city: "Sudbury" } }, situation: { record: { where: "served", papers: "not-sure", receivedOn: "unknown", court, courtFrom: "choice" } } });
     const file = caseFileOf(served);
-    const listed = remainingEssentialQuestions(served, true).filter((question) => slotsOfQuestion(question.id).includes("servedDate"));
-    const boxes = reviewEntries(served).filter((entry) => (entry.essential || !(entry.value === "" || (Array.isArray(entry.value) && entry.value.length === 0))) && slotsOfQuestion(entry.field).includes("servedDate") && !entry.fromStart);
-    check(`${court}: an unknown served day is offered once in the review, as one field`, file.servedDate.state === "unsure" && (boxes.length > 0 ? listed.length === 0 : listed.length <= 1), `questions ${listed.map((q) => q.id).join(", ")}; boxes ${boxes.map((b) => b.field).join(", ")}`);
+    const listed = remainingEssentialQuestions(served).filter((question) => slotsOfQuestion(question.id).includes("servedDate"));
+    const asking = reviewEntries(served).filter((entry) => slotsOfQuestion(entry.field).includes("servedDate") && reviewBoxState(entry, file) === "ask");
+    const quiet = notAnsweredYet(served).filter((line) => line.facts.includes("servedDate"));
+    const boxes = reviewEntries(served).filter((entry) => (entry.essential || !(entry.value === "" || (Array.isArray(entry.value) && entry.value.length === 0))) && slotsOfQuestion(entry.field).includes("servedDate") && reviewBoxState(entry, file) === "not-yet");
+    check(`${court}: an unknown served day is not asked again in the review (no question, no box asking)`, file.servedDate.state === "unsure" && listed.length === 0 && asking.length === 0, `questions ${listed.map((q) => q.id).join(", ")}; boxes ${asking.map((b) => b.field).join(", ")}`);
+    check(`${court}: it is shown once as "not answered yet" (its box's quiet line, or one quiet line)`, boxes.length > 0 ? quiet.length === 0 : quiet.length === 1, `boxes ${boxes.map((b) => b.field).join(", ")}; lines ${quiet.map((line) => line.id).join(", ")}`);
     check(`${court}: a "not sure" fact never blocks Confirm`, !remainingEssentialQuestions(served).some((question) => slotsOfQuestion(question.id).includes("servedDate")));
-    // Marked "I don't know yet" on that one offer: no second field for the same day appears.
-    if (listed[0]) {
-      const marked = { ...served, sections: { ...served.sections, builder: { initialUnknowns: [listed[0].id] } } };
-      const after = remainingEssentialQuestions(marked, true).filter((question) => slotsOfQuestion(question.id).includes("servedDate"));
-      check(`${court}: after "I don't know yet" on the review's offer, no second field for the day appears`, after.length === 1 && after[0].id === listed[0].id, after.map((q) => q.id).join(", "));
-    }
   }
 }
 

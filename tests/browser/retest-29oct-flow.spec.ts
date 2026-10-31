@@ -140,8 +140,8 @@ async function smallClaimsForm(page: Page) {
  *
  * Before #515 the added answer was the next question of the chat. That question was always one the
  * review had just recorded "I do not know yet" for, offered again from the story -- which the owner's
- * rule now forbids (an unsure fact is offered once more only, in the review or as the story's
- * suggestion; never asked again afterwards), so after Confirm the chat rightly has nothing left to
+ * rule now forbids (site owner, 31 Oct: an unsure fact is never offered again, not in the review and
+ * not as the story's suggestion), so after Confirm the chat rightly has nothing left to
  * ask. A fact neither the story, the start answers nor the review gives is "Evidence still missing":
  * no question of the chat or the review asks it, and its box on this area's own form is empty. It is
  * answered there, on the same area's intake (CivilIntake.tsx / FamilyIntake.tsx), so Continue is still

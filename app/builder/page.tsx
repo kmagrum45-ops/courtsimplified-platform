@@ -2430,8 +2430,8 @@ function BuilderPageContent() {
                 sideFromRecord={sideOf(situation) !== null}
                 caseId={savedCaseId()}
                 initialStepId={savedPosition.stepId ?? stepFromSituation(situation, courtPath)}
-                // A day the person said they do not know had its one more offer in the review: folded
-                // here ("not known yet — Add it"), never asked a second time (caseFile.ts).
+                // A day the person said they do not know is never asked again: folded here as "Not answered yet:
+                // add it when you know", with "Add it" (site owner, 31 Oct; caseFile.ts unsureDateQuestions).
                 laterDates={unsureDateQuestions(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult))}
                 initialDateAnswers={savedPosition.dateAnswers}
                 initialService={savedPosition.service}

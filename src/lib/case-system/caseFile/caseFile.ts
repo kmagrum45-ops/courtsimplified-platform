@@ -23,8 +23,11 @@
  * the situation answers.
  *
  * `nextQuestion` is the one gate: a screen offers its questions in order and gets back
- * the first whose facts are all not asked, or null. At the end (`atEnd`), each unsure
- * fact is offered once more.
+ * the first whose facts are all not asked, or null. A fact the person said they do not know
+ * is never asked again, anywhere, by any screen (site owner, 31 Oct; it replaced "offered once
+ * more at the end", option 1 of 24 Oct): screens show it as the quiet line "Not answered yet: add
+ * it when you know" (askCopy.ts NOT_ANSWERED_YET), and the person adds it through the one change
+ * path (withChange) when they know.
  *
  * Pure: no React, no network. States no law.
  */
@@ -61,8 +64,8 @@ export type CaseFile = Record<SlotFact, Slot> & {
   /** The papers the person said are filed, as stored (shown in words with "Anything filed yet"). */
   documents?: string[];
   /**
-   * Date questions answered "I don't know yet" that no slot holds (the day a claim was issued): offered
-   * once more at the end like the slots' days, never asked cold again (story pack on GitHub, 27 Oct:
+   * Date questions answered "I don't know yet" that no slot holds (the day a claim was issued):
+   * never asked again, folded on the step page like the slots' days (story pack on GitHub, 27 Oct:
    * sc-date-claim-issued asked on the results page and again on the case page).
    */
   unsureDates?: string[];
@@ -183,7 +186,7 @@ function give(file: CaseFile, fact: string, value: unknown, question: string) {
     return;
   }
   // A rough time ("last summer", "June 2026") is kept as given, but is not the day itself:
-  // the fact stays unsure, so the exact day is offered once more at the end (item 12).
+  // the fact stays unsure, never asked again; the step page shows it folded (item 12; site owner, 31 Oct).
   if (DATED.has(fact) && typeof value === "string" && !isRealIsoDate(value) && !readFullDay(value)) {
     if (slot.state === "not-asked") file[fact] = { state: "unsure", value, source: { kind: "answer", question }, confirmed: true };
     return;
@@ -309,7 +312,7 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
     for (const fact of slotsOf(id)) {
       if (file[fact].state !== "not-asked") continue;
       // The answer's own words where the question keeps them (its captured field); a dated
-      // fact with no words kept is unsure (the exact day is offered once more at the end).
+      // fact with no words kept is unsure (never asked again; the step page shows it folded).
       const field = QUESTION_BANK.find((question) => question.id === id)?.capturesField;
       const captured = field ? guidedFacts[field] : id === "sc-orient-role" ? guidedFacts.role : id === "sc-orient-dispute-category" && typeof guidedFacts.disputeCategory === "string" ? DISPUTE_CATEGORY_WORDS[guidedFacts.disputeCategory] : undefined;
       if (captured === undefined && DATED.has(fact)) unsure(file, fact, id);
@@ -686,16 +689,16 @@ export const notAsked = (slot: Slot) => slot.state === "not-asked" && !slot.remo
 
 /**
  * THE ONE GATE. Of a screen's questions, in its order, the first whose facts the file
- * does not hold yet; null when none. At the end (`atEnd`), the first whose fact the
- * person was unsure of and has not yet been offered again (`offered`): each unsure fact
- * is offered once more, once. A question that asks for no slot is the screen's own.
+ * does not hold yet; null when none. A fact held answered OR unsure ("I don't know", "not
+ * sure", a skip) is never asked again, on any screen and at no point (site owner, 31 Oct:
+ * there is no "offered once more at the end"). A question that asks for no slot is the
+ * screen's own.
  */
-export function nextQuestion(file: CaseFile, candidates: readonly string[], options: { surface?: string; atEnd?: boolean; offered?: readonly string[] } = {}): string | null {
+export function nextQuestion(file: CaseFile, candidates: readonly string[], options: { surface?: string } = {}): string | null {
   for (const id of candidates) {
     const facts = slotsOf(id, options.surface);
     if (!facts.length) return id;
-    if (!options.atEnd && facts.every((fact) => notAsked(file[fact]))) return id;
-    if (options.atEnd && facts.some((fact) => file[fact].state === "unsure" && !(options.offered ?? []).includes(fact))) return id;
+    if (facts.every((fact) => notAsked(file[fact]))) return id;
   }
   return null;
 }
@@ -707,9 +710,9 @@ export function askable(file: CaseFile, candidates: readonly string[], surface?:
 
 /**
  * THE GATE FOR EVERY CHAT (never ask twice, row 1, 29 Oct). A chat question is asked only when the
- * one gate lets it: a fact the file holds, answered or "not sure", is not asked by a chat. A chat is
- * never where an unsure fact is offered once more (that is the review, or the story's own
- * suggestion), and the next step shows it folded ("not known yet -- Add it"). No file: nothing held.
+ * one gate lets it: a fact the file holds, answered or "not sure", is not asked by a chat, nor offered
+ * as the story's suggestion (site owner, 31 Oct: a not-sure fact is asked nowhere again; screens show
+ * it as "Not answered yet: add it when you know"). No file: nothing held.
  */
 export function chatMayAsk(file: CaseFile | null | undefined, questionId: string): boolean {
   return !file || nextQuestion(file, [questionId]) === questionId;
@@ -758,26 +761,6 @@ export function withUnsure(section: Record<string, unknown> | undefined, questio
   return { ...current, unsure: kept };
 }
 
-/** The case file section after a fact was offered again at the end (it is not offered a third time). */
-export function withOfferedAtEnd(section: Record<string, unknown> | undefined, fact: SlotFact): Record<string, unknown> {
-  const current = object(section);
-  return { ...current, offeredAtEnd: [...new Set([...strings(current.offeredAtEnd), fact])] };
-}
-
-export function offeredAtEnd(sections: Record<string, unknown> | undefined): SlotFact[] {
-  return strings(object(object(sections)[CASE_FILE_SECTION]).offeredAtEnd).filter(isSlot);
-}
-
-/**
- * Whether an unsure fact has had its one more offer: the review recorded "I don't know yet" for it
- * (the review is that offer), or it was offered again at the end. After that it is never offered
- * again, not even as the story's suggestion; the next step shows it folded (CI 29 Oct, family-safety).
- */
-export function offeredOnceMore(file: CaseFile, fact: SlotFact, sections: Record<string, unknown> | undefined): boolean {
-  const source = file[fact].source;
-  return offeredAtEnd(sections).includes(fact) || (source?.kind === "answer" && source.question.startsWith("review:"));
-}
-
 /** The slots a review box or question holds (its facts that are slots). */
 export function slotsOfQuestion(questionId: string, surface?: string): SlotFact[] {
   return slotsOf(questionId, surface);
@@ -815,7 +798,7 @@ const SAME_MOMENT: readonly (readonly string[])[] = [
   ["sc-date-defence-filed", "case-date-own-defence-delivered"],
 ];
 
-/** The step page's date questions for each day the person said they do not know (offered once more at the end). */
+/** The step page's date questions for each day the person said they do not know: never asked again, shown folded as "Not answered yet: add it when you know" with "Add it" (StageAnswerPanel laterDates; site owner, 31 Oct). */
 export function unsureDateQuestions(file: CaseFile): string[] {
   const ids: Record<string, readonly string[]> = {
     servedDate: ["sc-date-claim-served", "sc-date-defendants-claim-served", "case-date-served-with-application", "case-date-served-with-motion-to-change"],

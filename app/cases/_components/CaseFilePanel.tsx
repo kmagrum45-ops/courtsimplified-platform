@@ -3,17 +3,22 @@
 /**
  * "WHAT WE HAVE SO FAR" (Jason, 2026-10-24): the case file, one line per fact the person
  * has answered or said "not sure" to, each with where it came from and a Change link.
- * A fact they were not sure of is offered once more here, at the end ("Answer it now").
+ * A fact they were not sure of is never asked again (site owner, 31 Oct): it shows the quiet line
+ * "Not answered yet: add it when you know" (askCopy.ts NOT_ANSWERED_YET), with "Add it".
  *
  * Restates the person's own answers; states no law.
  */
 import Link from "next/link";
 import { formatForCourt } from "@/src/lib/case-system/dates";
-import { SLOT_FACTS, claimKindOf, conferenceKind, courtDateIsConference, slotText, type CaseFile, type SlotFact } from "@/src/lib/case-system/caseFile/caseFile";
+import { SLOT_FACTS, claimKindOf, conferenceKind, courtDateIsConference, isUnsureAnswer, slotText, type CaseFile, type SlotFact } from "@/src/lib/case-system/caseFile/caseFile";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { inWords, optionWords } from "@/src/lib/case-system/copy/rawKeys";
 import { storyLines } from "@/src/lib/case-system/caseFile/storyLines";
+import { ADD_IT_LATER, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
 import type { CountedDeadline } from "@/src/lib/case-system/caseFile/stepDeadlines";
+
+/** A rough time the person gave for a day ("July 2026"): kept and shown, the day still to add. */
+const roughTime = (value: unknown) => typeof value === "string" && Boolean(value.trim()) && !isUnsureAnswer(value);
 
 const LABEL: Record<SlotFact, string> = {
   side: "Your side",
@@ -37,7 +42,7 @@ const LABEL: Record<SlotFact, string> = {
   courtDate: "Next court date",
 };
 
-/** The days the step page itself asks for: their one offer at the end is there. */
+/** The days the step page itself asks for: a day not known yet is added there (folded, never asked again). */
 const STEP_PAGE_DATES = new Set<SlotFact>(["servedDate", "whenHappened", "conferenceDate", "courtDate"]);
 
 const COURT: Record<string, string> = { "small-claims": "Small Claims Court", civil: "Superior Court of Justice", family: "Family court" };
@@ -87,13 +92,22 @@ export default function CaseFilePanel({ file, changeHref, situationHref, stepHre
             <div key={fact} className="contents" data-testid="case-file-line" data-fact={fact} data-state={slot.state} data-question={fact} data-source={question}>
               <dt className="font-semibold text-[#10231f]">{(fact === "conferenceDate" ? conferenceKind(slot) : null) ?? LABEL[fact]}</dt>
               <dd>
+                {slot.state === "unsure" && !roughTime(slot.value) ? (
+                  // Said "not sure": never asked again (site owner, 31 Oct). The quiet line, and "Add it": a day on
+                  // the step page below (folded there too), a start answer at the top, anything else in the review.
+                  <>
+                    <span data-testid="not-answered-yet" data-fact={fact}>{NOT_ANSWERED_YET}.</span>{" "}
+                    <Link data-testid="case-file-change" href={STEP_PAGE_DATES.has(fact) ? stepHref : ["side", "court", "stage", "papers"].includes(fact) ? situationHref : `${changeHref}${changeHref.includes("?") ? "&" : "?"}change=${fact}`} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</Link>
+                  </>
+                ) : <>
                 {shownValue(fact, file)}{" "}
                 {slot.state === "unsure" && STEP_PAGE_DATES.has(fact) ? (
-                  // A day not known yet is offered once at the end on the step page below, not here as well.
+                  // A rough time given ("July 2026"), the day not known: added on the step page below, where it is folded.
                   <Link data-testid="case-file-change" href={stepHref} className="font-semibold text-[#2f7d67] underline">Add it with your next step</Link>
                 ) : (
                   <Link data-testid="case-file-change" href={href} className="font-semibold text-[#2f7d67] underline">Change</Link>
                 )}
+                </>}
               </dd>
             </div>
           );

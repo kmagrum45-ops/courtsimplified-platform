@@ -16,7 +16,7 @@ import { confirmInitialInformation, saveCaseStory } from "./harness/intakeReview
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { passSituationGate } from "./harness/situation";
 import { serveFromThisCommit } from "./harness/thisCommitServer";
-import { confirmAndShowNextStep, expectServedNotAskedOnNextStep, expectServedOfferedOnceInReview } from "./harness/servedOnce";
+import { confirmAndShowNextStep, expectServedNotAskedInReview, expectServedNotAskedOnNextStep, openServedAdd } from "./harness/servedOnce";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
@@ -244,16 +244,17 @@ test("Family: being served is not recorded as an application filed without its o
   await expect(panel).toHaveAttribute("data-phase", "reviewing");
   await expect(panel).toContainText("Day you were served");
   await expect(panel).toContainText("Your story says: “Synthetic story: I got served the papers last week.”");
-  // Offered once more in the review, as one field (Jason, 2026-10-24, option 1).
-  await expectServedOfferedOnceInReview(page);
+  // Not known at the start, so never asked again (site owner, 31 Oct; it replaced option 1's one
+  // more offer here): the quiet line in the box's place, and its "Add it" takes the day.
+  await expectServedNotAskedInReview(page);
   // Typed key by key (re-test round 4: spaces vanished while typing; pasting kept them).
-  const served = panel.getByRole("textbox", { name: "Review: Day you were served", exact: true });
+  const served = await openServedAdd(page);
   await served.click();
   await served.pressSequentially("October 12, 2026", { delay: 30 });
   await expect(served, "spaces survive typing").toHaveValue("October 12, 2026");
-  await served.press("Tab");
-  await expect(served).toHaveValue("October 12, 2026");
-  await expect(panel.getByRole("textbox", { name: "Review: Timeline", exact: true }), "the served date is kept in the Timeline, as typed").toHaveValue(/October 12, 2026/);
+  await served.press("Enter");
+  // Saved through the one change path: the review then shows it as the person's answer.
+  await expect(panel.locator('[data-testid=intake-entry-held][data-fact="servedDate"]').first(), "the day added is held as the person's answer, as typed").toContainText("October 12, 2026");
   expect(await panel.innerText()).not.toMatch(/Property \/ equalization|Matrimonial home \/ exclusive possession/);
   // Offered exactly once: the next step does not ask it again.
   await confirmAndShowNextStep(page);

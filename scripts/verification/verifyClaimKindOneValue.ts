@@ -103,7 +103,7 @@ function screens(master: Record<string, unknown>, court: Area = "small-claims") 
   const form7A = court === "small-claims" ? text(renderToStaticMarkup(createElement(StatementOfClaimSurface, { caseFile: file }))) : "";
   const caseFilePanel = text(renderToStaticMarkup(createElement(CaseFilePanel, { file, changeHref: "/b", situationHref: "/s", stepHref: "/t" })));
   const review = deterministicFindings(caseFileFromMasterResult(master, court));
-  const stillNeeded = checkpoint ? remainingEssentialQuestions(checkpoint, true, master).map((question) => question.id) : [];
+  const stillNeeded = checkpoint ? remainingEssentialQuestions(checkpoint, master).map((question) => question.id) : [];
   const aiText = caseFactsText(readCaseRecord(master, court));
   return { file, held, overview, form7A, caseFilePanel, review, stillNeeded, aiText, checkpoint };
 }
@@ -138,7 +138,7 @@ const owner = savedCase(checkpointOf("small-claims", { ...GOING_NOTED, ...GUIDED
 const ownerScreens = agrees("owner's defamation flow", owner, DEFAMATION_WORDS);
 check("owner's defamation flow: the answer is the person's own (source person-said)", ownerScreens.held.source === "person-said");
 check("owner's defamation flow: the answer names the catalogue's defamation kind, so its checklist follows", ownerScreens.held.claimTypeId === "sc-claim-defamation-libel-slander");
-check("owner's defamation flow: Confirm is not refused for the kind (the server's check reads the same file)", (() => { try { transitionReview({ intakeReview: { version: 1, reviewedRevision: REVISION } }, ownerScreens.checkpoint!, "confirm", REVISION, "2026-10-29T00:00:00Z", owner); return true; } catch { return !remainingEssentialQuestions(ownerScreens.checkpoint!, false, owner).some((question) => question.id === "sc-orient-dispute-category"); } })());
+check("owner's defamation flow: Confirm is not refused for the kind (the server's check reads the same file)", (() => { try { transitionReview({ intakeReview: { version: 1, reviewedRevision: REVISION } }, ownerScreens.checkpoint!, "confirm", REVISION, "2026-10-29T00:00:00Z", owner); return true; } catch { return !remainingEssentialQuestions(ownerScreens.checkpoint!, owner).some((question) => question.id === "sc-orient-dispute-category"); } })());
 
 // 1b. The same answer given in the review panel instead of the guided questions (the review route).
 agrees("review route answer", savedCase(checkpointOf("small-claims", { ...GOING_NOTED, builder: { initialAnswers: { "sc-orient-dispute-category": DEFAMATION_WORDS } } })), DEFAMATION_WORDS);

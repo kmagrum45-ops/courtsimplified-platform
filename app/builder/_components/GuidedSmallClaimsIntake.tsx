@@ -1439,7 +1439,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             {/* Confirmed, and the case file holds every question the review would ask (the same gate,
                 remainingEssentialQuestions -> alreadyAsked): said in plain words above the story; the story can
                 still be sent or edited (owner's Chrome check, 31 Oct, item 5). */}
-            {intakeConfirmed && reviewView && remainingEssentialQuestions(reviewView.checkpoint, false, recovery?.getSavedMaster() ?? undefined).length === 0 ? <p data-testid="guided-nothing-left" className="mb-3 text-[#16302b]">{NOTHING_LEFT_TO_ASK} You can change any answer in &ldquo;Review or correct initial information&rdquo;.</p> : null}
+            {intakeConfirmed && reviewView && remainingEssentialQuestions(reviewView.checkpoint, recovery?.getSavedMaster() ?? undefined).length === 0 ? <p data-testid="guided-nothing-left" className="mb-3 text-[#16302b]">{NOTHING_LEFT_TO_ASK} You can change any answer in &ldquo;Review or correct initial information&rdquo;.</p> : null}
             <p className="font-semibold text-[#16302b]">Your story</p>
             <p className="mt-1 whitespace-pre-wrap text-[#2b4640]">{story}</p>
             <div className="mt-3 flex flex-wrap gap-2">

@@ -56,6 +56,7 @@ import {
 } from "../../../src/lib/case-system/intake/questionBank";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { analysisClaimType, caseFileOf, claimKindOf, kindForAnalysis } from "../../../src/lib/case-system/caseFile/caseFile";
+import { NotAnsweredYetField } from "../../_components/NotAnsweredYet";
 import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
 import { UseSuggestion } from "../../_components/UseSuggestion";
 
@@ -1210,6 +1211,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             />
           </label>
 
+          {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
+          <NotAnsweredYetField field="otherParty" value={input.otherParty} label={"Other party name"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               Other party name
@@ -1221,11 +1224,14 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               placeholder="Person or business on the other side"
             />
           </label>
+          </NotAnsweredYetField>
         </div>
 
         <StoryEditor section="small-claims" story={input.facts} startOpen={!input.facts.trim()} onSave={saveStory} ids={{ toggle: "sc-intake-edit-story", draft: "sc-intake-facts", save: "sc-story-save" }} />
 
         <div className="grid gap-5 md:grid-cols-2">
+          {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
+          <NotAnsweredYetField field="timeline" facts={["whenHappened"]} value={input.timeline} label={"Important dates / timeline"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               Important dates / timeline
@@ -1237,6 +1243,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               placeholder="List dates in order. If you do not know exact dates, estimate."
             />
           </label>
+          </NotAnsweredYetField>
 
           <label className="block">
             <span className="font-semibold text-[#16302b]">
@@ -1267,6 +1274,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             />
           </label>
 
+          {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
+          <NotAnsweredYetField field="goal" value={input.goal} label={"What do you want the court to order?"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               {/* A defendant does not ask the court for an order on the claim;
@@ -1281,9 +1290,12 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             />
             <FieldHelp question={REMEDY_QUESTION} />
           </label>
+          </NotAnsweredYetField>
         </div>
 
         <div className="grid gap-5 md:grid-cols-2">
+          {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
+          <NotAnsweredYetField field="amountClaimed" value={input.amountClaimed} label={"Amount claimed or disputed"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               Amount claimed or disputed
@@ -1298,6 +1310,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             />
             <FieldHelp question={AMOUNT_CLAIMED_QUESTION} />
           </label>
+          </NotAnsweredYetField>
 
           <label className="block">
             <span className="font-semibold text-[#16302b]">
@@ -1352,6 +1365,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               placeholder="Other party address for service, if known"
             />
 
+            {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
+            <NotAnsweredYetField field="serviceDetails" value={input.serviceDetails} label={"Service details"}>
             <textarea
               data-testid="sc-intake-serviceDetails" value={input.serviceDetails}
               onChange={(event) =>
@@ -1360,6 +1375,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3 md:col-span-2"
               placeholder={fromStart.servedOn ? "How the papers were served (in person, by mail, by email)" : "Service details, only if anything has already been served"}
             />
+            </NotAnsweredYetField>
             {/* The same date check as every date box (dates.ts), as in the civil form: a note, since nothing is counted from this box. */}
             {input.serviceDetails.trim() && dateAnswerCheck("When and how was it served?", input.serviceDetails.trim()) ? (
               <span data-testid="sc-field-needs-more" className="text-sm text-[#8a4b12] md:col-span-2">{dateAnswerCheck("When and how was it served?", input.serviceDetails.trim())}</span>
@@ -1463,12 +1479,15 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               placeholder="Deadlines, court dates, or urgent timing concerns"
             />
 
+            {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
+            <NotAnsweredYetField field="urgent" value={input.urgent} label={"Anything urgent"}>
             <textarea
               data-testid="sc-intake-urgent" value={input.urgent}
               onChange={(event) => updateField("urgent", event.target.value)}
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Anything urgent"
             />
+            </NotAnsweredYetField>
           </div>
         </details>
 

@@ -10,7 +10,7 @@ import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineVal
 import { amountFromStory, goalFromStory, kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
-import { alreadyAsked, caseFileOf, changesOf, claimKindOf, emptyCaseFile, slotsOfQuestion } from "./caseFile/caseFile";
+import { alreadyAsked, caseFileOf, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
 import { LOAN_WORDS } from "./intake/claimKind";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
 
@@ -354,30 +354,72 @@ export function canReview(checkpoint: Checkpoint): boolean {
  * step page's dates). Site owner, 29 Oct: the review listed "What kind of dispute is this?" as still
  * needed while the overview showed the person's answer.
  */
-export function remainingEssentialQuestions(stored: Checkpoint, includeUnknown = false, master?: unknown): { id: string; label: string }[] {
-  // The case file is the one gate (caseFile.ts): a question whose fact is held anywhere is not
-  // asked again here, and never blocks Confirm. A fact the person said they did not know gets
-  // its one more offer in this review (Jason, 2026-10-24, option 1), as ONE field: its box when
-  // the review shows one, otherwise this question (listed with `includeUnknown`, never required).
-  // Those this review marked "I don't know yet" stay listed (marked) so they can be changed.
+export function remainingEssentialQuestions(stored: Checkpoint, master?: unknown): { id: string; label: string }[] {
+  // The case file is the one gate (caseFile.ts): a question whose fact is held anywhere, answered
+  // or "not sure", is not asked again here, never counted as remaining, and never blocks Confirm
+  // (site owner, 31 Oct: it replaced option 1's "one more offer" of a not-sure fact in this review).
+  // Those the person said they do not know are notAnsweredYet's quiet lines instead.
+  const file = caseFileOf(stored, master);
+  return remainingBeforeCaseFile(stored, false).filter(question => !alreadyAsked(file, question.id));
+}
+
+/** Empty as a review box shows it: nothing typed, or an empty list. */
+const emptyValue = (value: ReviewEntry["value"]) => value === "" || (Array.isArray(value) && value.length === 0);
+
+/** The facts of the review's boxes that are shown: essential ones, and optional ones with something in them. */
+function shownBoxFacts(stored: Checkpoint): Set<SlotFact> {
+  return new Set(reviewEntries(stored).filter(entry => entry.essential || !emptyValue(entry.value)).flatMap(entry => slotsOfQuestion(entry.field)));
+}
+
+/** One quiet line of the review: a question (its id and words) or, with `question` false, a fact with no question here. */
+export type NotAnsweredYetLine = { id: string; label: string; facts: SlotFact[]; question: boolean; markedHere: boolean };
+
+/**
+ * THE REVIEW'S QUIET LINES (site owner, 31 Oct). Each fact the person said they do not know -- a
+ * skip, "I don't know" typed, or the review's own "I do not know yet" -- shown once as "Not answered
+ * yet: add it when you know" (askCopy.ts NOT_ANSWERED_YET), never as a question or a box asking for
+ * it. Listed: the review's questions marked "I do not know yet" here (kept in their place, marked),
+ * the review's questions whose facts are all held not sure, and each other not-sure fact with no box
+ * and no question here (`question: false`). A box for a not-sure fact shows the line itself
+ * (reviewBoxState). Once the fact is answered anywhere (the change path included), no line remains.
+ */
+export function notAnsweredYet(stored: Checkpoint, master?: unknown): NotAnsweredYetLine[] {
   const unknown = new Set(Array.isArray(stored.sections.builder?.initialUnknowns) ? stored.sections.builder.initialUnknowns as string[] : []);
   const file = caseFileOf(stored, master);
-  // Only the boxes the review shows: essential ones, and optional ones with something in them.
-  const boxFacts = new Set(reviewEntries(stored).filter(entry => entry.essential || !(entry.value === "" || (Array.isArray(entry.value) && entry.value.length === 0))).flatMap(entry => slotsOfQuestion(entry.field)));
-  // Each unsure fact once: a fact already offered by a box, or by an earlier question here, is not offered again.
-  const offered = new Set<string>(boxFacts);
-  const listed = remainingBeforeCaseFile(stored, includeUnknown);
-  // A question this review already offered and the person marked "I don't know yet" covers its facts too.
-  for (const question of listed) if (unknown.has(question.id)) for (const fact of slotsOfQuestion(question.id)) offered.add(fact);
-  return listed.filter(question => {
-    if (!alreadyAsked(file, question.id)) return true;
-    if (!includeUnknown) return false;
-    if (unknown.has(question.id)) return true;
+  const boxes = shownBoxFacts(stored);
+  const covered = new Set<SlotFact>(boxes);
+  const lines: NotAnsweredYetLine[] = [];
+  const held = (fact: SlotFact) => file[fact].state === "answered" || Boolean(file[fact].removed);
+  for (const question of remainingBeforeCaseFile(stored, true)) {
     const facts = slotsOfQuestion(question.id);
-    if (!facts.length || !facts.every(fact => file[fact].state === "unsure") || facts.some(fact => offered.has(fact))) return false;
-    for (const fact of facts) offered.add(fact);
-    return true;
-  });
+    if (facts.some(held)) continue;
+    const markedHere = unknown.has(question.id);
+    const notSure = facts.length > 0 && facts.every(fact => file[fact].state === "unsure");
+    if (!markedHere && (!notSure || facts.some(fact => covered.has(fact)))) continue;
+    for (const fact of facts) covered.add(fact);
+    lines.push({ ...question, facts, question: true, markedHere });
+  }
+  for (const fact of SLOT_FACTS) {
+    if (file[fact].state !== "unsure" || covered.has(fact)) continue;
+    covered.add(fact);
+    lines.push({ id: `fact:${fact}`, label: "", facts: [fact], question: false, markedHere: false });
+  }
+  return lines;
+}
+
+/**
+ * What the review's box shows, by the one rule (site owner, 31 Oct): the start answer ("start"); the
+ * answer given elsewhere for an empty box ("held"); the quiet line for a fact held not sure, empty or
+ * with "I don't know" typed ("not-yet": never a box asking for it again); its own value ("given"); or,
+ * empty with nothing held, the box asking ("ask").
+ */
+export function reviewBoxState(entry: ReviewEntry, file: CaseFile): "start" | "held" | "not-yet" | "given" | "ask" {
+  if (entry.fromStart) return "start";
+  const facts = slotsOfQuestion(entry.field);
+  const empty = emptyValue(entry.value);
+  if (empty && facts.some(fact => file[fact].state === "answered")) return "held";
+  if ((empty || isUnsureAnswer(entry.value)) && facts.some(fact => file[fact].state === "unsure") && !facts.some(fact => file[fact].state === "answered")) return "not-yet";
+  return empty ? "ask" : "given";
 }
 
 function remainingBeforeCaseFile(stored: Checkpoint, includeUnknown: boolean): { id: string; label: string }[] {
@@ -559,7 +601,7 @@ export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, 
   if (!canReview(checkpoint)) throw new Error("Add your city and a description of your situation before reviewing.");
   if (action === "confirm" && reviewPhase(workflow, checkpoint) === "user-confirmed") return workflow;
   if (action === "confirm" && reviewPhase(workflow, checkpoint) !== "reviewing") throw new Error("Review the current information before confirming it.");
-  if (action === "confirm" && remainingEssentialQuestions(checkpoint, false, master).length) throw new Error("Answer the remaining initial questions, or explicitly mark what you do not know, before confirming.");
+  if (action === "confirm" && remainingEssentialQuestions(checkpoint, master).length) throw new Error("Answer the remaining initial questions, or explicitly mark what you do not know, before confirming.");
   return { ...workflow, intakeCompleted: action === "confirm", intakeReview: { version: 1, reviewedRevision: expectedInputRevision, ...(action === "confirm" ? { confirmedRevision: expectedInputRevision, confirmedAt: now, confirmedFacts: confirmedFactMarks(checkpoint) } : {}) } };
 }
 

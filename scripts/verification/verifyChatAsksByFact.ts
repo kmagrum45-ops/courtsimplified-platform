@@ -7,7 +7,7 @@
  * their answer, or their "I don't know yet" (story pack, 28-29 Oct: 33 held and 11 twice repeats of
  * "wants" on the results page). Now every chat question carries the fact it asks for and passes the
  * one gate (caseFile.ts chatMayAsk): a fact held answered, or held "not sure", is not asked by a chat;
- * an unsure fact is offered once more only in the review or as the story's suggestion.
+ * an unsure fact is offered again nowhere (site owner, 31 Oct), not even as the story's suggestion.
  *
  * Checks, as properties, in Small Claims, civil and Family:
  *   1. Through the real chat route (chatRouteHarness.ts), with a saved case holding what they want
@@ -22,9 +22,9 @@
  *      once that fact is held; its id names only facts it asks (no pattern wins wrongly); and, the
  *      reverse, a question asking more than its id's facts keeps that other part (row 1 review, 29 Oct:
  *      "when you first found out", the order in place now, how an amount was worked out).
- *   4. The questions one at a time (GuidedFormChat) offer an unsure fact again as the story's
- *      suggestion only once: never after the review's "I don't know yet" (CI 29 Oct, family-safety:
- *      the children offered again on the results page).
+ *   4. The questions one at a time (GuidedFormChat) never offer an unsure fact again, not even as the
+ *      story's suggestion (site owner, 31 Oct; before, once: CI 29 Oct, family-safety, the children
+ *      offered again on the results page).
  *   5. The conversation check, through the real chat route in all three areas: a question the chat
  *      asked and the person replied to is not asked again later in the conversation (by its fact, or its
  *      exact words); asked and not replied to, it may be; a compound one drops to its open part (CI story
@@ -38,7 +38,7 @@ import path from "node:path";
 import { chatReplies, type Court } from "./chatRouteHarness";
 import { factsOfWords, questionSentences } from "../../tests/browser/harness/chatQuestionFacts";
 import { heldFacts } from "../../tests/browser/harness/askOnce";
-import { caseFileOf, chatQuestionToAsk, emptyCaseFile, offeredOnceMore, SLOT_FACTS, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, chatMayAsk, chatQuestionToAsk, emptyCaseFile, SLOT_FACTS, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import { chatQuestionId, factsOfQuestion } from "../../src/lib/case-system/caseFile/factsOfQuestion";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 
@@ -209,17 +209,19 @@ async function asked(court: Court, setup: Setup, wants: "unsure" | "answered" | 
     check(`"${words}" still reads as ${fact}`, slotsOfId(words).join() === fact, slotsOfId(words).join());
   }
 
-  // 4. The questions one at a time: the story's suggestion of an unsure fact, once in all.
+  // 4. The questions one at a time: an unsure fact is never asked again, not even as the story's
+  // suggestion (site owner, 31 Oct; it replaced the story's "one more offer").
   {
     const sections = { story: { text: SETUPS[0].story.family }, builder: { initialUnknowns: ["childrenInfo"] }, "form-chat": { skipped: ["childrenInfo"] } };
     const file = caseFileOf({ version: 1, flowId: ID, courtPath: "family", revision: ID, sections } as unknown as Checkpoint);
     check("the children, \"I don't know yet\" in the review, are held unsure", file.children.state === "unsure");
-    check("after the review's \"I don't know yet\", the children have had their one more offer", offeredOnceMore(file, "children", sections));
     const skippedOnly = { story: { text: SETUPS[0].story.family }, "form-chat": { skipped: ["childrenInfo"] } };
     const chatOnly = caseFileOf({ version: 1, flowId: ID, courtPath: "family", revision: ID, sections: skippedOnly } as unknown as Checkpoint);
-    check("skipped only in the questions, the story may still suggest them once", chatOnly.children.state === "unsure" && !offeredOnceMore(chatOnly, "children", skippedOnly));
+    check("skipped only in the questions, the children are unsure and the chat gate never asks them again", chatOnly.children.state === "unsure" && !chatMayAsk(chatOnly, "childrenInfo") && !chatMayAsk(file, "childrenInfo"));
     const chat = readFileSync(path.join(ROOT, "app/builder/_components/GuidedFormChat.tsx"), "utf8");
-    check("GuidedFormChat asks through the one chat gate and bounds the story's offer by offeredOnceMore", /!chatMayAsk\(file, field\.key\)/.test(chat) && /offeredOnceMore\(file, fact/.test(chat));
+    // The held set is the gate alone: no exception lets a held (or unsure) fact back in, story or not.
+    const held = /const heldElsewhere = useMemo\(\(\) => \{([\s\S]*?)\}, \[/.exec(chat)?.[1] ?? "";
+    check("GuidedFormChat holds back every fact the one chat gate holds, with no story exception", /!chatMayAsk\(file, field\.key\)\)/.test(held) && !/fromStory/.test(held), held.slice(0, 300));
   }
 
   // 5. THE CONVERSATION CHECK (site owner, 29 Oct; CI story pack m19-laptop-repair): a chat never asks

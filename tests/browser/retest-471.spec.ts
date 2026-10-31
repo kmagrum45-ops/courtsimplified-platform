@@ -24,7 +24,7 @@ import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { autoAnswerSituation } from "./harness/situation";
-import { expectServedNotAskedOnNextStep, expectServedOfferedOnceInReview } from "./harness/servedOnce";
+import { expectServedNotAskedInReview, expectServedNotAskedOnNextStep, openServedAdd } from "./harness/servedOnce";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 20_000 });
@@ -150,15 +150,16 @@ test(`Family: the review's "Day you were served" box asks for the year, and a ty
   // Served, the day not known at the start: the questions and the review ask it, with the year rule.
   await openBuilder(page, "family", { story: "Synthetic story: my former partner started a family case about parenting time for our daughter, age 5.", situation: { where: "served", papers: "family-8", receivedOn: "unknown" } });
   await guided(page, "family", "respondent", ["application"], "October 6, 2026");
-  // Offered once more in the review, as one field (Jason, 2026-10-24, option 1).
-  await expectServedOfferedOnceInReview(page);
-  const served = panel(page).getByRole("textbox", { name: "Review: Day you were served" });
+  // Not known at the start, so never asked again (site owner, 31 Oct; it replaced option 1's one more
+  // offer here): the quiet line's "Add it" takes the day, with the year rule.
+  await expectServedNotAskedInReview(page);
+  const served = await openServedAdd(page);
   await served.fill("October 6");
   await served.press("Enter");
-  await expect(panel(page).getByTestId("intake-entry-needs-more")).toContainText("add the year");
+  await expect(panel(page).getByTestId("change-answer-needs-more")).toContainText("add the year");
   await served.fill("October 6, 2026");
   await served.press("Enter");
-  await expect(panel(page).getByTestId("intake-entry-needs-more")).toHaveCount(0);
+  await expect(panel(page).getByTestId("change-answer-needs-more")).toHaveCount(0);
   const unknowns = panel(page).locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
   await page.getByTestId("intake-review-acknowledgement").check();
