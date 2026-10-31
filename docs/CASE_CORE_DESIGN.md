@@ -19,6 +19,14 @@ caseFile.turnedDown[factId] = [values]                                          
 ```
 
 - **Facts:** every slot in `SLOT_FACTS`, plus the nine question facts the gate cannot hold today: evidence, story, service method, court file number, claim issued date, defence filed date, filed documents, situation, and claim served (code report §1.1). The step kinds of story dates (today's `dateInOwnSentence`, 14 entries) become facts keyed by sentence: `eventKind:<sentenceId>`.
+- **Facts the story gives but screens ask again** (the founder's Chrome test on preview `git-fi-47d01f` = #531 `c91ddc21`; all five still happen at d9b4dda4, code report Part 6). These become facts too:
+  - Family: `parentingTime` (also covers "current living situation"), `otherParentResidence`, `otherParentIncome`. They are asked today by `ChildSupportIntake.tsx:297,343,364`, which leaves two always empty (`:169`, `:174`). `married` is a fact already, but only the triage writes it (`caseFile.ts:351`).
+  - Small Claims: the remedy type, held as part of `wants`. Today it is a page-only choice that starts empty and is never saved (`StatementOfClaimSurface.tsx:108`), so the next step asks it after Confirm (`readinessGate.ts:182`).
+  - `evidence`: the items the person has, and each element's state. Today anything with no recorded state counts as "Still to add" (`readinessGate.ts:193-205`), and the story's items reach only a display line (`storyFacts.ts:164`).
+  - `timeline`: the dated case events. Today it is filled only by the long Family form (`FamilyIntake.tsx:316,408,422`).
+- **The story offers them, never ticks them.** Each of these facts, plus `otherParty`, is offered from the story as a suggestion through "Use the suggestion". Today the review offers the story's words only in civil (`intakeReview.ts:172`).
+- **The privacy rule doesn't block prefill.** It governs only what goes to the AI (`modelNameContext.ts`, `requestNames.ts`). Today the Form 7A party boxes ignore even a saved name: `StatementOfClaimSurface.tsx:110-115` starts them at `""`, and `form7ADraftFields` returns `otherParty: ""` (`caseFile.ts:662`). In the core they read `caseFileOf().otherParty`, or offer the story's name as a suggestion.
+- **Every form, overview and next-step screen reads these through `caseFileOf` and asks through `nextQuestion`.** That covers the Family triage and the child-support builder (`childSupportPrefill.ts` is deleted), the Small Claims remedy chooser and evidence checklist, and the Form 7A party boxes.
 - **State rules:**
   - The newest record wins on every screen, including a removal.
   - An answer given after "unsure" replaces the unsure record, so the record never holds both (fault 2).
