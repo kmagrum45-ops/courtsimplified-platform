@@ -10,7 +10,15 @@ import { carryGuestIntake } from "../../src/lib/case-system/guestCarry";
 import { openCaseFromAddress } from "../../src/lib/case-system/openCase";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
 import { WorkingButton } from "../_components/Working";
-import { EMAIL_NOT_CONFIRMED_MESSAGE, isEmailNotConfirmedError, signUpConfirmEmailMessage } from "../../src/lib/case-system/copy/authMessages";
+import {
+  ACCOUNT_EXISTS_MESSAGE,
+  EMAIL_NOT_CONFIRMED_MESSAGE,
+  SIGN_IN_FAILED_MESSAGE,
+  isEmailNotConfirmedError,
+  isExistingAccountSignUp,
+  signUpConfirmEmailMessage,
+  signUpEmailRedirectTo,
+} from "../../src/lib/case-system/copy/authMessages";
 
 /**
  * Supabase Auth returns a specific error code for most signup failures, but
@@ -31,7 +39,7 @@ function signUpErrorMessage(error: AuthError): string {
       return "We're temporarily unable to send email — please try again in a few minutes.";
     case "email_exists":
     case "user_already_exists":
-      return "An account with that email already exists — try signing in instead.";
+      return ACCOUNT_EXISTS_MESSAGE;
     case "email_address_invalid":
       return "That email address isn't valid. Please check it and try again.";
     default:
@@ -78,10 +86,21 @@ export default function LoginPage() {
         const { data, error } = await supabase.auth.signUp({
           email: email.trim(),
           password,
+          // The confirmation link comes back to this same site (live, staging or
+          // a preview), as the sign-in link does. Must be in Supabase's Redirect URLs.
+          options: { emailRedirectTo: signUpEmailRedirectTo(window.location.origin) },
         });
 
         if (error) {
           setError(signUpErrorMessage(error));
+          return;
+        }
+
+        // An address that already has a confirmed account: with confirmation on,
+        // Supabase answers with no error, no session and a user with no
+        // identities, and sends nothing (authMessages.ts explains the source).
+        if (isExistingAccountSignUp(data)) {
+          setError(ACCOUNT_EXISTS_MESSAGE);
           return;
         }
 
@@ -119,7 +138,9 @@ export default function LoginPage() {
 
       if (error) {
         // Signed up but not confirmed yet (production requires it): say so plainly.
-        setError(isEmailNotConfirmedError(error) ? EMAIL_NOT_CONFIRMED_MESSAGE : "We could not sign you in with those details. Please try again.");
+        // Only for that code; a wrong password and an unknown address both come back
+        // as invalid_credentials and get the same generic message.
+        setError(isEmailNotConfirmedError(error) ? EMAIL_NOT_CONFIRMED_MESSAGE : SIGN_IN_FAILED_MESSAGE);
         return;
       }
 

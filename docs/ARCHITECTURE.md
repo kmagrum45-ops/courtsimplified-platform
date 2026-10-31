@@ -762,13 +762,18 @@ by hand:
 - **`site_url`**: `https://www.courtsimplified.com`
 - **`uri_allow_list`** (the redirect/OAuth allow-list): `https://courtsimplified.vercel.app`,
   `http://localhost:3000`, `https://www.courtsimplified.com`
-- **`mailer_autoconfirm`**: `true` — a deliberate, non-default setting.
-  New signups skip email confirmation. Supabase's own default is `false`;
-  leaving this unset on a new project silently changes signup behavior.
-  `app/login/page.tsx` depends on this: it reads the session `signUp` returns
-  and routes straight to `/dashboard`, falling back to a "you can sign in now"
-  message if the session is absent. It used to tell every new user to check
-  their email for a confirmation that autoconfirm guarantees never arrives.
+- **`mailer_autoconfirm`**: was `true` when this list was written; production
+  now has it **`false`** (email confirmation required, CLAUDE.md s. 6), staging
+  keeps `true`. `app/login/page.tsx` reads the session `signUp` returns: with
+  one it routes on; without one it asks the person to open the confirmation
+  link before signing in, and a repeat sign-up for a confirmed address (no
+  session, no identities) is told the account exists. The words are in
+  `src/lib/case-system/copy/authMessages.ts` (`test:signup-confirm-message`).
+  `signUp` passes `emailRedirectTo` = `<site origin>/dashboard`, so each
+  project's Redirect URLs must allow `/dashboard` on every origin it serves
+  (production: `https://www.courtsimplified.com/dashboard`; staging, for Vercel
+  previews: `https://*-kmagrum45-2765s-projects.vercel.app/**`), or Supabase
+  falls back to the Site URL.
 - **`rate_limit_email_sent`**: `30` per hour. **Project-wide, not per user**,
   and shared across password resets and magic links. It was `2` on the live
   project until 2026-09-15 — the third person needing a reset within an hour
