@@ -182,14 +182,15 @@ This fails today on the readers in §10's table. Wrong if the old name shows on 
 
 ## 12. Sequence numbers come from the save, never from the browser; two tabs
 
-**Ordering.** Each fact record's `seq` is assigned when the save is accepted, inside the compare-and-set update:
-- `updateMasterResult` re-reads the row and only writes if `updated_at` has not changed (`updateCaseRecord.ts:71-87`);
-- `seq` = the highest seq in the stored record + 1, computed from that fresh row;
-- if another save landed first, the update is refused and retried from the new row.
+**Ordering.** Each fact record's `seq` is assigned **on the server** when the save arrives. Today `saveCheckpoint` runs its compare-and-set update from the browser through the Supabase client (`intakeCheckpoint.ts:90`, `updateCaseRecord.ts:71-87`), so browser code would compute any number it writes. The core changes that:
+- `give` in the browser sends only the fact and its new value to one server route, `POST /api/cases/facts`.
+- That route checks the signed-in owner and case (the existing `getAuthenticatedOwnedCase`), re-reads the row, and assigns `seq` as the highest seq in the stored record + 1.
+- It writes only if `updated_at` has not changed. If another save landed first, it retries from the new row.
+- The browser never sends a `seq` or a time that is used for ordering. The `at` time is set by the server.
 
-So the order is the order in which the database accepted the saves, not any browser's clock. The `at` time is shown to the person but never used for ordering.
+So the order is the order in which the server accepted the saves. This needs no migration: it is a new route over the same JSON. A database-side trigger would also work, but it is a migration, so it is only built with the founder's explicit yes.
 
-This needs no migration. A database-side trigger that assigns `seq` would also work, but it is a migration, so it is only built with the founder's explicit yes.
+Guests (until guest removal) have no saved row. Their tab keeps a local counter, which only orders their own edits.
 
 **Two tabs with unsent edits to the same fact:**
 - Each tab's buffer records, per fact, the `seq` it last saw.
