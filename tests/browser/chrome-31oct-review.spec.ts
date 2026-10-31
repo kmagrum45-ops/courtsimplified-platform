@@ -64,11 +64,17 @@ async function start(page: Page, court: Court): Promise<string> {
   return new URL(page.url()).searchParams.get("intake") ?? "";
 }
 
-/** The questions under "Remaining initial questions", found by the legend a person reads. */
-const remainingList = (page: Page) => page.locator("fieldset").filter({ has: page.locator("legend", { hasText: /^Remaining initial questions$/ }) });
+/**
+ * The review's initial questions: ONE list in a fixed order (owner, earlier rule: questions keep their places
+ * while answered). Nothing answered may be called remaining: no heading says "Remaining", and the count of
+ * what is still to answer leaves an answered question out (owner's Chrome check, 31 Oct).
+ */
+const questionList = (page: Page) => page.getByTestId("intake-initial-questions");
+const stillToAnswer = async (page: Page): Promise<number> => { const words = (await page.getByTestId("intake-remaining-count").innerText()).trim(); return /^(\d+) still to answer/.test(words) ? Number(/^(\d+)/.exec(words)![1]) : 0; };
+const order = async (page: Page) => questionList(page).locator("[data-testid=intake-initial-question]").evaluateAll((items) => items.map((item) => item.getAttribute("data-question")));
 
 for (const court of ["family", "civil", "small-claims"] as const) {
-  test(`chrome 31 Oct, item 1 (${court}): one click ticks the choice, and the kind once answered is not listed as remaining`, async ({ page }) => {
+  test(`chrome 31 Oct, item 1 (${court}): one click ticks the choice, and the kind once answered keeps its place, marked answered, never counted as remaining`, async ({ page }) => {
     test.setTimeout(300_000);
     await autoAnswerSituation(page, STARTING_NOTHING_FILED);
     const userId = await authenticateRealTestUser(page, { realCases: true });
@@ -76,8 +82,10 @@ for (const court of ["family", "civil", "small-claims"] as const) {
       await serveModelStandIns(page, court, userId);
       await start(page, court);
       const kind = KIND[court];
-      const question = remainingList(page).locator(`[data-question="${kind.question}"]`);
-      await expect(question, "the kind is asked once, under Remaining").toHaveCount(1, { timeout: 60_000 });
+      const question = questionList(page).locator(`[data-question="${kind.question}"]`);
+      await expect(question, "the kind is asked once").toHaveCount(1, { timeout: 60_000 });
+      await expect(question, "not yet answered").toHaveAttribute("data-answered", "false");
+      const before = { order: await order(page), left: await stillToAnswer(page) };
       if (court === "small-claims") {
         await question.getByRole("button", { name: new RegExp(`^${kind.value}`) }).click();
       } else {
@@ -87,7 +95,11 @@ for (const court of ["family", "civil", "small-claims"] as const) {
         await expect(box, "one click ticks it").toBeChecked();
         await question.getByTestId("intake-field-save").click();
       }
-      await expect(remainingList(page).locator(`[data-question="${kind.question}"]`), "once answered, the kind is not listed under Remaining initial questions").toHaveCount(0, { timeout: 30_000 });
+      await expect(question, "once answered, it is marked answered").toHaveAttribute("data-answered", "true", { timeout: 30_000 });
+      await expect(question.getByTestId("intake-question-answered"), "it says so, with the answer").toContainText("Answered");
+      expect(await order(page), "it keeps its place in the one list").toEqual(before.order);
+      expect(await stillToAnswer(page), "it is no longer counted as still to answer").toBe(before.left - 1);
+      await expect(page.locator("legend", { hasText: /Remaining/ }), "no heading calls an answered question remaining").toHaveCount(0);
     } finally {
       await deleteHarnessUser(userId);
     }

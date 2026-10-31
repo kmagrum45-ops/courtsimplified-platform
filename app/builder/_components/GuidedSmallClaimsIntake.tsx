@@ -1428,19 +1428,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         </div>
       ) : null}
       <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4" style={{ minHeight: 220 }}>
-        {/* Confirmed, and the case file holds every question the review would ask (the same gate,
-            remainingEssentialQuestions -> alreadyAsked): say so, never a blank page or "Send my story"
-            again (owner's Chrome check, 31 Oct). */}
-        {intakeConfirmed && !started && showSavedStory && story.trim() && !readingOutdated && reviewView && remainingEssentialQuestions(reviewView.checkpoint, false, recovery?.getSavedMaster() ?? undefined).length === 0 ? (
-          <div data-testid="guided-saved-story" className="text-sm">
-            <p data-testid="guided-nothing-left" className="mb-3 text-[#16302b]">{NOTHING_LEFT_TO_ASK} You can change any answer in &ldquo;Review or correct initial information&rdquo;.</p>
-            <p className="font-semibold text-[#16302b]">Your story</p>
-            <p className="mt-1 whitespace-pre-wrap text-[#2b4640]">{story}</p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              <button type="button" onClick={() => setShowSavedStory(false)} className="rounded-xl border border-[#d8e6df] px-4 py-2 font-semibold text-[#2f7d67]">Edit my story</button>
-            </div>
-          </div>
-        ) : readingOutdated ? (
+        {readingOutdated ? (
           <div data-testid="guided-reading-outdated" className="text-sm text-[#5c4a14]">
             <p className="font-semibold">Your story has changed since it was last read.</p>
             <p className="mt-1">The answers read from your earlier story are set aside, so nothing here reflects the old version.</p>
@@ -1448,6 +1436,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           </div>
         ) : !started && showSavedStory && story.trim() ? (
           <div data-testid="guided-saved-story" className="text-sm">
+            {/* Confirmed, and the case file holds every question the review would ask (the same gate,
+                remainingEssentialQuestions -> alreadyAsked): said in plain words above the story; the story can
+                still be sent or edited (owner's Chrome check, 31 Oct, item 5). */}
+            {intakeConfirmed && reviewView && remainingEssentialQuestions(reviewView.checkpoint, false, recovery?.getSavedMaster() ?? undefined).length === 0 ? <p data-testid="guided-nothing-left" className="mb-3 text-[#16302b]">{NOTHING_LEFT_TO_ASK} You can change any answer in &ldquo;Review or correct initial information&rdquo;.</p> : null}
             <p className="font-semibold text-[#16302b]">Your story</p>
             <p className="mt-1 whitespace-pre-wrap text-[#2b4640]">{story}</p>
             <div className="mt-3 flex flex-wrap gap-2">

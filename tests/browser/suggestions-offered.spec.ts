@@ -62,8 +62,8 @@ async function toReview(page: Page) {
   return panel;
 }
 
-const remainingList = (page: Page) => page.locator("fieldset").filter({ has: page.locator("legend", { hasText: /^Remaining initial questions$/ }) });
-const answeredList = (page: Page) => page.locator("fieldset").filter({ has: page.locator("legend", { hasText: /^Answered here/ }) });
+/** The review's one list of initial questions, in a fixed order; an answered one keeps its place, marked answered. */
+const questionList = (page: Page) => page.getByTestId("intake-initial-questions");
 
 test("Small Claims review: the kind of dispute is offered, not pressed; ignored saves nothing; one click saves it", async ({ page }) => {
   test.setTimeout(300_000);
@@ -73,8 +73,9 @@ test("Small Claims review: the kind of dispute is offered, not pressed; ignored 
     await serveModelStandIns(page, "small-claims", userId);
     await startSmallClaims(page, "A moving company broke my dining table in May 2026. Their truck was parked outside. I have photos.");
     await toReview(page);
-    const question = () => remainingList(page).locator('[data-question="sc-orient-dispute-category"]');
-    await expect(question(), "asked once, under Remaining").toHaveCount(1, { timeout: 60_000 });
+    const question = () => questionList(page).locator('[data-question="sc-orient-dispute-category"]');
+    await expect(question(), "asked once").toHaveCount(1, { timeout: 60_000 });
+    await expect(question(), "not yet answered").toHaveAttribute("data-answered", "false");
     await expect(question().locator('button[aria-pressed="true"]'), "no choice is pressed before the person presses one").toHaveCount(0);
     const offer = question().locator(OFFER);
     await expect(offer, "the story's suggestion is offered with the one control").toHaveCount(1);
@@ -84,11 +85,12 @@ test("Small Claims review: the kind of dispute is offered, not pressed; ignored 
     await page.reload();
     await toReview(page);
     await expect(question(), "ignored, it is still asked").toHaveCount(1, { timeout: 60_000 });
+    await expect(question(), "ignored, it is still not answered").toHaveAttribute("data-answered", "false");
     await expect(question().locator('button[aria-pressed="true"]'), "ignored, nothing was saved").toHaveCount(0);
 
     await question().locator(OFFER).click();
-    await expect(question(), "one click saves it: no longer remaining").toHaveCount(0, { timeout: 30_000 });
-    await expect(answeredList(page).locator('[data-question="sc-orient-dispute-category"] button[aria-pressed="true"]')).toHaveText(/^Property damage$/);
+    await expect(question(), "one click saves it: answered, in its place").toHaveAttribute("data-answered", "true", { timeout: 30_000 });
+    await expect(question().locator('button[aria-pressed="true"]')).toHaveText(/^Property damage$/);
   } finally {
     await deleteHarnessUser(userId);
   }

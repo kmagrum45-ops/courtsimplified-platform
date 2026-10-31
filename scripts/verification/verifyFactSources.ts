@@ -74,7 +74,7 @@ const REVIEWED: Reviewed[] = [
   { file: "app/_components/CaseUnderstandingCard.tsx", text: "Here is what we understood", kind: "generic", why: "as above" },
   { file: "app/_components/CaseUnderstandingCard.tsx", text: "This is our reading of what you wrote", kind: "generic", why: "as above" },
   { file: "app/_components/IntakeReviewPanel.tsx", text: "questions started again from your story", kind: "generic", why: "an instruction" },
-  { file: "app/_components/IntakeReviewPanel.tsx", text: "Remaining initial questions", kind: "quoted-in-text", why: "story suggestions there are buttons carrying the story's words" },
+  { file: "app/_components/IntakeReviewPanel.tsx", text: "<legend>Initial questions</legend>", kind: "quoted-in-text", why: "story suggestions there are buttons carrying the story's words (the one list of initial questions, 31 Oct: it was headed \"Remaining initial questions\")" },
   { file: "app/_components/StoryChangedNotice.tsx", text: "Start the questions again from your story first", kind: "generic", why: "an instruction" },
   { file: "app/_components/StoryChangedNotice.tsx", text: "The answers given for the earlier version are set aside", kind: "generic", why: "an instruction" },
 ];
