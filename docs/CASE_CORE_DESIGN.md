@@ -234,3 +234,48 @@ The rule that results: per fact, the latest accepted save wins, and an edit made
 3. Change it differently in tab 2 and save.
 4. Check that tab 2 shows "Not saved yet" with tab 1's value beside it, and other facts saved from tab 2 are kept.
 5. Press "Save" in tab 2, reload both tabs, and check tab 2's value shows on every screen.
+
+## 13. The shared story reader (design only, not built)
+
+**Why.** The founder's Family story ("Sam Test, married 10 years, separated July 2026, son age 8 lives with me and sees Sam every second weekend, Sam lives in Kanata and earns about $70,000, …") was run through today's word patterns at d9b4dda4. Nothing was offered for married (`triageStoryQuote.ts:59` needs "we were married"-style wording), child together, children described, or time split. Where the other parent lives and their income are not read at all. One comma-separated clause defeats the clause split (`childSupportPrefill.ts`). Word patterns miss ordinary wording, and each screen has its own.
+
+**What it is:**
+- **One AI reader of the story,** `readStoryFacts(caseFile)`, on the server. It uses the same approach as the claim-type classifier (`claimTypeAiClassifier.ts`): context from the case file through the shared builder (`aiCaseContext.ts`), one structured JSON answer, and checks on the output.
+- **It returns suggestions only.** For each fact it can read (married, parentingTime, children, otherParentResidence, otherParentIncome, otherParty, wants and the remedy type, evidence items, amount, whenHappened, the story's dated events) it returns `{ factId, value, quote }`.
+  - Every `quote` must appear word for word in the story, or the suggestion is dropped (the same check the existing quote tooling uses).
+  - Results go into `caseFile.suggestions`, never `caseFile.facts`, and are offered with "Use the suggestion", never ticked (§1). The person confirms each one.
+  - Facts already answered, unsure or removed are not sent as questions and are not suggested again (rule 8). Turned-down values are passed as "not this".
+- **When it runs:** once when the story is saved, and again only when the story text changes. One call per story version.
+- **The fallback:** the existing word patterns (`storyAnswerFor`, `familyIssuesFromStory`, `kindsFromStory`, `evidenceIn`, `timelineIn`, and the rest), moved behind the same function. They are used when the AI reader is switched off, fails, times out, or the daily limit is hit.
+- **Tests:**
+  - deterministic, with a stand-in for the model (`serveModelStandIns`), so CI makes no AI calls;
+  - **regression cases:** the Sam Test Family story (married, the son age 8, every second weekend, Kanata, about $70,000) and the moving-company story (property damage; no vehicle suggestion);
+  - one real-model eval, run by hand only, with the founder's yes for the spend.
+
+**Names and privacy in the call:**
+- The call runs inside `withNameLabelsFor` (`privacy/modelNameContext.ts`). The one client (`openaiClient.ts`) replaces every name with a label in what is sent and puts the names back in what comes back. So the model sees "Party B lives in Kanata", never "Sam Test".
+- Places and amounts are sent as written; they are the facts being read.
+- `store: false` is forced on every request (`openaiClient.ts:59`).
+- The story is never written to logs. The AI call log stores only a fingerprint and length of the input (`aiCallLog.ts`).
+
+**Cost per story (estimate):**
+- About 1,500–2,500 input tokens (the instructions, the story, the case-file context) and 400–700 output tokens. At gpt-6.1-sol's $2 per million in and $10 per million out, that is **about $0.007–0.012 per story version**.
+- The estimate rests on comparable calls measured on 31 Oct: the case reader at 2,593 in / 76 out, and the research step's issue spotter at 484 in / 454 out.
+- **Real token counts need one billed run.** At about one cent it is still spending money, so it waits for the founder's yes. Wrong if the real run is more than 2× either range.
+
+**When the daily limit is hit:**
+- The route counts against the existing AI limits (`security/aiRateLimit.ts`; group "light"; the shared daily ceiling, `DEFAULT_DAILY_CEILING` 3,000).
+- When a limit refuses the call, or the call fails or times out, the reader returns the fallback's suggestions. The page says, in plain words from the shared copy module, "We read your story with our simpler reader this time, so fewer details may be suggested."
+- It never blocks the intake and never shows an error instead of the questions. The person can always answer every question themselves.
+
+**Checks against the agreed rules:**
+
+| Rule | Conflict? |
+|---|---|
+| No AI-generated legal content shown without human review | **No conflict as designed.** The reader returns facts about the person's own case (who, when, where, how much, what they have) as suggestions they confirm. It returns no statement of law, no rule, no deadline and no legal advice. Its output is limited to those fact fields, with quotes checked against the story. Anything legal stays in the checked-answer engine. |
+| Suggest, never decide (CLAUDE.md s.4) | **No conflict:** suggestions only, never ticked. |
+| Never grade the case (s.3) | **No conflict:** the output has no fields for strength or chances. |
+| **No retention** | **Unclear, for the founder.** `store: false` removes retention in our OpenAI logs, but OpenAI's standard abuse-monitoring retention still applies, and this account has not applied for Zero Data Retention (`openaiClient.ts:84-90`, docs/security/DATA_FLOW_INVENTORY.md §3). The story already goes to the AI today (classify-court-path, case/understand, analysis), so the reader adds no new kind of exposure. But if "no retention" means no retention at OpenAI either, every existing AI call has the same gap. |
+| **No training on user data** | **Unclear, for the founder.** OpenAI's API terms say API data is not used for training by default. That is from the terms, not verified in this repo, and should be confirmed against the current OpenAI terms and the account's data controls before relying on it. |
+| AI context from the case file through one builder (rule 8) | **No conflict:** it uses `aiCaseContext.ts`. |
+| A2I switches | **Needs a switch:** a new AI feature sits behind its own switch, as the others do, so it can be off on production until the A2I approval covers it. Off means the fallback only. |
