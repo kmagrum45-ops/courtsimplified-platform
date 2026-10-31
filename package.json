@@ -264,6 +264,7 @@
     "test:situation": "node --import tsx scripts/verification/verifySituation.ts",
     "test:case-file": "node --import tsx scripts/verification/verifyCaseFile.ts",
     "test:never-ask-twice": "node --import tsx scripts/verification/verifyNeverAskTwice.ts",
+    "test:not-sure-never-asked": "node --import tsx scripts/verification/verifyNotSureNeverAsked.ts",
     "test:carry-baseline": "node --import tsx scripts/verification/verifyCarryBaseline.ts",
     "test:carry": "playwright test tests/browser/carry-end-to-end.spec.ts --reporter=line --workers=1",
     "carry:totals": "node --import tsx scripts/browser/carryTotals.ts",

@@ -264,6 +264,9 @@ jobs:
       - name: Never ask twice -- the story pack's held check, known repeats and chat wording table
         run: npm run test:never-ask-twice
 
+      - name: Not sure is never asked again -- no screen, no court, no second offer; the review shows a quiet line
+        run: npm run test:not-sure-never-asked
+
       - name: The carry test's baseline may only shrink -- no entry added compared with main
         run: npm run test:carry-baseline
 
@@ -736,6 +739,7 @@ jobs:
           tests/browser/never-ask-twice-reading.spec.ts
           tests/browser/story-box-guidance.spec.ts
           tests/browser/address-opens-chosen-case.spec.ts
+          tests/browser/not-sure-never-asked.spec.ts
           --reporter=line --workers=1
 
       # The story-box spec saves a full-page screenshot of every story box at desktop and
