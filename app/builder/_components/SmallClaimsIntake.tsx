@@ -1230,6 +1230,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         <StoryEditor section="small-claims" story={input.facts} startOpen={!input.facts.trim()} onSave={saveStory} ids={{ toggle: "sc-intake-edit-story", draft: "sc-intake-facts", save: "sc-story-save" }} />
 
         <div className="grid gap-5 md:grid-cols-2">
+          {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
+          <NotAnsweredYetField field="timeline" facts={["whenHappened"]} value={input.timeline} label={"Important dates / timeline"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               Important dates / timeline
@@ -1241,6 +1243,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               placeholder="List dates in order. If you do not know exact dates, estimate."
             />
           </label>
+          </NotAnsweredYetField>
 
           <label className="block">
             <span className="font-semibold text-[#16302b]">

@@ -172,7 +172,7 @@ test(`Family: the review's "Day you were served" box asks for the year, and a ty
   expect(results, "the typed date is not labelled as the story").not.toMatch(/From your story: “[^”]*October 6, 2026/);
   // Added through the quiet line's "Add it" (the change path, site owner 31 Oct), the day is shown as saved by the person
   // ("Saved to your case"), never as the story's. No screen writes "From your answer: ..." any more (no such words in app/ or src/).
-  if (/October 6, 2026/.test(results)) expect(results, "the day is shown as the person's own").toMatch(/October 6, 2026[^\n]*\n[^\n]*Saved to your case|From your answer: “[^”]*October 6, 2026/);
+  if (/October 6, 2026/.test(results)) expect(results, "the day is shown as the person's own").toMatch(/October 6, 2026[\s\S]{0,40}Saved to your case|From your answer: “[^”]*October 6, 2026/);
   // Never asked again: the next step does not ask it.
   await expectServedNotAskedOnNextStep(page);
 });
