@@ -13,6 +13,7 @@
  */
 import type { ReactNode } from "react";
 import { suggestionLabel } from "../../src/lib/case-system/copy/suggestionCopy";
+import { WorkingButton } from "./Working";
 
 const LOOK = "rounded-xl border border-[#2f7d67] bg-white px-4 py-2 text-left text-sm font-semibold text-[#2f7d67] disabled:opacity-50";
 
@@ -39,18 +40,19 @@ export function UseSuggestion({
   note?: ReactNode;
 }) {
   return (
-    <button
+    // The site's own held button (Working.tsx): while the use saves it says so and is held (test:working-states).
+    <WorkingButton
       type="button"
       data-testid={testId}
       data-use-suggestion=""
-      disabled={disabled || working}
-      aria-busy={working || undefined}
-      data-working={working ? "true" : undefined}
+      disabled={disabled}
+      working={working}
+      workingLabel={workingLabel}
       onClick={onUse}
       className={className ?? LOOK}
     >
-      {working ? workingLabel : suggestionLabel(what)}
-      {note && !working ? <span className="block text-xs font-normal text-[#4d675f]">{note}</span> : null}
-    </button>
+      {suggestionLabel(what)}
+      {note ? <span className="block text-xs font-normal text-[#4d675f]">{note}</span> : null}
+    </WorkingButton>
   );
 }
