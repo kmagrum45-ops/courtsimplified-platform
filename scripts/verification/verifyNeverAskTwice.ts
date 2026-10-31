@@ -10,8 +10,8 @@
  *   - every known repeat says why in words and names its audit row (1-12), and names a fact or a question;
  *   - a question whose fact the saved case holds answered fails; one whose fact it does not hold
  *     passes; a story guess (not confirmed) is not held;
- *   - a fact held unsure may be offered once more at the end, and a second offer fails, as does
- *     an offer anywhere else;
+ *   - a fact held unsure is never offered again, anywhere: an offer "at the end" (the review, a
+ *     review box, the story's suggestion) fails like any other (site owner, 31 Oct);
  *   - a violation on the known list is excused, in its stories only, and any other is not;
  *   - no known repeat excuses a chat question (row 1 fixed 29 Oct; test:chat-asks-by-fact);
  *   - the court order or agreement in place is a fact of its own (not filed), and the follow-up chat's
@@ -27,7 +27,7 @@
  */
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { ASK_ONCE_SCAN, END_SURFACES, chatQuestionAnswered, chatReplyReader, diagnosticOf, withPageHeld, factsAskedTwice, factsOfAsk, heldFacts, heldInRows, heldViolations, repeatViolations, withHeldFacts, type Asked } from "../../tests/browser/harness/askOnce";
+import { ASK_ONCE_SCAN, chatQuestionAnswered, chatReplyReader, diagnosticOf, withPageHeld, factsAskedTwice, factsOfAsk, heldFacts, heldInRows, heldViolations, repeatViolations, withHeldFacts, type Asked } from "../../tests/browser/harness/askOnce";
 import { KNOWN_REPEATS, knownRepeatFor, splitKnown, type KnownRepeat, type Violation } from "../../tests/browser/harness/knownRepeats";
 import { QUESTION_WORDS, factsOfWords, questionSentences } from "../../tests/browser/harness/chatQuestionFacts";
 import { DEPTH_QUESTIONS } from "../../src/lib/case-system/intake/depth/elementQuestionRegistry";
@@ -73,16 +73,25 @@ const ask = (surface: string, id: string, text = id): Asked => ({ kind: "ask", s
   check("the situation questions are the start, not a repeat", heldViolations([withHeldFacts(ask("situation", "where"), () => "answered")]).length === 0);
 }
 
-// 3. A fact held unsure: offered once more at the end, never twice, never elsewhere.
+// 3. A fact held unsure is never offered again, anywhere (site owner, 31 Oct; it replaced option 1's
+// one allowed offer "at the end": the review, a review box, or the story's suggestion in the chat).
 {
   const unsure = () => "unsure" as const;
-  const endSurface = [...END_SURFACES][0];
-  const once = heldViolations([withHeldFacts(ask(endSurface, "amountClaimed"), unsure)]);
-  check("an unsure fact offered once more at the end passes", once.length === 0, JSON.stringify(once));
+  // The surfaces that were "the end" until 31 Oct, each now a FAIL case (no second offer anywhere).
+  for (const [surface, id] of [["review", "sc-amount-claimed"], ["review-entry", "amountClaimed"], ["chat-story", "amountClaimed"]] as const) {
+    const offered = heldViolations([withHeldFacts(ask(surface, id), unsure)]);
+    check(`an unsure fact offered once more (${surface}) fails`, offered.length === 1 && offered[0].fact === "amount" && offered[0].detail === "held unsure", JSON.stringify(offered));
+  }
   const twice = heldViolations([withHeldFacts(ask("review-entry", "amountClaimed"), unsure), withHeldFacts(ask("review", "sc-amount-claimed"), unsure)]);
-  check("a second offer of the same unsure fact fails", twice.length === 1 && twice[0].fact === "amount" && twice[0].detail === "held unsure");
+  check("every offer of the same unsure fact fails, the first too", twice.length === 2 && twice.every((violation) => violation.fact === "amount" && violation.detail === "held unsure"));
   const elsewhere = heldViolations([withHeldFacts(ask("date", "sc-date-claim-served"), unsure)]);
-  check("an unsure fact offered anywhere but the end fails", elsewhere.length === 1);
+  check("an unsure fact offered on any other screen fails", elsewhere.length === 1);
+  // The asked-twice record agrees: "not sure" given (a skip, or "I don't know" typed), then the review offers it.
+  for (const text of ["unsure", ""]) {
+    const goal = (surface: string, id: string): Asked => ({ kind: "ask", surface, id, screen: "/builder?step=guided", text: "What outcome are you asking the court to order?", at: ++at });
+    const events: Asked[] = [goal("sc-chat", "sc-remedy-sought"), { kind: "answer", surface: "sc-chat", id: "sc-remedy-sought", screen: "/builder?step=guided", text, at: ++at }, goal("review-entry", "goal")];
+    check(`not sure in the chat (answer recorded ${text ? "as unsure" : "with its words"}), then the review's offer: a repeat`, repeatViolations(factsAskedTwice(events, false)).length === 1, JSON.stringify(repeatViolations(factsAskedTwice(events, false))));
+  }
   // The existing rule, unchanged: once given, asked again on another screen is a repeat.
   const events: Asked[] = [ask("chat", "amountClaimed"), { kind: "answer", surface: "chat", id: "amountClaimed", screen: "/builder", text: "", at: ++at }, ask("review-entry", "amountClaimedText")];
   check("factsAskedTwice still finds a fact given then asked again", factsAskedTwice(events, false).some((repeat) => repeat.fact === "amount"));
