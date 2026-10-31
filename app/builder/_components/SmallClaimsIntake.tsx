@@ -57,6 +57,7 @@ import {
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { analysisClaimType, caseFileOf, claimKindOf, kindForAnalysis } from "../../../src/lib/case-system/caseFile/caseFile";
 import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
+import { UseSuggestion } from "../../_components/UseSuggestion";
 
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
@@ -785,19 +786,15 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       (fact) => fact.state === "direct" && EXTRACTABLE_STORY_FIELDS.has(fact.field),
     );
     if (direct.length === 0) return;
+    // OFFERED, never typed into the form unseen (owner, 31 Oct): each is listed under "Found in your
+    // description" with the one control, and a field is filled only when the person uses it.
     setExtractedFacts((current) => [
       ...current.filter((fact) => !direct.some((found) => found.field === fact.field)),
-      ...direct,
+      ...direct.filter((fact) => {
+        const existing = (input as unknown as Record<string, unknown>)[fact.field];
+        return !(typeof existing === "string" && existing.trim());
+      }),
     ]);
-    setInput((current) => {
-      const next = { ...current } as Record<string, unknown>;
-      for (const fact of direct) {
-        const existing = next[fact.field];
-        if (typeof existing === "string" && existing.trim()) continue;
-        next[fact.field] = Array.isArray(fact.value) ? fact.value.join(", ") : fact.value;
-      }
-      return next as SmallClaimsIntelligenceInput;
-    });
   }
 
   function updateField<K extends keyof SmallClaimsIntelligenceInput>(
@@ -1125,11 +1122,20 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         <div className="mt-5 rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-sm text-[#24463d]">
           <p className="font-semibold">Found in your description — review/edit</p>
           <ul className="mt-2 list-disc space-y-1 pl-5">
-            {extractedFacts.map((fact) => (
-              <li key={fact.field}>
-                {fact.field}: {Array.isArray(fact.value) ? fact.value.join(", ") : fact.value}
-              </li>
-            ))}
+            {extractedFacts.map((fact) => {
+              const value = Array.isArray(fact.value) ? fact.value.join(", ") : fact.value;
+              return (
+                <li key={fact.field}>
+                  {fact.field}:{" "}
+                  <UseSuggestion
+                    testId="sc-form-use-suggestion"
+                    what={value}
+                    onUse={() => updateField(fact.field as keyof SmallClaimsIntelligenceInput, value as never)}
+                    className="mt-1 rounded border border-[#2f7d67] bg-white px-3 py-1 text-left text-sm font-semibold text-[#2f7d67]"
+                  />
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}

@@ -271,8 +271,8 @@ async function smallClaims(page: Page, story: Story, viaReview: boolean): Promis
     // The questions one at a time (the guided route), answered as the person would.
     await smallClaimsGuided(page, story);
     // The review then offers nothing it has not been told, or the amount the story claims.
-    const use = page.locator('[data-question="sc-amount-claimed"]').getByRole("button", { name: /^Use “.*” \(from your story\)$/ });
-    return (await use.count()) ? (/“(.*)”/.exec((await use.first().innerText()) ?? "")?.[1] ?? null) : null;
+    const use = page.locator('[data-question="sc-amount-claimed"]').getByRole("button", { name: /^Use the suggestion: .*$/ });
+    return (await use.count()) ? (/^Use the suggestion: (.*)$/.exec((await use.first().innerText()) ?? "")?.[1] ?? null) : null;
   }
   return answerSmallClaimsReview(page, story);
 }
@@ -288,8 +288,8 @@ async function answerSmallClaimsReview(page: Page, story: Story): Promise<string
   if (await kind.count()) await kind.click();
   const filedQuestion = story.side === "defendant" ? "sc-defendant-defence-filed" : "sc-claim-filed";
   if (await q(filedQuestion).count()) await q(filedQuestion).getByRole("button", { name: "No", exact: true }).click();
-  const use = q("sc-amount-claimed").getByRole("button", { name: /^Use “.*” \(from your story\)$/ });
-  const offered = (await use.count()) ? (/“(.*)”/.exec((await use.first().innerText()) ?? "")?.[1] ?? null) : null;
+  const use = q("sc-amount-claimed").getByRole("button", { name: /^Use the suggestion: .*$/ });
+  const offered = (await use.count()) ? (/^Use the suggestion: (.*)$/.exec((await use.first().innerText()) ?? "")?.[1] ?? null) : null;
   if (offered) await use.first().click();
   await reviewDates(page, story.id);
   return offered;
@@ -987,7 +987,7 @@ test("retest-477 case 19: after changing side, the old side's amount is not carr
   await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
   await smallClaims(page, story, true);
   const amount = page.locator('[data-question="sc-amount-claimed"]');
-  if (!(await amount.getByRole("button", { name: /from your story/ }).count())) {
+  if (!(await amount.getByRole("button", { name: /^Use the suggestion/ }).count())) {
     // No amount offered: the person types the total they want back.
     await amount.getByRole("textbox").fill("$1,650");
     await amount.getByRole("textbox").press("Enter");
@@ -1104,7 +1104,7 @@ test("retest-477 repeat: the amount the story wants is offered for one click -- 
   const account = await fakeAccount(page);
   await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
   await smallClaims(page, story, true);
-  await expect(page.locator('[data-question="sc-amount-claimed"]').getByRole("button", { name: "Use “$1,650” (from your story)" })).toBeVisible();
+  await expect(page.locator('[data-question="sc-amount-claimed"]').getByRole("button", { name: "Use the suggestion: $1,650" })).toBeVisible();
 });
 test("retest-477 repeat: the amount the story claims is offered for one click -- civil", async ({ page }) => {
   test.setTimeout(240_000);
@@ -1865,7 +1865,7 @@ for (const [court, id, question, pick, value] of [
 }
 
 // Owner, 28 Oct: a card that does slow work says so, and a second press does nothing. The story's
-// next turn is held 6 s, as at the live site's speed: after "Looks right, continue" the card says it
+// next turn is held 6 s, as at the live site's speed: after "Continue" the card says it
 // is working within a second, the button says so too, a second press sends no second request, and
 // the card moves on once the turn is back.
 test("28oct working states: the story-suggestions card says it is working, and a second press sends nothing -- small-claims (m02-landscaper)", async ({ page }) => {

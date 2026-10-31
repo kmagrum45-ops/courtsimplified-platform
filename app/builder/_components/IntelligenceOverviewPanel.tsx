@@ -39,6 +39,7 @@ import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { savePositionQueued } from "./positionSave";
 import { changedWords, claimKindAnswer, claimKindLine, CLAIM_KIND_QUESTION, type CaseFile, type ClaimKindHeld } from "@/src/lib/case-system/caseFile/caseFile";
 import { WorkingButton } from "@/app/_components/Working";
+import { UseSuggestion } from "@/app/_components/UseSuggestion";
 
 type Props = {
   analysis: AnalysisResult;
@@ -366,6 +367,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
                   <dd data-testid="claim-kind" data-claim-type={kind.claimTypeId ?? "your-answer"} data-claim-kind-held={kind.held ? "yes" : "no"}>
                     {kind.words}
                     {kind.quote ? <span data-testid="claim-kind-quote" className="block text-xs text-[#4d675f]">From your story: &ldquo;{kind.quote}&rdquo;</span> : null}
+                    {!kind.held && kind.claimTypeId ? <ClaimKindOffer caseId={caseId} claimTypeId={kind.claimTypeId} words={kind.words} onChosen={setPickedHere} /> : null}
                   </dd>
                 </>
               ) : index === 0 && askKind ? (
@@ -535,6 +537,30 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
     </div>
     <p className="mt-7 text-sm leading-7 text-[#4d675f]">CourtSimplified organizes your information and identifies items to review; it does not decide your legal claim, outcome, or judgment.</p>
   </section>;
+}
+
+/**
+ * A kind of claim the site proposes (the story match) is only a proposal until the person uses it
+ * (owner, 31 Oct): offered with the one control, saved to the case file as their choice on that click.
+ */
+function ClaimKindOffer({ caseId, claimTypeId, words, onChosen }: { caseId: string | null; claimTypeId: string; words: string; onChosen: (value: string) => void }) {
+  const [saving, setSaving] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const use = async () => {
+    if (saving) return;
+    setFailed(false);
+    setSaving(true);
+    const saved = !caseId || (await savePositionQueued(caseId, claimKindAnswer(claimTypeId)));
+    setSaving(false);
+    if (!saved) { setFailed(true); return; }
+    onChosen(claimTypeId);
+  };
+  return (
+    <span className="mt-2 block">
+      <UseSuggestion testId="claim-kind-use-suggestion" what={words} working={saving} onUse={() => void use()} />
+      {failed ? <span className="mt-1 block text-sm text-[#8a4b12]">That could not be saved just now. Please try again.</span> : null}
+    </span>
+  );
 }
 
 /**

@@ -395,9 +395,9 @@ for (const who of ["guest", "signed-in"] as const) {
       await openReview(page);
       const kind = page.locator('[data-question="sc-orient-dispute-category"]');
       await expect(kind, "the review asks the kind (nothing has given it)").toHaveCount(1, { timeout: 60_000 });
-      const suggested = kind.getByRole("button", { name: /\(suggested from your story\)$/ });
+      const suggested = kind.locator("[data-use-suggestion]");
       await expect(suggested, "the kind the story names is suggested").toHaveCount(1, { timeout: 10_000 });
-      expect.soft((await suggested.innerText()).trim(), "property damage, the kind the words name (\"broke my dining table\")").toBe("Property damage (suggested from your story)");
+      expect.soft((await suggested.innerText()).trim(), "property damage, the kind the words name (\"broke my dining table\")").toBe("Use the suggestion: Property damage");
     } finally {
       if (userId) await deleteHarnessUser(userId);
     }

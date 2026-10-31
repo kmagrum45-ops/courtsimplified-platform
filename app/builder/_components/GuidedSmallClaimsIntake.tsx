@@ -42,6 +42,7 @@ import { alreadyAsked, askedAndReplied, caseFileOf, CASE_FILE_SECTION, withTurne
 import { claimKindAiContext, classifyClaimTypeBody } from "@/src/lib/case-system/caseFile/aiCaseContext";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { WorkingButton, WorkingNote } from "@/app/_components/Working";
+import { UseSuggestion } from "@/app/_components/UseSuggestion";
 import StoryGuidance from "@/app/_components/StoryGuidance";
 import { STORY_LABEL } from "@/src/lib/case-system/copy/storyGuidance";
 
@@ -769,7 +770,8 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       // question is asked. Nothing is applied until the user confirms; what
       // they untick is simply asked as normal.
       if (result.storyProposals && result.storyProposals.length > 0) {
-        setProposalDrafts(result.storyProposals.map((proposal) => ({ ...proposal, keep: true, original: proposal.answer })));
+        // Offered, never pre-ticked (owner, 31 Oct): a row is kept only when the person uses it.
+        setProposalDrafts(result.storyProposals.map((proposal) => ({ ...proposal, keep: false, original: proposal.answer })));
         setMessages((current) => [
           ...current,
           {
@@ -1099,7 +1101,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       // newspapers). Confirming happens in handleConfirmDepthProposals.
       if (result.proposals && result.proposals.length > 0) {
         setProposalMode("depth");
-        setProposalDrafts(result.proposals.map((proposal) => ({ ...proposal, keep: true, original: proposal.answer })));
+        setProposalDrafts(result.proposals.map((proposal) => ({ ...proposal, keep: false, original: proposal.answer })));
         setMessages((current) => [
           ...current,
           {
@@ -1497,7 +1499,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             </span>
           </p>
           <p className="mt-1 text-xs text-[#5a736a]">
-            Suggested by AI from your own words. Nothing is saved until you confirm.
+            Suggested by AI from your own words. Nothing is saved unless you use it.
           </p>
           <div className="mt-3 space-y-3">
             {proposalDrafts.map((draft, index) => (sameDayAs(proposalDrafts)[index] >= 0 ? null : (
@@ -1512,7 +1514,16 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
                   />
                   <span className="font-semibold">{cardLabel(draft.questionId, draft.questionText, { responding: respondingFromAnswers([...earlierAnswers, ...proposalDrafts], facts) })}</span>
                 </label>
-                {draft.choices && draft.choices.length > 0 ? (
+                {!draft.keep ? (
+                  // Offered, not ticked and not typed in: the one control uses it (owner, 31 Oct).
+                  <UseSuggestion
+                    testId="story-proposal-use"
+                    what={draft.answer}
+                    disabled={loading}
+                    onUse={() => updateProposalDraft(index, { keep: true })}
+                    className="mt-2 rounded-lg border border-[#2f7d67] bg-white px-3 py-2 text-left font-semibold text-[#2f7d67] disabled:opacity-50"
+                  />
+                ) : draft.choices && draft.choices.length > 0 ? (
                   <select
                     value={draft.answer}
                     disabled={loading || !draft.keep}
@@ -1556,7 +1567,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             onClick={handleConfirmProposals}
             className="mt-4 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white disabled:opacity-50"
           >
-            Looks right, continue
+            Continue
           </WorkingButton>
         </div>
       ) : null}
@@ -1588,14 +1599,14 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           </p>
           <WorkingNote working={resolvingSuggestion}>Saving your answer about the kind of claim…</WorkingNote>
           <div className="mt-3 flex flex-wrap gap-2">
-            <button
-              type="button"
+            {/* The one control every suggestion is offered with (owner, 31 Oct). */}
+            <UseSuggestion
+              testId="claim-type-use-suggestion"
+              what={pendingSuggestion.claimTypeName}
               disabled={resolvingSuggestion}
-              onClick={() => void resolveSuggestion("confirm")}
+              onUse={() => void resolveSuggestion("confirm")}
               className="rounded-full bg-[#2f7d67] px-4 py-2 text-xs font-bold text-white disabled:opacity-60"
-            >
-              Yes, that&apos;s right
-            </button>
+            />
             <button
               type="button"
               disabled={resolvingSuggestion}

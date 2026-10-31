@@ -7,6 +7,7 @@ import { NOTHING_LEFT_TO_ASK } from "../../../src/lib/case-system/copy/askCopy";
 import { openSituationChange } from "../../_components/SituationQuestions";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import StoryGuidance from "../../_components/StoryGuidance";
+import { UseSuggestion } from "../../_components/UseSuggestion";
 
 /**
  * ONE QUESTION AT A TIME, OVER THE COURT'S OWN FORM (build order Step 2C,
@@ -363,14 +364,12 @@ export default function GuidedFormChat({
                   From what you told us: &ldquo;{cutAtWord(offered.quote, 200)}&rdquo; Is that right?
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  <button
-                    type="button"
-                    data-testid="guided-form-from-story-yes"
-                    onClick={() => (group.length > 1 ? acceptGroup(group) : answer(offered.value, true))}
+                  {/* The one control every suggestion is offered with (owner, 31 Oct). */}
+                  <UseSuggestion
+                    testId="guided-form-from-story-yes"
+                    onUse={() => (group.length > 1 ? acceptGroup(group) : answer(offered.value, true))}
                     className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
-                  >
-                    Yes, that&apos;s right
-                  </button>
+                  />
                   <button
                     type="button"
                     data-testid="guided-form-from-story-no"
@@ -383,9 +382,10 @@ export default function GuidedFormChat({
               </div>
             );
           })() ?? (() => {
-          // Part of the answer from the story, filled in; only the rest is asked.
+          // Part of the answer from the story, OFFERED (owner, 31 Oct: never typed into the box
+          // unseen); only the rest is asked. The box starts empty until the person uses it or types.
           const partial = !changing && !notFromStory.has(current.key) ? current.partialFromStory?.(values) ?? null : null;
-          const boxValue = partial && !edited.has(current.key) ? partial.prefill : typeof draft === "string" ? draft : "";
+          const boxValue = partial && !edited.has(current.key) ? "" : typeof draft === "string" ? draft : "";
           const editBox = (text: string) => {
             setEdited((now) => new Set(now).add(current.key));
             setDraft(text);
@@ -395,8 +395,11 @@ export default function GuidedFormChat({
           <p className="font-semibold text-[#10231f]">{partial ? partial.question : current.question}</p>
           {partial ? (
             <p data-testid="guided-form-partial-from-story" className="mt-1 text-sm text-[#4d675f]">
-              From what you told us: &ldquo;{cutAtWord(partial.quote, 200)}&rdquo; We filled in what that says. Change it if it is not right, and add the rest.
+              From what you told us: &ldquo;{cutAtWord(partial.quote, 200)}&rdquo; You can use what that says, then add the rest.
             </p>
+          ) : null}
+          {partial && !edited.has(current.key) ? (
+            <UseSuggestion testId="guided-form-partial-use" what={partial.prefill} onUse={() => editBox(partial.prefill)} className="mt-2 rounded-xl border border-[#2f7d67] bg-white px-4 py-2 text-left text-sm font-semibold text-[#2f7d67]" />
           ) : null}
           <p className="mt-1 text-sm text-[#4d675f]">Why we ask: {current.why}</p>
           {current.story ? <StoryGuidance id="guided-form-story-guidance" /> : null}

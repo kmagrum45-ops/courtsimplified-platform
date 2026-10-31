@@ -10,6 +10,7 @@ import { betterDestinationKnown } from "@/src/lib/case-system/understanding/bett
 import { isPathwayAvailable } from "@/src/lib/content-library/phaseScope";
 import LegalAdviceDeflection from "./LegalAdviceDeflection";
 import { WorkingButton } from "./Working";
+import { UseSuggestion } from "./UseSuggestion";
 
 /** Initial intake: factual reading, category clarification and questions only. */
 
@@ -183,16 +184,16 @@ export default function CaseUnderstandingCard({
         </p>
         <div className="mt-3 flex flex-wrap gap-3">
           {suggested && isPathwayAvailable(suggested) && (
-            <WorkingButton
+            // The one control every suggestion is offered with (owner, 31 Oct).
+            <UseSuggestion
               disabled={updating || openingPath !== null}
               working={openingPath === suggested}
               workingLabel="Opening your intake…"
-              data-testid="case-understanding-continue-suggested"
-              onClick={() => onContinue(suggested, answered)}
+              testId="case-understanding-continue-suggested"
+              what={PATH_LABEL[suggested]}
+              onUse={() => onContinue(suggested, answered)}
               className="rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
-            >
-              Continue with {PATH_LABEL[suggested]}
-            </WorkingButton>
+            />
           )}
           {suggested !== chosenPath && (
             <WorkingButton
