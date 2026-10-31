@@ -263,6 +263,22 @@ The rule that results: per fact, the latest accepted save wins, and an edit made
 - The estimate rests on comparable calls measured on 31 Oct: the case reader at 2,593 in / 76 out, and the research step's issue spotter at 484 in / 454 out.
 - **Real token counts need one billed run.** At about one cent it is still spending money, so it waits for the founder's yes. Wrong if the real run is more than 2× either range.
 
+**Measured (founder-approved probe, 31 Oct).** Two real calls, gpt-6.1-sol, the site's own client: `store: false`, names labelled, spend cap $0.05. The probe was a throwaway script, not committed; the reader is not built or switched on.
+
+| Story | Input tokens | Output tokens (reasoning) | Cost |
+|---|---|---|---|
+| Moving company (Small Claims) | 318 | 189 (90) | $0.00253 |
+| Sam Test (Family) | 356 | 514 (103) | $0.00585 |
+| **Total** | 674 | 703 | **$0.00838** |
+
+- These are a **lower bound.** The probe sent only the instructions and the story. The real reader also sends case-file context (claim-type list, answered and turned-down facts), so expect more input tokens.
+- **Moving company:** it suggested the other party ("A moving company"), the kind (in free text), when ("in May") and evidence ("I have photos."), all with exact quotes. **No vehicle suggestion.**
+- **Sam Test:** it suggested 11 facts, including the ones today's word patterns miss: married ("married 10 years"), the children ("son age 8"), the other parent's income ("earns about $70,000"), separation, support paid, order or agreement, what they want, and the remedy type. **9 of 11 quotes are word for word.**
+- **Two quotes failed the check:** time split, and the other parent's residence. **The cause is the name labels, not the model.** "Sam Test" and "Sam" were both labelled "Party B", so the client turned "Party B" back into "Sam Test" in the answer, while the story says "sees Sam" and "Sam lives".
+  - Design fix: check quotes against the labelled text the model saw, then restore names by position. Or give each spelling its own label.
+  - The word-for-word check caught it, as intended, so those two suggestions would have been dropped, not shown wrong.
+- **The kind came back as free text.** The real reader limits the kind to the catalogue's ids, as the claim-type classifier does.
+
 **When the daily limit is hit:**
 - The route counts against the existing AI limits (`security/aiRateLimit.ts`; group "light"; the shared daily ceiling, `DEFAULT_DAILY_CEILING` 3,000).
 - When a limit refuses the call, or the call fails or times out, the reader returns the fallback's suggestions. The page says, in plain words from the shared copy module, "We read your story with our simpler reader this time, so fewer details may be suggested."
