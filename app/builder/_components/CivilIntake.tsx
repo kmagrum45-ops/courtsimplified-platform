@@ -2,6 +2,8 @@
 
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
+import { caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
+import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
@@ -759,6 +761,9 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
             // No side recorded ("I do not know yet") is "not-sure" to the route; "" was refused with a 400.
             yourRole: civilAnalysisInput.yourRole || "not-sure",
             caseId: caseId || undefined,
+            // The issues picked, in words, told to the AI research, from the case file through the shared
+            // builder (aiCaseContext.ts, rule 8; site owner, 31 Oct).
+            caseContext: researchCaseContext(caseFileOf(recovery?.getReview().checkpoint ?? null)),
           },
         }),
       });

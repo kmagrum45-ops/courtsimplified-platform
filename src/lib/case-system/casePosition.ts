@@ -85,6 +85,8 @@ export type CasePosition = {
    * remembered and not asked again.
    */
   claimKind?: string;
+  /** When the kind was picked (server time): a pick newer than a change through "Change" wins (caseFile.ts applyChanges). */
+  claimKindAt?: string;
 };
 
 const CLAIM_KIND_VALUE = /^(?:sc-claim-[a-z0-9-]{1,80}|not-sure)$/;
@@ -174,7 +176,7 @@ export function readCasePosition(masterResult: unknown, courtPath?: string | nul
     // The day they got the papers, from the situation answers (situation.ts), under any date given on the step page.
     dateAnswers: withSituationDates(dateAnswers, courtPath, situationOfCase(masterResult)),
     service: readService(raw.service, courtPath),
-    ...(typeof raw.claimKind === "string" && CLAIM_KIND_VALUE.test(raw.claimKind) ? { claimKind: raw.claimKind } : {}),
+    ...(typeof raw.claimKind === "string" && CLAIM_KIND_VALUE.test(raw.claimKind) ? { claimKind: raw.claimKind, ...(typeof raw.claimKindAt === "string" ? { claimKindAt: raw.claimKindAt } : {}) } : {}),
   };
 }
 
@@ -256,9 +258,9 @@ export function applyPositionPatch(
   }
 
   if (patch.claimKind !== undefined) {
-    if (patch.claimKind === null) delete next.claimKind;
+    if (patch.claimKind === null) { delete next.claimKind; delete next.claimKindAt; }
     else if (typeof patch.claimKind !== "string" || !CLAIM_KIND_VALUE.test(patch.claimKind)) return { ok: false, error: "Unknown kind of claim." };
-    else next.claimKind = patch.claimKind;
+    else { next.claimKind = patch.claimKind; next.claimKindAt = stamp; }
   }
 
   if (patch.stepId !== undefined) {

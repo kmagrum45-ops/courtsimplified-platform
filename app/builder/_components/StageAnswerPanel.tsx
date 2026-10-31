@@ -62,6 +62,7 @@ import {
 } from "@/src/lib/content-library/nextStepPractical";
 import { datesFromPicture, stepFromPicture, type CasePicture } from "@/src/lib/case-system/intake/caseReader";
 import { amountNoteFor } from "@/src/lib/case-system/amountNotes";
+import { UseSuggestion } from "@/app/_components/UseSuggestion";
 import { officialUrl, sourceName, type RuleCitation } from "@/src/lib/case-system/stage-map/citations";
 
 /**
@@ -1442,6 +1443,9 @@ export default function StageAnswerPanel({
   const startingStep = savedStep || suggested;
   const [stageId, setStageId] = useState(startingStep);
   const [choosingStep, setChoosingStep] = useState(false);
+  // The step the person chose on this page ("Use the suggestion" or the list): until then a step the site
+  // suggested is named as a suggestion, never as theirs (owner, 31 Oct).
+  const [chosenHere, setChosenHere] = useState<string | null>(null);
   // A folded "not known yet" date the person chose to add after all.
   const [openedLater, setOpenedLater] = useState<Record<string, boolean>>({});
   const [result, setResult] = useState<Response | null>(null);
@@ -1549,6 +1553,7 @@ export default function StageAnswerPanel({
   /** The person chooses a step: from "Where is your case?", or the card's "Open this step" (whenTimeRunsOut). */
   function chooseStep(id: string) {
     setStageId(id);
+    setChosenHere(id);
     setChoosingStep(false);
     setResult(null);
     setMunicipality("");
@@ -1767,12 +1772,19 @@ export default function StageAnswerPanel({
           one click away. */}
       {stageId && !choosingStep ? (
         <p className="mt-4 text-sm text-[#16302b]" data-testid="stage-answer-current">
-          <span className="font-semibold">Your step: </span>
+          <span className="font-semibold">{stageId === suggested && stageId !== savedStep && stageId !== chosenHere ? "Suggested step: " : "Your step: "}</span>
           {/* Fitted to the one notice the person's words keep (walkthrough run
               38500825561, SW), else the step's own question. */}
           {(result?.outcome === "rendered" && result.nextStep ? stepTitleFor(result.nextStep, userWords, city) : null) ??
             options.find((option) => option.id === stageId)?.label ??
             ""}{" "}
+          {stageId === suggested && stageId !== savedStep && stageId !== chosenHere ? (
+            <UseSuggestion
+              testId="stage-answer-use-suggestion"
+              onUse={() => chooseStep(stageId)}
+              className="mr-2 mt-1 rounded-xl border border-[#2f7d67] bg-white px-3 py-1 text-sm font-semibold text-[#2f7d67]"
+            />
+          ) : null}
           <button
             type="button"
             data-testid="stage-answer-change"
@@ -1914,20 +1926,19 @@ export default function StageAnswerPanel({
                     </p>
                     <div className="mt-2 flex flex-wrap gap-2">
                       {fromStory ? (
-                        <button
-                          type="button"
-                          data-testid={`stage-answer-date-suggestion-${question.id}`}
-                          // Held while a deadline is counted ("Counting your deadline…" says so): pressed twice it counted twice (fresh review, 28 Oct).
+                        // Held while a deadline is counted ("Counting your deadline…" says so): pressed twice it counted twice (fresh review, 28 Oct).
+                        // The one control every suggestion is offered with (owner, 31 Oct).
+                        <UseSuggestion
+                          testId={`stage-answer-date-suggestion-${question.id}`}
+                          what={formatIso(fromStory.value)}
                           disabled={dateStatus === "saving"}
-                          onClick={() => {
+                          onUse={() => {
                             const draft = { ...dateDraft, [question.id]: fromStory.value };
                             setDateDraft(draft);
                             void countDeadline(draft);
                           }}
                           className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
-                        >
-                          Yes, save this date
-                        </button>
+                        />
                       ) : null}
                       <button
                         type="button"
@@ -2088,20 +2099,18 @@ export default function StageAnswerPanel({
                     // One click uses the suggested date AND counts the deadline:
                     // choosing it is the user's confirmation (page review,
                     // 2026-10-06: no served person ever saw their due date).
-                    <button
-                      type="button"
-                      data-testid={`stage-answer-date-suggestion-${question.id}`}
+                    <UseSuggestion
+                      testId={`stage-answer-date-suggestion-${question.id}`}
+                      what={formatIso(suggestion.value)}
+                      note={suggestion.basis}
                       disabled={dateStatus === "saving"}
-                      onClick={() => {
+                      onUse={() => {
                         const draft = { ...dateDraft, [question.id]: suggestion.value };
                         setDateDraft(draft);
                         void countDeadline(draft);
                       }}
                       className="mt-2 block rounded-xl border border-[#2f7d67] bg-white px-4 py-2 text-left text-sm font-semibold text-[#2f7d67]"
-                    >
-                      Count my deadline from {formatIso(suggestion.value)}
-                      <span className="block text-xs font-normal text-[#4d675f]">{suggestion.basis}</span>
-                    </button>
+                    />
                   ) : null}
                 </div>
               );

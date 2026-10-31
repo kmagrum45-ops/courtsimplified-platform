@@ -12,6 +12,7 @@ import {
   type AnalysisSafetyDependencies,
 } from "@/src/lib/case-system/intake/analysisSafetyGate";
 import { withAiCallIdentity } from "@/src/lib/audit/aiCallLog";
+import { parseResearchCaseContext } from "@/src/lib/case-system/caseFile/aiCaseContext";
 
 export const runtime = "nodejs";
 // As Small Claims: the analysis researches before it writes (test:analysis-time-budget).
@@ -78,6 +79,7 @@ const allowedInputFields = new Set([
   "settlementHistory",
   "adoptionDetails",
   "uploadedFiles",
+  "caseContext",
 ]);
 
 const longTextFields = new Set([
@@ -191,7 +193,10 @@ export function isFamilyInput(value: unknown): value is FamilyMasterCaseInput {
   }
 
   for (const [field, fieldValue] of Object.entries(value)) {
-    if (field === "uploadedFiles") {
+    if (field === "caseContext") {
+      // The case file's kind of case in words, for the AI research (aiCaseContext.ts): its own shape only.
+      if (parseResearchCaseContext(fieldValue) === false) return false;
+    } else if (field === "uploadedFiles") {
       if (
         !Array.isArray(fieldValue) ||
         fieldValue.length > MAX_UPLOADS ||

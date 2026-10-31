@@ -30,10 +30,13 @@
  */
 import type { Checkpoint } from "../intakeCheckpoint";
 import { freshSections } from "../storyBasis";
+import { storyOfMaster } from "../intakeStory";
 import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation } from "../situation/situation";
-import { isKindOfClaim } from "../intake/claimKind";
+import { isKindOfClaim, kindFromStory, storyQuoteFor, wordsInStory } from "../intake/claimKind";
+import { CLAIM_TYPES } from "../intake/claimTypes";
 import { chatQuestionOf, chatSentencesFor, factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
 import { parseRecordedAmount } from "../format/recordedAmount";
+import type { StatementOfClaimDraftInput } from "../statementOfClaimDraftEngine";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
 
@@ -46,7 +49,12 @@ export const SLOT_FACTS = [
 export type SlotFact = (typeof SLOT_FACTS)[number];
 export type SlotState = "not-asked" | "answered" | "unsure";
 export type SlotSource = { kind: "answer"; question: string } | { kind: "story"; quote: string };
-export type Slot = { state: SlotState; value?: string | number | boolean | string[]; source?: SlotSource; confirmed: boolean };
+/**
+ * `changed`: the value is the person's latest change (the change record, `CASE_FILE_SECTION.changes`).
+ * `removed`: the person removed the answer (their latest change): not held, never brought back by an
+ * older source, and not asked again by itself (they add it back with "Change").
+ */
+export type Slot = { state: SlotState; value?: string | number | boolean | string[]; source?: SlotSource; confirmed: boolean; changed?: true; removed?: true };
 /** `answers`: every answer given to a named question (its id and words), for the step page's dates. */
 export type CaseFile = Record<SlotFact, Slot> & {
   answers?: Record<string, string>;
@@ -62,6 +70,30 @@ export type CaseFile = Record<SlotFact, Slot> & {
   sideWords?: string;
   /** The story as it is now, for the lines "What we have so far" quotes from it (storyLines.ts). */
   story?: string;
+  /**
+   * A kind of claim made by the site, not the person (the guided route's story match or the
+   * classifier's suggestion not yet ticked, or an older saved case's unticked match): a PROPOSAL,
+   * offered with the story's words, never the claimKind slot's value (site owner, 29 Oct).
+   */
+  claimKindProposal?: { claimTypeId: string; quote: string | null };
+  /** The area the file is for (the checkpoint's court), so readers know whether a Small Claims kind applies. */
+  area?: string;
+  /** An older saved case with no checkpoint story: the story it saved, read only to word a proposal (claimKindOf). */
+  savedStory?: string;
+  /** The story's words a ticked suggestion was shown with (kept with the tick). */
+  claimKindQuote?: string;
+  /**
+   * What the person recorded for each element of their kind of claim (the depth questions, the Form 7A
+   * section's "I have this" / "I don't have this"), as the saved case keeps it: read by the Form 7A
+   * section on every Small Claims route, never rebuilt from a screen's copy (site owner, 30 Oct).
+   */
+  elementStates?: Record<string, unknown>;
+  /** The AI's suggested kind waiting for the person's "That's right" / "Not quite" (the guided route). */
+  claimKindPending?: { claimTypeId: string; quote: string | null };
+  /** Kinds the person said are not theirs ("Not quite"): never offered again, never sent to an AI as known. */
+  claimKindRemoved?: string[];
+  /** The facts the person changed or removed with "Change" (the change record), oldest change first. */
+  changedFacts?: SlotFact[];
 };
 
 /** Where the case file keeps what it adds: the facts answered "not sure", and those offered again at the end. */
@@ -202,8 +234,8 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // it wins over the stage given at the start (reviewer, 2026-10-24: a later correction never won).
   const position = object(object(master).position);
   if (typeof position.stepId === "string" && position.stepId) give(file, "stage", position.stepId, "step");
-  // Likewise a kind of claim they chose themselves.
-  if (typeof position.claimKind === "string" && (position.claimKind === "not-sure" || isKindOfClaim(position.claimKind))) give(file, "claimKind", position.claimKind, "claim-kind");
+  // Likewise a kind of claim they chose themselves (the overview's list, CLAIM_KIND_QUESTION).
+  if (typeof position.claimKind === "string" && (position.claimKind === "not-sure" || isKindOfClaim(position.claimKind))) give(file, "claimKind", position.claimKind, CLAIM_KIND_QUESTION);
 
   // 1. The situation answers: the person's own, never tied to the story.
   const situation = situationOf(sections);
@@ -285,8 +317,20 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
       else give(file, fact, captured, id);
     }
   }
+  // The guided route's kind: the person's when they ticked it ("That's right"), else a proposal only.
   const matched = object(guided.matchedClaimType);
-  if (typeof matched.claimTypeId === "string" && matched.userConfirmed === true && isKindOfClaim(matched.claimTypeId)) give(file, "claimKind", matched.claimTypeId, "claim-kind-suggestion");
+  if (typeof matched.claimTypeId === "string" && isKindOfClaim(matched.claimTypeId)) {
+    if (matched.userConfirmed === true) {
+      give(file, "claimKind", matched.claimTypeId, CLAIM_KIND_TICKED);
+      if (typeof matched.quote === "string") file.claimKindQuote ??= matched.quote;
+    }
+    else file.claimKindProposal ??= { claimTypeId: matched.claimTypeId, quote: typeof matched.quote === "string" ? matched.quote : null };
+  }
+  // The AI's suggestion waiting for an answer, and the kinds the person turned down (aiCaseContext.ts).
+  const pending = object(guided.pendingSuggestion);
+  if (typeof pending.claimTypeId === "string" && isKindOfClaim(pending.claimTypeId)) file.claimKindPending = { claimTypeId: pending.claimTypeId, quote: typeof pending.quote === "string" ? pending.quote : null };
+  const turnedDown = strings(guided.rejectedSuggestionIds);
+  if (turnedDown.length) file.claimKindRemoved = turnedDown;
 
   // 4. The review's answers, and its "I don't know yet".
   const builder = object(sections.builder);
@@ -320,12 +364,30 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // 7. The saved case: dates given on the step page, the stage and kind of claim chosen there.
   const dates = object(position.dateAnswers);
   for (const [id, value] of Object.entries(dates)) for (const fact of slotsOf(id)) give(file, fact, value, id);
+  // An older saved case (before 29 Oct) kept the kind in the analysis copy (intakeData.extra): read
+  // here only, as a fallback: ticked, it is the person's; unticked, a proposal (claim type, rule 3).
   const extra = object(object(object(master).intakeData).extra);
-  if (typeof extra.confirmedClaimTypeId === "string" && extra.claimTypeUserConfirmed === true && isKindOfClaim(extra.confirmedClaimTypeId)) give(file, "claimKind", extra.confirmedClaimTypeId, "claim-kind-suggestion");
+  if (typeof extra.confirmedClaimTypeId === "string" && isKindOfClaim(extra.confirmedClaimTypeId)) {
+    if (extra.claimTypeUserConfirmed === true) {
+      give(file, "claimKind", extra.confirmedClaimTypeId, CLAIM_KIND_TICKED);
+      if (typeof extra.claimTypeQuote === "string") file.claimKindQuote ??= extra.claimTypeQuote;
+    }
+    else file.claimKindProposal ??= { claimTypeId: extra.confirmedClaimTypeId, quote: typeof extra.claimTypeQuote === "string" ? extra.claimTypeQuote : null };
+  }
+  // An older saved case with no checkpoint kept the issues picked on a civil or Family form only in its
+  // analysis copy: read here only, as a fallback (route-implied, like the form's own answer).
+  const savedArea = court ?? object(object(master).intakeData).courtPath;
+  if (!checkpoint && (savedArea === "civil" || savedArea === "family") && strings(extra.issues).length) give(file, "claimKind", strings(extra.issues), `${savedArea}:issues`);
+  // The element record the analysis saved with the case (the depth phase's answers), for the Form 7A section.
+  const savedElementStates = object(extra.elementStateMap);
+  if (Object.keys(savedElementStates).length) file.elementStates = savedElementStates;
   for (const answer of Array.isArray(object(master).intakeAnswers) ? (object(master).intakeAnswers as unknown[]) : []) {
     const item = object(answer);
     if (typeof item.questionId === "string" && typeof item.answerText === "string") answers[item.questionId] ??= item.answerText;
-    if (typeof item.questionId === "string") for (const fact of slotsOf(item.questionId)) give(file, fact, item.answerText, item.questionId);
+    // The saved copy of the guided answers gives the kind of claim only for a case with no checkpoint
+    // (an older saved case): where the checkpoint is read, its answers are the one copy, so an answer
+    // emptied there (a side change, the story-version rule) is not brought back from this copy.
+    if (typeof item.questionId === "string") for (const fact of slotsOf(item.questionId)) if (!(fact === "claimKind" && checkpoint)) give(file, fact, item.answerText, item.questionId);
   }
   file.answers = answers;
   // The papers filed, as answered in any area's list (case 16: "the filed application and answer").
@@ -339,13 +401,288 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   const listed = [...fromStart, ...forms.flatMap(([values]) => [values.documents, values.filedDocuments]).flatMap((value) => strings(value))].filter((item) => item !== "nothing" && item !== "not-sure");
   if (listed.length) file.documents = [...new Set(listed)];
   file.story = String(object(sections.story).text ?? "");
+  file.area = checkpoint?.courtPath ?? court ?? undefined;
+  if (!file.story.trim() && master) file.savedStory = storyOfMaster(master) ?? undefined;
+
+  // 8. "Not quite": the kinds the person turned down, kept by the case file itself, so starting the
+  // questions again (which resets the guided record) never offers one back (rule 6, 31 Oct).
+  const turnedDownKinds = strings(object(object(sections[CASE_FILE_SECTION]).turnedDown).claimKind);
+  if (turnedDownKinds.length) file.claimKindRemoved = [...new Set([...(file.claimKindRemoved ?? []), ...turnedDownKinds])];
+
+  // 9. THE CHANGE RECORD: the person's latest change of each fact wins over every source above
+  // (site owner, 31 Oct: "one change path, latest change wins"). Applied last, so nothing older
+  // (a guided answer, the overview's pick, a form value, a situation answer, the saved position, the
+  // saved copy) brings a changed or removed value back. The overview's own pick saved after the
+  // change (position.claimKindAt, stamped by the server) is newer, so it wins in its turn.
+  applyChanges(file, changesOf(sections), position);
+  // A suggestion waiting for an answer is never one the person turned down or removed.
+  if (file.claimKindPending && file.claimKindRemoved?.includes(file.claimKindPending.claimTypeId)) delete file.claimKindPending;
   return file;
+}
+
+/** The question id an answer given through "Change" is kept under (the slot's source). */
+export const CHANGE_QUESTION = "change";
+
+/** One change of one fact: a new answer, or the answer removed; `seq` orders changes, newest highest. */
+export type FactChange =
+  | { state: "answered"; value: string | number | boolean | string[]; at: string; seq: number }
+  | { state: "removed"; at: string; seq: number };
+export type FactChanges = Partial<Record<SlotFact, FactChange>>;
+export type ChangeInput = { state: "answered"; value: string | number | boolean | string[] } | { state: "removed" };
+
+const changeable = (value: unknown): value is string | number | boolean | string[] =>
+  typeof value === "string" || typeof value === "number" || typeof value === "boolean" || Array.isArray(value);
+
+/** The change record a checkpoint's sections hold (CASE_FILE_SECTION.changes): each fact's latest change. */
+export function changesOf(sections: Record<string, unknown> | undefined): FactChanges {
+  const out: FactChanges = {};
+  for (const [fact, raw] of Object.entries(object(object(object(sections)[CASE_FILE_SECTION]).changes))) {
+    const entry = object(raw);
+    if (!isSlot(fact) || typeof entry.seq !== "number") continue;
+    const at = typeof entry.at === "string" ? entry.at : "";
+    if (entry.state === "removed") out[fact] = { state: "removed", at, seq: entry.seq };
+    else if (entry.state === "answered" && !blank(entry.value) && changeable(entry.value)) out[fact] = { state: "answered", value: Array.isArray(entry.value) ? strings(entry.value) : entry.value, at, seq: entry.seq };
+  }
+  return out;
+}
+
+/**
+ * THE ONE WRITE PATH for a changed or removed answer (site owner, 31 Oct): the change record after
+ * the person's change of one fact, as the newest change. Every "Change" control saves through this
+ * (recovery.put(CASE_FILE_SECTION, "changes", ...), a touched answer from the review), and
+ * materialFacts reads the record, so the change counts as a change of a confirmed fact.
+ */
+export function withChange(changes: unknown, fact: SlotFact, change: ChangeInput, now: Date = new Date()): FactChanges {
+  const current = changesOf({ [CASE_FILE_SECTION]: { changes } });
+  const seq = Math.max(0, ...Object.values(current).map((entry) => entry?.seq ?? 0)) + 1;
+  return { ...current, [fact]: { ...change, at: now.toISOString(), seq } as FactChange };
+}
+
+/**
+ * A later answer to a fact already under the change record, given in a form or a question (the whole
+ * form, the review's "Answered here"): it is the newest answer, so it is recorded as the newest change
+ * too (latest change wins). Returns the new change record, or null when the write answers no fact
+ * under the record. Only the keys the write changed count (a form re-saving its other answers is no
+ * answer), and "not sure" or an emptied box is no new answer.
+ */
+export function followAnswer(sections: Record<string, unknown>, section: string, key: string, before: unknown, after: unknown, now: Date = new Date()): FactChanges | null {
+  const changes = changesOf(sections);
+  if (!Object.keys(changes).length) return null;
+  const keyed = ((section === "civil" || section === "small-claims") && key === "input") || (section === "builder" && key === "initialAnswers");
+  const pairs: [string, unknown, unknown][] = keyed
+    ? Object.keys({ ...object(before), ...object(after) }).map((id) => [id, object(before)[id], object(after)[id]])
+    : section === "family" ? [[key, before, after]] : [];
+  let next: FactChanges | null = null;
+  for (const [id, was, given] of pairs) {
+    if (JSON.stringify(was) === JSON.stringify(given) || given === "not-sure" || isUnsureAnswer(given)) continue;
+    const value = Array.isArray(given) ? strings(given).filter((item) => item !== "not-sure") : given;
+    if (blank(value) || !changeable(value)) continue;
+    for (const fact of slotsOf(id)) if ((next ?? changes)[fact]) next = withChange(next ?? changes, fact, { state: "answered", value }, now);
+  }
+  return next;
+}
+
+/**
+ * For a screen that still shows a fact from its own copy (the overview's amount, parties and outcome
+ * read the analysis copy): the person's change of it, in words, which the screen shows instead.
+ * `undefined`: not changed (the screen keeps its own); `null`: removed (the screen shows nothing).
+ */
+export function changedWords(file: CaseFile | null | undefined, fact: SlotFact, formatDay: (iso: string) => string = (iso) => iso): string | null | undefined {
+  const slot = file?.[fact];
+  if (!slot?.changed) return undefined;
+  if (slot.removed || slot.state === "not-asked") return null;
+  return slotText(slot, formatDay);
+}
+
+/** The kinds the case file keeps as turned down ("Not quite"), with one more. */
+export function withTurnedDown(section: unknown, fact: "claimKind", value: string): Record<string, string[]> {
+  const current = object(object(section).turnedDown);
+  return { ...Object.fromEntries(Object.entries(current).map(([key, list]) => [key, strings(list)])), [fact]: [...new Set([...strings(current[fact]), value])] };
+}
+
+/** The catalogue kind a held claimKind slot names (an sc-claim-* id, or a one-to-one dispute category), or null. */
+function heldKindId(slot: Slot): string | null {
+  if (slot.state !== "answered" || typeof slot.value !== "string") return null;
+  if (isKindOfClaim(slot.value)) return slot.value;
+  return DISPUTE_KIND[slot.value] ?? DISPUTE_KIND[DISPUTE_CATEGORY_WORDS[slot.value] ?? ""] ?? null;
+}
+
+function applyChanges(file: CaseFile, changes: FactChanges, position: Record<string, unknown>) {
+  const ordered = (Object.entries(changes) as [SlotFact, FactChange][]).sort(([, a], [, b]) => a.seq - b.seq);
+  if (!ordered.length) return;
+  const pickedAt = typeof position.claimKindAt === "string" ? position.claimKindAt : "";
+  for (const [fact, change] of ordered) {
+    // The overview's own pick of a kind, saved after this change, is the newer answer.
+    if (fact === "claimKind" && pickedAt && change.at && pickedAt > change.at && file.claimKind.source?.kind === "answer" && file.claimKind.source.question === CLAIM_KIND_QUESTION) continue;
+    const was = file[fact];
+    if (change.state === "removed") {
+      // A removed kind is never offered back as the story's or the classifier's proposal either.
+      const kind = fact === "claimKind" ? heldKindId(was) ?? file.claimKindProposal?.claimTypeId ?? null : null;
+      if (kind) file.claimKindRemoved = [...new Set([...(file.claimKindRemoved ?? []), kind])];
+      file[fact] = { state: "not-asked", confirmed: true, removed: true, changed: true, source: { kind: "answer", question: CHANGE_QUESTION } };
+    } else {
+      const fresh = emptyCaseFile();
+      give(fresh, fact, change.value, CHANGE_QUESTION);
+      file[fact] = { ...fresh[fact], changed: true };
+    }
+    // Nothing older keeps the fact another way: its answers by question (the step page's dates), a
+    // day not known yet, a ticked suggestion's quote, the papers named, the place married from the story.
+    if (file.answers) for (const id of Object.keys(file.answers)) if (slotsOf(id).includes(fact)) delete file.answers[id];
+    if (file.unsureDates && DATED.has(fact)) file.unsureDates = file.unsureDates.filter((id) => !slotsOf(id).includes(fact));
+    if (fact === "claimKind") { delete file.claimKindQuote; delete file.claimKindPending; }
+    if (fact === "filed" && change.state === "removed") delete file.documents;
+    if (fact === "side") delete file.sideWords;
+    if (fact === "married" && !(file.married.state === "answered" && file.married.value === true) && file.marriedWhere.source?.kind === "story") file.marriedWhere = { state: "not-asked", confirmed: false };
+  }
+  file.changedFacts = ordered.map(([fact]) => fact);
+}
+
+/** The question id the overview's "Which kind of claim is this?" list answers (saved as position.claimKind). */
+export const CLAIM_KIND_QUESTION = "claim-kind";
+/** A kind the site suggested and the person ticked ("That's right"): theirs from then on. */
+export const CLAIM_KIND_TICKED = "claim-kind-suggestion";
+
+/**
+ * The kind of claim the analysis follows, as the analysis engine's input field: the case file's kind
+ * (claimKindOf), else the one it proposes from the story (the overview then labels its cards "this
+ * matches"). The one place that field is filled from, on every route (site owner, 29 Oct).
+ */
+export function kindForAnalysis(held: ClaimKindHeld): string | null {
+  return held.claimTypeId ?? held.proposal?.claimTypeId ?? null;
+}
+/** The analysis input's field for a kind of claim the case file gave (kindForAnalysis), or nothing. */
+export function analysisClaimType(claimTypeId: string | null): { confirmedClaimTypeId?: string } {
+  return claimTypeId ? { confirmedClaimTypeId: claimTypeId } : {};
+}
+
+/** The patch that keeps the person's pick from the overview's list with the saved case (read first by caseFileOf). */
+export function claimKindAnswer(value: string): { claimKind: string } {
+  return { claimKind: value };
+}
+
+/**
+ * Where the kind of claim the file holds came from (site owner, 29 Oct: "one fact with a source"):
+ *   person-said    their own answer ("What kind of dispute is this?", the overview's list, a form);
+ *   confirmed      a kind the site suggested from the story, ticked by the person;
+ *   route-implied  the issues they picked on an area's form (Family, civil), which choose the route.
+ * A kind read from the story, or by the classifier, and not ticked is a `proposal`, never the fact.
+ */
+export type ClaimKindSource = "person-said" | "confirmed" | "route-implied";
+export type ClaimKindHeld = {
+  /** The claimKind slot's state: answered, unsure ("not sure"), or not asked. */
+  state: SlotState;
+  /** The catalogue's kind of claim (an sc-claim-* id) the answer names, or null (a kind in words only). */
+  claimTypeId: string | null;
+  /** What every screen shows for it: the person's words, or the catalogue's name for a kind they picked. */
+  words: string | null;
+  source: ClaimKindSource | null;
+  /** The question the answer was given to (CLAIM_KIND_QUESTION for the overview's list), or null. */
+  askedBy: string | null;
+  /** For a suggestion the person ticked: the story's words it was shown with (checked to be in the story), else null. */
+  quote: string | null;
+  /** A kind made by the site and not ticked: offered with the story's words, never counted as held. */
+  proposal: { claimTypeId: string; words: string; quote: string } | null;
+};
+
+/**
+ * Answers to "What kind of dispute is this?" that name exactly one kind of claim in the catalogue,
+ * so the claim's own checklists can follow the answer. Only a one-to-one name: "Property damage"
+ * or "A vehicle-related dispute" cover several kinds and stay words (the person picks the kind).
+ */
+const DISPUTE_KIND: Record<string, string> = {
+  defamation: "sc-claim-defamation-libel-slander",
+  [DISPUTE_CATEGORY_WORDS.defamation]: "sc-claim-defamation-libel-slander",
+};
+
+const kindName = (id: string) => CLAIM_TYPES.find((claimType) => claimType.id === id)?.name ?? null;
+
+/**
+ * THE KIND OF CLAIM, AS THE CASE FILE HOLDS IT: every screen, card, checklist and AI prompt that
+ * needs the kind of claim reads it here (site owner, 29 Oct). A separate "confirmed" flag never
+ * blocks it: the person's own answer counts as soon as it is given.
+ */
+export function claimKindOf(file: CaseFile, listWords: (codes: string[]) => string = (codes) => codes.join(", ")): ClaimKindHeld {
+  const slot = file.claimKind;
+  const question = slot.source?.kind === "answer" ? slot.source.question : "";
+  const source: ClaimKindSource | null = slot.state === "not-asked" ? null : question === CLAIM_KIND_TICKED ? "confirmed" : /^(?:civil|family):issues$/.test(question) ? "route-implied" : "person-said";
+  let claimTypeId: string | null = null;
+  let words: string | null = null;
+  if (slot.state === "answered") {
+    const value = slot.value;
+    if (typeof value === "string" && isKindOfClaim(value)) {
+      claimTypeId = kindName(value) ? value : null;
+      words = kindName(value) ?? value;
+    } else if (typeof value === "string" && value.trim()) {
+      words = DISPUTE_CATEGORY_WORDS[value] ?? value.trim();
+      claimTypeId = DISPUTE_KIND[value] ?? DISPUTE_KIND[words] ?? null;
+    } else if (Array.isArray(value) && value.length) {
+      words = listWords(value.filter((item): item is string => typeof item === "string"));
+    }
+  }
+  const story = storyOfFile(file);
+  // A ticked suggestion keeps the story's words it was shown with, as its source (checked to be in the story).
+  const tickedKind = source === "confirmed" && claimTypeId ? CLAIM_TYPES.find((claimType) => claimType.id === claimTypeId) : undefined;
+  const quote = tickedKind ? (file.claimKindQuote ? wordsInStory(story, file.claimKindQuote) : null) ?? storyQuoteFor(story, tickedKind) : null;
+  // A proposal is offered only while nothing is held: it never covers the person's answer (rule 4).
+  let proposal: ClaimKindHeld["proposal"] = null;
+  // A kind the person turned down ("Not quite") or removed is never proposed again (rule 6, 31 Oct).
+  const removed = new Set(file.claimKindRemoved ?? []);
+  if (slot.state === "not-asked" && (file.area === "small-claims" || file.area === undefined)) {
+    const stored = file.claimKindProposal;
+    const name = stored ? kindName(stored.claimTypeId) : null;
+    if (stored && removed.has(stored.claimTypeId)) {
+      // Turned down: nothing is proposed in its place from the same story.
+    } else if (stored && name) {
+      const kind = CLAIM_TYPES.find((claimType) => claimType.id === stored.claimTypeId)!;
+      // The story's own words for it: the words recorded with it, checked to be in the story, or its signal phrase.
+      const quote = (stored.quote ? wordsInStory(story, stored.quote) : null) ?? storyQuoteFor(story, kind);
+      if (quote) proposal = { claimTypeId: stored.claimTypeId, words: name, quote };
+    } else if (!stored && story.trim()) {
+      const read = kindFromStory(story, CLAIM_TYPES);
+      if (read && !removed.has(read.claimType.id)) proposal = { claimTypeId: read.claimType.id, words: read.claimType.name, quote: read.quote };
+    }
+  }
+  return { state: slot.state, claimTypeId, words, source, askedBy: question || null, quote, proposal };
+}
+
+/** The story the case file holds: the checkpoint's, else (an older saved case) the story it saved. */
+export function storyOfFile(file: CaseFile): string {
+  return file.story?.trim() ? file.story : file.savedStory ?? "";
+}
+
+/**
+ * The Form 7A draft's fields, from the case file only (site owner, 30 Oct: the section is drawn on
+ * every Small Claims route, never from one route's own copy): the story, and the amount and what they
+ * want as the case file words them (slotText). Party names and addresses are never filled in here:
+ * the person types them in the section, so an empty one stays empty and the draft says "[... to be
+ * confirmed]".
+ */
+export function form7ADraftFields(file: CaseFile, formatDay: (iso: string) => string): StatementOfClaimDraftInput {
+  const said = (fact: "amount" | "wants") => (file[fact].state === "answered" ? slotText(file[fact], formatDay) : "");
+  return { yourName: "", yourAddress: "", otherParty: "", defendantAddress: "", amountClaimed: said("amount"), facts: storyOfFile(file), timeline: "", goal: said("wants") };
+}
+
+/**
+ * The one line every screen shows for the kind of claim (the overview, the case file panel, the
+ * Form 7A section): its label by source, the words, the catalogue kind its checklists follow, and
+ * whether it is held (the person's) or only proposed. Null when there is neither: the screen asks.
+ */
+export function claimKindLine(held: ClaimKindHeld): { label: string; words: string; claimTypeId: string | null; quote: string | null; held: boolean } | null {
+  if (held.state === "answered" && held.words) {
+    const label = held.askedBy === CLAIM_KIND_QUESTION ? "Kind of claim you chose" : held.source === "confirmed" ? "Kind of claim you confirmed" : held.source === "route-implied" ? "Kind of dispute (from what you picked)" : "Kind of dispute (your answer)";
+    return { label, words: held.words, claimTypeId: held.claimTypeId, quote: held.quote, held: true };
+  }
+  if (held.proposal) return { label: "Kind of claim this matches", words: held.proposal.words, claimTypeId: held.proposal.claimTypeId, quote: held.proposal.quote, held: false };
+  return null;
 }
 
 /** Whether a question would ask for something the file already holds (an answer, or "not sure"). */
 export function alreadyAsked(file: CaseFile, questionId: string, surface?: string): boolean {
-  return slotsOf(questionId, surface).some((fact) => file[fact].state !== "not-asked");
+  return slotsOf(questionId, surface).some((fact) => !notAsked(file[fact]));
 }
+
+/** Not asked yet: no answer, no "not sure", and not removed by the person (a removed answer is not asked again by itself). */
+export const notAsked = (slot: Slot) => slot.state === "not-asked" && !slot.removed;
 
 /**
  * THE ONE GATE. Of a screen's questions, in its order, the first whose facts the file
@@ -357,7 +694,7 @@ export function nextQuestion(file: CaseFile, candidates: readonly string[], opti
   for (const id of candidates) {
     const facts = slotsOf(id, options.surface);
     if (!facts.length) return id;
-    if (!options.atEnd && facts.every((fact) => file[fact].state === "not-asked")) return id;
+    if (!options.atEnd && facts.every((fact) => notAsked(file[fact]))) return id;
     if (options.atEnd && facts.some((fact) => file[fact].state === "unsure" && !(options.offered ?? []).includes(fact))) return id;
   }
   return null;

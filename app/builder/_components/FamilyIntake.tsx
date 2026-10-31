@@ -2,6 +2,8 @@
 
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
+import { caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
+import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
 import { formatForCourt } from "../../../src/lib/case-system/dates";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
@@ -665,6 +667,9 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
     try {
       const narrative = buildNarrative();
       const familyInput: FamilyMasterCaseInput = {
+        // The issues picked, in words, told to the AI research, from the case file through the shared
+        // builder (aiCaseContext.ts, rule 8; site owner, 31 Oct).
+        caseContext: researchCaseContext(caseFileOf(recovery?.getReview().checkpoint ?? null)),
         caseStage,
         role: yourRole,
         issues: issues.map(labelForIssue),

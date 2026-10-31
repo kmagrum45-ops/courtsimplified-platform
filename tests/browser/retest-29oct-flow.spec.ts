@@ -74,7 +74,7 @@ async function confirmHere(page: Page) {
   const kind = q("sc-orient-dispute-category").getByRole("button").first();
   if (await kind.count()) await kind.click();
   if (await q("sc-claim-filed").count()) await q("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
-  const use = q("sc-amount-claimed").getByRole("button", { name: /^Use “.*” \(from your story\)$/ });
+  const use = q("sc-amount-claimed").getByRole("button", { name: /^Use the suggestion: .*$/ });
   if (await use.count()) await use.first().click();
   await recordInitialUnknowns(page);
   await page.getByTestId("intake-review-acknowledgement").check();
@@ -378,7 +378,7 @@ test("retest-29oct D1: a date added on the next-step page keeps the next steps c
 
 /*
  * The owner's Chrome check of #514's preview (29 Oct, third round). Questions one at a time,
- * "Stop initial questions and review", the review answered (with "Use “$6,000” (from your
+ * "Stop initial questions and review", the review answered (with "Use the suggestion: $6,000" (from your
  * story)"), Confirm, "Show my next step"; then, on the form, TYPING into "Important dates /
  * timeline". Each key press is its own write: the first adds a fact, the second used to count
  * as changing that fact (existingFactChanged against the previous key press, in the browser
@@ -426,7 +426,7 @@ test("retest-29oct D1: typing into the form's timeline after Confirm keeps the c
   const kind = q("sc-orient-dispute-category").getByRole("button").first();
   if (await kind.count()) await kind.click();
   if (await q("sc-claim-filed").count()) await q("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
-  const use = panel.getByRole("button", { name: /^Use “\$6,000” \(from your story\)$/ });
+  const use = panel.getByRole("button", { name: /^Use the suggestion: \$6,000$/ });
   if (await use.count()) await use.first().click();
   await recordInitialUnknowns(page);
   await page.getByTestId("intake-review-acknowledgement").check();

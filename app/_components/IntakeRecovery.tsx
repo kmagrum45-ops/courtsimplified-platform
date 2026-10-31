@@ -23,6 +23,8 @@ import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadChe
 import { canonicalJson } from "../../src/lib/case-system/canonicalJson";
 import { WorkingButton } from "./Working";
 import { saveThenLeave } from "./leaveAfterSave";
+import { courtOfSavedRow, SAVED_COURT_COLUMNS } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
+import { CASE_FILE_SECTION, followAnswer } from "../../src/lib/case-system/caseFile/caseFile";
 
 async function readAuthSession() {
   const request = new IntakeRequest();
@@ -38,6 +40,8 @@ type Recovery = {
   subscribeField: (section: string, field: string, listener: () => void) => () => void;
   subscribe: (listener: () => void) => () => void;
   getReview: () => ReviewView;
+  /** The saved case as last read or written (its master_result), so the review reads the same case file as the results page; null for a guest. */
+  getSavedMaster: () => Record<string, unknown> | null;
   transition: (action: "review" | "collect" | "confirm", expectedInput: string) => Promise<void>;
   /** Each route registers the action that turns its confirmed answers into guidance. */
   registerContinue: (key: ContinueKey, handler: () => void) => () => void;
@@ -146,8 +150,9 @@ function CourtFromCase() {
       signedInUser: async () => (await supabase.auth.getSession()).data.session?.user.id ?? null,
       savedCourtOf: async (id, userId) => {
         if (!intakeId(id)) return null;
-        const { data: row } = await supabase.from("cases").select("court_path").eq("id", id).eq("user_id", userId).maybeSingle();
-        return (row as { court_path?: string } | null)?.court_path ?? null;
+        // The court through the case file (caseFileOfMaster.ts courtOfSavedRow): the saved case's own court, the column only as its fallback.
+        const { data: row } = await supabase.from("cases").select(SAVED_COURT_COLUMNS).eq("id", id).eq("user_id", userId).maybeSingle();
+        return courtOfSavedRow(row);
       },
     }).then((to) => { if (active) window.location.replace(to); }).catch(() => {
       if (active) window.location.replace(addressWithoutACase("chooser") ?? "/dashboard");
@@ -206,6 +211,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         const migrated = snapshot !== unmigrated;
         if (migrated) snapshot = { ...snapshot, revision: crypto.randomUUID() };
         let workflowStatus = ownerId ? record(row?.master_result.workflowStatus) : session?.workflowStatus ?? { intakeCompleted: false };
+        let savedMaster: Record<string, unknown> | null = ownerId && row ? record(row.master_result) : null;
         let view: ReviewView = { checkpoint: snapshot, workflowStatus };
         const listeners = new Set<() => void>();
         const fieldListeners = new Map<string, Set<() => void>>();
@@ -291,6 +297,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
               }
               if (outcome.ok) {
                 workflowStatus = record(outcome.master.workflowStatus);
+                savedMaster = record(outcome.master);
                 const committed = readCheckpoint(outcome.master.intakeCheckpoint, court, caseId);
                 if (committed) savedInput = inputRevision(committed);
                 if (committed && inputRevision(snapshot) === inputRevision(sent) && inputRevision(committed) !== inputRevision(sent)) { snapshot = { ...snapshot, inputRevision: inputRevision(committed) }; remember(snapshot); }
@@ -383,6 +390,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           },
           subscribe: listener => { listeners.add(listener); return () => { listeners.delete(listener); }; },
           getReview: () => view,
+          getSavedMaster: () => savedMaster,
           transition: async (action, expectedInput) => {
             await flush();
             if (!current() || inputRevision(snapshot) !== expectedInput) {
@@ -395,6 +403,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
               if (!result.ok) { failure("Your review could not be saved. Your answers remain here; retry before continuing."); throw new Error("Review was not saved. Please retry."); }
               if (!current()) return;
               workflowStatus = record(result.master.workflowStatus);
+              savedMaster = record(result.master);
               if (inputRevision(snapshot) !== expectedInput) {
                 workflowStatus = reconcileReview(view.workflowStatus, view.checkpoint, snapshot);
                 emit(); cache();
@@ -424,6 +433,10 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             // A changed side: the old side's answers are emptied, to be asked again (sideChange.ts).
             const sideChange = field === `${SITUATION_SECTION}:${SITUATION_FIELD}` ? onSideChange(snapshot.sections, sections) : { sections, changed: [] as [string, string][] };
             sections = sideChange.sections;
+            // A later answer to a fact the person changed with "Change" is the newest change: recorded as
+            // one, so latest wins and no older copy outranks it (caseFile.ts followAnswer, rule 6, 31 Oct).
+            const followed = touched && section !== CASE_FILE_SECTION ? followAnswer(snapshot.sections, section, key, snapshot.sections[section]?.[key], encoded) : null;
+            if (followed) sections = { ...sections, [CASE_FILE_SECTION]: { ...sections[CASE_FILE_SECTION], changes: followed } };
             // Only what the person enters or confirms is an answer; a form registering its defaults is not.
             if (touched) sections[BASIS_SECTION] = tagAnswers(sections, section, key, snapshot.sections[section]?.[key], encoded);
             if (reaffirm !== undefined) sections[BASIS_SECTION] = reaffirmAnswers(sections, section, key, encoded, reaffirm === true ? undefined : reaffirm);

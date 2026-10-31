@@ -47,7 +47,8 @@ import {
   type FamilyStatusRecord,
   type TriageQuestion,
 } from "../../../src/lib/case-system/family/statusTriage";
-import { storyAnswerFor, storyQuoteFor, storySuggestionFor } from "../../../src/lib/case-system/family/triageStoryQuote";
+import { storyQuoteFor, storySuggestionFor } from "../../../src/lib/case-system/family/triageStoryQuote";
+import { UseSuggestion } from "../../_components/UseSuggestion";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 
 export type FamilyTriageState = {
@@ -182,9 +183,8 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
           ? ["yes", "no", "unsure"]
           : ["yes", "no"];
 
-      // What the person's own words answer is offered first, highlighted;
-      // nothing is recorded until they press it.
-      const fromStory = storyAnswerFor(current.id, story);
+      // What the person's own words answer is offered first, with the one control;
+      // no choice is shown chosen and nothing is recorded until they press one (owner, 31 Oct).
       const suggestion = storySuggestionFor(current.id, story);
       const record = (value: string) => {
         if (current.id === "married-to-other-party") update({ marriedToOtherParty: value as "yes" | "no" });
@@ -202,14 +202,12 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
               {/* A question, not a fact of ours: no quote to show here (#469 re-test). */}
               Is this right: <strong>{suggestion.say}</strong>?
             </p>
-            <button
-              type="button"
-              data-testid="triage-story-suggestion-yes"
-              onClick={() => record(suggestion.value)}
+            <UseSuggestion
+              testId="triage-story-suggestion-yes"
+              what={suggestion.say}
+              onUse={() => record(suggestion.value)}
               className="mt-2 rounded-full bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
-            >
-              Yes, that&apos;s right
-            </button>
+            />
           </div>
         ) : null}
         <div className="mt-4 flex flex-wrap gap-3">
@@ -218,12 +216,10 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
               key={value}
               type="button"
               data-testid={`triage-answer-${value}`}
-              data-from-story={fromStory === value ? "yes" : undefined}
               onClick={() => record(value)}
-              className={fromStory === value ? "rounded-full border-2 border-[#2f7d67] bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white" : chip}
+              className={chip}
             >
               {value === "unsure" ? "I'm not sure" : value === "yes" ? "Yes" : "No"}
-              {fromStory === value ? " — as you wrote" : ""}
             </button>
           ))}
           {/*

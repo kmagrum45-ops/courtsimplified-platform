@@ -132,15 +132,18 @@ class Run {
   given = false;
   caseA = "";
   caseB = "";
+  /** The step running now, for the recorder's diagnostic field only (never counted). */
+  currentStep = "";
   constructor(readonly page: Page, readonly court: Court, readonly route: RouteName, readonly who: Who) {}
   get name() { return `${this.court} ${this.route} ${this.who}`; }
-  add(kind: CarryKind, fact: string, where: string, detail: string) {
+  add(kind: CarryKind, fact: string, where: string, detail: string, diag?: string) {
     const key = `${kind}|${fact}|${where}`;
     if (this.violations.some((item) => `${item.kind}|${item.fact}|${item.where}` === key)) return;
-    this.violations.push({ kind, run: this.name, court: this.court, route: this.route, who: this.who, fact, where, detail: detail.replace(/\s+/g, " ").slice(0, 240) });
+    this.violations.push({ kind, run: this.name, court: this.court, route: this.route, who: this.who, fact, where, detail: detail.replace(/\s+/g, " ").slice(0, 240), ...(diag ? { diag } : {}) });
   }
   /** A step that must be reached for the counts to mean anything; a failure is recorded and the run goes on. */
   async step(name: string, body: () => Promise<void>) {
+    this.currentStep = name;
     try { await body(); } catch (error) {
       // The first line and the locator it waited on (CI run 41096555611 recorded only "toBeVisible() failed").
       const message = String(error).replace(/\u001b\[[0-9;]*m/g, "");
@@ -536,7 +539,7 @@ for (const { court, route, who } of RUNS) {
       if (current !== reading) return;
       held = data ? heldFacts((data as { master_result: unknown }).master_result, court) : null;
     }, 3_000);
-    const asked: Asked[] = await recordAsks(page, { held: () => (held ? (fact: string) => held!.get(fact) ?? null : null) });
+    const asked: Asked[] = await recordAsks(page, { held: () => (held ? (fact: string) => held!.get(fact) ?? null : null), step: () => run.currentStep });
     const segments: { from: number; to: number; key: "a" | "b" }[] = [];
     let segmentStart = 0;
     let segmentKey: "a" | "b" = "a";
@@ -640,11 +643,18 @@ for (const { court, route, who } of RUNS) {
         await openFromDashboard(page, run.caseA);
         judge(run, "first case from the dashboard", {}, await page.locator("body").innerText());
       });
-      // Then the second case the same way: it must show itself, not the first.
+      // Then the second case the same way: it must show itself, not the first. Its questions are the
+      // second case's, counted against the second case (its own held map and answers): run 41137395354
+      // found all six civil/Family claimKind entries here, case B's own chat asking B's kind (never given
+      // in B: page=claimKind:not-asked) judged against case A's saved answer.
+      segment("b");
+      current = run.caseB;
       await run.step("the second case from the dashboard", async () => {
         await openFromDashboard(page, run.caseB);
         judge(run, "second case from the dashboard", {}, await page.locator("body").innerText(), "b");
       });
+      segment("a");
+      current = run.caseA;
       await run.step("the first case by its address", async () => {
         await readBuilder(run, "first case by address, after the second case");
         await readCasePage(run, "first case by address, after the second case");
@@ -659,7 +669,7 @@ for (const { court, route, who } of RUNS) {
     for (const key of ["a", "b"] as const) {
       const events = segments.filter((item) => item.key === key).flatMap((item) => asked.slice(item.from, item.to));
       for (const violation of [...repeatViolations(factsAskedTwice(events, STARTING_NOTHING_FILED)), ...heldViolations(events)]) {
-        run.add("asked-twice", violation.fact, `${violation.surface}@${violation.screen}`, `${violation.rule}: ${violation.text.slice(0, 120)} (${violation.detail})`);
+        run.add("asked-twice", violation.fact, `${violation.surface}@${violation.screen}`, `${violation.rule}: ${violation.text.slice(0, 120)} (${violation.detail})`, violation.diag);
       }
     }
 

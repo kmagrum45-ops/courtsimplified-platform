@@ -14,6 +14,7 @@ import {
 import { runCourtSimplifiedBrain } from "./courtSimplifiedBrain";
 import { formatRecordedAmount } from "../format/recordedAmount";
 import type { ProceduralEvent } from "../procedure/proceduralStateArchitecture";
+import type { ResearchCaseContext } from "../caseFile/aiCaseContext";
 import { sanitizeSummaryText } from "./caseStrengthLanguageValidator";
 import { nameRecorded } from "../privacy/modelPayloadNames";
 
@@ -117,6 +118,8 @@ export type SmallClaimsIntelligenceInput = {
    */
   confirmedClaimTypeId?: string;
   elementStates?: Record<string, "provided" | "cannot-provide" | "not-yet">;
+  /** The case file's kind of case in words, for the AI research (caseFile/aiCaseContext.ts researchCaseContext). Checked by the route. */
+  caseContext?: ResearchCaseContext;
 };
 
 export type SmallClaimsIntelligenceOutput = {
@@ -587,6 +590,7 @@ export async function analyzeSmallClaimsWithBrain(
     sourceType: "user-intake",
     allowExternalCognition: options.allowExternalCognition,
     confirmedEvents: options.confirmedEvents,
+    ...(input.caseContext ? { caseContext: input.caseContext } : {}),
     ...(input.confirmedClaimTypeId
       ? {
           catalogueClaim: {

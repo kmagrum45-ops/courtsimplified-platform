@@ -7,10 +7,10 @@ import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
 import { freshSections } from "./storyBasis";
 import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
 import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../../app/builder/_components/guidedFields";
-import { amountFromStory, goalFromStory } from "../../../app/builder/_components/storyAnswers";
+import { amountFromStory, goalFromStory, kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
-import { alreadyAsked, caseFileOf, slotsOfQuestion } from "./caseFile/caseFile";
+import { alreadyAsked, caseFileOf, changesOf, claimKindOf, emptyCaseFile, slotsOfQuestion } from "./caseFile/caseFile";
 import { LOAN_WORDS } from "./intake/claimKind";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
 
@@ -199,8 +199,15 @@ function materialFacts(checkpoint: Checkpoint): Map<string, string> {
   if (Array.isArray(answers) && answers.length) facts.set("home.understoodAnswers", canonicalJson(answers));
   // The situation answers (situation.ts) are facts the guidance rests on: changing one is confirmed again.
   for (const [key, value] of Object.entries(situationOf(checkpoint.sections))) facts.set(JSON.stringify(["situation", key]), canonicalJson(value));
+  // The change record (caseFile.ts withChange): each change is a change of a confirmed fact (rule 6,
+  // 31 Oct), so it cancels the confirmation that rested on the old answer (isChangeKey below).
+  for (const [fact, change] of Object.entries(changesOf(checkpoint.sections))) facts.set(JSON.stringify([CHANGE_KEY, fact]), canonicalJson(change));
   return facts;
 }
+
+/** The material-fact key of one fact's change record: a change counts even where the fact had no key before. */
+const CHANGE_KEY = "caseFile.change";
+const isChangeKey = (key: string) => key.startsWith(`["${CHANGE_KEY}",`);
 
 export function materialInitialFacts(checkpoint: Checkpoint): string {
   return JSON.stringify([...materialFacts(checkpoint)].sort(([a], [b]) => a.localeCompare(b)));
@@ -214,7 +221,10 @@ export function materialInitialFacts(checkpoint: Checkpoint): string {
  */
 export function existingFactChanged(previous: Checkpoint, next: Checkpoint): boolean {
   const after = materialFacts(next);
-  for (const [key, value] of materialFacts(previous)) if (after.get(key) !== value) return true;
+  const before = materialFacts(previous);
+  for (const [key, value] of before) if (after.get(key) !== value) return true;
+  // A new change through "Change" is never "only an added answer": it replaces or removes one.
+  for (const [key, value] of after) if (isChangeKey(key) && before.get(key) !== value) return true;
   return false;
 }
 
@@ -261,7 +271,9 @@ export function confirmedAnswerChanged(workflow: ObjectValue, previous: Checkpoi
   const marks = object(object(workflow.intakeReview).confirmedFacts);
   if (!Object.keys(marks).length) return existingFactChanged(previous, next);
   const now = confirmedFactMarks(next);
-  return Object.entries(marks).some(([key, mark]) => now[key] !== mark);
+  // A change made through "Change" after Confirm replaces or removes a confirmed answer, even where
+  // the answer it replaces was held outside these marks (the saved position, the saved copy).
+  return Object.entries(marks).some(([key, mark]) => now[key] !== mark) || Object.entries(now).some(([key, mark]) => isChangeKey(key) && marks[key] !== mark);
 }
 
 /**
@@ -336,14 +348,20 @@ export function canReview(checkpoint: Checkpoint): boolean {
 }
 
 /** Reuse the existing initial selectors. Unknown/skipped is an answer, never an invented fact. */
-export function remainingEssentialQuestions(stored: Checkpoint, includeUnknown = false): { id: string; label: string }[] {
+/**
+ * `master`: the saved case, when there is one, so the review reads the same case file as the
+ * results and case pages (its saved position: a kind of claim picked on the overview, a step, the
+ * step page's dates). Site owner, 29 Oct: the review listed "What kind of dispute is this?" as still
+ * needed while the overview showed the person's answer.
+ */
+export function remainingEssentialQuestions(stored: Checkpoint, includeUnknown = false, master?: unknown): { id: string; label: string }[] {
   // The case file is the one gate (caseFile.ts): a question whose fact is held anywhere is not
   // asked again here, and never blocks Confirm. A fact the person said they did not know gets
   // its one more offer in this review (Jason, 2026-10-24, option 1), as ONE field: its box when
   // the review shows one, otherwise this question (listed with `includeUnknown`, never required).
   // Those this review marked "I don't know yet" stay listed (marked) so they can be changed.
   const unknown = new Set(Array.isArray(stored.sections.builder?.initialUnknowns) ? stored.sections.builder.initialUnknowns as string[] : []);
-  const file = caseFileOf(stored);
+  const file = caseFileOf(stored, master);
   // Only the boxes the review shows: essential ones, and optional ones with something in them.
   const boxFacts = new Set(reviewEntries(stored).filter(entry => entry.essential || !(entry.value === "" || (Array.isArray(entry.value) && entry.value.length === 0))).flatMap(entry => slotsOfQuestion(entry.field)));
   // Each unsure fact once: a fact already offered by a box, or by an earlier question here, is not offered again.
@@ -455,18 +473,24 @@ const SIDE_CUES: [RegExp, string][] = [
   // ("a contractor took a $3,000 deposit and never did the work", re-test 2026-10-18).
   [/\b(owes? me|owed me|never paid|did not pay|didn't pay|won't pay|refused to (pay|refund|return)|kept my|i want to sue|i want (my|the) money|never came back|left the work|did not return|i paid|we paid|paid (him|her|them|a|an|the)|took (my|our|a|an|the)\b[^.]{0,30}\b(deposit|money|payment)|never (did|finished|completed|delivered|showed up|started))\b/i, "Bringing the claim (plaintiff)"],
 ];
-const CATEGORY_CUES: [RegExp, string][] = [
+/** Small Claims' cue table for "What kind of dispute is this?", read by the one shared reader (storyAnswers.ts kindsFromStory). */
+export const SMALL_CLAIMS_KIND_CUES: readonly KindCue[] = [
   // A contractor's deposit is about the work, so this comes before "deposit".
-  [/\b(contractor|renovat\w*|repair\w*|roof\w*|plumb\w*|electrician|landscap\w*|mechanic)\b/i, "Work or a service you paid for (e.g. a contractor)"],
-  [/\bdeposit\b/i, "A deposit that wasn't returned"],
-  [LOAN_WORDS, "A loan or debt"],
-  [/\b(bit|bite|bitten|fell|slipped|injur\w*)\b/i, "A personal injury (a fall, an animal bite, or similar)"],
-  [/\b(defam\w*|lies about me|posted about me|rumou?rs?)\b/i, "Something said about you (defamation)"],
-  [/\b(car|vehicle|truck|collision)\b/i, "A vehicle-related dispute"],
-  [/\b(damaged|damage to)\b/i, "Property damage"],
-  [/\b(invoice\w*|unpaid)\b/i, "Unpaid money owed to you"],
-  [/\b(bought|purchase\w*|refund)\b/i, "A consumer purchase problem"],
-  [/\b(contract|agreement)\b/i, "A contract or agreement dispute"],
+  ["Work or a service you paid for (e.g. a contractor)", /\b(contractor|renovat\w*|repair\w*|roof\w*|plumb\w*|electrician|landscap\w*|mechanic)\b/i],
+  ["A deposit that wasn't returned", /\bdeposit\b/i],
+  ["A loan or debt", LOAN_WORDS],
+  // "fell" of a person, never of a thing that "fell apart" or "fell off".
+  ["A personal injury (a fall, an animal bite, or similar)", /\b(bit|bite|bitten|slipped|tripped|injur\w*)\b|\bfell\b(?!\s+(?:apart|off|through|behind|short|out of)\b)/i],
+  ["Something said about you (defamation)", /\b(defam\w*|lies about me|posted about me|rumou?rs?)\b/i],
+  // A vehicle only when the same sentence says it crashed, hit or was damaged, or it is theirs: a truck merely
+  // parked outside named a vehicle dispute for "A moving company broke my dining table" (carry, Small Claims
+  // second case). The shared reader tests one sentence at a time (sentences.ts), so both words are in one sentence.
+  ["A vehicle-related dispute", /\b(car|vehicle|truck)\b.*\b(hit|crash\w*|collid\w*|damag\w*|dent\w*|scratch\w*|accident|rear-ended|backed into)\b|\b(hit|crash\w*|collid\w*|damag\w*|dent\w*|scratch\w*|accident|rear-ended|backed into)\b.*\b(car|vehicle|truck)\b|\bcollision\b|\bmy (car|vehicle|truck)\b/i],
+  // "broke" of a thing, never of an agreement ("broke the contract", "broke the lease", "broke up", "broke down").
+  ["Property damage", /\b(damaged|damage to|smashed|cracked|shattered|destroyed|ruined)\b|\b(broke|broken)\b(?!\s+(?:(?:the|our|my|their|his|her|a|an|its)\s+)?(?:contract|lease|agreement|promise|deal|law|laws|rules?|terms|news|up|down|in|off)\b)/i],
+  ["Unpaid money owed to you", /\b(invoice\w*|unpaid)\b/i],
+  ["A consumer purchase problem", /\b(bought|purchase\w*|refund)\b/i],
+  ["A contract or agreement dispute", /\b(contract|agreement)\b/i],
 ];
 
 /**
@@ -490,9 +514,13 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
   if (side) out["sc-orient-role"] = side[1];
   // Someone billed for work they did and was not paid is owed money, whatever the work was
   // (re-test round 7: an unpaid renovation invoice was suggested as "a service you paid for").
-  const owedForWork = /\b(invoice\w*|unpaid|never paid|did not pay|didn't pay|won't pay)\b/i.test(story) && !/\b(i|we) paid\b|\bdeposit\b/i.test(story);
-  const category = owedForWork ? [/./, "Unpaid money owed to you"] as const : CATEGORY_CUES.find(([cue]) => cue.test(story));
-  if (category) out["sc-orient-dispute-category"] = category[1];
+  // A loan named ("I lent my cousin $2,000 and she never paid it back") is a loan, not money owed for work.
+  const owedForWork = /\b(invoice\w*|unpaid|never paid|did not pay|didn't pay|won't pay)\b/i.test(story) && !/\b(i|we) paid\b|\bdeposit\b/i.test(story) && !LOAN_WORDS.test(story);
+  const category = owedForWork ? "Unpaid money owed to you" : kindsFromStory(story, SMALL_CLAIMS_KIND_CUES, { first: true })?.value[0];
+  // Never a kind the person removed or turned down ("Not quite"), rule 6 (31 Oct): the case file says which.
+  const file = caseFileOf(checkpoint);
+  const named = claimKindOf({ ...emptyCaseFile(), claimKind: { state: "answered", value: category ?? "", confirmed: true } }).claimTypeId;
+  if (category && !file.claimKind.removed && !(named && file.claimKindRemoved?.includes(named))) out["sc-orient-dispute-category"] = category;
   // The amount and the outcome, read as the form already reads them (storyAnswers.ts).
   const amount = amountFromStory(story);
   if (amount) out["sc-amount-claimed"] = amount.value;
@@ -525,13 +553,13 @@ function whenItHappened(story: string): string | null {
   return `${MONTH_WORDS_EN[month - 1]} ${year}`;
 }
 
-export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, action: "review" | "collect" | "confirm", expectedInputRevision: string, now: string): ObjectValue {
+export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, action: "review" | "collect" | "confirm", expectedInputRevision: string, now: string, master?: unknown): ObjectValue {
   if (inputRevision(checkpoint) !== expectedInputRevision) throw new Error("The initial facts changed. Please review the current information again.");
   if (action === "collect") return invalidateReview(workflow);
   if (!canReview(checkpoint)) throw new Error("Add your city and a description of your situation before reviewing.");
   if (action === "confirm" && reviewPhase(workflow, checkpoint) === "user-confirmed") return workflow;
   if (action === "confirm" && reviewPhase(workflow, checkpoint) !== "reviewing") throw new Error("Review the current information before confirming it.");
-  if (action === "confirm" && remainingEssentialQuestions(checkpoint).length) throw new Error("Answer the remaining initial questions, or explicitly mark what you do not know, before confirming.");
+  if (action === "confirm" && remainingEssentialQuestions(checkpoint, false, master).length) throw new Error("Answer the remaining initial questions, or explicitly mark what you do not know, before confirming.");
   return { ...workflow, intakeCompleted: action === "confirm", intakeReview: { version: 1, reviewedRevision: expectedInputRevision, ...(action === "confirm" ? { confirmedRevision: expectedInputRevision, confirmedAt: now, confirmedFacts: confirmedFactMarks(checkpoint) } : {}) } };
 }
 
@@ -543,5 +571,13 @@ export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, 
 export function reconcileReview(workflow: ObjectValue, previous: Checkpoint, next: Checkpoint, fromReview = false): ObjectValue {
   const phase = reviewPhase(workflow, previous);
   const reviewing = phase === "reviewing" || (fromReview && phase === "user-confirmed");
-  return { ...invalidateReview(workflow), ...(reviewing ? { intakeReview: { version: 1, reviewedRevision: inputRevision(next) } } : {}) };
+  // Remembered until confirmed again, so the review can say why (rule 6, 31 Oct): "You changed an
+  // answer, so please review and confirm again." Kept on the server too (saveCheckpoint reconciles).
+  const marker = phase === "user-confirmed" || object(workflow.intakeReview).changedAfterConfirm === true ? { changedAfterConfirm: true } : {};
+  return { ...invalidateReview(workflow), intakeReview: { version: 1, ...(reviewing ? { reviewedRevision: inputRevision(next) } : {}), ...marker } };
+}
+
+/** An answer was changed after Confirm and it is not confirmed again yet: the review says so (reconcileReview). */
+export function changedAfterConfirm(workflow: ObjectValue, checkpoint: Checkpoint): boolean {
+  return object(workflow.intakeReview).changedAfterConfirm === true && reviewPhase(workflow, checkpoint) !== "user-confirmed";
 }

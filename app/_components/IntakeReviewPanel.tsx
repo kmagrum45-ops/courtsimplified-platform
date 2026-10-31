@@ -8,7 +8,9 @@ import { useIntakeRecovery } from "./IntakeRecovery";
 import { NOTICE_GIVEN_EVENT } from "./FirstUseAcknowledgement";
 import { withServedDate } from "../builder/_components/guidedFields";
 import { dateAnswerCheck, formatForCourt, isDateQuestion } from "../../src/lib/case-system/dates";
-import { caseFileOf, slotsOfQuestion, slotText } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, claimKindOf, slotsOfQuestion, slotText, SLOT_FACTS, type CaseFile, type Slot, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import ChangeAnswer, { changeChoices, FACT_LABEL } from "./ChangeAnswer";
+import { inWords } from "../../src/lib/case-system/copy/rawKeys";
 import { isDateQuestionId } from "../../src/lib/case-system/casePosition";
 import { situationAnswers, situationOf } from "../../src/lib/case-system/situation/situation";
 import { locationOf, STORY_SECTION, storyOf } from "../../src/lib/case-system/intakeStory";
@@ -16,9 +18,10 @@ import StoryEditor from "../builder/_components/StoryEditor";
 import { freshSections, staleAnswerKeys, storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
 import StoryChangedNotice from "./StoryChangedNotice";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
-import { canReview, initialAnswersOf, reviewQuestionField, inputRevision, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
+import { canReview, changedAfterConfirm, initialAnswersOf, reviewQuestionField, inputRevision, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
 import NextStepStatus, { nextStepPressed, useNextStepReading } from "./NextStepStatus";
 import { WorkingNote } from "./Working";
+import { UseSuggestion } from "./UseSuggestion";
 
 /** What an answer with no line of its own is, in words. */
 const HIDDEN_ANSWER_NAMES: Record<string, string> = {
@@ -87,17 +90,28 @@ export default function IntakeReviewPanel() {
   const [fieldNotes, setFieldNotes] = useState<Record<string, string>>({});
   // The order questions first appeared in (see shownQuestions below).
   const seenOrder = useRef<string[]>([]);
+  // ?change=<fact>: the case page's "Change" for that fact (CaseFilePanel), opened here with its choices.
+  const [changeFact] = useState<SlotFact | null>(() => {
+    if (typeof window === "undefined") return null;
+    const asked = new URLSearchParams(window.location.search).get("change");
+    return asked && (SLOT_FACTS as readonly string[]).includes(asked) ? asked as SlotFact : null;
+  });
+  useEffect(() => { if (changeFact) setViewing(true); }, [changeFact]);
   if (!view || !recovery || pathname !== "/builder") return null;
   const { checkpoint, workflowStatus } = view;
   const phase = reviewPhase(workflowStatus, checkpoint);
   const revision = inputRevision(checkpoint);
   // Optional details with nothing in them are not shown (re-test 2026-10-18).
   const entries = reviewEntries(checkpoint).filter(entry => entry.essential || !empty(entry.value));
-  const remaining = remainingEssentialQuestions(checkpoint);
-  const unanswered = remainingEssentialQuestions(checkpoint, true);
+  // The saved case's own case file (its saved position too), the same one the results and case pages read (29 Oct).
+  const savedMaster = recovery.getSavedMaster();
+  const caseFileNow = caseFileOf(checkpoint, savedMaster ?? undefined);
+  const remaining = remainingEssentialQuestions(checkpoint, false, savedMaster ?? undefined);
+  const unanswered = remainingEssentialQuestions(checkpoint, true, savedMaster ?? undefined);
   const listed = [
     ...unanswered,
-    ...answeredHere.filter(id => !unanswered.some(question => question.id === id)).map(id => ({ id, label: reviewQuestionField(checkpoint.courtPath, id)?.question ?? QUESTION_BANK.find(item => item.id === id)?.text ?? id })),
+    // A question whose fact was since changed with "Change" is not offered here with its older answer.
+    ...answeredHere.filter(id => !unanswered.some(question => question.id === id) && !slotsOfQuestion(id).some(fact => caseFileNow[fact].changed)).map(id => ({ id, label: reviewQuestionField(checkpoint.courtPath, id)?.question ?? QUESTION_BANK.find(item => item.id === id)?.text ?? id })),
   ];
   // Each question stays where it first appeared: an answered one moved to the end of the list,
   // so the questions jumped while the person was answering them (#471 re-test).
@@ -122,7 +136,7 @@ export default function IntakeReviewPanel() {
   const fresh = { ...checkpoint, sections: freshSections(checkpoint) };
   // The case file (caseFile.ts): an empty box whose fact was given, or answered "not sure",
   // somewhere else shows that answer instead of asking for it again.
-  const caseFile = caseFileOf(checkpoint);
+  const caseFile = caseFileNow;
   // Only an answer is shown in place of the box: a "not sure" fact is offered here once more, in its box.
   const answeredSlot = (field: string) => slotsOfQuestion(field).map(fact => caseFile[fact]).find(item => item.state === "answered") ?? null;
   // A "not sure" fact gets ONE box here (its one more offer): a later box for the same fact shows "Not sure yet".
@@ -136,6 +150,24 @@ export default function IntakeReviewPanel() {
     else for (const fact of unsure) offeredInBox.add(fact);
   }
   const heldSlot = (field: string) => answeredSlot(field) ?? (duplicateUnsure.has(field) ? slotsOfQuestion(field).map(fact => caseFile[fact]).find(item => item.state === "unsure") ?? null : null);
+  // ONE CHANGE PATH (rule 6, 31 Oct): a fact changed or removed with "Change" shows the case file's
+  // value on its box, never the form's own older copy; so does the fact the case page asked to change.
+  const changedFact = (field: string): [SlotFact, Slot] | null => slotsOfQuestion(field).map(fact => [fact, caseFile[fact]] as [SlotFact, Slot]).find(([fact, slot]) => slot.changed || (fact === "claimKind" && slot.state === "answered") || (fact === changeFact && (slot.state === "answered" || slot.removed))) ?? null;
+  const court = checkpoint.courtPath;
+  // Facts with no box of their own here (the Small Claims kind of claim), held, changed, or asked for from the case page.
+  const covered = new Set(entries.flatMap(entry => slotsOfQuestion(entry.field)));
+  const extraFacts = SLOT_FACTS.filter(fact => !covered.has(fact) && changeChoices(fact, court) && (fact === changeFact || caseFile[fact].changed || (fact === "claimKind" && caseFile[fact].state === "answered")));
+  /** A held answer in words, as every screen shows it (the kind of claim through claimKindOf). */
+  const heldWords = (file: CaseFile, fact: SlotFact | undefined, slot: Slot) => fact === "claimKind" && slot.state === "answered" ? claimKindOf(file, inWords).words ?? slotText(slot, formatForCourt) : Array.isArray(slot.value) ? inWords(slot.value) : slotText(slot, formatForCourt);
+  /** The held line: the answer, where it came from, and "Change" (ChangeAnswer, the one write path). */
+  const heldLine = (fact: SlotFact | undefined, slot: Slot, ariaLabel: string, name?: string) => {
+    const atStart = !slot.changed && slot.source?.kind === "answer" && slot.source.question.startsWith("situation:");
+    return <p className="mt-1" data-testid="intake-entry-held" data-fact={fact} data-removed={slot.removed ? "true" : undefined} aria-label={ariaLabel}>
+      {name ? <span className="font-semibold">{name}: </span> : null}{slot.removed ? "Removed" : heldWords(caseFile, fact, slot)}{" "}
+      <span className="text-[#4d675f]">({slot.removed ? "you removed this answer; it is not asked again" : `your answer ${atStart ? "at the start; change it at the top of the page" : slot.changed ? "as you changed it; it is not asked again" : "already given; it is not asked again"}`})</span>
+      {fact && !atStart ? <ChangeAnswer key={`${fact}:${String(slot.value)}:${slot.removed ? "removed" : ""}`} fact={fact} court={court} startOpen={fact === changeFact} current={slot.value} /> : null}
+    </p>;
+  };
   async function act(action: "review" | "collect" | "confirm") {
     if (!recovery || busy) return;
     setBusy(true); setError("");
@@ -248,14 +280,14 @@ export default function IntakeReviewPanel() {
     {showEntries && <>
       <p>{phase === "user-confirmed" ? "This is what you confirmed. Changing anything here means confirming again." : "Edit the information below, or return to the intake controls to change choices. Empty answers remain unknown."}</p>
       <div className="mt-4 grid gap-4 md:grid-cols-2">
-        {entries.map(entry => { const held = empty(entry.value) && !entry.fromStart ? heldSlot(entry.field) : null; return <div key={`${entry.section}:${entry.nested ?? ""}:${entry.field}`} data-testid="intake-entry" data-field={entry.field} data-empty={empty(entry.value) && !entry.fromStart && !held ? "true" : "false"} className="block text-sm">
+        {entries.map(entry => { const changed = changedFact(entry.field); const held = changed ? changed[1] : empty(entry.value) && !entry.fromStart ? heldSlot(entry.field) : null; const heldFact = changed ? changed[0] : held ? slotsOfQuestion(entry.field).find(fact => caseFile[fact] === held) : undefined; return <div key={`${entry.section}:${entry.nested ?? ""}:${entry.field}`} data-testid="intake-entry" data-field={entry.field} data-empty={empty(entry.value) && !entry.fromStart && !held ? "true" : "false"} className="block text-sm">
           {entry.label}{!entry.essential && " (optional later detail)"}
           {entry.hint && empty(entry.value) && <span className="block text-[#4d675f]">{entry.hint}</span>}
-          {entry.fromStory && empty(entry.value) ? <button type="button" data-testid="intake-entry-from-story" disabled={busy} onClick={() => edit(entry, entry.fromStory!.value)} className="mt-1 block rounded border px-3 py-1 text-left text-sm">Use &ldquo;{entry.fromStory.value.length > 160 ? `${entry.fromStory.value.slice(0, 157)}…` : entry.fromStory.value}&rdquo; (from your story)</button> : null}
+          {entry.fromStory && empty(entry.value) ? <UseSuggestion testId="intake-entry-from-story" disabled={busy} onUse={() => edit(entry, entry.fromStory!.value)} what={entry.fromStory.value.length > 160 ? `${entry.fromStory.value.slice(0, 157)}…` : entry.fromStory.value} className="mt-1 block rounded border px-3 py-1 text-left text-sm" /> : null}
           {staleKeys.has(`${entry.section}.${entry.nested ? `${entry.nested}.` : ""}${entry.field}`) && <span data-testid="intake-answer-stale" className="block text-[#7a4b12]">Answered for an earlier version of your story. Answer it again, or start the questions again.</span>}
           {/* The story: a draft saved with "Save story", as in the form (#470 re-test: typing here
               changed the story at once and set every answer aside). */}
-          {held ? <p className="mt-1" data-testid="intake-entry-held" aria-label={`Review: ${entry.label}`}>{slotText(held, formatForCourt)} <span className="text-[#4d675f]">(your answer {held.source?.kind === "answer" && held.source.question.startsWith("situation:") ? "at the start; change it at the top of the page" : "already given; it is not asked again"})</span></p>
+          {held ? heldLine(heldFact, held, `Review: ${entry.label}`)
           : entry.section === STORY_SECTION && entry.field === "text" ? <div className="mt-1"><StoryEditor section={checkpoint.courtPath} story={String(entry.value)} onSave={text => edit(entry, text)} startOpen draftField="reviewStoryDraft" label={`Review: ${entry.label}`} heading={null} showStory={false} ids={{ toggle: "review-story-edit", draft: "review-story-draft", save: "review-story-save" }} /></div>
           : entry.fromStart ? <p className="mt-1" data-testid="intake-entry-from-start" aria-label={`Review: ${entry.label}`}>{Array.isArray(entry.value) ? entry.value.map(value => shown(entry, value)).join(", ") : typeof entry.value === "string" ? shown(entry, entry.value) : String(entry.value)} <span className="text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
           : Array.isArray(entry.value) ? <div role="group" aria-label={`Review: ${entry.label}`}>{entry.value.length ? entry.value.map(value => <label key={value} className="mr-3 block"><input type="checkbox" checked disabled={busy} onChange={() => edit(entry, (entry.value as string[]).filter(item => item !== value))} /> {shown(entry, value)}</label>) : <span>Not recorded</span>}</div>
@@ -270,23 +302,32 @@ export default function IntakeReviewPanel() {
                 : <textarea aria-label={`Review: ${entry.label}`} className="mt-1 block min-h-20 w-full rounded border p-2" value={String(entry.value)} disabled={busy} onChange={event => { if (typeof entry.value === "number") { if (event.target.value.trim() && Number.isFinite(Number(event.target.value))) edit(entry, Number(event.target.value)); } else edit(entry, event.target.value); }} />}
         </div>; })}
       </div>
+      {extraFacts.length > 0 && <div className="mt-4 grid gap-2 text-sm" data-testid="intake-held-facts">{extraFacts.map(fact => <div key={fact}>{heldLine(fact, caseFile[fact], `Review: ${FACT_LABEL[fact]}`, FACT_LABEL[fact])}</div>)}</div>}
       {phase === "reviewing" && hiddenStale.length > 0 && <fieldset className="mt-5" data-testid="intake-hidden-stale"><legend>Other answers given for an earlier version of your story</legend>{hiddenStale.map(key => <div key={key} className="my-3" data-testid="intake-hidden-stale-item" data-key={key}>
         <p className="font-semibold">{HIDDEN_ANSWER_NAMES[key] ?? HIDDEN_ANSWER_NAMES[key.split(".").slice(0, 2).join(".")] ?? "An earlier answer"}</p>
         <p className="whitespace-pre-line text-[#4d675f]">{shownAnswer(key)}</p>
         <button type="button" data-testid="intake-hidden-keep" disabled={busy} onClick={() => keepOrSetAside(key, true)} className="mr-2 rounded border px-3 py-1">Keep it</button>
         <button type="button" data-testid="intake-hidden-set-aside" disabled={busy} onClick={() => keepOrSetAside(key, false)} className="rounded border px-3 py-1">Set it aside</button>
       </div>)}</fieldset>}
-      {phase === "reviewing" && shownQuestions.length > 0 && <fieldset className="mt-5"><legend>Remaining initial questions</legend><p>Answer these here or in the intake controls, or record that you do not know. A suggestion read from your story is only a suggestion until you choose it. Evidence research is optional.</p>{shownQuestions.map(question => {
+      {/* Remaining means not yet known: the list is the case file's (remainingEssentialQuestions -> alreadyAsked);
+          a question answered here moves to its own group, still changeable, never under "Remaining" (owner's
+          Chrome check, 31 Oct: "What is the case about?" stayed listed as remaining after "Dividing property"
+          was saved). */}
+      {phase === "reviewing" && shownQuestions.length > 0 && <fieldset className="mt-5" data-testid="intake-initial-questions"><legend>Initial questions</legend><p><span data-testid="intake-remaining-count">{(() => { const left = shownQuestions.filter(question => unanswered.some(item => item.id === question.id)).length; return left === 0 ? "Nothing here is still to answer." : `${left} still to answer.`; })()}</span> Answer these here or in the intake controls, or record that you do not know. A suggestion read from your story is only a suggestion until you choose it. Evidence research is optional.</p>{shownQuestions.map(question => {
         const bank = QUESTION_BANK.find(item => item.id === question.id);
         const suggested = suggestions[question.id];
         const answered = !unanswered.some(item => item.id === question.id);
         return <div key={question.id} className="my-4" data-testid="intake-initial-question" data-question={question.id} data-answered={answered ? "true" : "false"} data-unknown={unknowns.includes(question.id) ? "true" : "false"}>
           <p className="font-semibold">{question.label}</p>
+          {/* Answered, it keeps its place (owner, earlier rule) and says so with the answer in words, never
+              counted as still to answer (owner's Chrome check, 31 Oct). A typed answer is shown here as words, not
+              only in its box. */}
+          {answered ? (() => { const given = bank ? initialAnswersOf(fresh)[question.id] : fieldValue(question.id); const words = Array.isArray(given) ? given.map(value => reviewQuestionField(checkpoint.courtPath, question.id, checkpoint)?.options.find(option => option.value === value)?.label ?? String(value)).join(", ") : typeof given === "string" ? given : ""; return <p data-testid="intake-question-answered" className="text-sm text-[#2f7d67]">Answered{words ? `: ${words}` : ""}. You can change it here.</p>; })() : null}
           {staleInitial[question.id] ? <p data-testid="intake-answer-stale" className="text-[#7a4b12]">Answered for an earlier version of your story: &ldquo;{staleInitial[question.id]}&rdquo;. <button type="button" data-testid="intake-keep-answer" disabled={busy} onClick={() => answer(question.id, staleInitial[question.id])} className="underline">Keep this answer</button> or choose again.</p> : null}
-          {bank?.answerType === "choice" && Array.isArray(bank.choices) && <div className="mt-1 flex flex-wrap gap-2">{bank.choices.map(choice => <button key={choice} type="button" disabled={busy} aria-pressed={initialAnswersOf(fresh)[question.id] === choice} onClick={() => answer(question.id, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice}{choice === suggested ? " (suggested from your story)" : ""}</button>)}</div>}
+          {bank?.answerType === "choice" && Array.isArray(bank.choices) && <div className="mt-1 flex flex-wrap gap-2">{bank.choices.map(choice => <button key={choice} type="button" disabled={busy} aria-pressed={initialAnswersOf(fresh)[question.id] === choice} onClick={() => answer(question.id, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice}</button>)}{suggested && !answered && bank.choices.includes(suggested) ? <UseSuggestion testId="intake-use-suggestion" disabled={busy} onUse={() => answer(question.id, suggested)} what={suggested} className="rounded border px-3 py-1" /> : null}</div>}
           {bank?.answerType === "yes-no" && <div className="mt-1 flex flex-wrap gap-2">{["Yes", "No"].map(choice => <button key={choice} type="button" disabled={busy} aria-pressed={initialAnswersOf(fresh)[question.id] === choice} onClick={() => answer(question.id, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice}</button>)}</div>}
           {/* Typed answers save when the person leaves the box (Enter too): a value typed but never "used" counted for nothing (re-test round 7). */}
-          {bank && ["date", "amount", "short-text"].includes(bank.answerType) && <div className="mt-1 flex flex-wrap items-center gap-2"><input type="text" placeholder={bank.answerType === "date" ? "For example: August 2026, or 2026-08-15" : bank.answerType === "amount" ? "For example: $8,500" : "Your answer"} aria-label={`Answer: ${question.label}`} value={dates[question.id] ?? ""} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => { const typed = dates[question.id]; if (typed === undefined || !typed.trim()) return; const more = dateAnswerCheck(question.label, typed.trim(), { dateQuestion: bank.answerType === "date", oneDate: isDateQuestionId(question.id) }); setFieldNotes(current => ({ ...current, [question.id]: more ?? "" })); if (!more) answer(question.id, typed.trim()); }} onKeyDown={event => { if (event.key === "Enter") (event.target as HTMLInputElement).blur(); }} className="rounded border px-2 py-1" />{/* A suggestion is a button, never a filled-looking box that was not saved (re-test round 7). */}{suggested && <button type="button" data-testid="intake-use-suggestion" disabled={busy} onClick={() => answer(question.id, suggested)} className="rounded border px-3 py-1">Use “{suggested}” (from your story)</button>}</div>}
+          {bank && ["date", "amount", "short-text"].includes(bank.answerType) && <div className="mt-1 flex flex-wrap items-center gap-2"><input type="text" placeholder={bank.answerType === "date" ? "For example: August 2026, or 2026-08-15" : bank.answerType === "amount" ? "For example: $8,500" : "Your answer"} aria-label={`Answer: ${question.label}`} value={dates[question.id] ?? ""} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => { const typed = dates[question.id]; if (typed === undefined || !typed.trim()) return; const more = dateAnswerCheck(question.label, typed.trim(), { dateQuestion: bank.answerType === "date", oneDate: isDateQuestionId(question.id) }); setFieldNotes(current => ({ ...current, [question.id]: more ?? "" })); if (!more) answer(question.id, typed.trim()); }} onKeyDown={event => { if (event.key === "Enter") (event.target as HTMLInputElement).blur(); }} className="rounded border px-2 py-1" />{/* A suggestion is a button, never a filled-looking box that was not saved (re-test round 7). */}{suggested && <UseSuggestion testId="intake-use-suggestion" disabled={busy} onUse={() => answer(question.id, suggested)} what={suggested} className="rounded border px-3 py-1" />}</div>}
           {bank && fieldNotes[question.id] ? <p data-testid="intake-field-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[question.id]}</p> : null}
           {/* Civil and Family: the form's own field, answerable here (#469 re-test). */}
           {!bank && (() => {
@@ -298,11 +339,14 @@ export default function IntakeReviewPanel() {
             if (field.kind === "choice") return <div className="mt-1 flex flex-wrap gap-2">{options.map(option => <button key={option.value} type="button" data-testid="intake-field-choice" aria-pressed={answered && fieldValue(question.id) === option.value} disabled={busy} onClick={() => answerField(question.id, option.value)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{option.label}</button>)}</div>;
             if (field.kind === "multi") {
               const held = fieldValue(question.id);
-              // The story's suggestions start ticked, marked, until the person saves their own picks.
-              const ticked = picks[question.id] ?? (answered && Array.isArray(held) ? held as string[] : field.suggested ?? []);
-              return <div className="mt-1" role="group" aria-label={question.label}>{options.map(option => <label key={option.value} className="mr-3 block"><input type="checkbox" data-testid="intake-field-pick" value={option.value} checked={ticked.includes(option.value)} disabled={busy} onChange={() => setPicks(current => ({ ...current, [question.id]: ticked.includes(option.value) ? ticked.filter(value => value !== option.value) : [...ticked, option.value] }))} /> {option.label}{!answered && field.suggested?.includes(option.value) ? <span data-testid="intake-field-pick-suggested" className="text-[#4f685f]"> (suggested)</span> : null}</label>)}{!answered && field.suggestedQuote ? <p data-testid="intake-field-pick-quote" className="mt-1 text-sm text-[#4f685f]">Suggested from your story: &ldquo;{field.suggestedQuote}&rdquo;</p> : null}<button type="button" data-testid="intake-field-save" disabled={busy || ticked.length === 0} onClick={() => answerField(question.id, ticked)} className="mt-2 rounded border px-3 py-1 disabled:opacity-50">Save these</button></div>;
+              // The boxes show only what the person ticked or saved: a story suggestion is offered beside them,
+              // marked, with one click to use it, never pre-ticked (owner's Chrome check, 31 Oct: "Dividing property"
+              // showed ticked while unsaved, so the first click unticked it and the question stayed "remaining").
+              const ticked = picks[question.id] ?? (answered && Array.isArray(held) ? held as string[] : []);
+              const suggestedLabels = !answered && field.suggested?.length ? options.filter(option => field.suggested!.includes(option.value)).map(option => option.label) : [];
+              return <div className="mt-1" role="group" aria-label={question.label}>{options.map(option => <label key={option.value} className="mr-3 block"><input type="checkbox" data-testid="intake-field-pick" value={option.value} checked={ticked.includes(option.value)} disabled={busy} onChange={() => setPicks(current => ({ ...current, [question.id]: ticked.includes(option.value) ? ticked.filter(value => value !== option.value) : [...ticked, option.value] }))} /> {option.label}{!answered && field.suggested?.includes(option.value) ? <span data-testid="intake-field-pick-suggested" className="text-[#4f685f]"> (suggested)</span> : null}</label>)}{!answered && field.suggestedQuote ? <p data-testid="intake-field-pick-quote" className="mt-1 text-sm text-[#4f685f]">Suggested from your story: &ldquo;{field.suggestedQuote}&rdquo;</p> : null}{suggestedLabels.length ? <UseSuggestion testId="intake-field-use-suggestion" disabled={busy} onUse={() => answerField(question.id, field.suggested!)} what={suggestedLabels.join(", ")} className="mt-2 mr-2 rounded border px-3 py-1" /> : null}<button type="button" data-testid="intake-field-save" disabled={busy || ticked.length === 0} onClick={() => answerField(question.id, ticked)} className="mt-2 rounded border px-3 py-1 disabled:opacity-50">Save these</button></div>;
             }
-            return <div className="mt-1"><div className="flex flex-wrap items-center gap-2">{field.fromStory && !answered ? <button type="button" data-testid="intake-field-from-story" disabled={busy} onClick={() => answerField(question.id, field.fromStory!)} className="rounded border px-3 py-1">Use &ldquo;{field.fromStory}&rdquo; (from your story)</button> : null}<input type="text" aria-label={`Answer: ${question.label}`} placeholder="Your answer" value={dates[question.id] ?? ""} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => typedField(question.id, (typed) => field.needsMore?.(typed) ?? dateAnswerCheck(field.question, typed))} onKeyDown={event => { if (event.key === "Enter") typedField(question.id, (typed) => field.needsMore?.(typed) ?? dateAnswerCheck(field.question, typed)); }} className="min-w-[16rem] flex-1 rounded border px-3 py-1" /></div>{fieldNotes[question.id] ? <p data-testid="intake-field-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[question.id]}</p> : null}</div>;
+            return <div className="mt-1"><div className="flex flex-wrap items-center gap-2">{field.fromStory && !answered ? <UseSuggestion testId="intake-field-from-story" disabled={busy} onUse={() => answerField(question.id, field.fromStory!)} what={field.fromStory} className="rounded border px-3 py-1" /> : null}<input type="text" aria-label={`Answer: ${question.label}`} placeholder="Your answer" value={dates[question.id] ?? ""} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => typedField(question.id, (typed) => field.needsMore?.(typed) ?? dateAnswerCheck(field.question, typed))} onKeyDown={event => { if (event.key === "Enter") typedField(question.id, (typed) => field.needsMore?.(typed) ?? dateAnswerCheck(field.question, typed)); }} className="min-w-[16rem] flex-1 rounded border px-3 py-1" /></div>{fieldNotes[question.id] ? <p data-testid="intake-field-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[question.id]}</p> : null}</div>;
           })()}
           <label className="mt-1 block"><input type="checkbox" data-testid="intake-unknown" checked={unknowns.includes(question.id)} disabled={busy} onChange={event => { const current = Array.isArray(recovery.read("builder", "initialUnknowns")) ? recovery.read("builder", "initialUnknowns") as string[] : []; recovery.put("builder", "initialUnknowns", event.target.checked ? [...current.filter(id => id !== question.id), question.id] : current.filter(id => id !== question.id), true, false, true); }} /> I do not know yet</label>
         </div>;
@@ -310,7 +354,9 @@ export default function IntakeReviewPanel() {
       {phase === "reviewing" ? <>
         {/* A late edit clears the tick (it covered the answers as they were); say so beside the
             button rather than leave it greyed out with no word why (site owner, 27 Oct). */}
-        {acceptedRevision !== null && acceptedRevision !== revision ? <p data-testid="intake-tick-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer. Please tick to confirm again.</p> : null}
+        {/* Confirmed, then an answer changed (rule 6, 31 Oct): said in the owner's words until confirmed again, after a reload too. */}
+        {changedAfterConfirm(workflowStatus, checkpoint) && acceptedRevision !== revision ? <p data-testid="intake-confirm-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer, so please review and confirm again.</p>
+        : acceptedRevision !== null && acceptedRevision !== revision ? <p data-testid="intake-tick-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer. Please tick to confirm again.</p> : null}
         <label className="mt-5 block"><input data-testid="intake-review-acknowledgement" type="checkbox" checked={acceptedRevision === revision} disabled={busy} onChange={event => setAcceptedRevision(event.target.checked ? revision : null)} /> I have reviewed this information, including anything that is missing or uncertain.</label>
         <button data-testid="intake-confirm" type="button" disabled={busy || needs.length > 0} onClick={() => void act("confirm")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Confirm my initial information</button>{" "}
         <button type="button" disabled={busy} onClick={() => void act("collect")}>Return to intake controls</button>

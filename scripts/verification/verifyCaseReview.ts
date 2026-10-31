@@ -60,7 +60,7 @@ const FILE: ConfirmedCaseFile = {
   timelineText: "july 15 2026 they stopped working",
   evidenceText: "text messages and the contract",
   goalText: "money",
-  confirmedClaimTypeId: "sc-claim-breach-of-contract-services",
+  claimTypeId: "sc-claim-breach-of-contract-services",
   filedDocuments: [],
 };
 
@@ -193,13 +193,13 @@ async function main(): Promise<void> {
         timeline: "",
         evidence: "",
         goal: "money",
-        extra: { yourRole: "Plaintiff / claimant", amountClaimed: "2000", confirmedClaimTypeId: "sc-claim-breach-of-contract-services", filedDocuments: ["nothing"] },
+        extra: { yourRole: "Plaintiff / claimant", amountClaimed: "2000", confirmedClaimTypeId: "sc-claim-breach-of-contract-services", claimTypeUserConfirmed: true, filedDocuments: ["nothing"] },
       },
       courtSimplifiedIntelligence: { summary: "MODEL PROSE" },
     },
     "small-claims",
   );
-  check("the assembler reads the user's confirmed claim type", assembled.confirmedClaimTypeId === "sc-claim-breach-of-contract-services");
+  check("the assembler reads the user's confirmed claim type (an older saved case: ticked in intakeData.extra, read by the case file)", assembled.claimTypeId === "sc-claim-breach-of-contract-services");
   check("the assembler never reads stored model output", !JSON.stringify(assembled).includes("MODEL PROSE"));
   check("the assembler tolerates an empty record", caseFileFromMasterResult(null, null).story === "");
 

@@ -14,13 +14,13 @@ import assert from "node:assert/strict";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import StatementOfClaimSurface from "../../app/builder/_components/StatementOfClaimSurface";
+import { CLAIM_KIND_TICKED, emptyCaseFile } from "../../src/lib/case-system/caseFile/caseFile";
 
-const html = renderToStaticMarkup(createElement(StatementOfClaimSurface, {
-  matchedClaimTypeId: "sc-claim-contractor-took-deposit-and-left",
-  initialElementStateMap: {},
-  mappedInput: { facts: "Synthetic: a contractor took a $3,000 deposit and never did the work." } as never,
-  onStateMapChange: () => {},
-}));
+// The section reads the case file only (30 Oct): a ticked kind of claim and the story, as the case file holds them.
+const caseFile = emptyCaseFile();
+caseFile.claimKind = { state: "answered", value: "sc-claim-contractor-took-deposit-and-left", source: { kind: "answer", question: CLAIM_KIND_TICKED }, confirmed: true };
+caseFile.story = "Synthetic: a contractor took a $3,000 deposit and never did the work.";
+const html = renderToStaticMarkup(createElement(StatementOfClaimSurface, { caseFile, onStateMapChange: () => {} }));
 const text = html.replace(/<[^>]+>/g, "").replace(/&quot;/g, '"').replace(/&#x27;/g, "'");
 assert.match(text, /Claims described as “a contractor took a deposit and disappeared” generally involve the items below\./, "the description is quoted and spaced");
 assert.doesNotMatch(text, /[a-z]generally\b/, "no word runs into 'generally'");

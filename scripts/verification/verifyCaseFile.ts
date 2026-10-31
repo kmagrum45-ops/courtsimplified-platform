@@ -27,6 +27,7 @@ import { situationOf, withSituationDates } from "../../src/lib/case-system/situa
 import { withCaseFileAnswers } from "../../src/lib/case-system/caseFile/triageFromCaseFile";
 import { emptyStatusRecord } from "../../src/lib/case-system/family/statusTriage";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
+import { courtOfSavedRow, SAVED_COURT_COLUMNS } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
 import { storyLines } from "../../src/lib/case-system/caseFile/storyLines";
 
 let failures = 0;
@@ -179,6 +180,17 @@ const checkpoint = (courtPath: Checkpoint["courtPath"], sections: Record<string,
   check("the claim against a responding person is shown, with who is suing", storyLines(m19File.story ?? "", m19File, true).some((line) => line.fact === "amountAgainst" && /\$3,200/.test(line.value) && /Wei Chen/.test(line.value)));
   check("never for the person bringing the claim", !storyLines(m19File.story ?? "", m19File, false).some((line) => line.fact === "amountAgainst"));
   check("a story line never fills a slot (the question is still asked)", m14File.marriedWhere.state === "not-asked" && m16File.otherParty.state === "not-asked");
+}
+
+// The court of a saved case row, through the case file (rule 2, 30 Oct; the builder opening an id with no
+// court): the situation answer first, then the checkpoint, the row column only as the reader's fallback.
+{
+  const flow = "00000000-0000-4000-8000-00000000c0c1";
+  const rowOf = (court_path: string | null, sections: Record<string, unknown> | null, checkpointCourt = "civil") => ({ court_path, master_result: sections ? { intakeCheckpoint: { version: 1, flowId: flow, courtPath: checkpointCourt, revision: flow, sections } } : {} });
+  check("court of a saved row: the case file's court (the checkpoint's) when the column says nothing", courtOfSavedRow(rowOf(null, { story: { text: "x" } }, "family")) === "family");
+  check("court of a saved row: the column is the fallback when the saved case holds no court", courtOfSavedRow(rowOf("small-claims", null)) === "small-claims");
+  check("court of a saved row: nothing known, no court (never a default)", courtOfSavedRow({}) === null && courtOfSavedRow({ court_path: "unknown" }) === null);
+  check("court of a saved row: the columns read are the saved case and the column", SAVED_COURT_COLUMNS.includes("master_result") && SAVED_COURT_COLUMNS.includes("court_path"));
 }
 
 if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }

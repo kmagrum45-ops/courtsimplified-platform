@@ -36,6 +36,8 @@ export type PackStory = {
   guide?: { relationship: string; remedy: string; amount: string; started: "yes" | "no" | "not-sure"; choose: Court };
   /** Small Claims kinds of claim the story's words fit ([] : only "not sure" is right). */
   kinds?: string[];
+  /** Small Claims guided route: the answer to "What kind of dispute is this?" (default: a contract dispute). */
+  dispute?: string;
 };
 
 const k = (...ids: string[]) => ids.map((id) => `sc-claim-${id}`);
@@ -146,6 +148,19 @@ export const MESSY_STORIES: PackStory[] = [
 ];
 
 export const WALKTHROUGH_STORIES: PackStory[] = [
+  {
+    // Site owner on the live site, 29 Oct (claim type, the first fact moved into the case file): a case
+    // already going, the defendant noted in default. The overview said "Kind of dispute (your answer):
+    // Something said about you (defamation)" while "Check my case file" said the kind was not confirmed,
+    // the review listed "What kind of dispute is this?" as still needed and the Form 7A section said "A
+    // claim type has not been confirmed". Every screen must show the one answer. Made up; no real names.
+    // (Same shape as fix/status-answers-questions' story, which also carries the home reading's rounds.)
+    id: "w8-sc-defamation-noted-in-default", court: "small-claims", side: "plaintiff", filed: [], amount: ["$10,000", null],
+    situation: { where: "going", started: "me", stage: "plaintiff:defendant-noted-in-default" },
+    dispute: "Something said about you (defamation)",
+    kinds: k("defamation-libel-slander", "defamation-online-or-in-print", "harassment-or-cyberbullying", "bad-reference-or-employer-defamation"),
+    story: "My former coworker Jordan Testperson sent text messages about me to our manager and three coworkers in May 2026 saying I stole money from the till, which is false. I lost shifts and I have been anxious and unable to sleep. I issued a Small Claims claim against him on June 20, 2026 and he was served on June 23, 2026. He never filed a defence and he was noted in default. There is no order yet. I am claiming $10,000 for defamation and emotional distress. I have screenshots of the texts.",
+  },
   {
     id: "w1-form-plaintiff", court: "small-claims", side: "plaintiff", filed: [], amount: ["$6,000", null], routes: ["form"],
     kinds: k("unpaid-debt-services", "breach-of-contract-services"),

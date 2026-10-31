@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import type { UniversalStage } from "./builderTypes";
+import { UseSuggestion } from "../../_components/UseSuggestion";
 
 /**
  * Suggest-then-confirm for the detected case stage.
@@ -83,7 +84,8 @@ export default function StageConfirmation({
   basis = null,
   stepWords = null,
 }: StageConfirmationProps) {
-  const [choice, setChoice] = useState<UniversalStage>(suggestedStage);
+  // Nothing pre-selected from the suggestion (owner, 31 Oct): the list starts on "Choose one".
+  const [choice, setChoice] = useState<UniversalStage | "">("");
   const [changing, setChanging] = useState(false);
 
   if (confirmedStage && !changing) {
@@ -132,19 +134,17 @@ export default function StageConfirmation({
           Suggested for your case: <strong className="text-[#10231f]">{labelFor(suggestedStage, pathway)}</strong>.
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
-          <button
-            type="button"
-            data-testid="stage-accept"
-            onClick={() => onConfirm(suggestedStage)}
+          <UseSuggestion
+            testId="stage-accept"
+            what={labelFor(suggestedStage, pathway)}
+            onUse={() => onConfirm(suggestedStage)}
             className="rounded-xl bg-[#2f7d67] px-5 py-2 text-sm font-semibold text-white"
-          >
-            Yes, that is right
-          </button>
+          />
           <button
             type="button"
             data-testid="stage-change"
             onClick={() => {
-              setChoice(suggestedStage);
+              setChoice("");
               setChanging(true);
             }}
             className="rounded-xl border border-[#d8e6df] bg-white px-5 py-2 text-sm font-semibold text-[#2f7d67]"
@@ -168,9 +168,12 @@ export default function StageConfirmation({
           aria-label="Case stage"
           data-testid="stage-select"
           value={choice}
-          onChange={(event) => setChoice(event.target.value as UniversalStage)}
+          onChange={(event) => setChoice(event.target.value as UniversalStage | "")}
           className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
         >
+          <option value="" disabled>
+            Choose one…
+          </option>
           {STAGE_OPTIONS.map((option) => (
             <option key={option.value} value={option.value}>
               {labelFor(option.value, pathway)}
@@ -187,11 +190,13 @@ export default function StageConfirmation({
       <button
         type="button"
         data-testid="stage-confirm"
+        disabled={!choice}
         onClick={() => {
+          if (!choice) return;
           setChanging(false);
           onConfirm(choice);
         }}
-        className="mt-4 rounded-xl bg-[#2f7d67] px-5 py-3 font-semibold text-white"
+        className="mt-4 rounded-xl bg-[#2f7d67] px-5 py-3 font-semibold text-white disabled:opacity-50"
       >
         Use this
       </button>

@@ -35,6 +35,7 @@ import {
   type CaseEventType,
 } from "../../../src/lib/case-system/events/caseEventTypes";
 import { WorkingButton } from "@/app/_components/Working";
+import { UseSuggestion } from "@/app/_components/UseSuggestion";
 
 type CandidateState = "confirmed" | "dismissed" | "unanswered";
 
@@ -54,7 +55,9 @@ type Draft = {
   occurredAtRaw: string;
   occurredAtNormalized: string;
   dateCertainty: "exact" | "approximate" | "unknown";
-  /** Why the kind of step is pre-selected, shown beside it; gone once they choose. */
+  /** The kind of step suggested for this sentence, OFFERED (never pre-selected, owner 31 Oct); gone once they choose. */
+  suggestedType?: CaseEventType;
+  /** Why that kind is suggested, shown with the offer. */
   suggestedBasis?: string;
 };
 
@@ -64,7 +67,6 @@ export type ConfirmedStep = { id: string; title: string; chosen?: boolean };
 export function emptyDraft(
   candidate: Pick<ResolvedCandidate, "title" | "narrativeBasis">,
   confirmedStep: ConfirmedStep | null = null,
-  recordedDates: Record<string, string> = {},
 ): Draft {
   // The date the person wrote in this sentence is filled in, not asked again
   // (dateInSentence: a full date fills the picker, a date without a year only
@@ -74,18 +76,18 @@ export function emptyDraft(
    * A sentence naming the event of the step they confirmed is offered as
    * that kind of step (walkthrough 2026-10-13, R6: "I won my small claims
    * case" was asked "What kind of step was this?" after "Judgment obtained,
-   * unpaid" was confirmed). Pre-selected with where it came from; recorded
-   * only on "Record this" (CLAUDE.md section 4).
+   * unpaid" was confirmed). OFFERED with where it came from, never pre-selected
+   * (owner, 31 Oct): one click on "Use the suggestion" chooses it (and the date the
+   * case holds for that kind), and it is recorded only on "Record this" (CLAUDE.md s. 4).
    */
   const suggestion = suggestedEventForSentence(candidate.narrativeBasis, confirmedStep);
-  const known = suggestion && !written?.iso ? recordedDates[EVENT_TO_DATE_QUESTION[suggestion.eventType] ?? ""] : undefined;
   return {
-    eventType: suggestion?.eventType ?? "",
+    eventType: "",
     title: candidate.title,
-    occurredAtRaw: known ?? written?.raw ?? "",
-    occurredAtNormalized: known ?? written?.iso ?? "",
-    dateCertainty: known || written?.iso ? "exact" : written ? "approximate" : "unknown",
-    ...(suggestion ? { suggestedBasis: suggestion.basis } : {}),
+    occurredAtRaw: written?.raw ?? "",
+    occurredAtNormalized: written?.iso ?? "",
+    dateCertainty: written?.iso ? "exact" : written ? "approximate" : "unknown",
+    ...(suggestion ? { suggestedType: suggestion.eventType, suggestedBasis: suggestion.basis } : {}),
   };
 }
 
@@ -177,8 +179,18 @@ export default function EventCandidateSurface({
     };
   }, [load]);
 
+  /** The person chooses a kind of step (the list, or the suggestion): the date the case holds for it fills an empty date. */
+  const chooseType = (candidate: ResolvedCandidate, draft: Draft, eventType: CaseEventType) => {
+    const known = recordedDates[EVENT_TO_DATE_QUESTION[eventType] ?? ""];
+    setDraft(
+      candidate,
+      known && !draft.occurredAtNormalized
+        ? { eventType, occurredAtRaw: known, occurredAtNormalized: known, dateCertainty: "exact", suggestedType: undefined, suggestedBasis: undefined }
+        : { eventType, suggestedType: undefined, suggestedBasis: undefined },
+    );
+  };
   const draftFor = (candidate: ResolvedCandidate): Draft =>
-    drafts[candidate.fingerprint] ?? emptyDraft(candidate, confirmedStep, recordedDates);
+    drafts[candidate.fingerprint] ?? emptyDraft(candidate, confirmedStep);
 
   const setDraft = (candidate: ResolvedCandidate, patch: Partial<Draft>) =>
     setDrafts((current) => ({
@@ -360,21 +372,12 @@ export default function EventCandidateSurface({
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 <label className="text-sm">
                   <span className="font-semibold text-[#10231f]">
-                    {draft.suggestedBasis ? "Kind of step (suggested)" : "What kind of step was this?"}
+                    What kind of step was this?
                   </span>
                   <select
                     data-testid="event-candidate-type"
                     value={draft.eventType}
-                    onChange={(event) => {
-                      const eventType = event.target.value as CaseEventType;
-                      const known = recordedDates[EVENT_TO_DATE_QUESTION[eventType] ?? ""];
-                      setDraft(
-                        candidate,
-                        known && !draft.occurredAtNormalized
-                          ? { eventType, occurredAtRaw: known, occurredAtNormalized: known, dateCertainty: "exact", suggestedBasis: undefined }
-                          : { eventType, suggestedBasis: undefined },
-                      );
-                    }}
+                    onChange={(event) => chooseType(candidate, draft, event.target.value as CaseEventType)}
                     className="mt-1 w-full rounded-xl border border-[#d8e6df] bg-white p-2"
                   >
                     <option value="">Choose…</option>
@@ -384,9 +387,15 @@ export default function EventCandidateSurface({
                       </option>
                     ))}
                   </select>
-                  {draft.suggestedBasis ? (
-                    <span data-testid="event-candidate-suggested" className="mt-1 block text-xs text-[#4f685f]">
-                      {draft.suggestedBasis}
+                  {draft.suggestedType && !draft.eventType ? (
+                    <span data-testid="event-candidate-suggested" className="mt-2 block">
+                      <UseSuggestion
+                        testId="event-candidate-use-suggestion"
+                        what={CASE_EVENT_TYPES.find((definition) => definition.type === draft.suggestedType)?.label ?? draft.suggestedType}
+                        note={draft.suggestedBasis}
+                        onUse={() => chooseType(candidate, draft, draft.suggestedType!)}
+                        className="w-full rounded-xl border border-[#2f7d67] bg-white px-3 py-2 text-left text-sm font-semibold text-[#2f7d67]"
+                      />
                     </span>
                   ) : null}
                 </label>
