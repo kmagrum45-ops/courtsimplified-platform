@@ -313,6 +313,7 @@ async function main() {
       [".github/workflows/courtsimplified-ci.yml", "the local site under test (browser-regression job polls http://localhost:3100)"],
       [".github/workflows/courtsimplified-story-pack.yml", "the local site under test (the story pack polls http://localhost:3100)"],
       [".github/workflows/courtsimplified-carry.yml", "the local site under test (the carry test polls http://localhost:3100)"],
+      ["scripts/browser/carryLocal.sh", "the local site under test (polls http://localhost:<port>)"],
       ["scripts/ai/spendGuard.mjs", "OpenAI's Costs API (api.openai.com)"],
       ["scripts/ai/openaiCredit.mjs", "OpenAI's chat completions API (api.openai.com), one token to see whether the balance is empty"],
       ["scripts/diagnose-auth-email.mjs", "Supabase"],
