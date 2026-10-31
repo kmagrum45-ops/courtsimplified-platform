@@ -94,6 +94,12 @@ export type CaseFile = Record<SlotFact, Slot> & {
   claimKindRemoved?: string[];
   /** The facts the person changed or removed with "Change" (the change record), oldest change first. */
   changedFacts?: SlotFact[];
+  /**
+   * The questions the person answered in the review, as the saved case records them
+   * (CASE_FILE_SECTION.answeredInReview): the review keeps each shown, answered, in its place, after a
+   * reload, in a second tab and on every screen, never from a list held in the page (fault 1, 31 Oct).
+   */
+  answeredInReview?: string[];
 };
 
 /** Where the case file keeps what it adds: the facts answered "not sure", and those offered again at the end. */
@@ -408,6 +414,9 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // questions again (which resets the guided record) never offers one back (rule 6, 31 Oct).
   const turnedDownKinds = strings(object(object(sections[CASE_FILE_SECTION]).turnedDown).claimKind);
   if (turnedDownKinds.length) file.claimKindRemoved = [...new Set([...(file.claimKindRemoved ?? []), ...turnedDownKinds])];
+  // The questions answered in the review (withAnsweredInReview), kept by the case file itself.
+  const answeredInReview = strings(object(sections[CASE_FILE_SECTION]).answeredInReview);
+  if (answeredInReview.length) file.answeredInReview = [...new Set(answeredInReview)];
 
   // 9. THE CHANGE RECORD: the person's latest change of each fact wins over every source above
   // (site owner, 31 Oct: "one change path, latest change wins"). Applied last, so nothing older
@@ -756,6 +765,15 @@ export function withUnsure(section: Record<string, unknown> | undefined, questio
   const kept = { ...object(current.unsure) };
   for (const fact of slotsOf(questionId, surface)) kept[fact] = { question: questionId };
   return { ...current, unsure: kept };
+}
+
+/**
+ * The case file section after the person answered a question in the review: recorded in the saved case,
+ * so the review shows it answered, in its place, after a reload and in any tab (fault 1, 31 Oct).
+ */
+export function withAnsweredInReview(section: Record<string, unknown> | undefined, questionId: string): Record<string, unknown> {
+  const current = object(section);
+  return { ...current, answeredInReview: [...new Set([...strings(current.answeredInReview), questionId])] };
 }
 
 /** The case file section after a fact was offered again at the end (it is not offered a third time). */

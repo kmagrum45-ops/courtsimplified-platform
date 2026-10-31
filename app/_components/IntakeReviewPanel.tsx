@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import MunicipalNoticeFirst from "../builder/_components/MunicipalNoticeFirst";
 import { municipalNoticeFirst } from "../../src/lib/content-library/municipalNoticeFirst";
 import { useIntakeRecovery } from "./IntakeRecovery";
 import { NOTICE_GIVEN_EVENT } from "./FirstUseAcknowledgement";
-import { withServedDate } from "../builder/_components/guidedFields";
+import { familyTimelineValues, withServedDate } from "../builder/_components/guidedFields";
 import { dateAnswerCheck, formatForCourt, isDateQuestion } from "../../src/lib/case-system/dates";
-import { caseFileOf, claimKindOf, slotsOfQuestion, slotText, SLOT_FACTS, type CaseFile, type Slot, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import { CASE_FILE_SECTION, caseFileOf, claimKindOf, withAnsweredInReview, slotsOfQuestion, slotText, SLOT_FACTS, type CaseFile, type Slot, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import ChangeAnswer, { changeChoices, FACT_LABEL } from "./ChangeAnswer";
 import { inWords } from "../../src/lib/case-system/copy/rawKeys";
 import { isDateQuestionId } from "../../src/lib/case-system/casePosition";
@@ -18,7 +18,7 @@ import StoryEditor from "../builder/_components/StoryEditor";
 import { freshSections, staleAnswerKeys, storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
 import StoryChangedNotice from "./StoryChangedNotice";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
-import { canReview, changedAfterConfirm, initialAnswersOf, reviewQuestionField, inputRevision, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
+import { canReview, changedAfterConfirm, initialAnswersOf, reviewQuestionField, inputRevision, remainingEssentialQuestions, reviewEntries, reviewPhase, reviewQuestionRank, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
 import NextStepStatus, { nextStepPressed, useNextStepReading } from "./NextStepStatus";
 import { WorkingNote } from "./Working";
 import { UseSuggestion } from "./UseSuggestion";
@@ -85,11 +85,11 @@ export default function IntakeReviewPanel() {
   const [picks, setPicks] = useState<Record<string, string[]>>({});
   // Questions answered here stay on screen with the answer shown, so the person can change
   // it, including back to what it was (#470 re-test: the question vanished after one answer).
-  const [answeredHere, setAnsweredHere] = useState<string[]>([]);
-  const keepShown = (id: string) => setAnsweredHere(current => current.includes(id) ? current : [...current, id]);
+  // Recorded in the saved case (the case file's answeredInReview), never in this page, so a reload,
+  // a second tab or another screen shows the same list (fault 1, 31 Oct). Recorded before the answer
+  // itself is put (not touched itself), so the answer's own save carries it.
+  const keepShown = (id: string) => recovery?.put(CASE_FILE_SECTION, "answeredInReview", withAnsweredInReview({ answeredInReview: recovery.read(CASE_FILE_SECTION, "answeredInReview") }, id).answeredInReview, false);
   const [fieldNotes, setFieldNotes] = useState<Record<string, string>>({});
-  // The order questions first appeared in (see shownQuestions below).
-  const seenOrder = useRef<string[]>([]);
   // ?change=<fact>: the case page's "Change" for that fact (CaseFilePanel), opened here with its choices.
   const [changeFact] = useState<SlotFact | null>(() => {
     if (typeof window === "undefined") return null;
@@ -108,17 +108,26 @@ export default function IntakeReviewPanel() {
   const caseFileNow = caseFileOf(checkpoint, savedMaster ?? undefined);
   const remaining = remainingEssentialQuestions(checkpoint, false, savedMaster ?? undefined);
   const unanswered = remainingEssentialQuestions(checkpoint, true, savedMaster ?? undefined);
+  /** The answer a civil or Family question holds now, as the form keeps it (Family's day of service in its Timeline). */
+  const fieldValue = (id: string): unknown => checkpoint.courtPath === "civil" ? (checkpoint.sections.civil?.input as Record<string, unknown> | undefined)?.[id]
+    : checkpoint.courtPath === "family" && id === "servedDate" ? familyTimelineValues(String(checkpoint.sections.family?.timeline ?? "")).servedDate
+    : checkpoint.sections.family?.[id];
+  /** Whether a question answered here still holds its answer in the saved case. */
+  const heldAnswer = (id: string): boolean => {
+    const value = checkpoint.courtPath === "civil" || checkpoint.courtPath === "family" ? fieldValue(id) : initialAnswersOf({ ...checkpoint, sections: freshSections(checkpoint) })[id];
+    return Array.isArray(value) ? value.length > 0 : typeof value === "string" ? value.trim().length > 0 : value !== undefined && value !== null;
+  };
   const listed = [
     ...unanswered,
     // A question whose fact was since changed with "Change" is not offered here with its older answer.
-    ...answeredHere.filter(id => !unanswered.some(question => question.id === id) && !slotsOfQuestion(id).some(fact => caseFileNow[fact].changed)).map(id => ({ id, label: reviewQuestionField(checkpoint.courtPath, id)?.question ?? QUESTION_BANK.find(item => item.id === id)?.text ?? id })),
+    // Answered here: the saved case's record (caseFileOf -> answeredInReview), the same after a reload or in another tab.
+    // Only while it still holds an answer: one emptied since (a changed side) is not shown as answered.
+    ...(caseFileNow.answeredInReview ?? []).filter(id => reviewQuestionRank(checkpoint.courtPath, id) !== Number.MAX_SAFE_INTEGER && !unanswered.some(question => question.id === id) && heldAnswer(id) && !slotsOfQuestion(id).some(fact => caseFileNow[fact].changed)).map(id => ({ id, label: reviewQuestionField(checkpoint.courtPath, id)?.question ?? QUESTION_BANK.find(item => item.id === id)?.text ?? id })),
   ];
-  // Each question stays where it first appeared: an answered one moved to the end of the list,
-  // so the questions jumped while the person was answering them (#471 re-test).
-  for (const question of listed) if (!seenOrder.current.includes(question.id)) seenOrder.current.push(question.id);
-  const shownQuestions = [...listed].sort((a, b) => seenOrder.current.indexOf(a.id) - seenOrder.current.indexOf(b.id));
-  /** The answer a civil or Family question holds now, as the form keeps it. */
-  const fieldValue = (id: string): unknown => checkpoint.courtPath === "civil" ? (checkpoint.sections.civil?.input as Record<string, unknown> | undefined)?.[id] : checkpoint.sections.family?.[id];
+  // Each question keeps its place: an answered one moved to the end of the list, so the questions
+  // jumped while the person was answering them (#471 re-test). The place is the question's own in its
+  // court's list (reviewQuestionRank), fixed, never the order this page first drew them in.
+  const shownQuestions = [...listed].sort((a, b) => reviewQuestionRank(checkpoint.courtPath, a.id) - reviewQuestionRank(checkpoint.courtPath, b.id));
   const unknowns = Array.isArray(checkpoint.sections.builder?.initialUnknowns) ? checkpoint.sections.builder.initialUnknowns as string[] : [];
   const suggestions = suggestInitialAnswers(checkpoint);
   const story = storyOf(checkpoint.sections);
@@ -225,8 +234,8 @@ export default function IntakeReviewPanel() {
     // showed "Select your role", "Nothing filed yet" reached no analysis).
     if (court === "family" && questionId === "servedDate") {
       // Family keeps the day of service in its Timeline, as the form does.
-      recovery.put("family", "timeline", withServedDate(String(recovery.read("family", "timeline") ?? ""), String(value)), true, true, true, true);
       keepShown(questionId);
+      recovery.put("family", "timeline", withServedDate(String(recovery.read("family", "timeline") ?? ""), String(value)), true, true, true, true);
       return;
     }
     keepShown(questionId);
@@ -257,8 +266,8 @@ export default function IntakeReviewPanel() {
     // From the store as it is now, not as last drawn: typing an amount and then clicking "No"
     // straight away saved the click over the amount (re-test round 7).
     const now = recovery.getReview().checkpoint;
-    recovery.put("builder", "initialAnswers", { ...initialAnswersOf({ ...now, sections: freshSections(now) }), [questionId]: value }, true, false, true, questionId);
     keepShown(questionId);
+    recovery.put("builder", "initialAnswers", { ...initialAnswersOf({ ...now, sections: freshSections(now) }), [questionId]: value }, true, false, true, questionId);
     const input = recovery.read("small-claims", "input") as Record<string, unknown> | undefined;
     if (questionId === "sc-orient-role" && input && !["plaintiff", "defendant"].includes(String(input.yourRole))) {
       recovery.put("small-claims", "input", { ...input, yourRole: value.includes("defendant") ? "defendant" : "plaintiff" }, true, true, true);

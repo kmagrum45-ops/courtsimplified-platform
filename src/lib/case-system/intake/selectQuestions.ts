@@ -30,7 +30,7 @@ import {
 
 export type IntakeFacts = Partial<Record<KnownFactField, string | number | boolean>>;
 
-const PHASE_ORDER: Record<QuestionPhase, number> = {
+export const PHASE_ORDER: Record<QuestionPhase, number> = {
   orientation: 0,
   substance: 1,
   sensitive: 2,

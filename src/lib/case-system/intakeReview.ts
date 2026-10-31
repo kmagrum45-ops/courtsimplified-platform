@@ -9,7 +9,7 @@ import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocation
 import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../../app/builder/_components/guidedFields";
 import { amountFromStory, goalFromStory, kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
 import { QUESTION_BANK } from "./intake/questionBank";
-import { selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
+import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 import { alreadyAsked, caseFileOf, changesOf, claimKindOf, emptyCaseFile, slotsOfQuestion } from "./caseFile/caseFile";
 import { LOAN_WORDS } from "./intake/claimKind";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
@@ -345,6 +345,21 @@ export function invalidateReview(workflow: ObjectValue): ObjectValue {
 }
 export function canReview(checkpoint: Checkpoint): boolean {
   return Boolean(confirmedLocationOf(checkpoint.sections)) && storyOf(checkpoint.sections).trim().length > 0;
+}
+
+/**
+ * A review question's fixed place: its place in the court's own list of questions (Small Claims: the
+ * question bank in the order the selector asks it, by phase then bank order; civil and Family: the
+ * form's fields in order). The review sorts its questions by this, so each keeps its place while
+ * answered, after a reload and in any tab, with nothing held in the page (fault 1, 31 Oct; the earlier
+ * owner rule, #471 re-test: answered questions must not jump). A question in neither list goes last.
+ */
+export function reviewQuestionRank(courtPath: string, id: string): number {
+  const order = courtPath === "family" ? FAMILY_FIELDS().map((field) => field.key)
+    : courtPath === "civil" ? CIVIL_FIELDS().map((field) => field.key)
+    : QUESTION_BANK.filter((question) => question.courtArea === "small-claims").sort((a, b) => PHASE_ORDER[a.phase] - PHASE_ORDER[b.phase]).map((question) => question.id);
+  const place = order.indexOf(id);
+  return place === -1 ? Number.MAX_SAFE_INTEGER : place;
 }
 
 /** Reuse the existing initial selectors. Unknown/skipped is an answer, never an invented fact. */
