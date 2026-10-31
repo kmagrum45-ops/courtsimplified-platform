@@ -3,6 +3,7 @@
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
 import { caseFileOf, claimKindOf, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { researchCaseContext } from "../../src/lib/case-system/caseFile/aiCaseContext";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
 
 /** The Small Claims side and filing answer the situation answers settle, in the stage map's terms. */
@@ -1291,8 +1292,11 @@ function BuilderPageContent() {
       const situationFacts = personAnswersFromSituation(situation);
       // The kind of claim the analysis follows, from the case file (the person's, else the one the
       // story shows), the same value every screen shows (site owner, 29 Oct).
-      const heldNow = claimKindOf(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult));
-      const mappedInput = mapGuidedIntakeToSmallClaimsInput({ ...result, facts: { ...(result.facts ?? {}), ...(situationFacts.side ? { role: situationFacts.side } : {}), ...(situationFacts.claimFiled !== undefined ? { claimFiled: situationFacts.claimFiled } : {}) } }, confirmedLocation, homeStory, kindForAnalysis(heldNow));
+      const fileNow = caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult);
+      const heldNow = claimKindOf(fileNow);
+      // The kind in words, told to the AI research, from the same case file through the shared builder
+      // (aiCaseContext.ts, rule 8; site owner, 31 Oct): a dispute category has no catalogue id.
+      const mappedInput = { ...mapGuidedIntakeToSmallClaimsInput({ ...result, facts: { ...(result.facts ?? {}), ...(situationFacts.side ? { role: situationFacts.side } : {}), ...(situationFacts.claimFiled !== undefined ? { claimFiled: situationFacts.claimFiled } : {}) } }, confirmedLocation, homeStory, kindForAnalysis(heldNow)), caseContext: researchCaseContext(fileNow) };
 
       // The element record the depth questions made, until the analysis saves it with the case (the
       // Form 7A section reads the case file's saved copy first).

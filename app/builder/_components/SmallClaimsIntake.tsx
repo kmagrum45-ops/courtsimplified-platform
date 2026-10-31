@@ -56,6 +56,7 @@ import {
 } from "../../../src/lib/case-system/intake/questionBank";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { analysisClaimType, caseFileOf, claimKindOf, kindForAnalysis } from "../../../src/lib/case-system/caseFile/caseFile";
+import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
 
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
@@ -965,7 +966,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       // §4, suggest never decide).
       // Kinds of claim only, from the case file: the person's, else the one the story shows
       // (claimKind.ts, step 2b), the same value every screen shows (site owner, 29 Oct).
-      const kindNow = claimKindOf(recovery ? caseFileOf(recovery.getReview().checkpoint) : { ...caseFileOf(null), story: input.facts, area: "small-claims" });
+      const fileNow = recovery ? caseFileOf(recovery.getReview().checkpoint) : { ...caseFileOf(null), story: input.facts, area: "small-claims" };
+      const kindNow = claimKindOf(fileNow);
       const analysisKind = hasText(input.facts) ? kindForAnalysis(kindNow) : null;
       // Answers given in the review panel count here too, where the form left them empty
       // (re-test round 7: after "start the questions again" they were the only answers).
@@ -986,6 +988,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               ? input.filedDocuments
               : ["nothing"],
         ...analysisClaimType(analysisKind),
+        // The kind in words (a dispute category has no catalogue id), told to the AI research, from the
+        // same case file through the shared builder (aiCaseContext.ts, rule 8; site owner, 31 Oct).
+        ...(hasText(input.facts) ? { caseContext: researchCaseContext(fileNow) } : {}),
       };
 
       const response = await requestSmallClaimsAnalysis(

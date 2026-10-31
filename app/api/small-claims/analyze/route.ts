@@ -1,6 +1,7 @@
 import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { NextRequest, NextResponse } from "next/server";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
+import { parseResearchCaseContext } from "@/src/lib/case-system/caseFile/aiCaseContext";
 import { withAiCallIdentity } from "../../../../src/lib/audit/aiCallLog";
 
 import {
@@ -154,6 +155,7 @@ const allowedInputFields = new Set<keyof SmallClaimsIntelligenceInput>([
   "filedDocuments",
   "uploadedEvidenceFiles",
   "confirmedClaimTypeId",
+  "caseContext",
   "elementStates",
   ...requiredStringFields,
 ]);
@@ -237,6 +239,8 @@ export function isSmallClaimsInput(
   }
 
   if (!isValidCatalogueClaim(value)) return false;
+  // The case file's kind of case in words, for the AI research (aiCaseContext.ts): its own shape only.
+  if (parseResearchCaseContext(value.caseContext) === false) return false;
   if (!isStringArray(value.issues, 20)) return false;
   if (!isStringArray(value.filedDocuments, 20)) return false;
   if (!allowedStages.has(String(value.caseStage))) return false;

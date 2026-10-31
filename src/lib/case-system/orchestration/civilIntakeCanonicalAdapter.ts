@@ -7,6 +7,7 @@ import { formatRecordedAmount } from "../format/recordedAmount";
 import { nameRecorded } from "../privacy/modelPayloadNames";
 import { runCourtSimplifiedBrain } from "../intelligence/courtSimplifiedBrain";
 import type { CourtSimplifiedBrainOutput } from "../intelligence/intelligenceTypes";
+import type { ResearchCaseContext } from "../caseFile/aiCaseContext";
 
 export type CivilCanonicalStage =
   | "starting-case"
@@ -49,6 +50,8 @@ export type CivilCanonicalEvidenceFile = {
 
 export type CivilCanonicalIntakeInput = {
   caseId?: string;
+  /** The case file's kind of case in words, for the AI research (caseFile/aiCaseContext.ts researchCaseContext). Checked by the route. */
+  caseContext?: ResearchCaseContext;
   caseStage: CivilCanonicalStage;
   issues: string[];
   documents: string[];
@@ -309,6 +312,7 @@ export async function runCivilIntakeCanonicalIntegration(
     province: "Ontario",
     stage: input.caseStage,
     rawUserText: modelNarrative,
+    ...(input.caseContext ? { caseContext: input.caseContext } : {}),
     existingMasterResult: options.existingMasterResult || {},
     sourceType: "user-intake",
     allowExternalCognition: options.allowExternalCognition,
