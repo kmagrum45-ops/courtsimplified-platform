@@ -161,3 +161,7 @@ value), the case page gets the same section, read only from the case file (`form
   page as `screens-disagree / form-7a-section`, as it already does on the builder routes.
 - **Days:** 1–2 (estimate).
 - **Placement:** after #536, with the stage conversion or as its own small PR (owner's choice).
+
+### Experiment note: the saved record winning on load (30 Oct; branch `exp/saved-record-wins`, not merged)
+
+The experiment made the saved record always win on load (`da145bc5`, from main 14e58e93). Carry runs 41145427333 and 41145443101 showed that when the saved record wins on load, unsent typed values must be kept as a draft ("Not saved yet: save or discard"): 16 new form-vs-review mismatches appeared in the Small Claims signed-in review run right after the amount and the other party were given (run 41145443101). Both runs are INVALID for counting, since most runs missed steps (`npm run carry:compare`), so no entry is credited as cleared. The branch is left as it is: not fixed, not rerun and not merged.
