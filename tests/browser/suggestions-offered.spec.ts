@@ -181,7 +181,8 @@ test("Civil questions one at a time: a story offer is the one control; 'No, let 
         }
         const acks = await page.getByTestId("guided-form-ack").count();
         await yes.click();
-        await expect(page.getByTestId("guided-form-ack"), "one click saves it").toHaveCount(acks + 1, { timeout: 30_000 });
+        // One sentence can answer more than one question (acceptGroup): each saved one is acknowledged.
+        await expect.poll(() => page.getByTestId("guided-form-ack").count(), { message: "one click saves it", timeout: 30_000 }).toBeGreaterThan(acks);
         used = true;
         continue;
       }
