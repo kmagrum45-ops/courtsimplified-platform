@@ -18,7 +18,7 @@ import StoryEditor from "../builder/_components/StoryEditor";
 import { freshSections, staleAnswerKeys, storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
 import StoryChangedNotice from "./StoryChangedNotice";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
-import { canReview, changedAfterConfirm, initialAnswersOf, reviewQuestionField, inputRevision, remainingEssentialQuestions, reviewEntries, reviewPhase, reviewQuestionRank, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
+import { canReview, changedAfterConfirm, initialAnswersOf, reviewQuestionField, inputRevision, remainingEssentialQuestions, reviewEntries, reviewPhase, reviewQuestionList, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
 import NextStepStatus, { nextStepPressed, useNextStepReading } from "./NextStepStatus";
 import { WorkingNote } from "./Working";
 import { UseSuggestion } from "./UseSuggestion";
@@ -107,27 +107,15 @@ export default function IntakeReviewPanel() {
   const savedMaster = recovery.getSavedMaster();
   const caseFileNow = caseFileOf(checkpoint, savedMaster ?? undefined);
   const remaining = remainingEssentialQuestions(checkpoint, false, savedMaster ?? undefined);
-  const unanswered = remainingEssentialQuestions(checkpoint, true, savedMaster ?? undefined);
   /** The answer a civil or Family question holds now, as the form keeps it (Family's day of service in its Timeline). */
   const fieldValue = (id: string): unknown => checkpoint.courtPath === "civil" ? (checkpoint.sections.civil?.input as Record<string, unknown> | undefined)?.[id]
     : checkpoint.courtPath === "family" && id === "servedDate" ? familyTimelineValues(String(checkpoint.sections.family?.timeline ?? "")).servedDate
     : checkpoint.sections.family?.[id];
-  /** Whether a question answered here still holds its answer in the saved case. */
-  const heldAnswer = (id: string): boolean => {
-    const value = checkpoint.courtPath === "civil" || checkpoint.courtPath === "family" ? fieldValue(id) : initialAnswersOf({ ...checkpoint, sections: freshSections(checkpoint) })[id];
-    return Array.isArray(value) ? value.length > 0 : typeof value === "string" ? value.trim().length > 0 : value !== undefined && value !== null;
-  };
-  const listed = [
-    ...unanswered,
-    // A question whose fact was since changed with "Change" is not offered here with its older answer.
-    // Answered here: the saved case's record (caseFileOf -> answeredInReview), the same after a reload or in another tab.
-    // Only while it still holds an answer: one emptied since (a changed side) is not shown as answered.
-    ...(caseFileNow.answeredInReview ?? []).filter(id => reviewQuestionRank(checkpoint.courtPath, id) !== Number.MAX_SAFE_INTEGER && !unanswered.some(question => question.id === id) && heldAnswer(id) && !slotsOfQuestion(id).some(fact => caseFileNow[fact].changed)).map(id => ({ id, label: reviewQuestionField(checkpoint.courtPath, id)?.question ?? QUESTION_BANK.find(item => item.id === id)?.text ?? id })),
-  ];
-  // Each question keeps its place: an answered one moved to the end of the list, so the questions
-  // jumped while the person was answering them (#471 re-test). The place is the question's own in its
-  // court's list (reviewQuestionRank), fixed, never the order this page first drew them in.
-  const shownQuestions = [...listed].sort((a, b) => reviewQuestionRank(checkpoint.courtPath, a.id) - reviewQuestionRank(checkpoint.courtPath, b.id));
+  // The one list, from the saved case only (intakeReview.ts reviewQuestionList): the questions still to
+  // answer and those answered here (the case file's answeredInReview), each in its fixed place
+  // (reviewQuestionRank), so an answered one never jumps (#471 re-test) and a reload or a second tab
+  // shows the same list (fault 1, 31 Oct). Nothing about it is held in this page.
+  const shownQuestions = reviewQuestionList(checkpoint, savedMaster ?? undefined);
   const unknowns = Array.isArray(checkpoint.sections.builder?.initialUnknowns) ? checkpoint.sections.builder.initialUnknowns as string[] : [];
   const suggestions = suggestInitialAnswers(checkpoint);
   const story = storyOf(checkpoint.sections);
@@ -322,10 +310,10 @@ export default function IntakeReviewPanel() {
           a question answered here moves to its own group, still changeable, never under "Remaining" (owner's
           Chrome check, 31 Oct: "What is the case about?" stayed listed as remaining after "Dividing property"
           was saved). */}
-      {phase === "reviewing" && shownQuestions.length > 0 && <fieldset className="mt-5" data-testid="intake-initial-questions"><legend>Initial questions</legend><p><span data-testid="intake-remaining-count">{(() => { const left = shownQuestions.filter(question => unanswered.some(item => item.id === question.id)).length; return left === 0 ? "Nothing here is still to answer." : `${left} still to answer.`; })()}</span> Answer these here or in the intake controls, or record that you do not know. A suggestion read from your story is only a suggestion until you choose it. Evidence research is optional.</p>{shownQuestions.map(question => {
+      {phase === "reviewing" && shownQuestions.length > 0 && <fieldset className="mt-5" data-testid="intake-initial-questions"><legend>Initial questions</legend><p><span data-testid="intake-remaining-count">{(() => { const left = shownQuestions.filter(question => !question.answered).length; return left === 0 ? "Nothing here is still to answer." : `${left} still to answer.`; })()}</span> Answer these here or in the intake controls, or record that you do not know. A suggestion read from your story is only a suggestion until you choose it. Evidence research is optional.</p>{shownQuestions.map(question => {
         const bank = QUESTION_BANK.find(item => item.id === question.id);
         const suggested = suggestions[question.id];
-        const answered = !unanswered.some(item => item.id === question.id);
+        const answered = question.answered;
         return <div key={question.id} className="my-4" data-testid="intake-initial-question" data-question={question.id} data-answered={answered ? "true" : "false"} data-unknown={unknowns.includes(question.id) ? "true" : "false"}>
           <p className="font-semibold">{question.label}</p>
           {/* Answered, it keeps its place (owner, earlier rule) and says so with the answer in words, never

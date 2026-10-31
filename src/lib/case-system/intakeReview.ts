@@ -362,6 +362,34 @@ export function reviewQuestionRank(courtPath: string, id: string): number {
   return place === -1 ? Number.MAX_SAFE_INTEGER : place;
 }
 
+/** Whether a review question holds an answer in the checkpoint now (a civil or Family form field, Family's day of service in its Timeline, a Small Claims review answer). */
+function holdsAnswer(checkpoint: Checkpoint, id: string): boolean {
+  const fresh: Checkpoint = { ...checkpoint, sections: freshSections(checkpoint) };
+  const value = checkpoint.courtPath === "civil" ? object(fresh.sections.civil?.input)[id]
+    : checkpoint.courtPath === "family" ? (id === "servedDate" ? familyTimelineValues(String(object(fresh.sections.family).timeline ?? "")).servedDate : object(fresh.sections.family)[id])
+    : initialAnswersOf(fresh)[id];
+  return Array.isArray(value) ? value.length > 0 : typeof value === "string" ? value.trim().length > 0 : value !== undefined && value !== null;
+}
+
+/**
+ * THE REVIEW'S ONE LIST ("Initial questions"), from the saved case only (fault 1, 31 Oct): the questions
+ * still to answer, and those the person answered in the review, as the case file records them
+ * (caseFileOf -> answeredInReview), each in its fixed place (reviewQuestionRank). Nothing in it comes
+ * from the page, so a reload, a second tab and every screen show the same list. An answered question
+ * is listed only while it still holds its answer and its fact was not since changed with "Change".
+ */
+export function reviewQuestionList(checkpoint: Checkpoint, master?: unknown): { id: string; label: string; answered: boolean }[] {
+  const file = caseFileOf(checkpoint, master);
+  const unanswered = remainingEssentialQuestions(checkpoint, true, master);
+  const listed = [
+    ...unanswered.map((question) => ({ ...question, answered: false })),
+    ...(file.answeredInReview ?? [])
+      .filter((id) => reviewQuestionRank(checkpoint.courtPath, id) !== Number.MAX_SAFE_INTEGER && !unanswered.some((question) => question.id === id) && holdsAnswer(checkpoint, id) && !slotsOfQuestion(id).some((fact) => file[fact].changed))
+      .map((id) => ({ id, label: reviewQuestionField(checkpoint.courtPath, id)?.question ?? QUESTION_BANK.find((item) => item.id === id)?.text ?? id, answered: true })),
+  ];
+  return listed.sort((a, b) => reviewQuestionRank(checkpoint.courtPath, a.id) - reviewQuestionRank(checkpoint.courtPath, b.id));
+}
+
 /** Reuse the existing initial selectors. Unknown/skipped is an answer, never an invented fact. */
 /**
  * `master`: the saved case, when there is one, so the review reads the same case file as the
