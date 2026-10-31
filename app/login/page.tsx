@@ -10,6 +10,7 @@ import { carryGuestIntake } from "../../src/lib/case-system/guestCarry";
 import { openCaseFromAddress } from "../../src/lib/case-system/openCase";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
 import { WorkingButton } from "../_components/Working";
+import { EMAIL_NOT_CONFIRMED_MESSAGE, isEmailNotConfirmedError, signUpConfirmEmailMessage } from "../../src/lib/case-system/copy/authMessages";
 
 /**
  * Supabase Auth returns a specific error code for most signup failures, but
@@ -84,18 +85,18 @@ export default function LoginPage() {
           return;
         }
 
-        // NO CONFIRMATION EMAIL IS SENT. `mailer_autoconfirm` is true on the
-        // Supabase project (a deliberate, non-default setting -- see
-        // docs/ARCHITECTURE.md), so a new signup is confirmed immediately and
-        // Supabase returns a session.
+        // Whether a confirmation email is sent depends on the Supabase project.
+        // Production requires confirmation (`mailer_autoconfirm` false, see
+        // CLAUDE.md s. 6): Supabase sends a confirmation link and returns NO
+        // session, and the person cannot sign in until they open it. Staging
+        // keeps autoconfirm on, so the account is confirmed at once and a
+        // session comes back.
         //
-        // This used to say "Check your email for confirmation", which sent
-        // every new user to an inbox to wait for a message that was never
-        // going to arrive, while they were in fact already signed in.
-        //
-        // The session is read rather than assumed: if autoconfirm is ever
-        // turned off, `session` comes back null and the branch below tells the
-        // user the truth for that configuration instead.
+        // The session is read rather than assumed. The no-session branch used
+        // to say "Account created. You can sign in with those details now.",
+        // which on production sent people to sign in before they could (the
+        // sign-in then failed with "Email not confirmed"). The words live in
+        // copy/authMessages.ts; `npm run test:signup-confirm-message` checks them.
         if (data.session) {
           // A new account starts with nothing from this browser, except the guest
           // intake this person chose to bring with them (guestCarry.ts).
@@ -106,7 +107,8 @@ export default function LoginPage() {
           return;
         }
 
-        setSuccess("Account created. You can sign in with those details now.");
+        // No session: the address must be confirmed by email before signing in.
+        setSuccess(signUpConfirmEmailMessage(data.user?.email ?? email));
         return;
       }
 
@@ -116,7 +118,8 @@ export default function LoginPage() {
       });
 
       if (error) {
-        setError("We could not sign you in with those details. Please try again.");
+        // Signed up but not confirmed yet (production requires it): say so plainly.
+        setError(isEmailNotConfirmedError(error) ? EMAIL_NOT_CONFIRMED_MESSAGE : "We could not sign you in with those details. Please try again.");
         return;
       }
 
