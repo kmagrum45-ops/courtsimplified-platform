@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-212 documented, 26 without a header.
+213 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -133,6 +133,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:no-names-to-model` | **No name FIELD reaches a model.**<br>The user's name and the other party's name are entered in plain form fields and stored in the Canadian database. Until 2026-09-27 all three intake adapters (Small Claims, civil, family) copied them into the raw text the brain sends to OpenAI. The LSO A2I appli |
 | `npm run test:no-stale-intake` | **Nothing from an earlier session is shown before the user opens a case.**<br>2026-09-28: a signed-in user opened the Small Claims intake and found an old test story already filled in. Earlier fixes had scoped browser storage per user and cleared it for anonymous visitors, but the builder deliberately RESTORED the signed-in user's own l |
 | `npm run test:no-store` | **Every OpenAI request carries `store: false`, and no call site can bypass it.**<br>COSTS NOTHING. Reads source off disk and calls the factory with a fake key. No network, no model call. |
+| `npm run test:not-sure-never-asked` | **"NOT SURE" IS NEVER ASKED AGAIN, ANYWHERE (site owner, 31 Oct; replaces option 1 of 24 Oct).**<br>After a person says "I don't know" or "not sure" -- a skip in the questions one at a time, the words typed in the Small Claims guided chat or in the whole form, or the review's "I do not know yet" -- no screen in any of the three courts asks that question agai |
 | `npm run test:notice-step` | **A claim whose kind can need written notice before suing is pointed to that**<br>notice step first, and only when the person's own words place it. |
 | `npm run test:official-forms` | **The official-forms watch reads the Ontario Court Forms pages correctly, and**<br>the recorded official list covers every live form the regulations name. |
 | `npm run test:open-case` | **ONE CASE ID DECIDES WHICH CASE IS OPEN: the address, and nothing else**<br>(npm run test:open-case). |
