@@ -1,12 +1,11 @@
 name: CourtSimplified carry end to end (local Supabase)
 
-# NOT ENABLED (31 Oct): no pull_request or schedule trigger, so it spends no Actions minutes until the
-# founder decides. It is the sketch of Part 5 option (a) of the 31 Oct code report: the same carry test
-# as courtsimplified-carry.yml, but each machine starts its own local Supabase stack (Docker on the
-# runner) instead of sharing the staging project, so runs never interfere and need no STAGING_* secrets.
-# Everything happens in scripts/browser/carryLocal.sh (stack, catalogue count(*) check, local-URL
-# refusal + scripts/walkthrough/guard.ts, build, serve, spec); this file only installs the CLI and
-# Chromium and keeps the records. To enable: add `pull_request: branches: [main]` under `on:`.
+# The same carry test as courtsimplified-carry.yml, but each machine starts its own local Supabase stack
+# (Docker on the runner) instead of sharing the staging project, so runs never interfere and need no
+# repository secrets. Everything happens in scripts/browser/carryLocal.sh (stack, catalogue count(*) check,
+# local-URL refusal + scripts/walkthrough/guard.ts, build, serve, spec); this file only installs the CLI
+# and Chromium and keeps the records. Validated 31 Oct: run 41223534527 matched staging run 41153220152
+# (identical counts per court; 141 of 142 entries, the two differences known flicker).
 
 on:
   workflow_dispatch:
@@ -14,6 +13,10 @@ on:
   # validation run against staging run 41153220152; a pull_request trigger on main comes later.
   push:
     branches: [ci/local-carry-db]
+
+# Read-only token: it checks out the code and keeps artifacts; it writes nothing to the repository.
+permissions:
+  contents: read
 
 jobs:
   carry:
