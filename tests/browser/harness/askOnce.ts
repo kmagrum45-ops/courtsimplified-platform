@@ -62,7 +62,7 @@
  */
 import type { Page } from "@playwright/test";
 import { factsOfQuestion } from "../../../src/lib/case-system/caseFile/factsOfQuestion";
-import { caseFileOf, SLOT_FACTS } from "../../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, isUnsureAnswer, SLOT_FACTS } from "../../../src/lib/case-system/caseFile/caseFile";
 import { readCheckpoint } from "../../../src/lib/case-system/intakeCheckpoint";
 import { GUEST_INTAKE_SESSION_KEY } from "../../../src/lib/case-system/storage/intakeStorageKeys";
 import { factsOfWords, questionSentences } from "./chatQuestionFacts";
@@ -100,6 +100,9 @@ export function chatQuestionAnswered(left: { pressedAnswer: boolean; skipped: bo
 
 const SCAN = `(() => {
   const chatQuestionAnswered = ${chatQuestionAnswered.toString()};
+  // A reply the case file reads as "not sure" (caseFile.ts isUnsureAnswer, typed "I don't know") is unsure, like a skip:
+  // the review may offer that fact once more (owner, option 1), which is not asking it twice (carry, 31 Oct).
+  const isUnsureAnswer = ${isUnsureAnswer.toString()};
   if (window.__askOnceInstalled) return;
   window.__askOnceInstalled = true;
   const seen = new Set();
@@ -115,7 +118,7 @@ const SCAN = `(() => {
   // Diagnostic only: the address, and for an ask the tab's intake copy (the page's own snapshot).
   const tabCopy = () => { try { return sessionStorage.getItem(${JSON.stringify(GUEST_INTAKE_SESSION_KEY)}) || undefined; } catch { return undefined; } };
   const emit = (kind, surface, id, text, reply) => window.__recordAsk({ kind, surface, id, screen: screen(), text: (text || "").replace(/\\s+/g, " ").slice(0, 160), at: now(), address: location.pathname + location.search, ...(kind === "ask" ? { tab: tabCopy() } : {}), ...(typeof reply === "string" ? { reply: reply.replace(/\\s+/g, " ").trim().slice(0, 500) } : {}) });
-  const answer = (surface, id, reply) => { const key = surface + "|" + id; if (answered.has(key)) return; answered.add(key); emit("answer", surface, id, skipped.has(key) ? "unsure" : "", reply); };
+  const answer = (surface, id, reply) => { const key = surface + "|" + id; if (answered.has(key)) return; answered.add(key); emit("answer", surface, id, skipped.has(key) || (surface === "sc-chat" && isUnsureAnswer(reply)) ? "unsure" : "", reply); };
   // Small Claims guided: the person's reply shown right under a question (a user message before the next question), if any.
   const replyAfter = (el) => { const all = [...document.querySelectorAll("[data-testid=guided-message]")]; for (const m of all.slice(all.indexOf(el) + 1)) { if (m.getAttribute("data-from") === "user") return words(m); if (m.hasAttribute("data-question-id")) return undefined; } return undefined; };
   const words = (el) => (el ? el.innerText || el.textContent || "" : "").replace(/\\s+/g, " ").trim();

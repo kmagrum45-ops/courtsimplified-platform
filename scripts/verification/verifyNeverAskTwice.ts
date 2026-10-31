@@ -218,5 +218,18 @@ const ask = (surface: string, id: string, text = id): Asked => ({ kind: "ask", s
   check("diagnostic: the fields never change what counts", strip(repeatViolations(factsAskedTwice(plain, false))) === strip(repeatViolations(factsAskedTwice(withDiag, false))) && repeatViolations(factsAskedTwice(withDiag, false)).length === 1);
 }
 
+// A typed "I don't know" in the Small Claims chat is unsure, like a skip (carry, 31 Oct): the review's one
+// more offer of that fact (owner, option 1) is not asking it twice; a second offer still is.
+{
+  const scan = ASK_ONCE_SCAN();
+  check("the recorder reads a typed \"I don't know\" in the Small Claims chat as unsure (caseFile.ts isUnsureAnswer)", scan.includes('surface === "sc-chat" && isUnsureAnswer(reply)') && scan.includes("const isUnsureAnswer = "));
+  const goalAsk = (surface: string, id: string, at: number): Asked => ({ kind: "ask", surface, id, screen: "/builder?step=guided", text: "What outcome are you asking the court to order?", at });
+  const unsureGiven: Asked = { kind: "answer", surface: "sc-chat", id: "sc-remedy-sought", screen: "/builder?step=guided", text: "unsure", at: 2 };
+  const once = [goalAsk("sc-chat", "sc-remedy-sought", 1), unsureGiven, goalAsk("review-entry", "goal", 3)];
+  check("unsure in the chat, then the review's one more offer: not a repeat", repeatViolations(factsAskedTwice(once, false)).length === 0, JSON.stringify(repeatViolations(factsAskedTwice(once, false))));
+  const twice = [...once, goalAsk("review", "sc-remedy-sought", 4)];
+  check("unsure in the chat, then offered twice more: a repeat (the rule is unchanged)", repeatViolations(factsAskedTwice(twice, false)).length === 1);
+}
+
 if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }
 console.log("never ask twice: every check passed.");
