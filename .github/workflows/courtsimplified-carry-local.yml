@@ -1,0 +1,78 @@
+name: CourtSimplified carry end to end (local Supabase) -- NOT ENABLED
+
+# NOT ENABLED (31 Oct): no pull_request or schedule trigger, so it spends no Actions minutes until the
+# founder decides. It is the sketch of Part 5 option (a) of the 31 Oct code report: the same carry test
+# as courtsimplified-carry.yml, but each machine starts its own local Supabase stack (Docker on the
+# runner) instead of sharing the staging project, so runs never interfere and need no STAGING_* secrets.
+# Everything happens in scripts/browser/carryLocal.sh (stack, catalogue count(*) check, local-URL
+# refusal + scripts/walkthrough/guard.ts, build, serve, spec); this file only installs the CLI and
+# Chromium and keeps the records. To enable: add `pull_request: branches: [main]` under `on:`.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  carry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - part: small-claims-guest
+            grep: "carry end to end -- small-claims (questions|review|form) guest$"
+          - part: small-claims-signed-in
+            grep: "carry end to end -- small-claims (questions|review|form) signed-in$"
+          - part: civil
+            grep: "carry end to end -- civil "
+          - part: family
+            grep: "carry end to end -- family "
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
+      NEXT_TELEMETRY_DISABLED: 1
+      AI_RATE_LIMITS: local
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 2.109.0
+      - run: npx playwright install --with-deps chromium
+      - name: The carry test on a local stack (${{ matrix.part }})
+        env:
+          CARRY_GREP: ${{ matrix.grep }}
+          CARRY_PORT: "3100"
+          CARRY_OUT: ${{ github.workspace }}/carry-out
+        run: bash scripts/browser/carryLocal.sh
+      - name: Keep the records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: carry-local-records-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.part }}
+          path: |
+            carry-out/carry-records/**
+            carry-out/*.log
+          retention-days: 14
+          if-no-files-found: ignore
+
+  totals:
+    needs: carry
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: carry-local-records-${{ github.run_id }}-${{ github.run_attempt }}-*
+          path: carry-parts
+      - run: npm run -s carry:totals -- carry-parts
