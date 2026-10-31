@@ -1,4 +1,4 @@
-name: CourtSimplified carry end to end (local Supabase) -- NOT ENABLED
+name: CourtSimplified carry end to end (local Supabase)
 
 # NOT ENABLED (31 Oct): no pull_request or schedule trigger, so it spends no Actions minutes until the
 # founder decides. It is the sketch of Part 5 option (a) of the 31 Oct code report: the same carry test
@@ -10,6 +10,10 @@ name: CourtSimplified carry end to end (local Supabase) -- NOT ENABLED
 
 on:
   workflow_dispatch:
+  # Founder, 31 Oct: run on GitHub machines. Only pushes to this tooling branch trigger it, for the
+  # validation run against staging run 41153220152; a pull_request trigger on main comes later.
+  push:
+    branches: [ci/local-carry-db]
 
 jobs:
   carry:
