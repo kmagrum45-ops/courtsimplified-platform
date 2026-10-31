@@ -6,7 +6,8 @@
  *   - every baseline entry names a kind (asked-twice, returned-after-removal, wrong-case,
  *     screens-disagree, or unreached: a step the run could not reach, which names its whole run --
  *     court, route, guest or signed-in), a fact (or step), a screen, and a reason in words; none twice;
- *   - this branch ADDS no entry compared with origin/main (fetched if not present). The one
+ *   - this branch ADDS no entry compared with origin/main (fetched if not present), except one marked
+ *     newlyMeasured (the carry runs that saw it, the date, why it was missed; counted apart). The one
  *     exception is the PR that introduces the file (origin/main has none), so its first CI run's
  *     real violations can be listed before it merges; after that the list can only shrink;
  *   - the matching, as properties: a violation is excused only by an entry of its kind, fact and
@@ -21,7 +22,7 @@
  */
 import { execFileSync } from "node:child_process";
 import {
-  BASELINE_PATH, COUNTS_LINE, addedEntries, badEntries, baselineEntryFor, countsLine, countsOf, readBaseline, seedEntries, shows, splitByBaseline, splitUnreached, staleEntries,
+  BASELINE_PATH, COUNTS_LINE, addedEntries, allowedAdditions, badEntries, baselineEntryFor, countsLine, countsOf, readBaseline, seedEntries, shows, splitByBaseline, splitUnreached, staleEntries,
   type CarryBaselineEntry, type CarryViolation,
 } from "../../tests/browser/harness/carryCounts";
 
@@ -53,8 +54,11 @@ try {
   if (before === null) {
     console.log(`note  ${BASELINE_PATH} is not on origin/main yet: this PR introduces it, so its entries are the starting list (${now.length}).`);
   } else {
-    const added = addedEntries(before, now);
-    check(`no baseline entry added compared with origin/main (main ${before.length}, here ${now.length})`, added.length === 0, `added: ${JSON.stringify(added)}`);
+    // The one allowed addition is a NEWLY MEASURED entry (owner, 30 Oct): marked with the carry runs
+    // that saw it, the date and why it is a repeat the list missed (verifyCarryNewlyMeasured.ts).
+    const { rejected, newlyMeasured } = allowedAdditions(before, now);
+    for (const entry of newlyMeasured) console.log(`note  NEWLY MEASURED (allowed, counted apart): ${entry.kind} ${entry.fact} @ ${entry.where} [${[entry.court, entry.route, entry.who].filter(Boolean).join(" ")}] runs ${entry.newlyMeasured!.runs.join(", ")}`);
+    check(`no baseline entry added compared with origin/main, except newly measured ones (main ${before.length}, here ${now.length}, newly measured added ${newlyMeasured.length})`, rejected.length === 0, `added without a newlyMeasured record: ${JSON.stringify(rejected)}`);
   }
 } catch (error) {
   check("origin/main's baseline can be read", false, String(error));
