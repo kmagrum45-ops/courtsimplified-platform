@@ -161,7 +161,7 @@ Each save point keeps writing its old copy too, so that unconverted screens stil
 
 **Safer or faster than court by court?**
 - **Safer:** yes. While old screens still write, a write that never reaches the fact record would lose to an old copy (§11). Phase 1 removes that risk for every court at once.
-- **Faster to the first numbers:** probably. The 42 removal entries span all three courts and come from shared readers, so converting Small Claims first would leave civil's and Family's 54 removal-related entries until their turn.
+- **Faster to the first numbers:** probably. The 42 removal entries span all three courts and come from shared readers, so converting Small Claims first would leave civil's and Family's 54 other-party entries (all 42 removals among them) until their turn.
 - **Recommendation:** Phase 1 (writers plus shared readers) first, then Small Claims, civil and Family as decided.
 - **This changes the order the founder set, so it waits for the founder's yes.** Until then, the decided order stands.
 
