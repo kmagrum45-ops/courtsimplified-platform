@@ -362,7 +362,7 @@ test("Small Claims: answer, confirm, change the story, start again once, answer 
   await page.getByTestId("intake-start-review").click();
   // The side and "nothing filed" were given in the situation questions (step 2).
   await expect(question("sc-orient-role")).toHaveCount(0);
-  await question("sc-orient-dispute-category").getByRole("button", { name: /Work or a service you paid for/ }).click();
+  await question("sc-orient-dispute-category").getByRole("button", { name: /^Work or a service you paid for/ }).click();
   await question("sc-orient-when-happened").getByTestId("intake-use-suggestion").click();
   await question("sc-amount-claimed").getByLabel(/^Answer: /).fill("$9,000");
   await question("sc-amount-claimed").getByLabel(/^Answer: /).press("Tab");
@@ -387,7 +387,7 @@ test("Small Claims: answer, confirm, change the story, start again once, answer 
   await question("sc-orient-when-happened").getByRole("button", { name: "Use the suggestion: 2026-06-10" }).click();
   // A story change never sets the situation answers aside: the side is not asked again.
   await expect(question("sc-orient-role")).toHaveCount(0);
-  await question("sc-orient-dispute-category").getByRole("button", { name: /Unpaid money owed to you/ }).click();
+  await question("sc-orient-dispute-category").getByRole("button", { name: /^Unpaid money owed to you/ }).click();
   // Typed values count when the box is left; no separate button.
   await question("sc-amount-claimed").getByLabel(/^Answer: /).fill("$8,500");
   await question("sc-amount-claimed").getByLabel(/^Answer: /).press("Tab");
