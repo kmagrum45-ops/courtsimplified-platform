@@ -392,7 +392,7 @@ export default function CaseOverviewPage() {
               Change your story
             </Link>
           </div>
-          <IntelligenceOverviewPanel analysis={analysis} intake={intake ?? null} confirmedStage={confirmed} roleWords={courtPath ? situationAnswers(courtPath, situation).roleWords ?? null : null} stageWords={caseStageWords(master, courtPath)} caseId={caseId} claimKind={claimKindOf(caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master))} />
+          <IntelligenceOverviewPanel analysis={analysis} intake={intake ?? null} confirmedStage={confirmed} roleWords={courtPath ? situationAnswers(courtPath, situation).roleWords ?? null : null} stageWords={caseStageWords(master, courtPath)} caseId={caseId} claimKind={claimKindOf(caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master))} caseFile={caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master)} />
         </section>
       ) : null}
     </div>

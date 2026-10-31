@@ -2478,7 +2478,7 @@ function BuilderPageContent() {
               </details>
             ) : null}
             {confirmedStage && (
-              <IntelligenceOverviewPanel analysis={analysis} intake={caseData} confirmedStage={confirmedStage} roleWords={courtPath ? situationAnswers(courtPath, situation).roleWords ?? null : null} stageWords={findStage(savedPosition.stepId ?? stepFromSituation(situation, courtPath) ?? "")?.title ?? null} caseId={savedCaseId()} claimKind={heldClaimKind} />
+              <IntelligenceOverviewPanel analysis={analysis} intake={caseData} confirmedStage={confirmedStage} roleWords={courtPath ? situationAnswers(courtPath, situation).roleWords ?? null : null} stageWords={findStage(savedPosition.stepId ?? stepFromSituation(situation, courtPath) ?? "")?.title ?? null} caseId={savedCaseId()} claimKind={heldClaimKind} caseFile={builderCaseFile} />
             )}
             {confirmedStage ? <EvidenceUploadCard caseId={savedCaseId()} /> : null}
             {confirmedStage ? <CaseReviewPanel caseId={savedCaseId()} /> : null}

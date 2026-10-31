@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-210 documented, 26 without a header.
+211 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -45,6 +45,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:case-words` | **WHERE THE CASE IS, WHO THE PERSON IS IN IT, WHAT IS FILED: WORDS, NEVER CODES (26 Oct re-test, item 2).**<br>Checks, as properties, through the one place each screen gets these words (copy/caseWords.ts) and the review's entries (intakeReview.ts): - every stage the site stores reads as words, never its code ("responding", "starting case"); - every document a person ca |
 | `npm run test:case-write-queue` | **No two writes to the same case's row are in flight at once from the builder,**<br>the case pages and the Forms page, and nothing can stall their one queue. |
 | `npm run test:catalogue-verified` | **A catalogue entry's verifiedAt vouches for the text that was verified, and**<br>for nothing else. |
+| `npm run test:change-path` | **ONE CHANGE PATH, LATEST CHANGE WINS (site owner, 31 Oct; rule 6 of the fact conversion).**<br>The owner's Chrome check: a wrong answer (the kind of claim) showed in the review as "your answer already given; it is not asked again", with no way to change it, and the case page's "Change" only went to the builder. The decision: one write path for a change, |
 | `npm run test:charter-retest` | **THE CHARTER CLAIM AGAINST POLICE, RE-TESTED (Chrome on the live site, 2026-10-26).**<br>Each fix sits in one shared piece; each check asserts its property, so a screen or path that goes around the piece fails here: - the review shows only what fits the side and the claim, every field in written words (intakeReview.ts: ISSUE_ONLY, a field's own `w |
 | `npm run test:chat-asks-by-fact` | **THE CHAT ASKS BY FACT: A FACT THE SAVED CASE HOLDS IS NEVER ASKED BY A CHAT (never ask twice, row 1, 29 Oct).**<br>The follow-up chat closed its replies with fixed sentences ("What are you trying to get or fix through the legal process?", "What are the main dates...?", "Has anything already been filed...?") that did not read the case file, so it asked what the person wants |
 | `npm run test:chat-first-line` | **The follow-up chat's replies read from the confirmed intake (L47), tested the**<br>way a person's message reaches it live. |

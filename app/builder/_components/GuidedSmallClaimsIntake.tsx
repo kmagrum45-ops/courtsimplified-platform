@@ -38,7 +38,7 @@ import { startSignIn } from "../../_components/startSignIn";
 import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
 import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
 import { storyQuoteFor } from "@/src/lib/case-system/intake/claimKind";
-import { alreadyAsked, askedAndReplied, caseFileOf } from "@/src/lib/case-system/caseFile/caseFile";
+import { alreadyAsked, askedAndReplied, caseFileOf, CASE_FILE_SECTION, withTurnedDown } from "@/src/lib/case-system/caseFile/caseFile";
 import { claimKindAiContext, classifyClaimTypeBody } from "@/src/lib/case-system/caseFile/aiCaseContext";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { WorkingButton, WorkingNote } from "@/app/_components/Working";
@@ -721,7 +721,9 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       if (result.claimGuidance) {
         setClaimGuidance(result.claimGuidance);
       }
-      if (result.suggestedClaimType && newStoryText) {
+      // Never a kind the person turned down ("Not quite") or removed: the case file keeps which (rule 6, 31 Oct).
+      const turnedDownKinds = caseFileOf(recovery?.getReview().checkpoint ?? null, recovery?.getSavedMaster() ?? undefined).claimKindRemoved ?? [];
+      if (result.suggestedClaimType && newStoryText && !turnedDownKinds.includes(result.suggestedClaimType.claimTypeId)) {
         setPendingSuggestion(result.suggestedClaimType);
         setRejectedSuggestionIds([]);
         setNoClaimTypeMatch(false);
@@ -899,6 +901,9 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         | { outcome: "revised"; suggestedClaimType: MatchedClaimType }
         | { outcome: "no-match" };
 
+      // "Not quite": kept by the case file, so the kind is never offered again on this case, after a
+      // reload or "Start the questions again" too (rule 6, 31 Oct; caseFile.ts claimKindRemoved).
+      if (action === "reject" && recovery) recovery.put(CASE_FILE_SECTION, "turnedDown", withTurnedDown(recovery.getReview().checkpoint.sections[CASE_FILE_SECTION], "claimKind", pendingSuggestion.claimTypeId), true);
       if (result.outcome === "confirmed") {
         // This path only runs after the person clicked "that's right" on the
         // suggestion card -- the one case where userConfirmed is actually true.

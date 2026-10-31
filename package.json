@@ -272,6 +272,7 @@
     "test:case-file-guard": "node --import tsx scripts/verification/verifyCaseFileGuard.ts",
     "test:kind-from-story": "node --import tsx scripts/verification/verifyKindFromStory.ts",
     "test:claim-kind-one-value": "node --import tsx scripts/verification/verifyClaimKindOneValue.ts",
+    "test:change-path": "node --import tsx scripts/verification/verifyChangePath.ts",
     "test:research-case-context": "node --import tsx scripts/verification/verifyResearchCaseContext.ts",
     "test:side-change": "node --import tsx scripts/verification/verifySideChange.ts",
     "test:raw-keys": "node --import tsx scripts/verification/verifyRawKeys.ts",

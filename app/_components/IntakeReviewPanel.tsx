@@ -8,7 +8,9 @@ import { useIntakeRecovery } from "./IntakeRecovery";
 import { NOTICE_GIVEN_EVENT } from "./FirstUseAcknowledgement";
 import { withServedDate } from "../builder/_components/guidedFields";
 import { dateAnswerCheck, formatForCourt, isDateQuestion } from "../../src/lib/case-system/dates";
-import { caseFileOf, slotsOfQuestion, slotText } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, claimKindOf, slotsOfQuestion, slotText, SLOT_FACTS, type CaseFile, type Slot, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import ChangeAnswer, { changeChoices, FACT_LABEL } from "./ChangeAnswer";
+import { inWords } from "../../src/lib/case-system/copy/rawKeys";
 import { isDateQuestionId } from "../../src/lib/case-system/casePosition";
 import { situationAnswers, situationOf } from "../../src/lib/case-system/situation/situation";
 import { locationOf, STORY_SECTION, storyOf } from "../../src/lib/case-system/intakeStory";
@@ -16,7 +18,7 @@ import StoryEditor from "../builder/_components/StoryEditor";
 import { freshSections, staleAnswerKeys, storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
 import StoryChangedNotice from "./StoryChangedNotice";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
-import { canReview, initialAnswersOf, reviewQuestionField, inputRevision, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
+import { canReview, changedAfterConfirm, initialAnswersOf, reviewQuestionField, inputRevision, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
 import NextStepStatus, { nextStepPressed, useNextStepReading } from "./NextStepStatus";
 import { WorkingNote } from "./Working";
 
@@ -87,6 +89,13 @@ export default function IntakeReviewPanel() {
   const [fieldNotes, setFieldNotes] = useState<Record<string, string>>({});
   // The order questions first appeared in (see shownQuestions below).
   const seenOrder = useRef<string[]>([]);
+  // ?change=<fact>: the case page's "Change" for that fact (CaseFilePanel), opened here with its choices.
+  const [changeFact] = useState<SlotFact | null>(() => {
+    if (typeof window === "undefined") return null;
+    const asked = new URLSearchParams(window.location.search).get("change");
+    return asked && (SLOT_FACTS as readonly string[]).includes(asked) ? asked as SlotFact : null;
+  });
+  useEffect(() => { if (changeFact) setViewing(true); }, [changeFact]);
   if (!view || !recovery || pathname !== "/builder") return null;
   const { checkpoint, workflowStatus } = view;
   const phase = reviewPhase(workflowStatus, checkpoint);
@@ -95,11 +104,13 @@ export default function IntakeReviewPanel() {
   const entries = reviewEntries(checkpoint).filter(entry => entry.essential || !empty(entry.value));
   // The saved case's own case file (its saved position too), the same one the results and case pages read (29 Oct).
   const savedMaster = recovery.getSavedMaster();
+  const caseFileNow = caseFileOf(checkpoint, savedMaster ?? undefined);
   const remaining = remainingEssentialQuestions(checkpoint, false, savedMaster ?? undefined);
   const unanswered = remainingEssentialQuestions(checkpoint, true, savedMaster ?? undefined);
   const listed = [
     ...unanswered,
-    ...answeredHere.filter(id => !unanswered.some(question => question.id === id)).map(id => ({ id, label: reviewQuestionField(checkpoint.courtPath, id)?.question ?? QUESTION_BANK.find(item => item.id === id)?.text ?? id })),
+    // A question whose fact was since changed with "Change" is not offered here with its older answer.
+    ...answeredHere.filter(id => !unanswered.some(question => question.id === id) && !slotsOfQuestion(id).some(fact => caseFileNow[fact].changed)).map(id => ({ id, label: reviewQuestionField(checkpoint.courtPath, id)?.question ?? QUESTION_BANK.find(item => item.id === id)?.text ?? id })),
   ];
   // Each question stays where it first appeared: an answered one moved to the end of the list,
   // so the questions jumped while the person was answering them (#471 re-test).
@@ -124,7 +135,7 @@ export default function IntakeReviewPanel() {
   const fresh = { ...checkpoint, sections: freshSections(checkpoint) };
   // The case file (caseFile.ts): an empty box whose fact was given, or answered "not sure",
   // somewhere else shows that answer instead of asking for it again.
-  const caseFile = caseFileOf(checkpoint, savedMaster ?? undefined);
+  const caseFile = caseFileNow;
   // Only an answer is shown in place of the box: a "not sure" fact is offered here once more, in its box.
   const answeredSlot = (field: string) => slotsOfQuestion(field).map(fact => caseFile[fact]).find(item => item.state === "answered") ?? null;
   // A "not sure" fact gets ONE box here (its one more offer): a later box for the same fact shows "Not sure yet".
@@ -138,6 +149,24 @@ export default function IntakeReviewPanel() {
     else for (const fact of unsure) offeredInBox.add(fact);
   }
   const heldSlot = (field: string) => answeredSlot(field) ?? (duplicateUnsure.has(field) ? slotsOfQuestion(field).map(fact => caseFile[fact]).find(item => item.state === "unsure") ?? null : null);
+  // ONE CHANGE PATH (rule 6, 31 Oct): a fact changed or removed with "Change" shows the case file's
+  // value on its box, never the form's own older copy; so does the fact the case page asked to change.
+  const changedFact = (field: string): [SlotFact, Slot] | null => slotsOfQuestion(field).map(fact => [fact, caseFile[fact]] as [SlotFact, Slot]).find(([fact, slot]) => slot.changed || (fact === changeFact && (slot.state === "answered" || slot.removed))) ?? null;
+  const court = checkpoint.courtPath;
+  // Facts with no box of their own here (the Small Claims kind of claim), held, changed, or asked for from the case page.
+  const covered = new Set(entries.flatMap(entry => slotsOfQuestion(entry.field)));
+  const extraFacts = SLOT_FACTS.filter(fact => !covered.has(fact) && changeChoices(fact, court) && (fact === changeFact || caseFile[fact].changed || (fact === "claimKind" && caseFile[fact].state === "answered")));
+  /** A held answer in words, as every screen shows it (the kind of claim through claimKindOf). */
+  const heldWords = (file: CaseFile, fact: SlotFact | undefined, slot: Slot) => fact === "claimKind" && slot.state === "answered" ? claimKindOf(file, inWords).words ?? slotText(slot, formatForCourt) : Array.isArray(slot.value) ? inWords(slot.value) : slotText(slot, formatForCourt);
+  /** The held line: the answer, where it came from, and "Change" (ChangeAnswer, the one write path). */
+  const heldLine = (fact: SlotFact | undefined, slot: Slot, ariaLabel: string, name?: string) => {
+    const atStart = !slot.changed && slot.source?.kind === "answer" && slot.source.question.startsWith("situation:");
+    return <p className="mt-1" data-testid="intake-entry-held" data-fact={fact} data-removed={slot.removed ? "true" : undefined} aria-label={ariaLabel}>
+      {name ? <span className="font-semibold">{name}: </span> : null}{slot.removed ? "Removed" : heldWords(caseFile, fact, slot)}{" "}
+      <span className="text-[#4d675f]">({slot.removed ? "you removed this answer; it is not asked again" : `your answer ${atStart ? "at the start; change it at the top of the page" : slot.changed ? "as you changed it; it is not asked again" : "already given; it is not asked again"}`})</span>
+      {fact && !atStart ? <ChangeAnswer key={`${fact}:${String(slot.value)}:${slot.removed ? "removed" : ""}`} fact={fact} court={court} startOpen={fact === changeFact} current={slot.value} /> : null}
+    </p>;
+  };
   async function act(action: "review" | "collect" | "confirm") {
     if (!recovery || busy) return;
     setBusy(true); setError("");
@@ -250,14 +279,14 @@ export default function IntakeReviewPanel() {
     {showEntries && <>
       <p>{phase === "user-confirmed" ? "This is what you confirmed. Changing anything here means confirming again." : "Edit the information below, or return to the intake controls to change choices. Empty answers remain unknown."}</p>
       <div className="mt-4 grid gap-4 md:grid-cols-2">
-        {entries.map(entry => { const held = empty(entry.value) && !entry.fromStart ? heldSlot(entry.field) : null; return <div key={`${entry.section}:${entry.nested ?? ""}:${entry.field}`} data-testid="intake-entry" data-field={entry.field} data-empty={empty(entry.value) && !entry.fromStart && !held ? "true" : "false"} className="block text-sm">
+        {entries.map(entry => { const changed = changedFact(entry.field); const held = changed ? changed[1] : empty(entry.value) && !entry.fromStart ? heldSlot(entry.field) : null; const heldFact = changed ? changed[0] : held ? slotsOfQuestion(entry.field).find(fact => caseFile[fact] === held) : undefined; return <div key={`${entry.section}:${entry.nested ?? ""}:${entry.field}`} data-testid="intake-entry" data-field={entry.field} data-empty={empty(entry.value) && !entry.fromStart && !held ? "true" : "false"} className="block text-sm">
           {entry.label}{!entry.essential && " (optional later detail)"}
           {entry.hint && empty(entry.value) && <span className="block text-[#4d675f]">{entry.hint}</span>}
           {entry.fromStory && empty(entry.value) ? <button type="button" data-testid="intake-entry-from-story" disabled={busy} onClick={() => edit(entry, entry.fromStory!.value)} className="mt-1 block rounded border px-3 py-1 text-left text-sm">Use &ldquo;{entry.fromStory.value.length > 160 ? `${entry.fromStory.value.slice(0, 157)}…` : entry.fromStory.value}&rdquo; (from your story)</button> : null}
           {staleKeys.has(`${entry.section}.${entry.nested ? `${entry.nested}.` : ""}${entry.field}`) && <span data-testid="intake-answer-stale" className="block text-[#7a4b12]">Answered for an earlier version of your story. Answer it again, or start the questions again.</span>}
           {/* The story: a draft saved with "Save story", as in the form (#470 re-test: typing here
               changed the story at once and set every answer aside). */}
-          {held ? <p className="mt-1" data-testid="intake-entry-held" aria-label={`Review: ${entry.label}`}>{slotText(held, formatForCourt)} <span className="text-[#4d675f]">(your answer {held.source?.kind === "answer" && held.source.question.startsWith("situation:") ? "at the start; change it at the top of the page" : "already given; it is not asked again"})</span></p>
+          {held ? heldLine(heldFact, held, `Review: ${entry.label}`)
           : entry.section === STORY_SECTION && entry.field === "text" ? <div className="mt-1"><StoryEditor section={checkpoint.courtPath} story={String(entry.value)} onSave={text => edit(entry, text)} startOpen draftField="reviewStoryDraft" label={`Review: ${entry.label}`} heading={null} showStory={false} ids={{ toggle: "review-story-edit", draft: "review-story-draft", save: "review-story-save" }} /></div>
           : entry.fromStart ? <p className="mt-1" data-testid="intake-entry-from-start" aria-label={`Review: ${entry.label}`}>{Array.isArray(entry.value) ? entry.value.map(value => shown(entry, value)).join(", ") : typeof entry.value === "string" ? shown(entry, entry.value) : String(entry.value)} <span className="text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
           : Array.isArray(entry.value) ? <div role="group" aria-label={`Review: ${entry.label}`}>{entry.value.length ? entry.value.map(value => <label key={value} className="mr-3 block"><input type="checkbox" checked disabled={busy} onChange={() => edit(entry, (entry.value as string[]).filter(item => item !== value))} /> {shown(entry, value)}</label>) : <span>Not recorded</span>}</div>
@@ -272,6 +301,7 @@ export default function IntakeReviewPanel() {
                 : <textarea aria-label={`Review: ${entry.label}`} className="mt-1 block min-h-20 w-full rounded border p-2" value={String(entry.value)} disabled={busy} onChange={event => { if (typeof entry.value === "number") { if (event.target.value.trim() && Number.isFinite(Number(event.target.value))) edit(entry, Number(event.target.value)); } else edit(entry, event.target.value); }} />}
         </div>; })}
       </div>
+      {extraFacts.length > 0 && <div className="mt-4 grid gap-2 text-sm" data-testid="intake-held-facts">{extraFacts.map(fact => <div key={fact}>{heldLine(fact, caseFile[fact], `Review: ${FACT_LABEL[fact]}`, FACT_LABEL[fact])}</div>)}</div>}
       {phase === "reviewing" && hiddenStale.length > 0 && <fieldset className="mt-5" data-testid="intake-hidden-stale"><legend>Other answers given for an earlier version of your story</legend>{hiddenStale.map(key => <div key={key} className="my-3" data-testid="intake-hidden-stale-item" data-key={key}>
         <p className="font-semibold">{HIDDEN_ANSWER_NAMES[key] ?? HIDDEN_ANSWER_NAMES[key.split(".").slice(0, 2).join(".")] ?? "An earlier answer"}</p>
         <p className="whitespace-pre-line text-[#4d675f]">{shownAnswer(key)}</p>
@@ -319,7 +349,9 @@ export default function IntakeReviewPanel() {
       {phase === "reviewing" ? <>
         {/* A late edit clears the tick (it covered the answers as they were); say so beside the
             button rather than leave it greyed out with no word why (site owner, 27 Oct). */}
-        {acceptedRevision !== null && acceptedRevision !== revision ? <p data-testid="intake-tick-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer. Please tick to confirm again.</p> : null}
+        {/* Confirmed, then an answer changed (rule 6, 31 Oct): said in the owner's words until confirmed again, after a reload too. */}
+        {changedAfterConfirm(workflowStatus, checkpoint) && acceptedRevision !== revision ? <p data-testid="intake-confirm-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer, so please review and confirm again.</p>
+        : acceptedRevision !== null && acceptedRevision !== revision ? <p data-testid="intake-tick-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer. Please tick to confirm again.</p> : null}
         <label className="mt-5 block"><input data-testid="intake-review-acknowledgement" type="checkbox" checked={acceptedRevision === revision} disabled={busy} onChange={event => setAcceptedRevision(event.target.checked ? revision : null)} /> I have reviewed this information, including anything that is missing or uncertain.</label>
         <button data-testid="intake-confirm" type="button" disabled={busy || needs.length > 0} onClick={() => void act("confirm")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Confirm my initial information</button>{" "}
         <button type="button" disabled={busy} onClick={() => void act("collect")}>Return to intake controls</button>

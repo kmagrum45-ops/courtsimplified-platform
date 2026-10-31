@@ -37,7 +37,7 @@ import { userStory } from "@/src/lib/case-system/userStory";
 import { kindsOfClaim } from "@/src/lib/case-system/intake/claimKind";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { savePositionQueued } from "./positionSave";
-import { claimKindAnswer, claimKindLine, CLAIM_KIND_QUESTION, type ClaimKindHeld } from "@/src/lib/case-system/caseFile/caseFile";
+import { changedWords, claimKindAnswer, claimKindLine, CLAIM_KIND_QUESTION, type CaseFile, type ClaimKindHeld } from "@/src/lib/case-system/caseFile/caseFile";
 import { WorkingButton } from "@/app/_components/Working";
 
 type Props = {
@@ -57,6 +57,11 @@ type Props = {
    * (site owner, 29 Oct).
    */
   claimKind?: ClaimKindHeld | null;
+  /**
+   * The case file, for the facts this card still shows from the analysis copy (amount, other party,
+   * what they want): a change made with "Change" is shown instead, a removed one not at all (rule 6, 31 Oct).
+   */
+  caseFile?: CaseFile | null;
   /** Where the case is, in words: the step the person picked, by its own title (caseStep.ts caseStageWords). */
   stageWords?: string | null;
   /** The side in the person's own start answers ("I started this case (applicant)"), for a case already going. */
@@ -114,7 +119,7 @@ function SourcedList({ items }: { items: SourcedListItem[] }) {
 
 const GENERIC_CONFIRM_QUESTION = "What important fact should be confirmed next?";
 
-export default function IntelligenceOverviewPanel({ analysis, intake, confirmedStage = null, caseId = null, claimKind = null, stageWords = null, roleWords = null }: Props) {
+export default function IntelligenceOverviewPanel({ analysis, intake, confirmedStage = null, caseId = null, claimKind = null, caseFile = null, stageWords = null, roleWords = null }: Props) {
   // A kind picked from the list here, shown at once: it is written to the case file (the saved position's kind of claim,
   // read first by caseFileOf), which the page reads the next time it loads the case.
   const [pickedHere, setPickedHere] = useState<string | null>(null);
@@ -129,9 +134,13 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   const hasClaimAndService = analysis.courtPath === "small-claims" && documents.includes("plaintiffs-claim") && documents.includes("affidavit-service");
   // The user's own story, not the labelled record the analysis reads.
   const facts = userStory(intake);
-  const amount = textField(intake, "amountClaimed");
-  const outcome = intake?.goal.trim() || textField(intake, "legalRemedy");
-  const parties = [intake?.yourName.trim(), intake?.otherParty.trim()].filter(Boolean).join(" and ");
+  // A fact changed or removed with "Change" is the case file's, never this copy's older value (rule 6, 31 Oct).
+  const changedAmount = changedWords(caseFile, "amount");
+  const changedWants = changedWords(caseFile, "wants");
+  const changedOther = changedWords(caseFile, "otherParty");
+  const amount = changedAmount !== undefined ? changedAmount ?? "" : textField(intake, "amountClaimed");
+  const outcome = changedWants !== undefined ? changedWants ?? "" : intake?.goal.trim() || textField(intake, "legalRemedy");
+  const parties = [intake?.yourName.trim(), changedOther !== undefined ? changedOther ?? "" : intake?.otherParty.trim()].filter(Boolean).join(" and ");
   const rawIssueSignals = Array.from(new Set([...(analysis.detectedIssues || []), ...(analysis.legalIssues || []), ...(analysis.detectedClaimTypes || []), ...listField(intake, "issueLabels")].filter(Boolean)));
   // "unknown" is the engines' unclassified domain, not an issue. Dropping it
   // here keeps it out of the list; when it was the only signal the card falls

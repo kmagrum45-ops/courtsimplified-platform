@@ -10,7 +10,7 @@ import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineVal
 import { amountFromStory, goalFromStory, kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
-import { alreadyAsked, caseFileOf, slotsOfQuestion } from "./caseFile/caseFile";
+import { alreadyAsked, caseFileOf, changesOf, claimKindOf, emptyCaseFile, slotsOfQuestion } from "./caseFile/caseFile";
 import { LOAN_WORDS } from "./intake/claimKind";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
 
@@ -199,8 +199,15 @@ function materialFacts(checkpoint: Checkpoint): Map<string, string> {
   if (Array.isArray(answers) && answers.length) facts.set("home.understoodAnswers", canonicalJson(answers));
   // The situation answers (situation.ts) are facts the guidance rests on: changing one is confirmed again.
   for (const [key, value] of Object.entries(situationOf(checkpoint.sections))) facts.set(JSON.stringify(["situation", key]), canonicalJson(value));
+  // The change record (caseFile.ts withChange): each change is a change of a confirmed fact (rule 6,
+  // 31 Oct), so it cancels the confirmation that rested on the old answer (isChangeKey below).
+  for (const [fact, change] of Object.entries(changesOf(checkpoint.sections))) facts.set(JSON.stringify([CHANGE_KEY, fact]), canonicalJson(change));
   return facts;
 }
+
+/** The material-fact key of one fact's change record: a change counts even where the fact had no key before. */
+const CHANGE_KEY = "caseFile.change";
+const isChangeKey = (key: string) => key.startsWith(`["${CHANGE_KEY}",`);
 
 export function materialInitialFacts(checkpoint: Checkpoint): string {
   return JSON.stringify([...materialFacts(checkpoint)].sort(([a], [b]) => a.localeCompare(b)));
@@ -214,7 +221,10 @@ export function materialInitialFacts(checkpoint: Checkpoint): string {
  */
 export function existingFactChanged(previous: Checkpoint, next: Checkpoint): boolean {
   const after = materialFacts(next);
-  for (const [key, value] of materialFacts(previous)) if (after.get(key) !== value) return true;
+  const before = materialFacts(previous);
+  for (const [key, value] of before) if (after.get(key) !== value) return true;
+  // A new change through "Change" is never "only an added answer": it replaces or removes one.
+  for (const [key, value] of after) if (isChangeKey(key) && before.get(key) !== value) return true;
   return false;
 }
 
@@ -261,7 +271,9 @@ export function confirmedAnswerChanged(workflow: ObjectValue, previous: Checkpoi
   const marks = object(object(workflow.intakeReview).confirmedFacts);
   if (!Object.keys(marks).length) return existingFactChanged(previous, next);
   const now = confirmedFactMarks(next);
-  return Object.entries(marks).some(([key, mark]) => now[key] !== mark);
+  // A change made through "Change" after Confirm replaces or removes a confirmed answer, even where
+  // the answer it replaces was held outside these marks (the saved position, the saved copy).
+  return Object.entries(marks).some(([key, mark]) => now[key] !== mark) || Object.entries(now).some(([key, mark]) => isChangeKey(key) && marks[key] !== mark);
 }
 
 /**
@@ -505,7 +517,10 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
   // A loan named ("I lent my cousin $2,000 and she never paid it back") is a loan, not money owed for work.
   const owedForWork = /\b(invoice\w*|unpaid|never paid|did not pay|didn't pay|won't pay)\b/i.test(story) && !/\b(i|we) paid\b|\bdeposit\b/i.test(story) && !LOAN_WORDS.test(story);
   const category = owedForWork ? "Unpaid money owed to you" : kindsFromStory(story, SMALL_CLAIMS_KIND_CUES, { first: true })?.value[0];
-  if (category) out["sc-orient-dispute-category"] = category;
+  // Never a kind the person removed or turned down ("Not quite"), rule 6 (31 Oct): the case file says which.
+  const file = caseFileOf(checkpoint);
+  const named = claimKindOf({ ...emptyCaseFile(), claimKind: { state: "answered", value: category ?? "", confirmed: true } }).claimTypeId;
+  if (category && !file.claimKind.removed && !(named && file.claimKindRemoved?.includes(named))) out["sc-orient-dispute-category"] = category;
   // The amount and the outcome, read as the form already reads them (storyAnswers.ts).
   const amount = amountFromStory(story);
   if (amount) out["sc-amount-claimed"] = amount.value;
@@ -556,5 +571,13 @@ export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, 
 export function reconcileReview(workflow: ObjectValue, previous: Checkpoint, next: Checkpoint, fromReview = false): ObjectValue {
   const phase = reviewPhase(workflow, previous);
   const reviewing = phase === "reviewing" || (fromReview && phase === "user-confirmed");
-  return { ...invalidateReview(workflow), ...(reviewing ? { intakeReview: { version: 1, reviewedRevision: inputRevision(next) } } : {}) };
+  // Remembered until confirmed again, so the review can say why (rule 6, 31 Oct): "You changed an
+  // answer, so please review and confirm again." Kept on the server too (saveCheckpoint reconciles).
+  const marker = phase === "user-confirmed" || object(workflow.intakeReview).changedAfterConfirm === true ? { changedAfterConfirm: true } : {};
+  return { ...invalidateReview(workflow), intakeReview: { version: 1, ...(reviewing ? { reviewedRevision: inputRevision(next) } : {}), ...marker } };
+}
+
+/** An answer was changed after Confirm and it is not confirmed again yet: the review says so (reconcileReview). */
+export function changedAfterConfirm(workflow: ObjectValue, checkpoint: Checkpoint): boolean {
+  return object(workflow.intakeReview).changedAfterConfirm === true && reviewPhase(workflow, checkpoint) !== "user-confirmed";
 }

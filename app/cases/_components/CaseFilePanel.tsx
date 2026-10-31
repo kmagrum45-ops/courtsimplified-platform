@@ -78,7 +78,11 @@ export default function CaseFilePanel({ file, changeHref, situationHref, stepHre
         {lines.map((fact) => {
           const slot = file[fact];
           const question = slot.source?.kind === "answer" ? slot.source.question : "";
-          const href = question.startsWith("situation:") ? situationHref : /date|^step$/.test(question) ? stepHref : changeHref;
+          // "Change" opens that fact's own choices in the review (?change=<fact>, ChangeAnswer.tsx, the one
+          // write path; rule 6, 31 Oct). Side, court, stage and papers choose the court and its steps:
+          // they are changed with the start questions; a day picked on the step page, there.
+          const viaChange = !question.startsWith("situation:") && !/date|^step$/.test(question) && !["side", "court", "stage", "papers"].includes(fact);
+          const href = question.startsWith("situation:") ? situationHref : /date|^step$/.test(question) ? stepHref : viaChange ? `${changeHref}${changeHref.includes("?") ? "&" : "?"}change=${fact}` : changeHref;
           return (
             <div key={fact} className="contents" data-testid="case-file-line" data-fact={fact} data-state={slot.state} data-question={fact} data-source={question}>
               <dt className="font-semibold text-[#10231f]">{(fact === "conferenceDate" ? conferenceKind(slot) : null) ?? LABEL[fact]}</dt>
