@@ -256,6 +256,13 @@ The rule that results: per fact, the latest accepted save wins, and an edit made
 - The call runs inside `withNameLabelsFor` (`privacy/modelNameContext.ts`). The one client (`openaiClient.ts`) replaces every name with a label in what is sent and puts the names back in what comes back. So the model sees "Party B lives in Kanata", never "Sam Test".
 - Places and amounts are sent as written; they are the facts being read.
 - `store: false` is forced on every request (`openaiClient.ts:59`).
+- **How a quote is checked and a name restored (founder, 31 Oct):**
+  1. The model sees the labelled story, where every spelling of one person ("Sam Test", "Sam") shares one label ("Party B"), so it reads them as one person.
+  2. Each suggestion's `quote` is checked word for word against that **labelled** text. A quote not found there is dropped.
+  3. The quote's position in the labelled text is mapped back to the same position in the person's own story, and that stretch of the original story becomes the shown quote. So "sees Party B" becomes "sees Sam" and "Party B lives in Kanata" becomes "Sam lives in Kanata": the person's own spelling, never a different one.
+  4. A `value` that contains a label is restored the same way, from the spelling used at that place in the story.
+  - **Failing-first test:** the Sam Test story through the reader with a stand-in model that answers with the labelled quotes the probe got ("son age 8 lives with me and sees Party B every second weekend", "Party B lives in Kanata"). It must return those suggestions with quotes that appear word for word in the original story ("…sees Sam every second weekend", "Sam lives in Kanata"). It fails against today's whole-text label restore, which wrote "Sam Test" in both places (probe, 31 Oct).
+- **The AI call log (founder, 31 Oct):** the real reader runs inside the shared AI call wrapper (`withAiCallContext`, `audit/aiCallLog.ts`), so every call is recorded with its call type, model, input fingerprint and length, redacted output and latency, never the story. The probe ran outside it ("model call made outside withAiCallContext; not recorded"). The reader's tests assert that a call made outside the wrapper fails.
 - The story is never written to logs. The AI call log stores only a fingerprint and length of the input (`aiCallLog.ts`).
 
 **Cost per story (estimate):**
@@ -275,7 +282,7 @@ The rule that results: per fact, the latest accepted save wins, and an edit made
 - **Moving company:** it suggested the other party ("A moving company"), the kind (in free text), when ("in May") and evidence ("I have photos."), all with exact quotes. **No vehicle suggestion.**
 - **Sam Test:** it suggested 11 facts, including the ones today's word patterns miss: married ("married 10 years"), the children ("son age 8"), the other parent's income ("earns about $70,000"), separation, support paid, order or agreement, what they want, and the remedy type. **9 of 11 quotes are word for word.**
 - **Two quotes failed the check:** time split, and the other parent's residence. **The cause is the name labels, not the model.** "Sam Test" and "Sam" were both labelled "Party B", so the client turned "Party B" back into "Sam Test" in the answer, while the story says "sees Sam" and "Sam lives".
-  - Design fix: check quotes against the labelled text the model saw, then restore names by position. Or give each spelling its own label.
+  - **Decided (founder, 31 Oct):** check each quote against the labelled text the model saw, then restore the person's own spelling by position in the story (see "Names and privacy" above). Each spelling does not get its own label, because the model would then treat "Sam" and "Sam Test" as two people.
   - The word-for-word check caught it, as intended, so those two suggestions would have been dropped, not shown wrong.
 - **The kind came back as free text.** The real reader limits the kind to the catalogue's ids, as the claim-type classifier does.
 
