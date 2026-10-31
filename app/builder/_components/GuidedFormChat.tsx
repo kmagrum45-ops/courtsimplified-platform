@@ -3,6 +3,7 @@
 import { useIntakeReviewView, useIntakeState } from "../../_components/IntakeRecovery";
 import { askedAndReplied, caseFileOf, chatMayAsk, offeredOnceMore, slotsOfQuestion } from "../../../src/lib/case-system/caseFile/caseFile";
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
+import { NOTHING_LEFT_TO_ASK } from "../../../src/lib/case-system/copy/askCopy";
 import { openSituationChange } from "../../_components/SituationQuestions";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import StoryGuidance from "../../_components/StoryGuidance";
@@ -500,7 +501,7 @@ export default function GuidedFormChat({
               </details>
             </div>
           ) : null}
-          <p className="text-sm text-[#16302b]">That&apos;s everything we need for now. You can change any answer above.</p>
+          <p data-testid="guided-nothing-left" className="text-sm text-[#16302b]">{NOTHING_LEFT_TO_ASK} You can change any answer above.</p>
           <button
             type="button"
             data-testid="guided-form-done"

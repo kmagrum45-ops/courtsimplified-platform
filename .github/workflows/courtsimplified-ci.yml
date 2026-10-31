@@ -721,6 +721,7 @@ jobs:
           tests/browser/items-8-12.spec.ts
           tests/browser/retest-29oct-flow.spec.ts
           tests/browser/claim-kind-one-value.spec.ts
+          tests/browser/chrome-31oct-review.spec.ts
           tests/browser/never-ask-twice-reading.spec.ts
           tests/browser/story-box-guidance.spec.ts
           tests/browser/address-opens-chosen-case.spec.ts

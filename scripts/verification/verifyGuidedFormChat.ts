@@ -250,7 +250,7 @@ console.log("\n4b. Walkthrough run 38525903567: the echo, the closing answer, th
   const chat = read("app/builder/_components/GuidedFormChat.tsx");
   check("no part of the chat slices text for display any more", !/\.slice\(0, (?:157|197)\)/.test(chat));
   // 5: the closing answer is shown when the questions end, with its rules.
-  check("the chat shows the closing answer, with the rules it restates, before 'That's everything'", /data-testid="guided-form-closing"[\s\S]{0,1200}closing\.rules\.map[\s\S]{0,1200}That&apos;s everything we need for now/.test(chat));
+  check("the chat shows the closing answer, with the rules it restates, before 'That's everything'", /data-testid="guided-form-closing"[\s\S]{0,1200}closing\.rules\.map[\s\S]{0,1200}data-testid="guided-nothing-left"/.test(chat));
   // 9: a partial story answer is filled in, editable, and only the rest is asked.
   check("a partial story answer is shown with its quote and asks only the rest", /data-testid="guided-form-partial-from-story"/.test(chat) && /partial \? partial\.question : current\.question/.test(chat));
   check("the filled-in part is saved only on Next, from the box the person sees", /answer\(current\.kind === "multi" \? draft : boxValue\)/.test(chat));

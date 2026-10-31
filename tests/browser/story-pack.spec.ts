@@ -1274,13 +1274,17 @@ test("retest Charter: the review fits the claim, the story answers in one click,
   expect(review, "a plaintiff is not asked when and how they were served").not.toContain("When and how you were served");
   for (const label of ["Human rights grounds", "Discrimination facts", "Accommodation requests", "Institutional facts", "Privacy records facts", "Government actor"]) expect(review, `no raw label "${label}"`).not.toContain(label);
   expect(rawKeysIn(review), "no raw code in the review").toEqual([]);
-  // The kind of claim, suggested from the story's own words, ticked for the person to confirm.
+  // The kind of claim, suggested from the story's own words, offered for the person to confirm in one click.
+  // Never shown ticked before they tick it (owner's Chrome check, 31 Oct: a pre-ticked suggestion read as an
+  // answer, so the first click unticked it).
   const issues = panel.locator('[data-testid=intake-initial-question][data-question="issues"]');
   if (await issues.count()) {
-    await expect(issues.locator('input[data-testid=intake-field-pick][value="charter"]')).toBeChecked();
-    await expect(issues.locator('input[data-testid=intake-field-pick][value="police-conduct"]')).toBeChecked();
+    await expect(issues.locator('input[data-testid=intake-field-pick][value="charter"]')).not.toBeChecked();
+    await expect(issues.getByTestId("intake-field-use-suggestion")).toContainText("Charter");
+    await expect(issues.getByTestId("intake-field-use-suggestion")).toContainText("Police");
     await expect(issues.getByTestId("intake-field-pick-quote")).toContainText("Charter");
-    await issues.getByTestId("intake-field-save").click();
+    await issues.getByTestId("intake-field-use-suggestion").click();
+    await expect(issues).toHaveAttribute("data-answered", "true");
   }
   // The amount and what they want, one click each from the story.
   for (const [question, words] of [["amountClaimed", "$75,000"], ["legalRemedy", "violating my Charter rights"]] as const) {
