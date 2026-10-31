@@ -173,6 +173,26 @@ Each save point keeps writing its old copy too, so that unconverted screens stil
 - **Recommendation:** Phase 1 (writers plus shared readers) first, then Small Claims, civil and Family as decided.
 - **This changes the order the founder set, so it waits for the founder's yes.** Until then, the decided order stands.
 
+### Phase 1: approved (founder, 31 Oct), in small groups
+
+It starts only after #536's fault-1 fix and item C are pushed with valid carry runs (they touch the same files). After each group: the full local lists, then one valid carry run (the local-database run once it is validated, else staging, one at a time). The carry list may not rise; if any entry is added, stop and report why.
+
+| Group | What moves | Why this order | Expected effect on the list |
+|---|---|---|---|
+| **G0: the rails** (no save point moves yet) | `give` exported; `POST /api/cases/facts` (server `seq`, owner check, compare-and-set retry); the one field-to-fact mapping table; the permanent check `test:one-writer`, which fails on any save point not in the shrinking list, starting from today's full inventory; failing-first tests for coexistence (§11) and two tabs (§12) | Nothing may move before the rules it relies on are tested | none (tests only) |
+| **G1: shared readers** | the case title and `CaseHomeContext`, the dashboard card, the form prefill `storedIntakeValues`, `generate-form` values, and the civil/Family analysis narratives, all onto `caseFileOf` | The 42 removals are attributed to these readers; they are court-independent and only read | The 42 "returned after removal" entries (civil 21, Family 21) should clear. Wrong if they remain in two valid runs |
+| **G2: review and case-file writers** | `IntakeReviewPanel` (`builder.initialAnswers`/`initialUnknowns`), `ChangeAnswer`, `NotAnsweredYet`, and the position route (`position.claimKind`, `dateAnswers`) | They already write through the change record; this makes it the only write | some review and review-entry "asked twice" entries; few, after item C |
+| **G3: Small Claims intake writers** | `guided.*` and `small-claims.input` (`GuidedSmallClaimsIntake`, `SmallClaimsIntake`) | One court's components at a time | none expected until Small Claims' readers move in the court step |
+| **G4: civil writers** | `civil.input`, `form-chat.*` (`CivilIntake`, `GuidedFormChat`) | Same | none expected |
+| **G5: Family writers** | `family.*`, `builder.triageState`, the `familyStatus` copy, `ChildSupportIntake` | Same | none expected |
+| **G6: remaining writers** | the analysis save (`builder/page.tsx:1099`, `intakeData`), `intakeAnswers`, `intakeFacts`, drafts, `casePicture`, the home story and location, and `api/cases/route.ts:346` (no caller found; deleted if confirmed unused) | The least fact-bearing writers last | none expected |
+
+**Which entries Phase 1 should not clear, and why:**
+- The per-court "asked twice" entries from surfaces that ask without the gate: the three whole forms (19 form-field entries), the Small Claims guided selector, and the event candidates (14). Those clear only when each court's question surfaces move to the question engine, in the court steps.
+- The 2 amount "screens disagree" entries, which come from the overview's Small Claims copy and the questions route.
+
+**Days (estimates):** G0 2; G1 2–3; G2 1; G3–G5 1 each; G6 1. **Total 8–10,** within the earlier 6–9 range plus the rails. Wrong if `test:one-writer`'s inventory in G0 finds more than about 80 save points, or if G1 does not clear the removals.
+
 ## 11. Coexistence while old screens still write old copies
 
 **The rule:** for any fact, once a fact record exists in `caseFile.facts`, every old copy of that fact is ignored by `caseFileOf` and by every converted reader, whatever is written there later. The legacy adapter (`legacyFactsOf`, §3) reads old copies only for a fact with no record, in today's order.
