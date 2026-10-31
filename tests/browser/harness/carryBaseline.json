@@ -93,15 +93,6 @@
     },
     {
       "kind": "asked-twice",
-      "fact": "claimKind",
-      "where": "chat@/builder",
-      "court": "civil",
-      "route": "form",
-      "who": "signed-in",
-      "reason": "Seen by the carry test in the civil form signed-in run on chat@/builder: twice: What kind of case is it? Pick everything that fits. Why we ask: Different kinds of cases have different rules and forms, (given at review:issues@/builder \"What kind of case is it? Pick everything that fits. Contract / agreement dispu"
-    },
-    {
-      "kind": "asked-twice",
       "fact": "otherParty",
       "where": "review@/builder",
       "court": "civil",
@@ -245,15 +236,6 @@
       "reason": "Seen by the carry test in the civil questions guest run on review-entry@/builder: held: The other side (held answered)"
     },
     {
-      "kind": "asked-twice",
-      "fact": "claimKind",
-      "where": "chat@/builder",
-      "court": "civil",
-      "route": "questions",
-      "who": "guest",
-      "reason": "Seen by the carry test in the civil questions guest run on chat@/builder: held: What kind of case is it? Pick everything that fits. Why we ask: Different kinds of cases have different rules and forms, (held answered)"
-    },
-    {
       "kind": "returned-after-removal",
       "fact": "otherParty",
       "where": "overview (after change and removal)",
@@ -380,15 +362,6 @@
       "reason": "Seen by the carry test in the civil review guest run on review@/builder: held: Who is the other side (a person or a business)? You can leave the name for later. Use “A builder” (from your story) I do (held answered)"
     },
     {
-      "kind": "asked-twice",
-      "fact": "claimKind",
-      "where": "chat@/builder",
-      "court": "civil",
-      "route": "review",
-      "who": "guest",
-      "reason": "Seen by the carry test in the civil review guest run on chat@/builder: held: What kind of case is it? Pick everything that fits. Why we ask: Different kinds of cases have different rules and forms, (held answered)"
-    },
-    {
       "kind": "returned-after-removal",
       "fact": "otherParty",
       "where": "overview (after change and removal)",
@@ -468,15 +441,6 @@
       "route": "form",
       "who": "signed-in",
       "reason": "Seen by the carry test in the family form signed-in run on review-entry@/builder: twice: Anything urgent (given at review:urgent@/builder \"unsure\")"
-    },
-    {
-      "kind": "asked-twice",
-      "fact": "claimKind",
-      "where": "chat@/builder",
-      "court": "family",
-      "route": "form",
-      "who": "signed-in",
-      "reason": "Seen by the carry test in the family form signed-in run on chat@/builder: twice: What is the case about? Pick everything that applies. Why we ask: Each issue has its own forms and steps, so this keeps (given at review:issues@/builder \"What is the case about? Pick everything that applies. Decision-making responsib"
     },
     {
       "kind": "asked-twice",
@@ -605,15 +569,6 @@
       "reason": "Seen by the carry test in the family questions guest run on review-entry@/builder: held: The other person (held answered)"
     },
     {
-      "kind": "asked-twice",
-      "fact": "claimKind",
-      "where": "chat@/builder",
-      "court": "family",
-      "route": "questions",
-      "who": "guest",
-      "reason": "Seen by the carry test in the family questions guest run on chat@/builder: held: What is the case about? Pick everything that applies. Why we ask: Each issue has its own forms and steps, so this keeps (held answered)"
-    },
-    {
       "kind": "returned-after-removal",
       "fact": "otherParty",
       "where": "overview (after change and removal)",
@@ -729,15 +684,6 @@
       "route": "review",
       "who": "guest",
       "reason": "Seen by the carry test in the family review guest run on review@/builder: held: What is the other person's name? You can leave this for later. I do not know yet (held answered)"
-    },
-    {
-      "kind": "asked-twice",
-      "fact": "claimKind",
-      "where": "chat@/builder",
-      "court": "family",
-      "route": "review",
-      "who": "guest",
-      "reason": "Seen by the carry test in the family review guest run on chat@/builder: held: What is the case about? Pick everything that applies. Why we ask: Each issue has its own forms and steps, so this keeps (held answered)"
     },
     {
       "kind": "asked-twice",
