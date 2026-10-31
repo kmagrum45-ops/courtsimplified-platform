@@ -170,6 +170,11 @@ for (const item of FACTS) {
   check("2. overview: a removed other party is not shown from the analysis copy", !s.overview.includes("Jordan Testperson and") && !/Parties recorded Jordan Testperson/.test(s.overview), s.overview.slice(0, 500));
   check("1. overview: a changed amount is shown, not the analysis copy's", s.overview.includes("4,500") && !/Amount \$?10,000/.test(s.overview), s.overview.slice(0, 500));
   check("2. overview: a removed outcome is not shown from the analysis copy", !s.overview.includes("an apology"), s.overview.slice(0, 500));
+  // The chat's and the AI's fact text (caseRecord.ts), and "Check my case file" (caseReview.ts), read the same change.
+  check("2. the AI's fact text (every chat's case context) does not name a removed other party", !s.ai.includes("Jordan Testperson"), s.ai);
+  check("1. the AI's fact text gives the changed amount", s.ai.includes("Amount: $4,500"), s.ai);
+  const checked = caseFileFromMasterResult(savedCase(cp), "small-claims");
+  check("2. \"Check my case file\" reads no removed other party or outcome, and the changed amount", checked.otherParty === "" && checked.goalText === "" && /4,500/.test(checked.amountText), JSON.stringify({ otherParty: checked.otherParty, goal: checked.goalText, amount: checked.amountText }));
 }
 
 // --- 3. latest wins ------------------------------------------------------------------------------

@@ -29,7 +29,8 @@
  */
 
 import { userStory } from "../userStory";
-import { claimKindOfMaster } from "../caseFile/caseFileOfMaster";
+import { caseFileOfMaster, claimKindOfMaster } from "../caseFile/caseFileOfMaster";
+import { changedWords } from "../caseFile/caseFile";
 import { parseRecordedAmount } from "../format/recordedAmount";
 
 export const CASE_REVIEW_RULES_SOURCE = {
@@ -247,6 +248,9 @@ export function caseFileFromMasterResult(masterResult: unknown, courtPath: strin
   >;
   const extra = (intake.extra && typeof intake.extra === "object" ? intake.extra : {}) as Record<string, unknown>;
   const claimKind = claimKindOfMaster(master, str(intake.courtPath) || courtPath);
+  // A fact the person changed or removed with "Change" is the case file's, never the analysis copy's (rule 6, 31 Oct).
+  const changedFile = caseFileOfMaster(master, str(intake.courtPath) || courtPath);
+  const latest = (fact: "amount" | "otherParty" | "wants", copy: string) => { const said = changedWords(changedFile, fact); return said === undefined ? copy : said ?? ""; };
   const filed = Array.isArray(extra.filedDocuments)
     ? extra.filedDocuments.filter((item): item is string => typeof item === "string")
     : [];
@@ -258,12 +262,12 @@ export function caseFileFromMasterResult(masterResult: unknown, courtPath: strin
     // The person's own story, never the labelled record the civil and Family intakes save with names in it.
     story: userStory(intake as never),
     yourName: str(intake.yourName),
-    otherParty: str(intake.otherParty),
+    otherParty: latest("otherParty", str(intake.otherParty)),
     otherPartyAddress: str(extra.defendantAddress),
-    amountText: str(extra.amountClaimed),
+    amountText: latest("amount", str(extra.amountClaimed)),
     timelineText: str(intake.timeline),
     evidenceText: str(intake.evidence),
-    goalText: str(intake.goal),
+    goalText: latest("wants", str(intake.goal)),
     // The kind of claim from the case file, the one place every screen reads it (site owner, 29 Oct).
     claimTypeId: claimKind.claimTypeId,
     claimKindWords: claimKind.state === "answered" ? claimKind.words : null,

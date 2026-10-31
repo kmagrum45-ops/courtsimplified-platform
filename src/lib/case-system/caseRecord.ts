@@ -20,8 +20,8 @@
  * are.
  */
 
-import { claimKindOfMaster } from "./caseFile/caseFileOfMaster";
-import type { ClaimKindHeld } from "./caseFile/caseFile";
+import { caseFileOfMaster, claimKindOfMaster } from "./caseFile/caseFileOfMaster";
+import { changedWords, type ClaimKindHeld } from "./caseFile/caseFile";
 import { nameRecorded } from "./privacy/modelPayloadNames";
 import { readCasePosition, settledStage, suggestedDatesFromAnswers, type CasePosition } from "./casePosition";
 import { filingFactsFromDocuments, recordedDocuments } from "./intelligence/answeredQuestions";
@@ -136,6 +136,9 @@ export function readCaseRecord(masterResult: unknown, courtPathColumn?: string |
   const courtPath = courtPathOf(courtPathColumn) ?? courtPathOf(intake.courtPath);
   const position = readCasePosition(master, courtPath);
   const claimKind = claimKindOfMaster(master, courtPath);
+  // A fact the person changed or removed with "Change" is the case file's, never the analysis copy's (rule 6, 31 Oct).
+  const changedFile = caseFileOfMaster(master, courtPath);
+  const latest = (fact: "amount" | "otherParty", copy: string) => { const said = changedWords(changedFile, fact); return said === undefined ? copy : said ?? ""; };
 
   // Guided answers the person confirmed (saved as intakeAnswers since
   // 2026-10-07), then their own dates on the case page, which win.
@@ -158,12 +161,12 @@ export function readCaseRecord(masterResult: unknown, courtPathColumn?: string |
     position,
     startStepId: startStepOf(master, courtPath, position),
     dates,
-    amount: recordedAmountOf(intake),
+    amount: latest("amount", recordedAmountOf(intake)),
     // The kind of claim from the case file, as every screen reads it (site owner, 29 Oct).
     claimTypeId: claimKind.claimTypeId,
     claimKind,
     yourName: text(intake.yourName) || text(extra.yourName) || text(civil.yourName),
-    otherParty: text(intake.otherParty) || text(extra.otherParty) || text(civil.otherParty),
+    otherParty: latest("otherParty", text(intake.otherParty) || text(extra.otherParty) || text(civil.otherParty)),
     // Small Claims saves its court file number as extra.claimNumber (SmallClaimsIntake).
     courtFileNumber: text(civil.courtFileNumber) || text(extra.courtFileNumber) || text(intake.courtFileNumber) || text(extra.claimNumber),
     city: text(extra.yourCity) || text(extra.city) || text(civil.city),

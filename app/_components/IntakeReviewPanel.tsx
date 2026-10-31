@@ -151,7 +151,7 @@ export default function IntakeReviewPanel() {
   const heldSlot = (field: string) => answeredSlot(field) ?? (duplicateUnsure.has(field) ? slotsOfQuestion(field).map(fact => caseFile[fact]).find(item => item.state === "unsure") ?? null : null);
   // ONE CHANGE PATH (rule 6, 31 Oct): a fact changed or removed with "Change" shows the case file's
   // value on its box, never the form's own older copy; so does the fact the case page asked to change.
-  const changedFact = (field: string): [SlotFact, Slot] | null => slotsOfQuestion(field).map(fact => [fact, caseFile[fact]] as [SlotFact, Slot]).find(([fact, slot]) => slot.changed || (fact === changeFact && (slot.state === "answered" || slot.removed))) ?? null;
+  const changedFact = (field: string): [SlotFact, Slot] | null => slotsOfQuestion(field).map(fact => [fact, caseFile[fact]] as [SlotFact, Slot]).find(([fact, slot]) => slot.changed || (fact === "claimKind" && slot.state === "answered") || (fact === changeFact && (slot.state === "answered" || slot.removed))) ?? null;
   const court = checkpoint.courtPath;
   // Facts with no box of their own here (the Small Claims kind of claim), held, changed, or asked for from the case page.
   const covered = new Set(entries.flatMap(entry => slotsOfQuestion(entry.field)));
