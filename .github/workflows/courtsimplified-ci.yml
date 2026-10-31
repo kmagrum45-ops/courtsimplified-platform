@@ -288,6 +288,9 @@ jobs:
       - name: The kind of dispute a story supports, offered to tick, in all three courts through one reader
         run: npm run test:kind-from-story
 
+      - name: A suggestion is offered with the one Use the suggestion control, never pre-ticked, in all three courts
+        run: npm run test:suggestions-offered
+
       - name: Chrome 29 Oct -- forms built from the case file (known problems listed)
         run: npm run test:forms-from-case-file
 
@@ -729,6 +732,7 @@ jobs:
           tests/browser/claim-kind-one-value.spec.ts
           tests/browser/chrome-31oct-review.spec.ts
           tests/browser/change-answer.spec.ts
+          tests/browser/suggestions-offered.spec.ts
           tests/browser/never-ask-twice-reading.spec.ts
           tests/browser/story-box-guidance.spec.ts
           tests/browser/address-opens-chosen-case.spec.ts
