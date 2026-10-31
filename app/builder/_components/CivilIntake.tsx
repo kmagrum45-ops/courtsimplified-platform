@@ -1142,7 +1142,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           const needsMore = question && typed ? dateAnswerCheck(question, typed) : null;
           return (
           // A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct).
-          <NotAnsweredYetField key={field} field={field} facts={field === "timeline" ? ["whenHappened"] : undefined} value={input[field as keyof CivilInput]} label={label}>
+          <NotAnsweredYetField key={field} field={field} value={input[field as keyof CivilInput]} label={label}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">{label}</span>
             <textarea

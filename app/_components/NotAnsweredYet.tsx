@@ -37,7 +37,7 @@ const blank = (value: unknown) => value === undefined || value === null || (type
 /**
  * A whole form's box for a fact: the quiet line in its place while the case file holds the fact not
  * sure and the box holds nothing (or "I don't know"); otherwise the box itself. `facts`: the facts the
- * box asks for, where its key names none (a timeline box asks when it happened).
+ * box asks for, where its key names none (a box with no fact of its own, such as a timeline, is never folded).
  */
 export function NotAnsweredYetField({ field, facts, value, label, children }: { field: string; facts?: SlotFact[]; value: unknown; label: ReactNode; children: ReactNode }) {
   const view = useIntakeReviewView();

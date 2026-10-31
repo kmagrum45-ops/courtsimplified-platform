@@ -190,7 +190,9 @@ test("Family: one sentence that answers several questions is confirmed once per 
     } else if (await skip.isVisible()) await skip.click();
     else break;
   }
-  expect(confirmed.sort(), "the sentence answers what was filed and the day, each once").toEqual(["filedDocuments", "servedDate"]);
+  // The day was answered "I don't know the date" at the start (receivedOn: unknown), so it is never offered again, not even
+  // from the story (site owner, 31 Oct; until then the story could offer it once): the sentence answers what was filed, once.
+  expect(confirmed.sort(), "the sentence answers what was filed, once; the day said not known is never offered again").toEqual(["filedDocuments"]);
   await expect(page.getByTestId("guided-form-from-story").filter({ hasText: quote })).toHaveCount(0);
   await expect(page.getByText("You told us there is already a court order")).toHaveCount(0);
 });

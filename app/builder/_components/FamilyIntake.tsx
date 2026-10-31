@@ -1102,7 +1102,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
 
         {textareaFields.map((field) => (
           // A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct).
-          <NotAnsweredYetField key={field.label} field={field.key ?? ""} facts={field.key === "timeline" ? ["whenHappened"] : field.key ? undefined : []} value={field.value} label={field.label}>
+          <NotAnsweredYetField key={field.label} field={field.key ?? ""} facts={field.key ? undefined : []} value={field.value} label={field.label}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">{field.label}</span>
             <textarea
