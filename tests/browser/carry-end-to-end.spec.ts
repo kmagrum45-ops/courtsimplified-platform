@@ -368,11 +368,13 @@ async function answerReview(run: Run) {
   if ((await panel.getAttribute("data-phase")) === "collecting") await page.getByTestId("intake-start-review").click();
   await expect(panel).toHaveAttribute("data-phase", /reviewing|user-confirmed/, { timeout: 60_000 });
   if ((await panel.getAttribute("data-phase")) === "user-confirmed") return;
-  const q = (id: string) => panel.locator(`[data-testid=intake-initial-question][data-question="${id}"]`);
-  const kind = page.locator('[data-question="sc-orient-dispute-category"]').getByRole("button").first();
+  // Only the questions still to answer: an answered one keeps its place in the list, marked answered, after a
+  // reload too (fault 1, 31 Oct), and answering it again here would put the first value back over a later change.
+  const q = (id: string) => panel.locator(`[data-testid=intake-initial-question][data-question="${id}"][data-answered="false"]`);
+  const kind = q("sc-orient-dispute-category").getByRole("button").first();
   if (await kind.count()) await kind.click();
-  if (await page.locator('[data-question="sc-claim-filed"]').count()) await page.locator('[data-question="sc-claim-filed"]').getByRole("button", { name: "No", exact: true }).click();
-  const amount = page.locator('[data-question="sc-amount-claimed"]').getByRole("textbox");
+  if (await q("sc-claim-filed").count()) await q("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
+  const amount = q("sc-amount-claimed").getByRole("textbox");
   if (court === "small-claims" && (await amount.count())) { await amount.fill(TRACK["small-claims"].change.v1.text); await amount.press("Enter"); }
   if (await q("yourRole").count()) await q("yourRole").getByRole("button", { name: SIDE[court] === "applicant" ? /starting it/i : /plaintiff/i }).first().click();
   for (const id of ["documents", "filedDocuments", "issues"]) {
@@ -387,7 +389,7 @@ async function answerReview(run: Run) {
       if (await box.count()) { await box.fill(value); await box.press("Enter"); break; }
     }
   }
-  const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
+  const unknowns = panel.locator('[data-testid=intake-initial-question][data-answered="false"] input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
 }
 
