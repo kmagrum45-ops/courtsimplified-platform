@@ -270,6 +270,7 @@
     "carry:seed": "node --import tsx scripts/browser/carrySeed.ts",
     "test:chat-asks-by-fact": "node --import tsx scripts/verification/verifyChatAsksByFact.ts",
     "test:case-file-guard": "node --import tsx scripts/verification/verifyCaseFileGuard.ts",
+    "test:no-page-held-answers": "node --import tsx scripts/verification/verifyNoPageHeldAnswers.ts",
     "test:kind-from-story": "node --import tsx scripts/verification/verifyKindFromStory.ts",
     "test:claim-kind-one-value": "node --import tsx scripts/verification/verifyClaimKindOneValue.ts",
     "test:change-path": "node --import tsx scripts/verification/verifyChangePath.ts",
