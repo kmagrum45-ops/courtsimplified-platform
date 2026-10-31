@@ -472,8 +472,8 @@ export const SMALL_CLAIMS_KIND_CUES: readonly KindCue[] = [
   ["Something said about you (defamation)", /\b(defam\w*|lies about me|posted about me|rumou?rs?)\b/i],
   // A vehicle only when the same sentence says it crashed, hit or was damaged, or it is theirs: a truck merely
   // parked outside named a vehicle dispute for "A moving company broke my dining table" (carry, Small Claims
-  // second case). "[^.!?]*" keeps both words in one sentence.
-  ["A vehicle-related dispute", /\b(car|vehicle|truck)\b[^.!?]*\b(hit|crash\w*|collid\w*|damag\w*|dent\w*|scratch\w*|accident|rear-ended|backed into)\b|\b(hit|crash\w*|collid\w*|damag\w*|dent\w*|scratch\w*|accident|rear-ended|backed into)\b[^.!?]*\b(car|vehicle|truck)\b|\bcollision\b|\bmy (car|vehicle|truck)\b/i],
+  // second case). The shared reader tests one sentence at a time (sentences.ts), so both words are in one sentence.
+  ["A vehicle-related dispute", /\b(car|vehicle|truck)\b.*\b(hit|crash\w*|collid\w*|damag\w*|dent\w*|scratch\w*|accident|rear-ended|backed into)\b|\b(hit|crash\w*|collid\w*|damag\w*|dent\w*|scratch\w*|accident|rear-ended|backed into)\b.*\b(car|vehicle|truck)\b|\bcollision\b|\bmy (car|vehicle|truck)\b/i],
   // "broke" of a thing, never of an agreement ("broke the contract", "broke the lease", "broke up", "broke down").
   ["Property damage", /\b(damaged|damage to|smashed|cracked|shattered|destroyed|ruined)\b|\b(broke|broken)\b(?!\s+(?:(?:the|our|my|their|his|her|a|an|its)\s+)?(?:contract|lease|agreement|promise|deal|law|laws|rules?|terms|news|up|down|in|off)\b)/i],
   ["Unpaid money owed to you", /\b(invoice\w*|unpaid)\b/i],

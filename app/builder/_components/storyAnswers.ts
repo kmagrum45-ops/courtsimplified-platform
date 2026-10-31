@@ -715,7 +715,8 @@ export const CIVIL_KIND_CUES: readonly KindCue[] = [
   ["human-rights", /\bdiscriminat\w*|\bhuman rights\b/i],
   ["contract", /\b(?:contract|agreement)\b|\b(?:never|didn'?t|did not|failed to) deliver\w*|\bnot delivered\b|\bordered\b|\babandoned the (?:job|work|project)\b|\bnever (?:finished|completed)\b/i],
   ["debt", /\bowes? me\b|\bowed me\b|\bunpaid\b|\bnever (?:paid|repaid) (?:me|us|back)\b|\b(?:lent|loaned)\b/i],
-  ["professional-negligence", /\b(?:lawyer|accountant|doctor|dentist|engineer|architect|surgeon)\b[^.!?]*\b(?:mistake|error|negligen\w*|missed|botched)\b/i],
+  // One sentence at a time (kindsFromStory reads through sentences.ts), so ".*" stays inside it.
+  ["professional-negligence", /\b(?:lawyer|accountant|doctor|dentist|engineer|architect|surgeon)\b.*\b(?:mistake|error|negligen\w*|missed|botched)\b/i],
   ["negligence", /\bnegligen\w*|\bcareless\w*|\binjur\w*|\bslipped\b|\bfell\b/i],
   ["employment", /\b(?:fired|dismissed|terminated|wrongful dismissal|laid off)\b/i],
   ["fraud-misrepresentation", /\bfraud\w*|\bscam\w*|\bmisrepresent\w*|\blied to (?:me|us)\b/i],
