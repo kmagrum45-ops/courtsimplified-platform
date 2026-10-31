@@ -127,7 +127,8 @@ export default function IntakeReviewPanel() {
   /** The answer a civil or Family question holds now, as the form keeps it. */
   const fieldValue = (id: string): unknown => checkpoint.courtPath === "civil" ? (checkpoint.sections.civil?.input as Record<string, unknown> | undefined)?.[id] : checkpoint.sections.family?.[id];
   const unknowns = Array.isArray(checkpoint.sections.builder?.initialUnknowns) ? checkpoint.sections.builder.initialUnknowns as string[] : [];
-/** "I do not know yet" for a review question, ticked or taken back (the review's own record, builder.initialUnknowns). */  const setUnknown = (id: string, unknown: boolean) => { const current = Array.isArray(recovery.read("builder", "initialUnknowns")) ? recovery.read("builder", "initialUnknowns") as string[] : []; recovery.put("builder", "initialUnknowns", unknown ? [...current.filter(item => item !== id), id] : current.filter(item => item !== id), true, false, true); };  const unknownBox = (id: string) => <label className="mt-1 block"><input type="checkbox" data-testid="intake-unknown" checked={unknowns.includes(id)} disabled={busy} onChange={event => setUnknown(id, event.target.checked)} /> I do not know yet</label>;
+  /** "I do not know yet" for a review question, ticked or taken back (the review's own record, builder.initialUnknowns). */
+  const setUnknown = (id: string, unknown: boolean) => { const current = Array.isArray(recovery.read("builder", "initialUnknowns")) ? recovery.read("builder", "initialUnknowns") as string[] : []; recovery.put("builder", "initialUnknowns", unknown ? [...current.filter(item => item !== id), id] : current.filter(item => item !== id), true, false, true); };  const unknownBox = (id: string) => <label className="mt-1 block"><input type="checkbox" data-testid="intake-unknown" checked={unknowns.includes(id)} disabled={busy} onChange={event => setUnknown(id, event.target.checked)} /> I do not know yet</label>;
   const suggestions = suggestInitialAnswers(checkpoint);
   const story = storyOf(checkpoint.sections);
   const city = locationOf(checkpoint.sections)?.city ?? "";
@@ -304,7 +305,8 @@ export default function IntakeReviewPanel() {
         </div>; })}
       </div>
       {extraFacts.length > 0 && <div className="mt-4 grid gap-2 text-sm" data-testid="intake-held-facts">{extraFacts.map(fact => <div key={fact}>{heldLine(fact, caseFile[fact], `Review: ${FACT_LABEL[fact]}`, FACT_LABEL[fact])}</div>)}</div>}
-{/* Facts said "not sure" with no box and no question here: the quiet line, with "Add it" (site owner, 31 Oct). */}      {quietFacts.length > 0 && <div className="mt-4 grid gap-2 text-sm" data-testid="intake-not-answered-yet">{quietFacts.map(line => <NotAnsweredYet key={line.id} fact={line.facts[0]} court={court} name={FACT_LABEL[line.facts[0]]} startOpen={line.facts[0] === changeFact} />)}</div>}
+      {/* Facts said "not sure" with no box and no question here: the quiet line, with "Add it" (site owner, 31 Oct). */}
+      {quietFacts.length > 0 && <div className="mt-4 grid gap-2 text-sm" data-testid="intake-not-answered-yet">{quietFacts.map(line => <NotAnsweredYet key={line.id} fact={line.facts[0]} court={court} name={FACT_LABEL[line.facts[0]]} startOpen={line.facts[0] === changeFact} />)}</div>}
       {phase === "reviewing" && hiddenStale.length > 0 && <fieldset className="mt-5" data-testid="intake-hidden-stale"><legend>Other answers given for an earlier version of your story</legend>{hiddenStale.map(key => <div key={key} className="my-3" data-testid="intake-hidden-stale-item" data-key={key}>
         <p className="font-semibold">{HIDDEN_ANSWER_NAMES[key] ?? HIDDEN_ANSWER_NAMES[key.split(".").slice(0, 2).join(".")] ?? "An earlier answer"}</p>
         <p className="whitespace-pre-line text-[#4d675f]">{shownAnswer(key)}</p>
@@ -321,18 +323,13 @@ export default function IntakeReviewPanel() {
         const answered = !remaining.some(item => item.id === question.id);
         // Said "not sure" (here or anywhere): the quiet line in its place, never the question again (site owner, 31 Oct).
         const quiet = quietQuestions.find(item => item.id === question.id);
-        if (quiet) {
-          const fact = quiet.facts.find(item => changeChoices(item, court));
-          // No fact to add here through "Change" (the day a claim was issued): "Add it" takes back "I do not know yet", so the question opens again.
-          const reopen = !fact && quiet.markedHere ? <>{" "}<button type="button" data-testid="not-answered-yet-add" disabled={busy} onClick={() => setUnknown(question.id, false)} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</button></> : undefined;
-          return <div key={question.id} className="my-4" data-testid="intake-initial-question" data-question={question.id} data-answered="not-yet" data-unknown={unknowns.includes(question.id) ? "true" : "false"}>
-            <p className="font-semibold">{question.label}</p>
-            <NotAnsweredYet fact={fact ?? quiet.facts[0]} court={court} startOpen={Boolean(fact) && fact === changeFact} control={reopen} />
-            {quiet.markedHere ? unknownBox(question.id) : null}
-          </div>;
-        }
-        return <div key={question.id} className="my-4" data-testid="intake-initial-question" data-question={question.id} data-answered={answered ? "true" : "false"} data-unknown={unknowns.includes(question.id) ? "true" : "false"}>
+        const fact = quiet?.facts.find(item => changeChoices(item, court));
+        // No fact to add here through "Change" (the day a claim was issued): "Add it" takes back "I do not know yet", so the question opens again.
+        const reopen = quiet && !fact && quiet.markedHere ? <>{" "}<button type="button" data-testid="not-answered-yet-add" disabled={busy} onClick={() => setUnknown(question.id, false)} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</button></> : undefined;
+        return <div key={question.id} className="my-4" data-testid="intake-initial-question" data-question={question.id} data-answered={quiet ? "not-yet" : answered ? "true" : "false"} data-unknown={unknowns.includes(question.id) ? "true" : "false"}>
           <p className="font-semibold">{question.label}</p>
+          {/* The quiet line in the answers' place; the tick stays the same box (same place in the row), so ticking it keeps it. */}
+          {quiet ? <NotAnsweredYet fact={fact ?? quiet.facts[0]} court={court} startOpen={Boolean(fact) && fact === changeFact} control={reopen} /> : <>
           {/* Answered, it keeps its place (owner, earlier rule) and says so with the answer in words, never
               counted as still to answer (owner's Chrome check, 31 Oct). A typed answer is shown here as words, not
               only in its box. */}
@@ -362,7 +359,8 @@ export default function IntakeReviewPanel() {
             }
             return <div className="mt-1"><div className="flex flex-wrap items-center gap-2">{field.fromStory && !answered ? <UseSuggestion testId="intake-field-from-story" disabled={busy} onUse={() => answerField(question.id, field.fromStory!)} what={field.fromStory} className="rounded border px-3 py-1" /> : null}<input type="text" aria-label={`Answer: ${question.label}`} placeholder="Your answer" value={dates[question.id] ?? ""} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => typedField(question.id, (typed) => field.needsMore?.(typed) ?? dateAnswerCheck(field.question, typed))} onKeyDown={event => { if (event.key === "Enter") typedField(question.id, (typed) => field.needsMore?.(typed) ?? dateAnswerCheck(field.question, typed)); }} className="min-w-[16rem] flex-1 rounded border px-3 py-1" /></div>{fieldNotes[question.id] ? <p data-testid="intake-field-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[question.id]}</p> : null}</div>;
           })()}
-          {unknownBox(question.id)}
+          </>}
+          {!quiet || quiet.markedHere ? unknownBox(question.id) : null}
         </div>;
       })}</fieldset>}
       {phase === "reviewing" ? <>
