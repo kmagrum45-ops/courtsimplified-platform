@@ -84,7 +84,11 @@ async function main() {
     const response = await post(new Request(`http://localhost/api/${name}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ input: {} }) }) as never);
     assert.equal(response.status, 401, `${name}: an anonymous request with no case is refused too`);
   }
-  const independentRoutes = ["case/understand", "classify-court-path", "intake/guided-turn", "intake/classify-claim-type", "intake/safety-check", "intake/tidy-wording", "law/explain", "cases", "cases/position", "cases/drafts", "cases/event-candidates", "workspace/documents", "workspace/documents/upload-url", "workspace/documents/extract", "workspace/documents/link", "workspace/documents/file/[id]/[name]", "canlii/case", "site-access"];
+  const independentRoutes = ["case/understand", "classify-court-path", "intake/guided-turn", "intake/classify-claim-type", "intake/safety-check", "intake/tidy-wording", "law/explain", "cases", "cases/position", "cases/facts", "cases/drafts", "cases/event-candidates", "workspace/documents", "workspace/documents/upload-url", "workspace/documents/extract", "workspace/documents/link", "workspace/documents/file/[id]/[name]", "canlii/case", "site-access"];
+  // The fact record's writer (case core G0) records facts before any confirmation, like cases/position; it refuses anyone not signed in.
+  const { POST: factsPost } = await import("../../app/api/cases/facts/route");
+  const anonymousFacts = await factsPost(new Request("http://localhost/api/cases/facts", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ caseId: id, facts: [{ fact: "otherParty", state: "removed" }] }) }));
+  assert.equal(anonymousFacts.status, 401, "cases/facts: an anonymous fact write is refused");
   const actualRoutes = readdirSync("app/api", { recursive: true }).map(String).filter(name => /route\.ts$/.test(name)).map(name => name.replaceAll("\\", "/").replace(/\/route\.ts$/, ""));
   assert.deepEqual(actualRoutes.sort(), [...protectedRoutes, ...independentRoutes].sort(), "new API routes require an explicit presentation/security audit");
   assert(!readFileSync("app/api/intake/safety-check/route.ts", "utf8").includes("withConfirmedGuidance"), "urgent safety information must not wait for confirmation");

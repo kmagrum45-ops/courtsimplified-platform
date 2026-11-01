@@ -71,6 +71,12 @@ const DELIBERATELY_DORMANT: DormantEntry[] = [
       "one chat (MASTER_PLAN build order 6B), when it is either wired to the page or deleted.",
   },
   {
+    file: "src/lib/case-system/caseFile/fieldFacts.ts",
+    reason:
+      "The case core's field-to-fact table (G0, 1 Nov), built before any save point moves: only " +
+      "test:fact-rails reads it until G2-G5 route each save point through the one writer, which then imports it.",
+  },
+  {
     file: "src/lib/case-system/storage/storyDataRegistry.ts",
     reason:
       "A registry, not running code: where each intake section, master_result key and table stands when " +
