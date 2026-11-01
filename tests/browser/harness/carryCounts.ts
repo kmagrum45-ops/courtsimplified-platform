@@ -62,6 +62,13 @@ export type CarryBaselineEntry = {
   who?: string;
   /** Why the site (or the test) still does it, in plain words (at least eight words). */
   reason: string;
+  /**
+   * Set only on an entry ADDED after the list started (owner, 30 Oct): a repeat the list missed, not a
+   * regression. Names the carry workflow runs that recorded it, the date, why in words, and its cause
+   * (the code line, file:line, that makes the site do it). Never used to hide a fault. It is the
+   * only kind of addition the list check allows, and every report counts these apart from the rest.
+   */
+  newlyMeasured?: { runs: string[]; on: string; why: string; cause: string };
 };
 
 export type RunIdentity = { court: string; route: string; who?: string };
@@ -140,6 +147,39 @@ export function addedEntries(before: readonly CarryBaselineEntry[], now: readonl
   return now.filter((entry) => !had.has(entryKey(entry)));
 }
 
+/** What is wrong with an entry's newlyMeasured record (empty when it is well formed). */
+export function newlyMeasuredProblems(entry: CarryBaselineEntry): string[] {
+  const record = entry.newlyMeasured;
+  if (!record) return ["no newlyMeasured record (an added entry must name the runs that saw it)"];
+  const problems: string[] = [];
+  if (!Array.isArray(record.runs) || record.runs.length === 0) problems.push("newlyMeasured names no carry workflow run");
+  else if (record.runs.some((run) => !/^\d{6,}$/.test(String(run)))) problems.push("newlyMeasured run ids are GitHub Actions run numbers (digits)");
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(record.on ?? ""))) problems.push("newlyMeasured.on is a date, YYYY-MM-DD");
+  if (String(record.why ?? "").trim().split(/\s+/).filter(Boolean).length < 12) problems.push("newlyMeasured.why says in words (at least twelve) why it is a repeat the list missed, not a regression");
+  if (!/[\w./\[\]-]+\.(?:tsx?|jsx?|mjs|cjs):\d+/.test(String(record.cause ?? ""))) problems.push("newlyMeasured.cause names the code line that makes the site do it (file:line)");
+  return problems;
+}
+
+/** The entries added compared with `before`: newly measured ones (allowed) and the rest (rejected). */
+export function allowedAdditions(before: readonly CarryBaselineEntry[], now: readonly CarryBaselineEntry[]): { rejected: CarryBaselineEntry[]; newlyMeasured: CarryBaselineEntry[] } {
+  const added = addedEntries(before, now);
+  // Never used to hide a fault: an entry removed in the same change, of the same kind, fact and court,
+  // means a known entry is being swapped for a "new" one.
+  const kept = new Set(now.map(entryKey));
+  const removed = before.filter((entry) => !kept.has(entryKey(entry)));
+  const swaps = (entry: CarryBaselineEntry) => removed.some((gone) => gone.kind === entry.kind && gone.fact === entry.fact && (gone.court ?? "*") === (entry.court ?? "*"));
+  const allowed = (entry: CarryBaselineEntry) => newlyMeasuredProblems(entry).length === 0 && !swaps(entry);
+  return {
+    rejected: added.filter((entry) => !allowed(entry)),
+    newlyMeasured: added.filter(allowed),
+  };
+}
+
+/** The list split so a report never mixes newly measured entries with the original ones. */
+export function splitNewlyMeasured(list: readonly CarryBaselineEntry[]): { original: CarryBaselineEntry[]; newlyMeasured: CarryBaselineEntry[] } {
+  return { original: list.filter((entry) => !entry.newlyMeasured), newlyMeasured: list.filter((entry) => Boolean(entry.newlyMeasured)) };
+}
+
 /** Problems with an entry's shape (each must say why in words and name its fact). */
 export function badEntries(list: readonly CarryBaselineEntry[]): { entry: CarryBaselineEntry; why: string }[] {
   const bad: { entry: CarryBaselineEntry; why: string }[] = [];
@@ -151,6 +191,7 @@ export function badEntries(list: readonly CarryBaselineEntry[]): { entry: CarryB
     if (entry.kind === "unreached" && (!entry.court || !entry.route || !entry.who)) bad.push({ entry, why: "an unreached step names its run: court, route and who" });
     if (entry.who !== undefined && entry.who !== "guest" && entry.who !== "signed-in") bad.push({ entry, why: "who is guest or signed-in" });
     if (!entry.reason || entry.reason.trim().split(/\s+/).length < 8) bad.push({ entry, why: "the reason is not in words (at least eight)" });
+    if (entry.newlyMeasured !== undefined) for (const why of newlyMeasuredProblems(entry)) bad.push({ entry, why });
     if (keys.has(entryKey(entry))) bad.push({ entry, why: "listed twice" });
     keys.add(entryKey(entry));
   }

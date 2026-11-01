@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-204 documented, 26 without a header.
+207 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -29,6 +29,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:canlii` | **Court decisions from CanLII: the rules CanLII's Terms of Use (2026) set for**<br>this feature hold in code (docs/SOURCING_NOTES.md, "CanLII"). |
 | `npm run test:carry` | **THE END-TO-END CARRY TEST: ONE STORY, CARRIED FROM INTAKE THROUGH EVERY QUESTION AND STEP**<br>(site owner, 30 Oct: "a fact given once is known everywhere, never asked again, never refilled after the person removed it, never shown on the wrong case"). |
 | `npm run test:carry-baseline` | **THE CARRY BASELINE MAY ONLY SHRINK (site owner, 30 Oct: the end-to-end carry test "asserts zero").**<br>The end-to-end carry test (tests/browser/carry-end-to-end.spec.ts) fails any violation not listed in tests/browser/harness/carryBaseline.json. This suite checks, without a browser: - every baseline entry names a kind (asked-twice, returned-after-removal, wrong |
+| `npm run test:carry-newly-measured` | **"Newly measured" carry entries (owner, 30 Oct): the one way an entry may be ADDED to the carry list.**<br>What it checks: - An added entry with no `newlyMeasured` record is still rejected (the list may only shrink). - An added entry is allowed only when it carries `newlyMeasured`: at least one GitHub Actions run id (digits) of the carry workflow that recorded it,  |
 | `npm run test:case-drafts` | **Drafts are saved on the user's own case, hold only what the user gave us,**<br>and never cross from one case to another. |
 | `npm run test:case-events` | **The case-event vocabulary stays sourced, and the untyped option stays**<br>first-class. |
 | `npm run test:case-file` | **THE CASE FILE: EVERY FACT ASKED ONCE (caseFile.ts, Jason 2026-10-24).**<br>Checks, as properties rather than today's values: - each place an answer is kept today fills the same slot (the situation answers, the civil and Family forms, the Small Claims guided answers, the review's answers, the Family triage, the saved position), with i |
