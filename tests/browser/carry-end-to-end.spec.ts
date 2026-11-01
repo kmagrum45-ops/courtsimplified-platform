@@ -22,7 +22,9 @@
  *   (3) wrong-case: a page addressed to one case (its id in the address) showing the other case's
  *       marker or values, or the second case opening under the first case's id;
  *   (4) screens-disagree: one fact read from each screen showing a value other than the one the person
- *       gave (or the old one after a change), including the same screen before and after a reload or sign-in;
+ *       gave (or the old one after a change), including the same screen before and after a reload or sign-in,
+ *       and the screens that repeat an answer back (civil and Family: the questions one at a time, "Got it: ...";
+ *       Small Claims: the chat's "Confirmed from my story"), screen "questions echo (<when>)";
  *       and on every Small Claims route, the Form 7A section not drawn after "Show my next step" (owner,
  *       30 Oct: it must appear on every route) -- fact "form-7a-section", screen "form-7a (<when>)".
  *
@@ -465,6 +467,33 @@ async function readBuilder(run: Run, when: string) {
     await page.waitForTimeout(800);
     judge(run, `review (${when})`, { change: await reviewLine(page, TRACK[court].change.fields), remove: await reviewLine(page, TRACK[court].remove.fields) }, await panel.innerText());
   }
+  await readEchoes(run, when);
+}
+
+/**
+ * The screens that REPEAT AN ANSWER BACK, read as screens too (founder's Chrome check of #536, 1 Nov: the
+ * questions one at a time still said "Got it: Contract / agreement dispute." after a change, while this
+ * test counted 0 screens disagreeing): civil and Family, the questions one at a time ("Got it: ...", "What
+ * we already have"); Small Claims, the chat's "Confirmed from my story" messages.
+ */
+async function readEchoes(run: Run, when: string) {
+  const { page, court } = run;
+  // Only where an answer was repeated back: the questions route (the other routes never answer in these screens).
+  if (run.route !== "questions") return;
+  if (court === "small-claims") {
+    await page.goto(`/builder?path=small-claims&intake=${run.caseA}&step=guided`);
+    await passNotice(page);
+    await page.waitForTimeout(3_000);
+    const confirmed = (await page.locator("[data-testid=guided-message][data-from=user]").allInnerTexts()).filter((text) => /^Confirmed from/.test(text.trim()));
+    if (confirmed.length) judge(run, `questions echo (${when})`, {}, confirmed.join("\n"));
+    return;
+  }
+  const oneAtATime = page.getByRole("button", { name: "Answer one question at a time instead" });
+  if (await oneAtATime.isVisible().catch(() => false)) await oneAtATime.click();
+  const chat = page.getByTestId("guided-form-chat");
+  if (!(await chat.isVisible({ timeout: 10_000 }).catch(() => false))) return;
+  await page.waitForTimeout(800);
+  judge(run, `questions echo (${when})`, {}, await chat.innerText());
 }
 
 /** The overview and (Small Claims) the Form 7A section, after "Show my next step". */
