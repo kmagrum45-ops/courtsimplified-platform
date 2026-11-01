@@ -270,6 +270,9 @@ jobs:
       - name: The carry test's baseline may only shrink -- no entry added compared with main
         run: npm run test:carry-baseline
 
+      - name: Newly measured carry entries -- the only allowed addition, marked with its runs and counted apart
+        run: npm run test:carry-newly-measured
+
       - name: Every chat asks by fact -- a fact the saved case holds is never asked by a chat (row 1)
         run: npm run test:chat-asks-by-fact
       # The allowed list may only shrink: compared with origin/main's copy, so main is fetched first
@@ -278,6 +281,9 @@ jobs:
         run: |
           git fetch --no-tags --depth=1 origin main:refs/remotes/origin/main
           npm run test:case-file-guard
+
+      - name: No list of answered, held, offered or turned-down items held in the page or the tab -- the review's list from the saved case (fault 1)
+        run: npm run test:no-page-held-answers
 
       - name: Claim type -- one value from the case file on every screen (overview, Check my case file, review, Form 7A, AI fact text)
         run: npm run test:claim-kind-one-value
@@ -735,6 +741,8 @@ jobs:
           tests/browser/claim-kind-one-value.spec.ts
           tests/browser/chrome-31oct-review.spec.ts
           tests/browser/change-answer.spec.ts
+          tests/browser/review-answered-kept.spec.ts
+          tests/browser/review-typed-goal-kept.spec.ts
           tests/browser/suggestions-offered.spec.ts
           tests/browser/never-ask-twice-reading.spec.ts
           tests/browser/story-box-guidance.spec.ts

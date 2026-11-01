@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-213 documented, 26 without a header.
+215 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -29,6 +29,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:canlii` | **Court decisions from CanLII: the rules CanLII's Terms of Use (2026) set for**<br>this feature hold in code (docs/SOURCING_NOTES.md, "CanLII"). |
 | `npm run test:carry` | **THE END-TO-END CARRY TEST: ONE STORY, CARRIED FROM INTAKE THROUGH EVERY QUESTION AND STEP**<br>(site owner, 30 Oct: "a fact given once is known everywhere, never asked again, never refilled after the person removed it, never shown on the wrong case"). |
 | `npm run test:carry-baseline` | **THE CARRY BASELINE MAY ONLY SHRINK (site owner, 30 Oct: the end-to-end carry test "asserts zero").**<br>The end-to-end carry test (tests/browser/carry-end-to-end.spec.ts) fails any violation not listed in tests/browser/harness/carryBaseline.json. This suite checks, without a browser: - every baseline entry names a kind (asked-twice, returned-after-removal, wrong |
+| `npm run test:carry-newly-measured` | **"Newly measured" carry entries (owner, 30 Oct): the one way an entry may be ADDED to the carry list.**<br>What it checks: - An added entry with no `newlyMeasured` record is still rejected (the list may only shrink). - An added entry is allowed only when it carries `newlyMeasured`: at least one GitHub Actions run id (digits) of the carry workflow that recorded it,  |
 | `npm run test:case-drafts` | **Drafts are saved on the user's own case, hold only what the user gave us,**<br>and never cross from one case to another. |
 | `npm run test:case-events` | **The case-event vocabulary stays sourced, and the untyped option stays**<br>first-class. |
 | `npm run test:case-file` | **THE CASE FILE: EVERY FACT ASKED ONCE (caseFile.ts, Jason 2026-10-24).**<br>Checks, as properties rather than today's values: - each place an answer is kept today fills the same slot (the situation answers, the civil and Family forms, the Small Claims guided answers, the review's answers, the Family triage, the saved position), with i |
@@ -131,6 +132,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:no-model-text-to-users` | **With the switch off, no sentence the model wrote reaches a user.**<br>WHAT IT PROTECTS. The LSO A2I AI policy forbids AI-generated legal content reaching a user without human review, and the A2I answers (2026-09-28) commit to it. Until 2026-09-29 the analysis carried the model's own wording into what users read: risk titles and  |
 | `npm run test:no-model-warnings` | **No model-written warning reaches a user.**<br>courtSimplifiedBrain's `systemWarnings` becomes AnalysisResult.userWarnings. It used to spread `gptCognition.systemWarnings` -- free text the model wrote -- into that list, filtered only by the case-strength blocklist. A procedural or legal sentence ("file you |
 | `npm run test:no-names-to-model` | **No name FIELD reaches a model.**<br>The user's name and the other party's name are entered in plain form fields and stored in the Canadian database. Until 2026-09-27 all three intake adapters (Small Claims, civil, family) copied them into the raw text the brain sends to OpenAI. The LSO A2I appli |
+| `npm run test:no-page-held-answers` | **NO LIST OF WHAT THE PERSON ANSWERED IS HELD IN THE PAGE OR THE TAB (fault 1, site owner 31 Oct).**<br>The owner's rule: no list of what the person answered, has held, removed, was offered or turned down may live in component state (useState / useRef) or in the tab (sessionStorage / localStorage). Each comes from the saved record through the case file (caseFile |
 | `npm run test:no-stale-intake` | **Nothing from an earlier session is shown before the user opens a case.**<br>2026-09-28: a signed-in user opened the Small Claims intake and found an old test story already filled in. Earlier fixes had scoped browser storage per user and cleared it for anonymous visitors, but the builder deliberately RESTORED the signed-in user's own l |
 | `npm run test:no-store` | **Every OpenAI request carries `store: false`, and no call site can bypass it.**<br>COSTS NOTHING. Reads source off disk and calls the factory with a fake key. No network, no model call. |
 | `npm run test:not-sure-never-asked` | **"NOT SURE" IS NEVER ASKED AGAIN, ANYWHERE (site owner, 31 Oct; replaces option 1 of 24 Oct).**<br>After a person says "I don't know" or "not sure" -- a skip in the questions one at a time, the words typed in the Small Claims guided chat or in the whole form, or the review's "I do not know yet" -- no screen in any of the three courts asks that question agai |

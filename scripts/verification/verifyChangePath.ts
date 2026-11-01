@@ -221,6 +221,14 @@ for (const item of FACTS) {
     check(`4. ${name}: applyFactRevisions cancels the confirmation`, renewed && reviewPhase(after, next) !== "user-confirmed", JSON.stringify(after));
     const said = (reviewModule as Record<string, unknown>).changedAfterConfirm as undefined | ((workflow: unknown, checkpoint: Checkpoint) => boolean);
     check(`4. ${name}: the review is told to say "You changed an answer, so please review and confirm again."`, typeof said === "function" && said(after, next) === true);
+    // Reloaded before the change reached the saved case, the intake opens collecting (the saved record was
+    // confirmed for the older answers): "Stop initial questions and review", or "Return to intake controls",
+    // must not drop what the review is told to say (founder's Chrome check of #536, 1 Nov: gone after a reload).
+    const collecting = reconcileReview(confirmed, ready, next, false);
+    for (const action of ["review", "collect"] as const) {
+      const moved = transitionReview(collecting, next, action, inputRevision(next), "2026-11-01T12:00:00.000Z");
+      check(`4. ${name}: still said after "${action}" until confirmed again`, typeof said === "function" && said(moved, next) === true, JSON.stringify(moved));
+    }
   }
 }
 

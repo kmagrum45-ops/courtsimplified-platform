@@ -97,9 +97,15 @@ export type CaseFile = Record<SlotFact, Slot> & {
   claimKindRemoved?: string[];
   /** The facts the person changed or removed with "Change" (the change record), oldest change first. */
   changedFacts?: SlotFact[];
+  /**
+   * The questions the person answered in the review, as the saved case records them
+   * (CASE_FILE_SECTION.answeredInReview): the review keeps each shown, answered, in its place, after a
+   * reload, in a second tab and on every screen, never from a list held in the page (fault 1, 31 Oct).
+   */
+  answeredInReview?: string[];
 };
 
-/** Where the case file keeps what it adds: the facts answered "not sure", and those offered again at the end. */
+/** Where the case file keeps what it adds: the facts answered "not sure", and the questions answered in the review. */
 export const CASE_FILE_SECTION = "caseFile";
 
 const isSlot = (fact: string): fact is SlotFact => (SLOT_FACTS as readonly string[]).includes(fact);
@@ -411,6 +417,9 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // questions again (which resets the guided record) never offers one back (rule 6, 31 Oct).
   const turnedDownKinds = strings(object(object(sections[CASE_FILE_SECTION]).turnedDown).claimKind);
   if (turnedDownKinds.length) file.claimKindRemoved = [...new Set([...(file.claimKindRemoved ?? []), ...turnedDownKinds])];
+  // The questions answered in the review (withAnsweredInReview), kept by the case file itself.
+  const answeredInReview = strings(object(sections[CASE_FILE_SECTION]).answeredInReview);
+  if (answeredInReview.length) file.answeredInReview = [...new Set(answeredInReview)];
 
   // 9. THE CHANGE RECORD: the person's latest change of each fact wins over every source above
   // (site owner, 31 Oct: "one change path, latest change wins"). Applied last, so nothing older
@@ -495,6 +504,22 @@ export function changedWords(file: CaseFile | null | undefined, fact: SlotFact, 
   if (!slot?.changed) return undefined;
   if (slot.removed || slot.state === "not-asked") return null;
   return slotText(slot, formatDay);
+}
+
+/**
+ * What a screen that REPEATS AN ANSWER BACK shows for a question now ("Got it: ..." in the questions one at a
+ * time, "Confirmed from my story" in the Small Claims chat): the person's latest change of the question's fact
+ * (the change record, newest wins) over the screen's own copy, `own`. `{ removed: true }` when that change
+ * removed it. A question that answers more than one fact keeps its own copy (no one fact speaks for it).
+ * Founder's Chrome check of #536, 1 Nov: "Got it: Contract / agreement dispute." stayed after the kind was
+ * changed in the review, on a reload too.
+ */
+export function answerNow(file: CaseFile | null | undefined, questionId: string, own: unknown): { value: unknown; changed: boolean; removed: boolean } {
+  const facts = slotsOf(questionId);
+  const slot = facts.length === 1 ? file?.[facts[0]] : undefined;
+  if (!slot?.changed) return { value: own, changed: false, removed: false };
+  if (slot.removed || slot.state !== "answered") return { value: undefined, changed: true, removed: true };
+  return { value: typeof slot.value === "number" ? slotText(slot, (iso) => iso) : slot.value, changed: true, removed: false };
 }
 
 /** The kinds the case file keeps as turned down ("Not quite"), with one more. */
@@ -759,6 +784,15 @@ export function withUnsure(section: Record<string, unknown> | undefined, questio
   const kept = { ...object(current.unsure) };
   for (const fact of slotsOf(questionId, surface)) kept[fact] = { question: questionId };
   return { ...current, unsure: kept };
+}
+
+/**
+ * The case file section after the person answered a question in the review: recorded in the saved case,
+ * so the review shows it answered, in its place, after a reload and in any tab (fault 1, 31 Oct).
+ */
+export function withAnsweredInReview(section: Record<string, unknown> | undefined, questionId: string): Record<string, unknown> {
+  const current = object(section);
+  return { ...current, answeredInReview: [...new Set([...strings(current.answeredInReview), questionId])] };
 }
 
 /** The slots a review box or question holds (its facts that are slots). */

@@ -38,7 +38,7 @@ import { startSignIn } from "../../_components/startSignIn";
 import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
 import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
 import { storyQuoteFor } from "@/src/lib/case-system/intake/claimKind";
-import { alreadyAsked, askedAndReplied, caseFileOf, CASE_FILE_SECTION, withTurnedDown } from "@/src/lib/case-system/caseFile/caseFile";
+import { alreadyAsked, answerNow, askedAndReplied, caseFileOf, CASE_FILE_SECTION, withTurnedDown, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
 import { claimKindAiContext, classifyClaimTypeBody } from "@/src/lib/case-system/caseFile/aiCaseContext";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { WorkingButton, WorkingNote } from "@/app/_components/Working";
@@ -181,8 +181,26 @@ function shownRows(drafts: readonly ProposalDraft[]): ProposalDraft[] {
 }
 
 function confirmedSummary(drafts: readonly ProposalDraft[], from: string, responding = false): string {
-  const kept = drafts.filter((draft) => draft.keep && draft.answer.trim());
-  return [`Confirmed from ${from}:`, ...kept.map((draft) => `• ${cardLabel(draft.questionId, draft.questionText, { responding })}: ${draft.answer.trim()}`)].join("\n");
+  return summaryText(confirmedRows(drafts, responding), from, null);
+}
+
+/** The rows a "Confirmed from ..." message lists, kept with the message so it can be shown as the case holds them now. */
+type ConfirmedRow = { questionId: string; label: string; answer: string };
+function confirmedRows(drafts: readonly ProposalDraft[], responding = false): ConfirmedRow[] {
+  return drafts.filter((draft) => draft.keep && draft.answer.trim()).map((draft) => ({ questionId: draft.questionId, label: cardLabel(draft.questionId, draft.questionText, { responding }), answer: draft.answer.trim() }));
+}
+
+/**
+ * "Confirmed from my story:" and its rows, each with the answer the case holds NOW (rule 5, newest wins):
+ * the person's latest change of the row's fact (caseFile.ts answerNow) over the words confirmed then
+ * (founder's Chrome check of #536, 1 Nov: the screens that repeat an answer back kept the old one).
+ */
+function summaryText(rows: readonly ConfirmedRow[], from: string, file: CaseFile | null): string {
+  return [`Confirmed from ${from}:`, ...rows.map((row) => {
+    const now = answerNow(file, row.questionId, row.answer);
+    const words = now.removed ? "you removed this answer" : Array.isArray(now.value) ? now.value.join(", ") : String(now.value ?? row.answer);
+    return `• ${row.label}: ${words}${now.changed && !now.removed ? " (as you changed it)" : ""}`;
+  })].join("\n");
 }
 
 type ChatMessage = {
@@ -194,6 +212,9 @@ type ChatMessage = {
   questionId?: string;
   /** The opening story: shown from the one copy (useStory), never stored here a second time. */
   isStory?: boolean;
+  /** A "Confirmed from ..." message: its rows, shown as the case holds them now (summaryText). */
+  confirmed?: ConfirmedRow[];
+  confirmedFrom?: string;
 };
 
 /**
@@ -574,7 +595,9 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   const [started, setStarted] = useIntakeState("guided", "started", false);
   useEffect(() => { startedRef.current = started; }, [started]);
   const inputText = started ? answerDraft : story;
-  const shownMessages = useMemo(() => messages.map((message) => message.isStory ? { ...message, text: story } : message), [messages, story]);
+  // The saved case's own case file, for the messages that repeat an answer back (summaryText).
+  const echoFile = useMemo(() => (reviewView ? caseFileOf(reviewView.checkpoint, recovery?.getSavedMaster() ?? undefined) : null), [reviewView, recovery]);
+  const shownMessages = useMemo(() => messages.map((message) => message.isStory ? { ...message, text: story } : message.confirmed?.length ? { ...message, text: summaryText(message.confirmed, message.confirmedFrom ?? "my story", echoFile) } : message), [messages, story, echoFile]);
   // Retained across turns rather than replaced with each response -- only
   // updated when a turn actually carries a new evidenceGuidance, so it
   // doesn't disappear the moment the user answers a plain multiple-choice
@@ -778,12 +801,12 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             from: "assistant",
             text: answeredQuestionId
               ? "You've already told me some of what I was going to ask next. Check these the same " +
-                "way: fix anything that's off, and untick anything that's wrong."
+                "way: use each one that is right; nothing is kept until you use it."
               : confirmedAnswers
               ? "Your answers opened a few more questions that your story already answers. Check " +
                 "these the same way."
-              : "Here's what I understood from what you wrote. Check each one: fix anything that's " +
-                "off, and untick anything that's wrong. I'll only ask about what's left.",
+              : "Here's what I understood from what you wrote. Use each one that is right; nothing is " +
+                "kept until you use it. I'll only ask about what's left.",
           },
         ]);
         setCurrentQuestion(null);
@@ -1298,6 +1321,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           confirmed.length > 0
             ? confirmedSummary(shownRows(drafts), "what I've told you", respondingFromAnswers([...earlierAnswers, ...drafts], facts))
             : "None of those were right.",
+        ...(confirmed.length > 0 ? { confirmed: confirmedRows(shownRows(drafts), respondingFromAnswers([...earlierAnswers, ...drafts], facts)), confirmedFrom: "what I've told you" } : {}),
       },
     ]);
     const confirmedIds = new Set(confirmed.map((item) => item.questionId));
@@ -1387,6 +1411,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           confirmed.length > 0
             ? confirmedSummary(shownRows(drafts), "my story", respondingFromAnswers([...earlierAnswers, ...drafts], facts))
             : "None of those were right.",
+        ...(confirmed.length > 0 ? { confirmed: confirmedRows(shownRows(drafts), respondingFromAnswers([...earlierAnswers, ...drafts], facts)), confirmedFrom: "my story" } : {}),
       },
     ]);
     const openingStory = story;

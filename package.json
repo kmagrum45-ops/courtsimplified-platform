@@ -271,6 +271,7 @@
     "carry:seed": "node --import tsx scripts/browser/carrySeed.ts",
     "test:chat-asks-by-fact": "node --import tsx scripts/verification/verifyChatAsksByFact.ts",
     "test:case-file-guard": "node --import tsx scripts/verification/verifyCaseFileGuard.ts",
+    "test:no-page-held-answers": "node --import tsx scripts/verification/verifyNoPageHeldAnswers.ts",
     "test:kind-from-story": "node --import tsx scripts/verification/verifyKindFromStory.ts",
     "test:claim-kind-one-value": "node --import tsx scripts/verification/verifyClaimKindOneValue.ts",
     "test:change-path": "node --import tsx scripts/verification/verifyChangePath.ts",
@@ -298,7 +299,8 @@
     "db:clean-staging": "node --import tsx --env-file=.env.local scripts/db/cleanStaging.ts",
     "test:clean-staging": "node --import tsx scripts/verification/verifyCleanStaging.ts",
     "test:pending-position-saves": "node --import tsx scripts/verification/verifyPendingPositionSaves.ts",
-    "test:working-states": "node --import tsx scripts/verification/verifyWorkingStates.ts"
+    "test:working-states": "node --import tsx scripts/verification/verifyWorkingStates.ts",
+    "test:carry-newly-measured": "node --import tsx scripts/verification/verifyCarryNewlyMeasured.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

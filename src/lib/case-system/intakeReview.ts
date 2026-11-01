@@ -9,7 +9,7 @@ import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocation
 import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../../app/builder/_components/guidedFields";
 import { amountFromStory, goalFromStory, kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
 import { QUESTION_BANK } from "./intake/questionBank";
-import { selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
+import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 import { alreadyAsked, caseFileOf, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
 import { LOAN_WORDS } from "./intake/claimKind";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
@@ -347,6 +347,54 @@ export function canReview(checkpoint: Checkpoint): boolean {
   return Boolean(confirmedLocationOf(checkpoint.sections)) && storyOf(checkpoint.sections).trim().length > 0;
 }
 
+/**
+ * A review question's fixed place: its place in the court's own list of questions (Small Claims: the
+ * question bank in the order the selector asks it, by phase then bank order; civil and Family: the
+ * form's fields in order). The review sorts its questions by this, so each keeps its place while
+ * answered, after a reload and in any tab, with nothing held in the page (fault 1, 31 Oct; the earlier
+ * owner rule, #471 re-test: answered questions must not jump). A question in neither list goes last.
+ */
+export function reviewQuestionRank(courtPath: string, id: string): number {
+  const order = courtPath === "family" ? FAMILY_FIELDS().map((field) => field.key)
+    : courtPath === "civil" ? CIVIL_FIELDS().map((field) => field.key)
+    : QUESTION_BANK.filter((question) => question.courtArea === "small-claims").sort((a, b) => PHASE_ORDER[a.phase] - PHASE_ORDER[b.phase]).map((question) => question.id);
+  const place = order.indexOf(id);
+  return place === -1 ? Number.MAX_SAFE_INTEGER : place;
+}
+
+/** Whether a review question holds an answer in the checkpoint now (a civil or Family form field, Family's day of service in its Timeline, a Small Claims review answer). */
+function holdsAnswer(checkpoint: Checkpoint, id: string): boolean {
+  const fresh: Checkpoint = { ...checkpoint, sections: freshSections(checkpoint) };
+  const value = checkpoint.courtPath === "civil" ? object(fresh.sections.civil?.input)[id]
+    : checkpoint.courtPath === "family" ? (id === "servedDate" ? familyTimelineValues(String(object(fresh.sections.family).timeline ?? "")).servedDate : object(fresh.sections.family)[id])
+    : initialAnswersOf(fresh)[id];
+  return Array.isArray(value) ? value.length > 0 : typeof value === "string" ? value.trim().length > 0 : value !== undefined && value !== null;
+}
+
+/**
+ * THE REVIEW'S ONE LIST ("Initial questions"), from the saved case only (fault 1, 31 Oct): the questions
+ * still to answer, and those the person answered in the review, as the case file records them
+ * (caseFileOf -> answeredInReview), each in its fixed place (reviewQuestionRank). Nothing in it comes
+ * from the page, so a reload, a second tab and every screen show the same list. An answered question
+ * is listed only while it still holds its answer and its fact was not since changed with "Change".
+ * A question the person said they do not know (here or anywhere) is listed as its quiet line
+ * (`notYet`, from notAnsweredYet), in its place, never as still to answer: "N still to answer" counts
+ * only `!answered && !notYet` (site owner, 31 Oct: not sure is never asked again, nor counted).
+ */
+export function reviewQuestionList(checkpoint: Checkpoint, master?: unknown): { id: string; label: string; answered: boolean; notYet?: NotAnsweredYetLine }[] {
+  const file = caseFileOf(checkpoint, master);
+  const unanswered = remainingEssentialQuestions(checkpoint, master);
+  const quiet = notAnsweredYet(checkpoint, master).filter((line) => line.question);
+  const listed = [
+    ...unanswered.map((question) => ({ ...question, answered: false })),
+    ...quiet.filter((line) => !unanswered.some((question) => question.id === line.id)).map((line) => ({ id: line.id, label: line.label, answered: false, notYet: line })),
+    ...(file.answeredInReview ?? [])
+      .filter((id) => reviewQuestionRank(checkpoint.courtPath, id) !== Number.MAX_SAFE_INTEGER && !unanswered.some((question) => question.id === id) && !quiet.some((line) => line.id === id) && holdsAnswer(checkpoint, id) && !slotsOfQuestion(id).some((fact) => file[fact].changed))
+      .map((id) => ({ id, label: reviewQuestionField(checkpoint.courtPath, id)?.question ?? QUESTION_BANK.find((item) => item.id === id)?.text ?? id, answered: true })),
+  ];
+  return listed.sort((a, b) => reviewQuestionRank(checkpoint.courtPath, a.id) - reviewQuestionRank(checkpoint.courtPath, b.id));
+}
+
 /** Reuse the existing initial selectors. Unknown/skipped is an answer, never an invented fact. */
 /**
  * `master`: the saved case, when there is one, so the review reads the same case file as the
@@ -597,12 +645,17 @@ function whenItHappened(story: string): string | null {
 
 export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, action: "review" | "collect" | "confirm", expectedInputRevision: string, now: string, master?: unknown): ObjectValue {
   if (inputRevision(checkpoint) !== expectedInputRevision) throw new Error("The initial facts changed. Please review the current information again.");
-  if (action === "collect") return invalidateReview(workflow);
+  // "You changed an answer, so please review and confirm again." is kept, in the saved record, until the
+  // person confirms again: opening the review or returning to the questions never drops it (founder's
+  // Chrome check of #536, 1 Nov: reloaded before the change was saved, the review opened collecting, and
+  // "Stop initial questions and review" took the message away).
+  const marker = action !== "confirm" && object(workflow.intakeReview).changedAfterConfirm === true ? { changedAfterConfirm: true } : {};
+  if (action === "collect") return { ...invalidateReview(workflow), intakeReview: { version: 1, ...marker } };
   if (!canReview(checkpoint)) throw new Error("Add your city and a description of your situation before reviewing.");
   if (action === "confirm" && reviewPhase(workflow, checkpoint) === "user-confirmed") return workflow;
   if (action === "confirm" && reviewPhase(workflow, checkpoint) !== "reviewing") throw new Error("Review the current information before confirming it.");
   if (action === "confirm" && remainingEssentialQuestions(checkpoint, master).length) throw new Error("Answer the remaining initial questions, or explicitly mark what you do not know, before confirming.");
-  return { ...workflow, intakeCompleted: action === "confirm", intakeReview: { version: 1, reviewedRevision: expectedInputRevision, ...(action === "confirm" ? { confirmedRevision: expectedInputRevision, confirmedAt: now, confirmedFacts: confirmedFactMarks(checkpoint) } : {}) } };
+  return { ...workflow, intakeCompleted: action === "confirm", intakeReview: { version: 1, reviewedRevision: expectedInputRevision, ...marker, ...(action === "confirm" ? { confirmedRevision: expectedInputRevision, confirmedAt: now, confirmedFacts: confirmedFactMarks(checkpoint) } : {}) } };
 }
 
 /**
@@ -622,4 +675,17 @@ export function reconcileReview(workflow: ObjectValue, previous: Checkpoint, nex
 /** An answer was changed after Confirm and it is not confirmed again yet: the review says so (reconcileReview). */
 export function changedAfterConfirm(workflow: ObjectValue, checkpoint: Checkpoint): boolean {
   return object(workflow.intakeReview).changedAfterConfirm === true && reviewPhase(workflow, checkpoint) !== "user-confirmed";
+}
+
+/**
+ * The same, for a saved case (the case page): read from the saved record only, so the case page says
+ * "You changed an answer, so please review and confirm again." and shows the newest answers before the
+ * person confirms again (founder's Chrome check of #536, 1 Nov: the case page showed neither).
+ */
+export function savedCaseChangedAfterConfirm(master: unknown, court?: string | null, caseId?: string): boolean {
+  const record = object(master);
+  const area = court ?? object(record.intakeCheckpoint).courtPath;
+  if (area !== "small-claims" && area !== "family" && area !== "civil") return false;
+  const checkpoint = readCheckpoint(object(record.intakeCheckpoint), area, caseId);
+  return Boolean(checkpoint && changedAfterConfirm(object(record.workflowStatus), checkpoint));
 }
