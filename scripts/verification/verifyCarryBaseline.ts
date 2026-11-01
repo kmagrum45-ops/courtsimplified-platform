@@ -7,7 +7,8 @@
  *     screens-disagree, or unreached: a step the run could not reach, which names its whole run --
  *     court, route, guest or signed-in), a fact (or step), a screen, and a reason in words; none twice;
  *   - this branch ADDS no entry compared with origin/main (fetched if not present), except one marked
- *     newlyMeasured (the carry runs that saw it, the date, why it was missed; counted apart). The one
+ *     newlyMeasured (the carry runs that saw it, the date, why it was missed, its cause as a code line;
+ *     never swapped for a removed entry of the same kind, fact and court; counted apart). The one
  *     exception is the PR that introduces the file (origin/main has none), so its first CI run's
  *     real violations can be listed before it merges; after that the list can only shrink;
  *   - the matching, as properties: a violation is excused only by an entry of its kind, fact and

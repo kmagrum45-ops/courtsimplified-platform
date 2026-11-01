@@ -30,7 +30,7 @@ const base: CarryBaselineEntry = {
   kind: "asked-twice", fact: "wants", where: "form-field@/builder?step=results", court: "civil", route: "review", who: "guest",
   reason: "Seen by the carry test: what the person wants ordered, given in the chat, asked again on the results page",
 };
-const marked = { ...base, newlyMeasured: { runs: ["41153220152"], on: "2026-10-31", why: "A repeat the list missed: seen on unchanged main, the same code the list was seeded from, so it is not a regression", cause: "The results page asks from its own form copy at app/builder/_components/CivilIntake.tsx:884" } } as CarryBaselineEntry;
+const marked = { ...base, newlyMeasured: { runs: ["41153220152"], on: "2026-10-31", why: "A repeat the list missed: seen on unchanged main, the same code the list was seeded from, so it is not a regression", cause: "The results page asks from its own form copy at app/builder/_components/CivilIntake.tsx:884" } } as unknown as CarryBaselineEntry;
 
 type Allowed = (before: readonly CarryBaselineEntry[], now: readonly CarryBaselineEntry[]) => { rejected: CarryBaselineEntry[]; newlyMeasured: CarryBaselineEntry[] };
 const allowedAdditions = (counts as { allowedAdditions?: Allowed }).allowedAdditions;
@@ -40,18 +40,18 @@ if (allowedAdditions) {
   check("an added entry with no newlyMeasured record is rejected", plain.rejected.length === 1 && plain.newlyMeasured.length === 0, JSON.stringify(plain));
   const ok = allowedAdditions([], [marked]);
   check("an added entry marked newly measured (run ids, date, why) is allowed", ok.rejected.length === 0 && ok.newlyMeasured.length === 1, JSON.stringify(ok));
-  const noRun = { ...base, newlyMeasured: { runs: [], on: "2026-10-31", why: (marked as { newlyMeasured: { why: string } }).newlyMeasured.why } } as CarryBaselineEntry;
+  const noRun = { ...base, newlyMeasured: { runs: [], on: "2026-10-31", why: (marked as { newlyMeasured: { why: string } }).newlyMeasured.why } } as unknown as CarryBaselineEntry;
   check("a newly measured entry naming no run is rejected", allowedAdditions([], [noRun]).rejected.length === 1);
-  const badRun = { ...base, newlyMeasured: { runs: ["main"], on: "2026-10-31", why: (marked as { newlyMeasured: { why: string } }).newlyMeasured.why } } as CarryBaselineEntry;
+  const badRun = { ...base, newlyMeasured: { runs: ["main"], on: "2026-10-31", why: (marked as { newlyMeasured: { why: string } }).newlyMeasured.why } } as unknown as CarryBaselineEntry;
   check("a run id that is not a number is rejected", allowedAdditions([], [badRun]).rejected.length === 1);
-  const shortWhy = { ...base, newlyMeasured: { runs: ["41153220152"], on: "2026-10-31", why: "missed it" } } as CarryBaselineEntry;
+  const shortWhy = { ...base, newlyMeasured: { runs: ["41153220152"], on: "2026-10-31", why: "missed it" } } as unknown as CarryBaselineEntry;
   check("a why shorter than twelve words is rejected", allowedAdditions([], [shortWhy]).rejected.length === 1);
-  const noDate = { ...base, newlyMeasured: { runs: ["41153220152"], on: "yesterday", why: (marked as { newlyMeasured: { why: string } }).newlyMeasured.why } } as CarryBaselineEntry;
+  const noDate = { ...base, newlyMeasured: { runs: ["41153220152"], on: "yesterday", why: (marked as { newlyMeasured: { why: string } }).newlyMeasured.why } } as unknown as CarryBaselineEntry;
   check("a date not in YYYY-MM-DD is rejected", allowedAdditions([], [noDate]).rejected.length === 1);
   const m = (marked as { newlyMeasured: Record<string, unknown> }).newlyMeasured;
-  const noCause = { ...base, newlyMeasured: { runs: m.runs, on: m.on, why: m.why } } as CarryBaselineEntry;
+  const noCause = { ...base, newlyMeasured: { runs: m.runs, on: m.on, why: m.why } } as unknown as CarryBaselineEntry;
   check("a newly measured entry with no cause is rejected", allowedAdditions([], [noCause]).rejected.length === 1);
-  const causeNoLine = { ...base, newlyMeasured: { ...m, cause: "the form keeps its own copy of the answer somewhere" } } as CarryBaselineEntry;
+  const causeNoLine = { ...base, newlyMeasured: { ...m, cause: "the form keeps its own copy of the answer somewhere" } } as unknown as CarryBaselineEntry;
   check("a cause naming no code line (file:line) is rejected", allowedAdditions([], [causeNoLine]).rejected.length === 1);
   const removedTwin = { ...base, where: "chat@/builder", reason: base.reason + " in the chat" };
   const swap = allowedAdditions([removedTwin], [marked]);
@@ -61,7 +61,7 @@ if (allowedAdditions) {
   check("an entry already on main is not an addition", allowedAdditions([base], [base]).rejected.length === 0 && allowedAdditions([base], [base]).newlyMeasured.length === 0);
 }
 
-check("badEntries flags a malformed newlyMeasured record", counts.badEntries([{ ...base, newlyMeasured: { runs: [], on: "x", why: "" } } as CarryBaselineEntry]).length > 0);
+check("badEntries flags a malformed newlyMeasured record", counts.badEntries([{ ...base, newlyMeasured: { runs: [], on: "x", why: "" } } as unknown as CarryBaselineEntry]).length > 0);
 check("badEntries accepts a well formed one", counts.badEntries([marked]).length === 0, JSON.stringify(counts.badEntries([marked])));
 
 type Split = (list: readonly CarryBaselineEntry[]) => { original: CarryBaselineEntry[]; newlyMeasured: CarryBaselineEntry[] };

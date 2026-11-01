@@ -64,10 +64,11 @@ export type CarryBaselineEntry = {
   reason: string;
   /**
    * Set only on an entry ADDED after the list started (owner, 30 Oct): a repeat the list missed, not a
-   * regression. Names the carry workflow runs that recorded it, the date, and why in words. It is the
+   * regression. Names the carry workflow runs that recorded it, the date, why in words, and its cause
+   * (the code line, file:line, that makes the site do it). Never used to hide a fault. It is the
    * only kind of addition the list check allows, and every report counts these apart from the rest.
    */
-  newlyMeasured?: { runs: string[]; on: string; why: string };
+  newlyMeasured?: { runs: string[]; on: string; why: string; cause: string };
 };
 
 export type RunIdentity = { court: string; route: string; who?: string };
@@ -155,15 +156,22 @@ export function newlyMeasuredProblems(entry: CarryBaselineEntry): string[] {
   else if (record.runs.some((run) => !/^\d{6,}$/.test(String(run)))) problems.push("newlyMeasured run ids are GitHub Actions run numbers (digits)");
   if (!/^\d{4}-\d{2}-\d{2}$/.test(String(record.on ?? ""))) problems.push("newlyMeasured.on is a date, YYYY-MM-DD");
   if (String(record.why ?? "").trim().split(/\s+/).filter(Boolean).length < 12) problems.push("newlyMeasured.why says in words (at least twelve) why it is a repeat the list missed, not a regression");
+  if (!/[\w./\[\]-]+\.(?:tsx?|jsx?|mjs|cjs):\d+/.test(String(record.cause ?? ""))) problems.push("newlyMeasured.cause names the code line that makes the site do it (file:line)");
   return problems;
 }
 
 /** The entries added compared with `before`: newly measured ones (allowed) and the rest (rejected). */
 export function allowedAdditions(before: readonly CarryBaselineEntry[], now: readonly CarryBaselineEntry[]): { rejected: CarryBaselineEntry[]; newlyMeasured: CarryBaselineEntry[] } {
   const added = addedEntries(before, now);
+  // Never used to hide a fault: an entry removed in the same change, of the same kind, fact and court,
+  // means a known entry is being swapped for a "new" one.
+  const kept = new Set(now.map(entryKey));
+  const removed = before.filter((entry) => !kept.has(entryKey(entry)));
+  const swaps = (entry: CarryBaselineEntry) => removed.some((gone) => gone.kind === entry.kind && gone.fact === entry.fact && (gone.court ?? "*") === (entry.court ?? "*"));
+  const allowed = (entry: CarryBaselineEntry) => newlyMeasuredProblems(entry).length === 0 && !swaps(entry);
   return {
-    rejected: added.filter((entry) => newlyMeasuredProblems(entry).length > 0),
-    newlyMeasured: added.filter((entry) => newlyMeasuredProblems(entry).length === 0),
+    rejected: added.filter((entry) => !allowed(entry)),
+    newlyMeasured: added.filter(allowed),
   };
 }
 
