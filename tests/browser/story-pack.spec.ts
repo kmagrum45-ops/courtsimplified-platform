@@ -1103,8 +1103,15 @@ test("retest-477 repeat: the amount the story wants is offered for one click -- 
   await autoAnswerSituation(page, STARTING_NOTHING_FILED);
   const account = await fakeAccount(page);
   await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
-  await smallClaims(page, story, true);
-  await expect(page.locator('[data-question="sc-amount-claimed"]').getByRole("button", { name: "Use the suggestion: $1,650" })).toBeVisible();
+  // The review helper reads the offer and uses it with one click (answerSmallClaimsReview). Once used it is the
+  // person's answer, and a used suggestion is not offered again (founder's Chrome check of #536, 1 Nov, item 8),
+  // so the offer is checked as read before the click, then the answer it gave.
+  const offered = await smallClaims(page, story, true);
+  expect(offered, "the story's amount was offered for one click").toBe("$1,650");
+  const amount = page.locator('[data-question="sc-amount-claimed"]');
+  await expect(amount, "one click answered it").toHaveAttribute("data-answered", "true");
+  await expect(amount.getByTestId("intake-question-answered"), "the answer is the amount offered").toContainText("$1,650");
+  await expect(amount.getByRole("button", { name: /^Use the suggestion/ }), "a used suggestion is not offered again").toHaveCount(0);
 });
 test("retest-477 repeat: the amount the story claims is offered for one click -- civil", async ({ page }) => {
   test.setTimeout(240_000);
