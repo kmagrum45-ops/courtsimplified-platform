@@ -348,9 +348,6 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
     for (const fact of slotsOf(id)) give(file, fact, answer, `review:${id}`);
   }
   for (const id of strings(builder.initialUnknowns)) for (const fact of slotsOf(id)) unsure(file, fact, `review:${id}`);
-  // A date question answered "I don't know yet", in the review or in words, whatever slot it has or not.
-  const unsureDates = [...strings(builder.initialUnknowns), ...Object.entries(answers).filter(([, words]) => isUnsureAnswer(words)).map(([id]) => id)].filter((id) => /-date-/.test(id));
-  if (unsureDates.length) file.unsureDates = [...new Set(unsureDates)];
   // Skipped in the questions one at a time (civil, Family).
   for (const key of strings(object(sections["form-chat"]).skipped)) for (const fact of slotsOf(key)) unsure(file, fact, `chat:${key}`);
 
@@ -398,6 +395,18 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
     // emptied there (a side change, the story-version rule) is not brought back from this copy.
     if (typeof item.questionId === "string") for (const fact of slotsOf(item.questionId)) if (!(fact === "claimKind" && checkpoint)) give(file, fact, item.answerText, item.questionId);
   }
+  // A date question answered "I don't know yet", in the review or in words, whatever slot it has or not:
+  // only an actual "not sure" marks it, and never once the question or its fact has a real answer from
+  // any source read above -- the review after the mark, the chat, the saved copy, the step page's
+  // dates, a form's box (latest answer wins; 1 Nov: the mark was kept whatever the answer).
+  const realAnswers = new Set<string>();
+  const real = (id: unknown, words: unknown) => { if (typeof id === "string" && typeof words === "string" && words.trim() && !isUnsureAnswer(words)) realAnswers.add(id); };
+  for (const [id, words] of Object.entries(object(builder.initialAnswers))) real(id, words);
+  for (const answer of [...(Array.isArray(guided.earlierAnswers) ? guided.earlierAnswers : []), ...(Array.isArray(object(master).intakeAnswers) ? (object(master).intakeAnswers as unknown[]) : [])]) real(object(answer).questionId, object(answer).answerText);
+  for (const [id, value] of Object.entries(dates)) real(id, value);
+  const saidUnsure = [...strings(builder.initialUnknowns), ...Object.entries(answers).filter(([, words]) => isUnsureAnswer(words)).map(([id]) => id)];
+  const unsureDates = saidUnsure.filter((id) => /-date-/.test(id) && !realAnswers.has(id) && !slotsOf(id).some((fact) => file[fact].state === "answered"));
+  if (unsureDates.length) file.unsureDates = [...new Set(unsureDates)];
   file.answers = answers;
   // The papers filed, as answered in any area's list (case 16: "the filed application and answer").
   // And the papers named in the situation answers ("I was served with a Plaintiff's Claim"), so "Anything
