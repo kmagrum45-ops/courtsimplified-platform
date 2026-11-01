@@ -342,8 +342,12 @@ export default function IntakeReviewPanel() {
         // Said "not sure" (here or anywhere): the quiet line in its place, never the question again (site owner, 31 Oct).
         const quiet = question.notYet;
         const fact = quiet?.facts.find(item => changeChoices(item, court));
-        // No fact to add here through "Change" (the day a claim was issued): "Add it" takes back "I do not know yet", so the question opens again.
-        const reopen = quiet && !fact && quiet.markedHere ? <>{" "}<button type="button" data-testid="not-answered-yet-add" disabled={busy} onClick={() => setUnknown(question.id, false)} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</button></> : undefined;
+        // "Add it" takes back "I do not know yet", so the question's own box opens again and the answer typed
+        // there is the latest (it clears the mark and keeps its place: fault 2, 1 Nov), when this review's tick is
+        // the only "not sure" for its facts, or no fact can be added through "Change" (the day a claim was issued).
+        // A fact also said "not sure" elsewhere is added through "Change" (the one change path).
+        const onlyTickedHere = Boolean(quiet?.markedHere) && Boolean(quiet?.facts.every(item => caseFileNow[item].source?.kind === "answer" && caseFileNow[item].source?.question === `review:${question.id}`));
+        const reopen = quiet && quiet.markedHere && (!fact || onlyTickedHere) ? <>{" "}<button type="button" data-testid="not-answered-yet-add" disabled={busy} onClick={() => setUnknown(question.id, false)} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</button></> : undefined;
         return <div key={question.id} className="my-4" data-testid="intake-initial-question" data-question={question.id} data-answered={quiet ? "not-yet" : answered ? "true" : "false"} data-unknown={unknowns.includes(question.id) ? "true" : "false"}>
           <p className="font-semibold">{question.label}</p>
           {/* The quiet line in the answers' place; the tick stays the same box (same place in the row), so ticking it keeps it. */}
