@@ -127,6 +127,8 @@ export default function IntakeReviewPanel() {
   /** The answer a civil or Family question holds now, as the form keeps it. */
   const fieldValue = (id: string): unknown => checkpoint.courtPath === "civil" ? (checkpoint.sections.civil?.input as Record<string, unknown> | undefined)?.[id] : checkpoint.sections.family?.[id];
   const unknowns = Array.isArray(checkpoint.sections.builder?.initialUnknowns) ? checkpoint.sections.builder.initialUnknowns as string[] : [];
+  /** Fault 2 (31 Oct): an answer given to a question marked "I do not know yet" is the latest answer, so the mark goes (latest answer wins). */
+  const clearUnknown = (id: string) => { const current = recovery?.read("builder", "initialUnknowns"); if (Array.isArray(current) && current.includes(id)) recovery?.put("builder", "initialUnknowns", current.filter(item => item !== id), true, false, true); };
   /** "I do not know yet" for a review question, ticked or taken back (the review's own record, builder.initialUnknowns). */
   const setUnknown = (id: string, unknown: boolean) => { const current = Array.isArray(recovery.read("builder", "initialUnknowns")) ? recovery.read("builder", "initialUnknowns") as string[] : []; recovery.put("builder", "initialUnknowns", unknown ? [...current.filter(item => item !== id), id] : current.filter(item => item !== id), true, false, true); };  const unknownBox = (id: string) => <label className="mt-1 block"><input type="checkbox" data-testid="intake-unknown" checked={unknowns.includes(id)} disabled={busy} onChange={event => setUnknown(id, event.target.checked)} /> I do not know yet</label>;
   const suggestions = suggestInitialAnswers(checkpoint);
@@ -228,9 +230,11 @@ export default function IntakeReviewPanel() {
       // Family keeps the day of service in its Timeline, as the form does.
       recovery.put("family", "timeline", withServedDate(String(recovery.read("family", "timeline") ?? ""), String(value)), true, true, true, true);
       keepShown(questionId);
+      clearUnknown(questionId);
       return;
     }
     keepShown(questionId);
+    clearUnknown(questionId);
     // Answered again here: based on the current story even when the value is the same
     // (#470 re-test: re-choosing the same side never cleared "earlier version").
     if (court === "civil") {
@@ -260,6 +264,7 @@ export default function IntakeReviewPanel() {
     const now = recovery.getReview().checkpoint;
     recovery.put("builder", "initialAnswers", { ...initialAnswersOf({ ...now, sections: freshSections(now) }), [questionId]: value }, true, false, true, questionId);
     keepShown(questionId);
+    clearUnknown(questionId);
     const input = recovery.read("small-claims", "input") as Record<string, unknown> | undefined;
     if (questionId === "sc-orient-role" && input && !["plaintiff", "defendant"].includes(String(input.yourRole))) {
       recovery.put("small-claims", "input", { ...input, yourRole: value.includes("defendant") ? "defendant" : "plaintiff" }, true, true, true);
