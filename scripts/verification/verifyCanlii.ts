@@ -313,6 +313,7 @@ async function main() {
       [".github/workflows/courtsimplified-ci.yml", "the local site under test (browser-regression job polls http://localhost:3100)"],
       [".github/workflows/courtsimplified-story-pack.yml", "the local site under test (the story pack polls http://localhost:3100)"],
       [".github/workflows/courtsimplified-carry.yml", "the local site under test (the carry test polls http://localhost:3100)"],
+      ["scripts/browser/carryLocal.sh", "the local site under test (polls http://localhost:<port>)"],
       ["scripts/ai/spendGuard.mjs", "OpenAI's Costs API (api.openai.com)"],
       ["scripts/ai/openaiCredit.mjs", "OpenAI's chat completions API (api.openai.com), one token to see whether the balance is empty"],
       ["scripts/diagnose-auth-email.mjs", "Supabase"],
@@ -357,6 +358,14 @@ async function main() {
     const carryHosts = [...read(".github/workflows/courtsimplified-carry.yml").matchAll(/\b(?:https?|wss?):\/\/[^\s"'`;)]+/gi)].map((m) => m[0]);
     const notLocal = carryHosts.filter((url) => !/^http:\/\/localhost(?::\d+)?(?:\/|$)/i.test(url));
     check("the carry workflow fetches only its own local site (http://localhost)", carryHosts.length > 0 && notLocal.length === 0, notLocal.join(", "));
+    // The local-database carry (31 Oct): its script and workflow reach only the local site and the local
+    // stack (http://localhost / http://127.0.0.1), never a CanLII host or a hosted Supabase project.
+    // Lines that are the script's own refusal pattern (a regex naming the local hosts) are not addresses.
+    const localCarryText = [read("scripts/browser/carryLocal.sh"), read(".github/workflows/courtsimplified-carry-local.yml")]
+      .join("\n").split("\n").filter((line) => !/=~\s*\^http/.test(line)).join("\n");
+    const localCarryHosts = [...localCarryText.matchAll(/\b(?:https?|wss?):\/\/[^\s"'`;)]+/gi)].map((m) => m[0]);
+    const localCarryOutside = localCarryHosts.filter((url) => !/^http:\/\/(?:localhost|127\.0\.0\.1)(?::\d+|:\$\{?\w+\}?)?(?:\/|$)/i.test(url));
+    check("the local-database carry reaches only localhost and 127.0.0.1", localCarryHosts.length > 0 && localCarryOutside.length === 0, localCarryOutside.join(", "));
     check(
       "fetchDecisionPages.sh still refuses CanLII URLs",
       /\*canlii\*\) echo "REFUSED \(CanLII is never fetched\)/.test(read("scripts/sources/fetchDecisionPages.sh")),
