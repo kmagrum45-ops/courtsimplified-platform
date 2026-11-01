@@ -196,9 +196,9 @@ function selfTest(allowed: OneWriterEntry[], found: SavePoint[]) {
   check("self-test: a planted new save point (a field, a master_result write, a cases update) fails as a new writer", judgeOneWriter([...found, ...planted], allowed, allowed).newWriters.filter((item) => item.file === plantedFile).length === 3);
   const added: OneWriterEntry = { kind: "intake-state", file: plantedFile, target: "\"civil\", \"otherPartyCopy\"", count: 1, group: "G4" };
   const withAdded = judgeOneWriter([...found, ...planted], [...allowed, added], allowed);
-  check("self-test: an entry added to the list fails, even when it makes the writer allowed", withAdded.grown.length === 1 && !withAdded.newWriters.some((item) => item.target === added.target));
+  check("self-test: an entry added to the list fails, even when it makes the writer allowed", withAdded.grown.length === 1 && !withAdded.newWriters.some((item) => item.file === plantedFile && item.kind === added.kind));
   const raised = allowed[0] ? [{ ...allowed[0], count: allowed[0].count + 1 }, ...allowed.slice(1)] : [];
-  check("self-test: a raised count fails as growth and as stale", raised.length > 0 && judgeOneWriter(found, raised, allowed).grown.length === 1 && judgeOneWriter(found, raised, raised).stale.length === 1);
+  check("self-test: a raised count fails as growth and as stale", raised.length > 0 && judgeOneWriter(found, raised, allowed).grown.some((entry) => keyOf(entry) === keyOf(raised[0])) && judgeOneWriter(found, raised, raised).stale.some((entry) => keyOf(entry) === keyOf(raised[0])));
   const ghost: OneWriterEntry = { kind: "update-master", file: "app/NoSuchFile.tsx", target: "updateMasterResult", count: 1, group: "G6" };
   check("self-test: an entry that matches nothing fails as stale", judgeOneWriter(found, [...allowed, ghost], [...allowed, ghost]).stale.some((entry) => entry.file === ghost.file));
 }
