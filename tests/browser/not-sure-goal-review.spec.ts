@@ -173,7 +173,18 @@ test("the goal said \"unsure\" in the Small Claims guided chat is never an empty
     await expect(page.locator(`[data-testid=not-answered-yet][data-fact="${FACT}"]`).first(), "the whole form shows the quiet line, not an empty Goal box").toBeVisible({ timeout: 60_000 });
     await openReview(page, caseId, "&step=form");
     await checkReview(page, "review from the whole form");
-    // The case page.
+    // Confirm (the goal said "unsure" never blocks it), the overview, then the case page (it exists once
+    // the intake is confirmed and the next step made, as in not-sure-never-asked.spec.ts).
+    const panel = panelOf(page);
+    const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
+    while (await unknowns.count()) { const left = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(left - 1, { timeout: 20_000 }); }
+    await page.getByTestId("intake-review-acknowledgement").check();
+    await expect(page.getByTestId("intake-confirm"), "Confirm is not blocked by the goal said not sure").toBeEnabled({ timeout: 30_000 });
+    await page.getByTestId("intake-confirm").click();
+    await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
+    await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
+    await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 180_000 });
+    await page.waitForTimeout(3_000);
     await page.goto(`/cases/${caseId}`);
     await expect(page.getByTestId("case-file")).toBeVisible({ timeout: 90_000 });
     await page.waitForTimeout(1_500);
