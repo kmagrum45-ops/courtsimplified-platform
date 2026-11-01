@@ -14,13 +14,15 @@
  *      counted as remaining and never blocks Confirm;
  *   4. the review's quiet lines (intakeReview.ts notAnsweredYet) list it, and its boxes
  *      (reviewBoxState) show it as "not-yet", never as a box asking for it;
- *   5. a value added through the one change path (withChange) wins over the "not sure".
+ *   5. a value added through the one change path (withChange) wins over the "not sure";
+ *   6. a date question (unsureDateQuestions, the step page's folded days) is marked only by an actual
+ *      "not sure", and never once it or its fact has a real answer from any source (latest answer wins).
  *
  * WHAT FAILURE THIS CATCHES: an unsure fact offered again at the end (nextQuestion's atEnd), listed
  * in the review's questions or shown as an empty box asking for it, counted as still to answer, or
- * a "not sure" that hides a value the person added later.
+ * a "not sure" that hides a value the person added later, or a day folded as not known after it was given.
  */
-import { caseFileOf, nextQuestion, askable, chatMayAsk, slotsOfQuestion, withChange, CASE_FILE_SECTION, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, nextQuestion, askable, chatMayAsk, slotsOfQuestion, unsureDateQuestions, withChange, CASE_FILE_SECTION, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import * as review from "../../src/lib/case-system/intakeReview";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 
@@ -81,6 +83,17 @@ for (const item of CASES) {
       check(`${item.name}: the review's box "${entry.field}" shows the quiet line, never asks`, reviewBoxState(entry, file) === "not-yet", reviewBoxState(entry, file));
     }
   }
+  // 4b. The review's one list (reviewQuestionList, #536): a question whose facts are all not sure is
+  // listed only as its quiet line (notYet), never as still to answer ("N still to answer" counts
+  // `!answered && !notYet`). Failing first on #536's head, which listed it through the unsure offer.
+  {
+    const list = review.reviewQuestionList(stored) as { id: string; answered: boolean; notYet?: unknown }[];
+    const counted = list.filter((question) => !question.answered && !question.notYet && (() => { const own = slotsOfQuestion(question.id); return own.length > 0 && own.every((fact) => file[fact].state === "unsure"); })());
+    check(`${item.name}: the review's one list never counts a not-sure question as still to answer`, counted.length === 0, counted.map((question) => question.id).join(", "));
+    // Ticked here: a question the review listed before the tick keeps its place, as its quiet line.
+    const before = review.remainingEssentialQuestions(checkpoint(item.court, { ...item.sections, builder: {} })).some((question) => question.id === item.question);
+    if (before && (item.sections.builder?.initialUnknowns as string[] | undefined)?.includes(item.question)) check(`${item.name}: ticked "I do not know yet" here, it keeps its place in the list as its quiet line`, list.some((question) => question.id === item.question && Boolean(question.notYet)), JSON.stringify(list));
+  }
   // 5. Added later through the one change path: the value wins.
   // A day is added as a full day (ChangeAnswer asks for one), anything else in words.
   const value = item.fact === "whenHappened" ? "October 6, 2026" : "Synthetic: added later";
@@ -95,6 +108,30 @@ for (const item of CASES) {
   const both = checkpoint("small-claims", { guided: { earlierAnswers: [{ questionId: "sc-amount-claimed", answerText: "$2,500" }] }, builder: { initialUnknowns: ["sc-amount-claimed"] } });
   if (notAnsweredYet) check("an answer given elsewhere is never shown as \"not answered yet\"", !notAnsweredYet(both).some((line) => line.facts.includes("amount")));
 }
+// 6. DATE QUESTIONS (unsureDateQuestions, read by the step page as `laterDates`): only an actual "not
+// sure" marks a date question unsure. A real answer to the same question -- in the review after the mark,
+// on the step page (position.dateAnswers), in the saved copy (intakeAnswers) -- or a held answer to its
+// fact wins (latest answer wins); the step page must not fold an answered day as "Not answered yet".
+// Failing first (1 Nov): caseFile.ts built unsureDates from initialUnknowns before any of those sources
+// were read and never removed an id that was answered after.
+{
+  const DAY = "sc-date-claim-issued";
+  const SERVED = "sc-date-claim-served";
+  const sc = (sections: Record<string, Record<string, unknown>>) => checkpoint("small-claims", sections);
+  const dates = (stored: Checkpoint, master?: unknown) => unsureDateQuestions(caseFileOf(stored, master));
+  check("dates: \"I do not know yet\" for a date question folds it on the step page", dates(sc({ builder: { initialUnknowns: [DAY] } })).includes(DAY));
+  check("dates: \"I don't know\" typed for a date question folds it", dates(sc({ guided: { earlierAnswers: [{ questionId: DAY, answerText: "I don't know" }] } })).includes(DAY));
+  check("dates: a real day typed is never marked not sure", !dates(sc({ guided: { earlierAnswers: [{ questionId: DAY, answerText: "September 3, 2026" }] } })).includes(DAY));
+  check("dates: marked, then answered in the review (the mark left behind): the answer wins", !dates(sc({ builder: { initialUnknowns: [DAY], initialAnswers: { [DAY]: "September 3, 2026" } } })).includes(DAY), JSON.stringify(dates(sc({ builder: { initialUnknowns: [DAY], initialAnswers: { [DAY]: "September 3, 2026" } } }))));
+  const master = { position: { dateAnswers: { [DAY]: "2026-09-03" } } };
+  check("dates: marked, then given on the step page (position.dateAnswers): the answer wins", !dates(sc({ builder: { initialUnknowns: [DAY] } }), master).includes(DAY), JSON.stringify(dates(sc({ builder: { initialUnknowns: [DAY] } }), master)));
+  const savedCopy = { intakeAnswers: [{ questionId: DAY, answerText: "September 3, 2026" }] };
+  check("dates: \"I don't know\" in the chat, then a real day in the saved copy: the answer wins", !dates(sc({ guided: { earlierAnswers: [{ questionId: DAY, answerText: "I don't know" }] } }), savedCopy).includes(DAY), JSON.stringify(dates(sc({ guided: { earlierAnswers: [{ questionId: DAY, answerText: "I don't know" }] } }), savedCopy)));
+  const servedHeld = sc({ builder: { initialUnknowns: [SERVED] }, "small-claims": { input: { servedDate: "2026-09-10" } } });
+  check("dates: marked, while its fact (the day served) is answered elsewhere: not folded", caseFileOf(servedHeld).servedDate.state !== "answered" || !dates(servedHeld).includes(SERVED), `${JSON.stringify(caseFileOf(servedHeld).servedDate)} ${JSON.stringify(dates(servedHeld))}`);
+  check("dates: a question that is not a date is never in the list", !dates(sc({ builder: { initialUnknowns: ["sc-remedy-sought", DAY] } })).includes("sc-remedy-sought"));
+}
+
 // A question nobody has answered or skipped is still asked (the gate is not closed for everything).
 {
   const fresh = checkpoint("civil", {});
