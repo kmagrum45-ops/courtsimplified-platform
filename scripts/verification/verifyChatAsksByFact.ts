@@ -221,7 +221,7 @@ async function asked(court: Court, setup: Setup, wants: "unsure" | "answered" | 
     const chat = readFileSync(path.join(ROOT, "app/builder/_components/GuidedFormChat.tsx"), "utf8");
     // The held set is the gate alone: no exception lets a held (or unsure) fact back in, story or not.
     const held = /const heldElsewhere = useMemo\(\(\) => \{([\s\S]*?)\}, \[/.exec(chat)?.[1] ?? "";
-    check("GuidedFormChat holds back every fact the one chat gate holds, with no story exception", /!chatMayAsk\(file, field\.key\)\)/.test(held) && !/fromStory/.test(held), held.slice(0, 300));
+    check("GuidedFormChat holds back every fact the one chat gate holds, with no story exception", /!chatMayAsk\((?:file|caseFile), field\.key\)\)/.test(held) && !/fromStory/.test(held), held.slice(0, 300));
   }
 
   // 5. THE CONVERSATION CHECK (site owner, 29 Oct; CI story pack m19-laptop-repair): a chat never asks
