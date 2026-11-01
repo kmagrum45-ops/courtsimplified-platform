@@ -37,7 +37,8 @@ import { userStory } from "@/src/lib/case-system/userStory";
 import { kindsOfClaim } from "@/src/lib/case-system/intake/claimKind";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { savePositionQueued } from "./positionSave";
-import { changedWords, claimKindAnswer, claimKindLine, CLAIM_KIND_QUESTION, type CaseFile, type ClaimKindHeld } from "@/src/lib/case-system/caseFile/caseFile";
+import { changedWords, claimKindAnswer, claimKindLine, claimKindOf, CLAIM_KIND_QUESTION, type CaseFile, type ClaimKindHeld } from "@/src/lib/case-system/caseFile/caseFile";
+import { inWords } from "@/src/lib/case-system/copy/rawKeys";
 import { WorkingButton } from "@/app/_components/Working";
 import { UseSuggestion } from "@/app/_components/UseSuggestion";
 
@@ -165,7 +166,11 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // case file", the review and the Form 7A section must read the same value). A separate
   // "confirmed" flag never hides the person's own answer. Its content below follows the same kind.
   const pickedName = pickedHere && pickedHere !== "not-sure" ? CLAIM_TYPES.find((claimType) => claimType.id === pickedHere)?.name ?? null : null;
-  const kind = analysis.courtPath !== "small-claims" ? null
+  // Civil and Family: the kind the case file holds (the issues picked, or the person's change of them), in
+  // the words every screen shows; never proposed here (founder's Chrome check of #536, 1 Nov: the snapshot
+  // had no kind-of-dispute row in civil and Family while Small Claims had one).
+  const areaKind = analysis.courtPath !== "small-claims" && caseFile ? claimKindLine(claimKindOf(caseFile, inWords)) : null;
+  const kind = analysis.courtPath !== "small-claims" ? (areaKind?.held ? areaKind : null)
     : pickedName ? { label: "Kind of claim you chose", words: pickedName, claimTypeId: pickedHere, quote: null, held: true }
     : pickedHere === "not-sure" ? null
     : claimKind ? claimKindLine(claimKind) : null;

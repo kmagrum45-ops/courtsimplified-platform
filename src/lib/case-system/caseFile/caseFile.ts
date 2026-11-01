@@ -503,6 +503,22 @@ export function changedWords(file: CaseFile | null | undefined, fact: SlotFact, 
   return slotText(slot, formatDay);
 }
 
+/**
+ * What a screen that REPEATS AN ANSWER BACK shows for a question now ("Got it: ..." in the questions one at a
+ * time, "Confirmed from my story" in the Small Claims chat): the person's latest change of the question's fact
+ * (the change record, newest wins) over the screen's own copy, `own`. `{ removed: true }` when that change
+ * removed it. A question that answers more than one fact keeps its own copy (no one fact speaks for it).
+ * Founder's Chrome check of #536, 1 Nov: "Got it: Contract / agreement dispute." stayed after the kind was
+ * changed in the review, on a reload too.
+ */
+export function answerNow(file: CaseFile | null | undefined, questionId: string, own: unknown): { value: unknown; changed: boolean; removed: boolean } {
+  const facts = slotsOf(questionId);
+  const slot = facts.length === 1 ? file?.[facts[0]] : undefined;
+  if (!slot?.changed) return { value: own, changed: false, removed: false };
+  if (slot.removed || slot.state !== "answered") return { value: undefined, changed: true, removed: true };
+  return { value: typeof slot.value === "number" ? slotText(slot, (iso) => iso) : slot.value, changed: true, removed: false };
+}
+
 /** The kinds the case file keeps as turned down ("Not quite"), with one more. */
 export function withTurnedDown(section: unknown, fact: "claimKind", value: string): Record<string, string[]> {
   const current = object(object(section).turnedDown);

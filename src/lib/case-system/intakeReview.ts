@@ -598,12 +598,17 @@ function whenItHappened(story: string): string | null {
 
 export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, action: "review" | "collect" | "confirm", expectedInputRevision: string, now: string, master?: unknown): ObjectValue {
   if (inputRevision(checkpoint) !== expectedInputRevision) throw new Error("The initial facts changed. Please review the current information again.");
-  if (action === "collect") return invalidateReview(workflow);
+  // "You changed an answer, so please review and confirm again." is kept, in the saved record, until the
+  // person confirms again: opening the review or returning to the questions never drops it (founder's
+  // Chrome check of #536, 1 Nov: reloaded before the change was saved, the review opened collecting, and
+  // "Stop initial questions and review" took the message away).
+  const marker = action !== "confirm" && object(workflow.intakeReview).changedAfterConfirm === true ? { changedAfterConfirm: true } : {};
+  if (action === "collect") return { ...invalidateReview(workflow), intakeReview: { version: 1, ...marker } };
   if (!canReview(checkpoint)) throw new Error("Add your city and a description of your situation before reviewing.");
   if (action === "confirm" && reviewPhase(workflow, checkpoint) === "user-confirmed") return workflow;
   if (action === "confirm" && reviewPhase(workflow, checkpoint) !== "reviewing") throw new Error("Review the current information before confirming it.");
   if (action === "confirm" && remainingEssentialQuestions(checkpoint, false, master).length) throw new Error("Answer the remaining initial questions, or explicitly mark what you do not know, before confirming.");
-  return { ...workflow, intakeCompleted: action === "confirm", intakeReview: { version: 1, reviewedRevision: expectedInputRevision, ...(action === "confirm" ? { confirmedRevision: expectedInputRevision, confirmedAt: now, confirmedFacts: confirmedFactMarks(checkpoint) } : {}) } };
+  return { ...workflow, intakeCompleted: action === "confirm", intakeReview: { version: 1, reviewedRevision: expectedInputRevision, ...marker, ...(action === "confirm" ? { confirmedRevision: expectedInputRevision, confirmedAt: now, confirmedFacts: confirmedFactMarks(checkpoint) } : {}) } };
 }
 
 /**
@@ -623,4 +628,17 @@ export function reconcileReview(workflow: ObjectValue, previous: Checkpoint, nex
 /** An answer was changed after Confirm and it is not confirmed again yet: the review says so (reconcileReview). */
 export function changedAfterConfirm(workflow: ObjectValue, checkpoint: Checkpoint): boolean {
   return object(workflow.intakeReview).changedAfterConfirm === true && reviewPhase(workflow, checkpoint) !== "user-confirmed";
+}
+
+/**
+ * The same, for a saved case (the case page): read from the saved record only, so the case page says
+ * "You changed an answer, so please review and confirm again." and shows the newest answers before the
+ * person confirms again (founder's Chrome check of #536, 1 Nov: the case page showed neither).
+ */
+export function savedCaseChangedAfterConfirm(master: unknown, court?: string | null, caseId?: string): boolean {
+  const record = object(master);
+  const area = court ?? object(record.intakeCheckpoint).courtPath;
+  if (area !== "small-claims" && area !== "family" && area !== "civil") return false;
+  const checkpoint = readCheckpoint(object(record.intakeCheckpoint), area, caseId);
+  return Boolean(checkpoint && changedAfterConfirm(object(record.workflowStatus), checkpoint));
 }
