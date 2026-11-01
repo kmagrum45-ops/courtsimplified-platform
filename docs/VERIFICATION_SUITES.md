@@ -5,11 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-<<<<<<< HEAD
-213 documented, 26 without a header.
-=======
-207 documented, 26 without a header.
->>>>>>> origin/main
+214 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
