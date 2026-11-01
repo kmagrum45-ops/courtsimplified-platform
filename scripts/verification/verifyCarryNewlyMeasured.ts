@@ -30,7 +30,7 @@ const base: CarryBaselineEntry = {
   kind: "asked-twice", fact: "wants", where: "form-field@/builder?step=results", court: "civil", route: "review", who: "guest",
   reason: "Seen by the carry test: what the person wants ordered, given in the chat, asked again on the results page",
 };
-const marked = { ...base, newlyMeasured: { runs: ["41153220152"], on: "2026-10-31", why: "A repeat the list missed: seen on unchanged main, the same code the list was seeded from, so it is not a regression" } } as CarryBaselineEntry;
+const marked = { ...base, newlyMeasured: { runs: ["41153220152"], on: "2026-10-31", why: "A repeat the list missed: seen on unchanged main, the same code the list was seeded from, so it is not a regression", cause: "The results page asks from its own form copy at app/builder/_components/CivilIntake.tsx:884" } } as CarryBaselineEntry;
 
 type Allowed = (before: readonly CarryBaselineEntry[], now: readonly CarryBaselineEntry[]) => { rejected: CarryBaselineEntry[]; newlyMeasured: CarryBaselineEntry[] };
 const allowedAdditions = (counts as { allowedAdditions?: Allowed }).allowedAdditions;
@@ -48,6 +48,16 @@ if (allowedAdditions) {
   check("a why shorter than twelve words is rejected", allowedAdditions([], [shortWhy]).rejected.length === 1);
   const noDate = { ...base, newlyMeasured: { runs: ["41153220152"], on: "yesterday", why: (marked as { newlyMeasured: { why: string } }).newlyMeasured.why } } as CarryBaselineEntry;
   check("a date not in YYYY-MM-DD is rejected", allowedAdditions([], [noDate]).rejected.length === 1);
+  const m = (marked as { newlyMeasured: Record<string, unknown> }).newlyMeasured;
+  const noCause = { ...base, newlyMeasured: { runs: m.runs, on: m.on, why: m.why } } as CarryBaselineEntry;
+  check("a newly measured entry with no cause is rejected", allowedAdditions([], [noCause]).rejected.length === 1);
+  const causeNoLine = { ...base, newlyMeasured: { ...m, cause: "the form keeps its own copy of the answer somewhere" } } as CarryBaselineEntry;
+  check("a cause naming no code line (file:line) is rejected", allowedAdditions([], [causeNoLine]).rejected.length === 1);
+  const removedTwin = { ...base, where: "chat@/builder", reason: base.reason + " in the chat" };
+  const swap = allowedAdditions([removedTwin], [marked]);
+  check("a newly measured entry added while a list entry of the same kind, fact and court is removed is rejected (never hides a fault)", swap.rejected.length === 1 && swap.newlyMeasured.length === 0, JSON.stringify(swap));
+  const otherCourt = { ...removedTwin, court: "family" };
+  check("removing an entry for another court does not block it", allowedAdditions([otherCourt], [marked]).newlyMeasured.length === 1);
   check("an entry already on main is not an addition", allowedAdditions([base], [base]).rejected.length === 0 && allowedAdditions([base], [base]).newlyMeasured.length === 0);
 }
 
