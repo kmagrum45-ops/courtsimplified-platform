@@ -1152,6 +1152,42 @@
       "route": "review",
       "who": "signed-in",
       "reason": "Seen by the carry test in the small-claims review signed-in run on review-entry@/builder?step=form: held: The other party (held answered)"
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "questions echo (first case by address, after the second case)",
+      "court": "civil",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the civil questions guest run on questions echo (first case by address, after the second case): \"Testwood Contracting Ltd.\" shown again after the person removed it",
+      "newlyMeasured": {
+        "runs": [
+          "41347260791",
+          "41347263138"
+        ],
+        "on": "2026-11-01",
+        "why": "The panel became measured on 1 Nov (carry spec reads the one-at-a-time panel). It shows the same removed party the form, case file and case page entries already list for this step, so it is a screen newly measured, not a regression.",
+        "cause": "The panel shows the case file's value (app/builder/_components/GuidedFormChat.tsx:205, caseFileOf with the saved record, echoed at :321); the saved record still holds the removed party when the first case is reopened by address, as the listed form, case file and case page entries show. Root cause of the removal not holding is not yet traced (G0, Small Claims step 2)."
+      }
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "otherParty",
+      "where": "questions echo (first case by address, after the second case)",
+      "court": "family",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the family questions guest run on questions echo (first case by address, after the second case): \"Jordan Testwood\" shown again after the person removed it",
+      "newlyMeasured": {
+        "runs": [
+          "41347260791",
+          "41347263138"
+        ],
+        "on": "2026-11-01",
+        "why": "The panel became measured on 1 Nov (carry spec reads the one-at-a-time panel). It shows the same removed party the form, case file and case page entries already list for this step, so it is a screen newly measured, not a regression.",
+        "cause": "The panel shows the case file's value (app/builder/_components/GuidedFormChat.tsx:205, caseFileOf with the saved record, echoed at :321); the saved record still holds the removed party when the first case is reopened by address, as the listed form, case file and case page entries show. Root cause of the removal not holding is not yet traced (G0, Small Claims step 2)."
+      }
     }
   ]
 }
