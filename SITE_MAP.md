@@ -107,6 +107,13 @@ The sections below follow the same order.
 
 **`app/_components/ChangeAnswer.tsx`** — "Change": the one control for changing or removing an answer already given. Shown on every held line of the review (`IntakeReviewPanel`, "already given; it is not asked again"), and for the case page's "Change" in "What we have so far" (`CaseFilePanel` links to the builder with `?change=<fact>`, which opens the review with that fact's choices open: the case page is outside the builder's store, so the change goes through the same write path rather than a second, server one). Choices per fact: the kind of claim per court (the Small Claims "What kind of dispute is this?" choices; the civil and Family issues lists), Yes or No, or a typed answer (a day checked with `dateAnswerCheck`), and "Remove this answer". Side, court, stage and papers are changed with the start questions (they choose the court and its steps). A change cancels the confirmation (`intakeReview.ts` `materialFacts` reads the change record; `reconcileReview` records `changedAfterConfirm`, and the review says "You changed an answer, so please review and confirm again.").
 
+**The case core's rails (G0, 1 Nov; `docs/CASE_CORE_DESIGN.md` §1, §10-§12).** Built, not used by any screen yet; no save point has moved.
+- **`src/lib/case-system/caseFile/factRecord.ts`** — the fact record, `caseFile.facts[factId] = { value?, state: answered | unsure | removed, source, at, seq, question? }`, inside `master_result.intakeCheckpoint.sections.caseFile` (no migration). Owns `FACT_IDS` (the slots plus the nine question facts; compile-checked against `factsOfQuestion.ts` `CaseFact`), `factRecordsOf`, `readFactWrites` (refuses a write naming `seq` or `at`), and `applyFactWrites`: each accepted write gets seq = highest stored + 1 and the server's time, a write made against an older view of a fact (`seenSeq` behind) is a conflict for that fact only, `force` ("Save" on "Not saved yet") makes it newest; the checkpoint's `revision` is left alone. Values go through the case file's own `give` (exported from `caseFile.ts` for this). **Nothing reads `caseFile.facts` yet**: `caseFileOf` does not (G1/G2); `npm run test:fact-coexistence` fails until it does.
+- **`src/lib/case-system/caseFile/factSave.ts`** — `saveFactWrites`: `applyFactWrites` inside `updateCaseRecord.ts` `updateMasterResult` (re-read, compare-and-set on `updated_at`, retry from the new row); `intakeCourtOfRow`.
+- **`app/api/cases/facts/route.ts`** — `POST /api/cases/facts` `{ caseId, facts: [...] }`: the signed-in owner and case (`getAuthenticatedOwnedCase`), then `saveFactWrites` with the person's own token (row-level security applies too). Writes `caseFile.facts` and nothing else. **No caller yet** (G2 makes `give` in the browser send here).
+- **`src/lib/case-system/caseFile/fieldFacts.ts`** — the one field-to-fact table: every `(section, field)` a save point writes is `answer` (its question's fact), `keyed` (each key is a question id) or `none` (with why); the fact always comes from `factsOfQuestion`. A question asking for two facts (`serviceDetails`, `upcomingCourtDate`, `sc-defendant-claim-received`, `sc-defendant-service-method`, `claimReceivedText`, `serviceMethodText`) maps to neither until split. `npm run test:fact-rails`.
+- **Known gap (G1/G2 must close it):** the browser's whole-checkpoint save (`intakeCheckpoint.ts` `saveCheckpoint`) writes the tab's snapshot whole, so it would erase facts the route wrote since the tab's copy (`test:fact-coexistence`).
+
 **`src/lib/case-system/caseFile/caseFileOfMaster.ts`** — the case file of a saved case (its checkpoint and saved position), for a reader that has only `master_result`: `caseFileOfMaster`, `claimKindOfMaster`; `courtOfSavedRow` (with `SAVED_COURT_COLUMNS`), the court of a saved case row through the case file, the court column only as its fallback (for the builder opening an id with no court). Read by `caseRecord.ts` (`readCaseRecord`) and `caseReview.ts` (`caseFileFromMasterResult`), so "Check my case file" and the AI's fact text read the same slots as the screens.
 
 **`src/lib/case-system/caseFile/aiCaseContext.ts`** — the case context an AI call is given, from the case file (rule 8, 30 Oct), claim type only so far: `claimKindAiContext` (the story and side as held, the person's kind as known, a suggestion open only while none is held, the kinds turned down only to be left out), `classifyClaimTypeBody` (the guided chat's `/api/intake/classify-claim-type` request), and (31 Oct) `researchCaseContext` / `researchContextLines`: the kind of claim in words (a Small Claims dispute category, the civil or Family issues picked; a suggestion only marked as one; a kind turned down never), sent with each court's analysis request, checked by its route (`parseResearchCaseContext`) and told to the analysis's AI research (`storyRetrieval.ts` `queryPrompt`, used by `researchStory` and plain retrieval). Every other AI prompt still builds its own context (inventory rows 133-147).
@@ -789,6 +796,13 @@ checked-answer engine or the published pipeline blocks.
   store. Every place the 29 Oct fact inventory found is on `scripts/verification/caseFileGuardAllowed.json`
   with its inventory row; a new copy fails, a stale entry fails, and the list may only shrink
   (compared with origin/main's copy). Moving a fact into the case file means deleting its entries.
+- **One writer** (`npm run test:one-writer`, in CI): every save point of case data in app/ and src/
+  (`useIntakeState` fields, the intake hooks, `recovery.put`, `updateMasterResult` callers, `cases`
+  inserts/updates/upserts/deletes, `saveCheckpoint` and its siblings, browser storage copies) is on
+  `scripts/verification/oneWriterAllowed.json`, counted per kind, file and target, each with the
+  Phase 1 group that moves it. A new save point fails; an entry found less often than it allows fails
+  (lower it); the list may only shrink against origin/main. Moving a save point onto the one writer
+  (`give`, `POST /api/cases/facts`) means lowering its entry. 174 save points on 1 Nov.
 - `npm run test:site-map` (in CI) fails when the generated part no longer matches the imports.
   It cannot check the written part; the reviewer check below does.
 - **Reviewer check.** Before a pull request that changes a shared piece is called ready, a fresh
@@ -879,8 +893,8 @@ Setting aside the old side's answers when the side changes.
 The case file: one slot per fact, and nextQuestion, the one rule for asking.
 
 - Reads (11): **src/lib/case-system/caseFile/factsOfQuestion.ts**, **src/lib/case-system/dates.ts**, **src/lib/case-system/format/recordedAmount.ts**, **src/lib/case-system/intake/claimKind.ts**, src/lib/case-system/intake/claimTypes.ts, src/lib/case-system/intake/questionBank.ts, src/lib/case-system/intakeCheckpoint.ts, **src/lib/case-system/intakeStory.ts**, **src/lib/case-system/situation/situation.ts**, src/lib/case-system/statementOfClaimDraftEngine.ts, **src/lib/case-system/storyBasis.ts**
-- Read by (30): app/_components/ChangeAnswer.tsx, app/_components/IntakeRecovery.tsx, app/_components/IntakeReviewPanel.tsx, app/_components/NotAnsweredYet.tsx, app/api/cases/position/route.ts, app/builder/_components/CivilIntake.tsx, app/builder/_components/FamilyIntake.tsx, app/builder/_components/FamilyStatusTriage.tsx, app/builder/_components/GuidedFormChat.tsx, app/builder/_components/GuidedSmallClaimsIntake.tsx, app/builder/_components/IntelligenceOverviewPanel.tsx, app/builder/_components/SmallClaimsIntake.tsx, app/builder/_components/StatementOfClaimSurface.tsx, app/builder/_components/guidedIntakeToSmallClaimsInput.ts, app/builder/page.tsx, app/cases/[id]/layout.tsx, app/cases/[id]/page.tsx, app/cases/_components/CaseFilePanel.tsx, src/lib/case-system/caseFile/aiCaseContext.ts, **src/lib/case-system/caseFile/caseFileOfMaster.ts**, **src/lib/case-system/caseFile/storyLines.ts**, src/lib/case-system/caseFile/triageFromCaseFile.ts, **src/lib/case-system/caseRecord.ts**, src/lib/case-system/caseReview/caseReview.ts, **src/lib/case-system/caseStep.ts**, **src/lib/case-system/copy/rawKeys.ts**, **src/lib/case-system/guided-assistant/answeredInStory.ts**, src/lib/case-system/guided-assistant/conversationIntelligenceEngine.ts, src/lib/case-system/guided-assistant/guidedAssistantOrchestrator.ts, **src/lib/case-system/intakeReview.ts**
-- Checked by (20): scripts/verification/verifyCaseFile.ts, scripts/verification/verifyChangePath.ts, scripts/verification/verifyCharterRetest.ts, scripts/verification/verifyChatAsksByFact.ts, scripts/verification/verifyChatPlainWords.ts, scripts/verification/verifyChrome29octSafety.ts, scripts/verification/verifyClaimKindOneValue.ts, scripts/verification/verifyConferenceStages.ts, scripts/verification/verifyFormsFromCaseFile.ts, scripts/verification/verifyNoPageHeldAnswers.ts, scripts/verification/verifyNotSureGoalReview.ts, scripts/verification/verifyNotSureNeverAsked.ts, scripts/verification/verifyOwnAnswers.ts, scripts/verification/verifyResearchCaseContext.ts, scripts/verification/verifySideChange.ts, scripts/verification/verifyStatementOfClaimText.ts, scripts/verification/verifyStoryFacts.ts, tests/browser/harness/askOnce.ts, tests/browser/not-sure-goal-review.spec.ts, tests/browser/not-sure-never-asked.spec.ts
+- Read by (31): app/_components/ChangeAnswer.tsx, app/_components/IntakeRecovery.tsx, app/_components/IntakeReviewPanel.tsx, app/_components/NotAnsweredYet.tsx, app/api/cases/position/route.ts, app/builder/_components/CivilIntake.tsx, app/builder/_components/FamilyIntake.tsx, app/builder/_components/FamilyStatusTriage.tsx, app/builder/_components/GuidedFormChat.tsx, app/builder/_components/GuidedSmallClaimsIntake.tsx, app/builder/_components/IntelligenceOverviewPanel.tsx, app/builder/_components/SmallClaimsIntake.tsx, app/builder/_components/StatementOfClaimSurface.tsx, app/builder/_components/guidedIntakeToSmallClaimsInput.ts, app/builder/page.tsx, app/cases/[id]/layout.tsx, app/cases/[id]/page.tsx, app/cases/_components/CaseFilePanel.tsx, src/lib/case-system/caseFile/aiCaseContext.ts, **src/lib/case-system/caseFile/caseFileOfMaster.ts**, **src/lib/case-system/caseFile/factRecord.ts**, **src/lib/case-system/caseFile/storyLines.ts**, src/lib/case-system/caseFile/triageFromCaseFile.ts, **src/lib/case-system/caseRecord.ts**, src/lib/case-system/caseReview/caseReview.ts, **src/lib/case-system/caseStep.ts**, **src/lib/case-system/copy/rawKeys.ts**, **src/lib/case-system/guided-assistant/answeredInStory.ts**, src/lib/case-system/guided-assistant/conversationIntelligenceEngine.ts, src/lib/case-system/guided-assistant/guidedAssistantOrchestrator.ts, **src/lib/case-system/intakeReview.ts**
+- Checked by (22): scripts/verification/verifyCaseFile.ts, scripts/verification/verifyChangePath.ts, scripts/verification/verifyCharterRetest.ts, scripts/verification/verifyChatAsksByFact.ts, scripts/verification/verifyChatPlainWords.ts, scripts/verification/verifyChrome29octSafety.ts, scripts/verification/verifyClaimKindOneValue.ts, scripts/verification/verifyConferenceStages.ts, scripts/verification/verifyFactCoexistence.ts, scripts/verification/verifyFactRails.ts, scripts/verification/verifyFormsFromCaseFile.ts, scripts/verification/verifyNoPageHeldAnswers.ts, scripts/verification/verifyNotSureGoalReview.ts, scripts/verification/verifyNotSureNeverAsked.ts, scripts/verification/verifyOwnAnswers.ts, scripts/verification/verifyResearchCaseContext.ts, scripts/verification/verifySideChange.ts, scripts/verification/verifyStatementOfClaimText.ts, scripts/verification/verifyStoryFacts.ts, tests/browser/harness/askOnce.ts, tests/browser/not-sure-goal-review.spec.ts, tests/browser/not-sure-never-asked.spec.ts
 
 ### src/lib/case-system/caseFile/caseFileOfMaster.ts
 
@@ -888,15 +902,31 @@ The case file of a saved case (its checkpoint and saved position), for readers t
 
 - Reads (2): **src/lib/case-system/caseFile/caseFile.ts**, src/lib/case-system/intakeCheckpoint.ts
 - Read by (3): app/_components/IntakeRecovery.tsx, **src/lib/case-system/caseRecord.ts**, src/lib/case-system/caseReview/caseReview.ts
-- Checked by (3): scripts/verification/verifyCaseFile.ts, scripts/verification/verifyChangePath.ts, scripts/verification/verifyClaimKindOneValue.ts
+- Checked by (4): scripts/verification/verifyCaseFile.ts, scripts/verification/verifyChangePath.ts, scripts/verification/verifyClaimKindOneValue.ts, scripts/verification/verifyFactCoexistence.ts
 
 ### src/lib/case-system/caseFile/factsOfQuestion.ts
 
 Which fact each question asks for.
 
 - Reads (0): nothing in the repo
-- Read by (3): app/builder/_components/GuidedSmallClaimsIntake.tsx, **src/lib/case-system/caseFile/caseFile.ts**, **src/lib/case-system/sideChange.ts**
-- Checked by (4): scripts/verification/verifyChatAsksByFact.ts, scripts/verification/verifyOwnAnswers.ts, tests/browser/harness/askOnce.ts, tests/browser/harness/chatQuestionFacts.ts
+- Read by (5): app/builder/_components/GuidedSmallClaimsIntake.tsx, **src/lib/case-system/caseFile/caseFile.ts**, **src/lib/case-system/caseFile/factRecord.ts**, **src/lib/case-system/caseFile/fieldFacts.ts**, **src/lib/case-system/sideChange.ts**
+- Checked by (5): scripts/verification/verifyChatAsksByFact.ts, scripts/verification/verifyFactRails.ts, scripts/verification/verifyOwnAnswers.ts, tests/browser/harness/askOnce.ts, tests/browser/harness/chatQuestionFacts.ts
+
+### src/lib/case-system/caseFile/factRecord.ts
+
+The fact record (caseFile.facts) and the server's order of saves: seq and at set on the server, per-fact two-tab conflicts (case core G0).
+
+- Reads (3): **src/lib/case-system/caseFile/caseFile.ts**, **src/lib/case-system/caseFile/factsOfQuestion.ts**, src/lib/case-system/intakeCheckpoint.ts
+- Read by (3): app/api/cases/facts/route.ts, src/lib/case-system/caseFile/factSave.ts, **src/lib/case-system/caseFile/fieldFacts.ts**
+- Checked by (2): scripts/verification/verifyFactCoexistence.ts, scripts/verification/verifyFactRails.ts
+
+### src/lib/case-system/caseFile/fieldFacts.ts
+
+The one field-to-fact table: which fact each (section, field) a save point writes holds, from factsOfQuestion (case core G0).
+
+- Reads (2): **src/lib/case-system/caseFile/factRecord.ts**, **src/lib/case-system/caseFile/factsOfQuestion.ts**
+- Read by (0): nothing
+- Checked by (1): scripts/verification/verifyFactRails.ts
 
 ### src/lib/case-system/caseFile/storyLines.ts
 
@@ -1128,6 +1158,6 @@ The saved case read as facts (side, step, dates, amount) for the chat.
 
 - Reads (8): src/lib/case-system/amountNotes.ts, **src/lib/case-system/caseFile/caseFile.ts**, **src/lib/case-system/caseFile/caseFileOfMaster.ts**, **src/lib/case-system/casePosition.ts**, **src/lib/case-system/intelligence/answeredQuestions.ts**, src/lib/case-system/privacy/modelPayloadNames.ts, **src/lib/case-system/situation/situation.ts**, src/lib/case-system/userStory.ts
 - Read by (14): app/api/assistant/law/route.ts, app/api/case/strategy/route.ts, app/api/cases/form-applicability/route.ts, app/api/workspace/documents/decision-help/route.ts, app/api/workspace/exhibit-book/route.ts, app/api/workspace/organisation/route.ts, app/builder/_components/respondingSide.ts, app/builder/page.tsx, app/cases/[id]/case-file/page.tsx, app/cases/[id]/layout.tsx, app/cases/[id]/timeline/page.tsx, app/cases/_components/CaseHomeContext.tsx, **src/lib/case-system/caseStep.ts**, src/lib/case-system/forms/applicabilitySuggestions.ts
-- Checked by (9): scripts/eval/freeFinishLine.ts, scripts/verification/verifyCaseRecord.ts, scripts/verification/verifyChangePath.ts, scripts/verification/verifyClaimKindOneValue.ts, scripts/verification/verifyConferenceStages.ts, scripts/verification/verifyFormsFromCaseFile.ts, scripts/verification/verifyNoNamesToModel.ts, scripts/verification/verifySituation.ts, scripts/verification/verifyStrategy.ts
+- Checked by (10): scripts/eval/freeFinishLine.ts, scripts/verification/verifyCaseRecord.ts, scripts/verification/verifyChangePath.ts, scripts/verification/verifyClaimKindOneValue.ts, scripts/verification/verifyConferenceStages.ts, scripts/verification/verifyFactCoexistence.ts, scripts/verification/verifyFormsFromCaseFile.ts, scripts/verification/verifyNoNamesToModel.ts, scripts/verification/verifySituation.ts, scripts/verification/verifyStrategy.ts
 
 <!-- generated:who-reads-what:end -->

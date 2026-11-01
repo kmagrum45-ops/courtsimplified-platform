@@ -170,7 +170,7 @@ export function marriedWhereIn(story: string): { place: string; quote: string } 
 const LEADS_WITH_CONFERENCE = /^\s*(?:(?:case|settlement|trial management|pre-?trial)\s+)?conference\b/i;
 
 /** Records one answer into the file: the first answer stands; an unsure one never covers a real one. */
-function give(file: CaseFile, fact: string, value: unknown, question: string) {
+export function give(file: CaseFile, fact: string, value: unknown, question: string) {
   // "Next court date" answers one of two slots: the conference date when the answer leads with a
   // conference ("Case conference on November 16, 2026"), else the court date. Conference audit,
   // 2026-10-26: family's box kept a case conference only in the typed words; "Trial on March 3,

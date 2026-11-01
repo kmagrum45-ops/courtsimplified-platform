@@ -285,6 +285,13 @@ jobs:
           git fetch --no-tags --depth=1 origin main:refs/remotes/origin/main
           npm run test:case-file-guard
 
+      # Same reason: the one-writer list may only shrink against origin/main's copy (fetched just above).
+      - name: One writer -- every save point of case data is on a list that only shrinks; a new writer bypassing give fails
+        run: npm run test:one-writer
+
+      - name: The rails of the one case record -- server-assigned seq, compare-and-set retry, per-fact two-tab conflicts, the field-to-fact table
+        run: npm run test:fact-rails
+
       - name: No list of answered, held, offered or turned-down items held in the page or the tab -- the review's list from the saved case (fault 1)
         run: npm run test:no-page-held-answers
 
