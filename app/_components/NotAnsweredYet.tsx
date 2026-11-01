@@ -17,7 +17,7 @@
  */
 import { useState, type ReactNode } from "react";
 import ChangeAnswer, { CHANGED_AT_THE_START, changeChoices } from "./ChangeAnswer";
-import { useIntakeReviewView } from "./IntakeRecovery";
+import { useIntakeRecovery, useIntakeReviewView } from "./IntakeRecovery";
 import { caseFileOf, isUnsureAnswer, slotsOfQuestion, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "../../src/lib/case-system/copy/askCopy";
 
@@ -41,10 +41,12 @@ const blank = (value: unknown) => value === undefined || value === null || (type
  */
 export function NotAnsweredYetField({ field, facts, value, label, children }: { field: string; facts?: SlotFact[]; value: unknown; label: ReactNode; children: ReactNode }) {
   const view = useIntakeReviewView();
+  const recovery = useIntakeRecovery();
   // Typing in the box, or "Add it": the box stays for this visit (never folded under the person).
   const [opened, setOpened] = useState(false);
   const own = facts ?? slotsOfQuestion(field);
-  const file = view?.checkpoint ? caseFileOf(view.checkpoint) : null;
+  // With the saved case too (a day given on the step page), as the review and the case page read it: the newest answer wins.
+  const file = view?.checkpoint ? caseFileOf(view.checkpoint, recovery?.getSavedMaster() ?? undefined) : null;
   const folded = !opened && file !== null && own.length > 0 && own.some((fact) => file[fact].state === "unsure") && !own.some((fact) => file[fact].state === "answered") && (blank(value) || isUnsureAnswer(value));
   if (folded) {
     return (
