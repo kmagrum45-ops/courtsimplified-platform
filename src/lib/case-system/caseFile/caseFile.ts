@@ -288,6 +288,12 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   for (const [values, area] of forms) {
     for (const [key, value] of Object.entries(values)) {
       if (key === "facts") continue;
+      // Where the case is, once the start answered it, is the start's answer: a form's stage is then a copy (the
+      // form shows the start's answer in place of its own box, so the person gave none there), from the story's
+      // guess or from the analysis input read back (caseRecord.ts storedIntakeValues). Read as an answer, it replaced
+      // "I'm not sure" given at the start, and the step page asked "Where is your case?" again (founder's Chrome
+      // check of #541, 2 Nov, step 2, Small Claims). Every court.
+      if (key === "caseStage" && situation.where) continue;
       // The Small Claims form starts with "Nothing filed yet" ticked: only an answer the person changed counts.
       if (area === "small-claims" && key === "filedDocuments" && strings(value).join() === "nothing") continue;
       // A form's "not sure" is its starting value, never asked by itself: no answer (the

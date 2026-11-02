@@ -36,6 +36,7 @@ import {
 } from "../../../src/lib/case-system/events/caseEventTypes";
 import { WorkingButton } from "@/app/_components/Working";
 import { UseSuggestion } from "@/app/_components/UseSuggestion";
+import { saveOpenEditsBeforeConfirm } from "../../_components/openEdits";
 
 type CandidateState = "confirmed" | "dismissed" | "unanswered";
 
@@ -199,6 +200,8 @@ export default function EventCandidateSurface({
     }));
 
   async function confirm(candidate: ResolvedCandidate) {
+    // Anything typed in an open box is saved first (openEdits.ts, the one path for every Confirm).
+    if (!saveOpenEditsBeforeConfirm(setError)) return;
     const draft = draftFor(candidate);
     if (!draft.eventType || !draft.title.trim()) {
       setError("Choose what kind of event this was, and give it a short title.");

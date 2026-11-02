@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { saveOpenEditsBeforeConfirm } from "../../_components/openEdits";
 
 import type { UniversalStage } from "./builderTypes";
 import { UseSuggestion } from "../../_components/UseSuggestion";
@@ -87,6 +88,7 @@ export default function StageConfirmation({
   // Nothing pre-selected from the suggestion (owner, 31 Oct): the list starts on "Choose one".
   const [choice, setChoice] = useState<UniversalStage | "">("");
   const [changing, setChanging] = useState(false);
+  const [unsaved, setUnsaved] = useState("");
 
   if (confirmedStage && !changing) {
     return (
@@ -193,6 +195,9 @@ export default function StageConfirmation({
         disabled={!choice}
         onClick={() => {
           if (!choice) return;
+          // Anything typed in an open box is saved first (openEdits.ts, the one path for every Confirm).
+          if (!saveOpenEditsBeforeConfirm(setUnsaved)) return;
+          setUnsaved("");
           setChanging(false);
           onConfirm(choice);
         }}
@@ -200,6 +205,7 @@ export default function StageConfirmation({
       >
         Use this
       </button>
+      {unsaved ? <p data-testid="confirm-unsaved-edit" role="alert" className="mt-2 text-sm font-semibold text-[#8a4b12]">{unsaved}</p> : null}
     </section>
   );
 }
