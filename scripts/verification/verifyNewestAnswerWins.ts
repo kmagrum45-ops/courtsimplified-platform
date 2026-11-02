@@ -80,6 +80,44 @@ const amountOf = (court: Checkpoint["courtPath"], sections: Sections) => caseFil
   check("Family: the home page's answer, then a later form answer: the form's answer wins", caseFileOf(cp("family", s)).wants.value === "Synthetic: keep the house", JSON.stringify(caseFileOf(cp("family", s)).wants));
 }
 
+// 1b. NEWEST WINS, INCLUDING REMOVAL (carry runs 41382392877 / 41382400851 at 92083b36: "Jordan Testwood" came back
+// in every court after the person emptied the other party box). A later answer recorded as a change, then the box
+// emptied: the fact is removed, never the recorded value again.
+for (const court of ["small-claims", "civil"] as const) {
+  const area = court === "civil" ? "civil" : "small-claims";
+  let s: Sections = {};
+  s = write(court, s, area, "input", { otherParty: "Synthetic Co." }, T1);
+  s = write(court, s, area, "input", { otherParty: "Jordan Testwood" }, T2);
+  check(`${court}: the other party changed in the form: the newest wins`, caseFileOf(cp(court, s)).otherParty.value === "Jordan Testwood", JSON.stringify(caseFileOf(cp(court, s)).otherParty));
+  s = write(court, s, area, "input", { otherParty: "" }, new Date("2026-11-01T10:10:00Z"));
+  const after = caseFileOf(cp(court, s)).otherParty;
+  check(`${court}: then the box emptied: the other party is removed, not brought back from the change record`, after.state !== "answered" && !String(after.value ?? "").includes("Testwood"), JSON.stringify(after));
+}
+{
+  // Family keeps its fields at the top of its section.
+  let s: Sections = { home: { understoodAnswers: [{ question: "What would you like the court to order?", answer: "Synthetic: sell the house" }] } };
+  s = write("family", s, "family", "goal", "Synthetic: keep the house", T2);
+  s = write("family", s, "family", "goal", "", new Date("2026-11-01T10:10:00Z"));
+  const after = caseFileOf(cp("family", s)).wants;
+  check("Family: a later answer recorded, then the box emptied: removed, not the recorded value", after.state !== "answered" || after.value !== "Synthetic: keep the house", JSON.stringify(after));
+}
+
+// 1c. The same place again is that place's own answer, never a change: a box typed key by key records nothing, so
+// emptying it removes the answer as it did before newest-wins (the cause of the carry runs' returned-after-removal).
+{
+  let s: Sections = {};
+  for (const typed of ["J", "Jo", "Jordan", "Jordan Testwood"]) s = write("small-claims", s, "small-claims", "input", { otherParty: typed }, T1);
+  check("a box typed key by key records no change (the same place again)", !(s[CASE_FILE_SECTION]?.changes as object | undefined) || Object.keys(s[CASE_FILE_SECTION]?.changes as object).length === 0, JSON.stringify(s[CASE_FILE_SECTION]));
+  s = write("small-claims", s, "small-claims", "input", { otherParty: "" }, T2);
+  check("typed key by key, then emptied: the other party is not held", caseFileOf(cp("small-claims", s)).otherParty.state !== "answered", JSON.stringify(caseFileOf(cp("small-claims", s)).otherParty));
+}
+{
+  // The side is a start answer: a form's role differing from the start's is never recorded as a change here.
+  const s: Sections = { situation: { answers: { where: "starting", filed: "nothing", started: "me" } } };
+  const held = caseFileOf(cp("small-claims", s));
+  check("a start answer (the side) is never recorded from a form", followAny(s, "small-claims", "input", {}, { yourRole: "defendant" }, T2, held) === null);
+}
+
 // 2. Nothing recorded where nothing is newer.
 {
   const s: Sections = { "small-claims": { input: { amountClaimed: "$2,400" } } };

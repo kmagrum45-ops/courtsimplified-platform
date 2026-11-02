@@ -765,6 +765,8 @@ jobs:
           tests/browser/review-newest-answer.spec.ts
           tests/browser/story-fact-chat.spec.ts
           tests/browser/stage-not-sure.spec.ts
+          tests/browser/review-save-on-leave.spec.ts
+          tests/browser/removal-stays-removed.spec.ts
           --reporter=line --workers=1
 
       # The story-box spec saves a full-page screenshot of every story box at desktop and
