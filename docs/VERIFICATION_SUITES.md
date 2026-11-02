@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-218 documented, 26 without a header.
+219 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -198,6 +198,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:story-answers` | **What the person's story already answers is offered, not asked again**<br>(storyAnswers.ts, guidedFields.ts; walkthrough R2 and V2, 2026-10-13). |
 | `npm run test:story-basis` | **One record of which story version each story-derived answer was based on.**<br>What it checks (storyBasis.ts): an answer is tagged with the story version it was stored under; when the story changes, every older answer is stale in all three areas (Small Claims, civil, family): emptied in the view screens read, never shown as current, and  |
 | `npm run test:story-data-registry` | **Every place that stores data is listed, with where it stands when the story changes.**<br>What it checks (storyDataRegistry.ts, intakeStorageKeys.ts, storyDataScan.ts): - every intake section the code uses, every master_result key it writes and every table it writes is in the registry with one class, and every listed one is still used (an unused li |
+| `npm run test:story-fact` | **THE STORY IS A FACT OF THE CASE FILE (founder, 1 Nov; Chrome check of #536, round 2, item 2).**<br>In the Small Claims chat, after "Use the suggestion: <kind>", the chat showed its story box ("Tell us what happened in your own words...") with a Send box although the story had been sent, and no "Got it" for the kind. Cause (triage, read from the code): the c |
 | `npm run test:story-facts` | **EACH FACT THE STORY GIVES, IN PLAIN WORDS (Charter re-test, 27 Oct, root cause 1).**<br>Checks, as properties, on the six cases Chrome re-tested (messy pack cases 11, 14, 16, 19 and 20, and the Charter claim), through the readers "What we have so far" and the questions use (caseFile/storyFacts.ts, storyLines.ts, storyAnswers.ts childrenFromStory) |
 | `npm run test:story-guidance` | **Every box that asks a person for their story shows the same guidance, from one**<br>place (site owner, 30 Oct). |
 | `npm run test:story-pack` | **Runs the story pack (tests/browser/story-pack.spec.ts) and prints its findings,**<br>grouped by what failed. Exits non-zero when there are any, so it can gate a PR. |

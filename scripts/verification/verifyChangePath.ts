@@ -254,7 +254,9 @@ for (const item of FACTS) {
   check("5. a removed kind is never proposed (claimKindOf)", claimKindOf(removedHeld).proposal?.claimTypeId !== DEFAMATION_ID && (removedHeld.claimKindRemoved ?? []).includes(DEFAMATION_ID), JSON.stringify({ proposal: claimKindOf(removedHeld).proposal, removed: removedHeld.claimKindRemoved }));
 }
 
-check("every slot fact is covered by a change test", SLOT_FACTS.filter((fact) => !["side", "court", "stage", "papers"].includes(fact)).every((fact) => FACTS.some((item) => item.fact === fact)), SLOT_FACTS.filter((fact) => !FACTS.some((item) => item.fact === fact)).join(", "));
+// The story is changed with its own story box (StoryEditor, storyBasis.ts), never through the change path
+// (ChangeAnswer.tsx changeChoices returns null for it), like the start answers (founder, 1 Nov: story is a fact).
+check("every slot fact is covered by a change test", SLOT_FACTS.filter((fact) => !["side", "court", "stage", "papers", "story"].includes(fact)).every((fact) => FACTS.some((item) => item.fact === fact)), SLOT_FACTS.filter((fact) => !FACTS.some((item) => item.fact === fact)).join(", "));
 
 console.log(failures ? `\n${failures} check(s) failed` : "\nAll change-path checks passed");
 process.exit(failures ? 1 : 0);

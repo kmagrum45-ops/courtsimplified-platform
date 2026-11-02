@@ -48,6 +48,8 @@ export const SLOT_FACTS = [
   "side", "court", "stage", "filed", "papers", "servedDate", "amount", "otherParty", "children",
   "married", "marriedWhere", "claimKind", "wants", "whenHappened", "conferenceDate", "defenceFiled",
   "outcome", "urgent", "courtDate",
+  // The story, held once it is given (founder, 1 Nov: no screen asks for it again; its words are `storyText`).
+  "story",
 ] as const;
 export type SlotFact = (typeof SLOT_FACTS)[number];
 export type SlotState = "not-asked" | "answered" | "unsure";
@@ -71,8 +73,8 @@ export type CaseFile = Record<SlotFact, Slot> & {
   unsureDates?: string[];
   /** The side in the start answer's own words for a case already going ("I started this case (applicant)"). */
   sideWords?: string;
-  /** The story as it is now, for the lines "What we have so far" quotes from it (storyLines.ts). */
-  story?: string;
+  /** The story's words as they are now, for the lines "What we have so far" quotes from it (storyLines.ts); the fact itself is the `story` slot. */
+  storyText?: string;
   /**
    * A kind of claim made by the site, not the person (the guided route's story match or the
    * classifier's suggestion not yet ticked, or an older saved case's unticked match): a PROPOSAL,
@@ -418,9 +420,13 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   if (startAnswers?.roleWords) file.sideWords = startAnswers.roleWords;
   const listed = [...fromStart, ...forms.flatMap(([values]) => [values.documents, values.filedDocuments]).flatMap((value) => strings(value))].filter((item) => item !== "nothing" && item !== "not-sure");
   if (listed.length) file.documents = [...new Set(listed)];
-  file.story = String(object(sections.story).text ?? "");
+  file.storyText = String(object(sections.story).text ?? "");
   file.area = checkpoint?.courtPath ?? court ?? undefined;
-  if (!file.story.trim() && master) file.savedStory = storyOfMaster(master) ?? undefined;
+  if (!file.storyText.trim() && master) file.savedStory = storyOfMaster(master) ?? undefined;
+  // The story is a fact: held once given, here or in the saved case (founder, 1 Nov: the Small Claims chat
+  // showed its story box again after the story was sent). Its words stay in storyText / savedStory.
+  const storyGiven = file.storyText.trim() || file.savedStory?.trim();
+  if (storyGiven) file.story = { state: "answered", value: storyGiven, source: { kind: "answer", question: "story" }, confirmed: true };
 
   // 8. "Not quite": the kinds the person turned down, kept by the case file itself, so starting the
   // questions again (which resets the guided record) never offers one back (rule 6, 31 Oct).
@@ -516,6 +522,8 @@ export function followAnswer(sections: Record<string, unknown>, section: string,
     const value = Array.isArray(given) ? strings(given).filter((item) => item !== "not-sure") : given;
     if (blank(value) || !changeable(value)) continue;
     for (const fact of slotsOf(id)) {
+      // The story has its own path (the story box, storyBasis.ts): never a change-record answer.
+      if (fact === "story") continue;
       const underRecord = Boolean((next ?? changes)[fact]);
       // Held with another value from another place: this later answer is the newer one.
       const heldOther = held !== undefined && held[fact].state === "answered" && !sameAnswer(fact, held[fact].value, value);
@@ -707,7 +715,7 @@ export function claimKindOf(file: CaseFile, listWords: (codes: string[]) => stri
 
 /** The story the case file holds: the checkpoint's, else (an older saved case) the story it saved. */
 export function storyOfFile(file: CaseFile): string {
-  return file.story?.trim() ? file.story : file.savedStory ?? "";
+  return file.storyText?.trim() ? file.storyText : file.savedStory ?? "";
 }
 
 /**

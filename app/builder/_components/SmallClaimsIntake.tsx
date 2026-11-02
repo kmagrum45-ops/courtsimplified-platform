@@ -964,7 +964,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       // §4, suggest never decide).
       // Kinds of claim only, from the case file: the person's, else the one the story shows
       // (claimKind.ts, step 2b), the same value every screen shows (site owner, 29 Oct).
-      const fileNow = recovery ? caseFileOf(recovery.getReview().checkpoint) : { ...caseFileOf(null), story: input.facts, area: "small-claims" };
+      const fileNow = recovery ? caseFileOf(recovery.getReview().checkpoint) : { ...caseFileOf(null), storyText: input.facts, area: "small-claims" };
       const kindNow = claimKindOf(fileNow);
       const analysisKind = hasText(input.facts) ? kindForAnalysis(kindNow) : null;
       // Answers given in the review panel count here too, where the form left them empty

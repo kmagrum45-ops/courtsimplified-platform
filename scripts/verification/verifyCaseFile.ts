@@ -169,15 +169,15 @@ const checkpoint = (courtPath: Checkpoint["courtPath"], sections: Record<string,
   check("the papers filed are kept by name", JSON.stringify(filed.documents) === JSON.stringify(["application", "answer"]));
   const m16 = "We have a case going in Ottawa about parenting. I filed an application in June 2026. He yelled and threatened me in front of her in March and I called the police once. Exchanges are tense.";
   const m16File = caseFileOf({ ...checkpoint("family", {}), sections: { story: { text: m16 } } });
-  const m16Lines = storyLines(m16File.story ?? "", m16File, false);
+  const m16Lines = storyLines(m16File.storyText ?? "", m16File, false);
   check("the threats and the police call are shown from the story", m16Lines.some((line) => line.fact === "safety" && /threatened/.test(line.value) && /police/.test(line.value)), JSON.stringify(m16Lines));
   const m14 = "My wife wants a divorce. We were married in Lisbon, Portugal in 2009 and moved here in 2012.";
   const m14File = caseFileOf({ ...checkpoint("family", {}), sections: { story: { text: m14 } } });
-  check("where they married is shown from the story", storyLines(m14File.story ?? "", m14File, true).some((line) => line.fact === "marriedWhere" && line.value === "Lisbon, Portugal"));
+  check("where they married is shown from the story", storyLines(m14File.storyText ?? "", m14File, true).some((line) => line.fact === "marriedWhere" && line.value === "Lisbon, Portugal"));
   const m19 = "Later, on October 20, Circuit Doctors' owner, Wei Chen, serves him with a claim for $3,200 for 'defamation' over an online review.";
   const m19File = caseFileOf({ ...checkpoint("small-claims", {}), sections: { story: { text: m19 } } });
-  check("the claim against a responding person is shown, with who is suing", storyLines(m19File.story ?? "", m19File, true).some((line) => line.fact === "amountAgainst" && /\$3,200/.test(line.value) && /Wei Chen/.test(line.value)));
-  check("never for the person bringing the claim", !storyLines(m19File.story ?? "", m19File, false).some((line) => line.fact === "amountAgainst"));
+  check("the claim against a responding person is shown, with who is suing", storyLines(m19File.storyText ?? "", m19File, true).some((line) => line.fact === "amountAgainst" && /\$3,200/.test(line.value) && /Wei Chen/.test(line.value)));
+  check("never for the person bringing the claim", !storyLines(m19File.storyText ?? "", m19File, false).some((line) => line.fact === "amountAgainst"));
   check("a story line never fills a slot (the question is still asked)", m14File.marriedWhere.state === "not-asked" && m16File.otherParty.state === "not-asked");
 }
 

@@ -31,6 +31,7 @@ import { ADD_IT_LATER } from "../../src/lib/case-system/copy/askCopy";
 
 /** Each fact's name, as "What we have so far" and the review show it. */
 export const FACT_LABEL: Record<SlotFact, string> = {
+  story: "Your story",
   side: "Your side",
   court: "Court",
   stage: "Where the case is",
@@ -66,6 +67,8 @@ type Choices =
 /** The choices "Change" offers for a fact in a court, or null when it is changed at the start. */
 export function changeChoices(fact: SlotFact, court: string | null | undefined): Choices | null {
   if (CHANGED_AT_THE_START.has(fact)) return null;
+  // The story is changed with its own story box (StoryEditor, storyBasis.ts), never as a one-line answer.
+  if (fact === "story") return null;
   if (fact === "claimKind") {
     if (court === "civil") return { kind: "multi", options: CIVIL_ISSUE_OPTIONS };
     if (court === "family") return { kind: "multi", options: FAMILY_ISSUE_OPTIONS };

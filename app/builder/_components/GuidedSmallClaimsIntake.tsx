@@ -557,6 +557,9 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   // Only a press: finishing the questions on its own shows nothing (#465 re-test).
   const pressedContinue = () => { if (reviewView && !intakeConfirmed) markReviewNeeded("guided", inputRevision(reviewView.checkpoint)); };
   const recovery = useIntakeRecovery();
+  // The story is a fact of the case file (founder, 1 Nov): once given (here, on the home page, or in the saved
+  // case) the chat never draws its story box again; with no question on screen it waits for the next one.
+  const storyHeld = reviewView ? caseFileOf(reviewView.checkpoint, recovery?.getSavedMaster() ?? undefined).story.state === "answered" : false;
   // The situation answers (situation.ts) settle the side and whether a claim was filed or served; the server applies them every turn.
   const [situation] = useSituation();
   const resumedHeld = useRef(Boolean(recovery?.read("guided", "heldPayload")));
@@ -880,6 +883,9 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   // claimTypeSuggestionResolution.ts).
   async function resolveSuggestion(action: "confirm" | "reject") {
     if (!pendingSuggestion || suggestionRequest.current.pending) return;
+    // Set when the used kind suggestion leaves nothing on the story card and no question on screen: the chat
+    // then moves on to its next question (founder's Chrome check of #536, round 2: it fell back to the story box).
+    let continueAfterKind = false;
     setResolvingSuggestion(true);
     setError(""); setSignInNeeded(false); setReviewNeeded(false);
 
@@ -943,6 +949,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           const left = current?.filter((draft) => !KIND_QUESTION_IDS.has(draft.questionId)) ?? null;
           return left && left.length ? left : null;
         });
+        // The kind used is said back, as every chat says an answer back ("Got it: ...").
+        setMessages((current) => [...current, { from: "assistant", text: `Got it: ${result.claimType.claimTypeName}.` }]);
+        const cardLeft = (proposalDrafts ?? []).filter((draft) => !KIND_QUESTION_IDS.has(draft.questionId)).length;
+        if (!cardLeft && !currentQuestion && !intakeComplete) continueAfterKind = true;
       } else if (result.outcome === "revised") {
         setRejectedSuggestionIds((current) => [...current, pendingSuggestion.claimTypeId]);
         setPendingSuggestion(result.suggestedClaimType);
@@ -957,6 +967,8 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     } finally {
       setResolvingSuggestion(false);
     }
+    // Nothing left to confirm and no question on screen: fetch the next question, never the story box again.
+    if (continueAfterKind) void sendTurn(undefined, answeredIds, facts);
   }
 
   /*
@@ -1680,7 +1692,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         so adding it here keeps the input area (and its Send button)
         showing through the gap instead of a premature "complete" label.
       */}
-      {readingOutdated || (!started && showSavedStory && story.trim()) ? null : !halted && (proposalDrafts || suggestionFirst) ? null : !halted && (!intakeComplete || depthActive || loading) ? (
+      {readingOutdated || (!started && showSavedStory && story.trim()) || (started && storyHeld && !(depthActive || currentQuestion)) ? null : !halted && (proposalDrafts || suggestionFirst) ? null : !halted && (!intakeComplete || depthActive || loading) ? (
         <div className="mt-4">
         {/* Before any question, this box takes the story: it shows the one story guidance
             (copy/storyGuidance.ts) instead of a placeholder of its own (owner, 30 Oct). */}
