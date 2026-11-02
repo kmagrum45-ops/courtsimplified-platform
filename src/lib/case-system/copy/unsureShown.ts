@@ -10,6 +10,7 @@
  * page's controls and the person's own chat messages (UNSURE_SHOWN_SKIP), the way rawKeys.ts guards codes.
  * Pure; states no law.
  */
+import { sentences } from "../sentences";
 
 /** Typed "I don't know" words, the ones a person types (not the stored codes, not the choice label "Not sure"). */
 const TYPED = /^(?:i\s*(?:do\s*not|don'?t|dont)\s*know(?:\s*yet)?|idk|no\s*idea)\s*[.!]?$/i;
@@ -23,7 +24,7 @@ function shownValues(line: string): string[] {
   const values = [text];
   const colon = text.indexOf(":");
   if (colon > 0 && colon < 160) values.push(text.slice(colon + 1).trim());
-  return values.flatMap((value) => [value, value.replace(/\s*\([^)]*\)\s*$/, "").trim(), value.split(/(?<=[.!?])\s+/)[0].trim()]);
+  return values.flatMap((value) => [value, value.replace(/\s*\([^)]*\)\s*$/, "").trim(), (sentences(value)[0] ?? "").trim()]);
 }
 
 /** The lines that show typed "I don't know" words as an answer. */
