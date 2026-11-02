@@ -129,6 +129,28 @@ async function main(): Promise<void> {
     pointless.length === 1 && pointless[0].quotes[0] === "they charged me 3200",
     JSON.stringify(pointless.map((f) => f.quotes)),
   );
+  // Founder's Chrome re-test of #536 (Family, 1 Nov): "Check my case file" said
+  // "You mentioned “The house sold”. If you have something that shows this..."
+  // about the goal "The house sold and the money divided equally". What the
+  // person wants is not something that happened, so no proof can be asked for.
+  const withGoal: ConfirmedCaseFile = {
+    ...FILE,
+    courtPath: "family",
+    goalText: "The house sold and the money divided equally",
+  };
+  const goalAsEvent = validateCaseReviewOutput(
+    { findings: [
+      { kind: "document-mentioned", quotes: ["The house sold"] },
+      { kind: "document-mentioned", quotes: ["the money divided equally"] },
+      { kind: "document-mentioned", quotes: ["they charged me 3200"] },
+    ] },
+    withGoal,
+  );
+  check(
+    "a document pointer never quotes what the person wants (their goal)",
+    goalAsEvent.length === 1 && goalAsEvent[0].quotes[0] === "they charged me 3200",
+    JSON.stringify(goalAsEvent.map((f) => f.quotes)),
+  );
   const figure = validateCaseReviewOutput(
     { findings: [{ kind: "unknown-amount-mentioned", quotes: ["they charged me 3200"] }] },
     FILE,
