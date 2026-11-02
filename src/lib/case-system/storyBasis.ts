@@ -45,6 +45,7 @@ function settledByTheStart(checkpoint: Checkpoint): Set<string> {
 
 type Sections = Checkpoint["sections"];
 export const BASIS_SECTION = "storyBasis";
+const strings = (value: unknown): string[] => (Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : []);
 const object = (value: unknown): Record<string, unknown> => value && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : {};
 
 /** Navigation and display state that holds no answer, and facts about the person rather than the story (their own name and contact details, the court file number). */
@@ -145,7 +146,9 @@ export function staleAnswerKeys(checkpoint: Checkpoint): string[] {
   return Object.entries(object(checkpoint.sections[BASIS_SECTION]))
     // A "not sure" states no fact from the earlier story: never set aside to be given again (it is the quiet line, with
     // no box to give it in, and never blocks Confirm; PR #541 story-pack:694, founder's rule of 31 Oct).
-    .filter(([answer, based]) => based !== version && based !== noStory && !settled.has(answer) && !empty(valueAt(checkpoint.sections, answer)) && !isUnsureAnswer(valueAt(checkpoint.sections, answer)))
+    // Judged answer by answer: in a list of answers (the Small Claims chat keeps one, WHOLE) a "not sure" is kept and only
+    // the rest is set aside (Chrome check of #541, 2 Nov: the unsure goal went with the list and left the review).
+    .filter(([answer, based]) => based !== version && based !== noStory && !settled.has(answer) && !empty(withoutNotSure(valueAt(checkpoint.sections, answer))))
     .map(([answer]) => answer);
 }
 
@@ -155,9 +158,20 @@ function valueAt(sections: Sections, answer: string): unknown {
   return inner === undefined ? value : object(value)[inner];
 }
 
-/** The empty value of an answer's own type (so every screen showing it updates, not just forgets it). */
+/** One answer that is a "not sure": the words themselves, or a chat answer ({questionId, answerText}) whose words are. */
+const notSureItem = (item: unknown) => isUnsureAnswer(item) || isUnsureAnswer(object(item).answerText);
+/** What an answer states, without its "not sure" parts: a list keeps its other answers; a "not sure" alone states nothing. */
+function withoutNotSure(value: unknown): unknown {
+  if (Array.isArray(value)) return value.filter((item) => !notSureItem(item));
+  return isUnsureAnswer(value) ? "" : value;
+}
+
+/** The ids of the chat answers in a list that are a "not sure" (kept with them in guided.answeredIds). */
+const notSureIds = (answers: unknown) => new Set((Array.isArray(answers) ? answers : []).filter(notSureItem).map((item) => object(item).questionId).filter((id): id is string => typeof id === "string"));
+
+/** The empty value of an answer's own type (so every screen showing it updates, not just forgets it); a list keeps its "not sure" answers. */
 function emptied(value: unknown): unknown {
-  if (Array.isArray(value)) return [];
+  if (Array.isArray(value)) return value.filter(notSureItem);
   if (typeof value === "string") return "";
   if (typeof value === "boolean") return false;
   if (value && typeof value === "object") return {};
@@ -172,7 +186,7 @@ export function freshSections(checkpoint: Checkpoint): Sections {
   for (const answer of stale) {
     const [section, field, inner] = answer.split(".");
     sections[section] = { ...sections[section] };
-    if (inner === undefined) sections[section][field] = emptied(sections[section][field]);
+    if (inner === undefined) sections[section][field] = answer === "guided.answeredIds" ? strings(sections[section][field]).filter((id) => notSureIds(object(checkpoint.sections.guided).earlierAnswers).has(id)) : emptied(sections[section][field]);
     else sections[section][field] = { ...object(sections[section][field]), [inner]: emptied(object(sections[section][field])[inner]) };
   }
   return sections;
@@ -194,9 +208,27 @@ export function discardStale(checkpoint: Checkpoint): Checkpoint {
   sections[BASIS_SECTION] = basis;
   for (const [section, keys] of Object.entries(CONVERSATION)) {
     if (section === "guided" && !sections.guided) continue; // only where that conversation exists
-    sections[section] = { ...sections[section], ...keys };
+    sections[section] = { ...sections[section], ...keys, ...notSureKept(section, sections[section]) };
   }
   return { ...checkpoint, sections };
+}
+
+/**
+ * What "Start the questions again" keeps of the conversation: each "not sure" given, which is never asked again
+ * (site owner, 31 Oct) -- the chat's own "not sure" answers and the questions skipped one at a time. Chrome check
+ * of #541, 2 Nov: they were reset with the conversation, so the quiet line went in all three courts.
+ */
+function notSureKept(section: string, current: Record<string, unknown> | undefined): Record<string, unknown> {
+  const now = object(current);
+  if (section === "guided") {
+    const answers = (Array.isArray(now.earlierAnswers) ? now.earlierAnswers : []).filter(notSureItem);
+    return answers.length ? { earlierAnswers: answers, answeredIds: [...notSureIds(answers)] } : {};
+  }
+  if (section === "form-chat") {
+    const skipped = strings(now.skipped);
+    return skipped.length ? { skipped } : {};
+  }
+  return {};
 }
 
 /** The story's sentences, each as compared (case, spacing and punctuation ignored). */
