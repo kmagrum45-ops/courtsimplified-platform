@@ -267,6 +267,31 @@ async function main() {
     if (asker) check(`otherParty removal (${way.name}): the asker reads it as the saved case does (${fileAfter.otherParty.removed ? "removed: not asked by itself" : "not held: the emptied box"})`, fileAfter.otherParty.removed ? asker.askOf(fileAfter, "otherParty").held === "removed" : asker.mayAsk(fileAfter, "otherParty"));
   }
 
+  // 7. A BOX THE PERSON CLEARS AND TYPES IN IS NEVER REFILLED UNDER THEIR KEYS (local carry runs 41393577468 /
+  // 41393585578 at 20d4d32d: the form route showed "$6,400.00$7,250" after the person cleared "$6,400" and typed
+  // "$7,250" key by key). Replayed as the hook sees it: each render's values, the boxes seen holding words this visit.
+  if (asker) {
+    const typedInForm = caseFileOf(checkpoint({ "small-claims": { input: { amountClaimed: "$6,400" } } }));
+    check("refill: the person's own form answer is never filled back into its own emptied box", asker.formFill(typedInForm, { amountClaimed: "" }, [])["amountClaimed"] === undefined, JSON.stringify(asker.formFill(typedInForm, { amountClaimed: "" }, [])));
+    const seenNow = (asker as unknown as { seenNow?: (values: Record<string, unknown>, seen: readonly string[]) => string[] }).seenNow;
+    check("refill: the asker keeps which boxes held words during this visit (asker.ts seenNow)", typeof seenNow === "function");
+    if (seenNow) {
+      // The chat's answer is held (not the form's own); the person clears the box and types the new amount key by key.
+      const heldElsewhere = caseFileOf(checkpoint({ guided: { earlierAnswers: [{ questionId: "sc-amount-claimed", answerText: "$6,400" }], answeredIds: ["sc-amount-claimed"] } }));
+      let seen: string[] = [];
+      let box = "$6,400.00";
+      const saved: string[] = [];
+      for (const key of ["", ..."$7,250".split("")]) {
+        box = key === "" ? "" : box + key;
+        seen = seenNow({ amountClaimed: box }, seen);
+        const fill = asker.formFill(heldElsewhere, { amountClaimed: box }, seen);
+        if (fill.amountClaimed) box = fill.amountClaimed + box;
+        saved.push(box);
+      }
+      check("refill: cleared, then typed key by key -> only the new value is in the box (\"$7,250\")", box === "$7,250", `box: ${box} (steps: ${saved.join(" | ")})`);
+    }
+  }
+
   if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }
   console.log("the Small Claims asker: every check passed.");
 }

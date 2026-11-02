@@ -140,3 +140,22 @@ test("risk (b): a story naming an amount and a month fills no box as the person'
   await expect(page.getByTestId("sc-intake-amountClaimed"), "the story's $5,000 is not typed into the amount box").toHaveValue("");
   await expect(page.getByTestId("sc-intake-timeline"), "the story's month is not typed into the timeline box").toHaveValue("");
 });
+
+// Local carry runs 41393577468 / 41393585578 at 20d4d32d: the form route showed "$6,400.00$7,250" after the person
+// cleared "$6,400" and typed "$7,250" key by key -- the held amount was put back into the box under their keys.
+test("the form: a box the person clears and types in key by key keeps only their new value, after a reload too", async ({ page }) => {
+  test.setTimeout(300_000);
+  const id = await start(page);
+  await openForm(page, id);
+  const amount = page.getByTestId("sc-intake-amountClaimed");
+  await amount.fill(AMOUNT);
+  await amount.blur();
+  await page.waitForTimeout(3_000);
+  await amount.fill("");
+  await amount.pressSequentially("$7,250", { delay: 20 });
+  await amount.blur();
+  await page.waitForTimeout(3_000);
+  await expect(amount, "only the person's new value is in the box").toHaveValue("$7,250");
+  await openForm(page, id);
+  await expect(page.getByTestId("sc-intake-amountClaimed"), "after a reload, only the person's new value").toHaveValue("$7,250");
+});
