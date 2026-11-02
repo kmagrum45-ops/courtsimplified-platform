@@ -63,6 +63,7 @@ export const FIELD_ROWS: readonly FieldRow[] = [
   none("civil", "personDocuments", "which documents the person ticked (bookkeeping beside the answers)"),
   keyed("small-claims", "input"),
   none("small-claims", "mode", PAGE_STATE),
+  none("small-claims", "filledFromCaseFile", "which form boxes were filled from the case file once (asker.ts formFill), so a box the person cleared is never filled again: page bookkeeping, no fact"),
   // Family: one field per question.
   answer("family", "otherParty"),
   answer("family", "childrenInfo"),

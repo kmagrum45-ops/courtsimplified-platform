@@ -11,7 +11,7 @@ import { amountFromStory, goalFromStory, kindsFromStory, type KindCue } from "..
 import { QUESTION_BANK } from "./intake/questionBank";
 import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 import { askOf } from "./intake/asker";
-import { alreadyAsked, caseFileOf, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
+import { alreadyAsked, CASE_FILE_SECTION, caseFileOf, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
 import { LOAN_WORDS } from "./intake/claimKind";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
 
@@ -202,8 +202,28 @@ function materialFacts(checkpoint: Checkpoint): Map<string, string> {
   for (const [key, value] of Object.entries(situationOf(checkpoint.sections))) facts.set(JSON.stringify(["situation", key]), canonicalJson(value));
   // The change record (caseFile.ts withChange): each change is a change of a confirmed fact (rule 6,
   // 31 Oct), so it cancels the confirmation that rested on the old answer (isChangeKey below).
-  for (const [fact, change] of Object.entries(changesOf(checkpoint.sections))) facts.set(JSON.stringify([CHANGE_KEY, fact]), canonicalJson(change));
+  // G2: by each fact's value now -- the saved fact record (server-numbered), or this tab's unsent edit over it -- never
+  // by the raw entry, so an edit moving from the tab's buffer into the saved record is no change of a fact.
+  for (const [fact, value] of Object.entries(recordedValues(checkpoint.sections))) facts.set(JSON.stringify([CHANGE_KEY, fact]), canonicalJson(value));
   return facts;
+}
+
+/** Each fact's recorded value now: the saved record, with this tab's unsent edit made on it applied over it (G2(b)). */
+function recordedValues(sections: Checkpoint["sections"]): Record<string, { state: string; value?: unknown }> {
+  const out: Record<string, { state: string; value?: unknown }> = {};
+  const records = (sections[CASE_FILE_SECTION]?.facts ?? {}) as Record<string, { state?: unknown; value?: unknown; seq?: unknown }>;
+  for (const [fact, entry] of Object.entries(records)) {
+    if (!entry || typeof entry !== "object" || typeof entry.seq !== "number" || typeof entry.state !== "string") continue;
+    out[fact] = entry.state === "answered" ? { state: "answered", value: entry.value } : { state: entry.state };
+  }
+  for (const [fact, change] of Object.entries(changesOf(sections))) {
+    if (!change) continue;
+    const record = records[fact];
+    const recordSeq = record && typeof record.seq === "number" ? record.seq : 0;
+    if (recordSeq && (change.held || change.seen === undefined || change.seen < recordSeq)) continue;
+    out[fact] = change.state === "answered" ? { state: "answered", value: change.value } : { state: "removed" };
+  }
+  return out;
 }
 
 /** The material-fact key of one fact's change record: a change counts even where the fact had no key before. */

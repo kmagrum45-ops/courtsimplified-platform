@@ -23,7 +23,7 @@
  */
 import { useEffect, useRef, useState } from "react";
 import { useIntakeRecovery } from "./IntakeRecovery";
-import { CASE_FILE_SECTION, withChange, type ChangeInput, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import { CASE_FILE_SECTION, seenSeqOf, withChange, type ChangeInput, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { CIVIL_ISSUE_OPTIONS, FAMILY_ISSUE_OPTIONS } from "../builder/_components/guidedFields";
 import { dateAnswerCheck } from "../../src/lib/case-system/dates";
@@ -92,7 +92,8 @@ export default function ChangeAnswer({ fact, court, startOpen = false, current, 
   const label = FACT_LABEL[fact];
   /** The one write path (caseFile.ts withChange): the change record, a touched answer from the review. */
   const save = (change: ChangeInput) => {
-    recovery.put(CASE_FILE_SECTION, "changes", withChange(recovery.read(CASE_FILE_SECTION, "changes"), fact, change), true, true, true);
+    // With the server's number for the fact this tab saw (G2(b)), so a change made on an older view is never applied silently.
+    recovery.put(CASE_FILE_SECTION, "changes", withChange(recovery.read(CASE_FILE_SECTION, "changes"), fact, change, new Date(), seenSeqOf({ [CASE_FILE_SECTION]: { facts: recovery.read(CASE_FILE_SECTION, "facts") } }, fact)), true, true, true);
     setOpen(false); setTyped(""); setNote("");
   };
   const saveTyped = () => {

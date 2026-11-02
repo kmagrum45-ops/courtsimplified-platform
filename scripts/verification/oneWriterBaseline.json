@@ -1125,5 +1125,12 @@
     "target": "setItem(keyFor(userId))",
     "count": 1,
     "group": "outside"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/_components/AskedField.tsx",
+    "target": "\"small-claims\", \"filledFromCaseFile\"",
+    "count": 1,
+    "group": "outside"
   }
 ]

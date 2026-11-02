@@ -1,10 +1,10 @@
 /**
  * FAILING FIRST: ONCE A FACT RECORD EXISTS, EVERY OLD COPY IS IGNORED (case core G0; CASE_CORE_DESIGN.md §11).
  *
- * FAILING FIRST, NOW MOSTLY PASSING: option A (caseFileOf applies the fact record, 1 Nov) and G1a (the readers
- * through the case file) pass 17 of 20; the three saveCheckpoint checks fail until G2 merges facts on save.
- * (Written failing on purpose on 1 Nov: 3 passed, 17 failed.)
- * It is NOT in CI until all pass; then it joins CI, and a check that passes stays.
+ * FAILING FIRST, NOW PASSING: option A (caseFileOf applies the fact record, 1 Nov) and G1a (the readers through the
+ * case file) passed 17 of 20; G2(c) (saveCheckpoint keeps the stored fact record, serverFacts.ts) passes the last
+ * three (2 Nov). (Written failing on purpose on 1 Nov: 3 passed, 17 failed.)
+ * Joining the CI list is a workflow change, held for the founder's yes (2 Nov: workflow settings parked).
  *
  * The rule (§11): for any fact, once `caseFile.facts[fact]` exists, every old copy of that fact (a form's
  * field, the guided answers, the review's answers, the analysis copy intakeData) is ignored by

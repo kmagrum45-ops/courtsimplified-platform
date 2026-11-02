@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-225 documented, 26 without a header.
+226 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -84,7 +84,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:document-link` | **OPEN, SAVE AND DELETE AN UPLOADED FILE (Charter re-test 2026-10-26).**<br>Checks, as properties, through the route itself (app/api/workspace/documents/link) with the database and storage stood in: - a link is made only for the signed-in owner's own file that is not being deleted: no sign-in, a bad id, someone else's file and a file  |
 | `npm run test:elided-quote` | **Does a quote that skips material with "..." get found wherever it really is,**<br>and only there? |
 | `npm run test:evidence-guidance` | **Pins the removal of the false "already mentioned" claim.**<br>COSTS NOTHING. Pure functions and a source-order check. |
-| `npm run test:fact-coexistence` | **FAILING FIRST: ONCE A FACT RECORD EXISTS, EVERY OLD COPY IS IGNORED (case core G0; CASE_CORE_DESIGN.md §11).**<br>FAILING FIRST, NOW MOSTLY PASSING: option A (caseFileOf applies the fact record, 1 Nov) and G1a (the readers through the case file) pass 17 of 20; the three saveCheckpoint checks fail until G2 merges facts on save. (Written failing on purpose on 1 Nov: 3 passe |
+| `npm run test:fact-coexistence` | **FAILING FIRST: ONCE A FACT RECORD EXISTS, EVERY OLD COPY IS IGNORED (case core G0; CASE_CORE_DESIGN.md §11).**<br>FAILING FIRST, NOW PASSING: option A (caseFileOf applies the fact record, 1 Nov) and G1a (the readers through the case file) passed 17 of 20; G2(c) (saveCheckpoint keeps the stored fact record, serverFacts.ts) passes the last three (2 Nov). (Written failing on |
 | `npm run test:fact-rails` | **THE RAILS OF THE ONE CASE RECORD (case core G0; docs CASE_CORE_DESIGN.md §1, §10, §12).**<br>What it checks, with no network and no AI: 1. `give` is exported from caseFile.ts and records an answer the way caseFileOf does. 2. The server alone orders saves (§12): a write naming `seq` or `at` is refused; each accepted write gets seq = the highest stored  |
 | `npm run test:fact-sources` | **No fact about the person's case is shown without its source.**<br>What it checks: 1. Every place in app/ that states something about the person's case ("you told us", "from what you told us", "from your story", "you said", "you wrote", "we understood") renders the source beside it -- the person's words quoted, or their confi |
 | `npm run test:family-forms` | **Every family form number shown to a user cites the rule requiring it.**<br>COSTS NOTHING. A source check plus pure-function calls. |
@@ -181,6 +181,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:sc-asker` | **THE SMALL CLAIMS ASKER (founder's plan, step 5, "the memory fix", 1 Nov): one saved record per case,**<br>one writer, one reader (caseFileOf), ONE ASKER -- the question engine (intake/asker.ts, used by selectQuestions.ts). Before any Small Claims question is shown, the engine asks the case file whether that question's fact is already held (answered, "not sure", or |
 | `npm run test:sc-one-asker` | **ONE ASKER FOR EVERY SMALL CLAIMS SCREEN (founder's plan step 5, 1 Nov: "the one asker, not per screen:**<br>check caseFileOf before any question is shown"). The permanent check that keeps it so. |
 | `npm run test:server-error-log` | **test:server-error-log -- the built-in error log records a server error**<br>without anything that identifies a person (src/lib/monitoring/ serverErrorLog.ts, instrumentation.ts; 2026-10-14 audit). |
+| `npm run test:server-order` | **THE SERVER'S NUMBER DECIDES WHICH ANSWER IS NEWEST; THE TAB ORDERS ONLY ITS UNSENT EDITS (case core G2(a), G2(b);**<br>founder, 2 Nov; CASE_CORE_DESIGN.md §12). |
 | `npm run test:service-dates` | **When service counts from (serviceEffectiveDate.ts, build order Step 2D,**<br>2026-10-12). |
 | `npm run test:service-notices` | **Court-closure notices are real, traceable to the corpus, and warn at the right**<br>times. |
 | `npm run test:shared-behaviour` | **No shared behaviour is implemented a second time (the guard for the eight steps).**<br>What it checks: for each behaviour in sharedBehaviourRegistry.ts, every .ts/.tsx file in app/ and src/ other than the behaviour's one module is scanned, with comments removed, for the patterns that mean "this re-implements it". Any hit not on the behaviour's w |
