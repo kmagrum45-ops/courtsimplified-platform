@@ -273,6 +273,9 @@ jobs:
       - name: The newest answer wins, from whatever place it is given (one rule; the time decides until G2 gives the server number)
         run: npm run test:newest-answer-wins
 
+      - name: The story is a fact of the case file -- never asked again once given
+        run: npm run test:story-fact
+
       - name: No committed file holds a merge-conflict marker (generated files included)
         run: npm run test:no-conflict-markers
 
@@ -760,6 +763,7 @@ jobs:
           tests/browser/not-sure-never-asked.spec.ts
           tests/browser/not-sure-goal-review.spec.ts
           tests/browser/review-newest-answer.spec.ts
+          tests/browser/story-fact-chat.spec.ts
           --reporter=line --workers=1
 
       # The story-box spec saves a full-page screenshot of every story box at desktop and
