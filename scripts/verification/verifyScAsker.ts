@@ -20,6 +20,10 @@
  *   5. RISK (b), A STORY GUESS: a value guessed from the story (a slot with confirmed false, a proposal, an
  *      unticked kind) never counts as held: it never hides the question, is never filled into a box as
  *      answered, and the chat's proposal card starts unticked.
+ *   6. THE CARRY RUN'S "remove a value" STEP (otherParty @ review-entry): through the real save path (followAnswer)
+ *      and the harness's own held reader (askOnce.ts heldFacts): a saved row read before the removal holds
+ *      otherParty answered; once the removal is saved it holds nothing, so the held rule cannot fire. Logs the
+ *      review-then-form case, where emptying the form box leaves the review answer held.
  *
  * WHAT FAILURE THIS CATCHES: a Small Claims question shown although its fact is held (asked twice); a
  * form box left empty while the case file holds the person's answer (asked twice on the form); a box
@@ -27,7 +31,8 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { caseFileOf, emptyCaseFile, slotsOfQuestion, CASE_FILE_SECTION, type CaseFile, type Slot, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, emptyCaseFile, followAnswer, slotsOfQuestion, withChange, CASE_FILE_SECTION, type CaseFile, type Slot, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import { heldFacts } from "../../tests/browser/harness/askOnce";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { selectQuestions, type IntakeFacts } from "../../src/lib/case-system/intake/selectQuestions";
 import { orchestrateIntakeTurn, applyConfirmedStoryAnswers } from "../../src/lib/case-system/intake/orchestrateIntakeTurn";
@@ -232,6 +237,34 @@ async function main() {
     const fill = asker.formFill(answered, { amountClaimed: "", timeline: "" }, []);
     check("real reader: the amount answered in the chat is filled into the form's empty amount box", /6,?400/.test(fill.amountClaimed ?? ""), JSON.stringify(fill));
     check("real reader: the date answered in the chat is filled into the form's empty timeline box", /March 3, 2026/.test(fill.timeline ?? ""), JSON.stringify(fill));
+  }
+
+  // 6. THE CARRY RUN'S "remove a value" STEP (otherParty @ review-entry, valid runs 41389173210 / 41389180946, diag
+  // "step=remove a value page=otherParty:not-asked"), through the real save path (item C's followAnswer, as
+  // IntakeRecovery.tsx:440-441 saves a form box) and the harness's own held reader (askOnce.ts heldFacts, which the
+  // carry spec runs over the saved row every 3 s, carry-end-to-end.spec.ts:649-655). Three ways the other party is given.
+  const NAME = "Jordan Testwood";
+  const WAYS: { name: string; sections: Record<string, Record<string, unknown>> }[] = [
+    { name: "typed in the form only", sections: { "small-claims": { input: { otherParty: NAME } } } },
+    { name: "typed in the form, then changed with \"Change\" (under the change record)", sections: { "small-claims": { input: { otherParty: NAME } }, [CASE_FILE_SECTION]: { changes: withChange({}, "otherParty", { state: "answered", value: NAME }, new Date("2026-11-01T10:00:00Z")) } } },
+    { name: "given in the review and typed in the form", sections: { builder: { initialAnswers: { otherParty: NAME } }, "small-claims": { input: { otherParty: NAME } } } },
+  ];
+  for (const way of WAYS) {
+    const before = checkpoint(way.sections);
+    const changes = followAnswer(before.sections, "small-claims", "input", { otherParty: NAME }, { otherParty: "" }, new Date("2026-11-01T10:05:00Z"), caseFileOf(before));
+    const savedSections = { ...before.sections, "small-claims": { input: { otherParty: "" } }, ...(changes ? { [CASE_FILE_SECTION]: { ...(before.sections[CASE_FILE_SECTION] ?? {}), changes } } : {}) };
+    const after: Checkpoint = { ...before, sections: savedSections };
+    const fileAfter = caseFileOf(after);
+    const rowBefore = heldFacts({ intakeCheckpoint: before }, "small-claims").get("otherParty") ?? null;
+    const rowAfter = heldFacts({ intakeCheckpoint: after }, "small-claims").get("otherParty") ?? null;
+    console.log(`      [${way.name}] change recorded: ${changes?.otherParty ? changes.otherParty.state : "none"}; saved row after: otherParty ${fileAfter.otherParty.state}${fileAfter.otherParty.removed ? " (removed)" : ""}; harness held map, row read before the save: ${rowBefore}; row read after: ${rowAfter}`);
+    check(`otherParty removal (${way.name}): a held map read from the row BEFORE the removal was saved says "answered" (the held rule fires)`, rowBefore === "answered");
+    // Recorded for the report: whether the saved case holds the removal. Where it does not, the review route keeps the review's own answer.
+    if (way.name.startsWith("given in the review")) { console.log(`      [${way.name}] the person's review answer is still held after the form box is emptied: ${fileAfter.otherParty.state === "answered"}`); continue; }
+    check(`otherParty removal (${way.name}): once the removal is saved, the harness held map holds nothing for otherParty (the held rule cannot fire)`, rowAfter === null);
+    check(`otherParty removal (${way.name}): the tab's case file after the removal reads otherParty not asked, as the run's diag recorded`, fileAfter.otherParty.state === "not-asked");
+    // Emptied with no change record: nothing held, the box is empty (the person emptied it). Under the record: removed, held "removed", never asked by itself.
+    if (asker) check(`otherParty removal (${way.name}): the asker reads it as the saved case does (${fileAfter.otherParty.removed ? "removed: not asked by itself" : "not held: the emptied box"})`, fileAfter.otherParty.removed ? asker.askOf(fileAfter, "otherParty").held === "removed" : asker.mayAsk(fileAfter, "otherParty"));
   }
 
   if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }
