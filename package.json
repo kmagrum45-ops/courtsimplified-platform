@@ -266,6 +266,7 @@
     "test:never-ask-twice": "node --import tsx scripts/verification/verifyNeverAskTwice.ts",
     "test:not-sure-never-asked": "node --import tsx scripts/verification/verifyNotSureNeverAsked.ts",
     "test:not-sure-goal-review": "node --import tsx scripts/verification/verifyNotSureGoalReview.ts",
+    "test:newest-answer-wins": "node --import tsx scripts/verification/verifyNewestAnswerWins.ts",
     "test:carry-baseline": "node --import tsx scripts/verification/verifyCarryBaseline.ts",
     "test:no-conflict-markers": "node --import tsx scripts/verification/verifyNoConflictMarkers.ts",
     "test:carry": "playwright test tests/browser/carry-end-to-end.spec.ts --reporter=line --workers=1",

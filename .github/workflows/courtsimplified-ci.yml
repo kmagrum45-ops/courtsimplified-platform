@@ -270,6 +270,9 @@ jobs:
       - name: The goal said not sure in the Small Claims chat is never an empty Goal box in the review (seen once, run 41347257269)
         run: npm run test:not-sure-goal-review
 
+      - name: The newest answer wins, from whatever place it is given (one rule; the time decides until G2 gives the server number)
+        run: npm run test:newest-answer-wins
+
       - name: No committed file holds a merge-conflict marker (generated files included)
         run: npm run test:no-conflict-markers
 
@@ -756,6 +759,7 @@ jobs:
           tests/browser/review-answer-clears-unknown.spec.ts
           tests/browser/not-sure-never-asked.spec.ts
           tests/browser/not-sure-goal-review.spec.ts
+          tests/browser/review-newest-answer.spec.ts
           --reporter=line --workers=1
 
       # The story-box spec saves a full-page screenshot of every story box at desktop and
