@@ -20,7 +20,8 @@
  * WHAT FAILURE THIS CATCHES: an older answer from one place outranking a newer one from another, so two
  * screens (or one screen and the case page) show different values for one fact.
  */
-import { caseFileOf, followAnswer, CASE_FILE_SECTION, type CaseFile } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, followAnswer, withChange, CASE_FILE_SECTION, type CaseFile } from "../../src/lib/case-system/caseFile/caseFile";
+import { reviewQuestionList } from "../../src/lib/case-system/intakeReview";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 
 let failures = 0;
@@ -127,6 +128,18 @@ for (const court of ["small-claims", "civil"] as const) {
   check("an emptied box records no change", followAny(s, "builder", "initialAnswers", { "sc-amount-claimed": "$2,400" }, { "sc-amount-claimed": "" }, T2, held) === null);
   const fresh = caseFileOf(cp("small-claims", {}));
   check("a first answer to a fact nobody gave records no change", followAny({}, "builder", "initialAnswers", undefined, { "sc-amount-claimed": "$2,400" }, T1, fresh) === null);
+}
+
+// 3. The review's list keeps an answered question in its place showing the newest answer, but never a question whose
+// fact the person removed (PR #541 browser-regression, change-answer.spec.ts:209: after "Remove this answer" on the kind,
+// the reloaded review listed the kind question again with its older answer).
+{
+  const question = "sc-orient-dispute-category";
+  const base: Sections = { builder: { initialAnswers: { [question]: "A contract or agreement dispute" } }, [CASE_FILE_SECTION]: { answeredInReview: [question] } };
+  const listed = (sections: Sections) => (reviewQuestionList(cp("small-claims", sections)) as { id: string }[]).map((item) => item.id);
+  check("control: the kind answered in the review is listed in its place", listed(base).includes(question), JSON.stringify(listed(base)));
+  const removed: Sections = { ...base, [CASE_FILE_SECTION]: { ...base[CASE_FILE_SECTION], changes: withChange(undefined, "claimKind", { state: "removed" }, T2) } };
+  check("the kind removed with Change: the review does not list its question again", !listed(removed).includes(question), JSON.stringify(listed(removed)));
 }
 
 if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }
