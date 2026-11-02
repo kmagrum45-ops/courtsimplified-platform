@@ -38,7 +38,8 @@ import { startSignIn } from "../../_components/startSignIn";
 import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
 import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
 import { storyQuoteFor } from "@/src/lib/case-system/intake/claimKind";
-import { alreadyAsked, answerNow, askedAndReplied, caseFileOf, CASE_FILE_SECTION, withTurnedDown, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
+import { answerNow, askedAndReplied, caseFileOf, CASE_FILE_SECTION, withTurnedDown, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
+import { heldForEngine } from "@/src/lib/case-system/intake/asker";
 import { claimKindAiContext, classifyClaimTypeBody } from "@/src/lib/case-system/caseFile/aiCaseContext";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { WorkingButton, WorkingNote } from "@/app/_components/Working";
@@ -712,10 +713,12 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         },
         body: JSON.stringify({
           facts: nextFacts,
-          // The case file is the one gate (caseFile.ts): a question whose fact the person
-          // gave anywhere (the review, the form, the step page), or said "not sure" to, is
-          // sent as answered, so it is never asked here again.
-          answeredIds: [...new Set([...newAnsweredIds, ...(reviewView ? QUESTION_BANK.filter((question) => alreadyAsked(caseFileOf(reviewView.checkpoint, recovery?.getSavedMaster() ?? undefined), question.id)).map((question) => question.id) : []), ...repliedInThisChat()])],
+          // THE ONE ASKER (founder, 1 Nov): the page never decides which questions are held. It sends the
+          // case file (caseFileOf, its slots only) and the question engine skips every question whose fact
+          // the person already holds, answered, not sure or removed (intake/asker.ts). Held questions are
+          // not sent as answered: they are held, so they are never saved as answers of this chat.
+          answeredIds: [...new Set([...newAnsweredIds, ...repliedInThisChat()])],
+          caseFile: heldForEngine(caseFileOf(reviewView?.checkpoint ?? null, recovery?.getSavedMaster() ?? undefined)),
           newStoryText,
           answeredQuestionId,
           confirmedAnswers,

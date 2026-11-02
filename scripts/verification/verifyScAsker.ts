@@ -50,7 +50,8 @@ type Asker = {
   askedFacts: (id: string, surface?: string) => SlotFact[];
   heldWords: (file: CaseFile | null | undefined, id: string) => string | null;
   formFill: (file: CaseFile | null | undefined, values: Record<string, unknown>, filledBefore: readonly string[]) => Record<string, string>;
-  FORM_FILLABLE: readonly string[];
+  FILLABLE_FACTS: readonly SlotFact[];
+  fillable: (field: string) => boolean;
   heldForEngine: (file: CaseFile) => unknown;
   heldFromRequest: (value: unknown) => CaseFile | null;
 };
@@ -215,8 +216,9 @@ async function main() {
     }
   }
   if (asker) {
-    // Every box the form fills is one Form 7A or the review needs and asks a case-file fact.
-    for (const field of asker.FORM_FILLABLE) check(`form: fillable box ${field} asks for a case-file fact`, asker.askedFacts(field).length > 0);
+    // A box is filled only when it asks for one fillable fact; a box that asks for none is never filled.
+    for (const field of ["yourName", "yourAddress", "defendantAddress", "evidence", "damagesBreakdown"]) check(`form: ${field} asks for no fillable fact -> never filled from the case file`, !asker.fillable(field));
+    for (const field of ["otherParty", "amountClaimed", "timeline", "goal"]) check(`form: ${field} asks for a fillable fact -> filled when held`, asker.fillable(field));
   }
 
   // 5. RISK (b), on the real reader: the story alone, and an unticked kind, hold nothing.

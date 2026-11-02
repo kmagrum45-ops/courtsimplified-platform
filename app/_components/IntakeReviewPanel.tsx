@@ -22,6 +22,7 @@ import { freshSections, staleAnswerKeys, storyAnswersOutdated } from "../../src/
 import StoryChangedNotice from "./StoryChangedNotice";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { canReview, changedAfterConfirm, initialAnswersOf, reviewQuestionField, inputRevision, notAnsweredYet, remainingEssentialQuestions, reviewBoxState, reviewEntries, reviewPhase, reviewQuestionList, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
+import { askOf } from "../../src/lib/case-system/intake/asker";
 import NextStepStatus, { nextStepPressed, useNextStepReading } from "./NextStepStatus";
 import { WorkingNote } from "./Working";
 import { UseSuggestion } from "./UseSuggestion";
@@ -149,8 +150,9 @@ export default function IntakeReviewPanel() {
   // Each box by the one rule (intakeReview.ts reviewBoxState): an answer given elsewhere is shown in
   // place of an empty box; a fact said "not sure" anywhere shows the quiet line, never a box asking for
   // it again (site owner, 31 Oct: it replaced option 1's one more offer here).
-  const heldSlot = (entry: ReviewEntry) => reviewBoxState(entry, caseFile) === "held" ? slotsOfQuestion(entry.field).map(fact => caseFile[fact]).find(item => item.state === "answered") ?? null : null;
-  const notYetFact = (entry: ReviewEntry) => reviewBoxState(entry, caseFile) === "not-yet" ? slotsOfQuestion(entry.field).find(fact => caseFile[fact].state === "unsure") : undefined;
+  // Through the one asker (intake/asker.ts): the slot it says is held, never a story guess.
+  const heldSlot = (entry: ReviewEntry) => { const decision = askOf(caseFile, entry.field); return reviewBoxState(entry, caseFile) === "held" && !decision.ask ? decision.slot : null; };
+  const notYetFact = (entry: ReviewEntry) => { const decision = askOf(caseFile, entry.field); return reviewBoxState(entry, caseFile) === "not-yet" && !decision.ask ? decision.fact : undefined; };
   // ONE CHANGE PATH (rule 6, 31 Oct): a fact changed or removed with "Change" shows the case file's
   // value on its box, never the form's own older copy; so does the fact the case page asked to change.
   const changedFact = (field: string): [SlotFact, Slot] | null => slotsOfQuestion(field).map(fact => [fact, caseFile[fact]] as [SlotFact, Slot]).find(([fact, slot]) => slot.changed || (fact === "claimKind" && slot.state === "answered") || (fact === changeFact && (slot.state === "answered" || slot.removed))) ?? null;

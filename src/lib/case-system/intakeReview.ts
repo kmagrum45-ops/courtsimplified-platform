@@ -10,6 +10,7 @@ import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineVal
 import { amountFromStory, goalFromStory, kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
+import { askOf } from "./intake/asker";
 import { alreadyAsked, caseFileOf, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
 import { LOAN_WORDS } from "./intake/claimKind";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
@@ -410,6 +411,8 @@ export function remainingEssentialQuestions(stored: Checkpoint, master?: unknown
   // (site owner, 31 Oct: it replaced option 1's "one more offer" of a not-sure fact in this review).
   // Those the person said they do not know are notAnsweredYet's quiet lines instead.
   const file = caseFileOf(stored, master);
+  // Small Claims: the question engine itself asks the case file (the one asker, intake/asker.ts; founder, 1 Nov).
+  if (stored.courtPath === "small-claims") return remainingBeforeCaseFile(stored, false, file);
   return remainingBeforeCaseFile(stored, false).filter(question => !alreadyAsked(file, question.id));
 }
 
@@ -465,14 +468,16 @@ export function notAnsweredYet(stored: Checkpoint, master?: unknown): NotAnswere
  */
 export function reviewBoxState(entry: ReviewEntry, file: CaseFile): "start" | "held" | "not-yet" | "given" | "ask" {
   if (entry.fromStart) return "start";
-  const facts = slotsOfQuestion(entry.field);
+  // The one asker (intake/asker.ts; founder, 1 Nov): held means the person's own answer or "not sure";
+  // a story guess (confirmed false) is never "held", so the box asks and the guess stays an offer.
+  const decision = askOf(file, entry.field);
   const empty = emptyValue(entry.value);
-  if (empty && facts.some(fact => file[fact].state === "answered")) return "held";
-  if ((empty || isUnsureAnswer(entry.value)) && facts.some(fact => file[fact].state === "unsure") && !facts.some(fact => file[fact].state === "answered")) return "not-yet";
+  if (empty && !decision.ask && decision.held === "answered") return "held";
+  if ((empty || isUnsureAnswer(entry.value)) && !decision.ask && decision.held === "unsure") return "not-yet";
   return empty ? "ask" : "given";
 }
 
-function remainingBeforeCaseFile(stored: Checkpoint, includeUnknown: boolean): { id: string; label: string }[] {
+function remainingBeforeCaseFile(stored: Checkpoint, includeUnknown: boolean, held?: CaseFile): { id: string; label: string }[] {
   // A question answered only for an earlier version of the story is asked again (storyBasis.ts).
   const checkpoint: Checkpoint = { ...stored, sections: freshSections(stored) };
   const unknowns = new Set(Array.isArray(checkpoint.sections.builder?.initialUnknowns) ? checkpoint.sections.builder.initialUnknowns as string[] : []);
@@ -503,7 +508,7 @@ function remainingBeforeCaseFile(stored: Checkpoint, includeUnknown: boolean): {
     ...(fromStart.claimServed !== undefined ? { claimServed: fromStart.claimServed } : {}),
   };
   const answered = [...new Set([...initial.answered, ...fromStart.questionIds])];
-  return selectQuestions(facts, answered, QUESTION_BANK, "small-claims", "initial").map(id => ({ id, label: QUESTION_BANK.find(question => question.id === id)!.text })).filter(question => includeUnknown || !unknowns.has(question.id));
+  return selectQuestions(facts, answered, QUESTION_BANK, "small-claims", "initial", { held }).map(id => ({ id, label: QUESTION_BANK.find(question => question.id === id)!.text })).filter(question => includeUnknown || !unknowns.has(question.id));
 }
 
 /** What an answer given in the review panel says as a fact, for the questions that depend on it. */
