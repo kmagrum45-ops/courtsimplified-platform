@@ -690,10 +690,22 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const analysisRequest = useRef(new IntakeRequest());
   const requestScope = input;
+  // A held answer put into an empty box by the one asker (useHeldFill below) is not the person changing the
+  // form: it never cancels the running analysis (#542: the fill landed while Continue's analysis ran and the
+  // request was aborted, "signal is aborted without reason", in every Small Claims route). The person's own
+  // edits still cancel it (the section's onChangeCapture, and any other change to the input), and so does leaving.
+  const filledOnly = useRef(false);
+  useEffect(() => {
+    const request = analysisRequest.current;
+    return () => {
+      if (filledOnly.current) { filledOnly.current = false; return; }
+      request.cancel();
+    };
+  }, [requestScope]);
   useEffect(() => {
     const request = analysisRequest.current;
     return () => request.cancel();
-  }, [requestScope]);
+  }, []);
   const [analysisError, setAnalysisError] = useState("");
   const [storageWarning, setStorageWarning] = useState("");
   const [safetyHalted, setSafetyHalted] = useState(false);
@@ -797,11 +809,11 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   // THE ONE ASKER (founder, 1 Nov; intake/asker.ts): an answer the person already gave elsewhere (the
   // chat, the review, a change) is put into its empty box here once, so the form never asks for it again;
   // never over what they typed, never a story guess, never again once they cleared the box.
-  useHeldFill(input as unknown as Record<string, unknown>, (fill) => setInput((current) => {
+  useHeldFill(input as unknown as Record<string, unknown>, (fill) => { filledOnly.current = true; setInput((current) => {
     const next = { ...current } as Record<string, unknown>;
     for (const [field, words] of Object.entries(fill)) if (!String(next[field] ?? "").trim()) next[field] = words;
     return next as unknown as SmallClaimsIntelligenceInput;
-  }));
+  }); });
 
   function updateField<K extends keyof SmallClaimsIntelligenceInput>(
     field: K,
