@@ -1188,6 +1188,114 @@
         "why": "The panel became measured on 1 Nov (carry spec reads the one-at-a-time panel). It shows the same removed party the form, case file and case page entries already list for this step, so it is a screen newly measured, not a regression.",
         "cause": "The panel shows the case file's value (app/builder/_components/GuidedFormChat.tsx:205, caseFileOf with the saved record, echoed at :321); the saved record still holds the removed party when the first case is reopened by address, as the listed form, case file and case page entries show. Root cause of the removal not holding is not yet traced (G0, Small Claims step 2)."
       }
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "whenHappened",
+      "where": "review (after clearing and reload)",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims questions guest run on review (after clearing and reload): \"March 3, 2026\" shown again after the person cleared it",
+      "newlyMeasured": {
+        "runs": [
+          "41392514035",
+          "41392521029"
+        ],
+        "on": "2026-11-02",
+        "why": "Step 11 is newly measured: it clears in the review an answer the chat gave, which the change record never held, a case no earlier step reached.",
+        "cause": "src/lib/case-system/caseFile/caseFile.ts:530, followAnswer emptied-box branch records a removal only when the change record holds the fact; caseFileOf then reads the chat copy again (fix belongs to G2(d))."
+      }
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "whenHappened",
+      "where": "case file (after clearing)",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims questions guest run on case file (after clearing): \"March 3, 2026\" shown again after the person cleared it",
+      "newlyMeasured": {
+        "runs": [
+          "41392514035",
+          "41392521029"
+        ],
+        "on": "2026-11-02",
+        "why": "Step 11 is newly measured: it clears in the review an answer the chat gave, which the change record never held, a case no earlier step reached.",
+        "cause": "src/lib/case-system/caseFile/caseFile.ts:530, followAnswer emptied-box branch records a removal only when the change record holds the fact; caseFileOf then reads the chat copy again (fix belongs to G2(d))."
+      }
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "whenHappened",
+      "where": "case page by its address (after clearing)",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "guest",
+      "reason": "Seen by the carry test in the small-claims questions guest run on case page by its address (after clearing): \"March 3, 2026\" shown again after the person cleared it",
+      "newlyMeasured": {
+        "runs": [
+          "41392514035",
+          "41392521029"
+        ],
+        "on": "2026-11-02",
+        "why": "Step 11 is newly measured: it clears in the review an answer the chat gave, which the change record never held, a case no earlier step reached.",
+        "cause": "src/lib/case-system/caseFile/caseFile.ts:530, followAnswer emptied-box branch records a removal only when the change record holds the fact; caseFileOf then reads the chat copy again (fix belongs to G2(d))."
+      }
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "whenHappened",
+      "where": "review (after clearing and reload)",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims questions signed-in run on review (after clearing and reload): \"March 3, 2026\" shown again after the person cleared it",
+      "newlyMeasured": {
+        "runs": [
+          "41392514035",
+          "41392521029"
+        ],
+        "on": "2026-11-02",
+        "why": "Step 11 is newly measured: it clears in the review an answer the chat gave, which the change record never held, a case no earlier step reached.",
+        "cause": "src/lib/case-system/caseFile/caseFile.ts:530, followAnswer emptied-box branch records a removal only when the change record holds the fact; caseFileOf then reads the chat copy again (fix belongs to G2(d))."
+      }
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "whenHappened",
+      "where": "case file (after clearing)",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims questions signed-in run on case file (after clearing): \"March 3, 2026\" shown again after the person cleared it",
+      "newlyMeasured": {
+        "runs": [
+          "41392514035",
+          "41392521029"
+        ],
+        "on": "2026-11-02",
+        "why": "Step 11 is newly measured: it clears in the review an answer the chat gave, which the change record never held, a case no earlier step reached.",
+        "cause": "src/lib/case-system/caseFile/caseFile.ts:530, followAnswer emptied-box branch records a removal only when the change record holds the fact; caseFileOf then reads the chat copy again (fix belongs to G2(d))."
+      }
+    },
+    {
+      "kind": "returned-after-removal",
+      "fact": "whenHappened",
+      "where": "case page by its address (after clearing)",
+      "court": "small-claims",
+      "route": "questions",
+      "who": "signed-in",
+      "reason": "Seen by the carry test in the small-claims questions signed-in run on case page by its address (after clearing): \"March 3, 2026\" shown again after the person cleared it",
+      "newlyMeasured": {
+        "runs": [
+          "41392514035",
+          "41392521029"
+        ],
+        "on": "2026-11-02",
+        "why": "Step 11 is newly measured: it clears in the review an answer the chat gave, which the change record never held, a case no earlier step reached.",
+        "cause": "src/lib/case-system/caseFile/caseFile.ts:530, followAnswer emptied-box branch records a removal only when the change record holds the fact; caseFileOf then reads the chat copy again (fix belongs to G2(d))."
+      }
     }
   ]
 }
