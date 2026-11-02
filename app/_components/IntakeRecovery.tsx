@@ -24,7 +24,7 @@ import { canonicalJson } from "../../src/lib/case-system/canonicalJson";
 import { WorkingButton } from "./Working";
 import { saveThenLeave } from "./leaveAfterSave";
 import { courtOfSavedRow, SAVED_COURT_COLUMNS } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
-import { CASE_FILE_SECTION, followAnswer } from "../../src/lib/case-system/caseFile/caseFile";
+import { CASE_FILE_SECTION, caseFileOf, followAnswer } from "../../src/lib/case-system/caseFile/caseFile";
 
 async function readAuthSession() {
   const request = new IntakeRequest();
@@ -433,9 +433,11 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             // A changed side: the old side's answers are emptied, to be asked again (sideChange.ts).
             const sideChange = field === `${SITUATION_SECTION}:${SITUATION_FIELD}` ? onSideChange(snapshot.sections, sections) : { sections, changed: [] as [string, string][] };
             sections = sideChange.sections;
-            // A later answer to a fact the person changed with "Change" is the newest change: recorded as
-            // one, so latest wins and no older copy outranks it (caseFile.ts followAnswer, rule 6, 31 Oct).
-            const followed = touched && section !== CASE_FILE_SECTION ? followAnswer(snapshot.sections, section, key, snapshot.sections[section]?.[key], encoded) : null;
+            // The newest answer wins (founder, 1 Nov): an answer to a fact the person changed with "Change", or that
+            // the case file already holds with another value from another place, is recorded as the newest change
+            // with its time, so no older copy outranks it on any screen (caseFile.ts followAnswer; the time is
+            // replaced by the server's number in G2(b)).
+            const followed = touched && section !== CASE_FILE_SECTION ? followAnswer(snapshot.sections, section, key, snapshot.sections[section]?.[key], encoded, new Date(), caseFileOf(snapshot, savedMaster ?? undefined)) : null;
             if (followed) sections = { ...sections, [CASE_FILE_SECTION]: { ...sections[CASE_FILE_SECTION], changes: followed } };
             // Only what the person enters or confirms is an answer; a form registering its defaults is not.
             if (touched) sections[BASIS_SECTION] = tagAnswers(sections, section, key, snapshot.sections[section]?.[key], encoded);

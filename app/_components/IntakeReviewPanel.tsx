@@ -319,7 +319,15 @@ export default function IntakeReviewPanel() {
                   const draft = dateDrafts[key];
                   return <>{fieldNotes[key] ? <p data-testid="intake-entry-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[key]}</p> : null}<input type="text" aria-label={`Review: ${entry.label}`} className="mt-1 block w-full rounded border p-2" placeholder="For example: October 12, 2026" value={draft ?? String(entry.value)} disabled={busy} onChange={event => setDateDrafts(current => ({ ...current, [key]: event.target.value }))} onBlur={() => { if (draft === undefined) return; const typed = draft.trim(); const servedDate = entry.section === "family" && entry.field === "servedDate"; const more = typed ? dateAnswerCheck(entry.question ?? entry.label, typed, { dateQuestion: servedDate, oneDate: servedDate }) : null; setFieldNotes(current => ({ ...current, [key]: more ?? "" })); if (more) return; edit(entry, typed); setDateDrafts(current => { const next = { ...current }; delete next[key]; return next; }); }} onKeyDown={event => { if (event.key === "Enter") (event.target as HTMLInputElement).blur(); }} /></>;
                 })()
-                : <textarea aria-label={`Review: ${entry.label}`} className="mt-1 block min-h-20 w-full rounded border p-2" value={String(entry.value)} disabled={busy} onChange={event => { if (typeof entry.value === "number") { if (event.target.value.trim() && Number.isFinite(Number(event.target.value))) edit(entry, Number(event.target.value)); } else edit(entry, event.target.value); }} />}
+                : (() => {
+                  /* Typed here, saved when the person leaves the box (as the questions' own boxes are): a saved answer to a fact
+                     held from another place is the newest answer (caseFile.ts followAnswer) and the box then shows the held
+                     line with "Change", so saving key by key turned the box into that line at the first key (1 Nov). */
+                  const key = `entry:${entry.section}:${entry.field}`;
+                  const draft = dateDrafts[key];
+                  const save = () => { if (draft === undefined) return; if (typeof entry.value === "number") { if (draft.trim() && Number.isFinite(Number(draft))) edit(entry, Number(draft)); } else if (draft.trim() || String(entry.value).trim()) edit(entry, draft); setDateDrafts(current => { const next = { ...current }; delete next[key]; return next; }); };
+                  return <textarea aria-label={`Review: ${entry.label}`} className="mt-1 block min-h-20 w-full rounded border p-2" value={draft ?? String(entry.value)} disabled={busy} onChange={event => setDateDrafts(current => ({ ...current, [key]: event.target.value }))} onBlur={save} />;
+                })()}
         </div>; })}
       </div>
       {extraFacts.length > 0 && <div className="mt-4 grid gap-2 text-sm" data-testid="intake-held-facts">{extraFacts.map(fact => <div key={fact}>{heldLine(fact, caseFile[fact], `Review: ${FACT_LABEL[fact]}`, FACT_LABEL[fact])}</div>)}</div>}

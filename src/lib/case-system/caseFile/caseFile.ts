@@ -480,16 +480,33 @@ export function withChange(changes: unknown, fact: SlotFact, change: ChangeInput
 }
 
 /**
- * A later answer to a fact already under the change record, given in a form or a question (the whole
- * form, the review's "Answered here"): it is the newest answer, so it is recorded as the newest change
- * too (latest change wins). Returns the new change record, or null when the write answers no fact
- * under the record. Only the keys the write changed count (a form re-saving its other answers is no
- * answer), and "not sure" or an emptied box is no new answer.
+ * THE NEWEST ANSWER WINS, ONCE, FOR EVERY PLACE (founder, 1 Nov). An answer the person gives in a form or a
+ * question (a whole form, the review's question or its summary box, the questions one at a time) is recorded
+ * in the change record, with the time it was given, when it answers a fact that is already under the record,
+ * or that the case file already holds (`held`) with a DIFFERENT value from another place. The change record
+ * is applied last (applyChanges), so the later answer wins whichever place gave the earlier one: `give`
+ * keeps the first answer it reads, and the order caseFileOf reads its sources in is not the order the person
+ * answered (Chrome check of #536, round 2: the review's summary box changed the amount to $2,650 while the
+ * list and the case page kept $2,400).
+ *
+ * The time decides, from the browser's clock (`now`); in G2(b) the server's sequence number for the write
+ * replaces it, so two tabs or devices cannot disagree.
+ *
+ * Returns the new change record, or null when the write is no newer answer: only the keys the write changed
+ * count (a form re-saving its other answers is no answer); "not sure" or an emptied box is no answer; a first
+ * answer to a fact nobody gave, or the same value again, records nothing.
  */
-export function followAnswer(sections: Record<string, unknown>, section: string, key: string, before: unknown, after: unknown, now: Date = new Date()): FactChanges | null {
+/** Whether a value is the answer a fact already holds, as the case file reads it (an amount "$2,400" is 2400). */
+function sameAnswer(fact: SlotFact, heldValue: unknown, given: unknown): boolean {
+  const read = emptyCaseFile();
+  give(read, fact, given, "compare");
+  return JSON.stringify(read[fact].value ?? given) === JSON.stringify(heldValue);
+}
+
+export function followAnswer(sections: Record<string, unknown>, section: string, key: string, before: unknown, after: unknown, now: Date = new Date(), held?: CaseFile): FactChanges | null {
   const changes = changesOf(sections);
-  if (!Object.keys(changes).length) return null;
-  const keyed = ((section === "civil" || section === "small-claims") && key === "input") || (section === "builder" && key === "initialAnswers");
+  if (!Object.keys(changes).length && !held) return null;
+  const keyed = ((section === "civil" || section === "small-claims") && key === "input") || (section === "builder" && key === "initialAnswers") || (section === "guided" && key === "facts");
   const pairs: [string, unknown, unknown][] = keyed
     ? Object.keys({ ...object(before), ...object(after) }).map((id) => [id, object(before)[id], object(after)[id]])
     : section === "family" ? [[key, before, after]] : [];
@@ -498,7 +515,12 @@ export function followAnswer(sections: Record<string, unknown>, section: string,
     if (JSON.stringify(was) === JSON.stringify(given) || given === "not-sure" || isUnsureAnswer(given)) continue;
     const value = Array.isArray(given) ? strings(given).filter((item) => item !== "not-sure") : given;
     if (blank(value) || !changeable(value)) continue;
-    for (const fact of slotsOf(id)) if ((next ?? changes)[fact]) next = withChange(next ?? changes, fact, { state: "answered", value }, now);
+    for (const fact of slotsOf(id)) {
+      const underRecord = Boolean((next ?? changes)[fact]);
+      // Held with another value from another place: this later answer is the newer one.
+      const heldOther = held !== undefined && held[fact].state === "answered" && !sameAnswer(fact, held[fact].value, value);
+      if (underRecord || heldOther) next = withChange(next ?? changes, fact, { state: "answered", value }, now);
+    }
   }
   return next;
 }
@@ -545,7 +567,8 @@ function heldKindId(slot: Slot): string | null {
 }
 
 function applyChanges(file: CaseFile, changes: FactChanges, position: Record<string, unknown>) {
-  const ordered = (Object.entries(changes) as [SlotFact, FactChange][]).sort(([, a], [, b]) => a.seq - b.seq);
+  // In the order they were given: the time decides (the browser's clock until G2(b) gives the server's number), then seq.
+  const ordered = (Object.entries(changes) as [SlotFact, FactChange][]).sort(([, a], [, b]) => (a.at && b.at && a.at !== b.at ? (a.at < b.at ? -1 : 1) : a.seq - b.seq));
   if (!ordered.length) return;
   const pickedAt = typeof position.claimKindAt === "string" ? position.claimKindAt : "";
   for (const [fact, change] of ordered) {

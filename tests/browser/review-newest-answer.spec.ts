@@ -70,7 +70,7 @@ test("Small Claims review: the amount changed in its box is the answer the list 
   if ((await page.getByTestId("intake-review").getAttribute("data-phase")) === "collecting") await page.getByTestId("intake-start-review").click();
   await expect(question.getByTestId("intake-question-answered"), "3. after a reload, the line says the newest amount").toContainText("$2,650", { timeout: 30_000 });
   await expect(question.getByTestId("intake-question-answered"), "3. never the older one").not.toContainText("$2,400");
-  await expect(question.getByLabel("Answer: What is the total dollar amount you are claiming?", { exact: true }), "3. the box holds the newest amount").toHaveValue("$2,650");
+  await expect(question.getByLabel("Answer: What is the total dollar amount you are claiming?", { exact: true }), "3. the box holds the newest amount").toHaveValue(/^\$2,650(\.00)?$/);
 });
 
 /** The guided chat first (signed in, stand-ins), as the founder did: questions answered plainly until the amount is asked, then on to the review. */

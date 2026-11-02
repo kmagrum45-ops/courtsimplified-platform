@@ -376,7 +376,9 @@ function holdsAnswer(checkpoint: Checkpoint, id: string): boolean {
  * still to answer, and those the person answered in the review, as the case file records them
  * (caseFileOf -> answeredInReview), each in its fixed place (reviewQuestionRank). Nothing in it comes
  * from the page, so a reload, a second tab and every screen show the same list. An answered question
- * is listed only while it still holds its answer and its fact was not since changed with "Change".
+ * is listed only while it still holds its answer; when a later answer from another place (or "Change") now
+ * holds its fact, it stays in its place and shows that newest answer (the panel reads it from the case file,
+ * caseFileWords; founder, 1 Nov: the newest answer shows everywhere at once).
  * A question the person said they do not know (here or anywhere) is listed as its quiet line
  * (`notYet`, from notAnsweredYet), in its place, never as still to answer: "N still to answer" counts
  * only `!answered && !notYet` (site owner, 31 Oct: not sure is never asked again, nor counted).
@@ -389,7 +391,7 @@ export function reviewQuestionList(checkpoint: Checkpoint, master?: unknown): { 
     ...unanswered.map((question) => ({ ...question, answered: false })),
     ...quiet.filter((line) => !unanswered.some((question) => question.id === line.id)).map((line) => ({ id: line.id, label: line.label, answered: false, notYet: line })),
     ...(file.answeredInReview ?? [])
-      .filter((id) => reviewQuestionRank(checkpoint.courtPath, id) !== Number.MAX_SAFE_INTEGER && !unanswered.some((question) => question.id === id) && !quiet.some((line) => line.id === id) && holdsAnswer(checkpoint, id) && !slotsOfQuestion(id).some((fact) => file[fact].changed))
+      .filter((id) => reviewQuestionRank(checkpoint.courtPath, id) !== Number.MAX_SAFE_INTEGER && !unanswered.some((question) => question.id === id) && !quiet.some((line) => line.id === id) && holdsAnswer(checkpoint, id))
       .map((id) => ({ id, label: reviewQuestionField(checkpoint.courtPath, id)?.question ?? QUESTION_BANK.find((item) => item.id === id)?.text ?? id, answered: true })),
   ];
   return listed.sort((a, b) => reviewQuestionRank(checkpoint.courtPath, a.id) - reviewQuestionRank(checkpoint.courtPath, b.id));
