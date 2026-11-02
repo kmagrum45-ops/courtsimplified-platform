@@ -13,12 +13,15 @@ import { useIntakeRecovery } from "./IntakeRecovery";
 import { FACT_LABEL } from "./ChangeAnswer";
 import { CASE_FILE_SECTION, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import { discardPending, notSavedYet, savePending } from "../../src/lib/case-system/caseFile/pendingFacts";
+import { answerWords } from "../../src/lib/case-system/caseFile/unsureAnswer";
+import { inWords } from "../../src/lib/case-system/copy/rawKeys";
 
-/** An answer in words: a list joined, a removal said as such. */
+/** An answer in words through the shared readers (a list by its labels, typed "I do not know yet" never as the answer), a removal said as such. */
 function words(state: string, value: unknown): string {
   if (state === "removed") return "removed";
   if (state === "unsure") return "not sure";
-  if (Array.isArray(value)) return value.map(String).join(", ");
+  if (Array.isArray(value)) return inWords(value.map(String));
+  if (typeof value === "string") return answerWords(value) || "not sure";
   return value === undefined || value === null ? "" : String(value);
 }
 

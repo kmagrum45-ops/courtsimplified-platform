@@ -820,7 +820,7 @@ The columns mean *imports*, not *shows*: a module can be imported for another re
 | app/_components/IntakeRecovery.tsx | situation, caseFile | — | — | — | — | intakeReview |
 | app/_components/IntakeReviewPanel.tsx | situation, caseFile | casePosition | — | — | dates, casePosition | rawKeys, intakeReview |
 | app/_components/NotAnsweredYet.tsx | caseFile | — | — | — | — | — |
-| app/_components/NotSavedYet.tsx | caseFile | — | — | — | — | — |
+| app/_components/NotSavedYet.tsx | caseFile | — | — | — | — | rawKeys |
 | app/_components/ReviewNeededNotice.tsx | — | — | — | — | — | intakeReview |
 | app/_components/SituationQuestions.tsx | situation | — | — | — | dates | — |
 | app/_components/WhatComesNext.tsx | — | stageMap, stageSequence | — | — | — | — |
@@ -1071,7 +1071,7 @@ Splitting text into sentences.
 Words for stored codes, and the copy guard.
 
 - Reads (4): **app/builder/_components/guidedFields.ts**, **src/lib/case-system/caseFile/caseFile.ts**, src/lib/case-system/intake/questionBank.ts, src/lib/case-system/knowledge/legalReasoningProfiles.ts
-- Read by (7): app/_components/IntakeReviewPanel.tsx, app/builder/_components/IntelligenceOverviewPanel.tsx, app/cases/_components/CaseFilePanel.tsx, src/lib/case-system/caseFile/aiCaseContext.ts, **src/lib/case-system/copy/caseWords.ts**, src/lib/case-system/earlierAnswerWords.ts, src/lib/case-system/guided-assistant/guidedAssistantOrchestrator.ts
+- Read by (8): app/_components/IntakeReviewPanel.tsx, app/_components/NotSavedYet.tsx, app/builder/_components/IntelligenceOverviewPanel.tsx, app/cases/_components/CaseFilePanel.tsx, src/lib/case-system/caseFile/aiCaseContext.ts, **src/lib/case-system/copy/caseWords.ts**, src/lib/case-system/earlierAnswerWords.ts, src/lib/case-system/guided-assistant/guidedAssistantOrchestrator.ts
 - Checked by (7): scripts/verification/verifyChangePath.ts, scripts/verification/verifyChatPlainWords.ts, scripts/verification/verifyClaimKindOneValue.ts, scripts/verification/verifyRawKeys.ts, scripts/verification/verifyStoryFacts.ts, tests/browser/harness/noInternalCodes.ts, tests/browser/story-pack.spec.ts
 
 ### src/lib/case-system/stage-map/stageMap.ts
