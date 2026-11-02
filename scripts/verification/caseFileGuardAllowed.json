@@ -524,14 +524,6 @@
     "reason": "Inventory row 90: city / court location :: civil courtLocation field (intakeReview.ts FIELD_LABELS, CivilIntake.tsx:501), generate-form/route.ts:716 (courtLocation/court/city)"
   },
   {
-    "row": 102,
-    "fact": "other party",
-    "pattern": "op.otherParty",
-    "file": "app/api/generate-form/route.ts",
-    "reason": "Found by the guard's scan beside inventory row 102 (the same store or reader, in a file the inventory did not name): other party :: checkpoint small-claims.input.otherParty, civil.input.otherParty, family.otherParty (FamilyIntake.tsx:312)",
-    "scanFound": true
-  },
-  {
     "row": 106,
     "fact": "other party",
     "pattern": "op.otherPartyAddress",
@@ -2744,13 +2736,6 @@
     "pattern": "sd.sideFromParts",
     "file": "src/lib/case-system/caseRecord.ts",
     "reason": "Inventory row 92: side :: src/lib/case-system/caseRecord.ts:91 (sideFromParts)"
-  },
-  {
-    "row": 103,
-    "fact": "other party",
-    "pattern": "op.otherParty",
-    "file": "src/lib/case-system/caseRecord.ts",
-    "reason": "Inventory row 103: other party :: master_result.intakeData.otherParty/extra.otherParty/civilInput.otherParty → caseRecord.ts:159; dashboard/page.tsx:173,190; cases/[id]/case-file/page.tsx:203"
   },
   {
     "row": 108,
