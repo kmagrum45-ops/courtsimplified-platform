@@ -270,6 +270,9 @@ jobs:
       - name: The goal said not sure in the Small Claims chat is never an empty Goal box in the review (seen once, run 41347257269)
         run: npm run test:not-sure-goal-review
 
+      - name: No committed file holds a merge-conflict marker (generated files included)
+        run: npm run test:no-conflict-markers
+
       - name: The carry test's baseline may only shrink -- no entry added compared with main
         run: npm run test:carry-baseline
 

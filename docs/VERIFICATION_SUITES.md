@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-216 documented, 26 without a header.
+217 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -127,6 +127,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:never-ask-twice` | **NEVER ASK TWICE: THE STORY PACK'S GATE, CHECKED WITHOUT A BROWSER (site owner, 28 Oct).**<br>The story pack (tests/browser/story-pack.spec.ts) records every question the site shows (tests/browser/harness/askOnce.ts), and fails a question whose fact the person already gave (factsAskedTwice) or whose fact the saved case holds as the person's own when it |
 | `npm run test:next-step` | **"Your next step" comes first: the step, its deadline counted from the**<br>person's dates (or the period and what it runs from), what to do and the forms, with the full answer folded underneath. Master plan Phase 2 (docs/MASTER_PLAN.md). |
 | `npm run test:next-step-practical` | **The next-step card's form, fee, filing and service lines are the law's own**<br>words, for every step (content-library/nextStepPractical.ts, master plan Phase 2, 2026-10-08). |
+| `npm run test:no-conflict-markers` | **No committed file holds a merge-conflict marker (founder, 1 Nov).**<br>What it checks: every file git tracks (or the files of a given commit, with `--ref <commit>`) is read, and a line that is exactly a conflict marker fails: `<<<<<<< ...`, `>>>>>>> ...`, or `=======` alone when it sits between the other two. Long rules made of " |
 | `npm run test:no-filenames` | **No file name reaches a model. Asserted three ways, because one way is not**<br>enough for a property this easy to reintroduce. |
 | `npm run test:no-model-prose` | **No model-written prose reaches a document, an export, or a court form.**<br>COSTS NOTHING. Calls the real engine with a real input, with external cognition disabled, and inspects what comes out. No network, no AI. |
 | `npm run test:no-model-text-to-users` | **With the switch off, no sentence the model wrote reaches a user.**<br>WHAT IT PROTECTS. The LSO A2I AI policy forbids AI-generated legal content reaching a user without human review, and the A2I answers (2026-09-28) commit to it. Until 2026-09-29 the analysis carried the model's own wording into what users read: risk titles and  |
