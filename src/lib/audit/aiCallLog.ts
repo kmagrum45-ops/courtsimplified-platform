@@ -50,6 +50,8 @@ import { appendFileSync } from "node:fs";
 
 import { createClient } from "@supabase/supabase-js";
 
+import { scrubErrorMessage } from "../monitoring/serverErrorLog";
+
 /**
  * Must match the CHECK constraint in
  * supabase/migrations/20260922120000_add_ai_call_log.sql. A value not in that
@@ -228,24 +230,29 @@ export function withAiCallContext<T>(
       } finally {
         // finally, not after the return: a call site that throws still made
         // the model call, and a failed request is a row worth having.
-        if (context) flush(context);
+        //
+        // AWAITED (item O, 2026-10-29). The write used to be fire and forget.
+        // On Vercel a function can be frozen once its response is sent, so an
+        // un-awaited insert may never run. flush() never throws, so awaiting
+        // it cannot turn a logging fault into a failed request.
+        if (context) await flush(context);
       }
     },
   );
 }
 
-/** Writes every row staged during this context, then clears the stage. */
-function flush(context: AiCallContext): void {
+/** Writes every row staged during this context, then clears the stage. Never throws. */
+async function flush(context: AiCallContext): Promise<void> {
   const staged = context.pending.splice(0, context.pending.length);
-  for (const row of staged) {
+  await Promise.all(staged.map((row) =>
     insertRow({
       ...row,
       validation_result: context.validationResult,
       validation_detail: context.validationDetail ?? null,
       requests_legal_advice: context.requestsLegalAdvice ?? null,
       output_guard_blocked: context.outputGuardBlocked,
-    });
-  }
+    }),
+  ));
 }
 
 /** The current context, or null outside one. */
@@ -497,12 +504,6 @@ type AiCallLogRow = {
 };
 
 /**
- * Writes one row. Fire and forget, and deliberately so: an audit-log insert
- * must never add latency to a user's request and must never be the reason a
- * page fails. A failed write is reported to the server console, where the
- * quarterly report's own gap check will also notice the hole.
- */
-/**
  * Where a row goes.
  *
  * *** WHY THE DATABASE IS NOT THE DEFAULT ***
@@ -528,6 +529,11 @@ type AiCallLogRow = {
  * else. A script run through tsx does not have it. So the database is used only
  * when we are demonstrably inside the app, and everything else — scripts, evals,
  * fixtures, anything added later — lands in a local file with no network call.
+ * `VERCEL_ENV` counts as "inside the app" too (item O, 2026-10-29): a Vercel
+ * deployment never falls back to the file sink. A script that loaded a
+ * VERCEL_ENV from a pulled env file would therefore write to the database;
+ * `.env.local` holds none today, and test:ai-call-log-sink asserts the
+ * no-VERCEL_ENV default stays the file.
  *
  * `AI_CALL_LOG` overrides it explicitly ("database", "file", "off") so a
  * deployment that somehow lacks NEXT_RUNTIME can force the database rather than
@@ -570,7 +576,14 @@ export function sinkFor(env: NodeJS.ProcessEnv = process.env): AiCallLogSink {
   if (override === "database" || override === "file" || override === "off") {
     return override;
   }
-  return env.NEXT_RUNTIME ? "database" : "file";
+  // VERCEL_ENV (production, preview or development) is set by Vercel on every
+  // deployment and by nothing in this repository's scripts. Recognised as
+  // "in the app" on its own (item O, 2026-10-29): NEXT_RUNTIME alone did not
+  // reliably reach this code there, and the fallback, the file sink, writes to
+  // a read-only filesystem on Vercel, so the audit row was simply lost.
+  // A deployment never defaults to the file sink.
+  if (env.NEXT_RUNTIME || (env.VERCEL_ENV ?? "").trim()) return "database";
+  return "file";
 }
 
 /** Where the file sink writes. Gitignored: rows describe calls, not secrets, but they are not content either. */
@@ -596,7 +609,72 @@ function appendToFile(row: AiCallLogRow): void {
   }
 }
 
-function insertRow(row: AiCallLogRow): void {
+/** How long the request waits for the audit write before giving up loudly. */
+const DATABASE_WRITE_TIMEOUT_MS = 3_000;
+
+/** The stable prefix of a failed audit write. Search Vercel's logs for it. */
+export const WRITE_FAILED_PREFIX = "[aiCallLog] WRITE FAILED";
+
+type InsertClient = {
+  from: (table: string) => {
+    insert: (row: unknown) => PromiseLike<{ error: { code?: string; message?: string } | null }>;
+  };
+};
+
+/**
+ * A failed audit write, said loudly: one console.error line with a stable
+ * prefix, and a row in `server_errors` (migration 20261015090000) so it is
+ * seen without trawling Vercel's console. Never throws. Carries the call type
+ * and the error code, never the row: a PostgREST error's `details` can echo
+ * the row back.
+ */
+async function reportWriteFailure(
+  client: InsertClient | null,
+  row: AiCallLogRow,
+  reason: string,
+): Promise<void> {
+  console.error(`${WRITE_FAILED_PREFIX}: ai_call_log row not recorded (${reason})`, {
+    call_type: row.call_type,
+  });
+  if (!client) return;
+  try {
+    const { error } = await client.from("server_errors").insert({
+      route: null,
+      method: null,
+      kind: "ai-call-log:write-failed",
+      message: scrubErrorMessage(`ai_call_log write failed for ${row.call_type}: ${reason}`),
+      digest: null,
+      environment: process.env.VERCEL_ENV || process.env.NODE_ENV || null,
+    });
+    if (error) {
+      console.error(`${WRITE_FAILED_PREFIX}: and server_errors was not written either`, {
+        code: error.code ?? null,
+      });
+    }
+  } catch (error) {
+    console.error(`${WRITE_FAILED_PREFIX}: and server_errors was not written either`, {
+      error: error instanceof Error ? error.name : "UnknownError",
+    });
+  }
+}
+
+/**
+ * Writes one row. AWAITED by flush(), and never throws.
+ *
+ * *** WHY AWAITED, AND NOT after() / waitUntil (item O, 2026-10-29) ***
+ *
+ * It used to be fire and forget, so as not to add latency. On Vercel that
+ * loses rows: a function may be frozen once its response is sent, and an
+ * un-awaited promise does not hold it open. Next 16's `after()` would hold it
+ * open without delaying the response, but it throws when called outside a
+ * request scope, and this module is reached from route handlers, server
+ * actions, and from scripts, evals and fixtures that have no request at all;
+ * it would also need a per-surface fallback. Awaiting works the same
+ * everywhere. Its cost is one insert (tens of milliseconds) after a model call
+ * that takes seconds, capped by DATABASE_WRITE_TIMEOUT_MS so a hung database
+ * cannot hold a person's request.
+ */
+async function insertRow(row: AiCallLogRow): Promise<void> {
   const sink = sinkFor();
 
   if (!announced) {
@@ -616,27 +694,43 @@ function insertRow(row: AiCallLogRow): void {
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!url || !serviceRoleKey) {
-    console.error("[aiCallLog] not configured; call not recorded", {
-      call_type: row.call_type,
-    });
+    await reportWriteFailure(null, row, "Supabase URL or service key not configured");
     return;
   }
 
-  const client = makeClient(url, serviceRoleKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
+  let client: InsertClient | null = null;
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    client = makeClient(url, serviceRoleKey, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    }) as unknown as InsertClient;
 
-  void client
-    .from("ai_call_log")
-    .insert(row)
-    .then(({ error }) => {
-      if (error) {
-        console.error("[aiCallLog] insert failed", {
-          call_type: row.call_type,
-          code: error.code,
-        });
-      }
+    const timedOut = new Promise<"timeout">((resolve) => {
+      timer = setTimeout(() => resolve("timeout"), DATABASE_WRITE_TIMEOUT_MS);
     });
+    const outcome = await Promise.race([
+      Promise.resolve(client.from("ai_call_log").insert(row)),
+      timedOut,
+    ]);
+
+    if (outcome === "timeout") {
+      await reportWriteFailure(client, row, `timed out after ${DATABASE_WRITE_TIMEOUT_MS} ms`);
+    } else if (outcome.error) {
+      await reportWriteFailure(
+        client,
+        row,
+        `code ${outcome.error.code ?? "unknown"}: ${(outcome.error.message ?? "").slice(0, 200)}`,
+      );
+    }
+  } catch (error) {
+    await reportWriteFailure(
+      client,
+      row,
+      `threw ${error instanceof Error ? `${error.name}: ${error.message.slice(0, 200)}` : "UnknownError"}`,
+    );
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
 }
 
 /**
