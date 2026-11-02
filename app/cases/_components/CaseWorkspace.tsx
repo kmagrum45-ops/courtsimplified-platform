@@ -50,6 +50,7 @@ import type { TimelineStanding } from "../../../src/lib/case-workspace/timeline"
 import CourtDecisionPanel, { DecisionAttribution } from "./CourtDecisionPanel";
 import { FILE_DOWNLOAD_FAILED, FILE_OPEN_FAILED, fetchFileWithRetry, fileNameFromUrl, saveFile } from "@/src/lib/case-workspace/fileFetch";
 import { WorkingButton } from "@/app/_components/Working";
+import { saveOpenEditsBeforeConfirm } from "../../_components/openEdits";
 
 // ---------------------------------------------------------------------------
 // The left nav. Order follows the work: gather, order, produce.
@@ -698,6 +699,7 @@ function DetailPanel({
   onRemove: (id: string) => Promise<string | null>;
 }) {
   const [editing, setEditing] = useState(false);
+  const [unsaved, setUnsaved] = useState("");
   const [draftDate, setDraftDate] = useState("");
   const [draftType, setDraftType] = useState("");
   const [draftLabel, setDraftLabel] = useState("");
@@ -893,17 +895,21 @@ function DetailPanel({
           */}
           <button
             type="button"
-            onClick={() =>
+            onClick={() => {
+              // Anything typed in an open box is saved first (openEdits.ts, the one path for every Confirm).
+              if (!saveOpenEditsBeforeConfirm(setUnsaved)) return;
+              setUnsaved("");
               void onSave(document.id, {
                 userDate: document.date,
                 userDatePrecision: document.datePrecision,
                 userType: document.type,
-              })
-            }
+              });
+            }}
             className="rounded-full bg-[#2FB8AC] px-4 py-1.5 text-sm font-semibold text-white hover:bg-[#259E94] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2FB8AC]"
           >
             Confirm
           </button>
+          {unsaved ? <p data-testid="confirm-unsaved-edit" role="alert" className="text-sm font-semibold text-[#8a4b12]">{unsaved}</p> : null}
           <button
             type="button"
             onClick={() => setEditing(true)}

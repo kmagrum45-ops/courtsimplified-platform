@@ -349,6 +349,12 @@ jobs:
       - name: No raw field name or code is shown to a person (the copy guard)
         run: npm run test:raw-keys
 
+      - name: Typed "I do not know yet" is never saved or shown as the answer; "not sure" where the case is stays not sure (Chrome check of #541)
+        run: npm run test:unsure-never-saved
+
+      - name: Every Confirm saves what is typed in an open box first, through one path (Chrome check of #541)
+        run: npm run test:confirm-flushes
+
       - name: The answer key's reader reads a (case, field, expected) table with no holes
         run: npm run test:answer-key-reader
 
@@ -682,7 +688,7 @@ jobs:
   # one-line change to the repo's ruleset.
   browser-regression:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 40
 
     env:
       NODE_OPTIONS: --max-old-space-size=8192

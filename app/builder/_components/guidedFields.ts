@@ -318,7 +318,9 @@ export function pendingFields(fields: readonly GuidedField[], values: GuidedValu
  */
 export const SMALL_CLAIMS_FILED_OPTIONS: GuidedChoice[] = [
   { value: "nothing", label: "Nothing filed yet" },
-  { value: "plaintiffs-claim", label: "Plaintiff’s Claim already filed / served" },
+  // The one label for a filed claim (the overview reads it through caseWords.ts documentInWords): filed only, as the
+  // question asks; service is its own answer (Chrome check of #541, 2 Nov: "filed and served" after service was No).
+  { value: "plaintiffs-claim", label: "Plaintiff’s Claim filed" },
   { value: "defence", label: "Defence already filed / received" },
   { value: "affidavit-service", label: "Affidavit of Service filed with the court" },
   { value: "offer-settle", label: "Offer to Settle prepared" },

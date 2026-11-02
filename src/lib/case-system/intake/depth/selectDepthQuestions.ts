@@ -27,6 +27,7 @@ import {
   type DepthQuestion,
 } from "./elementQuestionRegistry";
 import { fillSlots, type SlotValues } from "./slots";
+import { isUnsureAnswer } from "../../caseFile/unsureAnswer";
 import { createElementStateMap, type ElementStateMap } from "./elementStateMap";
 
 /**
@@ -292,5 +293,6 @@ const UNKNOWN_PATTERNS = [
 export function isUnknownAnswer(answerText: string): boolean {
   const text = (answerText || "").trim();
   if (text.length === 0) return false;
-  return UNKNOWN_PATTERNS.some((pattern) => pattern.test(text));
+  // The one reader first (unsureAnswer.ts); this list adds what an element answer may also say ("I don't have that").
+  return isUnsureAnswer(text) || UNKNOWN_PATTERNS.some((pattern) => pattern.test(text));
 }

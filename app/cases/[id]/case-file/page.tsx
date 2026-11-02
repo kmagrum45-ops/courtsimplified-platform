@@ -28,6 +28,7 @@ import { findStage, type StagePathway } from "@/src/lib/case-system/stage-map/st
 import { caseStageWords } from "@/src/lib/case-system/caseStep";
 import { COURT_LABELS, authHeaders, caseTitle, formatDate, useCaseHome } from "../../_components/CaseHomeContext";
 import { userStory } from "@/src/lib/case-system/userStory";
+import { answerWords } from "@/src/lib/case-system/caseFile/unsureAnswer";
 
 type EventRow = {
   id: string;
@@ -206,9 +207,10 @@ export default function CaseFileSection() {
             </p>
           ) : null}
           <p className="whitespace-pre-line">{userStory(intake) || "Not recorded."}</p>
-          {intake.goal?.trim() ? (
+          {/* "I do not know yet" is never shown as what the person wants (unsureAnswer.ts answerWords). */}
+          {answerWords(intake.goal) ? (
             <p className="mt-3 whitespace-pre-line">
-              <strong>What you want:</strong> {intake.goal.trim()}
+              <strong>What you want:</strong> {answerWords(intake.goal)}
             </p>
           ) : null}
         </FileSection>

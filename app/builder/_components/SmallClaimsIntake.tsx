@@ -631,17 +631,13 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       values,
       initialStory,
     );
-    // 2026-10-16 live bug: "Case stage" showed "Not sure" even when the
-    // story plainly describes a dispute that hasn't gone to court yet --
-    // inferStage() already works this out correctly, but was only ever
-    // consulted at submission time (handleAnalyze below), never fed back
-    // into what the select actually shows while the person is filling in
-    // the form. Applying it here is a pre-filled SUGGESTION, same as any
-    // other prefilled field: the select stays editable, and nothing here
-    // is stored until the person submits or saves.
-    return merged.caseStage === "not-sure" && hasText(merged.facts)
-      ? { ...merged, caseStage: inferStage(merged) }
-      : merged;
+    // No stage guessed from the story is kept as the person's answer (founder's Chrome check of #541, 2 Nov,
+    // step 2). A guess pre-filled here (from 2026-10-16) was stored with the form, and the case file read it as
+    // the answer to "where the case is" (caseFile.ts, each area's form), so "I'm not sure" given at the start
+    // was replaced by "Starting a case" and the step page asked "Where is your case?" again. The start's answers
+    // settle the stage (situationAnswers, shown in place of the select); the analysis still makes its own
+    // reading of the story when the form is sent (handleAnalyze, inferStage).
+    return merged;
   });
   // The situation answers, given before the story (situation.ts), answer the side and what
   // has been filed: read from there, never asked again (step 2).

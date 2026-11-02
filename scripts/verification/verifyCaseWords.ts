@@ -8,6 +8,8 @@
  *     ("application", "answer");
  *   - a family case already going shows the person's own start answer ("I started this case
  *     (applicant)"), never "you started, or plan to start";
+ *   - a filed Plaintiff's Claim has ONE label on the overview, the form and the review, and it says
+ *     filed, never served (service is its own answer; Chrome check of #541, 2 Nov);
  *   - the review's "Case stage" for someone served, and Small Claims' role, show words, not codes;
  *   - "What to confirm next" never asks "Has anything already been filed?" or about court dates once
  *     the stage says where the case is, a case already going included (case 16's saved conference);
@@ -19,7 +21,7 @@
 import { documentInWords, roleInWords, stageInWords } from "../../src/lib/case-system/copy/caseWords";
 import { reviewEntries } from "../../src/lib/case-system/intakeReview";
 import { situationAnswers, situationFromRaw } from "../../src/lib/case-system/situation/situation";
-import { FAMILY_FILED_OPTIONS, CIVIL_DOCUMENT_OPTIONS } from "../../app/builder/_components/guidedFields";
+import { FAMILY_FILED_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../app/builder/_components/guidedFields";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { withoutStageAnswered } from "../../src/lib/case-system/intelligence/answeredQuestions";
 import fs from "node:fs";
@@ -62,6 +64,21 @@ for (const [stage, step] of [["conference", "Case conference scheduled"], ["alre
 for (const stage of ["not-sure", "urgent", null] as const) check(`"${stage ?? "no stage"}" does not: the questions stay`, withoutStageAnswered(GENERIC, stage).length === GENERIC.length);
 const overview = fs.readFileSync(path.join(path.resolve(import.meta.dirname, "..", ".."), "app/builder/_components/IntelligenceOverviewPanel.tsx"), "utf8");
 check("the overview uses the one rule, with the step's words", /withoutStageAnswered\(candidateQuestions, caseStage, stageWords\)/.test(overview) && !/STAGE_ANSWERS/.test(overview));
+
+// "plaintiffs-claim" records only that the claim was filed ("Has a Plaintiff's Claim already been filed?",
+// guidedIntakeToSmallClaimsInput.ts mapFiledDocuments); service is its own answer. Chrome check of #541
+// (2 Nov): the overview said "Plaintiff's Claim filed and served" after service was answered "No".
+// One label for it, the same on the overview, the form's checkbox and the review's choices.
+{
+  const overviewWords = documentInWords("plaintiffs-claim");
+  const formWords = SMALL_CLAIMS_FILED_OPTIONS.find((option) => option.value === "plaintiffs-claim")?.label ?? "";
+  const scReview = reviewEntries(checkpoint("small-claims", { "small-claims": { input: { filedDocuments: ["plaintiffs-claim"], facts: "Synthetic story." } } })).find((entry) => entry.field === "filedDocuments");
+  const reviewWords = scReview?.choices?.find((choice) => choice.value === "plaintiffs-claim")?.label ?? "";
+  for (const [where, words] of [["the overview", overviewWords], ["the Small Claims form's checkbox", formWords], ["the review's choices", reviewWords]] as const) {
+    check(`${where} names the Plaintiff's Claim as filed, never as served (service is its own answer)`, /Plaintiff.s Claim/.test(words) && /filed/.test(words) && !/serv/i.test(words), words || "(none)");
+  }
+  check("the overview, the form and the review show the one same label for a filed Plaintiff's Claim", Boolean(overviewWords) && overviewWords === formWords && formWords === reviewWords, `${overviewWords} | ${formWords} | ${reviewWords}`);
+}
 
 console.log(failures ? `\n${failures} failure(s)` : "\nall passed");
 process.exitCode = failures ? 1 : 0;

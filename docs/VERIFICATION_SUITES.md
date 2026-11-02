@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-226 documented, 26 without a header.
+228 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -70,6 +70,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:clean-staging` | **THE STAGING CLEANUP DELETES ONLY LEFTOVER HARNESS ACCOUNTS, AND ONLY ON STAGING (2026-10-28).**<br>Checks, as properties (scripts/db/harnessAccounts.ts), against a fake admin client: - the production address is refused, whatever else is true, before anything is read; - any address that is not staging's is refused; - an account is deleted only when it is @ex |
 | `npm run test:cleared-unrecorded` | **AN ANSWER CLEARED IN A BOX STAYS REMOVED, EVEN WHEN THE CHANGE RECORD NEVER HELD IT (founder, 2 Nov;**<br>a failing test only: the fix belongs to G2(d), "every fact gets a record; an emptied box is always a removal"). |
 | `npm run test:conference-stages` | **EVERY CONFERENCE STAGE, CARRIED EXACTLY (conference audit, 2026-10-26).**<br>Checks, as properties, for every conference step in all three areas (family case, settlement and trial management conference; civil mediation, case management and pre-trial; Small Claims settlement and trial management conference): - picked at the start, the s |
+| `npm run test:confirm-flushes` | **EVERY CONFIRM SAVES WHAT IS TYPED FIRST, THROUGH ONE PATH (founder's Chrome check of #541 at 354e36fb, 2 Nov,**<br>step 3: "5200" typed into an open "Change: Amount" box, "Confirm my initial information" pressed straight away; the case kept $4,500 and 5200 was lost everywhere). |
 | `npm run test:confirmation-rule` | **ONE RULE FOR WHAT CANCELS A CONFIRMATION, IN THE BROWSER AND ON THE SERVER (D1).**<br>Chrome re-test, 29 Oct, item D1: after "Stop initial questions and review" and Confirm, one more answer took the confirmation away in the browser, so "Continue to your next steps" showed the red "needs confirming" line and sent the person back to the review. T |
 | `npm run test:corpus-retrieval` | **Meaning-based retrieval over the corpus: the passages are cut where the law**<br>is cut, carry only law in force, are found by meaning, and can only be cited through the grounding gate. |
 | `npm run test:court-locations` | **Every courthouse address and contact shown is on the court's own page.**<br>COSTS NOTHING. Reads src/lib/content-library/courts/courtLocations.json and the saved page text in docs/sources/court-locations/. |
@@ -219,6 +220,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:time-ran-out` | **A step whose time is "still running" is never shown beside a counted date that has passed.**<br>What it checks: each stage with whenTimeRunsOut links one of its OWN deadlines to a stage that exists, is a went-wrong stage, and that the map's own distinguishedFrom already tells apart from it (both ways) by whether the time has run out -- so the link adds n |
 | `npm run test:topic-guides` | **The in-depth guides quote their sources exactly, cite every paragraph, and**<br>never read as advice. |
 | `npm run test:typecheck-live` | **The project's typecheck can actually fail.**<br>WHAT THIS CATCHES: a typecheck that reports success while checking nothing. |
+| `npm run test:unsure-never-saved` | **"I DO NOT KNOW YET" IS NEVER SAVED AS THE ANSWER, AND "NOT SURE" WHERE THE CASE IS STAYS NOT SURE**<br>(founder's Chrome check of #541 at 354e36fb, 2 Nov, steps 1 and 2; every court). |
 | `npm run test:upcoming-deadline` | **Checks the in-app deadline reminder on "My cases"**<br>(src/lib/case-workspace/upcomingDeadline.ts, master plan 6D). |
 | `npm run test:user-story` | **The user's own words are what pages show back to them, never the labelled**<br>record the analysis reads; and a date in their story without a year is still offered for counting their deadline. |
 | `npm run test:verdict-sources` | **Every provision a published answer was proved from is in its source list**<br>(2026-10-13). |

@@ -67,7 +67,7 @@ import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { createRealTestAccount, deleteHarnessUser, harnessAdmin } from "./harness/realTestSession";
 import { grantSiteAccess } from "./harness/siteAccess";
-import { answerSituation, autoAnswerSituation, situationAnswersFor, STARTING_NOTHING_FILED } from "./harness/situation";
+import { answerSituation, autoAnswerSituation, situationAnswersFor, STARTING_NOTHING_FILED, type SituationAnswers } from "./harness/situation";
 import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns, type Court } from "./harness/thisCommitServer";
 import { factsAskedTwice, heldFacts, heldViolations, recordAsks, repeatViolations, type Asked, type HeldState } from "./harness/askOnce";
@@ -119,6 +119,23 @@ const MARK_B = /plum-yellow/i;
 const SIDE: Record<Court, "plaintiff" | "applicant"> = { "small-claims": "plaintiff", civil: "plaintiff", family: "applicant" };
 const ISSUE: Record<Court, string> = { "small-claims": "", civil: "contract", family: "parenting-time" };
 
+/**
+ * FOUNDER'S CHROME CHECK OF #541 (2 Nov), CARRIED HERE (each counted as below, on the baseline rule of #540):
+ *   step 1: a question answered by TYPING "I don't know" / "I do not know yet" (the questions route): no screen
+ *           shows those words as the answer (overview, case page, case file page) -- screens-disagree, fact
+ *           "said-not-sure";
+ *   step 2: the second case in the same tab is "a case already going, I started it, not sure where": after
+ *           Confirm and "Show my next step", the step page and the case page show the quiet "Not answered yet"
+ *           line, never "Where is your case?" -- asked-twice, fact "stage";
+ *   step 3: Small Claims, a new amount typed into the review's open "Change: Amount" box and "Confirm my initial
+ *           information" pressed straight away: the amount is kept on every screen -- screens-disagree, fact
+ *           "amount", screen "<screen> (typed in Change, then Confirm)".
+ */
+const NOT_SURE_TYPED: Record<Court, string> = { "small-claims": "I don't know", civil: "I do not know yet", family: "I do not know yet" };
+const SAID_NOT_SURE = /\bI (?:do not|don'?t) know(?: yet)?\b/i;
+const GOING_NOT_SURE: SituationAnswers = { where: "going", started: "me", stage: "not-sure" };
+const TYPED_THEN_CONFIRM: Value = { text: "$9,350", amount: 9350 };
+
 const ROUTES: RouteName[] = ["questions", "review", "form"];
 /**
  * Small Claims (the owner's demo court, 30 Oct): every route, guest AND signed in (six runs, split
@@ -137,6 +154,8 @@ class Run {
   changed = false;
   removed = false;
   given = false;
+  /** The person typed "I do not know yet" (or "I don't know") to a question: judged by judgeNotSure. */
+  saidNotSure = false;
   caseA = "";
   caseB = "";
   /** The step running now, for the recorder's diagnostic field only (never counted). */
@@ -206,7 +225,7 @@ async function passNotice(page: Page) {
 }
 
 /** The story given at the start: the home page for Small Claims, the builder's first question elsewhere. */
-async function giveStory(page: Page, court: Court, story: string) {
+async function giveStory(page: Page, court: Court, story: string, situation: SituationAnswers = STARTING_NOTHING_FILED) {
   if (court === "small-claims") {
     await page.goto("/?path=small-claims");
     await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
@@ -217,7 +236,7 @@ async function giveStory(page: Page, court: Court, story: string) {
     await expect(page.getByTestId("acknowledgement-checkbox").or(page.getByRole("button", { name: "Fill in the form yourself" })).first()).toBeVisible({ timeout: 60_000 });
     await passNotice(page);
   } else {
-    await openBuilder(page, court, { city: "Kingston", story, situation: STARTING_NOTHING_FILED });
+    await openBuilder(page, court, { city: "Kingston", story, situation });
     await page.waitForURL(/\/builder\?.*intake=/, { timeout: 60_000 }).catch(() => {});
   }
 }
@@ -287,7 +306,8 @@ async function smallClaimsQuestions(run: Run) {
       : /bringing this claim|responding to a claim/i.test(text) ? "Bringing the claim (plaintiff)"
       : /kind of dispute/i.test(text) ? "A contract or agreement dispute"
       : /filed|served/i.test(text) ? "No"
-      : "I don't know";
+      : NOT_SURE_TYPED["small-claims"];
+    if (answer === NOT_SURE_TYPED["small-claims"]) run.saidNotSure = true;
     const before = await page.locator("[data-testid=guided-message]").count();
     await page.locator("textarea").last().fill(answer);
     await page.getByRole("button", { name: "Send", exact: true }).click();
@@ -299,6 +319,7 @@ async function smallClaimsQuestions(run: Run) {
 async function guidedFormQuestions(run: Run) {
   const { page, court } = run;
   const track = TRACK[court];
+  const typedNotSure = new Set<string>();
   for (let i = 0; i < 30; i++) {
     const question = page.getByTestId("guided-form-question");
     if (!(await question.isVisible({ timeout: 10_000 }).catch(() => false))) break;
@@ -326,6 +347,17 @@ async function guidedFormQuestions(run: Run) {
     }
     if (await yes.isVisible().catch(() => false)) { await yes.click(); continue; }
     if ((await box.count()) && (await box.inputValue()).trim()) { await question.getByTestId("guided-form-next").click(); continue; }
+    // A question the person cannot answer: "I do not know yet" TYPED, as the founder did (Chrome check of #541, 2 Nov,
+    // step 1), where the box takes words; never saved or shown as the answer (judgeNotSure). A box that asks for more
+    // (a day) is skipped instead.
+    if ((await box.count()) && !typedNotSure.has(key)) {
+      typedNotSure.add(key);
+      await box.first().fill(NOT_SURE_TYPED[court]);
+      await question.getByTestId("guided-form-next").click();
+      if (await question.getByTestId("guided-form-needs-more").isVisible({ timeout: 1_500 }).catch(() => false)) { await box.first().fill(""); await question.getByTestId("guided-form-skip").click(); continue; }
+      run.saidNotSure = true;
+      continue;
+    }
     await question.getByTestId("guided-form-skip").click();
   }
   await page.getByTestId("guided-form-done").click().catch(() => {});
@@ -459,6 +491,26 @@ function judge(run: Run, screen: string, scoped: { change?: string | null; remov
   }
 }
 
+/** Step 1 (Chrome check of #541): typed "I don't know" never shown as an answer on this screen. */
+function judgeNotSure(run: Run, screen: string, text: string | null) {
+  if (!run.saidNotSure || text === null) return;
+  const match = SAID_NOT_SURE.exec(text);
+  if (match) run.add("screens-disagree", "said-not-sure", screen, `shows the typed "${match[0]}" as an answer: ${text.slice(Math.max(0, match.index - 80), match.index + 40)}`);
+}
+
+/** The case file page (/cases/<id>/case-file): the whole case in one place. */
+async function readCaseFilePage(run: Run, when: string) {
+  const { page } = run;
+  await page.goto(`/cases/${run.caseA}/case-file`);
+  await expect(page.getByTestId("case-file")).toBeVisible({ timeout: 90_000 });
+  await page.waitForTimeout(1_000);
+  const text = await page.getByTestId("case-file").innerText();
+  // Read here for step 1 only. (Its other facts are not judged yet: on 2 Nov it showed a removed other party in civil and
+  // Family, a finding reported to the founder, not one of the five items; app/cases/[id]/case-file/page.tsx:206 reads
+  // the case record's analysis copy, caseRecord.ts:171.)
+  judgeNotSure(run, `case file page (${when})`, text);
+}
+
 /** The form and the review, read on the builder. */
 async function readBuilder(run: Run, when: string) {
   const { page, court } = run;
@@ -504,7 +556,9 @@ async function readEchoes(run: Run, when: string) {
 /** The overview and (Small Claims) the Form 7A section, after "Show my next step". */
 async function readOverview(run: Run, when: string) {
   const { page } = run;
-  judge(run, `overview (${when})`, {}, await page.getByTestId("completed-case-overview").innerText());
+  const overview = await page.getByTestId("completed-case-overview").innerText();
+  judge(run, `overview (${when})`, {}, overview);
+  judgeNotSure(run, `overview (${when})`, overview);
   const surface = page.getByTestId("statement-of-claim-surface").first();
   if (run.court === "small-claims") {
     await surface.waitFor({ state: "visible", timeout: 30_000 }).catch(() => {});
@@ -528,8 +582,10 @@ async function readCasePage(run: Run, when: string, id = run.caseA, caseKey: "a"
     return (await lines.count()) ? (await lines.allInnerTexts()).join(" ") : null;
   };
   judge(run, `case file (${when})`, { change: await line(TRACK[court].change.fact), remove: await line(TRACK[court].remove.fact) }, null, caseKey);
-  judge(run, `case page (${when})`, {}, await page.locator("main").first().innerText().catch(() => page.locator("body").innerText()), caseKey);
+  const wholePage = await page.locator("main").first().innerText().catch(() => page.locator("body").innerText());
+  judge(run, `case page (${when})`, {}, wholePage, caseKey);
   if (caseKey === "b") return;
+  judgeNotSure(run, `case page (${when})`, wholePage);
   const review = page.getByTestId("case-review");
   if (await review.isVisible().catch(() => false)) {
     await review.getByRole("button", { name: /Check my case file|Check again/ }).click();
@@ -659,6 +715,109 @@ async function clearChatAnswerInReview(run: Run) {
   judgeCleared("case page by its address (after clearing)", await caseLine());
 }
 
+/**
+ * Step 3 (Chrome check of #541): the review's "Change" on the amount opened, a new amount typed, and "Confirm my
+ * initial information" pressed straight away, never "Save". Every screen must then show the typed amount.
+ */
+async function typeInChangeThenConfirm(run: Run) {
+  const { page } = run;
+  await openReviewEntries(run);
+  const panel = page.getByTestId("intake-review");
+  // The founder's order: a first change saved (a confirmed review shows Confirm again only after a change), then the
+  // new amount typed and Confirm pressed straight away. Through "Change" where the review offers it (the shared Change
+  // box), else through the review's own amount box (the form route), as step 10 does.
+  const change = panel.locator('[data-testid=change-answer][data-fact="amount"]').first();
+  const firstBox = await reviewAmountBox(page);
+  if (await change.count()) {
+    await change.getByTestId("change-answer-open").click();
+    await change.getByTestId("change-answer-text").fill("9100");
+    await change.getByTestId("change-answer-save").click();
+  } else if (firstBox) await typeInto(firstBox, "$9,100");
+  else throw new Error("the Small Claims review shows no box and no Change for the amount");
+  await expect(page.getByTestId("intake-confirm")).toBeVisible({ timeout: 30_000 });
+  const again = panel.locator('[data-testid=change-answer][data-fact="amount"]').first();
+  if (await again.count()) {
+    await again.getByTestId("change-answer-open").click();
+    await again.getByTestId("change-answer-text").pressSequentially(String(TYPED_THEN_CONFIRM.amount), { delay: 20 });
+  } else {
+    const box = await reviewAmountBox(page);
+    if (!box) throw new Error("the Small Claims review shows no box and no Change for the amount");
+    await box.fill("");
+    await box.pressSequentially(TYPED_THEN_CONFIRM.text, { delay: 20 });
+  }
+  const ack = page.getByTestId("intake-review-acknowledgement");
+  if (await ack.isVisible().catch(() => false) && !(await ack.isChecked())) await ack.check();
+  await page.getByTestId("intake-confirm").click();
+  await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
+  await page.waitForTimeout(3_000);
+  const judgeTyped = (where: string, text: string | null) => {
+    if (text !== null && !shows(text, TYPED_THEN_CONFIRM)) run.add("screens-disagree", "amount", where, `shows "${text.trim().slice(0, 120)}", the person typed "${TYPED_THEN_CONFIRM.amount}" in Change and pressed Confirm`);
+  };
+  await openReviewEntries(run);
+  const held = panel.locator("[data-testid=intake-entry-held][data-fact=amount]").first();
+  const box = await reviewAmountBox(page);
+  judgeTyped("review (typed in Change, then Confirm)", box ? await box.inputValue() : (await held.count()) ? await held.innerText() : null);
+  await confirmAndShow(run);
+  judgeTyped("overview (typed in Change, then Confirm)", await page.getByTestId("completed-case-overview").innerText());
+  await page.goto(`/cases/${run.caseA}`);
+  await expect(page.getByTestId("case-file").or(page.getByTestId("case-guidance-outdated")).or(page.getByTestId("case-review")).first()).toBeVisible({ timeout: 90_000 });
+  await page.waitForTimeout(2_000);
+  const line = page.locator('[data-testid=case-file-line][data-fact="amount"]');
+  judgeTyped("case file (typed in Change, then Confirm)", (await line.count()) ? (await line.allInnerTexts()).join(" ") : null);
+}
+
+/**
+ * Step 2 (Chrome check of #541): the second case was started as "a case already going, I started it, not sure where"
+ * (GOING_NOT_SURE). Its review confirmed with nothing typed (every question "I do not know yet", so nothing of the
+ * first case is put in it), then "Show my next step": the step page and the case page show the quiet line, never
+ * "Where is your case?".
+ */
+async function secondCaseStageNotSure(run: Run) {
+  const { page, court } = run;
+  await page.goto(`/builder?path=${court}&intake=${run.caseB}`);
+  await passNotice(page);
+  // Nothing answered (a choice could itself say where the case is): a story offer turned down, then each question skipped.
+  for (let i = 0; i < 40; i++) {
+    const question = page.getByTestId("guided-form-question");
+    if (!(await question.isVisible({ timeout: 3_000 }).catch(() => false))) break;
+    const no = question.getByTestId("guided-form-from-story-no");
+    if (await no.isVisible().catch(() => false)) { await no.click(); continue; }
+    // What has been filed and what it is about: ticked as case A does (a skip here shows "Not recorded" in the review,
+    // the founder's Chrome note 9 of 2 Nov, reported apart; never a step of its own).
+    const key = (await question.getAttribute("data-key")) ?? "";
+    const tick = question.locator("[data-testid^=guided-check-]").first();
+    if (/^(documents|filedDocuments|issues)$/.test(key) && (await tick.count())) { await tick.check(); await question.getByTestId("guided-form-next").click(); continue; }
+    const skip = question.getByTestId("guided-form-skip");
+    if (!(await skip.isVisible({ timeout: 5_000 }).catch(() => false))) break;
+    await skip.click();
+  }
+  await page.getByTestId("guided-form-done").click({ timeout: 3_000 }).catch(() => {});
+  const panel = page.getByTestId("intake-review");
+  await expect(panel).toBeVisible({ timeout: 60_000 });
+  if (!(await expect(panel).toHaveAttribute("data-phase", /reviewing|user-confirmed/, { timeout: 10_000 }).then(() => true).catch(() => false))) await page.getByTestId("intake-start-review").click();
+  await expect(panel).toHaveAttribute("data-phase", /reviewing|user-confirmed/, { timeout: 60_000 });
+  if ((await panel.getAttribute("data-phase")) !== "user-confirmed") {
+    const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
+    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
+    await page.getByTestId("intake-review-acknowledgement").check();
+    await page.getByTestId("intake-confirm").click();
+    await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
+  }
+  await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
+  await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 150_000 });
+  const judgeStage = async (where: string) => {
+    await expect(page.getByTestId("stage-answer-panel").first()).toBeVisible({ timeout: 60_000 });
+    await page.waitForTimeout(1_500);
+    const asked = await page.getByTestId("stage-answer-select").isVisible().catch(() => false);
+    const quiet = await page.getByTestId("stage-not-answered-yet").isVisible().catch(() => false);
+    if (asked || !quiet) run.add("asked-twice", "stage", where, `"not sure" where the case is, at the start; the step page ${asked ? "asks \"Where is your case?\" again" : "shows no \"Not answered yet\" line"}`);
+  };
+  await judgeStage("step page (second case, not sure where at the start)");
+  judge(run, "second case overview (not sure where)", {}, await page.getByTestId("completed-case-overview").innerText(), "b");
+  await page.goto(`/cases/${run.caseB}`);
+  await judgeStage("case page (second case, not sure where at the start)");
+}
+
 // ---------------------------------------------------------------------------------------------
 // The runs
 // ---------------------------------------------------------------------------------------------
@@ -756,7 +915,7 @@ for (const { court, route, who } of RUNS) {
 
       // 6. Confirm, the next step (overview, Form 7A), the case page and "Check my case file".
       await run.step("confirm and show the next step", async () => { await confirmAndShow(run); await readOverview(run, "after confirm"); });
-      await run.step("case page", async () => { await readCasePage(run, "after confirm"); });
+      await run.step("case page", async () => { await readCasePage(run, "after confirm"); await readCaseFilePage(run, "after confirm"); });
 
       // 7. Change one value, remove the other, on the form; reload; every screen again.
       await run.step("change a value", async () => {
@@ -775,12 +934,14 @@ for (const { court, route, who } of RUNS) {
         await readBuilder(run, "after removal and reload");
       });
       await run.step("confirm again and show the next step", async () => { await confirmAndShow(run); await readOverview(run, "after change and removal"); });
-      await run.step("case page again", async () => { await readCasePage(run, "after change and removal"); });
+      await run.step("case page again", async () => { await readCasePage(run, "after change and removal"); await readCaseFilePage(run, "after change and removal"); });
 
       // 8. A second case in the same tab.
       segment("b");
+      // The second case is a case already going, "not sure" where (step 2 of the Chrome check of #541).
+      await autoAnswerSituation(page, GOING_NOT_SURE);
       await run.step("start a second case in the same tab", async () => {
-        await giveStory(page, court, STORIES[court].b);
+        await giveStory(page, court, STORIES[court].b, GOING_NOT_SURE);
         run.caseB = idOf(page);
         current = run.caseB;
         if (!run.caseB || run.caseB === run.caseA) run.add("wrong-case", "case", "second case (address)", `the second case opened under ${run.caseB ? "the first case's id" : "no id"}`);
@@ -792,6 +953,7 @@ for (const { court, route, who } of RUNS) {
         if (idOf(page) !== run.caseB) run.add("wrong-case", "case", "second case (after reload)", `the address changed from the second case to ${idOf(page) || "none"}`);
         judge(run, "second case builder (after reload)", {}, await page.locator("body").innerText(), "b");
       });
+      await run.step("second case: not sure where the case is, the step page", async () => { await secondCaseStageNotSure(run); });
 
       // 9. Back to the first case: through the dashboard (in-app navigation) and by its address.
       segment("a");
@@ -818,7 +980,9 @@ for (const { court, route, who } of RUNS) {
       });
       // 10. Small Claims: the answered amount changed in the review shows on every screen (founder, 1 Nov).
       if (court === "small-claims") await run.step("change the answered amount in the review", async () => { await changeAmountInReview(run); });
-      // 11. An answer held in another place (not the change record) cleared in a box: it stays removed (founder, 2 Nov).
+      // 11. Small Claims: a new amount typed in the review's open Change box, then Confirm straight away (Chrome check of #541, step 3).
+      if (court === "small-claims") await run.step("type in Change, then Confirm straight away", async () => { await typeInChangeThenConfirm(run); });
+      // 12. An answer held in another place (not the change record) cleared in a box: it stays removed (founder, 2 Nov).
       // Only where the review draws such an answer in a box: the Small Claims questions route (the chat's answers).
       if (court === "small-claims" && route === "questions") await run.step("clear the chat's answer in the review", async () => { await clearChatAnswerInReview(run); });
       segments.push({ from: segmentStart, to: asked.length, key: segmentKey });
@@ -830,7 +994,7 @@ for (const { court, route, who } of RUNS) {
     // Asked twice, per case: the story pack's recorder, the same rules.
     for (const key of ["a", "b"] as const) {
       const events = segments.filter((item) => item.key === key).flatMap((item) => asked.slice(item.from, item.to));
-      for (const violation of [...repeatViolations(factsAskedTwice(events, STARTING_NOTHING_FILED)), ...heldViolations(events)]) {
+      for (const violation of [...repeatViolations(factsAskedTwice(events, key === "a" ? STARTING_NOTHING_FILED : GOING_NOT_SURE)), ...heldViolations(events)]) {
         run.add("asked-twice", violation.fact, `${violation.surface}@${violation.screen}`, `${violation.rule}: ${violation.text.slice(0, 120)} (${violation.detail})`, violation.diag);
       }
     }

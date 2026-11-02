@@ -42,6 +42,7 @@ import { inWords } from "@/src/lib/case-system/copy/rawKeys";
 import { WorkingButton } from "@/app/_components/Working";
 import { UseSuggestion } from "@/app/_components/UseSuggestion";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
+import { answerWords } from "../../../src/lib/case-system/caseFile/unsureAnswer";
 
 type Props = {
   analysis: AnalysisResult;
@@ -141,8 +142,10 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   const changedAmount = changedWords(caseFile, "amount");
   const changedWants = changedWords(caseFile, "wants");
   const changedOther = changedWords(caseFile, "otherParty");
-  const amount = changedAmount !== undefined ? changedAmount ?? "" : textField(intake, "amountClaimed");
-  const outcome = changedWants !== undefined ? changedWants ?? "" : intake?.goal.trim() || textField(intake, "legalRemedy");
+  // Each typed answer through the one reader: "I do not know yet" is never printed as the answer (unsureAnswer.ts).
+  const amount = answerWords(changedAmount !== undefined ? changedAmount ?? "" : textField(intake, "amountClaimed"));
+  // "I do not know yet" is never shown as what the person wants (the one reader, unsureAnswer.ts answerWords).
+  const outcome = changedWants !== undefined ? answerWords(changedWants) : answerWords(intake?.goal) || answerWords(textField(intake, "legalRemedy"));
   const parties = [intake?.yourName.trim(), changedOther !== undefined ? changedOther ?? "" : intake?.otherParty.trim()].filter(Boolean).join(" and ");
   const rawIssueSignals = Array.from(new Set([...(analysis.detectedIssues || []), ...(analysis.legalIssues || []), ...(analysis.detectedClaimTypes || []), ...listField(intake, "issueLabels")].filter(Boolean)));
   // "unknown" is the engines' unclassified domain, not an issue. Dropping it
@@ -345,7 +348,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // the whole story pasted in. Values are still the user's own words, shown
   // as entered -- nothing is corrected or restated -- and the story sits
   // under its own heading.
-  const timeline = intake?.timeline?.trim() || "";
+  const timeline = answerWords(intake?.timeline);
 
   const snapshotRows: Array<[string, string]> = [
     ["Court", analysis.courtPath === "small-claims" ? "Small Claims Court" : analysis.courtPath === "family" ? "Family court" : "Superior Court of Justice"],

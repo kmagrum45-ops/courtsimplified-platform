@@ -21,8 +21,9 @@
  *
  * Restates the person's own answers; states no law.
  */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { useIntakeRecovery } from "./IntakeRecovery";
+import { holdOpenEdit } from "./openEdits";
 import { CASE_FILE_SECTION, seenSeqOf, withChange, type ChangeInput, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { CIVIL_ISSUE_OPTIONS, FAMILY_ISSUE_OPTIONS } from "../builder/_components/guidedFields";
@@ -88,21 +89,40 @@ export default function ChangeAnswer({ fact, court, startOpen = false, current, 
   const box = useRef<HTMLSpanElement>(null);
   useEffect(() => { if (startOpen) box.current?.scrollIntoView({ block: "center" }); }, [startOpen]);
   const choices = changeChoices(fact, court);
-  if (!recovery || !choices) return null;
   const label = FACT_LABEL[fact];
+  const editId = useId();
   /** The one write path (caseFile.ts withChange): the change record, a touched answer from the review. */
   const save = (change: ChangeInput) => {
+    if (!recovery) return;
     // With the server's number for the fact this tab saw (G2(b)), so a change made on an older view is never applied silently.
     recovery.put(CASE_FILE_SECTION, "changes", withChange(recovery.read(CASE_FILE_SECTION, "changes"), fact, change, new Date(), seenSeqOf({ [CASE_FILE_SECTION]: { facts: recovery.read(CASE_FILE_SECTION, "facts") } }, fact)), true, true, true);
     setOpen(false); setTyped(""); setNote("");
   };
-  const saveTyped = () => {
+  /**
+   * What is typed or ticked here and not saved yet, saved as "Save" saves it: by "Save" itself, and by any Confirm
+   * pressed while this box is open (openEdits.ts flushOpenEdits; founder's Chrome check of #541, step 3).
+   */
+  const saveUnsent = (): "saved" | "blocked" | "empty" => {
+    if (!choices) return "empty";
+    if (choices.kind === "multi") {
+      const was = Array.isArray(current) ? current.filter((item): item is string => typeof item === "string") : [];
+      if (picks.length === 0 || JSON.stringify([...picks].sort()) === JSON.stringify([...was].sort())) return "empty";
+      save({ state: "answered", value: picks });
+      return "saved";
+    }
+    if (choices.kind !== "text") return "empty";
     const words = typed.trim();
-    if (!words) return;
-    const more = choices.kind === "text" && choices.day ? dateAnswerCheck(label, words, { dateQuestion: true, oneDate: true }) : null;
+    if (!words) return "empty";
+    const more = choices.day ? dateAnswerCheck(label, words, { dateQuestion: true, oneDate: true }) : null;
     setNote(more ?? "");
-    if (!more) save({ state: "answered", value: words });
+    if (more) return "blocked";
+    save({ state: "answered", value: words });
+    return "saved";
   };
+  // Held while open, so a Confirm pressed with typing still here saves it first (re-held each render: the latest typing).
+  useEffect(() => (open && recovery ? holdOpenEdit(editId, { label: label ?? fact, flush: saveUnsent }) : undefined));
+  if (!recovery || !choices) return null;
+  const saveTyped = () => { saveUnsent(); };
   if (!open) return <span data-testid="change-answer" data-fact={fact}>{" "}<button type="button" data-testid="change-answer-open" onClick={() => setOpen(true)} className="font-semibold text-[#2f7d67] underline">{adding ? ADD_IT_LATER : "Change"}</button></span>;
   return (
     <span ref={box} data-testid="change-answer" data-fact={fact} data-open="true" className="mt-2 block rounded-xl border border-[#d8e6df] p-3">

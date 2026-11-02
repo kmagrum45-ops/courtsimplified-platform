@@ -3,6 +3,7 @@
 import IntakeReviewPanel from "./IntakeReviewPanel";
 import { startSignIn } from "./startSignIn";
 import { markReviewNeeded } from "./reviewNeeded";
+import { blockedMessage, flushOpenEdits } from "./openEdits";
 import { applyFactRevisions, factsRevision, guidanceIsCurrent, inputRevision, reconcileReview, materialInitialFacts, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
 import { IntakeRequest } from "./intakeRequest";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useSyncExternalStore, type Dispatch, type ReactNode, type SetStateAction } from "react";
@@ -422,7 +423,14 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           subscribe: listener => { listeners.add(listener); return () => { listeners.delete(listener); }; },
           getReview: () => view,
           getSavedMaster: () => savedMaster,
-          transition: async (action, expectedInput) => {
+          transition: async (action, given) => {
+            // Anything typed in an open box and not saved yet is saved first (openEdits.ts; founder's Chrome check of
+            // #541, step 3: "5200" typed, Confirm pressed, the amount lost). What it saves is what the person pressed
+            // Confirm on, so the revision they confirm is the one after it; a box that needs more stops the Confirm.
+            const before = inputRevision(snapshot);
+            const unsent = action === "confirm" ? flushOpenEdits() : { saved: [], blocked: [] };
+            if (unsent.blocked.length) throw new Error(blockedMessage(unsent.blocked));
+            const expectedInput = unsent.saved.length && given === before ? inputRevision(snapshot) : given;
             await flush();
             if (!current() || inputRevision(snapshot) !== expectedInput) {
               // Names only, never values: what changed between the tick and the press.

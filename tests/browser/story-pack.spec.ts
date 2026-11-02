@@ -40,6 +40,7 @@ import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { asksForDate } from "../../src/lib/case-system/dates";
 import { internalWordingIn, rawKeysIn } from "../../src/lib/case-system/copy/rawKeys";
+import { UNSURE_SHOWN_SKIP, unsureShownAsAnswer } from "../../src/lib/case-system/copy/unsureShown";
 import { CHARTER_STORIES, MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, type Route } from "./storyPackMore";
 import { appendRecord } from "./harness/packRecords";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
@@ -156,6 +157,25 @@ function checkText(run: string, where: string, text: string) {
   note(run, where, "no citation or phrase repeated within a line", !repeated, repeated?.join(" ; ") ?? "");
 }
 
+/**
+ * "I do not know yet" is never shown as an answer, on any screen (Chrome check of #541, 2 Nov): the visible text
+ * outside the page's controls and the person's own chat messages, read by the one screen check (copy/unsureShown.ts).
+ */
+async function checkUnsureShown(run: string, where: string, page: Page) {
+  const texts = await page.evaluate((skip) => {
+    const out: string[] = [];
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+      const parent = node.parentElement;
+      if (!parent || parent.closest(skip) || parent.closest("script, style, noscript") || !parent.getClientRects().length) continue;
+      if ((node.textContent ?? "").trim()) out.push((node.textContent ?? "").trim());
+    }
+    return out;
+  }, UNSURE_SHOWN_SKIP).catch(() => [] as string[]);
+  const shown = unsureShownAsAnswer(texts);
+  note(run, where, "no \"I do not know yet\" shown as an answer", shown.length === 0, shown.join(" | "));
+}
+
 /** No toggle on the page without a label or without anything in it (an empty sources toggle under a chat line, Charter re-test 27 Oct). */
 async function checkToggles(run: string, where: string, page: Page) {
   const empty = await page.evaluate(() => [...document.querySelectorAll("details")].filter((toggle) => {
@@ -219,6 +239,7 @@ async function guidedQuestions(page: Page, story: Story, viaReview: boolean) {
     await question.getByTestId("guided-form-skip").click();
   }
   checkText(story.id, "questions", await page.getByTestId("guided-form-chat").innerText().catch(() => ""));
+  await checkUnsureShown(story.id, "questions", page);
   await page.getByTestId("guided-form-done").click();
   await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing", { timeout: 60_000 });
 }
@@ -350,6 +371,7 @@ async function smallClaimsGuided(page: Page, story: Story): Promise<number> {
   }
   note(story.id, "questions (Small Claims)", "a claim of their own, unticked, is not offered again", counterclaimOffers <= 1, `offered ${counterclaimOffers} times`);
   checkText(story.id, "questions", await page.locator("[data-testid=guided-message]").allInnerTexts().then((all) => all.join("\n")));
+  await checkUnsureShown(story.id, "questions", page);
   if ((await page.getByTestId("intake-review").getAttribute("data-phase")) !== "reviewing") {
     await page.getByTestId("intake-start-review").click().catch(() => {});
   }
@@ -534,13 +556,13 @@ for (const story of STORIES) {
         await guidedQuestions(page, story, route === "review");
         if (route === "review") await answerInReview(page, story);
       }
-      checkText(run, "review", await page.getByTestId("intake-review").innerText()); await checkToggles(run, "review", page);
+      checkText(run, "review", await page.getByTestId("intake-review").innerText()); await checkToggles(run, "review", page); await checkUnsureShown(run, "review", page);
 
       // 3. Confirm, and the next step.
       await confirmAndContinue(page);
       await page.waitForTimeout(1_500);
       const results = await page.locator("body").innerText();
-      checkText(run, "results", results); await checkToggles(run, "results", page);
+      checkText(run, "results", results); await checkToggles(run, "results", page); await checkUnsureShown(run, "results", page);
       checkClaimKind(run, "results", results, story);
       await checkOneClaimKind(run, "results", page, story, route);
       if (settles(story)) {
@@ -556,12 +578,12 @@ for (const story of STORIES) {
       if (await ask.isVisible().catch(() => false)) {
         await ask.click();
         const gather = await lastReply(page, "What should I gather first?");
-        checkText(run, "chat", gather);
+        checkText(run, "chat", gather); await checkUnsureShown(run, "chat", page);
         const quotes = [...gather.matchAll(/“([^”]+)”/g)].map((match) => match[1]);
         // Only when the story names some evidence: then there are the person's own words to quote.
         if (EVIDENCE.test(story.story)) note(run, "chat", "the evidence reply quotes the person's own words", quotes.some((quote) => story.story.includes(quote)), gather.slice(0, 200));
         const asked = await lastReply(page, "How long do I have to respond?");
-        checkText(run, "chat", asked); await checkToggles(run, "chat", page);
+        checkText(run, "chat", asked); await checkToggles(run, "chat", page); await checkUnsureShown(run, "chat", page);
         note(run, "chat", "no line ends on its lead-in with nothing after it", !/To keep your case record complete:\s*$/m.test(gather + "\n" + asked), asked.slice(-160));
         if (/served/i.test(story.story) && /October \d/.test(story.story)) {
           note(run, "chat", "does not ask for the main dates once a served date is recorded", !/main dates/i.test(gather + asked), (gather + asked).slice(Math.max(0, (gather + asked).search(/main dates/i) - 200), (gather + asked).search(/main dates/i) + 80));
@@ -576,7 +598,7 @@ for (const story of STORIES) {
         await page.waitForLoadState("networkidle").catch(() => {});
         await page.waitForTimeout(4_000);
         const casePage = await page.locator("body").innerText();
-        checkText(run, "case page", casePage); await checkToggles(run, "case page", page);
+        checkText(run, "case page", casePage); await checkToggles(run, "case page", page); await checkUnsureShown(run, "case page", page);
         // The header's own side line, for either side (only the responding side had one).
         note(run, "case page", "names the person's side", SIDE_LINE[story.side].test(casePage));
         checkClaimKind(run, "case page", casePage, story);

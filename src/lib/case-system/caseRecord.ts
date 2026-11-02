@@ -26,6 +26,7 @@ import { nameRecorded } from "./privacy/modelPayloadNames";
 import { readCasePosition, settledStage, suggestedDatesFromAnswers, type CasePosition } from "./casePosition";
 import { filingFactsFromDocuments, recordedDocuments } from "./intelligence/answeredQuestions";
 import { userStory } from "./userStory";
+import { answerWords } from "./caseFile/unsureAnswer";
 import { recordedAmountOf } from "./amountNotes";
 import { broadStageOfStep, sideOf as situationSide, situationOfCase, stepFromSituation, type Situation } from "./situation/situation";
 
@@ -62,7 +63,8 @@ export type CaseRecord = {
 
 const asRecord = (value: unknown): Record<string, unknown> =>
   value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
-const text = (value: unknown): string => (typeof value === "string" ? value.trim() : "");
+// "I do not know yet" is never a recorded answer (the one reader, unsureAnswer.ts answerWords).
+const text = (value: unknown): string => answerWords(value);
 
 export function courtPathOf(value: unknown): CourtPath | null {
   return value === "small-claims" || value === "civil" || value === "family" ? value : null;
