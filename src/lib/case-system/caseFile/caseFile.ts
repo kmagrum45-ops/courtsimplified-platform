@@ -502,6 +502,9 @@ export function withChange(changes: unknown, fact: SlotFact, change: ChangeInput
  * count (a form re-saving its other answers is no answer); "not sure" or an emptied box is no answer; a first
  * answer to a fact nobody gave, or the same value again, records nothing.
  */
+/** The facts the start questions give and change (side, court, stage, papers): never recorded from a form or a question. */
+const START_FACTS: ReadonlySet<string> = new Set(["side", "court", "stage", "papers"]);
+
 /** Whether a value is the answer a fact already holds, as the case file reads it (an amount "$2,400" is 2400). */
 function sameAnswer(fact: SlotFact, heldValue: unknown, given: unknown): boolean {
   const read = emptyCaseFile();
@@ -520,13 +523,32 @@ export function followAnswer(sections: Record<string, unknown>, section: string,
   for (const [id, was, given] of pairs) {
     if (JSON.stringify(was) === JSON.stringify(given) || given === "not-sure" || isUnsureAnswer(given)) continue;
     const value = Array.isArray(given) ? strings(given).filter((item) => item !== "not-sure") : given;
+    // NEWEST WINS, INCLUDING REMOVAL (carry runs 41382392877 / 41382400851): a box emptied for a fact the change record
+    // holds is the person removing it, so the removal is recorded too; otherwise the earlier recorded answer was
+    // applied last and came back ("Jordan Testwood" after the other party box was emptied, every court). An emptied
+    // box for a fact not under the record records nothing, as before.
+    if (blank(value) && !blank(was)) {
+      for (const fact of slotsOf(id)) {
+        if (fact === "story") continue;
+        const recorded = (next ?? changes)[fact];
+        if (recorded && recorded.state === "answered") next = withChange(next ?? changes, fact, { state: "removed" }, now);
+      }
+      continue;
+    }
     if (blank(value) || !changeable(value)) continue;
     for (const fact of slotsOf(id)) {
       // The story has its own path (the story box, storyBasis.ts): never a change-record answer.
       if (fact === "story") continue;
       const underRecord = Boolean((next ?? changes)[fact]);
-      // Held with another value from another place: this later answer is the newer one.
-      const heldOther = held !== undefined && held[fact].state === "answered" && !sameAnswer(fact, held[fact].value, value);
+      // Held with another value FROM ANOTHER PLACE: this later answer is the newer one. The same place again (a box typed
+      // key by key, a form re-saved) is that place's own answer, read as before, never a change: recording each key
+      // filled the change record with the box's own value, so emptying the box later brought it back (carry runs
+      // 41382392877 / 41382400851, "Jordan Testwood" in every court). The start answers (side, court, stage, papers)
+      // change only with the start questions, never here.
+      const place = section === "builder" ? `review:${id}` : section === "family" ? `family:${key}` : `${section}:${id}`;
+      const heldSource = held?.[fact].source;
+      const samePlace = heldSource?.kind === "answer" && (heldSource.question === place || heldSource.question === id);
+      const heldOther = held !== undefined && !START_FACTS.has(fact) && held[fact].state === "answered" && !samePlace && !sameAnswer(fact, held[fact].value, value);
       if (underRecord || heldOther) next = withChange(next ?? changes, fact, { state: "answered", value }, now);
     }
   }
