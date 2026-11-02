@@ -46,7 +46,7 @@ async function smallClaimsStart(page: Page, rows: Rows) {
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?.*intake=/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
-  await expect(acknowledgement.or(page.getByRole("button", { name: /Answer questions one at a time/ }))).toBeVisible({ timeout: 60_000 });
+  await expect(acknowledgement.or(page.getByRole("button", { name: /Answer questions one at a time/ })).first()).toBeVisible({ timeout: 60_000 });
   if (await acknowledgement.isVisible()) { await acknowledgement.check(); await page.getByTestId("acknowledgement-continue").click(); }
 }
 

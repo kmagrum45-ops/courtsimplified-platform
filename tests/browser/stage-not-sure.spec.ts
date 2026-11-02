@@ -127,7 +127,7 @@ test(`small-claims: a case going, its step "not sure" at the start: the stage is
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?.*intake=/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
-  await expect(acknowledgement.or(page.getByTestId("intake-start-review"))).toBeVisible({ timeout: 60_000 });
+  await expect(acknowledgement.or(page.getByTestId("intake-start-review")).first()).toBeVisible({ timeout: 60_000 });
   if (await acknowledgement.isVisible()) { await acknowledgement.check(); await page.getByTestId("acknowledgement-continue").click(); }
   await page.getByTestId("intake-start-review").click();
   await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing", { timeout: 60_000 });
