@@ -9,6 +9,15 @@
  * summary (`[data-testid=intake-entry][data-empty=true]`, harness/askOnce.ts "review-entry"). Attempt 2
  * was clean. This spec drives exactly that path, every time, and fails on any such box or re-ask.
  *
+ * REPRODUCED 1 Nov on #536 head d72fa829 (staging, port 3200, this spec; log itemC-st-base536b-not-sure-goal-review.log):
+ * the review read on the guided page showed no Goal box at all (the Small Claims form section did not exist
+ * yet); after the whole form was opened, the review showed the empty Goal box, data-field "goal",
+ * data-empty=true. Cause, at #536: IntakeReviewPanel.tsx:139-150 (offeredInBox) gave the first empty box of
+ * an unsure fact an empty box as its "one more offer", and reviewEntries lists the Goal box only once the
+ * form section exists, which is why one carry attempt saw it and the next did not. Would be proved wrong by a
+ * #536 run with the form section present, the goal unsure, and the Goal box not data-empty. This branch
+ * decides the box with reviewBoxState ("not-yet"): the same spec passes (log itemC-st-head3-not-sure-goal-review.log).
+ *
  * Steps, signed in through the real save path:
  *   1. the Small Claims guided chat; to sc-remedy-sought the person types "unsure" (the carry's words);
  *   2. the saved case (read back from staging through the case file) holds the goal not sure;
@@ -132,7 +141,7 @@ async function checkReview(page: Page, where: string) {
     const unanswered = await panel.locator("[data-testid=intake-initial-question][data-answered=false]").count();
     expect(left, `"N still to answer" counts only questions still asked, never the goal said not sure (${where})`).toBe(unanswered);
   }
-  await expect(panel.locator(`[data-testid=not-answered-yet][data-fact="${FACT}"]`).first(), `the quiet line is shown for the goal (${where})`).toContainText(NOT_ANSWERED_YET, { timeout: 30_000 });
+  await expect.soft(panel.locator(`[data-testid=not-answered-yet][data-fact="${FACT}"]`).first(), `the quiet line is shown for the goal (${where})`).toContainText(NOT_ANSWERED_YET, { timeout: 30_000 });
 }
 
 test("the goal said \"unsure\" in the Small Claims guided chat is never an empty Goal box or asked again (seen once, run 41347257269 attempt 1)", async ({ page }) => {
@@ -170,7 +179,7 @@ test("the goal said \"unsure\" in the Small Claims guided chat is never an empty
     // 4. The whole form, and its review.
     await page.goto(`/builder?path=${COURT}&intake=${caseId}&step=form`);
     await passNotice(page);
-    await expect(page.locator(`[data-testid=not-answered-yet][data-fact="${FACT}"]`).first(), "the whole form shows the quiet line, not an empty Goal box").toBeVisible({ timeout: 60_000 });
+    await expect.soft(page.locator(`[data-testid=not-answered-yet][data-fact="${FACT}"]`).first(), "the whole form shows the quiet line, not an empty Goal box").toBeVisible({ timeout: 60_000 });
     await openReview(page, caseId, "&step=form");
     await checkReview(page, "review from the whole form");
     // Confirm (the goal said "unsure" never blocks it), the overview, then the case page (it exists once

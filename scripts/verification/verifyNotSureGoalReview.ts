@@ -11,6 +11,15 @@
  * cause): #536's IntakeReviewPanel offered an unsure fact once more in its empty box (offeredInBox), and
  * #536's reviewQuestionList listed unsure questions through remainingEssentialQuestions(..., true).
  *
+ * REPRODUCED 1 Nov on #536 head d72fa829 (staging, port 3200, this spec; log itemC-st-base536b-not-sure-goal-review.log):
+ * the review read on the guided page showed no Goal box at all (the Small Claims form section did not exist
+ * yet); after the whole form was opened, the review showed the empty Goal box, data-field "goal",
+ * data-empty=true. Cause, at #536: IntakeReviewPanel.tsx:139-150 (offeredInBox) gave the first empty box of
+ * an unsure fact an empty box as its "one more offer", and reviewEntries lists the Goal box only once the
+ * form section exists, which is why one carry attempt saw it and the next did not. Would be proved wrong by a
+ * #536 run with the form section present, the goal unsure, and the Goal box not data-empty. This branch
+ * decides the box with reviewBoxState ("not-yet"): the same spec passes (log itemC-st-head3-not-sure-goal-review.log).
+ *
  * What decides it is pure, so this checks it without a browser, for every way the chat records the
  * goal as "not sure" (typed words, a skip, with and without the saved copy):
  *   1. the case file holds `wants` unsure;
