@@ -276,6 +276,12 @@ jobs:
       - name: The story is a fact of the case file -- never asked again once given
         run: npm run test:story-fact
 
+      - name: The Small Claims asker -- the question engine checks the case file before any question is shown; Form 7A boxes stay askable; a story guess is never held
+        run: npm run test:sc-asker
+
+      - name: One asker for every Small Claims screen -- no screen shows a question or a box without going through it
+        run: npm run test:sc-one-asker
+
       - name: No committed file holds a merge-conflict marker (generated files included)
         run: npm run test:no-conflict-markers
 

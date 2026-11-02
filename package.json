@@ -268,6 +268,7 @@
     "test:not-sure-goal-review": "node --import tsx scripts/verification/verifyNotSureGoalReview.ts",
     "test:newest-answer-wins": "node --import tsx scripts/verification/verifyNewestAnswerWins.ts",
     "test:sc-asker": "node --import tsx scripts/verification/verifyScAsker.ts",
+    "test:sc-one-asker": "node --import tsx scripts/verification/verifyScOneAsker.ts",
     "test:story-fact": "node --import tsx scripts/verification/verifyStoryFact.ts",
     "test:carry-baseline": "node --import tsx scripts/verification/verifyCarryBaseline.ts",
     "test:no-conflict-markers": "node --import tsx scripts/verification/verifyNoConflictMarkers.ts",
