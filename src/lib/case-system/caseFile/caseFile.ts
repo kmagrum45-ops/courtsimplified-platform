@@ -33,7 +33,7 @@
  */
 import type { Checkpoint } from "../intakeCheckpoint";
 import { freshSections } from "../storyBasis";
-import { isUnsureAnswer } from "./unsureAnswer";
+import { isTypedUnsure, isUnsureAnswer } from "./unsureAnswer";
 import { storyOfMaster } from "../intakeStory";
 import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation } from "../situation/situation";
 import { isKindOfClaim, kindFromStory, storyQuoteFor, wordsInStory } from "../intake/claimKind";
@@ -870,7 +870,8 @@ export function slotsOfQuestion(questionId: string, surface?: string): SlotFact[
 export function slotText(slot: Slot, formatDay: (iso: string) => string): string {
   // A rough time given ("July 2026", "last summer") is shown as given: the day is what is not known yet
   // (#477 re-test, item 6: "When it happened" showed "Not sure yet" after a date was given).
-  if (slot.state === "unsure") return typeof slot.value === "string" && slot.value.trim() && !isUnsureAnswer(slot.value) ? `${slot.value.trim()} (day not given yet)` : "Not sure yet";
+  // Typed "I do not know yet" held as a value is not an answer to show (the one reader, unsureAnswer.ts).
+  if (slot.state === "unsure" || isTypedUnsure(slot.value)) return typeof slot.value === "string" && slot.value.trim() && !isUnsureAnswer(slot.value) ? `${slot.value.trim()} (day not given yet)` : "Not sure yet";
   const value = slot.value;
   if (typeof value === "boolean") return value ? "Yes" : "No";
   // An amount as a court form writes it: "$2,500.00" (#477 re-test: "twenty five hundred").
