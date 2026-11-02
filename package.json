@@ -283,6 +283,8 @@
     "test:research-case-context": "node --import tsx scripts/verification/verifyResearchCaseContext.ts",
     "test:side-change": "node --import tsx scripts/verification/verifySideChange.ts",
     "test:raw-keys": "node --import tsx scripts/verification/verifyRawKeys.ts",
+    "test:unsure-never-saved": "node --import tsx scripts/verification/verifyUnsureNeverSaved.ts",
+    "test:confirm-flushes": "node --import tsx scripts/verification/verifyConfirmFlushes.ts",
     "test:answer-key-reader": "node --import tsx scripts/verification/verifyAnswerKeyReader.ts",
     "test:site-map": "tsx scripts/docs/generateSiteMapGraph.ts --check",
     "test:charter-retest": "node --import tsx scripts/verification/verifyCharterRetest.ts",

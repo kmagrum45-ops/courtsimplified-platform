@@ -3,6 +3,7 @@
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
 import { caseFileOf, claimKindOf, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { withoutUnsureAnswers } from "../../src/lib/case-system/caseFile/unsureAnswer";
 import { researchCaseContext } from "../../src/lib/case-system/caseFile/aiCaseContext";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
 
@@ -1386,8 +1387,11 @@ function BuilderPageContent() {
 
   function handleComplete(
     result: AnalysisResult,
-    payload: StoredCaseData,
+    given: StoredCaseData,
   ) {
+    // Every court's answers enter the analysis input here: an answer that is only "I do not know yet" is kept
+    // as not answered (the case file's "not sure"), never saved or shown as the answer (unsureAnswer.ts).
+    const payload = withoutUnsureAnswers(given);
     const previousRevision = analysisInputRevision.current;
     const previousFacts = analysisFactsRevision.current;
     analysisInputRevision.current = recovery?.getReview().checkpoint.inputRevision ?? null;

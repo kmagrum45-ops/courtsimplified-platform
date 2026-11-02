@@ -96,6 +96,7 @@ export type GuidedValues = Record<string, string | string[] | undefined>;
 
 export { isAnswered, pendingFields } from "./guidedFields";
 import { isAnswered, pendingFields } from "./guidedFields";
+import { isTypedUnsure } from "../../../src/lib/case-system/caseFile/unsureAnswer";
 
 /**
  * `text` cut to at most `max` characters at the end of a whole word, with an
@@ -248,7 +249,9 @@ export default function GuidedFormChat({
       return;
     }
     setNeedsMore(null);
-    if ((Array.isArray(cleaned) && cleaned.length === 0) || cleaned === "") {
+    // "I do not know yet" typed is the same as "Skip, I'm not sure": recorded as not sure, never as the answer
+    // (the one reader, unsureAnswer.ts; founder's Chrome check of #541, 2 Nov).
+    if ((Array.isArray(cleaned) && cleaned.length === 0) || cleaned === "" || isTypedUnsure(cleaned)) {
       setSkipped((now) => new Set(now).add(current.key));
       setHeard((now) => [...now, { question: current.question, reply: "Okay, we'll leave that for now.", key: current.key }]);
     } else {

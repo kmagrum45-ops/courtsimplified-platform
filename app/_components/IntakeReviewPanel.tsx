@@ -25,6 +25,7 @@ import { canReview, changedAfterConfirm, initialAnswersOf, reviewQuestionField, 
 import NextStepStatus, { nextStepPressed, useNextStepReading } from "./NextStepStatus";
 import { WorkingNote } from "./Working";
 import { UseSuggestion } from "./UseSuggestion";
+import { earlierAnswerWords } from "../../src/lib/case-system/earlierAnswerWords";
 
 /** What an answer with no line of its own is, in words. */
 const HIDDEN_ANSWER_NAMES: Record<string, string> = {
@@ -209,14 +210,11 @@ export default function IntakeReviewPanel() {
    * set aside here, so it never blocks Confirm out of sight (#471 re-test: civil stayed
    * blocked after every answer shown was given again).
    */
-  /** The answer itself, as text: each law question with its answer, or the value. */
+  /** The answer itself, in words: never a question id, a kind's id or "[object Object]" (earlierAnswerWords.ts). */
   function shownAnswer(key: string): string {
     const [section, field, inner] = key.split(".");
     const value = inner === undefined ? checkpoint.sections[section]?.[field] : (checkpoint.sections[section]?.[field] as Record<string, unknown> | undefined)?.[inner];
-    if (Array.isArray(value)) return value.map(item => item && typeof item === "object" && "question" in item ? `${String((item as { question: unknown }).question)}: ${String((item as { answer?: unknown }).answer ?? "")}` : String(item)).join("\n");
-    if (typeof value === "boolean") return value ? "Yes" : "No";
-    if (value && typeof value === "object") return Object.values(value as Record<string, unknown>).filter(item => typeof item === "string" && item.trim()).join("; ");
-    return String(value ?? "");
+    return earlierAnswerWords(value);
   }
   function keepOrSetAside(key: string, keep: boolean) {
     if (!recovery) return;
