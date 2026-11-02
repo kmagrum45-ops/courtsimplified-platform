@@ -26,7 +26,12 @@
  *       and the screens that repeat an answer back (civil and Family: the questions one at a time, "Got it: ...";
  *       Small Claims: the chat's "Confirmed from my story"), screen "questions echo (<when>)";
  *       and on every Small Claims route, the Form 7A section not drawn after "Show my next step" (owner,
- *       30 Oct: it must appear on every route) -- fact "form-7a-section", screen "form-7a (<when>)".
+ *       30 Oct: it must appear on every route) -- fact "form-7a-section", screen "form-7a (<when>)";
+ *       and, last, Small Claims only: the answered amount changed in the review's own box, then the review's
+ *       list ("Answered: ..."), its box, after a reload, the overview and the case page must show the new
+ *       amount (founder's Chrome re-test of #536, 1 Nov) -- fact "amount", screen "<screen> (after the review change...)".
+ *   The story is a fact for (1) too: the Small Claims chat showing its story box after the story was given
+ *   counts as asked-twice, fact "story" (askOnce.ts, surface sc-story; founder, 1 Nov).
  *
  * WHAT FAILURE IT CATCHES. Any of the four not on the baseline (harness/carryBaseline.json, each entry
  * with its fact and reason) fails the run; a baseline entry no run matched is reported as stale
@@ -533,6 +538,74 @@ async function readCasePage(run: Run, when: string, id = run.caseA, caseKey: "a"
   } else run.unreached.push(`check my case file (${when}): not shown on the case page`);
 }
 
+/**
+ * AN ANSWERED AMOUNT CHANGED IN THE SMALL CLAIMS REVIEW (founder's Chrome re-test of #536, 1 Nov): the amount
+ * was changed in the review's box from $2,400 to $2,650, and the review's own "Initial questions" list still
+ * said "Answered: $2,400. You can change it here." (after a reload too), the case page showed $2,400.00, while
+ * the box held $2,650. Rule 5: the newest answer shows on every screen at once. Each screen not showing the
+ * new amount is counted as screens-disagree, fact "amount", screen "<screen> (after the review change...)".
+ * Its own value, so it never mixes with the tracked change (v1 -> v2) the other steps judge.
+ */
+const REVIEW_CHANGE: Value = { text: "$8,150", amount: 8150 };
+
+/** The review's box for the amount, as the founder changed it: its own entry, else the answered question's box. */
+async function reviewAmountBox(page: Page): Promise<Locator | null> {
+  const panel = page.getByTestId("intake-review");
+  for (const field of TRACK["small-claims"].change.fields) {
+    const input = panel.locator(`[data-testid=intake-entry][data-field="${field}"]`).first().locator("input, textarea").first();
+    if (await input.count()) return input;
+  }
+  const question = panel.locator('[data-testid=intake-initial-question][data-question="sc-amount-claimed"]').getByRole("textbox").first();
+  return (await question.count()) ? question : null;
+}
+
+/** Opens the Small Claims review on the route's own step, its entries shown (a confirmed review opened for correction). */
+async function openReviewEntries(run: Run) {
+  const { page } = run;
+  await page.goto(`/builder?path=small-claims&intake=${run.caseA}${run.route === "questions" ? "&step=guided" : "&step=form"}`);
+  await passNotice(page);
+  const panel = page.getByTestId("intake-review");
+  await expect(panel).toBeVisible({ timeout: 60_000 });
+  if ((await panel.getAttribute("data-phase")) === "collecting") await page.getByTestId("intake-start-review").click();
+  const view = page.getByTestId("intake-view-review");
+  if (await view.isVisible().catch(() => false)) await view.click();
+  await page.waitForTimeout(800);
+}
+
+function judgeReviewChange(run: Run, where: string, text: string | null) {
+  if (text === null) return;
+  if (!shows(text, REVIEW_CHANGE)) run.add("screens-disagree", "amount", where, `shows "${text.trim().slice(0, 120)}", the person changed the amount in the review to "${REVIEW_CHANGE.text}"`);
+}
+
+/** The review's list line ("Answered: ...") and its box for the amount. */
+async function readReviewAmount(run: Run, when: string) {
+  const { page } = run;
+  const answered = page.locator('[data-testid=intake-initial-question][data-question="sc-amount-claimed"] [data-testid=intake-question-answered]');
+  judgeReviewChange(run, `review list (${when})`, (await answered.count()) ? await answered.first().innerText() : null);
+  const box = await reviewAmountBox(page);
+  judgeReviewChange(run, `review box (${when})`, box ? await box.inputValue() : null);
+}
+
+async function changeAmountInReview(run: Run) {
+  const { page } = run;
+  await openReviewEntries(run);
+  const box = await reviewAmountBox(page);
+  if (!box) throw new Error("the Small Claims review shows no box for the amount");
+  await typeInto(box, REVIEW_CHANGE.text);
+  // The tab saves 400 ms after the last change (IntakeRecovery.tsx), then the case is written.
+  await page.waitForTimeout(3_000);
+  await readReviewAmount(run, "after the review change");
+  await openReviewEntries(run);
+  await readReviewAmount(run, "after the review change and reload");
+  await confirmAndShow(run);
+  judgeReviewChange(run, "overview (after the review change)", await page.getByTestId("completed-case-overview").innerText());
+  await page.goto(`/cases/${run.caseA}`);
+  await expect(page.getByTestId("case-file").or(page.getByTestId("case-guidance-outdated")).or(page.getByTestId("case-review")).first()).toBeVisible({ timeout: 90_000 });
+  await page.waitForTimeout(2_000);
+  const line = page.locator('[data-testid=case-file-line][data-fact="amount"]');
+  judgeReviewChange(run, "case file (after the review change)", (await line.count()) ? (await line.allInnerTexts()).join(" ") : null);
+}
+
 // ---------------------------------------------------------------------------------------------
 // The runs
 // ---------------------------------------------------------------------------------------------
@@ -690,6 +763,8 @@ for (const { court, route, who } of RUNS) {
         await readBuilder(run, "first case by address, after the second case");
         await readCasePage(run, "first case by address, after the second case");
       });
+      // 10. Small Claims: the answered amount changed in the review shows on every screen (founder, 1 Nov).
+      if (court === "small-claims") await run.step("change the answered amount in the review", async () => { await changeAmountInReview(run); });
       segments.push({ from: segmentStart, to: asked.length, key: segmentKey });
     } finally {
       clearInterval(refresh);

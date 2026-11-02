@@ -227,5 +227,19 @@ const ask = (surface: string, id: string, text = id): Asked => ({ kind: "ask", s
   check("diagnostic: the fields never change what counts", strip(repeatViolations(factsAskedTwice(plain, false))) === strip(repeatViolations(factsAskedTwice(withDiag, false))) && repeatViolations(factsAskedTwice(withDiag, false)).length === 1);
 }
 
+// The story is a fact too (founder's Chrome re-test of #536, 1 Nov: the Small Claims chat showed its story
+// box, "Tell us what happened in your own words...", after the story was sent and the kind suggestion used).
+// The chat's story box is an ask of "story"; the home page's story sent, or the chat's, gives it.
+{
+  const scan = ASK_ONCE_SCAN();
+  check("the recorder asks \"story\" when the chat's story box appears, and records the story given", scan.includes('"sc-story", "story"') && scan.includes('"home-story", "story"'));
+  check("the chat's story box asks for the story fact", factsOfAsk({ surface: "sc-story", id: "story", text: "" }).join() === "story");
+  const given: Asked = { kind: "answer", surface: "home-story", id: "story", screen: "/", text: "", at: 2 };
+  const box = (at: number): Asked => ({ kind: "ask", surface: "sc-story", id: "story", screen: "/builder?step=guided", text: "Tell us what happened in your own words", at });
+  const again = repeatViolations(factsAskedTwice([given, box(3)], false));
+  check("the story sent on the home page, then the chat's story box: asked twice (fact story)", again.length === 1 && again[0].fact === "story", JSON.stringify(again));
+  check("the chat's story box before any story was given: not a repeat", factsAskedTwice([box(1), { kind: "answer", surface: "sc-story", id: "story", screen: "/builder?step=guided", text: "", at: 2 }], false).length === 0);
+}
+
 if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }
 console.log("never ask twice: every check passed.");

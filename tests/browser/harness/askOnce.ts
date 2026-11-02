@@ -21,6 +21,9 @@
  *   the step page's dates    [data-testid=stage-answer-date-question][data-question-id]
  *   the review's own boxes    [data-testid=intake-entry][data-empty=true] (an empty box asks for its fact)
  *   the Small Claims form    [data-testid=sc-intake-documents][data-empty=true] ("What documents already exist?", nothing ticked)
+ *   the chat's story box     textarea[aria-describedby=guided-story-guidance] (Small Claims), fact "story", asked
+ *                            each time it comes on screen; the story is given by "Continue to ... intake" with the
+ *                            home page's story box filled, or "Send" / "Send my story" in the chat (founder, 1 Nov)
  *   the story's events       [data-testid=event-candidate]: a date box left empty while its own quoted
  *                            sentence gives that date (fact dateInOwnSentence, given by the story)
  * And, never ask twice (site owner, 28 Oct), the places that ask in words, found by what the
@@ -189,6 +192,13 @@ const SCAN = `(() => {
     // recording an unticked row as confirmed (m04-tenant, CI 29 Oct: a false "asked twice").
     const card = event.target instanceof Element ? event.target.closest("[data-testid=story-proposals]") : null;
     if (card) window.__askOnceRows = [...card.querySelectorAll("[data-testid=story-proposal-row]")].filter((row) => { const tick = row.querySelector("input[type=checkbox]"); return !tick || tick.checked; }).map((row) => row.getAttribute("data-question-id"));
+    // The story given (founder's Chrome re-test of #536, 1 Nov): sent from the home page's story box, or from
+    // the Small Claims chat's (its "Send" with the story box holding words, or "Send my story" under the saved story).
+    const button = event.target instanceof Element ? event.target.closest("button") : null;
+    const homeStory = document.querySelector("textarea[aria-describedby=home-story-guidance]");
+    if (button && homeStory && homeStory.value.trim() && /^Continue to .* intake$/.test(words(button))) answer("home-story", "story");
+    const chatStory = document.querySelector("textarea[aria-describedby=guided-story-guidance]");
+    if (button && ((chatStory && chatStory.value.trim() && words(button) === "Send") || id === "guided-send-saved-story")) answer("sc-story", "story");
   }, true);
   // A service method chosen is its answer.
   document.addEventListener("change", (event) => {
@@ -199,7 +209,13 @@ const SCAN = `(() => {
   const visible = (el) => !el.checkVisibility || el.checkVisibility();
   const chatSeen = new Map();
   const chatAnswered = new Set();
+  // The Small Claims chat's story box, asked each time it comes on screen (a reload draws it anew).
+  let storyBoxShown = false;
   const scan = () => {
+    const storyBox = document.querySelector("textarea[aria-describedby=guided-story-guidance]");
+    const storyShown = Boolean(storyBox && visible(storyBox));
+    if (storyShown && !storyBoxShown) emit("ask", "sc-story", "story", words(document.getElementById("guided-story-guidance")) || "the chat's story box");
+    storyBoxShown = storyShown;
     for (const [surface, selector, ids] of surfaces) {
       const found = typeof selector === "function" ? selector() : document.querySelectorAll(selector);
       for (const el of found) {
@@ -311,6 +327,8 @@ export function factsOfAsk(item: Pick<Asked, "surface" | "id" | "text">): string
   if (item.surface === "event-candidate") return ["dateInOwnSentence"];
   if (WORDED.has(item.surface)) { const facts = factsOfWords(item.id); return facts.length ? facts : [`${item.surface}:${item.id}`]; }
   if (item.surface === "service-method") return ["serviceMethod"];
+  // The story: the Small Claims chat's story box asks for it; the home page's or the chat's story sent gives it.
+  if (item.surface === "sc-story" || item.surface === "home-story") return ["story"];
   if (item.surface === "form-field") {
     const own = FORM_FIELD_FACTS[item.id];
     if (own) return [...own];
