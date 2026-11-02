@@ -583,15 +583,25 @@ async function readReviewAmount(run: Run, when: string) {
   const answered = page.locator('[data-testid=intake-initial-question][data-question="sc-amount-claimed"] [data-testid=intake-question-answered]');
   judgeReviewChange(run, `review list (${when})`, (await answered.count()) ? await answered.first().innerText() : null);
   const box = await reviewAmountBox(page);
-  judgeReviewChange(run, `review box (${when})`, box ? await box.inputValue() : null);
+  // An answered amount may show as its held line (answer and "Change") instead of a box: read what it shows.
+  const held = page.getByTestId("intake-review").locator("[data-testid=intake-entry-held][data-fact=amount]").first();
+  judgeReviewChange(run, `review box (${when})`, box ? await box.inputValue() : (await held.count()) ? await held.innerText() : null);
 }
 
 async function changeAmountInReview(run: Run) {
   const { page } = run;
   await openReviewEntries(run);
   const box = await reviewAmountBox(page);
-  if (!box) throw new Error("the Small Claims review shows no box for the amount");
-  await typeInto(box, REVIEW_CHANGE.text);
+  if (box) await typeInto(box, REVIEW_CHANGE.text);
+  else {
+    // The answered amount shows as its held line: the person presses its "Change", then types (1 Nov).
+    const held = page.getByTestId("intake-review").locator("[data-testid=intake-entry-held][data-fact=amount]").first();
+    if (!(await held.count())) throw new Error("the Small Claims review shows no box and no answered line for the amount");
+    await held.getByTestId("change-answer-open").click();
+    const typed = held.getByTestId("change-answer-text");
+    await typeInto(typed, REVIEW_CHANGE.text);
+    await held.getByTestId("change-answer-save").click();
+  }
   // The tab saves 400 ms after the last change (IntakeRecovery.tsx), then the case is written.
   await page.waitForTimeout(3_000);
   await readReviewAmount(run, "after the review change");
