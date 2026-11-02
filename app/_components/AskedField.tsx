@@ -14,10 +14,10 @@
  * A story guess is never held: it is offered under "Found in your description", never typed in.
  * Restates the person's own answers; states no law; changes no wording of a box.
  */
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useIntakeRecovery, useIntakeReviewView, useIntakeState } from "./IntakeRecovery";
 import { caseFileOf, isUnsureAnswer } from "../../src/lib/case-system/caseFile/caseFile";
-import { askOf, formFill } from "../../src/lib/case-system/intake/asker";
+import { askOf, formFill, seenNow } from "../../src/lib/case-system/intake/asker";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "../../src/lib/case-system/copy/askCopy";
 
 const blank = (value: unknown) => value === undefined || value === null || (typeof value === "string" && !value.trim()) || (Array.isArray(value) && value.length === 0);
@@ -55,8 +55,19 @@ export function AskedField({ field, value, label, children }: { field: string; v
 export function useHeldFill(values: Record<string, unknown>, apply: (fill: Record<string, string>) => void) {
   const file = useCaseFile();
   const [filled, setFilled] = useIntakeState<string[]>("small-claims", "filledFromCaseFile", []);
-  const fill = useMemo(() => formFill(file, values, filled), [file, values, filled]);
+  // The boxes that held words during this visit (asker.ts seenNow), updated as each render's values arrive: a
+  // box the person clears to type a new value is never filled under their keys ("$6,400.00$7,250", local carry
+  // runs 41393577468 / 41393585578).
+  const seen = useRef<string[]>([]);
+  seen.current = seenNow(values, seen.current);
+  const fill = formFill(file, values, [...filled, ...seen.current]);
   const key = JSON.stringify(fill);
+  // A box seen with words and now empty: the person emptied it. Kept in the saved case, so it is not refilled after a reload either.
+  const emptied = seen.current.filter((field) => !filled.includes(field) && blank(values[field])).join(",");
+  useEffect(() => {
+    if (emptied) setFilled((current) => [...new Set([...current, ...emptied.split(",")])]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- runs when a box is emptied
+  }, [emptied]);
   useEffect(() => {
     const fields = Object.keys(fill);
     if (!fields.length) return;

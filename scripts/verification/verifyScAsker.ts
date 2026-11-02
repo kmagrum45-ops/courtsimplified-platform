@@ -278,8 +278,9 @@ async function main() {
     if (seenNow) {
       // The chat's answer is held (not the form's own); the person clears the box and types the new amount key by key.
       const heldElsewhere = caseFileOf(checkpoint({ guided: { earlierAnswers: [{ questionId: "sc-amount-claimed", answerText: "$6,400" }], answeredIds: ["sc-amount-claimed"] } }));
-      let seen: string[] = [];
       let box = "$6,400.00";
+      // The render that showed the filled box, before the person cleared it: the hook sees it too.
+      let seen: string[] = seenNow({ amountClaimed: box }, []);
       const saved: string[] = [];
       for (const key of ["", ..."$7,250".split("")]) {
         box = key === "" ? "" : box + key;

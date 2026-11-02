@@ -79,6 +79,10 @@ export function fillable(field: string): boolean {
  * The Small Claims form's boxes to fill from the case file, once: empty, never filled before in this case
  * (`filledBefore`, kept in the saved case, so a box the person cleared stays clear), and held answered by the
  * person. Never a story guess, a "not sure", or a removed answer; never over what the person typed.
+ * `filledBefore` also takes the boxes that held words during this visit (seenNow): a box the person cleared,
+ * to type a new value key by key, is never filled again under their keys (local carry runs 41393577468 /
+ * 41393585578: "$6,400.00$7,250"). And the form's own answer is never filled back into its own box: that box
+ * is the answer, so empty means the person emptied it.
  */
 export function formFill(file: CaseFile | null | undefined, values: Record<string, unknown>, filledBefore: readonly string[]): Record<string, string> {
   const out: Record<string, string> = {};
@@ -87,10 +91,18 @@ export function formFill(file: CaseFile | null | undefined, values: Record<strin
     if (!fillable(field) || before.has(field)) continue;
     const value = values[field];
     if (typeof value === "string" && value.trim()) continue;
+    const decision = askOf(file, field);
+    if (!decision.ask && decision.slot.source?.kind === "answer" && decision.slot.source.question === `small-claims:${field}`) continue;
     const words = heldWords(file, field);
     if (words) out[field] = words;
   }
   return out;
+}
+
+/** The form's boxes that have held words during this visit: those already seen, and those holding words now. */
+export function seenNow(values: Record<string, unknown>, seen: readonly string[]): string[] {
+  const now = Object.entries(values).filter(([, value]) => typeof value === "string" && value.trim()).map(([field]) => field);
+  return [...new Set([...seen, ...now])];
 }
 
 /** The case file as the engine needs it on the server: its slots only (no story words). */
