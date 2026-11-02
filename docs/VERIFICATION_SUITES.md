@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-222 documented, 26 without a header.
+225 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -84,6 +84,8 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:document-link` | **OPEN, SAVE AND DELETE AN UPLOADED FILE (Charter re-test 2026-10-26).**<br>Checks, as properties, through the route itself (app/api/workspace/documents/link) with the database and storage stood in: - a link is made only for the signed-in owner's own file that is not being deleted: no sign-in, a bad id, someone else's file and a file  |
 | `npm run test:elided-quote` | **Does a quote that skips material with "..." get found wherever it really is,**<br>and only there? |
 | `npm run test:evidence-guidance` | **Pins the removal of the false "already mentioned" claim.**<br>COSTS NOTHING. Pure functions and a source-order check. |
+| `npm run test:fact-coexistence` | **FAILING FIRST: ONCE A FACT RECORD EXISTS, EVERY OLD COPY IS IGNORED (case core G0; CASE_CORE_DESIGN.md §11).**<br>FAILING FIRST, NOW MOSTLY PASSING: option A (caseFileOf applies the fact record, 1 Nov) and G1a (the readers through the case file) pass 17 of 20; the three saveCheckpoint checks fail until G2 merges facts on save. (Written failing on purpose on 1 Nov: 3 passe |
+| `npm run test:fact-rails` | **THE RAILS OF THE ONE CASE RECORD (case core G0; docs CASE_CORE_DESIGN.md §1, §10, §12).**<br>What it checks, with no network and no AI: 1. `give` is exported from caseFile.ts and records an answer the way caseFileOf does. 2. The server alone orders saves (§12): a write naming `seq` or `at` is refused; each accepted write gets seq = the highest stored  |
 | `npm run test:fact-sources` | **No fact about the person's case is shown without its source.**<br>What it checks: 1. Every place in app/ that states something about the person's case ("you told us", "from what you told us", "from your story", "you said", "you wrote", "we understood") renders the source beside it -- the person's words quoted, or their confi |
 | `npm run test:family-forms` | **Every family form number shown to a user cites the rule requiring it.**<br>COSTS NOTHING. A source check plus pure-function calls. |
 | `npm run test:family-no-scores` | **The family engines grade nothing.**<br>COSTS NOTHING. A source scan plus one pure engine run. |
@@ -142,6 +144,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:not-sure-never-asked` | **"NOT SURE" IS NEVER ASKED AGAIN, ANYWHERE (site owner, 31 Oct; replaces option 1 of 24 Oct).**<br>After a person says "I don't know" or "not sure" -- a skip in the questions one at a time, the words typed in the Small Claims guided chat or in the whole form, or the review's "I do not know yet" -- no screen in any of the three courts asks that question agai |
 | `npm run test:notice-step` | **A claim whose kind can need written notice before suing is pointed to that**<br>notice step first, and only when the person's own words place it. |
 | `npm run test:official-forms` | **The official-forms watch reads the Ontario Court Forms pages correctly, and**<br>the recorded official list covers every live form the regulations name. |
+| `npm run test:one-writer` | **ONE WRITER: EVERY SAVE POINT OF CASE DATA IS ON A LIST THAT ONLY SHRINKS (case core G0, "the rails";**<br>docs CASE_CORE_DESIGN.md §10; founder's Phase 1 approval, 31 Oct: "a permanent check that fails on a new save point bypassing the writer"). |
 | `npm run test:open-case` | **ONE CASE ID DECIDES WHICH CASE IS OPEN: the address, and nothing else**<br>(npm run test:open-case). |
 | `npm run test:openai-cost` | **OpenAI spending stays under control.**<br>WHAT IT CATCHES (2026-10-08: October's spend reached about $396 against a $100 budget, $205.76 of it prompt-cache WRITES that were almost never read back): - a call to a GPT-5.6+ model going out without prompt_cache_options, so the whole prompt is written to t |
 | `npm run test:output-guard` | **Arbitrary model text cannot reach a user, and every user-facing model call**<br>returns structured output. |

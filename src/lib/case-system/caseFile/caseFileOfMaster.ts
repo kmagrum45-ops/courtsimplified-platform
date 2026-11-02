@@ -10,7 +10,7 @@
  * imports: reading the checkpoint from caseFile.ts itself would make a cycle.
  */
 import { readCheckpoint } from "../intakeCheckpoint";
-import { caseFileOf, claimKindOf, type CaseFile, type ClaimKindHeld } from "./caseFile";
+import { caseFileOf, claimKindOf, slotText, type CaseFile, type ClaimKindHeld, type SlotFact } from "./caseFile";
 
 const object = (value: unknown): Record<string, unknown> => (value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {});
 const AREAS = new Set(["small-claims", "civil", "family"]);
@@ -31,6 +31,35 @@ export function caseFileOfMaster(master: unknown, courtPath?: string | null): Ca
   const file = caseFileOf(checkpoint, master);
   file.area ??= area ?? undefined;
   return file;
+}
+
+/**
+ * WHAT THE CASE FILE SAYS OF ONE FACT, IN WORDS (G1a, 1 Nov): for a reader that fills a box or a line
+ * from a saved case (the form prefill, generate-form, the case record). `held` when the case file says
+ * anything: its answer (the fact record first, then the change record, then today's order, caseFileOf),
+ * or "" once the person removed it or said they are not sure -- never an older copy then.
+ */
+export type HeldWords = { held: true; words: string } | { held: false };
+export function heldWordsOf(file: CaseFile, fact: SlotFact): HeldWords {
+  const slot = file[fact];
+  if (slot.removed || slot.state === "unsure") return { held: true, words: "" };
+  if (slot.state === "answered") return { held: true, words: slotText(slot, (iso) => iso) };
+  return { held: false };
+}
+
+/**
+ * THE OTHER PARTY OF A SAVED CASE: the case file's words when it holds any (a removal included), else
+ * -- only then -- the analysis copy an older saved case kept (intakeData.otherParty, its extra and
+ * civilInput copies). The legacy copies are read here only (CASE_CORE_DESIGN.md §3), so no reader
+ * reads them itself and a removal through the fact record or "Change" wins on every reader.
+ */
+export function otherPartyOfMaster(master: unknown, courtPath?: string | null, file: CaseFile = caseFileOfMaster(master, courtPath)): string {
+  const held = heldWordsOf(file, "otherParty");
+  if (held.held) return held.words;
+  const intake = object(object(master).intakeData);
+  const extra = object(intake.extra);
+  for (const copy of [intake.otherParty, extra.otherParty, object(extra.civilInput).otherParty]) if (typeof copy === "string" && copy.trim()) return copy.trim();
+  return "";
 }
 
 /** The kind of claim a saved case holds (claimKindOf on its case file). */

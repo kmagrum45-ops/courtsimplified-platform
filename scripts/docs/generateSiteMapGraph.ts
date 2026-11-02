@@ -29,6 +29,8 @@ const SHARED: [string, string][] = [
   ["src/lib/case-system/caseFile/caseFile.ts", "The case file: one slot per fact, and nextQuestion, the one rule for asking."],
   ["src/lib/case-system/caseFile/caseFileOfMaster.ts", "The case file of a saved case (its checkpoint and saved position), for readers that have only master_result."],
   ["src/lib/case-system/caseFile/factsOfQuestion.ts", "Which fact each question asks for."],
+  ["src/lib/case-system/caseFile/factRecord.ts", "The fact record (caseFile.facts) and the server's order of saves: seq and at set on the server, per-fact two-tab conflicts (case core G0)."],
+  ["src/lib/case-system/caseFile/fieldFacts.ts", "The one field-to-fact table: which fact each (section, field) a save point writes holds, from factsOfQuestion (case core G0)."],
   ["src/lib/case-system/caseFile/storyLines.ts", "What the story says that no answer holds yet, for \"What we have so far\"."],
   ["src/lib/case-system/caseFile/storyFacts.ts", "Each fact the story gives, in plain words with its sentence: the other side, losses, injury, evidence, last payment."],
   ["src/lib/case-system/copy/caseWords.ts", "The stage, the side and the papers in words, never codes."],

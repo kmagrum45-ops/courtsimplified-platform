@@ -11,6 +11,7 @@ import {
   getAuthenticatedUser,
   type AuthenticatedOwnedCase,
 } from "../../../src/lib/supabase/serverAuth";
+import { caseFileOfMaster, heldWordsOf, otherPartyOfMaster } from "../../../src/lib/case-system/caseFile/caseFileOfMaster";
 
 type CourtPath = "family" | "small-claims" | "civil";
 
@@ -586,17 +587,22 @@ export function getCaseValues(masterResult: unknown, courtType: CourtPath): Case
       ]),
   );
 
+  /*
+   * THE OTHER PARTY AND WHAT THEY WANT, THROUGH THE CASE FILE (G1a, 1 Nov). A filed form is the last
+   * place a removed name may reappear: once the case file says anything of the other party (its fact
+   * record, the person's "Change", their answer), that is the name, and "" after a removal -- no
+   * search of the saved row brings an older copy back. Only when it says nothing (an older saved case)
+   * are the row's own name keys searched.
+   */
+  const file = caseFileOfMaster(masterResult, courtType);
+  const heldOther = heldWordsOf(file, "otherParty");
   const defendantName = safe(
-    data.otherParty ||
-      extra.otherParty ||
-      extra.defendantName ||
-      extra.respondentName ||
-      deepPick(allSources, [
-        "otherParty",
-        "defendantName",
-        "respondentName",
-        "respondingPartyName",
-      ]),
+    heldOther.held
+      ? heldOther.words
+      : otherPartyOfMaster(masterResult, courtType, file) ||
+          extra.defendantName ||
+          extra.respondentName ||
+          deepPick(allSources, ["defendantName", "respondentName", "respondingPartyName"]),
   );
 
   const applicantName = safe(
@@ -606,9 +612,11 @@ export function getCaseValues(masterResult: unknown, courtType: CourtPath): Case
   );
 
   const respondentName = safe(
-    extra.respondentName ||
-      deepPick(allSources, ["respondentName", "respondingPartyName"]) ||
-      defendantName,
+    heldOther.held
+      ? defendantName
+      : extra.respondentName ||
+          deepPick(allSources, ["respondentName", "respondingPartyName"]) ||
+          defendantName,
   );
 
   /*
@@ -646,8 +654,9 @@ export function getCaseValues(masterResult: unknown, courtType: CourtPath): Case
       arrayText(allSources, ["evidence", "exhibits", "evidenceItems"]),
   );
 
+  const heldWants = file.wants.changed ? heldWordsOf(file, "wants") : ({ held: false } as const);
   const requestedResult = safe(
-    data.goal ||
+    heldWants.held ? heldWants.words : data.goal ||
       extra.goal ||
       extra.ordersRequested ||
       extra.requestedResult ||

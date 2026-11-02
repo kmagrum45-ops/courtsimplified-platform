@@ -170,7 +170,7 @@ export function marriedWhereIn(story: string): { place: string; quote: string } 
 const LEADS_WITH_CONFERENCE = /^\s*(?:(?:case|settlement|trial management|pre-?trial)\s+)?conference\b/i;
 
 /** Records one answer into the file: the first answer stands; an unsure one never covers a real one. */
-function give(file: CaseFile, fact: string, value: unknown, question: string) {
+export function give(file: CaseFile, fact: string, value: unknown, question: string) {
   // "Next court date" answers one of two slots: the conference date when the answer leads with a
   // conference ("Case conference on November 16, 2026"), else the court date. Conference audit,
   // 2026-10-26: family's box kept a case conference only in the typed words; "Trial on March 3,
@@ -440,6 +440,9 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // saved copy) brings a changed or removed value back. The overview's own pick saved after the
   // change (position.claimKindAt, stamped by the server) is newer, so it wins in its turn.
   applyChanges(file, changesOf(sections), position);
+  // 10. THE FACT RECORD, last of all (option A, 1 Nov): a fact with a server-written record is that record,
+  // over every copy above including the change record (applyFactRecords).
+  applyFactRecords(file, sections);
   // A suggestion waiting for an answer is never one the person turned down or removed.
   if (file.claimKindPending && file.claimKindRemoved?.includes(file.claimKindPending.claimTypeId)) delete file.claimKindPending;
   return file;
@@ -602,27 +605,65 @@ function applyChanges(file: CaseFile, changes: FactChanges, position: Record<str
   for (const [fact, change] of ordered) {
     // The overview's own pick of a kind, saved after this change, is the newer answer.
     if (fact === "claimKind" && pickedAt && change.at && pickedAt > change.at && file.claimKind.source?.kind === "answer" && file.claimKind.source.question === CLAIM_KIND_QUESTION) continue;
-    const was = file[fact];
-    if (change.state === "removed") {
-      // A removed kind is never offered back as the story's or the classifier's proposal either.
-      const kind = fact === "claimKind" ? heldKindId(was) ?? file.claimKindProposal?.claimTypeId ?? null : null;
-      if (kind) file.claimKindRemoved = [...new Set([...(file.claimKindRemoved ?? []), kind])];
-      file[fact] = { state: "not-asked", confirmed: true, removed: true, changed: true, source: { kind: "answer", question: CHANGE_QUESTION } };
-    } else {
-      const fresh = emptyCaseFile();
-      give(fresh, fact, change.value, CHANGE_QUESTION);
-      file[fact] = { ...fresh[fact], changed: true };
-    }
-    // Nothing older keeps the fact another way: its answers by question (the step page's dates), a
-    // day not known yet, a ticked suggestion's quote, the papers named, the place married from the story.
-    if (file.answers) for (const id of Object.keys(file.answers)) if (slotsOf(id).includes(fact)) delete file.answers[id];
-    if (file.unsureDates && DATED.has(fact)) file.unsureDates = file.unsureDates.filter((id) => !slotsOf(id).includes(fact));
-    if (fact === "claimKind") { delete file.claimKindQuote; delete file.claimKindPending; }
-    if (fact === "filed" && change.state === "removed") delete file.documents;
-    if (fact === "side") delete file.sideWords;
-    if (fact === "married" && !(file.married.state === "answered" && file.married.value === true) && file.marriedWhere.source?.kind === "story") file.marriedWhere = { state: "not-asked", confirmed: false };
+    applyOne(file, fact, change, CHANGE_QUESTION);
   }
   file.changedFacts = ordered.map(([fact]) => fact);
+}
+
+/** The question id an answer from the fact record is kept under (the slot's source). */
+export const FACT_RECORD_QUESTION = "fact-record";
+
+/** One person's latest word on one fact, over everything older: a new answer, "not sure", or removed. */
+function applyOne(file: CaseFile, fact: SlotFact, change: { state: "removed" } | { state: "unsure" } | { state: "answered"; value: string | number | boolean | string[] }, question: string) {
+  const was = file[fact];
+  if (change.state === "removed") {
+    // A removed kind is never offered back as the story's or the classifier's proposal either.
+    const kind = fact === "claimKind" ? heldKindId(was) ?? file.claimKindProposal?.claimTypeId ?? null : null;
+    if (kind) file.claimKindRemoved = [...new Set([...(file.claimKindRemoved ?? []), kind])];
+    file[fact] = { state: "not-asked", confirmed: true, removed: true, changed: true, source: { kind: "answer", question } };
+  } else if (change.state === "unsure") {
+    file[fact] = { state: "unsure", confirmed: true, changed: true, source: { kind: "answer", question } };
+  } else {
+    const fresh = emptyCaseFile();
+    give(fresh, fact, change.value, question);
+    file[fact] = { ...fresh[fact], changed: true };
+  }
+  // Nothing older keeps the fact another way: its answers by question (the step page's dates), a
+  // day not known yet, a ticked suggestion's quote, the papers named, the place married from the story.
+  if (file.answers) for (const id of Object.keys(file.answers)) if (slotsOf(id).includes(fact)) delete file.answers[id];
+  if (file.unsureDates && DATED.has(fact)) file.unsureDates = file.unsureDates.filter((id) => !slotsOf(id).includes(fact));
+  if (fact === "claimKind") { delete file.claimKindQuote; delete file.claimKindPending; }
+  if (fact === "filed" && change.state === "removed") delete file.documents;
+  if (fact === "side") delete file.sideWords;
+  if (fact === "married" && !(file.married.state === "answered" && file.married.value === true) && file.marriedWhere.source?.kind === "story") file.marriedWhere = { state: "not-asked", confirmed: false };
+}
+
+/**
+ * THE FACT RECORD, APPLIED LAST (case core option A, 1 Nov; CASE_CORE_DESIGN.md §1, §11, §12).
+ * `caseFile.facts[fact]` is written only by the server (POST /api/cases/facts, factRecord.ts), which
+ * gives each save the next seq. The rule:
+ *   - once a fact has a record there, the record wins over every older copy of that fact -- the forms,
+ *     the guided answers, the review's answers, the saved position, the analysis copy, AND the change
+ *     record (`caseFile.changes`). The two records' seqs are never compared: the change record's seq is
+ *     set in the browser, the fact record's on the server (two seq records until G2 folds `changes` in);
+ *   - among fact records, the highest seq is applied last; a removal is a record too, so it wins;
+ *   - a fact with no record keeps today's order: the change record last, over the older copies.
+ * Only the case file's slots are read here (the record's other facts have no slot yet). Read directly
+ * from the section, not through factRecord.ts, which imports this module.
+ */
+function applyFactRecords(file: CaseFile, sections: Record<string, unknown>) {
+  const records: [SlotFact, Record<string, unknown>][] = [];
+  for (const [fact, raw] of Object.entries(object(object(sections[CASE_FILE_SECTION]).facts))) {
+    const entry = object(raw);
+    if (!isSlot(fact) || typeof entry.seq !== "number" || !Number.isInteger(entry.seq)) continue;
+    if (entry.state === "removed" || entry.state === "unsure" || (entry.state === "answered" && !blank(entry.value) && changeable(entry.value))) records.push([fact, entry]);
+  }
+  records.sort(([, a], [, b]) => (a.seq as number) - (b.seq as number));
+  for (const [fact, entry] of records) {
+    const value = entry.value as string | number | boolean | string[];
+    applyOne(file, fact, entry.state === "answered" ? { state: "answered", value: Array.isArray(value) ? strings(value) : value } : { state: entry.state as "removed" | "unsure" }, typeof entry.question === "string" && entry.question ? entry.question : FACT_RECORD_QUESTION);
+  }
+  if (records.length) file.changedFacts = [...new Set([...(file.changedFacts ?? []), ...records.map(([fact]) => fact)])];
 }
 
 /** The question id the overview's "Which kind of claim is this?" list answers (saved as position.claimKind). */
