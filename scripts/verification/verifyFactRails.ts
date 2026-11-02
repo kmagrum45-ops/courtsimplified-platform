@@ -24,7 +24,8 @@
  *
  * The coexistence rule (§11) is NOT here: it fails today, by design, in test:fact-coexistence.
  */
-import { CASE_FILE_SECTION, emptyCaseFile, give } from "../../src/lib/case-system/caseFile/caseFile";
+import { CASE_FILE_SECTION, caseFileOf, emptyCaseFile, give } from "../../src/lib/case-system/caseFile/caseFile";
+import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { FACT_IDS, applyFactWrites, factRecordsOf, readFactWrites, type FactWrite } from "../../src/lib/case-system/caseFile/factRecord";
 import { saveFactWrites } from "../../src/lib/case-system/caseFile/factSave";
 import { FIELD_ROWS, factOfField, fieldRow } from "../../src/lib/case-system/caseFile/fieldFacts";
@@ -138,6 +139,25 @@ async function main() {
   check("compare-and-set: the lost race is retried on the new row (two reads, two write attempts)", db.reads === 2 && db.writes === 2, `reads ${db.reads}, writes ${db.writes}`);
   check("compare-and-set: the retried write gets the seq after the other save's (5 -> 6), never a reused one", outcome.ok && outcome.saved[0]?.seq === 6 && facts.amount?.seq === 6 && facts.amount.value === 7000, JSON.stringify(outcome));
   check("compare-and-set: the other save's fact is kept", facts.otherParty?.state === "removed" && facts.otherParty.seq === 5);
+}
+
+// 6. Option A (1 Nov): caseFileOf applies the fact record last.
+{
+  const cp = (caseFile: Record<string, unknown>, form: Record<string, unknown> = { otherParty: "Old Name Ltd.", amountClaimed: "9000" }): Checkpoint =>
+    ({ version: 1, flowId: CASE_ID, courtPath: "small-claims", revision: REV, sections: { story: { text: "A moving company broke my table." }, "small-claims": { input: form }, [CASE_FILE_SECTION]: caseFile } });
+  const rec = (state: string, seq: number, value?: unknown) => ({ state, seq, at: "2026-11-01T15:00:00.000Z", source: "person", ...(value === undefined ? {} : { value }) });
+  const change = (state: string, seq: number, value?: unknown) => ({ state, seq, at: "2099-01-01T00:00:00.000Z", ...(value === undefined ? {} : { value }) });
+  const removedOverChange = caseFileOf(cp({ facts: { otherParty: rec("removed", 1) }, changes: { otherParty: change("answered", 99, "Later Change Ltd.") } }));
+  check("option A: a fact record wins over a later change-record entry for the same fact (seqs never compared)", removedOverChange.otherParty.removed === true && removedOverChange.otherParty.value === undefined, JSON.stringify(removedOverChange.otherParty));
+  const answeredOverChange = caseFileOf(cp({ facts: { amount: rec("answered", 1, 5000) }, changes: { amount: change("answered", 99, "7000") } }));
+  check("option A: a fact record's answer wins over a change-record answer and the form's copy", answeredOverChange.amount.value === 5000, JSON.stringify(answeredOverChange.amount));
+  const unsure = caseFileOf(cp({ facts: { amount: rec("unsure", 2) } }));
+  check("option A: an unsure record makes the fact unsure over the form's answer", unsure.amount.state === "unsure" && unsure.amount.value === undefined, JSON.stringify(unsure.amount));
+  const noRecord = caseFileOf(cp({ changes: { otherParty: change("answered", 3, "Changed Ltd.") } }));
+  const noRecordAtAll = caseFileOf(cp({}));
+  check("option A: no fact record -> today's order (the change record over the form's copy; else the form's copy)", noRecord.otherParty.value === "Changed Ltd." && noRecordAtAll.otherParty.value === "Old Name Ltd." && noRecordAtAll.amount.value === 9000);
+  const otherFactUntouched = caseFileOf(cp({ facts: { amount: rec("removed", 4) } }));
+  check("option A: a record for one fact leaves every other fact to today's order", otherFactUntouched.otherParty.value === "Old Name Ltd." && otherFactUntouched.amount.removed === true);
 }
 
 // 5. The one field-to-fact table.

@@ -17,7 +17,7 @@
  * table or column change, so no migration. It writes with the person's own token, so the database's
  * row-level security applies as well as the ownership check (as /api/cases/position does).
  *
- * G0: no screen calls this yet, and no reader reads `caseFile.facts` yet.
+ * No screen calls this yet (G2). caseFileOf applies what it writes last (caseFile.ts applyFactRecords, option A).
  */
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";

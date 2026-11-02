@@ -22,8 +22,8 @@
  * open tab if a fact write renewed it. The other half of that rule -- the browser's whole-checkpoint
  * save must keep the facts the server wrote -- is not true yet: test:fact-coexistence shows it fails.
  *
- * G0 builds the record and the server's order only. Nothing reads `caseFile.facts` yet (caseFileOf does
- * not; that is G1/G2), and no screen writes through the route yet.
+ * caseFileOf applies the record last (option A, 1 Nov: caseFile.ts applyFactRecords), over every older copy
+ * including the change record; no screen writes through the route yet (G2).
  *
  * Pure: no React, no network. States no law.
  */
