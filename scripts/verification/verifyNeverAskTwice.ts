@@ -27,7 +27,7 @@
  */
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { ASK_ONCE_SCAN, END_SURFACES, chatQuestionAnswered, chatReplyReader, factsAskedTwice, factsOfAsk, heldFacts, heldInRows, heldViolations, repeatViolations, withHeldFacts, type Asked } from "../../tests/browser/harness/askOnce";
+import { ASK_ONCE_SCAN, END_SURFACES, chatQuestionAnswered, chatReplyReader, diagnosticOf, withPageHeld, factsAskedTwice, factsOfAsk, heldFacts, heldInRows, heldViolations, repeatViolations, withHeldFacts, type Asked } from "../../tests/browser/harness/askOnce";
 import { KNOWN_REPEATS, knownRepeatFor, splitKnown, type KnownRepeat, type Violation } from "../../tests/browser/harness/knownRepeats";
 import { QUESTION_WORDS, factsOfWords, questionSentences } from "../../tests/browser/harness/chatQuestionFacts";
 import { DEPTH_QUESTIONS } from "../../src/lib/case-system/intake/depth/elementQuestionRegistry";
@@ -201,6 +201,34 @@ const ask = (surface: string, id: string, text = id): Asked => ({ kind: "ask", s
   const kindAsk = (surface: string, id: string, at: number): Asked => ({ kind: "ask", surface, id, screen: "/builder", text: "What kind of case is it?", at });
   check("chat hidden unanswered, then the review asks the kind: not a repeat", factsAskedTwice([kindAsk("chat", "issues", 1), kindAsk("review", "issues", 3)], false).length === 0);
   check("chat answered, then the review asks the kind: a repeat (the rule is unchanged)", factsAskedTwice([kindAsk("chat", "issues", 1), { kind: "answer", surface: "chat", id: "issues", screen: "/builder", text: "", at: 2 }, kindAsk("review", "issues", 3)], false).length === 1);
+}
+
+// Diagnostic fields on an ask (30 Oct): the address's case id, the step, and the page's own case file
+// state for the fact, read from the tab's intake copy. They only feed the records: the same events with
+// and without them give the same repeats and held violations.
+{
+  const tab = JSON.stringify({ version: 2, ownerId: null, caseId: null, serverRevision: null, checkpoint: { version: 1, flowId: "00000000-0000-4000-8000-0000000000d1", courtPath: "civil", revision: "00000000-0000-4000-8000-0000000000d2", sections: { civil: { input: { issues: ["contract"] } } } } });
+  const ask: Asked = { kind: "ask", surface: "chat", id: "issues", screen: "/builder", text: "What kind of case is it?", at: 5, address: "/builder?path=civil&intake=00000000-0000-4000-8000-0000000000d1", tab };
+  const read = withPageHeld(ask, "the first case by its address");
+  check("diagnostic: the tab copy is read into the page's own state, then dropped", read.pageHeld?.claimKind === "answered" && read.tab === undefined && read.step === "the first case by its address");
+  check("diagnostic: one line with the case id, the step and the page state", diagnosticOf(read) === "case=00000000 step=the first case by its address page=claimKind:answered", String(diagnosticOf(read)));
+  const plain: Asked[] = [{ kind: "ask", surface: "review", id: "issues", screen: "/builder", text: "x", at: 1 }, { kind: "answer", surface: "review", id: "issues", screen: "/builder", text: "", at: 2 }, { ...ask, tab: undefined, address: undefined }];
+  const withDiag: Asked[] = [plain[0], plain[1], read];
+  const strip = (items: { fact: string; surface: string; id: string; rule: string }[]) => JSON.stringify(items.map(({ fact, surface, id, rule }) => [fact, surface, id, rule]));
+  check("diagnostic: the fields never change what counts", strip(repeatViolations(factsAskedTwice(plain, false))) === strip(repeatViolations(factsAskedTwice(withDiag, false))) && repeatViolations(factsAskedTwice(withDiag, false)).length === 1);
+}
+
+// A typed "I don't know" in the Small Claims chat is unsure, like a skip (carry, 31 Oct): the review's one
+// more offer of that fact (owner, option 1) is not asking it twice; a second offer still is.
+{
+  const scan = ASK_ONCE_SCAN();
+  check("the recorder reads a typed \"I don't know\" in the Small Claims chat as unsure (caseFile.ts isUnsureAnswer)", scan.includes('surface === "sc-chat" && isUnsureAnswer(reply)') && scan.includes("const isUnsureAnswer = "));
+  const goalAsk = (surface: string, id: string, at: number): Asked => ({ kind: "ask", surface, id, screen: "/builder?step=guided", text: "What outcome are you asking the court to order?", at });
+  const unsureGiven: Asked = { kind: "answer", surface: "sc-chat", id: "sc-remedy-sought", screen: "/builder?step=guided", text: "unsure", at: 2 };
+  const once = [goalAsk("sc-chat", "sc-remedy-sought", 1), unsureGiven, goalAsk("review-entry", "goal", 3)];
+  check("unsure in the chat, then the review's one more offer: not a repeat", repeatViolations(factsAskedTwice(once, false)).length === 0, JSON.stringify(repeatViolations(factsAskedTwice(once, false))));
+  const twice = [...once, goalAsk("review", "sc-remedy-sought", 4)];
+  check("unsure in the chat, then offered twice more: a repeat (the rule is unchanged)", repeatViolations(factsAskedTwice(twice, false)).length === 1);
 }
 
 if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }

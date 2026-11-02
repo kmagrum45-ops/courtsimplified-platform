@@ -41,7 +41,6 @@ const check = (name: string, ok: boolean, detail = "") => {
 // ---- 1. Every place that states a fact shows its source -------------------
 type Reviewed = { file: string; text: string; kind: "generic" | "own-answer" | "quoted-in-text"; why: string };
 const REVIEWED: Reviewed[] = [
-  { file: "app/_components/IntakeReviewPanel.tsx", text: "{entry.fromStory && empty(entry.value) ? <button type=\"button\" data-testid=\"intake-entry-from-story\"", kind: "generic", why: "a one-click offer labelled (from your story), as the review's other story answers are; the person chooses it" },
   { file: "app/cases/_components/CaseFilePanel.tsx", text: ") : <span className=\"text-[#4f685f]\">(from your story)</span>}{\" \"}", kind: "generic", why: "the source marker itself, for a story line whose value is its whole quote (otherwise the quote is one click away)" },
   { file: "app/_components/IntakeRecovery.tsx", text: "Your story says &ldquo;{reading.quote}&rdquo;, which sounds like you are", kind: "quoted-in-text", why: "the step 2 cross-check: the story's own sentence, quoted, beside the person's own situation answer, asked about and never applied" },
   { file: "app/builder/page.tsx", text: "Start the questions again from your story first", kind: "generic", why: "an instruction, not a fact" },
@@ -54,7 +53,6 @@ const REVIEWED: Reviewed[] = [
   { file: "app/builder/_components/GuidedFormChat.tsx", text: "Reading what you told us...", kind: "generic", why: "a progress label" },
   { file: "app/builder/_components/EventCandidateSurface.tsx", text: "The events from your story could not be loaded", kind: "generic", why: "an error message" },
   { file: "app/builder/_components/EventCandidateSurface.tsx", text: "These are sentences from what you wrote", kind: "quoted-in-text", why: "each candidate is the person's sentence, shown verbatim" },
-  { file: "app/builder/_components/FamilyStatusTriage.tsx", text: "as you wrote", kind: "quoted-in-text", why: "marks the choice that matches the quote shown above it" },
   { file: "app/builder/_components/GuidedFormChat.tsx", text: "from what you told us` : field.question", kind: "quoted-in-text", why: "a heading over the story's own words, quoted below it" },
   { file: "app/builder/_components/GuidedFormChat.tsx", text: "What we already have from what you told us", kind: "own-answer", why: "lists the person's own answers" },
   { file: "app/builder/_components/GuidedSmallClaimsIntake.tsx", text: "what I understood from what you wrote", kind: "quoted-in-text", why: "each proposal card carries the person's words" },
@@ -76,10 +74,7 @@ const REVIEWED: Reviewed[] = [
   { file: "app/_components/CaseUnderstandingCard.tsx", text: "Here is what we understood", kind: "generic", why: "as above" },
   { file: "app/_components/CaseUnderstandingCard.tsx", text: "This is our reading of what you wrote", kind: "generic", why: "as above" },
   { file: "app/_components/IntakeReviewPanel.tsx", text: "questions started again from your story", kind: "generic", why: "an instruction" },
-  { file: "app/_components/IntakeReviewPanel.tsx", text: "Remaining initial questions", kind: "quoted-in-text", why: "story suggestions there are buttons carrying the story's words" },
-  { file: "app/_components/IntakeReviewPanel.tsx", text: "bank?.answerType === \"choice\"", kind: "quoted-in-text", why: "story suggestions there are buttons carrying the story's words" },
-  { file: "app/_components/IntakeReviewPanel.tsx", text: "[\"date\", \"amount\", \"short-text\"].includes(bank.answerType)", kind: "quoted-in-text", why: "story suggestions there are buttons carrying the story's words" },
-  { file: "app/_components/IntakeReviewPanel.tsx", text: "field.fromStory && !answered", kind: "quoted-in-text", why: "the civil and Family fields' story suggestion: a button carrying the story's own words, as the question bank's buttons do (#477 re-test)" },
+  { file: "app/_components/IntakeReviewPanel.tsx", text: "<legend>Initial questions</legend>", kind: "quoted-in-text", why: "story suggestions there are buttons carrying the story's words (the one list of initial questions, 31 Oct: it was headed \"Remaining initial questions\")" },
   { file: "app/_components/StoryChangedNotice.tsx", text: "Start the questions again from your story first", kind: "generic", why: "an instruction" },
   { file: "app/_components/StoryChangedNotice.tsx", text: "The answers given for the earlier version are set aside", kind: "generic", why: "an instruction" },
 ];

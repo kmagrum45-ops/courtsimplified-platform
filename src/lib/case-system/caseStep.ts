@@ -26,6 +26,7 @@
 
 import { readCasePosition, settledStage } from "./casePosition";
 import { readCaseRecord } from "./caseRecord";
+import { kindForAnalysis } from "./caseFile/caseFile";
 import { suggestedNoticeStep } from "./claim-types/noticeStep";
 import { readStoredPicture, stepFromPicture } from "./intake/caseReader";
 import { findStage, stagesForPathway, type StagePathway } from "./stage-map/stageMap";
@@ -48,7 +49,8 @@ export function stepStoryText(masterResult: unknown, courtPath: StagePathway | n
 export function noticeStepForCase(masterResult: unknown, courtPath: StagePathway | null): string | null {
   if (!courtPath) return null;
   const record = readCaseRecord(asRecord(masterResult), courtPath);
-  return suggestedNoticeStep({ claimTypeId: record.claimTypeId, story: record.story, courtPath });
+  // The kind the case file holds, else the one it proposes from the story: the notice step is a suggestion too.
+  return suggestedNoticeStep({ claimTypeId: kindForAnalysis(record.claimKind), story: record.story, courtPath });
 }
 
 /**

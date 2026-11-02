@@ -1,3 +1,4 @@
+import type { ResearchCaseContext } from "./caseFile/aiCaseContext";
 import type { FamilyCaseDocument } from "./types/family-case.ts";
 
 import {
@@ -41,6 +42,8 @@ import {
 } from "./familyAffidavitNarrativeEngine";
 
 export type FamilyMasterCaseInput = {
+  /** The case file's kind of case in words, for the AI research (caseFile/aiCaseContext.ts researchCaseContext). Checked by the route. */
+  caseContext?: ResearchCaseContext;
   caseStage?: string;
   role?: string;
   relationshipStatus?: string;

@@ -40,6 +40,7 @@ import { formKey, formsStageNote, leadFormsFirst } from "../../src/lib/content-l
 import { situationLine, situationOfCase, stageFromSituation } from "@/src/lib/case-system/situation/situation";
 import { FILE_OPEN_FAILED, openAfterCheck, saveFile } from "@/src/lib/case-workspace/fileFetch";
 import { WorkingButton } from "../_components/Working";
+import { UseSuggestion } from "../_components/UseSuggestion";
 import { openCaseFromAddress } from "@/src/lib/case-system/openCase";
 
 const supabase = createClient(
@@ -675,9 +676,9 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
       : undefined;
   }
 
+  /** The answer the person gave (saved, or chosen on this page). A suggestion is never an answer until they use it (owner, 31 Oct). */
   function answerFor(question: ApplicabilityQuestion): unknown {
-    const saved = savedAnswerFor(question);
-    return saved === undefined ? suggestionFor(question)?.value : saved;
+    return savedAnswerFor(question);
   }
 
   function updateApplicability(question: ApplicabilityQuestion, value: boolean | string) {
@@ -966,13 +967,14 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                     );
                   }
                   /*
-                   * A suggestion from the case is shown answered, waiting for
-                   * the person's one click (walkthrough MC, 2026-10-14: "Which
+                   * A suggestion from the case is OFFERED with the one control
+                   * (owner, 31 Oct: never shown answered), waiting for the person's
+                   * one click (walkthrough MC, 2026-10-14: "Which
                    * Family Law Rules motion document set are you preparing?"
                    * read as an open question with an answer list beside the
                    * step he had confirmed). It is still theirs to confirm
                    * (CLAUDE.md section 4): nothing is saved until "Save this
-                   * answer", and Change opens the full list.
+                   * the suggestion", and Change opens the full list.
                    */
                   const pending = suggestionFor(question);
                   const pendingChoice = pending
@@ -983,18 +985,15 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                     return (
                       <div key={question.field_path} data-testid="forms-suggested-from-case" className="block rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4">
                         <p className="font-semibold">{question.question}</p>
-                        <p className="mt-1 text-[#16302b]">{pendingChoice.label}</p>
                         <p className="mt-1 font-normal text-[#2f7d67]">From your case: {pending.reason} Not saved yet.</p>
                         <div className="mt-2 flex flex-wrap gap-2">
-                          <WorkingButton
-                            data-testid="forms-suggested-save"
+                          <UseSuggestion
+                            testId="forms-suggested-save"
+                            what={pendingChoice.label}
                             working={applicabilitySaving}
-                            workingLabel="Saving…"
-                            onClick={() => void saveApplicability({ [group]: { [field]: pending.value } }, { [question.field_path]: pending.reason })}
-                            className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white disabled:opacity-70"
-                          >
-                            Save this answer
-                          </WorkingButton>
+                            onUse={() => void saveApplicability({ [group]: { [field]: pending.value } }, { [question.field_path]: pending.reason })}
+                            className="rounded-xl bg-[#2f7d67] px-4 py-2 text-left text-sm font-semibold text-white disabled:opacity-70"
+                          />
                           <button type="button" onClick={() => setChangingKept((current) => ({ ...current, [question.field_path]: true }))} className="rounded-xl border border-[#d8e6df] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67]">
                             Change
                           </button>
@@ -1002,7 +1001,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                       </div>
                     );
                   }
-                  return <label key={question.field_path} className="block font-semibold">{question.question}{question.explanation ? <span className="mt-1 block font-normal text-[#4f685f]">{question.explanation}</span> : null}{suggestionFor(question) ? <span className="mt-1 block font-normal text-[#2f7d67]">From your case: {suggestionFor(question)!.reason} Change it if that is not right, then save.</span> : null}<select className="mt-2 block w-full rounded-xl border border-[#d8e6df] p-3" value={selectedValue === undefined ? "" : JSON.stringify(selectedValue)} onChange={(event) => { const choice = question.choices.find((item) => JSON.stringify(item.value) === event.target.value); if (choice) updateApplicability(question, choice.value); }}><option value="" disabled>Select an answer</option>{question.choices.map((choice) => <option key={`${typeof choice.value}:${choice.value}`} value={JSON.stringify(choice.value)}>{choice.label}</option>)}</select></label>;
+                  return <label key={question.field_path} className="block font-semibold">{question.question}{question.explanation ? <span className="mt-1 block font-normal text-[#4f685f]">{question.explanation}</span> : null}{suggestionFor(question) ? <span className="mt-1 block font-normal text-[#2f7d67]">From your case: {suggestionFor(question)!.reason} Choose your answer, then save.</span> : null}<select className="mt-2 block w-full rounded-xl border border-[#d8e6df] p-3" value={selectedValue === undefined ? "" : JSON.stringify(selectedValue)} onChange={(event) => { const choice = question.choices.find((item) => JSON.stringify(item.value) === event.target.value); if (choice) updateApplicability(question, choice.value); }}><option value="" disabled>Select an answer</option>{question.choices.map((choice) => <option key={`${typeof choice.value}:${choice.value}`} value={JSON.stringify(choice.value)}>{choice.label}</option>)}</select></label>;
                 })}
               </div>
             ) : null}

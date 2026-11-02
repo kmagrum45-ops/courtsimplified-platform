@@ -3,6 +3,7 @@ import { limitMessageOf } from "../../../src/lib/security/limitWords";
 import { authHeaders } from "../../cases/_components/CaseHomeContext";
 
 import { useState } from "react";
+import { UseSuggestion } from "../../_components/UseSuggestion";
 
 /**
  * "Check spelling and wording" — offers a corrected version of each field the
@@ -136,13 +137,12 @@ export default function TidyWordingReview({ fields }: { fields: TidyableField[] 
                   </div>
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  <button
-                    type="button"
-                    onClick={() => resolve(suggestion.key, true)}
+                  {/* The one control every suggestion is offered with (owner, 31 Oct). */}
+                  <UseSuggestion
+                    testId="tidy-wording-use"
+                    onUse={() => resolve(suggestion.key, true)}
                     className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
-                  >
-                    Use suggested
-                  </button>
+                  />
                   <button
                     type="button"
                     onClick={() => resolve(suggestion.key, false)}

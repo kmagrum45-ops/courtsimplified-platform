@@ -190,20 +190,21 @@ check(
   check("a firm answer shows as kept while it saves, never as an empty question (2026-10-13)", /const firmNow = suggestedAnswers\.find/.test(forms) && /"Saving to your case\."/.test(forms));
   // Walkthrough MC (2026-10-14): a suggestion from the case ("The step shown
   // for your case is asking to change a final order") sat above an answer list
-  // and read as an open question. A suggestion is shown answered, "Not saved
-  // yet", with one click to save it and Change to open the list -- and it is
-  // still saved only by that click (CLAUDE.md section 4), never by itself.
+  // and read as an open question. A suggestion is offered with the one control
+  // ("Use the suggestion", owner 31 Oct: never shown answered), "Not saved yet",
+  // with Change to open the list -- and it is still saved only by that click
+  // (CLAUDE.md section 4), never by itself.
   {
     const suggestedAt = forms.indexOf('data-testid="forms-suggested-from-case"');
     const openListAt = forms.indexOf('<option value="" disabled>Select an answer</option>');
     const branch = forms.slice(suggestedAt, openListAt);
     check(
-      "a suggested answer is shown answered, before any open list, with its reason, Save and Change",
-      suggestedAt > 0 && openListAt > suggestedAt && /From your case: \{pending\.reason\} Not saved yet\./.test(branch) && /Save this answer/.test(branch) && /setChangingKept\(/.test(branch),
+      "a suggested answer is offered before any open list, with its reason, the one control and Change",
+      suggestedAt > 0 && openListAt > suggestedAt && /From your case: \{pending\.reason\} Not saved yet\./.test(branch) && /<UseSuggestion/.test(branch) && /setChangingKept\(/.test(branch),
     );
     check(
       "a suggested answer is saved only by the person's click, never automatically",
-      /onClick=\{\(\) => void saveApplicability\(\{ \[group\]: \{ \[field\]: pending\.value \} \}/.test(branch) && !/useEffect/.test(branch),
+      /onUse=\{\(\) => void saveApplicability\(\{ \[group\]: \{ \[field\]: pending\.value \} \}/.test(branch) && !/useEffect/.test(branch),
     );
   }
 }
@@ -301,22 +302,23 @@ check("the form reopens with their story, not the labelled record", stored.facts
 check("the confirmed stage wins over the intake's", stored.caseStage === "responding");
 check("nothing entered, nothing filled", Object.keys(storedIntakeValues({})).length === 0);
 
-// 2026-10-16 live bug: a claim type the guided route already confirmed
-// never carried into the form route at all -- storedIntakeValues' own
-// allow-list simply never listed it, so a saved case with one showed "kind
-// of claim not clear yet" when reopened.
-const withClaimType = storedIntakeValues({
+// 2026-10-16 live bug: a claim type the guided route already confirmed never carried into the form
+// route ("kind of claim not clear yet" when reopened). Since 29 Oct the form reads the kind from the
+// case file, never a copy in the form's values (site owner: one place): the record gives the kind
+// the case file holds, and the form's starting values carry none of their own.
+const savedWithKind = {
   intakeData: {
     courtPath: "small-claims",
     facts: "A contractor took a $3,000 deposit and never did the work.",
-    extra: { confirmedClaimTypeId: "sc-claim-breach-of-contract-services" },
+    extra: { confirmedClaimTypeId: "sc-claim-breach-of-contract-services", claimTypeUserConfirmed: true },
   },
-});
+};
 check(
-  "the form reopens with the claim type the guided route already confirmed",
-  withClaimType.confirmedClaimTypeId === "sc-claim-breach-of-contract-services",
-  JSON.stringify(withClaimType.confirmedClaimTypeId),
+  "the record gives the claim type the case file holds (an older saved case's ticked kind)",
+  readCaseRecord(savedWithKind, "small-claims").claimTypeId === "sc-claim-breach-of-contract-services",
+  JSON.stringify(readCaseRecord(savedWithKind, "small-claims").claimKind),
 );
+check("the form's starting values keep no copy of the claim type", !("confirmedClaimTypeId" in storedIntakeValues(savedWithKind)));
 
 // ---- the pages read the record ------------------------------------------------
 const root = path.resolve(__dirname, "../..");

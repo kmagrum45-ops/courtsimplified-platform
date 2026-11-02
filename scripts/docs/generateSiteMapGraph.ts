@@ -27,6 +27,7 @@ const SHARED: [string, string][] = [
   ["src/lib/case-system/storyBasis.ts", "Which version of the story each answer was given for."],
   ["src/lib/case-system/sideChange.ts", "Setting aside the old side's answers when the side changes."],
   ["src/lib/case-system/caseFile/caseFile.ts", "The case file: one slot per fact, and nextQuestion, the one rule for asking."],
+  ["src/lib/case-system/caseFile/caseFileOfMaster.ts", "The case file of a saved case (its checkpoint and saved position), for readers that have only master_result."],
   ["src/lib/case-system/caseFile/factsOfQuestion.ts", "Which fact each question asks for."],
   ["src/lib/case-system/caseFile/storyLines.ts", "What the story says that no answer holds yet, for \"What we have so far\"."],
   ["src/lib/case-system/caseFile/storyFacts.ts", "Each fact the story gives, in plain words with its sentence: the other side, losses, injury, evidence, last payment."],

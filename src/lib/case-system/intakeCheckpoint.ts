@@ -142,7 +142,8 @@ export async function saveReviewTransition(db: Db, ownerId: string, caseId: stri
     if (!current()) return { reject: "intake-cancelled" };
     const saved = readCheckpoint(master.intakeCheckpoint, snapshot.courtPath, caseId);
     if (!saved || saved.revision !== snapshot.revision || inputRevision(saved) !== expectedInput) return { reject: "intake-conflict" };
-    try { return { ...master, workflowStatus: transitionReview(record(master.workflowStatus), saved, action, expectedInput, new Date().toISOString()) }; }
+    // The saved case too: Confirm needs only what the review asks, and the review reads the saved position (a kind of claim picked on the overview).
+    try { return { ...master, workflowStatus: transitionReview(record(master.workflowStatus), saved, action, expectedInput, new Date().toISOString(), master) }; }
     catch { return { reject: "intake-review-required" }; }
   }, 2, { requestTimeoutMs: CASE_REQUEST_TIMEOUT_MS }));
 }

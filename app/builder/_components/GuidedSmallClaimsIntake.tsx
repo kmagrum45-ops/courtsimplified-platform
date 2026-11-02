@@ -4,7 +4,8 @@ import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { isDateQuestionId } from "../../../src/lib/case-system/casePosition";
 import { intakeGuidanceHeaders, useIntakeReviewView, useIntakeState, useStory, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
 import { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
-import { inputRevision, reviewPhase } from "../../../src/lib/case-system/intakeReview";
+import { inputRevision, remainingEssentialQuestions, reviewPhase } from "../../../src/lib/case-system/intakeReview";
+import { NOTHING_LEFT_TO_ASK } from "../../../src/lib/case-system/copy/askCopy";
 import { markReviewNeeded } from "../../_components/reviewNeeded";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
@@ -37,9 +38,11 @@ import { startSignIn } from "../../_components/startSignIn";
 import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
 import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
 import { storyQuoteFor } from "@/src/lib/case-system/intake/claimKind";
-import { alreadyAsked, askedAndReplied, caseFileOf } from "@/src/lib/case-system/caseFile/caseFile";
+import { alreadyAsked, answerNow, askedAndReplied, caseFileOf, CASE_FILE_SECTION, withTurnedDown, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
+import { claimKindAiContext, classifyClaimTypeBody } from "@/src/lib/case-system/caseFile/aiCaseContext";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { WorkingButton, WorkingNote } from "@/app/_components/Working";
+import { UseSuggestion } from "@/app/_components/UseSuggestion";
 import StoryGuidance from "@/app/_components/StoryGuidance";
 import { STORY_LABEL } from "@/src/lib/case-system/copy/storyGuidance";
 
@@ -178,8 +181,26 @@ function shownRows(drafts: readonly ProposalDraft[]): ProposalDraft[] {
 }
 
 function confirmedSummary(drafts: readonly ProposalDraft[], from: string, responding = false): string {
-  const kept = drafts.filter((draft) => draft.keep && draft.answer.trim());
-  return [`Confirmed from ${from}:`, ...kept.map((draft) => `• ${cardLabel(draft.questionId, draft.questionText, { responding })}: ${draft.answer.trim()}`)].join("\n");
+  return summaryText(confirmedRows(drafts, responding), from, null);
+}
+
+/** The rows a "Confirmed from ..." message lists, kept with the message so it can be shown as the case holds them now. */
+type ConfirmedRow = { questionId: string; label: string; answer: string };
+function confirmedRows(drafts: readonly ProposalDraft[], responding = false): ConfirmedRow[] {
+  return drafts.filter((draft) => draft.keep && draft.answer.trim()).map((draft) => ({ questionId: draft.questionId, label: cardLabel(draft.questionId, draft.questionText, { responding }), answer: draft.answer.trim() }));
+}
+
+/**
+ * "Confirmed from my story:" and its rows, each with the answer the case holds NOW (rule 5, newest wins):
+ * the person's latest change of the row's fact (caseFile.ts answerNow) over the words confirmed then
+ * (founder's Chrome check of #536, 1 Nov: the screens that repeat an answer back kept the old one).
+ */
+function summaryText(rows: readonly ConfirmedRow[], from: string, file: CaseFile | null): string {
+  return [`Confirmed from ${from}:`, ...rows.map((row) => {
+    const now = answerNow(file, row.questionId, row.answer);
+    const words = now.removed ? "you removed this answer" : Array.isArray(now.value) ? now.value.join(", ") : String(now.value ?? row.answer);
+    return `• ${row.label}: ${words}${now.changed && !now.removed ? " (as you changed it)" : ""}`;
+  })].join("\n");
 }
 
 type ChatMessage = {
@@ -191,6 +212,9 @@ type ChatMessage = {
   questionId?: string;
   /** The opening story: shown from the one copy (useStory), never stored here a second time. */
   isStory?: boolean;
+  /** A "Confirmed from ..." message: its rows, shown as the case holds them now (summaryText). */
+  confirmed?: ConfirmedRow[];
+  confirmedFrom?: string;
 };
 
 /**
@@ -240,8 +264,8 @@ export type DepthClientQuestion = {
 export type GuidedIntakeCompletionResult = {
   facts: IntakeFacts;
   answeredIds: string[];
-  /** Retained across turns like evidenceGuidance -- null if no claim type ever matched. */
-  matchedClaimType: MatchedClaimType | null;
+  /** Retained across turns like evidenceGuidance -- null if no claim type ever matched. Kept in the checkpoint (guided.matchedClaimType), which the case file reads; the results page reads the kind only from the case file (29 Oct). */
+  matchedClaimType?: MatchedClaimType | null;
   /**
    * Per-element record state from the depth phase, when it ran.
    *
@@ -571,7 +595,9 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   const [started, setStarted] = useIntakeState("guided", "started", false);
   useEffect(() => { startedRef.current = started; }, [started]);
   const inputText = started ? answerDraft : story;
-  const shownMessages = useMemo(() => messages.map((message) => message.isStory ? { ...message, text: story } : message), [messages, story]);
+  // The saved case's own case file, for the messages that repeat an answer back (summaryText).
+  const echoFile = useMemo(() => (reviewView ? caseFileOf(reviewView.checkpoint, recovery?.getSavedMaster() ?? undefined) : null), [reviewView, recovery]);
+  const shownMessages = useMemo(() => messages.map((message) => message.isStory ? { ...message, text: story } : message.confirmed?.length ? { ...message, text: summaryText(message.confirmed, message.confirmedFrom ?? "my story", echoFile) } : message), [messages, story, echoFile]);
   // Retained across turns rather than replaced with each response -- only
   // updated when a turn actually carries a new evidenceGuidance, so it
   // doesn't disappear the moment the user answers a plain multiple-choice
@@ -590,13 +616,12 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   // into matchedClaimType, evidenceGuidance, or claimGuidance until the
   // user says yes via handleConfirmSuggestion below.
   const [pendingSuggestion, setPendingSuggestion] = useIntakeState<MatchedClaimType | null>("guided", "pendingSuggestion", null);
-  // The exact story text the pending suggestion was classified from --
-  // confirming/rejecting re-uses this same text rather than re-sending
-  // whatever the user has typed since.
-  const [suggestionStoryText, setSuggestionStoryText] = useIntakeState("guided", "suggestionStoryText", "");
+  // Confirming or turning it down sends the story the case file holds (aiCaseContext.ts, 30 Oct),
+  // no longer a copy kept here of the text it was classified from.
   // Ids already rejected in this suggestion cycle -- capped at one retry,
   // enforced server-side too (claimTypeSuggestionResolution.ts).
-  const [rejectedSuggestionIds, setRejectedSuggestionIds] = useIntakeState<string[]>("guided", "rejectedSuggestionIds", []);
+  // Kept in the checkpoint, read back through the case file (claimKindRemoved, aiCaseContext.ts).
+  const [, setRejectedSuggestionIds] = useIntakeState<string[]>("guided", "rejectedSuggestionIds", []);
   const [resolvingSuggestion, setResolvingSuggestion] = useState(false);
   const [noClaimTypeMatch, setNoClaimTypeMatch] = useIntakeState("guided", "noClaimTypeMatch", false);
 
@@ -687,7 +712,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           // The case file is the one gate (caseFile.ts): a question whose fact the person
           // gave anywhere (the review, the form, the step page), or said "not sure" to, is
           // sent as answered, so it is never asked here again.
-          answeredIds: [...new Set([...newAnsweredIds, ...(reviewView ? QUESTION_BANK.filter((question) => alreadyAsked(caseFileOf(reviewView.checkpoint), question.id)).map((question) => question.id) : []), ...repliedInThisChat()])],
+          answeredIds: [...new Set([...newAnsweredIds, ...(reviewView ? QUESTION_BANK.filter((question) => alreadyAsked(caseFileOf(reviewView.checkpoint, recovery?.getSavedMaster() ?? undefined), question.id)).map((question) => question.id) : []), ...repliedInThisChat()])],
           newStoryText,
           answeredQuestionId,
           confirmedAnswers,
@@ -720,9 +745,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       if (result.claimGuidance) {
         setClaimGuidance(result.claimGuidance);
       }
-      if (result.suggestedClaimType && newStoryText) {
+      // Never a kind the person turned down ("Not quite") or removed: the case file keeps which (rule 6, 31 Oct).
+      const turnedDownKinds = caseFileOf(recovery?.getReview().checkpoint ?? null, recovery?.getSavedMaster() ?? undefined).claimKindRemoved ?? [];
+      if (result.suggestedClaimType && newStoryText && !turnedDownKinds.includes(result.suggestedClaimType.claimTypeId)) {
         setPendingSuggestion(result.suggestedClaimType);
-        setSuggestionStoryText(newStoryText);
         setRejectedSuggestionIds([]);
         setNoClaimTypeMatch(false);
       }
@@ -767,19 +793,20 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       // question is asked. Nothing is applied until the user confirms; what
       // they untick is simply asked as normal.
       if (result.storyProposals && result.storyProposals.length > 0) {
-        setProposalDrafts(result.storyProposals.map((proposal) => ({ ...proposal, keep: true, original: proposal.answer })));
+        // Offered, never pre-ticked (owner, 31 Oct): a row is kept only when the person uses it.
+        setProposalDrafts(result.storyProposals.map((proposal) => ({ ...proposal, keep: false, original: proposal.answer })));
         setMessages((current) => [
           ...current,
           {
             from: "assistant",
             text: answeredQuestionId
               ? "You've already told me some of what I was going to ask next. Check these the same " +
-                "way: fix anything that's off, and untick anything that's wrong."
+                "way: use each one that is right; nothing is kept until you use it."
               : confirmedAnswers
               ? "Your answers opened a few more questions that your story already answers. Check " +
                 "these the same way."
-              : "Here's what I understood from what you wrote. Check each one: fix anything that's " +
-                "off, and untick anything that's wrong. I'll only ask about what's left.",
+              : "Here's what I understood from what you wrote. Use each one that is right; nothing is " +
+                "kept until you use it. I'll only ask about what's left.",
           },
         ]);
         setCurrentQuestion(null);
@@ -859,6 +886,18 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     try {
       await suggestionRequest.current.run(async (signal) => {
         await beforeIntakeAI(signal);
+      // The case context from the case file (aiCaseContext.ts, rule 8): the story, the side and the kinds
+      // turned down as the case file holds them, never this screen's copies; the card answered is the person's click.
+      const requestBody = classifyClaimTypeBody(
+        claimKindAiContext(caseFileOf(recovery?.getReview().checkpoint ?? reviewView?.checkpoint ?? null, recovery?.getSavedMaster() ?? undefined)),
+        action,
+        pendingSuggestion.claimTypeId,
+      );
+      if (!requestBody) {
+        setPendingSuggestion(null);
+        setError("Your story is needed before this suggestion can be checked. Add it above, then try again.");
+        return;
+      }
       const {
         data: { session },
       } = await supabase.auth.getSession();
@@ -870,13 +909,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           "Content-Type": "application/json",
           ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
         },
-        body: JSON.stringify({
-          storyText: suggestionStoryText,
-          facts,
-          action,
-          claimTypeId: pendingSuggestion.claimTypeId,
-          priorRejectedIds: rejectedSuggestionIds,
-        }),
+        body: JSON.stringify(requestBody),
       });
 
       const json = await response.json();
@@ -893,6 +926,9 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         | { outcome: "revised"; suggestedClaimType: MatchedClaimType }
         | { outcome: "no-match" };
 
+      // "Not quite": kept by the case file, so the kind is never offered again on this case, after a
+      // reload or "Start the questions again" too (rule 6, 31 Oct; caseFile.ts claimKindRemoved).
+      if (action === "reject" && recovery) recovery.put(CASE_FILE_SECTION, "turnedDown", withTurnedDown(recovery.getReview().checkpoint.sections[CASE_FILE_SECTION], "claimKind", pendingSuggestion.claimTypeId), true);
       if (result.outcome === "confirmed") {
         // This path only runs after the person clicked "that's right" on the
         // suggestion card -- the one case where userConfirmed is actually true.
@@ -1088,7 +1124,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       // newspapers). Confirming happens in handleConfirmDepthProposals.
       if (result.proposals && result.proposals.length > 0) {
         setProposalMode("depth");
-        setProposalDrafts(result.proposals.map((proposal) => ({ ...proposal, keep: true, original: proposal.answer })));
+        setProposalDrafts(result.proposals.map((proposal) => ({ ...proposal, keep: false, original: proposal.answer })));
         setMessages((current) => [
           ...current,
           {
@@ -1285,6 +1321,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           confirmed.length > 0
             ? confirmedSummary(shownRows(drafts), "what I've told you", respondingFromAnswers([...earlierAnswers, ...drafts], facts))
             : "None of those were right.",
+        ...(confirmed.length > 0 ? { confirmed: confirmedRows(shownRows(drafts), respondingFromAnswers([...earlierAnswers, ...drafts], facts)), confirmedFrom: "what I've told you" } : {}),
       },
     ]);
     const confirmedIds = new Set(confirmed.map((item) => item.questionId));
@@ -1374,6 +1411,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           confirmed.length > 0
             ? confirmedSummary(shownRows(drafts), "my story", respondingFromAnswers([...earlierAnswers, ...drafts], facts))
             : "None of those were right.",
+        ...(confirmed.length > 0 ? { confirmed: confirmedRows(shownRows(drafts), respondingFromAnswers([...earlierAnswers, ...drafts], facts)), confirmedFrom: "my story" } : {}),
       },
     ]);
     const openingStory = story;
@@ -1423,6 +1461,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           </div>
         ) : !started && showSavedStory && story.trim() ? (
           <div data-testid="guided-saved-story" className="text-sm">
+            {/* Confirmed, and the case file holds every question the review would ask (the same gate,
+                remainingEssentialQuestions -> alreadyAsked): said in plain words above the story; the story can
+                still be sent or edited (owner's Chrome check, 31 Oct, item 5). */}
+            {intakeConfirmed && reviewView && remainingEssentialQuestions(reviewView.checkpoint, false, recovery?.getSavedMaster() ?? undefined).length === 0 ? <p data-testid="guided-nothing-left" className="mb-3 text-[#16302b]">{NOTHING_LEFT_TO_ASK} You can change any answer in &ldquo;Review or correct initial information&rdquo;.</p> : null}
             <p className="font-semibold text-[#16302b]">Your story</p>
             <p className="mt-1 whitespace-pre-wrap text-[#2b4640]">{story}</p>
             <div className="mt-3 flex flex-wrap gap-2">
@@ -1474,7 +1516,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             </span>
           </p>
           <p className="mt-1 text-xs text-[#5a736a]">
-            Suggested by AI from your own words. Nothing is saved until you confirm.
+            Suggested by AI from your own words. Nothing is saved unless you use it.
           </p>
           <div className="mt-3 space-y-3">
             {proposalDrafts.map((draft, index) => (sameDayAs(proposalDrafts)[index] >= 0 ? null : (
@@ -1489,7 +1531,16 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
                   />
                   <span className="font-semibold">{cardLabel(draft.questionId, draft.questionText, { responding: respondingFromAnswers([...earlierAnswers, ...proposalDrafts], facts) })}</span>
                 </label>
-                {draft.choices && draft.choices.length > 0 ? (
+                {!draft.keep ? (
+                  // Offered, not ticked and not typed in: the one control uses it (owner, 31 Oct).
+                  <UseSuggestion
+                    testId="story-proposal-use"
+                    what={draft.answer}
+                    disabled={loading}
+                    onUse={() => updateProposalDraft(index, { keep: true })}
+                    className="mt-2 rounded-lg border border-[#2f7d67] bg-white px-3 py-2 text-left font-semibold text-[#2f7d67] disabled:opacity-50"
+                  />
+                ) : draft.choices && draft.choices.length > 0 ? (
                   <select
                     value={draft.answer}
                     disabled={loading || !draft.keep}
@@ -1533,7 +1584,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             onClick={handleConfirmProposals}
             className="mt-4 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white disabled:opacity-50"
           >
-            Looks right, continue
+            Continue
           </WorkingButton>
         </div>
       ) : null}
@@ -1565,14 +1616,14 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           </p>
           <WorkingNote working={resolvingSuggestion}>Saving your answer about the kind of claim…</WorkingNote>
           <div className="mt-3 flex flex-wrap gap-2">
-            <button
-              type="button"
+            {/* The one control every suggestion is offered with (owner, 31 Oct). */}
+            <UseSuggestion
+              testId="claim-type-use-suggestion"
+              what={pendingSuggestion.claimTypeName}
               disabled={resolvingSuggestion}
-              onClick={() => void resolveSuggestion("confirm")}
+              onUse={() => void resolveSuggestion("confirm")}
               className="rounded-full bg-[#2f7d67] px-4 py-2 text-xs font-bold text-white disabled:opacity-60"
-            >
-              Yes, that&apos;s right
-            </button>
+            />
             <button
               type="button"
               disabled={resolvingSuggestion}

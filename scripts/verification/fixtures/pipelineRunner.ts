@@ -187,7 +187,8 @@ export async function runStoryThroughPipeline(input: PipelineStoryInput, apiKey:
 
   const mappedInput = halted
     ? null
-    : mapGuidedIntakeToSmallClaimsInput(completionResult, input.location, input.story);
+    // The kind the site passes when the person gave none of their own: the guided route's match (caseFile.ts claimKindOf).
+    : mapGuidedIntakeToSmallClaimsInput(completionResult, input.location, input.story, completionResult.matchedClaimType?.claimTypeId ?? null);
 
   const analysisOutput = mappedInput
     ? await analyzeSmallClaimsWithBrain(mappedInput, { allowExternalCognition: true })

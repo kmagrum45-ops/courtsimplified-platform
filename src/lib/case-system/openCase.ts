@@ -101,7 +101,7 @@ export function addressWithoutACase(choice: ReturnType<typeof withoutACase>): st
 /**
  * An address that names a case or intake but no court (30 Oct, "never guess"):
  * the builder used to run it as Family. The court comes from that case's own
- * saved row (`savedCourt`, its court_path, read by the caller for the signed-in
+ * saved row (`savedCourt`, its court read through the case file, caseFileOfMaster.ts courtOfSavedRow, by the caller for the signed-in
  * owner); the same address with that court added, the same id. With no saved
  * court (no row, a guest, an unknown value): the chooser, never a default.
  */

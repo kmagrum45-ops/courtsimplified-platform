@@ -271,8 +271,8 @@ async function smallClaims(page: Page, story: Story, viaReview: boolean): Promis
     // The questions one at a time (the guided route), answered as the person would.
     await smallClaimsGuided(page, story);
     // The review then offers nothing it has not been told, or the amount the story claims.
-    const use = page.locator('[data-question="sc-amount-claimed"]').getByRole("button", { name: /^Use “.*” \(from your story\)$/ });
-    return (await use.count()) ? (/“(.*)”/.exec((await use.first().innerText()) ?? "")?.[1] ?? null) : null;
+    const use = page.locator('[data-question="sc-amount-claimed"]').getByRole("button", { name: /^Use the suggestion: .*$/ });
+    return (await use.count()) ? (/^Use the suggestion: (.*)$/.exec((await use.first().innerText()) ?? "")?.[1] ?? null) : null;
   }
   return answerSmallClaimsReview(page, story);
 }
@@ -288,8 +288,8 @@ async function answerSmallClaimsReview(page: Page, story: Story): Promise<string
   if (await kind.count()) await kind.click();
   const filedQuestion = story.side === "defendant" ? "sc-defendant-defence-filed" : "sc-claim-filed";
   if (await q(filedQuestion).count()) await q(filedQuestion).getByRole("button", { name: "No", exact: true }).click();
-  const use = q("sc-amount-claimed").getByRole("button", { name: /^Use “.*” \(from your story\)$/ });
-  const offered = (await use.count()) ? (/“(.*)”/.exec((await use.first().innerText()) ?? "")?.[1] ?? null) : null;
+  const use = q("sc-amount-claimed").getByRole("button", { name: /^Use the suggestion: .*$/ });
+  const offered = (await use.count()) ? (/^Use the suggestion: (.*)$/.exec((await use.first().innerText()) ?? "")?.[1] ?? null) : null;
   if (offered) await use.first().click();
   await reviewDates(page, story.id);
   return offered;
@@ -335,7 +335,7 @@ async function smallClaimsGuided(page: Page, story: Story): Promise<number> {
     const answer = /add the year/i.test(text) ? "October 6, 2026"
       : asksForDate(text) ? "October 6"
       : /bringing this claim|responding to a claim/i.test(text) ? (story.side === "defendant" ? "Responding to a claim (defendant)" : "Bringing the claim (plaintiff)")
-      : /kind of dispute/i.test(text) ? "A contract or agreement dispute"
+      : /kind of dispute/i.test(text) ? (story.dispute ?? "A contract or agreement dispute")
       : /filed|served/i.test(text) ? "No"
       : "I don't know";
     const before = await page.locator("[data-testid=guided-message]").count();
@@ -467,6 +467,34 @@ function checkClaimKind(run: string, where: string, text: string, story: Story) 
   }
 }
 
+/**
+ * Claim type, one value (site owner, 29 Oct): when the page shows a kind of claim the case file holds
+ * (the overview's line, data-claim-kind-held="yes"), every other place on the page that shows or asks
+ * it -- the Form 7A section, "Check my case file", "What we have so far", the overview's own chooser --
+ * shows the same words and none asks it. Read from the page itself, after the real save path.
+ * Checked without a browser by scripts/verification/verifyClaimKindOneValue.ts.
+ */
+async function checkOneClaimKind(run: string, where: string, page: Page, story: Story, route: Route) {
+  const kind = page.locator('[data-testid="claim-kind"][data-claim-kind-held="yes"]').first();
+  const held = (await kind.count()) > 0;
+  const words = held ? (await kind.innerText()).split("\n")[0].trim() : "";
+  // The person's own answer to "What kind of dispute is this?" on the guided route is the kind shown.
+  if (story.court === "small-claims" && story.dispute && route === "questions" && where === "results") {
+    note(run, where, "the kind of dispute the person gave is the kind shown", held && words === story.dispute, words || "(no kind held)");
+  }
+  if (!held) return;
+  note(run, where, "a kind of claim held is not asked again on this page", (await page.getByTestId("claim-kind-chooser").count()) === 0);
+  const form7A = page.getByTestId("statement-of-claim-surface");
+  if (await form7A.count()) {
+    const shown = await form7A.innerText();
+    note(run, where, "the Form 7A section shows the same kind of claim", shown.includes(words) && !/has not been confirmed/i.test(shown), shown.slice(0, 240));
+  }
+  const body = await page.locator("body").innerText();
+  note(run, where, "\"Check my case file\" never says the kind of claim is not confirmed beside it", !/haven't confirmed what kind of claim/i.test(body));
+  const line = page.locator('[data-testid="case-file-line"][data-fact="claimKind"]');
+  if (await line.count()) note(run, where, "\"What we have so far\" shows the same kind of claim", (await line.first().innerText()).includes(words), await line.first().innerText());
+}
+
 for (const story of STORIES) {
   for (const route of story.routes ?? (["questions", "review"] as Route[])) {
     test(`${story.id} (${route})`, async ({ page }) => {
@@ -514,6 +542,7 @@ for (const story of STORIES) {
       const results = await page.locator("body").innerText();
       checkText(run, "results", results); await checkToggles(run, "results", page);
       checkClaimKind(run, "results", results, story);
+      await checkOneClaimKind(run, "results", page, story, route);
       if (settles(story)) {
         note(run, "results", "a stage the answers settle is not asked again", !results.includes("Which of these fits your case best?"));
       }
@@ -551,6 +580,7 @@ for (const story of STORIES) {
         // The header's own side line, for either side (only the responding side had one).
         note(run, "case page", "names the person's side", SIDE_LINE[story.side].test(casePage));
         checkClaimKind(run, "case page", casePage, story);
+        await checkOneClaimKind(run, "case page", page, story, route);
         if (settles(story)) note(run, "case page", "a stage the answers settle is not asked again", !casePage.includes("Which of these fits your case best?"));
       } else note(run, "case page", "the case was saved", false);
 
@@ -957,7 +987,7 @@ test("retest-477 case 19: after changing side, the old side's amount is not carr
   await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
   await smallClaims(page, story, true);
   const amount = page.locator('[data-question="sc-amount-claimed"]');
-  if (!(await amount.getByRole("button", { name: /from your story/ }).count())) {
+  if (!(await amount.getByRole("button", { name: /^Use the suggestion/ }).count())) {
     // No amount offered: the person types the total they want back.
     await amount.getByRole("textbox").fill("$1,650");
     await amount.getByRole("textbox").press("Enter");
@@ -1073,8 +1103,15 @@ test("retest-477 repeat: the amount the story wants is offered for one click -- 
   await autoAnswerSituation(page, STARTING_NOTHING_FILED);
   const account = await fakeAccount(page);
   await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
-  await smallClaims(page, story, true);
-  await expect(page.locator('[data-question="sc-amount-claimed"]').getByRole("button", { name: "Use “$1,650” (from your story)" })).toBeVisible();
+  // The review helper reads the offer and uses it with one click (answerSmallClaimsReview). Once used it is the
+  // person's answer, and a used suggestion is not offered again (founder's Chrome check of #536, 1 Nov, item 8),
+  // so the offer is checked as read before the click, then the answer it gave.
+  const offered = await smallClaims(page, story, true);
+  expect(offered, "the story's amount was offered for one click").toBe("$1,650");
+  const amount = page.locator('[data-question="sc-amount-claimed"]');
+  await expect(amount, "one click answered it").toHaveAttribute("data-answered", "true");
+  await expect(amount.getByTestId("intake-question-answered"), "the answer is the amount offered").toContainText("$1,650");
+  await expect(amount.getByRole("button", { name: /^Use the suggestion/ }), "a used suggestion is not offered again").toHaveCount(0);
 });
 test("retest-477 repeat: the amount the story claims is offered for one click -- civil", async ({ page }) => {
   test.setTimeout(240_000);
@@ -1244,13 +1281,17 @@ test("retest Charter: the review fits the claim, the story answers in one click,
   expect(review, "a plaintiff is not asked when and how they were served").not.toContain("When and how you were served");
   for (const label of ["Human rights grounds", "Discrimination facts", "Accommodation requests", "Institutional facts", "Privacy records facts", "Government actor"]) expect(review, `no raw label "${label}"`).not.toContain(label);
   expect(rawKeysIn(review), "no raw code in the review").toEqual([]);
-  // The kind of claim, suggested from the story's own words, ticked for the person to confirm.
+  // The kind of claim, suggested from the story's own words, offered for the person to confirm in one click.
+  // Never shown ticked before they tick it (owner's Chrome check, 31 Oct: a pre-ticked suggestion read as an
+  // answer, so the first click unticked it).
   const issues = panel.locator('[data-testid=intake-initial-question][data-question="issues"]');
   if (await issues.count()) {
-    await expect(issues.locator('input[data-testid=intake-field-pick][value="charter"]')).toBeChecked();
-    await expect(issues.locator('input[data-testid=intake-field-pick][value="police-conduct"]')).toBeChecked();
+    await expect(issues.locator('input[data-testid=intake-field-pick][value="charter"]')).not.toBeChecked();
+    await expect(issues.getByTestId("intake-field-use-suggestion")).toContainText("Charter");
+    await expect(issues.getByTestId("intake-field-use-suggestion")).toContainText("Police");
     await expect(issues.getByTestId("intake-field-pick-quote")).toContainText("Charter");
-    await issues.getByTestId("intake-field-save").click();
+    await issues.getByTestId("intake-field-use-suggestion").click();
+    await expect(issues).toHaveAttribute("data-answered", "true");
   }
   // The amount and what they want, one click each from the story.
   for (const [question, words] of [["amountClaimed", "$75,000"], ["legalRemedy", "violating my Charter rights"]] as const) {
@@ -1831,7 +1872,7 @@ for (const [court, id, question, pick, value] of [
 }
 
 // Owner, 28 Oct: a card that does slow work says so, and a second press does nothing. The story's
-// next turn is held 6 s, as at the live site's speed: after "Looks right, continue" the card says it
+// next turn is held 6 s, as at the live site's speed: after "Continue" the card says it
 // is working within a second, the button says so too, a second press sends no second request, and
 // the card moves on once the turn is back.
 test("28oct working states: the story-suggestions card says it is working, and a second press sends nothing -- small-claims (m02-landscaper)", async ({ page }) => {

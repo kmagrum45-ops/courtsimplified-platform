@@ -34,11 +34,13 @@ import {
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { sourceLinkLabel } from "../../../src/lib/content-library/sourceLinkLabel";
 import { userStory } from "@/src/lib/case-system/userStory";
-import { claimKindShown, kindsOfClaim, type ClaimKindShown } from "@/src/lib/case-system/intake/claimKind";
+import { kindsOfClaim } from "@/src/lib/case-system/intake/claimKind";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { savePositionQueued } from "./positionSave";
-import type { Slot } from "@/src/lib/case-system/caseFile/caseFile";
+import { changedWords, claimKindAnswer, claimKindLine, claimKindOf, CLAIM_KIND_QUESTION, type CaseFile, type ClaimKindHeld } from "@/src/lib/case-system/caseFile/caseFile";
+import { inWords } from "@/src/lib/case-system/copy/rawKeys";
 import { WorkingButton } from "@/app/_components/Working";
+import { UseSuggestion } from "@/app/_components/UseSuggestion";
 
 type Props = {
   analysis: AnalysisResult;
@@ -51,10 +53,17 @@ type Props = {
   confirmedStage?: string | null;
   /** The saved case, so a kind of claim the person chooses here is kept with it. */
   caseId?: string | null;
-  /** The kind of claim the person chose themselves (position.claimKind), or "not-sure". */
-  chosenClaimKind?: string | null;
-  /** The case file's kind-of-claim slot (caseFile.ts): their answer to "What kind of dispute is this?", or "not sure". */
-  heldKind?: Slot | null;
+  /**
+   * The kind of claim, from the case file (caseFile.ts claimKindOf): the person's answer with its
+   * source, or a proposal from the story, or nothing (then asked). The one value every screen shows
+   * (site owner, 29 Oct).
+   */
+  claimKind?: ClaimKindHeld | null;
+  /**
+   * The case file, for the facts this card still shows from the analysis copy (amount, other party,
+   * what they want): a change made with "Change" is shown instead, a removed one not at all (rule 6, 31 Oct).
+   */
+  caseFile?: CaseFile | null;
   /** Where the case is, in words: the step the person picked, by its own title (caseStep.ts caseStageWords). */
   stageWords?: string | null;
   /** The side in the person's own start answers ("I started this case (applicant)"), for a case already going. */
@@ -112,8 +121,10 @@ function SourcedList({ items }: { items: SourcedListItem[] }) {
 
 const GENERIC_CONFIRM_QUESTION = "What important fact should be confirmed next?";
 
-export default function IntelligenceOverviewPanel({ analysis, intake, confirmedStage = null, caseId = null, chosenClaimKind = null, heldKind = null, stageWords = null, roleWords = null }: Props) {
-  const [chosenKind, setChosenKind] = useState<string | null>(chosenClaimKind);
+export default function IntelligenceOverviewPanel({ analysis, intake, confirmedStage = null, caseId = null, claimKind = null, caseFile = null, stageWords = null, roleWords = null }: Props) {
+  // A kind picked from the list here, shown at once: it is written to the case file (the saved position's kind of claim,
+  // read first by caseFileOf), which the page reads the next time it loads the case.
+  const [pickedHere, setPickedHere] = useState<string | null>(null);
   const caseStage = (confirmedStage || analysis.caseStage) as typeof analysis.caseStage;
   const role = textField(intake, "yourRole");
   // Only selections that record an actual filing. The Small Claims intake
@@ -125,9 +136,13 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   const hasClaimAndService = analysis.courtPath === "small-claims" && documents.includes("plaintiffs-claim") && documents.includes("affidavit-service");
   // The user's own story, not the labelled record the analysis reads.
   const facts = userStory(intake);
-  const amount = textField(intake, "amountClaimed");
-  const outcome = intake?.goal.trim() || textField(intake, "legalRemedy");
-  const parties = [intake?.yourName.trim(), intake?.otherParty.trim()].filter(Boolean).join(" and ");
+  // A fact changed or removed with "Change" is the case file's, never this copy's older value (rule 6, 31 Oct).
+  const changedAmount = changedWords(caseFile, "amount");
+  const changedWants = changedWords(caseFile, "wants");
+  const changedOther = changedWords(caseFile, "otherParty");
+  const amount = changedAmount !== undefined ? changedAmount ?? "" : textField(intake, "amountClaimed");
+  const outcome = changedWants !== undefined ? changedWants ?? "" : intake?.goal.trim() || textField(intake, "legalRemedy");
+  const parties = [intake?.yourName.trim(), changedOther !== undefined ? changedOther ?? "" : intake?.otherParty.trim()].filter(Boolean).join(" and ");
   const rawIssueSignals = Array.from(new Set([...(analysis.detectedIssues || []), ...(analysis.legalIssues || []), ...(analysis.detectedClaimTypes || []), ...listField(intake, "issueLabels")].filter(Boolean)));
   // "unknown" is the engines' unclassified domain, not an issue. Dropping it
   // here keeps it out of the list; when it was the only signal the card falls
@@ -146,34 +161,21 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // resemble one of the 19 CLAIM_TYPES entries yet, still fall back to the
   // generic AI-derived paths below -- claimTypeContent is null for those,
   // never a fabricated stand-in.
-  const extraRecord = (intake?.extra || {}) as Record<string, unknown>;
-  const confirmedClaimTypeId: string | null | undefined =
-    "confirmedClaimTypeId" in extraRecord
-      ? typeof extraRecord.confirmedClaimTypeId === "string"
-        ? extraRecord.confirmedClaimTypeId
-        : null
-      : undefined;
-  // 2026-10-16 live bug: this card said "Kind of claim you confirmed" for
-  // EVERY matched claim type, including an exact-phrase story match the
-  // person is never shown or asked about before this page. True only when
-  // the person actually clicked "that's right" on the suggestion card (see
-  // GuidedSmallClaimsIntake.tsx / app/builder/page.tsx's claimTypeUserConfirmed).
-  const claimTypeUserConfirmed = extraRecord.claimTypeUserConfirmed === true;
-  // One rule for the kind of claim on every screen (claimKind.ts, step 2b): a kind of
-  // claim with its source (the story's words, or the person's own choice), or "not sure"
-  // and asked. Its content below follows the same kind, never a separate match.
-  const kind: ClaimKindShown | null =
-    analysis.courtPath === "small-claims"
-      ? claimKindShown({
-          story: facts,
-          claimTypes: CLAIM_TYPES,
-          chosen: chosenKind,
-          matchedId: confirmedClaimTypeId,
-          confirmed: claimTypeUserConfirmed,
-          quote: typeof extraRecord.claimTypeQuote === "string" ? extraRecord.claimTypeQuote : null,
-        })
-      : null;
-  const kindId = kind?.status === "fits" ? kind.claimTypeId : null;
+  // The kind of claim, from the case file: the person's answer with its source, else a kind the
+  // story shows (labelled "this matches"), else asked (site owner, 29 Oct: the overview, "Check my
+  // case file", the review and the Form 7A section must read the same value). A separate
+  // "confirmed" flag never hides the person's own answer. Its content below follows the same kind.
+  const pickedName = pickedHere && pickedHere !== "not-sure" ? CLAIM_TYPES.find((claimType) => claimType.id === pickedHere)?.name ?? null : null;
+  // Civil and Family: the kind the case file holds (the issues picked, or the person's change of them), in
+  // the words every screen shows; never proposed here (founder's Chrome check of #536, 1 Nov: the snapshot
+  // had no kind-of-dispute row in civil and Family while Small Claims had one).
+  const areaKind = analysis.courtPath !== "small-claims" && caseFile ? claimKindLine(claimKindOf(caseFile, inWords)) : null;
+  const kind = analysis.courtPath !== "small-claims" ? (areaKind?.held ? areaKind : null)
+    : pickedName ? { label: "Kind of claim you chose", words: pickedName, claimTypeId: pickedHere, quote: null, held: true }
+    : pickedHere === "not-sure" ? null
+    : claimKind ? claimKindLine(claimKind) : null;
+  const askKind = analysis.courtPath === "small-claims" && !kind;
+  const kindId = kind?.claimTypeId ?? null;
   const claimTypeContent = kindId && facts ? buildClaimTypeOverviewContent(facts, undefined, kindId) : null;
   const hasDefamationSignal = issueSignals.some((item) => /defamation|reputation/i.test(item));
   const hasAdoptionSignal = issueSignals.some((item) => /adoption/i.test(item));
@@ -343,7 +345,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // as entered -- nothing is corrected or restated -- and the story sits
   // under its own heading.
   const timeline = intake?.timeline?.trim() || "";
-  const kindLabel = kind?.status === "fits" ? (kind.source === "person" ? (chosenKind ? "Kind of claim you chose" : "Kind of claim you confirmed") : kind.confirmed ? "Kind of claim you confirmed" : "Kind of claim this matches") : "";
+
   const snapshotRows: Array<[string, string]> = [
     ["Court", analysis.courtPath === "small-claims" ? "Small Claims Court" : analysis.courtPath === "family" ? "Family court" : "Superior Court of Justice"],
     ...(parties ? ([["Parties recorded", parties]] as Array<[string, string]>) : []),
@@ -365,30 +367,21 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
               <dt className="font-semibold text-[#10231f]">{label}</dt>
               <dd>{value}</dd>
               {index === 0 && kind ? (
-                kind.status === "fits" ? (
-                  <>
-                    <dt className="font-semibold text-[#10231f]">{kindLabel}</dt>
-                    <dd data-testid="claim-kind" data-claim-type={kind.claimTypeId}>
-                      {kind.name}
-                      {kind.quote ? <span data-testid="claim-kind-quote" className="block text-xs text-[#4d675f]">From your story: &ldquo;{kind.quote}&rdquo;</span> : null}
-                    </dd>
-                  </>
-                ) : (
-                  heldKind?.state === "answered" && typeof heldKind.value === "string" && heldKind.value.trim() && !chosenKind ? (
-                    // Their own answer to "What kind of dispute is this?": shown as given, never asked again.
-                    <>
-                      <dt className="font-semibold text-[#10231f]">Kind of dispute (your answer)</dt>
-                      <dd data-testid="claim-kind" data-claim-type="your-answer">{heldKind.value}</dd>
-                    </>
-                  ) : (
-                  <>
-                    <dt className="font-semibold text-[#10231f]">Kind of claim</dt>
-                    <dd data-testid="claim-kind" data-claim-type="not-sure">
-                      <ClaimKindChooser caseId={caseId} chosen={chosenKind} onChosen={setChosenKind} saidNotSure={heldKind?.state === "unsure"} />
-                    </dd>
-                  </>
-                  )
-                )
+                <>
+                  <dt className="font-semibold text-[#10231f]">{kind.label}</dt>
+                  <dd data-testid="claim-kind" data-claim-type={kind.claimTypeId ?? "your-answer"} data-claim-kind-held={kind.held ? "yes" : "no"}>
+                    {kind.words}
+                    {kind.quote ? <span data-testid="claim-kind-quote" className="block text-xs text-[#4d675f]">From your story: &ldquo;{kind.quote}&rdquo;</span> : null}
+                    {!kind.held && kind.claimTypeId ? <ClaimKindOffer caseId={caseId} claimTypeId={kind.claimTypeId} words={kind.words} onChosen={setPickedHere} /> : null}
+                  </dd>
+                </>
+              ) : index === 0 && askKind ? (
+                <>
+                  <dt className="font-semibold text-[#10231f]">Kind of claim</dt>
+                  <dd data-testid="claim-kind" data-claim-type="not-sure">
+                    <ClaimKindChooser caseId={caseId} chosen={pickedHere ?? (claimKind?.askedBy === CLAIM_KIND_QUESTION && claimKind.state === "unsure" ? "not-sure" : null)} onChosen={setPickedHere} saidNotSure={claimKind?.state === "unsure"} />
+                  </dd>
+                </>
               ) : null}
             </div>
           ))}
@@ -499,7 +492,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
       {jurisdictionRoutes.length > 0 && (
         <Card title="A rule that can affect where this kind of claim goes">
           <p className="mb-3 text-sm leading-6 text-[#4d675f]">
-            Shown because of the kind of claim {kind?.status === "fits" && kind.confirmed ? (chosenKind ? "you chose" : "you confirmed") : "this matches"} or the
+            Shown because of the kind of claim {kind?.held ? (kind.label === "Kind of claim you chose" ? "you chose" : kind.label === "Kind of claim you confirmed" ? "you confirmed" : "you gave") : "this matches"} or the
             amount you recorded. It is general information about the rule, not a decision about your claim.
           </p>
           <ul className="space-y-5">
@@ -552,9 +545,33 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
 }
 
 /**
+ * A kind of claim the site proposes (the story match) is only a proposal until the person uses it
+ * (owner, 31 Oct): offered with the one control, saved to the case file as their choice on that click.
+ */
+function ClaimKindOffer({ caseId, claimTypeId, words, onChosen }: { caseId: string | null; claimTypeId: string; words: string; onChosen: (value: string) => void }) {
+  const [saving, setSaving] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const use = async () => {
+    if (saving) return;
+    setFailed(false);
+    setSaving(true);
+    const saved = !caseId || (await savePositionQueued(caseId, claimKindAnswer(claimTypeId)));
+    setSaving(false);
+    if (!saved) { setFailed(true); return; }
+    onChosen(claimTypeId);
+  };
+  return (
+    <span className="mt-2 block">
+      <UseSuggestion testId="claim-kind-use-suggestion" what={words} working={saving} onUse={() => void use()} />
+      {failed ? <span className="mt-1 block text-sm text-[#8a4b12]">That could not be saved just now. Please try again.</span> : null}
+    </span>
+  );
+}
+
+/**
  * "Not sure" about the kind of claim, and asked (step 2b): the catalogue's kinds of claim
  * to choose from, or "I'm not sure", which is remembered and not asked again (a Choose
- * link stays). The person's choice is kept with the case (position.claimKind).
+ * link stays). The person's choice is kept in the case file (caseFile.ts claimKindAnswer).
  */
 function ClaimKindChooser({ caseId, chosen, onChosen, saidNotSure = false }: { caseId: string | null; chosen: string | null; onChosen: (value: string) => void; saidNotSure?: boolean }) {
   // Folded once they said "not sure" (here, or in the review, its one more offer): "Choose it" stays.
@@ -568,7 +585,7 @@ function ClaimKindChooser({ caseId, chosen, onChosen, saidNotSure = false }: { c
     if (saving) return;
     setFailed(false);
     setSaving(value === "not-sure" ? "not-sure" : "pick");
-    const saved = !caseId || (await savePositionQueued(caseId, { claimKind: value }));
+    const saved = !caseId || (await savePositionQueued(caseId, claimKindAnswer(value)));
     setSaving(null);
     if (!saved) { setFailed(true); return; }
     onChosen(value);

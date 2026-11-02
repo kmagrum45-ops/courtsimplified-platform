@@ -203,6 +203,7 @@ export async function runFamilyIntakeCanonicalIntegration(
     existingMasterResult: {},
     sourceType: "user-intake",
     allowExternalCognition: options.allowExternalCognition,
+    ...(input.caseContext ? { caseContext: input.caseContext } : {}),
   });
 
   const masterResultPatch = {

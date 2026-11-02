@@ -117,49 +117,11 @@ export function kindFromStory<T extends ClaimType>(story: string, claimTypes: re
   return quote ? { claimType: match.claimType as T, quote } : null;
 }
 
-export type ClaimKindShown =
-  | { status: "fits"; claimTypeId: string; name: string; source: "story"; quote: string; confirmed: boolean }
-  | { status: "fits"; claimTypeId: string; name: string; source: "person"; quote: null; confirmed: true }
-  | { status: "not-sure" };
-
-/**
- * What to show as the kind of claim, from what the case holds:
- *   chosen      the kind the person chose themselves (or "not-sure"), which wins;
- *   matchedId   the kind recorded by the intake (an exact story match, or a suggestion
- *               the person said yes to); null when none was; undefined for a case
- *               saved before this was recorded (the story is read instead);
- *   confirmed   whether the person said yes to it;
- *   quote       the story words recorded with it (the classifier's, checked).
+/*
+ * What to show as the kind of claim for a case (the person's answer with its source, a proposal
+ * from the story, or "not sure") is the case file's: caseFile.ts claimKindOf and claimKindLine (site
+ * owner, 29 Oct). This module keeps the one rule for which kinds may be shown and read from a story.
  */
-export function claimKindShown(args: {
-  story: string;
-  claimTypes: readonly ClaimType[];
-  chosen?: string | null;
-  matchedId?: string | null;
-  confirmed?: boolean;
-  quote?: string | null;
-}): ClaimKindShown {
-  const { story, claimTypes } = args;
-  const named = (id: string) => claimTypes.find((claimType) => claimType.id === id && isKindOfClaim(id));
-  if (args.chosen === "not-sure") return { status: "not-sure" };
-  if (args.chosen) {
-    const kind = named(args.chosen);
-    if (kind) return { status: "fits", claimTypeId: kind.id, name: kind.name, source: "person", quote: null, confirmed: true };
-  }
-  if (typeof args.matchedId === "string") {
-    const kind = named(args.matchedId);
-    if (!kind) return { status: "not-sure" };
-    const quote = (args.quote ? wordsInStory(story, args.quote) : null) ?? storyQuoteFor(story, kind);
-    if (quote) return { status: "fits", claimTypeId: kind.id, name: kind.name, source: "story", quote, confirmed: args.confirmed === true };
-    // Said yes to by the person, with no words of the story kept for it (a case saved before quotes were): their answer is the source.
-    return args.confirmed === true ? { status: "fits", claimTypeId: kind.id, name: kind.name, source: "person", quote: null, confirmed: true } : { status: "not-sure" };
-  }
-  if (args.matchedId === null) return { status: "not-sure" };
-  const fromStory = kindFromStory(story, claimTypes);
-  return fromStory
-    ? { status: "fits", claimTypeId: fromStory.claimType.id, name: fromStory.claimType.name, source: "story", quote: fromStory.quote, confirmed: false }
-    : { status: "not-sure" };
-}
 
 /** The guided route's automatic match: the same rule as kindFromStory, as a matcher result. */
 export function settledKindMatch(story: string, claimTypes: readonly ClaimType[]): ReturnType<typeof matchClaimType> {

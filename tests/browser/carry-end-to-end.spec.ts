@@ -22,7 +22,9 @@
  *   (3) wrong-case: a page addressed to one case (its id in the address) showing the other case's
  *       marker or values, or the second case opening under the first case's id;
  *   (4) screens-disagree: one fact read from each screen showing a value other than the one the person
- *       gave (or the old one after a change), including the same screen before and after a reload or sign-in;
+ *       gave (or the old one after a change), including the same screen before and after a reload or sign-in,
+ *       and the screens that repeat an answer back (civil and Family: the questions one at a time, "Got it: ...";
+ *       Small Claims: the chat's "Confirmed from my story"), screen "questions echo (<when>)";
  *       and on every Small Claims route, the Form 7A section not drawn after "Show my next step" (owner,
  *       30 Oct: it must appear on every route) -- fact "form-7a-section", screen "form-7a (<when>)".
  *
@@ -132,15 +134,18 @@ class Run {
   given = false;
   caseA = "";
   caseB = "";
+  /** The step running now, for the recorder's diagnostic field only (never counted). */
+  currentStep = "";
   constructor(readonly page: Page, readonly court: Court, readonly route: RouteName, readonly who: Who) {}
   get name() { return `${this.court} ${this.route} ${this.who}`; }
-  add(kind: CarryKind, fact: string, where: string, detail: string) {
+  add(kind: CarryKind, fact: string, where: string, detail: string, diag?: string) {
     const key = `${kind}|${fact}|${where}`;
     if (this.violations.some((item) => `${item.kind}|${item.fact}|${item.where}` === key)) return;
-    this.violations.push({ kind, run: this.name, court: this.court, route: this.route, who: this.who, fact, where, detail: detail.replace(/\s+/g, " ").slice(0, 240) });
+    this.violations.push({ kind, run: this.name, court: this.court, route: this.route, who: this.who, fact, where, detail: detail.replace(/\s+/g, " ").slice(0, 240), ...(diag ? { diag } : {}) });
   }
   /** A step that must be reached for the counts to mean anything; a failure is recorded and the run goes on. */
   async step(name: string, body: () => Promise<void>) {
+    this.currentStep = name;
     try { await body(); } catch (error) {
       // The first line and the locator it waited on (CI run 41096555611 recorded only "toBeVisible() failed").
       const message = String(error).replace(/\u001b\[[0-9;]*m/g, "");
@@ -365,11 +370,13 @@ async function answerReview(run: Run) {
   if ((await panel.getAttribute("data-phase")) === "collecting") await page.getByTestId("intake-start-review").click();
   await expect(panel).toHaveAttribute("data-phase", /reviewing|user-confirmed/, { timeout: 60_000 });
   if ((await panel.getAttribute("data-phase")) === "user-confirmed") return;
-  const q = (id: string) => panel.locator(`[data-testid=intake-initial-question][data-question="${id}"]`);
-  const kind = page.locator('[data-question="sc-orient-dispute-category"]').getByRole("button").first();
+  // Only the questions still to answer: an answered one keeps its place in the list, marked answered, after a
+  // reload too (fault 1, 31 Oct), and answering it again here would put the first value back over a later change.
+  const q = (id: string) => panel.locator(`[data-testid=intake-initial-question][data-question="${id}"][data-answered="false"]`);
+  const kind = q("sc-orient-dispute-category").getByRole("button").first();
   if (await kind.count()) await kind.click();
-  if (await page.locator('[data-question="sc-claim-filed"]').count()) await page.locator('[data-question="sc-claim-filed"]').getByRole("button", { name: "No", exact: true }).click();
-  const amount = page.locator('[data-question="sc-amount-claimed"]').getByRole("textbox");
+  if (await q("sc-claim-filed").count()) await q("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
+  const amount = q("sc-amount-claimed").getByRole("textbox");
   if (court === "small-claims" && (await amount.count())) { await amount.fill(TRACK["small-claims"].change.v1.text); await amount.press("Enter"); }
   if (await q("yourRole").count()) await q("yourRole").getByRole("button", { name: SIDE[court] === "applicant" ? /starting it/i : /plaintiff/i }).first().click();
   for (const id of ["documents", "filedDocuments", "issues"]) {
@@ -384,7 +391,7 @@ async function answerReview(run: Run) {
       if (await box.count()) { await box.fill(value); await box.press("Enter"); break; }
     }
   }
-  const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
+  const unknowns = panel.locator('[data-testid=intake-initial-question][data-answered="false"] input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
 }
 
@@ -460,6 +467,33 @@ async function readBuilder(run: Run, when: string) {
     await page.waitForTimeout(800);
     judge(run, `review (${when})`, { change: await reviewLine(page, TRACK[court].change.fields), remove: await reviewLine(page, TRACK[court].remove.fields) }, await panel.innerText());
   }
+  await readEchoes(run, when);
+}
+
+/**
+ * The screens that REPEAT AN ANSWER BACK, read as screens too (founder's Chrome check of #536, 1 Nov: the
+ * questions one at a time still said "Got it: Contract / agreement dispute." after a change, while this
+ * test counted 0 screens disagreeing): civil and Family, the questions one at a time ("Got it: ...", "What
+ * we already have"); Small Claims, the chat's "Confirmed from my story" messages.
+ */
+async function readEchoes(run: Run, when: string) {
+  const { page, court } = run;
+  // Only where an answer was repeated back: the questions route (the other routes never answer in these screens).
+  if (run.route !== "questions") return;
+  if (court === "small-claims") {
+    await page.goto(`/builder?path=small-claims&intake=${run.caseA}&step=guided`);
+    await passNotice(page);
+    await page.waitForTimeout(3_000);
+    const confirmed = (await page.locator("[data-testid=guided-message][data-from=user]").allInnerTexts()).filter((text) => /^Confirmed from/.test(text.trim()));
+    if (confirmed.length) judge(run, `questions echo (${when})`, {}, confirmed.join("\n"));
+    return;
+  }
+  const oneAtATime = page.getByRole("button", { name: "Answer one question at a time instead" });
+  if (await oneAtATime.isVisible().catch(() => false)) await oneAtATime.click();
+  const chat = page.getByTestId("guided-form-chat");
+  if (!(await chat.isVisible({ timeout: 10_000 }).catch(() => false))) return;
+  await page.waitForTimeout(800);
+  judge(run, `questions echo (${when})`, {}, await chat.innerText());
 }
 
 /** The overview and (Small Claims) the Form 7A section, after "Show my next step". */
@@ -536,7 +570,7 @@ for (const { court, route, who } of RUNS) {
       if (current !== reading) return;
       held = data ? heldFacts((data as { master_result: unknown }).master_result, court) : null;
     }, 3_000);
-    const asked: Asked[] = await recordAsks(page, { held: () => (held ? (fact: string) => held!.get(fact) ?? null : null) });
+    const asked: Asked[] = await recordAsks(page, { held: () => (held ? (fact: string) => held!.get(fact) ?? null : null), step: () => run.currentStep });
     const segments: { from: number; to: number; key: "a" | "b" }[] = [];
     let segmentStart = 0;
     let segmentKey: "a" | "b" = "a";
@@ -640,11 +674,18 @@ for (const { court, route, who } of RUNS) {
         await openFromDashboard(page, run.caseA);
         judge(run, "first case from the dashboard", {}, await page.locator("body").innerText());
       });
-      // Then the second case the same way: it must show itself, not the first.
+      // Then the second case the same way: it must show itself, not the first. Its questions are the
+      // second case's, counted against the second case (its own held map and answers): run 41137395354
+      // found all six civil/Family claimKind entries here, case B's own chat asking B's kind (never given
+      // in B: page=claimKind:not-asked) judged against case A's saved answer.
+      segment("b");
+      current = run.caseB;
       await run.step("the second case from the dashboard", async () => {
         await openFromDashboard(page, run.caseB);
         judge(run, "second case from the dashboard", {}, await page.locator("body").innerText(), "b");
       });
+      segment("a");
+      current = run.caseA;
       await run.step("the first case by its address", async () => {
         await readBuilder(run, "first case by address, after the second case");
         await readCasePage(run, "first case by address, after the second case");
@@ -659,7 +700,7 @@ for (const { court, route, who } of RUNS) {
     for (const key of ["a", "b"] as const) {
       const events = segments.filter((item) => item.key === key).flatMap((item) => asked.slice(item.from, item.to));
       for (const violation of [...repeatViolations(factsAskedTwice(events, STARTING_NOTHING_FILED)), ...heldViolations(events)]) {
-        run.add("asked-twice", violation.fact, `${violation.surface}@${violation.screen}`, `${violation.rule}: ${violation.text.slice(0, 120)} (${violation.detail})`);
+        run.add("asked-twice", violation.fact, `${violation.surface}@${violation.screen}`, `${violation.rule}: ${violation.text.slice(0, 120)} (${violation.detail})`, violation.diag);
       }
     }
 

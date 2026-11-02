@@ -40,7 +40,7 @@ import { authHeaders, builderHref, formatDate, useCaseHome } from "../_component
 import { caseStageWords, noticeStepForCase, stepStoryText } from "@/src/lib/case-system/caseStep";
 import { stageRecordedFromAnswers, suggestionForSide } from "@/app/builder/_components/stageFromAnswers";
 import { sideOf, situationAnswers, situationOfCase, stepFromSituation } from "@/src/lib/case-system/situation/situation";
-import { caseFileOf, unsureDateQuestions, withCaseFileDates } from "@/src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, claimKindOf, unsureDateQuestions, withCaseFileDates } from "@/src/lib/case-system/caseFile/caseFile";
 import { fullDayIn } from "@/src/lib/case-system/casePosition";
 import { readCheckpoint } from "@/src/lib/case-system/intakeCheckpoint";
 import CaseFilePanel from "../_components/CaseFilePanel";
@@ -392,7 +392,7 @@ export default function CaseOverviewPage() {
               Change your story
             </Link>
           </div>
-          <IntelligenceOverviewPanel analysis={analysis} intake={intake ?? null} confirmedStage={confirmed} roleWords={courtPath ? situationAnswers(courtPath, situation).roleWords ?? null : null} stageWords={caseStageWords(master, courtPath)} caseId={caseId} chosenClaimKind={position.claimKind ?? null} heldKind={caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master).claimKind} />
+          <IntelligenceOverviewPanel analysis={analysis} intake={intake ?? null} confirmedStage={confirmed} roleWords={courtPath ? situationAnswers(courtPath, situation).roleWords ?? null : null} stageWords={caseStageWords(master, courtPath)} caseId={caseId} claimKind={claimKindOf(caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master))} caseFile={caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master)} />
         </section>
       ) : null}
     </div>

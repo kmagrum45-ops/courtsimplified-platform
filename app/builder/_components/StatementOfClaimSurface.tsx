@@ -13,11 +13,12 @@ import {
   type ElementStateMap,
 } from "@/src/lib/case-system/intake/depth/elementStateMap";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
+import { claimKindLine, claimKindOf, form7ADraftFields, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
+import { formatForCourt } from "@/src/lib/case-system/dates";
 import {
   draftStatementOfClaimParticulars,
   type StatementOfClaimDraft,
 } from "@/src/lib/case-system/statementOfClaimDraftEngine";
-import type { SmallClaimsIntelligenceInput } from "@/src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 
 import { COURT_DOCUMENT_DRAFTING_ENABLED as CLAIM_DRAFTING_ENABLED } from "@/src/lib/case-system/policy/courtDocumentDrafting";
 import ScopePreviewNotice from "./ScopePreviewNotice";
@@ -70,13 +71,22 @@ const FORMS_PAGE = {
  */
 
 export type StatementOfClaimSurfaceProps = {
-  /** The claim type the user confirmed. Null means the gate holds at step 1. */
-  matchedClaimTypeId: string | null;
-  /** Produced by the depth layer. Edited here by attestation; same structure. */
-  initialElementStateMap: ElementStateMap;
-  /** What the mapper produced from guided intake. */
-  mappedInput: SmallClaimsIntelligenceInput;
-  /** Persist attestation + party details back to the case file. */
+  /**
+   * The case file (caseFile.ts caseFileOf), the ONLY thing this section reads its facts from, on every
+   * Small Claims route: the questions one at a time, the whole form, "Show my next step", a saved case
+   * reopened (site owner, 30 Oct: it was drawn only after the questions one at a time, from that run's
+   * own copy). The kind of claim is claimKindOf(caseFile): the same value the overview, "Check my case
+   * file" and the review show (29 Oct: this section said "A claim type has not been confirmed" beside
+   * the overview's "Kind of dispute (your answer)"). Its checklist follows the catalogue kind the
+   * answer names, or the one the story shows (labelled so).
+   */
+  caseFile: CaseFile;
+  /**
+   * The element record the depth questions made in this visit, before the analysis saved it with the
+   * case (the case file's elementStates is the saved one, read first). Edited here by attestation.
+   */
+  elementStatesThisVisit?: ElementStateMap;
+  /** Persist attestation back to the page. */
   onStateMapChange?: (map: ElementStateMap) => void;
 };
 
@@ -88,12 +98,13 @@ type PartyDetails = {
 };
 
 export default function StatementOfClaimSurface({
-  matchedClaimTypeId,
-  initialElementStateMap,
-  mappedInput,
+  caseFile,
+  elementStatesThisVisit,
   onStateMapChange,
 }: StatementOfClaimSurfaceProps) {
-  const [stateMap, setStateMap] = useState<ElementStateMap>(initialElementStateMap);
+  const claimKind = claimKindOf(caseFile);
+  const mappedInput = useMemo(() => form7ADraftFields(caseFile, formatForCourt), [caseFile]);
+  const [stateMap, setStateMap] = useState<ElementStateMap>(() => ({ ...((caseFile.elementStates ?? {}) as ElementStateMap), ...(elementStatesThisVisit ?? {}) }));
   const [confirmedRemedyId, setConfirmedRemedyId] = useState<string | null>(null);
   const [answerDrafts, setAnswerDrafts] = useState<Record<string, string>>({});
   const [party, setParty] = useState<PartyDetails>({
@@ -104,9 +115,11 @@ export default function StatementOfClaimSurface({
   });
   const [showDraft, setShowDraft] = useState(false);
 
+  const kindLine = claimKindLine(claimKind);
+  const kindId = kindLine?.claimTypeId ?? null;
   const claimType = useMemo(
-    () => CLAIM_TYPES.find((candidate) => candidate.id === matchedClaimTypeId) || null,
-    [matchedClaimTypeId],
+    () => CLAIM_TYPES.find((candidate) => candidate.id === kindId) || null,
+    [kindId],
   );
 
   const gate = useMemo(
@@ -171,7 +184,7 @@ export default function StatementOfClaimSurface({
     );
   }
 
-  if (!matchedClaimTypeId || !claimType) {
+  if (!kindId || !claimType) {
     return (
       <section
         data-testid="statement-of-claim-surface"
@@ -179,10 +192,18 @@ export default function StatementOfClaimSurface({
         className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6"
       >
         <h2 className="text-xl font-bold text-[#10231f]">Preparing your Plaintiff&apos;s Claim (Form 7A)</h2>
-        <p className="mt-2 text-sm text-[#4d675f]">
-          A claim type has not been confirmed for this case yet. Once it is, this section will show
-          what a claim of that kind generally involves.
-        </p>
+        {kindLine ? (
+          // Their answer, as every screen shows it; it names no single kind in the catalogue, so there is no checklist for it yet.
+          <p className="mt-2 text-sm text-[#4d675f]" data-testid="statement-of-claim-kind">
+            {kindLine.label}: {kindLine.words}. This section shows what a claim generally involves for
+            the kinds of claim it has checklists for; your answer does not name one of them yet.
+          </p>
+        ) : (
+          <p className="mt-2 text-sm text-[#4d675f]">
+            No kind of claim is recorded for this case yet. Once you give it, this section will show
+            what a claim of that kind generally involves.
+          </p>
+        )}
       </section>
     );
   }
@@ -194,6 +215,7 @@ export default function StatementOfClaimSurface({
       className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6"
     >
       <h2 className="text-xl font-bold text-[#10231f]">Preparing your Plaintiff&apos;s Claim (Form 7A)</h2>
+      {kindLine ? <p className="mt-1 text-sm text-[#10231f]" data-testid="statement-of-claim-kind">{kindLine.label}: {kindLine.words}</p> : null}
       <p className="mt-2 text-sm text-[#4d675f]">
         {FORM_7A_RULE.text}{" "}
         <a

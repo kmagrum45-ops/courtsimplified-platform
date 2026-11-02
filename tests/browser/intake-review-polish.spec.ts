@@ -57,15 +57,15 @@ test("Small Claims: suggestions from the story answer the initial questions; Con
   await expect(page.locator('[data-question="sc-orient-role"]')).toHaveCount(0);
   // Suggested, never chosen for the person.
   const kind = page.locator('[data-question="sc-orient-dispute-category"]');
-  await kind.getByRole("button", { name: /Work or a service you paid for .*\(suggested from your story\)/ }).click();
+  await kind.getByRole("button", { name: /^Use the suggestion: Work or a service you paid for/ }).click();
   const when = page.locator('[data-question="sc-orient-when-happened"]');
   if (await when.count()) {
-    await when.getByRole("button", { name: "Use “2026-05-12” (from your story)" }).click();
+    await when.getByRole("button", { name: "Use the suggestion: 2026-05-12" }).click();
   }
   // Choosing a side brings up the questions that depend on it (re-test round 7).
   // An amount already paid is never offered in one click (#471 re-test): it is typed.
   const amount = page.locator('[data-question="sc-amount-claimed"]');
-  await expect(amount.getByRole("button", { name: /from your story/ })).toHaveCount(0);
+  await expect(amount.getByRole("button", { name: /^Use the suggestion/ })).toHaveCount(0);
   await amount.getByLabel(/^Answer: /).fill("$9,000");
   await amount.getByLabel(/^Answer: /).press("Tab");
   // "Nothing filed yet" was given in the situation questions too.
@@ -161,7 +161,7 @@ test("Small Claims: month and year are suggested; the side, given at the start, 
   test.setTimeout(180_000);
   await smallClaimsFromStart(page, "Synthetic story: a contractor took a $3,000 deposit and never did the work, in August 2026.");
   await page.getByTestId("intake-start-review").click();
-  await expect(page.locator('[data-question="sc-orient-when-happened"]').getByRole("button", { name: "Use “August 2026” (from your story)" })).toBeVisible();
+  await expect(page.locator('[data-question="sc-orient-when-happened"]').getByRole("button", { name: "Use the suggestion: August 2026" })).toBeVisible();
   await expect(page.locator('[data-question="sc-orient-role"]')).toHaveCount(0);
   await expect(page.getByTestId("situation-line")).toContainText("You're suing in Small Claims Court");
 });
@@ -362,7 +362,7 @@ test("Small Claims: answer, confirm, change the story, start again once, answer 
   await page.getByTestId("intake-start-review").click();
   // The side and "nothing filed" were given in the situation questions (step 2).
   await expect(question("sc-orient-role")).toHaveCount(0);
-  await question("sc-orient-dispute-category").getByRole("button", { name: /Work or a service you paid for/ }).click();
+  await question("sc-orient-dispute-category").getByRole("button", { name: /^Work or a service you paid for/ }).click();
   await question("sc-orient-when-happened").getByTestId("intake-use-suggestion").click();
   await question("sc-amount-claimed").getByLabel(/^Answer: /).fill("$9,000");
   await question("sc-amount-claimed").getByLabel(/^Answer: /).press("Tab");
@@ -384,10 +384,10 @@ test("Small Claims: answer, confirm, change the story, start again once, answer 
   await expect(page.getByTestId("story-changed-beside-button"), "one click clears the block").toHaveCount(0);
 
   // The review asks again, with the story's date (June 10, not the July 10 due date) suggested.
-  await question("sc-orient-when-happened").getByRole("button", { name: "Use “2026-06-10” (from your story)" }).click();
+  await question("sc-orient-when-happened").getByRole("button", { name: "Use the suggestion: 2026-06-10" }).click();
   // A story change never sets the situation answers aside: the side is not asked again.
   await expect(question("sc-orient-role")).toHaveCount(0);
-  await question("sc-orient-dispute-category").getByRole("button", { name: /Unpaid money owed to you/ }).click();
+  await question("sc-orient-dispute-category").getByRole("button", { name: /^Unpaid money owed to you/ }).click();
   // Typed values count when the box is left; no separate button.
   await question("sc-amount-claimed").getByLabel(/^Answer: /).fill("$8,500");
   await question("sc-amount-claimed").getByLabel(/^Answer: /).press("Tab");

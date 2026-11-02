@@ -1,6 +1,7 @@
 import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { NextRequest, NextResponse } from "next/server";
 
+import { parseResearchCaseContext } from "@/src/lib/case-system/caseFile/aiCaseContext";
 import {
   runCivilIntakeCanonicalIntegration,
   type CivilCanonicalIntakeInput,
@@ -30,7 +31,7 @@ const allowedStages = new Set(["starting-case", "responding", "already-started",
 const allowedRoles = new Set(["plaintiff", "defendant", "applicant", "respondent", "moving-party", "responding-party", "other", "not-sure"]);
 const allowedIssues = new Set(["contract", "negligence", "institutional-negligence", "professional-negligence", "human-rights", "disability-accommodation", "employment-human-rights", "housing-human-rights", "education-human-rights", "charter", "government-public-authority", "police-conduct", "judicial-review", "tribunal-overlap", "defamation", "privacy", "property", "debt", "employment", "fraud-misrepresentation", "intentional-tort", "injunction", "estate", "motion", "appeal", "enforcement", "other"]);
 const allowedDocuments = new Set(["statement-claim", "statement-defence", "notice-application", "notice-motion", "affidavit-service", "affidavit", "order", "judgment", "tribunal-application", "human-rights-application", "judicial-review-materials", "demand-letter", "discovery", "trial-record", "nothing", "not-sure"]);
-const allowedFields = new Set(["caseId", "caseStage", "issues", "documents", "uploadedEvidenceFiles", "yourName", "otherParty", "yourRole", "courtLocation", "courtFileNumber", "amountClaimed", "limitationDeadline", "facts", "timeline", "evidence", "missingEvidence", "damagesBreakdown", "legalRemedy", "settlementEfforts", "serviceDetails", "urgent", "humanRightsGrounds", "discriminationFacts", "accommodationRequests", "governmentActor", "publicDecisionOrConduct", "institutionalFacts", "privacyRecordsFacts"]);
+const allowedFields = new Set(["caseId", "caseContext", "caseStage", "issues", "documents", "uploadedEvidenceFiles", "yourName", "otherParty", "yourRole", "courtLocation", "courtFileNumber", "amountClaimed", "limitationDeadline", "facts", "timeline", "evidence", "missingEvidence", "damagesBreakdown", "legalRemedy", "settlementEfforts", "serviceDetails", "urgent", "humanRightsGrounds", "discriminationFacts", "accommodationRequests", "governmentActor", "publicDecisionOrConduct", "institutionalFacts", "privacyRecordsFacts"]);
 const longFields = new Set(["facts", "timeline", "evidence", "missingEvidence", "damagesBreakdown", "legalRemedy", "settlementEfforts", "serviceDetails", "urgent", "humanRightsGrounds", "discriminationFacts", "accommodationRequests", "publicDecisionOrConduct", "institutionalFacts", "privacyRecordsFacts"]);
 /*
  * "name" was here until 2026-09-23. It is not renamed to "reference" by
@@ -62,13 +63,15 @@ function isUpload(value: unknown): boolean {
 
 export function isCivilInput(value: unknown): value is CivilCanonicalIntakeInput {
   if (!isRecord(value) || Object.keys(value).some((key) => !allowedFields.has(key))) return false;
-  if ([...allowedFields].some((key) => key !== "caseId" && !(key in value))) return false;
+  if ([...allowedFields].some((key) => key !== "caseId" && key !== "caseContext" && !(key in value))) return false;
+  // The case file's kind of case in words, for the AI research (aiCaseContext.ts): its own shape only.
+  if (parseResearchCaseContext(value.caseContext) === false) return false;
   if (!allowedStages.has(String(value.caseStage)) || !allowedRoles.has(String(value.yourRole))) return false;
   if (!Array.isArray(value.issues) || value.issues.length > MAX_ARRAY_ITEMS || !value.issues.every((item) => bounded(item, MAX_SHORT_TEXT_LENGTH) && allowedIssues.has(item))) return false;
   if (!Array.isArray(value.documents) || value.documents.length > MAX_ARRAY_ITEMS || !value.documents.every((item) => bounded(item, MAX_SHORT_TEXT_LENGTH) && allowedDocuments.has(item))) return false;
   if (!Array.isArray(value.uploadedEvidenceFiles) || value.uploadedEvidenceFiles.length > MAX_ARRAY_ITEMS || !value.uploadedEvidenceFiles.every(isUpload)) return false;
   return Object.entries(value).every(([key, item]) => {
-    if (key === "issues" || key === "documents" || key === "uploadedEvidenceFiles") return true;
+    if (key === "issues" || key === "documents" || key === "uploadedEvidenceFiles" || key === "caseContext") return true;
     return bounded(item, longFields.has(key) ? MAX_TEXT_LENGTH : MAX_SHORT_TEXT_LENGTH);
   });
 }
