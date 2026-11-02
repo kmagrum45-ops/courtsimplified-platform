@@ -1534,15 +1534,19 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
       await answerInReview(page, story);
     }
     const panel = page.getByTestId("intake-review");
-    const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
+    // The question this test types into is chosen BEFORE the rest are marked "I do not know yet": a question ticked
+    // "I do not know yet" now shows the quiet line with no box (founder's rule of 31 Oct, "not sure is never asked
+    // again"; before it, the ticked question kept its box as its one more offer, which this test relied on).
+    const boxes = panel.locator('input[aria-label^="Answer: "]');
+    expect(await boxes.count(), "the review has a question still open to type in").toBeGreaterThan(0);
+    const openId = await boxes.first().evaluate((node) => node.closest("[data-testid=intake-initial-question]")?.getAttribute("data-question") ?? "");
+    const unknowns = panel.locator(`[data-testid=intake-initial-question]:not([data-question="${openId}"]) input[data-testid="intake-unknown"]:not(:checked)`);
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
     await page.getByTestId("intake-review-acknowledgement").check();
     // From here at the live site's speed.
     for (const host of ["**/auth/v1/**", "**/rest/v1/**"]) await page.route(host, async (route) => { await new Promise((done) => setTimeout(done, 1_500)); await route.fallback(); });
     // An answer typed to a question still open in the review, the box not left (it saves when left).
-    const boxes = panel.locator('input[aria-label^="Answer: "]');
-    expect(await boxes.count(), "the review has a question still open to type in").toBeGreaterThan(0);
-    const box = boxes.first();
+    const box = panel.locator(`[data-testid=intake-initial-question][data-question="${openId}"] input[aria-label^="Answer: "]`).first();
     const label = (await box.getAttribute("aria-label")) ?? "";
     const answer = /when|date|day/i.test(label) ? "March 2026" : /amount|money|much/i.test(label) ? "$6,000" : "Payment of what is owed";
     await box.fill(answer);
