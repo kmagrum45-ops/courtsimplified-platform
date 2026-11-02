@@ -29,6 +29,7 @@ import type {
   SmallClaimsFiledDocument,
 } from "../../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 import type { UniversalStage } from "./builderTypes";
+import { answerWords } from "../../../src/lib/case-system/caseFile/unsureAnswer";
 import type { GuidedIntakeCompletionResult } from "./GuidedSmallClaimsIntake";
 import { CLAIM_TYPES } from "../../../src/lib/case-system/intake/claimTypes";
 import { analysisClaimType } from "../../../src/lib/case-system/caseFile/caseFile";
@@ -91,7 +92,8 @@ function mapFiledDocuments(facts: GuidedIntakeCompletionResult["facts"]): SmallC
  * KnownFactField-keyed IntakeFacts.
  */
 function textField(value: unknown): string {
-  return typeof value === "string" ? value : "";
+  // "I do not know yet" typed to a question is no answer to copy (the one reader, unsureAnswer.ts answerWords).
+  return answerWords(value);
 }
 
 function mapYourRole(role: unknown): string {

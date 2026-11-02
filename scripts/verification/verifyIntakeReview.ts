@@ -112,7 +112,7 @@ assert(!selectQuestions({ role: "plaintiff" }, [], QUESTION_BANK, "small-claims"
   // Family: the story and the Timeline's served date count as answered; choices read in the form's words.
   const family: Checkpoint = { version: 1, flowId: "11111111-1111-4111-8111-111111111111", courtPath: "family", revision: "22222222-2222-4222-8222-222222222222",
     sections: { story: { text: "We were never married. I was served with her Application on October 9, 2026.", location: { province: "Ontario", city: "Ottawa" } }, family: { yourRole: "respondent", filedDocuments: ["application"], timeline: `${SERVED_LINE}2026-10-09` } } };
-  const missing = remainingEssentialQuestions(family, true).map(question => question.id);
+  const missing = remainingEssentialQuestions(family).map(question => question.id);
   assert(!missing.includes("facts"), "the story answers 'In your own words'");
   assert(!missing.includes("servedDate"), "the Timeline's served date answers 'What day were you served'");
   const entries = reviewEntries(family);

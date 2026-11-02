@@ -1,7 +1,7 @@
 "use client";
 
 import { useIntakeRecovery, useIntakeReviewView, useIntakeState } from "../../_components/IntakeRecovery";
-import { answerNow, askedAndReplied, caseFileOf, chatMayAsk, offeredOnceMore, slotsOfQuestion } from "../../../src/lib/case-system/caseFile/caseFile";
+import { answerNow, askedAndReplied, caseFileOf, chatMayAsk } from "../../../src/lib/case-system/caseFile/caseFile";
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { NOTHING_LEFT_TO_ASK } from "../../../src/lib/case-system/copy/askCopy";
 import { openSituationChange } from "../../_components/SituationQuestions";
@@ -96,6 +96,7 @@ export type GuidedValues = Record<string, string | string[] | undefined>;
 
 export { isAnswered, pendingFields } from "./guidedFields";
 import { isAnswered, pendingFields } from "./guidedFields";
+import { isTypedUnsure } from "../../../src/lib/case-system/caseFile/unsureAnswer";
 
 /**
  * `text` cut to at most `max` characters at the end of a whole word, with an
@@ -215,18 +216,10 @@ export default function GuidedFormChat({
   })), [caseFile, fields, values]);
   const heldElsewhere = useMemo(() => {
     if (!checkpoint || !caseFile) return new Set<string>();
-    const file = caseFile;
-    // A fact they said they did not know, which their story states, is offered once as the
-    // story's suggestion ("Is that right?"); without a story suggestion it is not asked again.
-    // Once in all: not after the review recorded "I don't know yet" for it (the review was its one
-    // more offer), nor after it was offered again at the end (CI 29 Oct, family-safety: the review's
-    // "I don't know yet" about the children, then the results page offered the children again).
-    const unsureWithStory = (field: GuidedField) => {
-      const facts = slotsOfQuestion(field.key);
-      return facts.length > 0 && facts.every((fact) => file[fact].state === "unsure" && !offeredOnceMore(file, fact, checkpoint.sections)) && Boolean(field.fromStory?.(values));
-    };
-    // The one gate for every chat (caseFile.ts chatMayAsk): a fact the file holds is not asked here.
-    return new Set(fields.filter((field) => !isAnswered(field, values[field.key]) && !chatMayAsk(file, field.key) && !unsureWithStory(field)).map((field) => field.key));
+    // The one gate for every chat (caseFile.ts chatMayAsk): a fact the file holds, answered or "not
+    // sure", is not asked here, not even as the story's suggestion ("Is that right?"; site owner, 31
+    // Oct: a not-sure fact is asked nowhere again, which replaced the story's one more offer).
+    return new Set(fields.filter((field) => !isAnswered(field, values[field.key]) && !chatMayAsk(caseFile, field.key)).map((field) => field.key));
   }, [checkpoint, caseFile, fields, values]);
   // The conversation check (caseFile.ts askedAndReplied): a question this chat asked and the person replied to is not asked again.
   const replied = useMemo(() => heard.flatMap(({ question, reply }) => [{ role: "assistant", text: question }, { role: "user", text: reply }]), [heard]);
@@ -256,7 +249,9 @@ export default function GuidedFormChat({
       return;
     }
     setNeedsMore(null);
-    if ((Array.isArray(cleaned) && cleaned.length === 0) || cleaned === "") {
+    // "I do not know yet" typed is the same as "Skip, I'm not sure": recorded as not sure, never as the answer
+    // (the one reader, unsureAnswer.ts; founder's Chrome check of #541, 2 Nov).
+    if ((Array.isArray(cleaned) && cleaned.length === 0) || cleaned === "" || isTypedUnsure(cleaned)) {
       setSkipped((now) => new Set(now).add(current.key));
       setHeard((now) => [...now, { question: current.question, reply: "Okay, we'll leave that for now.", key: current.key }]);
     } else {

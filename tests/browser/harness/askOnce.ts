@@ -21,6 +21,9 @@
  *   the step page's dates    [data-testid=stage-answer-date-question][data-question-id]
  *   the review's own boxes    [data-testid=intake-entry][data-empty=true] (an empty box asks for its fact)
  *   the Small Claims form    [data-testid=sc-intake-documents][data-empty=true] ("What documents already exist?", nothing ticked)
+ *   the chat's story box     textarea[aria-describedby=guided-story-guidance] (Small Claims), fact "story", asked
+ *                            each time it comes on screen; the story is given by "Continue to ... intake" with the
+ *                            home page's story box filled, or "Send" / "Send my story" in the chat (founder, 1 Nov)
  *   the story's events       [data-testid=event-candidate]: a date box left empty while its own quoted
  *                            sentence gives that date (fact dateInOwnSentence, given by the story)
  * And, never ask twice (site owner, 28 Oct), the places that ask in words, found by what the
@@ -44,9 +47,10 @@
  *
  * "NOT SURE" COUNTS AS ASKED (Jason, 2026-10-24). A skip, "I don't know yet", "not yet" or
  * "I don't know the date" is an answer too: the fact is given as unsure, and asking it
- * again is a repeat -- except ONCE, in the review (its box or its question; option 1), or as
- * the story's own suggestion ("Is that right?"). The next step shows it folded ("not known
- * yet -- Add it"), which is not a question; a date question there, or any second offer, fails.
+ * again ANYWHERE is a repeat (site owner, 31 Oct; it replaced option 1's one allowed offer in
+ * the review or as the story's suggestion): the review, a box, a form field, the story's
+ * "Is that right?", an answer-now offer, the step page's date question. Screens show it as
+ * "Not answered yet: add it when you know" with "Add it", which is not a question.
  * The screen is the page's path, and the builder's step.
  *
  * THE SAVED CONVERSATION SHOWN AGAIN (site owner, 29 Oct). After a reload the Small Claims guided
@@ -56,13 +60,12 @@
  *
  * HELD CHECK (never ask twice, 28 Oct). When a question is recorded, the saved case is read at
  * that moment through the site's own case file (caseFileOf), and the facts it holds as the
- * person's own (confirmed) are kept on the question. A question whose fact is held answered
- * fails (heldViolations), whatever screen asked it; a fact held unsure may be offered once more
- * at the end (END_SURFACES), as above.
+ * person's own (confirmed) are kept on the question. A question whose fact is held, answered
+ * or unsure, fails (heldViolations), whatever screen asked it: there is no offer at the end.
  */
 import type { Page } from "@playwright/test";
 import { factsOfQuestion } from "../../../src/lib/case-system/caseFile/factsOfQuestion";
-import { caseFileOf, isUnsureAnswer, SLOT_FACTS } from "../../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, SLOT_FACTS } from "../../../src/lib/case-system/caseFile/caseFile";
 import { readCheckpoint } from "../../../src/lib/case-system/intakeCheckpoint";
 import { GUEST_INTAKE_SESSION_KEY } from "../../../src/lib/case-system/storage/intakeStorageKeys";
 import { factsOfWords, questionSentences } from "./chatQuestionFacts";
@@ -100,9 +103,6 @@ export function chatQuestionAnswered(left: { pressedAnswer: boolean; skipped: bo
 
 const SCAN = `(() => {
   const chatQuestionAnswered = ${chatQuestionAnswered.toString()};
-  // A reply the case file reads as "not sure" (caseFile.ts isUnsureAnswer, typed "I don't know") is unsure, like a skip:
-  // the review may offer that fact once more (owner, option 1), which is not asking it twice (carry, 31 Oct).
-  const isUnsureAnswer = ${isUnsureAnswer.toString()};
   if (window.__askOnceInstalled) return;
   window.__askOnceInstalled = true;
   const seen = new Set();
@@ -118,7 +118,7 @@ const SCAN = `(() => {
   // Diagnostic only: the address, and for an ask the tab's intake copy (the page's own snapshot).
   const tabCopy = () => { try { return sessionStorage.getItem(${JSON.stringify(GUEST_INTAKE_SESSION_KEY)}) || undefined; } catch { return undefined; } };
   const emit = (kind, surface, id, text, reply) => window.__recordAsk({ kind, surface, id, screen: screen(), text: (text || "").replace(/\\s+/g, " ").slice(0, 160), at: now(), address: location.pathname + location.search, ...(kind === "ask" ? { tab: tabCopy() } : {}), ...(typeof reply === "string" ? { reply: reply.replace(/\\s+/g, " ").trim().slice(0, 500) } : {}) });
-  const answer = (surface, id, reply) => { const key = surface + "|" + id; if (answered.has(key)) return; answered.add(key); emit("answer", surface, id, skipped.has(key) || (surface === "sc-chat" && isUnsureAnswer(reply)) ? "unsure" : "", reply); };
+  const answer = (surface, id, reply) => { const key = surface + "|" + id; if (answered.has(key)) return; answered.add(key); emit("answer", surface, id, skipped.has(key) ? "unsure" : "", reply); };
   // Small Claims guided: the person's reply shown right under a question (a user message before the next question), if any.
   const replyAfter = (el) => { const all = [...document.querySelectorAll("[data-testid=guided-message]")]; for (const m of all.slice(all.indexOf(el) + 1)) { if (m.getAttribute("data-from") === "user") return words(m); if (m.hasAttribute("data-question-id")) return undefined; } return undefined; };
   const words = (el) => (el ? el.innerText || el.textContent || "" : "").replace(/\\s+/g, " ").trim();
@@ -145,7 +145,7 @@ const SCAN = `(() => {
     ["date", "[data-testid=stage-answer-date-question]", (el) => [el.getAttribute("data-question-id")]],
     // An empty, editable box in the review asks for its fact; so does the Small Claims form's documents list with nothing ticked.
     ["review-entry", "[data-testid=intake-entry][data-empty=true]", (el) => [el.getAttribute("data-field")]],
-    // The end: "What we have so far" offers an unsure fact once more; the kind-of-claim chooser asks it.
+    // An answer-now offer of an unsure fact on "What we have so far" (none is drawn now: any is a repeat); the kind-of-claim chooser asks it.
     ["end", "[data-testid=case-file-line][data-state=unsure] [data-testid=case-file-answer-now]", (el) => [el.closest("[data-testid=case-file-line]").getAttribute("data-question")]],
     ["claim-kind", "[data-testid=claim-kind-chooser]", () => ["claim-kind-suggestion"]],
     ["sc-form", "[data-testid=sc-intake-documents][data-empty=true]", () => ["filedDocuments"]],
@@ -192,6 +192,13 @@ const SCAN = `(() => {
     // recording an unticked row as confirmed (m04-tenant, CI 29 Oct: a false "asked twice").
     const card = event.target instanceof Element ? event.target.closest("[data-testid=story-proposals]") : null;
     if (card) window.__askOnceRows = [...card.querySelectorAll("[data-testid=story-proposal-row]")].filter((row) => { const tick = row.querySelector("input[type=checkbox]"); return !tick || tick.checked; }).map((row) => row.getAttribute("data-question-id"));
+    // The story given (founder's Chrome re-test of #536, 1 Nov): sent from the home page's story box, or from
+    // the Small Claims chat's (its "Send" with the story box holding words, or "Send my story" under the saved story).
+    const button = event.target instanceof Element ? event.target.closest("button") : null;
+    const homeStory = document.querySelector("textarea[aria-describedby=home-story-guidance]");
+    if (button && homeStory && homeStory.value.trim() && /^Continue to .* intake$/.test(words(button))) answer("home-story", "story");
+    const chatStory = document.querySelector("textarea[aria-describedby=guided-story-guidance]");
+    if (button && ((chatStory && chatStory.value.trim() && words(button) === "Send") || id === "guided-send-saved-story")) answer("sc-story", "story");
   }, true);
   // A service method chosen is its answer.
   document.addEventListener("change", (event) => {
@@ -202,7 +209,13 @@ const SCAN = `(() => {
   const visible = (el) => !el.checkVisibility || el.checkVisibility();
   const chatSeen = new Map();
   const chatAnswered = new Set();
+  // The Small Claims chat's story box, asked each time it comes on screen (a reload draws it anew).
+  let storyBoxShown = false;
   const scan = () => {
+    const storyBox = document.querySelector("textarea[aria-describedby=guided-story-guidance]");
+    const storyShown = Boolean(storyBox && visible(storyBox));
+    if (storyShown && !storyBoxShown) emit("ask", "sc-story", "story", words(document.getElementById("guided-story-guidance")) || "the chat's story box");
+    storyBoxShown = storyShown;
     for (const [surface, selector, ids] of surfaces) {
       const found = typeof selector === "function" ? selector() : document.querySelectorAll(selector);
       for (const el of found) {
@@ -314,6 +327,8 @@ export function factsOfAsk(item: Pick<Asked, "surface" | "id" | "text">): string
   if (item.surface === "event-candidate") return ["dateInOwnSentence"];
   if (WORDED.has(item.surface)) { const facts = factsOfWords(item.id); return facts.length ? facts : [`${item.surface}:${item.id}`]; }
   if (item.surface === "service-method") return ["serviceMethod"];
+  // The story: the Small Claims chat's story box asks for it; the home page's or the chat's story sent gives it.
+  if (item.surface === "sc-story" || item.surface === "home-story") return ["story"];
   if (item.surface === "form-field") {
     const own = FORM_FIELD_FACTS[item.id];
     if (own) return [...own];
@@ -459,9 +474,6 @@ export function unsureFromSituation(answers: SituationAnswers | false): string[]
   return facts;
 }
 
-/** Where an unsure fact may be offered once more (once, in total): the review, or the story's suggestion. */
-export const END_SURFACES = new Set(["review", "review-entry", "chat-story"]);
-
 export type Repeat = { fact: string; given: Asked; asks: Asked[] };
 
 /**
@@ -485,7 +497,6 @@ export function factsAskedTwice(events: readonly Asked[], situation: SituationAn
     for (const fact of factsOfAsk(ask ?? item)) if (!given.has(fact)) given.set(fact, { ...item, text: item.text === "unsure" ? "unsure" : ask?.text ?? "", screen: ask?.screen ?? item.screen });
   }
   const repeats = new Map<string, Repeat>();
-  const offeredAgain = new Set<string>();
   for (const ask of asks) {
     if (ask.surface === "situation") continue;
     for (const fact of factsOfAsk(ask)) {
@@ -495,8 +506,6 @@ export function factsAskedTwice(events: readonly Asked[], situation: SituationAn
       // which restoredAsk() alone excuses (shown again with the same reply); with none or another, it counts.
       // And a follow-up chat question only within the same reply (occurrence): the same words in a later reply count.
       if (ask.surface !== "sc-chat" && gave.surface === ask.surface && gave.id === ask.id && gave.screen === ask.screen && gave.occurrence === ask.occurrence) continue;
-      // An unsure fact, offered once more at the end: allowed once.
-      if (gave.text === "unsure" && END_SURFACES.has(ask.surface) && !offeredAgain.has(fact)) { offeredAgain.add(fact); continue; }
       const repeat = repeats.get(fact) ?? { fact, given: gave, asks: [] };
       repeat.asks.push(ask);
       repeats.set(fact, repeat);
@@ -518,16 +527,14 @@ export function restoredAsk(item: Asked, events: readonly Asked[]): boolean {
 
 /**
  * THE HELD CHECK. Every question asked while the saved case held its fact as the person's own:
- * held answered, it fails; held unsure, it may be offered once more at the end (END_SURFACES),
- * once per fact, and any other offer fails. The situation questions are the start, not a repeat.
+ * held, answered OR unsure, it fails, on any screen (site owner, 31 Oct: there is no second offer of an
+ * unsure fact, at the end or anywhere). The situation questions are the start, not a repeat.
  */
 export function heldViolations(events: readonly Asked[]): Violation[] {
   const violations: Violation[] = [];
-  const offeredAgain = new Set<string>();
   for (const ask of [...events].filter((item) => item.kind === "ask" && !restoredAsk(item, events)).sort((a, b) => a.at - b.at)) {
     if (ask.surface === "situation" || !ask.held) continue;
     for (const [fact, state] of Object.entries(ask.held)) {
-      if (state === "unsure" && END_SURFACES.has(ask.surface) && !offeredAgain.has(fact)) { offeredAgain.add(fact); continue; }
       violations.push({ rule: "held", fact, surface: ask.surface, id: ask.id, screen: ask.screen, text: ask.text, detail: `held ${state}`, diag: diagnosticOf(ask) });
     }
   }

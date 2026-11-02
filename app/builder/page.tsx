@@ -3,6 +3,7 @@
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
 import { caseFileOf, claimKindOf, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { withoutUnsureAnswers } from "../../src/lib/case-system/caseFile/unsureAnswer";
 import { researchCaseContext } from "../../src/lib/case-system/caseFile/aiCaseContext";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
 
@@ -1386,8 +1387,11 @@ function BuilderPageContent() {
 
   function handleComplete(
     result: AnalysisResult,
-    payload: StoredCaseData,
+    given: StoredCaseData,
   ) {
+    // Every court's answers enter the analysis input here: an answer that is only "I do not know yet" is kept
+    // as not answered (the case file's "not sure"), never saved or shown as the answer (unsureAnswer.ts).
+    const payload = withoutUnsureAnswers(given);
     const previousRevision = analysisInputRevision.current;
     const previousFacts = analysisFactsRevision.current;
     analysisInputRevision.current = recovery?.getReview().checkpoint.inputRevision ?? null;
@@ -2430,9 +2434,11 @@ function BuilderPageContent() {
                 sideFromRecord={sideOf(situation) !== null}
                 caseId={savedCaseId()}
                 initialStepId={savedPosition.stepId ?? stepFromSituation(situation, courtPath)}
-                // A day the person said they do not know had its one more offer in the review: folded
-                // here ("not known yet — Add it"), never asked a second time (caseFile.ts).
+                // A day the person said they do not know is never asked again: folded here as "Not answered yet:
+                // add it when you know", with "Add it" (site owner, 31 Oct; caseFile.ts unsureDateQuestions).
                 laterDates={unsureDateQuestions(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult))}
+                // "Not sure" where the case is (the start's "I am not sure"): never asked again; the quiet line with "Add it" (founder, 1 Nov).
+                stepNotSure={caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult).stage.state === "unsure"}
                 initialDateAnswers={savedPosition.dateAnswers}
                 initialService={savedPosition.service}
                 onSaved={(saved) => {

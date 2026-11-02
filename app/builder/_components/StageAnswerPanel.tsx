@@ -154,6 +154,7 @@ function groupOf(stage: { id: string; side: string }): string {
 export { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
 import { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
 import { isLeaveSentence, withLeaveRulesQuoted } from "@/src/lib/content-library/leaveRuleWords";
+import { ADD_IT_LATER, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
 
 export function orderGroupsForReader<T extends { side: string; label: string }>(
   groups: readonly T[],
@@ -1338,6 +1339,7 @@ export default function StageAnswerPanel({
   motionToChange = null,
   suggestedStepId = null,
   laterDates = [],
+  stepNotSure = false,
   onSaved,
 }: {
   courtPath: StagePathway;
@@ -1389,11 +1391,18 @@ export default function StageAnswerPanel({
    */
   suggestedStepId?: string | null;
   /**
-   * Date questions whose day the person said they do not know, already offered once more
-   * in the review (Jason, 2026-10-24, option 1): shown folded with "Add it", which is not a
-   * second question (the case file, caseFile.ts).
+   * Date questions whose day the person said they do not know (caseFile.ts unsureDateQuestions):
+   * never asked again (site owner, 31 Oct), shown folded as "Not answered yet: add it when you know"
+   * (askCopy.ts NOT_ANSWERED_YET) with "Add it", which the person may open; never a second question.
    */
   laterDates?: readonly string[];
+  /**
+   * The person said they are not sure where the case is (the case file holds "stage" not sure; the start's
+   * "I am not sure" for a case already going): "Where is your case?" is never asked again, nor a step suggested
+   * in its place; the panel shows "Not answered yet: add it when you know" with "Add it", which opens the list
+   * (founder, 1 Nov). No step's content is shown until the person picks one.
+   */
+  stepNotSure?: boolean;
   /** Told what the person chose (dates and step), so a page that remounts this panel can show it again; called just AFTER the save to the case is queued, so positionSavesSettled(caseId) inside it waits for that save. */
   onSaved?: (saved: {
     stepId?: string | null;
@@ -1440,7 +1449,7 @@ export default function StageAnswerPanel({
     [givenServiceKey, replayedService],
   );
   const savedStep = initialStepId && options.some((option) => option.id === initialStepId) ? initialStepId : "";
-  const startingStep = savedStep || suggested;
+  const startingStep = savedStep || (stepNotSure ? "" : suggested);
   const [stageId, setStageId] = useState(startingStep);
   const [choosingStep, setChoosingStep] = useState(false);
   // The step the person chose on this page ("Use the suggestion" or the list): until then a step the site
@@ -1757,6 +1766,13 @@ export default function StageAnswerPanel({
       className="rounded-3xl border border-[#d8e6df] bg-white p-5 shadow-sm"
     >
       <h3 className="text-lg font-bold text-[#10231f]">What happens next at your exact step</h3>
+      {stepNotSure && !stageId && !choosingStep ? (
+        // Said "not sure" where the case is: the quiet line, never the question again (founder, 1 Nov).
+        <p className="mt-4 text-sm text-[#4d675f]" data-testid="stage-not-answered-yet" data-fact="stage">
+          <span className="font-semibold text-[#16302b]">Where is your case: </span>{NOT_ANSWERED_YET}.{" "}
+          <button type="button" data-testid="not-answered-yet-add" onClick={() => setChoosingStep(true)} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</button>
+        </p>
+      ) : <>
       <p className="mt-2 text-sm leading-6 text-[#4d675f]">
         {noticeFirst && suggested === stageId
           ? "Before filing: this step may apply to the kind of claim you described. It shows a written-notice deadline counted from the day of the injury, with the rule it comes from. If it does not fit, choose the question closest to where your case is."
@@ -1824,6 +1840,7 @@ export default function StageAnswerPanel({
           ))}
         </select>
       </label>
+      </>}
       {confirmedStage && !showOtherSide && (choosingStep || !stageId) ? (
         <button
           type="button"
@@ -1878,8 +1895,8 @@ export default function StageAnswerPanel({
               if (laterDates.includes(question.id) && !dateAnswers[question.id] && !openedLater[question.id]) {
                 return (
                   <p key={question.id} data-testid="stage-answer-date-later" className="text-sm text-[#16302b]">
-                    <span className="font-semibold">{shortLabel(dateQuestionTextFor(question, serving(question.id)))}:</span> not known yet.{" "}
-                    <button type="button" onClick={() => setOpenedLater((now) => ({ ...now, [question.id]: true }))} className="font-semibold text-[#2f7d67] underline">Add it</button>
+                    <span className="font-semibold">{shortLabel(dateQuestionTextFor(question, serving(question.id)))}:</span> <span data-testid="not-answered-yet">{NOT_ANSWERED_YET}.</span>{" "}
+                    <button type="button" onClick={() => setOpenedLater((now) => ({ ...now, [question.id]: true }))} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</button>
                   </p>
                 );
               }

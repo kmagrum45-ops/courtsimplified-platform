@@ -56,6 +56,7 @@ import {
 } from "../../../src/lib/case-system/intake/questionBank";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { analysisClaimType, caseFileOf, claimKindOf, kindForAnalysis } from "../../../src/lib/case-system/caseFile/caseFile";
+import { NotAnsweredYetField } from "../../_components/NotAnsweredYet";
 import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
 import { UseSuggestion } from "../../_components/UseSuggestion";
 
@@ -630,17 +631,13 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       values,
       initialStory,
     );
-    // 2026-10-16 live bug: "Case stage" showed "Not sure" even when the
-    // story plainly describes a dispute that hasn't gone to court yet --
-    // inferStage() already works this out correctly, but was only ever
-    // consulted at submission time (handleAnalyze below), never fed back
-    // into what the select actually shows while the person is filling in
-    // the form. Applying it here is a pre-filled SUGGESTION, same as any
-    // other prefilled field: the select stays editable, and nothing here
-    // is stored until the person submits or saves.
-    return merged.caseStage === "not-sure" && hasText(merged.facts)
-      ? { ...merged, caseStage: inferStage(merged) }
-      : merged;
+    // No stage guessed from the story is kept as the person's answer (founder's Chrome check of #541, 2 Nov,
+    // step 2). A guess pre-filled here (from 2026-10-16) was stored with the form, and the case file read it as
+    // the answer to "where the case is" (caseFile.ts, each area's form), so "I'm not sure" given at the start
+    // was replaced by "Starting a case" and the step page asked "Where is your case?" again. The start's answers
+    // settle the stage (situationAnswers, shown in place of the select); the analysis still makes its own
+    // reading of the story when the form is sent (handleAnalyze, inferStage).
+    return merged;
   });
   // The situation answers, given before the story (situation.ts), answer the side and what
   // has been filed: read from there, never asked again (step 2).
@@ -963,7 +960,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       // §4, suggest never decide).
       // Kinds of claim only, from the case file: the person's, else the one the story shows
       // (claimKind.ts, step 2b), the same value every screen shows (site owner, 29 Oct).
-      const fileNow = recovery ? caseFileOf(recovery.getReview().checkpoint) : { ...caseFileOf(null), story: input.facts, area: "small-claims" };
+      const fileNow = recovery ? caseFileOf(recovery.getReview().checkpoint) : { ...caseFileOf(null), storyText: input.facts, area: "small-claims" };
       const kindNow = claimKindOf(fileNow);
       const analysisKind = hasText(input.facts) ? kindForAnalysis(kindNow) : null;
       // Answers given in the review panel count here too, where the form left them empty
@@ -1210,6 +1207,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             />
           </label>
 
+          {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
+          <NotAnsweredYetField field="otherParty" value={input.otherParty} label={"Other party name"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               Other party name
@@ -1221,11 +1220,14 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               placeholder="Person or business on the other side"
             />
           </label>
+          </NotAnsweredYetField>
         </div>
 
         <StoryEditor section="small-claims" story={input.facts} startOpen={!input.facts.trim()} onSave={saveStory} ids={{ toggle: "sc-intake-edit-story", draft: "sc-intake-facts", save: "sc-story-save" }} />
 
         <div className="grid gap-5 md:grid-cols-2">
+          {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
+          <NotAnsweredYetField field="timeline" facts={["whenHappened"]} value={input.timeline} label={"Important dates / timeline"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               Important dates / timeline
@@ -1237,6 +1239,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               placeholder="List dates in order. If you do not know exact dates, estimate."
             />
           </label>
+          </NotAnsweredYetField>
 
           <label className="block">
             <span className="font-semibold text-[#16302b]">
@@ -1267,6 +1270,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             />
           </label>
 
+          {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
+          <NotAnsweredYetField field="goal" value={input.goal} label={"What do you want the court to order?"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               {/* A defendant does not ask the court for an order on the claim;
@@ -1281,9 +1286,12 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             />
             <FieldHelp question={REMEDY_QUESTION} />
           </label>
+          </NotAnsweredYetField>
         </div>
 
         <div className="grid gap-5 md:grid-cols-2">
+          {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
+          <NotAnsweredYetField field="amountClaimed" value={input.amountClaimed} label={"Amount claimed or disputed"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               Amount claimed or disputed
@@ -1298,6 +1306,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             />
             <FieldHelp question={AMOUNT_CLAIMED_QUESTION} />
           </label>
+          </NotAnsweredYetField>
 
           <label className="block">
             <span className="font-semibold text-[#16302b]">
@@ -1352,6 +1361,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               placeholder="Other party address for service, if known"
             />
 
+            {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
+            <NotAnsweredYetField field="serviceDetails" value={input.serviceDetails} label={"Service details"}>
             <textarea
               data-testid="sc-intake-serviceDetails" value={input.serviceDetails}
               onChange={(event) =>
@@ -1360,6 +1371,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3 md:col-span-2"
               placeholder={fromStart.servedOn ? "How the papers were served (in person, by mail, by email)" : "Service details, only if anything has already been served"}
             />
+            </NotAnsweredYetField>
             {/* The same date check as every date box (dates.ts), as in the civil form: a note, since nothing is counted from this box. */}
             {input.serviceDetails.trim() && dateAnswerCheck("When and how was it served?", input.serviceDetails.trim()) ? (
               <span data-testid="sc-field-needs-more" className="text-sm text-[#8a4b12] md:col-span-2">{dateAnswerCheck("When and how was it served?", input.serviceDetails.trim())}</span>
@@ -1463,12 +1475,15 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               placeholder="Deadlines, court dates, or urgent timing concerns"
             />
 
+            {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
+            <NotAnsweredYetField field="urgent" value={input.urgent} label={"Anything urgent"}>
             <textarea
               data-testid="sc-intake-urgent" value={input.urgent}
               onChange={(event) => updateField("urgent", event.target.value)}
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Anything urgent"
             />
+            </NotAnsweredYetField>
           </div>
         </details>
 

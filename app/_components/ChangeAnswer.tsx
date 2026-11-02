@@ -16,17 +16,23 @@
  * every date box is), and "Remove this answer". Side, court, stage and papers are not changed here:
  * they choose the court and its steps, so they are changed with the start questions at the top.
  *
+ * With `adding` it is the "Add it" of a fact not answered yet (NotAnsweredYet.tsx, site owner 31 Oct):
+ * the same choices and the same write path, and nothing to remove.
+ *
  * Restates the person's own answers; states no law.
  */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { useIntakeRecovery } from "./IntakeRecovery";
+import { holdOpenEdit } from "./openEdits";
 import { CASE_FILE_SECTION, withChange, type ChangeInput, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { CIVIL_ISSUE_OPTIONS, FAMILY_ISSUE_OPTIONS } from "../builder/_components/guidedFields";
 import { dateAnswerCheck } from "../../src/lib/case-system/dates";
+import { ADD_IT_LATER } from "../../src/lib/case-system/copy/askCopy";
 
 /** Each fact's name, as "What we have so far" and the review show it. */
 export const FACT_LABEL: Record<SlotFact, string> = {
+  story: "Your story",
   side: "Your side",
   court: "Court",
   stage: "Where the case is",
@@ -62,6 +68,8 @@ type Choices =
 /** The choices "Change" offers for a fact in a court, or null when it is changed at the start. */
 export function changeChoices(fact: SlotFact, court: string | null | undefined): Choices | null {
   if (CHANGED_AT_THE_START.has(fact)) return null;
+  // The story is changed with its own story box (StoryEditor, storyBasis.ts), never as a one-line answer.
+  if (fact === "story") return null;
   if (fact === "claimKind") {
     if (court === "civil") return { kind: "multi", options: CIVIL_ISSUE_OPTIONS };
     if (court === "family") return { kind: "multi", options: FAMILY_ISSUE_OPTIONS };
@@ -72,7 +80,7 @@ export function changeChoices(fact: SlotFact, court: string | null | undefined):
   return { kind: "text", day: DAYS.has(fact) };
 }
 
-export default function ChangeAnswer({ fact, court, startOpen = false, current }: { fact: SlotFact; court: string | null | undefined; startOpen?: boolean; current?: unknown }) {
+export default function ChangeAnswer({ fact, court, startOpen = false, current, adding = false }: { fact: SlotFact; court: string | null | undefined; startOpen?: boolean; current?: unknown; /** For a fact not answered yet ("I don't know"): "Add it", nothing to remove (askCopy.ts NOT_ANSWERED_YET). */ adding?: boolean }) {
   const recovery = useIntakeRecovery();
   const [open, setOpen] = useState(startOpen);
   const [typed, setTyped] = useState("");
@@ -81,24 +89,43 @@ export default function ChangeAnswer({ fact, court, startOpen = false, current }
   const box = useRef<HTMLSpanElement>(null);
   useEffect(() => { if (startOpen) box.current?.scrollIntoView({ block: "center" }); }, [startOpen]);
   const choices = changeChoices(fact, court);
-  if (!recovery || !choices) return null;
   const label = FACT_LABEL[fact];
+  const editId = useId();
   /** The one write path (caseFile.ts withChange): the change record, a touched answer from the review. */
   const save = (change: ChangeInput) => {
+    if (!recovery) return;
     recovery.put(CASE_FILE_SECTION, "changes", withChange(recovery.read(CASE_FILE_SECTION, "changes"), fact, change), true, true, true);
     setOpen(false); setTyped(""); setNote("");
   };
-  const saveTyped = () => {
+  /**
+   * What is typed or ticked here and not saved yet, saved as "Save" saves it: by "Save" itself, and by any Confirm
+   * pressed while this box is open (openEdits.ts flushOpenEdits; founder's Chrome check of #541, step 3).
+   */
+  const saveUnsent = (): "saved" | "blocked" | "empty" => {
+    if (!choices) return "empty";
+    if (choices.kind === "multi") {
+      const was = Array.isArray(current) ? current.filter((item): item is string => typeof item === "string") : [];
+      if (picks.length === 0 || JSON.stringify([...picks].sort()) === JSON.stringify([...was].sort())) return "empty";
+      save({ state: "answered", value: picks });
+      return "saved";
+    }
+    if (choices.kind !== "text") return "empty";
     const words = typed.trim();
-    if (!words) return;
-    const more = choices.kind === "text" && choices.day ? dateAnswerCheck(label, words, { dateQuestion: true, oneDate: true }) : null;
+    if (!words) return "empty";
+    const more = choices.day ? dateAnswerCheck(label, words, { dateQuestion: true, oneDate: true }) : null;
     setNote(more ?? "");
-    if (!more) save({ state: "answered", value: words });
+    if (more) return "blocked";
+    save({ state: "answered", value: words });
+    return "saved";
   };
-  if (!open) return <span data-testid="change-answer" data-fact={fact}>{" "}<button type="button" data-testid="change-answer-open" onClick={() => setOpen(true)} className="font-semibold text-[#2f7d67] underline">Change</button></span>;
+  // Held while open, so a Confirm pressed with typing still here saves it first (re-held each render: the latest typing).
+  useEffect(() => (open && recovery ? holdOpenEdit(editId, { label: label ?? fact, flush: saveUnsent }) : undefined));
+  if (!recovery || !choices) return null;
+  const saveTyped = () => { saveUnsent(); };
+  if (!open) return <span data-testid="change-answer" data-fact={fact}>{" "}<button type="button" data-testid="change-answer-open" onClick={() => setOpen(true)} className="font-semibold text-[#2f7d67] underline">{adding ? ADD_IT_LATER : "Change"}</button></span>;
   return (
     <span ref={box} data-testid="change-answer" data-fact={fact} data-open="true" className="mt-2 block rounded-xl border border-[#d8e6df] p-3">
-      <span className="block font-semibold">Change: {label}</span>
+      <span className="block font-semibold">{adding ? "Add" : "Change"}: {label}</span>
       {choices.kind === "choice" ? (
         <span className="mt-1 flex flex-wrap gap-2">{choices.options.map((option) => <button key={option.value} type="button" data-testid="change-answer-choice" onClick={() => save({ state: "answered", value: option.value })} className="rounded border px-3 py-1">{option.label}</button>)}</span>
       ) : choices.kind === "multi" ? (
@@ -116,7 +143,7 @@ export default function ChangeAnswer({ fact, court, startOpen = false, current }
       )}
       {note ? <span data-testid="change-answer-needs-more" className="mt-1 block text-sm text-[#8a4b12]">{note}</span> : null}
       <span className="mt-2 flex flex-wrap gap-3">
-        <button type="button" data-testid="change-answer-remove" onClick={() => save({ state: "removed" })} className="text-sm font-semibold text-[#8a4b12] underline">Remove this answer</button>
+        {adding ? null : <button type="button" data-testid="change-answer-remove" onClick={() => save({ state: "removed" })} className="text-sm font-semibold text-[#8a4b12] underline">Remove this answer</button>}
         <button type="button" data-testid="change-answer-cancel" onClick={() => { setOpen(false); setNote(""); }} className="text-sm underline">Cancel</button>
       </span>
     </span>

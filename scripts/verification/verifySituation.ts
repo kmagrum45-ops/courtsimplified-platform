@@ -96,7 +96,7 @@ for (const court of COURTS) {
     }
 
     // The review never asks what the situation settles.
-    const remaining = remainingEssentialQuestions({ version: 1, flowId: "f", courtPath: court, revision: "r", sections: sectionsWith(row.situation) } as never, true).map((question) => question.id);
+    const remaining = remainingEssentialQuestions({ version: 1, flowId: "f", courtPath: court, revision: "r", sections: sectionsWith(row.situation) } as never).map((question) => question.id);
     const asked = court === "small-claims" ? ["sc-orient-role", ...(answers.claimFiled !== undefined ? ["sc-claim-filed"] : [])] : ["yourRole", ...(answers.documents ? [court === "family" ? "filedDocuments" : "documents"] : []), ...(court === "family" && answers.servedOn ? ["servedDate"] : [])];
     for (const id of asked) check(`${at}: the review does not ask "${id}" again`, !remaining.includes(id), remaining.join(", "));
 
@@ -188,7 +188,7 @@ check("the person's step-page date wins over the situation's", withSituationDate
   // 2. Small Claims never asks the day served, or when the claim and which papers were received, again.
   const server = situationFacts(served as Record<string, unknown>);
   check("the Small Claims server counts the day served and the papers received as answered", server.questionIds.includes("sc-date-claim-served") && server.questionIds.includes("sc-defendant-claim-received"), server.questionIds.join(", "));
-  const remaining = remainingEssentialQuestions({ version: 1, flowId: "f", courtPath: "small-claims", revision: "r", sections: sectionsWith(served) } as never, true).map((question) => question.id);
+  const remaining = remainingEssentialQuestions({ version: 1, flowId: "f", courtPath: "small-claims", revision: "r", sections: sectionsWith(served) } as never).map((question) => question.id);
   check("the review does not ask the day served or the papers received again", !remaining.includes("sc-date-claim-served") && !remaining.includes("sc-defendant-claim-received"), remaining.join(", "));
 
   // 3-6. The stage, and "nothing filed", as the situation answers settle them.

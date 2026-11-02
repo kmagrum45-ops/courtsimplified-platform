@@ -123,9 +123,9 @@ check("a side change sets the old side's 'what you want' from the home page asid
   ];
   // Story pack on GitHub, 27 Oct (w4): "I don't know yet" to the day the claim was issued, then that
   // question asked on the results page and again on the case page. Any date question answered so is
-  // offered once more at the end, like the days the case file holds.
+  // folded on the step page (never asked again), like the days the case file holds.
   const unsureIssued = caseFileOf({ version: 1, flowId: "00000000-0000-4000-8000-000000000044", courtPath: "small-claims", revision: "00000000-0000-4000-8000-000000000044", sections: { story: { text: "Synthetic." }, builder: { initialUnknowns: ["sc-date-claim-issued", "sc-remedy-sought"] } } } as never);
-  check("a date answered 'I don't know yet' with no slot of its own is offered once at the end, never asked cold", unsureDateQuestions(unsureIssued).includes("sc-date-claim-issued") && !unsureDateQuestions(unsureIssued).includes("sc-remedy-sought"), JSON.stringify(unsureDateQuestions(unsureIssued)));
+  check("a date answered 'I don't know yet' with no slot of its own is folded on the step page, never asked again", unsureDateQuestions(unsureIssued).includes("sc-date-claim-issued") && !unsureDateQuestions(unsureIssued).includes("sc-remedy-sought"), JSON.stringify(unsureDateQuestions(unsureIssued)));
   for (const [step, want, why] of STEPS) check(`${step} settles ${JSON.stringify(want)} (${why})`, JSON.stringify(settledBySmallClaimsStep(step)) === JSON.stringify(want), JSON.stringify(settledBySmallClaimsStep(step)));
 }
 

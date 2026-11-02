@@ -3,6 +3,7 @@
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
 import { caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
+import { NotAnsweredYetField } from "../../_components/NotAnsweredYet";
 import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
@@ -1140,7 +1141,9 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           const typed = String(input[field as keyof CivilInput] ?? "").trim();
           const needsMore = question && typed ? dateAnswerCheck(question, typed) : null;
           return (
-          <label key={field} className="block">
+          // A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct).
+          <NotAnsweredYetField key={field} field={field} facts={field === "timeline" ? ["whenHappened"] : undefined} value={input[field as keyof CivilInput]} label={label}>
+          <label className="block">
             <span className="font-semibold text-[#16302b]">{label}</span>
             <textarea
               value={String(input[field as keyof CivilInput])}
@@ -1152,6 +1155,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
             />
             {needsMore ? <span data-testid="civil-field-needs-more" className="mt-1 block text-sm text-[#8a4b12]">{needsMore}</span> : null}
           </label>
+          </NotAnsweredYetField>
           );
         })}
 

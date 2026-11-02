@@ -23,13 +23,17 @@
  * the situation answers.
  *
  * `nextQuestion` is the one gate: a screen offers its questions in order and gets back
- * the first whose facts are all not asked, or null. At the end (`atEnd`), each unsure
- * fact is offered once more.
+ * the first whose facts are all not asked, or null. A fact the person said they do not know
+ * is never asked again, anywhere, by any screen (site owner, 31 Oct; it replaced "offered once
+ * more at the end", option 1 of 24 Oct): screens show it as the quiet line "Not answered yet: add
+ * it when you know" (askCopy.ts NOT_ANSWERED_YET), and the person adds it through the one change
+ * path (withChange) when they know.
  *
  * Pure: no React, no network. States no law.
  */
 import type { Checkpoint } from "../intakeCheckpoint";
 import { freshSections } from "../storyBasis";
+import { isUnsureAnswer } from "./unsureAnswer";
 import { storyOfMaster } from "../intakeStory";
 import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation } from "../situation/situation";
 import { isKindOfClaim, kindFromStory, storyQuoteFor, wordsInStory } from "../intake/claimKind";
@@ -45,6 +49,8 @@ export const SLOT_FACTS = [
   "side", "court", "stage", "filed", "papers", "servedDate", "amount", "otherParty", "children",
   "married", "marriedWhere", "claimKind", "wants", "whenHappened", "conferenceDate", "defenceFiled",
   "outcome", "urgent", "courtDate",
+  // The story, held once it is given (founder, 1 Nov: no screen asks for it again; its words are `storyText`).
+  "story",
 ] as const;
 export type SlotFact = (typeof SLOT_FACTS)[number];
 export type SlotState = "not-asked" | "answered" | "unsure";
@@ -61,15 +67,15 @@ export type CaseFile = Record<SlotFact, Slot> & {
   /** The papers the person said are filed, as stored (shown in words with "Anything filed yet"). */
   documents?: string[];
   /**
-   * Date questions answered "I don't know yet" that no slot holds (the day a claim was issued): offered
-   * once more at the end like the slots' days, never asked cold again (story pack on GitHub, 27 Oct:
+   * Date questions answered "I don't know yet" that no slot holds (the day a claim was issued):
+   * never asked again, folded on the step page like the slots' days (story pack on GitHub, 27 Oct:
    * sc-date-claim-issued asked on the results page and again on the case page).
    */
   unsureDates?: string[];
   /** The side in the start answer's own words for a case already going ("I started this case (applicant)"). */
   sideWords?: string;
-  /** The story as it is now, for the lines "What we have so far" quotes from it (storyLines.ts). */
-  story?: string;
+  /** The story's words as they are now, for the lines "What we have so far" quotes from it (storyLines.ts); the fact itself is the `story` slot. */
+  storyText?: string;
   /**
    * A kind of claim made by the site, not the person (the guided route's story match or the
    * classifier's suggestion not yet ticked, or an older saved case's unticked match): a PROPOSAL,
@@ -102,18 +108,15 @@ export type CaseFile = Record<SlotFact, Slot> & {
   answeredInReview?: string[];
 };
 
-/** Where the case file keeps what it adds: the facts answered "not sure", and those offered again at the end. */
+/** Where the case file keeps what it adds: the facts answered "not sure", and the questions answered in the review. */
 export const CASE_FILE_SECTION = "caseFile";
 
 const isSlot = (fact: string): fact is SlotFact => (SLOT_FACTS as readonly string[]).includes(fact);
 const object = (value: unknown): Record<string, unknown> => (value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {});
 const strings = (value: unknown): string[] => (Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : []);
 
-/** An answer that gives nothing but "I don't know": kept as unsure, never as a value. */
-export function isUnsureAnswer(value: unknown): boolean {
-  if (typeof value !== "string") return false;
-  return /^\s*(?:i\s*(?:do\s*not|don'?t|dont)\s*know(?:\s*yet)?|not\s*sure(?:\s*yet)?|unsure|no\s*idea|i'?m\s*not\s*sure|idk|not-sure|unknown|skip(?:ped)?)\s*[.!]?\s*$/i.test(value);
-}
+/** An answer that gives nothing but "I don't know": kept as unsure, never as a value (the one test, unsureAnswer.ts). */
+export { isUnsureAnswer };
 
 const blank = (value: unknown) =>
   value === undefined || value === null || (typeof value === "string" && !value.trim()) || (Array.isArray(value) && value.length === 0);
@@ -189,7 +192,7 @@ function give(file: CaseFile, fact: string, value: unknown, question: string) {
     return;
   }
   // A rough time ("last summer", "June 2026") is kept as given, but is not the day itself:
-  // the fact stays unsure, so the exact day is offered once more at the end (item 12).
+  // the fact stays unsure, never asked again; the step page shows it folded (item 12; site owner, 31 Oct).
   if (DATED.has(fact) && typeof value === "string" && !isRealIsoDate(value) && !readFullDay(value)) {
     if (slot.state === "not-asked") file[fact] = { state: "unsure", value, source: { kind: "answer", question }, confirmed: true };
     return;
@@ -285,6 +288,12 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   for (const [values, area] of forms) {
     for (const [key, value] of Object.entries(values)) {
       if (key === "facts") continue;
+      // Where the case is, once the start answered it, is the start's answer: a form's stage is then a copy (the
+      // form shows the start's answer in place of its own box, so the person gave none there), from the story's
+      // guess or from the analysis input read back (caseRecord.ts storedIntakeValues). Read as an answer, it replaced
+      // "I'm not sure" given at the start, and the step page asked "Where is your case?" again (founder's Chrome
+      // check of #541, 2 Nov, step 2, Small Claims). Every court.
+      if (key === "caseStage" && situation.where) continue;
       // The Small Claims form starts with "Nothing filed yet" ticked: only an answer the person changed counts.
       if (area === "small-claims" && key === "filedDocuments" && strings(value).join() === "nothing") continue;
       // A form's "not sure" is its starting value, never asked by itself: no answer (the
@@ -315,7 +324,7 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
     for (const fact of slotsOf(id)) {
       if (file[fact].state !== "not-asked") continue;
       // The answer's own words where the question keeps them (its captured field); a dated
-      // fact with no words kept is unsure (the exact day is offered once more at the end).
+      // fact with no words kept is unsure (never asked again; the step page shows it folded).
       const field = QUESTION_BANK.find((question) => question.id === id)?.capturesField;
       const captured = field ? guidedFacts[field] : id === "sc-orient-role" ? guidedFacts.role : id === "sc-orient-dispute-category" && typeof guidedFacts.disputeCategory === "string" ? DISPUTE_CATEGORY_WORDS[guidedFacts.disputeCategory] : undefined;
       if (captured === undefined && DATED.has(fact)) unsure(file, fact, id);
@@ -345,9 +354,6 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
     for (const fact of slotsOf(id)) give(file, fact, answer, `review:${id}`);
   }
   for (const id of strings(builder.initialUnknowns)) for (const fact of slotsOf(id)) unsure(file, fact, `review:${id}`);
-  // A date question answered "I don't know yet", in the review or in words, whatever slot it has or not.
-  const unsureDates = [...strings(builder.initialUnknowns), ...Object.entries(answers).filter(([, words]) => isUnsureAnswer(words)).map(([id]) => id)].filter((id) => /-date-/.test(id));
-  if (unsureDates.length) file.unsureDates = [...new Set(unsureDates)];
   // Skipped in the questions one at a time (civil, Family).
   for (const key of strings(object(sections["form-chat"]).skipped)) for (const fact of slotsOf(key)) unsure(file, fact, `chat:${key}`);
 
@@ -395,6 +401,18 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
     // emptied there (a side change, the story-version rule) is not brought back from this copy.
     if (typeof item.questionId === "string") for (const fact of slotsOf(item.questionId)) if (!(fact === "claimKind" && checkpoint)) give(file, fact, item.answerText, item.questionId);
   }
+  // A date question answered "I don't know yet", in the review or in words, whatever slot it has or not:
+  // only an actual "not sure" marks it, and never once the question or its fact has a real answer from
+  // any source read above -- the review after the mark, the chat, the saved copy, the step page's
+  // dates, a form's box (latest answer wins; 1 Nov: the mark was kept whatever the answer).
+  const realAnswers = new Set<string>();
+  const real = (id: unknown, words: unknown) => { if (typeof id === "string" && typeof words === "string" && words.trim() && !isUnsureAnswer(words)) realAnswers.add(id); };
+  for (const [id, words] of Object.entries(object(builder.initialAnswers))) real(id, words);
+  for (const answer of [...(Array.isArray(guided.earlierAnswers) ? guided.earlierAnswers : []), ...(Array.isArray(object(master).intakeAnswers) ? (object(master).intakeAnswers as unknown[]) : [])]) real(object(answer).questionId, object(answer).answerText);
+  for (const [id, value] of Object.entries(dates)) real(id, value);
+  const saidUnsure = [...strings(builder.initialUnknowns), ...Object.entries(answers).filter(([, words]) => isUnsureAnswer(words)).map(([id]) => id)];
+  const unsureDates = saidUnsure.filter((id) => /-date-/.test(id) && !realAnswers.has(id) && !slotsOf(id).some((fact) => file[fact].state === "answered"));
+  if (unsureDates.length) file.unsureDates = [...new Set(unsureDates)];
   file.answers = answers;
   // The papers filed, as answered in any area's list (case 16: "the filed application and answer").
   // And the papers named in the situation answers ("I was served with a Plaintiff's Claim"), so "Anything
@@ -406,9 +424,13 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   if (startAnswers?.roleWords) file.sideWords = startAnswers.roleWords;
   const listed = [...fromStart, ...forms.flatMap(([values]) => [values.documents, values.filedDocuments]).flatMap((value) => strings(value))].filter((item) => item !== "nothing" && item !== "not-sure");
   if (listed.length) file.documents = [...new Set(listed)];
-  file.story = String(object(sections.story).text ?? "");
+  file.storyText = String(object(sections.story).text ?? "");
   file.area = checkpoint?.courtPath ?? court ?? undefined;
-  if (!file.story.trim() && master) file.savedStory = storyOfMaster(master) ?? undefined;
+  if (!file.storyText.trim() && master) file.savedStory = storyOfMaster(master) ?? undefined;
+  // The story is a fact: held once given, here or in the saved case (founder, 1 Nov: the Small Claims chat
+  // showed its story box again after the story was sent). Its words stay in storyText / savedStory.
+  const storyGiven = file.storyText.trim() || file.savedStory?.trim();
+  if (storyGiven) file.story = { state: "answered", value: storyGiven, source: { kind: "answer", question: "story" }, confirmed: true };
 
   // 8. "Not quite": the kinds the person turned down, kept by the case file itself, so starting the
   // questions again (which resets the guided record) never offers one back (rule 6, 31 Oct).
@@ -468,16 +490,36 @@ export function withChange(changes: unknown, fact: SlotFact, change: ChangeInput
 }
 
 /**
- * A later answer to a fact already under the change record, given in a form or a question (the whole
- * form, the review's "Answered here"): it is the newest answer, so it is recorded as the newest change
- * too (latest change wins). Returns the new change record, or null when the write answers no fact
- * under the record. Only the keys the write changed count (a form re-saving its other answers is no
- * answer), and "not sure" or an emptied box is no new answer.
+ * THE NEWEST ANSWER WINS, ONCE, FOR EVERY PLACE (founder, 1 Nov). An answer the person gives in a form or a
+ * question (a whole form, the review's question or its summary box, the questions one at a time) is recorded
+ * in the change record, with the time it was given, when it answers a fact that is already under the record,
+ * or that the case file already holds (`held`) with a DIFFERENT value from another place. The change record
+ * is applied last (applyChanges), so the later answer wins whichever place gave the earlier one: `give`
+ * keeps the first answer it reads, and the order caseFileOf reads its sources in is not the order the person
+ * answered (Chrome check of #536, round 2: the review's summary box changed the amount to $2,650 while the
+ * list and the case page kept $2,400).
+ *
+ * The time decides, from the browser's clock (`now`); in G2(b) the server's sequence number for the write
+ * replaces it, so two tabs or devices cannot disagree.
+ *
+ * Returns the new change record, or null when the write is no newer answer: only the keys the write changed
+ * count (a form re-saving its other answers is no answer); "not sure" or an emptied box is no answer; a first
+ * answer to a fact nobody gave, or the same value again, records nothing.
  */
-export function followAnswer(sections: Record<string, unknown>, section: string, key: string, before: unknown, after: unknown, now: Date = new Date()): FactChanges | null {
+/** The facts the start questions give and change (side, court, stage, papers): never recorded from a form or a question. */
+const START_FACTS: ReadonlySet<string> = new Set(["side", "court", "stage", "papers"]);
+
+/** Whether a value is the answer a fact already holds, as the case file reads it (an amount "$2,400" is 2400). */
+function sameAnswer(fact: SlotFact, heldValue: unknown, given: unknown): boolean {
+  const read = emptyCaseFile();
+  give(read, fact, given, "compare");
+  return JSON.stringify(read[fact].value ?? given) === JSON.stringify(heldValue);
+}
+
+export function followAnswer(sections: Record<string, unknown>, section: string, key: string, before: unknown, after: unknown, now: Date = new Date(), held?: CaseFile): FactChanges | null {
   const changes = changesOf(sections);
-  if (!Object.keys(changes).length) return null;
-  const keyed = ((section === "civil" || section === "small-claims") && key === "input") || (section === "builder" && key === "initialAnswers");
+  if (!Object.keys(changes).length && !held) return null;
+  const keyed = ((section === "civil" || section === "small-claims") && key === "input") || (section === "builder" && key === "initialAnswers") || (section === "guided" && key === "facts");
   const pairs: [string, unknown, unknown][] = keyed
     ? Object.keys({ ...object(before), ...object(after) }).map((id) => [id, object(before)[id], object(after)[id]])
     : section === "family" ? [[key, before, after]] : [];
@@ -485,8 +527,34 @@ export function followAnswer(sections: Record<string, unknown>, section: string,
   for (const [id, was, given] of pairs) {
     if (JSON.stringify(was) === JSON.stringify(given) || given === "not-sure" || isUnsureAnswer(given)) continue;
     const value = Array.isArray(given) ? strings(given).filter((item) => item !== "not-sure") : given;
+    // NEWEST WINS, INCLUDING REMOVAL (carry runs 41382392877 / 41382400851): a box emptied for a fact the change record
+    // holds is the person removing it, so the removal is recorded too; otherwise the earlier recorded answer was
+    // applied last and came back ("Jordan Testwood" after the other party box was emptied, every court). An emptied
+    // box for a fact not under the record records nothing, as before.
+    if (blank(value) && !blank(was)) {
+      for (const fact of slotsOf(id)) {
+        if (fact === "story") continue;
+        const recorded = (next ?? changes)[fact];
+        if (recorded && recorded.state === "answered") next = withChange(next ?? changes, fact, { state: "removed" }, now);
+      }
+      continue;
+    }
     if (blank(value) || !changeable(value)) continue;
-    for (const fact of slotsOf(id)) if ((next ?? changes)[fact]) next = withChange(next ?? changes, fact, { state: "answered", value }, now);
+    for (const fact of slotsOf(id)) {
+      // The story has its own path (the story box, storyBasis.ts): never a change-record answer.
+      if (fact === "story") continue;
+      const underRecord = Boolean((next ?? changes)[fact]);
+      // Held with another value FROM ANOTHER PLACE: this later answer is the newer one. The same place again (a box typed
+      // key by key, a form re-saved) is that place's own answer, read as before, never a change: recording each key
+      // filled the change record with the box's own value, so emptying the box later brought it back (carry runs
+      // 41382392877 / 41382400851, "Jordan Testwood" in every court). The start answers (side, court, stage, papers)
+      // change only with the start questions, never here.
+      const place = section === "builder" ? `review:${id}` : section === "family" ? `family:${key}` : `${section}:${id}`;
+      const heldSource = held?.[fact].source;
+      const samePlace = heldSource?.kind === "answer" && (heldSource.question === place || heldSource.question === id);
+      const heldOther = held !== undefined && !START_FACTS.has(fact) && held[fact].state === "answered" && !samePlace && !sameAnswer(fact, held[fact].value, value);
+      if (underRecord || heldOther) next = withChange(next ?? changes, fact, { state: "answered", value }, now);
+    }
   }
   return next;
 }
@@ -533,7 +601,8 @@ function heldKindId(slot: Slot): string | null {
 }
 
 function applyChanges(file: CaseFile, changes: FactChanges, position: Record<string, unknown>) {
-  const ordered = (Object.entries(changes) as [SlotFact, FactChange][]).sort(([, a], [, b]) => a.seq - b.seq);
+  // In the order they were given: the time decides (the browser's clock until G2(b) gives the server's number), then seq.
+  const ordered = (Object.entries(changes) as [SlotFact, FactChange][]).sort(([, a], [, b]) => (a.at && b.at && a.at !== b.at ? (a.at < b.at ? -1 : 1) : a.seq - b.seq));
   if (!ordered.length) return;
   const pickedAt = typeof position.claimKindAt === "string" ? position.claimKindAt : "";
   for (const [fact, change] of ordered) {
@@ -672,7 +741,7 @@ export function claimKindOf(file: CaseFile, listWords: (codes: string[]) => stri
 
 /** The story the case file holds: the checkpoint's, else (an older saved case) the story it saved. */
 export function storyOfFile(file: CaseFile): string {
-  return file.story?.trim() ? file.story : file.savedStory ?? "";
+  return file.storyText?.trim() ? file.storyText : file.savedStory ?? "";
 }
 
 /**
@@ -711,16 +780,16 @@ export const notAsked = (slot: Slot) => slot.state === "not-asked" && !slot.remo
 
 /**
  * THE ONE GATE. Of a screen's questions, in its order, the first whose facts the file
- * does not hold yet; null when none. At the end (`atEnd`), the first whose fact the
- * person was unsure of and has not yet been offered again (`offered`): each unsure fact
- * is offered once more, once. A question that asks for no slot is the screen's own.
+ * does not hold yet; null when none. A fact held answered OR unsure ("I don't know", "not
+ * sure", a skip) is never asked again, on any screen and at no point (site owner, 31 Oct:
+ * there is no "offered once more at the end"). A question that asks for no slot is the
+ * screen's own.
  */
-export function nextQuestion(file: CaseFile, candidates: readonly string[], options: { surface?: string; atEnd?: boolean; offered?: readonly string[] } = {}): string | null {
+export function nextQuestion(file: CaseFile, candidates: readonly string[], options: { surface?: string } = {}): string | null {
   for (const id of candidates) {
     const facts = slotsOf(id, options.surface);
     if (!facts.length) return id;
-    if (!options.atEnd && facts.every((fact) => notAsked(file[fact]))) return id;
-    if (options.atEnd && facts.some((fact) => file[fact].state === "unsure" && !(options.offered ?? []).includes(fact))) return id;
+    if (facts.every((fact) => notAsked(file[fact]))) return id;
   }
   return null;
 }
@@ -732,9 +801,9 @@ export function askable(file: CaseFile, candidates: readonly string[], surface?:
 
 /**
  * THE GATE FOR EVERY CHAT (never ask twice, row 1, 29 Oct). A chat question is asked only when the
- * one gate lets it: a fact the file holds, answered or "not sure", is not asked by a chat. A chat is
- * never where an unsure fact is offered once more (that is the review, or the story's own
- * suggestion), and the next step shows it folded ("not known yet -- Add it"). No file: nothing held.
+ * one gate lets it: a fact the file holds, answered or "not sure", is not asked by a chat, nor offered
+ * as the story's suggestion (site owner, 31 Oct: a not-sure fact is asked nowhere again; screens show
+ * it as "Not answered yet: add it when you know"). No file: nothing held.
  */
 export function chatMayAsk(file: CaseFile | null | undefined, questionId: string): boolean {
   return !file || nextQuestion(file, [questionId]) === questionId;
@@ -792,26 +861,6 @@ export function withAnsweredInReview(section: Record<string, unknown> | undefine
   return { ...current, answeredInReview: [...new Set([...strings(current.answeredInReview), questionId])] };
 }
 
-/** The case file section after a fact was offered again at the end (it is not offered a third time). */
-export function withOfferedAtEnd(section: Record<string, unknown> | undefined, fact: SlotFact): Record<string, unknown> {
-  const current = object(section);
-  return { ...current, offeredAtEnd: [...new Set([...strings(current.offeredAtEnd), fact])] };
-}
-
-export function offeredAtEnd(sections: Record<string, unknown> | undefined): SlotFact[] {
-  return strings(object(object(sections)[CASE_FILE_SECTION]).offeredAtEnd).filter(isSlot);
-}
-
-/**
- * Whether an unsure fact has had its one more offer: the review recorded "I don't know yet" for it
- * (the review is that offer), or it was offered again at the end. After that it is never offered
- * again, not even as the story's suggestion; the next step shows it folded (CI 29 Oct, family-safety).
- */
-export function offeredOnceMore(file: CaseFile, fact: SlotFact, sections: Record<string, unknown> | undefined): boolean {
-  const source = file[fact].source;
-  return offeredAtEnd(sections).includes(fact) || (source?.kind === "answer" && source.question.startsWith("review:"));
-}
-
 /** The slots a review box or question holds (its facts that are slots). */
 export function slotsOfQuestion(questionId: string, surface?: string): SlotFact[] {
   return slotsOf(questionId, surface);
@@ -849,7 +898,7 @@ const SAME_MOMENT: readonly (readonly string[])[] = [
   ["sc-date-defence-filed", "case-date-own-defence-delivered"],
 ];
 
-/** The step page's date questions for each day the person said they do not know (offered once more at the end). */
+/** The step page's date questions for each day the person said they do not know: never asked again, shown folded as "Not answered yet: add it when you know" with "Add it" (StageAnswerPanel laterDates; site owner, 31 Oct). */
 export function unsureDateQuestions(file: CaseFile): string[] {
   const ids: Record<string, readonly string[]> = {
     servedDate: ["sc-date-claim-served", "sc-date-defendants-claim-served", "case-date-served-with-application", "case-date-served-with-motion-to-change"],

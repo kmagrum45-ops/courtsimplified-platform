@@ -41,6 +41,8 @@ import { changedWords, claimKindAnswer, claimKindLine, claimKindOf, CLAIM_KIND_Q
 import { inWords } from "@/src/lib/case-system/copy/rawKeys";
 import { WorkingButton } from "@/app/_components/Working";
 import { UseSuggestion } from "@/app/_components/UseSuggestion";
+import { ADD_IT_LATER, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
+import { answerWords } from "../../../src/lib/case-system/caseFile/unsureAnswer";
 
 type Props = {
   analysis: AnalysisResult;
@@ -141,7 +143,8 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   const changedWants = changedWords(caseFile, "wants");
   const changedOther = changedWords(caseFile, "otherParty");
   const amount = changedAmount !== undefined ? changedAmount ?? "" : textField(intake, "amountClaimed");
-  const outcome = changedWants !== undefined ? changedWants ?? "" : intake?.goal.trim() || textField(intake, "legalRemedy");
+  // "I do not know yet" is never shown as what the person wants (the one reader, unsureAnswer.ts answerWords).
+  const outcome = changedWants !== undefined ? answerWords(changedWants) : answerWords(intake?.goal) || answerWords(textField(intake, "legalRemedy"));
   const parties = [intake?.yourName.trim(), changedOther !== undefined ? changedOther ?? "" : intake?.otherParty.trim()].filter(Boolean).join(" and ");
   const rawIssueSignals = Array.from(new Set([...(analysis.detectedIssues || []), ...(analysis.legalIssues || []), ...(analysis.detectedClaimTypes || []), ...listField(intake, "issueLabels")].filter(Boolean)));
   // "unknown" is the engines' unclassified domain, not an issue. Dropping it
@@ -574,7 +577,7 @@ function ClaimKindOffer({ caseId, claimTypeId, words, onChosen }: { caseId: stri
  * link stays). The person's choice is kept in the case file (caseFile.ts claimKindAnswer).
  */
 function ClaimKindChooser({ caseId, chosen, onChosen, saidNotSure = false }: { caseId: string | null; chosen: string | null; onChosen: (value: string) => void; saidNotSure?: boolean }) {
-  // Folded once they said "not sure" (here, or in the review, its one more offer): "Choose it" stays.
+  // Folded once they said "not sure" (here, or anywhere): never asked again, the quiet line with "Add it" (site owner, 31 Oct).
   const [open, setOpen] = useState(chosen !== "not-sure" && !saidNotSure);
   const [pick, setPick] = useState("");
   const [failed, setFailed] = useState(false);
@@ -592,7 +595,7 @@ function ClaimKindChooser({ caseId, chosen, onChosen, saidNotSure = false }: { c
     setOpen(false);
   };
   if (!open) {
-    return <span>Not sure yet. <button type="button" data-testid="claim-kind-choose" onClick={() => setOpen(true)} className="font-semibold text-[#2f7d67] underline">Choose it</button></span>;
+    return <span><span data-testid="not-answered-yet" data-fact="claimKind">{NOT_ANSWERED_YET}.</span> <button type="button" data-testid="claim-kind-choose" onClick={() => setOpen(true)} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</button></span>;
   }
   return (
     <span data-testid="claim-kind-chooser" className="block">

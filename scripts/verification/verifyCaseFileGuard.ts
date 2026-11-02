@@ -74,8 +74,15 @@ export function scanGuard(root = ROOT, files?: Record<string, string>): Found[] 
 const key = (entry: { pattern: string; file: string }) => `${entry.pattern} @ ${entry.file}`;
 const entryKey = (entry: AllowedEntry) => `${entry.row} | ${entry.pattern} @ ${entry.file}`;
 
-/** The guard's verdict, pure: the matches, the allowed list, and the list it may not grow beyond. */
-export function judge(found: Found[], allowed: AllowedEntry[], base: AllowedEntry[]): { newCopies: Found[]; stale: AllowedEntry[]; added: AllowedEntry[]; malformed: string[]; uncoveredRows: number[] } {
+/**
+ * The guard's verdict, pure: the matches, the allowed list, the list it may not grow beyond (`base`: origin/main's
+ * list, else the seeded baseline), and the inventory as first found (`seed`: caseFileGuardBaseline.json).
+ * A row is RETIRED when the seeded baseline has it and the allowed list no longer does: always from the seed,
+ * never from main's list (founder, 1 Nov). Main's list is used only for "may only shrink". Before, retired came
+ * from `base`; once main had its own list (#536 merged), rows retired before that list (3-8, 10) had no entry
+ * in either list and counted as uncovered, on every OS: main's CI 41374353387 failed on it.
+ */
+export function judge(found: Found[], allowed: AllowedEntry[], base: AllowedEntry[], seed: AllowedEntry[] = base): { newCopies: Found[]; stale: AllowedEntry[]; added: AllowedEntry[]; malformed: string[]; uncoveredRows: number[] } {
   const allowedKeys = new Set(allowed.map(key));
   const foundKeys = new Set(found.map(key));
   const baseKeys = new Set(base.map(entryKey));
@@ -89,7 +96,7 @@ export function judge(found: Found[], allowed: AllowedEntry[], base: AllowedEntr
   });
   const rows = new Set<number>([...allowed.flatMap(rowsOf), ...ROWS_NOT_PATTERNS.map((entry) => entry.row)]);
   // A row converted into the case file has no entry left: it is covered by having been retired.
-  const retired = new Set<number>(base.flatMap(rowsOf).filter((row) => !rows.has(row)));
+  const retired = new Set<number>(seed.flatMap(rowsOf).filter((row) => !rows.has(row)));
   const uncoveredRows = Array.from({ length: 147 }, (_, index) => index + 1).filter((row) => !rows.has(row) && !retired.has(row));
   return {
     newCopies: found.filter((item) => !allowedKeys.has(key(item))),
@@ -124,7 +131,7 @@ const check = (name: string, ok: boolean, detail = "") => {
   if (!ok) failures += 1;
 };
 
-function selfTest(allowed: AllowedEntry[], found: Found[]) {
+function selfTest(allowed: AllowedEntry[], found: Found[], base: AllowedEntry[], seed: AllowedEntry[]) {
   // A planted new copy: a screen that keeps the claim type in its own state.
   const planted = scanGuard(ROOT, { "app/__case_file_guard_self_test__/PlantedCopy.tsx": "const [draftClaimTypeId, setDraftClaimTypeId] = useState(null);" });
   const withPlant = judge([...found, ...planted], allowed, allowed);
@@ -136,13 +143,25 @@ function selfTest(allowed: AllowedEntry[], found: Found[]) {
   // A stale entry: a place moved into the case file still listed.
   const ghost: AllowedEntry = { row: 1, fact: "claim type", pattern: "ct.matchedClaimType", file: "app/NoSuchFile.tsx", reason: "Planted by the self-test: an entry that matches nothing." };
   check("self-test: an entry that matches nothing fails as stale", judge(found, [...allowed, ghost], [...allowed, ghost]).stale.some((entry) => entry.file === "app/NoSuchFile.tsx"));
+  // A RETIRED row coming back in code (founder, 1 Nov): a planted copy for a row the seed has and the allowed
+  // list no longer does is a new copy, with retired rows taken from the seed and main's list as the ceiling.
+  const allowedRows = new Set(allowed.flatMap(rowsOf));
+  const retiredRow = seed.flatMap(rowsOf).find((row) => !allowedRows.has(row));
+  const retiredPlant = retiredRow === undefined ? [] : planted.map((item) => ({ ...item, row: retiredRow }));
+  const back = judge([...found, ...retiredPlant], allowed, base, seed);
+  check(`self-test: a retired row (row ${retiredRow ?? "none"}) that reappears in code fails as a new copy`, retiredRow !== undefined && back.newCopies.some((item) => item.file === "app/__case_file_guard_self_test__/PlantedCopy.tsx"));
+  // The allowed list grown compared with origin/main's (the real ceiling of this run), retired rows from the seed.
+  const grown = judge([...found, ...planted], [...allowed, addedEntry], base, seed);
+  check("self-test: an allowed list grown compared with origin/main fails (may only shrink), with retired rows from the seed", grown.added.some((entry) => entry.file === "app/__case_file_guard_self_test__/PlantedCopy.tsx"));
 }
 
 function main() {
   const allowed = JSON.parse(readFileSync(path.join(ROOT, ALLOWED_PATH), "utf8")) as AllowedEntry[];
   const found = scanGuard();
   const { list: base, from } = baseList();
-  const verdict = judge(found, allowed, base);
+  // Retired rows always come from the seeded baseline; main's list only for "may only shrink" (founder, 1 Nov).
+  const seed = JSON.parse(readFileSync(path.join(ROOT, BASELINE_PATH), "utf8")) as AllowedEntry[];
+  const verdict = judge(found, allowed, base, seed);
   const rowsWithEntries = new Set(allowed.flatMap(rowsOf));
   console.log(`The case file guard: ${found.length} places found by ${GUARD_PATTERNS.length} patterns; ${allowed.length} allowed entries (${allowed.filter((entry) => !entry.scanFound).length} in files the inventory named, ${allowed.filter((entry) => entry.scanFound).length} found by the scan beside a row); ${rowsWithEntries.size} inventory rows still open; compared with ${from} (${base.length} entries).`);
   for (const row of ROWS_NOT_PATTERNS) console.log(`note  row ${row.row} is not a pattern: ${row.why} Tracked by: ${row.trackedBy}`);
@@ -151,7 +170,7 @@ function main() {
   check(`the allowed list adds no entry to ${from}: it may only shrink`, verdict.added.length === 0, verdict.added.map((entry) => entryKey(entry)).join("\n      "));
   check("every allowed entry names a pattern, an inventory row and a reason", verdict.malformed.length === 0, verdict.malformed.join("\n      "));
   check("every inventory row is covered by an entry, retired, or listed with how it is tracked", verdict.uncoveredRows.length === 0, `rows: ${verdict.uncoveredRows.join(", ")}`);
-  selfTest(allowed, found);
+  selfTest(allowed, found, base, seed);
   if (failures) {
     console.log(`\n${failures} check(s) failed.`);
     process.exit(1);

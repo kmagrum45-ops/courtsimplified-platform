@@ -126,9 +126,21 @@ async function confirmedForm(page: Page) {
   await confirmHere(page);
 }
 
+/**
+ * The form's timeline box, opened by the person. Confirmed with "I don't know yet" for when it happened, it
+ * shows "Not answered yet: add it when you know" in its place (site owner, 31 Oct: never asked again); the
+ * person adds it with "Add it", the same answer the box takes.
+ */
+async function openTimeline(page: Page) {
+  const add = page.locator("[data-testid=not-answered-yet][data-field=timeline] [data-testid=not-answered-yet-add]");
+  await expect(add.or(page.getByTestId("sc-intake-timeline")).first()).toBeVisible({ timeout: 60_000 });
+  if (await add.isVisible().catch(() => false)) await add.click();
+}
+
 /** The Small Claims form: confirm, then fill a box that was empty (a first value). */
 async function smallClaimsForm(page: Page) {
   await confirmedForm(page);
+  await openTimeline(page);
   const box = page.getByTestId("sc-intake-timeline");
   await expect(box, "the box answered after Confirm was empty: this adds a fact, it changes none").toHaveValue("");
   await box.fill("March 2026: hired them. April 2026: paid $2,000. May 2026: deck finished, $6,000 not paid.");
@@ -140,8 +152,8 @@ async function smallClaimsForm(page: Page) {
  *
  * Before #515 the added answer was the next question of the chat. That question was always one the
  * review had just recorded "I do not know yet" for, offered again from the story -- which the owner's
- * rule now forbids (an unsure fact is offered once more only, in the review or as the story's
- * suggestion; never asked again afterwards), so after Confirm the chat rightly has nothing left to
+ * rule now forbids (site owner, 31 Oct: an unsure fact is never offered again, not in the review and
+ * not as the story's suggestion), so after Confirm the chat rightly has nothing left to
  * ask. A fact neither the story, the start answers nor the review gives is "Evidence still missing":
  * no question of the chat or the review asks it, and its box on this area's own form is empty. It is
  * answered there, on the same area's intake (CivilIntake.tsx / FamilyIntake.tsx), so Continue is still
@@ -239,6 +251,7 @@ test("retest-29oct D1: next steps made before an added answer are offered for up
   await page.goto(`/builder?path=small-claims&caseId=${caseId}&step=form`);
   const panel = page.getByTestId("intake-review");
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+  await openTimeline(page);
   const box = page.getByTestId("sc-intake-timeline");
   await expect(box).toHaveValue("");
   await box.fill("March 2026: hired them. May 2026: deck finished, $6,000 not paid.");
@@ -442,6 +455,7 @@ test("retest-29oct D1: typing into the form's timeline after Confirm keeps the c
   // The form, by the intake address; typed key by key, as a person types.
   await page.goto(`/builder?path=small-claims&intake=${intake}&step=form`);
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+  await openTimeline(page);
   const timeline = page.getByLabel("Important dates / timeline");
   await expect(timeline).toHaveValue("");
   await timeline.pressSequentially("March 2026 hired them", { delay: 60 });

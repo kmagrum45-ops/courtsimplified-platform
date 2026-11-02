@@ -20,7 +20,7 @@ import { openBuilder } from "./harness/builderGate";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { serveFromThisCommit } from "./harness/thisCommitServer";
-import { confirmAndShowNextStep, expectServedNotAskedOnNextStep, expectServedOfferedOnceInReview } from "./harness/servedOnce";
+import { confirmAndShowNextStep, expectServedNotAskedInReview, expectServedNotAskedOnNextStep, openServedAdd } from "./harness/servedOnce";
 import { runFamilyIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
 import { runCivilIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
 import { applyPositionPatch, readCasePosition } from "../../src/lib/case-system/casePosition";
@@ -161,19 +161,19 @@ test("Family: the served date answered in the review accepts real dates, and ask
   test.setTimeout(240_000);
   const account = await fakeAccount(page);
   await serveFromThisCommit(page, "family", account.rows as unknown as Map<string, Record<string, unknown>>);
-  // Served, the day not known at the start: the review offers it once more, as ONE field, the
-  // "Day you were served" box (Jason, 2026-10-24, option 1); the date rule holds there.
+  // Served, the day not known at the start: never asked again (site owner, 31 Oct; it replaced option
+  // 1's one more offer in the review). The quiet line's "Add it" takes the day; the date rule holds there.
   await openBuilder(page, "family", { story: "Synthetic story: my former partner started a family case and I was served with the Application.", situation: { where: "served", papers: "family-8", receivedOn: "unknown" } });
   await answerQuestions(page, { side: "respondent", filed: ["application"], stopAt: "servedDate", neverAsked: ["yourRole", "filedDocuments"] });
-  await expectServedOfferedOnceInReview(page);
+  await expectServedNotAskedInReview(page);
   const panel = page.getByTestId("intake-review");
-  const box = panel.getByRole("textbox", { name: "Review: Day you were served", exact: true });
+  const box = await openServedAdd(page);
   await box.fill("October 6");
   await box.press("Enter");
-  await expect(panel.getByTestId("intake-entry-needs-more")).toContainText("add the year");
+  await expect(panel.getByTestId("change-answer-needs-more")).toContainText("add the year");
   await box.fill("October 6, 2026");
   await box.press("Enter");
-  await expect(panel.getByTestId("intake-entry-needs-more"), "the example's own date is accepted").toHaveCount(0);
+  await expect(panel.getByTestId("change-answer-needs-more"), "the example's own date is accepted").toHaveCount(0);
   await expect(panel).toContainText("October 6, 2026");
   // Offered exactly once: the next step does not ask it again.
   await confirmAndShowNextStep(page);

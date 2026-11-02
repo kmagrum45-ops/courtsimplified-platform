@@ -3,6 +3,7 @@
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
 import { caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
+import { NotAnsweredYetField } from "../../_components/NotAnsweredYet";
 import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
 import { formatForCourt } from "../../../src/lib/case-system/dates";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
@@ -158,6 +159,8 @@ type Props = {
 };
 
 type TextareaField = {
+  /** The form key, for a box whose fact the case file may hold "not sure" (NotAnsweredYetField). */
+  key?: string;
   label: string;
   value: string;
   setter: React.Dispatch<React.SetStateAction<string>>;
@@ -398,6 +401,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   const textareaFields: TextareaField[] = useMemo(
     () => [
       {
+        key: "childrenInfo",
         label: "Children / parenting details",
         value: childrenInfo,
         setter: setChildrenInfo,
@@ -419,6 +423,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           "Who handled school, medical appointments, routines, meals, homework, activities, appointments, finances, and caregiving over time.",
       },
       {
+        key: "timeline",
         label: "Timeline",
         value: timeline,
         setter: setTimeline,
@@ -454,6 +459,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           "Matrimonial home, possession, debts, bank accounts, pensions, vehicles, business interests, hidden assets, missing disclosure, or equalization/property concerns.",
       },
       {
+        key: "goal",
         label: "What do you want the court to order?",
         value: goal,
         setter: setGoal,
@@ -461,6 +467,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           "Exact parenting schedule, decision-making terms, support, disclosure, property order, exclusive possession, urgent order, enforcement, costs, or other relief.",
       },
       {
+        key: "urgent",
         label: "Anything urgent or deadline-related?",
         value: urgent,
         setter: setUrgent,
@@ -1094,7 +1101,9 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
         {issues.includes("adoption") && <section className="rounded-2xl border border-[#cde7dc] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Adoption details to organize</h3><p className="mt-2 text-sm text-[#4d675f]">Answer only what you know. These questions do not confirm legal requirements.</p><textarea aria-label="Adoption details" value={adoptionDetails} onChange={(event) => setAdoptionDetails(event.target.value)} className="mt-4 min-h-48 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="Is the person to be adopted 18 or older? Does the adult person want to be adopted? Is the applicant a step-parent, relative, or another person? Does the adult live in Ontario? Is the biological parent known/contactable, unknown, or location currently unknown? What steps have been taken to locate or contact that parent? Is there an existing adoption, family, child-protection, or court file?" /></section>}
 
         {textareaFields.map((field) => (
-          <label key={field.label} className="block">
+          // A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct).
+          <NotAnsweredYetField key={field.label} field={field.key ?? ""} facts={field.key === "timeline" ? ["whenHappened"] : field.key ? undefined : []} value={field.value} label={field.label}>
+          <label className="block">
             <span className="font-semibold text-[#16302b]">{field.label}</span>
             <textarea
               value={field.value}
@@ -1103,6 +1112,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
               placeholder={field.placeholder}
             />
           </label>
+          </NotAnsweredYetField>
         ))}
 
         <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">

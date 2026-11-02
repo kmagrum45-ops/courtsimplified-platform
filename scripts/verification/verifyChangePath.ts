@@ -92,7 +92,7 @@ function screens(master: Record<string, unknown>, court: Area = "small-claims") 
   const form7A = court === "small-claims" ? text(renderToStaticMarkup(createElement(StatementOfClaimSurface, { caseFile: file }))) : "";
   const panel = text(renderToStaticMarkup(createElement(CaseFilePanel, { file, changeHref: "/b", situationHref: "/s", stepHref: "/t" })));
   const review = deterministicFindings(caseFileFromMasterResult(master, court));
-  const stillNeeded = checkpoint ? remainingEssentialQuestions(checkpoint, true, master).map((question) => question.id) : [];
+  const stillNeeded = checkpoint ? remainingEssentialQuestions(checkpoint, master).map((question) => question.id) : [];
   const ai = caseFactsText(readCaseRecord(master, court));
   return { file, held, overview, form7A, panel, review, stillNeeded, ai, fromMaster: caseFileOfMaster(master, court) };
 }
@@ -208,7 +208,7 @@ for (const item of FACTS) {
 // --- 4. a change is a change of a confirmed fact --------------------------------------------------
 {
   const scBase = checkpointOf("small-claims", KIND_EVERYWHERE);
-  const unknowns = remainingEssentialQuestions(scBase, false).map((question) => question.id);
+  const unknowns = remainingEssentialQuestions(scBase).map((question) => question.id);
   const ready = withSections(scBase, { builder: { ...(KIND_EVERYWHERE.builder as object), initialUnknowns: unknowns } });
   const reviewing = transitionReview({}, ready, "review", inputRevision(ready), "2026-10-31T10:00:00Z");
   const confirmed = transitionReview(reviewing, ready, "confirm", inputRevision(ready), "2026-10-31T10:01:00Z");
@@ -254,7 +254,9 @@ for (const item of FACTS) {
   check("5. a removed kind is never proposed (claimKindOf)", claimKindOf(removedHeld).proposal?.claimTypeId !== DEFAMATION_ID && (removedHeld.claimKindRemoved ?? []).includes(DEFAMATION_ID), JSON.stringify({ proposal: claimKindOf(removedHeld).proposal, removed: removedHeld.claimKindRemoved }));
 }
 
-check("every slot fact is covered by a change test", SLOT_FACTS.filter((fact) => !["side", "court", "stage", "papers"].includes(fact)).every((fact) => FACTS.some((item) => item.fact === fact)), SLOT_FACTS.filter((fact) => !FACTS.some((item) => item.fact === fact)).join(", "));
+// The story is changed with its own story box (StoryEditor, storyBasis.ts), never through the change path
+// (ChangeAnswer.tsx changeChoices returns null for it), like the start answers (founder, 1 Nov: story is a fact).
+check("every slot fact is covered by a change test", SLOT_FACTS.filter((fact) => !["side", "court", "stage", "papers", "story"].includes(fact)).every((fact) => FACTS.some((item) => item.fact === fact)), SLOT_FACTS.filter((fact) => !FACTS.some((item) => item.fact === fact)).join(", "));
 
 console.log(failures ? `\n${failures} check(s) failed` : "\nAll change-path checks passed");
 process.exit(failures ? 1 : 0);
