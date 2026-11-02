@@ -559,13 +559,17 @@ export function followAnswer(sections: Record<string, unknown>, section: string,
     const value = Array.isArray(given) ? strings(given).filter((item) => item !== "not-sure") : given;
     // NEWEST WINS, INCLUDING REMOVAL (carry runs 41382392877 / 41382400851): a box emptied for a fact the change record
     // holds is the person removing it, so the removal is recorded too; otherwise the earlier recorded answer was
-    // applied last and came back ("Jordan Testwood" after the other party box was emptied, every court). An emptied
-    // box for a fact not under the record records nothing, as before.
+    // applied last and came back ("Jordan Testwood" after the other party box was emptied, every court).
+    // G2(d), founder 2 Nov: "an emptied box is always a removal" -- also when the case file holds the fact from ANOTHER
+    // place (the chat, the review's question, the home page's reading, the saved copy), which otherwise was read again
+    // (test:cleared-unrecorded; carry runs 41392514035 / 41392521029, caseFile.ts:530). Only a box the person emptied
+    // (its key still there, blank): a key dropped from a whole object a route replaced is no one clearing a box.
     if (blank(value) && !blank(was)) {
       for (const fact of slotsOf(id)) {
-        if (fact === "story") continue;
+        if (fact === "story" || START_FACTS.has(fact)) continue;
         const recorded = (next ?? changes)[fact];
-        if (recorded && recorded.state === "answered") next = withChange(next ?? changes, fact, { state: "removed" }, now, seenSeqOf(sections, fact));
+        const heldAnswered = given !== undefined && held !== undefined && held[fact].state === "answered";
+        if (recorded ? recorded.state === "answered" : heldAnswered) next = withChange(next ?? changes, fact, { state: "removed" }, now, seenSeqOf(sections, fact));
       }
       continue;
     }
@@ -583,7 +587,9 @@ export function followAnswer(sections: Record<string, unknown>, section: string,
       const heldSource = held?.[fact].source;
       const samePlace = heldSource?.kind === "answer" && (heldSource.question === place || heldSource.question === id);
       const heldOther = held !== undefined && !START_FACTS.has(fact) && held[fact].state === "answered" && !samePlace && !sameAnswer(fact, held[fact].value, value);
-      if (underRecord || heldOther) next = withChange(next ?? changes, fact, { state: "answered", value }, now, seenSeqOf(sections, fact));
+      // A fact the person changed or removed before (the change record or the saved fact record, G2): any new answer is newer.
+      const heldChanged = held !== undefined && !START_FACTS.has(fact) && held[fact].changed === true && !(held[fact].state === "answered" && sameAnswer(fact, held[fact].value, value));
+      if (underRecord || heldOther || heldChanged) next = withChange(next ?? changes, fact, { state: "answered", value }, now, seenSeqOf(sections, fact));
     }
   }
   return next;

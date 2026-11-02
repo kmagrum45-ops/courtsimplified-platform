@@ -125,7 +125,10 @@ for (const court of ["small-claims", "civil"] as const) {
   const held = caseFileOf(cp("small-claims", s));
   check("the same value again records no change", followAny(s, "builder", "initialAnswers", undefined, { "sc-amount-claimed": "$2,400" }, T2, held) === null);
   check("\"not sure\" records no change", followAny(s, "builder", "initialAnswers", undefined, { "sc-amount-claimed": "not sure" }, T2, held) === null);
-  check("an emptied box records no change", followAny(s, "builder", "initialAnswers", { "sc-amount-claimed": "$2,400" }, { "sc-amount-claimed": "" }, T2, held) === null);
+  // D change (founder, 2 Nov, G2(d): "an emptied box is always a removal"): this line asserted the old rule, that an
+  // emptied box for a fact held from another place records nothing. It now asserts the new one: a removal is recorded.
+  const emptied = followAny(s, "builder", "initialAnswers", { "sc-amount-claimed": "$2,400" }, { "sc-amount-claimed": "" }, T2, held) as Record<string, { state?: string }> | null;
+  check("an emptied box records the removal (G2(d): an emptied box is always a removal)", emptied?.amount?.state === "removed", JSON.stringify(emptied));
   const fresh = caseFileOf(cp("small-claims", {}));
   check("a first answer to a fact nobody gave records no change", followAny({}, "builder", "initialAnswers", undefined, { "sc-amount-claimed": "$2,400" }, T1, fresh) === null);
 }

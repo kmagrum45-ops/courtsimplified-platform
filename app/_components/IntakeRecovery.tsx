@@ -26,6 +26,7 @@ import { saveThenLeave } from "./leaveAfterSave";
 import { courtOfSavedRow, SAVED_COURT_COLUMNS } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
 import { CASE_FILE_SECTION, caseFileOf, followAnswer } from "../../src/lib/case-system/caseFile/caseFile";
 import { storedFacts, withStoredFacts } from "../../src/lib/case-system/caseFile/serverFacts";
+import NotSavedYet from "./NotSavedYet";
 import { afterSend, pendingWrites, type SendResponse } from "../../src/lib/case-system/caseFile/pendingFacts";
 import { CASE_REQUEST_TIMEOUT_MS } from "../builder/_components/positionSave";
 
@@ -574,6 +575,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
       {conflict && recovery?.getCaseId() && <a className="underline" href={`/builder?path=${court}&caseId=${recovery.getCaseId()}`} target="_blank" rel="noopener noreferrer">Open the saved intake separately</a>}
       {!recovery && failed && <> · <a className="underline" href={`/builder?path=${court}`}>Start a new intake</a></>}
     </div>
+    {recovery ? <NotSavedYet /> : null}
     {recovery ? <SituationGate court={court} ownerId={recovery.ownerId ?? null}><IntakeReviewPanel />{children}</SituationGate> : null}
   </Context.Provider>;
 }

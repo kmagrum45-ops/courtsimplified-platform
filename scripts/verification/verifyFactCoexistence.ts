@@ -134,9 +134,9 @@ async function main() {
       `intakeCheckpoint.ts:115 writes the tab's snapshot whole (intakeCheckpoint: committed), so a fact the server wrote since the tab's copy is erased (save ok: ${outcome.ok})`);
   }
 
-  console.log(`\nFact coexistence (FAILING FIRST, not in CI): ${passed} passed, ${failed.length} failed.`);
+  console.log(`\nFact coexistence: ${passed} passed, ${failed.length} failed.`);
   if (failed.length) process.exit(1);
-  console.log("All coexistence checks pass: the rule holds; add this suite to CI.");
+  console.log("All coexistence checks pass: the rule holds (joining CI waits on the founder's yes for a workflow change).");
 }
 
 void main();
