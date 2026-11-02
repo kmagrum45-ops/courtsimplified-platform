@@ -33,6 +33,7 @@
  */
 import type { Checkpoint } from "../intakeCheckpoint";
 import { freshSections } from "../storyBasis";
+import { isUnsureAnswer } from "./unsureAnswer";
 import { storyOfMaster } from "../intakeStory";
 import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation } from "../situation/situation";
 import { isKindOfClaim, kindFromStory, storyQuoteFor, wordsInStory } from "../intake/claimKind";
@@ -114,11 +115,8 @@ const isSlot = (fact: string): fact is SlotFact => (SLOT_FACTS as readonly strin
 const object = (value: unknown): Record<string, unknown> => (value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {});
 const strings = (value: unknown): string[] => (Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : []);
 
-/** An answer that gives nothing but "I don't know": kept as unsure, never as a value. */
-export function isUnsureAnswer(value: unknown): boolean {
-  if (typeof value !== "string") return false;
-  return /^\s*(?:i\s*(?:do\s*not|don'?t|dont)\s*know(?:\s*yet)?|not\s*sure(?:\s*yet)?|unsure|no\s*idea|i'?m\s*not\s*sure|idk|not-sure|unknown|skip(?:ped)?)\s*[.!]?\s*$/i.test(value);
-}
+/** An answer that gives nothing but "I don't know": kept as unsure, never as a value (the one test, unsureAnswer.ts). */
+export { isUnsureAnswer };
 
 const blank = (value: unknown) =>
   value === undefined || value === null || (typeof value === "string" && !value.trim()) || (Array.isArray(value) && value.length === 0);

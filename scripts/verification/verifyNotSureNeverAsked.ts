@@ -25,6 +25,7 @@
 import { caseFileOf, nextQuestion, askable, chatMayAsk, slotsOfQuestion, unsureDateQuestions, withChange, CASE_FILE_SECTION, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import * as review from "../../src/lib/case-system/intakeReview";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
+import { BASIS_SECTION, staleAnswerKeys, storyVersion } from "../../src/lib/case-system/storyBasis";
 
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
@@ -130,6 +131,19 @@ for (const item of CASES) {
   const servedHeld = sc({ builder: { initialUnknowns: [SERVED] }, "small-claims": { input: { servedDate: "2026-09-10" } } });
   check("dates: marked, while its fact (the day served) is answered elsewhere: not folded", caseFileOf(servedHeld).servedDate.state !== "answered" || !dates(servedHeld).includes(SERVED), `${JSON.stringify(caseFileOf(servedHeld).servedDate)} ${JSON.stringify(dates(servedHeld))}`);
   check("dates: a question that is not a date is never in the list", !dates(sc({ builder: { initialUnknowns: ["sc-remedy-sought", DAY] } })).includes("sc-remedy-sought"));
+}
+
+// 7. THE STORY REWRITTEN (PR #541 story-pack:694): a "not sure" given for the earlier story is not set aside as an
+// answer to give again -- it states no fact from that story, it is shown as the quiet line (no box to give it again
+// in), and it never blocks Confirm. Failing first at 9824623d: the Small Claims review kept "Answered for an earlier
+// version of your story" on the quiet lines for the amount and the goal, and Confirm stayed blocked.
+{
+  const earlier = "Synthetic story: the first version, about a deck.";
+  const now = "Synthetic rewritten story: a different matter entirely.";
+  const stored: Checkpoint = { version: 1, flowId: ID, courtPath: "small-claims", revision: ID, sections: { story: { text: now, location: { province: "Ontario", city: "Kingston" } }, builder: { step: "guided" }, guided: { facts: { amountClaimedText: "I don't know", remedySoughtText: "I don't know", timelineText: "March 2026" } }, [BASIS_SECTION]: { "guided.facts.amountClaimedText": storyVersion(earlier), "guided.facts.remedySoughtText": storyVersion(earlier), "guided.facts.timelineText": storyVersion(earlier) } } };
+  const stale = staleAnswerKeys(stored);
+  check("story rewritten: a \"not sure\" given for the earlier story is not set aside to give again", !stale.includes("guided.facts.amountClaimedText") && !stale.includes("guided.facts.remedySoughtText"), JSON.stringify(stale));
+  check("story rewritten: a real answer given for the earlier story is still set aside (control)", stale.includes("guided.facts.timelineText"), JSON.stringify(stale));
 }
 
 // A question nobody has answered or skipped is still asked (the gate is not closed for everything).

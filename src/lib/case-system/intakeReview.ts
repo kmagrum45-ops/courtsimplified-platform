@@ -392,7 +392,10 @@ export function reviewQuestionList(checkpoint: Checkpoint, master?: unknown): { 
     ...unanswered.map((question) => ({ ...question, answered: false })),
     ...quiet.filter((line) => !unanswered.some((question) => question.id === line.id)).map((line) => ({ id: line.id, label: line.label, answered: false, notYet: line })),
     ...(file.answeredInReview ?? [])
-      .filter((id) => reviewQuestionRank(checkpoint.courtPath, id) !== Number.MAX_SAFE_INTEGER && !unanswered.some((question) => question.id === id) && !quiet.some((line) => line.id === id) && holdsAnswer(checkpoint, id))
+      .filter((id) => reviewQuestionRank(checkpoint.courtPath, id) !== Number.MAX_SAFE_INTEGER && !unanswered.some((question) => question.id === id) && !quiet.some((line) => line.id === id) && holdsAnswer(checkpoint, id)
+        // A question whose fact a later change removed ("Remove this answer") is not listed with its older answer (PR #541
+        // browser-regression, change-answer.spec.ts:209); one a later answer changed stays, showing the newest (caseFileWords).
+        && !slotsOfQuestion(id).some((fact) => file[fact].removed || (file[fact].changed && file[fact].state !== "answered")))
       .map((id) => ({ id, label: reviewQuestionField(checkpoint.courtPath, id)?.question ?? QUESTION_BANK.find((item) => item.id === id)?.text ?? id, answered: true })),
   ];
   return listed.sort((a, b) => reviewQuestionRank(checkpoint.courtPath, a.id) - reviewQuestionRank(checkpoint.courtPath, b.id));

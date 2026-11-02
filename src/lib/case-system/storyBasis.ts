@@ -22,6 +22,7 @@ import type { Checkpoint } from "./intakeCheckpoint";
 import { guidedReadingOutdated, STORY_INPUT_KEYS, STORY_SECTION, storyOf } from "./intakeStory";
 import { sentences } from "./sentences";
 import { canonicalJson } from "./canonicalJson";
+import { isUnsureAnswer } from "./caseFile/unsureAnswer";
 import { situationAnswers, situationOf } from "./situation/situation";
 
 /**
@@ -142,7 +143,9 @@ export function staleAnswerKeys(checkpoint: Checkpoint): string[] {
   const noStory = storyVersion("");
   const settled = settledByTheStart(checkpoint);
   return Object.entries(object(checkpoint.sections[BASIS_SECTION]))
-    .filter(([answer, based]) => based !== version && based !== noStory && !settled.has(answer) && !empty(valueAt(checkpoint.sections, answer)))
+    // A "not sure" states no fact from the earlier story: never set aside to be given again (it is the quiet line, with
+    // no box to give it in, and never blocks Confirm; PR #541 story-pack:694, founder's rule of 31 Oct).
+    .filter(([answer, based]) => based !== version && based !== noStory && !settled.has(answer) && !empty(valueAt(checkpoint.sections, answer)) && !isUnsureAnswer(valueAt(checkpoint.sections, answer)))
     .map(([answer]) => answer);
 }
 
