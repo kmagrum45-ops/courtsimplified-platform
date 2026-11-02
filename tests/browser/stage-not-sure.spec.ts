@@ -9,7 +9,10 @@
  * ("The case has started"), the step panel's list is on screen (log itemC-one-stage-before6.log). Under the not-sure rule the chooser is folded into "Not answered yet: add it when you know"
  * with "Add it", which opens the same chooser. No procedure content or wording changes (CLAUDE.md s. 2a).
  *
- * What it checks (stand-ins only: fakeAccount, serveFromThisCommit), civil and Family:
+ * What it checks (stand-ins only: fakeAccount, serveFromThisCommit), civil, Family and Small Claims (added 2 Nov: the
+ * founder's Chrome check of #541 at 354e36fb, step 2, saw the chooser in Small Claims only; cause: the case file read the
+ * Small Claims form's guessed or copied stage over the start's "not sure", caseFile.ts each area's form, now skipped once
+ * the start answered where the case is; test:unsure-never-saved):
  *   1. results page: neither "Where is your case?" (stage-answer-select) nor a suggested step, nor the stage
  *      chooser; the quiet line is;
  *   2. "Add it" opens the list (the person may still give the step);
@@ -22,6 +25,9 @@ import { openBuilder } from "./harness/builderGate";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { serveFromThisCommit } from "./harness/thisCommitServer";
 import { NOT_ANSWERED_YET } from "../../src/lib/case-system/copy/askCopy";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { grantSiteAccess } from "./harness/siteAccess";
+import { autoAnswerSituation } from "./harness/situation";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -63,6 +69,14 @@ async function confirmAndContinue(page: Page) {
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
   await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
+  // The one-time "Before you start" notice, when it comes now (Small Claims from the home page): passed, then the next step again.
+  const notice = page.getByTestId("acknowledgement-checkbox");
+  if (await notice.isVisible({ timeout: 5_000 }).catch(() => false)) {
+    await notice.check();
+    await page.getByTestId("acknowledgement-continue").click();
+    // Passing the notice may start the next step by itself; pressed again only when it did not.
+    if (!(await page.getByTestId("completed-case-overview").isVisible({ timeout: 20_000 }).catch(() => false))) await page.locator("button:visible").filter({ hasText: /^(Continue to your next steps|Show my next step)$/ }).first().click({ timeout: 10_000 }).catch(() => {});
+  }
   await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 90_000 });
 }
 
@@ -94,3 +108,34 @@ for (const court of ["civil", "family"] as const) {
     await expect(page.getByTestId("stage-answer-select"), "Add it opens the list").toBeVisible({ timeout: 20_000 });
   });
 }
+
+/*
+ * SMALL CLAIMS (founder's Chrome check of #541 at 354e36fb, step 2, 2 Nov): "A case is already going" ->
+ * "I started it" -> "I'm not sure" showed the chooser on the step page and the case page, with no quiet line;
+ * civil and Family passed. The same three answers here, through the Small Claims review.
+ */
+test(`small-claims: a case going, its step "not sure" at the start: the stage is never asked again; "Add it" opens the chooser`, async ({ page }) => {
+  test.setTimeout(300_000);
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, { where: "going", started: "me", stage: "not-sure" });
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
+  await page.goto("/?path=small-claims");
+  await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
+  await page.getByLabel("City or municipality").fill("Ottawa");
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill("Synthetic story: I lent Sam Tester $2,000 in March 2026 and he has not paid it back. I sued him last month.");
+  await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
+  await page.waitForURL(/\/builder\?.*intake=/, { timeout: 60_000 });
+  const acknowledgement = page.getByTestId("acknowledgement-checkbox");
+  await expect(acknowledgement.or(page.getByTestId("intake-start-review"))).toBeVisible({ timeout: 60_000 });
+  if (await acknowledgement.isVisible()) { await acknowledgement.check(); await page.getByTestId("acknowledgement-continue").click(); }
+  await page.getByTestId("intake-start-review").click();
+  await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing", { timeout: 60_000 });
+  await confirmAndContinue(page);
+  await expectFolded(page, "results");
+  const row = [...account.rows.values()][0] as Record<string, unknown>;
+  await page.goto(`/cases/${row.id}`);
+  await expectFolded(page, "case page");
+  await page.locator("[data-testid=stage-not-answered-yet]").getByTestId("not-answered-yet-add").click();
+  await expect(page.getByTestId("stage-answer-select"), "Add it opens the list").toBeVisible({ timeout: 20_000 });
+});
