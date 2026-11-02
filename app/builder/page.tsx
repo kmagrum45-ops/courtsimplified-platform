@@ -2433,6 +2433,8 @@ function BuilderPageContent() {
                 // A day the person said they do not know is never asked again: folded here as "Not answered yet:
                 // add it when you know", with "Add it" (site owner, 31 Oct; caseFile.ts unsureDateQuestions).
                 laterDates={unsureDateQuestions(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult))}
+                // "Not sure" where the case is (the start's "I am not sure"): never asked again; the quiet line with "Add it" (founder, 1 Nov).
+                stepNotSure={caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult).stage.state === "unsure"}
                 initialDateAnswers={savedPosition.dateAnswers}
                 initialService={savedPosition.service}
                 onSaved={(saved) => {

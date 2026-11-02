@@ -281,6 +281,8 @@ export default function CaseOverviewPage() {
               initialStepId={position.stepId ?? situationStep}
               // A day not known is never asked again: folded here as "Not answered yet" (site owner, 31 Oct; caseFile.ts).
               laterDates={unsureDateQuestions(caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master))}
+              // "Not sure" where the case is: never asked again; the quiet line with "Add it" (founder, 1 Nov).
+              stepNotSure={caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master).stage.state === "unsure"}
               initialDateAnswers={withCaseFileDates(position.dateAnswers, caseFileOf(readCheckpoint(master.intakeCheckpoint, courtPath), master), fullDayIn)}
               initialService={position.service}
               motionToChange={position.motionToChange ?? null}
