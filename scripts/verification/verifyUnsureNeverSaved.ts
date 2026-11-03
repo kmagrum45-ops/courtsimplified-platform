@@ -27,7 +27,7 @@
  *          "already-started" or "not-sure" beside it, in each court;
  *   2d. a form's stage still counts when the start said nothing about where the case is;
  *   3a-3e. every place that prints a stored answer reads it through the one reader: the earlier answers, the case
- *          file's words, the overview's snapshot; and one screen check (copy/unsureShown.ts) the story pack runs on
+ *          file's words, the overview's snapshot; and one screen check (tests/browser/harness/unsureShown.ts) the story pack runs on
  *          every screen, failing on "I do not know yet" shown as an answer (Chrome check of #541, 2 Nov).
  *
  * WHAT FAILURE THIS CATCHES: "I do not know yet" shown as what the person wants; "Where is your case?" asked
@@ -130,8 +130,8 @@ for (const court of ["small-claims", "civil", "family"] as const) {
 
   let shown: ((lines: string[]) => string[]) | undefined;
   // eslint-disable-next-line @typescript-eslint/no-require-imports -- the module may not exist yet (the check says so)
-  try { shown = require("../../src/lib/case-system/copy/unsureShown").unsureShownAsAnswer; } catch { shown = undefined; }
-  check("3c. one screen check for \"I do not know yet\" shown as an answer (copy/unsureShown.ts unsureShownAsAnswer)", typeof shown === "function");
+  try { shown = require("../../tests/browser/harness/unsureShown").unsureShownAsAnswer; } catch { shown = undefined; }
+  check("3c. one screen check for \"I do not know yet\" shown as an answer (tests/browser/harness/unsureShown.ts unsureShownAsAnswer)", typeof shown === "function");
   if (shown) {
     for (const line of ["I do not know yet", "What you want (your words): I do not know yet", "Answered: I do not know yet. You can change it here.", "What outcome are you asking the court to order?: I do not know yet", "I don't know (your answer as you changed it; it is not asked again)", "Goal: I do not know"]) {
       check(`3c. caught as an answer: "${line}"`, shown([line]).length === 1, JSON.stringify(shown([line])));

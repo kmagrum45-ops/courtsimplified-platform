@@ -8,9 +8,11 @@
  * here.", "I don't know (your answer as you changed it…)"). A sentence that only uses the words ("I do not know yet
  * whether he will pay") is not an answer. The story pack runs it on every screen, over the text outside the
  * page's controls and the person's own chat messages (UNSURE_SHOWN_SKIP), the way rawKeys.ts guards codes.
+ * Test-only, so it lives with the browser harness (a module only tests import does not belong in src/:
+ * test:reachability).
  * Pure; states no law.
  */
-import { sentences } from "../sentences";
+import { sentences } from "../../../src/lib/case-system/sentences";
 
 /** Typed "I don't know" words, the ones a person types (not the stored codes, not the choice label "Not sure"). */
 const TYPED = /^(?:i\s*(?:do\s*not|don'?t|dont)\s*know(?:\s*yet)?|idk|no\s*idea)\s*[.!]?$/i;

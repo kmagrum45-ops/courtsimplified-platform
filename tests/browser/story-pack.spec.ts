@@ -40,7 +40,7 @@ import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { asksForDate } from "../../src/lib/case-system/dates";
 import { internalWordingIn, rawKeysIn } from "../../src/lib/case-system/copy/rawKeys";
-import { UNSURE_SHOWN_SKIP, unsureShownAsAnswer } from "../../src/lib/case-system/copy/unsureShown";
+import { UNSURE_SHOWN_SKIP, unsureShownAsAnswer } from "./harness/unsureShown";
 import { CHARTER_STORIES, MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, type Route } from "./storyPackMore";
 import { appendRecord } from "./harness/packRecords";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
@@ -159,7 +159,7 @@ function checkText(run: string, where: string, text: string) {
 
 /**
  * "I do not know yet" is never shown as an answer, on any screen (Chrome check of #541, 2 Nov): the visible text
- * outside the page's controls and the person's own chat messages, read by the one screen check (copy/unsureShown.ts).
+ * outside the page's controls and the person's own chat messages, read by the one screen check (harness/unsureShown.ts).
  */
 async function checkUnsureShown(run: string, where: string, page: Page) {
   const texts = await page.evaluate((skip) => {
