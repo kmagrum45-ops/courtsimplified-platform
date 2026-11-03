@@ -25,7 +25,7 @@ import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 const STORY = "I hired Test Decks Ltd. in March 2026 to build a deck for $8,000. I paid $2,000 and $6,000 is still owed. I have the contract, text messages and a bank receipt.";
 
-async function guidedThenReview(page: Page) {
+async function guidedThenReview(page: Page, changedAmount?: string) {
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Kingston");
@@ -54,6 +54,15 @@ async function guidedThenReview(page: Page) {
   if (await q("sc-claim-filed").count()) await q("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
   const use = q("sc-amount-claimed").getByRole("button", { name: /^Use the suggestion: .*$/ });
   if (await use.count()) await use.first().click();
+  // The amount given by the story's suggestion, then changed by the person in the same question's box.
+  if (changedAmount) {
+    const box = q("sc-amount-claimed").getByRole("textbox").first();
+    await expect(box, "the answered amount can be changed in its own box").toBeVisible({ timeout: 30_000 });
+    await box.fill("");
+    await box.pressSequentially(changedAmount, { delay: 20 });
+    await box.blur();
+    await page.waitForTimeout(2_000);
+  }
   await recordInitialUnknowns(page);
   await page.getByTestId("intake-review-acknowledgement").check();
   await page.getByTestId("intake-confirm").click();
@@ -81,4 +90,60 @@ test("a held answer filled into the Small Claims form never stops Continue -- sm
   // The one asker's fill still happens: the form's amount box holds the held amount.
   await page.goto(page.url().replace(/step=[a-z]+/, "step=form"));
   await expect(page.getByTestId("sc-intake-amountClaimed")).toHaveValue(/6,?000/, { timeout: 60_000 });
+});
+
+/*
+ * The analysis that keeps running uses the same amount the fill put in (founder, 2 Nov): the overview is never built
+ * from a stale value. The amount Continue's analysis sends (the request to /api/small-claims/analyze), the form's
+ * filled box and the overview's Amount must all be the same number -- also when the person changed the amount the
+ * story suggested, where an older value is held beside the newest one.
+ */
+const digits = (text: string | null | undefined) => String(text ?? "").replace(/\.00\b/, "").replace(/\D/g, "");
+
+async function amountsSeen(page: Page, sent: string[]) {
+  await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
+  const overview = page.getByTestId("completed-case-overview");
+  await expect(overview, "the next step loads").toBeVisible({ timeout: 120_000 });
+  const shown = await page.locator("dt", { hasText: /^Amount$/ }).locator("xpath=following-sibling::dd[1]").first().innerText().catch(() => "");
+  await page.goto(page.url().replace(/step=[a-z]+/, "step=form"));
+  const box = page.getByTestId("sc-intake-amountClaimed");
+  await expect(box).not.toHaveValue("", { timeout: 60_000 });
+  return { sent: sent.at(-1) ?? "", shown, filled: await box.inputValue() };
+}
+
+function recordSentAmounts(page: Page): string[] {
+  const sent: string[] = [];
+  page.on("request", (request) => {
+    if (request.method() === "POST" && request.url().includes("/api/small-claims/analyze")) sent.push(String(request.postDataJSON()?.input?.amountClaimed ?? ""));
+  });
+  return sent;
+}
+
+test("the analysis that keeps running uses the same amount that was filled in -- small-claims (sc-deck-owed)", async ({ page }) => {
+  test.setTimeout(300_000);
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
+  const sent = recordSentAmounts(page);
+  await guidedThenReview(page);
+  const seen = await amountsSeen(page, sent);
+  expect(digits(seen.filled), `the form's box holds the held amount: ${JSON.stringify(seen)}`).toBe("6000");
+  expect(digits(seen.sent), `the analysis sent the same amount: ${JSON.stringify(seen)}`).toBe(digits(seen.filled));
+  expect(digits(seen.shown), `the overview shows the same amount: ${JSON.stringify(seen)}`).toBe(digits(seen.filled));
+});
+
+test("the amount changed in the review is the one filled in, sent to the analysis and shown -- small-claims (sc-deck-owed)", async ({ page }) => {
+  test.setTimeout(300_000);
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
+  const sent = recordSentAmounts(page);
+  // The story's suggestion gave $6,000; the person changed it to $7,250 before Confirm.
+  await guidedThenReview(page, "$7,250");
+  const seen = await amountsSeen(page, sent);
+  expect(digits(seen.filled), `the form's box holds the changed amount: ${JSON.stringify(seen)}`).toBe("7250");
+  expect(digits(seen.sent), `the analysis sent the changed amount, never the older one: ${JSON.stringify(seen)}`).toBe("7250");
+  expect(digits(seen.shown), `the overview shows the changed amount: ${JSON.stringify(seen)}`).toBe("7250");
 });
