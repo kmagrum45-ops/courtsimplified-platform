@@ -333,6 +333,8 @@ async function main() {
       ["scripts/verification/verifyGuidedAssistantContext.mjs", "the local site"],
       // No network at all: `fetch(` appears only in a synthetic source its scanner is tested on.
       ["scripts/verification/verifyWorkingStates.ts", "nothing (a synthetic source)"],
+      // No network at all: `fetch(` appears only in a regex over the app's source and in a synthetic source its self-test plants.
+      ["scripts/verification/verifyScOneAsker.ts", "nothing (a synthetic source)"],
       ["scripts/verification/verifyWorkspaceRls.ts", "Supabase"],
     ]);
     const SCRIPT_NETWORK = /\bfetch\(|\bcurl\b|\bwget\b|requests\.get|urlopen|page\.goto|https?\.get\(/;
