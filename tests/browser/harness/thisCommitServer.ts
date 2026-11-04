@@ -96,7 +96,7 @@ export async function serveFromThisCommit(page: Page, court: Court, rows: Rows) 
  * `suggestKind`: the claim-type classifier's stand-in suggests this kind on every opening story
  * (default: none), and "No, not that one" gets "no match" back -- for the "Not quite" test.
  */
-export async function serveModelStandIns(page: Page, court: Court, ownerId: string = OWNER, standIns: { suggestKind?: { claimTypeId: string; claimTypeName: string; quote: string } } = {}) {
+export async function serveModelStandIns(page: Page, court: Court, ownerId: string = OWNER, standIns: { suggestKind?: { claimTypeId: string; claimTypeName: string; quote: string }; propose?: Record<string, string> } = {}) {
   await page.route("**/api/case/read", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
   await page.route("**/api/case/understand", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
   await page.route("**/api/classify-court-path", (route) => route.fulfill({ json: { primaryPath: court, confidence: 0.95 } }));
@@ -115,7 +115,7 @@ export async function serveModelStandIns(page: Page, court: Court, ownerId: stri
         classifyClaimType: async () => standIns.suggestKind ?? null,
         // One plain proposal, so the "Here's what I understood" card is exercised: a
         // counterclaim offered to a defendant, quoting the story's first sentence.
-        proposeAnswers: async (story, questions) => questions.filter((question) => question.id === "sc-defendant-counterclaim").map((question) => ({ questionId: question.id, questionText: question.text, answer: "Yes", storyQuote: story.split(/(?<=[.!?])\s+/)[0] ?? story })),
+        proposeAnswers: async (story, questions) => questions.filter((question) => question.id === "sc-defendant-counterclaim" || standIns.propose?.[question.id]).map((question) => ({ questionId: question.id, questionText: question.text, answer: standIns.propose?.[question.id] ?? "Yes", storyQuote: story.split(/(?<=[.!?])\s+/)[0] ?? story })),
       }, earlier)) as typeof orchestrateIntakeTurn,
     });
     return viaHandler(route, post, page);

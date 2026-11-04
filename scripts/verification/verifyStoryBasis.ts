@@ -183,6 +183,27 @@ assert.deepEqual(editedSentences("One. Two. Three.", "One. Two. Three. Four."), 
   assert.deepEqual(notSureKept, [], `a "not sure" is kept, answer by answer, through a story rewrite:\n  ${notSureKept.join("\n  ")}`);
 }
 
+// The copy of the chat's answers saved with the last analysis (master_result.intakeAnswers) never holds a fact the
+// case record does not: where the record (the checkpoint) is read, it is the one copy. Chrome check of #542 (3 Nov,
+// A3): "Start the questions again" emptied the chat's "When it happened", the saved copy still held it, so the chat
+// never asked it again and, after the next analysis, no screen showed it. In all three courts (caseFileOf is shared).
+{
+  const heldFromCopy: string[] = [];
+  const copy = { intakeAnswers: [{ questionId: "sc-orient-when-happened", answerText: "March 15, 2025" }] };
+  const own: Record<"small-claims" | "civil" | "family", Record<string, unknown>> = {
+    "small-claims": { builder: { step: "guided" }, guided: { earlierAnswers: copy.intakeAnswers, answeredIds: ["sc-orient-when-happened"], facts: { timelineText: "March 15, 2025" } }, [BASIS_SECTION]: { "guided.earlierAnswers": storyVersion(OLD), "guided.answeredIds": storyVersion(OLD), "guided.facts.timelineText": storyVersion(OLD) } },
+    civil: { civil: { input: {} } },
+    family: { family: {} },
+  };
+  for (const court of ["small-claims", "civil", "family"] as const) {
+    const checkpoint = { version: 1, flowId: "00000000-0000-4000-8000-000000000033", courtPath: court, revision: "00000000-0000-4000-8000-000000000033", sections: { story: { text: OLD }, ...own[court] } } as unknown as Checkpoint;
+    const restarted = discardStale(checkpoint);
+    if (caseFileOf(restarted, copy).whenHappened.state !== "not-asked") heldFromCopy.push(`${court}: after "Start the questions again", When it happened is ${caseFileOf(restarted, copy).whenHappened.state}, held only by the saved copy`);
+  }
+  // An older saved case with no record at all still reads the copy (its only one).
+  if (caseFileOf(null, { ...copy, courtPath: "small-claims" }).whenHappened.state !== "answered") heldFromCopy.push("a saved case with no record no longer reads its saved answers");
+  assert.deepEqual(heldFromCopy, [], `the saved copy never holds a fact the case record does not:\n  ${heldFromCopy.join("\n  ")}`);
+}
 
 assert.notEqual(storyVersion(OLD), storyVersion(NEW));
 assert.equal(storyVersion("A  b"), storyVersion("a b"));

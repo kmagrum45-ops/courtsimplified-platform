@@ -19,7 +19,7 @@ import { expect, test, type Page } from "@playwright/test";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
-import { serveFromThisCommit } from "./harness/thisCommitServer";
+import { serveFromThisCommit, serveModelStandIns } from "./harness/thisCommitServer";
 import { recordInitialUnknowns } from "./harness/intakeReview";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
@@ -146,4 +146,69 @@ test("the amount changed in the review is the one filled in, sent to the analysi
   expect(digits(seen.filled), `the form's box holds the changed amount: ${JSON.stringify(seen)}`).toBe("7250");
   expect(digits(seen.sent), `the analysis sent the changed amount, never the older one: ${JSON.stringify(seen)}`).toBe("7250");
   expect(digits(seen.shown), `the overview shows the changed amount: ${JSON.stringify(seen)}`).toBe("7250");
+});
+
+/*
+ * B3 (Chrome check of #542 at 6e56e44b, 3 Nov): a box the fill put words in follows the person's newest answer. The amount
+ * answered in the chat ($2,650) was filled into the form's empty amount box; the amount was then changed to $2,400 in the
+ * review and confirmed, and the form's box still held "$2,650.00" -- an old value the form's own Continue would send.
+ * Cause: the fill fills a box once (asker.ts formFill: an empty box, never filled before), so a box it filled kept the
+ * words it was given. Wanted: the box holds the newest answer, never the older one, and the form's analysis sends it.
+ */
+test("a box the fill put an amount in follows the amount changed in the review -- small-claims (loan)", async ({ page }) => {
+  test.setTimeout(400_000);
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
+  await serveModelStandIns(page, "small-claims");
+  const sent = recordSentAmounts(page);
+  await page.goto("/?path=small-claims");
+  await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
+  await page.getByLabel("City or municipality").fill("Ottawa");
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill("I lent a friend money and they have not paid it back.");
+  await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
+  await page.waitForURL(/\/builder\?.*intake=/, { timeout: 60_000 });
+  const caseId = new URL(page.url()).searchParams.get("intake") ?? "";
+  const ack = page.getByTestId("acknowledgement-checkbox");
+  await expect(ack.or(page.getByRole("button", { name: /Answer questions one at a time/ }))).toBeVisible({ timeout: 60_000 });
+  if (await ack.isVisible()) { await ack.check(); await page.getByTestId("acknowledgement-continue").click(); }
+  await page.getByRole("button", { name: /Answer questions one at a time/ }).click();
+  const send = page.getByTestId("guided-send-saved-story");
+  if (await send.isVisible({ timeout: 10_000 }).catch(() => false)) await send.click();
+  for (let turn = 0; turn < 15; turn++) {
+    await page.waitForTimeout(2_000);
+    const box = page.locator("textarea[placeholder='Your answer...']");
+    if (!(await box.isVisible().catch(() => false))) break;
+    const id = await page.locator("[data-testid=guided-message][data-from=assistant][data-question-id]").last().getAttribute("data-question-id");
+    await box.fill(id === "sc-amount-claimed" ? "$2,650" : id === "sc-orient-dispute-category" ? "A loan or debt" : "I do not know yet");
+    await page.getByRole("button", { name: "Send", exact: true }).click();
+    await expect(page.getByRole("button", { name: "Sending…" })).toHaveCount(0, { timeout: 60_000 });
+  }
+  const form = `/builder?path=small-claims&caseId=${caseId}&step=form`;
+  const amountBox = page.getByTestId("sc-intake-amountClaimed");
+  await page.goto(form);
+  await expect(amountBox, "the fill puts the chat's amount into the empty box").toHaveValue(/2,?650/, { timeout: 60_000 });
+
+  // The amount changed in the review's own box, then confirmed.
+  await page.goto(`/builder?path=small-claims&caseId=${caseId}&step=guided`);
+  const panel = page.getByTestId("intake-review");
+  await expect(panel).toBeVisible({ timeout: 60_000 });
+  if (await panel.getAttribute("data-phase") === "collecting") await page.getByTestId("intake-start-review").click();
+  const reviewAmount = panel.locator("[data-testid=intake-entry][data-field=amountClaimedText]").locator("input, textarea").first();
+  await expect(reviewAmount).toHaveValue(/2,?650/, { timeout: 30_000 });
+  await reviewAmount.fill("");
+  await reviewAmount.pressSequentially("$2,400", { delay: 20 });
+  await reviewAmount.blur();
+  await page.waitForTimeout(2_000);
+  await recordInitialUnknowns(page);
+  await page.getByTestId("intake-review-acknowledgement").check();
+  await page.getByTestId("intake-confirm").click();
+  await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
+
+  await page.goto(form);
+  await expect(amountBox, "the form's box holds the newest amount, never the older one").toHaveValue(/2,?400/, { timeout: 60_000 });
+  await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
+  await expect(page.getByTestId("completed-case-overview"), "the next step loads").toBeVisible({ timeout: 120_000 });
+  expect(digits(sent.at(-1)), `the form's analysis sends the newest amount: ${JSON.stringify(sent)}`).toBe("2400");
 });
