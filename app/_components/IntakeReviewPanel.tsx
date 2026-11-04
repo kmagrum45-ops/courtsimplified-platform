@@ -26,6 +26,8 @@ import { askOf } from "../../src/lib/case-system/intake/asker";
 import NextStepStatus, { nextStepPressed, useNextStepReading } from "./NextStepStatus";
 import { WorkingNote } from "./Working";
 import { UseSuggestion } from "./UseSuggestion";
+import SignInForSafetyCheck from "../builder/_components/SignInForSafetyCheck";
+import { supabase } from "../../src/lib/supabase/client";
 import { earlierAnswerWords } from "../../src/lib/case-system/earlierAnswerWords";
 
 /** What an answer with no line of its own is, in words. */
@@ -68,6 +70,8 @@ export default function IntakeReviewPanel() {
   const [dates, setDates] = useState<Record<string, string>>({});
   // "Show my next step" with no intake on the page yet (the "Before you start" step is showing).
   const [waiting, setWaiting] = useState(false);
+  // A guest pressed "Show my next step": the sign-in message is shown under it (B1).
+  const [signInNeeded, setSignInNeeded] = useState(false);
   // While the next step is being worked out, the button says so and waits: pressed again, it
   // looked as if the second press did the work (case 11, live re-test 26 Oct).
   const working = useNextStepReading();
@@ -409,7 +413,10 @@ export default function IntakeReviewPanel() {
     {/* Not reviewing yet (reloaded before the change was saved, or back at the questions): still said, from the saved record. */}
     {phase === "collecting" && changedAfterConfirm(workflowStatus, checkpoint) ? <p data-testid="intake-confirm-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer, so please review and confirm again.</p> : null}
     {phase === "collecting" && <button data-testid="intake-start-review" type="button" disabled={busy || !canReview(checkpoint)} onClick={() => void act("review")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Stop initial questions and review</button>}
-    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={busy || questionsOutdated || working} onClick={() => { if (showWaitingStep()) { setWaiting(true); return; } nextStepPressed(); setWaiting(!recovery.continueToGuidance()); }} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">{working ? "Working out your next step…" : "Show my next step"}</button>{" "}<button data-testid="intake-view-review" type="button" disabled={busy} onClick={() => setViewing(true)}>Review or correct initial information</button>
+    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={busy || questionsOutdated || working} onClick={() => { if (showWaitingStep()) { setWaiting(true); return; } nextStepPressed(); setWaiting(!recovery.continueToGuidance()); void supabase.auth.getSession().then(({ data }) => setSignInNeeded(!data.session)).catch(() => undefined); }} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">{working ? "Working out your next step…" : "Show my next step"}</button>{" "}<button data-testid="intake-view-review" type="button" disabled={busy} onClick={() => setViewing(true)}>Review or correct initial information</button>
+      {/* A guest: the next step needs an account (the safety check runs first). Said here, under the button pressed,
+          not only at the foot of the form (Chrome check of #542, 3 Nov, B1: the button seemed to do nothing). */}
+      {signInNeeded ? <SignInForSafetyCheck testId="intake-continue-sign-in" area={court === "family" ? "Family" : court === "civil" ? "Civil" : "Small Claims"} /> : null}
       <NextStepStatus />
       <StoryChangedNotice where="button" /></>}
     {waiting && phase === "user-confirmed" && <p data-testid="intake-continue-waiting" role="status" className="mt-2 text-sm">Finish the step shown below first; your next step will then appear.</p>}
