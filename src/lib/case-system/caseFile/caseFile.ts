@@ -397,15 +397,18 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // The element record the analysis saved with the case (the depth phase's answers), for the Form 7A section.
   const savedElementStates = object(extra.elementStateMap);
   if (Object.keys(savedElementStates).length) file.elementStates = savedElementStates;
+  // The checkpoint keeps the Small Claims chat's own record (its "guided" section, which "Start the questions again" resets).
+  const chatRecorded = Boolean(checkpoint && checkpoint.sections.guided);
   for (const answer of Array.isArray(object(master).intakeAnswers) ? (object(master).intakeAnswers as unknown[]) : []) {
     const item = object(answer);
     if (typeof item.questionId === "string" && typeof item.answerText === "string") answers[item.questionId] ??= item.answerText;
-    // The saved copy of the guided answers gives a fact only for a case with no checkpoint (an older saved
-    // case): where the checkpoint is read, its answers are the one copy, so an answer emptied there (a side
-    // change, the story-version rule, "Start the questions again") is not brought back from this copy. It was
-    // the kind of claim only: Chrome check of #542 (3 Nov, A3) -- the restart emptied "When it happened", this
-    // copy still held it, so the chat never asked it again and, after the next analysis, no screen showed it.
-    if (typeof item.questionId === "string" && !checkpoint) for (const fact of slotsOf(item.questionId)) give(file, fact, item.answerText, item.questionId);
+    // The saved copy of the guided answers gives a fact only where the checkpoint holds no record of the guided
+    // chat (an older saved case, or a reload before the checkpoint caught up: verifyNotSureGoalReview). Where the
+    // checkpoint keeps the chat's record, its answers are the one copy, so an answer emptied there (a side change,
+    // the story-version rule, "Start the questions again") is not brought back from this copy. It was the kind of
+    // claim only: Chrome check of #542 (3 Nov, A3) -- the restart emptied "When it happened", this copy still
+    // held it, so the chat never asked it again and, after the next analysis, no screen showed it.
+    if (typeof item.questionId === "string" && !chatRecorded) for (const fact of slotsOf(item.questionId)) if (!(fact === "claimKind" && checkpoint)) give(file, fact, item.answerText, item.questionId);
   }
   // A date question answered "I don't know yet", in the review or in words, whatever slot it has or not:
   // only an actual "not sure" marks it, and never once the question or its fact has a real answer from
