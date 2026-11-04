@@ -811,7 +811,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   // never over what they typed, never a story guess, never again once they cleared the box.
   useHeldFill(input as unknown as Record<string, unknown>, (fill) => { filledOnly.current = true; setInput((current) => {
     const next = { ...current } as Record<string, unknown>;
-    for (const [field, words] of Object.entries(fill)) if (!String(next[field] ?? "").trim()) next[field] = words;
+    // Only over the words the box must still hold (empty for a first fill, the fill's own words to follow a change):
+    // never over what the person typed.
+    for (const [field, { words, over }] of Object.entries(fill)) if (String(next[field] ?? "").trim() === over.trim()) next[field] = words;
     return next as unknown as SmallClaimsIntelligenceInput;
   }); });
 

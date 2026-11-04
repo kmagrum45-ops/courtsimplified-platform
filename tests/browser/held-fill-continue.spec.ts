@@ -190,6 +190,9 @@ test("a box the fill put an amount in follows the amount changed in the review -
   await page.goto(form);
   await expect(amountBox, "the fill puts the chat's amount into the empty box").toHaveValue(/2,?650/, { timeout: 60_000 });
 
+  // Saved before leaving the form (the fill is a write like any other).
+  const savedAmount = () => String(((((account.rows.get(caseId) as Record<string, unknown> | undefined)?.master_result as Record<string, unknown> | undefined)?.intakeCheckpoint as { sections?: Record<string, { input?: Record<string, unknown> }> } | undefined)?.sections?.["small-claims"]?.input?.amountClaimed) ?? "");
+  await expect.poll(savedAmount, { timeout: 30_000 }).toMatch(/2,?650/);
   // The amount changed in the review's own box, then confirmed.
   await page.goto(`/builder?path=small-claims&caseId=${caseId}&step=guided`);
   const panel = page.getByTestId("intake-review");

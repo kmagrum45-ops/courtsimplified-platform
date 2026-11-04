@@ -296,6 +296,10 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
       if (key === "caseStage" && situation.where) continue;
       // The Small Claims form starts with "Nothing filed yet" ticked: only an answer the person changed counts.
       if (area === "small-claims" && key === "filedDocuments" && strings(value).join() === "nothing") continue;
+      // Words the one asker's fill put in a Small Claims box (asker.ts; "small-claims".filledWords) are a copy of an
+      // answer held elsewhere, never an answer of their own: the box follows the newest answer instead (Chrome check
+      // of #542, 3 Nov, B3: the box kept "$2,650.00" after the amount was changed to $2,400). Typed over, it counts.
+      if (area === "small-claims" && typeof value === "string" && value.trim() && object(sections["small-claims"]?.filledWords)[key] === value) continue;
       // A form's "not sure" is its starting value, never asked by itself: no answer (the
       // questions one at a time record a skip separately, which is a "not sure").
       if (value === "not-sure") continue;
