@@ -48,6 +48,7 @@ import { settledKindMatch } from "./claimKind";
 import { buildEvidenceCategoryGuidance, type EvidenceGuidance } from "./evidenceGapDetector";
 import { buildClaimGuidance, type ClaimGuidance } from "./claimGuidance";
 import { selectQuestions, type IntakeFacts } from "./selectQuestions";
+import type { CaseFile } from "../caseFile/caseFile";
 import { QUESTION_BANK, type CourtArea, type IntakeQuestion, type KnownFactField } from "./questionBank";
 import { composeVoiceTurn, type VoiceTurn } from "./voiceLayer";
 import {
@@ -264,6 +265,8 @@ function mergeFacts(
  */
 export type OrchestrateIntakeTurnOverrides = {
   intakeOnly?: boolean;
+  /** THE ONE ASKER: the case file (caseFileOf); every question the turn picks or proposes goes through it (selectQuestions held, asker.ts). */
+  held?: CaseFile | null;
   runSafety?: typeof runSafetyPass;
   extractFacts?: typeof extractIntakeFactsWithConfidence;
   classifyClaimType?: typeof classifyClaimTypeWithAi;
@@ -341,6 +344,7 @@ export async function orchestrateIntakeTurn(
           courtArea,
           apiKey,
           proposeAnswers: overrides.proposeAnswers || proposeAnswersFromStory,
+          held: overrides.held,
         })
       : null;
 
@@ -464,11 +468,11 @@ export async function orchestrateIntakeTurn(
   // convenience, and the intake must continue exactly as before without it.
   let storyProposals: StoryAnswerProposal[] = [];
   if (earlierCheck) {
-    const due = new Set(selectQuestions(facts, answeredIds, questionBank, courtArea, "initial"));
+    const due = new Set(selectQuestions(facts, answeredIds, questionBank, courtArea, "initial", { held: overrides.held }));
     storyProposals = (await earlierCheck).filter((proposal) => due.has(proposal.questionId));
   }
   if (newStoryText && !answeredQuestionId) {
-    const upcoming = selectQuestions(facts, answeredIds, questionBank, courtArea, "initial")
+    const upcoming = selectQuestions(facts, answeredIds, questionBank, courtArea, "initial", { held: overrides.held })
       .map((id) => questionBank.find((question) => question.id === id))
       .filter((question): question is IntakeQuestion => Boolean(question));
     const offered = proposableQuestions(upcoming);
@@ -488,6 +492,7 @@ export async function orchestrateIntakeTurn(
     courtArea,
     apiKey,
     composeVoice,
+    held: overrides.held,
     base: {
       safetyClassification,
       distressAcknowledgment,
@@ -537,6 +542,7 @@ async function checkEarlierAnswers(args: {
   courtArea: CourtArea;
   apiKey: string;
   proposeAnswers: typeof proposeAnswersFromStory;
+  held?: CaseFile | null;
 }): Promise<StoryAnswerProposal[]> {
   try {
     const answered = args.questionBank.find((question) => question.id === args.answeredQuestionId);
@@ -545,7 +551,7 @@ async function checkEarlierAnswers(args: {
       facts[answered.capturesField] = args.answerText.trim().slice(0, MAX_CAPTURED_ANSWER_LENGTH);
     }
     const declined = new Set(args.earlier.declined);
-    const upcoming = selectQuestions(facts, args.answeredIds, args.questionBank, args.courtArea, "initial")
+    const upcoming = selectQuestions(facts, args.answeredIds, args.questionBank, args.courtArea, "initial", { held: args.held })
       .filter((id) => !declined.has(id))
       .map((id) => args.questionBank.find((question) => question.id === id))
       .filter((question): question is IntakeQuestion => Boolean(question));
@@ -576,6 +582,7 @@ type FinishTurnArgs = {
   courtArea: CourtArea;
   apiKey: string;
   composeVoice: typeof composeVoiceTurn;
+  held?: CaseFile | null;
   base: Pick<
     OrchestrateIntakeTurnResult,
     | "safetyClassification"
@@ -598,6 +605,7 @@ async function finishTurn({
   courtArea,
   apiKey,
   composeVoice,
+  held,
   base,
 }: FinishTurnArgs): Promise<OrchestrateIntakeTurnResult> {
   const {
@@ -611,7 +619,7 @@ async function finishTurn({
     storyProposals,
     requestsLegalAdvice,
   } = base;
-  const remainingIds = selectQuestions(facts, answeredIds, questionBank, courtArea, "initial");
+  const remainingIds = selectQuestions(facts, answeredIds, questionBank, courtArea, "initial", { held });
   const nextQuestion = remainingIds.length > 0 ? questionBank.find((q) => q.id === remainingIds[0]) : undefined;
 
   if (!nextQuestion) {
@@ -677,7 +685,7 @@ export async function applyConfirmedStoryAnswers(
   apiKey: string,
   questionBank: readonly IntakeQuestion[] = QUESTION_BANK,
   courtArea: CourtArea = "small-claims",
-  overrides: Pick<OrchestrateIntakeTurnOverrides, "extractFacts" | "composeVoice" | "proposeAnswers" | "intakeOnly"> = {},
+  overrides: Pick<OrchestrateIntakeTurnOverrides, "extractFacts" | "composeVoice" | "proposeAnswers" | "intakeOnly" | "held"> = {},
   /**
    * 2026-09-28. One more read of the opening story, for questions the
    * confirmations just made applicable. The story review battery: a dog-bite
@@ -731,7 +739,7 @@ export async function applyConfirmedStoryAnswers(
   let storyProposals: StoryAnswerProposal[] = [];
   if (repropose && repropose.story.trim()) {
     const excluded = new Set([...repropose.alreadyOffered, ...nextAnsweredIds]);
-    const upcoming = selectQuestions(facts, nextAnsweredIds, questionBank, courtArea, "initial")
+    const upcoming = selectQuestions(facts, nextAnsweredIds, questionBank, courtArea, "initial", { held: overrides.held })
       .filter((id) => !excluded.has(id))
       .map((id) => questionBank.find((question) => question.id === id))
       .filter((question): question is IntakeQuestion => Boolean(question));
@@ -752,6 +760,7 @@ export async function applyConfirmedStoryAnswers(
     courtArea,
     apiKey,
     composeVoice,
+    held: overrides.held,
     base: {
       matchedClaimTypes: [],
       possibleCorrections,

@@ -14,6 +14,9 @@
  * and the Home page's answers likewise; a rewrite (most sentences gone) sets them all aside, except
  * what the situation answers settle (the side, "nothing filed"), which no route can tie to the story.
  *
+ * A "not sure" (a chat answer in a list, a skip) is never set aside by a rewrite or "Start the questions
+ * again", answer by answer, in all three courts (Chrome check of #541, 2 Nov).
+ *
  * Failure it exists to catch: the PR #463 re-tests, where each flow kept its own
  * copy of answers from the old story and a fix to one flow left the others
  * showing them (round 5: civil and family had no block at all).
@@ -23,7 +26,8 @@
 import assert from "node:assert/strict";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { BASIS_SECTION, discardStale, editedSentences, freshSections, onStoryChange, positionForStory, staleAnswerKeys, storyAnswersOutdated, storyVersion, tagAnswers } from "../../src/lib/case-system/storyBasis";
-import { remainingEssentialQuestions, reviewEntries } from "../../src/lib/case-system/intakeReview";
+import { notAnsweredYet, remainingEssentialQuestions, reviewBoxState, reviewEntries } from "../../src/lib/case-system/intakeReview";
+import { caseFileOf, slotsOfQuestion } from "../../src/lib/case-system/caseFile/caseFile";
 
 const OLD = "Synthetic old story: we disagree about parenting time for our daughter.";
 const NEW = "Synthetic new story: I am asking for spousal support. We have no children.";
@@ -145,6 +149,62 @@ assert.deepEqual(editedSentences("One. Two. Three.", "One. Two. Three. Four."), 
   const stale = staleAnswerKeys(settled);
   assert.ok(!stale.includes("guided.facts.role") && !stale.includes("guided.facts.claimFiled"), `the side and "nothing filed" from the start are never stale: ${stale.join(", ")}`);
   assert.ok(stale.includes("guided.facts.amountClaimedText"), "an answer from the story still is");
+}
+
+// A "not sure" survives a story rewrite and "Start the questions again", in all three courts, answer by
+// answer (Chrome check of #541, 2 Nov: after the rewrite the Small Claims goal said "I do not know yet" in
+// the chat left the review altogether). The chat keeps its answers as ONE list (WHOLE: guided.earlierAnswers),
+// and the "never set a not sure aside" test looked at the list, never at each answer in it; the Civil and
+// Family chats keep a skip in form-chat.skipped, which "Start the questions again" reset.
+{
+  const notSureKept: string[] = [];
+  const cases: { court: "small-claims" | "civil" | "family"; fact: "wants" | "urgent"; sections: Record<string, unknown> }[] = [
+    { court: "small-claims", fact: "wants", sections: {
+      builder: { step: "guided" },
+      guided: { earlierAnswers: [{ questionId: "sc-remedy-sought", answerText: "I do not know yet" }, { questionId: "sc-amount-claimed", answerText: "$3,000" }], answeredIds: ["sc-remedy-sought", "sc-amount-claimed"] },
+      [BASIS_SECTION]: { "guided.earlierAnswers": storyVersion(OLD), "guided.answeredIds": storyVersion(OLD) },
+    } },
+    { court: "civil", fact: "urgent", sections: { civil: { input: { goal: "Synthetic: my deposit back" } }, "form-chat": { skipped: ["urgent"] }, [BASIS_SECTION]: { "civil.input.goal": storyVersion(OLD) } } },
+    { court: "family", fact: "urgent", sections: { family: { goal: "Synthetic: a parenting schedule" }, "form-chat": { skipped: ["urgent"] }, [BASIS_SECTION]: { "family.goal": storyVersion(OLD) } } },
+  ];
+  for (const { court, fact, sections } of cases) {
+    const rewritten = { version: 1, flowId: "00000000-0000-4000-8000-000000000032", courtPath: court, revision: "00000000-0000-4000-8000-000000000032", sections: { story: { text: NEW }, ...sections } } as unknown as Checkpoint;
+    for (const [when, checkpoint] of [["after the rewrite", rewritten], ["after \"Start the questions again\"", discardStale(rewritten)]] as const) {
+      const file = caseFileOf(checkpoint);
+      if (file[fact].state !== "unsure") notSureKept.push(`${court} ${when}: ${fact} is ${file[fact].state}, not unsure`);
+      const quiet = notAnsweredYet(checkpoint).filter((line) => line.facts.includes(fact));
+      if (quiet.length === 0 && !reviewEntries(checkpoint).some((entry) => slotsOfQuestion(entry.field).includes(fact) && reviewBoxState(entry, file) === "not-yet")) notSureKept.push(`${court} ${when}: no "Not answered yet" line for ${fact}`);
+    }
+  }
+  // A real answer in the same list is still set aside (the amount was given for the earlier story).
+  const sc = discardStale({ version: 1, flowId: "00000000-0000-4000-8000-000000000032", courtPath: "small-claims", revision: "00000000-0000-4000-8000-000000000032", sections: { story: { text: NEW }, ...cases[0].sections } } as unknown as Checkpoint);
+  const scFile = caseFileOf(sc) as unknown as Record<string, { state?: string } | undefined>;
+  if (slotsOfQuestion("sc-amount-claimed").some((slot) => scFile[slot]?.state === "answered")) notSureKept.push("small-claims: the amount from the earlier story is still held after \"Start the questions again\"");
+  assert.deepEqual(notSureKept, [], `a "not sure" is kept, answer by answer, through a story rewrite:\n  ${notSureKept.join("\n  ")}`);
+}
+
+// After "Start the questions again", a fact the case record emptied is asked again or still shown, never held where no
+// screen shows it. Chrome check of #542 (3 Nov, A3): the restart emptied the Small Claims chat's "When it happened", but
+// the copy of the chat's answers saved with the last analysis (master_result.intakeAnswers) still held it, so the chat
+// never asked it again and, after the next analysis, no screen showed it. Small Claims: where the checkpoint keeps the
+// chat's record, that copy holds nothing (where it keeps none -- a reload before the checkpoint caught up -- the copy is
+// still read: verifyNotSureGoalReview). Civil and Family keep no such copy (their chats write to their own forms): the
+// same restart keeps their answer, held and in the review.
+{
+  const heldFromCopy: string[] = [];
+  const copy = { intakeAnswers: [{ questionId: "sc-orient-when-happened", answerText: "March 15, 2025" }] };
+  const at = (court: "small-claims" | "civil" | "family", sections: Record<string, unknown>) => ({ version: 1, flowId: "00000000-0000-4000-8000-000000000033", courtPath: court, revision: "00000000-0000-4000-8000-000000000033", sections: { story: { text: OLD }, ...sections } }) as unknown as Checkpoint;
+  const sc = discardStale(at("small-claims", { builder: { step: "guided" }, guided: { earlierAnswers: copy.intakeAnswers, answeredIds: ["sc-orient-when-happened"], facts: { timelineText: "March 15, 2025" } }, [BASIS_SECTION]: { "guided.earlierAnswers": storyVersion(OLD), "guided.answeredIds": storyVersion(OLD), "guided.facts.timelineText": storyVersion(OLD) } }));
+  if (caseFileOf(sc, copy).whenHappened.state !== "not-asked") heldFromCopy.push(`small-claims: after "Start the questions again", When it happened is ${caseFileOf(sc, copy).whenHappened.state}, held only by the saved copy`);
+  // No record of the chat in the checkpoint, or no checkpoint (an older saved case): the copy is the only one, and is read.
+  if (caseFileOf(at("small-claims", {}), copy).whenHappened.state !== "answered") heldFromCopy.push("small-claims: with no chat record in the checkpoint, the saved copy is no longer read");
+  if (caseFileOf(null, { ...copy, courtPath: "small-claims" }).whenHappened.state !== "answered") heldFromCopy.push("a saved case with no record no longer reads its saved answers");
+  for (const [court, sections, basis] of [["civil", { civil: { input: { goal: "Synthetic: my deposit back" } } }, "civil.input.goal"], ["family", { family: { goal: "Synthetic: a parenting schedule" } }, "family.goal"]] as const) {
+    const restarted = discardStale(at(court, { ...sections, [BASIS_SECTION]: { [basis]: storyVersion(OLD) } }));
+    if (caseFileOf(restarted).wants.state !== "answered") heldFromCopy.push(`${court}: after "Start the questions again", the goal is ${caseFileOf(restarted).wants.state}, not kept`);
+    if (!reviewEntries(restarted).some((entry) => entry.field === "goal" && typeof entry.value === "string" && entry.value.trim())) heldFromCopy.push(`${court}: after "Start the questions again", the review does not show the goal kept`);
+  }
+  assert.deepEqual(heldFromCopy, [], `after "Start the questions again", nothing is held that no screen shows:\n  ${heldFromCopy.join("\n  ")}`);
 }
 
 assert.notEqual(storyVersion(OLD), storyVersion(NEW));

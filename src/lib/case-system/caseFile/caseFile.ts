@@ -33,7 +33,7 @@
  */
 import type { Checkpoint } from "../intakeCheckpoint";
 import { freshSections } from "../storyBasis";
-import { isUnsureAnswer } from "./unsureAnswer";
+import { isTypedUnsure, isUnsureAnswer } from "./unsureAnswer";
 import { storyOfMaster } from "../intakeStory";
 import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation } from "../situation/situation";
 import { isKindOfClaim, kindFromStory, storyQuoteFor, wordsInStory } from "../intake/claimKind";
@@ -296,6 +296,10 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
       if (key === "caseStage" && situation.where) continue;
       // The Small Claims form starts with "Nothing filed yet" ticked: only an answer the person changed counts.
       if (area === "small-claims" && key === "filedDocuments" && strings(value).join() === "nothing") continue;
+      // Words the one asker's fill put in a Small Claims box (asker.ts; "small-claims".filledWords) are a copy of an
+      // answer held elsewhere, never an answer of their own: the box follows the newest answer instead (Chrome check
+      // of #542, 3 Nov, B3: the box kept "$2,650.00" after the amount was changed to $2,400). Typed over, it counts.
+      if (area === "small-claims" && typeof value === "string" && value.trim() && object(sections["small-claims"]?.filledWords)[key] === value) continue;
       // A form's "not sure" is its starting value, never asked by itself: no answer (the
       // questions one at a time record a skip separately, which is a "not sure").
       if (value === "not-sure") continue;
@@ -393,13 +397,18 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // The element record the analysis saved with the case (the depth phase's answers), for the Form 7A section.
   const savedElementStates = object(extra.elementStateMap);
   if (Object.keys(savedElementStates).length) file.elementStates = savedElementStates;
+  // The checkpoint keeps the Small Claims chat's own record (its "guided" section, which "Start the questions again" resets).
+  const chatRecorded = Boolean(checkpoint && checkpoint.sections.guided);
   for (const answer of Array.isArray(object(master).intakeAnswers) ? (object(master).intakeAnswers as unknown[]) : []) {
     const item = object(answer);
     if (typeof item.questionId === "string" && typeof item.answerText === "string") answers[item.questionId] ??= item.answerText;
-    // The saved copy of the guided answers gives the kind of claim only for a case with no checkpoint
-    // (an older saved case): where the checkpoint is read, its answers are the one copy, so an answer
-    // emptied there (a side change, the story-version rule) is not brought back from this copy.
-    if (typeof item.questionId === "string") for (const fact of slotsOf(item.questionId)) if (!(fact === "claimKind" && checkpoint)) give(file, fact, item.answerText, item.questionId);
+    // The saved copy of the guided answers gives a fact only where the checkpoint holds no record of the guided
+    // chat (an older saved case, or a reload before the checkpoint caught up: verifyNotSureGoalReview). Where the
+    // checkpoint keeps the chat's record, its answers are the one copy, so an answer emptied there (a side change,
+    // the story-version rule, "Start the questions again") is not brought back from this copy. It was the kind of
+    // claim only: Chrome check of #542 (3 Nov, A3) -- the restart emptied "When it happened", this copy still
+    // held it, so the chat never asked it again and, after the next analysis, no screen showed it.
+    if (typeof item.questionId === "string" && !chatRecorded) for (const fact of slotsOf(item.questionId)) if (!(fact === "claimKind" && checkpoint)) give(file, fact, item.answerText, item.questionId);
   }
   // A date question answered "I don't know yet", in the review or in words, whatever slot it has or not:
   // only an actual "not sure" marks it, and never once the question or its fact has a real answer from
@@ -870,7 +879,8 @@ export function slotsOfQuestion(questionId: string, surface?: string): SlotFact[
 export function slotText(slot: Slot, formatDay: (iso: string) => string): string {
   // A rough time given ("July 2026", "last summer") is shown as given: the day is what is not known yet
   // (#477 re-test, item 6: "When it happened" showed "Not sure yet" after a date was given).
-  if (slot.state === "unsure") return typeof slot.value === "string" && slot.value.trim() && !isUnsureAnswer(slot.value) ? `${slot.value.trim()} (day not given yet)` : "Not sure yet";
+  // Typed "I do not know yet" held as a value is not an answer to show (the one reader, unsureAnswer.ts).
+  if (slot.state === "unsure" || isTypedUnsure(slot.value)) return typeof slot.value === "string" && slot.value.trim() && !isUnsureAnswer(slot.value) ? `${slot.value.trim()} (day not given yet)` : "Not sure yet";
   const value = slot.value;
   if (typeof value === "boolean") return value ? "Yes" : "No";
   // An amount as a court form writes it: "$2,500.00" (#477 re-test: "twenty five hundred").

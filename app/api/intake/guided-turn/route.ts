@@ -13,6 +13,7 @@ import type { IntakeFacts } from "@/src/lib/case-system/intake/selectQuestions";
 import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
 import { situationAnswers, situationFromRaw } from "@/src/lib/case-system/situation/situation";
+import { heldFromRequest } from "@/src/lib/case-system/intake/asker";
 
 /**
  * Session 11 -- the first piece of the intake foundation (Sessions 3-10)
@@ -114,6 +115,8 @@ type GuidedTurnRequestBody = {
    * the story never overrides them and they are never asked again.
    */
   situation?: Record<string, unknown>;
+  /** THE ONE ASKER (founder, 1 Nov): the case file's slots (asker.ts heldForEngine). The engine never asks, nor proposes, a question whose fact it holds. */
+  caseFile?: Record<string, unknown>;
   newStoryText?: string;
   /** Defaults to "small-claims" when omitted -- every caller today omits it. */
   courtArea?: SupportedCourtArea;
@@ -203,12 +206,15 @@ function isGuidedTurnRequestBody(value: unknown): value is GuidedTurnRequestBody
     "repropose",
     "earlier",
     "situation",
+    "caseFile",
   ]);
   if (Object.keys(value).some((key) => !allowedKeys.has(key))) return false;
 
   if (!isIntakeFacts(value.facts)) return false;
   if (!isAnsweredIds(value.answeredIds)) return false;
   if (value.situation !== undefined && !(isRecord(value.situation) && JSON.stringify(value.situation).length <= 2_000)) return false;
+  // The case file (asker.ts heldForEngine: its slots, no story words), read slot by slot by heldFromRequest.
+  if (value.caseFile !== undefined && !(isRecord(value.caseFile) && JSON.stringify(value.caseFile).length <= 20_000)) return false;
   if (
     value.newStoryText !== undefined &&
     !(typeof value.newStoryText === "string" && value.newStoryText.length <= MAX_STORY_TEXT_LENGTH)
@@ -335,7 +341,7 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
           apiKey,
           questionBank,
           courtArea,
-          { intakeOnly: true },
+          { intakeOnly: true, held: heldFromRequest(body.caseFile) },
           body.repropose,
         );
         return NextResponse.json({ ok: true, result: { ...withSituation(confirmedResult), evidenceGuidance: undefined, claimGuidance: undefined }, authenticated });
@@ -350,7 +356,7 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
         claimTypes,
         courtArea,
         body.answeredQuestionId,
-        { intakeOnly: true },
+        { intakeOnly: true, held: heldFromRequest(body.caseFile) },
         body.earlier,
       );
 

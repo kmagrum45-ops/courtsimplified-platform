@@ -115,6 +115,7 @@ function scan(text: string, file: string): string[] {
  * only in the page, NOT fixed in this change, with why. Delete an entry when its place reads the saved case.
  */
 const KNOWN: Record<string, string> = {
+  "app/_components/AskedField.tsx:seen": "(b) the boxes that held words during this visit, so a box the person clears to type in is not refilled under their keys; a box emptied is saved at once to the case (\"small-claims\".filledFromCaseFile), which is what holds after a reload",
   "app/builder/_components/IntelligenceOverviewPanel.tsx:pickedHere": "(c) the kind picked on the overview, shown at once after savePositionQueued saved it to the case position; read through caseFileOf on the next load",
   "app/builder/_components/SourcedQuestions.tsx:askedFor": "(c) mirrors the saved sourced.askedFor (useIntakeState), written back to the checkpoint every render",
   "app/builder/_components/StageAnswerPanel.tsx:chosenHere": "(b) wording only: names the step the person chose on this visit as theirs, not as a suggestion; the step itself is saved to the case position",

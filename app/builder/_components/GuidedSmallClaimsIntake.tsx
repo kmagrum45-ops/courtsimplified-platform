@@ -38,7 +38,8 @@ import { startSignIn } from "../../_components/startSignIn";
 import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
 import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
 import { storyQuoteFor } from "@/src/lib/case-system/intake/claimKind";
-import { alreadyAsked, answerNow, askedAndReplied, caseFileOf, CASE_FILE_SECTION, withTurnedDown, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
+import { answerNow, askedAndReplied, caseFileOf, CASE_FILE_SECTION, withTurnedDown, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
+import { heldForEngine } from "@/src/lib/case-system/intake/asker";
 import { claimKindAiContext, classifyClaimTypeBody } from "@/src/lib/case-system/caseFile/aiCaseContext";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { WorkingButton, WorkingNote } from "@/app/_components/Working";
@@ -712,10 +713,14 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         },
         body: JSON.stringify({
           facts: nextFacts,
-          // The case file is the one gate (caseFile.ts): a question whose fact the person
-          // gave anywhere (the review, the form, the step page), or said "not sure" to, is
-          // sent as answered, so it is never asked here again.
-          answeredIds: [...new Set([...newAnsweredIds, ...(reviewView ? QUESTION_BANK.filter((question) => alreadyAsked(caseFileOf(reviewView.checkpoint, recovery?.getSavedMaster() ?? undefined), question.id)).map((question) => question.id) : []), ...repliedInThisChat()])],
+          // THE ONE ASKER (founder, 1 Nov): the page never decides which questions are held. It sends the
+          // case file (caseFileOf, its slots only) and the question engine skips every question whose fact
+          // the person already holds, answered, not sure or removed (intake/asker.ts). Held questions are
+          // not sent as answered: they are held, so they are never saved as answers of this chat.
+          answeredIds: [...new Set([...newAnsweredIds, ...repliedInThisChat()])],
+          // Read from the case record as it is when the turn is sent, never from the render that started it: an
+          // answer saved since (the kind just used on the suggestion card) is held (A2, Chrome check of #542).
+          caseFile: heldForEngine(caseFileOf(recovery?.getReview().checkpoint ?? reviewView?.checkpoint ?? null, recovery?.getSavedMaster() ?? undefined)),
           newStoryText,
           answeredQuestionId,
           confirmedAnswers,
@@ -938,7 +943,12 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       if (result.outcome === "confirmed") {
         // This path only runs after the person clicked "that's right" on the
         // suggestion card -- the one case where userConfirmed is actually true.
-        setMatchedClaimType({ ...result.claimType, userConfirmed: true, ...(pendingSuggestion.quote ? { quote: pendingSuggestion.quote } : {}) });
+        const usedKind = { ...result.claimType, userConfirmed: true, ...(pendingSuggestion.quote ? { quote: pendingSuggestion.quote } : {}) };
+        // Into the case record now, not after the next render: the turn that follows ("continueAfterKind",
+        // below) reads the record, and must find the kind held (Chrome check of #542, 3 Nov, A2: "Got it:
+        // <kind>" was followed by "What kind of dispute is this?", and that answer replaced the kind).
+        recovery?.put("guided", "matchedClaimType", usedKind);
+        setMatchedClaimType(usedKind);
         setEvidenceGuidance(result.evidenceGuidance ?? null);
         setClaimGuidance(result.claimGuidance ?? null);
         setPendingSuggestion(null);
