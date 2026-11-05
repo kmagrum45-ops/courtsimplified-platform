@@ -146,6 +146,11 @@ function normalised(write: FactWrite): { state: FactState; value?: FactValue } |
   return null;
 }
 
+/** Whether a stored record already holds this answer (its state, and its value as the case file keeps it). */
+function sameRecord(held: FactRecord, kept: { state: FactState; value?: FactValue }): boolean {
+  return held.state === kept.state && JSON.stringify(held.value ?? null) === JSON.stringify(kept.value ?? null);
+}
+
 /**
  * THE SERVER'S SAVE OF FACT WRITES, pure: applied to the master result as read, each accepted write
  * gets the next seq after the highest stored, and the server's time. Run inside updateMasterResult's
@@ -160,16 +165,24 @@ export function applyFactWrites(master: Record<string, unknown>, court: IntakeCo
   const at = now.toISOString();
   const saved: { fact: FactId; seq: number; at: string }[] = [];
   const conflicts: FactConflict[] = [];
+  let wrote = false;
   for (const write of writes) {
     const held = stored[write.fact];
-    if (held && !write.force && (write.seenSeq ?? 0) < held.seq) { conflicts.push({ fact: write.fact, stored: held, sent: write }); continue; }
     const kept = normalised(write);
     if (!kept) return { ok: false, reject: `no-value:${write.fact}` };
+    if (held && !write.force && (write.seenSeq ?? 0) < held.seq) {
+      // The same answer the record already holds (a resend after a timeout, two saves racing): already saved, so it is
+      // neither a conflict nor numbered again (found on the real save path, 5 Nov: "Not saved yet" for an identical answer).
+      if (sameRecord(held, kept)) { saved.push({ fact: write.fact, seq: held.seq, at: held.at }); continue; }
+      conflicts.push({ fact: write.fact, stored: held, sent: write });
+      continue;
+    }
     seq += 1;
     facts[write.fact] = { ...kept, source: write.source, at, seq, ...(write.question ? { question: write.question } : {}) };
     saved.push({ fact: write.fact, seq, at });
+    wrote = true;
   }
-  if (!saved.length) return { ok: true, master, saved, conflicts, facts: stored };
+  if (!wrote) return { ok: true, master, saved, conflicts, facts: stored };
   const caseFile = object(checkpoint.sections[CASE_FILE_SECTION]);
   const next = { ...checkpoint, sections: { ...checkpoint.sections, [CASE_FILE_SECTION]: { ...caseFile, facts } } };
   if (!readCheckpoint(next, court, caseId)) return { ok: false, reject: "intake-too-large" };

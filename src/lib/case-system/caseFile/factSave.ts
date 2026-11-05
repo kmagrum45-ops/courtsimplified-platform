@@ -32,12 +32,13 @@ export async function saveFactWrites(
   const saved = await updateMasterResult(client, { caseId: ids.caseId, userId: ids.userId, courtPath: ids.court }, (master) => {
     last = applyFactWrites(master, ids.court, ids.caseId, writes, clock());
     if (!last.ok) return { reject: last.reject };
-    if (!last.saved.length) return { reject: NOTHING_TO_SAVE };
+    // Nothing new written (every write a conflict, or an answer the record already holds): the row is left as it is.
+    if (last.master === master) return { reject: NOTHING_TO_SAVE };
     return last.master;
   });
   const result = last as FactWriteResult | null;
   if (!saved.ok) {
-    if (saved.reason === "rejected" && saved.error === NOTHING_TO_SAVE && result?.ok) return { ok: true, saved: [], conflicts: result.conflicts, facts: result.facts };
+    if (saved.reason === "rejected" && saved.error === NOTHING_TO_SAVE && result?.ok) return { ok: true, saved: result.saved, conflicts: result.conflicts, facts: result.facts };
     if (saved.reason === "rejected" && saved.error === "no-intake-checkpoint") return { ok: false, reason: "no-intake-checkpoint" };
     return { ok: false, reason: saved.reason, ...(saved.error ? { error: saved.error } : {}) };
   }
