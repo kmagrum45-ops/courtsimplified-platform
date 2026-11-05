@@ -176,6 +176,9 @@ through the decision log.
   that its own list showed "In Progress" (owner, 2026-10-09).
 - Before the Trust page, decide on production backups: the free plan has none
   automatic, only the manual dumps (CLAUDE.md section 6).
+- After the gate: no closing message after the last chat question (owner,
+  2026-11-04).
+- After the gate: one shared reader for the kind of claim (owner, 2026-11-04).
 
 ## Decision log
 
