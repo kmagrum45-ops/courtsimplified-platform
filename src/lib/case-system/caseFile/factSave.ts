@@ -12,6 +12,7 @@
 import { applyFactWrites, type FactConflict, type FactId, type FactRecords, type FactWrite, type FactWriteResult } from "./factRecord";
 import { updateMasterResult, type CaseRecordClient, type UpdateResult } from "../updateCaseRecord";
 import { factOfField } from "./fieldFacts";
+import { CLAIM_KIND_QUESTION, POSITION_PLACE } from "./caseFile";
 import type { IntakeCourt } from "../intakeCheckpoint";
 
 const NOTHING_TO_SAVE = "nothing-to-save";
@@ -59,7 +60,9 @@ export function intakeCourtOfRow(row: { court_path: string | null }): IntakeCour
  * THE POSITION'S FACTS (case core G2): the kind of claim and the dates a position save writes, as fact writes,
  * by the one field-to-fact table (fieldFacts.ts: position.claimKind, position.dateAnswers keyed by the stage map's
  * question ids). A date key that maps to no single fact is left to the position alone. Each is sent as the newest
- * save (force): the position save is the person's latest word on it, ordered by the server like any other.
+ * save (force): the position save is the person's latest word on it, ordered by the server like any other. The kind is
+ * recorded under the overview list's own question (CLAIM_KIND_QUESTION), so it reads as the kind the person chose; a date
+ * under POSITION_PLACE and its question id. Either is the step page's own answer (caseFile.ts fromCasePosition).
  */
 export function positionFactWrites(patch: { claimKind?: unknown; dateAnswers?: unknown }, kept?: unknown): FactWrite[] {
   // `kept`: the position as the save kept it; a value the save did not keep (a date the case file holds from another
@@ -73,11 +76,11 @@ export function positionFactWrites(patch: { claimKind?: unknown; dateAnswers?: u
     writes.push({ fact, state: "answered", value, source: "person", question, force: true });
   };
   const kind = factOfField("position", "claimKind");
-  if ("fact" in kind && typeof patch.claimKind === "string" && patch.claimKind.trim() && (!keptPosition || keptPosition.claimKind === patch.claimKind)) add(kind.fact, patch.claimKind, "position:claimKind");
+  if ("fact" in kind && typeof patch.claimKind === "string" && patch.claimKind.trim() && (!keptPosition || keptPosition.claimKind === patch.claimKind)) add(kind.fact, patch.claimKind, CLAIM_KIND_QUESTION);
   const dates = patch.dateAnswers && typeof patch.dateAnswers === "object" && !Array.isArray(patch.dateAnswers) ? (patch.dateAnswers as Record<string, unknown>) : {};
   for (const [key, value] of Object.entries(dates)) {
     const mapped = factOfField("position", "dateAnswers", key);
-    if ("fact" in mapped && typeof value === "string" && value.trim() && (!keptPosition || keptPosition.dateAnswers?.[key] === value)) add(mapped.fact, value, `position:${key}`);
+    if ("fact" in mapped && typeof value === "string" && value.trim() && (!keptPosition || keptPosition.dateAnswers?.[key] === value)) add(mapped.fact, value, `${POSITION_PLACE}${key}`);
   }
   return writes;
 }

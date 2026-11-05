@@ -171,6 +171,13 @@ function standIn(court: Court, sections: Sections): CaseWriteRecovery & { sectio
     check(`4b. ${court}: the overview's pick of the kind never cancels the confirmed intake`, picked.ok && !confirmedAnswerChanged(workflow, confirmed, afterPick), JSON.stringify(factRecordsOf(afterPick.sections)));
     const line = claimKindLine(claimKindOf(caseFileOf(afterPick)));
     check(`4b. ${court}: the overview's pick reads as the kind the person chose`, line?.label === "Kind of claim you chose", JSON.stringify(line));
+    // "Not sure" in the review, confirmed, then the kind picked on the overview (claim-kind-one-value:222's path): an
+    // unknown is not a fact (materialFacts), so filling it in is an added answer and keeps the confirmation.
+    const unsure = applyFactWrites({ intakeCheckpoint: confirmed }, court, ID, [{ fact: "claimKind", state: "unsure", source: "person", question: "review:sc-orient-dispute-category", force: true }], T);
+    const unsureCp = unsure.ok ? (unsure.master.intakeCheckpoint as Checkpoint) : confirmed;
+    const unsureFlow = { intakeReview: { version: 1, confirmedFacts: confirmedFactMarks(unsureCp) } };
+    const pickedAfter = applyFactWrites({ intakeCheckpoint: unsureCp }, court, ID, positionFactWrites({ claimKind: "unpaid-invoice" }), T);
+    check(`4b. ${court}: "not sure" of the kind confirmed, then the kind picked on the overview, keeps the confirmation`, unsure.ok && pickedAfter.ok && !confirmedAnswerChanged(unsureFlow, unsureCp, pickedAfter.master.intakeCheckpoint as Checkpoint), JSON.stringify(pickedAfter.ok ? factRecordsOf((pickedAfter.master.intakeCheckpoint as Checkpoint).sections) : pickedAfter));
     // The control: the same fact changed with "Change" (sent as a change) still cancels the confirmation.
     const changed = applyFactWrites({ intakeCheckpoint: afterDate }, court, ID, [{ fact: STEP_DATE[court] === "case-date-act-or-omission" ? "whenHappened" : "servedDate", state: "answered", value: "2026-04-04", source: "person", question: "change", force: true }], T);
     check(`4b. ${court}: a "Change" of that fact still cancels the confirmation`, changed.ok && confirmedAnswerChanged(workflow, confirmed, changed.master.intakeCheckpoint as Checkpoint), JSON.stringify(changed.ok ? changed.saved : changed));

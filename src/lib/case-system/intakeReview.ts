@@ -11,7 +11,7 @@ import { amountFromStory, goalFromStory, kindsFromStory, type KindCue } from "..
 import { QUESTION_BANK } from "./intake/questionBank";
 import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 import { askOf } from "./intake/asker";
-import { alreadyAsked, CASE_FILE_SECTION, caseFileOf, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
+import { alreadyAsked, CASE_FILE_SECTION, CHANGE_QUESTION, caseFileOf, fromCasePosition, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
 import { LOAN_WORDS } from "./intake/claimKind";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
 
@@ -211,9 +211,14 @@ function materialFacts(checkpoint: Checkpoint): Map<string, string> {
 /** Each fact's recorded value now: the saved record, with this tab's unsent edit made on it applied over it (G2(b)). */
 function recordedValues(sections: Checkpoint["sections"]): Record<string, { state: string; value?: unknown }> {
   const out: Record<string, { state: string; value?: unknown }> = {};
-  const records = (sections[CASE_FILE_SECTION]?.facts ?? {}) as Record<string, { state?: unknown; value?: unknown; seq?: unknown }>;
+  const records = (sections[CASE_FILE_SECTION]?.facts ?? {}) as Record<string, { state?: unknown; value?: unknown; seq?: unknown; question?: unknown }>;
   for (const [fact, entry] of Object.entries(records)) {
     if (!entry || typeof entry !== "object" || typeof entry.seq !== "number" || typeof entry.state !== "string") continue;
+    // Saved from the step page or the overview: that page's own answer, not the intake's (D1, 29 Oct), as before G2.
+    if (fromCasePosition(entry.question)) continue;
+    // "Not sure" given at a place is an unknown, not a fact, as for the forms' own answers above; "not sure" through
+    // "Change" is a change, as before G2.
+    if (entry.state === "unsure" && entry.question !== CHANGE_QUESTION) continue;
     out[fact] = entry.state === "answered" ? { state: "answered", value: entry.value } : { state: entry.state };
   }
   for (const [fact, change] of Object.entries(changesOf(sections))) {

@@ -753,6 +753,15 @@ function applyFactRecords(file: CaseFile, sections: Record<string, unknown>) {
 
 /** The question id the overview's "Which kind of claim is this?" list answers (saved as position.claimKind). */
 export const CLAIM_KIND_QUESTION = "claim-kind";
+/** The start of the question a step-page date is recorded under in the fact record ("position:<stage-map question id>"). */
+export const POSITION_PLACE = "position:";
+/**
+ * Whether a fact record was saved from the case position (the step page's dates, the overview's kind): that page's own
+ * answer, never an answer of the intake, so it never cancels the confirmed intake (the owner's D1 rule, 29 Oct).
+ */
+export function fromCasePosition(question: unknown): boolean {
+  return typeof question === "string" && (question === CLAIM_KIND_QUESTION || question.startsWith(POSITION_PLACE));
+}
 /** A kind the site suggested and the person ticked ("That's right"): theirs from then on. */
 export const CLAIM_KIND_TICKED = "claim-kind-suggestion";
 
