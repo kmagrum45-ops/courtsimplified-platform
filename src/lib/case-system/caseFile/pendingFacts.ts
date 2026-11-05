@@ -40,7 +40,9 @@ export function pendingWrites(changes: unknown): FactWrite[] {
       state: change.state,
       ...(change.state === "answered" ? { value: change.value } : {}),
       source: "person",
-      question: CHANGE_QUESTION,
+      // An answer given at a place is sent under that place (the server keeps it as the record's question), so it is read as
+      // that place's own answer; a change is sent as a change.
+      question: change.place ?? CHANGE_QUESTION,
       seenSeq: change.seen ?? 0,
       ...(change.force ? { force: true as const } : {}),
     });

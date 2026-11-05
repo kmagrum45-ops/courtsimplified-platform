@@ -473,7 +473,7 @@ function applyPendingOverRecords(file: CaseFile, changes: FactChanges, sections:
   for (const [fact, change] of ordered) {
     if (!(fact in records) || change.held || change.seen === undefined) continue;
     if (change.seen < seenSeqOf(sections, fact)) continue;
-    applyOne(file, fact, change.state === "answered" ? { state: "answered", value: change.value } : { state: "removed" }, CHANGE_QUESTION);
+    applyOne(file, fact, change.state === "answered" ? { state: "answered", value: change.value } : { state: "removed" }, change.place ?? CHANGE_QUESTION, !change.place);
   }
 }
 
@@ -490,7 +490,12 @@ export type FactChange = (
  * it when the edit was made (0: no saved answer); `held` is the newer saved answer the server returned when it
  * refused the edit as made against an older view ("Not saved yet"); `force` marks "Save" pressed on it.
  */
-export type PendingMarks = { seen?: number; held?: { state: string; value?: unknown; seq: number }; force?: true };
+/**
+ * `place`: an answer given at a place ("review:sc-amount-claimed", "civil:otherParty"), recorded so the server numbers it
+ * (G2, a fact id for every answer), not a change: read as that place's own answer, never marked `changed`. Absent: a
+ * change ("Change", or an answer that overrides another place's answer), marked `changed` as before.
+ */
+export type PendingMarks = { seen?: number; held?: { state: string; value?: unknown; seq: number }; force?: true; place?: string };
 export type FactChanges = Partial<Record<SlotFact, FactChange>>;
 export type ChangeInput = { state: "answered"; value: string | number | boolean | string[] } | { state: "removed" };
 
@@ -509,6 +514,7 @@ export function changesOf(sections: Record<string, unknown> | undefined): FactCh
       ...(typeof entry.seen === "number" && Number.isInteger(entry.seen) && entry.seen >= 0 ? { seen: entry.seen } : {}),
       ...(typeof held.seq === "number" && typeof held.state === "string" ? { held: { state: held.state, ...(held.value !== undefined ? { value: held.value } : {}), seq: held.seq } } : {}),
       ...(entry.force === true ? { force: true as const } : {}),
+      ...(typeof entry.place === "string" && entry.place && entry.place.length <= 200 ? { place: entry.place } : {}),
     };
     if (entry.state === "removed") out[fact] = { state: "removed", at, seq: entry.seq, ...marks };
     else if (entry.state === "answered" && !blank(entry.value) && changeable(entry.value)) out[fact] = { state: "answered", value: Array.isArray(entry.value) ? strings(entry.value) : entry.value, at, seq: entry.seq, ...marks };
@@ -660,7 +666,7 @@ function applyChanges(file: CaseFile, changes: FactChanges, position: Record<str
   for (const [fact, change] of ordered) {
     // The overview's own pick of a kind, saved after this change, is the newer answer.
     if (fact === "claimKind" && pickedAt && change.at && pickedAt > change.at && file.claimKind.source?.kind === "answer" && file.claimKind.source.question === CLAIM_KIND_QUESTION) continue;
-    applyOne(file, fact, change, CHANGE_QUESTION);
+    applyOne(file, fact, change, change.place ?? CHANGE_QUESTION, !change.place);
   }
   file.changedFacts = ordered.map(([fact]) => fact);
 }
@@ -669,7 +675,8 @@ function applyChanges(file: CaseFile, changes: FactChanges, position: Record<str
 export const FACT_RECORD_QUESTION = "fact-record";
 
 /** One person's latest word on one fact, over everything older: a new answer, "not sure", or removed. */
-function applyOne(file: CaseFile, fact: SlotFact, change: { state: "removed" } | { state: "unsure" } | { state: "answered"; value: string | number | boolean | string[] }, question: string) {
+/** `changed`: false for an answer given at a place (G2 `place`), which is that place's own answer, not a change. */
+function applyOne(file: CaseFile, fact: SlotFact, change: { state: "removed" } | { state: "unsure" } | { state: "answered"; value: string | number | boolean | string[] }, question: string, changed = true) {
   const was = file[fact];
   if (change.state === "removed") {
     // A removed kind is never offered back as the story's or the classifier's proposal either.
@@ -681,7 +688,7 @@ function applyOne(file: CaseFile, fact: SlotFact, change: { state: "removed" } |
   } else {
     const fresh = emptyCaseFile();
     give(fresh, fact, change.value, question);
-    file[fact] = { ...fresh[fact], changed: true };
+    file[fact] = changed ? { ...fresh[fact], changed: true } : { ...fresh[fact], confirmed: true };
   }
   // Nothing older keeps the fact another way: its answers by question (the step page's dates), a
   // day not known yet, a ticked suggestion's quote, the papers named, the place married from the story.
@@ -706,6 +713,23 @@ function applyOne(file: CaseFile, fact: SlotFact, change: { state: "removed" } |
  * Only the case file's slots are read here (the record's other facts have no slot yet). Read directly
  * from the section, not through factRecord.ts, which imports this module.
  */
+/**
+ * Whether the place an answer was saved from (G2 `place`) still holds an answer in these (fresh) sections: false only when
+ * the place is there and emptied (its answer set aside by a story change, or emptied by "Start the questions again");
+ * undefined when the place is not there at all, or kept outside the checkpoint (the case position), or not known here.
+ */
+function placeHolds(sections: Record<string, unknown>, place: string): boolean | undefined {
+  const colon = place.indexOf(":");
+  if (colon < 1) return undefined;
+  const [area, id] = [place.slice(0, colon), place.slice(colon + 1)];
+  // The place's container ("Start the questions again" empties a whole one: builder.initialAnswers becomes {}).
+  const [section, field] = area === "review" ? ["builder", "initialAnswers"] : area === "civil" || area === "small-claims" ? [area, "input"] : area === "family" && id !== "servedDate" ? ["family", id] : [null, null];
+  if (!section || !field) return undefined;
+  const held = object(sections[section]);
+  if (!(field in held)) return undefined;
+  return !blank(area === "family" ? held[field] : object(held[field])[id]);
+}
+
 function applyFactRecords(file: CaseFile, sections: Record<string, unknown>) {
   const records: [SlotFact, Record<string, unknown>][] = [];
   for (const [fact, raw] of Object.entries(object(object(sections[CASE_FILE_SECTION]).facts))) {
@@ -716,7 +740,13 @@ function applyFactRecords(file: CaseFile, sections: Record<string, unknown>) {
   records.sort(([, a], [, b]) => (a.seq as number) - (b.seq as number));
   for (const [fact, entry] of records) {
     const value = entry.value as string | number | boolean | string[];
-    applyOne(file, fact, entry.state === "answered" ? { state: "answered", value: Array.isArray(value) ? strings(value) : value } : { state: entry.state as "removed" | "unsure" }, typeof entry.question === "string" && entry.question ? entry.question : FACT_RECORD_QUESTION);
+    const question = typeof entry.question === "string" && entry.question ? entry.question : FACT_RECORD_QUESTION;
+    // An answer saved from a place (G2: "review:...", "civil:...", "position:...") is that place's own answer, not a change.
+    const fromPlace = entry.state === "answered" && question !== CHANGE_QUESTION && question !== FACT_RECORD_QUESTION;
+    // That place's answer set aside since (a story change, "Start the questions again": the fresh sections hold nothing
+    // there) is not brought back by its numbered copy. A box the person emptied records a removal instead (newer, no place).
+    if (fromPlace && placeHolds(sections, question) === false) continue;
+    applyOne(file, fact, entry.state === "answered" ? { state: "answered", value: Array.isArray(value) ? strings(value) : value } : { state: entry.state as "removed" | "unsure" }, question, !fromPlace);
   }
   if (records.length) file.changedFacts = [...new Set([...(file.changedFacts ?? []), ...records.map(([fact]) => fact)])];
 }

@@ -62,11 +62,14 @@ function alreadyHeld(sections: Record<string, unknown>, changes: FactChanges, fa
   return Boolean(saved && saved.state === "answered" && JSON.stringify(saved.value) === read);
 }
 
+/** The place an answer is given at, as caseFile.ts followAnswer names it (the review's questions are "review:<id>"). */
+const placeOf = (section: string, field: string, key?: string) => section === "builder" ? `review:${key ?? field}` : section === "family" ? `family:${field}` : `${section}:${key ?? field}`;
+
 /** "Before" for a fact the caller named: the case file before the save says whether it held an answer. */
 const NAMED = Symbol("named");
 
 /** Each (fact, before, after) a save gives, by the field-to-fact table. Throws UnmappedField for a field with no row. */
-function factsOfSave(write: AnswerWrite): [SlotFact, unknown, unknown][] {
+function factsOfSave(write: AnswerWrite): [SlotFact, unknown, unknown, string][] {
   const row = fieldRow(write.section, write.field);
   if (!row) throw new UnmappedField(write.section, write.field);
   const pairs: [string | undefined, unknown, unknown][] =
@@ -75,16 +78,16 @@ function factsOfSave(write: AnswerWrite): [SlotFact, unknown, unknown][] {
     : row.kind === "keyed" && !Array.isArray(write.after) && !Array.isArray(write.before)
       ? Object.keys({ ...object(write.before), ...object(write.after) }).map((key) => [key, object(write.before)[key], object(write.after)[key]])
     : [];
-  const out: [SlotFact, unknown, unknown][] = [];
+  const out: [SlotFact, unknown, unknown, string][] = [];
   for (const [key, was, given] of pairs) {
     if (JSON.stringify(was) === JSON.stringify(given)) continue;
     const mapped = factOfField(write.section, write.field, key);
-    if ("fact" in mapped && isSlot(mapped.fact) && !OWN_PATH.has(mapped.fact)) out.push([mapped.fact, was, given]);
+    if ("fact" in mapped && isSlot(mapped.fact) && !OWN_PATH.has(mapped.fact)) out.push([mapped.fact, was, given, placeOf(write.section, write.field, key)]);
   }
   for (const [fact, given] of Object.entries(write.facts ?? {})) {
     if (!isFactId(fact)) throw new UnmappedField(write.section, `${write.field} (fact ${fact})`);
     // Named by the caller inside a field with no fact of its own: whether it held an answer is the case file's to say.
-    if (isSlot(fact) && !OWN_PATH.has(fact)) out.push([fact, NAMED, given]);
+    if (isSlot(fact) && !OWN_PATH.has(fact)) out.push([fact, NAMED, given, `${write.section}:${fact}`]);
   }
   return out;
 }
@@ -97,7 +100,7 @@ function factsOfSave(write: AnswerWrite): [SlotFact, unknown, unknown][] {
 export function answerChanges(sections: Record<string, unknown>, write: AnswerWrite, held?: CaseFile, now: Date = new Date()): FactChanges | null {
   const facts = factsOfSave(write);
   let next: FactChanges | null = null;
-  for (const [fact, was, given] of facts) {
+  for (const [fact, was, given, place] of facts) {
     const current = next ?? changesOf(sections);
     if (given === "not-sure" || isUnsureAnswer(given)) continue;
     const value = Array.isArray(given) ? given.filter((item) => item !== "not-sure") : given;
@@ -109,7 +112,14 @@ export function answerChanges(sections: Record<string, unknown>, write: AnswerWr
       continue;
     }
     if (!changeable(value) || readAs(fact, value) === undefined || alreadyHeld(sections, current, fact, value)) continue;
+    // A plain answer (the fact not held from another place, not changed before, no change pending) is that place's own
+    // answer: recorded with its place, so it is never read as a change. Otherwise it overrides another answer: a change,
+    // as caseFile.ts followAnswer records it.
+    const before = held?.[fact];
+    const fromElsewhere = Boolean(before && before.state === "answered" && !(before.source?.kind === "answer" && (before.source.question === place || place.endsWith(`:${before.source.question}`))));
+    const plain = !current[fact] && !before?.changed && !fromElsewhere;
     next = withChange(current, fact, { state: "answered", value }, now, seenSeqOf(sections, fact));
+    if (plain) next = { ...next, [fact]: { ...next[fact]!, place } };
   }
   return next;
 }

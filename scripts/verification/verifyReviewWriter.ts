@@ -84,6 +84,32 @@ for (const c of CASES) {
   const emptied = answerChanges({ ...held, [c.section]: { [c.field]: emptiedAfter } }, { section: c.section, field: c.field, before: c.after, after: emptiedAfter }, caseFileOf(cp(c.court, held)), T);
   check(`2. ${c.court}: an emptied answered box records a removal`, changesOf({ [CASE_FILE_SECTION]: { changes: emptied } })[c.fact]?.state === "removed", JSON.stringify(emptied));
 }
+// 2b. A plain answer numbered by the server is that place's own answer, never shown as a change; an answer over another
+// place's answer is a change (browser-regression on this branch, 4 Nov: every review answer read as "as you changed
+// it", so the review's summary boxes became held lines: review-save-on-leave.spec.ts:143/:174, review-newest-answer:152).
+{
+  const sections: Sections = { builder: { initialAnswers: { "sc-amount-claimed": "$2,400" } } };
+  const plain = answerChanges(sections, { section: "builder", field: "initialAnswers", before: {}, after: { "sc-amount-claimed": "$2,400" } }, caseFileOf(cp("small-claims", {})), T);
+  const saved = applyFactWrites({ intakeCheckpoint: cp("small-claims", { ...sections, [CASE_FILE_SECTION]: { changes: plain } }) }, "small-claims", ID, pendingWrites(plain), T);
+  const read = saved.ok ? caseFileOf(cp("small-claims", { ...sections, [CASE_FILE_SECTION]: { facts: saved.facts } })).amount : undefined;
+  check("2b. a plain review answer, numbered by the server, is read as the review's own answer, not as a change", read?.state === "answered" && !read.changed && read.source?.kind === "answer" && read.source.question === "review:sc-amount-claimed", JSON.stringify(read));
+  const other: Sections = { "small-claims": { input: { amountClaimed: "1000" } } };
+  const over = answerChanges({ ...other, builder: { initialAnswers: { "sc-amount-claimed": "$2,400" } } }, { section: "builder", field: "initialAnswers", before: {}, after: { "sc-amount-claimed": "$2,400" } }, caseFileOf(cp("small-claims", other)), T);
+  const overSaved = applyFactWrites({ intakeCheckpoint: cp("small-claims", { ...other, [CASE_FILE_SECTION]: { changes: over } }) }, "small-claims", ID, pendingWrites(over), T);
+  const overRead = overSaved.ok ? caseFileOf(cp("small-claims", { ...other, [CASE_FILE_SECTION]: { facts: overSaved.facts } })).amount : undefined;
+  check("2b. a review answer over the form's other answer is a change (newest wins, shown as changed)", overRead?.value === 2400 && overRead.changed === true, JSON.stringify(overRead));
+}
+// 2c. An answer emptied at its place by "Start the questions again" (or set aside by a story change) is not brought back by
+// its numbered copy in the fact record (browser-regression on this branch, 4 Nov: intake-review-polish.spec.ts:349, the
+// restarted review never asked "when it happened" again). Per court.
+for (const c of CASES) {
+  const sections: Sections = { [c.section]: { [c.field]: c.after } };
+  const changes = answerChanges(sections, { section: c.section, field: c.field, before: c.before, after: c.after }, caseFileOf(cp(c.court, {})), T);
+  const saved = applyFactWrites({ intakeCheckpoint: cp(c.court, { ...sections, [CASE_FILE_SECTION]: { changes } }) }, c.court, ID, pendingWrites(changes), T);
+  const emptiedAfter = c.section === "family" ? "" : Object.fromEntries(Object.keys(c.after as object).map((key) => [key, ""]));
+  const restarted = caseFileOf(cp(c.court, { [c.section]: { [c.field]: emptiedAfter }, [CASE_FILE_SECTION]: { facts: saved.ok ? saved.facts : {} } }))[c.fact];
+  check(`2c. ${c.court}: an answer emptied at its place by a restart is not brought back by its numbered copy`, restarted.state !== "answered", JSON.stringify(restarted));
+}
 {
   const none = answerChanges({ civil: { personSet: ["yourRole"] } }, { section: "civil", field: "personSet", before: [], after: ["yourRole"] }, undefined, T);
   check("2. a bookkeeping field (civil.personSet) records nothing", !none || Object.keys(none).length === 0, JSON.stringify(none));
