@@ -26,7 +26,9 @@
  * Pure. States no law.
  */
 import { factsOfQuestion } from "./factsOfQuestion";
-import { FACT_IDS, isFactId, type FactId } from "./factRecord";
+// Only isFactId, called later, is read from factRecord: nothing at load time, so the import cycle through
+// intakeCheckpoint -> positionSave -> factSave -> here never reads it half-loaded.
+import { isFactId, type FactId } from "./factRecord";
 
 export type FieldRow =
   | { kind: "answer"; section: string; field: string; question: string }
@@ -63,6 +65,7 @@ export const FIELD_ROWS: readonly FieldRow[] = [
   none("civil", "personDocuments", "which documents the person ticked (bookkeeping beside the answers)"),
   keyed("small-claims", "input"),
   none("small-claims", "mode", PAGE_STATE),
+  none("small-claims", "filledWords", "the words the case file put in each form box it filled (asker.ts filledToFollow), so a box still holding them follows the newest answer and is never counted as the person's own: page bookkeeping, no fact"),
   none("small-claims", "filledFromCaseFile", "which form boxes were filled from the case file once (asker.ts formFill), so a box the person cleared is never filled again: page bookkeeping, no fact"),
   // Family: one field per question.
   answer("family", "otherParty"),
@@ -113,6 +116,10 @@ export const FIELD_ROWS: readonly FieldRow[] = [
   none("caseFile", "turnedDown", "values turned down: caseFile.turnedDown in the design, not a fact value"),
   none("caseFile", "answeredInReview", "which questions the review keeps shown: page bookkeeping held by the case file"),
   none("caseFile", "unsure", "the facts answered not sure, keyed by fact id already"),
+  // The case position (casePosition.ts), saved by the step page and the overview: the kind of claim, and the
+  // dates keyed by the stage map's question ids.
+  answer("position", "claimKind", "claim-kind-suggestion"),
+  keyed("position", "dateAnswers"),
   // Other sections.
   none("safety", "checkUnavailable", PAGE_STATE),
   none("sourced", "askedFor", PAGE_STATE),
@@ -147,5 +154,3 @@ export function factOfField(section: string, field: string, key?: string): Field
   return { fact: facts[0] };
 }
 
-/** Every fact id the table can produce (for the checks). */
-export const ALL_FACT_IDS: readonly FactId[] = FACT_IDS;

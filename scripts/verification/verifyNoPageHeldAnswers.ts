@@ -49,7 +49,8 @@ const source = (file: string) => existsSync(path.join(ROOT, file)) ? readFileSyn
 const PANEL = "app/_components/IntakeReviewPanel.tsx";
 const panel = source(PANEL);
 check(/const shownQuestions = reviewQuestionList\(checkpoint, savedMaster/.test(panel), "the review draws its one list from reviewQuestionList with the saved case");
-check(/put\(CASE_FILE_SECTION, "answeredInReview", withAnsweredInReview\(/.test(panel), "the review records an answered question in the case file's section (withAnsweredInReview)");
+// Directly, or through the one writer (caseWrite.ts writeAnswer, G2): the same record either way.
+check(/(?:put\(|writeAnswer\(recovery, )CASE_FILE_SECTION, "answeredInReview", withAnsweredInReview\(/.test(panel), "the review records an answered question in the case file's section (withAnsweredInReview)");
 check(!/\banswered[A-Za-z]*\s*,\s*set[A-Za-z]*\]\s*=\s*useState/.test(panel) && !/\banswered[A-Za-z]*\s*=\s*useRef/.test(panel), "the review holds no answered list in useState / useRef", `found in ${PANEL}`);
 check(!/\bseenOrder\b/.test(panel) && !/=\s*useRef<string\[\]>/.test(panel), "the review holds no order of its own (no seenOrder / useRef<string[]>)", `found in ${PANEL}`);
 check(!/(sessionStorage|localStorage)/.test(panel), "the review keeps nothing in the tab");
@@ -149,6 +150,18 @@ function storesIn(text: string): number {
   return [...text.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1").matchAll(STORE)].length;
 }
 const KNOWN_STORES: Record<string, { count: number; holds: string }> = {
+  "app/_components/IntakeRecovery.tsx": { count: 4, holds: "(buffer) the intake session copy (writeIntakeSession: the checkpoint as this tab holds it, with what is not saved yet, read back under the saved record on load; a guest's only record until they sign in), and the court-path finder's own hand-over (COURT_PATH_FINDER_KEY, page state)" },
+  "app/_components/HomeLocationGate.tsx": { count: 1, holds: "(buffer) the intake session copy, written as the home page hands the story and city to the intake (writeIntakeSession)" },
+  "app/login/page.tsx": { count: 2, holds: "(buffer) the intake session copy carried through sign-in (writeIntakeSession), so what was typed before signing in is not lost; saved to the account after" },
+  "src/lib/case-system/intakeCheckpoint.ts": { count: 1, holds: "(buffer) writeIntakeSession itself: the one place the intake session copy is written" },
+  "src/lib/case-system/storage/pendingPositionSaves.ts": { count: 1, holds: "(buffer) position saves sent but not answered yet, kept so a save cut off by a closing page is sent again (RESEND_HEADER), then settled" },
+  "app/builder/page.tsx": { count: 1, holds: "(b) the court-path finder's hand-over: whether a case has started, read once by the builder (COURT_PATH_FINDER_KEY)" },
+  "app/_components/NotSureCourtGuide.tsx": { count: 1, holds: "(b) the court-path finder's hand-over to the builder: province, city and the story typed there, read once (COURT_PATH_FINDER_KEY)" },
+  "src/lib/case-system/guestCarry.ts": { count: 1, holds: "(b) a guest's flow id and time, so the intake carried through sign-in is found again: no answer" },
+  "src/lib/case-system/intake/safetyNoticeOnce.ts": { count: 1, holds: "(b) which safety notices this browser has shown (fingerprints only): no answer" },
+  "src/lib/content-library/acknowledgement.ts": { count: 1, holds: "(b) the first-use notice acknowledged in this browser: no answer" },
+  "app/builder/_components/CourtAssistantChat.tsx": { count: 2, holds: "(a) NOT FIXED: the court assistant chat's messages (the person's typed words among them) kept in localStorage, and handed to the court path's page once (ROUTE_TRANSFER_KEY); a case-data writer of group G6 (CASE_CORE_DESIGN.md §10), moved with it" },
+  "src/lib/case-system/builderDraftStorage.ts": { count: 3, holds: "(a) NOT FIXED: the older compact builder draft (other party, facts, goal, ...) in the tab; no caller in app/ or src/ today (dead code, deleted with group G6)" },
 };
 const storeFiles: string[] = [];
 const walkAll = (dir: string) => { if (!existsSync(dir)) return; for (const name of readdirSync(dir)) { const full = path.join(dir, name); if (statSync(full).isDirectory()) { if (name !== "node_modules" && !name.startsWith(".")) walkAll(full); } else if (/\.tsx?$/.test(name) && !name.endsWith(".d.ts")) storeFiles.push(full); } };

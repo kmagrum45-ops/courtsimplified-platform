@@ -48,7 +48,7 @@ export const ALLOWED_PATH = "scripts/verification/oneWriterAllowed.json";
 const BASELINE_PATH = "scripts/verification/oneWriterBaseline.json";
 const SCAN_DIRS = ["app", "src"];
 /** The one writer: exempt, because it IS the writer. Each must exist. */
-export const WRITER_FILES = ["app/api/cases/facts/route.ts", "src/lib/case-system/caseFile/factRecord.ts", "src/lib/case-system/caseFile/factSave.ts"];
+export const WRITER_FILES = ["app/api/cases/facts/route.ts", "src/lib/case-system/caseFile/factRecord.ts", "src/lib/case-system/caseFile/factSave.ts", "app/_components/caseWrite.ts", "app/_components/useCaseField.ts"];
 const GROUPS = new Set(["rails", "G1", "G2", "G3", "G4", "G5", "G6", "outside"]);
 
 function walk(dir: string, out: string[] = []): string[] {

@@ -12,7 +12,8 @@ import { useSyncExternalStore } from "react";
 import { useIntakeRecovery } from "./IntakeRecovery";
 import { FACT_LABEL } from "./ChangeAnswer";
 import { CASE_FILE_SECTION, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
-import { discardPending, notSavedYet, savePending } from "../../src/lib/case-system/caseFile/pendingFacts";
+import { notSavedYet } from "../../src/lib/case-system/caseFile/pendingFacts";
+import { choosePending } from "./caseWrite";
 import { answerWords } from "../../src/lib/case-system/caseFile/unsureAnswer";
 import { inWords } from "../../src/lib/case-system/copy/rawKeys";
 
@@ -36,8 +37,7 @@ export default function NotSavedYet() {
   const waiting = notSavedYet(changes);
   if (!waiting.length) return null;
   const choose = (fact: SlotFact, keepMine: boolean) => {
-    const current = recovery.read(CASE_FILE_SECTION, "changes");
-    recovery.put(CASE_FILE_SECTION, "changes", keepMine ? savePending(current, fact) : discardPending(current, fact), true, true, true);
+    choosePending(recovery, fact, keepMine);
   };
   return (
     <div className="mx-auto max-w-6xl px-6 py-2 text-sm" role="alert" data-testid="not-saved-yet">

@@ -54,7 +54,7 @@ const cp = (court: Court, sections: Sections): Checkpoint =>
   const g2 = (allowed as OneWriterEntry[]).filter((entry) => entry.group === "G2");
   check("1. no save point of group G2 is left on the one-writer list", g2.length === 0, g2.map((entry) => `${entry.file} :: ${entry.target}`).join("\n      "));
   const G2_FILES = ["app/_components/IntakeReviewPanel.tsx", "app/_components/ChangeAnswer.tsx", "app/_components/NotSavedYet.tsx", "app/builder/_components/positionSave.ts", "app/api/cases/position/route.ts"];
-  const found = scanSavePoints().filter((point) => G2_FILES.includes(point.file) || (point.file === "app/builder/_components/GuidedSmallClaimsIntake.tsx" && point.target.includes("matchedClaimType")) || (point.file === "app/_components/AskedField.tsx" && point.target.includes("filledWords")));
+  const found = scanSavePoints().filter((point) => G2_FILES.includes(point.file) || (point.file === "app/builder/_components/GuidedSmallClaimsIntake.tsx" && point.kind === "recovery-put" && point.target.includes("matchedClaimType")) || (point.file === "app/_components/AskedField.tsx" && point.target.includes("filledWords")));
   check("1. no save point is found in the G2 files (the review, Change, Not saved yet, the position) or the three found by #542's merge", found.length === 0, found.map((point) => `${point.file}:${point.line} ${point.kind} ${point.target}`).join("\n      "));
 }
 

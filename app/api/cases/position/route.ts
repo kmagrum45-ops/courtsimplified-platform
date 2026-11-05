@@ -21,7 +21,8 @@ import { NextResponse } from "next/server";
 import { applyPositionPatch, fullDayIn, readCasePosition } from "../../../../src/lib/case-system/casePosition";
 import { caseFileOf, withoutCaseFileDates } from "../../../../src/lib/case-system/caseFile/caseFile";
 import { readCheckpoint } from "../../../../src/lib/case-system/intakeCheckpoint";
-import { updateMasterResult, type CaseRecordClient } from "../../../../src/lib/case-system/updateCaseRecord";
+import { type CaseRecordClient } from "../../../../src/lib/case-system/updateCaseRecord";
+import { positionFactWrites, saveWithFacts } from "../../../../src/lib/case-system/caseFile/factSave";
 import { UUID_PATTERN } from "../../../../src/lib/case-system/events/caseEventRequest";
 import { getAuthenticatedOwnedCase, getAuthenticatedUser } from "../../../../src/lib/supabase/serverAuth";
 import { situationOfCase, withoutSituationDates } from "../../../../src/lib/case-system/situation/situation";
@@ -80,20 +81,23 @@ export async function POST(request: Request) {
   // audit): the same guarded read-change-write, with a short pause between
   // retries, instead of this route's own copy of it.
   const patch = { confirmedStage: body.confirmedStage, confirmedStageFrom: body.confirmedStageFrom, motionToChange: body.motionToChange, stepId: body.stepId, dateAnswers: body.dateAnswers, service: body.service, claimKind: body.claimKind };
-  const saved = await updateMasterResult(
+  const court = ownedCase.court_path === "small-claims" || ownedCase.court_path === "civil" || ownedCase.court_path === "family" ? ownedCase.court_path : null;
+  // The old copy (the position) and the facts it answers (the kind, the dates), in one guarded save (factSave.ts).
+  const saved = await saveWithFacts(
     supabase as unknown as CaseRecordClient,
-    { caseId, userId: user.id },
+    { caseId, userId: user.id, court },
     (master) => {
       const result = applyPositionPatch(readCasePosition(master, ownedCase.court_path), patch, ownedCase.court_path, new Date());
       // The situation's own date is read over the position, never written into it (situation.ts).
       // Nor a day the case file holds from another answer (caseFile.ts): it is read over the position too.
       const before = readCasePosition(master, ownedCase.court_path).dateAnswers;
-      const court = ownedCase.court_path === "small-claims" || ownedCase.court_path === "civil" || ownedCase.court_path === "family" ? ownedCase.court_path : null;
       const file = caseFileOf(court ? readCheckpoint((master as Record<string, unknown>).intakeCheckpoint, court) : null, { ...(master as Record<string, unknown>), position: undefined });
       return result.ok ? { ...master, position: { ...result.position, dateAnswers: withoutCaseFileDates(withoutSituationDates(result.position.dateAnswers, ownedCase.court_path, situationOfCase(master)), before, file, fullDayIn) } } : { reject: result.error };
     },
+    (changed) => positionFactWrites(patch, changed.position),
+    () => new Date(),
     // A cut-off save sent again as its page closed is tried once: a save landing between this read and write wins.
-    request.headers.get(RESEND_HEADER) ? 1 : 3,
+    { tries: request.headers.get(RESEND_HEADER) ? 1 : 3 },
   );
   if (!saved.ok) {
     if (saved.reason === "rejected") return NextResponse.json({ error: saved.error }, { status: 400 });

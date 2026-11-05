@@ -7,8 +7,9 @@
  *   1. the goal is typed into the review's question box and the box is left, as a person does;
  *   2. the saved row's fact record (caseFile.facts.wants) holds it, answered, with the server's number, and the tab's
  *      buffer of unsent edits no longer holds it (sent and accepted);
- *   3. the box is emptied and left: the fact record says removed (a newer number), and the review's box is empty
- *      after a reload, the question no longer marked answered.
+ *   3. the box is emptied and left: the fact record says removed (a newer number); after a reload the question is
+ *      not marked answered and the old answer is shown nowhere in the review (a removed fact is not asked again by
+ *      itself, intakeReview.ts reviewQuestionList, #541: so the question may leave the list; "Change" adds it back).
  *
  * WHAT FAILURE THIS CATCHES: a review answer that never reaches the fact record (so the server's order cannot decide
  * it, and an older copy can outrank it), and an emptied review box that saves nothing, so the old answer stays
@@ -103,7 +104,12 @@ for (const court of ["small-claims", "civil", "family"] as const) {
     expect(caseFileOfRow(account.rows).facts!.wants!.seq!, "the removal has a newer number than the answer").toBeGreaterThan(given.seq!);
     await page.reload();
     await openReview(page);
-    await expect(panel.getByLabel(`Answer: ${GOAL[court].label}`, { exact: true }), "after a reload the goal's box is empty").toHaveValue("", { timeout: 30_000 });
-    await expect(question, "and the goal is not marked answered").not.toHaveAttribute("data-answered", "true");
+    await expect(panel.getByTestId("intake-initial-questions"), "the review's list is drawn after the reload").toBeVisible({ timeout: 60_000 });
+    // A removed fact is not asked again by itself (intakeReview.ts reviewQuestionList, #541; added back with "Change"):
+    // the question is either not listed or listed unanswered, and the old answer is shown nowhere in the review.
+    await expect(panel.locator(`[data-testid=intake-initial-question][data-question="${GOAL[court].id}"][data-answered="true"]`), "after a reload the goal is not marked answered").toHaveCount(0);
+    expect(await panel.innerText(), "after a reload the old goal is shown nowhere in the review").not.toContain(goal);
+    const box = panel.getByLabel(`Answer: ${GOAL[court].label}`, { exact: true });
+    if (await box.count()) await expect(box, "a goal box still listed is empty").toHaveValue("");
   });
 }
