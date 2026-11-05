@@ -1,5 +1,7 @@
 /** Browser-only synthetic account and case transport. Never sends real AI or case writes. */
 import type { Page } from "@playwright/test";
+import { readFactWrites } from "../../../src/lib/case-system/caseFile/factRecord";
+import { intakeCourtOfRow, saveFactWrites } from "../../../src/lib/case-system/caseFile/factSave";
 const OWNER = "11111111-1111-4111-8111-111111111111";
 export async function fakeAccount(page: Page) {
   await page.addInitScript(({ owner }) => {
@@ -65,6 +67,43 @@ export async function fakeAccount(page: Page) {
   await page.route("**/api/**", route => {
     aiCalls++;
     return route.fulfill({ status: 503, json: { ok: false, error: "Synthetic retryable interruption" } });
+  });
+  /*
+   * POST /api/cases/facts (case core G2: the tab sends its unsent edits there, and the server numbers each one). A
+   * STAND-IN FOR THE DATABASE ONLY: the route's own checks and the one writer itself (factRecord.ts readFactWrites,
+   * factSave.ts saveFactWrites: the server's numbers, the compare-and-set on updated_at) run on these rows, as
+   * the real route runs them on the case's row. Registered after the catch-all above, so it answers first.
+   */
+  await page.route("**/api/cases/facts", async route => {
+    const body = route.request().postDataJSON() as Record<string, unknown>;
+    const read = readFactWrites(body);
+    if (!read.ok) return route.fulfill({ status: 400, json: { error: read.error } });
+    const row = typeof body.caseId === "string" ? rows.get(body.caseId) : undefined;
+    if (!row || row.user_id !== OWNER) return route.fulfill({ status: 404, json: { error: "The selected case could not be found." } });
+    const court = intakeCourtOfRow(row as { court_path: string | null });
+    if (!court) return route.fulfill({ status: 409, json: { error: "This case has no intake to save facts into." } });
+    const client = {
+      from: () => ({
+        select: () => { const self = { eq: () => self, maybeSingle: async () => ({ data: { master_result: row.master_result, updated_at: row.updated_at }, error: null }) }; return self; },
+        update: (values: Record<string, unknown>) => {
+          const filters: Record<string, string> = {};
+          const self = {
+            eq: (column: string, value: string) => { filters[column] = value; return self; },
+            select: async () => {
+              if (fail) return { data: null, error: { message: "Synthetic save failure" } };
+              if (filters.updated_at !== undefined && filters.updated_at !== row.updated_at) return { data: [], error: null };
+              row.master_result = asJsonb(values.master_result);
+              row.updated_at = new Date(++writes + Date.now()).toISOString();
+              return { data: [{ id: row.id }], error: null };
+            },
+          };
+          return self;
+        },
+      }),
+    };
+    const outcome = await saveFactWrites(client, { caseId: String(body.caseId), userId: OWNER, court }, read.writes);
+    if (outcome.ok) return route.fulfill({ json: { saved: outcome.saved, conflicts: outcome.conflicts, facts: outcome.facts } });
+    return route.fulfill({ status: outcome.reason === "rejected" ? 400 : outcome.reason === "not-found" ? 404 : outcome.reason === "error" ? 500 : 409, json: { error: outcome.reason } });
   });
   return { rows, fail: (value: boolean, status = 503) => { fail = value; failureStatus = status; }, calls: () => aiCalls, writes: () => writes };
 }
