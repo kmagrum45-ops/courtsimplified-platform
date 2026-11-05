@@ -99,6 +99,25 @@ export function formFill(file: CaseFile | null | undefined, values: Record<strin
   return out;
 }
 
+/**
+ * A box the fill put words in follows the person's newest answer (Chrome check of #542, 3 Nov, B3: the amount changed
+ * in the review to $2,400, the form's box the fill had given "$2,650.00" kept it, and the form's own Continue would have
+ * sent it). `filledWords`: the words the fill last put in each box (kept in the saved case). While a box still holds
+ * exactly those words it is the fill's, not an answer of the person's: it takes the newest held words, or is emptied
+ * when the fact is no longer held answered (removed, "not sure"). A box whose words differ -- typed over or cleared by
+ * the person -- is theirs and is never touched; so is a box it emptied (never filled again by itself). `file`: the case
+ * file, which never counts the fill's words as an answer (caseFile.ts), so a box never answers for itself.
+ */
+export function filledToFollow(file: CaseFile | null | undefined, values: Record<string, unknown>, filledWords: Readonly<Record<string, string>>): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const [field, words] of Object.entries(filledWords)) {
+    if (!fillable(field) || !words || values[field] !== words) continue;
+    const newest = heldWords(file, field) ?? "";
+    if (newest !== words) out[field] = newest;
+  }
+  return out;
+}
+
 /** The form's boxes that have held words during this visit: those already seen, and those holding words now. */
 export function seenNow(values: Record<string, unknown>, seen: readonly string[]): string[] {
   const now = Object.entries(values).filter(([, value]) => typeof value === "string" && value.trim()).map(([field]) => field);

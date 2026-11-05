@@ -17,7 +17,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useIntakeRecovery, useIntakeReviewView, useIntakeState } from "./IntakeRecovery";
 import { caseFileOf, isUnsureAnswer } from "../../src/lib/case-system/caseFile/caseFile";
-import { askOf, formFill, seenNow } from "../../src/lib/case-system/intake/asker";
+import { askOf, filledToFollow, formFill, seenNow } from "../../src/lib/case-system/intake/asker";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "../../src/lib/case-system/copy/askCopy";
 
 const blank = (value: unknown) => value === undefined || value === null || (typeof value === "string" && !value.trim()) || (Array.isArray(value) && value.length === 0);
@@ -48,20 +48,30 @@ export function AskedField({ field, value, label, children }: { field: string; v
 }
 
 /**
- * Puts the person's held answers into the form's empty boxes, once per box per case (asker.ts formFill).
- * The boxes filled are kept in the saved case ("small-claims".filledFromCaseFile), so a box the person
- * cleared is never filled again, in any tab or after a reload.
+ * Puts the person's held answers into the form's empty boxes, once per box per case (asker.ts formFill), and keeps a
+ * box it filled on the person's newest answer while the box still holds the fill's words (asker.ts filledToFollow;
+ * Chrome check of #542, B3: the box kept "$2,650.00" after the amount was changed to $2,400). The boxes filled
+ * ("small-claims".filledFromCaseFile) and the words put in each ("small-claims".filledWords) are kept in the saved
+ * case, so a box the person cleared is never filled again, in any tab or after a reload, and a box they typed in
+ * is never changed. `apply` gets, per box, the words and the words the box must still hold (`over`) to take them.
  */
-export function useHeldFill(values: Record<string, unknown>, apply: (fill: Record<string, string>) => void) {
+export function useHeldFill(values: Record<string, unknown>, apply: (fill: Record<string, { words: string; over: string }>) => void) {
+  // The case file never counts a box's words the fill put there as an answer (caseFile.ts, "small-claims".filledWords).
   const file = useCaseFile();
   const [filled, setFilled] = useIntakeState<string[]>("small-claims", "filledFromCaseFile", []);
+  const [filledWords, setFilledWords] = useIntakeState<Record<string, string>>("small-claims", "filledWords", {});
   // The boxes that held words during this visit (asker.ts seenNow), updated as each render's values arrive: a
   // box the person clears to type a new value is never filled under their keys ("$6,400.00$7,250", local carry
   // runs 41393577468 / 41393585578).
   const seen = useRef<string[]>([]);
   seen.current = seenNow(values, seen.current);
   const fill = formFill(file, values, [...filled, ...seen.current]);
-  const key = JSON.stringify(fill);
+  const follow = filledToFollow(file, values, filledWords);
+  const changes: Record<string, { words: string; over: string }> = {
+    ...Object.fromEntries(Object.entries(fill).map(([field, words]) => [field, { words, over: "" }])),
+    ...Object.fromEntries(Object.entries(follow).map(([field, words]) => [field, { words, over: filledWords[field] }])),
+  };
+  const key = JSON.stringify(changes);
   // A box seen with words and now empty: the person emptied it. Kept in the saved case, so it is not refilled after a reload either.
   const emptied = seen.current.filter((field) => !filled.includes(field) && blank(values[field])).join(",");
   useEffect(() => {
@@ -69,10 +79,11 @@ export function useHeldFill(values: Record<string, unknown>, apply: (fill: Recor
     // eslint-disable-next-line react-hooks/exhaustive-deps -- runs when a box is emptied
   }, [emptied]);
   useEffect(() => {
-    const fields = Object.keys(fill);
+    const fields = Object.keys(changes);
     if (!fields.length) return;
-    apply(fill);
-    setFilled((current) => [...new Set([...current, ...fields])]);
+    apply(changes);
+    if (Object.keys(fill).length) setFilled((current) => [...new Set([...current, ...Object.keys(fill)])]);
+    setFilledWords((current) => ({ ...current, ...Object.fromEntries(fields.map((field) => [field, changes[field].words])) }));
     // eslint-disable-next-line react-hooks/exhaustive-deps -- runs when what is to be filled changes
   }, [key]);
 }

@@ -769,6 +769,8 @@ jobs:
           tests/browser/stage-rule.spec.ts
           tests/browser/items-8-12.spec.ts
           tests/browser/retest-29oct-flow.spec.ts
+          tests/browser/held-fill-continue.spec.ts
+          tests/browser/restart-asked-once.spec.ts
           tests/browser/claim-kind-one-value.spec.ts
           tests/browser/chrome-31oct-review.spec.ts
           tests/browser/change-answer.spec.ts

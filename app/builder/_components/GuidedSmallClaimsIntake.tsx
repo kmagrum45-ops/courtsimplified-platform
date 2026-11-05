@@ -718,7 +718,9 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           // the person already holds, answered, not sure or removed (intake/asker.ts). Held questions are
           // not sent as answered: they are held, so they are never saved as answers of this chat.
           answeredIds: [...new Set([...newAnsweredIds, ...repliedInThisChat()])],
-          caseFile: heldForEngine(caseFileOf(reviewView?.checkpoint ?? null, recovery?.getSavedMaster() ?? undefined)),
+          // Read from the case record as it is when the turn is sent, never from the render that started it: an
+          // answer saved since (the kind just used on the suggestion card) is held (A2, Chrome check of #542).
+          caseFile: heldForEngine(caseFileOf(recovery?.getReview().checkpoint ?? reviewView?.checkpoint ?? null, recovery?.getSavedMaster() ?? undefined)),
           newStoryText,
           answeredQuestionId,
           confirmedAnswers,
@@ -941,7 +943,12 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       if (result.outcome === "confirmed") {
         // This path only runs after the person clicked "that's right" on the
         // suggestion card -- the one case where userConfirmed is actually true.
-        setMatchedClaimType({ ...result.claimType, userConfirmed: true, ...(pendingSuggestion.quote ? { quote: pendingSuggestion.quote } : {}) });
+        const usedKind = { ...result.claimType, userConfirmed: true, ...(pendingSuggestion.quote ? { quote: pendingSuggestion.quote } : {}) };
+        // Into the case record now, not after the next render: the turn that follows ("continueAfterKind",
+        // below) reads the record, and must find the kind held (Chrome check of #542, 3 Nov, A2: "Got it:
+        // <kind>" was followed by "What kind of dispute is this?", and that answer replaced the kind).
+        recovery?.put("guided", "matchedClaimType", usedKind);
+        setMatchedClaimType(usedKind);
         setEvidenceGuidance(result.evidenceGuidance ?? null);
         setClaimGuidance(result.claimGuidance ?? null);
         setPendingSuggestion(null);
