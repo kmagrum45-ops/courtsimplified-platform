@@ -20,7 +20,12 @@
  *   3. the browser writer, on a stand-in recovery: the old copy is written and the fact recorded, in one call;
  *      "Change" and "Not saved yet" write the change record through it;
  *   4. the position: its kind and dates map to fact ids, and a position save writes them into the fact record
- *      with the server's numbers (a stand-in database).
+ *      with the server's numbers (a stand-in database);
+ *   4b. per court: a fact saved from the step page or the overview (the case position) never cancels the confirmed
+ *      intake (the owner's D1 rule), "not sure" then the kind picked keeps it, the overview's pick reads as the kind
+ *      the person chose, and a "Change" of the same fact still cancels it;
+ *   4c. per court: the same answer sent twice (a resend, two saves racing) is saved once, is no conflict and leaves
+ *      no "Not saved yet"; a different answer made on an older view is still a conflict.
  *
  * WHAT FAILURE IT EXISTS TO CATCH: an answer given in the review that never reaches the fact record (so the
  * server's order cannot decide it, and an older copy can outrank it), a removal not recorded, or a new save of
