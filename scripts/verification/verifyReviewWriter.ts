@@ -26,7 +26,8 @@
  * server's order cannot decide it, and an older copy can outrank it), a removal not recorded, or a new save of
  * an answer that bypasses the one writer.
  */
-import { CASE_FILE_SECTION, caseFileOf, changesOf, type FactChanges } from "../../src/lib/case-system/caseFile/caseFile";
+import { CASE_FILE_SECTION, caseFileOf, changesOf, claimKindLine, claimKindOf, type FactChanges } from "../../src/lib/case-system/caseFile/caseFile";
+import { confirmedAnswerChanged, confirmedFactMarks, existingFactChanged } from "../../src/lib/case-system/intakeReview";
 import { applyFactWrites, factRecordsOf } from "../../src/lib/case-system/caseFile/factRecord";
 import { factOfField } from "../../src/lib/case-system/caseFile/fieldFacts";
 import { pendingWrites } from "../../src/lib/case-system/caseFile/pendingFacts";
@@ -149,6 +150,31 @@ function standIn(court: Court, sections: Sections): CaseWriteRecovery & { sectio
   check("3. \"Not saved yet\" Save marks the edit to send as the newest save, through the writer", changesOf(pending.sections).amount?.force === true, JSON.stringify(pending.sections[CASE_FILE_SECTION]));
   choosePending(pending, "amount", false);
   check("3. \"Not saved yet\" Discard drops the edit, through the writer", !changesOf(pending.sections).amount, JSON.stringify(pending.sections[CASE_FILE_SECTION]));
+}
+
+// 4b. A fact saved from the step page or the overview (the case position) is that page's own answer: it never cancels the
+// confirmed intake (the owner's D1 rule, 29 Oct: a date given on the next-step page is not an intake answer), and the
+// overview's pick of the kind reads as the kind the person chose. A "Change" still cancels it. Per court.
+// Found by #543's CI (5 Nov): retest-29oct D1 (Small Claims), the story pack's Family runs (the confirmation cancelled
+// after a case-page date, "Show my next step" gone) and claim-kind-one-value:222 (the pick labelled "your answer").
+{
+  const STEP_DATE: Record<Court, string> = { "small-claims": "case-date-act-or-omission", civil: "case-date-act-or-omission", family: "case-date-served-with-motion-to-change" };
+  for (const court of ["small-claims", "civil", "family"] as Court[]) {
+    const confirmed = cp(court, { [CASE_FILE_SECTION]: { facts: {} } });
+    const workflow = { intakeReview: { version: 1, confirmedFacts: confirmedFactMarks(confirmed) } };
+    const dated = applyFactWrites({ intakeCheckpoint: confirmed }, court, ID, positionFactWrites({ dateAnswers: { [STEP_DATE[court]]: "2026-03-03" } }), T);
+    const afterDate = dated.ok ? (dated.master.intakeCheckpoint as Checkpoint) : confirmed;
+    check(`4b. ${court}: a step-page date is recorded as a fact`, dated.ok && dated.saved.length === 1, JSON.stringify(dated.ok ? dated.saved : dated));
+    check(`4b. ${court}: a step-page date never cancels the confirmed intake`, !confirmedAnswerChanged(workflow, confirmed, afterDate) && !existingFactChanged(confirmed, afterDate), JSON.stringify(factRecordsOf(afterDate.sections)));
+    const picked = applyFactWrites({ intakeCheckpoint: confirmed }, court, ID, positionFactWrites({ claimKind: "unpaid-invoice" }), T);
+    const afterPick = picked.ok ? (picked.master.intakeCheckpoint as Checkpoint) : confirmed;
+    check(`4b. ${court}: the overview's pick of the kind never cancels the confirmed intake`, picked.ok && !confirmedAnswerChanged(workflow, confirmed, afterPick), JSON.stringify(factRecordsOf(afterPick.sections)));
+    const line = claimKindLine(claimKindOf(caseFileOf(afterPick)));
+    check(`4b. ${court}: the overview's pick reads as the kind the person chose`, line?.label === "Kind of claim you chose", JSON.stringify(line));
+    // The control: the same fact changed with "Change" (sent as a change) still cancels the confirmation.
+    const changed = applyFactWrites({ intakeCheckpoint: afterDate }, court, ID, [{ fact: STEP_DATE[court] === "case-date-act-or-omission" ? "whenHappened" : "servedDate", state: "answered", value: "2026-04-04", source: "person", question: "change", force: true }], T);
+    check(`4b. ${court}: a "Change" of that fact still cancels the confirmation`, changed.ok && confirmedAnswerChanged(workflow, confirmed, changed.master.intakeCheckpoint as Checkpoint), JSON.stringify(changed.ok ? changed.saved : changed));
+  }
 }
 
 // 4. The position.
