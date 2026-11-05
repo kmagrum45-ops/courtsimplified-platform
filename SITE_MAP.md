@@ -921,7 +921,7 @@ The one field-to-fact table: which fact each (section, field) a save point write
 
 - Reads (2): **src/lib/case-system/caseFile/factRecord.ts**, **src/lib/case-system/caseFile/factsOfQuestion.ts**
 - Read by (4): app/_components/caseWrite.ts, app/_components/useCaseField.ts, src/lib/case-system/caseFile/factSave.ts, src/lib/case-system/caseFile/tabWrite.ts
-- Checked by (2): scripts/verification/verifyFactRails.ts, scripts/verification/verifyReviewWriter.ts
+- Checked by (3): scripts/verification/verifyFactRails.ts, scripts/verification/verifyReviewWriter.ts, tests/browser/retest-29oct-flow.spec.ts
 
 ### src/lib/case-system/caseFile/storyLines.ts
 
