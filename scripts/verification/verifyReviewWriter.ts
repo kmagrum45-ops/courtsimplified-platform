@@ -30,7 +30,8 @@ import { CASE_FILE_SECTION, caseFileOf, changesOf, claimKindLine, claimKindOf, t
 import { confirmedAnswerChanged, confirmedFactMarks, existingFactChanged } from "../../src/lib/case-system/intakeReview";
 import { applyFactWrites, factRecordsOf } from "../../src/lib/case-system/caseFile/factRecord";
 import { factOfField } from "../../src/lib/case-system/caseFile/fieldFacts";
-import { pendingWrites } from "../../src/lib/case-system/caseFile/pendingFacts";
+import { afterSend, pendingWrites } from "../../src/lib/case-system/caseFile/pendingFacts";
+import { withChange } from "../../src/lib/case-system/caseFile/caseFile";
 import { answerChanges, UnmappedField } from "../../src/lib/case-system/caseFile/tabWrite";
 import { positionFactWrites, saveWithFacts } from "../../src/lib/case-system/caseFile/factSave";
 import { writeAnswer, writeChange, choosePending, type CaseWriteRecovery } from "../../app/_components/caseWrite";
@@ -182,6 +183,25 @@ function standIn(court: Court, sections: Sections): CaseWriteRecovery & { sectio
     const changed = applyFactWrites({ intakeCheckpoint: afterDate }, court, ID, [{ fact: STEP_DATE[court] === "case-date-act-or-omission" ? "whenHappened" : "servedDate", state: "answered", value: "2026-04-04", source: "person", question: "change", force: true }], T);
     check(`4b. ${court}: a "Change" of that fact still cancels the confirmation`, changed.ok && confirmedAnswerChanged(workflow, confirmed, changed.master.intakeCheckpoint as Checkpoint), JSON.stringify(changed.ok ? changed.saved : changed));
   }
+}
+
+// 4c. The same edit sent twice (a resend after a timeout, two saves racing) is saved once: the second send, made before the
+// first was numbered, holds the same answer the server now stores, so it is no conflict and the tab keeps no "Not saved
+// yet" for it. Found locally on the real save path (not-sure-never-asked, Family whole form, 5 Nov): after a reload the
+// saved case held the added goal both in its record and as a held edit (seen 0, held = the same answer). Per court.
+for (const court of ["small-claims", "civil", "family"] as Court[]) {
+  const changes = withChange({}, "wants", { state: "answered", value: "Synthetic: the table repaired" }, T, 0);
+  const sections: Sections = { [CASE_FILE_SECTION]: { changes } };
+  const writes = pendingWrites(changes);
+  const first = applyFactWrites({ intakeCheckpoint: cp(court, sections) }, court, ID, writes, T);
+  const second = first.ok ? applyFactWrites(first.master, court, ID, writes, T) : first;
+  check(`4c. ${court}: the same answer sent again is no conflict`, second.ok && second.conflicts.length === 0, JSON.stringify(second.ok ? second.conflicts : second));
+  check(`4c. ${court}: and it is not numbered again`, second.ok && factRecordsOf((second.master.intakeCheckpoint as Checkpoint).sections).wants?.seq === 1, JSON.stringify(second.ok ? factRecordsOf((second.master.intakeCheckpoint as Checkpoint).sections) : second));
+  const tab = second.ok ? afterSend(sections, changes, { saved: second.saved, conflicts: second.conflicts, facts: second.facts }) : sections;
+  check(`4c. ${court}: the tab keeps no unsent or "Not saved yet" edit for it`, !changesOf(tab).wants, JSON.stringify(tab[CASE_FILE_SECTION]));
+  // The control: a DIFFERENT answer made on the older view is still a conflict.
+  const other = first.ok ? applyFactWrites(first.master, court, ID, pendingWrites(withChange({}, "wants", { state: "answered", value: "Synthetic: a new table" }, T, 0)), T) : first;
+  check(`4c. ${court}: a different answer made on the older view is still a conflict`, other.ok && other.conflicts.length === 1, JSON.stringify(other.ok ? other.conflicts : other));
 }
 
 // 4. The position.
