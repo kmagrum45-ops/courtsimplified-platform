@@ -52,3 +52,7 @@ export function intakeCourtOfRow(row: { court_path: string | null }): IntakeCour
   const court = row.court_path;
   return court === "small-claims" || court === "civil" || court === "family" ? court : null;
 }
+
+// Stubs (failing first): replaced in the next commit.
+export function positionFactWrites(_patch: { claimKind?: unknown; dateAnswers?: unknown }): FactWrite[] { return []; }
+export async function saveWithFacts(_client: CaseRecordClient, _ids: { caseId: string; userId: string; court: IntakeCourt }, _change: (master: Record<string, unknown>) => Record<string, unknown> | { reject: string }, _writes: readonly FactWrite[], _clock: () => Date = () => new Date()): Promise<{ ok: boolean }> { return { ok: false }; }

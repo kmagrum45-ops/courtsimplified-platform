@@ -134,6 +134,33 @@ check(stale.length === 0, "every classed place still exists (delete an entry onc
 const tabUses = files.filter((full) => /answered|initialAnswers|answeredInReview/.test(readFileSync(full, "utf8")) && /(sessionStorage|localStorage)\.setItem\([^)]*(answered|offered|turnedDown|declined|rejected)/i.test(readFileSync(full, "utf8")));
 check(tabUses.length === 0, "no answered / offered / turned-down list is written to sessionStorage or localStorage by name", tabUses.join(", "));
 
+// 4b. The tab's stores (founder, 4 Nov: "the stores in the no-page-held-answers check"). Every place app/ or src/
+// writes to the tab -- sessionStorage / localStorage setItem, the intake session copy (writeIntakeSession), IndexedDB --
+// is classed here by what it holds, counted per file, so a new store of the person's answers cannot appear unseen:
+//   (buffer) the tab's copy of the checkpoint, holding only what is not saved yet (design §4), read back by the saved record;
+//   (b) page state or a preference, no answer;
+//   (a) a person's answer kept only in the tab, NOT fixed here, with why.
+// A store that moved or was deleted is deleted here (a one-line deletion).
+// Any `.setItem(` (sessionStorage, localStorage, or a storage passed in under another name), the intake session copy's
+// callers, and IndexedDB.
+const STORE = /\??\.\s*setItem\s*\(|\bwriteIntakeSession\s*\(\s*(?!storage\b)|\bindexedDB\s*\.\s*open\s*\(/g;
+/** Every tab store found, as "file" -> count (comments left out). */
+function storesIn(text: string): number {
+  return [...text.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1").matchAll(STORE)].length;
+}
+const KNOWN_STORES: Record<string, { count: number; holds: string }> = {
+};
+const storeFiles: string[] = [];
+const walkAll = (dir: string) => { if (!existsSync(dir)) return; for (const name of readdirSync(dir)) { const full = path.join(dir, name); if (statSync(full).isDirectory()) { if (name !== "node_modules" && !name.startsWith(".")) walkAll(full); } else if (/\.tsx?$/.test(name) && !name.endsWith(".d.ts")) storeFiles.push(full); } };
+walkAll(path.join(ROOT, "app"));
+walkAll(path.join(ROOT, "src"));
+const storesFound = Object.fromEntries(storeFiles.map((full) => [path.relative(ROOT, full).split(path.sep).join("/"), storesIn(readFileSync(full, "utf8"))] as const).filter(([, count]) => count > 0));
+const unclassed = Object.entries(storesFound).filter(([file, count]) => !KNOWN_STORES[file] || KNOWN_STORES[file].count < count).map(([file, count]) => `${file}: ${count} store(s), ${KNOWN_STORES[file]?.count ?? 0} classed`);
+check(unclassed.length === 0, "every tab store (sessionStorage / localStorage / the intake session copy / IndexedDB) is classed by what it holds (none new)", unclassed.join("\n      "));
+const staleStores = Object.entries(KNOWN_STORES).filter(([file, entry]) => (storesFound[file] ?? 0) < entry.count).map(([file, entry]) => `${file}: classed ${entry.count}, found ${storesFound[file] ?? 0}`);
+check(staleStores.length === 0, "every classed tab store still exists (lower or delete the entry when one moves)", staleStores.join("\n      "));
+check(storesIn("sessionStorage.setItem(\"answered\", JSON.stringify(list));\nstore?.setItem(\"k\", v);\n// localStorage.setItem(\"x\", \"y\")") === 2, "self-test: a planted sessionStorage.setItem and a store passed under another name are caught by the store scan, and a commented one is not");
+
 // 5. Self-test.
 check(scan("const [answeredHere, setAnsweredHere] = useState<string[]>([]);\nconst seenOrder = useRef<string[]>([]);", "planted.tsx").includes("planted.tsx:answeredHere"), "self-test: a planted useState answeredHere list is caught by the scan");
 
