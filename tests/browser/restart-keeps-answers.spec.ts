@@ -120,5 +120,6 @@ test("after a sentence is added and the questions start again, the kind and the 
   await page.getByTestId("intake-start-review").click().catch(() => undefined);
   const review = page.getByTestId("intake-review");
   await expect(review, "the review keeps the kind").toContainText(KIND.claimTypeName, { timeout: 30_000 });
-  await expect(review, "the review keeps the date").toContainText("March 15, 2025", { timeout: 30_000 });
+  // The date is the value of its box in the review.
+  await expect(review.getByLabel("Review: Roughly when did the situation that led to this claim happen?"), "the review keeps the date").toHaveValue(/March 15, 2025/, { timeout: 30_000 });
 });
