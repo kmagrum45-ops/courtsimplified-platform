@@ -1268,6 +1268,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </label>
           </AskedField>
 
+          {/* A "not sure" in this box is never shown as its answer (item 4, 6 Nov). */}
+          <AskedField field="evidence" value={input.evidence} label={"Evidence you have"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               Evidence you have
@@ -1280,9 +1282,12 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             />
             <FieldHelp question={EVIDENCE_QUESTION} />
           </label>
+          </AskedField>
         </div>
 
         <div className="grid gap-5 md:grid-cols-2">
+          {/* A "not sure" in this box is never shown as its answer (item 4, 6 Nov). */}
+          <AskedField field="missingEvidence" value={input.missingEvidence} label={"Evidence still missing"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               Evidence still missing
@@ -1296,6 +1301,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               placeholder="Example: exact date, full thread, witness names, proof of who saw the statement."
             />
           </label>
+          </AskedField>
 
           {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
           <AskedField field="goal" value={input.goal} label={"What do you want the court to order?"}>
@@ -1335,6 +1341,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </label>
           </AskedField>
 
+          {/* A "not sure" in this box is never shown as its answer (item 4, 6 Nov). */}
+          <AskedField field="damagesBreakdown" value={input.damagesBreakdown} label={isDefendantRole(input.yourRole) ? "Which part of the amount you dispute, and why" : "Breakdown of amount claimed"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               {isDefendantRole(input.yourRole) ? "Which part of the amount you dispute, and why" : "Breakdown of amount claimed"}
@@ -1348,6 +1356,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               placeholder="Explain how you reached the number, if known."
             />
           </label>
+          </AskedField>
         </div>
 
         <div className="rounded-3xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
@@ -1379,6 +1388,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               placeholder="Your email"
             />
 
+            <AskedField field="defendantAddress" value={input.defendantAddress} label={"Other party address for service"}>
             <textarea
               data-testid="sc-intake-defendantAddress" value={input.defendantAddress}
               onChange={(event) =>
@@ -1387,6 +1397,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3 md:col-span-2"
               placeholder="Other party address for service, if known"
             />
+            </AskedField>
 
             {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
             <AskedField field="serviceDetails" value={input.serviceDetails} label={"Service details"}>

@@ -36,10 +36,11 @@ export function AskedField({ field, value, label, children }: { field: string; v
   // Typing in the box, or "Add it": the box stays for this visit (never folded under the person).
   const [opened, setOpened] = useState(false);
   const decision = askOf(file, field);
-  const folded = !opened && !decision.ask && decision.held === "unsure" && (blank(value) || isUnsureAnswer(value));
+  // A box whose own words are a "not sure" is never shown as if they were the answer, whatever its fact (item 4, 6 Nov).
+  const folded = !opened && (isUnsureAnswer(value) || (!decision.ask && decision.held === "unsure" && blank(value)));
   if (folded) {
     return (
-      <div className="block" data-testid="not-answered-yet" data-fact={decision.fact} data-field={field}>
+      <div className="block" data-testid="not-answered-yet" data-fact={"fact" in decision ? decision.fact : undefined} data-field={field}>
         <span className="font-semibold text-[#16302b]">{label}</span>
         <p className="mt-2 text-sm text-[#4d675f]">{NOT_ANSWERED_YET}. <button type="button" data-testid="not-answered-yet-add" onClick={() => setOpened(true)} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</button></p>
       </div>

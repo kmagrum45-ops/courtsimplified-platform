@@ -1051,6 +1051,8 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
             />
           </label>
 
+          {/* A "not sure" in this box is never shown as its answer (item 4, 6 Nov). */}
+          <NotAnsweredYetField field="otherParty" value={input.otherParty} label="Other party">
           <label className="block">
             <span className="font-semibold text-[#16302b]">Other party</span>
             <input
@@ -1060,6 +1062,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
               placeholder="Person, business, institution, employer, landlord, school, police, government body"
             />
           </label>
+          </NotAnsweredYetField>
         </div>
 
         <label className="block">

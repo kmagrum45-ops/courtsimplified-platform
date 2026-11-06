@@ -1034,6 +1034,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
             />
           </label>
 
+          {/* A "not sure" in this box is never shown as its answer (item 4, 6 Nov). */}
+          <NotAnsweredYetField field="otherParty" value={otherParty} label="Other party">
           <label className="block">
             <span className="font-semibold text-[#16302b]">Other party</span>
             <input
@@ -1043,6 +1045,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
               placeholder="Other party’s full legal name"
             />
           </label>
+          </NotAnsweredYetField>
         </div>
 
         <div>
@@ -1290,6 +1293,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           )}
         </div>
 
+        <NotAnsweredYetField field="upcomingCourtDate" value={upcomingCourtDate} label="Next court date or deadline">
         <label className="block">
           <span className="font-semibold text-[#16302b]">
             Next court date or deadline
@@ -1301,6 +1305,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
             placeholder="Example: Case conference on June 15, 2026"
           />
         </label>
+        </NotAnsweredYetField>
 
         </div>
 
