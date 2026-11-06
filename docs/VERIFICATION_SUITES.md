@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-232 documented, 26 without a header.
+233 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -50,6 +50,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:charter-retest` | **THE CHARTER CLAIM AGAINST POLICE, RE-TESTED (Chrome on the live site, 2026-10-26).**<br>Each fix sits in one shared piece; each check asserts its property, so a screen or path that goes around the piece fails here: - the review shows only what fits the side and the claim, every field in written words (intakeReview.ts: ISSUE_ONLY, a field's own `w |
 | `npm run test:chat-asks-by-fact` | **THE CHAT ASKS BY FACT: A FACT THE SAVED CASE HOLDS IS NEVER ASKED BY A CHAT (never ask twice, row 1, 29 Oct).**<br>The follow-up chat closed its replies with fixed sentences ("What are you trying to get or fix through the legal process?", "What are the main dates...?", "Has anything already been filed...?") that did not read the case file, so it asked what the person wants |
 | `npm run test:chat-first-line` | **The follow-up chat's replies read from the confirmed intake (L47), tested the**<br>way a person's message reaches it live. |
+| `npm run test:chat-keeps-held` | **A FACT THE PERSON HOLDS IS NEVER REPLACED BY WHAT THE MODEL READ FROM THE STORY (rules 2, 4 and 8; Chrome check of**<br>#544, 6 Nov 2026, step 18). |
 | `npm run test:chat-plain-words` | **THE CHAT SPEAKS PLAINLY AND DOES NOT ASK WHAT IT HAS (Charter re-test, 27 Oct, root cause 4).**<br>Checks, as properties, through the chat's own route (app/api/guided-assistant) with a saved case in all three areas (a Charter claim, a Small Claims debt, a civil debt, a family case): - no reply carries the site's reasoning machinery: a profile's name, an inv |
 | `npm run test:check-oracles` | **No check can be satisfied by a comment. A check's oracle must be independent of the**<br>implementation's description of itself. |
 | `npm run test:checked-answer` | **Checked answers show only what the official text supports.**<br>WHAT THIS CATCHES: an answer the site shows without proof. The checked answer (retrieval/checkedAnswer.ts) lets the model answer first and then checks every statement against the library. This suite drives that pipeline with a fake drafter and a fake checker o |
