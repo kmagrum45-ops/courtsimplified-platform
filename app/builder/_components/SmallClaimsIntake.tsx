@@ -56,7 +56,7 @@ import {
 } from "../../../src/lib/case-system/intake/questionBank";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { analysisClaimType, caseFileOf, claimKindOf, kindForAnalysis } from "../../../src/lib/case-system/caseFile/caseFile";
-import { AskedField, useHeldFill } from "../../_components/AskedField";
+import { AskedField, useBoxesFollow, useHeldFill } from "../../_components/AskedField";
 import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
 import { UseSuggestion } from "../../_components/UseSuggestion";
 
@@ -809,6 +809,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   // THE ONE ASKER (founder, 1 Nov; intake/asker.ts): an answer the person already gave elsewhere (the
   // chat, the review, a change) is put into its empty box here once, so the form never asks for it again;
   // never over what they typed, never a story guess, never again once they cleared the box.
+  // The whole form's boxes follow the newest saved answer (rule 3; Chrome check of #544, step 14).
+  useBoxesFollow("small-claims", "input");
   useHeldFill(input as unknown as Record<string, unknown>, (fill) => { filledOnly.current = true; setInput((current) => {
     const next = { ...current } as Record<string, unknown>;
     // Only over the words the box must still hold (empty for a first fill, the fill's own words to follow a change):

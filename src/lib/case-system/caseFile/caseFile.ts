@@ -568,6 +568,26 @@ function sameAnswer(fact: SlotFact, heldValue: unknown, given: unknown): boolean
 }
 
 /**
+ * What a form box for `fact` must show to follow the newest saved answer (rule 3, site owner 6 Nov; Chrome check of
+ * #544, step 14), or null to leave it as it is. `place`: the box's own place ("small-claims:amountClaimed"). Left as
+ * it is: a fact never answered (no state), or one only read from the story; a box that is itself where the newest
+ * answer came from (the person typing in it, sent or not); a box already saying the same answer; a "not sure" typed in
+ * the box. Otherwise: the newest answer's words, or empty when it was removed or is "not sure".
+ */
+export function followWords(file: CaseFile, fact: SlotFact, place: string, boxValue: unknown, formatDay: (iso: string) => string): string | null {
+  if (START_FACTS.has(fact) || fact === "story") return null;
+  const slot = file[fact];
+  if (!slot.confirmed) return null;
+  if (slot.source?.kind === "answer" && slot.source.question === place) return null;
+  const now = boxValue === undefined || boxValue === null ? "" : String(boxValue);
+  if (slot.removed || slot.state === "unsure") return now.trim() && !isUnsureAnswer(now) ? "" : null;
+  if (slot.state !== "answered") return null;
+  if (now.trim() && sameAnswer(fact, slot.value, now)) return null;
+  const words = slotText(slot, formatDay);
+  return words.trim() && words !== now ? words : null;
+}
+
+/**
  * Does a recorded fact (a saved record or an unsent edit) say what the intake's own answers already say? `own` is
  * the case file read from the answers alone (caseFileOf with no fact records). Only the person's answers count, not
  * a reading of the story. Used by the confirmation rule (intakeReview.ts materialFacts): a late save that repeats an

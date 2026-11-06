@@ -4,6 +4,7 @@ import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIn
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
 import { caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
 import { NotAnsweredYetField } from "../../_components/NotAnsweredYet";
+import { useBoxesFollow } from "../../_components/AskedField";
 import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
 import { formatForCourt } from "../../../src/lib/case-system/dates";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
@@ -382,6 +383,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
    */
   const recovery = useIntakeRecovery();
   const beforeIntakeAI = useBeforeIntakeAI();
+  // The whole form's boxes follow the newest saved answer (rule 3; Chrome check of #544, step 14).
+  useBoxesFollow("family", null);
   const prepareCaseGuidance = usePrepareCaseGuidance();
   const validateIntakeResponse = useValidateIntakeResponse();
   const [storedPersonSet] = useIntakeState<Set<"yourRole">>("family", "personSet", new Set());

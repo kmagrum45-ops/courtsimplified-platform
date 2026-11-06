@@ -20,6 +20,8 @@ import { useCaseField } from "./useCaseField";
 import { caseFileOf, isUnsureAnswer } from "../../src/lib/case-system/caseFile/caseFile";
 import { askOf, filledToFollow, formFill, seenNow } from "../../src/lib/case-system/intake/asker";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "../../src/lib/case-system/copy/askCopy";
+import { boxesToFollow } from "../../src/lib/case-system/caseFile/boxFollow";
+import { formatForCourt } from "../../src/lib/case-system/dates";
 
 const blank = (value: unknown) => value === undefined || value === null || (typeof value === "string" && !value.trim()) || (Array.isArray(value) && value.length === 0);
 
@@ -47,6 +49,34 @@ export function AskedField({ field, value, label, children }: { field: string; v
     );
   }
   return <div className="contents" data-asked-field={field} onFocusCapture={() => setOpened(true)}>{children}</div>;
+}
+
+/**
+ * The form's boxes follow the newest saved answer, in all three courts (rule 3; boxFollow.ts; Chrome check of #544,
+ * step 14). `container`: where the boxes live ("input" for Small Claims and Civil; null for Family, whose boxes are
+ * each their own field). Written into the form's copy as a follow, not an answer: no change is recorded, the
+ * confirmation is untouched, nothing is sent (put with touched=false), so opening the form writes nothing (rule 6).
+ * A box the person is typing in (it has the focus) is left alone.
+ */
+export function useBoxesFollow(section: string, container: string | null) {
+  const recovery = useIntakeRecovery();
+  const view = useIntakeReviewView();
+  const file = view?.checkpoint ? caseFileOf(view.checkpoint, recovery?.getSavedMaster() ?? undefined) : null;
+  const own = view?.checkpoint.sections[section] as Record<string, unknown> | undefined;
+  const values = (container ? own?.[container] : own) as Record<string, unknown> | undefined;
+  const plan = file && values && typeof values === "object" ? boxesToFollow(file, section, container, values, (iso) => formatForCourt(iso)) : {};
+  const key = JSON.stringify(plan);
+  useEffect(() => {
+    if (!recovery || key === "{}") return;
+    const active = typeof document !== "undefined" ? document.activeElement : null;
+    const typed = active instanceof HTMLInputElement || active instanceof HTMLTextAreaElement ? active.value : null;
+    const now = (container ? recovery.read(section, container) : undefined) as Record<string, unknown> | undefined;
+    const next = Object.fromEntries(Object.entries(plan).filter(([field]) => typed === null || String((container ? now?.[field] : recovery.read(section, field)) ?? "") !== typed));
+    if (!Object.keys(next).length) return;
+    if (container) recovery.put(section, container, { ...(now ?? {}), ...next }, false, true);
+    else for (const [field, words] of Object.entries(next)) recovery.put(section, field, words, false, true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- runs when what the boxes must show changes
+  }, [key]);
 }
 
 /**
