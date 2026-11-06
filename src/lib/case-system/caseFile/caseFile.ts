@@ -567,6 +567,21 @@ function sameAnswer(fact: SlotFact, heldValue: unknown, given: unknown): boolean
   return JSON.stringify(read[fact].value ?? given) === JSON.stringify(heldValue);
 }
 
+/**
+ * Does a recorded fact (a saved record or an unsent edit) say what the intake's own answers already say? `own` is
+ * the case file read from the answers alone (caseFileOf with no fact records). Only the person's answers count, not
+ * a reading of the story. Used by the confirmation rule (intakeReview.ts materialFacts): a late save that repeats an
+ * answer is not a new fact (item 1, 6 Nov; founder's Chrome check of #543, other problem 1).
+ */
+export function repeatsAnswer(own: CaseFile, fact: string, recorded: { state: string; value?: unknown }): boolean {
+  if (!isSlot(fact)) return false;
+  const slot = own[fact];
+  const answered = slot.state === "answered" && slot.source?.kind === "answer";
+  if (recorded.state === "removed") return slot.state === "not-asked";
+  if (recorded.state === "unsure") return slot.state === "unsure";
+  return answered && sameAnswer(fact, slot.value, recorded.value);
+}
+
 export function followAnswer(sections: Record<string, unknown>, section: string, key: string, before: unknown, after: unknown, now: Date = new Date(), held?: CaseFile): FactChanges | null {
   const changes = changesOf(sections);
   if (!Object.keys(changes).length && !held) return null;
