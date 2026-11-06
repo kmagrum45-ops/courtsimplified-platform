@@ -314,7 +314,8 @@
     "test:pending-position-saves": "node --import tsx scripts/verification/verifyPendingPositionSaves.ts",
     "test:working-states": "node --import tsx scripts/verification/verifyWorkingStates.ts",
     "test:carry-newly-measured": "node --import tsx scripts/verification/verifyCarryNewlyMeasured.ts",
-    "test:review-writer": "tsx scripts/verification/verifyReviewWriter.ts"
+    "test:review-writer": "tsx scripts/verification/verifyReviewWriter.ts",
+    "test:late-fact-save": "node --import tsx scripts/verification/verifyLateFactSave.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",
