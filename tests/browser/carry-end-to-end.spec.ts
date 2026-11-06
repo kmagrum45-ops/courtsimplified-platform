@@ -673,6 +673,49 @@ async function changeAmountInReview(run: Run) {
 }
 
 /**
+ * The review draws the chat's answer to "Roughly when did the situation ... happen?" in a box (timelineText); the
+ * change record never held it. The person clears the box and leaves it; then the review after a reload, the case
+ * page's case file line and the first case by its address must not show the cleared words: each that does is
+ * returned-after-removal, fact whenHappened (founder, 2 Nov; the fix belongs to G2(d)).
+ */
+async function clearChatAnswerInReview(run: Run) {
+  const { page } = run;
+  await openReviewEntries(run);
+  const box = page.getByTestId("intake-review").locator("[data-testid=intake-entry][data-field=timelineText]").locator("textarea, input").first();
+  if (!(await box.count())) throw new Error("the review shows no box for the chat's answer to when it happened");
+  const words = (await box.inputValue()).trim();
+  if (!words) throw new Error("the review's box for when it happened is empty before clearing");
+  await box.click();
+  await box.press("Control+A");
+  await box.press("Backspace");
+  await box.blur();
+  await page.waitForTimeout(3_000);
+  const judgeCleared = (where: string, text: string | null) => {
+    if (text !== null && text.includes(words)) run.add("returned-after-removal", "whenHappened", where, `"${words}" shown again after the person cleared it`);
+  };
+  const reviewReading = async () => {
+    const panel = page.getByTestId("intake-review");
+    const entry = panel.locator("[data-testid=intake-entry][data-field=timelineText]").first();
+    const boxes = (await entry.count()) ? await entry.locator("input, textarea").evaluateAll((items) => items.map((item) => (item as HTMLInputElement).value).join(" ")) : "";
+    const held = panel.locator("[data-testid=intake-entry-held][data-fact=whenHappened]");
+    const line = panel.locator('[data-testid=intake-initial-question][data-question="sc-orient-when-happened"] [data-testid=intake-question-answered]');
+    return `${boxes} ${(await held.count()) ? await held.allInnerTexts() : ""} ${(await line.count()) ? await line.allInnerTexts() : ""}`;
+  };
+  await page.reload();
+  await openReviewEntries(run);
+  judgeCleared("review (after clearing and reload)", await reviewReading());
+  const caseLine = async () => { const line = page.locator('[data-testid=case-file-line][data-fact="whenHappened"]'); return (await line.count()) ? (await line.allInnerTexts()).join(" ") : null; };
+  await page.goto(`/cases/${run.caseA}`);
+  await expect(page.getByTestId("case-file").or(page.getByTestId("case-guidance-outdated")).or(page.getByTestId("case-review")).first()).toBeVisible({ timeout: 90_000 });
+  await page.waitForTimeout(2_000);
+  judgeCleared("case file (after clearing)", await caseLine());
+  await page.reload();
+  await expect(page.getByTestId("case-file").or(page.getByTestId("case-guidance-outdated")).or(page.getByTestId("case-review")).first()).toBeVisible({ timeout: 90_000 });
+  await page.waitForTimeout(2_000);
+  judgeCleared("case page by its address (after clearing)", await caseLine());
+}
+
+/**
  * Step 3 (Chrome check of #541): the review's "Change" on the amount opened, a new amount typed, and "Confirm my
  * initial information" pressed straight away, never "Save". Every screen must then show the typed amount.
  */
@@ -939,6 +982,9 @@ for (const { court, route, who } of RUNS) {
       if (court === "small-claims") await run.step("change the answered amount in the review", async () => { await changeAmountInReview(run); });
       // 11. Small Claims: a new amount typed in the review's open Change box, then Confirm straight away (Chrome check of #541, step 3).
       if (court === "small-claims") await run.step("type in Change, then Confirm straight away", async () => { await typeInChangeThenConfirm(run); });
+      // 12. An answer held in another place (not the change record) cleared in a box: it stays removed (founder, 2 Nov).
+      // Only where the review draws such an answer in a box: the Small Claims questions route (the chat's answers).
+      if (court === "small-claims" && route === "questions") await run.step("clear the chat's answer in the review", async () => { await clearChatAnswerInReview(run); });
       segments.push({ from: segmentStart, to: asked.length, key: segmentKey });
     } finally {
       clearInterval(refresh);

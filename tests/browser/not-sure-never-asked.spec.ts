@@ -18,7 +18,7 @@
  *   3. the whole form (after the chat): the fact shows the quiet line, not an empty box;
  *   4. the case page ("What we have so far"): the fact shows the quiet line, with no answer-now offer;
  *   5. after a reload, the same on the review and the case page;
- *   6. the review's control fills it in: the value is saved in the case file's change record (read
+ *   6. the review's control fills it in: the value is saved in the case file's fact record, numbered by the server, with nothing left unsent (read
  *      back from staging) and the review then shows it as the person's answer.
  *
  * WHAT FAILURE THIS CATCHES: the review's held-unsure box or question (its "one more offer"), the
@@ -295,9 +295,21 @@ for (const { court, entry } of RUNS) {
       await quiet.getByTestId("change-answer-open").click();
       await quiet.getByTestId("change-answer-text").fill(ADDED);
       await quiet.getByTestId("change-answer-save").click();
-      await expect.poll(async () => { const master = await savedMaster(); const changes = ((master?.intakeCheckpoint as { sections?: Record<string, { changes?: Record<string, { value?: unknown }> }> } | undefined)?.sections?.caseFile?.changes ?? {}); return changes[FACT]?.value ?? null; }, { timeout: 60_000, message: "the added answer is saved in the case file's change record" }).toBe(ADDED);
+      // G2 (one writer): the tab's change record holds only edits not yet sent; the server numbers each one it accepts in
+      // the case file's fact record and the tab drops it from the change record (pendingFacts.ts afterSend). Saved means:
+      // in the fact record, numbered, as the person's answer, with nothing of it left unsent or waiting on "Not saved yet".
+      const caseFileOfSaved = async () => ((await savedMaster())?.intakeCheckpoint as { sections?: Record<string, { facts?: Record<string, { value?: unknown; state?: unknown; seq?: unknown }>; changes?: Record<string, unknown> }> } | undefined)?.sections?.caseFile ?? {};
+      const savedAnswer = async () => { const file = await caseFileOfSaved(); const record = file.facts?.[FACT]; return record?.state === "answered" && typeof record.seq === "number" && !file.changes?.[FACT] ? record.value ?? null : null; };
+      await expect.poll(savedAnswer, { timeout: 60_000, message: "the added answer is saved in the case file's fact record, numbered by the server, with nothing left unsent" }).toBe(ADDED);
       await expect(panel.locator(`[data-testid=intake-entry-held][data-fact="${FACT}"]`).first(), "the review then shows it as the person's answer").toContainText(ADDED, { timeout: 30_000 });
       await expect(panel.locator(`[data-testid=not-answered-yet][data-fact="${FACT}"]`), "and no quiet line for it remains").toHaveCount(0);
+      // After a reload: the review still shows it, and the saved case still holds it, with nothing left unsent.
+      await page.reload();
+      await openReview(page, court, caseId, step);
+      await expect(panelOf(page).locator(`[data-testid=intake-entry-held][data-fact="${FACT}"]`).first(), "after a reload, the review shows it as the person's answer").toContainText(ADDED, { timeout: 60_000 });
+      await expect(panelOf(page).locator(`[data-testid=not-answered-yet][data-fact="${FACT}"]`), "after a reload, no quiet line for it").toHaveCount(0);
+      await expect(page.getByTestId("not-saved-yet"), "after a reload, nothing waits on \"Not saved yet\"").toHaveCount(0);
+      expect(await savedAnswer(), "after a reload, the saved case still holds it, with nothing left unsent").toBe(ADDED);
 
     } finally {
       clearInterval(refresh);

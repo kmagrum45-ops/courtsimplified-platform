@@ -432,10 +432,16 @@ async function raceCheck() {
     ["app/api/case/read/route.ts", /updateMasterResult\(supabase, \{ caseId, userId: user\.id \}/],
     ["app/api/cases/drafts/route.ts", /updateMasterResult\(owned\.supabase/],
     ["app/api/cases/form-applicability/route.ts", /updateMasterResult\(supabase, \{ caseId \}/],
-    ["app/api/cases/position/route.ts", /updateMasterResult\(\s*supabase as unknown as CaseRecordClient,\s*\{ caseId, userId: user\.id \}/],
   ] as const) {
     check(`${file} writes through updateMasterResult`, pattern.test(read(file)));
   }
+  // 2026-11-04 (case core G2): the position route writes through the one writer's saveWithFacts (factSave.ts), which
+  // saves the position and its facts in one updateMasterResult, for the signed-in owner.
+  check(
+    "app/api/cases/position/route.ts writes through updateMasterResult (through saveWithFacts)",
+    /saveWithFacts\(\s*supabase as unknown as CaseRecordClient,\s*\{ caseId, userId: user\.id, court \}/.test(read("app/api/cases/position/route.ts")) &&
+      /export async function saveWithFacts[\s\S]*?updateMasterResult\(/.test(read("src/lib/case-system/caseFile/factSave.ts")),
+  );
 }
 void raceCheck().then(() => {
   if (failures > 0) {

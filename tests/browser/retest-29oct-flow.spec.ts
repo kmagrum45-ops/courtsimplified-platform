@@ -38,6 +38,7 @@
  */
 import { expect, test, type Page } from "@playwright/test";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
+import { factOfField } from "../../src/lib/case-system/caseFile/fieldFacts";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { serveFromThisCommit, serveModelStandIns } from "./harness/thisCommitServer";
@@ -378,7 +379,24 @@ test("retest-29oct D1: a date added on the next-step page keeps the next steps c
   await page.getByTestId("stage-answer-dates-save").click();
   const position = () => ((row.master_result as Record<string, unknown>).position ?? {}) as { stepId?: string; dateAnswers?: Record<string, string> };
   await expect.poll(() => position().dateAnswers?.[id], { timeout: 30_000 }).toBe("2026-09-01");
-  expect(JSON.stringify((row.master_result as Record<string, unknown>).intakeCheckpoint), "the step-page date changed the intake facts").toBe(facts);
+  // G2 (one writer): the step-page date is also recorded as its fact in the case file's fact record, numbered by the server,
+  // under the step's own place ("position:<question id>"), so no screen asks for it again. The browser saves the date to the
+  // position first and then sends the fact, so the record is waited for. Nothing else in the intake changes.
+  const checkpointNow = () => (row.master_result as Record<string, unknown>).intakeCheckpoint as { sections: Record<string, Record<string, unknown>> };
+  const fact = factOfField("position", "dateAnswers", id);
+  expect("fact" in fact, `the step's date question ${id} answers a fact`).toBe(true);
+  const factId = "fact" in fact ? fact.fact : "";
+  const recordOf = () => ((checkpointNow().sections.caseFile?.facts ?? {}) as Record<string, { value?: unknown; question?: unknown; state?: unknown; seq?: unknown }>)[factId];
+  await expect.poll(() => { const added = recordOf(); return added && { state: added.state, value: added.value, question: added.question, numbered: typeof added.seq === "number" }; }, { timeout: 30_000, message: "the step-page date is recorded as its fact, from the step page" }).toEqual({ state: "answered", value: "2026-09-01", question: `position:${id}`, numbered: true });
+  const saved = checkpointNow();
+  const before = JSON.parse(facts) as { sections: Record<string, Record<string, unknown>> };
+  const recorded = { ...((saved.sections.caseFile?.facts ?? {}) as Record<string, unknown>) };
+  delete recorded[factId];
+  const rest = { ...saved, sections: { ...saved.sections, caseFile: { ...saved.sections.caseFile, facts: recorded } } };
+  const was = { ...before, sections: { ...before.sections, caseFile: { ...before.sections.caseFile, facts: before.sections.caseFile?.facts ?? {} } } };
+  // Compared key-order free: the database returns objects with their keys reordered (jsonb).
+  const canonical = (value: unknown): unknown => (Array.isArray(value) ? value.map(canonical) : value && typeof value === "object" ? Object.fromEntries(Object.keys(value as Record<string, unknown>).sort().map((key) => [key, canonical((value as Record<string, unknown>)[key])])) : value);
+  expect(JSON.stringify(canonical(rest)), "the step-page date changed nothing else in the intake").toBe(JSON.stringify(canonical(was)));
 
   await page.reload();
   await expect(page.getByTestId("case-file").or(page.getByTestId("case-guidance-outdated")).first()).toBeVisible({ timeout: 90_000 });

@@ -270,6 +270,7 @@
     "test:sc-asker": "node --import tsx scripts/verification/verifyScAsker.ts",
     "test:sc-one-asker": "node --import tsx scripts/verification/verifyScOneAsker.ts",
     "test:story-fact": "node --import tsx scripts/verification/verifyStoryFact.ts",
+    "test:cleared-unrecorded": "node --import tsx scripts/verification/verifyClearedUnrecorded.ts",
     "test:carry-baseline": "node --import tsx scripts/verification/verifyCarryBaseline.ts",
     "test:no-conflict-markers": "node --import tsx scripts/verification/verifyNoConflictMarkers.ts",
     "test:carry": "playwright test tests/browser/carry-end-to-end.spec.ts --reporter=line --workers=1",
@@ -277,6 +278,10 @@
     "carry:seed": "node --import tsx scripts/browser/carrySeed.ts",
     "test:chat-asks-by-fact": "node --import tsx scripts/verification/verifyChatAsksByFact.ts",
     "test:case-file-guard": "node --import tsx scripts/verification/verifyCaseFileGuard.ts",
+    "test:one-writer": "node --import tsx scripts/verification/verifyOneWriter.ts",
+    "test:fact-rails": "node --import tsx scripts/verification/verifyFactRails.ts",
+    "test:server-order": "node --import tsx scripts/verification/verifyServerOrder.ts",
+    "test:fact-coexistence": "node --import tsx scripts/verification/verifyFactCoexistence.ts",
     "test:no-page-held-answers": "node --import tsx scripts/verification/verifyNoPageHeldAnswers.ts",
     "test:kind-from-story": "node --import tsx scripts/verification/verifyKindFromStory.ts",
     "test:claim-kind-one-value": "node --import tsx scripts/verification/verifyClaimKindOneValue.ts",
@@ -308,7 +313,8 @@
     "test:clean-staging": "node --import tsx scripts/verification/verifyCleanStaging.ts",
     "test:pending-position-saves": "node --import tsx scripts/verification/verifyPendingPositionSaves.ts",
     "test:working-states": "node --import tsx scripts/verification/verifyWorkingStates.ts",
-    "test:carry-newly-measured": "node --import tsx scripts/verification/verifyCarryNewlyMeasured.ts"
+    "test:carry-newly-measured": "node --import tsx scripts/verification/verifyCarryNewlyMeasured.ts",
+    "test:review-writer": "tsx scripts/verification/verifyReviewWriter.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

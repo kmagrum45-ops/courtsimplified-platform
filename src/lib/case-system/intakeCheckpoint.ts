@@ -4,6 +4,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { updateMasterResult } from "./updateCaseRecord";
 import { CASE_REQUEST_TIMEOUT_MS, runCaseWrite } from "../../../app/builder/_components/positionSave";
 import { GUEST_INTAKE_SESSION_KEY } from "./storage/intakeStorageKeys";
+import { withStoredFacts } from "./caseFile/serverFacts";
 
 export type IntakeCourt = "small-claims" | "family" | "civil";
 export type Checkpoint = {
@@ -96,6 +97,10 @@ export async function saveCheckpoint(db: Db, ownerId: string, caseId: string, sn
     if ((existing.revision ?? null) !== expectedRevision) return { reject: "intake-conflict" };
     // Preserve every unrelated case field, including completed-case state.
     const previous = readCheckpoint(master.intakeCheckpoint, snapshot.courtPath, caseId);
+    // The fact record is the server's (G2(c), serverFacts.ts): the stored record is kept exactly, whatever the tab's
+    // snapshot holds, and the checks below compare against it. Before G2 the snapshot was written whole and erased the
+    // record written since (intakeCheckpoint.ts:115, cause read on staging, 1 Nov).
+    const tab = { ...snapshot, sections: withStoredFacts(snapshot.sections, existing.sections) };
     const workflow = record(master.workflowStatus);
     const proof = record(workflow.intakeReview);
     /*
@@ -109,8 +114,8 @@ export async function saveCheckpoint(db: Db, ownerId: string, caseId: string, sn
     // confirmed, changed or removed. Against the last save, a box typed into after Confirm counted
     // each save as a change and cancelled it (Chrome check of #514's preview, 29 Oct).
     const confirmedNow = Boolean(previous && reviewPhase(workflow, previous) === "user-confirmed");
-    const mustRenew = Boolean(previous && (proof.reviewedRevision || proof.confirmedRevision) && inputRevision(previous) === inputRevision(snapshot) && (confirmedNow ? confirmedAnswerChanged(workflow, previous!, snapshot) : existingFactChanged(previous!, snapshot)));
-    const committed = mustRenew ? { ...snapshot, inputRevision: snapshot.revision } : snapshot;
+    const mustRenew = Boolean(previous && (proof.reviewedRevision || proof.confirmedRevision) && inputRevision(previous) === inputRevision(tab) && (confirmedNow ? confirmedAnswerChanged(workflow, previous!, tab) : existingFactChanged(previous!, tab)));
+    const committed = mustRenew ? { ...tab, inputRevision: tab.revision } : tab;
     const changed = materialEdited || Boolean(previous && inputRevision(previous) !== inputRevision(committed));
     return { ...master, intakeCheckpoint: committed, ...(changed ? { workflowStatus: reconcileReview(workflow, previous ?? snapshot, committed, fromReview) } : {}) };
   }, 2, { requestTimeoutMs: CASE_REQUEST_TIMEOUT_MS }));
@@ -120,7 +125,7 @@ export async function createCheckpointCase(db: Db, ownerId: string, snapshot: Ch
   const { error } = await db.from("cases").insert({
     id: snapshot.flowId, user_id: ownerId, court_path: snapshot.courtPath,
     title: "Unfinished intake", status: "active", current_stage: "not-sure",
-    master_result: { source: "builder-created-shell", lifecycleStage: "intake-started", workflowStatus: { intakeCompleted: false, intakeReview: { version: 1 } }, intakeCheckpoint: snapshot },
+    master_result: { source: "builder-created-shell", lifecycleStage: "intake-started", workflowStatus: { intakeCompleted: false, intakeReview: { version: 1 } }, intakeCheckpoint: { ...snapshot, sections: withStoredFacts(snapshot.sections, {}) } },
   }).abortSignal(AbortSignal.timeout(CASE_REQUEST_TIMEOUT_MS)).select("id").single();
   if (!error) return;
   // An interrupted INSERT may have succeeded. Retry the SAME id, never another case.

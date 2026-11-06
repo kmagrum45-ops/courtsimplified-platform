@@ -3,6 +3,7 @@
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { isDateQuestionId } from "../../../src/lib/case-system/casePosition";
 import { intakeGuidanceHeaders, useIntakeReviewView, useIntakeState, useStory, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
+import { writeAnswer } from "../../_components/caseWrite";
 import { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import { inputRevision, remainingEssentialQuestions, reviewPhase } from "../../../src/lib/case-system/intakeReview";
 import { NOTHING_LEFT_TO_ASK } from "../../../src/lib/case-system/copy/askCopy";
@@ -947,7 +948,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         // Into the case record now, not after the next render: the turn that follows ("continueAfterKind",
         // below) reads the record, and must find the kind held (Chrome check of #542, 3 Nov, A2: "Got it:
         // <kind>" was followed by "What kind of dispute is this?", and that answer replaced the kind).
-        recovery?.put("guided", "matchedClaimType", usedKind);
+        if (recovery) writeAnswer(recovery, "guided", "matchedClaimType", usedKind, { facts: { claimKind: usedKind.claimTypeId } });
         setMatchedClaimType(usedKind);
         setEvidenceGuidance(result.evidenceGuidance ?? null);
         setClaimGuidance(result.claimGuidance ?? null);

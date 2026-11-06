@@ -13,7 +13,8 @@
  */
 
 import { applyPositionPatch, readCasePosition, type PositionPatch } from "../../../src/lib/case-system/casePosition";
-import { updateMasterResult } from "../../../src/lib/case-system/updateCaseRecord";
+import { positionFactWrites, saveWithFacts } from "../../../src/lib/case-system/caseFile/factSave";
+import type { FactWrite } from "../../../src/lib/case-system/caseFile/factRecord";
 import { situationOfCase, withoutSituationDates } from "../../../src/lib/case-system/situation/situation";
 import {
   addPendingPositionSave,
@@ -243,9 +244,11 @@ async function directSave(
     if (canonical(preview.position) === canonical(before)) return { outcome: "saved", databaseBusy: false };
 
     let refused = false;
-    const result = await updateMasterResult(
+    const court = courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? courtPath : null;
+    // The old copy (the position) and the facts it answers (the kind, the dates), in one guarded save (factSave.ts).
+    const result = await saveWithFacts(
       db,
-      { caseId },
+      { caseId, court },
       (stored) => {
         // Given up on (it ran past its time and the next save has gone ahead):
         // it must not land later and put an older choice over a newer one
@@ -263,8 +266,10 @@ async function directSave(
         // The situation's own date is read over the position, never written into it (situation.ts).
         return { ...stored, position: { ...applied.position, dateAnswers: withoutSituationDates(applied.position.dateAnswers, courtPath, situationOfCase(stored)) } };
       },
-      4,
-      { requestTimeoutMs: CASE_REQUEST_TIMEOUT_MS },
+      (changed) => positionFactWrites(patch, changed.position),
+      now,
+      // The facts go to the server, which numbers them (design §12): never numbered here.
+      { tries: 4, requestTimeoutMs: CASE_REQUEST_TIMEOUT_MS, sendFacts: (writes) => sendPositionFacts(caseId, writes) },
     );
     if (result.ok) return { outcome: "saved", databaseBusy: false };
     if (result.reason === "rejected" && result.error === UNCHANGED) return { outcome: "saved", databaseBusy: false };
@@ -277,6 +282,19 @@ async function directSave(
   } catch {
     return { outcome: "failed", databaseBusy: false };
   }
+}
+
+/** The position's facts, sent to POST /api/cases/facts with the person's own token (the server numbers them). */
+async function sendPositionFacts(caseId: string, writes: readonly FactWrite[]): Promise<void> {
+  const { supabase } = await import("../../../src/lib/supabase/client");
+  const token = (await supabase.auth.getSession()).data.session?.access_token;
+  if (!token) return;
+  await fetch("/api/cases/facts", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ caseId, facts: writes }),
+    signal: AbortSignal.timeout(CASE_REQUEST_TIMEOUT_MS),
+  });
 }
 
 /** Applies a position patch to the case through the person's own client. Exported for test:case-position. */

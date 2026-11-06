@@ -49,7 +49,8 @@ const source = (file: string) => existsSync(path.join(ROOT, file)) ? readFileSyn
 const PANEL = "app/_components/IntakeReviewPanel.tsx";
 const panel = source(PANEL);
 check(/const shownQuestions = reviewQuestionList\(checkpoint, savedMaster/.test(panel), "the review draws its one list from reviewQuestionList with the saved case");
-check(/put\(CASE_FILE_SECTION, "answeredInReview", withAnsweredInReview\(/.test(panel), "the review records an answered question in the case file's section (withAnsweredInReview)");
+// Directly, or through the one writer (caseWrite.ts writeAnswer, G2): the same record either way.
+check(/(?:put\(|writeAnswer\(recovery, )CASE_FILE_SECTION, "answeredInReview", withAnsweredInReview\(/.test(panel), "the review records an answered question in the case file's section (withAnsweredInReview)");
 check(!/\banswered[A-Za-z]*\s*,\s*set[A-Za-z]*\]\s*=\s*useState/.test(panel) && !/\banswered[A-Za-z]*\s*=\s*useRef/.test(panel), "the review holds no answered list in useState / useRef", `found in ${PANEL}`);
 check(!/\bseenOrder\b/.test(panel) && !/=\s*useRef<string\[\]>/.test(panel), "the review holds no order of its own (no seenOrder / useRef<string[]>)", `found in ${PANEL}`);
 check(!/(sessionStorage|localStorage)/.test(panel), "the review keeps nothing in the tab");
@@ -115,7 +116,7 @@ function scan(text: string, file: string): string[] {
  * only in the page, NOT fixed in this change, with why. Delete an entry when its place reads the saved case.
  */
 const KNOWN: Record<string, string> = {
-  "app/_components/AskedField.tsx:seen": "(b) the boxes that held words during this visit, so a box the person clears to type in is not refilled under their keys; a box emptied is saved at once to the case (\"small-claims\".filledFromCaseFile), which is what holds after a reload",
+  "app/_components/AskedField.tsx:seen": "(b) this visit only: the form boxes that held words while the page was open (asker.ts seenNow), so a box cleared to type a new value is never filled under the person's keys; the boxes filled from the case file are saved (\"small-claims\".filledFromCaseFile)",
   "app/builder/_components/IntelligenceOverviewPanel.tsx:pickedHere": "(c) the kind picked on the overview, shown at once after savePositionQueued saved it to the case position; read through caseFileOf on the next load",
   "app/builder/_components/SourcedQuestions.tsx:askedFor": "(c) mirrors the saved sourced.askedFor (useIntakeState), written back to the checkpoint every render",
   "app/builder/_components/StageAnswerPanel.tsx:chosenHere": "(b) wording only: names the step the person chose on this visit as theirs, not as a suggestion; the step itself is saved to the case position",
@@ -133,6 +134,45 @@ const stale = Object.keys(KNOWN).filter((entry) => !found.includes(entry));
 check(stale.length === 0, "every classed place still exists (delete an entry once its place reads the saved case)", stale.join("\n      "));
 const tabUses = files.filter((full) => /answered|initialAnswers|answeredInReview/.test(readFileSync(full, "utf8")) && /(sessionStorage|localStorage)\.setItem\([^)]*(answered|offered|turnedDown|declined|rejected)/i.test(readFileSync(full, "utf8")));
 check(tabUses.length === 0, "no answered / offered / turned-down list is written to sessionStorage or localStorage by name", tabUses.join(", "));
+
+// 4b. The tab's stores (founder, 4 Nov: "the stores in the no-page-held-answers check"). Every place app/ or src/
+// writes to the tab -- sessionStorage / localStorage setItem, the intake session copy (writeIntakeSession), IndexedDB --
+// is classed here by what it holds, counted per file, so a new store of the person's answers cannot appear unseen:
+//   (buffer) the tab's copy of the checkpoint, holding only what is not saved yet (design §4), read back by the saved record;
+//   (b) page state or a preference, no answer;
+//   (a) a person's answer kept only in the tab, NOT fixed here, with why.
+// A store that moved or was deleted is deleted here (a one-line deletion).
+// Any `.setItem(` (sessionStorage, localStorage, or a storage passed in under another name), the intake session copy's
+// callers, and IndexedDB.
+const STORE = /\??\.\s*setItem\s*\(|\bwriteIntakeSession\s*\(\s*(?!storage\b)|\bindexedDB\s*\.\s*open\s*\(/g;
+/** Every tab store found, as "file" -> count (comments left out). */
+function storesIn(text: string): number {
+  return [...text.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1").matchAll(STORE)].length;
+}
+const KNOWN_STORES: Record<string, { count: number; holds: string }> = {
+  "app/_components/IntakeRecovery.tsx": { count: 4, holds: "(buffer) the intake session copy (writeIntakeSession: the checkpoint as this tab holds it, with what is not saved yet, read back under the saved record on load; a guest's only record until they sign in), and the court-path finder's own hand-over (COURT_PATH_FINDER_KEY, page state)" },
+  "app/_components/HomeLocationGate.tsx": { count: 1, holds: "(buffer) the intake session copy, written as the home page hands the story and city to the intake (writeIntakeSession)" },
+  "app/login/page.tsx": { count: 2, holds: "(buffer) the intake session copy carried through sign-in (writeIntakeSession), so what was typed before signing in is not lost; saved to the account after" },
+  "src/lib/case-system/intakeCheckpoint.ts": { count: 1, holds: "(buffer) writeIntakeSession itself: the one place the intake session copy is written" },
+  "src/lib/case-system/storage/pendingPositionSaves.ts": { count: 1, holds: "(buffer) position saves sent but not answered yet, kept so a save cut off by a closing page is sent again (RESEND_HEADER), then settled" },
+  "app/builder/page.tsx": { count: 1, holds: "(b) the court-path finder's hand-over: whether a case has started, read once by the builder (COURT_PATH_FINDER_KEY)" },
+  "app/_components/NotSureCourtGuide.tsx": { count: 1, holds: "(b) the court-path finder's hand-over to the builder: province, city and the story typed there, read once (COURT_PATH_FINDER_KEY)" },
+  "src/lib/case-system/guestCarry.ts": { count: 1, holds: "(b) a guest's flow id and time, so the intake carried through sign-in is found again: no answer" },
+  "src/lib/case-system/intake/safetyNoticeOnce.ts": { count: 1, holds: "(b) which safety notices this browser has shown (fingerprints only): no answer" },
+  "src/lib/content-library/acknowledgement.ts": { count: 1, holds: "(b) the first-use notice acknowledged in this browser: no answer" },
+  "app/builder/_components/CourtAssistantChat.tsx": { count: 2, holds: "(a) NOT FIXED: the court assistant chat's messages (the person's typed words among them) kept in localStorage, and handed to the court path's page once (ROUTE_TRANSFER_KEY); a case-data writer of group G6 (CASE_CORE_DESIGN.md §10), moved with it" },
+  "src/lib/case-system/builderDraftStorage.ts": { count: 3, holds: "(a) NOT FIXED: the older compact builder draft (other party, facts, goal, ...) in the tab; no caller in app/ or src/ today (dead code, deleted with group G6)" },
+};
+const storeFiles: string[] = [];
+const walkAll = (dir: string) => { if (!existsSync(dir)) return; for (const name of readdirSync(dir)) { const full = path.join(dir, name); if (statSync(full).isDirectory()) { if (name !== "node_modules" && !name.startsWith(".")) walkAll(full); } else if (/\.tsx?$/.test(name) && !name.endsWith(".d.ts")) storeFiles.push(full); } };
+walkAll(path.join(ROOT, "app"));
+walkAll(path.join(ROOT, "src"));
+const storesFound = Object.fromEntries(storeFiles.map((full) => [path.relative(ROOT, full).split(path.sep).join("/"), storesIn(readFileSync(full, "utf8"))] as const).filter(([, count]) => count > 0));
+const unclassed = Object.entries(storesFound).filter(([file, count]) => !KNOWN_STORES[file] || KNOWN_STORES[file].count < count).map(([file, count]) => `${file}: ${count} store(s), ${KNOWN_STORES[file]?.count ?? 0} classed`);
+check(unclassed.length === 0, "every tab store (sessionStorage / localStorage / the intake session copy / IndexedDB) is classed by what it holds (none new)", unclassed.join("\n      "));
+const staleStores = Object.entries(KNOWN_STORES).filter(([file, entry]) => (storesFound[file] ?? 0) < entry.count).map(([file, entry]) => `${file}: classed ${entry.count}, found ${storesFound[file] ?? 0}`);
+check(staleStores.length === 0, "every classed tab store still exists (lower or delete the entry when one moves)", staleStores.join("\n      "));
+check(storesIn("sessionStorage.setItem(\"answered\", JSON.stringify(list));\nstore?.setItem(\"k\", v);\n// localStorage.setItem(\"x\", \"y\")") === 2, "self-test: a planted sessionStorage.setItem and a store passed under another name are caught by the store scan, and a commented one is not");
 
 // 5. Self-test.
 check(scan("const [answeredHere, setAnsweredHere] = useState<string[]>([]);\nconst seenOrder = useRef<string[]>([]);", "planted.tsx").includes("planted.tsx:answeredHere"), "self-test: a planted useState answeredHere list is caught by the scan");

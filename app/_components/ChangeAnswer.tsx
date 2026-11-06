@@ -6,7 +6,7 @@
  *
  * Wherever an answer shows as held ("already given; it is not asked again" in the review, "What we
  * have so far" on the case page through the review's ?change=<fact>), this opens that fact's own
- * choices and saves through the one write path: caseFile.ts withChange, put as the case file's
+ * choices and saves through the one write path: caseWrite.ts writeChange (caseFile.ts withChange), put as the case file's
  * change record (CASE_FILE_SECTION.changes), a touched answer from the review. caseFileOf applies the
  * record over every older copy, and the review's confirmation rule counts it as a change of a
  * confirmed fact (intakeReview.ts materialFacts), so a confirmed intake asks to be confirmed again.
@@ -24,7 +24,8 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { useIntakeRecovery } from "./IntakeRecovery";
 import { holdOpenEdit } from "./openEdits";
-import { CASE_FILE_SECTION, withChange, type ChangeInput, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import { type ChangeInput, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import { writeChange } from "./caseWrite";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { CIVIL_ISSUE_OPTIONS, FAMILY_ISSUE_OPTIONS } from "../builder/_components/guidedFields";
 import { dateAnswerCheck } from "../../src/lib/case-system/dates";
@@ -91,10 +92,11 @@ export default function ChangeAnswer({ fact, court, startOpen = false, current, 
   const choices = changeChoices(fact, court);
   const label = FACT_LABEL[fact];
   const editId = useId();
-  /** The one write path (caseFile.ts withChange): the change record, a touched answer from the review. */
+  /** The one write path (caseWrite.ts writeChange): the change record, a touched answer from the review. */
   const save = (change: ChangeInput) => {
     if (!recovery) return;
-    recovery.put(CASE_FILE_SECTION, "changes", withChange(recovery.read(CASE_FILE_SECTION, "changes"), fact, change), true, true, true);
+    // With the server's number for the fact this tab saw (G2(b)), so a change made on an older view is never applied silently.
+    writeChange(recovery, fact, change);
     setOpen(false); setTyped(""); setNote("");
   };
   /**

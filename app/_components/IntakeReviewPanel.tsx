@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import MunicipalNoticeFirst from "../builder/_components/MunicipalNoticeFirst";
 import { municipalNoticeFirst } from "../../src/lib/content-library/municipalNoticeFirst";
 import { useIntakeRecovery } from "./IntakeRecovery";
+import { writeAnswer } from "./caseWrite";
 import { NOTICE_GIVEN_EVENT } from "./FirstUseAcknowledgement";
 import { familyTimelineValues, withServedDate } from "../builder/_components/guidedFields";
 import { withFullStop } from "../builder/_components/GuidedFormChat";
@@ -97,7 +98,7 @@ export default function IntakeReviewPanel() {
   // Recorded in the saved case (the case file's answeredInReview), never in this page, so a reload,
   // a second tab or another screen shows the same list (fault 1, 31 Oct). Recorded before the answer
   // itself is put (not touched itself), so the answer's own save carries it.
-  const keepShown = (id: string) => recovery?.put(CASE_FILE_SECTION, "answeredInReview", withAnsweredInReview({ answeredInReview: recovery.read(CASE_FILE_SECTION, "answeredInReview") }, id).answeredInReview, false);
+  const keepShown = (id: string) => { if (recovery) writeAnswer(recovery, CASE_FILE_SECTION, "answeredInReview", withAnsweredInReview({ answeredInReview: recovery.read(CASE_FILE_SECTION, "answeredInReview") }, id).answeredInReview, { touched: false }); };
   const [fieldNotes, setFieldNotes] = useState<Record<string, string>>({});
   // ?change=<fact>: the case page's "Change" for that fact (CaseFilePanel), opened here with its choices.
   const [changeFact] = useState<SlotFact | null>(() => {
@@ -132,9 +133,9 @@ export default function IntakeReviewPanel() {
   const shownQuestions = reviewQuestionList(checkpoint, savedMaster ?? undefined);
   const unknowns = Array.isArray(checkpoint.sections.builder?.initialUnknowns) ? checkpoint.sections.builder.initialUnknowns as string[] : [];
   /** Fault 2 (31 Oct): an answer given to a question marked "I do not know yet" is the latest answer, so the mark goes (latest answer wins). */
-  const clearUnknown = (id: string) => { const current = recovery?.read("builder", "initialUnknowns"); if (Array.isArray(current) && current.includes(id)) recovery?.put("builder", "initialUnknowns", current.filter(item => item !== id), true, false, true); };
+  const clearUnknown = (id: string) => { const current = recovery?.read("builder", "initialUnknowns"); if (recovery && Array.isArray(current) && current.includes(id)) writeAnswer(recovery, "builder", "initialUnknowns", current.filter(item => item !== id), { fromReview: true }); };
   /** "I do not know yet" for a review question, ticked or taken back (the review's own record, builder.initialUnknowns). */
-  const setUnknown = (id: string, unknown: boolean) => { const current = Array.isArray(recovery.read("builder", "initialUnknowns")) ? recovery.read("builder", "initialUnknowns") as string[] : []; recovery.put("builder", "initialUnknowns", unknown ? [...current.filter(item => item !== id), id] : current.filter(item => item !== id), true, false, true); };  const unknownBox = (id: string) => <label className="mt-1 block"><input type="checkbox" data-testid="intake-unknown" checked={unknowns.includes(id)} disabled={busy} onChange={event => setUnknown(id, event.target.checked)} /> I do not know yet</label>;
+  const setUnknown = (id: string, unknown: boolean) => { const current = Array.isArray(recovery.read("builder", "initialUnknowns")) ? recovery.read("builder", "initialUnknowns") as string[] : []; writeAnswer(recovery, "builder", "initialUnknowns", unknown ? [...current.filter(item => item !== id), id] : current.filter(item => item !== id), { fromReview: true }); };  const unknownBox = (id: string) => <label className="mt-1 block"><input type="checkbox" data-testid="intake-unknown" checked={unknowns.includes(id)} disabled={busy} onChange={event => setUnknown(id, event.target.checked)} /> I do not know yet</label>;
   const suggestions = suggestInitialAnswers(checkpoint);
   const story = storyOf(checkpoint.sections);
   const city = locationOf(checkpoint.sections)?.city ?? "";
@@ -203,12 +204,12 @@ export default function IntakeReviewPanel() {
     if (!recovery) return;
     // The day of service lives in the Family Timeline, as the form keeps it.
     if (entry.section === "family" && entry.field === "servedDate") {
-      recovery.put("family", "timeline", withServedDate(String(recovery.read("family", "timeline") ?? ""), String(value)), true, true, true, true);
+      writeAnswer(recovery, "family", "timeline", withServedDate(String(recovery.read("family", "timeline") ?? ""), String(value)), { external: true, fromReview: true, reaffirm: true, facts: { servedDate: value } });
       return;
     }
     // Given here, even unchanged, it is an answer to the current story (#471 re-test).
-    if (entry.nested) recovery.put(entry.section, entry.nested, { ...(recovery.read(entry.section, entry.nested) as Record<string, unknown>), [entry.field]: value }, true, true, true, entry.field);
-    else recovery.put(entry.section, entry.field, value, true, true, true, true);
+    if (entry.nested) writeAnswer(recovery, entry.section, entry.nested, { ...(recovery.read(entry.section, entry.nested) as Record<string, unknown>), [entry.field]: value }, { external: true, fromReview: true, reaffirm: entry.field });
+    else writeAnswer(recovery, entry.section, entry.field, value, { external: true, fromReview: true, reaffirm: true });
   }
   /**
    * An answer to an earlier version of the story that has no line or question here (the
@@ -229,11 +230,11 @@ export default function IntakeReviewPanel() {
     if (inner !== undefined) {
       const record = { ...((current as Record<string, unknown> | undefined) ?? {}) };
       if (!keep) delete record[inner];
-      recovery.put(section, field, record, true, true, true, keep ? inner : undefined);
+      writeAnswer(recovery, section, field, record, { external: true, fromReview: true, reaffirm: keep ? inner : undefined });
       return;
     }
     const empty = Array.isArray(current) ? [] : current && typeof current === "object" ? {} : typeof current === "string" ? "" : null;
-    recovery.put(section, field, keep ? current : empty, true, true, true, keep ? true : undefined);
+    writeAnswer(recovery, section, field, keep ? current : empty, { external: true, fromReview: true, reaffirm: keep ? true : undefined });
   }
   /** The person's answer to an initial question; a chosen side also fills an empty side field in the form. */
   /** A civil or Family remaining question, answered in the panel: written into that form's own field. */
@@ -246,7 +247,7 @@ export default function IntakeReviewPanel() {
     if (court === "family" && questionId === "servedDate") {
       // Family keeps the day of service in its Timeline, as the form does.
       keepShown(questionId);
-      recovery.put("family", "timeline", withServedDate(String(recovery.read("family", "timeline") ?? ""), String(value)), true, true, true, true);
+      writeAnswer(recovery, "family", "timeline", withServedDate(String(recovery.read("family", "timeline") ?? ""), String(value)), { external: true, fromReview: true, reaffirm: true, facts: { servedDate: value } });
       clearUnknown(questionId);
       return;
     }
@@ -256,19 +257,21 @@ export default function IntakeReviewPanel() {
     // (#470 re-test: re-choosing the same side never cleared "earlier version").
     if (court === "civil") {
       const input = (recovery.read("civil", "input") as Record<string, unknown> | undefined) ?? {};
-      recovery.put("civil", "input", { ...input, [questionId]: value }, true, true, true, questionId);
-    } else recovery.put("family", questionId, value, true, true, true, true);
+      writeAnswer(recovery, "civil", "input", { ...input, [questionId]: value }, { external: true, fromReview: true, reaffirm: questionId });
+    } else writeAnswer(recovery, "family", questionId, value, { external: true, fromReview: true, reaffirm: true });
     // Chosen here by the person, so their own side and filings (stageFromAnswers.ts).
     if (questionId === "yourRole") {
       const set = recovery.read(court, "personSet");
-      recovery.put(court, "personSet", [...new Set([...(Array.isArray(set) ? set : []), "yourRole"])], false, true);
+      writeAnswer(recovery, court, "personSet", [...new Set([...(Array.isArray(set) ? set : []), "yourRole"])], { touched: false, external: true });
     }
-    if (questionId === (court === "civil" ? "documents" : "filedDocuments")) recovery.put(court, "personDocuments", Array.isArray(value) ? value : [value], false, true);
+    if (questionId === (court === "civil" ? "documents" : "filedDocuments")) writeAnswer(recovery, court, "personDocuments", Array.isArray(value) ? value : [value], { touched: false, external: true });
   }
   /** A typed answer to a civil or Family question: kept only once the field's own check passes. */
   function typedField(questionId: string, needsMore?: (value: string) => string | null) {
     const typed = (dates[questionId] ?? "").trim();
-    if (!typed) return;
+    // An answered box emptied and left: a removal (founder, 2 Nov and 4 Nov: clearing an answered box always records
+    // a removal; before G2 nothing was saved and the old answer stayed, in all three courts).
+    if (!typed) { const held = fieldValue(questionId); if (dates[questionId] !== undefined && !(held === undefined || held === null || held === "" || (Array.isArray(held) && held.length === 0))) answerField(questionId, ""); return; }
     const more = needsMore?.(typed) ?? null;
     setFieldNotes(current => ({ ...current, [questionId]: more ?? "" }));
     if (!more) answerField(questionId, typed);
@@ -280,11 +283,11 @@ export default function IntakeReviewPanel() {
     // straight away saved the click over the amount (re-test round 7).
     const now = recovery.getReview().checkpoint;
     keepShown(questionId);
-    recovery.put("builder", "initialAnswers", { ...initialAnswersOf({ ...now, sections: freshSections(now) }), [questionId]: value }, true, false, true, questionId);
+    writeAnswer(recovery, "builder", "initialAnswers", { ...initialAnswersOf({ ...now, sections: freshSections(now) }), [questionId]: value }, { fromReview: true, reaffirm: questionId });
     clearUnknown(questionId);
     const input = recovery.read("small-claims", "input") as Record<string, unknown> | undefined;
     if (questionId === "sc-orient-role" && input && !["plaintiff", "defendant"].includes(String(input.yourRole))) {
-      recovery.put("small-claims", "input", { ...input, yourRole: value.includes("defendant") ? "defendant" : "plaintiff" }, true, true, true);
+      writeAnswer(recovery, "small-claims", "input", { ...input, yourRole: value.includes("defendant") ? "defendant" : "plaintiff" }, { external: true, fromReview: true });
     }
   }
   const needs = [
@@ -372,7 +375,7 @@ export default function IntakeReviewPanel() {
           {bank?.answerType === "choice" && Array.isArray(bank.choices) && <div className="mt-1 flex flex-wrap gap-2">{bank.choices.map(choice => <button key={choice} type="button" disabled={busy} aria-pressed={initialAnswersOf(fresh)[question.id] === choice} onClick={() => answer(question.id, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice}</button>)}{suggested && !answered && bank.choices.includes(suggested) ? <UseSuggestion testId="intake-use-suggestion" disabled={busy} onUse={() => answer(question.id, suggested)} what={suggested} className="rounded border px-3 py-1" /> : null}</div>}
           {bank?.answerType === "yes-no" && <div className="mt-1 flex flex-wrap gap-2">{["Yes", "No"].map(choice => <button key={choice} type="button" disabled={busy} aria-pressed={initialAnswersOf(fresh)[question.id] === choice} onClick={() => answer(question.id, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice}</button>)}</div>}
           {/* Typed answers save when the person leaves the box (Enter too): a value typed but never "used" counted for nothing (re-test round 7). */}
-          {bank && ["date", "amount", "short-text"].includes(bank.answerType) && <div className="mt-1 flex flex-wrap items-center gap-2"><input type="text" placeholder={bank.answerType === "date" ? "For example: August 2026, or 2026-08-15" : bank.answerType === "amount" ? "For example: $8,500" : "Your answer"} aria-label={`Answer: ${question.label}`} value={dates[question.id] ?? (answered ? caseFileWords(question.id) ?? String(initialAnswersOf(fresh)[question.id] ?? "") : "")} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => { const typed = dates[question.id]; if (typed === undefined || !typed.trim()) return; const more = dateAnswerCheck(question.label, typed.trim(), { dateQuestion: bank.answerType === "date", oneDate: isDateQuestionId(question.id) }); setFieldNotes(current => ({ ...current, [question.id]: more ?? "" })); if (!more) answer(question.id, typed.trim()); }} onKeyDown={event => { if (event.key === "Enter") (event.target as HTMLInputElement).blur(); }} className="rounded border px-2 py-1" />{/* A suggestion is a button, never a filled-looking box that was not saved (re-test round 7). */}{suggested && !answered && <UseSuggestion testId="intake-use-suggestion" disabled={busy} onUse={() => answer(question.id, suggested)} what={suggested} className="rounded border px-3 py-1" />}</div>}
+          {bank && ["date", "amount", "short-text"].includes(bank.answerType) && <div className="mt-1 flex flex-wrap items-center gap-2"><input type="text" placeholder={bank.answerType === "date" ? "For example: August 2026, or 2026-08-15" : bank.answerType === "amount" ? "For example: $8,500" : "Your answer"} aria-label={`Answer: ${question.label}`} value={dates[question.id] ?? (answered ? caseFileWords(question.id) ?? String(initialAnswersOf(fresh)[question.id] ?? "") : "")} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => { const typed = dates[question.id]; if (typed === undefined) return; if (!typed.trim()) { if (answered) answer(question.id, ""); return; } const more = dateAnswerCheck(question.label, typed.trim(), { dateQuestion: bank.answerType === "date", oneDate: isDateQuestionId(question.id) }); setFieldNotes(current => ({ ...current, [question.id]: more ?? "" })); if (!more) answer(question.id, typed.trim()); }} onKeyDown={event => { if (event.key === "Enter") (event.target as HTMLInputElement).blur(); }} className="rounded border px-2 py-1" />{/* A suggestion is a button, never a filled-looking box that was not saved (re-test round 7). */}{suggested && !answered && <UseSuggestion testId="intake-use-suggestion" disabled={busy} onUse={() => answer(question.id, suggested)} what={suggested} className="rounded border px-3 py-1" />}</div>}
           {bank && fieldNotes[question.id] ? <p data-testid="intake-field-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[question.id]}</p> : null}
           {/* Civil and Family: the form's own field, answerable here (#469 re-test). */}
           {!bank && (() => {

@@ -20,7 +20,7 @@
  * are.
  */
 
-import { caseFileOfMaster, claimKindOfMaster } from "./caseFile/caseFileOfMaster";
+import { caseFileOfMaster, claimKindOfMaster, otherPartyOfMaster } from "./caseFile/caseFileOfMaster";
 import { changedWords, type ClaimKindHeld } from "./caseFile/caseFile";
 import { nameRecorded } from "./privacy/modelPayloadNames";
 import { readCasePosition, settledStage, suggestedDatesFromAnswers, type CasePosition } from "./casePosition";
@@ -140,7 +140,7 @@ export function readCaseRecord(masterResult: unknown, courtPathColumn?: string |
   const claimKind = claimKindOfMaster(master, courtPath);
   // A fact the person changed or removed with "Change" is the case file's, never the analysis copy's (rule 6, 31 Oct).
   const changedFile = caseFileOfMaster(master, courtPath);
-  const latest = (fact: "amount" | "otherParty", copy: string) => { const said = changedWords(changedFile, fact); return said === undefined ? copy : said ?? ""; };
+  const latest = (fact: "amount", copy: string) => { const said = changedWords(changedFile, fact); return said === undefined ? copy : said ?? ""; };
 
   // Guided answers the person confirmed (saved as intakeAnswers since
   // 2026-10-07), then their own dates on the case page, which win.
@@ -168,7 +168,8 @@ export function readCaseRecord(masterResult: unknown, courtPathColumn?: string |
     claimTypeId: claimKind.claimTypeId,
     claimKind,
     yourName: text(intake.yourName) || text(extra.yourName) || text(civil.yourName),
-    otherParty: latest("otherParty", text(intake.otherParty) || text(extra.otherParty) || text(civil.otherParty)),
+    // The case file's other party (a removal included); an older saved case's analysis copy only when it holds none (G1a).
+    otherParty: otherPartyOfMaster(master, courtPath, changedFile),
     // Small Claims saves its court file number as extra.claimNumber (SmallClaimsIntake).
     courtFileNumber: text(civil.courtFileNumber) || text(extra.courtFileNumber) || text(intake.courtFileNumber) || text(extra.claimNumber),
     city: text(extra.yourCity) || text(extra.city) || text(civil.city),
@@ -202,17 +203,21 @@ export function storedIntakeValues(masterResult: unknown): Record<string, string
   const civil = asRecord(extra.civilInput);
   const position = readCasePosition(master, text(intake.courtPath) || null);
   const pick = (...values: unknown[]) => values.map(text).find(Boolean) ?? "";
+  // The case file of the saved case: its fact record and change record win over the copies below.
+  const file = caseFileOfMaster(master, text(intake.courtPath) || null);
+  const latestOf = (fact: "amount" | "wants", copy: string) => { const said = changedWords(file, fact); return said === undefined ? copy : said ?? ""; };
   const out: Record<string, string | string[]> = {
     facts: userStory(intake),
     yourName: pick(intake.yourName, extra.yourName, civil.yourName),
-    otherParty: pick(intake.otherParty, extra.otherParty, civil.otherParty),
+    // Through the case file (G1a, 1 Nov): a removal or change wins; an older case's copy only when it holds none.
+    otherParty: otherPartyOfMaster(master, file.area, file),
     yourRole: pick(extra.yourRole, civil.yourRole),
     caseStage: pick(position.confirmedStage, intake.caseStage, civil.caseStage),
-    amountClaimed: pick(extra.amountClaimed, civil.amountClaimed),
+    amountClaimed: latestOf("amount", pick(extra.amountClaimed, civil.amountClaimed)),
     damagesBreakdown: pick(extra.damagesBreakdown, civil.damagesBreakdown),
     timeline: pick(intake.timeline, civil.timeline),
     evidence: pick(intake.evidence, civil.evidence),
-    goal: pick(intake.goal, extra.goal),
+    goal: latestOf("wants", pick(intake.goal, extra.goal)),
     legalRemedy: pick(extra.legalRemedy, civil.legalRemedy),
     serviceDetails: pick(extra.serviceDetails, civil.serviceDetails),
     settlementEfforts: pick(extra.settlementEfforts, civil.settlementEfforts),

@@ -16,6 +16,7 @@
  */
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useIntakeRecovery, useIntakeReviewView, useIntakeState } from "./IntakeRecovery";
+import { useCaseField } from "./useCaseField";
 import { caseFileOf, isUnsureAnswer } from "../../src/lib/case-system/caseFile/caseFile";
 import { askOf, filledToFollow, formFill, seenNow } from "../../src/lib/case-system/intake/asker";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "../../src/lib/case-system/copy/askCopy";
@@ -59,7 +60,7 @@ export function useHeldFill(values: Record<string, unknown>, apply: (fill: Recor
   // The case file never counts a box's words the fill put there as an answer (caseFile.ts, "small-claims".filledWords).
   const file = useCaseFile();
   const [filled, setFilled] = useIntakeState<string[]>("small-claims", "filledFromCaseFile", []);
-  const [filledWords, setFilledWords] = useIntakeState<Record<string, string>>("small-claims", "filledWords", {});
+  const [filledWords, setFilledWords] = useCaseField<Record<string, string>>("small-claims", "filledWords", {});
   // The boxes that held words during this visit (asker.ts seenNow), updated as each render's values arrive: a
   // box the person clears to type a new value is never filled under their keys ("$6,400.00$7,250", local carry
   // runs 41393577468 / 41393585578).

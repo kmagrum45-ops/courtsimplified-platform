@@ -413,9 +413,13 @@ function personsDatesWin(source: string): boolean {
   // read it, and the pages send one save at a time.
   // 2026-10-14: through the one shared save path, which holds that guard.
   const shared = read("src/lib/case-system/updateCaseRecord.ts");
+  // 2026-11-04 (case core G2): through the one writer's saveWithFacts (factSave.ts), which saves the position and
+  // the facts it answers in that same guarded save.
+  const factSave = read("src/lib/case-system/caseFile/factSave.ts");
+  const throughWriter = /saveWithFacts\(/.test(route) && /export async function saveWithFacts[\s\S]*?updateMasterResult\(/.test(factSave);
   check(
     "the position route writes only if nothing else wrote since it read",
-    /updateMasterResult\(/.test(route) && /write = write\.eq\("updated_at", fresh\.updated_at\)/.test(shared),
+    (/updateMasterResult\(/.test(route) || throughWriter) && /write = write\.eq\("updated_at", fresh\.updated_at\)/.test(shared),
   );
   for (const file of ["app/builder/page.tsx", "app/builder/_components/StageAnswerPanel.tsx", "app/cases/[id]/page.tsx"]) {
     const source = read(file);

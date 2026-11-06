@@ -26,6 +26,10 @@ import { WorkingButton } from "./Working";
 import { saveThenLeave } from "./leaveAfterSave";
 import { courtOfSavedRow, SAVED_COURT_COLUMNS } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
 import { CASE_FILE_SECTION, caseFileOf, followAnswer } from "../../src/lib/case-system/caseFile/caseFile";
+import { storedFacts, withStoredFacts } from "../../src/lib/case-system/caseFile/serverFacts";
+import NotSavedYet from "./NotSavedYet";
+import { afterSend, pendingWrites, type SendResponse } from "../../src/lib/case-system/caseFile/pendingFacts";
+import { CASE_REQUEST_TIMEOUT_MS } from "../builder/_components/positionSave";
 
 async function readAuthSession() {
   const request = new IntakeRequest();
@@ -205,6 +209,8 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         const initialConflict = Boolean(session && row && session.serverRevision !== serverRevision && session.checkpoint.revision !== serverRevision);
         let snapshot: Checkpoint = session?.checkpoint ?? saved ?? { version: 1, flowId, courtPath: court, revision: crypto.randomUUID(), sections: {} };
         snapshot = JSON.parse(JSON.stringify(snapshot)) as Checkpoint;
+        // The saved fact record is shown, never the tab's older copy of it (G2(c), serverFacts.ts).
+        if (saved) snapshot = { ...snapshot, sections: withStoredFacts(snapshot.sections, saved.sections) };
         snapshot.inputRevision ??= snapshot.revision;
         // One copy of the story: older checkpoints move theirs into sections.story once, here.
         const unmigrated = snapshot;
@@ -266,6 +272,26 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         // a failed save, or no case created yet). Default values a form writes are not.
         const cache = () => writeIntakeSession(sessionStorage, { version: 2, ownerId, caseId, serverRevision, checkpoint: snapshot, ...(!ownerId ? { workflowStatus } : { pending: dirty || !caseId, ...(session?.carried && !caseId ? { carried: true } : {}) }) });
         const failure = (message: string) => { if (current()) { setFailed(true); setNotice(message); } };
+        // G2(b): this tab's unsent edits go to the server, which numbers each one it accepts (POST /api/cases/facts).
+        const sendFacts = async (token: string | undefined) => {
+          const sending = snapshot.sections[CASE_FILE_SECTION]?.changes;
+          const writes = caseId ? pendingWrites(sending) : [];
+          if (!writes.length || !token) return;
+          const response = await fetch("/api/cases/facts", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+            body: JSON.stringify({ caseId, facts: writes }),
+            signal: AbortSignal.timeout(CASE_REQUEST_TIMEOUT_MS),
+          });
+          if (!current()) throw new Error("The intake account or case changed. Please retry in the current case.");
+          if (!response.ok) throw new Error("Your answers could not be saved. Your pending text remains in this tab. Please retry before continuing.");
+          const answer = (await response.json()) as SendResponse;
+          snapshot = { ...snapshot, revision: crypto.randomUUID(), sections: afterSend(snapshot.sections, sending, answer) };
+          remember(snapshot);
+          dirty = true;
+          cache();
+          emit();
+        };
         const flush = async (signal?: AbortSignal): Promise<void> => {
           signal?.throwIfAborted();
           // Let a discrete input event commit its last state and effects before taking the snapshot.
@@ -280,6 +306,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             const { data: { session: auth } } = await readAuthSession();
             if (!current() || auth?.user.id !== ownerId) throw new Error("Sign in again to the same account before saving. Your pending text remains in this tab.");
             signal?.throwIfAborted();
+            await sendFacts(auth.access_token);
             const sent = snapshot;
             let savedInput = inputRevision(sent);
             if (caseId && sent.revision === serverRevision) { dirty = false; return; }
@@ -289,6 +316,8 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
               if (!current()) throw new Error("The account changed while saving.");
               caseId = sent.flowId;
               workflowStatus = { intakeCompleted: false, intakeReview: { version: 1 } };
+              // Edits made before the case existed are sent now; the next save keeps the record the server wrote.
+              await sendFacts(auth.access_token);
             } else {
               // The saved record follows this tab: an edit made while reviewing stays in review.
               const outcome = await saveCheckpoint(supabase, ownerId, caseId, sent, serverRevision, current, inputRevision(sent) !== acknowledgedInput, reviewPhase(workflowStatus, sent) === "reviewing");
@@ -301,6 +330,8 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
                 savedMaster = record(outcome.master);
                 const committed = readCheckpoint(outcome.master.intakeCheckpoint, court, caseId);
                 if (committed) savedInput = inputRevision(committed);
+                // The server kept its fact record over this tab's copy: adopt it, so the screens show it (G2(c)).
+                if (committed && JSON.stringify(storedFacts(committed.sections)) !== JSON.stringify(storedFacts(snapshot.sections))) snapshot = { ...snapshot, sections: withStoredFacts(snapshot.sections, committed.sections) };
                 if (committed && inputRevision(snapshot) === inputRevision(sent) && inputRevision(committed) !== inputRevision(sent)) { snapshot = { ...snapshot, inputRevision: inputRevision(committed) }; remember(snapshot); }
               }
             }
@@ -552,6 +583,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
       {conflict && recovery?.getCaseId() && <a className="underline" href={`/builder?path=${court}&caseId=${recovery.getCaseId()}`} target="_blank" rel="noopener noreferrer">Open the saved intake separately</a>}
       {!recovery && failed && <> · <a className="underline" href={`/builder?path=${court}`}>Start a new intake</a></>}
     </div>
+    {recovery ? <NotSavedYet /> : null}
     {recovery ? <SituationGate court={court} ownerId={recovery.ownerId ?? null}><IntakeReviewPanel />{children}</SituationGate> : null}
   </Context.Provider>;
 }
