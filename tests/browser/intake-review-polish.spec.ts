@@ -7,7 +7,9 @@
  *    no forced "I do not know yet";
  *  - stored choices read "Not sure", not "not-sure"; Family's boxes carry the
  *    form's labels, not code names; empty optional details are hidden;
- *  - starting a new case warns before it discards an unsaved one.
+ *  - starting a new case warns before it discards an unsaved one;
+ *  - "Start the questions again" keeps every answer the person gave, even after the story is rewritten from start
+ *    to finish (site owner, 6 Nov). NOT BUILT YET: a "your story now says X, you answered Y: keep or use" prompt.
  */
 import { expect, test, type Page } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
@@ -346,6 +348,9 @@ test("Small Claims: questions that read an earlier story block every route's nex
 
 // Re-test round 7: the whole Small Claims restart path, start to next step, with no
 // "I do not know yet". The analysis is answered offline by the real engine.
+// Since 6 Nov (site owner) the restart keeps every answer the person gave, even when the story is rewritten from start
+// to finish; the person changes any of them in the review. NOT BUILT YET: a prompt saying "your story now says X, you
+// answered Y: keep yours or use the story's", so a rewrite that contradicts an answer is pointed out rather than kept quietly.
 test("Small Claims: answer, confirm, change the story, start again once, answer in the review, confirm, reach the next step", async ({ page }) => {
   test.setTimeout(240_000);
   await fakeAccount(page);
@@ -386,27 +391,30 @@ test("Small Claims: answer, confirm, change the story, start again once, answer 
   await page.getByRole("button", { name: "Start the questions again from my story" }).filter({ visible: true }).first().click();
   await expect(page.getByTestId("story-changed-beside-button"), "one click clears the block").toHaveCount(0);
 
-  // The review asks again, with the story's date (June 10, not the July 10 due date) suggested.
-  await question("sc-orient-when-happened").getByRole("button", { name: "Use the suggestion: 2026-06-10" }).click();
+  // The restart keeps every answer the person gave, even for a story rewritten from start to finish (site owner, 6 Nov:
+  // test:restart-keeps-answers). It used to ask again here, offering the new story's date (2026-06-10) and taking new answers.
+  // Nothing from the earlier answers is asked again, and no suggestion from the new story replaces them.
+  await expect(question("sc-orient-when-happened").getByRole("button", { name: /^Use the suggestion/ }), "the date given is offered again from the new story").toHaveCount(0);
+  await expect(question("sc-orient-when-happened"), "the date given is not kept").toContainText("Answered: 2026-05-12");
+  await expect(panel, "the kind given is not kept").toContainText("Work or a service you paid for");
+  await expect(page.locator('[data-testid="intake-initial-question"][data-answered="false"]'), "a question the person answered is asked again").toHaveCount(0);
   // A story change never sets the situation answers aside: the side is not asked again.
   await expect(question("sc-orient-role")).toHaveCount(0);
-  await question("sc-orient-dispute-category").getByRole("button", { name: /^Unpaid money owed to you/ }).click();
-  // Typed values count when the box is left; no separate button.
-  await question("sc-amount-claimed").getByLabel(/^Answer: /).fill("$8,500");
-  await question("sc-amount-claimed").getByLabel(/^Answer: /).press("Tab");
   await expect(question("sc-claim-filed")).toHaveCount(0);
-  await question("sc-remedy-sought").getByLabel(/^Answer: /).fill("Synthetic: payment of the invoice");
-  await question("sc-remedy-sought").getByLabel(/^Answer: /).press("Tab");
+  await expect(panel.getByLabel("Review: What is the total dollar amount you are claiming?"), "the amount given is not kept").toHaveValue("$9,000");
+  await expect(panel.getByLabel("Review: What outcome are you asking the court to order?"), "the outcome given is not kept").toHaveValue("Synthetic: my $9,000 back");
   await expect(page.locator('input[data-testid="intake-unknown"]:checked'), "no 'I do not know yet' needed").toHaveCount(0);
-  await expect(page.getByTestId("intake-confirm-needs")).not.toContainText("an answer");
-  await page.getByTestId("intake-review-acknowledgement").check();
-  await page.getByTestId("intake-confirm").click();
+  if (await panel.getAttribute("data-phase") !== "user-confirmed") {
+    await expect(page.getByTestId("intake-confirm-needs")).not.toContainText("an answer");
+    await page.getByTestId("intake-review-acknowledgement").check();
+    await page.getByTestId("intake-confirm").click();
+  }
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
 
-  // The next step, built from these answers.
+  // The next step, built from the answers kept: the $9,000 the person gave, until they change it.
   await page.getByTestId("intake-continue-guidance").click();
   await expect(page).toHaveURL(/step=results/, { timeout: 60_000 });
-  expect(String((sent as Record<string, unknown> | null)?.amountClaimed ?? ""), "the review's amount reaches the analysis").toContain("8,500");
+  expect(String((sent as Record<string, unknown> | null)?.amountClaimed ?? ""), "the amount kept reaches the analysis").toContain("9,000");
 });
 
 // #469 re-test: civil's remaining questions had only "I do not know yet" boxes.
