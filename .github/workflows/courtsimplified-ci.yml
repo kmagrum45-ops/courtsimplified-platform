@@ -355,6 +355,18 @@ jobs:
       - name: Typed "I do not know yet" is never saved or shown as the answer; "not sure" where the case is stays not sure (Chrome check of #541)
         run: npm run test:unsure-never-saved
 
+      - name: A late save that only repeats an answer leaves the next steps current (Chrome check of #543, item 1)
+        run: npm run test:late-fact-save
+
+      - name: Start the questions again keeps every answer the person gave (site owner, 6 Nov; item 2)
+        run: npm run test:restart-keeps-answers
+
+      - name: A removed fact is never refilled from the story on the case page (item 3)
+        run: npm run test:removed-not-refilled
+
+      - name: The chat never replaces an answer the person holds with its reading of the story (Chrome check of #544, finding 2)
+        run: npm run test:chat-keeps-held
+
       - name: Every Confirm saves what is typed in an open box first, through one path (Chrome check of #541)
         run: npm run test:confirm-flushes
 
@@ -780,6 +792,8 @@ jobs:
           tests/browser/held-fill-continue.spec.ts
           tests/browser/restart-asked-once.spec.ts
           tests/browser/restart-keeps-answers.spec.ts
+          tests/browser/next-step-click-never-dropped.spec.ts
+          tests/browser/form-box-follows-record.spec.ts
           tests/browser/claim-kind-one-value.spec.ts
           tests/browser/chrome-31oct-review.spec.ts
           tests/browser/change-answer.spec.ts
