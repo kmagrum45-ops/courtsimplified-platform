@@ -40,6 +40,7 @@ import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
 import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
 import { storyQuoteFor } from "@/src/lib/case-system/intake/claimKind";
 import { answerNow, askedAndReplied, caseFileOf, CASE_FILE_SECTION, claimKindOf, withTurnedDown, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
+import { turnFactsToSave } from "@/src/lib/case-system/caseFile/chatTurnFacts";
 import { heldForEngine } from "@/src/lib/case-system/intake/asker";
 import { claimKindAiContext, classifyClaimTypeBody } from "@/src/lib/case-system/caseFile/aiCaseContext";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
@@ -761,7 +762,13 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       setProposalDrafts(null);
       if (answeredQuestionId && newStoryText) setEarlierAnswers((current) => [...current.filter((item) => item.questionId !== answeredQuestionId), { questionId: answeredQuestionId, answerText: newStoryText }]);
       if (newStoryText) setMessages((current) => [...current, answeredQuestionId ? { from: "user", text: newStoryText } : { from: "user", text: "", isStory: true }]);
-      setFacts(result.facts);
+      // A fact the person holds keeps its value: the model's reading of the story never replaces it, unless this turn
+      // answered it (chatTurnFacts.ts; Chrome check of #544, step 18: a skipped suggestion became the kind).
+      const heldBefore = caseFileOf(recovery?.getReview().checkpoint ?? null, recovery?.getSavedMaster() ?? undefined);
+      const answeredNow = [...(answeredQuestionId ? [answeredQuestionId] : []), ...(confirmedAnswers ?? []).map((item) => item.questionId)];
+      const savedFacts = (recovery?.read("guided", "facts") ?? facts) as IntakeFacts;
+      const keptFacts = turnFactsToSave(savedFacts, result.facts, heldBefore, answeredNow);
+      setFacts(keptFacts);
       setAnsweredIds(result.answeredIds);
       if (result.evidenceGuidance) {
         setEvidenceGuidance(result.evidenceGuidance);
@@ -849,7 +856,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         setLoading(false);
 
         const payload: GuidedIntakeCompletionResult = {
-          facts: result.facts,
+          facts: keptFacts,
           answeredIds: result.answeredIds,
           matchedClaimType: matchedClaimTypeThisTurn,
           ...(storyRef.current ? { storyText: storyRef.current } : {}),
@@ -865,7 +872,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         // When a depth phase follows, the depth phase owns the closing line.
         if (matchedClaimTypeThisTurn) {
           setCompletionPayload(payload);
-          void startDepthPhase(matchedClaimTypeThisTurn.claimTypeId, result.facts, payload);
+          void startDepthPhase(matchedClaimTypeThisTurn.claimTypeId, keptFacts, payload);
         } else {
           setMessages((current) => [...current, { from: "assistant", text: INTAKE_CLOSING_LINE }]);
           completeWithSourced(payload);
