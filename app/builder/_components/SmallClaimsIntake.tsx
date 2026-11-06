@@ -910,8 +910,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
     if (analysisRequest.current.pending) return;
     try {
       await analysisRequest.current.run(async (signal) => {
-        await beforeIntakeAI(signal);
+        // The one gate first, before any AI step (Chrome check of #544, 6 Nov, F5): nothing starts while unconfirmed.
         if (!(await prepareCaseGuidance("form"))) return;
+        await beforeIntakeAI(signal);
     if (!hasText(input.facts)) {
       setAnalysisError("Add a short description of what happened before continuing the core intake.");
       return;

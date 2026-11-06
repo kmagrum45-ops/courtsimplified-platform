@@ -282,6 +282,9 @@ jobs:
       - name: The case page and the case file page show the same deadlines, from one source (Chrome check of #544, F4)
         run: npm run test:one-deadline-source
 
+      - name: Nothing starts working out next steps while the intake is unconfirmed, including after a restart (Chrome check of #544, F5)
+        run: npm run test:no-next-step-unconfirmed
+
       - name: The story is a fact of the case file -- never asked again once given
         run: npm run test:story-fact
 

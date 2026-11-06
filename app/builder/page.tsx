@@ -1282,15 +1282,16 @@ function BuilderPageContent() {
       return;
     }
 
-    setGuidedAnalyzing(true);
-    setGuidedAnalysisError("");
-    setGuidedSafety({});
-
     try {
       await guidedRequest.current.run(async (signal) => {
-        await beforeIntakeAI(signal);
+        // The one gate first, before the working note or any AI step (Chrome check of #544, 6 Nov, F5: after "Start the
+        // questions again" the chat showed "Working out your next steps..." while the intake was unconfirmed).
         // "guided": the review-needed line shows beside the questions route’s own Continue (rule 7; it said nothing).
+        setGuidedAnalysisError("");
         if (!(await prepareCaseGuidance("guided"))) return;
+        setGuidedAnalyzing(true);
+        setGuidedSafety({});
+        await beforeIntakeAI(signal);
       // The side and filing are the situation answers, current even before the next guided turn (step 2).
       const situationFacts = personAnswersFromSituation(situation);
       // The kind of claim the analysis follows, from the case file (the person's, else the one the
