@@ -319,6 +319,7 @@
     "test:restart-keeps-answers": "node --import tsx scripts/verification/verifyRestartKeepsAnswers.ts",
     "test:removed-not-refilled": "node --import tsx scripts/verification/verifyRemovedNotRefilled.ts",
     "test:chat-keeps-held": "node --import tsx scripts/verification/verifyChatKeepsHeld.ts",
+    "test:chat-uses-record": "node --import tsx scripts/verification/verifyChatUsesRecord.ts",
     "test:late-repeat-state": "node --import tsx scripts/verification/verifyLateRepeatState.ts"
   },
   "dependencies": {

@@ -561,7 +561,7 @@ export function seenSeqOf(sections: Record<string, unknown> | undefined, fact: S
 const START_FACTS: ReadonlySet<string> = new Set(["side", "court", "stage", "papers"]);
 
 /** Whether a value is the answer a fact already holds, as the case file reads it (an amount "$2,400" is 2400). */
-function sameAnswer(fact: SlotFact, heldValue: unknown, given: unknown): boolean {
+export function sameAnswer(fact: SlotFact, heldValue: unknown, given: unknown): boolean {
   const read = emptyCaseFile();
   give(read, fact, given, "compare");
   return JSON.stringify(read[fact].value ?? given) === JSON.stringify(heldValue);

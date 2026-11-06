@@ -3,6 +3,7 @@
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
 import { caseFileOf, claimKindOf, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { factsWithRecord } from "../../src/lib/case-system/caseFile/chatTurnFacts";
 import { withoutUnsureAnswers } from "../../src/lib/case-system/caseFile/unsureAnswer";
 import { researchCaseContext } from "../../src/lib/case-system/caseFile/aiCaseContext";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
@@ -1295,10 +1296,13 @@ function BuilderPageContent() {
       // The kind of claim the analysis follows, from the case file (the person's, else the one the
       // story shows), the same value every screen shows (site owner, 29 Oct).
       const fileNow = caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult);
+      // The record's answers, not the chat's older copy (rule 3; chatTurnFacts.ts factsWithRecord): an amount changed on
+      // the review while the chat was open goes to the analysis at its new value; a removed answer does not go.
+      const recordFacts = factsWithRecord((result.facts ?? {}) as Record<string, unknown>, caseFileOf(recovery?.getReview().checkpoint ?? reviewView?.checkpoint ?? null, recovery?.getSavedMaster() ?? existingMasterResult)) as GuidedIntakeCompletionResult["facts"];
       const heldNow = claimKindOf(fileNow);
       // The kind in words, told to the AI research, from the same case file through the shared builder
       // (aiCaseContext.ts, rule 8; site owner, 31 Oct): a dispute category has no catalogue id.
-      const mappedInput = { ...mapGuidedIntakeToSmallClaimsInput({ ...result, facts: { ...(result.facts ?? {}), ...(situationFacts.side ? { role: situationFacts.side } : {}), ...(situationFacts.claimFiled !== undefined ? { claimFiled: situationFacts.claimFiled } : {}) } }, confirmedLocation, homeStory, kindForAnalysis(heldNow)), caseContext: researchCaseContext(fileNow) };
+      const mappedInput = { ...mapGuidedIntakeToSmallClaimsInput({ ...result, facts: { ...(recordFacts ?? {}), ...(situationFacts.side ? { role: situationFacts.side } : {}), ...(situationFacts.claimFiled !== undefined ? { claimFiled: situationFacts.claimFiled } : {}) } }, confirmedLocation, homeStory, kindForAnalysis(heldNow)), caseContext: researchCaseContext(fileNow) };
 
       // The element record the depth questions made, until the analysis saves it with the case (the
       // Form 7A section reads the case file's saved copy first).
@@ -1307,7 +1311,7 @@ function BuilderPageContent() {
       // defenceFiled among them. Retained so the save site can persist them;
       // without that, deriveCaseStageWithEvents receives {} and the stage comes
       // entirely from confirmed events.
-      setDraftIntakeFacts(result.facts as Record<string, unknown>);
+      setDraftIntakeFacts(recordFacts as Record<string, unknown>);
       guidedAnswersRef.current = (result.answers ?? []);
       const confirmedDates = suggestedDatesFromAnswers(result.answers ?? []);
       setGuidedDates(confirmedDates);
@@ -1368,7 +1372,7 @@ function BuilderPageContent() {
           // The side and filing answers the person gave or confirmed in the
           // conversation itself (stageFromAnswers.ts), never the story alone.
           // The situation answers (situation.ts) are the person's own and win; the guided answers add what they do not settle.
-          personAnswers: { ...personAnswersFromGuided(result.answers ?? [], (result.facts ?? {}) as Record<string, unknown>), ...personAnswersFromSituation(situation) },
+          personAnswers: { ...personAnswersFromGuided(result.answers ?? [], (recordFacts ?? {}) as Record<string, unknown>), ...personAnswersFromSituation(situation) },
         },
       };
       await validateIntakeResponse(signal);
