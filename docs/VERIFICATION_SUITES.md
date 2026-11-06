@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-229 documented, 26 without a header.
+232 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -119,6 +119,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:journey-battery` | **Journey regression battery runner — tranche 1.**<br>Categories A–D from docs/TEST_BATTERY_DESIGN.md §2: the four paths with ZERO prior coverage. |
 | `npm run test:journey-invariants` | **Self-test for the static arm of journeyInvariants.ts.**<br>WHY THIS EXISTS. The first version of the static arm scored ZERO violations against the known-defective historical code -- readinessTone(), the highRiskPenalty subtraction, and the "Document readiness impact" ordinal union. All three had been fixed in the live |
 | `npm run test:kind-from-story` | **THE KIND OF DISPUTE A STORY SUPPORTS, IN ALL THREE COURTS: one shared reader, offered to tick**<br>(owner, 30 Oct; rule 4 of the fact conversion). |
+| `npm run test:late-fact-save` | **A FACT SAVED AFTER THE NEXT STEPS WERE MADE, SAYING WHAT THE CASE ALREADY SAID, KEEPS THEM CURRENT (item 1, 6 Nov).**<br>Since G2 (#543) every answer is also kept as a server-numbered fact record (caseFile.facts), and the material facts the next steps rest on include those records (intakeReview.ts materialFacts). A record that lands late -- the chat's save arriving after the nex |
 | `npm run test:law-exam` | **The law exam's answer keys rest on the law, word for word.**<br>WHAT THIS CATCHES: an answer key written from memory. Every question in scripts/eval/lawExam/questions/ cites the official text saved in this repository, and every quote must appear in that text -- the same check the site's own quotes pass (quoteMatch.ts). A k |
 | `npm run test:law-map` | **test:law-map -- the law map (docs/law-map/) stays well-formed and never**<br>judges a case (CLAUDE.md s. 2, "Draft from knowledge; publish only what is verified", 2026-10-13). |
 | `npm run test:library-chat` | **The chat can only say what has already been verified.**<br>COSTS NOTHING. No model call. Every check drives `validateSelection` and `assembleChatAnswer` with payloads a model might return — including the ones it must never return — because those are the two functions every answer passes through, whatever the model sai |
@@ -166,11 +167,13 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:reasoning-text-gate` | **The unsourced reasoning prose does not leave the coordinator on any user-facing**<br>path, and the profiles it comes from are still unsourced. |
 | `npm run test:recorded-amount` | **A recorded amount is formatted when it is a plain number, and returned**<br>untouched when it is not. |
 | `npm run test:reference-not-shipped` | **Nothing under `app/` or `src/` reads the non-shipping reference folders, and no**<br>commercial publication is a corpus source. |
+| `npm run test:removed-not-refilled` | **A FACT THE PERSON REMOVED IS NEVER REFILLED FROM THE STORY ON THE CASE PAGE (item 3, 6 Nov 2026).**<br>Founder's Chrome check of #543 (5 Nov), steps 5 and 6: in Civil and Family the other party's name was removed on the review and confirmed; every screen showed it removed except the case page's "What we have so far", which showed "The other party / Your neighbo |
 | `npm run test:research-case-context` | **THE AI RESEARCH IS TOLD THE CASE FILE'S KIND OF CLAIM, IN ALL THREE COURTS (site owner, 31 Oct,**<br>Chrome check item 4; rule 8: every AI call gets its case context from the case file through one shared builder, src/lib/case-system/caseFile/aiCaseContext.ts). |
 | `npm run test:research-step` | **The research step (src/lib/case-system/retrieval/researchStory.ts): the**<br>model chooses the questions and reads the passages, and code decides what counts as an answer. |
 | `npm run test:reset-intake` | **resetIntake clears everything an intake left behind, and nothing it should**<br>not. |
 | `npm run test:responding-draft` | **The side responding to a case is offered a draft of its response -- Defence**<br>(Small Claims Form 9A), Statement of Defence (civil Form 18A), Answer (family Form 10) -- built only from its own answers. |
 | `npm run test:responding-side` | **The document that STARTS a case is never offered to the side responding to it.**<br>COSTS NOTHING. A pure function plus a source scan of the builder page. |
+| `npm run test:restart-keeps-answers` | **"START THE QUESTIONS AGAIN" KEEPS EVERY ANSWER THE PERSON GAVE OR CONFIRMED (item 2; site owner, 6 Nov 2026).**<br>Founder's Chrome check of #543 (5 Nov), step 3: a sentence was added to the Small Claims story, the questions were started again, and the chat asked the kind of claim a second time (and offered the date again), though the person had confirmed both. Cause: the  |
 | `npm run test:retrieval-bundled` | **The deployed analysis routes carry the retrieval index and the corpus.**<br>WHAT IT CATCHES. Retrieval reads its index and the vendored corpus from disk by file names the bundler cannot see, so next.config.ts lists them in outputFileTracingIncludes. If that stops working -- a renamed route, a changed config key, a Next.js upgrade that |
 | `npm run test:review-follow-ups` | **The #470 re-test's follow-up items that are pure functions (the browser half is**<br>tests/browser/retest-471.spec.ts and the story pack). |
 | `npm run test:review-writer` | **THE REVIEW AND CASE-FILE SAVES GO THROUGH THE ONE WRITER, EACH ANSWER UNDER ITS FACT ID (case core G2;**<br>CASE_CORE_DESIGN.md §10, group G2; founder, 4 Nov: "a fact id for every answer"). |
