@@ -37,7 +37,8 @@ import { userStory } from "@/src/lib/case-system/userStory";
 import { kindsOfClaim } from "@/src/lib/case-system/intake/claimKind";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { savePositionQueued } from "./positionSave";
-import { changedWords, claimKindAnswer, claimKindLine, claimKindOf, CLAIM_KIND_QUESTION, type CaseFile, type ClaimKindHeld } from "@/src/lib/case-system/caseFile/caseFile";
+import { changedWords, claimKindAnswer, claimKindLine, claimKindOf, CLAIM_KIND_QUESTION, isUnsureAnswer, slotText, type CaseFile, type ClaimKindHeld } from "@/src/lib/case-system/caseFile/caseFile";
+import { formatForCourt } from "@/src/lib/case-system/dates";
 import { inWords } from "@/src/lib/case-system/copy/rawKeys";
 import { WorkingButton } from "@/app/_components/Working";
 import { UseSuggestion } from "@/app/_components/UseSuggestion";
@@ -348,14 +349,17 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // the whole story pasted in. Values are still the user's own words, shown
   // as entered -- nothing is corrected or restated -- and the story sits
   // under its own heading.
-  const timeline = answerWords(intake?.timeline);
+  // When it happened: the case file's date, in the case page's words (CaseFilePanel), never the Timeline box, which can hold
+  // a whole story sentence (item 6, 6 Nov; Chrome check of #543 showed the Timeline sentence, with a name, as the date).
+  const whenSlot = caseFile?.whenHappened;
+  const when = whenSlot && (whenSlot.state === "answered" || (whenSlot.state === "unsure" && typeof whenSlot.value === "string" && whenSlot.value.trim() && !isUnsureAnswer(whenSlot.value))) ? slotText(whenSlot, formatForCourt) : "";
 
   const snapshotRows: Array<[string, string]> = [
     ["Court", analysis.courtPath === "small-claims" ? "Small Claims Court" : analysis.courtPath === "family" ? "Family court" : "Superior Court of Justice"],
     ...(parties ? ([["Parties recorded", parties]] as Array<[string, string]>) : []),
     ...(roleInWords(role, roleWords) ? ([["Your role", roleInWords(role, roleWords)]] as Array<[string, string]>) : []),
     ["Current stage", stageWords ?? displayStage(caseStage)],
-    ...(timeline ? ([["When (your words)", timeline]] as Array<[string, string]>) : []),
+    ...(when ? ([["When it happened", when]] as Array<[string, string]>) : []),
     ...(amount ? ([["Amount", formatRecordedAmount(amount)]] as Array<[string, string]>) : []),
     ...(outcome ? ([["What you want (your words)", outcome]] as Array<[string, string]>) : []),
   ];
