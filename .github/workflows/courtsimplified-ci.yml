@@ -775,6 +775,7 @@ jobs:
           tests/browser/case-page-next-step.spec.ts
           tests/browser/form-view-not-sure.spec.ts
           tests/browser/chat-typed-answer-change.spec.ts
+          tests/browser/overview-when-matches-case-page.spec.ts
           tests/browser/held-fill-continue.spec.ts
           tests/browser/restart-asked-once.spec.ts
           tests/browser/restart-keeps-answers.spec.ts
