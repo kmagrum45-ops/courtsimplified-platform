@@ -709,8 +709,8 @@ jobs:
   # one-line change to the repo's ruleset.
   browser-regression:
     runs-on: ubuntu-latest
-    # 50 (site owner, 6 Nov): six more specs from items 1-6; it ran 31.6 min on #543.
-    timeout-minutes: 50
+    # 70 (site owner, 6 Nov, second round): 22 more tests from the Chrome check of #544; not split.
+    timeout-minutes: 70
 
     env:
       NODE_OPTIONS: --max-old-space-size=8192
