@@ -20,7 +20,7 @@ import { IntakeRequest } from "../../_components/intakeRequest";
  * feed into the builder's case-save/analysis pipeline the form path uses.
  */
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type {
   ConfirmedStoryAnswer,
   StoryAnswerProposal,
@@ -1522,8 +1522,8 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           </p>
         ) : (
           shownMessages.slice(0, heldFrom).map((message, index) => (
+            <Fragment key={index}>
             <div
-              key={index}
               className="mb-3"
               data-testid="guided-message"
               data-from={message.from}
@@ -1541,11 +1541,13 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
                 }}
               >
                 {message.text}
-                {message.changedTo !== undefined ? (
-                  <span data-testid="answer-changed-note" className="mt-1 block text-xs opacity-90">{message.changedTo === null ? "You removed this answer." : `You changed this answer: ${message.changedTo}`}</span>
-                ) : null}
               </div>
             </div>
+            {/* Beside the reply, not in it: the reply stays the person's own words (the carry recorder compares them). */}
+            {message.changedTo !== undefined ? (
+              <p data-testid="answer-changed-note" className="-mt-2 mb-3 text-right text-xs text-[#4d675f]">{message.changedTo === null ? "You removed this answer." : `You changed this answer: ${message.changedTo}`}</p>
+            ) : null}
+            </Fragment>
           ))
         )}
       </div>

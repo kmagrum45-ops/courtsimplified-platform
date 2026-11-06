@@ -77,5 +77,7 @@ test("a typed reply changed later on the review: the chat says \"You changed thi
   await page.waitForTimeout(3_000);
 
   await expect(reply, "the reply stays as the person typed it").toHaveCount(1);
-  await expect(reply.getByTestId("answer-changed-note"), "the chat does not say the answer was changed").toHaveText(`You changed this answer: ${NEW}`, { timeout: 30_000 });
+  // Directly under the reply, beside it (the reply itself stays the person's words).
+  await expect(reply.locator("xpath=following-sibling::*[1]"), "the chat does not say the answer was changed").toHaveText(`You changed this answer: ${NEW}`, { timeout: 30_000 });
+  await expect(reply, "the note was put inside the person's reply").not.toContainText("You changed this answer");
 });
