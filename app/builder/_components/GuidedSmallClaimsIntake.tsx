@@ -39,7 +39,7 @@ import { startSignIn } from "../../_components/startSignIn";
 import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
 import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
 import { storyQuoteFor } from "@/src/lib/case-system/intake/claimKind";
-import { answerNow, askedAndReplied, caseFileOf, CASE_FILE_SECTION, withTurnedDown, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
+import { answerNow, askedAndReplied, caseFileOf, CASE_FILE_SECTION, claimKindOf, withTurnedDown, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
 import { heldForEngine } from "@/src/lib/case-system/intake/asker";
 import { claimKindAiContext, classifyClaimTypeBody } from "@/src/lib/case-system/caseFile/aiCaseContext";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
@@ -755,8 +755,13 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         setClaimGuidance(result.claimGuidance);
       }
       // Never a kind the person turned down ("Not quite") or removed: the case file keeps which (rule 6, 31 Oct).
-      const turnedDownKinds = caseFileOf(recovery?.getReview().checkpoint ?? null, recovery?.getSavedMaster() ?? undefined).claimKindRemoved ?? [];
-      if (result.suggestedClaimType && newStoryText && !turnedDownKinds.includes(result.suggestedClaimType.claimTypeId)) {
+      const fileNow = caseFileOf(recovery?.getReview().checkpoint ?? null, recovery?.getSavedMaster() ?? undefined);
+      const turnedDownKinds = fileNow.claimKindRemoved ?? [];
+      // Nor any kind while the person's own kind is held (confirmed, given, or "not sure"): "Start the questions again"
+      // keeps it and offers again only the old story's suggestions (site owner, 6 Nov; Chrome check of #543, step 3).
+      const heldKind = claimKindOf(fileNow);
+      const kindGiven = heldKind.state !== "not-asked" && (heldKind.source === "confirmed" || heldKind.source === "person-said");
+      if (result.suggestedClaimType && newStoryText && !kindGiven && !turnedDownKinds.includes(result.suggestedClaimType.claimTypeId)) {
         setPendingSuggestion(result.suggestedClaimType);
         setRejectedSuggestionIds([]);
         setNoClaimTypeMatch(false);
