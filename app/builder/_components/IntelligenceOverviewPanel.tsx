@@ -352,14 +352,16 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // When it happened: the case file's date, in the case page's words (CaseFilePanel), never the Timeline box, which can hold
   // a whole story sentence (item 6, 6 Nov; Chrome check of #543 showed the Timeline sentence, with a name, as the date).
   const whenSlot = caseFile?.whenHappened;
-  const when = whenSlot && (whenSlot.state === "answered" || (whenSlot.state === "unsure" && typeof whenSlot.value === "string" && whenSlot.value.trim() && !isUnsureAnswer(whenSlot.value))) ? slotText(whenSlot, formatForCourt) : "";
+  const whenDay = whenSlot && (whenSlot.state === "answered" || (whenSlot.state === "unsure" && typeof whenSlot.value === "string" && whenSlot.value.trim() && !isUnsureAnswer(whenSlot.value))) ? slotText(whenSlot, formatForCourt) : "";
+  // Through the one reader, as every typed answer the snapshot prints (test:unsure-never-saved 3e).
+  const timeline = answerWords(whenDay);
 
   const snapshotRows: Array<[string, string]> = [
     ["Court", analysis.courtPath === "small-claims" ? "Small Claims Court" : analysis.courtPath === "family" ? "Family court" : "Superior Court of Justice"],
     ...(parties ? ([["Parties recorded", parties]] as Array<[string, string]>) : []),
     ...(roleInWords(role, roleWords) ? ([["Your role", roleInWords(role, roleWords)]] as Array<[string, string]>) : []),
     ["Current stage", stageWords ?? displayStage(caseStage)],
-    ...(when ? ([["When it happened", when]] as Array<[string, string]>) : []),
+    ...(timeline ? ([["When it happened", timeline]] as Array<[string, string]>) : []),
     ...(amount ? ([["Amount", formatRecordedAmount(amount)]] as Array<[string, string]>) : []),
     ...(outcome ? ([["What you want (your words)", outcome]] as Array<[string, string]>) : []),
   ];
