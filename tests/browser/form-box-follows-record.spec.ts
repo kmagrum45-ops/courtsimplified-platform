@@ -15,7 +15,10 @@
  *   1. a value typed in the whole form, then changed on the review with "Change": the form's box shows the newest
  *      answer, and still does after a reload;
  *   2. the box cleared: it stays empty after a reload;
- *   3. a newer answer given on the review after that: the box shows it.
+ *   3. a newer answer given on the review after that: the box shows it;
+ *   4. (rule 6) a box following is not an answer: after the review change is confirmed and the next step shown,
+ *      opening the form (the box follows) and saving the tab leaves the case page current: no "made before your
+ *      latest answer", no "confirm again".
  *
  * WHAT FAILURE THIS CATCHES: a form box showing an answer the person has since changed (its own copy).
  */
@@ -56,6 +59,8 @@ async function changeOnReview(page: Page, court: Court, caseId: string, value: s
   await page.goto(`/builder?path=${court}&intake=${caseId}${court === "small-claims" ? "&step=form" : ""}&change=${CASES[court].fact}`);
   const panel = page.getByTestId("intake-review");
   await expect(panel).toBeVisible({ timeout: 60_000 });
+  // Not confirmed (a change since), the review is opened first, as the person does.
+  if (await panel.getAttribute("data-phase") === "collecting") await page.getByTestId("intake-start-review").filter({ visible: true }).first().click();
   const change = panel.locator(`[data-testid=change-answer][data-fact=${CASES[court].fact}]`).first();
   await expect(change).toBeVisible({ timeout: 30_000 });
   if (!(await change.getByTestId("change-answer-text").isVisible().catch(() => false))) await change.getByTestId("change-answer-open").click();
@@ -110,7 +115,30 @@ for (const court of Object.keys(CASES) as Court[]) {
       await openForm(page, court, caseId);
       await expect(box(page, court), "after a reload too").toHaveValue(c.shown, { timeout: 15_000 });
 
+      // 4. Following is not an answer (rule 6): confirm the change, show the next step, open the form, then the case page.
+      await page.goto(`/builder?path=${court}&intake=${caseId}${court === "small-claims" ? "&step=form" : ""}`);
+      const panel4 = page.getByTestId("intake-review");
+      await expect(panel4).toBeVisible({ timeout: 60_000 });
+      if (await panel4.getAttribute("data-phase") === "collecting") await page.getByTestId("intake-start-review").filter({ visible: true }).first().click();
+      if (await panel4.getAttribute("data-phase") !== "user-confirmed") {
+        await expect(panel4).toHaveAttribute("data-phase", "reviewing");
+        await recordInitialUnknowns(page);
+        await page.getByTestId("intake-review-acknowledgement").check();
+        await page.getByTestId("intake-confirm").click();
+        await expect(panel4).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
+      }
+      await page.getByTestId("intake-continue-guidance").click();
+      await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 180_000 });
+      await openForm(page, court, caseId);
+      await expect(box(page, court)).toHaveValue(c.shown, { timeout: 15_000 });
+      await page.waitForTimeout(4_000);
+      await page.goto(`/cases/${caseId}`);
+      await expect(page.getByTestId("case-file").or(page.getByTestId("case-guidance-outdated")).or(page.getByTestId("case-review-again")).first()).toBeVisible({ timeout: 60_000 });
+      await expect(page.getByTestId("case-guidance-outdated"), "opening the form made the next steps out of date").toHaveCount(0);
+      await expect(page.getByTestId("case-review-again"), "opening the form cancelled the confirmation").toHaveCount(0);
+
       // 2. Cleared: stays empty after a reload.
+      await openForm(page, court, caseId);
       await box(page, court).fill("");
       await box(page, court).blur();
       await page.waitForTimeout(3_000);
