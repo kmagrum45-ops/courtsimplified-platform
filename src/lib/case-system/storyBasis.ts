@@ -207,6 +207,11 @@ export function discardedFields(checkpoint: Checkpoint): [string, string][] {
  * again. Only the question-and-answer state starts again, and with it what was a suggestion read from the old
  * story: a kind not confirmed, the story card's drafts, a fact the chat only read from the story
  * (test:restart-keeps-answers; founder's Chrome check of #543, 5 Nov, step 3).
+ *
+ * KNOWN GAP (site owner, 6 Nov 2026): the restart retags EVERY kept answer as based on the current story. So when the
+ * story is rewritten to contradict an answer (the story now says "no children", the answer says "one child"), the old
+ * answer is shown and used with nothing flagging the contradiction. That stays so until the prompt "your story now
+ * says X, you answered Y: keep or use?" is built; it is not built yet.
  */
 export function discardStale(checkpoint: Checkpoint): Checkpoint {
   const sections: Sections = { ...checkpoint.sections };
