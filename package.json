@@ -317,7 +317,8 @@
     "test:review-writer": "tsx scripts/verification/verifyReviewWriter.ts",
     "test:late-fact-save": "node --import tsx scripts/verification/verifyLateFactSave.ts",
     "test:restart-keeps-answers": "node --import tsx scripts/verification/verifyRestartKeepsAnswers.ts",
-    "test:removed-not-refilled": "node --import tsx scripts/verification/verifyRemovedNotRefilled.ts"
+    "test:removed-not-refilled": "node --import tsx scripts/verification/verifyRemovedNotRefilled.ts",
+    "test:chat-keeps-held": "node --import tsx scripts/verification/verifyChatKeepsHeld.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",
