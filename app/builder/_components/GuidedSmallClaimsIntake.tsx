@@ -217,6 +217,8 @@ type ChatMessage = {
   /** A "Confirmed from ..." message: its rows, shown as the case holds them now (summaryText). */
   confirmed?: ConfirmedRow[];
   confirmedFrom?: string;
+  /** Shown only: under a reply the person typed whose answer they later changed, the newest answer (null: removed). */
+  changedTo?: string | null;
 };
 
 /**
@@ -602,7 +604,20 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   const inputText = started ? answerDraft : story;
   // The saved case's own case file, for the messages that repeat an answer back (summaryText).
   const echoFile = useMemo(() => (reviewView ? caseFileOf(reviewView.checkpoint, recovery?.getSavedMaster() ?? undefined) : null), [reviewView, recovery]);
-  const shownMessages = useMemo(() => messages.map((message) => message.isStory ? { ...message, text: story } : message.confirmed?.length ? { ...message, text: summaryText(message.confirmed, message.confirmedFrom ?? "my story", echoFile) } : message), [messages, story, echoFile]);
+  const shownMessages = useMemo(() => messages.map((message, index) => {
+    if (message.isStory) return { ...message, text: story };
+    if (message.confirmed?.length) return { ...message, text: summaryText(message.confirmed, message.confirmedFrom ?? "my story", echoFile) };
+    // A reply the person typed stays in their words; when they later changed that answer (rule 5, newest wins), the
+    // newest is said under it (item 5, 6 Nov; Chrome check of #543: the old outcome with $2,650 stayed on screen).
+    if (message.from === "user") {
+      const asked = messages.slice(0, index).reverse().find((earlier) => earlier.from === "assistant");
+      if (asked?.questionId) {
+        const now = answerNow(echoFile, asked.questionId, message.text);
+        if (now.changed) return { ...message, changedTo: now.removed ? null : Array.isArray(now.value) ? now.value.join(", ") : String(now.value ?? "") };
+      }
+    }
+    return message;
+  }), [messages, story, echoFile]);
   // Retained across turns rather than replaced with each response -- only
   // updated when a turn actually carries a new evidenceGuidance, so it
   // doesn't disappear the moment the user answers a plain multiple-choice
@@ -1526,6 +1541,9 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
                 }}
               >
                 {message.text}
+                {message.changedTo !== undefined ? (
+                  <span data-testid="answer-changed-note" className="mt-1 block text-xs opacity-90">{message.changedTo === null ? "You removed this answer." : `You changed this answer: ${message.changedTo}`}</span>
+                ) : null}
               </div>
             </div>
           ))
