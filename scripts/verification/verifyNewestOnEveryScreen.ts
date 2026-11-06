@@ -1,0 +1,70 @@
+/**
+ * THE NEWEST ANSWER SHOWS ON EVERY SCREEN, NEVER A SCREEN'S OWN OLDER COPY (Chrome check of #544, 6 Nov 2026, F1).
+ *
+ * Chrome, Small Claims, the questions one at a time: the chat answered the amount $6,400; the whole form then held
+ * $9,400 (the newest). The review's amount box showed $6,400, also after a reload, while the whole form showed $9,400.
+ * Cause: the review draws each of its boxes from that box's own section (the chat's copy, `guided.facts.amountClaimedText`,
+ * intakeReview.ts reviewEntries) and switched to the case record's value only when the record marked the fact as
+ * changed with "Change" (IntakeReviewPanel changedFact) or the box was empty (reviewBoxState "held"). An answer given
+ * in another place without "Change" (the whole form's box, typed over the copy the form was filled with) left the
+ * review showing its own older copy.
+ *
+ * The rule checked: a review box whose own copy differs from the answer the case record holds (caseFileOf, the newest
+ * answer from any place) shows the record's answer (reviewBoxState "held": the answer with "Change"), never its own
+ * copy; a box that holds the same answer as the record, or holds the answer the record took from it, stays a box.
+ * Checked through the real functions on synthetic checkpoints (no screen, no database).
+ *
+ * WHAT FAILURE THIS CATCHES: a screen showing its own older copy of an answer after the person gave a newer one elsewhere.
+ *
+ * Run: npm run test:newest-every-screen
+ */
+import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
+import { reviewBoxState, reviewEntries } from "../../src/lib/case-system/intakeReview";
+import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
+
+let failures = 0;
+const check = (name: string, ok: boolean, detail = "") => {
+  console.log(`${ok ? "pass" : "FAIL"}  ${name}${ok || !detail ? "" : `\n      ${detail}`}`);
+  if (!ok) failures += 1;
+};
+type Sections = Record<string, Record<string, unknown>>;
+const ID = "00000000-0000-4000-8000-000000000544";
+const STORY = "Synthetic: I hired a deck builder in March 2026 to build a deck at my home. They never finished it and kept the money I paid.";
+const cp = (sections: Sections): Checkpoint => ({ version: 1, flowId: ID, courtPath: "small-claims", revision: ID, sections: { story: { text: STORY, location: { province: "Ontario", city: "Kingston" } }, builder: { step: "guided" }, ...sections } } as unknown as Checkpoint);
+
+/** What the review's amount box on the chat route does: its state, and the words it shows. */
+function amountBox(sections: Sections) {
+  const checkpoint = cp(sections);
+  const file = caseFileOf(checkpoint);
+  const entry = reviewEntries(checkpoint).find((item) => item.section === "guided" && item.field === "amountClaimedText");
+  if (!entry) return { state: "missing", shows: "(no box)", record: file.amount.value };
+  const state = reviewBoxState(entry, file);
+  return { state, shows: state === "held" ? String(file.amount.value) : String(entry.value), record: file.amount.value };
+}
+
+const chat = { guided: { facts: { amountClaimedText: "$6,400" }, earlierAnswers: [{ questionId: "sc-amount-claimed", answerText: "$6,400" }], answeredIds: ["sc-amount-claimed"] } };
+
+// 1. Chrome's case: the chat's $6,400, then the whole form's $9,400 (its own answer, no "Change").
+{
+  const box = amountBox({ ...chat, "small-claims": { input: { amountClaimed: "$9,400" } } });
+  check("the record holds the whole form's newest amount", box.record === 9400, JSON.stringify(box));
+  check("F1: the review's amount box shows the record's $9,400, never the chat's own $6,400", box.state === "held" && /9,?400/.test(box.shows), JSON.stringify(box));
+}
+// 2. The same, with the newer amount saved as a numbered answer from the form's own place (not a "Change").
+{
+  const box = amountBox({ ...chat, caseFile: { facts: { amount: { seq: 1, at: "2026-11-06T21:40:00Z", state: "answered", value: 9400, source: "person", question: "small-claims:amountClaimed" } } } });
+  check("F1: a numbered answer from another place: the review shows it, never the chat's $6,400", box.state === "held" && /9,?400/.test(box.shows), JSON.stringify(box));
+}
+// 3. The box and the record agree: it stays a box (the person can type in it).
+{
+  const box = amountBox({ guided: { facts: { amountClaimedText: "$9,400" } }, "small-claims": { input: { amountClaimed: "$9,400" } } });
+  check("the box holding the record's own answer stays a box", box.state === "given", JSON.stringify(box));
+}
+// 4. The chat's answer is the only one: it stays a box.
+{
+  const box = amountBox(chat);
+  check("the chat's answer, the only one, stays a box", box.state === "given" && /6,?400/.test(box.shows), JSON.stringify(box));
+}
+
+console.log(failures ? `\n${failures} check(s) failed.` : "\nThe review shows the newest answer, never its own older copy.");
+process.exit(failures ? 1 : 0);

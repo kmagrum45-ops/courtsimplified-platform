@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-236 documented, 26 without a header.
+237 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -134,6 +134,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:narrative-prefill` | **What the narrative extractor reads from a story, and that nothing hands it to a form.**<br>What it checks: extractNarrativePrefill keeps the story exactly, reads only literal facts (names, amount, remedy, dates, evidence, contact, role and who served whom), and turns unclear or contradictory ones into questions; and the follow-up chat no longer pre- |
 | `npm run test:never-ask-twice` | **NEVER ASK TWICE: THE STORY PACK'S GATE, CHECKED WITHOUT A BROWSER (site owner, 28 Oct).**<br>The story pack (tests/browser/story-pack.spec.ts) records every question the site shows (tests/browser/harness/askOnce.ts), and fails a question whose fact the person already gave (factsAskedTwice) or whose fact the saved case holds as the person's own when it |
 | `npm run test:newest-answer-wins` | **THE NEWEST ANSWER WINS, FROM WHATEVER PLACE IT IS GIVEN (founder, 1 Nov: one rule, not an amount-only**<br>patch). Two answers to one fact from two places: the later one is the case file's value on every screen. |
+| `npm run test:newest-every-screen` | **THE NEWEST ANSWER SHOWS ON EVERY SCREEN, NEVER A SCREEN'S OWN OLDER COPY (Chrome check of #544, 6 Nov 2026, F1).**<br>Chrome, Small Claims, the questions one at a time: the chat answered the amount $6,400; the whole form then held $9,400 (the newest). The review's amount box showed $6,400, also after a reload, while the whole form showed $9,400. Cause: the review draws each o |
 | `npm run test:next-step` | **"Your next step" comes first: the step, its deadline counted from the**<br>person's dates (or the period and what it runs from), what to do and the forms, with the full answer folded underneath. Master plan Phase 2 (docs/MASTER_PLAN.md). |
 | `npm run test:next-step-practical` | **The next-step card's form, fee, filing and service lines are the law's own**<br>words, for every step (content-library/nextStepPractical.ts, master plan Phase 2, 2026-10-08). |
 | `npm run test:no-conflict-markers` | **No committed file holds a merge-conflict marker (founder, 1 Nov).**<br>What it checks: every file git tracks (or the files of a given commit, with `--ref <commit>`) is read, and a line that is exactly a conflict marker fails: `<<<<<<< ...`, `>>>>>>> ...`, or `=======` alone when it sits between the other two. Long rules made of " |

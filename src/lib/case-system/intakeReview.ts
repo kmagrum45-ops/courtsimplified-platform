@@ -11,7 +11,7 @@ import { amountFromStory, goalFromStory, kindsFromStory, type KindCue } from "..
 import { QUESTION_BANK } from "./intake/questionBank";
 import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 import { askOf } from "./intake/asker";
-import { alreadyAsked, CASE_FILE_SECTION, CHANGE_QUESTION, caseFileOf, fromCasePosition, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, repeatsAnswer, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
+import { alreadyAsked, CASE_FILE_SECTION, CHANGE_QUESTION, caseFileOf, fromCasePosition, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, repeatsAnswer, sameAnswer, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
 import { LOAN_WORDS } from "./intake/claimKind";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
 
@@ -506,8 +506,17 @@ export function reviewBoxState(entry: ReviewEntry, file: CaseFile): "start" | "h
   const empty = emptyValue(entry.value);
   if (empty && !decision.ask && decision.held === "answered") return "held";
   if ((empty || isUnsureAnswer(entry.value)) && !decision.ask && decision.held === "unsure") return "not-yet";
+  // The newest answer wins on every screen (Chrome check of #544, 6 Nov, F1): a box whose own copy is not the answer the
+  // case record holds now (a newer answer given in another place, or the answer removed) shows the record's answer with
+  // "Change", never its own older copy. Typed words only: a choice keeps its own words (the record may word it otherwise).
+  if (!empty && !decision.ask && TYPED_FACTS.has(decision.fact) && !entry.choices && (typeof entry.value === "string" || typeof entry.value === "number") && !isUnsureAnswer(entry.value)) {
+    if (decision.held === "removed") return "held";
+    if (decision.held === "answered" && decision.slot.value !== undefined && !sameAnswer(decision.fact, decision.slot.value, entry.value)) return "held";
+  }
   return empty ? "ask" : "given";
 }
+/** The facts a review box holds as typed words, whose copy can fall behind the record's newest answer. */
+const TYPED_FACTS = new Set<SlotFact>(["amount", "otherParty", "wants", "whenHappened", "outcome"]);
 
 function remainingBeforeCaseFile(stored: Checkpoint, includeUnknown: boolean, held?: CaseFile): { id: string; label: string }[] {
   // A question answered only for an earlier version of the story is asked again (storyBasis.ts).

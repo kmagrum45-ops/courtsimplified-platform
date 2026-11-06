@@ -441,6 +441,10 @@
     {
       "file": "tests/browser/walkthrough.spec.ts",
       "reason": "run only by the manual workflow courtsimplified-walkthrough.yml (it calls the live model, billed; CLAUDE.md s. 7)"
+    },
+    {
+      "file": "tests/browser/chrome-544-6nov.spec.ts",
+      "reason": "Chrome check of #544 (6 Nov 2026): Chrome's screens replayed with a real local or staging account and the model stand-ins. It passed on the code before the F1-F5 fixes as well (the stand-ins store the chat's answers differently from the live model, so Chrome's exact screens did not appear locally); the failing-first tests are the terminal suite test:newest-every-screen. Not added to a browser job without the owner's yes (each adds staging time)"
     }
   ]
 }

@@ -273,6 +273,9 @@ jobs:
       - name: The newest answer wins, from whatever place it is given (one rule; the time decides until G2 gives the server number)
         run: npm run test:newest-answer-wins
 
+      - name: The newest answer shows on every screen, never a screen's own older copy (Chrome check of #544, F1-F5)
+        run: npm run test:newest-every-screen
+
       - name: The story is a fact of the case file -- never asked again once given
         run: npm run test:story-fact
 

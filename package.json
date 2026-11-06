@@ -267,6 +267,7 @@
     "test:not-sure-never-asked": "node --import tsx scripts/verification/verifyNotSureNeverAsked.ts",
     "test:not-sure-goal-review": "node --import tsx scripts/verification/verifyNotSureGoalReview.ts",
     "test:newest-answer-wins": "node --import tsx scripts/verification/verifyNewestAnswerWins.ts",
+    "test:newest-every-screen": "node --import tsx scripts/verification/verifyNewestOnEveryScreen.ts",
     "test:sc-asker": "node --import tsx scripts/verification/verifyScAsker.ts",
     "test:sc-one-asker": "node --import tsx scripts/verification/verifyScOneAsker.ts",
     "test:story-fact": "node --import tsx scripts/verification/verifyStoryFact.ts",
