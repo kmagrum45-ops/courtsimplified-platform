@@ -318,7 +318,8 @@
     "test:late-fact-save": "node --import tsx scripts/verification/verifyLateFactSave.ts",
     "test:restart-keeps-answers": "node --import tsx scripts/verification/verifyRestartKeepsAnswers.ts",
     "test:removed-not-refilled": "node --import tsx scripts/verification/verifyRemovedNotRefilled.ts",
-    "test:chat-keeps-held": "node --import tsx scripts/verification/verifyChatKeepsHeld.ts"
+    "test:chat-keeps-held": "node --import tsx scripts/verification/verifyChatKeepsHeld.ts",
+    "test:late-repeat-state": "node --import tsx scripts/verification/verifyLateRepeatState.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",
