@@ -367,6 +367,12 @@ jobs:
       - name: The chat never replaces an answer the person holds with its reading of the story (Chrome check of #544, finding 2)
         run: npm run test:chat-keeps-held
 
+      - name: The chat sends the record's answer, never its own older copy (read pack, item 1)
+        run: npm run test:chat-uses-record
+
+      - name: A late save repeating "not sure" or a removal keeps the next steps current and the confirmation (read pack, item 3)
+        run: npm run test:late-repeat-state
+
       - name: Every Confirm saves what is typed in an open box first, through one path (Chrome check of #541)
         run: npm run test:confirm-flushes
 
@@ -794,6 +800,8 @@ jobs:
           tests/browser/restart-keeps-answers.spec.ts
           tests/browser/next-step-click-never-dropped.spec.ts
           tests/browser/form-box-follows-record.spec.ts
+          tests/browser/form-box-two-tabs.spec.ts
+          tests/browser/review-buttons-say-why.spec.ts
           tests/browser/claim-kind-one-value.spec.ts
           tests/browser/chrome-31oct-review.spec.ts
           tests/browser/change-answer.spec.ts

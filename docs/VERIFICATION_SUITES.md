@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-233 documented, 26 without a header.
+235 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -52,6 +52,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:chat-first-line` | **The follow-up chat's replies read from the confirmed intake (L47), tested the**<br>way a person's message reaches it live. |
 | `npm run test:chat-keeps-held` | **A FACT THE PERSON HOLDS IS NEVER REPLACED BY WHAT THE MODEL READ FROM THE STORY (rules 2, 4 and 8; Chrome check of**<br>#544, 6 Nov 2026, step 18). |
 | `npm run test:chat-plain-words` | **THE CHAT SPEAKS PLAINLY AND DOES NOT ASK WHAT IT HAS (Charter re-test, 27 Oct, root cause 4).**<br>Checks, as properties, through the chat's own route (app/api/guided-assistant) with a saved case in all three areas (a Charter claim, a Small Claims debt, a civil debt, a family case): - no reply carries the site's reasoning machinery: a profile's name, an inv |
+| `npm run test:chat-uses-record` | **THE SMALL CLAIMS CHAT SENDS THE RECORD'S ANSWER, NOT ITS OWN OLDER COPY (rule 3, site owner 6 Nov 2026; owner's read**<br>of the read pack: "chat stale copy"). |
 | `npm run test:check-oracles` | **No check can be satisfied by a comment. A check's oracle must be independent of the**<br>implementation's description of itself. |
 | `npm run test:checked-answer` | **Checked answers show only what the official text supports.**<br>WHAT THIS CATCHES: an answer the site shows without proof. The checked answer (retrieval/checkedAnswer.ts) lets the model answer first and then checks every statement against the library. This suite drives that pipeline with a fake drafter and a fake checker o |
 | `npm run test:child-support-draft` | **The child support draft carries recorded figures and cited rules, and**<br>calculates nothing. |
@@ -121,6 +122,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:journey-invariants` | **Self-test for the static arm of journeyInvariants.ts.**<br>WHY THIS EXISTS. The first version of the static arm scored ZERO violations against the known-defective historical code -- readinessTone(), the highRiskPenalty subtraction, and the "Document readiness impact" ordinal union. All three had been fixed in the live |
 | `npm run test:kind-from-story` | **THE KIND OF DISPUTE A STORY SUPPORTS, IN ALL THREE COURTS: one shared reader, offered to tick**<br>(owner, 30 Oct; rule 4 of the fact conversion). |
 | `npm run test:late-fact-save` | **A FACT SAVED AFTER THE NEXT STEPS WERE MADE, SAYING WHAT THE CASE ALREADY SAID, KEEPS THEM CURRENT (item 1, 6 Nov).**<br>Since G2 (#543) every answer is also kept as a server-numbered fact record (caseFile.facts), and the material facts the next steps rest on include those records (intakeReview.ts materialFacts). A record that lands late -- the chat's save arriving after the nex |
+| `npm run test:late-repeat-state` | **A LATE SAVE REPEATING A "NOT SURE" OR A REMOVAL THE PERSON ALREADY HAS KEEPS THE NEXT STEPS CURRENT AND THE**<br>CONFIRMATION STANDING (site owner, 6 Nov 2026, read of the read pack: item 3; rules 5 and 6). |
 | `npm run test:law-exam` | **The law exam's answer keys rest on the law, word for word.**<br>WHAT THIS CATCHES: an answer key written from memory. Every question in scripts/eval/lawExam/questions/ cites the official text saved in this repository, and every quote must appear in that text -- the same check the site's own quotes pass (quoteMatch.ts). A k |
 | `npm run test:law-map` | **test:law-map -- the law map (docs/law-map/) stays well-formed and never**<br>judges a case (CLAUDE.md s. 2, "Draft from knowledge; publish only what is verified", 2026-10-13). |
 | `npm run test:library-chat` | **The chat can only say what has already been verified.**<br>COSTS NOTHING. No model call. Every check drives `validateSelection` and `assembleChatAnswer` with payloads a model might return — including the ones it must never return — because those are the two functions every answer passes through, whatever the model sai |
