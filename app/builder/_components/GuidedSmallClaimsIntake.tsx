@@ -1806,6 +1806,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           </>) : null}
         </div>
       )}
+      {/* The questions ended with the story held: the block above (and its Continue) is not drawn, and the next step
+          they ask for on their own stops at an unconfirmed review. Said here, under the questions, never nothing
+          (rule 7, site owner 6 Nov; review-buttons-say-why.spec.ts). */}
+      {started && storyHeld && !(depthActive || currentQuestion) && !readingOutdated && !heldPayload ? <ReviewNeededNotice from="guided" /> : null}
 
       {depthActive ? (
         <div className="mt-3 flex items-center gap-3">

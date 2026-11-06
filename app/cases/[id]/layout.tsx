@@ -256,7 +256,7 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
           now, so the newest answer shows here at once, before confirming again (founder's Chrome check of #536, 1 Nov). */}
       <h1 className="text-2xl font-bold">Please review and confirm your information again</h1>
       <p data-testid="case-confirm-again" role="status" className="my-4 font-semibold text-[#8a4b12]">You changed an answer, so please review and confirm again.</p>
-      <Link data-testid="case-review-again" className="inline-flex rounded-full bg-[#2f7d67] px-5 py-3 font-semibold text-white" href={builderHref(caseRecord)}>Review and confirm</Link>
+      <Link data-testid="case-review-again" className="inline-flex rounded-full bg-[#2f7d67] px-5 py-3 font-semibold text-white" href={builderHref(caseRecord, { openReview: true })}>Review and confirm</Link>
       <div className="mt-6 text-left">
         <CaseFilePanel
           file={caseFileOf(caseRecord.court_path ? readCheckpoint(asRecord(caseRecord.master_result).intakeCheckpoint, caseRecord.court_path as Parameters<typeof readCheckpoint>[1]) : null, caseRecord.master_result)}
