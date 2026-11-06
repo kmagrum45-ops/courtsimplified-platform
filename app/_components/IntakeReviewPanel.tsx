@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import MunicipalNoticeFirst from "../builder/_components/MunicipalNoticeFirst";
 import { municipalNoticeFirst } from "../../src/lib/content-library/municipalNoticeFirst";
@@ -107,6 +107,23 @@ export default function IntakeReviewPanel() {
     return asked && (SLOT_FACTS as readonly string[]).includes(asked) ? asked as SlotFact : null;
   });
   useEffect(() => { if (changeFact) setViewing(true); }, [changeFact]);
+  // ?next=start: the case page's "Show my next step" or "Update my next steps" (layout.tsx), pressed there once.
+  // Started here once the intake is confirmed, as this page's own button does, and taken out of the address so a
+  // reload does not start it again (founder's Chrome check of #543, 5 Nov: the link only opened this page).
+  const [startAsked] = useState(() => typeof window !== "undefined" && new URLSearchParams(window.location.search).get("next") === "start");
+  const startedOnce = useRef(false);
+  const startPhase = view ? reviewPhase(view.workflowStatus, view.checkpoint) : null;
+  const startOutdated = view ? storyAnswersOutdated(view.checkpoint) : true;
+  useEffect(() => {
+    if (!startAsked || startedOnce.current || !recovery || pathname !== "/builder" || startPhase !== "user-confirmed" || startOutdated || busy || working) return;
+    startedOnce.current = true;
+    const url = new URL(window.location.href);
+    url.searchParams.delete("next");
+    window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}`);
+    if (showWaitingStep()) { setWaiting(true); return; }
+    nextStepPressed();
+    setWaiting(!recovery.continueToGuidance());
+  }, [startAsked, recovery, pathname, startPhase, startOutdated, busy, working]);
   if (!view || !recovery || pathname !== "/builder") return null;
   const { checkpoint, workflowStatus } = view;
   const phase = reviewPhase(workflowStatus, checkpoint);
