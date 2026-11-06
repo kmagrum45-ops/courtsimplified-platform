@@ -33,7 +33,7 @@ const STORIES: Record<Court, string> = {
   family: "Synthetic: my former partner and I separated in March 2026 and we disagree about parenting time for our daughter.",
 };
 /** Not answers about the case: left as they are. */
-const SKIP = /story|city|municipality|your name|your address|your phone|your email|court file number|search/i;
+const SKIP = /story|city|municipality|your name|your full legal name|your address|your phone|your email|yourPostalCode|yourAddress|yourPhone|yourEmail|yourName|court file number|search/i;
 
 async function openForm(page: Page, court: Court) {
   if (court === "small-claims") {
