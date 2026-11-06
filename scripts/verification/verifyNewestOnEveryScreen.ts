@@ -18,7 +18,7 @@
  *
  * Run: npm run test:newest-every-screen
  */
-import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
+import { answerNow, caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
 import { reviewBoxState, reviewEntries } from "../../src/lib/case-system/intakeReview";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 
@@ -64,6 +64,21 @@ const chat = { guided: { facts: { amountClaimedText: "$6,400" }, earlierAnswers:
 {
   const box = amountBox(chat);
   check("the chat's answer, the only one, stays a box", box.state === "given" && /6,?400/.test(box.shows), JSON.stringify(box));
+}
+
+// F3. The Small Claims chat keeps the person's typed reply ("$6,400") in their words and says the newest under it
+// ("You changed this answer: $7,250", GuidedSmallClaimsIntake shownMessages through answerNow). Chrome: the amount changed
+// in the whole form to $7,250 (its own answer, no "Change") showed no such line.
+{
+  const file = caseFileOf(cp({ ...chat, "small-claims": { input: { amountClaimed: "$7,250" } } }));
+  const now = answerNow(file, "sc-amount-claimed", "$6,400");
+  check("F3: the chat's typed $6,400, with $7,250 newer from the whole form: the chat says it changed, to $7,250", now.changed && !now.removed && /7,?250/.test(String(now.value)), JSON.stringify(now));
+  const same = answerNow(caseFileOf(cp(chat)), "sc-amount-claimed", "$6,400");
+  check("F3: the chat's reply that is still the answer says nothing", !same.changed, JSON.stringify(same));
+  const removed = answerNow(caseFileOf(cp({ ...chat, caseFile: { facts: { amount: { seq: 1, at: "2026-11-06T21:40:00Z", state: "removed", source: "person", question: "small-claims:amountClaimed" } } } })), "sc-amount-claimed", "$6,400");
+  check("F3: the answer removed since: the chat says it was removed", removed.changed && removed.removed, JSON.stringify(removed));
+  const day = answerNow(caseFileOf(cp({ guided: { facts: { timelineText: "March 3, 2026" }, earlierAnswers: [{ questionId: "sc-orient-when-happened", answerText: "March 3, 2026" }] }, caseFile: { facts: { whenHappened: { seq: 1, at: "2026-11-06T21:40:00Z", state: "answered", value: "2026-03-03", source: "person", question: "position:case-date-act-or-omission" } } } })), "sc-orient-when-happened", "March 3, 2026");
+  check("F3: the same day written another way is not a change", !day.changed, JSON.stringify(day));
 }
 
 console.log(failures ? `\n${failures} check(s) failed.` : "\nThe review shows the newest answer, never its own older copy.");

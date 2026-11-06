@@ -137,6 +137,9 @@ export function saysNoDateYet(value: unknown): boolean {
 /** The slots a "no date yet" answer can close. */
 const COURT_DAYS = new Set<SlotFact>(["conferenceDate", "courtDate"]);
 
+/** The facts a box or a chat reply holds as typed words, whose copy can fall behind the record's newest answer (Chrome check of #544, F1 and F3). */
+export const NEWEST_TYPED_FACTS = new Set<SlotFact>(["amount", "otherParty", "wants", "whenHappened", "outcome"]);
+
 /** The slots that hold a day. */
 const DATED = new Set<SlotFact>(["whenHappened", "servedDate", "conferenceDate", "courtDate"]);
 
@@ -673,6 +676,17 @@ export function changedWords(file: CaseFile | null | undefined, fact: SlotFact, 
 export function answerNow(file: CaseFile | null | undefined, questionId: string, own: unknown): { value: unknown; changed: boolean; removed: boolean } {
   const facts = slotsOf(questionId);
   const slot = facts.length === 1 ? file?.[facts[0]] : undefined;
+  // The Small Claims chat's questions (sc-*): a newer answer given in another place without "Change" (the whole form's
+  // box typed over its copy) is the newest too, so the chat says it under the reply (Chrome check of #544, 6 Nov, F3:
+  // no "You changed this answer: $7,250"). Typed facts only; a day written another way is the same day. The civil and
+  // Family questions (field keys) are unchanged here.
+  if (slot && !slot.changed && questionId.startsWith("sc-") && NEWEST_TYPED_FACTS.has(facts[0]) && typeof own === "string" && own.trim() && !isUnsureAnswer(own)) {
+    if (slot.removed) return { value: undefined, changed: true, removed: true };
+    const fact = facts[0];
+    const ownDay = DATED.has(fact) ? readFullDay(own) : null;
+    const sameDay = ownDay !== null && ownDay === dayOfSlot(slot);
+    if (slot.state === "answered" && slot.value !== undefined && !sameDay && !sameAnswer(fact, slot.value, own)) return { value: typeof slot.value === "number" ? slotText(slot, (iso) => iso) : slot.value, changed: true, removed: false };
+  }
   if (!slot?.changed) return { value: own, changed: false, removed: false };
   if (slot.removed || slot.state !== "answered") return { value: undefined, changed: true, removed: true };
   return { value: typeof slot.value === "number" ? slotText(slot, (iso) => iso) : slot.value, changed: true, removed: false };
