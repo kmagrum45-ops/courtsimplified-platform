@@ -17,6 +17,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useIntakeRecovery, useIntakeReviewView, useIntakeState } from "./IntakeRecovery";
 import { useCaseField } from "./useCaseField";
+import { writeFollow } from "./caseWrite";
 import { caseFileOf, isUnsureAnswer } from "../../src/lib/case-system/caseFile/caseFile";
 import { askOf, filledToFollow, formFill, seenNow } from "../../src/lib/case-system/intake/asker";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "../../src/lib/case-system/copy/askCopy";
@@ -73,8 +74,8 @@ export function useBoxesFollow(section: string, container: string | null) {
     const now = (container ? recovery.read(section, container) : undefined) as Record<string, unknown> | undefined;
     const next = Object.fromEntries(Object.entries(plan).filter(([field]) => typed === null || String((container ? now?.[field] : recovery.read(section, field)) ?? "") !== typed));
     if (!Object.keys(next).length) return;
-    if (container) recovery.put(section, container, { ...(now ?? {}), ...next }, false, true);
-    else for (const [field, words] of Object.entries(next)) recovery.put(section, field, words, false, true);
+    if (container) writeFollow(recovery, section, container, { ...(now ?? {}), ...next });
+    else for (const [field, words] of Object.entries(next)) writeFollow(recovery, section, field, words);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- runs when what the boxes must show changes
   }, [key]);
 }

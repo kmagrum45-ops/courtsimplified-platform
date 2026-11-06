@@ -49,6 +49,15 @@ export function writeAnswer(recovery: CaseWriteRecovery, section: string, field:
   if (changes) recovery.put(CASE_FILE_SECTION, "changes", changes, true, options.external ?? false, options.fromReview ?? false);
 }
 
+/**
+ * A form box following the newest saved answer (AskedField.tsx useBoxesFollow, boxFollow.ts): the form's copy takes the
+ * answer's words. Not an answer: no change is recorded, the confirmation is untouched, nothing is sent (touched=false);
+ * the box is told (external), so it shows the words at once.
+ */
+export function writeFollow(recovery: CaseWriteRecovery, section: string, field: string, value: unknown): void {
+  recovery.put(section, field, value, false, true);
+}
+
 /** "Change" on a fact: the person's newest answer, or its removal, with the server's number for it as this tab saw it. */
 export function writeChange(recovery: CaseWriteRecovery, fact: SlotFact, change: ChangeInput): void {
   const seen = seenSeqOf({ [CASE_FILE_SECTION]: { facts: recovery.read(CASE_FILE_SECTION, "facts") } }, fact);
