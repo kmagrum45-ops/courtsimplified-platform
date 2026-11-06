@@ -279,6 +279,9 @@ jobs:
       - name: The story reader never takes a witness or bystander as the other party (Chrome check of #544, F2)
         run: npm run test:story-other-party
 
+      - name: The case page and the case file page show the same deadlines, from one source (Chrome check of #544, F4)
+        run: npm run test:one-deadline-source
+
       - name: The story is a fact of the case file -- never asked again once given
         run: npm run test:story-fact
 

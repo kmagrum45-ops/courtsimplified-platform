@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-238 documented, 26 without a header.
+239 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -150,6 +150,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:not-sure-never-asked` | **"NOT SURE" IS NEVER ASKED AGAIN, ANYWHERE (site owner, 31 Oct; replaces option 1 of 24 Oct).**<br>After a person says "I don't know" or "not sure" -- a skip in the questions one at a time, the words typed in the Small Claims guided chat or in the whole form, or the review's "I do not know yet" -- no screen in any of the three courts asks that question agai |
 | `npm run test:notice-step` | **A claim whose kind can need written notice before suing is pointed to that**<br>notice step first, and only when the person's own words place it. |
 | `npm run test:official-forms` | **The official-forms watch reads the Ontario Court Forms pages correctly, and**<br>the recorded official list covers every live form the regulations name. |
+| `npm run test:one-deadline-source` | **THE CASE PAGE AND THE CASE FILE PAGE SHOW THE SAME DEADLINES, FROM ONE SOURCE (Chrome check of #544, 6 Nov 2026, F4).**<br>Chrome, Small Claims: the case page's next step said "Based on the date you gave us, the last day for this is Friday 3 March 2028" and "Saved to your case"; the case file page said "Deadlines worked out from your dates: None yet". The next-step card counts the |
 | `npm run test:one-writer` | **ONE WRITER: EVERY SAVE POINT OF CASE DATA IS ON A LIST THAT ONLY SHRINKS (case core G0, "the rails";**<br>docs CASE_CORE_DESIGN.md §10; founder's Phase 1 approval, 31 Oct: "a permanent check that fails on a new save point bypassing the writer"). |
 | `npm run test:open-case` | **ONE CASE ID DECIDES WHICH CASE IS OPEN: the address, and nothing else**<br>(npm run test:open-case). |
 | `npm run test:openai-cost` | **OpenAI spending stays under control.**<br>WHAT IT CATCHES (2026-10-08: October's spend reached about $396 against a $100 budget, $205.76 of it prompt-cache WRITES that were almost never read back): - a call to a GPT-5.6+ model going out without prompt_cache_options, so the whole prompt is written to t |
