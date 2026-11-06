@@ -9,9 +9,19 @@
  * Each case records answers, confirms, changes the story in the review, and
  * requires: the review panel does not pre-fill the old answers and cannot
  * confirm; every route (questions, form, review) is blocked with the message
- * beside its button; "Go to the questions" scrolls to them; and after "Start
- * the questions again" nothing from the old version appears on the page or in
- * the tab's storage.
+ * beside its button; and "Go to the questions" scrolls to them.
+ *
+ * After "Start the questions again" (rule changed by the site owner, 6 Nov 2026,
+ * PR #544): every answer the person gave is kept, in the tab and on the review,
+ * as their own answer (not "answered for an earlier version", not a suggestion
+ * from the story), and each stays editable: one is changed on the review and the
+ * new answer replaces the old one in the tab and on the page. Until 6 Nov this
+ * test required the opposite (nothing of the old answers left after the restart).
+ *
+ * NOT BUILT YET: a "your story now says X, you answered Y: keep or use?" prompt.
+ * So a rewritten story can leave old answers that the new story contradicts (here,
+ * "one child, age 6" under a story that says "We have no children"), shown on the
+ * review as the person's answers but not flagged.
  *
  * Part 3 adds the stale-story audit's high-risk items in all three areas (below).
  */
@@ -53,6 +63,7 @@ const CASES = {
     },
     oldText: ["one child, age 6", "Parenting time / access"],
     oldStored: ["one child, age 6", "parenting-time"],
+    edit: { from: "one child, age 6", to: "Synthetic: one child, age 7." },
   },
   civil: {
     old: "Synthetic old story: I hired Test Builder Ltd. to build an addition for $180,000 and they abandoned the job.",
@@ -63,6 +74,7 @@ const CASES = {
     },
     oldText: ["$180,000", "finish the addition"],
     oldStored: ["180,000", "finish the addition"],
+    edit: { from: "finish the addition", to: "Synthetic: an order that Test Builder Ltd. pay for the repairs." },
   },
 } as const;
 
@@ -106,14 +118,32 @@ for (const court of ["family", "civil"] as const) {
     const questions = page.getByTestId("questions-story-changed");
     await expect(questions).toBeInViewport({ timeout: 10_000 });
 
-    // Starting again removes the old answers everywhere.
+    // Starting again keeps every answer the person gave (6 Nov 2026 rule), as their own answer.
     await questions.getByRole("button", { name: "Start the questions again from my story" }).click();
     await expect(page.getByTestId("questions-story-changed")).toHaveCount(0);
-    await expect(page.getByTestId("intake-answer-stale")).toHaveCount(0);
-    const stored = await page.evaluate(() => sessionStorage.getItem("courtSimplifiedGuestIntakeSession") ?? "");
-    for (const text of story.oldStored) expect(stored, `the tab no longer holds "${text}"`).not.toContain(text);
-    const after = await shownAnswers(page.locator("body"));
-    for (const text of story.oldText) expect(after, `"${text}" does not come back`).not.toContain(text);
+    await expect(page.getByTestId("intake-answer-stale"), "no answer is marked as for an earlier version").toHaveCount(0);
+    const tab = () => page.evaluate(() => sessionStorage.getItem("courtSimplifiedGuestIntakeSession") ?? "");
+    const stored = await tab();
+    for (const text of story.oldStored) expect(stored, `the tab still holds "${text}"`).toContain(text);
+    if (await page.getByTestId("intake-view-review").isVisible().catch(() => false)) await page.getByTestId("intake-view-review").click();
+    // The answers shown, and the answers in its boxes (a box's value is not in innerText).
+    const reviewShows = async () => `${await shownAnswers(panel)} | ${(await panel.locator("input[type=text], textarea").evaluateAll((nodes) => nodes.map((node) => (node as HTMLInputElement).value))).join(" | ")}`;
+    for (const text of story.oldText) await expect.poll(reviewShows, { message: `the review shows "${text}" again`, timeout: 10_000 }).toContain(text);
+    // Shown on the review as the person's own answer, in an editable box, not as a suggestion from the story.
+    const boxes = panel.locator("[data-testid=intake-entry] input[type=text], [data-testid=intake-entry] textarea");
+    const index = await boxes.evaluateAll((nodes, from) => nodes.findIndex((node) => (node as HTMLInputElement).value.includes(from)), story.edit.from);
+    expect(index, `the review holds "${story.edit.from}" in an editable box`).toBeGreaterThanOrEqual(0);
+    const box = boxes.nth(index);
+    await expect(box).toBeEditable();
+    await expect(panel.getByTestId("intake-entry-from-story").filter({ hasText: story.edit.from }), "the kept answer is not offered as a suggestion").toHaveCount(0);
+    // Editable: changing it replaces the old answer in the tab and on the page.
+    await box.fill(story.edit.to);
+    await box.blur();
+    await expect.poll(tab, { message: "the tab holds the changed answer", timeout: 15_000 }).toContain(story.edit.to.replace("Synthetic: ", ""));
+    expect(await tab(), `the tab no longer holds "${story.edit.from}"`).not.toContain(story.edit.from);
+    await expect(box).toHaveValue(story.edit.to);
+    const pageShows = async () => `${await shownAnswers(page.locator("body"))} | ${(await page.locator("input[type=text], textarea").evaluateAll((nodes) => nodes.map((node) => (node as HTMLInputElement).value))).join(" | ")}`;
+    await expect.poll(pageShows, { message: `"${story.edit.from}" is no longer shown, as text or in a box`, timeout: 10_000 }).not.toContain(story.edit.from);
   });
 }
 
