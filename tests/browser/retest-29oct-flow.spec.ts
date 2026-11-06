@@ -266,7 +266,7 @@ test("retest-29oct D1: next steps made before an added answer are offered for up
   await page.getByTestId("case-update-next-steps").click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
-  await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
+  // The case page's one click makes them again, with no second click here (item 1, 6 Nov: case-page-next-step.spec.ts).
   await expect(page.getByTestId("completed-case-overview"), "the next steps are made again").toBeVisible({ timeout: 120_000 });
   await page.goto(`/cases/${caseId}`);
   await expect(page.getByTestId("case-guidance-outdated")).toHaveCount(0, { timeout: 60_000 });
