@@ -124,6 +124,25 @@ export default function IntakeReviewPanel() {
     nextStepPressed();
     setWaiting(!recovery.continueToGuidance());
   }, [startAsked, recovery, pathname, startPhase, startOutdated, busy, working]);
+  // "Show my next step" pressed while the review is still saving (Confirm's save ends a moment after the button
+  // shows): kept, the button says "Saving…", and it runs when the save ends. A click is never ignored (rule 7;
+  // founder's Chrome check of #544, step 13: the first click right after Confirm did nothing).
+  const [nextQueued, setNextQueued] = useState(false);
+  const pressNext = useRef<() => void>(() => {});
+  useEffect(() => {
+    pressNext.current = () => {
+      if (!recovery) return;
+      if (showWaitingStep()) { setWaiting(true); return; }
+      nextStepPressed();
+      setWaiting(!recovery.continueToGuidance());
+      void supabase.auth.getSession().then(({ data }) => setSignInNeeded(!data.session)).catch(() => undefined);
+    };
+  }, [recovery]);
+  useEffect(() => {
+    if (!nextQueued || busy || startPhase !== "user-confirmed") return;
+    setNextQueued(false);
+    pressNext.current();
+  }, [nextQueued, busy, startPhase]);
   if (!view || !recovery || pathname !== "/builder") return null;
   const { checkpoint, workflowStatus } = view;
   const phase = reviewPhase(workflowStatus, checkpoint);
@@ -424,7 +443,7 @@ export default function IntakeReviewPanel() {
         {changedAfterConfirm(workflowStatus, checkpoint) && acceptedRevision !== revision ? <p data-testid="intake-confirm-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer, so please review and confirm again.</p>
         : acceptedRevision !== null && acceptedRevision !== revision ? <p data-testid="intake-tick-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer. Please tick to confirm again.</p> : null}
         <label className="mt-5 block"><input data-testid="intake-review-acknowledgement" type="checkbox" checked={acceptedRevision === revision} disabled={busy} onChange={event => setAcceptedRevision(event.target.checked ? revision : null)} /> I have reviewed this information, including anything that is missing or uncertain.</label>
-        <button data-testid="intake-confirm" type="button" disabled={busy || needs.length > 0} onClick={() => void act("confirm")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Confirm my initial information</button>{" "}
+        <button data-testid="intake-confirm" type="button" disabled={busy || needs.length > 0} onClick={() => void act("confirm")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">{busy ? "Saving…" : "Confirm my initial information"}</button>{" "}
         <button type="button" disabled={busy} onClick={() => void act("collect")}>Return to intake controls</button>
         {needs.length > 0 && <p data-testid="intake-confirm-needs" className="mt-2 text-sm text-[#4d675f]">Still needed before you can confirm: {needs.join("; ")}.</p>}
         <StoryChangedNotice where="button" />
@@ -433,7 +452,7 @@ export default function IntakeReviewPanel() {
     {/* Not reviewing yet (reloaded before the change was saved, or back at the questions): still said, from the saved record. */}
     {phase === "collecting" && changedAfterConfirm(workflowStatus, checkpoint) ? <p data-testid="intake-confirm-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer, so please review and confirm again.</p> : null}
     {phase === "collecting" && <button data-testid="intake-start-review" type="button" disabled={busy || !canReview(checkpoint)} onClick={() => void act("review")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Stop initial questions and review</button>}
-    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={busy || questionsOutdated || working} onClick={() => { if (showWaitingStep()) { setWaiting(true); return; } nextStepPressed(); setWaiting(!recovery.continueToGuidance()); void supabase.auth.getSession().then(({ data }) => setSignInNeeded(!data.session)).catch(() => undefined); }} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">{working ? "Working out your next step…" : "Show my next step"}</button>{" "}<button data-testid="intake-view-review" type="button" disabled={busy} onClick={() => setViewing(true)}>Review or correct initial information</button>
+    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={questionsOutdated || working || nextQueued} onClick={() => { if (busy) { setNextQueued(true); return; } pressNext.current(); }} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">{working ? "Working out your next step…" : busy || nextQueued ? "Saving…" : "Show my next step"}</button>{" "}<button data-testid="intake-view-review" type="button" disabled={busy} onClick={() => setViewing(true)}>Review or correct initial information</button>
       {/* A guest: the next step needs an account (the safety check runs first). Said here, under the button pressed,
           not only at the foot of the form (Chrome check of #542, 3 Nov, B1: the button seemed to do nothing). */}
       {signInNeeded ? <SignInForSafetyCheck testId="intake-continue-sign-in" area={court === "family" ? "Family" : court === "civil" ? "Civil" : "Small Claims"} /> : null}
