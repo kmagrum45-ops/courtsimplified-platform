@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-235 documented, 26 without a header.
+236 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -222,6 +222,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:strategy` | **Case strategy stays switched off, sourced, and never grades a case.**<br>WHAT IT CATCHES (retrieval/strategy.ts, /api/case/strategy, 2026-10-08): - strategy answering on the live site: on unless STRATEGY=off (site owner, 2026-10-12), and the page hides it only with NEXT_PUBLIC_STRATEGY=off; - the route answering someone not signed  |
 | `npm run test:suggestions-offered` | **A SUGGESTION IS OFFERED, NEVER PRE-TICKED, WITH THE ONE CONTROL (owner's Chrome check, 31 Oct).**<br>The owner's rule: a suggestion read from the person's story, or made by the site, is OFFERED, never pre-ticked, pre-selected or pre-filled, in all three courts. Everywhere it is offered with the same one-click "Use the suggestion" control: ONE component (app/_ |
 | `npm run test:testing-notice` | **THE YELLOW TESTING NOTICE'S WORDS (site owner, 2026-10-29). The notice**<br>(ScopePreviewNotice.tsx) no longer says the site is waiting for the Law Society of Ontario's Access to Innovation approval; it says what the owner set: the site was built by self-represented litigants, it uses AI governed by rules, and what it shows has not be |
+| `npm run test:tests-in-ci` | **EVERY TEST FILE IS RUN BY CI, OR SAYS WHY NOT (site owner, 6 Nov 2026).**<br>Found 6 Nov: fact-two-tabs.spec.ts (added in #543) failed on main and nobody knew, because no workflow ran it; three terminal suites added in #544 were missing from CI's list the same way. An audit that day found 108 test files no workflow run on a pull reques |
 | `npm run test:three-area` | **Canonical three-area engines and core payload validators, entirely offline.**<br>HTTP confirmation/ownership enforcement is exercised separately by verifyIntakeGuidanceGate. Keeps source integration, specialized outputs and malformed-input coverage intact. |
 | `npm run test:tidy-wording` | **The spelling check can only fix spelling — never change what the user said.**<br>COSTS NOTHING. Pure validator runs, no model call. |
 | `npm run test:time-ran-out` | **A step whose time is "still running" is never shown beside a counted date that has passed.**<br>What it checks: each stage with whenTimeRunsOut links one of its OWN deadlines to a stage that exists, is a went-wrong stage, and that the map's own distinguishedFrom already tells apart from it (both ways) by whether the time has run out -- so the link adds n |

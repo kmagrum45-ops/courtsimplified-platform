@@ -320,7 +320,8 @@
     "test:removed-not-refilled": "node --import tsx scripts/verification/verifyRemovedNotRefilled.ts",
     "test:chat-keeps-held": "node --import tsx scripts/verification/verifyChatKeepsHeld.ts",
     "test:chat-uses-record": "node --import tsx scripts/verification/verifyChatUsesRecord.ts",
-    "test:late-repeat-state": "node --import tsx scripts/verification/verifyLateRepeatState.ts"
+    "test:late-repeat-state": "node --import tsx scripts/verification/verifyLateRepeatState.ts",
+    "test:tests-in-ci": "node --import tsx scripts/verification/verifyTestsInCi.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

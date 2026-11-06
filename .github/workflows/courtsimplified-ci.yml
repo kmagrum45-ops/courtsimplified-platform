@@ -373,6 +373,9 @@ jobs:
       - name: A late save repeating "not sure" or a removal keeps the next steps current and the confirmation (read pack, item 3)
         run: npm run test:late-repeat-state
 
+      - name: Every test file is run by CI, or listed with the reason it is not (scripts/verification/notInCi.json)
+        run: npm run test:tests-in-ci
+
       - name: Every Confirm saves what is typed in an open box first, through one path (Chrome check of #541)
         run: npm run test:confirm-flushes
 
