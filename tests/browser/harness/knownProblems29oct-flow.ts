@@ -80,12 +80,6 @@ export const KNOWN_PROBLEMS_29OCT_FLOW: readonly KnownProblem[] = [
     test: "OWNER-1: a month and year in an event's own sentence fills \"When, in your words\"",
   },
   {
-    id: "OWNER-2-overview-keeps-story-month",
-    reason:
-      "The case overview's \"Case snapshot\" row \"When (your words)\" shows the story's \"March 2026\" after the exact day is recorded: it reads intake.timeline only (IntelligenceOverviewPanel.tsx:341,348), while the step page's day goes to position.dateAnswers (read by caseFileOf) and an event's exact day goes to case_events (read by neither).",
-    test: "OWNER-2: the case overview's \"When\" row reads the recorded day, not only the story's words",
-  },
-  {
     id: "OWNER-3-topic-cut-mid-word",
     reason:
       "A chat answer ended \"...Ottawa Small Claims Co.\": a statement that is not confirmed is listed by its first 80 characters (checkedAnswer.ts:478, 616-617, 624-625, statement.text.slice(0, 80)) and the list is closed with a full stop (CheckedAnswerPanel.tsx:129).",
