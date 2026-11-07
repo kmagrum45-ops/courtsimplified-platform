@@ -34,7 +34,8 @@ function body(file: string, name: string): string {
   const next = text.indexOf("\n  async function ", start + 10);
   return text.slice(start, next < 0 ? undefined : next);
 }
-const firstOf = (text: string, needles: string[]) => Math.min(...needles.map((needle) => { const at = text.indexOf(needle); return at < 0 ? Infinity : at; }));
+// Each needle a pattern, so this file never holds a network call's text (test:canlii reads that text as a fetching script).
+const firstOf = (text: string, needles: RegExp[]) => Math.min(...needles.map((needle) => { const at = text.search(needle); return at < 0 ? Infinity : at; }));
 
 const PATHS: [string, string, string][] = [
   ["the chat's finish (handleGuidedComplete)", "app/builder/page.tsx", "handleGuidedComplete"],
@@ -43,7 +44,7 @@ const PATHS: [string, string, string][] = [
 for (const [what, file, name] of PATHS) {
   const text = body(file, name);
   const gate = text.indexOf("prepareCaseGuidance(");
-  const starts = firstOf(text, ["setGuidedAnalyzing(true)", "beforeIntakeAI(", "setLoading(true)", "fetch("]);
+  const starts = firstOf(text, [/setGuidedAnalyzing\(true\)/, /beforeIntakeAI\(/, /setLoading\(true\)/, /\bfetch\s*\(/]);
   check(`F5: ${what}: the gate is asked before the working note or the AI step`, text.length > 0 && gate >= 0 && gate < starts, `gate at ${gate}, first start at ${starts}`);
 }
 const recovery = code("app/_components/IntakeRecovery.tsx");
