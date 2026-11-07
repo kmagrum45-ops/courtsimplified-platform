@@ -197,6 +197,9 @@ export default function IntakeReviewPanel() {
       .catch((failure) => setError(failure instanceof Error ? failure.message : "Your review could not be opened. Please retry."))
       .finally(() => { setBusy(false); toPanel(); });
   }, [reviewAsked, recovery, view, pathname, startPhase, busy]);
+  // A review action's error ends when the review moves on: "Retry saving intake" finished the Confirm whose save
+  // answered an error (Chrome check of #544 on a8c8cf57, 7 Nov, step 19), or the person changed an answer.
+  useEffect(() => { setError(""); }, [startPhase]);
   if (!view || !recovery || pathname !== "/builder") return null;
   const { checkpoint, workflowStatus } = view;
   const phase = reviewPhase(workflowStatus, checkpoint);

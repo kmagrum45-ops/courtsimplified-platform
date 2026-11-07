@@ -153,6 +153,33 @@ export async function saveReviewTransition(db: Db, ownerId: string, caseId: stri
   }, 2, { requestTimeoutMs: CASE_REQUEST_TIMEOUT_MS }));
 }
 
+/** A review action the store could not save (its answer was an error), kept so the retry can finish it. */
+export type PendingTransition = { action: "review" | "collect" | "confirm"; expectedInput: string };
+
+/** Whether the saved case already records this review action for these answers (its save landed although it answered an error). */
+export function transitionLanded(master: Record<string, unknown>, court: IntakeCourt, caseId: string, pending: PendingTransition): boolean {
+  const saved = readCheckpoint(master.intakeCheckpoint, court, caseId);
+  if (!saved || inputRevision(saved) !== pending.expectedInput) return false;
+  const workflow = record(master.workflowStatus);
+  const review = record(workflow.intakeReview);
+  if (pending.action === "confirm") return reviewPhase(workflow, saved) === "user-confirmed" && review.confirmedRevision === pending.expectedInput;
+  if (pending.action === "review") return review.reviewedRevision === pending.expectedInput;
+  return !review.reviewedRevision && !review.confirmedRevision;
+}
+
+/**
+ * "Retry saving intake" after a review action whose save answered an error (Chrome check of #544 on a8c8cf57, 7 Nov,
+ * step 19: four retries over three minutes never cleared "Your review could not be saved", yet the case was confirmed).
+ * The saved case is read back first: when the action is already there, it is taken as saved and nothing is written
+ * again; when it is not, the action is sent again through the one writer (saveReviewTransition).
+ */
+export async function retryReviewTransition(db: Db, ownerId: string, caseId: string, snapshot: Checkpoint, pending: PendingTransition, current: () => boolean): Promise<{ ok: true; master: Record<string, unknown>; landed: boolean } | { ok: false; reason: string; error?: string }> {
+  const row = await loadCheckpointCase(db, caseId, ownerId, snapshot.courtPath);
+  if (row && transitionLanded(row.master_result, snapshot.courtPath, caseId, pending)) return { ok: true, master: row.master_result, landed: true };
+  const result = await saveReviewTransition(db, ownerId, caseId, snapshot, pending.action, pending.expectedInput, current);
+  return result.ok ? { ok: true, master: result.master, landed: false } : { ok: false, reason: result.reason, ...(result.error ? { error: result.error } : {}) };
+}
+
 /** The stored value when it fits this field's type, else the component's own value. */
 export function adoptStored<T>(stored: unknown, fallback: T): T {
   if (stored === undefined) return fallback;

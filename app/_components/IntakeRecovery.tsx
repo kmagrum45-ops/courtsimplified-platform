@@ -20,7 +20,7 @@ import { civilRoleFromStory, familyRoleFromStory } from "../builder/_components/
 import SituationQuestions, { SITUATION_CHANGE_EVENT, SituationLine } from "./SituationQuestions";
 import SafetyNotice from "./SafetyNotice";
 import FirstUseAcknowledgement from "./FirstUseAcknowledgement";
-import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt } from "../../src/lib/case-system/intakeCheckpoint";
+import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, retryReviewTransition, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt, type PendingTransition } from "../../src/lib/case-system/intakeCheckpoint";
 import { canonicalJson } from "../../src/lib/case-system/canonicalJson";
 import { WorkingButton } from "./Working";
 import { saveThenLeave } from "./leaveAfterSave";
@@ -61,6 +61,8 @@ type Recovery = {
   /** `reaffirm`: the person answered this again (true: the whole field; a key: that one answer), so it is based on the current story even when the value is unchanged. */
   put: (section: string, key: string, value: unknown, touched?: boolean, external?: boolean, fromReview?: boolean, reaffirm?: true | string) => void;
   flush: (signal?: AbortSignal) => Promise<void>;
+  /** "Retry saving intake": the answers saved, then a review action whose save answered an error read back, or sent again. */
+  retry: () => Promise<void>;
   validate: (signal?: AbortSignal) => Promise<void>;
   getCaseId: () => string | null;
   flowId: string;
@@ -271,6 +273,8 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         let dirty = migrated || Boolean(session && session.checkpoint.revision !== serverRevision);
         let timer: ReturnType<typeof setTimeout> | undefined;
         let flight: Promise<void> | null = null;
+        // A review action whose save answered an error: the retry reads the case back for it, or sends it again (7 Nov, step 19).
+        let pendingTransition: PendingTransition | null = null;
         const invalid = new Set<string>();
         // `pending`: something entered here has not reached the account (still saving,
         // a failed save, or no case created yet). Default values a form writes are not.
@@ -421,6 +425,24 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             const route = step === "results" ? snapshot.sections.builder?.step : step;
             return runContinue(route === "guided" ? "guided" : route === "form" ? "form" : "choose");
           },
+          retry: async () => {
+            await flush();
+            if (!current()) return;
+            // A review action for answers changed since is not finished: the change itself reopened the review.
+            if (pendingTransition && inputRevision(snapshot) !== pendingTransition.expectedInput) pendingTransition = null;
+            if (pendingTransition && ownerId && caseId) {
+              const result = await retryReviewTransition(supabase, ownerId, caseId, snapshot, pendingTransition, current);
+              if (!current()) return;
+              if (!result.ok) { failure("Your review could not be saved. Your answers remain here; retry before continuing."); throw new Error("Review was not saved. Please retry."); }
+              pendingTransition = null;
+              workflowStatus = record(result.master.workflowStatus);
+              savedMaster = record(result.master);
+              cache();
+              emit();
+            }
+            setFailed(false);
+            setNotice("Intake saved to your account.");
+          },
           begin: async signal => { await flush(signal); signal?.throwIfAborted(); if (signal) leases.set(signal, factsRevision(snapshot)); },
           subscribeField: (section, field, listener) => {
             const key = `${section}:${field}`;
@@ -447,8 +469,10 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             }
             if (ownerId && caseId) {
               const result = await saveReviewTransition(supabase, ownerId, caseId, snapshot, action, expectedInput, current);
-              if (!result.ok) { failure("Your review could not be saved. Your answers remain here; retry before continuing."); throw new Error("Review was not saved. Please retry."); }
+              if (!result.ok) { pendingTransition = { action, expectedInput }; failure("Your review could not be saved. Your answers remain here; retry before continuing."); throw new Error("Review was not saved. Please retry."); }
               if (!current()) return;
+              pendingTransition = null;
+              setFailed(false);
               workflowStatus = record(result.master.workflowStatus);
               savedMaster = record(result.master);
               if (inputRevision(snapshot) !== expectedInput) {
@@ -586,7 +610,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
   return <Context.Provider value={recovery}>
     <div className="mx-auto max-w-6xl px-6 py-3 text-sm" role={failed ? "alert" : "status"} data-testid="intake-save-status">
       {notice}{" "}
-      {failed && <WorkingButton className="underline" working={retrying} workingLabel="Saving intake…" onClick={async () => { if (!recovery) { setAttempt((value) => value + 1); return; } setRetrying(true); try { await recovery.flush(); } catch { /* the notice says what failed */ } finally { setRetrying(false); } }}>Retry saving intake</WorkingButton>}{" "}
+      {failed && <WorkingButton className="underline" working={retrying} workingLabel="Saving intake…" onClick={async () => { if (!recovery) { setAttempt((value) => value + 1); return; } setRetrying(true); try { await recovery.retry(); } catch { /* the notice says what failed */ } finally { setRetrying(false); } }}>Retry saving intake</WorkingButton>}{" "}
       {(recovery || failed) && (!recovery?.ownerId || failed) && <a className="underline" href={`/login?next=${encodeURIComponent(here)}`} onClick={(event) => { event.preventDefault(); startSignIn(); }}>{recovery && !recovery.ownerId ? "Sign in or create a free account (what you entered comes with you)" : "Sign in for account recovery"}</a>}
       {conflict && recovery?.getCaseId() && <a className="underline" href={`/builder?path=${court}&caseId=${recovery.getCaseId()}`} target="_blank" rel="noopener noreferrer">Open the saved intake separately</a>}
       {!recovery && failed && <> · <a className="underline" href={`/builder?path=${court}`}>Start a new intake</a></>}
