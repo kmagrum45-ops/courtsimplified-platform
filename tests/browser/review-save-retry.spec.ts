@@ -1,21 +1,25 @@
 /**
- * A CONFIRMATION WHOSE SAVE ANSWERED WITH AN ERROR: THE RETRY CLEARS THE MESSAGE ONCE IT HAS LANDED, OR SENDS IT AGAIN
- * (Chrome check of #544 on a8c8cf57, 7 Nov 2026, step 19 and "Anything else wrong" 1).
+ * A CONFIRMATION WHOSE SAVE ANSWERED WITH AN ERROR: THE RETRY CLEARS THE MESSAGE ONCE IT HAS LANDED, OR SENDS IT AGAIN;
+ * A SIGNED-IN PERSON IS NEVER OFFERED "SIGN IN FOR ACCOUNT RECOVERY" (Chrome check of #544 on a8c8cf57, 7 Nov 2026,
+ * step 19 and "Anything else wrong" 1).
  *
  * Chrome, Small Claims, signed in: the save of Confirm (a PATCH of the case row) answered 503 several times. The page
  * said "Your review could not be saved. Your answers remain here; retry before continuing. Retry saving intake Sign in
  * for account recovery"; four presses of "Retry saving intake" over three minutes did not clear it, yet after a reload
  * the case was confirmed. Cause: the retry only re-ran the answers' save, which, with nothing left to save, returned
- * before the line that clears the message (IntakeRecovery.tsx flush), and never looked at or re-sent the confirmation.
+ * before the line that clears the message (IntakeRecovery.tsx flush), and never looked at or re-sent the confirmation;
+ * and the sign-in link showed whenever a save failed, signed in or not.
  *
  * What it checks, with the real save path on a local or staging account (realTestSession.ts refuses production) and the
  * model stand-ins, the database's answer to the confirmation's save replaced by a 503 once:
- *   1. the save reached the database (the 503 came after it): one "Retry saving intake" reads the case back, finds the
- *      confirmation and clears the message;
+ *   1. the save reached the database (the 503 came after it): the message is worded for a signed-in person ("Your case
+ *      could not be saved just now. Try again.") with no sign-in link; one "Retry saving intake" reads the case back,
+ *      finds the confirmation and clears the message;
  *   2. the save did not reach the database: one "Retry saving intake" sends the confirmation again, and the case is
  *      confirmed after a reload.
  *
- * WHAT FAILURE THIS CATCHES: a "could not be saved" message that no retry clears, or a confirmation lost to one error.
+ * WHAT FAILURE THIS CATCHES: a "could not be saved" message that no retry clears, a confirmation lost to one error, or
+ * a sign-in offer to someone already signed in.
  */
 import { expect, test, type Page } from "@playwright/test";
 import { authenticateRealTestUser } from "./harness/intakeDriver";
@@ -69,7 +73,7 @@ async function failNextConfirmSave(page: Page, reaches: boolean) {
 }
 
 for (const reaches of [true, false]) {
-  test(`a confirmation save answered 503 ${reaches ? "after it reached the database: the retry finds it and clears the message" : "before it reached the database: the retry sends it again"}-- small-claims`, async ({ page }) => {
+  test(`a confirmation save answered 503 ${reaches ? "after it reached the database: the retry finds it and clears the message" : "before it reached the database: the retry sends it again"}; no sign-in offer while signed in -- small-claims`, async ({ page }) => {
     test.setTimeout(600_000);
     const userId = await authenticateRealTestUser(page, { realCases: true });
     try {
@@ -78,6 +82,8 @@ for (const reaches of [true, false]) {
       await page.getByTestId("intake-confirm").click();
       const status = page.getByTestId("intake-save-status");
       await expect(status).toHaveAttribute("role", "alert", { timeout: 60_000 });
+      await expect(status, "a signed-in person is told plainly, with no account-recovery wording").toContainText("Your case could not be saved just now. Try again.");
+      await expect(status.getByRole("link", { name: /sign in/i }), "a signed-in person is offered a sign-in").toHaveCount(0);
 
       await status.getByRole("button", { name: "Retry saving intake", exact: true }).click();
       await expect(status, "one retry did not clear the message").not.toHaveAttribute("role", "alert", { timeout: 60_000 });

@@ -169,10 +169,27 @@ function CourtFromCase() {
   return <div className="mx-auto max-w-6xl px-6 py-3 text-sm" role="status" data-testid="court-from-case">Opening your case…</div>;
 }
 
+/**
+ * A failed save, worded for a signed-in person (Chrome check of #544 on a8c8cf57, 7 Nov: "Your review could not be saved.
+ * Your answers remain here; retry before continuing. Retry saving intake Sign in for account recovery" while signed in).
+ * A notice that says what to do about something else (another tab, a text too large, signing in again) keeps its words.
+ */
+export const SIGNED_IN_SAVE_FAILED = "Your case could not be saved just now. Try again.";
+export function failureWords(notice: string, signedIn: boolean): string {
+  return signedIn && /^Your (intake|review|answers) could not be saved/.test(notice) ? SIGNED_IN_SAVE_FAILED : notice;
+}
+/** The sign-in offer under a failed save: only to a guest, or to someone whose sign-in ended ("Sign in again"). */
+export function signInOffer(notice: string, signedIn: boolean, hasStore: boolean): string | null {
+  if (signedIn) return /^Sign in again/.test(notice) ? "Sign in again" : null;
+  return hasStore ? "Sign in or create a free account (what you entered comes with you)" : "Sign in for account recovery";
+}
+
 function RecoveryProvider({ court, selectedId, requestedFlow, children }: { court: IntakeCourt; selectedId: string | null; requestedFlow: string | null; children: ReactNode }) {
   const [recovery, setRecovery] = useState<Recovery | null>(null);
   const [notice, setNotice] = useState("Opening your intake…");
   const [failed, setFailed] = useState(false);
+  // Whether the person is signed in, known once the account is read: a signed-in person is never offered a sign-in for a failed save.
+  const [signedIn, setSignedIn] = useState(false);
   const [conflict, setConflict] = useState(false);
   const [attempt, setAttempt] = useState(0);
   // "Retry saving intake" while its save runs: it says so, and is not pressed twice (fresh review, 28 Oct).
@@ -191,6 +208,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
       disposeStore();
       setRecovery(null);
       setFailed(false);
+      setSignedIn(Boolean(ownerId));
       setConflict(false);
       const current = () => active && epoch === generation.current;
       try {
@@ -609,9 +627,12 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
   </div>;
   return <Context.Provider value={recovery}>
     <div className="mx-auto max-w-6xl px-6 py-3 text-sm" role={failed ? "alert" : "status"} data-testid="intake-save-status">
-      {notice}{" "}
+      {failed ? failureWords(notice, signedIn || Boolean(recovery?.ownerId)) : notice}{" "}
       {failed && <WorkingButton className="underline" working={retrying} workingLabel="Saving intake…" onClick={async () => { if (!recovery) { setAttempt((value) => value + 1); return; } setRetrying(true); try { await recovery.retry(); } catch { /* the notice says what failed */ } finally { setRetrying(false); } }}>Retry saving intake</WorkingButton>}{" "}
-      {(recovery || failed) && (!recovery?.ownerId || failed) && <a className="underline" href={`/login?next=${encodeURIComponent(here)}`} onClick={(event) => { event.preventDefault(); startSignIn(); }}>{recovery && !recovery.ownerId ? "Sign in or create a free account (what you entered comes with you)" : "Sign in for account recovery"}</a>}
+      {(() => {
+        const offer = (recovery || failed) && (!recovery?.ownerId || failed) ? signInOffer(notice, signedIn || Boolean(recovery?.ownerId), Boolean(recovery)) : null;
+        return offer ? <a className="underline" href={`/login?next=${encodeURIComponent(here)}`} onClick={(event) => { event.preventDefault(); startSignIn(); }}>{offer}</a> : null;
+      })()}
       {conflict && recovery?.getCaseId() && <a className="underline" href={`/builder?path=${court}&caseId=${recovery.getCaseId()}`} target="_blank" rel="noopener noreferrer">Open the saved intake separately</a>}
       {!recovery && failed && <> · <a className="underline" href={`/builder?path=${court}`}>Start a new intake</a></>}
     </div>
