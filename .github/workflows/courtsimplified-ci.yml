@@ -279,6 +279,9 @@ jobs:
       - name: The whole form's boxes start from and save to the case record (Chrome check of #544, F1 root cause)
         run: npm run test:whole-form-record
 
+      - name: After Confirm, a confirmed fact changed through any box cancels the confirmation (Chrome check of #544, step 6)
+        run: npm run test:confirmed-fact-change
+
       - name: The case page's next-step buttons open the overview; the waiting line ends with the work (Chrome check of #544, F6)
         run: npm run test:next-step-opens-overview
 
