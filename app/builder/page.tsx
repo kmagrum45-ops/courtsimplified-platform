@@ -508,6 +508,20 @@ function BuilderPageContent() {
     recovery?.continueToGuidance();
   });
 
+  /**
+   * From the overview of a confirmed case, the whole form (every box): Chrome check of #544 on a8c8cf57, 7 Nov. The
+   * intake, with the Small Claims route chooser and civil and Family's "Show the whole form instead", is hidden while
+   * the overview shows, so nothing led there once a case was confirmed. Small Claims opens its form route; civil and
+   * Family switch their intake to its form and leave the overview. Opening a form changes no answer.
+   */
+  function openWholeForm() {
+    if (courtPath === "small-claims") { pushStep("form"); return; }
+    if (courtPath === "civil" || courtPath === "family") recovery?.put(courtPath, "mode", "form", false);
+    const url = new URL(window.location.href);
+    url.searchParams.delete("step");
+    window.history.pushState(null, "", `${url.pathname}${url.searchParams.toString() ? `?${url.searchParams.toString()}` : ""}`);
+  }
+
   function pushStep(step: "form" | "guided" | "results") {
     const url = new URL(window.location.href);
     if (url.searchParams.get("step") === step) return;
@@ -2059,6 +2073,11 @@ function BuilderPageContent() {
           />
         )}
 
+        {resultsVisible && intakeConfirmed && !loadingExistingCase && !caseLoadError && (courtPath === "small-claims" || courtPath === "civil" || courtPath === "family") && (
+          <p className="mx-auto max-w-6xl text-sm">
+            <button type="button" data-testid="open-whole-form" onClick={openWholeForm} className="font-semibold text-[#2f7d67] underline">Open the whole form (all your answers)</button>
+          </p>
+        )}
         {!loadingExistingCase && !caseLoadError && confirmedLocation && (
           <section hidden={resultsVisible} className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
             <div className="mb-6">
