@@ -270,6 +270,7 @@
     "test:newest-every-screen": "node --import tsx scripts/verification/verifyNewestOnEveryScreen.ts",
     "test:whole-form-record": "node --import tsx scripts/verification/verifyWholeFormRecord.ts",
     "test:confirmed-fact-change": "node --import tsx scripts/verification/verifyConfirmedFactChange.ts",
+    "test:waiting-line-ends": "node --import tsx scripts/verification/verifyWaitingLineEnds.ts",
     "test:next-step-opens-overview": "node --import tsx scripts/verification/verifyNextStepOpensOverview.ts",
     "test:story-other-party": "node --import tsx scripts/verification/verifyStoryOtherParty.ts",
     "test:one-deadline-source": "node --import tsx scripts/verification/verifyOneDeadlineSource.ts",

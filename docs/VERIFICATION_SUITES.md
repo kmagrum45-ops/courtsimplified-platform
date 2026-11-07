@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-244 documented, 26 without a header.
+245 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -240,6 +240,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:user-story` | **The user's own words are what pages show back to them, never the labelled**<br>record the analysis reads; and a date in their story without a year is still offered for counting their deadline. |
 | `npm run test:verdict-sources` | **Every provision a published answer was proved from is in its source list**<br>(2026-10-13). |
 | `npm run test:verifier` | **Does the verifier actually reject wrong content?**<br>The whole value of a drafter/verifier split rests on the verifier being willing to say no. A verifier that agrees with plausible text is not a check, it is a second opinion from the same kind of mind, and it would turn every block green while changing nothing. |
+| `npm run test:waiting-line-ends` | **"FINISH THE STEP SHOWN BELOW FIRST" ENDS WHEN A QUEUED START NEVER RUNS (Chrome check of #544 on a8c8cf57, 7 Nov 2026,**<br>the site owner's item 6). |
 | `npm run test:whole-form-record` | **THE WHOLE FORM'S BOXES ARE FILLED FROM, AND SAVED TO, THE CASE RECORD (Chrome check of #544, 6 Nov 2026, F1 root cause).**<br>Chrome, Small Claims: the amount was changed five times across the chat, the review, the whole form and "Change". After "Update my next steps" the whole form showed an older amount, and after "Start the questions again from my story" the case showed $9,350, an |
 | `npm run test:working-states` | **EVERY CONTROL THAT WAITS ON SLOW WORK SAYS SO IN PLAIN WORDS (site owner, 28 Oct).**<br>Checks, across every page and component under app/ (the admin pages excepted), as properties: - every <button> held by a work state (disabled while loading, saving, busy, sending, …) sits in a file that says, in words, what that same state is doing: a WorkingB |
 | `npm run test:workspace-ai-flag` | **No document text and no file name can reach a model while document analysis is off —**<br>and it is off, and stays off. |

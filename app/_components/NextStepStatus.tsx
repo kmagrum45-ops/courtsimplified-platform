@@ -66,6 +66,11 @@ export function usePublishNextStepStatus(reading: boolean, error: string, onStop
 
 const SLOW_AFTER_S = 45;
 
+/** The same, read once outside React (test:waiting-line-ends: a press no screen takes up ends by itself). */
+export function nextStepReadingNow(): boolean {
+  return current.reading;
+}
+
 /** Whether any screen is working out the next step now: the button that starts it waits (live re-test 26 Oct, case 11). */
 export function useNextStepReading(): boolean {
   return useSyncExternalStore(subscribe, () => current.reading, () => false);
