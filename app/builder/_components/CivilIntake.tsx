@@ -1,5 +1,6 @@
 "use client";
 
+import { useOpenWholeForm } from "./openWholeForm";
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
 import { caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
@@ -565,6 +566,8 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
   // One question at a time by default (Step 2C, 2026-10-12); the whole form
   // is one click away and holds exactly the same answers.
   const [mode, setMode] = useIntakeState<"chat" | "form">("civil", "mode", "chat");
+  // The overview's "Open the whole form (all your answers)" on a confirmed case (Chrome check of #544, 7 Nov).
+  useOpenWholeForm(() => setMode("form"));
   /** Set only on "immediate-danger". Blocks analysis and shows crisis resources. */
   const [safetyHalt, setSafetyHalt] = useState("");
   /** Set on "distress". Shown alongside the intake, which continues. */

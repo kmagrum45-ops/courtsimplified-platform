@@ -1,5 +1,6 @@
 "use client";
 
+import { OPEN_WHOLE_FORM_EVENT } from "./_components/openWholeForm";
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
 import { caseFileOf, claimKindOf, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
@@ -516,7 +517,8 @@ function BuilderPageContent() {
    */
   function openWholeForm() {
     if (courtPath === "small-claims") { pushStep("form"); return; }
-    if (courtPath === "civil" || courtPath === "family") recovery?.put(courtPath, "mode", "form", false);
+    // Civil and Family switch to their form themselves (their own mode, saved as before), so no new writer is added.
+    window.dispatchEvent(new Event(OPEN_WHOLE_FORM_EVENT));
     const url = new URL(window.location.href);
     url.searchParams.delete("step");
     window.history.pushState(null, "", `${url.pathname}${url.searchParams.toString() ? `?${url.searchParams.toString()}` : ""}`);

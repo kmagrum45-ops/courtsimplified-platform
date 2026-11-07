@@ -170,14 +170,13 @@ export function transitionLanded(master: Record<string, unknown>, court: IntakeC
 /**
  * "Retry saving intake" after a review action whose save answered an error (Chrome check of #544 on a8c8cf57, 7 Nov,
  * step 19: four retries over three minutes never cleared "Your review could not be saved", yet the case was confirmed).
- * The saved case is read back first: when the action is already there, it is taken as saved and nothing is written
- * again; when it is not, the action is sent again through the one writer (saveReviewTransition).
+ * The saved case is read back first (a read only): its master_result when the action is already there, so it is taken
+ * as saved and nothing is written again; null when it is not, and the store sends the action again through its one
+ * review writer (IntakeRecovery.tsx transition, saveReviewTransition).
  */
-export async function retryReviewTransition(db: Db, ownerId: string, caseId: string, snapshot: Checkpoint, pending: PendingTransition, current: () => boolean): Promise<{ ok: true; master: Record<string, unknown>; landed: boolean } | { ok: false; reason: string; error?: string }> {
-  const row = await loadCheckpointCase(db, caseId, ownerId, snapshot.courtPath);
-  if (row && transitionLanded(row.master_result, snapshot.courtPath, caseId, pending)) return { ok: true, master: row.master_result, landed: true };
-  const result = await saveReviewTransition(db, ownerId, caseId, snapshot, pending.action, pending.expectedInput, current);
-  return result.ok ? { ok: true, master: result.master, landed: false } : { ok: false, reason: result.reason, ...(result.error ? { error: result.error } : {}) };
+export async function landedReviewTransition(db: Db, ownerId: string, caseId: string, court: IntakeCourt, pending: PendingTransition): Promise<Record<string, unknown> | null> {
+  const row = await loadCheckpointCase(db, caseId, ownerId, court);
+  return row && transitionLanded(row.master_result, court, caseId, pending) ? row.master_result : null;
 }
 
 /** The stored value when it fits this field's type, else the component's own value. */

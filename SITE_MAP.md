@@ -87,7 +87,7 @@ The sections below follow the same order.
 - Owns: `sections.story` (`storyOf`, `locationOf`, `storyOfMaster`), `migrateStory` (moves five legacy copies into one, on load), `guidedReadingOutdated`, `STORY_INPUT_KEYS`.
 
 **`src/lib/case-system/intakeCheckpoint.ts`** — the checkpoint shape and its storage.
-- Owns: `Checkpoint` and `IntakeSession` types, validation (`readCheckpoint`, 500 KB cap), session storage read/write, the Supabase load/create/save of the case row with a revision check (compare-and-swap), `saveReviewTransition`, `retryReviewTransition` ("Retry saving intake" after a review action whose save answered an error: the case read back, the action taken as saved when it is there, else sent again; `tests/browser/review-save-retry.spec.ts`), `adoptStored`.
+- Owns: `Checkpoint` and `IntakeSession` types, validation (`readCheckpoint`, 500 KB cap), session storage read/write, the Supabase load/create/save of the case row with a revision check (compare-and-swap), `saveReviewTransition`, `landedReviewTransition` ("Retry saving intake" after a review action whose save answered an error: the case read back, the action taken as saved when it is there, else sent again through the store's one review writer; `tests/browser/review-save-retry.spec.ts`), `adoptStored`.
 - Reads: `intakeReview.ts` (`inputRevision`, `reconcileReview`, `existingFactChanged`), `updateCaseRecord.ts`, `positionSave.ts`.
 - Read by: `IntakeRecovery.tsx`, `HomeLocationGate.tsx`, `caseFile.ts`, `storyBasis.ts`, `sideChange.ts`, `guestCarry.ts`, `app/login/page.tsx`, `app/cases/[id]/page.tsx`, `app/api/cases/position/route.ts`.
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { useOpenWholeForm } from "./openWholeForm";
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
 import { caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
@@ -282,6 +283,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   // One question at a time by default (Step 2C, 2026-10-12); the whole form
   // is one click away and holds exactly the same answers.
   const [mode, setMode] = useIntakeState<"chat" | "form">("family", "mode", "chat");
+  // The overview's "Open the whole form (all your answers)" on a confirmed case (Chrome check of #544, 7 Nov).
+  useOpenWholeForm(() => setMode("form"));
   // No values handed over from the follow-up chat any more: a second copy of the
   // story outside the version record (Part 3, stale-story audit item 4).
   const initialValues: Record<string, string | string[]> = {};

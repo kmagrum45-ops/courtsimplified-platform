@@ -20,7 +20,7 @@ import { civilRoleFromStory, familyRoleFromStory } from "../builder/_components/
 import SituationQuestions, { SITUATION_CHANGE_EVENT, SituationLine } from "./SituationQuestions";
 import SafetyNotice from "./SafetyNotice";
 import FirstUseAcknowledgement from "./FirstUseAcknowledgement";
-import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, retryReviewTransition, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt, type PendingTransition } from "../../src/lib/case-system/intakeCheckpoint";
+import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, landedReviewTransition, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt, type PendingTransition } from "../../src/lib/case-system/intakeCheckpoint";
 import { canonicalJson } from "../../src/lib/case-system/canonicalJson";
 import { WorkingButton } from "./Working";
 import { saveThenLeave } from "./leaveAfterSave";
@@ -449,14 +449,21 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             // A review action for answers changed since is not finished: the change itself reopened the review.
             if (pendingTransition && inputRevision(snapshot) !== pendingTransition.expectedInput) pendingTransition = null;
             if (pendingTransition && ownerId && caseId) {
-              const result = await retryReviewTransition(supabase, ownerId, caseId, snapshot, pendingTransition, current);
+              const pending = pendingTransition;
+              const landed = await landedReviewTransition(supabase, ownerId, caseId, court, pending);
               if (!current()) return;
-              if (!result.ok) { failure("Your review could not be saved. Your answers remain here; retry before continuing."); throw new Error("Review was not saved. Please retry."); }
-              pendingTransition = null;
-              workflowStatus = record(result.master.workflowStatus);
-              savedMaster = record(result.master);
-              cache();
-              emit();
+              if (landed) {
+                // Its save landed although it answered an error: taken as saved, nothing written again.
+                pendingTransition = null;
+                workflowStatus = record(landed.workflowStatus);
+                savedMaster = record(landed);
+                cache();
+                emit();
+              } else {
+                // Not there: sent again through the one review writer, which keeps it pending and says so if it fails again.
+                await store.transition(pending.action, pending.expectedInput);
+                if (!current()) return;
+              }
             }
             setFailed(false);
             setNotice("Intake saved to your account.");
