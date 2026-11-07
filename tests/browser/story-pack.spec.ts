@@ -964,7 +964,7 @@ test("retest-477 case 11: a confirmed case with no next step yet opens it from t
   await expect(page.getByText("Review your initial information before receiving case guidance")).toHaveCount(0);
   await page.getByTestId("case-show-next-step").click();
   await expect(page.getByTestId("intake-review"), "the confirmation stands").toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
-  await page.getByTestId("intake-continue-guidance").click();
+  // The case page's one click starts the next step, with no second click here (item 1, 6 Nov: case-page-next-step.spec.ts).
   await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 90_000 });
 });
 

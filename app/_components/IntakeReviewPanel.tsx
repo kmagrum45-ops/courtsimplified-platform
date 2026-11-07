@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import MunicipalNoticeFirst from "../builder/_components/MunicipalNoticeFirst";
 import { municipalNoticeFirst } from "../../src/lib/content-library/municipalNoticeFirst";
@@ -79,6 +79,17 @@ export default function IntakeReviewPanel() {
   // Waiting on the notice: once it is given, the next step is opened, on every route. The
   // notice holds the builder back while some routes still take a Continue, so asking them
   // first opened Small Claims' chooser with no next step and no word why (case 11).
+  // The line ends with the work it waited for: a start queued until its route was on the page ran later, and the line
+  // stayed after the next step appeared (Chrome check of #544, 6 Nov, F6). A failed start ends it too (its error shows).
+  const workSeen = useRef(false);
+  useEffect(() => {
+    if (!waiting) { workSeen.current = false; return; }
+    if (working) workSeen.current = true;
+    else if (workSeen.current) {
+      workSeen.current = false;
+      setWaiting(false);
+    }
+  }, [waiting, working]);
   useEffect(() => {
     if (!waiting || !recovery) return;
     const given = () => { setWaiting(false); nextStepPressed(); recovery.continueToGuidance(); };
@@ -107,6 +118,85 @@ export default function IntakeReviewPanel() {
     return asked && (SLOT_FACTS as readonly string[]).includes(asked) ? asked as SlotFact : null;
   });
   useEffect(() => { if (changeFact) setViewing(true); }, [changeFact]);
+  // ?next=start: the case page's "Show my next step" or "Update my next steps" (layout.tsx), pressed there once.
+  // Started here once the intake is confirmed, as this page's own button does, and taken out of the address so a
+  // reload does not start it again (founder's Chrome check of #543, 5 Nov: the link only opened this page).
+  const [startAsked] = useState(() => typeof window !== "undefined" && new URLSearchParams(window.location.search).get("next") === "start");
+  const startedOnce = useRef(false);
+  const startPhase = view ? reviewPhase(view.workflowStatus, view.checkpoint) : null;
+  const startOutdated = view ? storyAnswersOutdated(view.checkpoint) : true;
+  // Asked from the case page but the next step cannot start here (rule 7, site owner 6 Nov): said at the top of the
+  // review, in place of doing nothing. "confirm": an answer changed since the case page drew its link (another tab, the
+  // form); "story": the story changed since the questions read it.
+  const [startBlocked, setStartBlocked] = useState<"confirm" | "story" | null>(null);
+  useEffect(() => {
+    if (!startAsked || startedOnce.current || !recovery || !view || pathname !== "/builder" || !startPhase || busy || working) return;
+    // The saved case is read first: a case named in the address is judged on its own saved state, never on the empty start.
+    if (recovery.getCaseId() && !recovery.getSavedMaster()) return;
+    if (startPhase !== "user-confirmed" || startOutdated) {
+      startedOnce.current = true;
+      const url = new URL(window.location.href);
+      url.searchParams.delete("next");
+      window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}`);
+      setStartBlocked(startOutdated ? "story" : "confirm");
+      window.setTimeout(() => document.querySelector<HTMLElement>('[data-testid="intake-review"]')?.scrollIntoView({ behavior: "auto", block: "start" }), 50);
+      return;
+    }
+    startedOnce.current = true;
+    const url = new URL(window.location.href);
+    url.searchParams.delete("next");
+    window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}`);
+    if (showWaitingStep()) { setWaiting(true); return; }
+    nextStepPressed();
+    setWaiting(!recovery.continueToGuidance());
+  }, [startAsked, recovery, view, pathname, startPhase, startOutdated, busy, working]);
+  // "Show my next step" pressed while the review is still saving (Confirm's save ends a moment after the button
+  // shows): kept, the button says "Saving…", and it runs when the save ends. A click is never ignored (rule 7;
+  // founder's Chrome check of #544, step 13: the first click right after Confirm did nothing).
+  const [nextQueued, setNextQueued] = useState(false);
+  const pressNext = useRef<() => void>(() => {});
+  useEffect(() => {
+    pressNext.current = () => {
+      if (!recovery) return;
+      if (showWaitingStep()) { setWaiting(true); return; }
+      nextStepPressed();
+      setWaiting(!recovery.continueToGuidance());
+      void supabase.auth.getSession().then(({ data }) => setSignInNeeded(!data.session)).catch(() => undefined);
+    };
+  }, [recovery]);
+  useEffect(() => {
+    if (!nextQueued || busy || startPhase !== "user-confirmed") return;
+    setNextQueued(false);
+    pressNext.current();
+  }, [nextQueued, busy, startPhase]);
+  // "Review or correct initial information" pressed while the review is still saving: kept, and the review opens
+  // when the save ends (rule 7; it was drawn disabled with no word why, and a click right after Confirm did nothing).
+  const [viewQueued, setViewQueued] = useState(false);
+  useEffect(() => {
+    if (!viewQueued || busy) return;
+    setViewQueued(false);
+    setViewing(true);
+  }, [viewQueued, busy]);
+  // ?review=open: the case page's "Review and confirm" (layout.tsx), pressed there after an answer changed since
+  // Confirm. The review is opened here once, as this page's own "Stop initial questions and review" opens it, and
+  // the request is taken out of the address so a reload does not open it again (founder's Chrome check of #544, 5a:
+  // the link opened the builder with the review closed and no Confirm on screen).
+  const [reviewAsked] = useState(() => typeof window !== "undefined" && new URLSearchParams(window.location.search).get("review") === "open");
+  const reviewOpened = useRef(false);
+  useEffect(() => {
+    if (!reviewAsked || reviewOpened.current || !recovery || !view || pathname !== "/builder" || !startPhase || busy) return;
+    reviewOpened.current = true;
+    const url = new URL(window.location.href);
+    url.searchParams.delete("review");
+    window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}`);
+    const toPanel = () => window.setTimeout(() => document.querySelector<HTMLElement>('[data-testid="intake-review"]')?.scrollIntoView({ behavior: "auto", block: "start" }), 50);
+    if (startPhase === "user-confirmed") { setViewing(true); toPanel(); return; }
+    if (startPhase === "reviewing" || !canReview(view.checkpoint)) { toPanel(); return; }
+    setBusy(true); setError("");
+    void recovery.transition("review", inputRevision(view.checkpoint))
+      .catch((failure) => setError(failure instanceof Error ? failure.message : "Your review could not be opened. Please retry."))
+      .finally(() => { setBusy(false); toPanel(); });
+  }, [reviewAsked, recovery, view, pathname, startPhase, busy]);
   if (!view || !recovery || pathname !== "/builder") return null;
   const { checkpoint, workflowStatus } = view;
   const phase = reviewPhase(workflowStatus, checkpoint);
@@ -299,6 +389,8 @@ export default function IntakeReviewPanel() {
   // scroll-mt-28: a scroll to the panel stops below the 77px sticky header, not under it (L46).
   return <section className="mx-auto my-4 max-w-6xl scroll-mt-28 rounded-2xl border border-[#d8e6df] bg-white p-6" data-testid="intake-review" data-phase={phase}>
     <h2 className="text-xl font-bold">{phase === "user-confirmed" ? "Initial intake confirmed" : phase === "reviewing" ? "Review your initial case information" : "Your initial case information"}</h2>
+    {startBlocked === "confirm" && phase !== "user-confirmed" ? <p data-testid="next-start-blocked" role="alert" className="mt-3 text-sm font-semibold text-[#8a4b12]">Your next step was not shown yet: an answer changed after you confirmed, so your initial information needs confirming again first. Review it below and confirm, then choose &quot;Show my next step&quot;.</p> : null}
+    {startBlocked === "story" && questionsOutdated ? <p data-testid="next-start-blocked" role="alert" className="mt-3 text-sm font-semibold text-[#8a4b12]">Your next step was not shown yet: your story has changed since the questions read it. Start the questions again first, so your next step comes from what you have now.</p> : null}
     {checkpoint.courtPath !== "family" && municipalNoticeFirst(story, { city }) && <aside aria-label="Urgent procedural warning" className="my-4"><h3 className="font-bold">Urgent procedural warning — check this while completing intake</h3><MunicipalNoticeFirst story={story} city={city} /></aside>}
     {legacy && <p>This case was completed before explicit review was introduced. There is no recorded confirmation under the new review process.</p>}
     <p>Initial questions establish your situation, side, what has happened, relevant dates and what you want. Evidence details and additional research are optional later work.</p>
@@ -407,7 +499,7 @@ export default function IntakeReviewPanel() {
         {changedAfterConfirm(workflowStatus, checkpoint) && acceptedRevision !== revision ? <p data-testid="intake-confirm-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer, so please review and confirm again.</p>
         : acceptedRevision !== null && acceptedRevision !== revision ? <p data-testid="intake-tick-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer. Please tick to confirm again.</p> : null}
         <label className="mt-5 block"><input data-testid="intake-review-acknowledgement" type="checkbox" checked={acceptedRevision === revision} disabled={busy} onChange={event => setAcceptedRevision(event.target.checked ? revision : null)} /> I have reviewed this information, including anything that is missing or uncertain.</label>
-        <button data-testid="intake-confirm" type="button" disabled={busy || needs.length > 0} onClick={() => void act("confirm")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Confirm my initial information</button>{" "}
+        <button data-testid="intake-confirm" type="button" disabled={busy || needs.length > 0} onClick={() => void act("confirm")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">{busy ? "Saving…" : "Confirm my initial information"}</button>{" "}
         <button type="button" disabled={busy} onClick={() => void act("collect")}>Return to intake controls</button>
         {needs.length > 0 && <p data-testid="intake-confirm-needs" className="mt-2 text-sm text-[#4d675f]">Still needed before you can confirm: {needs.join("; ")}.</p>}
         <StoryChangedNotice where="button" />
@@ -416,7 +508,7 @@ export default function IntakeReviewPanel() {
     {/* Not reviewing yet (reloaded before the change was saved, or back at the questions): still said, from the saved record. */}
     {phase === "collecting" && changedAfterConfirm(workflowStatus, checkpoint) ? <p data-testid="intake-confirm-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer, so please review and confirm again.</p> : null}
     {phase === "collecting" && <button data-testid="intake-start-review" type="button" disabled={busy || !canReview(checkpoint)} onClick={() => void act("review")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Stop initial questions and review</button>}
-    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={busy || questionsOutdated || working} onClick={() => { if (showWaitingStep()) { setWaiting(true); return; } nextStepPressed(); setWaiting(!recovery.continueToGuidance()); void supabase.auth.getSession().then(({ data }) => setSignInNeeded(!data.session)).catch(() => undefined); }} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">{working ? "Working out your next step…" : "Show my next step"}</button>{" "}<button data-testid="intake-view-review" type="button" disabled={busy} onClick={() => setViewing(true)}>Review or correct initial information</button>
+    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={questionsOutdated || working || nextQueued} onClick={() => { if (busy) { setNextQueued(true); return; } pressNext.current(); }} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">{working ? "Working out your next step…" : busy || nextQueued ? "Saving…" : "Show my next step"}</button>{" "}<button data-testid="intake-view-review" type="button" disabled={viewQueued} onClick={() => { if (busy) { setViewQueued(true); return; } setViewing(true); }}>{viewQueued ? "Saving…" : "Review or correct initial information"}</button>
       {/* A guest: the next step needs an account (the safety check runs first). Said here, under the button pressed,
           not only at the foot of the form (Chrome check of #542, 3 Nov, B1: the button seemed to do nothing). */}
       {signInNeeded ? <SignInForSafetyCheck testId="intake-continue-sign-in" area={court === "family" ? "Family" : court === "civil" ? "Civil" : "Small Claims"} /> : null}

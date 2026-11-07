@@ -47,7 +47,9 @@ export function NotAnsweredYetField({ field, facts, value, label, children }: { 
   const own = facts ?? slotsOfQuestion(field);
   // With the saved case too (a day given on the step page), as the review and the case page read it: the newest answer wins.
   const file = view?.checkpoint ? caseFileOf(view.checkpoint, recovery?.getSavedMaster() ?? undefined) : null;
-  const folded = !opened && file !== null && own.length > 0 && own.some((fact) => file[fact].state === "unsure") && !own.some((fact) => file[fact].state === "answered") && (blank(value) || isUnsureAnswer(value));
+  // A box whose own words are a "not sure" is never shown as if they were the answer, whatever its fact: "Damages / loss /
+  // impact breakdown = I do not know yet" stands for no fact (item 4, 6 Nov; Chrome check of #543, step 5b).
+  const folded = !opened && (isUnsureAnswer(value) || (file !== null && own.length > 0 && own.some((fact) => file[fact].state === "unsure") && !own.some((fact) => file[fact].state === "answered") && blank(value)));
   if (folded) {
     return (
       <div className="block" data-testid="not-answered-yet" data-fact={own[0]} data-field={field}>

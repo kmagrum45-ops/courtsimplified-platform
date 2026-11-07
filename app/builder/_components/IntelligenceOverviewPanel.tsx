@@ -37,7 +37,8 @@ import { userStory } from "@/src/lib/case-system/userStory";
 import { kindsOfClaim } from "@/src/lib/case-system/intake/claimKind";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { savePositionQueued } from "./positionSave";
-import { changedWords, claimKindAnswer, claimKindLine, claimKindOf, CLAIM_KIND_QUESTION, type CaseFile, type ClaimKindHeld } from "@/src/lib/case-system/caseFile/caseFile";
+import { claimKindAnswer, recordWords, claimKindLine, claimKindOf, CLAIM_KIND_QUESTION, isUnsureAnswer, slotText, type CaseFile, type ClaimKindHeld } from "@/src/lib/case-system/caseFile/caseFile";
+import { formatForCourt } from "@/src/lib/case-system/dates";
 import { inWords } from "@/src/lib/case-system/copy/rawKeys";
 import { WorkingButton } from "@/app/_components/Working";
 import { UseSuggestion } from "@/app/_components/UseSuggestion";
@@ -138,10 +139,11 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   const hasClaimAndService = analysis.courtPath === "small-claims" && documents.includes("plaintiffs-claim") && documents.includes("affidavit-service");
   // The user's own story, not the labelled record the analysis reads.
   const facts = userStory(intake);
-  // A fact changed or removed with "Change" is the case file's, never this copy's older value (rule 6, 31 Oct).
-  const changedAmount = changedWords(caseFile, "amount");
-  const changedWants = changedWords(caseFile, "wants");
-  const changedOther = changedWords(caseFile, "otherParty");
+  // The case file's answer, from any place, is the one shown, never this copy's older value (rule 6, 31 Oct; Chrome check of
+  // #544, 6 Nov: a newer answer from the whole form, given without "Change", left the analysis copy on screen).
+  const changedAmount = recordWords(caseFile, "amount");
+  const changedWants = recordWords(caseFile, "wants");
+  const changedOther = recordWords(caseFile, "otherParty");
   // Each typed answer through the one reader: "I do not know yet" is never printed as the answer (unsureAnswer.ts).
   const amount = answerWords(changedAmount !== undefined ? changedAmount ?? "" : textField(intake, "amountClaimed"));
   // "I do not know yet" is never shown as what the person wants (the one reader, unsureAnswer.ts answerWords).
@@ -348,14 +350,19 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // the whole story pasted in. Values are still the user's own words, shown
   // as entered -- nothing is corrected or restated -- and the story sits
   // under its own heading.
-  const timeline = answerWords(intake?.timeline);
+  // When it happened: the case file's date, in the case page's words (CaseFilePanel), never the Timeline box, which can hold
+  // a whole story sentence (item 6, 6 Nov; Chrome check of #543 showed the Timeline sentence, with a name, as the date).
+  const whenSlot = caseFile?.whenHappened;
+  const whenDay = whenSlot && (whenSlot.state === "answered" || (whenSlot.state === "unsure" && typeof whenSlot.value === "string" && whenSlot.value.trim() && !isUnsureAnswer(whenSlot.value))) ? slotText(whenSlot, formatForCourt) : "";
+  // Through the one reader, as every typed answer the snapshot prints (test:unsure-never-saved 3e).
+  const timeline = answerWords(whenDay);
 
   const snapshotRows: Array<[string, string]> = [
     ["Court", analysis.courtPath === "small-claims" ? "Small Claims Court" : analysis.courtPath === "family" ? "Family court" : "Superior Court of Justice"],
     ...(parties ? ([["Parties recorded", parties]] as Array<[string, string]>) : []),
     ...(roleInWords(role, roleWords) ? ([["Your role", roleInWords(role, roleWords)]] as Array<[string, string]>) : []),
     ["Current stage", stageWords ?? displayStage(caseStage)],
-    ...(timeline ? ([["When (your words)", timeline]] as Array<[string, string]>) : []),
+    ...(timeline ? ([["When it happened", timeline]] as Array<[string, string]>) : []),
     ...(amount ? ([["Amount", formatRecordedAmount(amount)]] as Array<[string, string]>) : []),
     ...(outcome ? ([["What you want (your words)", outcome]] as Array<[string, string]>) : []),
   ];

@@ -33,6 +33,16 @@ const PERSON = /\b(?:[Oo]wner|[Mm]anager|[Ll]andlord|[Bb]oss|[Cc]ontractor),\s+(
 const ROLE = /\b(?:my|our) (ex(?:-(?:wife|husband|partner))?|wife|husband|spouse|partner|landlord|tenant|employer|former employer|neighbou?r|contractor|roommate|ex-?boyfriend|ex-?girlfriend)\b/i;
 const NOT_A_NAME = /^(?:Ottawa|Toronto|Kingston|Brockville|Ontario|Canada|Small|Superior|Court|Statement|Application|Plaintiff|Defendant|The|This|That|He|She|They|I|We|It|My|Our|TEST)$/;
 
+/**
+ * A sentence in which the person it names (my neighbour, my landlord, my partner, a name) is a witness or bystander:
+ * they saw, heard, remember, noticed, were there, or can confirm or speak to something. Never the other side.
+ */
+const BYSTANDER_VERB = "(?:remembers?|remembered|recalls?|recalled|saw|sees|has seen|had seen|witnessed|witnesses|heard|hears|noticed|notices|watched|was there|were there|was present|were present|was with me|can (?:confirm|vouch|back (?:me|this) up|testify|speak to)|could (?:confirm|testify)|will (?:confirm|testify|vouch)|confirmed|took (?:photos|pictures|a video|videos))";
+const BYSTANDER = new RegExp(`${ROLE.source}(?:'s?)?(?:,?\\s+[A-Z][a-z'-]+(?:\\s+[A-Z][a-z'-]+)*,?)?\\s+(?:who\\s+)?(?:also\\s+|even\\s+)?${BYSTANDER_VERB}\\b`, "i");
+export function bystanderSentence(sentence: string): boolean {
+  return BYSTANDER.test(sentence);
+}
+
 /** The other side, as the story names it: a business, the person behind it, or who they are to the person. */
 /** A sentence about the claim against the person: they were served, or sued. */
 const AGAINST_THEM = /\bserv(?:e|es|ed|ing)\s+(?:me|him|her|them|us)\b|\b(?:i|he|she|we|they) (?:was|were|got|have been|has been) served\b|\bsu(?:ed|ing|es) (?:me|him|her|us|them)\b|\bclaim against (?:me|him|her|us|them)\b/i;
@@ -60,7 +70,10 @@ export function otherSideIn(story: string): StoryFact | null {
     const extra = [person && !NOT_A_NAME.test(person) && !clean.includes(person) ? person : null, officers ? `${officers}${badges ? `, badges ${badges}` : ""}` : badges ? `badges ${badges}` : null].filter(Boolean);
     return { value: extra.length ? `${clean} (${extra.join("; ")})` : clean, quote: sentence.trim() };
   }
-  const role = sentences(story).map((sentence) => ({ sentence, match: ROLE.exec(sentence) })).find((item) => item.match);
+  // A sentence where that person only saw, heard, remembers or can confirm something names a witness, never the other
+  // side: not read (Chrome check of #544, 6 Nov, F2: "My neighbour remembers their teal-orange van." gave "The other
+  // party: Your neighbour"). Unclear is left unset, never guessed (site owner, 6 Nov).
+  const role = sentences(story).filter((sentence) => !bystanderSentence(sentence)).map((sentence) => ({ sentence, match: ROLE.exec(sentence) })).find((item) => item.match);
   if (role?.match) {
     // Their name, where the story gives it beside the role ("my landlord, Peter Jones", "John Smith,
     // my ex-husband"; reviewer, 26 Oct: only "Your ex-husband" was shown).

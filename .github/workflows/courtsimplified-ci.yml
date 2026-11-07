@@ -273,6 +273,27 @@ jobs:
       - name: The newest answer wins, from whatever place it is given (one rule; the time decides until G2 gives the server number)
         run: npm run test:newest-answer-wins
 
+      - name: The newest answer shows on every screen, never a screen's own older copy (Chrome check of #544, F1-F5)
+        run: npm run test:newest-every-screen
+
+      - name: The whole form's boxes start from and save to the case record (Chrome check of #544, F1 root cause)
+        run: npm run test:whole-form-record
+
+      - name: The case page's next-step buttons open the overview; the waiting line ends with the work (Chrome check of #544, F6)
+        run: npm run test:next-step-opens-overview
+
+      - name: The story reader never takes a witness or bystander as the other party (Chrome check of #544, F2)
+        run: npm run test:story-other-party
+
+      - name: The case page and the case file page show the same deadlines, from one source (Chrome check of #544, F4)
+        run: npm run test:one-deadline-source
+
+      - name: Nothing starts working out next steps while the intake is unconfirmed, including after a restart (Chrome check of #544, F5)
+        run: npm run test:no-next-step-unconfirmed
+
+      - name: The Small Claims demo screens read answers from the case record; no new raw copy (sweep of 6 Nov)
+        run: npm run test:screens-read-record
+
       - name: The story is a fact of the case file -- never asked again once given
         run: npm run test:story-fact
 
@@ -354,6 +375,27 @@ jobs:
 
       - name: Typed "I do not know yet" is never saved or shown as the answer; "not sure" where the case is stays not sure (Chrome check of #541)
         run: npm run test:unsure-never-saved
+
+      - name: A late save that only repeats an answer leaves the next steps current (Chrome check of #543, item 1)
+        run: npm run test:late-fact-save
+
+      - name: Start the questions again keeps every answer the person gave (site owner, 6 Nov; item 2)
+        run: npm run test:restart-keeps-answers
+
+      - name: A removed fact is never refilled from the story on the case page (item 3)
+        run: npm run test:removed-not-refilled
+
+      - name: The chat never replaces an answer the person holds with its reading of the story (Chrome check of #544, finding 2)
+        run: npm run test:chat-keeps-held
+
+      - name: The chat sends the record's answer, never its own older copy (read pack, item 1)
+        run: npm run test:chat-uses-record
+
+      - name: A late save repeating "not sure" or a removal keeps the next steps current and the confirmation (read pack, item 3)
+        run: npm run test:late-repeat-state
+
+      - name: Every test file is run by CI, or listed with the reason it is not (scripts/verification/notInCi.json)
+        run: npm run test:tests-in-ci
 
       - name: Every Confirm saves what is typed in an open box first, through one path (Chrome check of #541)
         run: npm run test:confirm-flushes
@@ -691,7 +733,8 @@ jobs:
   # one-line change to the repo's ruleset.
   browser-regression:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    # 70 (site owner, 6 Nov, second round): 22 more tests from the Chrome check of #544; not split.
+    timeout-minutes: 70
 
     env:
       NODE_OPTIONS: --max-old-space-size=8192
@@ -772,8 +815,18 @@ jobs:
           tests/browser/stage-rule.spec.ts
           tests/browser/items-8-12.spec.ts
           tests/browser/retest-29oct-flow.spec.ts
+          tests/browser/case-page-next-step.spec.ts
+          tests/browser/form-view-not-sure.spec.ts
+          tests/browser/chat-typed-answer-change.spec.ts
+          tests/browser/overview-when-matches-case-page.spec.ts
           tests/browser/held-fill-continue.spec.ts
           tests/browser/restart-asked-once.spec.ts
+          tests/browser/restart-keeps-answers.spec.ts
+          tests/browser/next-step-click-never-dropped.spec.ts
+          tests/browser/form-box-follows-record.spec.ts
+          tests/browser/form-box-two-tabs.spec.ts
+          tests/browser/review-buttons-say-why.spec.ts
+          tests/browser/next-step-opens-overview.spec.ts
           tests/browser/claim-kind-one-value.spec.ts
           tests/browser/chrome-31oct-review.spec.ts
           tests/browser/change-answer.spec.ts

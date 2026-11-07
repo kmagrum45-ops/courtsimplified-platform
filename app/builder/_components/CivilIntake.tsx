@@ -4,6 +4,7 @@ import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIn
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
 import { caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
 import { NotAnsweredYetField } from "../../_components/NotAnsweredYet";
+import { useBoxesFollow } from "../../_components/AskedField";
 import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
@@ -582,6 +583,8 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
    */
   const recovery = useIntakeRecovery();
   const beforeIntakeAI = useBeforeIntakeAI();
+  // The whole form's boxes follow the newest saved answer (rule 3; Chrome check of #544, step 14).
+  useBoxesFollow("civil", "input");
   const prepareCaseGuidance = usePrepareCaseGuidance();
   const validateIntakeResponse = useValidateIntakeResponse();
   const [storedPersonSet] = useIntakeState<Set<"yourRole">>("civil", "personSet", new Set());
@@ -1051,6 +1054,8 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
             />
           </label>
 
+          {/* A "not sure" in this box is never shown as its answer (item 4, 6 Nov). */}
+          <NotAnsweredYetField field="otherParty" value={input.otherParty} label="Other party">
           <label className="block">
             <span className="font-semibold text-[#16302b]">Other party</span>
             <input
@@ -1060,6 +1065,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
               placeholder="Person, business, institution, employer, landlord, school, police, government body"
             />
           </label>
+          </NotAnsweredYetField>
         </div>
 
         <label className="block">

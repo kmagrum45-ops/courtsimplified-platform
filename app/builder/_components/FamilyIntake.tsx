@@ -4,6 +4,7 @@ import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIn
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
 import { caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
 import { NotAnsweredYetField } from "../../_components/NotAnsweredYet";
+import { useBoxesFollow } from "../../_components/AskedField";
 import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
 import { formatForCourt } from "../../../src/lib/case-system/dates";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
@@ -382,6 +383,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
    */
   const recovery = useIntakeRecovery();
   const beforeIntakeAI = useBeforeIntakeAI();
+  // The whole form's boxes follow the newest saved answer (rule 3; Chrome check of #544, step 14).
+  useBoxesFollow("family", null);
   const prepareCaseGuidance = usePrepareCaseGuidance();
   const validateIntakeResponse = useValidateIntakeResponse();
   const [storedPersonSet] = useIntakeState<Set<"yourRole">>("family", "personSet", new Set());
@@ -1034,6 +1037,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
             />
           </label>
 
+          {/* A "not sure" in this box is never shown as its answer (item 4, 6 Nov). */}
+          <NotAnsweredYetField field="otherParty" value={otherParty} label="Other party">
           <label className="block">
             <span className="font-semibold text-[#16302b]">Other party</span>
             <input
@@ -1043,6 +1048,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
               placeholder="Other party’s full legal name"
             />
           </label>
+          </NotAnsweredYetField>
         </div>
 
         <div>
@@ -1290,6 +1296,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           )}
         </div>
 
+        <NotAnsweredYetField field="upcomingCourtDate" value={upcomingCourtDate} label="Next court date or deadline">
         <label className="block">
           <span className="font-semibold text-[#16302b]">
             Next court date or deadline
@@ -1301,6 +1308,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
             placeholder="Example: Case conference on June 15, 2026"
           />
         </label>
+        </NotAnsweredYetField>
 
         </div>
 

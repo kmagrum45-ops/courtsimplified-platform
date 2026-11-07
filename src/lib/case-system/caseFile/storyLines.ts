@@ -39,25 +39,28 @@ const FACT_LINES: [StoryLine["fact"], string, (story: string) => StoryFact | nul
 export function storyLines(story: string, file: CaseFile, responding: boolean): StoryLine[] {
   const lines: StoryLine[] = [];
   if (!story.trim()) return lines;
+  // A fact the person removed is never read back from the story (item 3, 6 Nov: Chrome check of #543, steps 5 and 6,
+  // "Your neighbour (Paul Brown) (from your story)" after the name was removed). A removal leaves it unanswered, marked.
+  const removed = (fact: string) => (file as unknown as Record<string, { removed?: true } | undefined>)[fact]?.removed === true;
   // Not answered, or answered "not sure" while the story says it (Charter case: "Not sure yet" beside a
   // story naming the police service and the badges): the story's words, marked as from the story.
-  if (file.otherParty.state !== "answered") {
+  if (file.otherParty.state !== "answered" && !removed("otherParty")) {
     // A business and the person behind it, or who they are to the person (storyFacts.ts), else the
     // older readers' name or role (Charter re-test 27 Oct: the other side was never listed).
     const named = otherSideIn(story) ?? otherPartyNameFromStory(story) ?? otherPartyFromStory(story);
     if (named) lines.push({ fact: "otherParty", label: "The other party", value: named.value, quote: named.quote });
   }
   // The amount the story gives, when no answer holds one: every case lists its loss (root cause 1).
-  if (!responding && file.amount.state !== "answered") {
+  if (!responding && file.amount.state !== "answered" && !removed("amount")) {
     const amount = claimAmountFromStory(story);
     if (amount) lines.push({ fact: "amount", label: "Amount", value: amount.value, quote: amount.quote });
   }
-  if (file.marriedWhere.state === "not-asked") {
+  if (file.marriedWhere.state === "not-asked" && !removed("marriedWhere")) {
     const said = marriedWhereIn(story);
     if (said) lines.push({ fact: "marriedWhere", label: "Where you married", value: said.place, quote: said.quote });
   }
   // The claim against them: the amount and who is suing, in their words (case 19).
-  if (responding && file.amount.state !== "answered") {
+  if (responding && file.amount.state !== "answered" && !removed("amount")) {
     const against = moneyMentions(story).filter((mention) => mention.kind === "against");
     if (against.length && new Set(against.map((mention) => mention.number)).size === 1) lines.push({ fact: "amountAgainst", label: "The claim against you", value: against[0].quote.trim(), quote: against[0].quote });
     else {
@@ -68,6 +71,7 @@ export function storyLines(story: string, file: CaseFile, responding: boolean): 
     }
   }
   for (const [fact, label, read] of FACT_LINES) {
+    if (removed(fact)) continue;
     const found = read(story);
     if (found) lines.push({ fact, label, value: found.value, quote: found.quote });
   }

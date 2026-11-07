@@ -255,9 +255,13 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             window.location.replace(`/cases/${encodeURIComponent(row.id)}`);
             return;
           }
-          if (step === "form" || step === "guided") address.searchParams.set("step", step);
-          else address.searchParams.delete("step");
-          window.history.replaceState(null, "", `${address.pathname}?${address.searchParams}`);
+          // The case page's "Show my next step" / "Update my next steps" (?next=start) stay on the overview, where the step
+          // is worked out from that route without opening it (Chrome check of #544, 6 Nov, F6: the rewrite opened the whole form).
+          if (address.searchParams.get("next") !== "start") {
+            if (step === "form" || step === "guided") address.searchParams.set("step", step);
+            else address.searchParams.delete("step");
+            window.history.replaceState(null, "", `${address.pathname}?${address.searchParams}`);
+          }
         }
         if (address.pathname === "/builder" && !address.searchParams.has("step") && (step === "form" || step === "guided")) {
           address.searchParams.set("step", step);
@@ -411,7 +415,11 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             if (court !== "small-claims") return runContinue(court);
             // The route on screen is the address bar's; the saved step lags behind Back/Forward.
             const step = new URL(window.location.href).searchParams.get("step");
-            return runContinue(step === "guided" ? "guided" : step === "form" ? "form" : "choose");
+            // On the overview (?step=results: the case page's "Show my next step" / "Update my next steps"): worked out from
+            // the route the answers came from, which stays hidden, never by opening the whole form or the chooser
+            // (Chrome check of #544, 6 Nov, F6).
+            const route = step === "results" ? snapshot.sections.builder?.step : step;
+            return runContinue(route === "guided" ? "guided" : route === "form" ? "form" : "choose");
           },
           begin: async signal => { await flush(signal); signal?.throwIfAborted(); if (signal) leases.set(signal, factsRevision(snapshot)); },
           subscribeField: (section, field, listener) => {

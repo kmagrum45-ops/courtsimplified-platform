@@ -11,7 +11,7 @@ import { amountFromStory, goalFromStory, kindsFromStory, type KindCue } from "..
 import { QUESTION_BANK } from "./intake/questionBank";
 import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 import { askOf } from "./intake/asker";
-import { alreadyAsked, CASE_FILE_SECTION, CHANGE_QUESTION, caseFileOf, fromCasePosition, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
+import { alreadyAsked, CASE_FILE_SECTION, CHANGE_QUESTION, caseFileOf, fromCasePosition, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, repeatsAnswer, sameAnswer, NEWEST_TYPED_FACTS, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
 import { LOAN_WORDS } from "./intake/claimKind";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
 
@@ -204,7 +204,11 @@ function materialFacts(checkpoint: Checkpoint): Map<string, string> {
   // 31 Oct), so it cancels the confirmation that rested on the old answer (isChangeKey below).
   // G2: by each fact's value now -- the saved fact record (server-numbered), or this tab's unsent edit over it -- never
   // by the raw entry, so an edit moving from the tab's buffer into the saved record is no change of a fact.
-  for (const [fact, value] of Object.entries(recordedValues(checkpoint.sections))) facts.set(JSON.stringify([CHANGE_KEY, fact]), canonicalJson(value));
+  // A record that says what the answers already say is no new fact (item 1, 6 Nov): a late save of the chat, or a page
+  // keeping an answer the person gave, changes nothing the next steps rest on.
+  const recorded = Object.entries(recordedValues(checkpoint.sections));
+  const own = recorded.length ? caseFileOf({ ...checkpoint, sections: { ...checkpoint.sections, [CASE_FILE_SECTION]: {} } }) : null;
+  for (const [fact, value] of recorded) if (!repeatsAnswer(own!, fact, value)) facts.set(JSON.stringify([CHANGE_KEY, fact]), canonicalJson(value));
   return facts;
 }
 
@@ -502,6 +506,13 @@ export function reviewBoxState(entry: ReviewEntry, file: CaseFile): "start" | "h
   const empty = emptyValue(entry.value);
   if (empty && !decision.ask && decision.held === "answered") return "held";
   if ((empty || isUnsureAnswer(entry.value)) && !decision.ask && decision.held === "unsure") return "not-yet";
+  // The newest answer wins on every screen (Chrome check of #544, 6 Nov, F1): a box whose own copy is not the answer the
+  // case record holds now (a newer answer given in another place, or the answer removed) shows the record's answer with
+  // "Change", never its own older copy. Typed words only: a choice keeps its own words (the record may word it otherwise).
+  if (!empty && !decision.ask && NEWEST_TYPED_FACTS.has(decision.fact) && !entry.choices && (typeof entry.value === "string" || typeof entry.value === "number") && !isUnsureAnswer(entry.value)) {
+    if (decision.held === "removed") return "held";
+    if (decision.held === "answered" && decision.slot.value !== undefined && !sameAnswer(decision.fact, decision.slot.value, entry.value)) return "held";
+  }
   return empty ? "ask" : "given";
 }
 

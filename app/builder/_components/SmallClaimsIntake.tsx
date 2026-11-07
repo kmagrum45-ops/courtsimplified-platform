@@ -56,7 +56,9 @@ import {
 } from "../../../src/lib/case-system/intake/questionBank";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { analysisClaimType, caseFileOf, claimKindOf, kindForAnalysis } from "../../../src/lib/case-system/caseFile/caseFile";
-import { AskedField, useHeldFill } from "../../_components/AskedField";
+import { AskedField, useBoxesFollow, useHeldFill } from "../../_components/AskedField";
+import { writeFormBox } from "../../_components/caseWrite";
+import { STORY_INPUT_KEYS } from "../../../src/lib/case-system/intakeStory";
 import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
 import { UseSuggestion } from "../../_components/UseSuggestion";
 
@@ -809,6 +811,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   // THE ONE ASKER (founder, 1 Nov; intake/asker.ts): an answer the person already gave elsewhere (the
   // chat, the review, a change) is put into its empty box here once, so the form never asks for it again;
   // never over what they typed, never a story guess, never again once they cleared the box.
+  // The whole form's boxes follow the newest saved answer (rule 3; Chrome check of #544, step 14).
+  useBoxesFollow("small-claims", "input");
   useHeldFill(input as unknown as Record<string, unknown>, (fill) => { filledOnly.current = true; setInput((current) => {
     const next = { ...current } as Record<string, unknown>;
     // Only over the words the box must still hold (empty for a first fill, the fill's own words to follow a change):
@@ -831,6 +835,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       setSafetyHaltMessage("");
       setDistressAcknowledgment("");
     }
+    // The person's own answer goes through the one writer, so the server numbers each fact a box holds (F1 root cause,
+    // Chrome check of #544): the form's state then writes the same input, which is no change.
+    if (recovery && !STORY_INPUT_KEYS.has(field)) writeFormBox(recovery, "small-claims", field, value);
     setInput((current) => ({ ...current, [field]: value }));
   }
 
@@ -908,8 +915,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
     if (analysisRequest.current.pending) return;
     try {
       await analysisRequest.current.run(async (signal) => {
-        await beforeIntakeAI(signal);
+        // The one gate first, before any AI step (Chrome check of #544, 6 Nov, F5): nothing starts while unconfirmed.
         if (!(await prepareCaseGuidance("form"))) return;
+        await beforeIntakeAI(signal);
     if (!hasText(input.facts)) {
       setAnalysisError("Add a short description of what happened before continuing the core intake.");
       return;
@@ -1268,6 +1276,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </label>
           </AskedField>
 
+          {/* A "not sure" in this box is never shown as its answer (item 4, 6 Nov). */}
+          <AskedField field="evidence" value={input.evidence} label={"Evidence you have"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               Evidence you have
@@ -1280,9 +1290,12 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             />
             <FieldHelp question={EVIDENCE_QUESTION} />
           </label>
+          </AskedField>
         </div>
 
         <div className="grid gap-5 md:grid-cols-2">
+          {/* A "not sure" in this box is never shown as its answer (item 4, 6 Nov). */}
+          <AskedField field="missingEvidence" value={input.missingEvidence} label={"Evidence still missing"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               Evidence still missing
@@ -1296,6 +1309,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               placeholder="Example: exact date, full thread, witness names, proof of who saw the statement."
             />
           </label>
+          </AskedField>
 
           {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
           <AskedField field="goal" value={input.goal} label={"What do you want the court to order?"}>
@@ -1335,6 +1349,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </label>
           </AskedField>
 
+          {/* A "not sure" in this box is never shown as its answer (item 4, 6 Nov). */}
+          <AskedField field="damagesBreakdown" value={input.damagesBreakdown} label={isDefendantRole(input.yourRole) ? "Which part of the amount you dispute, and why" : "Breakdown of amount claimed"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               {isDefendantRole(input.yourRole) ? "Which part of the amount you dispute, and why" : "Breakdown of amount claimed"}
@@ -1348,6 +1364,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               placeholder="Explain how you reached the number, if known."
             />
           </label>
+          </AskedField>
         </div>
 
         <div className="rounded-3xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
@@ -1379,6 +1396,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               placeholder="Your email"
             />
 
+            <AskedField field="defendantAddress" value={input.defendantAddress} label={"Other party address for service"}>
             <textarea
               data-testid="sc-intake-defendantAddress" value={input.defendantAddress}
               onChange={(event) =>
@@ -1387,6 +1405,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3 md:col-span-2"
               placeholder="Other party address for service, if known"
             />
+            </AskedField>
 
             {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
             <AskedField field="serviceDetails" value={input.serviceDetails} label={"Service details"}>
