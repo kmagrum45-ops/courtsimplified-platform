@@ -271,6 +271,7 @@
     "test:story-other-party": "node --import tsx scripts/verification/verifyStoryOtherParty.ts",
     "test:one-deadline-source": "node --import tsx scripts/verification/verifyOneDeadlineSource.ts",
     "test:no-next-step-unconfirmed": "node --import tsx scripts/verification/verifyNoNextStepUnconfirmed.ts",
+    "test:screens-read-record": "node --import tsx scripts/verification/verifyScreensReadRecord.ts",
     "test:sc-asker": "node --import tsx scripts/verification/verifyScAsker.ts",
     "test:sc-one-asker": "node --import tsx scripts/verification/verifyScOneAsker.ts",
     "test:story-fact": "node --import tsx scripts/verification/verifyStoryFact.ts",

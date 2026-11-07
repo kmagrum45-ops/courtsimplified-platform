@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-240 documented, 26 without a header.
+241 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -191,6 +191,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:safety-regression` | **Permanent regression suite for safetyPass.ts -- the 11 cases from**<br>Sessions 4 and 5 plus three from the 2026-09-28 story review, wired into CI (npm run test:safety-regression), same pattern as test:intake-coverage. |
 | `npm run test:sc-asker` | **THE SMALL CLAIMS ASKER (founder's plan, step 5, "the memory fix", 1 Nov): one saved record per case,**<br>one writer, one reader (caseFileOf), ONE ASKER -- the question engine (intake/asker.ts, used by selectQuestions.ts). Before any Small Claims question is shown, the engine asks the case file whether that question's fact is already held (answered, "not sure", or |
 | `npm run test:sc-one-asker` | **ONE ASKER FOR EVERY SMALL CLAIMS SCREEN (founder's plan step 5, 1 Nov: "the one asker, not per screen:**<br>check caseFileOf before any question is shown"). The permanent check that keeps it so. |
+| `npm run test:screens-read-record` | **THE SMALL CLAIMS DEMO SCREENS READ ANSWERS FROM THE CASE RECORD, NOT FROM A COPY (site owner, 6 Nov 2026; Chrome**<br>check of #544 and the sweep that followed it). |
 | `npm run test:server-error-log` | **test:server-error-log -- the built-in error log records a server error**<br>without anything that identifies a person (src/lib/monitoring/ serverErrorLog.ts, instrumentation.ts; 2026-10-14 audit). |
 | `npm run test:server-order` | **THE SERVER'S NUMBER DECIDES WHICH ANSWER IS NEWEST; THE TAB ORDERS ONLY ITS UNSENT EDITS (case core G2(a), G2(b);**<br>founder, 2 Nov; CASE_CORE_DESIGN.md §12). |
 | `npm run test:service-dates` | **When service counts from (serviceEffectiveDate.ts, build order Step 2D,**<br>2026-10-12). |

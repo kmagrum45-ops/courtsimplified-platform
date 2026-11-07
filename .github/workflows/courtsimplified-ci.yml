@@ -285,6 +285,9 @@ jobs:
       - name: Nothing starts working out next steps while the intake is unconfirmed, including after a restart (Chrome check of #544, F5)
         run: npm run test:no-next-step-unconfirmed
 
+      - name: The Small Claims demo screens read answers from the case record; no new raw copy (sweep of 6 Nov)
+        run: npm run test:screens-read-record
+
       - name: The story is a fact of the case file -- never asked again once given
         run: npm run test:story-fact
 

@@ -1,0 +1,19 @@
+{
+  "about": "The raw copies of answers each Small Claims demo file still names (reads, and the builder's own writes of the analysis copy), counted on 6 Nov 2026 after the overview moved onto the record. Checked by test:screens-read-record: a count may only go down, and when it does the entry is lowered. Each reason names the sweep entries (A1-A41 of 6 Nov) that explain it; moving a screen onto the record is the work these numbers track.",
+  "entries": [
+    { "file": "app/builder/page.tsx", "reads": 32, "reason": "sweep A3, A22, A25, A26, A28, A37: the builder writes the analysis copy (intakeData, intakeFacts, intakeAnswers, the title), seeds the chat and the whole form from saved copies, and shows the results from React state" },
+    { "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx", "reads": 15, "reason": "sweep A22-A25, A27: the chat keeps its own answer list (earlierAnswers) and facts, sends them to the turn and the depth questions, and words its cards from them" },
+    { "file": "app/builder/_components/SmallClaimsIntake.tsx", "reads": 1, "reason": "sweep A30-A32: the whole form reads its own section copy for its start values and the story reader's offers" },
+    { "file": "app/_components/IntakeReviewPanel.tsx", "reads": 7, "reason": "sweep A29: the review draws its boxes from each section's copy; F1 shows the record's answer over a box that differs (reviewBoxState)" },
+    { "file": "app/builder/_components/IntelligenceOverviewPanel.tsx", "reads": 3, "reason": "sweep A18, A19: the overview's story and side come from the analysis copy; its amount, parties and outcome read the record since 6 Nov (A17)" },
+    { "file": "app/cases/[id]/layout.tsx", "reads": 7, "reason": "sweep A11: the case layout reads the side from the analysis copy and facts for cases with no situation answer" },
+    { "file": "app/cases/[id]/page.tsx", "reads": 4, "reason": "sweep A13, A14: the case page offers dates from the saved chat answers and reads the person's words from the analysis copy" },
+    { "file": "app/cases/[id]/case-file/page.tsx", "reads": 2, "reason": "sweep A4, A5: the case file page's story and 'What you want' come from the analysis copy" },
+    { "file": "app/cases/[id]/forms/page.tsx", "reads": 1, "reason": "sweep A14: the Forms tab reads the person's words from the analysis copy" },
+    { "file": "app/cases/_components/CaseHomeContext.tsx", "reads": 1, "reason": "sweep A1: the case title (header, case file page, dashboard) is made from the analysis copy's other party" },
+    { "file": "app/dashboard/page.tsx", "reads": 15, "reason": "sweep A2: the dashboard selects columns of the analysis copy (master_result->intakeData->otherParty and others) and rebuilds a partial master_result" },
+    { "file": "src/lib/case-system/intakeReview.ts", "reads": 10, "reason": "sweep A29, A30: the review's entries are drawn from each section's copy, and the analysis input reads the chat's facts" },
+    { "file": "src/lib/case-system/caseRecord.ts", "reads": 18, "reason": "sweep A7-A11, A31: readCaseRecord and storedIntakeValues read the analysis copy and the saved chat answers (amount, city, story, side, dates)" },
+    { "file": "src/lib/case-system/caseStep.ts", "reads": 1, "reason": "sweep A12, A15: the step's story words come from the analysis copy" }
+  ]
+}
