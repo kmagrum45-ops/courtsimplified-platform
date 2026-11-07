@@ -13,7 +13,7 @@
     { "file": "app/cases/_components/CaseHomeContext.tsx", "reads": 1, "reason": "sweep A1: the case title (header, case file page, dashboard) is made from the analysis copy's other party" },
     { "file": "app/dashboard/page.tsx", "reads": 15, "reason": "sweep A2: the dashboard selects columns of the analysis copy (master_result->intakeData->otherParty and others) and rebuilds a partial master_result" },
     { "file": "src/lib/case-system/intakeReview.ts", "reads": 10, "reason": "sweep A29, A30: the review's entries are drawn from each section's copy, and the analysis input reads the chat's facts" },
-    { "file": "src/lib/case-system/caseRecord.ts", "reads": 18, "reason": "sweep A7-A11, A31: readCaseRecord and storedIntakeValues read the analysis copy and the saved chat answers (amount, city, story, side, dates)" },
+    { "file": "src/lib/case-system/caseRecord.ts", "reads": 17, "reason": "sweep A7-A11, A31: readCaseRecord reads the analysis copy and the saved chat answers (amount, city, story, side, dates); storedIntakeValues still reads the copies for boxes with no fact, and since 6 Nov takes amount, what you want and urgent from the record (F1 root cause)" },
     { "file": "src/lib/case-system/caseStep.ts", "reads": 1, "reason": "sweep A12, A15: the step's story words come from the analysis copy" }
   ]
 }

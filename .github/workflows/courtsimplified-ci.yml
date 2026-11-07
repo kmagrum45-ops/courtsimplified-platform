@@ -276,6 +276,9 @@ jobs:
       - name: The newest answer shows on every screen, never a screen's own older copy (Chrome check of #544, F1-F5)
         run: npm run test:newest-every-screen
 
+      - name: The whole form's boxes start from and save to the case record (Chrome check of #544, F1 root cause)
+        run: npm run test:whole-form-record
+
       - name: The story reader never takes a witness or bystander as the other party (Chrome check of #544, F2)
         run: npm run test:story-other-party
 

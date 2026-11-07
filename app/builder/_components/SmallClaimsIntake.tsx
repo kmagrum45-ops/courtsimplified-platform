@@ -57,6 +57,8 @@ import {
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { analysisClaimType, caseFileOf, claimKindOf, kindForAnalysis } from "../../../src/lib/case-system/caseFile/caseFile";
 import { AskedField, useBoxesFollow, useHeldFill } from "../../_components/AskedField";
+import { writeFormBox } from "../../_components/caseWrite";
+import { STORY_INPUT_KEYS } from "../../../src/lib/case-system/intakeStory";
 import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
 import { UseSuggestion } from "../../_components/UseSuggestion";
 
@@ -833,6 +835,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       setSafetyHaltMessage("");
       setDistressAcknowledgment("");
     }
+    // The person's own answer goes through the one writer, so the server numbers each fact a box holds (F1 root cause,
+    // Chrome check of #544): the form's state then writes the same input, which is no change.
+    if (recovery && !STORY_INPUT_KEYS.has(field)) writeFormBox(recovery, "small-claims", field, value);
     setInput((current) => ({ ...current, [field]: value }));
   }
 

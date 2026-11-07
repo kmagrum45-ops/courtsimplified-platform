@@ -69,3 +69,15 @@ export function choosePending(recovery: CaseWriteRecovery, fact: SlotFact, keepM
   const current = recovery.read(CASE_FILE_SECTION, "changes");
   recovery.put(CASE_FILE_SECTION, "changes", keepMine ? savePending(current, fact) : discardPending(current, fact), true, true, true);
 }
+
+/**
+ * The person typing in a box of a whole form (Small Claims keeps its boxes in `small-claims.input`): the box's new
+ * words, saved into the form's input as it is held (the story has its own path). Through the one writer, so every fact a
+ * typed box holds is sent and numbered by the server (Chrome check of #544, 6 Nov, F1: saved as the form's own copy,
+ * a box typed over the words the form was filled with was never numbered, and a restart from the story brought an older
+ * answer back; test:whole-form-record).
+ */
+export function writeFormBox(recovery: CaseWriteRecovery, section: string, field: string, value: unknown): void {
+  const saved = recovery.read(section, "input");
+  writeAnswer(recovery, section, "input", { ...(saved && typeof saved === "object" ? (saved as Record<string, unknown>) : {}), [field]: value });
+}
