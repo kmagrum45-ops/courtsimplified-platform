@@ -18,6 +18,8 @@
  *
  * Run: npm run test:newest-every-screen
  */
+import { readFileSync } from "node:fs";
+import * as caseFileModule from "../../src/lib/case-system/caseFile/caseFile";
 import { answerNow, caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
 import { reviewBoxState, reviewEntries } from "../../src/lib/case-system/intakeReview";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
@@ -79,6 +81,19 @@ const chat = { guided: { facts: { amountClaimedText: "$6,400" }, earlierAnswers:
   check("F3: the answer removed since: the chat says it was removed", removed.changed && removed.removed, JSON.stringify(removed));
   const day = answerNow(caseFileOf(cp({ guided: { facts: { timelineText: "March 3, 2026" }, earlierAnswers: [{ questionId: "sc-orient-when-happened", answerText: "March 3, 2026" }] }, caseFile: { facts: { whenHappened: { seq: 1, at: "2026-11-06T21:40:00Z", state: "answered", value: "2026-03-03", source: "person", question: "position:case-date-act-or-omission" } } } })), "sc-orient-when-happened", "March 3, 2026");
   check("F3: the same day written another way is not a change", !day.changed, JSON.stringify(day));
+}
+
+// The overview (sweep A17): its amount, parties and outcome read the analysis copy unless the record marked the fact as
+// changed with "Change". The record's own answer from any place is what it shows (caseFile.ts recordWords).
+{
+  const words = (caseFileModule as unknown as { recordWords?: (file: unknown, fact: string) => string | null | undefined }).recordWords;
+  const file = caseFileOf(cp({ ...chat, "small-claims": { input: { amountClaimed: "$7,250", goal: "The money back" } }, caseFile: { facts: { otherParty: { seq: 1, at: "2026-11-06T21:40:00Z", state: "removed", source: "person", question: "small-claims:otherParty" } } } }));
+  check("overview: the amount is the record's $7,250 (from the whole form), not the analysis copy", Boolean(words) && /7,250/.test(String(words?.(file, "amount"))), String(words?.(file, "amount")));
+  check("overview: a removed other party shows nothing", Boolean(words) && words?.(file, "otherParty") === null, String(words?.(file, "otherParty")));
+  check("overview: the outcome is the record's answer", Boolean(words) && /The money back/.test(String(words?.(file, "wants"))), String(words?.(file, "wants")));
+  check("overview: no answer of the person's in the record: the screen keeps its copy (undefined)", Boolean(words) && words?.(caseFileOf(cp({})), "amount") === undefined, String(words?.(caseFileOf(cp({})), "amount")));
+  const panel = readFileSync("app/builder/_components/IntelligenceOverviewPanel.tsx", "utf8");
+  check("overview: its amount, outcome and other party read recordWords", ["amount", "wants", "otherParty"].every((fact) => panel.includes(`recordWords(caseFile, "${fact}"`)));
 }
 
 console.log(failures ? `\n${failures} check(s) failed.` : "\nThe review shows the newest answer, never its own older copy.");

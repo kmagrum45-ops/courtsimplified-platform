@@ -666,6 +666,21 @@ export function changedWords(file: CaseFile | null | undefined, fact: SlotFact, 
 }
 
 /**
+ * What a screen that still keeps its own copy of a fact (the overview's amount, parties and outcome read the analysis
+ * copy) shows: the record's answer whenever the record holds the person's own answer, from any place, not only one
+ * given with "Change" (Chrome check of #544, 6 Nov: a newer answer from the whole form left the older copy on screen).
+ * `undefined`: the record holds no answer of the person's (the screen keeps its own copy); `null`: removed (nothing shown).
+ */
+export function recordWords(file: CaseFile | null | undefined, fact: SlotFact, formatDay: (iso: string) => string = (iso) => iso): string | null | undefined {
+  const slot = file?.[fact];
+  if (!slot) return undefined;
+  if (slot.removed) return null;
+  if (slot.changed) return changedWords(file, fact, formatDay);
+  if (slot.state !== "answered" || !slot.confirmed || slot.value === undefined || isTypedUnsure(slot.value)) return undefined;
+  return slotText(slot, formatDay);
+}
+
+/**
  * What a screen that REPEATS AN ANSWER BACK shows for a question now ("Got it: ..." in the questions one at a
  * time, "Confirmed from my story" in the Small Claims chat): the person's latest change of the question's fact
  * (the change record, newest wins) over the screen's own copy, `own`. `{ removed: true }` when that change

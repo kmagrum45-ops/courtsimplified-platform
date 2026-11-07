@@ -37,7 +37,7 @@ import { userStory } from "@/src/lib/case-system/userStory";
 import { kindsOfClaim } from "@/src/lib/case-system/intake/claimKind";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { savePositionQueued } from "./positionSave";
-import { changedWords, claimKindAnswer, claimKindLine, claimKindOf, CLAIM_KIND_QUESTION, isUnsureAnswer, slotText, type CaseFile, type ClaimKindHeld } from "@/src/lib/case-system/caseFile/caseFile";
+import { claimKindAnswer, recordWords, claimKindLine, claimKindOf, CLAIM_KIND_QUESTION, isUnsureAnswer, slotText, type CaseFile, type ClaimKindHeld } from "@/src/lib/case-system/caseFile/caseFile";
 import { formatForCourt } from "@/src/lib/case-system/dates";
 import { inWords } from "@/src/lib/case-system/copy/rawKeys";
 import { WorkingButton } from "@/app/_components/Working";
@@ -139,10 +139,11 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   const hasClaimAndService = analysis.courtPath === "small-claims" && documents.includes("plaintiffs-claim") && documents.includes("affidavit-service");
   // The user's own story, not the labelled record the analysis reads.
   const facts = userStory(intake);
-  // A fact changed or removed with "Change" is the case file's, never this copy's older value (rule 6, 31 Oct).
-  const changedAmount = changedWords(caseFile, "amount");
-  const changedWants = changedWords(caseFile, "wants");
-  const changedOther = changedWords(caseFile, "otherParty");
+  // The case file's answer, from any place, is the one shown, never this copy's older value (rule 6, 31 Oct; Chrome check of
+  // #544, 6 Nov: a newer answer from the whole form, given without "Change", left the analysis copy on screen).
+  const changedAmount = recordWords(caseFile, "amount");
+  const changedWants = recordWords(caseFile, "wants");
+  const changedOther = recordWords(caseFile, "otherParty");
   // Each typed answer through the one reader: "I do not know yet" is never printed as the answer (unsureAnswer.ts).
   const amount = answerWords(changedAmount !== undefined ? changedAmount ?? "" : textField(intake, "amountClaimed"));
   // "I do not know yet" is never shown as what the person wants (the one reader, unsureAnswer.ts answerWords).
