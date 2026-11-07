@@ -79,6 +79,17 @@ export default function IntakeReviewPanel() {
   // Waiting on the notice: once it is given, the next step is opened, on every route. The
   // notice holds the builder back while some routes still take a Continue, so asking them
   // first opened Small Claims' chooser with no next step and no word why (case 11).
+  // The line ends with the work it waited for: a start queued until its route was on the page ran later, and the line
+  // stayed after the next step appeared (Chrome check of #544, 6 Nov, F6). A failed start ends it too (its error shows).
+  const workSeen = useRef(false);
+  useEffect(() => {
+    if (!waiting) { workSeen.current = false; return; }
+    if (working) workSeen.current = true;
+    else if (workSeen.current) {
+      workSeen.current = false;
+      setWaiting(false);
+    }
+  }, [waiting, working]);
   useEffect(() => {
     if (!waiting || !recovery) return;
     const given = () => { setWaiting(false); nextStepPressed(); recovery.continueToGuidance(); };

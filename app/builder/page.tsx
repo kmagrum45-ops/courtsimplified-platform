@@ -2131,7 +2131,8 @@ function BuilderPageContent() {
               />
             )}
 
-            {courtPath === "small-claims" && smallClaimsMode === "choose" && (
+            {/* Not on the overview once confirmed: the case page's next-step buttons open it, and the step is worked out there (F6). */}
+            {courtPath === "small-claims" && smallClaimsMode === "choose" && !(stepParam === "results" && intakeConfirmed) && (
               <div className="grid gap-4 md:grid-cols-2">
                 <button
                   type="button"

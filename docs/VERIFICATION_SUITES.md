@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-242 documented, 26 without a header.
+243 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -136,6 +136,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:newest-answer-wins` | **THE NEWEST ANSWER WINS, FROM WHATEVER PLACE IT IS GIVEN (founder, 1 Nov: one rule, not an amount-only**<br>patch). Two answers to one fact from two places: the later one is the case file's value on every screen. |
 | `npm run test:newest-every-screen` | **THE NEWEST ANSWER SHOWS ON EVERY SCREEN, NEVER A SCREEN'S OWN OLDER COPY (Chrome check of #544, 6 Nov 2026, F1).**<br>Chrome, Small Claims, the questions one at a time: the chat answered the amount $6,400; the whole form then held $9,400 (the newest). The review's amount box showed $6,400, also after a reload, while the whole form showed $9,400. Cause: the review draws each o |
 | `npm run test:next-step` | **"Your next step" comes first: the step, its deadline counted from the**<br>person's dates (or the period and what it runs from), what to do and the forms, with the full answer folded underneath. Master plan Phase 2 (docs/MASTER_PLAN.md). |
+| `npm run test:next-step-opens-overview` | **THE CASE PAGE'S "SHOW MY NEXT STEP" AND "UPDATE MY NEXT STEPS" OPEN THE OVERVIEW, NOT THE LAST ROUTE USED (Chrome**<br>check of #544, 6 Nov 2026, F6). |
 | `npm run test:next-step-practical` | **The next-step card's form, fee, filing and service lines are the law's own**<br>words, for every step (content-library/nextStepPractical.ts, master plan Phase 2, 2026-10-08). |
 | `npm run test:no-conflict-markers` | **No committed file holds a merge-conflict marker (founder, 1 Nov).**<br>What it checks: every file git tracks (or the files of a given commit, with `--ref <commit>`) is read, and a line that is exactly a conflict marker fails: `<<<<<<< ...`, `>>>>>>> ...`, or `=======` alone when it sits between the other two. Long rules made of " |
 | `npm run test:no-filenames` | **No file name reaches a model. Asserted three ways, because one way is not**<br>enough for a property this easy to reintroduce. |

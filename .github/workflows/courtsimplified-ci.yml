@@ -279,6 +279,9 @@ jobs:
       - name: The whole form's boxes start from and save to the case record (Chrome check of #544, F1 root cause)
         run: npm run test:whole-form-record
 
+      - name: The case page's next-step buttons open the overview; the waiting line ends with the work (Chrome check of #544, F6)
+        run: npm run test:next-step-opens-overview
+
       - name: The story reader never takes a witness or bystander as the other party (Chrome check of #544, F2)
         run: npm run test:story-other-party
 
@@ -823,6 +826,7 @@ jobs:
           tests/browser/form-box-follows-record.spec.ts
           tests/browser/form-box-two-tabs.spec.ts
           tests/browser/review-buttons-say-why.spec.ts
+          tests/browser/next-step-opens-overview.spec.ts
           tests/browser/claim-kind-one-value.spec.ts
           tests/browser/chrome-31oct-review.spec.ts
           tests/browser/change-answer.spec.ts

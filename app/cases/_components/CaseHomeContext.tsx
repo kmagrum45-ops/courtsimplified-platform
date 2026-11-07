@@ -77,8 +77,10 @@ export function builderHref(record: Pick<CaseRecord, "id" | "court_path">, optio
   const court = record.court_path;
   if (court !== "small-claims" && court !== "family" && court !== "civil") return `/cases/${encodeURIComponent(record.id)}`;
   const params = new URLSearchParams({ caseId: record.id, path: court });
-  // The case page's "Show my next step" / "Update my next steps": the builder starts it once (IntakeReviewPanel, ?next=start).
-  if (options.startNextStep) params.set("next", "start");
+  // The case page's "Show my next step" / "Update my next steps": the builder's overview (?step=results), where the step is
+  // started once (IntakeReviewPanel, ?next=start) from the route the answers came from, never by opening that route
+  // (Chrome check of #544, 6 Nov, F6: both opened the whole form, the route last used).
+  if (options.startNextStep) { params.set("step", "results"); params.set("next", "start"); }
   // The case page’s "Review and confirm": the builder opens the review once (IntakeReviewPanel, ?review=open).
   if (options.openReview) params.set("review", "open");
   return `/builder?${params.toString()}`;
