@@ -17,9 +17,12 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useIntakeRecovery, useIntakeReviewView, useIntakeState } from "./IntakeRecovery";
 import { useCaseField } from "./useCaseField";
+import { writeFollow } from "./caseWrite";
 import { caseFileOf, isUnsureAnswer } from "../../src/lib/case-system/caseFile/caseFile";
 import { askOf, filledToFollow, formFill, seenNow } from "../../src/lib/case-system/intake/asker";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "../../src/lib/case-system/copy/askCopy";
+import { boxesToFollow } from "../../src/lib/case-system/caseFile/boxFollow";
+import { formatForCourt } from "../../src/lib/case-system/dates";
 
 const blank = (value: unknown) => value === undefined || value === null || (typeof value === "string" && !value.trim()) || (Array.isArray(value) && value.length === 0);
 
@@ -36,16 +39,45 @@ export function AskedField({ field, value, label, children }: { field: string; v
   // Typing in the box, or "Add it": the box stays for this visit (never folded under the person).
   const [opened, setOpened] = useState(false);
   const decision = askOf(file, field);
-  const folded = !opened && !decision.ask && decision.held === "unsure" && (blank(value) || isUnsureAnswer(value));
+  // A box whose own words are a "not sure" is never shown as if they were the answer, whatever its fact (item 4, 6 Nov).
+  const folded = !opened && (isUnsureAnswer(value) || (!decision.ask && decision.held === "unsure" && blank(value)));
   if (folded) {
     return (
-      <div className="block" data-testid="not-answered-yet" data-fact={decision.fact} data-field={field}>
+      <div className="block" data-testid="not-answered-yet" data-fact={"fact" in decision ? decision.fact : undefined} data-field={field}>
         <span className="font-semibold text-[#16302b]">{label}</span>
         <p className="mt-2 text-sm text-[#4d675f]">{NOT_ANSWERED_YET}. <button type="button" data-testid="not-answered-yet-add" onClick={() => setOpened(true)} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</button></p>
       </div>
     );
   }
   return <div className="contents" data-asked-field={field} onFocusCapture={() => setOpened(true)}>{children}</div>;
+}
+
+/**
+ * The form's boxes follow the newest saved answer, in all three courts (rule 3; boxFollow.ts; Chrome check of #544,
+ * step 14). `container`: where the boxes live ("input" for Small Claims and Civil; null for Family, whose boxes are
+ * each their own field). Written into the form's copy as a follow, not an answer: no change is recorded, the
+ * confirmation is untouched, nothing is sent (put with touched=false), so opening the form writes nothing (rule 6).
+ * A box the person is typing in (it has the focus) is left alone.
+ */
+export function useBoxesFollow(section: string, container: string | null) {
+  const recovery = useIntakeRecovery();
+  const view = useIntakeReviewView();
+  const file = view?.checkpoint ? caseFileOf(view.checkpoint, recovery?.getSavedMaster() ?? undefined) : null;
+  const own = view?.checkpoint.sections[section] as Record<string, unknown> | undefined;
+  const values = (container ? own?.[container] : own) as Record<string, unknown> | undefined;
+  const plan = file && values && typeof values === "object" ? boxesToFollow(file, section, container, values, (iso) => formatForCourt(iso)) : {};
+  const key = JSON.stringify(plan);
+  useEffect(() => {
+    if (!recovery || key === "{}") return;
+    const active = typeof document !== "undefined" ? document.activeElement : null;
+    const typed = active instanceof HTMLInputElement || active instanceof HTMLTextAreaElement ? active.value : null;
+    const now = (container ? recovery.read(section, container) : undefined) as Record<string, unknown> | undefined;
+    const next = Object.fromEntries(Object.entries(plan).filter(([field]) => typed === null || String((container ? now?.[field] : recovery.read(section, field)) ?? "") !== typed));
+    if (!Object.keys(next).length) return;
+    if (container) writeFollow(recovery, section, container, { ...(now ?? {}), ...next });
+    else for (const [field, words] of Object.entries(next)) writeFollow(recovery, section, field, words);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- runs when what the boxes must show changes
+  }, [key]);
 }
 
 /**
@@ -79,12 +111,26 @@ export function useHeldFill(values: Record<string, unknown>, apply: (fill: Recor
     if (emptied) setFilled((current) => [...new Set([...current, ...emptied.split(",")])]);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- runs when a box is emptied
   }, [emptied]);
+  // An empty box's first fill waits until the case holds its words as the fill's (filledWords): put first, the box's
+  // words looked like a new answer for a moment, which cancelled a confirmation after a "Change" (Chrome check of #544
+  // on 99e2ec0, 7 Nov, F9: the whole form's first opening said "You changed an answer, so please review and confirm
+  // again"). A box following a change (`over` holds the fill's earlier words) takes its words at once, as before.
+  const firstFills = useRef<Record<string, { words: string; over: string }> | null>(null);
   useEffect(() => {
     const fields = Object.keys(changes);
-    if (!fields.length) return;
-    apply(changes);
-    if (Object.keys(fill).length) setFilled((current) => [...new Set([...current, ...Object.keys(fill)])]);
+    if (!fields.length || firstFills.current) return;
+    const follows = Object.fromEntries(Object.entries(changes).filter(([, change]) => change.over !== ""));
+    const firsts = Object.fromEntries(Object.entries(changes).filter(([, change]) => change.over === ""));
+    if (Object.keys(follows).length) apply(follows);
+    if (Object.keys(firsts).length) firstFills.current = firsts;
     setFilledWords((current) => ({ ...current, ...Object.fromEntries(fields.map((field) => [field, changes[field].words])) }));
     // eslint-disable-next-line react-hooks/exhaustive-deps -- runs when what is to be filled changes
   }, [key]);
+  useEffect(() => {
+    const waiting = firstFills.current;
+    if (!waiting || !Object.entries(waiting).every(([field, change]) => filledWords[field] === change.words)) return;
+    firstFills.current = null;
+    apply(waiting);
+    setFilled((current) => [...new Set([...current, ...Object.keys(waiting)])]);
+  });
 }

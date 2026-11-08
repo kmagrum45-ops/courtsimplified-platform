@@ -375,7 +375,11 @@ async function smallClaimsGuided(page: Page, story: Story): Promise<number> {
   if ((await page.getByTestId("intake-review").getAttribute("data-phase")) !== "reviewing") {
     await page.getByTestId("intake-start-review").click().catch(() => {});
   }
-  await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing");
+  // 10 s, not the default 5 (site owner's rule, 7 Nov 2026): at this pack's simulated live speed (each database call
+  // 1.5 s slower) the press makes about three round trips before the review opens, measured at 4.9-5.0 s on both
+  // 89012784 (part 5 passed in CI) and a8c8cf57 (failed), 5 runs each, so the default 5 s fails by chance. No commit
+  // added a round trip; the save path is unchanged.
+  await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing", { timeout: 10_000 });
   return counterclaimOffers;
 }
 
@@ -964,7 +968,7 @@ test("retest-477 case 11: a confirmed case with no next step yet opens it from t
   await expect(page.getByText("Review your initial information before receiving case guidance")).toHaveCount(0);
   await page.getByTestId("case-show-next-step").click();
   await expect(page.getByTestId("intake-review"), "the confirmation stands").toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
-  await page.getByTestId("intake-continue-guidance").click();
+  // The case page's one click starts the next step, with no second click here (item 1, 6 Nov: case-page-next-step.spec.ts).
   await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 90_000 });
 });
 

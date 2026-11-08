@@ -5,7 +5,9 @@
  * was stored under; when the story changes, every older answer is stale in all
  * three areas (Small Claims, civil, family): emptied in the view screens read,
  * never shown as current, and blocking any next step; "start the questions
- * again" empties them and resets the question-and-answer state; the Home page's
+ * again" keeps every answer the person gave or confirmed, now based on the story as it
+ * is, and resets the question-and-answer state (site owner, 6 Nov; it used to empty
+ * them: test:restart-keeps-answers); the Home page's
  * "What we still need to know" answers and an unsent copy of the story in the
  * question box go when the story changes; reverting the story restores its
  * answers; empty values (a form's defaults) are not answers. An edit to some of the
@@ -56,11 +58,12 @@ assert(!shown.includes("age 6") && !shown.includes("parenting-time"), "the revie
 assert.deepEqual(freshSections(changed).family.issues, [], "screens read stale answers as empty");
 assert.equal(staleAnswerKeys(withStory(changed, ` ${OLD.toUpperCase()}  `)).length, 0, "the same story again (case and spacing aside) restores its answers");
 
-// Starting the questions again empties them, untagged.
+// Starting the questions again keeps the person's answers, now based on the story as it is (site owner, 6 Nov;
+// replaces "empties them, untagged": test:restart-keeps-answers).
 const restarted = discardStale(changed);
 assert.deepEqual(staleAnswerKeys(restarted), []);
 assert.equal(storyAnswersOutdated(restarted), false);
-assert(!JSON.stringify(restarted.sections).includes("age 6") && !JSON.stringify(restarted.sections).includes("parenting-time"), "nothing of the old answers is left in the tab");
+assert(JSON.stringify(restarted.sections).includes("age 6") && JSON.stringify(restarted.sections).includes("parenting-time"), "the person's answers were emptied by \"Start the questions again\"");
 assert.equal(restarted.sections.family.mode, "form", "navigation is untouched");
 // A new answer after the change is current.
 assert.deepEqual(staleAnswerKeys(store(restarted, "family", "goal", "Spousal support")), []);
@@ -176,10 +179,10 @@ assert.deepEqual(editedSentences("One. Two. Three.", "One. Two. Three. Four."), 
       if (quiet.length === 0 && !reviewEntries(checkpoint).some((entry) => slotsOfQuestion(entry.field).includes(fact) && reviewBoxState(entry, file) === "not-yet")) notSureKept.push(`${court} ${when}: no "Not answered yet" line for ${fact}`);
     }
   }
-  // A real answer in the same list is still set aside (the amount was given for the earlier story).
+  // A real answer in the same list is kept too: the person gave it (site owner, 6 Nov; replaces "is still set aside").
   const sc = discardStale({ version: 1, flowId: "00000000-0000-4000-8000-000000000032", courtPath: "small-claims", revision: "00000000-0000-4000-8000-000000000032", sections: { story: { text: NEW }, ...cases[0].sections } } as unknown as Checkpoint);
   const scFile = caseFileOf(sc) as unknown as Record<string, { state?: string } | undefined>;
-  if (slotsOfQuestion("sc-amount-claimed").some((slot) => scFile[slot]?.state === "answered")) notSureKept.push("small-claims: the amount from the earlier story is still held after \"Start the questions again\"");
+  if (!slotsOfQuestion("sc-amount-claimed").some((slot) => scFile[slot]?.state === "answered")) notSureKept.push("small-claims: the amount the person gave is no longer held after \"Start the questions again\"");
   assert.deepEqual(notSureKept, [], `a "not sure" is kept, answer by answer, through a story rewrite:\n  ${notSureKept.join("\n  ")}`);
 }
 
@@ -195,7 +198,8 @@ assert.deepEqual(editedSentences("One. Two. Three.", "One. Two. Three. Four."), 
   const copy = { intakeAnswers: [{ questionId: "sc-orient-when-happened", answerText: "March 15, 2025" }] };
   const at = (court: "small-claims" | "civil" | "family", sections: Record<string, unknown>) => ({ version: 1, flowId: "00000000-0000-4000-8000-000000000033", courtPath: court, revision: "00000000-0000-4000-8000-000000000033", sections: { story: { text: OLD }, ...sections } }) as unknown as Checkpoint;
   const sc = discardStale(at("small-claims", { builder: { step: "guided" }, guided: { earlierAnswers: copy.intakeAnswers, answeredIds: ["sc-orient-when-happened"], facts: { timelineText: "March 15, 2025" } }, [BASIS_SECTION]: { "guided.earlierAnswers": storyVersion(OLD), "guided.answeredIds": storyVersion(OLD), "guided.facts.timelineText": storyVersion(OLD) } }));
-  if (caseFileOf(sc, copy).whenHappened.state !== "not-asked") heldFromCopy.push(`small-claims: after "Start the questions again", When it happened is ${caseFileOf(sc, copy).whenHappened.state}, held only by the saved copy`);
+  // The restart keeps the person's reply (site owner, 6 Nov): held by the chat's own record and shown, never by the saved copy alone.
+  if (caseFileOf(sc, copy).whenHappened.state !== "answered" || caseFileOf(sc).whenHappened.state !== "answered") heldFromCopy.push(`small-claims: after "Start the questions again", When it happened is ${caseFileOf(sc).whenHappened.state} in the chat's own record, not kept`);
   // No record of the chat in the checkpoint, or no checkpoint (an older saved case): the copy is the only one, and is read.
   if (caseFileOf(at("small-claims", {}), copy).whenHappened.state !== "answered") heldFromCopy.push("small-claims: with no chat record in the checkpoint, the saved copy is no longer read");
   if (caseFileOf(null, { ...copy, courtPath: "small-claims" }).whenHappened.state !== "answered") heldFromCopy.push("a saved case with no record no longer reads its saved answers");

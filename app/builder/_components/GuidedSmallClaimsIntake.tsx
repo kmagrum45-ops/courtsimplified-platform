@@ -20,7 +20,7 @@ import { IntakeRequest } from "../../_components/intakeRequest";
  * feed into the builder's case-save/analysis pipeline the form path uses.
  */
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type {
   ConfirmedStoryAnswer,
   StoryAnswerProposal,
@@ -39,7 +39,8 @@ import { startSignIn } from "../../_components/startSignIn";
 import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
 import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
 import { storyQuoteFor } from "@/src/lib/case-system/intake/claimKind";
-import { answerNow, askedAndReplied, caseFileOf, CASE_FILE_SECTION, withTurnedDown, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
+import { answerNow, askedAndReplied, caseFileOf, CASE_FILE_SECTION, claimKindOf, withTurnedDown, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
+import { turnFactsToSave } from "@/src/lib/case-system/caseFile/chatTurnFacts";
 import { heldForEngine } from "@/src/lib/case-system/intake/asker";
 import { claimKindAiContext, classifyClaimTypeBody } from "@/src/lib/case-system/caseFile/aiCaseContext";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
@@ -217,6 +218,8 @@ type ChatMessage = {
   /** A "Confirmed from ..." message: its rows, shown as the case holds them now (summaryText). */
   confirmed?: ConfirmedRow[];
   confirmedFrom?: string;
+  /** Shown only: under a reply the person typed whose answer they later changed, the newest answer (null: removed). */
+  changedTo?: string | null;
 };
 
 /**
@@ -602,7 +605,20 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   const inputText = started ? answerDraft : story;
   // The saved case's own case file, for the messages that repeat an answer back (summaryText).
   const echoFile = useMemo(() => (reviewView ? caseFileOf(reviewView.checkpoint, recovery?.getSavedMaster() ?? undefined) : null), [reviewView, recovery]);
-  const shownMessages = useMemo(() => messages.map((message) => message.isStory ? { ...message, text: story } : message.confirmed?.length ? { ...message, text: summaryText(message.confirmed, message.confirmedFrom ?? "my story", echoFile) } : message), [messages, story, echoFile]);
+  const shownMessages = useMemo(() => messages.map((message, index) => {
+    if (message.isStory) return { ...message, text: story };
+    if (message.confirmed?.length) return { ...message, text: summaryText(message.confirmed, message.confirmedFrom ?? "my story", echoFile) };
+    // A reply the person typed stays in their words; when they later changed that answer (rule 5, newest wins), the
+    // newest is said under it (item 5, 6 Nov; Chrome check of #543: the old outcome with $2,650 stayed on screen).
+    if (message.from === "user") {
+      const asked = messages.slice(0, index).reverse().find((earlier) => earlier.from === "assistant");
+      if (asked?.questionId) {
+        const now = answerNow(echoFile, asked.questionId, message.text);
+        if (now.changed) return { ...message, changedTo: now.removed ? null : Array.isArray(now.value) ? now.value.join(", ") : String(now.value ?? "") };
+      }
+    }
+    return message;
+  }), [messages, story, echoFile]);
   // Retained across turns rather than replaced with each response -- only
   // updated when a turn actually carries a new evidenceGuidance, so it
   // doesn't disappear the moment the user answers a plain multiple-choice
@@ -746,7 +762,13 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       setProposalDrafts(null);
       if (answeredQuestionId && newStoryText) setEarlierAnswers((current) => [...current.filter((item) => item.questionId !== answeredQuestionId), { questionId: answeredQuestionId, answerText: newStoryText }]);
       if (newStoryText) setMessages((current) => [...current, answeredQuestionId ? { from: "user", text: newStoryText } : { from: "user", text: "", isStory: true }]);
-      setFacts(result.facts);
+      // A fact the person holds keeps its value: the model's reading of the story never replaces it, unless this turn
+      // answered it (chatTurnFacts.ts; Chrome check of #544, step 18: a skipped suggestion became the kind).
+      const heldBefore = caseFileOf(recovery?.getReview().checkpoint ?? null, recovery?.getSavedMaster() ?? undefined);
+      const answeredNow = [...(answeredQuestionId ? [answeredQuestionId] : []), ...(confirmedAnswers ?? []).map((item) => item.questionId)];
+      const savedFacts = (recovery?.read("guided", "facts") ?? facts) as IntakeFacts;
+      const keptFacts = turnFactsToSave(savedFacts, result.facts, heldBefore, answeredNow);
+      setFacts(keptFacts);
       setAnsweredIds(result.answeredIds);
       if (result.evidenceGuidance) {
         setEvidenceGuidance(result.evidenceGuidance);
@@ -755,8 +777,13 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         setClaimGuidance(result.claimGuidance);
       }
       // Never a kind the person turned down ("Not quite") or removed: the case file keeps which (rule 6, 31 Oct).
-      const turnedDownKinds = caseFileOf(recovery?.getReview().checkpoint ?? null, recovery?.getSavedMaster() ?? undefined).claimKindRemoved ?? [];
-      if (result.suggestedClaimType && newStoryText && !turnedDownKinds.includes(result.suggestedClaimType.claimTypeId)) {
+      const fileNow = caseFileOf(recovery?.getReview().checkpoint ?? null, recovery?.getSavedMaster() ?? undefined);
+      const turnedDownKinds = fileNow.claimKindRemoved ?? [];
+      // Nor any kind while the person's own kind is held (confirmed, given, or "not sure"): "Start the questions again"
+      // keeps it and offers again only the old story's suggestions (site owner, 6 Nov; Chrome check of #543, step 3).
+      const heldKind = claimKindOf(fileNow);
+      const kindGiven = heldKind.state !== "not-asked" && (heldKind.source === "confirmed" || heldKind.source === "person-said");
+      if (result.suggestedClaimType && newStoryText && !kindGiven && !turnedDownKinds.includes(result.suggestedClaimType.claimTypeId)) {
         setPendingSuggestion(result.suggestedClaimType);
         setRejectedSuggestionIds([]);
         setNoClaimTypeMatch(false);
@@ -829,7 +856,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         setLoading(false);
 
         const payload: GuidedIntakeCompletionResult = {
-          facts: result.facts,
+          facts: keptFacts,
           answeredIds: result.answeredIds,
           matchedClaimType: matchedClaimTypeThisTurn,
           ...(storyRef.current ? { storyText: storyRef.current } : {}),
@@ -845,7 +872,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         // When a depth phase follows, the depth phase owns the closing line.
         if (matchedClaimTypeThisTurn) {
           setCompletionPayload(payload);
-          void startDepthPhase(matchedClaimTypeThisTurn.claimTypeId, result.facts, payload);
+          void startDepthPhase(matchedClaimTypeThisTurn.claimTypeId, keptFacts, payload);
         } else {
           setMessages((current) => [...current, { from: "assistant", text: INTAKE_CLOSING_LINE }]);
           completeWithSourced(payload);
@@ -1502,8 +1529,8 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           </p>
         ) : (
           shownMessages.slice(0, heldFrom).map((message, index) => (
+            <Fragment key={index}>
             <div
-              key={index}
               className="mb-3"
               data-testid="guided-message"
               data-from={message.from}
@@ -1523,6 +1550,11 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
                 {message.text}
               </div>
             </div>
+            {/* Beside the reply, not in it: the reply stays the person's own words (the carry recorder compares them). */}
+            {message.changedTo !== undefined ? (
+              <p data-testid="answer-changed-note" className="-mt-2 mb-3 text-right text-xs text-[#4d675f]">{message.changedTo === null ? "You removed this answer." : `You changed this answer: ${message.changedTo}`}</p>
+            ) : null}
+            </Fragment>
           ))
         )}
       </div>
@@ -1774,6 +1806,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           </>) : null}
         </div>
       )}
+      {/* The questions ended with the story held: the block above (and its Continue) is not drawn, and the next step
+          they ask for on their own stops at an unconfirmed review. Said here, under the questions, never nothing
+          (rule 7, site owner 6 Nov; review-buttons-say-why.spec.ts). */}
+      {started && storyHeld && !(depthActive || currentQuestion) && !readingOutdated && !heldPayload ? <ReviewNeededNotice from="guided" /> : null}
 
       {depthActive ? (
         <div className="mt-3 flex items-center gap-3">

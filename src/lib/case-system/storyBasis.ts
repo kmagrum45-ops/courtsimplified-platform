@@ -24,6 +24,7 @@ import { sentences } from "./sentences";
 import { canonicalJson } from "./canonicalJson";
 import { isUnsureAnswer } from "./caseFile/unsureAnswer";
 import { situationAnswers, situationOf } from "./situation/situation";
+import { QUESTION_BANK } from "./intake/questionBank";
 
 /**
  * The answers the situation answers settle, wherever a route stored a copy (the Small Claims chat's
@@ -199,18 +200,64 @@ export function discardedFields(checkpoint: Checkpoint): [string, string][] {
   return [...fields].map(field => field.split(".") as [string, string]);
 }
 
-/** "Start the questions again": stale answers emptied and untagged, the question-and-answer state reset. */
+/**
+ * "Start the questions again" (site owner, 6 Nov 2026; replaces "stale answers emptied"): every answer the person
+ * gave or confirmed is kept, in every court -- the form answers, the review's, the chat's replies, the kind they
+ * confirmed, "not sure" -- and is now based on the story as it is, so nothing blocks the next step or is asked
+ * again. Only the question-and-answer state starts again, and with it what was a suggestion read from the old
+ * story: a kind not confirmed, the story card's drafts, a fact the chat only read from the story
+ * (test:restart-keeps-answers; founder's Chrome check of #543, 5 Nov, step 3).
+ *
+ * KNOWN GAP (site owner, 6 Nov 2026): the restart retags EVERY kept answer as based on the current story. So when the
+ * story is rewritten to contradict an answer (the story now says "no children", the answer says "one child"), the old
+ * answer is shown and used with nothing flagging the contradiction. That stays so until the prompt "your story now
+ * says X, you answered Y: keep or use?" is built; it is not built yet.
+ */
 export function discardStale(checkpoint: Checkpoint): Checkpoint {
-  const stale = staleAnswerKeys(checkpoint);
-  const sections = freshSections(checkpoint);
-  const basis = { ...(object(sections[BASIS_SECTION]) as Record<string, string>) };
-  for (const answer of stale) delete basis[answer];
-  sections[BASIS_SECTION] = basis;
+  const sections: Sections = { ...checkpoint.sections };
   for (const [section, keys] of Object.entries(CONVERSATION)) {
     if (section === "guided" && !sections.guided) continue; // only where that conversation exists
-    sections[section] = { ...sections[section], ...keys, ...notSureKept(section, sections[section]) };
+    sections[section] = { ...sections[section], ...keys, ...(section === "guided" ? chatKept(sections.guided) : notSureKept(section, sections[section])) };
   }
+  // Each kept answer is based on the story as it is now; an answer the restart emptied (a chat reading) loses its tag.
+  const version = storyVersion(storyOf(sections));
+  const basis = { ...(object(sections[BASIS_SECTION]) as Record<string, string>) };
+  for (const answer of Object.keys(basis)) {
+    if (empty(withoutNotSure(valueAt(sections, answer))) && empty(valueAt(sections, answer))) delete basis[answer];
+    else basis[answer] = version;
+  }
+  sections[BASIS_SECTION] = basis;
   return { ...checkpoint, sections };
+}
+
+/** The chat's facts the start questions settle (the side, what is filed): never a reading of the story. */
+const SETTLED_CHAT_FACTS = ["role", "claimFiled", "claimServed", "defenceFiled"];
+
+/**
+ * What a restart keeps of the Small Claims chat: the person's replies (each {questionId, answerText}, "not sure"
+ * included), the answers they confirmed from the story card ("Confirmed from my story" rows), the facts those
+ * answers give (each question's captured field), the kind they confirmed, and what they declined.
+ */
+function chatKept(current: Record<string, unknown> | undefined): Record<string, unknown> {
+  const now = object(current);
+  const replies = (Array.isArray(now.earlierAnswers) ? now.earlierAnswers : []).filter((item) => typeof object(item).questionId === "string");
+  const confirmedRows = (Array.isArray(now.messages) ? now.messages : []).flatMap((message) => (Array.isArray(object(message).confirmed) ? object(message).confirmed as unknown[] : []));
+  const ids = [...new Set([...replies.map((item) => String(object(item).questionId)), ...confirmedRows.map((row) => object(row).questionId).filter((id): id is string => typeof id === "string")])];
+  const facts = object(now.facts);
+  const kept: Record<string, unknown> = {};
+  for (const id of ids) {
+    const field = QUESTION_BANK.find((question) => question.id === id)?.capturesField;
+    if (field && facts[field] !== undefined) kept[field] = facts[field];
+  }
+  for (const field of SETTLED_CHAT_FACTS) if (facts[field] !== undefined) kept[field] = facts[field];
+  const kind = object(now.matchedClaimType);
+  return {
+    earlierAnswers: replies,
+    answeredIds: ids,
+    facts: kept,
+    matchedClaimType: kind.userConfirmed === true ? now.matchedClaimType : null,
+    ...(Array.isArray(now.declinedIds) ? { declinedIds: now.declinedIds } : {}),
+  };
 }
 
 /**

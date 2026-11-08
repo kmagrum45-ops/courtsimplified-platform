@@ -20,7 +20,8 @@ import { civilRoleFromStory, familyRoleFromStory } from "../builder/_components/
 import SituationQuestions, { SITUATION_CHANGE_EVENT, SituationLine } from "./SituationQuestions";
 import SafetyNotice from "./SafetyNotice";
 import FirstUseAcknowledgement from "./FirstUseAcknowledgement";
-import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt } from "../../src/lib/case-system/intakeCheckpoint";
+import { savedStepOf } from "../../src/lib/case-system/savedStep";
+import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, landedReviewTransition, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt, type PendingTransition } from "../../src/lib/case-system/intakeCheckpoint";
 import { canonicalJson } from "../../src/lib/case-system/canonicalJson";
 import { WorkingButton } from "./Working";
 import { saveThenLeave } from "./leaveAfterSave";
@@ -61,6 +62,8 @@ type Recovery = {
   /** `reaffirm`: the person answered this again (true: the whole field; a key: that one answer), so it is based on the current story even when the value is unchanged. */
   put: (section: string, key: string, value: unknown, touched?: boolean, external?: boolean, fromReview?: boolean, reaffirm?: true | string) => void;
   flush: (signal?: AbortSignal) => Promise<void>;
+  /** "Retry saving intake": the answers saved, then a review action whose save answered an error read back, or sent again. */
+  retry: () => Promise<void>;
   validate: (signal?: AbortSignal) => Promise<void>;
   getCaseId: () => string | null;
   flowId: string;
@@ -167,10 +170,30 @@ function CourtFromCase() {
   return <div className="mx-auto max-w-6xl px-6 py-3 text-sm" role="status" data-testid="court-from-case">Opening your case…</div>;
 }
 
+/**
+ * A failed save, worded for a signed-in person (Chrome check of #544 on a8c8cf57, 7 Nov: "Your review could not be saved.
+ * Your answers remain here; retry before continuing. Retry saving intake Sign in for account recovery" while signed in).
+ * A notice that says what to do about something else (another tab, a text too large, signing in again) keeps its words.
+ */
+export const SIGNED_IN_SAVE_FAILED = "Your case could not be saved just now. Try again.";
+
+/** Which screen or route is showing (fieldFacts.ts PAGE_STATE): never an answer, never a save of its own (F9, 7 Nov). */
+const SCREEN_FIELDS = new Set(["builder:step", "builder:startedModes", "small-claims:mode", "civil:mode", "family:mode"]);
+export function failureWords(notice: string, signedIn: boolean): string {
+  return signedIn && /^Your (intake|review|answers) could not be saved/.test(notice) ? SIGNED_IN_SAVE_FAILED : notice;
+}
+/** The sign-in offer under a failed save: only to a guest, or to someone whose sign-in ended ("Sign in again"). */
+export function signInOffer(notice: string, signedIn: boolean, hasStore: boolean): string | null {
+  if (signedIn) return /^Sign in again/.test(notice) ? "Sign in again" : null;
+  return hasStore ? "Sign in or create a free account (what you entered comes with you)" : "Sign in for account recovery";
+}
+
 function RecoveryProvider({ court, selectedId, requestedFlow, children }: { court: IntakeCourt; selectedId: string | null; requestedFlow: string | null; children: ReactNode }) {
   const [recovery, setRecovery] = useState<Recovery | null>(null);
   const [notice, setNotice] = useState("Opening your intake…");
   const [failed, setFailed] = useState(false);
+  // Whether the person is signed in, known once the account is read: a signed-in person is never offered a sign-in for a failed save.
+  const [signedIn, setSignedIn] = useState(false);
   const [conflict, setConflict] = useState(false);
   const [attempt, setAttempt] = useState(0);
   // "Retry saving intake" while its save runs: it says so, and is not pressed twice (fresh review, 28 Oct).
@@ -189,6 +212,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
       disposeStore();
       setRecovery(null);
       setFailed(false);
+      setSignedIn(Boolean(ownerId));
       setConflict(false);
       const current = () => active && epoch === generation.current;
       try {
@@ -251,13 +275,21 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         if (address.pathname === "/builder" && address.searchParams.get("step") === "results") {
           // Preserve the existing completed-case route; an interrupted unsaved analysis resumes intake.
           const pending = Boolean(session && session.checkpoint.revision !== serverRevision);
-          if (row && guidanceIsCurrent(row.master_result, court, row.id) && !pending && !initialConflict) {
+          // A saved, current next step is shown here at once, from the saved case (savedStep.ts; Chrome check of #544 on
+          // 99e2ec0, 7 Nov, F10: this address went to the case page, so the overview was reached only by working the step
+          // out again). An older case with no saved step to show still goes to its case page.
+          const savedStep = row && !pending && !initialConflict ? savedStepOf(row.master_result, { workflowStatus: row.master_result.workflowStatus, checkpoint: snapshot }, court, row.id) : null;
+          if (row && !savedStep && guidanceIsCurrent(row.master_result, court, row.id) && !pending && !initialConflict) {
             window.location.replace(`/cases/${encodeURIComponent(row.id)}`);
             return;
           }
-          if (step === "form" || step === "guided") address.searchParams.set("step", step);
-          else address.searchParams.delete("step");
-          window.history.replaceState(null, "", `${address.pathname}?${address.searchParams}`);
+          // The case page's "Show my next step" / "Update my next steps" (?next=start) stay on the overview, where the step
+          // is worked out from that route without opening it (Chrome check of #544, 6 Nov, F6: the rewrite opened the whole form).
+          if (address.searchParams.get("next") !== "start" && !savedStep) {
+            if (step === "form" || step === "guided") address.searchParams.set("step", step);
+            else address.searchParams.delete("step");
+            window.history.replaceState(null, "", `${address.pathname}?${address.searchParams}`);
+          }
         }
         if (address.pathname === "/builder" && !address.searchParams.has("step") && (step === "form" || step === "guided")) {
           address.searchParams.set("step", step);
@@ -267,6 +299,8 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         let dirty = migrated || Boolean(session && session.checkpoint.revision !== serverRevision);
         let timer: ReturnType<typeof setTimeout> | undefined;
         let flight: Promise<void> | null = null;
+        // A review action whose save answered an error: the retry reads the case back for it, or sends it again (7 Nov, step 19).
+        let pendingTransition: PendingTransition | null = null;
         const invalid = new Set<string>();
         // `pending`: something entered here has not reached the account (still saving,
         // a failed save, or no case created yet). Default values a form writes are not.
@@ -411,7 +445,36 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             if (court !== "small-claims") return runContinue(court);
             // The route on screen is the address bar's; the saved step lags behind Back/Forward.
             const step = new URL(window.location.href).searchParams.get("step");
-            return runContinue(step === "guided" ? "guided" : step === "form" ? "form" : "choose");
+            // On the overview (?step=results: the case page's "Show my next step" / "Update my next steps"): worked out from
+            // the route the answers came from, which stays hidden, never by opening the whole form or the chooser
+            // (Chrome check of #544, 6 Nov, F6).
+            const route = step === "results" ? snapshot.sections.builder?.step : step;
+            return runContinue(route === "guided" ? "guided" : route === "form" ? "form" : "choose");
+          },
+          retry: async () => {
+            await flush();
+            if (!current()) return;
+            // A review action for answers changed since is not finished: the change itself reopened the review.
+            if (pendingTransition && inputRevision(snapshot) !== pendingTransition.expectedInput) pendingTransition = null;
+            if (pendingTransition && ownerId && caseId) {
+              const pending = pendingTransition;
+              const landed = await landedReviewTransition(supabase, ownerId, caseId, court, pending);
+              if (!current()) return;
+              if (landed) {
+                // Its save landed although it answered an error: taken as saved, nothing written again.
+                pendingTransition = null;
+                workflowStatus = record(landed.workflowStatus);
+                savedMaster = record(landed);
+                cache();
+                emit();
+              } else {
+                // Not there: sent again through the one review writer, which keeps it pending and says so if it fails again.
+                await store.transition(pending.action, pending.expectedInput);
+                if (!current()) return;
+              }
+            }
+            setFailed(false);
+            setNotice("Intake saved to your account.");
           },
           begin: async signal => { await flush(signal); signal?.throwIfAborted(); if (signal) leases.set(signal, factsRevision(snapshot)); },
           subscribeField: (section, field, listener) => {
@@ -439,8 +502,10 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             }
             if (ownerId && caseId) {
               const result = await saveReviewTransition(supabase, ownerId, caseId, snapshot, action, expectedInput, current);
-              if (!result.ok) { failure("Your review could not be saved. Your answers remain here; retry before continuing."); throw new Error("Review was not saved. Please retry."); }
+              if (!result.ok) { pendingTransition = { action, expectedInput }; failure("Your review could not be saved. Your answers remain here; retry before continuing."); throw new Error("Review was not saved. Please retry."); }
               if (!current()) return;
+              pendingTransition = null;
+              setFailed(false);
               workflowStatus = record(result.master.workflowStatus);
               savedMaster = record(result.master);
               if (inputRevision(snapshot) !== expectedInput) {
@@ -459,6 +524,11 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           put: (section, key, value, touched = true, external = false, fromReview = false, reaffirm = undefined) => {
             if (!current()) return;
             const field = `${section}:${key}`;
+            // Which screen is showing is never an answer: kept with the case, saved with the next answer, never a save of
+            // its own. Opening a route sent a save of the whole case, whose failure said "could not be saved" and held
+            // the leave guard (Chrome check of #544 on 99e2ec0, 7 Nov, F9).
+            const screenOnly = SCREEN_FIELDS.has(field);
+            if (screenOnly) touched = false;
             const json = JSON.stringify(value instanceof Set ? [...value] : value);
             if (json === undefined) return;
             const encoded: unknown = JSON.parse(json);
@@ -482,7 +552,9 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             if (touched) sections[BASIS_SECTION] = tagAnswers(sections, section, key, snapshot.sections[section]?.[key], encoded);
             if (reaffirm !== undefined) sections[BASIS_SECTION] = reaffirmAnswers(sections, section, key, encoded, reaffirm === true ? undefined : reaffirm);
             if (unchanged && JSON.stringify(sections[BASIS_SECTION]) === JSON.stringify(snapshot.sections[BASIS_SECTION])) { invalid.delete(field); return; }
-            const next = { ...snapshot, revision: crypto.randomUUID(), sections };
+            // A screen change keeps the revision too: a new one made this tab's copy differ from the saved case, so the next
+            // page load saved it at once, the same write one page later.
+            const next = { ...snapshot, revision: screenOnly ? snapshot.revision : crypto.randomUUID(), sections };
             // The one rule, shared with the server (intakeReview.ts applyFactRevisions): after Confirm an
             // answer that only adds a fact keeps the confirmation (Chrome re-test 29 Oct, D1), but next
             // steps made before it are outdated (factsRevision; D1 review).
@@ -577,9 +649,12 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
   </div>;
   return <Context.Provider value={recovery}>
     <div className="mx-auto max-w-6xl px-6 py-3 text-sm" role={failed ? "alert" : "status"} data-testid="intake-save-status">
-      {notice}{" "}
-      {failed && <WorkingButton className="underline" working={retrying} workingLabel="Saving intake…" onClick={async () => { if (!recovery) { setAttempt((value) => value + 1); return; } setRetrying(true); try { await recovery.flush(); } catch { /* the notice says what failed */ } finally { setRetrying(false); } }}>Retry saving intake</WorkingButton>}{" "}
-      {(recovery || failed) && (!recovery?.ownerId || failed) && <a className="underline" href={`/login?next=${encodeURIComponent(here)}`} onClick={(event) => { event.preventDefault(); startSignIn(); }}>{recovery && !recovery.ownerId ? "Sign in or create a free account (what you entered comes with you)" : "Sign in for account recovery"}</a>}
+      {failed ? failureWords(notice, signedIn || Boolean(recovery?.ownerId)) : notice}{" "}
+      {failed && <WorkingButton className="underline" working={retrying} workingLabel="Saving intake…" onClick={async () => { if (!recovery) { setAttempt((value) => value + 1); return; } setRetrying(true); try { await recovery.retry(); } catch { /* the notice says what failed */ } finally { setRetrying(false); } }}>Retry saving intake</WorkingButton>}{" "}
+      {(() => {
+        const offer = (recovery || failed) && (!recovery?.ownerId || failed) ? signInOffer(notice, signedIn || Boolean(recovery?.ownerId), Boolean(recovery)) : null;
+        return offer ? <a className="underline" href={`/login?next=${encodeURIComponent(here)}`} onClick={(event) => { event.preventDefault(); startSignIn(); }}>{offer}</a> : null;
+      })()}
       {conflict && recovery?.getCaseId() && <a className="underline" href={`/builder?path=${court}&caseId=${recovery.getCaseId()}`} target="_blank" rel="noopener noreferrer">Open the saved intake separately</a>}
       {!recovery && failed && <> · <a className="underline" href={`/builder?path=${court}`}>Start a new intake</a></>}
     </div>

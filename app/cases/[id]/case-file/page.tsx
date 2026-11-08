@@ -20,6 +20,8 @@ import { recordedDateAnswers } from "@/src/lib/case-system/caseRecord";
 import { DecisionAttribution, DecisionCaution } from "@/app/cases/_components/CourtDecisionPanel";
 import { DeadlineStandingNote } from "@/app/cases/_components/CaseWorkspace";
 import type { TimelineStanding } from "@/src/lib/case-workspace/timeline";
+import { caseDeadlines } from "@/src/lib/case-system/caseFile/stepDeadlines";
+import { formatForCourt } from "@/src/lib/case-system/dates";
 import type { DecisionDetails } from "@/src/lib/case-workspace/courtDecision";
 
 import { getStageLabel } from "../../../builder/_components/builderTypes";
@@ -58,6 +60,7 @@ type DecisionRow = {
 };
 
 type TimelineItem = {
+  date?: string;
   displayDate: string;
   title: string;
   source: { kind: string; description: string; rule?: string | null };
@@ -73,7 +76,7 @@ function whenText(event: EventRow): string {
 }
 
 export default function CaseFileSection() {
-  const { caseRecord, position, stepId, record } = useCaseHome();
+  const { caseRecord, position, stepId, record, courtPath } = useCaseHome();
   const master = (caseRecord.master_result ?? {}) as Record<string, unknown>;
   const intake = (master.intakeData ?? {}) as { facts?: string; goal?: string; yourName?: string; otherParty?: string };
   const drafts = readCaseDrafts(master);
@@ -83,7 +86,11 @@ export default function CaseFileSection() {
   const [events, setEvents] = useState<EventRow[] | null>(null);
   const [documents, setDocuments] = useState<DocumentRow[] | null>(null);
   const [decisions, setDecisions] = useState<DecisionRow[]>([]);
+  // The timeline route's counted items: read only for a deadline's standing (passed, a closed day), in the card's words.
   const [deadlines, setDeadlines] = useState<TimelineItem[] | null>(null);
+  // The deadlines themselves: the one source the case page shows too (stepDeadlines.ts caseDeadlines; Chrome check of
+  // #544, F4: the next-step card said 3 March 2028, this page "None yet"). The count is the card's; nothing is counted here.
+  const counted = caseDeadlines(master, courtPath, stepId || null);
   // Civil and family: the step's deadline section counted from the dates the
   // user gave on the Overview (page review, 2026-10-06: the printed file said
   // deadlines were only shown as periods, even after a date was given).
@@ -171,17 +178,18 @@ export default function CaseFileSection() {
         </FileSection>
 
         <FileSection title="Deadlines worked out from your dates">
-          {deadlines?.length ? (
-            <ul className="space-y-2">
-              {deadlines.map((item) => (
-                <li key={`${item.title}-${item.displayDate}`}>
-                  <strong>{item.displayDate}</strong>: {item.title}
-                  {item.source.rule ? ` (${item.source.rule})` : ""}
-                  {item.notes?.[0]?.startsWith("Counted from the date in your story") ? <em> {item.notes[0]}</em> : null}
-                  {/* The same words as the Overview card and the Timeline (walkthrough 2026-10-14, SW). */}
-                  {item.standing ? <DeadlineStandingNote standing={item.standing} /> : null}
-                </li>
-              ))}
+          {counted.length && deadlines !== null ? (
+            <ul className="space-y-2" data-testid="case-file-deadlines">
+              {counted.map((counted) => {
+                const item = deadlines.find((entry) => entry.date === counted.date);
+                return (
+                  <li key={counted.id} data-testid="case-file-deadline">
+                    <strong>{formatForCourt(counted.date)}</strong>: {counted.what}
+                    {/* The same words as the Overview card and the Timeline (walkthrough 2026-10-14, SW). */}
+                    {item?.standing ? <DeadlineStandingNote standing={item.standing} /> : null}
+                  </li>
+                );
+              })}
             </ul>
           ) : stepDeadline ? (
             <p className="whitespace-pre-line">{stepDeadline}</p>

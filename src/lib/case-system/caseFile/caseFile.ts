@@ -137,6 +137,9 @@ export function saysNoDateYet(value: unknown): boolean {
 /** The slots a "no date yet" answer can close. */
 const COURT_DAYS = new Set<SlotFact>(["conferenceDate", "courtDate"]);
 
+/** The facts a box or a chat reply holds as typed words, whose copy can fall behind the record's newest answer (Chrome check of #544, F1 and F3). */
+export const NEWEST_TYPED_FACTS = new Set<SlotFact>(["amount", "otherParty", "wants", "whenHappened", "outcome"]);
+
 /** The slots that hold a day. */
 const DATED = new Set<SlotFact>(["whenHappened", "servedDate", "conferenceDate", "courtDate"]);
 
@@ -561,10 +564,44 @@ export function seenSeqOf(sections: Record<string, unknown> | undefined, fact: S
 const START_FACTS: ReadonlySet<string> = new Set(["side", "court", "stage", "papers"]);
 
 /** Whether a value is the answer a fact already holds, as the case file reads it (an amount "$2,400" is 2400). */
-function sameAnswer(fact: SlotFact, heldValue: unknown, given: unknown): boolean {
+export function sameAnswer(fact: SlotFact, heldValue: unknown, given: unknown): boolean {
   const read = emptyCaseFile();
   give(read, fact, given, "compare");
   return JSON.stringify(read[fact].value ?? given) === JSON.stringify(heldValue);
+}
+
+/**
+ * What a form box for `fact` must show to follow the newest saved answer (rule 3, site owner 6 Nov; Chrome check of
+ * #544, step 14), or null to leave it as it is. `place`: the box's own place ("small-claims:amountClaimed"). Left as
+ * it is: a fact never answered (no state), or one only read from the story; a box that is itself where the newest
+ * answer came from (the person typing in it, sent or not); a box already saying the same answer; a "not sure" typed in
+ * the box. Otherwise: the newest answer's words, or empty when it was removed or is "not sure".
+ */
+export function followWords(file: CaseFile, fact: SlotFact, place: string, boxValue: unknown, formatDay: (iso: string) => string): string | null {
+  if (START_FACTS.has(fact) || fact === "story") return null;
+  const slot = file[fact];
+  if (!slot.confirmed) return null;
+  if (slot.source?.kind === "answer" && slot.source.question === place) return null;
+  const now = boxValue === undefined || boxValue === null ? "" : String(boxValue);
+  if (slot.removed || slot.state === "unsure") return now.trim() && !isUnsureAnswer(now) ? "" : null;
+  if (slot.state !== "answered") return null;
+  if (now.trim() && sameAnswer(fact, slot.value, now)) return null;
+  const words = slotText(slot, formatDay);
+  return words.trim() && words !== now ? words : null;
+}
+
+/**
+ * Does a recorded fact (a saved record or an unsent edit) say what the intake's own answers already say? `own` is
+ * the case file read from the answers alone (caseFileOf with no fact records). Only the person's answers count, not
+ * a reading of the story. Used by the confirmation rule (intakeReview.ts materialFacts): a late save that repeats an
+ * answer is not a new fact (item 1, 6 Nov; founder's Chrome check of #543, other problem 1).
+ */
+export function repeatsAnswer(own: CaseFile, fact: string, recorded: { state: string; value?: unknown }): boolean {
+  // Only an answer can repeat an answer. A removal or a "not sure" always counts: what it takes away may be held
+  // where `own` does not look (the saved copy; test:change-path case 4).
+  if (!isSlot(fact) || recorded.state !== "answered") return false;
+  const slot = own[fact];
+  return slot.state === "answered" && slot.source?.kind === "answer" && sameAnswer(fact, slot.value, recorded.value);
 }
 
 export function followAnswer(sections: Record<string, unknown>, section: string, key: string, before: unknown, after: unknown, now: Date = new Date(), held?: CaseFile): FactChanges | null {
@@ -629,6 +666,21 @@ export function changedWords(file: CaseFile | null | undefined, fact: SlotFact, 
 }
 
 /**
+ * What a screen that still keeps its own copy of a fact (the overview's amount, parties and outcome read the analysis
+ * copy) shows: the record's answer whenever the record holds the person's own answer, from any place, not only one
+ * given with "Change" (Chrome check of #544, 6 Nov: a newer answer from the whole form left the older copy on screen).
+ * `undefined`: the record holds no answer of the person's (the screen keeps its own copy); `null`: removed (nothing shown).
+ */
+export function recordWords(file: CaseFile | null | undefined, fact: SlotFact, formatDay: (iso: string) => string = (iso) => iso): string | null | undefined {
+  const slot = file?.[fact];
+  if (!slot) return undefined;
+  if (slot.removed) return null;
+  if (slot.changed) return changedWords(file, fact, formatDay);
+  if (slot.state !== "answered" || !slot.confirmed || slot.value === undefined || isTypedUnsure(slot.value)) return undefined;
+  return slotText(slot, formatDay);
+}
+
+/**
  * What a screen that REPEATS AN ANSWER BACK shows for a question now ("Got it: ..." in the questions one at a
  * time, "Confirmed from my story" in the Small Claims chat): the person's latest change of the question's fact
  * (the change record, newest wins) over the screen's own copy, `own`. `{ removed: true }` when that change
@@ -639,6 +691,17 @@ export function changedWords(file: CaseFile | null | undefined, fact: SlotFact, 
 export function answerNow(file: CaseFile | null | undefined, questionId: string, own: unknown): { value: unknown; changed: boolean; removed: boolean } {
   const facts = slotsOf(questionId);
   const slot = facts.length === 1 ? file?.[facts[0]] : undefined;
+  // The Small Claims chat's questions (sc-*): a newer answer given in another place without "Change" (the whole form's
+  // box typed over its copy) is the newest too, so the chat says it under the reply (Chrome check of #544, 6 Nov, F3:
+  // no "You changed this answer: $7,250"). Typed facts only; a day written another way is the same day. The civil and
+  // Family questions (field keys) are unchanged here.
+  if (slot && !slot.changed && questionId.startsWith("sc-") && NEWEST_TYPED_FACTS.has(facts[0]) && typeof own === "string" && own.trim() && !isUnsureAnswer(own)) {
+    if (slot.removed) return { value: undefined, changed: true, removed: true };
+    const fact = facts[0];
+    const ownDay = DATED.has(fact) ? readFullDay(own) : null;
+    const sameDay = ownDay !== null && ownDay === dayOfSlot(slot);
+    if (slot.state === "answered" && slot.value !== undefined && !sameDay && !sameAnswer(fact, slot.value, own)) return { value: typeof slot.value === "number" ? slotText(slot, (iso) => iso) : slot.value, changed: true, removed: false };
+  }
   if (!slot?.changed) return { value: own, changed: false, removed: false };
   if (slot.removed || slot.state !== "answered") return { value: undefined, changed: true, removed: true };
   return { value: typeof slot.value === "number" ? slotText(slot, (iso) => iso) : slot.value, changed: true, removed: false };

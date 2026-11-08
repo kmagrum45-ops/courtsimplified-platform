@@ -4,8 +4,9 @@
  *
  * What it checks, Small Claims, questions one at a time (the story card offers only the kind, as the real
  * reading did for Chrome once the amount was held):
- *   A2  the kind used on the suggestion card after a restart ("Got it: Personal loan ...") is never followed by
- *       "What kind of dispute is this?", and the kind on the review stays the one used. Cause: the chat's next
+ *   A2  the kind used on the suggestion card before a restart is kept: after it the card is not offered again (site
+ *       owner, 6 Nov; it used to be offered and used again, "Got it: Personal loan ..."), "What kind of dispute is
+ *       this?" is never asked, and the kind on the review stays the one used. Cause: the chat's next
  *       turn after "Use the suggestion" sent the case file from the render before the kind was saved
  *       (GuidedSmallClaimsIntake.tsx sendTurn, caseFile: reviewView.checkpoint), so the kind was not held. Shown
  *       with "When it happened" answered "I do not know yet" (kept across the restart), so the kind is the next
@@ -120,14 +121,20 @@ async function addSentenceAndRestart(page: Page, caseId: string) {
 test("A2: after the questions start again, the kind used on the suggestion card is not asked again -- small-claims", async ({ page }) => {
   test.setTimeout(600_000);
   const { caseId } = await signedInCase(page);
-  await answerChat(page, { "sc-amount-claimed": "$2,650", "sc-orient-when-happened": "I do not know yet" });
+  const before = await answerChat(page, { "sc-amount-claimed": "$2,650", "sc-orient-when-happened": "I do not know yet" });
+  // Right after "Use the suggestion": the kind is said back and "What kind of dispute is this?" is not asked.
+  const said = await page.locator("[data-testid=guided-message][data-from=assistant]").allInnerTexts();
+  expect(said.some((text) => text.includes(`Got it: ${KIND.claimTypeName}.`)), "the kind was used on the suggestion card").toBe(true);
+  expect(before, `"What kind of dispute is this?" is not asked right after "Use the suggestion" (asked: ${before.join(", ")})`).not.toContain("sc-orient-dispute-category");
   await confirmReview(page);
   await addSentenceAndRestart(page, caseId);
+  // The kind used before the restart is kept, so its card is not offered again (site owner, 6 Nov: restart-keeps-answers.spec.ts;
+  // this used to require the card to be used again after the restart, "Got it: <kind>"). Checked before answering anything,
+  // since answerChat uses any card it finds.
+  await page.waitForTimeout(8_000);
+  await expect(page.getByTestId("claim-type-suggestion"), "the kind used before the restart is offered again").toHaveCount(0);
   const asked = await answerChat(page, { "sc-orient-dispute-category": "A loan I gave to a friend" });
-  const messages = await page.locator("[data-testid=guided-message][data-from=assistant]").allInnerTexts();
-  const gotIt = messages.findIndex((text) => text.includes(`Got it: ${KIND.claimTypeName}.`));
-  expect(gotIt, "the kind was used on the card after the restart").toBeGreaterThanOrEqual(0);
-  expect(asked, `"What kind of dispute is this?" is not asked after the kind was used (asked: ${asked.join(", ")})`).not.toContain("sc-orient-dispute-category");
+  expect(asked, `"What kind of dispute is this?" is not asked after the restart either (asked: ${asked.join(", ")})`).not.toContain("sc-orient-dispute-category");
   await page.getByTestId("intake-start-review").click().catch(() => undefined);
   await expect(page.getByTestId("intake-review"), "the review keeps the kind used").toContainText(`Kind of claim: ${KIND.claimTypeName}`, { timeout: 30_000 });
 });

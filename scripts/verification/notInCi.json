@@ -1,0 +1,450 @@
+{
+  "about": "Test files no workflow runs by itself, each with the reason (site owner, 6 Nov 2026). Checked by test:tests-in-ci: a test file must be run by CI or listed here; an entry for a file now run by CI, or gone, fails until deleted. Reasons were measured on 6 Nov 2026 (local runs with no OpenAI key); \"owner to decide\" marks a decision not yet taken.",
+  "entries": [
+    {
+      "file": "scripts/verification/checkConfiguredAiReasoning.integration.ts",
+      "script": "test:ai-real-integration",
+      "reason": "run only by the manual workflow courtsimplified-nightly-ai.yml (it calls the live model, billed; CLAUDE.md s. 7)"
+    },
+    {
+      "file": "scripts/verification/runCaseReviews.ts",
+      "script": "test:case-reviews",
+      "reason": "references the OpenAI client, so it may call the live model (billed); no workflow runs it (CLAUDE.md s. 7: billed runs are started by hand); not run in this audit"
+    },
+    {
+      "file": "scripts/verification/runFixtures.ts",
+      "script": "test:fixtures",
+      "reason": "run only by the manual workflow courtsimplified-story-review.yml (it calls the live model, billed; CLAUDE.md s. 7)"
+    },
+    {
+      "file": "scripts/verification/runGeneratedFixtures.ts",
+      "script": "test:fixtures:generated",
+      "reason": "references the OpenAI client, so it may call the live model (billed); no workflow runs it (CLAUDE.md s. 7: billed runs are started by hand); not run in this audit"
+    },
+    {
+      "file": "scripts/verification/runJourneyBattery.ts",
+      "script": "test:journey-battery",
+      "reason": "references the OpenAI client, so it may call the live model (billed); no workflow runs it (CLAUDE.md s. 7: billed runs are started by hand); not run in this audit"
+    },
+    {
+      "file": "scripts/verification/runLiveStoryBatch.ts",
+      "script": "test:live-stories",
+      "reason": "references the OpenAI client, so it may call the live model (billed); no workflow runs it (CLAUDE.md s. 7: billed runs are started by hand); not run in this audit"
+    },
+    {
+      "file": "scripts/verification/runScenario.ts",
+      "script": "test:scenario",
+      "reason": "a tool, not a suite: runs one named scenario and needs its id as an argument (npm run test:scenario <id>)"
+    },
+    {
+      "file": "scripts/verification/verifyAiCallLogSink.ts",
+      "script": "test:ai-call-log-sink",
+      "reason": "uses a database or a real test account; no workflow runs it; not run in this audit"
+    },
+    {
+      "file": "scripts/verification/verifyAiCallLogging.ts",
+      "script": "test:ai-call-logging",
+      "reason": "references the OpenAI client, so it may call the live model (billed); no workflow runs it (CLAUDE.md s. 7: billed runs are started by hand); not run in this audit"
+    },
+    {
+      "file": "scripts/verification/verifyAmendmentTrails.ts",
+      "script": "test:amendment-trails",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyAmountConsistency.ts",
+      "script": "test:amount-consistency",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyAnonGrants.ts",
+      "script": "test:anon-grants",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyAssistantBlocks.ts",
+      "script": "test:assistant-blocks",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyCaseEvents.ts",
+      "script": "test:case-events",
+      "reason": "no reason recorded; fails locally (6 Nov 2026) with no model or database: FAIL the analysis save site writes intakeFacts. Fix or delete (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyCaseLoadRestore.ts",
+      "script": "test:case-load-restore",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyCaseReview.ts",
+      "script": "test:case-review",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyCheckOracles.ts",
+      "script": "test:check-oracles",
+      "reason": "no reason recorded; fails locally (6 Nov 2026) with no model or database: FAIL a check is satisfied by the implementation's own description of itself. Fix or delete (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyChildSupportDraft.ts",
+      "script": "test:child-support-draft",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyChildSupportIntake.ts",
+      "script": "test:child-support-intake",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyChildSupportTableCard.ts",
+      "script": "test:child-support-table-card",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyCitedProvisions.ts",
+      "script": "test:cited-provisions",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyClassifierGating.ts",
+      "script": "test:classifier-gating",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyClearedUnrecorded.ts",
+      "script": "test:cleared-unrecorded",
+      "reason": "failing-first suite (its header: \"Expected to FAIL until G2(d); it is not in the CI list\"); not run in this audit"
+    },
+    {
+      "file": "scripts/verification/verifyDatabaseEnvironments.ts",
+      "script": "test:db-environments",
+      "reason": "uses a database or a real test account; no workflow runs it; not run in this audit"
+    },
+    {
+      "file": "scripts/verification/verifyDescribedEvidenceIsCounted.ts",
+      "script": "test:described-evidence",
+      "reason": "uses a database or a real test account; no workflow runs it; not run in this audit"
+    },
+    {
+      "file": "scripts/verification/verifyEvidenceGuidanceClaims.ts",
+      "script": "test:evidence-guidance",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyFactCoexistence.ts",
+      "script": "test:fact-coexistence",
+      "reason": "failing-first suite for case core G1/G2 (its header: expected to fail before G1/G2); uses a database; not run in this audit"
+    },
+    {
+      "file": "scripts/verification/verifyFamilyForms.ts",
+      "script": "test:family-forms",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyFamilyNoScores.ts",
+      "script": "test:family-no-scores",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyFixtureHarnessGuards.ts",
+      "script": "test:fixture-guards",
+      "reason": "references the OpenAI client, so it may call the live model (billed); no workflow runs it (CLAUDE.md s. 7: billed runs are started by hand); not run in this audit"
+    },
+    {
+      "file": "scripts/verification/verifyFormCompletionPaused.ts",
+      "script": "test:form-completion-paused",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyGuidedStageByRole.ts",
+      "script": "test:guided-stage-by-role",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyHarnessCoverage.ts",
+      "script": "test:harness-coverage",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyIntakeSequencing.ts",
+      "script": "test:intake-sequencing",
+      "reason": "no reason recorded; fails locally (6 Nov 2026) with no model or database: FAIL V3: the transcript stops before the held question while the suggestion waits. Fix or delete (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyJourneyInvariantSelfTest.ts",
+      "script": "test:journey-invariants",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyLibraryChat.ts",
+      "script": "test:library-chat",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyLsoDemoCases.ts",
+      "script": "test:lso-demo-cases",
+      "reason": "failing-first suite (its header: \"expected to fail today\" — cases 3, 4, 12, 13 and\"); not run in this audit"
+    },
+    {
+      "file": "scripts/verification/verifyMountConditions.ts",
+      "script": "test:mount-conditions",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyNoFilenamesToModel.ts",
+      "script": "test:no-filenames",
+      "reason": "no reason recorded; fails locally (6 Nov 2026) with no model or database: FAIL a second FileList reader exists; route it through readSelectedFiles instead. Fix or delete (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyNoModelProseInDocuments.ts",
+      "script": "test:no-model-prose",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyNoModelWarnings.ts",
+      "script": "test:no-model-warnings",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyNoNamesToModel.ts",
+      "script": "test:no-names-to-model",
+      "reason": "references the OpenAI client, so it may call the live model (billed); no workflow runs it (CLAUDE.md s. 7: billed runs are started by hand); not run in this audit"
+    },
+    {
+      "file": "scripts/verification/verifyNoStaleIntake.ts",
+      "script": "test:no-stale-intake",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyNoStore.ts",
+      "script": "test:no-store",
+      "reason": "references the OpenAI client, so it may call the live model (billed); no workflow runs it (CLAUDE.md s. 7: billed runs are started by hand); not run in this audit"
+    },
+    {
+      "file": "scripts/verification/verifyOverviewRelevance.ts",
+      "script": "test:overview-relevance",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyPresentationHelp.ts",
+      "script": "test:presentation-help",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyPublicDataNoSession.ts",
+      "script": "test:public-data",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyReadability.ts",
+      "script": "test:readability",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyReasoningTextGate.ts",
+      "script": "test:reasoning-text-gate",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyRecordedAmount.ts",
+      "script": "test:recorded-amount",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyReferenceFolderIsNotShipped.ts",
+      "script": "test:reference-not-shipped",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyResetIntake.ts",
+      "script": "test:reset-intake",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyRlsMatrixCatches.mjs",
+      "script": "test:rls-matrix-catches",
+      "reason": "its header: about four minutes (each plant builds a fresh database), so not in CI; run it after changing verifyRlsMatrix.mjs or its manifest. Fails locally (no local Postgres here)"
+    },
+    {
+      "file": "scripts/verification/verifyServerOrder.ts",
+      "script": "test:server-order",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifySnapshotProvenance.ts",
+      "script": "test:snapshot-provenance",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyStageAnswers.ts",
+      "script": "test:stage-answers",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyStageResolution.ts",
+      "script": "test:stage-resolution",
+      "reason": "no reason recorded; fails locally (6 Nov 2026) with no model or database: 90 FAILURE(S):. Fix or delete (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyStatementOfClaimSurface.ts",
+      "script": "test:claim-surface",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyStatusTriage.ts",
+      "script": "test:status-triage",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyStorageKeys.ts",
+      "script": "test:storage-keys",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyStoryAnswerProposals.ts",
+      "script": "test:story-answer-proposals",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyTypecheckIsLive.ts",
+      "script": "test:typecheck-live",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyVerifierRejects.ts",
+      "script": "test:verifier",
+      "reason": "references the OpenAI client, so it may call the live model (billed); no workflow runs it (CLAUDE.md s. 7: billed runs are started by hand); not run in this audit"
+    },
+    {
+      "file": "scripts/verification/verifyWorkspaceAiFlag.ts",
+      "script": "test:workspace-ai-flag",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyWorkspaceDates.ts",
+      "script": "test:workspace-dates",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyWorkspaceExport.ts",
+      "script": "test:workspace-export",
+      "reason": "uses a database or a real test account; no workflow runs it; not run in this audit"
+    },
+    {
+      "file": "scripts/verification/verifyWorkspaceExtraction.ts",
+      "script": "test:workspace-extraction",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyWorkspaceOcr.ts",
+      "script": "test:workspace-ocr",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyWorkspaceOrganisation.ts",
+      "script": "test:workspace-organisation",
+      "reason": "uses a database or a real test account; no workflow runs it; not run in this audit"
+    },
+    {
+      "file": "scripts/verification/verifyWorkspacePii.ts",
+      "script": "test:workspace-pii",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyWorkspaceRls.ts",
+      "script": "test:workspace-rls",
+      "reason": "uses a database or a real test account; no workflow runs it; not run in this audit"
+    },
+    {
+      "file": "scripts/verification/verifyWorkspaceUi.ts",
+      "script": "test:workspace-ui",
+      "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "scripts/verification/verifyWorkspaceUpload.ts",
+      "script": "test:workspace-upload",
+      "reason": "uses a database or a real test account; no workflow runs it; not run in this audit"
+    },
+    {
+      "file": "tests/browser/answer-echo-current.spec.ts",
+      "reason": "no reason recorded; passed locally on this branch (6 Nov 2026, 6 of 6): candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "tests/browser/case-event-loop.spec.ts",
+      "reason": "no reason recorded; fails locally on main and this branch (6 Nov 2026): the candidate surface did not render. Out of date with the site: fix or delete (owner to decide)"
+    },
+    {
+      "file": "tests/browser/child-support-common-case.spec.ts",
+      "reason": "no reason recorded; fails locally on main and this branch (6 Nov 2026): the child support screen never appears. Out of date with the site: fix or delete (owner to decide)"
+    },
+    {
+      "file": "tests/browser/child-support-scenarios.spec.ts",
+      "reason": "no reason recorded; fails locally on main and this branch (6 Nov 2026): child-support-intake never appears. Out of date with the site: fix or delete (owner to decide)"
+    },
+    {
+      "file": "tests/browser/chrome-541-2nov.spec.ts",
+      "reason": "no reason recorded; passed locally on this branch (6 Nov 2026, 6 of 6 (12 of 12 on a repeat run)): candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "tests/browser/cleared-unrecorded.spec.ts",
+      "reason": "failing-first test (its header: \"Expected to FAIL until G2(d)\"); not run in this audit"
+    },
+    {
+      "file": "tests/browser/court-path-out-of-scope.spec.ts",
+      "reason": "no reason recorded; fails locally on main and this branch (6 Nov 2026): the out-of-scope panel never appears (9 of 9). Out of date with the site: fix or delete (owner to decide)"
+    },
+    {
+      "file": "tests/browser/fact-coexistence-cause.spec.ts",
+      "reason": "failing-first test for case core G0-G2 (its header: \"expected to FAIL today\"); needs a real test account; not run in this audit"
+    },
+    {
+      "file": "tests/browser/fact-coexistence.spec.ts",
+      "reason": "failing-first test for case core G0-G2 (its header: \"EXPECTED TO FAIL TODAY, in all three courts\"); needs a real test account; not run in this audit"
+    },
+    {
+      "file": "tests/browser/fact-two-tabs.spec.ts",
+      "reason": "failing-first test for case core G2(c) (its header: \"EXPECTED TO FAIL TODAY\"). Fails on main and this branch (6 Nov 2026): an answer typed in its own form box is never sent as a numbered fact (caseFile.ts followAnswer, samePlace), so a second tab's edit meets the whole-case \"Another tab changed this intake\" refusal, never the per-fact \"Not saved yet\"; also presses \"Save\" where the button is \"Save mine\". Waits on one fact per PR through the case file"
+    },
+    {
+      "file": "tests/browser/family-adoption.spec.ts",
+      "reason": "no reason recorded; fails locally on main and this branch (6 Nov 2026): no \"Adoption -- step-parent...\" button. Out of date with the site: fix or delete (owner to decide)"
+    },
+    {
+      "file": "tests/browser/golden-journeys.spec.ts",
+      "reason": "no reason recorded; fails locally on main and this branch (6 Nov 2026): \"Fill in the form yourself\" not reached (8 of 8). Out of date with the site: fix or delete (owner to decide)"
+    },
+    {
+      "file": "tests/browser/guest-intake.spec.ts",
+      "reason": "no reason recorded; fails locally on main and this branch (6 Nov 2026): the Province box not reached (3 of 3). Out of date with the site: fix or delete (owner to decide)"
+    },
+    {
+      "file": "tests/browser/reasoning-contract.spec.ts",
+      "reason": "no reason recorded; fails locally on main and this branch (6 Nov 2026): a click times out at 10 s (4 of 4); not run on main. Out of date with the site: fix or delete (owner to decide)"
+    },
+    {
+      "file": "tests/browser/scenario-quality.spec.ts",
+      "reason": "no reason recorded; passed locally on this branch (6 Nov 2026, 1 of 1): candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "tests/browser/scroll-positioning.spec.ts",
+      "reason": "no reason recorded; fails locally on main and this branch (6 Nov 2026): 3 of 4 fail: a journey heading not shown. Out of date with the site: fix or delete (owner to decide)"
+    },
+    {
+      "file": "tests/browser/situation.spec.ts",
+      "reason": "no reason recorded; passed locally on this branch (6 Nov 2026, 8 of 8): candidate to add to CI (owner to decide)"
+    },
+    {
+      "file": "tests/browser/small-claims-scenarios.spec.ts",
+      "reason": "no reason recorded; fails locally on main and this branch (6 Nov 2026): no control sc-intake-caseStage (4 of 4). Out of date with the site: fix or delete (owner to decide)"
+    },
+    {
+      "file": "tests/browser/walkthrough.spec.ts",
+      "reason": "run only by the manual workflow courtsimplified-walkthrough.yml (it calls the live model, billed; CLAUDE.md s. 7)"
+    },
+    {
+      "file": "tests/browser/chrome-544-6nov.spec.ts",
+      "reason": "Chrome check of #544 (6 Nov 2026): Chrome's screens replayed with a real local or staging account and the model stand-ins. It passed on the code before the F1-F5 fixes as well (the stand-ins store the chat's answers differently from the live model, so Chrome's exact screens did not appear locally); the failing-first tests are the terminal suite test:newest-every-screen. Not added to a browser job without the owner's yes (each adds staging time)"
+    }
+  ]
+}

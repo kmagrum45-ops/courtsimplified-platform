@@ -49,6 +49,15 @@ export function writeAnswer(recovery: CaseWriteRecovery, section: string, field:
   if (changes) recovery.put(CASE_FILE_SECTION, "changes", changes, true, options.external ?? false, options.fromReview ?? false);
 }
 
+/**
+ * A form box following the newest saved answer (AskedField.tsx useBoxesFollow, boxFollow.ts): the form's copy takes the
+ * answer's words. Not an answer: no change is recorded, the confirmation is untouched, nothing is sent (touched=false);
+ * the box is told (external), so it shows the words at once.
+ */
+export function writeFollow(recovery: CaseWriteRecovery, section: string, field: string, value: unknown): void {
+  recovery.put(section, field, value, false, true);
+}
+
 /** "Change" on a fact: the person's newest answer, or its removal, with the server's number for it as this tab saw it. */
 export function writeChange(recovery: CaseWriteRecovery, fact: SlotFact, change: ChangeInput): void {
   const seen = seenSeqOf({ [CASE_FILE_SECTION]: { facts: recovery.read(CASE_FILE_SECTION, "facts") } }, fact);
@@ -59,4 +68,16 @@ export function writeChange(recovery: CaseWriteRecovery, fact: SlotFact, change:
 export function choosePending(recovery: CaseWriteRecovery, fact: SlotFact, keepMine: boolean): void {
   const current = recovery.read(CASE_FILE_SECTION, "changes");
   recovery.put(CASE_FILE_SECTION, "changes", keepMine ? savePending(current, fact) : discardPending(current, fact), true, true, true);
+}
+
+/**
+ * The person typing in a box of a whole form (Small Claims keeps its boxes in `small-claims.input`): the box's new
+ * words, saved into the form's input as it is held (the story has its own path). Through the one writer, so every fact a
+ * typed box holds is sent and numbered by the server (Chrome check of #544, 6 Nov, F1: saved as the form's own copy,
+ * a box typed over the words the form was filled with was never numbered, and a restart from the story brought an older
+ * answer back; test:whole-form-record).
+ */
+export function writeFormBox(recovery: CaseWriteRecovery, section: string, field: string, value: unknown): void {
+  const saved = recovery.read(section, "input");
+  writeAnswer(recovery, section, "input", { ...(saved && typeof saved === "object" ? (saved as Record<string, unknown>) : {}), [field]: value });
 }

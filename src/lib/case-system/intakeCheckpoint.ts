@@ -153,6 +153,32 @@ export async function saveReviewTransition(db: Db, ownerId: string, caseId: stri
   }, 2, { requestTimeoutMs: CASE_REQUEST_TIMEOUT_MS }));
 }
 
+/** A review action the store could not save (its answer was an error), kept so the retry can finish it. */
+export type PendingTransition = { action: "review" | "collect" | "confirm"; expectedInput: string };
+
+/** Whether the saved case already records this review action for these answers (its save landed although it answered an error). */
+export function transitionLanded(master: Record<string, unknown>, court: IntakeCourt, caseId: string, pending: PendingTransition): boolean {
+  const saved = readCheckpoint(master.intakeCheckpoint, court, caseId);
+  if (!saved || inputRevision(saved) !== pending.expectedInput) return false;
+  const workflow = record(master.workflowStatus);
+  const review = record(workflow.intakeReview);
+  if (pending.action === "confirm") return reviewPhase(workflow, saved) === "user-confirmed" && review.confirmedRevision === pending.expectedInput;
+  if (pending.action === "review") return review.reviewedRevision === pending.expectedInput;
+  return !review.reviewedRevision && !review.confirmedRevision;
+}
+
+/**
+ * "Retry saving intake" after a review action whose save answered an error (Chrome check of #544 on a8c8cf57, 7 Nov,
+ * step 19: four retries over three minutes never cleared "Your review could not be saved", yet the case was confirmed).
+ * The saved case is read back first (a read only): its master_result when the action is already there, so it is taken
+ * as saved and nothing is written again; null when it is not, and the store sends the action again through its one
+ * review writer (IntakeRecovery.tsx transition, saveReviewTransition).
+ */
+export async function landedReviewTransition(db: Db, ownerId: string, caseId: string, court: IntakeCourt, pending: PendingTransition): Promise<Record<string, unknown> | null> {
+  const row = await loadCheckpointCase(db, caseId, ownerId, court);
+  return row && transitionLanded(row.master_result, court, caseId, pending) ? row.master_result : null;
+}
+
 /** The stored value when it fits this field's type, else the component's own value. */
 export function adoptStored<T>(stored: unknown, fallback: T): T {
   if (stored === undefined) return fallback;

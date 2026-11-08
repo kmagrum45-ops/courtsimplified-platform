@@ -46,7 +46,7 @@ import { readCheckpoint } from "@/src/lib/case-system/intakeCheckpoint";
 import CaseFilePanel from "../_components/CaseFilePanel";
 import SafetyNotice from "@/app/_components/SafetyNotice";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
-import { countedStepDeadlines } from "@/src/lib/case-system/caseFile/stepDeadlines";
+import { caseDeadlines } from "@/src/lib/case-system/caseFile/stepDeadlines";
 
 type EventsResponse = {
   events: Array<{
@@ -211,7 +211,8 @@ export default function CaseOverviewPage() {
         changeHref={builderHref(caseRecord)}
         situationHref={`${builderHref(caseRecord)}${builderHref(caseRecord).includes("?") ? "&" : "?"}situation=change`}
         stepHref="#next-heading"
-        deadlines={countedStepDeadlines(position.stepId ?? situationStep ?? (homeStepId || null), position.dateAnswers)}
+        // The one source both pages show (stepDeadlines.ts caseDeadlines; F4): the next-step card's own count over the case's dates.
+        deadlines={caseDeadlines(master, courtPath, homeStepId || null)}
       />
 
       <section aria-labelledby="where-heading" className="space-y-3">

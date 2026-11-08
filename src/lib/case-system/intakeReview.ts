@@ -11,7 +11,7 @@ import { amountFromStory, goalFromStory, kindsFromStory, type KindCue } from "..
 import { QUESTION_BANK } from "./intake/questionBank";
 import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 import { askOf } from "./intake/asker";
-import { alreadyAsked, CASE_FILE_SECTION, CHANGE_QUESTION, caseFileOf, fromCasePosition, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
+import { alreadyAsked, CASE_FILE_SECTION, CHANGE_QUESTION, caseFileOf, fromCasePosition, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, repeatsAnswer, sameAnswer, NEWEST_TYPED_FACTS, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
 import { LOAN_WORDS } from "./intake/claimKind";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
 
@@ -204,7 +204,11 @@ function materialFacts(checkpoint: Checkpoint): Map<string, string> {
   // 31 Oct), so it cancels the confirmation that rested on the old answer (isChangeKey below).
   // G2: by each fact's value now -- the saved fact record (server-numbered), or this tab's unsent edit over it -- never
   // by the raw entry, so an edit moving from the tab's buffer into the saved record is no change of a fact.
-  for (const [fact, value] of Object.entries(recordedValues(checkpoint.sections))) facts.set(JSON.stringify([CHANGE_KEY, fact]), canonicalJson(value));
+  // A record that says what the answers already say is no new fact (item 1, 6 Nov): a late save of the chat, or a page
+  // keeping an answer the person gave, changes nothing the next steps rest on.
+  const recorded = Object.entries(recordedValues(checkpoint.sections));
+  const own = recorded.length ? caseFileOf({ ...checkpoint, sections: { ...checkpoint.sections, [CASE_FILE_SECTION]: {} } }) : null;
+  for (const [fact, value] of recorded) if (!repeatsAnswer(own!, fact, value)) facts.set(JSON.stringify([CHANGE_KEY, fact]), canonicalJson(value));
   return facts;
 }
 
@@ -280,9 +284,48 @@ function fingerprint(value: string): string {
   return `${hash.toString(16)}:${value.length}`;
 }
 
-/** Each material fact's mark, as confirmed: recorded with the confirmation (transitionReview). */
+/** The mark key of one case-file fact's value (personFacts). */
+const FACT_KEY = "caseFile.fact";
+const isFactKey = (key: string) => key.startsWith(`["${FACT_KEY}",`);
+
+/**
+ * Each fact the person answered, by its value in the case file, from whichever place holds it (Chrome check of #544 on
+ * a8c8cf57, 7 Nov, step 6: the chat's confirmed $6,400 typed over as $7,250 in the whole form's empty box was taken for
+ * an added answer, because the marks named boxes). Left out: the story slot (the story is marked as itself), a value
+ * read from the story (a suggestion, not an answer), "not sure", and a fact saved from the step page or the overview
+ * (that page's own answer, never an intake answer: the D1 rule, 29 Oct).
+ */
+function personFacts(checkpoint: Checkpoint): Map<string, string> {
+  const sections = checkpoint.sections;
+  const records = (sections[CASE_FILE_SECTION]?.facts ?? {}) as Record<string, { question?: unknown }>;
+  const intakeOnly = Object.fromEntries(Object.entries(records).filter(([, entry]) => !(entry && typeof entry === "object" && fromCasePosition(entry.question))));
+  const file = caseFileOf({ ...checkpoint, sections: { ...sections, [CASE_FILE_SECTION]: { ...sections[CASE_FILE_SECTION], facts: intakeOnly } } });
+  const facts = new Map<string, string>();
+  for (const fact of SLOT_FACTS) {
+    const slot = file[fact];
+    if (fact === "story" || slot.state !== "answered" || slot.source?.kind === "story" || slot.value === undefined || isUnsureAnswer(slot.value)) continue;
+    if (typeof slot.value === "string" && !slot.value.trim()) continue;
+    facts.set(JSON.stringify([FACT_KEY, fact]), canonicalJson(slot.value));
+  }
+  return facts;
+}
+
+/**
+ * A box for a fact the person had answered when they confirmed (its value is marked, personFacts): judged by that fact,
+ * not by its own text. A box whose fact was not answered then (the chat's raw facts are read only for questions it
+ * asked, so a box can name a fact without holding it) keeps its own mark.
+ */
+function boxOfMarkedFact(key: string, marks: Record<string, unknown>): boolean {
+  try {
+    const [section, , field] = JSON.parse(key) as [unknown, unknown, unknown];
+    if (typeof section !== "string" || section === STORY_SECTION || typeof field !== "string") return false;
+    return slotsOfQuestion(field).some((fact) => marks[JSON.stringify([FACT_KEY, fact])] !== undefined);
+  } catch { return false; }
+}
+
+/** Each material fact's mark, as confirmed: recorded with the confirmation (transitionReview). Also each answered fact's value (personFacts). */
 export function confirmedFactMarks(checkpoint: Checkpoint): Record<string, string> {
-  return Object.fromEntries([...materialFacts(checkpoint)].map(([key, value]) => [key, fingerprint(value)]));
+  return Object.fromEntries([...materialFacts(checkpoint), ...personFacts(checkpoint)].map(([key, value]) => [key, fingerprint(value)]));
 }
 
 /**
@@ -297,6 +340,13 @@ export function confirmedAnswerChanged(workflow: ObjectValue, previous: Checkpoi
   const marks = object(object(workflow.intakeReview).confirmedFacts);
   if (!Object.keys(marks).length) return existingFactChanged(previous, next);
   const now = confirmedFactMarks(next);
+  // Confirmed with the facts marked (personFacts): a box holding a fact is judged by the fact, never by its own text, so
+  // the chat's answer typed over in an empty box is a change, and "9400" typed over "$9,400" is not (7 Nov, step 6). A
+  // confirmation recorded before the facts were marked keeps the boxes' marks, as before.
+  if (Object.keys(marks).some(isFactKey)) {
+    return Object.entries(marks).some(([key, mark]) => !boxOfMarkedFact(key, marks) && now[key] !== mark)
+      || Object.entries(now).some(([key, mark]) => isChangeKey(key) && marks[key] !== mark);
+  }
   // A change made through "Change" after Confirm replaces or removes a confirmed answer, even where
   // the answer it replaces was held outside these marks (the saved position, the saved copy).
   return Object.entries(marks).some(([key, mark]) => now[key] !== mark) || Object.entries(now).some(([key, mark]) => isChangeKey(key) && marks[key] !== mark);
@@ -502,6 +552,13 @@ export function reviewBoxState(entry: ReviewEntry, file: CaseFile): "start" | "h
   const empty = emptyValue(entry.value);
   if (empty && !decision.ask && decision.held === "answered") return "held";
   if ((empty || isUnsureAnswer(entry.value)) && !decision.ask && decision.held === "unsure") return "not-yet";
+  // The newest answer wins on every screen (Chrome check of #544, 6 Nov, F1): a box whose own copy is not the answer the
+  // case record holds now (a newer answer given in another place, or the answer removed) shows the record's answer with
+  // "Change", never its own older copy. Typed words only: a choice keeps its own words (the record may word it otherwise).
+  if (!empty && !decision.ask && NEWEST_TYPED_FACTS.has(decision.fact) && !entry.choices && (typeof entry.value === "string" || typeof entry.value === "number") && !isUnsureAnswer(entry.value)) {
+    if (decision.held === "removed") return "held";
+    if (decision.held === "answered" && decision.slot.value !== undefined && !sameAnswer(decision.fact, decision.slot.value, entry.value)) return "held";
+  }
   return empty ? "ask" : "given";
 }
 

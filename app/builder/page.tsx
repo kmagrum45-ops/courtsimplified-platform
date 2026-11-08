@@ -1,8 +1,10 @@
 "use client";
 
+import { OPEN_WHOLE_FORM_EVENT } from "./_components/openWholeForm";
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
 import { caseFileOf, claimKindOf, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { factsWithRecord } from "../../src/lib/case-system/caseFile/chatTurnFacts";
 import { withoutUnsureAnswers } from "../../src/lib/case-system/caseFile/unsureAnswer";
 import { researchCaseContext } from "../../src/lib/case-system/caseFile/aiCaseContext";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
@@ -113,6 +115,7 @@ import { personAnswersFromGuided, personAnswersOf, stageRecordedFromAnswers, sug
 import StageAnswerPanel from "./_components/StageAnswerPanel";
 import { respondingDocumentDraft, respondingDocumentTitle, type RespondingDocumentIntake } from "../../src/lib/case-system/drafts/respondingDocumentDraft";
 import { movingOnMotionToChange, originatingDocumentRecorded, respondingDocumentStillDue, userIsResponding } from "./_components/respondingSide";
+import { savedStepOf } from "../../src/lib/case-system/savedStep";
 import { readCasePosition, storyHintsForDates, storyWithTimeline, suggestedDatesFromAnswers, type SuggestedDate } from "../../src/lib/case-system/casePosition";
 import { suggestedNoticeStep } from "../../src/lib/case-system/claim-types/noticeStep";
 import { caseTitleFromIntake, isGeneratedTitle } from "../../src/lib/case-system/caseTitle";
@@ -507,6 +510,21 @@ function BuilderPageContent() {
     recovery?.continueToGuidance();
   });
 
+  /**
+   * From the overview of a confirmed case, the whole form (every box): Chrome check of #544 on a8c8cf57, 7 Nov. The
+   * intake, with the Small Claims route chooser and civil and Family's "Show the whole form instead", is hidden while
+   * the overview shows, so nothing led there once a case was confirmed. Small Claims opens its form route; civil and
+   * Family switch their intake to its form and leave the overview. Opening a form changes no answer.
+   */
+  function openWholeForm() {
+    if (courtPath === "small-claims") { pushStep("form"); return; }
+    // Civil and Family switch to their form themselves (their own mode, saved as before), so no new writer is added.
+    window.dispatchEvent(new Event(OPEN_WHOLE_FORM_EVENT));
+    const url = new URL(window.location.href);
+    url.searchParams.delete("step");
+    window.history.pushState(null, "", `${url.pathname}${url.searchParams.toString() ? `?${url.searchParams.toString()}` : ""}`);
+  }
+
   function pushStep(step: "form" | "guided" | "results") {
     const url = new URL(window.location.href);
     if (url.searchParams.get("step") === step) return;
@@ -818,6 +836,8 @@ function BuilderPageContent() {
    * second case.
    */
   const saveChainRef = useRef<Promise<void>>(Promise.resolve());
+  /** The step on screen is the saved one, shown again (showSavedStep): the save below writes nothing for it. */
+  const adoptedSavedStep = useRef(false);
   const lastSavedInputsRef = useRef<{ analysis: unknown; caseData: unknown; courtPath: string; attempt: number } | null>(null);
   const masterCaseIdRef = useRef<string | null>(masterCaseId);
   useEffect(() => {
@@ -1214,6 +1234,16 @@ function BuilderPageContent() {
       }
     }
 
+    // A saved, current next step shown again (showSavedStep): it is the saved case already, so nothing is written (F10).
+    if (adoptedSavedStep.current && analysis && caseData) {
+      adoptedSavedStep.current = false;
+      lastSavedInputsRef.current = { analysis, caseData, courtPath, attempt: saveAttempt };
+      const savedId = recovery?.getCaseId() ?? null;
+      masterCaseIdRef.current = savedId;
+      setMasterCaseId(savedId);
+      setCanonicalIntakeSaved(true);
+      return;
+    }
     // Skip a re-run that changes nothing but the case id this save just set.
     const last = lastSavedInputsRef.current;
     if (last && last.analysis === analysis && last.caseData === caseData && last.courtPath === courtPath && last.attempt === saveAttempt) {
@@ -1281,23 +1311,28 @@ function BuilderPageContent() {
       return;
     }
 
-    setGuidedAnalyzing(true);
-    setGuidedAnalysisError("");
-    setGuidedSafety({});
-
     try {
       await guidedRequest.current.run(async (signal) => {
+        // The one gate first, before the working note or any AI step (Chrome check of #544, 6 Nov, F5: after "Start the
+        // questions again" the chat showed "Working out your next steps..." while the intake was unconfirmed).
+        // "guided": the review-needed line shows beside the questions route’s own Continue (rule 7; it said nothing).
+        setGuidedAnalysisError("");
+        if (!(await prepareCaseGuidance("guided"))) return;
+        setGuidedAnalyzing(true);
+        setGuidedSafety({});
         await beforeIntakeAI(signal);
-        if (!(await prepareCaseGuidance())) return;
       // The side and filing are the situation answers, current even before the next guided turn (step 2).
       const situationFacts = personAnswersFromSituation(situation);
       // The kind of claim the analysis follows, from the case file (the person's, else the one the
       // story shows), the same value every screen shows (site owner, 29 Oct).
       const fileNow = caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult);
+      // The record's answers, not the chat's older copy (rule 3; chatTurnFacts.ts factsWithRecord): an amount changed on
+      // the review while the chat was open goes to the analysis at its new value; a removed answer does not go.
+      const recordFacts = factsWithRecord((result.facts ?? {}) as Record<string, unknown>, caseFileOf(recovery?.getReview().checkpoint ?? reviewView?.checkpoint ?? null, recovery?.getSavedMaster() ?? existingMasterResult)) as GuidedIntakeCompletionResult["facts"];
       const heldNow = claimKindOf(fileNow);
       // The kind in words, told to the AI research, from the same case file through the shared builder
       // (aiCaseContext.ts, rule 8; site owner, 31 Oct): a dispute category has no catalogue id.
-      const mappedInput = { ...mapGuidedIntakeToSmallClaimsInput({ ...result, facts: { ...(result.facts ?? {}), ...(situationFacts.side ? { role: situationFacts.side } : {}), ...(situationFacts.claimFiled !== undefined ? { claimFiled: situationFacts.claimFiled } : {}) } }, confirmedLocation, homeStory, kindForAnalysis(heldNow)), caseContext: researchCaseContext(fileNow) };
+      const mappedInput = { ...mapGuidedIntakeToSmallClaimsInput({ ...result, facts: { ...(recordFacts ?? {}), ...(situationFacts.side ? { role: situationFacts.side } : {}), ...(situationFacts.claimFiled !== undefined ? { claimFiled: situationFacts.claimFiled } : {}) } }, confirmedLocation, homeStory, kindForAnalysis(heldNow)), caseContext: researchCaseContext(fileNow) };
 
       // The element record the depth questions made, until the analysis saves it with the case (the
       // Form 7A section reads the case file's saved copy first).
@@ -1306,7 +1341,7 @@ function BuilderPageContent() {
       // defenceFiled among them. Retained so the save site can persist them;
       // without that, deriveCaseStageWithEvents receives {} and the stage comes
       // entirely from confirmed events.
-      setDraftIntakeFacts(result.facts as Record<string, unknown>);
+      setDraftIntakeFacts(recordFacts as Record<string, unknown>);
       guidedAnswersRef.current = (result.answers ?? []);
       const confirmedDates = suggestedDatesFromAnswers(result.answers ?? []);
       setGuidedDates(confirmedDates);
@@ -1367,7 +1402,7 @@ function BuilderPageContent() {
           // The side and filing answers the person gave or confirmed in the
           // conversation itself (stageFromAnswers.ts), never the story alone.
           // The situation answers (situation.ts) are the person's own and win; the guided answers add what they do not settle.
-          personAnswers: { ...personAnswersFromGuided(result.answers ?? [], (result.facts ?? {}) as Record<string, unknown>), ...personAnswersFromSituation(situation) },
+          personAnswers: { ...personAnswersFromGuided(result.answers ?? [], (recordFacts ?? {}) as Record<string, unknown>), ...personAnswersFromSituation(situation) },
         },
       };
       await validateIntakeResponse(signal);
@@ -1458,6 +1493,22 @@ function BuilderPageContent() {
    * The results show only on the results step, so Back from them returns to
    * the intake as it was, and Forward brings them back.
    */
+  /*
+   * A CONFIRMED CASE'S SAVED NEXT STEP, SHOWN AT ONCE (Chrome check of #544 on 99e2ec0, 7 Nov, F10). While the step saved
+   * with the case is still the one for the confirmed answers (savedStep.ts), the overview (?step=results: its own
+   * address, or "Show my next step" in the review panel) shows it as saved, with no new AI run and nothing written.
+   * It goes through the same handleComplete a fresh run uses, so the overview is drawn the same way.
+   */
+  useEffect(() => {
+    if (stepParam !== "results" || analysis || !intakeConfirmed || !reviewView || !recovery || loadingExistingCase) return;
+    const saved = savedStepOf(recovery.getSavedMaster(), reviewView, courtPath, recovery.getCaseId());
+    if (!saved) return;
+    adoptedSavedStep.current = true;
+    setCasePicture(readStoredPicture(asRecord(recovery.getSavedMaster()).casePicture));
+    handleComplete(saved.analysis as unknown as AnalysisResult, saved.data as unknown as StoredCaseData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- handleComplete is this page's own, run once per adoption
+  }, [stepParam, analysis, intakeConfirmed, reviewView, recovery, loadingExistingCase, courtPath]);
+
   const resultsVisible = intakeConfirmed && Boolean(analysis) && analysisInputRevision.current === reviewView?.checkpoint.inputRevision && Boolean(reviewView && analysisFactsRevision.current === factsRevision(reviewView.checkpoint)) && stepParam === "results";
 
   /*
@@ -2053,6 +2104,11 @@ function BuilderPageContent() {
           />
         )}
 
+        {resultsVisible && intakeConfirmed && !loadingExistingCase && !caseLoadError && (courtPath === "small-claims" || courtPath === "civil" || courtPath === "family") && (
+          <p className="mx-auto max-w-6xl text-sm">
+            <button type="button" data-testid="open-whole-form" onClick={openWholeForm} className="font-semibold text-[#2f7d67] underline">Open the whole form (all your answers)</button>
+          </p>
+        )}
         {!loadingExistingCase && !caseLoadError && confirmedLocation && (
           <section hidden={resultsVisible} className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
             <div className="mb-6">
@@ -2125,7 +2181,8 @@ function BuilderPageContent() {
               />
             )}
 
-            {courtPath === "small-claims" && smallClaimsMode === "choose" && (
+            {/* Not on the overview once confirmed: the case page's next-step buttons open it, and the step is worked out there (F6). */}
+            {courtPath === "small-claims" && smallClaimsMode === "choose" && !(stepParam === "results" && intakeConfirmed) && (
               <div className="grid gap-4 md:grid-cols-2">
                 <button
                   type="button"

@@ -20,7 +20,7 @@
  * are.
  */
 
-import { caseFileOfMaster, claimKindOfMaster, otherPartyOfMaster } from "./caseFile/caseFileOfMaster";
+import { caseFileOfMaster, claimKindOfMaster, heldWordsOf, otherPartyOfMaster } from "./caseFile/caseFileOfMaster";
 import { changedWords, type ClaimKindHeld } from "./caseFile/caseFile";
 import { nameRecorded } from "./privacy/modelPayloadNames";
 import { readCasePosition, settledStage, suggestedDatesFromAnswers, type CasePosition } from "./casePosition";
@@ -205,7 +205,10 @@ export function storedIntakeValues(masterResult: unknown): Record<string, string
   const pick = (...values: unknown[]) => values.map(text).find(Boolean) ?? "";
   // The case file of the saved case: its fact record and change record win over the copies below.
   const file = caseFileOfMaster(master, text(intake.courtPath) || null);
-  const latestOf = (fact: "amount" | "wants", copy: string) => { const said = changedWords(file, fact); return said === undefined ? copy : said ?? ""; };
+  // The record's newest answer from any place (the review, the whole form, the chat, "Change"), a removal included; the
+  // analysis copy only when the record holds none (Chrome check of #544, 6 Nov, F1: after "Update my next steps" the
+  // whole form opened on the analysis copy's older amount, because only an answer given with "Change" counted here).
+  const latestOf = (fact: "amount" | "wants" | "urgent", copy: string) => { const held = heldWordsOf(file, fact); return held.held ? held.words : copy; };
   const out: Record<string, string | string[]> = {
     facts: userStory(intake),
     yourName: pick(intake.yourName, extra.yourName, civil.yourName),
@@ -221,7 +224,7 @@ export function storedIntakeValues(masterResult: unknown): Record<string, string
     legalRemedy: pick(extra.legalRemedy, civil.legalRemedy),
     serviceDetails: pick(extra.serviceDetails, civil.serviceDetails),
     settlementEfforts: pick(extra.settlementEfforts, civil.settlementEfforts),
-    urgent: pick(intake.urgent, extra.urgent, civil.urgent),
+    urgent: latestOf("urgent", pick(intake.urgent, extra.urgent, civil.urgent)),
     // The kind of claim is not carried here: the form route reads it from the case file
     // (caseFile.ts claimKindOf), the one place every screen reads it (site owner, 29 Oct).
   };
