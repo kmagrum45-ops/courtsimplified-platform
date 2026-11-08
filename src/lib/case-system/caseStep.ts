@@ -32,7 +32,8 @@ import { readStoredPicture, stepFromPicture } from "./intake/caseReader";
 import { findStage, stagesForPathway, type StagePathway } from "./stage-map/stageMap";
 import { suggestedStageFor } from "./stage-map/suggestedStep";
 import { broadStageOfStep, sideOf, situationOfCase, stepFromSituation } from "./situation/situation";
-import { getStageLabel } from "../../../app/builder/_components/builderTypes";
+import { getStageLabel, type UniversalStage } from "../../../app/builder/_components/builderTypes";
+import { stageRecordedFromAnswers } from "../../../app/builder/_components/stageFromAnswers";
 
 const asRecord = (value: unknown): Record<string, unknown> =>
   value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
@@ -92,7 +93,7 @@ export function caseStepFor(
   // A step picked in the start answers is chosen too, and needs no confirmed stage.
   const picked = startStep(masterResult, courtPath);
   if (picked) return picked;
-  if (options.requireConfirmedStage && !settledStage(position)) return "";
+  if (options.requireConfirmedStage && !caseStageOf(masterResult, courtPath)) return "";
   return suggestedStepForCase(masterResult, courtPath, responding);
 }
 
@@ -120,11 +121,23 @@ function startStep(masterResult: unknown, courtPath: StagePathway): string | nul
   return !settled || settled === broadStageOfStep(picked) ? picked : null;
 }
 
-/** Where the case is, in words, for every page that says it: the picked step's own title, else the confirmed stage. */
+/**
+ * THE STAGE EVERY PAGE STANDS THE CASE ON (Chrome check of #544 on 9b960f7, F12): the one saved on the case, else
+ * what the person's start answers settle (a step picked there, served, or starting with nothing filed). The case
+ * page's next step fell back to the start answers and the case file and its "Deadline" line did not, so one case
+ * showed a deadline on one page and "Not confirmed yet." / "None yet" on the other. One function, so they agree.
+ */
+export function caseStageOf(masterResult: unknown, courtPath: StagePathway | string | null | undefined): UniversalStage | null {
+  if (!courtPath) return null;
+  const master = asRecord(masterResult);
+  return settledStage(readCasePosition(master, courtPath)) ?? stageRecordedFromAnswers(courtPath, null, "not-sure", situationOfCase(master))?.stage ?? null;
+}
+
+/** Where the case is, in words, for every page that says it: the picked step's own title, else the case's stage. */
 export function caseStageWords(masterResult: unknown, courtPath: StagePathway | null): string | null {
   const step = chosenStepFor(masterResult, courtPath);
   const title = step ? findStage(step)?.title : undefined;
   if (title) return title;
-  const stage = courtPath ? settledStage(readCasePosition(asRecord(masterResult), courtPath)) : null;
+  const stage = caseStageOf(masterResult, courtPath);
   return stage ? getStageLabel(stage) : null;
 }

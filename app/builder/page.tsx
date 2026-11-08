@@ -52,6 +52,7 @@ import {
   CASE_REQUEST_TIMEOUT_MS,
   caseRouteWrite,
   nextSaveGeneration,
+  forgetSavedPosition,
   retryCatchUp,
   runCaseWrite,
   savePositionQueuedOutcome,
@@ -1095,6 +1096,9 @@ function BuilderPageContent() {
           // Old procedural choices/readings cannot be relabelled as guidance
           // for corrected facts. Preserve the person's recorded dates/service.
           if (storedMaster.position) userOwned.position = { ...asRecord(storedMaster.position), confirmedStage: null, confirmedStageAt: null, confirmedStageFrom: null, stepId: null, stepChosenAt: null };
+          // The stage and step this page saved are no longer on the case: send them again once it is saved (F12).
+          sentPositionRef.current = "";
+          forgetSavedPosition(activeId);
           userOwned.casePicture = null;
         }
         // Dates and service details recorded for an earlier story do not count deadlines for this one.

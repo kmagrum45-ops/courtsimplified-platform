@@ -37,8 +37,8 @@ import { readCaseDrafts } from "@/src/lib/case-system/drafts/caseDrafts";
 import { positionSavesSettled, savePositionQueued } from "../../builder/_components/positionSave";
 import { userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { authHeaders, builderHref, formatDate, useCaseHome } from "../_components/CaseHomeContext";
-import { caseStageWords, noticeStepForCase, stepStoryText } from "@/src/lib/case-system/caseStep";
-import { stageRecordedFromAnswers, suggestionForSide } from "@/app/builder/_components/stageFromAnswers";
+import { caseStageOf, caseStageWords, noticeStepForCase, stepStoryText } from "@/src/lib/case-system/caseStep";
+import { suggestionForSide } from "@/app/builder/_components/stageFromAnswers";
 import { sideOf, situationAnswers, situationOfCase, stepFromSituation } from "@/src/lib/case-system/situation/situation";
 import { caseFileOf, claimKindOf, unsureDateQuestions, withCaseFileDates } from "@/src/lib/case-system/caseFile/caseFile";
 import { fullDayIn } from "@/src/lib/case-system/casePosition";
@@ -126,8 +126,8 @@ export default function CaseOverviewPage() {
   // The situation answers settle the stage too (served, nothing filed, or the step of a
   // case already going): never asked again here (step 2b).
   const situation = situationOfCase(master);
-  const fromSituation = courtPath ? stageRecordedFromAnswers(courtPath, null, "not-sure", situation) : null;
-  const confirmed = (unsettledFromAnswers ? null : position.confirmedStage) ?? fromSituation?.stage ?? null;
+  // The one stage every page uses (caseStep.ts caseStageOf, F12): saved on the case, else settled by the start answers.
+  const confirmed = caseStageOf(master, courtPath);
   const situationStep = stepFromSituation(situation, courtPath);
 
   /*
