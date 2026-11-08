@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-246 documented, 26 without a header.
+250 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -95,11 +95,13 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:family-no-scores` | **The family engines grade nothing.**<br>COSTS NOTHING. A source scan plus one pure engine run. |
 | `npm run test:family-role` | **A family user's side comes from their own answer, never from stray keywords.**<br>COSTS NOTHING. Pure normalizer runs plus a source scan of the intake. |
 | `npm run test:family-story-reading` | **Family story reading: a denied mention is not a mention.**<br>What it checks: existingFamilyOrder (which hides the "where to start a new case" rules behind "You told us there is already a court order") fires on a story that says there IS an order, and not on one that says there never was — "never married, never a court o |
+| `npm run test:family-triage-dates` | **THE FAMILY CARD TAKES THE LIVED-TOGETHER DATES FROM THE STORY, ACCEPTS A YEAR OR A MONTH, MOVES ON WHEN A QUESTION IS**<br>SET ASIDE, AND "WHAT TO CONFIRM NEXT" READS THE RECORDED MUNICIPALITY (Chrome check of production c38e69fd, B3). |
 | `npm run test:fixed-regimes` | **Checks the routing rules fixed by law (src/lib/case-system/intelligence/**<br>fixedRegimes.ts, CLAUDE.md s. 2a): a construction lien goes to the Superior Court whatever the amount, and a claimed amount over $50,000 leaves Small Claims -- decided in code, winning over the keyword pass and the model. |
 | `npm run test:fixture-guards` | **Asserts that runFixtures.ts cannot write a .actual.md from a run that**<br>threw, timed out, or silently degraded. |
 | `npm run test:fixtures` | **Session 35 -- runs the three whole-case fixtures in fixtures/ through the**<br>REAL pipeline the app uses, end to end, and writes what actually happened to fixtures/<id>.actual.md. |
 | `npm run test:fixtures:generated` | **Session 36 -- scales Session 35's fixture harness from 3 hand-written**<br>fixtures to a generated batch, checked against rules instead of one hand-written expectation per story. |
 | `npm run test:form-completion-paused` | **While official-form completion is paused, every door to it stays shut.**<br>FORM_COMPLETION_PAUSED (src/lib/content-library/phaseScope.ts) was set on 2026-09-27 for the LSO A2I application, which tells the Law Society that filling official court forms and drafting claim particulars are out of scope until it gives guidance. That statem |
+| `npm run test:form-count` | **EVERY PAGE GIVES ONE COUNT OF A COURT'S OFFICIAL FORMS, FROM ONE SOURCE, AND THE FORMS TAB SHOWS EACH FORM ONCE**<br>(Chrome check of production c38e69fd, 8 Nov 2026, B5). |
 | `npm run test:form-explanations` | **Every official form is in the guide, explained from the rules that name it,**<br>and the rule quotes are still the regulation's own words. |
 | `npm run test:forms-from-case-file` | **What reaches a draft form is the person's own case-file facts, under the**<br>right labels, and every fact they gave reaches it (site owner's Chrome re-test, 29 Oct 2026, items A and B). |
 | `npm run test:generic-library` | **Stage-independent content rests on quoted sources, renders the same whatever stage**<br>the case is in, and renders NOTHING while nothing is verified. |
@@ -214,6 +216,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:stage-sequence` | **test:stage-sequence -- every step leads to the next by a rule**<br>(stage-map/stageSequence.ts, site owner 2026-10-12: "every step and every procedure is governed by the last"). |
 | `npm run test:statement-of-claim-text` | **The Form 7A step's claim sentence reads as a sentence.**<br>What it checks: StatementOfClaimSurface, rendered for a confirmed claim type, says 'Claims described as “<description>” generally involve …' — the description quoted, with a space on each side of it. |
 | `npm run test:status-triage` | **The family status triage records facts and concludes nothing.**<br>COSTS NOTHING. Pure function calls. |
+| `npm run test:step-forms-and-text` | **THE NEXT-STEP CARD SHOWS ONLY THE TEXT AND FORMS THAT FIT THE RECORDED ANSWERS: THE SMALL-CLAIMS-SIZED LEAVE RULE ONLY**<br>FOR $50,000 OR LESS, EVERY FORM THE STEP TEXT NAMES IN ITS FORMS LIST (OR LISTED FOR REVIEW), AND NO DIVORCE APPLICATION FOR SOMEONE NEVER MARRIED (Chrome check of production c38e69fd, 8 Nov 2026, B4). |
 | `npm run test:storage-keys` | **A browser-storage key may only be named in the registry.**<br>COSTS NOTHING. Pure source scanning. |
 | `npm run test:story-answer-proposals` | **Verifies story answer proposals: the model may PROPOSE answers the opening**<br>story already gives, and nothing is applied until the user confirms. |
 | `npm run test:story-answers` | **What the person's story already answers is offered, not asked again**<br>(storyAnswers.ts, guidedFields.ts; walkthrough R2 and V2, 2026-10-13). |
@@ -236,6 +239,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:time-ran-out` | **A step whose time is "still running" is never shown beside a counted date that has passed.**<br>What it checks: each stage with whenTimeRunsOut links one of its OWN deadlines to a stage that exists, is a went-wrong stage, and that the map's own distinguishedFrom already tells apart from it (both ways) by whether the time has run out -- so the link adds n |
 | `npm run test:topic-guides` | **The in-depth guides quote their sources exactly, cite every paragraph, and**<br>never read as advice. |
 | `npm run test:typecheck-live` | **The project's typecheck can actually fail.**<br>WHAT THIS CATCHES: a typecheck that reports success while checking nothing. |
+| `npm run test:understood-other-party` | **THE OTHER PARTY THE ACCEPTED STORY READING NAMES GOES ON THE RECORD, NEVER A WITNESS (Chrome check of production**<br>c38e69fd, 8 Nov 2026, B1). |
 | `npm run test:unsure-never-saved` | **"I DO NOT KNOW YET" IS NEVER SAVED AS THE ANSWER, AND "NOT SURE" WHERE THE CASE IS STAYS NOT SURE**<br>(founder's Chrome check of #541 at 354e36fb, 2 Nov, steps 1 and 2; every court). |
 | `npm run test:upcoming-deadline` | **Checks the in-app deadline reminder on "My cases"**<br>(src/lib/case-workspace/upcomingDeadline.ts, master plan 6D). |
 | `npm run test:user-story` | **The user's own words are what pages show back to them, never the labelled**<br>record the analysis reads; and a date in their story without a year is still offered for counting their deadline. |

@@ -294,6 +294,18 @@ jobs:
       - name: A friend or relative is read as the other party only when the story ties them to what is owed, never a witness (Chrome check of #544 on 9b960f7, F14)
         run: npm run test:story-other-party-relations
 
+      - name: The other party the accepted story reading names goes on the record, never a witness (Chrome check of production c38e69fd, B1)
+        run: npm run test:understood-other-party
+
+      - name: The Family card reads the story's lived-together dates and the recorded municipality, and moves on when a question is set aside (B3)
+        run: npm run test:family-triage-dates
+
+      - name: The next-step card shows only the text and forms that fit the recorded answers (B4)
+        run: npm run test:step-forms-and-text
+
+      - name: One count of each court's official forms, and each form shown once (B5)
+        run: npm run test:form-count
+
       - name: The case page and the case file page show the same deadlines, from one source (Chrome check of #544, F4)
         run: npm run test:one-deadline-source
 
@@ -850,6 +862,9 @@ jobs:
           tests/browser/no-finish-line-while-working.spec.ts
           tests/browser/restart-keeps-other-party.spec.ts
           tests/browser/restart-button-real-click.spec.ts
+          tests/browser/understood-other-party.spec.ts
+          tests/browser/worked-out-date-not-an-answer.spec.ts
+          tests/browser/pick-everything-asked.spec.ts
           tests/browser/claim-kind-one-value.spec.ts
           tests/browser/chrome-31oct-review.spec.ts
           tests/browser/change-answer.spec.ts
