@@ -92,12 +92,6 @@ export const KNOWN_PROBLEMS_29OCT_FLOW: readonly KnownProblem[] = [
     test: "OWNER-4: the follow-up chat can be closed, and the case page opens it again",
   },
   {
-    id: "OWNER-5-next-step-reanalysed",
-    reason:
-      "Back to the questions with nothing changed, \"Show my next step\" runs the whole analysis again (about 2 minutes with the model): the guided continue handler (app/builder/page.tsx:502-516) always calls handleGuidedComplete, never checking guidanceIsCurrent (intakeReview.ts:233) on the saved case.",
-    test: "OWNER-5: back to the questions with nothing changed, the next step shows without a new analysis -- small-claims",
-  },
-  {
     id: "OWNER-7-ask-button-wraps",
     reason:
       "At 375 px the chat's Ask button wraps one letter per line: body { overflow-wrap: anywhere } (app/globals.css:178-180) lets the word break anywhere, and the button may shrink in its flex row beside the long note (CourtAssistantChat.tsx:1530-1541, no shrink-0 or whitespace-nowrap).",
