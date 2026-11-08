@@ -291,6 +291,9 @@ jobs:
       - name: The story reader never takes a witness or bystander as the other party (Chrome check of #544, F2)
         run: npm run test:story-other-party
 
+      - name: A friend or relative is read as the other party only when the story ties them to what is owed, never a witness (Chrome check of #544 on 9b960f7, F14)
+        run: npm run test:story-other-party-relations
+
       - name: The case page and the case file page show the same deadlines, from one source (Chrome check of #544, F4)
         run: npm run test:one-deadline-source
 

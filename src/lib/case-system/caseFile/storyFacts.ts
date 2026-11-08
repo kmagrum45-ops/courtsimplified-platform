@@ -83,8 +83,26 @@ export function otherSideIn(story: string): StoryFact | null {
     const who = firstUpper(`your ${role.match[1].toLowerCase()}`);
     return { value: name ? `${who} (${name})` : who, quote: role.sentence.trim() };
   }
+  // A friend or relative, only where the same sentence ties them to what is owed (Chrome check of #544 on 9b960f7,
+  // F14: "I lent my friend Alex Testwood $4,500" gave no other party). Being there, seeing or confirming never counts.
+  for (const sentence of sentences(story)) {
+    if (bystanderSentence(sentence)) continue;
+    const tied = OWED_TO_RELATION.exec(sentence) ?? RELATION_OWES.exec(sentence);
+    if (!tied) continue;
+    const name = tied[2] && !tied[2].split(/\s+/).some((word) => NOT_A_NAME.test(word)) ? tied[2] : null;
+    const who = firstUpper(`your ${tied[1].toLowerCase()}`);
+    return { value: name ? `${who} (${name})` : who, quote: sentence.trim() };
+  }
   return null;
 }
+
+/** Who a friend or relative is to the person: read as the other side only through OWED_TO_RELATION or RELATION_OWES. */
+const RELATION = "(friend|best friend|close friend|old friend|brother|sister|cousin|uncle|aunt|nephew|niece|mother|father|mom|dad|son|daughter|stepson|stepdaughter|stepfather|stepmother|grandfather|grandmother|brother-in-law|sister-in-law|father-in-law|mother-in-law|relative|co-?worker|colleague|classmate|acquaintance|ex-?friend|former friend)";
+const RELATION_NAME = "(?:,?\\s+([A-Z][a-z'’-]+(?:\\s+[A-Z][a-z'’-]+)+),?)?";
+/** The person lent, gave, paid, sold or rented to them: "I lent my friend Alex Testwood $4,500". */
+const OWED_TO_RELATION = new RegExp(`\\b(?:lent|loaned|gave|paid|sold|rented|advanced|transferred|e-?transferred|sent)\\s+(?:\\$[\\d,.]+\\s+)?(?:to\\s+)?(?:my|our)\\s+${RELATION}${RELATION_NAME}`, "i");
+/** They owe, borrowed, kept, never paid or refuse to pay: "My cousin Dana Testfield borrowed $800 from me". */
+const RELATION_OWES = new RegExp(`\\b(?:my|our)\\s+${RELATION}${RELATION_NAME}\\s+(?:still\\s+)?(?:owes|owed|borrowed|took|kept|never\\s+(?:paid|repaid|returned|gave)|has\\s+not\\s+(?:paid|repaid|returned)|hasn['’]t\\s+(?:paid|repaid|returned)|did\\s+not\\s+(?:pay|repay|return)|didn['’]t\\s+(?:pay|repay|return)|refuses?\\s+to\\s+(?:pay|repay|return)|refused\\s+to\\s+(?:pay|repay|return)|won['’]t\\s+(?:pay|repay|return))\\b`, "i");
 
 // ---- losses ----------------------------------------------------------------------------------
 
