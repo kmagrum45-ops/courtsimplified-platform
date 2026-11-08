@@ -252,22 +252,17 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
   if (caseRecord && !guidanceIsCurrent(caseRecord.master_result, caseRecord.court_path, caseRecord.id)) return <main className="mx-auto max-w-3xl p-8" data-testid="case-intake-gate">{situationLine(situationOfCase(caseRecord.master_result)) ? <p data-testid="situation-line" className="mb-4 text-sm font-semibold text-[#16302b]">{situationLine(situationOfCase(caseRecord.master_result))} · <Link data-testid="situation-change" href={`${builderHref(caseRecord)}${builderHref(caseRecord).includes("?") ? "&" : "?"}situation=change`} className="text-[#2f7d67] underline">Change</Link></p> : null}{/* Confirmed, with no next step made yet (the page stopped before it, #477 re-test case 11): said as it is, with the way on, never "review again". */}
     {/* Confirmed, but an answer was added after the next steps were made (D1 review): they are made again, nothing is confirmed again. */}
     {guidanceNeedsUpdate(caseRecord.master_result, caseRecord.court_path, caseRecord.id) ? <><h1 className="text-2xl font-bold">Your information is confirmed</h1><p data-testid="case-guidance-outdated" className="my-4">Your next steps were made before your latest answer. Update them so they include it; nothing needs to be confirmed again.</p><Link data-testid="case-update-next-steps" className="inline-flex rounded-full bg-[#2f7d67] px-5 py-3 font-semibold text-white" href={builderHref(caseRecord, { startNextStep: true })}>Update my next steps</Link>
-      {/* "What we have so far" here too, so the answer just added can be checked before updating (Chrome check of #544
-          on a8c8cf57, 7 Nov, step 7: only the "review and confirm again" screen had it). */}
-      <div className="mt-6 text-left">
-        <CaseFilePanel
-          file={caseFileOf(caseRecord.court_path ? readCheckpoint(asRecord(caseRecord.master_result).intakeCheckpoint, caseRecord.court_path as Parameters<typeof readCheckpoint>[1]) : null, caseRecord.master_result)}
-          changeHref={builderHref(caseRecord)}
-          situationHref={`${builderHref(caseRecord)}${builderHref(caseRecord).includes("?") ? "&" : "?"}situation=change`}
-          stepHref={builderHref(caseRecord)}
-        />
-      </div>
     </> : confirmedIntakeRevision(caseRecord.master_result, caseRecord.court_path, caseRecord.id) ? <><h1 className="text-2xl font-bold">Your information is confirmed</h1><p data-testid="case-confirmed-no-step" className="my-4">Your next step has not been shown yet. Open it from your confirmed information; nothing needs to be answered again.</p><Link data-testid="case-show-next-step" className="inline-flex rounded-full bg-[#2f7d67] px-5 py-3 font-semibold text-white" href={builderHref(caseRecord, { startNextStep: true })}>Show my next step</Link></> : savedCaseChangedAfterConfirm(caseRecord.master_result, caseRecord.court_path, caseRecord.id) ? <>
       {/* Confirmed, then an answer changed (rule 6): said in the review's own words, with the case file as it is
           now, so the newest answer shows here at once, before confirming again (founder's Chrome check of #536, 1 Nov). */}
       <h1 className="text-2xl font-bold">Please review and confirm your information again</h1>
       <p data-testid="case-confirm-again" role="status" className="my-4 font-semibold text-[#8a4b12]">You changed an answer, so please review and confirm again.</p>
       <Link data-testid="case-review-again" className="inline-flex rounded-full bg-[#2f7d67] px-5 py-3 font-semibold text-white" href={builderHref(caseRecord, { openReview: true })}>Review and confirm</Link>
+    </> : <><h1 className="text-2xl font-bold">Review your initial information before receiving case guidance</h1><p className="my-4">Your saved documents, evidence and other case information remain on this case. Complete the initial questions, review your answers and confirm them, then generate guidance for the current information. Older completion records do not establish this confirmation.</p><Link className="underline" href={builderHref(caseRecord)}>Continue this case’s intake and review</Link></>}
+    {/* Every screen of this gate (next step not shown yet, next steps to update, confirm again, not confirmed yet) shows
+        "What we have so far" and "Update your story", as the case page does (Chrome check of #544 on 99e2ec0, 7 Nov, F11:
+        the "not shown yet" screen had neither, so the story could be edited only by typing the builder's address). */}
+    <div className="mt-6"><Link data-testid="case-gate-update-story" href={builderHref(caseRecord)} className="inline-flex rounded-full border border-[#2f7d67] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67]">Update your story</Link></div>
       <div className="mt-6 text-left">
         <CaseFilePanel
           file={caseFileOf(caseRecord.court_path ? readCheckpoint(asRecord(caseRecord.master_result).intakeCheckpoint, caseRecord.court_path as Parameters<typeof readCheckpoint>[1]) : null, caseRecord.master_result)}
@@ -276,7 +271,7 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
           stepHref={builderHref(caseRecord)}
         />
       </div>
-    </> : <><h1 className="text-2xl font-bold">Review your initial information before receiving case guidance</h1><p className="my-4">Your saved documents, evidence and other case information remain on this case. Complete the initial questions, review your answers and confirm them, then generate guidance for the current information. Older completion records do not establish this confirmation.</p><Link className="underline" href={builderHref(caseRecord)}>Continue this case’s intake and review</Link></>}<p className="my-4"><Link href="/guides">General legal information</Link>{" · "}<Link href="/forms">General official forms catalogue</Link></p><GetHelp /><LegalInformationNotice /></main>;
+    <p className="my-4"><Link href="/guides">General legal information</Link>{" · "}<Link href="/forms">General official forms catalogue</Link></p><GetHelp /><LegalInformationNotice /></main>;
   // Both sides are named, from the same rule (caseRecord.ts sideFromParts): only the responding
   // side had a line, so applicant and plaintiff pages said nothing about the side (#470 re-test).
   const starting = !home.responding && sideFromParts({ confirmedStage: home.position.confirmedStage, intakeData: asRecord(record.master_result).intakeData, intakeFacts: asRecord(record.master_result).intakeFacts, situation: situationOfCase(record.master_result) })?.value === "starting";
