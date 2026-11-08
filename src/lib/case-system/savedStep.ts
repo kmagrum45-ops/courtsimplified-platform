@@ -2,7 +2,7 @@
  * THE SAVED NEXT STEP, WHEN IT IS STILL THE ONE FOR WHAT THE TAB HOLDS (Chrome check of #544 on 99e2ec0, 7 Nov, F10).
  *
  * A confirmed case's next step is saved with it (app/builder/page.tsx: intakeAnalysis and intakeData, stamped with
- * guidanceInputRevision and guidanceFactsRevision). While those stamps match the confirmed answers as this tab holds
+ * the revisions of the answers it was made from). While those stamps match the confirmed answers as this tab holds
  * them now (intakeReview.ts guidanceIsCurrent), that saved step is the next step: it is shown as it was saved, never
  * worked out again (about 70 s of AI each time on the preview). Anything changed since, and it is not current, so the
  * step is worked out afresh as before.
