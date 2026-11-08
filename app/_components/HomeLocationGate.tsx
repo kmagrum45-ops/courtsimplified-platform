@@ -31,6 +31,8 @@ import {
   type IssueKind,
 } from "../../src/lib/content-library/crossForumNotes";
 import { WorkingButton } from "./Working";
+import { writeAnswer } from "./caseWrite";
+import { otherPartyFromUnderstanding } from "../../src/lib/case-system/caseFile/understoodOtherParty";
 import StoryGuidance from "./StoryGuidance";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
@@ -230,22 +232,27 @@ function HomeLocationGateContent() {
   function openIntake(key: string, chosenPath: BuilderDraftCourtPath, answers: { question: string; answer: string }[] = []) {
     if (opening) return;
     setOpening(key);
-    void goToIntake(chosenPath, answers).finally(() => setOpening(null));
+    // The story reading's own buttons accept the reading: its other party goes on the record (B1).
+    void goToIntake(chosenPath, answers, key.startsWith("understanding:")).finally(() => setOpening(null));
   }
 
-  async function goToIntake(chosenPath: BuilderDraftCourtPath, answers: { question: string; answer: string }[] = []) {
+  async function goToIntake(chosenPath: BuilderDraftCourtPath, answers: { question: string; answer: string }[] = [], accepted = false) {
     requestRef.current.cancel();
     // Answers given to the front door's questions travel with the story, so
     // the intake does not ask them again.
     // An answer already in the story (Back, then Continue again) is not appended twice.
     const answered = answers.filter((item) => item.answer.trim()).map((item) => `${item.question.trim()} ${item.answer.trim()}`).filter((line) => !facts.includes(line));
     const story = [facts.trim(), ...answered].join("\n\n");
+    const acceptedOtherParty = accepted ? otherPartyFromUnderstanding(storedUnderstood?.understanding?.facts, facts) : null;
     try {
       if (recovery && chosenPath === path) {
         // Same flow, same single copy: the builder reads the story and location written here.
         // Written to the store directly (and announced) so the flush below includes it.
         recovery.put(STORY_SECTION, "text", story, true, true);
         recovery.put(STORY_SECTION, "location", { province: "Ontario", city: city.trim() }, true, true);
+        // The other party the accepted reading named, on the record through the one writer, so it is never asked again
+        // and every screen reads it from there (Chrome check of production c38e69fd, B1; never a witness).
+        if (acceptedOtherParty) writeAnswer(recovery, "home", "otherParty", acceptedOtherParty);
         await recovery.flush();
         router.push(`/builder?path=${chosenPath}&intake=${recovery.flowId}`);
       } else {
@@ -256,7 +263,7 @@ function HomeLocationGateContent() {
         const carried = withKnownCourt({ ...situation, court: chosenPath, courtFrom: courtOfPapers(situation) === chosenPath ? "papers" : "asked" }, chosenPath);
         const next = { version: 2 as const, ownerId: recovery?.ownerId ?? userId, caseId: null, serverRevision: null,
           checkpoint: { version: 1 as const, flowId, courtPath: chosenPath, revision: crypto.randomUUID(),
-            sections: { [STORY_SECTION]: { text: story, location: { province: "Ontario", city: city.trim() } }, ...situationSection(carried) } } };
+            sections: { [STORY_SECTION]: { text: story, location: { province: "Ontario", city: city.trim() } }, ...situationSection(carried), ...(acceptedOtherParty ? { home: { otherParty: acceptedOtherParty } } : {}) } } };
         if (!writeIntakeSession(sessionStorage, next)) throw new Error("Your text could not be retained. Please copy it before leaving and retry.");
         router.push(`/builder?path=${chosenPath}&intake=${flowId}`);
       }

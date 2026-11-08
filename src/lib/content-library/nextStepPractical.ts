@@ -1426,7 +1426,7 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "civil:before-filing:notice-required-before-suing": { forms: [], fees: [], files: false, serve: null, also: [MUNICIPAL_NOTICE, TORONTO_NOTICE, SNOW_ICE_NOTICE, S_CLPA_18_1_NOTICE] },
   "civil:before-filing:limitation-period-may-have-passed": NOTHING,
   // ---- Civil: plaintiff
-  "civil:plaintiff:claim-drafted-not-issued": { forms: ["14A", "14C"], fees: ["civ-claim"], files: true, serve: "originating", also: [CIV_START, CIV_SERVE_IN_SIX_MONTHS] },
+  "civil:plaintiff:claim-drafted-not-issued": { forms: ["14A", "14C", "14D", "14F"], fees: ["civ-claim"], files: true, serve: "originating", also: [CIV_START, CIV_SERVE_IN_SIX_MONTHS] },
   "civil:plaintiff:claim-issued-not-served": { forms: ["16B", "14D"], fees: [], files: true, serve: "originating" },
   // A motion on notice; how it is served on the Crown is in s. 15 of the Crown Liability and Proceedings Act, quoted in the step's own rules.
   "civil:plaintiff:crown-misfeasance-leave-needed": { forms: ["37A"], fees: ["civ-motion"], files: true, serve: null, also: [CIV_MOTION] },
@@ -2677,7 +2677,7 @@ export function practicalFor(
    * replaces the online-portal lines, and a Small Claims step served the
    * ordinary way gets the mail timing lines.
    */
-  timing: { deadline?: string; serveBy?: string; today?: string; divisionalOnly?: boolean } = {},
+  timing: { deadline?: string; serveBy?: string; today?: string; divisionalOnly?: boolean; notMarried?: boolean } = {},
 ): PracticalView | null {
   const step = STEP_PRACTICAL[stepId];
   if (!step || (step.forms.length === 0 && step.fees.length === 0 && !step.files && !step.serve && !(step.also ?? []).length)) return null;
@@ -2697,6 +2697,10 @@ export function practicalFor(
       const [other, number] = form.includes(":") ? form.split(":") : [court, form];
       return { court: other as PracticalCourt, number };
     })
+    // The Application (Divorce) is not listed for someone who recorded that they were never married to the other person
+    // (the Family card's "Were you and the other person married to each other?": No). A rule on their recorded answer
+    // only; nothing is read from the story here (Chrome check of production c38e69fd, B4).
+    .filter((form) => !(timing.notMarried && form.court === "family" && form.number === "8A"))
     .sort((a, b) =>
       responding && stepId.includes(":both:")
         ? Number(MOVING_PARTY_FORMS[a.court]?.has(a.number) ?? false) - Number(MOVING_PARTY_FORMS[b.court]?.has(b.number) ?? false)

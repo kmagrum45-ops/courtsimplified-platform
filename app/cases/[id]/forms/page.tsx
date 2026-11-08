@@ -10,6 +10,7 @@ import FormsWorkspace from "../../../forms/FormsWorkspace";
 import { officialFormsNamedIn, relevantToFamilyCase, userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { authHeaders, useCaseHome } from "../../_components/CaseHomeContext";
 import { noticeStepForCase } from "@/src/lib/case-system/caseStep";
+import { caseFileOfMaster } from "@/src/lib/case-system/caseFile/caseFileOfMaster";
 
 /**
  * Forms: first the forms the user's own next step names (so the Defence a
@@ -32,8 +33,11 @@ export default function CaseFormsSection() {
   // passes them (review 2026-10-13: without them this tab showed the forms,
   // fee notes and service lines for every kind of case on the step).
   const noticeStepId = noticeStepForCase(caseRecord.master_result, courtPath ?? null) ?? "";
+  // Never married, as the person recorded it (the Family card): no Form 8A (B4; the same rule as the Overview card).
+  const married = caseFileOfMaster(caseRecord.master_result, courtPath).married;
+  const notMarried = married.state === "answered" && married.value === false;
   const practical =
-    courtPath && stepId ? practicalFor(stepId, courtPath as PracticalCourt, city, responding, userWords, noticeStepId) : null;
+    courtPath && stepId ? practicalFor(stepId, courtPath as PracticalCourt, city, responding, userWords, noticeStepId, { notMarried }) : null;
 
   useEffect(() => {
     if (!courtPath || !position.confirmedStage) {
@@ -83,6 +87,7 @@ export default function CaseFormsSection() {
             responding={responding}
             story={userWords}
             noticeStepId={noticeStepId}
+            notMarried={notMarried}
           />
         </section>
       ) : stepTexts &&

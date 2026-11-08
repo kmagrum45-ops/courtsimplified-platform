@@ -53,6 +53,8 @@ export const FIELD_ROWS: readonly FieldRow[] = [
   none("story", "location", "the person's city, used to pick a courthouse; not a case fact in FACT_IDS"),
   // The home page's story reading.
   none("home", "understoodAnswers", "answers to the story reading's questions, keyed by the question's words: mapped by factOfAskedText when they move (G6), never a field id"),
+  // The other party the story reading named, put on the record when the person accepted the reading (B1, 8 Nov).
+  answer("home", "otherParty"),
   none("home", "draftAnswers", "unsent drafts of the story reading's answers"),
   none("home", "readFrom", PAGE_STATE),
   none("home", "suggestion", AI_COPY),

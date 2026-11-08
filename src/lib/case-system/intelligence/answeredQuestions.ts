@@ -254,3 +254,23 @@ export function withoutAnsweredQuestions(
 ): string[] {
   return questions.filter((question) => !isQuestionAlreadyAnswered(question, facts));
 }
+
+const ASKS_MUNICIPALITY = /\bmunicipalit(?:y|ies)\b|\bwhich (?:city|town)\b|\bwhere (?:does|do) (?:each (?:parent|of you)|you|the other (?:person|parent)|both (?:of you|parents)) (?:now )?live\b/i;
+
+/**
+ * The questions of "What to confirm next", read against the municipality the record holds (the Family card's "Which
+ * municipality do you live in?"): one asking it again is dropped, and where it asks something else as well ("…, and
+ * where has your daughter lived since birth?") only that part is kept (Chrome check of production c38e69fd, B3: asked
+ * for the municipality right after Ottawa was recorded).
+ */
+export function withoutMunicipalityAsked(questions: string[], recordedMunicipality: string | null | undefined): string[] {
+  if (!recordedMunicipality?.trim()) return questions;
+  return questions.flatMap((question) => {
+    if (!ASKS_MUNICIPALITY.test(question)) return [question];
+    const parts = question.split(/,\s*and\s+|;\s*and\s+/i);
+    const rest = parts.slice(1).filter((part) => !ASKS_MUNICIPALITY.test(part)).join(", and ").trim();
+    if (!rest) return [];
+    const sentence = rest.charAt(0).toUpperCase() + rest.slice(1);
+    return [sentence.endsWith("?") ? sentence : `${sentence.replace(/[.!]+$/, "")}?`];
+  });
+}

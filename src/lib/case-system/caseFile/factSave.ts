@@ -65,7 +65,9 @@ export function intakeCourtOfRow(row: { court_path: string | null }): IntakeCour
  * recorded under the overview list's own question (CLAIM_KIND_QUESTION), so it reads as the kind the person chose; a date
  * under POSITION_PLACE and its question id. Either is the step page's own answer (caseFile.ts fromCasePosition).
  */
-export function positionFactWrites(patch: { claimKind?: unknown; dateAnswers?: unknown }, kept?: unknown): FactWrite[] {
+export function positionFactWrites(patch: { claimKind?: unknown; dateAnswers?: unknown; datesFromStory?: unknown }, kept?: unknown): FactWrite[] {
+  // Dates the step page kept from the story by itself count deadlines but are not the person's answer (B2).
+  const fromStory = new Set(Array.isArray(patch.datesFromStory) ? patch.datesFromStory : []);
   // `kept`: the position as the save kept it; a value the save did not keep (a date the case file holds from another
   // answer, stripped by the route) is not written as a fact either.
   const keptPosition = kept && typeof kept === "object" ? (kept as { claimKind?: unknown; dateAnswers?: Record<string, unknown> }) : null;
@@ -80,6 +82,7 @@ export function positionFactWrites(patch: { claimKind?: unknown; dateAnswers?: u
   if ("fact" in kind && typeof patch.claimKind === "string" && patch.claimKind.trim() && (!keptPosition || keptPosition.claimKind === patch.claimKind)) add(kind.fact, patch.claimKind, CLAIM_KIND_QUESTION);
   const dates = patch.dateAnswers && typeof patch.dateAnswers === "object" && !Array.isArray(patch.dateAnswers) ? (patch.dateAnswers as Record<string, unknown>) : {};
   for (const [key, value] of Object.entries(dates)) {
+    if (fromStory.has(key)) continue;
     const mapped = factOfField("position", "dateAnswers", key);
     if ("fact" in mapped && typeof value === "string" && value.trim() && (!keptPosition || keptPosition.dateAnswers?.[key] === value)) add(mapped.fact, value, `${POSITION_PLACE}${key}`);
   }

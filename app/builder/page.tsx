@@ -2498,6 +2498,7 @@ function BuilderPageContent() {
             {confirmedStage ? (
               <StageAnswerPanel
                 courtPath={courtPath}
+                notMarried={builderCaseFile.married.state === "answered" && builderCaseFile.married.value === false}
                 confirmedStage={confirmedStage}
                 responding={respondingSide}
                 sideFromRecord={sideOf(situation) !== null}
@@ -2553,7 +2554,7 @@ function BuilderPageContent() {
               </details>
             ) : null}
             {confirmedStage && (
-              <IntelligenceOverviewPanel analysis={analysis} intake={caseData} confirmedStage={confirmedStage} roleWords={courtPath ? situationAnswers(courtPath, situation).roleWords ?? null : null} stageWords={findStage(savedPosition.stepId ?? stepFromSituation(situation, courtPath) ?? "")?.title ?? null} caseId={savedCaseId()} claimKind={heldClaimKind} caseFile={builderCaseFile} />
+              <IntelligenceOverviewPanel analysis={analysis} intake={caseData} confirmedStage={confirmedStage} roleWords={courtPath ? situationAnswers(courtPath, situation).roleWords ?? null : null} stageWords={findStage(savedPosition.stepId ?? stepFromSituation(situation, courtPath) ?? "")?.title ?? null} caseId={savedCaseId()} claimKind={heldClaimKind} caseFile={builderCaseFile} recordedMunicipality={courtPath === "family" ? triageState.record.userMunicipality : null} />
             )}
             {confirmedStage ? <EvidenceUploadCard caseId={savedCaseId()} /> : null}
             {confirmedStage ? <CaseReviewPanel caseId={savedCaseId()} /> : null}

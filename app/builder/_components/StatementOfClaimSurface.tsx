@@ -15,6 +15,7 @@ import {
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { claimKindLine, claimKindOf, form7ADraftFields, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
 import { formatForCourt } from "@/src/lib/case-system/dates";
+import { heldWordsOf } from "@/src/lib/case-system/caseFile/caseFileOfMaster";
 import {
   draftStatementOfClaimParticulars,
   type StatementOfClaimDraft,
@@ -114,6 +115,11 @@ export default function StatementOfClaimSurface({
     defendantAddress: "",
   });
   const [showDraft, setShowDraft] = useState(false);
+  // "The other party's name" reads the case record (B1): the name the person gave anywhere (the accepted story reading,
+  // the whole form, a change), the newest one, until they type their own here.
+  const [otherPartyTyped, setOtherPartyTyped] = useState(false);
+  const heldOtherParty = heldWordsOf(caseFile, "otherParty");
+  const otherPartyName = otherPartyTyped ? party.otherParty : heldOtherParty.held ? heldOtherParty.words : "";
 
   const kindLine = claimKindLine(claimKind);
   const kindId = kindLine?.claimTypeId ?? null;
@@ -148,14 +154,14 @@ export default function StatementOfClaimSurface({
         ...mappedInput,
         yourName: party.yourName,
         yourAddress: party.yourAddress,
-        otherParty: party.otherParty,
+        otherParty: otherPartyName,
         defendantAddress: party.defendantAddress,
       },
       { claimTypeId: claimType.id, claimTypeName: claimType.name },
       // cannot-provide elements travel INTO the document, not just this screen.
       gate.cannotProvide.map((item) => ({ elementId: item.elementId, name: item.name })),
     );
-  }, [gate, claimType, mappedInput, party]);
+  }, [gate, claimType, mappedInput, party, otherPartyName]);
 
   function applyStateMap(next: ElementStateMap) {
     setStateMap(next);
@@ -375,10 +381,11 @@ export default function StatementOfClaimSurface({
               <span className="font-semibold text-[#10231f]">{label}</span>
               <input
                 type="text"
-                value={party[field]}
-                onChange={(event) =>
-                  setParty((current) => ({ ...current, [field]: event.target.value }))
-                }
+                value={field === "otherParty" ? otherPartyName : party[field]}
+                onChange={(event) => {
+                  if (field === "otherParty") setOtherPartyTyped(true);
+                  setParty((current) => ({ ...current, [field]: event.target.value }));
+                }}
                 className="mt-1 w-full rounded-xl border border-[#d8e6df] px-3 py-2"
               />
             </label>

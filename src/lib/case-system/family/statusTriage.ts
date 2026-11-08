@@ -197,21 +197,77 @@ const QUESTIONS: Record<TriageQuestionId, TriageQuestion> = {
  * Municipality is last because it is routing rather than existence, and it is
  * only meaningful once there is something to route.
  */
-export function selectNextTriageQuestion(record: FamilyStatusRecord): TriageQuestion | null {
-  if (record.marriedToOtherParty === "not-yet") {
-    return QUESTIONS["married-to-other-party"];
-  }
-
+export function selectNextTriageQuestion(record: FamilyStatusRecord, deferred: ReadonlySet<TriageQuestionId> = new Set()): TriageQuestion | null {
+  // `deferred`: questions the person set aside on this page ("I'd rather not answer yet"). Their answer stays "not-yet",
+  // the same as never asked, so without this the same question came straight back and the button seemed to do nothing
+  // (found reading the code, 8 Nov; reproduced by verifyFamilyTriageDates.ts). The next question is asked instead.
+  const due: TriageQuestionId[] = [];
+  if (record.marriedToOtherParty === "not-yet") due.push("married-to-other-party");
   if (record.marriedToOtherParty === "yes") {
-    if (record.divorceSought === "not-yet") return QUESTIONS["divorce-sought"];
+    if (record.divorceSought === "not-yet") due.push("divorce-sought");
   } else {
-    if (record.cohabitationStart === null) return QUESTIONS["cohabitation-dates"];
-    if (record.haveChildTogether === "not-yet") return QUESTIONS["child-together"];
+    if (record.cohabitationStart === null) due.push("cohabitation-dates");
+    if (record.haveChildTogether === "not-yet") due.push("child-together");
   }
+  if (record.caseInvolvesChildren === "not-yet") due.push("case-involves-children");
+  if (record.userMunicipality === null) due.push("municipalities");
+  const next = due.find((id) => !deferred.has(id));
+  return next ? QUESTIONS[next] : null;
+}
 
-  if (record.caseInvolvesChildren === "not-yet") return QUESTIONS["case-involves-children"];
-  if (record.userMunicipality === null) return QUESTIONS.municipalities;
+const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const monthOf = (word: string): number | null => {
+  const found = MONTH_NAMES.findIndex((name) => name.toLowerCase().startsWith(word.toLowerCase().replace(/\.$/, "")) && word.replace(/\.$/, "").length >= 3);
+  return found < 0 ? null : found + 1;
+};
+const two = (value: number) => String(value).padStart(2, "0");
+const validDay = (year: number, month: number, day: number) => day >= 1 && day <= new Date(Date.UTC(year, month, 0)).getUTCDate();
 
+/**
+ * A lived-together date as the person gives it: a year ("2018"), a month and year ("August 2025", "2025-08") or a day
+ * ("March 3, 2018", "2018-03-03"). Kept as "YYYY", "YYYY-MM" or "YYYY-MM-DD"; null when it cannot be read (B3, 8 Nov:
+ * the boxes took only an exact day, so "2018 to August 2025" had to be typed as invented days).
+ */
+export function readPartialDate(text: string): string | null {
+  const value = text.trim().replace(/\s+/g, " ");
+  const yearOk = (year: number) => year >= 1900 && year <= 2100;
+  let match = /^(\d{4})$/.exec(value);
+  if (match) return yearOk(Number(match[1])) ? match[1] : null;
+  match = /^(\d{4})-(\d{1,2})$/.exec(value);
+  if (match) return yearOk(Number(match[1])) && Number(match[2]) >= 1 && Number(match[2]) <= 12 ? `${match[1]}-${two(Number(match[2]))}` : null;
+  match = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(value);
+  if (match) return yearOk(Number(match[1])) && validDay(Number(match[1]), Number(match[2]), Number(match[3])) ? `${match[1]}-${two(Number(match[2]))}-${two(Number(match[3]))}` : null;
+  match = /^([A-Za-z]+\.?),? (\d{4})$/.exec(value);
+  if (match) { const month = monthOf(match[1]); return month && yearOk(Number(match[2])) ? `${match[2]}-${two(month)}` : null; }
+  match = /^([A-Za-z]+\.?) (\d{1,2}),? (\d{4})$/.exec(value);
+  if (match) { const month = monthOf(match[1]); const [day, year] = [Number(match[2]), Number(match[3])]; return month && yearOk(year) && validDay(year, month, day) ? `${year}-${two(month)}-${two(day)}` : null; }
+  return null;
+}
+
+/** A kept lived-together date in words: "2018", "August 2025", "March 3, 2018"; anything else as it is. */
+export function partialDateWords(value: string): string {
+  const match = /^(\d{4})(?:-(\d{2}))?(?:-(\d{2}))?$/.exec(value);
+  if (!match) return value;
+  const [, year, month, day] = match;
+  if (!month) return year;
+  const name = MONTH_NAMES[Number(month) - 1];
+  return day ? `${name} ${Number(day)}, ${year}` : `${name} ${year}`;
+}
+
+const STORY_DATE = `(?:(?:${MONTH_NAMES.join("|")}|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sept?|Oct|Nov|Dec)\\.? (?:\\d{1,2},? )?)?\\d{4}`;
+const LIVED_TOGETHER = new RegExp(`\\blived together (?:from|since|starting in|beginning in|in) (${STORY_DATE})(?:\\s*(?:to|until|till|through|-|–)\\s*(${STORY_DATE}))?`, "i");
+const MOVED_IN = new RegExp(`\\bmoved in together in (${STORY_DATE})(?:[^.]*?\\b(?:separated|split up|broke up|moved out)(?: in)? (${STORY_DATE}))?`, "i");
+
+/** The lived-together dates the story itself gives ("lived together from 2018 to August 2025"), with the words they came from. */
+export function livedTogetherFromStory(story: string): { start: string; end: string | null; quote: string } | null {
+  for (const pattern of [LIVED_TOGETHER, MOVED_IN]) {
+    const match = pattern.exec(story);
+    if (!match) continue;
+    const start = readPartialDate(match[1]);
+    if (!start) continue;
+    const end = match[2] ? readPartialDate(match[2]) : null;
+    return { start, end, quote: match[0] };
+  }
   return null;
 }
 
@@ -542,7 +598,7 @@ export function buildTriageOutcome(record: FamilyStatusRecord): TriageOutcome {
     fact(
       "Lived together",
       record.cohabitationStart
-        ? `${record.cohabitationStart} to ${record.cohabitationEnd ?? "not recorded"}`
+        ? `${partialDateWords(record.cohabitationStart)} to ${record.cohabitationEnd ? partialDateWords(record.cohabitationEnd) : "not recorded"}`
         : null,
       pruned.has("cohabitation-dates"),
     ),

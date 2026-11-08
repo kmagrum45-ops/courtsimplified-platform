@@ -42,6 +42,7 @@ import { FILE_OPEN_FAILED, openAfterCheck, saveFile } from "@/src/lib/case-works
 import { WorkingButton } from "../_components/Working";
 import { UseSuggestion } from "../_components/UseSuggestion";
 import { openCaseFromAddress } from "@/src/lib/case-system/openCase";
+import { officialFormCount, oneRowPerForm } from "@/src/lib/content-library/forms/formCount";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -580,7 +581,8 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
           provenanceByCanonicalId.set(item.canonical_form_id, item);
         }
       }
-      setForms(((data || []) as CleanFormItem[]).map((form) => ({ ...form, ...(form.canonical_form_id ? provenanceByCanonicalId.get(form.canonical_form_id) : {}) })).sort(sortByFormNumber));
+      // One card per form: the catalogue holds Forms 20F and 20R twice (formCount.ts oneRowPerForm; B5).
+      setForms(oneRowPerForm((data || []) as CleanFormItem[]).map((form) => ({ ...form, ...(form.canonical_form_id ? provenanceByCanonicalId.get(form.canonical_form_id) : {}) })).sort(sortByFormNumber));
       setLoading(false);
     }
 
@@ -645,11 +647,12 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
   // What the page says about matching forms, from what it has (walkthrough run 38525903567, SJ).
   const stageNote = formsStageNote(stageSupport, leadForms.length);
 
+  // The count every page shows: the official forms site's, one source (formCount.ts; B5).
   const stats = useMemo(() => {
     return {
-      total: forms.length,
+      total: path === "small-claims" || path === "civil" || path === "family" ? officialFormCount(path) : forms.length,
     };
-  }, [forms]);
+  }, [forms, path]);
 
   const unlinkedRecommendationLabels = useMemo(
     () =>

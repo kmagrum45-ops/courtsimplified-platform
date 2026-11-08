@@ -43,9 +43,13 @@ import { useState } from "react";
 import {
   buildTriageOutcome,
   emptyStatusRecord,
+  livedTogetherFromStory,
+  partialDateWords,
+  readPartialDate,
   selectNextTriageQuestion,
   type FamilyStatusRecord,
   type TriageQuestion,
+  type TriageQuestionId,
 } from "../../../src/lib/case-system/family/statusTriage";
 import { storyQuoteFor, storySuggestionFor } from "../../../src/lib/case-system/family/triageStoryQuote";
 import { UseSuggestion } from "../../_components/UseSuggestion";
@@ -128,8 +132,15 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
   const { record: ownRecord, dismissed } = state;
   // The case file is the one gate (caseFile.ts): whether there are children, or a marriage,
   // given anywhere else (the form, the questions one at a time) is not asked here again.
-  const record = review ? withCaseFileAnswers(ownRecord, caseFileOf(review.checkpoint)) : ownRecord;
-  const question = selectNextTriageQuestion(record);
+  const fromFile = review ? withCaseFileAnswers(ownRecord, caseFileOf(review.checkpoint)) : ownRecord;
+  // The lived-together dates the story gives are used, never asked again (B3); "Change" asks them with the story's words
+  // in the boxes. Read over the record like the case file's answers, never copied into it.
+  const [changingDates, setChangingDates] = useState(false);
+  const storyDates = ownRecord.cohabitationStart === null && !changingDates ? livedTogetherFromStory(story) : null;
+  const record = storyDates ? { ...fromFile, cohabitationStart: storyDates.start, cohabitationEnd: storyDates.end } : fromFile;
+  // Questions set aside on this page with "I'd rather not answer yet": the next one is asked (statusTriage.ts).
+  const [deferred, setDeferred] = useState<ReadonlySet<TriageQuestionId>>(new Set());
+  const question = selectNextTriageQuestion(record, deferred);
   const outcome = buildTriageOutcome(record);
   // Someone who already has a family court order (a motion to change, support
   // not being paid) is not choosing where to START a case; the start-a-case
@@ -236,6 +247,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
               if (current.id === "divorce-sought") update({ divorceSought: "not-yet" });
               if (current.id === "child-together") update({ haveChildTogether: "not-yet" });
               if (current.id === "case-involves-children") update({ caseInvolvesChildren: "not-yet" });
+              setDeferred((now) => new Set(now).add(current.id));
             }}
             className={chip}
           >
@@ -253,8 +265,9 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
             <label className="text-sm">
               <span className="font-semibold text-[#10231f]">Started</span>
               <input
-                type="date"
+                type="text"
                 data-testid="triage-cohabitation-start"
+                placeholder="For example: 2018, August 2018, or March 3, 2018"
                 value={dateStart}
                 onChange={(event) => setDateStart(event.target.value)}
                 className="mt-1 w-full rounded-xl border border-[#d8e6df] bg-white p-2"
@@ -263,8 +276,9 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
             <label className="text-sm">
               <span className="font-semibold text-[#10231f]">Ended, if it has</span>
               <input
-                type="date"
+                type="text"
                 data-testid="triage-cohabitation-end"
+                placeholder="For example: 2025, August 2025, or May 1, 2025"
                 value={dateEnd}
                 onChange={(event) => setDateEnd(event.target.value)}
                 className="mt-1 w-full rounded-xl border border-[#d8e6df] bg-white p-2"
@@ -275,8 +289,8 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
             <button
               type="button"
               data-testid="triage-dates-record"
-              disabled={!dateStart}
-              onClick={() => update({ cohabitationStart: dateStart, cohabitationEnd: dateEnd || null })}
+              disabled={!readPartialDate(dateStart) || (dateEnd.trim() !== "" && !readPartialDate(dateEnd))}
+              onClick={() => { update({ cohabitationStart: readPartialDate(dateStart), cohabitationEnd: dateEnd.trim() ? readPartialDate(dateEnd) : null }); setChangingDates(false); }}
               className="rounded-full bg-[#2f7d67] px-5 py-2 text-sm font-bold text-white disabled:opacity-60"
             >
               Record these dates
@@ -284,7 +298,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
             <button
               type="button"
               data-testid="triage-answer-not-yet"
-              onClick={() => update({ cohabitationStart: "not-yet", cohabitationEnd: "not-yet" })}
+              onClick={() => { update({ cohabitationStart: "not-yet", cohabitationEnd: "not-yet" }); setChangingDates(false); }}
               className={chip}
             >
               I&apos;d rather not answer yet
@@ -414,6 +428,19 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
               </li>
             ))}
           </ul>
+          {storyDates ? (
+            <p data-testid="triage-dates-from-story" className="mt-2 text-sm text-[#4d675f]">
+              The dates you lived together are your own words: &ldquo;{storyDates.quote}&rdquo;{" "}
+              <button
+                type="button"
+                data-testid="triage-dates-change"
+                onClick={() => { setDateStart(partialDateWords(storyDates.start)); setDateEnd(storyDates.end ? partialDateWords(storyDates.end) : ""); setChangingDates(true); }}
+                className="font-semibold text-[#2f7d67] underline"
+              >
+                Change
+              </button>
+            </p>
+          ) : null}
         </div>
       )}
 

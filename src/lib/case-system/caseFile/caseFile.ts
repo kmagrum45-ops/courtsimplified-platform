@@ -282,6 +282,9 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
     const fact = factOfAskedText(question);
     if (fact) give(file, fact, answer.trim(), `home:${fact}`);
   }
+  // The other party the story reading named, accepted by the person on the home page (understoodOtherParty.ts; B1).
+  const homeOtherParty = object(sections.home).otherParty;
+  if (typeof homeOtherParty === "string" && homeOtherParty.trim()) give(file, "otherParty", homeOtherParty.trim(), "home:otherParty");
 
   const forms: [Record<string, unknown>, string][] = [
     [object(sections.civil?.input), "civil"],
@@ -381,8 +384,11 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   for (const [fact, entry] of Object.entries(object(object(sections[CASE_FILE_SECTION]).unsure))) unsure(file, fact, String(object(entry).question ?? "unsure"));
 
   // 7. The saved case: dates given on the step page, the stage and kind of claim chosen there.
+  // A date the step page kept from the story by itself counts deadlines but is not the person's answer: never read as one
+  // ("When it happened" stayed the person's "March 2026"; Chrome check of production c38e69fd, B2).
   const dates = object(position.dateAnswers);
-  for (const [id, value] of Object.entries(dates)) for (const fact of slotsOf(id)) give(file, fact, value, id);
+  const keptFromStory = new Set(Array.isArray(position.datesFromStory) ? position.datesFromStory : []);
+  for (const [id, value] of Object.entries(dates)) if (!keptFromStory.has(id)) for (const fact of slotsOf(id)) give(file, fact, value, id);
   // An older saved case (before 29 Oct) kept the kind in the analysis copy (intakeData.extra): read
   // here only, as a fallback: ticked, it is the person's; unticked, a proposal (claim type, rule 3).
   const extra = object(object(object(master).intakeData).extra);
