@@ -111,12 +111,26 @@ export function useHeldFill(values: Record<string, unknown>, apply: (fill: Recor
     if (emptied) setFilled((current) => [...new Set([...current, ...emptied.split(",")])]);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- runs when a box is emptied
   }, [emptied]);
+  // An empty box's first fill waits until the case holds its words as the fill's (filledWords): put first, the box's
+  // words looked like a new answer for a moment, which cancelled a confirmation after a "Change" (Chrome check of #544
+  // on 99e2ec0, 7 Nov, F9: the whole form's first opening said "You changed an answer, so please review and confirm
+  // again"). A box following a change (`over` holds the fill's earlier words) takes its words at once, as before.
+  const firstFills = useRef<Record<string, { words: string; over: string }> | null>(null);
   useEffect(() => {
     const fields = Object.keys(changes);
-    if (!fields.length) return;
-    apply(changes);
-    if (Object.keys(fill).length) setFilled((current) => [...new Set([...current, ...Object.keys(fill)])]);
+    if (!fields.length || firstFills.current) return;
+    const follows = Object.fromEntries(Object.entries(changes).filter(([, change]) => change.over !== ""));
+    const firsts = Object.fromEntries(Object.entries(changes).filter(([, change]) => change.over === ""));
+    if (Object.keys(follows).length) apply(follows);
+    if (Object.keys(firsts).length) firstFills.current = firsts;
     setFilledWords((current) => ({ ...current, ...Object.fromEntries(fields.map((field) => [field, changes[field].words])) }));
     // eslint-disable-next-line react-hooks/exhaustive-deps -- runs when what is to be filled changes
   }, [key]);
+  useEffect(() => {
+    const waiting = firstFills.current;
+    if (!waiting || !Object.entries(waiting).every(([field, change]) => filledWords[field] === change.words)) return;
+    firstFills.current = null;
+    apply(waiting);
+    setFilled((current) => [...new Set([...current, ...Object.keys(waiting)])]);
+  });
 }

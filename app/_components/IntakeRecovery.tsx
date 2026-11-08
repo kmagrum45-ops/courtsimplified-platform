@@ -175,6 +175,9 @@ function CourtFromCase() {
  * A notice that says what to do about something else (another tab, a text too large, signing in again) keeps its words.
  */
 export const SIGNED_IN_SAVE_FAILED = "Your case could not be saved just now. Try again.";
+
+/** Which screen or route is showing (fieldFacts.ts PAGE_STATE): never an answer, never a save of its own (F9, 7 Nov). */
+const SCREEN_FIELDS = new Set(["builder:step", "builder:startedModes", "small-claims:mode", "civil:mode", "family:mode"]);
 export function failureWords(notice: string, signedIn: boolean): string {
   return signedIn && /^Your (intake|review|answers) could not be saved/.test(notice) ? SIGNED_IN_SAVE_FAILED : notice;
 }
@@ -516,6 +519,11 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           put: (section, key, value, touched = true, external = false, fromReview = false, reaffirm = undefined) => {
             if (!current()) return;
             const field = `${section}:${key}`;
+            // Which screen is showing is never an answer: kept with the case, saved with the next answer, never a save of
+            // its own. Opening a route sent a save of the whole case, whose failure said "could not be saved" and held
+            // the leave guard (Chrome check of #544 on 99e2ec0, 7 Nov, F9).
+            const screenOnly = SCREEN_FIELDS.has(field);
+            if (screenOnly) touched = false;
             const json = JSON.stringify(value instanceof Set ? [...value] : value);
             if (json === undefined) return;
             const encoded: unknown = JSON.parse(json);
@@ -539,7 +547,9 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             if (touched) sections[BASIS_SECTION] = tagAnswers(sections, section, key, snapshot.sections[section]?.[key], encoded);
             if (reaffirm !== undefined) sections[BASIS_SECTION] = reaffirmAnswers(sections, section, key, encoded, reaffirm === true ? undefined : reaffirm);
             if (unchanged && JSON.stringify(sections[BASIS_SECTION]) === JSON.stringify(snapshot.sections[BASIS_SECTION])) { invalid.delete(field); return; }
-            const next = { ...snapshot, revision: crypto.randomUUID(), sections };
+            // A screen change keeps the revision too: a new one made this tab's copy differ from the saved case, so the next
+            // page load saved it at once, the same write one page later.
+            const next = { ...snapshot, revision: screenOnly ? snapshot.revision : crypto.randomUUID(), sections };
             // The one rule, shared with the server (intakeReview.ts applyFactRevisions): after Confirm an
             // answer that only adds a fact keeps the confirmation (Chrome re-test 29 Oct, D1), but next
             // steps made before it are outdated (factsRevision; D1 review).
