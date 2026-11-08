@@ -20,6 +20,7 @@ import { civilRoleFromStory, familyRoleFromStory } from "../builder/_components/
 import SituationQuestions, { SITUATION_CHANGE_EVENT, SituationLine } from "./SituationQuestions";
 import SafetyNotice from "./SafetyNotice";
 import FirstUseAcknowledgement from "./FirstUseAcknowledgement";
+import { savedStepOf } from "../../src/lib/case-system/savedStep";
 import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, landedReviewTransition, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt, type PendingTransition } from "../../src/lib/case-system/intakeCheckpoint";
 import { canonicalJson } from "../../src/lib/case-system/canonicalJson";
 import { WorkingButton } from "./Working";
@@ -274,13 +275,17 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         if (address.pathname === "/builder" && address.searchParams.get("step") === "results") {
           // Preserve the existing completed-case route; an interrupted unsaved analysis resumes intake.
           const pending = Boolean(session && session.checkpoint.revision !== serverRevision);
-          if (row && guidanceIsCurrent(row.master_result, court, row.id) && !pending && !initialConflict) {
+          // A saved, current next step is shown here at once, from the saved case (savedStep.ts; Chrome check of #544 on
+          // 99e2ec0, 7 Nov, F10: this address went to the case page, so the overview was reached only by working the step
+          // out again). An older case with no saved step to show still goes to its case page.
+          const savedStep = row && !pending && !initialConflict ? savedStepOf(row.master_result, { workflowStatus: row.master_result.workflowStatus, checkpoint: snapshot }, court, row.id) : null;
+          if (row && !savedStep && guidanceIsCurrent(row.master_result, court, row.id) && !pending && !initialConflict) {
             window.location.replace(`/cases/${encodeURIComponent(row.id)}`);
             return;
           }
           // The case page's "Show my next step" / "Update my next steps" (?next=start) stay on the overview, where the step
           // is worked out from that route without opening it (Chrome check of #544, 6 Nov, F6: the rewrite opened the whole form).
-          if (address.searchParams.get("next") !== "start") {
+          if (address.searchParams.get("next") !== "start" && !savedStep) {
             if (step === "form" || step === "guided") address.searchParams.set("step", step);
             else address.searchParams.delete("step");
             window.history.replaceState(null, "", `${address.pathname}?${address.searchParams}`);

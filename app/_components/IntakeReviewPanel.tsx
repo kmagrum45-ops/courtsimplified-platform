@@ -30,6 +30,7 @@ import { UseSuggestion } from "./UseSuggestion";
 import SignInForSafetyCheck from "../builder/_components/SignInForSafetyCheck";
 import { supabase } from "../../src/lib/supabase/client";
 import { earlierAnswerWords } from "../../src/lib/case-system/earlierAnswerWords";
+import { savedStepOf } from "../../src/lib/case-system/savedStep";
 
 /** What an answer with no line of its own is, in words. */
 const HIDDEN_ANSWER_NAMES: Record<string, string> = {
@@ -58,6 +59,21 @@ function showWaitingStep(): boolean {
   return true;
 }
 const empty = (value: ReviewEntry["value"]) => Array.isArray(value) ? value.length === 0 : typeof value === "string" ? !value.trim() : false;
+
+/**
+ * "Show my next step" on a confirmed case whose saved step is still current (savedStep.ts): the overview opens with that
+ * step at once (app/builder/page.tsx shows it as saved), never worked out again (Chrome check of #544 on 99e2ec0, 7 Nov,
+ * F10: about 70 s every time). True when it opened.
+ */
+function openSavedStep(recovery: NonNullable<ReturnType<typeof useIntakeRecovery>>): boolean {
+  const view = recovery.getReview();
+  if (!savedStepOf(recovery.getSavedMaster(), view, view.checkpoint.courtPath, recovery.getCaseId())) return false;
+  const url = new URL(window.location.href);
+  if (url.searchParams.get("step") === "results") return true;
+  url.searchParams.set("step", "results");
+  window.history.pushState(null, "", `${url.pathname}?${url.searchParams.toString()}`);
+  return true;
+}
 
 export default function IntakeReviewPanel() {
   const recovery = useIntakeRecovery();
@@ -146,6 +162,7 @@ export default function IntakeReviewPanel() {
     const url = new URL(window.location.href);
     url.searchParams.delete("next");
     window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}`);
+    if (openSavedStep(recovery)) return;
     if (showWaitingStep()) { setWaiting(true); return; }
     nextStepPressed();
     setWaiting(!recovery.continueToGuidance());
@@ -158,6 +175,7 @@ export default function IntakeReviewPanel() {
   useEffect(() => {
     pressNext.current = () => {
       if (!recovery) return;
+      if (openSavedStep(recovery)) return;
       if (showWaitingStep()) { setWaiting(true); return; }
       nextStepPressed();
       setWaiting(!recovery.continueToGuidance());

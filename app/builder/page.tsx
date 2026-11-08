@@ -115,6 +115,7 @@ import { personAnswersFromGuided, personAnswersOf, stageRecordedFromAnswers, sug
 import StageAnswerPanel from "./_components/StageAnswerPanel";
 import { respondingDocumentDraft, respondingDocumentTitle, type RespondingDocumentIntake } from "../../src/lib/case-system/drafts/respondingDocumentDraft";
 import { movingOnMotionToChange, originatingDocumentRecorded, respondingDocumentStillDue, userIsResponding } from "./_components/respondingSide";
+import { savedStepOf } from "../../src/lib/case-system/savedStep";
 import { readCasePosition, storyHintsForDates, storyWithTimeline, suggestedDatesFromAnswers, type SuggestedDate } from "../../src/lib/case-system/casePosition";
 import { suggestedNoticeStep } from "../../src/lib/case-system/claim-types/noticeStep";
 import { caseTitleFromIntake, isGeneratedTitle } from "../../src/lib/case-system/caseTitle";
@@ -835,6 +836,8 @@ function BuilderPageContent() {
    * second case.
    */
   const saveChainRef = useRef<Promise<void>>(Promise.resolve());
+  /** The step on screen is the saved one, shown again (showSavedStep): the save below writes nothing for it. */
+  const adoptedSavedStep = useRef(false);
   const lastSavedInputsRef = useRef<{ analysis: unknown; caseData: unknown; courtPath: string; attempt: number } | null>(null);
   const masterCaseIdRef = useRef<string | null>(masterCaseId);
   useEffect(() => {
@@ -1231,6 +1234,16 @@ function BuilderPageContent() {
       }
     }
 
+    // A saved, current next step shown again (showSavedStep): it is the saved case already, so nothing is written (F10).
+    if (adoptedSavedStep.current && analysis && caseData) {
+      adoptedSavedStep.current = false;
+      lastSavedInputsRef.current = { analysis, caseData, courtPath, attempt: saveAttempt };
+      const savedId = recovery?.getCaseId() ?? null;
+      masterCaseIdRef.current = savedId;
+      setMasterCaseId(savedId);
+      setCanonicalIntakeSaved(true);
+      return;
+    }
     // Skip a re-run that changes nothing but the case id this save just set.
     const last = lastSavedInputsRef.current;
     if (last && last.analysis === analysis && last.caseData === caseData && last.courtPath === courtPath && last.attempt === saveAttempt) {
@@ -1480,6 +1493,22 @@ function BuilderPageContent() {
    * The results show only on the results step, so Back from them returns to
    * the intake as it was, and Forward brings them back.
    */
+  /*
+   * A CONFIRMED CASE'S SAVED NEXT STEP, SHOWN AT ONCE (Chrome check of #544 on 99e2ec0, 7 Nov, F10). While the step saved
+   * with the case is still the one for the confirmed answers (savedStep.ts), the overview (?step=results: its own
+   * address, or "Show my next step" in the review panel) shows it as saved, with no new AI run and nothing written.
+   * It goes through the same handleComplete a fresh run uses, so the overview is drawn the same way.
+   */
+  useEffect(() => {
+    if (stepParam !== "results" || analysis || !intakeConfirmed || !reviewView || !recovery || loadingExistingCase) return;
+    const saved = savedStepOf(recovery.getSavedMaster(), reviewView, courtPath, recovery.getCaseId());
+    if (!saved) return;
+    adoptedSavedStep.current = true;
+    setCasePicture(readStoredPicture(asRecord(recovery.getSavedMaster()).casePicture));
+    handleComplete(saved.analysis as unknown as AnalysisResult, saved.data as unknown as StoredCaseData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- handleComplete is this page's own, run once per adoption
+  }, [stepParam, analysis, intakeConfirmed, reviewView, recovery, loadingExistingCase, courtPath]);
+
   const resultsVisible = intakeConfirmed && Boolean(analysis) && analysisInputRevision.current === reviewView?.checkpoint.inputRevision && Boolean(reviewView && analysisFactsRevision.current === factsRevision(reviewView.checkpoint)) && stepParam === "results";
 
   /*
