@@ -1,5 +1,6 @@
 "use client";
 
+import { createPortal } from "react-dom";
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { isDateQuestionId } from "../../../src/lib/case-system/casePosition";
 import { intakeGuidanceHeaders, useIntakeReviewView, useIntakeState, useStory, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
@@ -520,6 +521,12 @@ function GuidanceDisclosure({
 }
 
 type Props = {
+  /**
+   * Set while this chat is on the page but hidden (the whole form shows): its "Start the questions again from my story"
+   * is shown there, where it can be seen and pressed (Chrome check of #544 on 9b960f7, F16: the only one was inside the
+   * hidden chat, zero size, so a real click did nothing).
+   */
+  noticeSlot?: HTMLElement | null;
   location: { province: "Ontario"; city: string };
   initialStory: string;
   /** Called once, when the conversation reports intakeComplete. See GuidedIntakeCompletionResult's own comment for why this isn't SmallClaimsIntake.tsx's onComplete shape. */
@@ -555,7 +562,7 @@ function previousAnsweredIds(previous: Props["previous"]): string[] {
   return Array.from(new Set(ids)).slice(-50);
 }
 
-export default function GuidedSmallClaimsIntake({ location, initialStory, onComplete, previous }: Props) {
+export default function GuidedSmallClaimsIntake({ location, initialStory, onComplete, previous, noticeSlot = null }: Props) {
   const reviewView = useIntakeReviewView();
   const intakeConfirmed = Boolean(reviewView && reviewPhase(reviewView.workflowStatus, reviewView.checkpoint) === "user-confirmed");
   // A press of this route's Continue before the review is confirmed: said beside it (L26).
@@ -1497,6 +1504,16 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
 
   return (
     <div>
+      {/* Hidden behind the whole form: the restart is shown on the form, and opens the questions as it starts them again.
+          Not when the form shows its own notice for answers read from an earlier story (one button, never two). */}
+      {noticeSlot && readingOutdated && !storyAnswersChanged ? createPortal(
+        <div data-testid="guided-reading-outdated-on-form" role="status" className="mb-4 rounded-xl border border-[#ead9a7] bg-[#fffaf0] p-4 text-sm text-[#5c4a14]">
+          <p className="font-semibold">Your story has changed since the questions read it.</p>
+          <p className="mt-1">Start the questions again from your story as it is now.</p>
+          <button type="button" onClick={() => { startAgainFromStory(); recovery?.openQuestions(); }} className="mt-3 rounded-xl bg-[#2f7d67] px-4 py-2 font-semibold text-white">Start the questions again from my story</button>
+        </div>,
+        noticeSlot,
+      ) : null}
       {asksForAdvice ? (
         <div className="mb-4">
           <LegalAdviceDeflection reason="legal-advice" />

@@ -379,6 +379,9 @@ function BuilderPageContent() {
   const [canonicalIntakeSaved, setCanonicalIntakeSaved] = useState(false);
   const completedOverviewRef = useRef<HTMLElement | null>(null);
   const [showFollowUp, setShowFollowUp] = useState(false);
+  // Where the Small Claims chat, kept on the page but hidden while the whole form shows, puts its "Start the questions
+  // again from my story" so it can be seen and pressed (Chrome check of #544 on 9b960f7, F16).
+  const [chatNoticeSlot, setChatNoticeSlot] = useState<HTMLDivElement | null>(null);
   /**
    * Whether `confirmedLocation` came from the loaded case rather than from the
    * user answering the gate in this session.
@@ -2217,6 +2220,7 @@ function BuilderPageContent() {
 
             {courtPath === "small-claims" && startedModes.form && (
               <div hidden={visibleMode !== "form"}>
+                <div ref={setChatNoticeSlot} data-testid="sc-chat-notice-slot" />
                 <SmallClaimsIntake
                   onComplete={handleComplete}
                   location={confirmedLocation}
@@ -2229,6 +2233,7 @@ function BuilderPageContent() {
             {courtPath === "small-claims" && startedModes.guided && (
               <div hidden={visibleMode !== "guided"}>
                 <GuidedSmallClaimsIntake
+                  noticeSlot={visibleMode === "form" ? chatNoticeSlot : null}
                   location={confirmedLocation}
                   initialStory={homeStory}
                   onComplete={handleGuidedComplete}
