@@ -1509,7 +1509,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       {noticeSlot && readingOutdated && !storyAnswersChanged ? createPortal(
         <div data-testid="guided-reading-outdated-on-form" role="status" className="mb-4 rounded-xl border border-[#ead9a7] bg-[#fffaf0] p-4 text-sm text-[#5c4a14]">
           <p className="font-semibold">Your story has changed since the questions read it.</p>
-          <p className="mt-1">Start the questions again from your story as it is now.</p>
+          <p className="mt-1">Start the questions again with your story as it is now.</p>
           <button type="button" onClick={() => { startAgainFromStory(); recovery?.openQuestions(); }} className="mt-3 rounded-xl bg-[#2f7d67] px-4 py-2 font-semibold text-white">Start the questions again from my story</button>
         </div>,
         noticeSlot,

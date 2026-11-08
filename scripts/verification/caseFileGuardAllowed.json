@@ -2075,14 +2075,6 @@
     "scanFound": true
   },
   {
-    "row": 102,
-    "fact": "other party",
-    "pattern": "op.otherParty",
-    "file": "app/cases/_components/CaseHomeContext.tsx",
-    "reason": "Found by the guard's scan beside inventory row 102 (the same store or reader, in a file the inventory did not name): other party :: checkpoint small-claims.input.otherParty, civil.input.otherParty, family.otherParty (FamilyIntake.tsx:312)",
-    "scanFound": true
-  },
-  {
     "row": 104,
     "fact": "other party",
     "pattern": "op.caseTitleFromIntake",

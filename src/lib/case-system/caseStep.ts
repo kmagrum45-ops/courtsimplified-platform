@@ -31,9 +31,8 @@ import { suggestedNoticeStep } from "./claim-types/noticeStep";
 import { readStoredPicture, stepFromPicture } from "./intake/caseReader";
 import { findStage, stagesForPathway, type StagePathway } from "./stage-map/stageMap";
 import { suggestedStageFor } from "./stage-map/suggestedStep";
-import { broadStageOfStep, sideOf, situationOfCase, stepFromSituation } from "./situation/situation";
+import { broadStageOfStep, sideOf, situationOfCase, stageFromSituation, stepFromSituation } from "./situation/situation";
 import { getStageLabel, type UniversalStage } from "../../../app/builder/_components/builderTypes";
-import { stageRecordedFromAnswers } from "../../../app/builder/_components/stageFromAnswers";
 
 const asRecord = (value: unknown): Record<string, unknown> =>
   value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
@@ -93,7 +92,7 @@ export function caseStepFor(
   // A step picked in the start answers is chosen too, and needs no confirmed stage.
   const picked = startStep(masterResult, courtPath);
   if (picked) return picked;
-  if (options.requireConfirmedStage && !caseStageOf(masterResult, courtPath)) return "";
+  if (options.requireConfirmedStage && !settledStage(position) && !caseStageOf(masterResult, courtPath)) return "";
   return suggestedStepForCase(masterResult, courtPath, responding);
 }
 
@@ -130,7 +129,17 @@ function startStep(masterResult: unknown, courtPath: StagePathway): string | nul
 export function caseStageOf(masterResult: unknown, courtPath: StagePathway | string | null | undefined): UniversalStage | null {
   if (!courtPath) return null;
   const master = asRecord(masterResult);
-  return settledStage(readCasePosition(master, courtPath)) ?? stageRecordedFromAnswers(courtPath, null, "not-sure", situationOfCase(master))?.stage ?? null;
+  const settled = settledStage(readCasePosition(master, courtPath));
+  if (settled) return settled;
+  // The start answers, read as the case page reads them (its stage from the start answers, with no other
+  // answers): the step of a case already going, "already started" when not sure, else served or nothing filed.
+  const situation = situationOfCase(master);
+  if ((situation.where === "going" || situation.where === "served") && situation.stage) {
+    const step = stepFromSituation(situation, courtPath as StagePathway);
+    if (step) return broadStageOfStep(step);
+    if (situation.where === "going" && situation.stage === "not-sure") return "already-started";
+  }
+  return stageFromSituation(situation)?.stage ?? null;
 }
 
 /** Where the case is, in words, for every page that says it: the picked step's own title, else the case's stage. */
