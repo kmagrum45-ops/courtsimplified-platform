@@ -535,7 +535,8 @@ export default function IntakeReviewPanel() {
       {signInNeeded ? <SignInForSafetyCheck testId="intake-continue-sign-in" area={court === "family" ? "Family" : court === "civil" ? "Civil" : "Small Claims"} /> : null}
       <NextStepStatus />
       <StoryChangedNotice where="button" /></>}
-    {waiting && phase === "user-confirmed" && <p data-testid="intake-continue-waiting" role="status" className="mt-2 text-sm">Finish the step shown below first; your next step will then appear.</p>}
+    {/* Not while the next step is being worked out: its progress line says so (Chrome check of #544 on 9b960f7, F13). */}
+    {waiting && !working && phase === "user-confirmed" && <p data-testid="intake-continue-waiting" role="status" className="mt-2 text-sm">Finish the step shown below first; your next step will then appear.</p>}
     {error && <p role="alert">{error}</p>}
     <WorkingNote working={busy}>Saving your review…</WorkingNote>
   </section>;
