@@ -22,6 +22,10 @@ export function isGeneratedTitle(title: string | null | undefined): boolean {
     /^(new|untitled) courtsimplified case$/i.test(value) ||
     /^current case status:/i.test(value) ||
     /\bcase story\b/i.test(value) ||
+    // Made from who the case is with (below), so made again from the case file each time: a stored "Small Claims case"
+    // stayed after the name was given (Chrome check of #544 on 9b960f7, F15).
+    Object.values(COURT_NAMES).some((name) => name.toLowerCase() === value.toLowerCase()) ||
+    /^your case(?: with .+)?$/i.test(value) ||
     value.length > 70
   );
 }

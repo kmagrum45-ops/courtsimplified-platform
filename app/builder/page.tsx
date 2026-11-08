@@ -120,6 +120,7 @@ import { savedStepOf } from "../../src/lib/case-system/savedStep";
 import { readCasePosition, storyHintsForDates, storyWithTimeline, suggestedDatesFromAnswers, type SuggestedDate } from "../../src/lib/case-system/casePosition";
 import { suggestedNoticeStep } from "../../src/lib/case-system/claim-types/noticeStep";
 import { caseTitleFromIntake, isGeneratedTitle } from "../../src/lib/case-system/caseTitle";
+import { otherPartyOfMaster } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
 import { userWordsOf } from "../../src/lib/content-library/forms/formsInText";
 import { type CaseDraft } from "../../src/lib/case-system/drafts/caseDrafts";
 import { startingDocumentDraft } from "../../src/lib/case-system/drafts/startingDocumentDraft";
@@ -1124,7 +1125,9 @@ function BuilderPageContent() {
           .from("cases")
           .update({
             // Named for who the case is with, not the engine's summary.
-            title: isGeneratedTitle(recordTitle) ? caseTitleFromIntake(caseData.otherParty, courtPath) : recordTitle,
+            // Who the case is with, from the case file first (F15: a name typed in the whole form is not in the
+            // questions route's answers, so the title said "Small Claims case").
+            title: isGeneratedTitle(recordTitle) ? caseTitleFromIntake(otherPartyOfMaster({ ...storedMaster, intakeData: { ...asRecord(storedMaster.intakeData), otherParty: caseData.otherParty } }, courtPath), courtPath) : recordTitle,
             court_path: courtPath,
             status: "active",
             current_stage: stage,

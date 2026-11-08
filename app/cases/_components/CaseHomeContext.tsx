@@ -5,6 +5,7 @@ import { createContext, useContext } from "react";
 
 import type { CasePosition } from "@/src/lib/case-system/casePosition";
 import { caseTitleFromIntake, isGeneratedTitle } from "@/src/lib/case-system/caseTitle";
+import { otherPartyOfMaster } from "@/src/lib/case-system/caseFile/caseFileOfMaster";
 
 /** The case row the case page loads once and every section reads. */
 export type CaseRecord = {
@@ -64,8 +65,9 @@ export const COURT_LABELS: Record<string, string> = {
 export function caseTitle(record: CaseRecord): string {
   const title = (record.title || "").trim();
   if (!isGeneratedTitle(title)) return title;
-  const intake = (record.master_result?.intakeData ?? {}) as { otherParty?: unknown };
-  return caseTitleFromIntake(intake.otherParty, record.court_path);
+  // Who the case is with, from the case file (the "The other party" line), else the saved copy of the answers: after a
+  // restart the copy had no name while the case file did, and the heading went back to "Small Claims case" (F15).
+  return caseTitleFromIntake(otherPartyOfMaster(record.master_result, record.court_path), record.court_path);
 }
 
 /**
