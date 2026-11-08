@@ -837,6 +837,9 @@ jobs:
           tests/browser/whole-form-after-confirm.spec.ts
           tests/browser/update-screen-case-file.spec.ts
           tests/browser/waiting-line-ends.spec.ts
+          tests/browser/open-writes-nothing.spec.ts
+          tests/browser/saved-step-shows-at-once.spec.ts
+          tests/browser/case-gate-shows-case-file.spec.ts
           tests/browser/claim-kind-one-value.spec.ts
           tests/browser/chrome-31oct-review.spec.ts
           tests/browser/change-answer.spec.ts
