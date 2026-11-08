@@ -846,6 +846,10 @@ jobs:
           tests/browser/open-writes-nothing.spec.ts
           tests/browser/saved-step-shows-at-once.spec.ts
           tests/browser/case-gate-shows-case-file.spec.ts
+          tests/browser/deadlines-one-place.spec.ts
+          tests/browser/no-finish-line-while-working.spec.ts
+          tests/browser/restart-keeps-other-party.spec.ts
+          tests/browser/restart-button-real-click.spec.ts
           tests/browser/claim-kind-one-value.spec.ts
           tests/browser/chrome-31oct-review.spec.ts
           tests/browser/change-answer.spec.ts
