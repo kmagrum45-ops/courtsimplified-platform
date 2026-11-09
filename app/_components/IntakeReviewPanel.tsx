@@ -22,7 +22,7 @@ import StoryEditor from "../builder/_components/StoryEditor";
 import { freshSections, staleAnswerKeys, storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
 import StoryChangedNotice from "./StoryChangedNotice";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
-import { canReview, changedAfterConfirm, initialAnswersOf, reviewQuestionField, inputRevision, notAnsweredYet, remainingEssentialQuestions, reviewBoxState, reviewEntries, reviewPhase, reviewQuestionList, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
+import { canReview, changedAfterConfirm, initialAnswersOf, reviewQuestionField, inputRevision, notAnsweredYet, remainingEssentialQuestions, reviewBoxState, reviewEntries, reviewPhase, withHeldOtherParty, reviewQuestionList, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
 import { askOf } from "../../src/lib/case-system/intake/asker";
 import NextStepStatus, { nextStepPressed, useNextStepReading } from "./NextStepStatus";
 import { WorkingNote } from "./Working";
@@ -223,10 +223,11 @@ export default function IntakeReviewPanel() {
   const phase = reviewPhase(workflowStatus, checkpoint);
   const revision = inputRevision(checkpoint);
   // Optional details with nothing in them are not shown (re-test 2026-10-18).
-  const entries = reviewEntries(checkpoint).filter(entry => entry.essential || !empty(entry.value));
   // The saved case's own case file (its saved position too), the same one the results and case pages read (29 Oct).
   const savedMaster = recovery.getSavedMaster();
   const caseFileNow = caseFileOf(checkpoint, savedMaster ?? undefined);
+  // The Small Claims questions route also shows the other party the record holds (B1; shown only, never confirmed by itself).
+  const entries = withHeldOtherParty(reviewEntries(checkpoint), checkpoint, caseFileNow).filter(entry => entry.essential || !empty(entry.value));
   // Still to answer: only what nobody has answered or said "not sure" to (the case file's one gate).
   const remaining = remainingEssentialQuestions(checkpoint, savedMaster ?? undefined);
   // Said "I don't know" or "not sure" anywhere (site owner, 31 Oct): a quiet line, never asked again here.

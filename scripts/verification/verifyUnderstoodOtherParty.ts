@@ -14,7 +14,10 @@
  *      wrongly labels them the other party;
  *   2. the record: a name written to home.otherParty is the case file's other party (caseFileOf), it is mapped for the
  *      one writer (fieldFacts.ts), and a later answer from a form wins (newest answer wins);
- *   3. the home page writes it only when the reading is accepted, through the one writer (writeAnswer).
+ *   3. the home page writes it only when the reading is accepted, through the one writer (writeAnswer);
+ *   4. the Small Claims questions route's review SHOWS the name the record holds (withHeldOtherParty), but it is never
+ *      one of reviewEntries, which also decides what a confirmation rests on: a value read from the case file there made
+ *      "typed in Change, then Confirm" lose the new amount in all six Small Claims carry runs (8 Nov).
  *
  * WHAT FAILURE THIS CATCHES: the other party the person saw and accepted lost, asked again, or a witness put there.
  *
@@ -24,6 +27,7 @@ import fs from "node:fs";
 import { otherPartyFromUnderstanding } from "../../src/lib/case-system/caseFile/understoodOtherParty";
 import { caseFileOf, slotText } from "../../src/lib/case-system/caseFile/caseFile";
 import { fieldRow } from "../../src/lib/case-system/caseFile/fieldFacts";
+import { reviewEntries, withHeldOtherParty } from "../../src/lib/case-system/intakeReview";
 
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
@@ -77,6 +81,14 @@ check("a later change of the name wins (newest answer wins)", slotText(changed.o
 const gate = fs.readFileSync("app/_components/HomeLocationGate.tsx", "utf8");
 check("the home page writes the reading's other party through writeAnswer(recovery, \"home\", \"otherParty\", ...)", /writeAnswer\(recovery, "home", "otherParty", /.test(gate));
 check("only when the reading was accepted (the card's own buttons)", /otherPartyFromUnderstanding\(/.test(gate) && /accepted/.test(gate));
+
+// 4. Shown on the review, never a confirmed fact of its own.
+const guidedRoute = checkpoint({ builder: { step: "guided" }, guided: { facts: { amount: "4500" } }, home: { otherParty: "Alex Testwood" } }) as never;
+check("4. reviewEntries holds no line read from the case file (what a confirmation rests on is unchanged)", !reviewEntries(guidedRoute).some((entry) => entry.field === "otherParty"));
+const shown = withHeldOtherParty(reviewEntries(guidedRoute), guidedRoute, caseFileOf(guidedRoute));
+check("4. the review screen shows the other party the record holds", shown.some((entry) => entry.field === "otherParty" && entry.value === "Alex Testwood"), JSON.stringify(shown.map((entry) => entry.field)));
+const reviewPanel = fs.readFileSync("app/_components/IntakeReviewPanel.tsx", "utf8");
+check("4. the review panel shows it through withHeldOtherParty", /withHeldOtherParty\(reviewEntries\(checkpoint\)/.test(reviewPanel));
 
 console.log(failures ? `\n${failures} check(s) failed.` : "\nThe accepted reading's other party goes on the record; no witness does.");
 process.exit(failures ? 1 : 0);
