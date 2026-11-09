@@ -84,6 +84,23 @@ export const TERMS_OF_ART: readonly TermOfArt[] = [
       "identify which event that is on their notice from the court.",
     maxOccurrences: 2,
   },
+  {
+    // Added 2026-11-09 with the founders' approved wording for plaintiff:service-attempted-failed (owner's yes, same day):
+    // that block reads at 8.12 with it and 7.97 with the term replaced by one-syllable words.
+    term: "delivery confirmation",
+    definedAt: {
+      sourceId: "oreg-258-98-small-claims-rules",
+      pinpoint: "r. 8.03 (8)",
+      // With the rule's own amendment note: the ontario.ca serving guide quotes the subrule word for word, and the passage
+      // must be found in the Rules themselves (test:generic-library).
+      quote: "Service under subrule (7) is effective on the date on which receipt of the copy of the claim is verified by signature, as shown in a delivery confirmation provided by or obtained from Canada Post or the commercial courier, as the case may be. O. Reg. 393/09, s. 5 (4)",
+    },
+    justification:
+      "The name of the record r. 8.03 (8) makes service effective by: the date shown on the Canada Post or " +
+      'courier delivery confirmation. "Receipt" or "proof" would be inaccurate: the rule names this record, ' +
+      "and the person has to find that date on it.",
+    maxOccurrences: 2,
+  },
 ];
 
 /**
