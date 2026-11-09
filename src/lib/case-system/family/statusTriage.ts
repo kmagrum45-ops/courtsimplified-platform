@@ -122,9 +122,10 @@ export type TriageQuestionId =
   | "cohabitation-dates"
   | "child-together"
   | "case-involves-children"
-  | "municipalities";
+  | "municipalities"
+  | "other-party-municipality";
 
-export type TriageQuestionKind = "yes-no" | "yes-no-unsure" | "date-range" | "municipality-pair";
+export type TriageQuestionKind = "yes-no" | "yes-no-unsure" | "date-range" | "municipality-pair" | "municipality-other";
 
 export type TriageQuestion = {
   id: TriageQuestionId;
@@ -186,6 +187,17 @@ const QUESTIONS: Record<TriageQuestionId, TriageQuestion> = {
       "there is more than one court. Both answers matter, because a case may be started in " +
       "the Family Court if EITHER person lives in one of them.",
   },
+  // The other person's municipality, its own question: asked once the person's own is recorded (the Home page's "City or
+  // municipality" is that answer), never the person's own again (Chrome check of #545 at 7bce410, 3.4d).
+  "other-party-municipality": {
+    id: "other-party-municipality",
+    kind: "municipality-other",
+    prompt: "Which municipality does the other person live in, if you know?",
+    whyAsked:
+      "In 24 named municipalities a single Family Court hears all family matters. Elsewhere " +
+      "there is more than one court. Both answers matter, because a case may be started in " +
+      "the Family Court if EITHER person lives in one of them.",
+  },
 };
 
 /**
@@ -212,6 +224,7 @@ export function selectNextTriageQuestion(record: FamilyStatusRecord, deferred: R
   }
   if (record.caseInvolvesChildren === "not-yet") due.push("case-involves-children");
   if (record.userMunicipality === null) due.push("municipalities");
+  else if (record.otherPartyMunicipality === null) due.push("other-party-municipality");
   const next = due.find((id) => !deferred.has(id));
   return next ? QUESTIONS[next] : null;
 }

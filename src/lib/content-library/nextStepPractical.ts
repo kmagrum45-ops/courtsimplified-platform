@@ -2663,9 +2663,26 @@ export function isMunicipalNoticeStep(noticeStepId: string, story = "", city = "
   return noticeStepId === "civil:before-filing:notice-required-before-suing" && (NOTICE_FITS["municipal-act-2001"]!(prose, city) || NOTICE_FITS["city-of-toronto-act-2006"]!(prose, city));
 }
 
-/** A step's practical view without the Application (Divorce), for someone who recorded they were never married (B4). */
+/** The Application (Divorce): the one form the "never married" rule leaves out (B4; Chrome check of #545, 3.5). */
+export function isDivorceApplication(form: { court: PracticalCourt; number: string }): boolean {
+  return form.court === "family" && form.number === "8A";
+}
+
+/**
+ * A step's practical view without the Application (Divorce), for someone who recorded they were never married: every
+ * list the view carries, so the card, "Forms for your next step" and the catalogue's "For your step" tag agree (Chrome
+ * check of #545 at 7bce410, 3.5: the Forms tab tagged Form 8A "For your step" because only `forms` was filtered).
+ */
 export function withoutDivorceApplication(view: PracticalView | null, notMarried: boolean): PracticalView | null {
-  return view && notMarried ? { ...view, forms: view.forms.filter((form) => !(form.court === "family" && form.number === "8A")) } : view;
+  if (!view || !notMarried) return view;
+  // The view's own court: a lead form carries only its number, and Form 8A is another form in Small Claims and civil.
+  const family = [...view.forms, ...view.formsIfClaimed].some((form) => form.court === "family");
+  return {
+    ...view,
+    forms: view.forms.filter((form) => !isDivorceApplication(form)),
+    formsIfClaimed: view.formsIfClaimed.filter((form) => !isDivorceApplication(form)),
+    leadForms: family ? view.leadForms.filter((lead) => !isDivorceApplication({ court: "family", number: lead.number })) : view.leadForms,
+  };
 }
 
 export function practicalFor(
@@ -2705,7 +2722,7 @@ export function practicalFor(
     // The Application (Divorce) is not listed for someone who recorded that they were never married to the other person
     // (the Family card's "Were you and the other person married to each other?": No). A rule on their recorded answer
     // only; nothing is read from the story here (Chrome check of production c38e69fd, B4).
-    .filter((form) => !(timing.notMarried && form.court === "family" && form.number === "8A"))
+    .filter((form) => !(timing.notMarried && isDivorceApplication(form)))
     .sort((a, b) =>
       responding && stepId.includes(":both:")
         ? Number(MOVING_PARTY_FORMS[a.court]?.has(a.number) ?? false) - Number(MOVING_PARTY_FORMS[b.court]?.has(b.number) ?? false)

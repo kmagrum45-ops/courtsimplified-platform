@@ -830,7 +830,7 @@ export function NextStepCard({
       {/* The form, fee, filing and service for this step (Phase 2); the forms
           the answer's text names are the fallback for a step with none recorded. */}
       {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} noticeStepId={noticeStepId} deadline={filingDeadline.filing} serveBy={filingDeadline.serving} divisionalOnly={filingDeadline.divisionalOnly} today={today} timeRanOut={Boolean(ranOut)} notMarried={notMarried} /> : null}
-      {!practical?.forms.length && toDo ? <FormsNamedHere texts={[toDo]} court={court} userWords={userWords} heading="Forms for this step" /> : null}
+      {!practical?.forms.length && toDo ? <FormsNamedHere texts={[toDo]} court={court} userWords={userWords} heading="Forms for this step" notMarried={notMarried} /> : null}
       {(() => {
         // Say what the card doesn't list yet, instead of leaving a gap the
         // person can't see (build order Step 2E, 2026-10-12). Worded so it
@@ -1589,6 +1589,9 @@ export default function StageAnswerPanel({
     for (const [id, date] of Object.entries(storyDates)) if (!dropped[id]) fromStory[id] = date.value;
     return { ...fromStory, ...answers };
   };
+  // The dates the deadline is counted from that came from the story, not from the person (B6): kept from it on this page,
+  // or the story's own date unchanged. The card then says "Based on the date in your story".
+  const storyDateIds = (sent: Record<string, string>) => Object.keys(sent).filter((qid) => Boolean(keptFromStory[qid]) || (Boolean(storyDates[qid]) && storyDates[qid].value === sent[qid]));
   /** The person chooses a step: from "Where is your case?", or the card's "Open this step" (whenTimeRunsOut). */
   function chooseStep(id: string) {
     setStageId(id);
@@ -1660,7 +1663,7 @@ export default function StageAnswerPanel({
       const response = await fetch("/api/case/stage-answer", {
         method: "POST",
         headers: { "Content-Type": "application/json", ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}) },
-        body: JSON.stringify({ caseId, stageId: id, courtPath, confirmedFacts: facts, dateAnswers: withStoryDates(answers, dropped) }),
+        body: JSON.stringify({ caseId, stageId: id, courtPath, confirmedFacts: facts, dateAnswers: withStoryDates(answers, dropped), datesFromStory: storyDateIds(withStoryDates(answers, dropped)) }),
       });
       if (!response.ok) throw new Error(String(response.status));
       setResult((await response.json()) as Response);

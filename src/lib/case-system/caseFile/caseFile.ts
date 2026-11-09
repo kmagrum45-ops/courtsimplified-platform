@@ -893,6 +893,12 @@ const kindName = (id: string) => CLAIM_TYPES.find((claimType) => claimType.id ==
  * needs the kind of claim reads it here (site owner, 29 Oct). A separate "confirmed" flag never
  * blocks it: the person's own answer counts as soon as it is given.
  */
+/** The person recorded they were never married to the other person (the Family card's "married": No). One reader, for
+ * every place a step's forms are decided: no Application (Divorce), Form 8A (Chrome check of #545, 3.5). */
+export function neverMarried(file: CaseFile): boolean {
+  return file.married.state === "answered" && file.married.value === false;
+}
+
 export function claimKindOf(file: CaseFile, listWords: (codes: string[]) => string = (codes) => codes.join(", ")): ClaimKindHeld {
   const slot = file.claimKind;
   const question = slot.source?.kind === "answer" ? slot.source.question : "";

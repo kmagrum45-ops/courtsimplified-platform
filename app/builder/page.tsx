@@ -3,7 +3,7 @@
 import { OPEN_WHOLE_FORM_EVENT } from "./_components/openWholeForm";
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
-import { caseFileOf, claimKindOf, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, claimKindOf, kindForAnalysis, neverMarried, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
 import { factsWithRecord } from "../../src/lib/case-system/caseFile/chatTurnFacts";
 import { withoutUnsureAnswers } from "../../src/lib/case-system/caseFile/unsureAnswer";
 import { researchCaseContext } from "../../src/lib/case-system/caseFile/aiCaseContext";
@@ -948,7 +948,12 @@ function BuilderPageContent() {
           syncNotes: ["Built from completed intake analysis."],
         },
         intakeAnalysis: analysis,
-        intakeData: caseData,
+        // Without its masterResultPatch: that is the whole saved record merged with the new analysis, already spread at
+        // the top of this payload. Kept inside intakeData, each save nested the previous record in it: staging rows grew
+        // to 4.6 MB (intakeData 4.3 MB, five levels deep), and the case page, case file and Forms tab froze reading them
+        // (Chrome check of #545 at 7bce410, note 1). Nothing reads intakeData.masterResultPatch; the next save of an
+        // oversized row drops the nesting.
+        intakeData: (({ masterResultPatch: _nested, ...rest }) => (void _nested, rest))(caseData),
 
         source: "builder-intake",
         lifecycleStage: "intake-analyzed",
@@ -2498,7 +2503,7 @@ function BuilderPageContent() {
             {confirmedStage ? (
               <StageAnswerPanel
                 courtPath={courtPath}
-                notMarried={builderCaseFile.married.state === "answered" && builderCaseFile.married.value === false}
+                notMarried={neverMarried(builderCaseFile)}
                 confirmedStage={confirmedStage}
                 responding={respondingSide}
                 sideFromRecord={sideOf(situation) !== null}

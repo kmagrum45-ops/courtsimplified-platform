@@ -137,7 +137,10 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
   // in the boxes. Read over the record like the case file's answers, never copied into it.
   const [changingDates, setChangingDates] = useState(false);
   const storyDates = ownRecord.cohabitationStart === null && !changingDates ? livedTogetherFromStory(story) : null;
-  const record = storyDates ? { ...fromFile, cohabitationStart: storyDates.start, cohabitationEnd: storyDates.end } : fromFile;
+  // Where the person lives is the city they gave on Home ("City or municipality"), the case record's city: a recorded
+  // answer, read over the triage record and never asked here again (Chrome check of #545 at 7bce410, 3.4d).
+  const fromHome = fromFile.userMunicipality === null && homeCity.trim() ? { ...fromFile, userMunicipality: homeCity.trim() } : fromFile;
+  const record = storyDates ? { ...fromHome, cohabitationStart: storyDates.start, cohabitationEnd: storyDates.end } : fromHome;
   // Questions set aside on this page with "I'd rather not answer yet": the next one is asked (statusTriage.ts).
   const [deferred, setDeferred] = useState<ReadonlySet<TriageQuestionId>>(new Set());
   const question = selectNextTriageQuestion(record, deferred);
@@ -308,6 +311,36 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
       );
     }
 
+    if (current.kind === "municipality-other") {
+      return (
+        <div className="mt-4 space-y-3">
+          <label className="block text-sm">
+            <span className="font-semibold text-[#10231f]">Where the other person lives</span>
+            <input
+              data-testid="triage-municipality-other"
+              value={otherMunicipality}
+              onChange={(event) => setOtherMunicipality(event.target.value)}
+              className="mt-1 w-full rounded-xl border border-[#d8e6df] bg-white p-2"
+            />
+          </label>
+          <div className="flex flex-wrap gap-3">
+            <button
+              type="button"
+              data-testid="triage-municipality-record"
+              disabled={!otherMunicipality.trim()}
+              onClick={() => update({ otherPartyMunicipality: otherMunicipality.trim() })}
+              className="rounded-full bg-[#2f7d67] px-5 py-2 text-sm font-bold text-white disabled:opacity-60"
+            >
+              Record this
+            </button>
+            <button type="button" data-testid="triage-answer-not-yet" onClick={() => update({ otherPartyMunicipality: "not-yet" })} className={chip}>
+              I don&apos;t know
+            </button>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="mt-4 space-y-3">
         <div className="grid gap-3 sm:grid-cols-2">
@@ -338,7 +371,8 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
             onClick={() =>
               update({
                 userMunicipality: userMunicipality || null,
-                otherPartyMunicipality: otherMunicipality || null,
+                // Left empty: not known yet, so the other person's question is not asked again on its own.
+                otherPartyMunicipality: otherMunicipality || "not-yet",
               })
             }
             className="rounded-full bg-[#2f7d67] px-5 py-2 text-sm font-bold text-white disabled:opacity-60"
