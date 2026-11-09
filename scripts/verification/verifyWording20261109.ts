@@ -9,13 +9,19 @@
  * carry the quote it was approved with, found in the saved official text (findQuote); the deadline sentences carry their
  * rules beside the qualifier (r. 1.02 (1), r. 11.02 (1), r. 11.1.01 (2)).
  *
- * WHAT FAILURE THIS CATCHES: an approved wording change lost, applied to the wrong stage, or applied on one screen only.
+ * Also (owner, 2026-11-09): "delivery confirmation" is the one term added to the reading gate's term-of-art list for change
+ * 4, and the gate still fails a block that is hard to read for any other reason.
+ *
+ * WHAT FAILURE THIS CATCHES: an approved wording change lost, applied to the wrong stage, or applied on one screen only;
+ * or the reading exception widened.
  *
  * Run: npm run test:wording-20261109
  */
 import lib from "../../src/lib/content-library/published/stageAnswers.published.json";
 import { ALL_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 import { findQuote } from "../content/verifiedContentPipeline";
+import { assessReadability, TERMS_OF_ART } from "../../src/lib/content-library/readabilityExceptions";
+import { answerText } from "../../src/lib/content-library/stageAnswers";
 
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
@@ -97,6 +103,17 @@ for (const stage of ALL_STAGES) {
   }
   check(`7. stage map ${stage.id}: the old wording is gone`, !qualifiers.includes(C7.old));
 }
+
+// Change 4 and the reading gate (owner's decision, 2026-11-09): "delivery confirmation" (r. 8.03 (8)) is the one term
+// added to the term-of-art list. The exception stays narrow: a block that is hard to read for any other reason still fails.
+const service = blocks.find((b) => b.stageId === "plaintiff:service-attempted-failed");
+const serviceGate = assessReadability(answerText(service as never));
+check("8. service-attempted-failed passes the reading gate only through the listed term", serviceGate.withinTarget === true && serviceGate.exception?.term === "delivery confirmation", JSON.stringify({ grade: serviceGate.grade, exception: serviceGate.exception?.term ?? null }));
+check("8. the term list holds exactly \"settlement conference\" and \"delivery confirmation\"", JSON.stringify(TERMS_OF_ART.map((t) => t.term)) === JSON.stringify(["settlement conference", "delivery confirmation"]));
+const HARD = "Notwithstanding the aforementioned circumstances, the respondent's comprehensive documentation substantially demonstrates organizational irregularities necessitating extraordinary administrative reconsideration. ";
+check("9. a block too hard to read with no listed term still fails", assessReadability(HARD.repeat(3)).withinTarget === false && assessReadability(HARD.repeat(3)).exception === null);
+check("9. a block too hard to read for other reasons still fails, even naming the delivery confirmation", (() => { const a = assessReadability(`${HARD.repeat(3)}Keep the delivery confirmation.`); return a.withinTarget === false && a.exception === null; })());
+check("9. naming the delivery confirmation more than twice is not excused", (() => { const a = assessReadability(`Find the delivery confirmation. Read the delivery confirmation. Keep the delivery confirmation. ${HARD}`); return a.withinTarget === false && a.exception === null; })());
 
 console.log(failures ? `\n${failures} check(s) failed.` : "\nThe seven wording changes of 2026-11-09 are in every stage named and no other.");
 process.exit(failures ? 1 : 0);
