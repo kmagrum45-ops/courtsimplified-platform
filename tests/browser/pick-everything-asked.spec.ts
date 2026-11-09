@@ -12,8 +12,8 @@
  *
  * What it checks, Civil and Family, with the real save path (a real local or staging account; realTestSession.ts refuses
  * production) and the model stand-ins, Chrome's stories: the pick-everything question is shown with its boxes; the story's
- * kind is offered there ("Use the suggestion" ticks it, never answers for the person); a second kind is ticked too; after
- * Next, the review holds both.
+ * kind is offered for that question alone (never bundled into another question's offer); "No, let me answer" opens its
+ * boxes; the person ticks the story's kind and a second one; after Next, the review holds both.
  *
  * WHAT FAILURE THIS CATCHES: a "pick everything" question answered for the person with one choice and no way to add more.
  */
@@ -48,11 +48,14 @@ for (const court of ["civil", "family"] as const) {
       await openBuilder(page, court, { city: "Ottawa", story });
       const question = page.getByTestId("guided-form-question");
       await expect(question, "the pick-everything question is shown first").toHaveAttribute("data-key", "issues", { timeout: 60_000 });
+      // The story's kind is offered for this question alone (never inside another question's offer).
+      const offer = question.getByTestId("guided-form-from-story");
+      await expect(offer, "the story's kind is offered for this question alone").toHaveAttribute("data-group", "issues");
+      expect(JSON.parse((await offer.getAttribute("data-value")) ?? "[]"), "the offer is the story's kind").toContain(fromStory);
+      // "No, let me answer" opens the boxes; the person ticks the story's kind and a second one, then Next.
+      await offer.getByTestId("guided-form-from-story-no").click();
       await expect(page.getByTestId(`guided-check-${added}`), "its boxes are shown, so more than one can be picked").toBeVisible();
-      // The story's kind is offered, never ticked for the person.
-      await expect(page.getByTestId(`guided-check-${fromStory}`)).not.toBeChecked();
-      await page.getByTestId("guided-form-multi-from-story").getByRole("button", { name: /Use the suggestion/ }).click();
-      await expect(page.getByTestId(`guided-check-${fromStory}`)).toBeChecked();
+      await page.getByTestId(`guided-check-${fromStory}`).check();
       await page.getByTestId(`guided-check-${added}`).check();
       await page.getByTestId("guided-form-next").click();
       await expect(question).not.toHaveAttribute("data-key", "issues", { timeout: 30_000 });

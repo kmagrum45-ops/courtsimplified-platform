@@ -380,7 +380,7 @@ export default function GuidedFormChat({
       {current ? (
         <div data-testid="guided-form-question" data-key={current.key} className="mt-5 rounded-2xl border-2 border-[#2f7d67] bg-white p-4">
           {(() => {
-            const offered = !changing && !notFromStory.has(current.key) && current.kind !== "multi" ? current.fromStory?.(values) ?? null : null;
+            const offered = !changing && !notFromStory.has(current.key) ? current.fromStory?.(values) ?? null : null;
             if (!offered || answerNeedsMore(current, offered.value)) return null;
             const words = (field: GuidedField, value: string | string[]) => (Array.isArray(value) ? value : [value])
               .map((item) => field.options?.find((option) => option.value === item)?.label ?? item)
@@ -450,21 +450,6 @@ export default function GuidedFormChat({
               ))}
             </div>
           ) : current.kind === "multi" ? (
-            <>
-            {(() => {
-              // The story's picks, OFFERED beside the boxes: "Use the suggestion" ticks them, and the person can tick
-              // more or untick them before Next (rule 4; B6).
-              const multiOffer = !changing && !notFromStory.has(current.key) ? current.fromStory?.(values) ?? null : null;
-              const picks = multiOffer && Array.isArray(multiOffer.value) ? multiOffer.value.filter((value) => (current.options ?? []).some((option) => option.value === value)) : [];
-              if (!multiOffer || picks.length === 0) return null;
-              const labels = picks.map((value) => current.options?.find((option) => option.value === value)?.label ?? value).join("; ");
-              return (
-                <div data-testid="guided-form-from-story" data-value={JSON.stringify(picks)}><div data-testid="guided-form-multi-from-story" className="mt-3 rounded-xl border border-[#d8e6df] bg-[#f8fcfa] p-3 text-sm text-[#4d675f]">
-                  <p>From what you told us: &ldquo;{cutAtWord(multiOffer.quote, 200)}&rdquo;</p>
-                  <UseSuggestion testId="guided-form-multi-use" what={labels} onUse={() => setDraft([...new Set([...(Array.isArray(draft) ? draft : []), ...picks])])} className="mt-2 rounded-xl border border-[#2f7d67] bg-white px-4 py-2 text-left text-sm font-semibold text-[#2f7d67]" />
-                </div></div>
-              );
-            })()}
             <div className="mt-3 grid gap-2 md:grid-cols-2">
               {(current.options ?? []).map((option) => {
                 const list = Array.isArray(draft) ? draft : [];
@@ -483,7 +468,6 @@ export default function GuidedFormChat({
                 );
               })}
             </div>
-            </>
           ) : current.kind === "longtext" ? (
             <textarea
               aria-label={partial ? partial.question : current.question}
