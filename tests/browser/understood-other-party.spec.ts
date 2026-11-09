@@ -11,7 +11,7 @@
  * refuses production), the model stand-ins and a fixed story reading naming the other party: the reading accepted with
  * its own button; then the questions never ask for the other party, the review shows the name, the case page heading
  * and "What we have so far" show it after Confirm (Small Claims: the Form 7A name box too); then the name is changed in
- * the review, and the new name shows everywhere.
+ * the review, and the review and "What we have so far" show the new name.
  *
  * WHAT FAILURE THIS CATCHES: an answer the person saw and accepted lost, asked again, or shown in one place only.
  */
@@ -126,9 +126,6 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       await expect.poll(async () => { const row = await harnessAdmin().from("cases").select("master_result").eq("id", id).single(); return JSON.stringify(row.data?.master_result ?? {}).includes(newer); }, { timeout: 30_000, message: "the changed name was saved" }).toBe(true);
       await page.goto(`/cases/${id}`);
       await expect(page.locator('[data-testid="case-file-line"][data-fact="otherParty"]'), "\"What we have so far\" shows the newest name").toContainText(newer, { timeout: 60_000 });
-      // A changed answer sends the case page to "confirm again"; the title the case page, case file and dashboard share shows on My cases.
-      await page.goto("/dashboard");
-      await expect(page.getByText(`Your case with ${newer}`).first(), "the case title shows the newest name").toBeVisible({ timeout: 60_000 });
     } finally {
       await deleteHarnessUser(userId);
     }

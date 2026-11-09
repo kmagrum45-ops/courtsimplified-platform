@@ -30,6 +30,7 @@
  * conclusion into the user's experience without ever stating it, which is worse
  * than stating it, because it cannot be argued with.
  */
+import { MONTH_WORDS_EN } from "../dates";
 
 /**
  * Every source cited below is vendored under docs/sources/ and checked by
@@ -215,7 +216,8 @@ export function selectNextTriageQuestion(record: FamilyStatusRecord, deferred: R
   return next ? QUESTIONS[next] : null;
 }
 
-const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+// The month names, from the one place that lists them (dates.ts).
+const MONTH_NAMES: readonly string[] = MONTH_WORDS_EN;
 const monthOf = (word: string): number | null => {
   const found = MONTH_NAMES.findIndex((name) => name.toLowerCase().startsWith(word.toLowerCase().replace(/\.$/, "")) && word.replace(/\.$/, "").length >= 3);
   return found < 0 ? null : found + 1;
@@ -254,7 +256,7 @@ export function partialDateWords(value: string): string {
   return day ? `${name} ${Number(day)}, ${year}` : `${name} ${year}`;
 }
 
-const STORY_DATE = `(?:(?:${MONTH_NAMES.join("|")}|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sept?|Oct|Nov|Dec)\\.? (?:\\d{1,2},? )?)?\\d{4}`;
+const STORY_DATE = `(?:(?:${MONTH_NAMES.join("|")}|${MONTH_NAMES.map((name) => name.slice(0, 3)).join("|")}|Sept)\\.? (?:\\d{1,2},? )?)?\\d{4}`;
 const LIVED_TOGETHER = new RegExp(`\\blived together (?:from|since|starting in|beginning in|in) (${STORY_DATE})(?:\\s*(?:to|until|till|through|-|–)\\s*(${STORY_DATE}))?`, "i");
 const MOVED_IN = new RegExp(`\\bmoved in together in (${STORY_DATE})(?:[^.]*?\\b(?:separated|split up|broke up|moved out)(?: in)? (${STORY_DATE}))?`, "i");
 

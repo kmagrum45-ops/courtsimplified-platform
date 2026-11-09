@@ -2663,6 +2663,11 @@ export function isMunicipalNoticeStep(noticeStepId: string, story = "", city = "
   return noticeStepId === "civil:before-filing:notice-required-before-suing" && (NOTICE_FITS["municipal-act-2001"]!(prose, city) || NOTICE_FITS["city-of-toronto-act-2006"]!(prose, city));
 }
 
+/** A step's practical view without the Application (Divorce), for someone who recorded they were never married (B4). */
+export function withoutDivorceApplication(view: PracticalView | null, notMarried: boolean): PracticalView | null {
+  return view && notMarried ? { ...view, forms: view.forms.filter((form) => !(form.court === "family" && form.number === "8A")) } : view;
+}
+
 export function practicalFor(
   stepId: string,
   court: PracticalCourt,

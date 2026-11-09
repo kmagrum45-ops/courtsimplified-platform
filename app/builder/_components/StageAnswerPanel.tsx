@@ -60,6 +60,7 @@ import {
   todayInOntario,
   type PlainLine,
   type PracticalCourt,
+  withoutDivorceApplication,
 } from "@/src/lib/content-library/nextStepPractical";
 import { datesFromPicture, stepFromPicture, type CasePicture } from "@/src/lib/case-system/intake/caseReader";
 import { amountNoteFor } from "@/src/lib/case-system/amountNotes";
@@ -562,7 +563,7 @@ export function NextStepCard({
   const today = todayIso();
   // The counted last day the filing and service lines are timed against (walkthrough run 38525903567, SD).
   const filingDeadline = cardFilingDeadline(summary, arrival, responding, userWords, city, stepId);
-  const practical = practicalFor(stepId, court as PracticalCourt, city, responding, userWords, noticeStepId, { deadline: filingDeadline.filing, serveBy: filingDeadline.serving, today, divisionalOnly: filingDeadline.divisionalOnly, notMarried });
+  const practical = withoutDivorceApplication(practicalFor(stepId, court as PracticalCourt, city, responding, userWords, noticeStepId, { deadline: filingDeadline.filing, serveBy: filingDeadline.serving, today, divisionalOnly: filingDeadline.divisionalOnly }), notMarried);
   const toDo = answer.sections.find((section) => section.heading === "What to do next")?.text ?? "";
   // The answer's first paragraph speaks of every notice the step covers; once
   // the notice filter has narrowed them, the card leaves it to the full
@@ -1296,7 +1297,7 @@ export function withoutSentencesNaming(paragraph: string, naming: RegExp): strin
  * (Chrome check of production c38e69fd, B4: shown for an $85,000 claim). Not one word of them is changed; with no amount
  * recorded they are shown.
  */
-const SMALL_CLAIMS_SIZED_LEAVE = [
+export const LEAVE_SENTENCES = [
   /^The Small Claims Court can hear a claim for money up to a set amount\b/,
   /^That amount is \$50,000\.$/,
   /^If your claim is within that limit, it can only be started in the Superior Court with that court's leave\.$/,
@@ -1308,7 +1309,7 @@ const SMALL_CLAIMS_SIZED_LEAVE = [
 export function forThisPerson(paragraph: string, { userWords, filingShown, amount = null }: { userWords: string; filingShown: boolean; amount?: number | null }): string {
   let text = paragraph;
   if (amount !== null && amount > 50_000) {
-    text = splitSentences(text).filter((sentence) => !SMALL_CLAIMS_SIZED_LEAVE.some((pattern) => pattern.test(sentence.trim()))).join(" ");
+    text = splitSentences(text).filter((sentence) => !LEAVE_SENTENCES.some((pattern) => pattern.test(sentence.trim()))).join(" ");
   }
   if (!/\bmortgage/i.test(userWords)) {
     text = text.replace(/,? or Form 14B for a mortgage action/g, "").replace(/ \(Form 14A, or Form 14B for a mortgage action\)/g, " (Form 14A)");

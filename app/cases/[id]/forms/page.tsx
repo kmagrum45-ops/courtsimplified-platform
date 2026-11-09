@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 import FormsNamedHere from "../../../_components/FormsNamedHere";
 import NextStepPractical from "../../../_components/NextStepPractical";
-import { practicalFor, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
+import { practicalFor, withoutDivorceApplication, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
 import FormsWorkspace from "../../../forms/FormsWorkspace";
 import { officialFormsNamedIn, relevantToFamilyCase, userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { authHeaders, useCaseHome } from "../../_components/CaseHomeContext";
@@ -37,7 +37,7 @@ export default function CaseFormsSection() {
   const married = caseFileOfMaster(caseRecord.master_result, courtPath).married;
   const notMarried = married.state === "answered" && married.value === false;
   const practical =
-    courtPath && stepId ? practicalFor(stepId, courtPath as PracticalCourt, city, responding, userWords, noticeStepId, { notMarried }) : null;
+    withoutDivorceApplication(courtPath && stepId ? practicalFor(stepId, courtPath as PracticalCourt, city, responding, userWords, noticeStepId) : null, notMarried);
 
   useEffect(() => {
     if (!courtPath || !position.confirmedStage) {
