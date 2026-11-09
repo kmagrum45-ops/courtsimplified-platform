@@ -459,10 +459,10 @@ export default function GuidedFormChat({
               if (!multiOffer || picks.length === 0) return null;
               const labels = picks.map((value) => current.options?.find((option) => option.value === value)?.label ?? value).join("; ");
               return (
-                <div data-testid="guided-form-multi-from-story" className="mt-3 rounded-xl border border-[#d8e6df] bg-[#f8fcfa] p-3 text-sm text-[#4d675f]">
+                <div data-testid="guided-form-from-story" data-value={JSON.stringify(picks)}><div data-testid="guided-form-multi-from-story" className="mt-3 rounded-xl border border-[#d8e6df] bg-[#f8fcfa] p-3 text-sm text-[#4d675f]">
                   <p>From what you told us: &ldquo;{cutAtWord(multiOffer.quote, 200)}&rdquo;</p>
                   <UseSuggestion testId="guided-form-multi-use" what={labels} onUse={() => setDraft([...new Set([...(Array.isArray(draft) ? draft : []), ...picks])])} className="mt-2 rounded-xl border border-[#2f7d67] bg-white px-4 py-2 text-left text-sm font-semibold text-[#2f7d67]" />
-                </div>
+                </div></div>
               );
             })()}
             <div className="mt-3 grid gap-2 md:grid-cols-2">
