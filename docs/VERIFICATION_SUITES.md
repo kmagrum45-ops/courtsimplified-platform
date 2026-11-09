@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-251 documented, 26 without a header.
+253 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -60,6 +60,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:child-support-table-card` | **The table card explains the table and never works an example.**<br>COSTS NOTHING. Reads the component source and the vendored sources. No render, no network. |
 | `npm run test:chrome-29oct-flow` | **The site owner's Chrome re-test of 29 Oct, flow items C, D3 and H, checked through**<br>the real code with no browser, no model and no database. |
 | `npm run test:chrome-29oct-safety` | **The site owner's Chrome re-test of 29 October, items E, F and G: safety,**<br>deadlines and the Family "which court" step. Known problems, written as FAILING checks before any fix (tests/browser/harness/knownProblems29oct-safety.ts lists each one, in plain words). |
+| `npm run test:chrome-545-round` | **THE CHROME CHECK OF #545 AT 7bce410 (9 Nov 2026), THE RULES BEHIND EACH FIX, IN ALL THREE COURTS WHERE THEY APPLY.**<br>B1 (3.5): Form 8A, the Application (Divorce), is in no list of a step's forms for someone who recorded they were never married: the card's forms, "Forms for your next step", the catalogue's "For your step" tag (leadForms), the folded forms, and the forms named |
 | `npm run test:citations` | **EVERY CITATION THE SITE SHOWS SAYS EXACTLY WHAT IT CITES (Charter re-test, 27 Oct, root cause 5).**<br>Runs over the whole library: every quoted citation in the stage map (its steps, deadlines, moves and final steps), the rules shown beside published sentences, the practical lines (forms, fees, filing, service), and every source's name. For each it asserts, as  |
 | `npm run test:cited-provisions` | **Every cited provision is vendored, and no not-in-force replacement is**<br>undeclared or stale. |
 | `npm run test:claim-amount` | **The amount offered as "the amount claimed" is the one owed, claimed or the**<br>damage -- never an amount already paid, a fee or a price -- and nothing is offered when the story leaves it unclear (claimAmount.ts). |
@@ -115,6 +116,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:held-back-cases` | **The ten held-back finish-line cases stay held back**<br>(tests/browser/walkthrough/heldBackPersonas.ts; master plan decision log, 2026-10-08). |
 | `npm run test:help-at-limits` | **Where the site says it cannot do something, it points to a person who can**<br>(master plan finish line: "a case the site cannot fully handle says so and points to help"). |
 | `npm run test:historical-law` | **test:historical-law -- the "law as it read on a past date" shelf**<br>(scripts/retrieval/historicalSources.ts, 2026-10-09). |
+| `npm run test:in-flight-edit-kept` | **AN ANSWER CHANGED AGAIN WHILE ITS PREVIOUS SAVE IS STILL ON THE WAY IS KEPT, NOT TREATED AS ANOTHER TAB'S OLDER VIEW**<br>(read-only investigation, 9 Nov 2026: the carry test's occasional "typed 9350 in Change, pressed Confirm, every screen shows $9,100", 4 runs in 16 on a1ca8efe and on 7bce4102). |
 | `npm run test:intake-guidance-gate` | **Phase 4: the same confirmation/revision policy governs HTTP and presentation.**<br>Synthetic owned cases exercise collecting, review, legacy, forged proofs, cross-case/court/account refusal, late responses and stale generated guidance. Actual unauthenticated endpoints are called too: no network, AI or real data. |
 | `npm run test:intake-requests` | **Synthetic request failures only. No network, credentials, or case writes.**<br>Synthetic request failures only. No network, credentials, or case writes. |
 | `npm run test:intake-review` | **Explicit initial-intake review across all three courts. Exercises revision-bound**<br>confirmation, legacy compatibility, editable summaries and optional evidence. Prevents analysis or stale answers from silently completing a user's intake. Synthetic in-memory inputs only; no external AI or real cases. |

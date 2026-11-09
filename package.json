@@ -279,6 +279,8 @@
     "test:family-triage-dates": "node --import tsx scripts/verification/verifyFamilyTriageDates.ts",
     "test:step-forms-and-text": "node --import tsx scripts/verification/verifyStepFormsAndText.ts",
     "test:form-count": "node --import tsx scripts/verification/verifyFormCount.ts",
+    "test:in-flight-edit-kept": "node --import tsx scripts/verification/verifyInFlightEditKept.ts",
+    "test:chrome-545-round": "node --import tsx scripts/verification/verifyChrome545Round.ts",
     "test:story-date-never-replaces": "node --import tsx scripts/verification/verifyStoryDateNeverReplaces.ts",
     "test:one-deadline-source": "node --import tsx scripts/verification/verifyOneDeadlineSource.ts",
     "test:no-next-step-unconfirmed": "node --import tsx scripts/verification/verifyNoNextStepUnconfirmed.ts",

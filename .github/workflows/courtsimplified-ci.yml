@@ -306,6 +306,12 @@ jobs:
       - name: One count of each court's official forms, and each form shown once (B5)
         run: npm run test:form-count
 
+      - name: An answer changed while its previous save is on the way is kept; another tab's save is still a conflict
+        run: npm run test:in-flight-edit-kept
+
+      - name: Chrome check of #545 at 7bce410 -- one form rule, municipality once, story dates named, case file lines, saved title
+        run: npm run test:chrome-545-round
+
       - name: A date kept from the story never replaces the person's answer or their "not sure" (B2, 9 Nov)
         run: npm run test:story-date-never-replaces
 
@@ -868,6 +874,7 @@ jobs:
           tests/browser/understood-other-party.spec.ts
           tests/browser/worked-out-date-not-an-answer.spec.ts
           tests/browser/pick-everything-asked.spec.ts
+          tests/browser/chrome-545-round.spec.ts
           tests/browser/claim-kind-one-value.spec.ts
           tests/browser/chrome-31oct-review.spec.ts
           tests/browser/change-answer.spec.ts
