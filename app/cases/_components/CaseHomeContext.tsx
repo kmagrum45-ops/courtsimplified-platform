@@ -65,6 +65,13 @@ export const COURT_LABELS: Record<string, string> = {
 export function caseTitle(record: CaseRecord): string {
   const title = (record.title || "").trim();
   if (!isGeneratedTitle(title)) return title;
+  // A list of cases (the dashboard) loads no case file: it reads the title the one writer saved when the other party was
+  // (factRecord.ts applyFactWrites). A page with the whole case reads the case file below, as before.
+  const master = (record.master_result ?? {}) as Record<string, unknown>;
+  // (The dashboard's slim record carries a few checkpoint ids, never its sections: that is what "no case file" means.)
+  const sections = (master.intakeCheckpoint as Record<string, unknown> | undefined)?.sections;
+  const loaded = Boolean(sections && typeof sections === "object" && Object.keys(sections).length);
+  if (!loaded && typeof master.caseTitle === "string" && master.caseTitle.trim()) return master.caseTitle.trim();
   // Who the case is with, from the case file (the "The other party" line), else the saved copy of the answers: after a
   // restart the copy had no name while the case file did, and the heading went back to "Small Claims case" (F15).
   return caseTitleFromIntake(otherPartyOfMaster(record.master_result, record.court_path), record.court_path);

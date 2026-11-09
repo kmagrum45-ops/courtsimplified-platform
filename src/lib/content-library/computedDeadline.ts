@@ -48,7 +48,7 @@ import { computeDeadline } from "../case-system/deadlines/deadlineEngine";
 import { formatLongDate } from "../case-system/deadlines/holidays";
 import { DEADLINE_TEMPLATES, type DeadlineTemplateId } from "../case-system/deadlines/deadlineTemplates";
 import { closureWarningFor } from "../case-system/deadlines/courtServiceNotices";
-import type { CaseDates } from "../case-system/deadlines/deadlineEvents";
+import { storyEventsOf, type CaseDates } from "../case-system/deadlines/deadlineEvents";
 import type { StageDeadline } from "../case-system/stage-map/stageMap";
 import type { RuleCitation } from "../case-system/stage-map/citations";
 import { assertApprovedUserContent } from "./outputGuard";
@@ -224,8 +224,13 @@ export function computedDeadlinesFor(
      */
     const spelled = formatLongDate(result.deadline);
 
+    // Where the date came from, in the words: the person's story, or a date they gave (Chrome check of #545, 5).
+    const fromEvent = presumed ? (dates["injury-occurred"] ? "injury-occurred" : "act-or-omission") : String(deadline.countFromEvent);
+    const fromStory = storyEventsOf(dates).has(fromEvent);
     const statement = guardedFill(
-      deadline.direction === "before" ? "computed-date-backward" : "computed-date-forward",
+      deadline.direction === "before"
+        ? fromStory ? "computed-date-backward-story" : "computed-date-backward"
+        : fromStory ? "computed-date-forward-story" : "computed-date-forward",
       { result: spelled },
       context,
     );
