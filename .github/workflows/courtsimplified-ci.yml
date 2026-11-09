@@ -551,6 +551,9 @@ jobs:
       - name: The published stage answers are the promoted, gated set
         run: npm run test:published-library
 
+      - name: The seven Small Claims wording changes of 2026-11-09 are in every stage named and no other
+        run: npm run test:wording-20261109
+
       - name: Stage-independent answers rest on quoted sources
         run: npm run test:generic-library
 
