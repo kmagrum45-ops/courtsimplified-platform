@@ -28,7 +28,7 @@ import { NextResponse } from "next/server";
 
 import { renderStageAnswerOrRefuse, renderStageRulesOnly } from "../../../../src/lib/content-library/stageAnswerView";
 import { findStage, isSpecialStage } from "../../../../src/lib/case-system/stage-map/stageMap";
-import { caseDatesFrom, caseDatesWithStory } from "../../../../src/lib/case-system/deadlines/deadlineEvents";
+import { caseDatesFrom, markStoryDates } from "../../../../src/lib/case-system/deadlines/deadlineEvents";
 import { computedDeadlinesFor } from "../../../../src/lib/content-library/computedDeadline";
 import { dateQuestionsForStep, isDateQuestionId } from "../../../../src/lib/case-system/casePosition";
 import { notABarExceptions, servedWhenLines } from "../../../../src/lib/content-library/nextStepPractical";
@@ -87,7 +87,7 @@ async function postGuidance(request: Request) {
   }
   // The date questions whose answer the step page read from the person's story (B6): the deadline says so.
   const fromStory = Array.isArray(body.datesFromStory) ? body.datesFromStory.filter((id: unknown): id is string => typeof id === "string" && id in answers) : [];
-  const dates = caseDatesWithStory(answers, fromStory);
+  const dates = markStoryDates(caseDatesFrom(answers), answers, fromStory);
 
   const outcome = renderStageAnswerOrRefuse(stageId, facts, dates, scope);
 

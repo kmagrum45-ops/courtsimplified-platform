@@ -81,7 +81,7 @@ check("B6. a date from the story: \"Based on the date in your story\"", /Based o
 check("B6. a date the person gave: \"Based on the date you gave us\", as before", /Based on the date you gave us/.test(given) && !/in your story/.test(given), given);
 check("B6. the date counted is the same either way", fromStory.replace(/in your story/g, "") === given.replace(/you gave us/g, ""));
 check("B6. the step card sends which dates came from the story", /datesFromStory: storyDateIds\(/.test(read("app/builder/_components/StageAnswerPanel.tsx")));
-check("B6. the card's route, the case file and the workspace mark them", /caseDatesWithStory\(answers, fromStory\)/.test(read("app/api/case/stage-answer/route.ts")) && /datesFromStory: position\.datesFromStory/.test(read("app/cases/[id]/case-file/page.tsx")) && /caseDatesWithStory\(/.test(read("app/api/workspace/organisation/route.ts")));
+check("B6. the card's route, the case file and the workspace mark them", /markStoryDates\(caseDatesFrom\(answers\), answers, fromStory\)/.test(read("app/api/case/stage-answer/route.ts")) && /datesFromStory: position\.datesFromStory/.test(read("app/cases/[id]/case-file/page.tsx")) && /markStoryDates\(caseDatesFrom\(/.test(read("app/api/workspace/organisation/route.ts")));
 
 // ---- B7 ----
 const caseFilePage = read("app/cases/[id]/case-file/page.tsx");

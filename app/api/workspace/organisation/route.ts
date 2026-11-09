@@ -57,7 +57,7 @@ import { DOCUMENT_TYPES } from "@/src/lib/case-workspace/documentTypes";
 import { computedDeadlinesFor } from "@/src/lib/content-library/computedDeadline";
 import { keptForNotices, timelineStandingFor, todayInOntario } from "@/src/lib/content-library/nextStepPractical";
 import { userWordsOf } from "@/src/lib/content-library/forms/formsInText";
-import { DEADLINE_EVENTS, caseDatesFrom, caseDatesWithStory } from "@/src/lib/case-system/deadlines/deadlineEvents";
+import { DEADLINE_EVENTS, caseDatesFrom, markStoryDates } from "@/src/lib/case-system/deadlines/deadlineEvents";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { officialUrl, sourceName } from "@/src/lib/case-system/stage-map/citations";
 import { readCasePosition, storyHintsForDates } from "@/src/lib/case-system/casePosition";
@@ -378,7 +378,7 @@ async function getOrganisation(req: NextRequest) {
       );
       // The story's own dates, and those the step page kept from it (casePosition datesFromStory): the deadline says the
       // date is from the story (B6).
-      const dates = caseDatesWithStory({ ...storyDates, ...confirmedDates }, [...Object.keys(storyDates), ...(position.datesFromStory ?? [])]);
+      const dates = markStoryDates(caseDatesFrom({ ...storyDates, ...confirmedDates }), { ...storyDates, ...confirmedDates }, [...Object.keys(storyDates), ...(position.datesFromStory ?? [])]);
       const fromStoryNote = (countFromEvent: string | undefined) => {
         const questionId = countFromEvent ? (DEADLINE_EVENTS as Record<string, { questionId?: string }>)[countFromEvent]?.questionId : undefined;
         return questionId && storyDates[questionId]

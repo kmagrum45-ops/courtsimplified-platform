@@ -537,7 +537,11 @@ const STORY_EVENTS = new WeakMap<CaseDates, ReadonlySet<string>>();
  * The dates themselves, and how a deadline is counted from them, are exactly caseDatesFrom's.
  */
 export function caseDatesWithStory(answers: Record<string, string | undefined>, fromStory: readonly string[] = []): CaseDates {
-  const dates = caseDatesFrom(answers);
+  return markStoryDates(caseDatesFrom(answers), answers, fromStory);
+}
+
+/** Marks, on dates caseDatesFrom built from `answers`, which came from the story (`fromStory`: question ids). */
+export function markStoryDates(dates: CaseDates, answers: Record<string, string | undefined>, fromStory: readonly string[] = []): CaseDates {
   const picked = Object.fromEntries(fromStory.filter((id) => answers[id]).map((id) => [id, answers[id]]));
   const events = Object.keys(caseDatesFrom(picked));
   if (events.length) STORY_EVENTS.set(dates, new Set(events));
