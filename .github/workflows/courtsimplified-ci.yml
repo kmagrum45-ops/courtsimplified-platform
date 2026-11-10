@@ -68,6 +68,9 @@ jobs:
       - name: Routing rules fixed by law (construction liens, the $50,000 limit) win over the model
         run: npm run test:fixed-regimes
 
+      - name: The tribunal notice comes first, from one code rule, before any follow-up question (C1)
+        run: npm run test:tribunal-first
+
       - name: AI routes that need no sign-in are limited per visitor and by a daily ceiling
         run: npm run test:ai-rate-limit
 
@@ -888,6 +891,7 @@ jobs:
           tests/browser/pick-everything-asked.spec.ts
           tests/browser/chrome-545-round.spec.ts
           tests/browser/feedback-link.spec.ts
+          tests/browser/tribunal-first.spec.ts
           tests/browser/claim-kind-one-value.spec.ts
           tests/browser/chrome-31oct-review.spec.ts
           tests/browser/change-answer.spec.ts

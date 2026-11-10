@@ -18,6 +18,7 @@ import { scrollAndFocus } from "./scrollFocus";
 import { pathwayDescriptionFor } from "../../src/lib/content-library/pathwayDescriptions";
 import { assertApprovedUserContent } from "../../src/lib/content-library/outputGuard";
 import LegalAdviceDeflection from "./LegalAdviceDeflection";
+import TribunalNotice, { useTribunalFirst } from "./TribunalNotice";
 import AiUseNotice from "./AiUseNotice";
 import CaseUnderstandingCard, { type UnderstandResponse } from "./CaseUnderstandingCard";
 import PathwayUnavailable from "./PathwayUnavailable";
@@ -68,7 +69,7 @@ type CourtPathSuggestion =
        */
       reasoningForAuditLogOnly: string;
     }
-  | { kind: "out-of-scope"; forumName: string; message: string }
+  | { kind: "out-of-scope"; forumName: string; message: string; forumId?: string }
   | {
       /**
        * The story involves more than one matter (2026-09-30). Shows each
@@ -135,6 +136,8 @@ function HomeLocationGateContent() {
   const city = location?.city ?? "";
   const setCity = useCallback((value: string) => setLocation({ province: "Ontario", city: value }), [setLocation]);
   const [facts, setFacts] = useStory();
+  // The one tribunal rule (fixedRegimes.ts exclusiveTribunalFor), checked in Continue before the AI reading (C1).
+  const tribunalFirst = useTribunalFirst(facts.trim());
   const [situation] = useSituation();
   const [userId, setUserId] = useState<string | null>(null);
   const [hydrated, setHydrated] = useState(false);
@@ -347,6 +350,16 @@ function HomeLocationGateContent() {
     setChecking(true);
     setRequestError("");
     setSuggestion(null);
+
+    // A matter the code rule gives to a tribunal is said first, before the AI reading and before any follow-up
+    // question, signed in or not (C1, site owner 9 Nov 2026; CLAUDE.md s. 2a). Until 9 Nov the rule ran only when the
+    // reading was skipped (guests), so a signed-in person got the model's own label, under its questions.
+    if (tribunalFirst.held && tribunalFirst.tribunal) {
+      setReadFrom(facts.trim());
+      setSuggestion({ kind: "out-of-scope", forumName: tribunalFirst.tribunal.name, message: tribunalFirst.tribunal.redirectMessage, forumId: tribunalFirst.tribunal.id });
+      setChecking(false);
+      return;
+    }
 
     const drafts = draftAnswersRef.current;
     const answers = [...understoodAnswers.filter((old) => !drafts.some((item) => item.question === old.question)), ...drafts];
@@ -702,47 +715,15 @@ function HomeLocationGateContent() {
           )}
 
           {suggestion && suggestion.kind === "out-of-scope" && (
-            <div
-              ref={suggestionRef}
-              tabIndex={-1}
-              role="group"
-              aria-label="Court path check"
-              data-testid="court-path-out-of-scope"
-              className="mt-6 rounded-3xl border border-[#ead9a7] bg-[#fffaf0] p-5"
-            >
-              <h2 className="text-lg font-bold text-[#10231f]">CourtSimplified doesn&apos;t cover this</h2>
-              <p className="mt-2 text-sm leading-6 text-[#6e5726]">
-                {assertApprovedUserContent(
-                  suggestion.message,
-                  "HomeLocationGate:out-of-scope-redirect",
-                )}
-              </p>
-              <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-                This is a suggestion based on the words you used, not a decision about your case. If you believe this belongs in {pathLabels[path]}, you can continue anyway.
-              </p>
-              {/*
-                LSO Step 6e. The forum wording above is the library's own
-                redirectMessage, selected by id -- but a user told "we don't
-                cover this" and nothing else has been sent away with nowhere
-                to go. The referral list is the point of saying no.
-              */}
-              <div className="mt-4">
-                <LegalAdviceDeflection reason="out-of-scope" />
-              </div>
-
-              <div className="mt-4 flex flex-wrap gap-3">
-                <WorkingButton
-                  data-testid="court-path-out-of-scope-continue"
-                  disabled={opening !== null}
-                  working={opening === "court-path-out-of-scope-continue"}
-                  workingLabel="Opening your intake…"
-                  onClick={() => openIntake("court-path-out-of-scope-continue", path)}
-                  className="rounded-xl border border-[#bdd4ca] bg-white px-5 py-3 text-sm font-semibold text-[#1c473d]"
-                >
-                  Continue with {pathLabels[path]} anyway
-                </WorkingButton>
-              </div>
-            </div>
+            <TribunalNotice
+              panelRef={suggestionRef}
+              tribunal={{ id: suggestion.forumId, redirectMessage: suggestion.message }}
+              courtLabel={pathLabels[path]}
+              context="HomeLocationGate:out-of-scope-redirect"
+              disabled={opening !== null}
+              working={opening === "court-path-out-of-scope-continue"}
+              onContinue={() => { tribunalFirst.setAside(); openIntake("court-path-out-of-scope-continue", path); }}
+            />
           )}
 
           {/*

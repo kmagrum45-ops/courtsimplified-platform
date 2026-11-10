@@ -14,6 +14,7 @@ import {
 
 import type { CaseProvince } from "../architecture/masterCaseSchema";
 import { userStory } from "../userStory";
+import { COMMERCIAL_TENANCY_WORDS, RESIDENTIAL_TENANCY_WORDS } from "../intelligence/tenancyWords";
 
 export type CasePartnerRole = "user" | "assistant" | "system";
 
@@ -766,18 +767,8 @@ export function inferCourtArea(message: string): CasePartnerCourtArea {
   // A lease described as commercial, with nothing residential in the story,
   // scores no LTB signal and falls through to the ordinary court paths.
   const commercialTenancy =
-    countSignals(message, [
-      "commercial",
-      "strip mall",
-      "storefront",
-      "retail unit",
-      "office space",
-      "my restaurant",
-      "my store",
-      "my shop",
-      "business premises",
-    ]) > 0 &&
-    countSignals(message, ["apartment", "residential", "rental unit", "basement", "my home", "house i rent"]) === 0;
+    countSignals(message, [...COMMERCIAL_TENANCY_WORDS]) > 0 &&
+    countSignals(message, [...RESIDENTIAL_TENANCY_WORDS]) === 0;
   const ltb = commercialTenancy ? 0 : countSignals(message, [
     "landlord",
     "tenant",

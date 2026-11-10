@@ -9,6 +9,7 @@ import type { CaseUnderstanding, UnderstoodCourt } from "@/src/lib/case-system/u
 import { betterDestinationKnown } from "@/src/lib/case-system/understanding/betterDestination";
 import { isPathwayAvailable } from "@/src/lib/content-library/phaseScope";
 import LegalAdviceDeflection from "./LegalAdviceDeflection";
+import TribunalNotice from "./TribunalNotice";
 import { WorkingButton } from "./Working";
 import { UseSuggestion } from "./UseSuggestion";
 
@@ -115,6 +116,24 @@ export default function CaseUnderstandingCard({
         </p>
       </section>
 
+      {/*
+        The tribunal comes before any question (C1, site owner 9 Nov 2026). The code rule's notice (fixedRegimes.ts
+        exclusiveTribunalFor, the forum's own sourced words) when it named one; otherwise the reading's own "this may
+        belong to" line. Both were below the questions until 9 Nov.
+      */}
+      {understanding.tribunal ? (
+        <TribunalNotice tribunal={understanding.tribunal} courtLabel={PATH_LABEL[chosenPath]} context="CaseUnderstandingCard:tribunal" />
+      ) : tribunal ? (
+        <section className="rounded-2xl border border-[#ead9a7] bg-[#fffaf0] p-4" data-testid="case-understanding-tribunal">
+          <h3 className="font-bold text-[#10231f]">
+            {tribunal.title}: this may belong to {tribunal.forum || "a tribunal"}
+          </h3>
+          <div className="mt-3">
+            <LegalAdviceDeflection reason="out-of-scope" />
+          </div>
+        </section>
+      ) : null}
+
       {understanding.questions.length > 0 && (
         <section data-testid="case-understanding-questions">
           <h3 className="font-bold text-[#10231f]">What we still need to know</h3>
@@ -165,17 +184,6 @@ export default function CaseUnderstandingCard({
       )}
 
       <p className="text-sm">After the initial questions, you will review and confirm your information before receiving case-specific procedural guidance.</p>
-
-      {tribunal && (
-        <section className="rounded-2xl border border-[#ead9a7] bg-[#fffaf0] p-4" data-testid="case-understanding-tribunal">
-          <h3 className="font-bold text-[#10231f]">
-            {tribunal.title}: this may belong to {tribunal.forum || "a tribunal"}
-          </h3>
-          <div className="mt-3">
-            <LegalAdviceDeflection reason="out-of-scope" />
-          </div>
-        </section>
-      )}
 
       <section>
         <p className="text-sm text-[#24463d]">

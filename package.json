@@ -47,6 +47,7 @@
     "test:intake-start-screens": "node --import tsx scripts/verification/verifyIntakeStartScreens.ts",
     "test:story-guidance": "node --import tsx scripts/verification/verifyStoryGuidance.ts",
     "test:fixed-regimes": "node --import tsx scripts/verification/verifyFixedRegimes.ts",
+    "test:tribunal-first": "node --import tsx scripts/verification/verifyTribunalFirst.ts",
     "test:court-path-classifier": "node --import tsx scripts/verification/verifyCourtPathClassifier.ts",
     "test:depth-questions": "node --import tsx scripts/verification/verifyDepthQuestions.ts",
     "test:evidence-guidance": "node --import tsx scripts/verification/verifyEvidenceGuidanceClaims.ts",

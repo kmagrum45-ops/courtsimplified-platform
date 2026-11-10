@@ -956,6 +956,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
 
         {mode === "chat" ? (<>
           <GuidedFormChat
+            tribunalCourt="family"
             fields={guidedFields}
             values={guidedValues}
             onAnswer={answerGuided}
