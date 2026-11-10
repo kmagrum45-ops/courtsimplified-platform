@@ -280,7 +280,9 @@ export default function GuidedFormChat({
         // Only questions this chat asks: a field outside them rode along with "Yes" and was lost with
         // "No" (Charter re-test 27 Oct: the other party, bundled with "What you want", never asked again).
         if (field.initial === false) continue;
-        if (group.some((item) => item.field.key === field.key) || notFromStory.has(field.key) || skipped.has(field.key) || heldElsewhere.has(field.key) || field.confirmAlone) continue;
+        // A "pick everything" question is never answered inside a group: its boxes are shown, so more than one can be
+        // picked (Chrome check of production c38e69fd, B6: "Use the suggestion" for the amount took the kind too).
+        if (group.some((item) => item.field.key === field.key) || notFromStory.has(field.key) || skipped.has(field.key) || heldElsewhere.has(field.key) || field.confirmAlone || field.kind === "multi") continue;
         if ((field.when && !field.when(assumed)) || isAnswered(field, assumed[field.key])) continue;
         const offer = field.fromStory?.(assumed) ?? null;
         if (!offer || offer.quote !== quote || answerNeedsMore(field, offer.value)) continue;

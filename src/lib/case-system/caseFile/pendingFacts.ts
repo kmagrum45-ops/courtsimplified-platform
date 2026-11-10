@@ -60,6 +60,7 @@ export function afterSend(sections: Record<string, Record<string, unknown>>, sen
   const before = changesOf({ [CASE_FILE_SECTION]: { changes: sent } });
   const now = changesOf(sections);
   const accepted = new Set(response.saved.map((entry) => entry.fact));
+  const acceptedSeq = new Map(response.saved.map((entry) => [entry.fact, entry.seq]));
   const refused = new Map(response.conflicts.map((conflict) => [conflict.fact, conflict.stored]));
   const kept: FactChanges = {};
   for (const [fact, change] of Object.entries(now) as [SlotFact, FactChange][]) {
@@ -71,6 +72,16 @@ export function afterSend(sections: Record<string, Record<string, unknown>>, sen
       const { force: _force, ...rest } = change;
       void _force;
       kept[fact] = { ...rest, held: { state: stored.state, ...(stored.value !== undefined ? { value: stored.value } : {}), seq: stored.seq } } as FactChange;
+      continue;
+    }
+    // Changed again while this save was on the way, against the same saved answer the save was made against: the only
+    // save in between is this tab's own, so the newer edit now stands on the number the server just gave it. Without
+    // this the tab took its own save for another tab's: "9350" typed in Change while "9100" was saving was hidden and
+    // then refused as "Not saved yet", and Confirm kept $9,100 (carry test, about 1 run in 4; owner's yes, 9 Nov).
+    // A save from another tab still moves the record past this number, and is still a conflict.
+    const ownSeq = acceptedSeq.get(fact);
+    if (wasSent && !unchangedSinceSent && ownSeq !== undefined && (change.seen ?? 0) === (wasSent.seen ?? 0)) {
+      kept[fact] = { ...change, seen: ownSeq };
       continue;
     }
     kept[fact] = change;

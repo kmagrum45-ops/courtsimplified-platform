@@ -30,6 +30,7 @@
 import { CASE_FILE_SECTION, SLOT_FACTS, emptyCaseFile, give, type SlotFact } from "./caseFile";
 import type { CaseFact } from "./factsOfQuestion";
 import { readCheckpoint, type IntakeCourt } from "../intakeCheckpoint";
+import { caseTitleFromIntake } from "../caseTitle";
 
 /**
  * Every fact a record may hold: the case file's slots, plus the nine question facts the slots cannot
@@ -186,5 +187,11 @@ export function applyFactWrites(master: Record<string, unknown>, court: IntakeCo
   const caseFile = object(checkpoint.sections[CASE_FILE_SECTION]);
   const next = { ...checkpoint, sections: { ...checkpoint.sections, [CASE_FILE_SECTION]: { ...caseFile, facts } } };
   if (!readCheckpoint(next, court, caseId)) return { ok: false, reject: "intake-too-large" };
-  return { ok: true, master: { ...master, intakeCheckpoint: next }, saved, conflicts, facts };
+  // The case's title, saved beside the record whenever the other party is (Chrome check of #545 at 7bce410: the dashboard
+  // said "Small Claims case" after the other party was known). Derived here, by the one writer, so a list of cases reads a
+  // saved title and never the answers themselves.
+  const titled = saved.some((entry) => entry.fact === "otherParty")
+    ? { caseTitle: caseTitleFromIntake(facts.otherParty?.state === "answered" ? facts.otherParty.value : "", court) }
+    : {};
+  return { ok: true, master: { ...master, intakeCheckpoint: next, ...titled }, saved, conflicts, facts };
 }

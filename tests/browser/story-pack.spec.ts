@@ -1199,7 +1199,10 @@ test("conference audit case 16 as a respondent: asked what happened since servic
   await page.goto(`/cases/${row.id}`);
   const file = page.getByTestId("case-file");
   await expect(file).toBeVisible({ timeout: 60_000 });
-  await expect(file.locator('[data-testid=case-file-line][data-fact="conferenceDate"]'), "What we have so far: the case conference and its day").toContainText(/Case conference[\s\S]*November 16, 2026/);
+  // The review answered the court date "not sure": "not sure" is a state, never refilled from the story (contract rule 4;
+  // site owner, 9 Nov 2026), so the conference line says so. Before 9 Nov this expected the story's November 16, 2026, which
+  // only a date kept from the story overriding "not sure" could show (Chrome check of production c38e69fd, B2).
+  await expect(file.locator('[data-testid=case-file-line][data-fact="conferenceDate"]'), "What we have so far: the conference date the review said is not known yet").toContainText("Not answered yet: add it when you know");
   // The conference's day is not shown a second time as a court date (the harness may answer the court date question with another day).
   await expect(file.locator('[data-testid=case-file-line][data-fact="courtDate"]').filter({ hasText: /November 16, 2026/ }), "the conference day is not also a court date").toHaveCount(0);
 

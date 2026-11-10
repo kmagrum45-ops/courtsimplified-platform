@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { TOPIC_GUIDES, type GuideCourt } from "../../src/lib/content-library/guides/topicGuides";
-import { FORM_SUMMARIES } from "../../src/lib/content-library/forms/formSummaries";
+import { officialFormCount } from "../../src/lib/content-library/forms/formCount";
 
 type Court = Exclude<GuideCourt, "all">;
 
@@ -12,7 +12,7 @@ type Court = Exclude<GuideCourt, "all">;
  */
 export default function CourtResourcesPanel({ court, courtName }: { court: Court; courtName: string }) {
   const guides = TOPIC_GUIDES.filter((guide) => guide.courts.includes(court));
-  const formCount = Object.keys(FORM_SUMMARIES[court]).length;
+  const formCount = officialFormCount(court); // one count, from the official forms list (formCount.ts; B5)
 
   return (
     <section className="border-b border-[#d9e6df] bg-[#f8fcfa]" data-testid="court-resources">

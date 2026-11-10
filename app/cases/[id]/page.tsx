@@ -40,7 +40,7 @@ import { authHeaders, builderHref, formatDate, useCaseHome } from "../_component
 import { caseStageWords, noticeStepForCase, stepStoryText } from "@/src/lib/case-system/caseStep";
 import { stageRecordedFromAnswers, suggestionForSide } from "@/app/builder/_components/stageFromAnswers";
 import { sideOf, situationAnswers, situationOfCase, stepFromSituation } from "@/src/lib/case-system/situation/situation";
-import { caseFileOf, claimKindOf, unsureDateQuestions, withCaseFileDates } from "@/src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, claimKindOf, neverMarried, unsureDateQuestions, withCaseFileDates } from "@/src/lib/case-system/caseFile/caseFile";
 import { fullDayIn } from "@/src/lib/case-system/casePosition";
 import { readCheckpoint } from "@/src/lib/case-system/intakeCheckpoint";
 import CaseFilePanel from "../_components/CaseFilePanel";
@@ -275,6 +275,7 @@ export default function CaseOverviewPage() {
           {courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? (
             <StageAnswerPanel
               courtPath={courtPath}
+              notMarried={neverMarried(caseFileOf(readCheckpoint(master.intakeCheckpoint, courtPath), master))}
               confirmedStage={confirmed}
               responding={responding}
               sideFromRecord={sideOf(situationOfCase(master)) !== null}
@@ -313,7 +314,7 @@ export default function CaseOverviewPage() {
               noticeStepId={noticeStepForCase(master, courtPath)}
             />
           ) : (
-            <NextStepsCard pathway={courtPath} stage={confirmed} userWords={userWordsOf(master.intakeData)} />
+            <NextStepsCard pathway={courtPath} stage={confirmed} userWords={userWordsOf(master.intakeData)} notMarried={neverMarried(caseFileOf(readCheckpoint(master.intakeCheckpoint, courtPath), master))} />
           )}
         </section>
       ) : null}
@@ -395,7 +396,7 @@ export default function CaseOverviewPage() {
               Change your story
             </Link>
           </div>
-          <IntelligenceOverviewPanel analysis={analysis} intake={intake ?? null} confirmedStage={confirmed} roleWords={courtPath ? situationAnswers(courtPath, situation).roleWords ?? null : null} stageWords={caseStageWords(master, courtPath)} caseId={caseId} claimKind={claimKindOf(caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master))} caseFile={caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master)} />
+          <IntelligenceOverviewPanel analysis={analysis} intake={intake ?? null} confirmedStage={confirmed} roleWords={courtPath ? situationAnswers(courtPath, situation).roleWords ?? null : null} stageWords={caseStageWords(master, courtPath)} caseId={caseId} claimKind={claimKindOf(caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master))} caseFile={caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master)} recordedMunicipality={courtPath === "family" ? record.city || null : null} />
         </section>
       ) : null}
     </div>

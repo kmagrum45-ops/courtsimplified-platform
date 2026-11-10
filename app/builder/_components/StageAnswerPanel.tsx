@@ -1,5 +1,6 @@
 "use client";
 
+import { parseRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
 import { isRealIsoDate, yearChoicesAround } from "../../../src/lib/case-system/dates";
 import { sentences as splitSentences } from "../../../src/lib/case-system/sentences";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -59,6 +60,7 @@ import {
   todayInOntario,
   type PlainLine,
   type PracticalCourt,
+  withoutDivorceApplication,
 } from "@/src/lib/content-library/nextStepPractical";
 import { datesFromPicture, stepFromPicture, type CasePicture } from "@/src/lib/case-system/intake/caseReader";
 import { amountNoteFor } from "@/src/lib/case-system/amountNotes";
@@ -528,7 +530,13 @@ export function NextStepCard({
   responding = false,
   arrival = null,
   noticeStepId = "",
+  recordedAmount = "",
+  notMarried = false,
 }: {
+  /** The person recorded that they were never married to the other person (the forms list leaves out Form 8A; B4). */
+  notMarried?: boolean;
+  /** The amount the record holds, so text about a claim of another size is left out (forThisPerson; B4). */
+  recordedAmount?: string;
   /** Opens another step, as choosing it in "Where is your case?" does. */
   onChooseStep?: (id: string) => void;
   summary: NextStepSummary;
@@ -555,7 +563,7 @@ export function NextStepCard({
   const today = todayIso();
   // The counted last day the filing and service lines are timed against (walkthrough run 38525903567, SD).
   const filingDeadline = cardFilingDeadline(summary, arrival, responding, userWords, city, stepId);
-  const practical = practicalFor(stepId, court as PracticalCourt, city, responding, userWords, noticeStepId, { deadline: filingDeadline.filing, serveBy: filingDeadline.serving, today, divisionalOnly: filingDeadline.divisionalOnly });
+  const practical = withoutDivorceApplication(practicalFor(stepId, court as PracticalCourt, city, responding, userWords, noticeStepId, { deadline: filingDeadline.filing, serveBy: filingDeadline.serving, today, divisionalOnly: filingDeadline.divisionalOnly }), notMarried);
   const toDo = answer.sections.find((section) => section.heading === "What to do next")?.text ?? "";
   // The answer's first paragraph speaks of every notice the step covers; once
   // the notice filter has narrowed them, the card leaves it to the full
@@ -566,6 +574,7 @@ export function NextStepCard({
     ? forThisPerson(toDo.split(/\n\s*\n/)[0]?.trim() ?? "", {
         userWords,
         filingShown: Boolean(practical?.filing.length),
+        amount: parseRecordedAmount(recordedAmount),
       })
     : "";
   const unit = (count: number, word: string) => `${count} ${count === 1 ? word.replace(/s$/, "") : word}`;
@@ -820,8 +829,8 @@ export function NextStepCard({
       {shownLead ? <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => !isLeaveSentence(entry.sentence) && shownLead.includes(courtWords(entry.sentence, court)))} /> : null}
       {/* The form, fee, filing and service for this step (Phase 2); the forms
           the answer's text names are the fallback for a step with none recorded. */}
-      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} noticeStepId={noticeStepId} deadline={filingDeadline.filing} serveBy={filingDeadline.serving} divisionalOnly={filingDeadline.divisionalOnly} today={today} timeRanOut={Boolean(ranOut)} /> : null}
-      {!practical?.forms.length && toDo ? <FormsNamedHere texts={[toDo]} court={court} userWords={userWords} heading="Forms for this step" /> : null}
+      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} noticeStepId={noticeStepId} deadline={filingDeadline.filing} serveBy={filingDeadline.serving} divisionalOnly={filingDeadline.divisionalOnly} today={today} timeRanOut={Boolean(ranOut)} notMarried={notMarried} /> : null}
+      {!practical?.forms.length && toDo ? <FormsNamedHere texts={[toDo]} court={court} userWords={userWords} heading="Forms for this step" notMarried={notMarried} /> : null}
       {(() => {
         // Say what the card doesn't list yet, instead of leaving a gap the
         // person can't see (build order Step 2E, 2026-10-12). Worded so it
@@ -1282,8 +1291,26 @@ export function withoutSentencesNaming(paragraph: string, naming: RegExp): strin
   return splitSentences(paragraph).filter((sentence) => !naming.test(sentence)).join(" ").replace(/\s+/g, " ").trim();
 }
 
-export function forThisPerson(paragraph: string, { userWords, filingShown }: { userWords: string; filingShown: boolean }): string {
+/**
+ * The sentences of the civil starting step on starting a claim within the Small Claims limit in the Superior Court (Courts
+ * of Justice Act s. 23 (1.1), r. 14.01.1): about a claim of $50,000 or less, so not shown once the recorded amount is more
+ * (Chrome check of production c38e69fd, B4: shown for an $85,000 claim). Not one word of them is changed; with no amount
+ * recorded they are shown.
+ */
+export const LEAVE_SENTENCES = [
+  /^The Small Claims Court can hear a claim for money up to a set amount\b/,
+  /^That amount is \$50,000\.$/,
+  /^If your claim is within that limit, it can only be started in the Superior Court with that court's leave\.$/,
+  /^A claim above it needs no such leave\.$/,
+  /^You may ask for leave by motion without notice\b/,
+  /^The court may grant it only if it is in the interest of justice\.$/,
+];
+
+export function forThisPerson(paragraph: string, { userWords, filingShown, amount = null }: { userWords: string; filingShown: boolean; amount?: number | null }): string {
   let text = paragraph;
+  if (amount !== null && amount > 50_000) {
+    text = splitSentences(text).filter((sentence) => !LEAVE_SENTENCES.some((pattern) => pattern.test(sentence.trim()))).join(" ");
+  }
   if (!/\bmortgage/i.test(userWords)) {
     text = text.replace(/,? or Form 14B for a mortgage action/g, "").replace(/ \(Form 14A, or Form 14B for a mortgage action\)/g, " (Form 14A)");
   }
@@ -1333,6 +1360,7 @@ export default function StageAnswerPanel({
   noticeStepId = null,
   userWords = "",
   recordedAmount = "",
+  notMarried = false,
   city = "",
   storyText = "",
   picture = null,
@@ -1372,6 +1400,8 @@ export default function StageAnswerPanel({
   userWords?: string;
   /** The amount the user recorded, set against the court's limits at the starting step (amountNotes.ts). */
   recordedAmount?: string;
+  /** The person recorded that they were never married to the other person (Form 8A is left out; B4). */
+  notMarried?: boolean;
   /** The person's city, so the card names the filing portal for their region. */
   city?: string;
   /** The person's own story (not the analysis), read for a procedural event they name, such as "noted in default". */
@@ -1559,6 +1589,9 @@ export default function StageAnswerPanel({
     for (const [id, date] of Object.entries(storyDates)) if (!dropped[id]) fromStory[id] = date.value;
     return { ...fromStory, ...answers };
   };
+  // The dates the deadline is counted from that came from the story, not from the person (B6): kept from it on this page,
+  // or the story's own date unchanged. The card then says "Based on the date in your story".
+  const storyDateIds = (sent: Record<string, string>) => Object.keys(sent).filter((qid) => Boolean(keptFromStory[qid]) || (Boolean(storyDates[qid]) && storyDates[qid].value === sent[qid]));
   /** The person chooses a step: from "Where is your case?", or the card's "Open this step" (whenTimeRunsOut). */
   function chooseStep(id: string) {
     setStageId(id);
@@ -1630,7 +1663,7 @@ export default function StageAnswerPanel({
       const response = await fetch("/api/case/stage-answer", {
         method: "POST",
         headers: { "Content-Type": "application/json", ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}) },
-        body: JSON.stringify({ caseId, stageId: id, courtPath, confirmedFacts: facts, dateAnswers: withStoryDates(answers, dropped) }),
+        body: JSON.stringify({ caseId, stageId: id, courtPath, confirmedFacts: facts, dateAnswers: withStoryDates(answers, dropped), datesFromStory: storyDateIds(withStoryDates(answers, dropped)) }),
       });
       if (!response.ok) throw new Error(String(response.status));
       setResult((await response.json()) as Response);
@@ -1747,7 +1780,8 @@ export default function StageAnswerPanel({
     // because a date was kept (case position stores only what they chose).
     // Queued before onSaved is told, so a page waiting on it waits for it.
     if (caseId) {
-      void savePosition(caseId, { dateAnswers: counted, ...(Object.keys(keptService).length ? { service: keptService } : {}) }).then((saved) =>
+      // Marked as kept from the story: counted like any date, never recorded as the person's answer (B2).
+      void savePosition(caseId, { dateAnswers: counted, datesFromStory: Object.keys(counted), ...(Object.keys(keptService).length ? { service: keptService } : {}) }).then((saved) =>
         setDateStatus(saved ? "saved" : "not-saved"),
       );
     }
@@ -1871,6 +1905,8 @@ export default function StageAnswerPanel({
           city={city}
           responding={responding}
           noticeStepId={noticeStepId ?? ""}
+          recordedAmount={recordedAmount}
+          notMarried={notMarried}
           fromStory={(result.dateQuestions ?? [])
             .filter((question) => !dateAnswers[question.id] && storyDates[question.id] && !rejected[question.id])
             .map((question) => ({ label: "", date: formatIso(storyDates[question.id].value), basis: storyDates[question.id].basis }))}

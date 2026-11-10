@@ -9,6 +9,7 @@ import {
   isQuestionAlreadyAnswered,
   recordedDocuments,
   withoutAnsweredQuestions,
+  withoutMunicipalityAsked,
   withoutStageAnswered,
 } from "@/src/lib/case-system/intelligence/answeredQuestions";
 import { meaningfulIssueSignals } from "@/src/lib/case-system/intelligence/issueSignals";
@@ -67,6 +68,8 @@ type Props = {
    * what they want): a change made with "Change" is shown instead, a removed one not at all (rule 6, 31 Oct).
    */
   caseFile?: CaseFile | null;
+  /** The municipality the record holds (the Family card): "What to confirm next" never asks it again (B3). */
+  recordedMunicipality?: string | null;
   /** Where the case is, in words: the step the person picked, by its own title (caseStep.ts caseStageWords). */
   stageWords?: string | null;
   /** The side in the person's own start answers ("I started this case (applicant)"), for a case already going. */
@@ -124,7 +127,7 @@ function SourcedList({ items }: { items: SourcedListItem[] }) {
 
 const GENERIC_CONFIRM_QUESTION = "What important fact should be confirmed next?";
 
-export default function IntelligenceOverviewPanel({ analysis, intake, confirmedStage = null, caseId = null, claimKind = null, caseFile = null, stageWords = null, roleWords = null }: Props) {
+export default function IntelligenceOverviewPanel({ analysis, intake, confirmedStage = null, caseId = null, claimKind = null, caseFile = null, stageWords = null, roleWords = null, recordedMunicipality = null }: Props) {
   // A kind picked from the list here, shown at once: it is written to the case file (the saved position's kind of claim,
   // read first by caseFileOf), which the page reads the next time it loads the case.
   const [pickedHere, setPickedHere] = useState<string | null>(null);
@@ -228,13 +231,13 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
    * gone is the model's contribution to either.
    */
   const isQuestionText = (value: string) => value.trim().endsWith("?");
-  const candidateQuestions = withoutAnsweredQuestions(
+  const candidateQuestions = withoutMunicipalityAsked(withoutAnsweredQuestions(
     [
       ...analysis.missingInformation.filter(isQuestionText),
       ...(analysis.nextBestActions || []).filter(isQuestionText),
     ],
     filingFacts,
-  );
+  ), recordedMunicipality);
   // Once the stage is known ("I have not filed anything yet", "I was served
   // and need to respond"), the generic filing questions are answered by it,
   // and the deadline question by the dates on the step (page review,

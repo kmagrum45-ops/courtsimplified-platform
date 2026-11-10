@@ -3,7 +3,7 @@
 import { OPEN_WHOLE_FORM_EVENT } from "./_components/openWholeForm";
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
-import { caseFileOf, claimKindOf, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, claimKindOf, kindForAnalysis, neverMarried, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
 import { factsWithRecord } from "../../src/lib/case-system/caseFile/chatTurnFacts";
 import { withoutUnsureAnswers } from "../../src/lib/case-system/caseFile/unsureAnswer";
 import { researchCaseContext } from "../../src/lib/case-system/caseFile/aiCaseContext";
@@ -52,6 +52,7 @@ import {
   CASE_REQUEST_TIMEOUT_MS,
   caseRouteWrite,
   nextSaveGeneration,
+  forgetSavedPosition,
   retryCatchUp,
   runCaseWrite,
   savePositionQueuedOutcome,
@@ -119,6 +120,7 @@ import { savedStepOf } from "../../src/lib/case-system/savedStep";
 import { readCasePosition, storyHintsForDates, storyWithTimeline, suggestedDatesFromAnswers, type SuggestedDate } from "../../src/lib/case-system/casePosition";
 import { suggestedNoticeStep } from "../../src/lib/case-system/claim-types/noticeStep";
 import { caseTitleFromIntake, isGeneratedTitle } from "../../src/lib/case-system/caseTitle";
+import { caseFileOfMaster, heldWordsOf } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
 import { userWordsOf } from "../../src/lib/content-library/forms/formsInText";
 import { type CaseDraft } from "../../src/lib/case-system/drafts/caseDrafts";
 import { startingDocumentDraft } from "../../src/lib/case-system/drafts/startingDocumentDraft";
@@ -377,6 +379,9 @@ function BuilderPageContent() {
   const [canonicalIntakeSaved, setCanonicalIntakeSaved] = useState(false);
   const completedOverviewRef = useRef<HTMLElement | null>(null);
   const [showFollowUp, setShowFollowUp] = useState(false);
+  // Where the Small Claims chat, kept on the page but hidden while the whole form shows, puts its "Start the questions
+  // again from my story" so it can be seen and pressed (Chrome check of #544 on 9b960f7, F16).
+  const [chatNoticeSlot, setChatNoticeSlot] = useState<HTMLDivElement | null>(null);
   /**
    * Whether `confirmedLocation` came from the loaded case rather than from the
    * user answering the gate in this session.
@@ -943,7 +948,12 @@ function BuilderPageContent() {
           syncNotes: ["Built from completed intake analysis."],
         },
         intakeAnalysis: analysis,
-        intakeData: caseData,
+        // Without its masterResultPatch: that is the whole saved record merged with the new analysis, already spread at
+        // the top of this payload. Kept inside intakeData, each save nested the previous record in it: staging rows grew
+        // to 4.6 MB (intakeData 4.3 MB, five levels deep), and the case page, case file and Forms tab froze reading them
+        // (Chrome check of #545 at 7bce410, note 1). Nothing reads intakeData.masterResultPatch; the next save of an
+        // oversized row drops the nesting.
+        intakeData: (({ masterResultPatch: _nested, ...rest }) => (void _nested, rest))(caseData),
 
         source: "builder-intake",
         lifecycleStage: "intake-analyzed",
@@ -1095,6 +1105,9 @@ function BuilderPageContent() {
           // Old procedural choices/readings cannot be relabelled as guidance
           // for corrected facts. Preserve the person's recorded dates/service.
           if (storedMaster.position) userOwned.position = { ...asRecord(storedMaster.position), confirmedStage: null, confirmedStageAt: null, confirmedStageFrom: null, stepId: null, stepChosenAt: null };
+          // The stage and step this page saved are no longer on the case: send them again once it is saved (F12).
+          sentPositionRef.current = "";
+          forgetSavedPosition(activeId);
           userOwned.casePicture = null;
         }
         // Dates and service details recorded for an earlier story do not count deadlines for this one.
@@ -1120,7 +1133,9 @@ function BuilderPageContent() {
           .from("cases")
           .update({
             // Named for who the case is with, not the engine's summary.
-            title: isGeneratedTitle(recordTitle) ? caseTitleFromIntake(caseData.otherParty, courtPath) : recordTitle,
+            // Who the case is with, from the case file first (F15: a name typed in the whole form is not in the
+            // questions route's answers, so the title said "Small Claims case").
+            title: isGeneratedTitle(recordTitle) ? caseTitleFromIntake(((held) => (held.held ? held.words : caseData.otherParty))(heldWordsOf(caseFileOfMaster(storedMaster, courtPath), "otherParty")), courtPath) : recordTitle,
             court_path: courtPath,
             status: "active",
             current_stage: stage,
@@ -2210,6 +2225,7 @@ function BuilderPageContent() {
 
             {courtPath === "small-claims" && startedModes.form && (
               <div hidden={visibleMode !== "form"}>
+                <div ref={setChatNoticeSlot} data-testid="sc-chat-notice-slot" />
                 <SmallClaimsIntake
                   onComplete={handleComplete}
                   location={confirmedLocation}
@@ -2222,6 +2238,7 @@ function BuilderPageContent() {
             {courtPath === "small-claims" && startedModes.guided && (
               <div hidden={visibleMode !== "guided"}>
                 <GuidedSmallClaimsIntake
+                  noticeSlot={visibleMode === "form" ? chatNoticeSlot : null}
                   location={confirmedLocation}
                   initialStory={homeStory}
                   onComplete={handleGuidedComplete}
@@ -2486,6 +2503,7 @@ function BuilderPageContent() {
             {confirmedStage ? (
               <StageAnswerPanel
                 courtPath={courtPath}
+                notMarried={neverMarried(builderCaseFile)}
                 confirmedStage={confirmedStage}
                 responding={respondingSide}
                 sideFromRecord={sideOf(situation) !== null}
@@ -2541,7 +2559,7 @@ function BuilderPageContent() {
               </details>
             ) : null}
             {confirmedStage && (
-              <IntelligenceOverviewPanel analysis={analysis} intake={caseData} confirmedStage={confirmedStage} roleWords={courtPath ? situationAnswers(courtPath, situation).roleWords ?? null : null} stageWords={findStage(savedPosition.stepId ?? stepFromSituation(situation, courtPath) ?? "")?.title ?? null} caseId={savedCaseId()} claimKind={heldClaimKind} caseFile={builderCaseFile} />
+              <IntelligenceOverviewPanel analysis={analysis} intake={caseData} confirmedStage={confirmedStage} roleWords={courtPath ? situationAnswers(courtPath, situation).roleWords ?? null : null} stageWords={findStage(savedPosition.stepId ?? stepFromSituation(situation, courtPath) ?? "")?.title ?? null} caseId={savedCaseId()} claimKind={heldClaimKind} caseFile={builderCaseFile} recordedMunicipality={courtPath === "family" ? confirmedLocation?.city || null : null} />
             )}
             {confirmedStage ? <EvidenceUploadCard caseId={savedCaseId()} /> : null}
             {confirmedStage ? <CaseReviewPanel caseId={savedCaseId()} /> : null}

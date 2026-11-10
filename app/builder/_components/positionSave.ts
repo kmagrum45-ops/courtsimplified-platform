@@ -443,6 +443,15 @@ export function unsavedPositionPatch(caseId: string, patch: Record<string, unkno
   return Object.keys(out).length ? out : null;
 }
 
+/**
+ * The case's position was cleared by another write (a next step worked out again for changed answers clears its
+ * stage and step, builder page.tsx): what this page remembers saving is no longer on the case, so it is all sent
+ * again (Chrome check of #544 on 9b960f7, F12: the stage was never re-saved, and the case file said "Not confirmed").
+ */
+export function forgetSavedPosition(caseId: string) {
+  savedParts.delete(caseId);
+}
+
 function rememberSaved(caseId: string, patch: Record<string, unknown>) {
   const saved = savedParts.get(caseId) ?? { dates: {}, service: {} };
   savedParts.set(caseId, saved);

@@ -80,7 +80,7 @@ export async function POST(request: Request) {
   // One shared save path for the case record (updateCaseRecord.ts, 2026-10-14
   // audit): the same guarded read-change-write, with a short pause between
   // retries, instead of this route's own copy of it.
-  const patch = { confirmedStage: body.confirmedStage, confirmedStageFrom: body.confirmedStageFrom, motionToChange: body.motionToChange, stepId: body.stepId, dateAnswers: body.dateAnswers, service: body.service, claimKind: body.claimKind };
+  const patch = { confirmedStage: body.confirmedStage, confirmedStageFrom: body.confirmedStageFrom, motionToChange: body.motionToChange, stepId: body.stepId, dateAnswers: body.dateAnswers, service: body.service, claimKind: body.claimKind, datesFromStory: body.datesFromStory };
   const court = ownedCase.court_path === "small-claims" || ownedCase.court_path === "civil" || ownedCase.court_path === "family" ? ownedCase.court_path : null;
   // The old copy (the position) and the facts it answers (the kind, the dates), in one guarded save (factSave.ts).
   const saved = await saveWithFacts(

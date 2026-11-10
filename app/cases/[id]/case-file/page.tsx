@@ -21,6 +21,8 @@ import { DecisionAttribution, DecisionCaution } from "@/app/cases/_components/Co
 import { DeadlineStandingNote } from "@/app/cases/_components/CaseWorkspace";
 import type { TimelineStanding } from "@/src/lib/case-workspace/timeline";
 import { caseDeadlines } from "@/src/lib/case-system/caseFile/stepDeadlines";
+import { caseFileOfMaster } from "@/src/lib/case-system/caseFile/caseFileOfMaster";
+import { slotText } from "@/src/lib/case-system/caseFile/caseFile";
 import { formatForCourt } from "@/src/lib/case-system/dates";
 import type { DecisionDetails } from "@/src/lib/case-workspace/courtDecision";
 
@@ -80,6 +82,10 @@ export default function CaseFileSection() {
   const master = (caseRecord.master_result ?? {}) as Record<string, unknown>;
   const intake = (master.intakeData ?? {}) as { facts?: string; goal?: string; yourName?: string; otherParty?: string };
   const drafts = readCaseDrafts(master);
+  // The amount and the other party, read from the case file (the one reader "What we have so far" uses): shown when
+  // recorded, nothing when not (Chrome check of #545 at 7bce410, 1.6c: no amount line here after three changes).
+  const file = caseFileOfMaster(caseRecord.master_result, courtPath);
+  const fileWords = (fact: "amount" | "otherParty") => (file[fact].state === "answered" && !file[fact].removed ? slotText(file[fact], formatForCourt) : "");
   // The chosen step, or the one the confirmed stage points to (Phase 1).
   const step = stepId ? findStage(stepId) : undefined;
 
@@ -113,6 +119,8 @@ export default function CaseFileSection() {
           courtPath: caseRecord.court_path,
           confirmedFacts: {},
           dateAnswers: givenDates,
+          // The dates the step page kept from the story (casePosition datesFromStory): the deadline says so (B6).
+          datesFromStory: position.datesFromStory ?? [],
         }),
       }).catch(() => null);
       const body = response?.ok ? await response.json() : null;
@@ -209,11 +217,12 @@ export default function CaseFileSection() {
         <FileSection title="What happened, in your words">
           {/* Names from the one case record (Step 2A, 2026-10-12): civil keeps
               them in civilInput, so reading intakeData alone left them blank. */}
-          {record.yourName || record.otherParty ? (
+          {record.yourName || fileWords("otherParty") ? (
             <p className="mb-2">
-              {[record.yourName && `You: ${record.yourName}`, record.otherParty && `Other side: ${record.otherParty}`].filter(Boolean).join(" · ")}
+              {[record.yourName && `You: ${record.yourName}`, fileWords("otherParty") && `Other side: ${fileWords("otherParty")}`].filter(Boolean).join(" · ")}
             </p>
           ) : null}
+          {fileWords("amount") ? <p className="mb-2" data-testid="case-file-amount">Amount: {fileWords("amount")}</p> : null}
           <p className="whitespace-pre-line">{userStory(intake) || "Not recorded."}</p>
           {/* "I do not know yet" is never shown as what the person wants (unsureAnswer.ts answerWords). */}
           {answerWords(intake.goal) ? (

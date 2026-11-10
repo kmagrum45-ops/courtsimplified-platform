@@ -52,7 +52,10 @@ export default function NextStepPractical({
   divisionalOnly = false,
   today = "",
   timeRanOut = false,
+  notMarried = false,
 }: {
+  /** The person recorded that they were never married to the other person: Form 8A is not listed (B4). */
+  notMarried?: boolean;
   stepId: string;
   court: string;
   city?: string;
@@ -72,7 +75,7 @@ export default function NextStepPractical({
   timeRanOut?: boolean;
 }) {
   if (court !== "small-claims" && court !== "civil" && court !== "family") return null;
-  const found = practicalFor(stepId, court as PracticalCourt, city, responding, story, noticeStepId, { deadline, serveBy, today, divisionalOnly });
+  const found = practicalFor(stepId, court as PracticalCourt, city, responding, story, noticeStepId, { deadline, serveBy, today, divisionalOnly, notMarried });
   if (!found) return null;
   // Form 18B, the notice of intent to defend, is delivered "within the time for delivering a
   // statement of defence" (r. 18.02 (1), as the step's own content quotes it): once that time

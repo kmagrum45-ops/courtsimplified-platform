@@ -35,6 +35,8 @@ import * as C from "../stage-map/citations";
 import type { RuleCitation } from "../stage-map/citations";
 
 export type DeadlineTemplateId =
+  | "computed-date-forward-story"
+  | "computed-date-backward-story"
   | "counted-days-forward"
   | "counted-days-backward"
   | "counted-months"
@@ -240,6 +242,21 @@ export const DEADLINE_TEMPLATES: Record<DeadlineTemplateId, DeadlineTemplate> = 
   "computed-date-backward": {
     id: "computed-date-backward",
     text: "Based on the date you gave us, this has to be done by {result} at the latest.",
+    cites: null,
+  },
+  /*
+   * The same two sentences when the date was read from the person's story rather than given by them (Chrome check of
+   * #545 at 7bce410: "Based on the date you gave us" for a Civil deadline counted from the repayment date in the story,
+   * though no date was given). Wording only; the date and how it is counted are the same (site owner, 9 Nov).
+   */
+  "computed-date-forward-story": {
+    id: "computed-date-forward-story",
+    text: "Based on the date in your story, the last day for this is {result}.",
+    cites: null,
+  },
+  "computed-date-backward-story": {
+    id: "computed-date-backward-story",
+    text: "Based on the date in your story, this has to be done by {result} at the latest.",
     cites: null,
   },
   /*

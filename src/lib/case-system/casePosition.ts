@@ -87,6 +87,13 @@ export type CasePosition = {
   claimKind?: string;
   /** When the kind was picked (server time): a pick newer than a change through "Change" wins (caseFile.ts applyChanges). */
   claimKindAt?: string;
+  /**
+   * The dateAnswers ids the step page kept from the story by itself (StageAnswerPanel, a date the story gives is kept so
+   * its deadline is counted at once). They count deadlines like any date, but they are not the person's answer: never
+   * written as a fact and never read as one ("When it happened"), so a date the site worked out never replaces an answer
+   * the person gave (Chrome check of production c38e69fd, B2). A date the person saves themselves is theirs (unmarked).
+   */
+  datesFromStory?: string[];
 };
 
 const CLAIM_KIND_VALUE = /^(?:sc-claim-[a-z0-9-]{1,80}|not-sure)$/;
@@ -177,7 +184,13 @@ export function readCasePosition(masterResult: unknown, courtPath?: string | nul
     dateAnswers: withSituationDates(dateAnswers, courtPath, situationOfCase(masterResult)),
     service: readService(raw.service, courtPath),
     ...(typeof raw.claimKind === "string" && CLAIM_KIND_VALUE.test(raw.claimKind) ? { claimKind: raw.claimKind, ...(typeof raw.claimKindAt === "string" ? { claimKindAt: raw.claimKindAt } : {}) } : {}),
+    ...(storyDateIds(raw.datesFromStory, dateAnswers).length ? { datesFromStory: storyDateIds(raw.datesFromStory, dateAnswers) } : {}),
   };
+}
+
+/** The marked ids that still have a saved date (datesFromStory). */
+function storyDateIds(value: unknown, dateAnswers: Record<string, string>): string[] {
+  return Array.isArray(value) ? [...new Set(value.filter((id): id is string => typeof id === "string" && Boolean(dateAnswers[id])))] : [];
 }
 
 function serviceCourtOf(courtPath: string | null | undefined): ServiceCourt | null {
@@ -214,6 +227,8 @@ export type PositionPatch = {
   service?: unknown;
   /** A kind-of-claim id or "not-sure", or null to remove. */
   claimKind?: unknown;
+  /** With dateAnswers: the ids in it the step page kept from the story by itself (CasePosition.datesFromStory). */
+  datesFromStory?: unknown;
 };
 
 export type PositionPatchResult =
@@ -289,6 +304,18 @@ export function applyPositionPatch(
       }
       next.dateAnswers[key] = parseUserDate(value) as string;
     }
+    // Which saved dates the step page kept from the story by itself: those named in this patch are marked; a date the
+    // person changes is their own, unmarked (the same date sent again by another save of the page keeps its mark); a
+    // removed date takes its mark with it (B2).
+    const fromStory = new Set(Array.isArray(patch.datesFromStory) ? patch.datesFromStory.filter((id): id is string => typeof id === "string") : []);
+    const marked = new Set(current.datesFromStory ?? []);
+    for (const key of Object.keys(answers)) {
+      if (fromStory.has(key) && next.dateAnswers[key]) marked.add(key);
+      else if (next.dateAnswers[key] !== current.dateAnswers[key]) marked.delete(key);
+    }
+    const kept = [...marked].filter((id) => next.dateAnswers[id]);
+    if (kept.length) next.datesFromStory = kept;
+    else delete next.datesFromStory;
   }
 
   if (patch.service !== undefined) {

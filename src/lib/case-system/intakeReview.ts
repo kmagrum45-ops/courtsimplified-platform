@@ -177,6 +177,21 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   return entries;
 }
 
+/**
+ * The review's lines with the other party the record holds, on the Small Claims questions route (B1): the chat never
+ * asks it, so the accepted story reading's name had no line there. For the review screen ONLY: never part of
+ * reviewEntries, which also decides what a confirmation rests on (materialFacts), so a value read from the case file
+ * never becomes a confirmed fact of its own (the carry test's "typed in Change, then Confirm" lost the new amount when
+ * it was; 8 Nov).
+ */
+export function withHeldOtherParty(entries: ReviewEntry[], checkpoint: Checkpoint, file: CaseFile): ReviewEntry[] {
+  if (checkpoint.courtPath !== "small-claims" || checkpoint.sections.builder?.step !== "guided") return entries;
+  if (entries.some((entry) => entry.field === "otherParty")) return entries;
+  const held = file.otherParty;
+  if (held.state !== "answered" || held.removed || typeof held.value !== "string" || !held.value.trim()) return entries;
+  return [...entries, { section: "guided", nested: "facts", field: "otherParty", label: FIELD_LABELS.otherParty ?? label("otherParty"), value: held.value.trim(), essential: false }];
+}
+
 /** UI navigation, research results and later evidence never masquerade as initial fact edits. */
 /** Each material fact, keyed by where it lives: the basis of materialInitialFacts. */
 function materialFacts(checkpoint: Checkpoint): Map<string, string> {
