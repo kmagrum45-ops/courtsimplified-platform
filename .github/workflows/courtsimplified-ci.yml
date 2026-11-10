@@ -324,6 +324,9 @@ jobs:
       - name: An answer changed while its previous save is on the way is kept; another tab's save is still a conflict
         run: npm run test:in-flight-edit-kept
 
+      - name: A form box follows another tab's newer save of the same box; the person's own unsaved words stay
+        run: npm run test:box-follows-other-tab
+
       - name: Chrome check of #545 at 7bce410 -- one form rule, municipality once, story dates named, case file lines, saved title
         run: npm run test:chrome-545-round
 

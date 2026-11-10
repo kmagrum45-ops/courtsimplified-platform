@@ -18,7 +18,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useIntakeRecovery, useIntakeReviewView, useIntakeState } from "./IntakeRecovery";
 import { useCaseField } from "./useCaseField";
 import { writeFollow } from "./caseWrite";
-import { caseFileOf, isUnsureAnswer } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, changesOf, isUnsureAnswer } from "../../src/lib/case-system/caseFile/caseFile";
 import { askOf, filledToFollow, formFill, seenNow } from "../../src/lib/case-system/intake/asker";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "../../src/lib/case-system/copy/askCopy";
 import { boxesToFollow } from "../../src/lib/case-system/caseFile/boxFollow";
@@ -65,7 +65,7 @@ export function useBoxesFollow(section: string, container: string | null) {
   const file = view?.checkpoint ? caseFileOf(view.checkpoint, recovery?.getSavedMaster() ?? undefined) : null;
   const own = view?.checkpoint.sections[section] as Record<string, unknown> | undefined;
   const values = (container ? own?.[container] : own) as Record<string, unknown> | undefined;
-  const plan = file && values && typeof values === "object" ? boxesToFollow(file, section, container, values, (iso) => formatForCourt(iso)) : {};
+  const plan = file && values && typeof values === "object" ? boxesToFollow(file, section, container, values, (iso) => formatForCourt(iso), new Set(), changesOf(view?.checkpoint.sections)) : {};
   const key = JSON.stringify(plan);
   useEffect(() => {
     if (!recovery || key === "{}") return;

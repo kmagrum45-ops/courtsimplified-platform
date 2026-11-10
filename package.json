@@ -285,6 +285,7 @@
     "test:step-forms-and-text": "node --import tsx scripts/verification/verifyStepFormsAndText.ts",
     "test:form-count": "node --import tsx scripts/verification/verifyFormCount.ts",
     "test:in-flight-edit-kept": "node --import tsx scripts/verification/verifyInFlightEditKept.ts",
+    "test:box-follows-other-tab": "node --import tsx scripts/verification/verifyBoxFollowsOtherTab.ts",
     "test:chrome-545-round": "node --import tsx scripts/verification/verifyChrome545Round.ts",
     "test:finder-handoff": "node --import tsx scripts/verification/verifyFinderHandoff.ts",
     "test:story-date-never-replaces": "node --import tsx scripts/verification/verifyStoryDateNeverReplaces.ts",

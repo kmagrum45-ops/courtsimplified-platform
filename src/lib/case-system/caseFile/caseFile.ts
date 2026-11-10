@@ -579,15 +579,18 @@ export function sameAnswer(fact: SlotFact, heldValue: unknown, given: unknown): 
 /**
  * What a form box for `fact` must show to follow the newest saved answer (rule 3, site owner 6 Nov; Chrome check of
  * #544, step 14), or null to leave it as it is. `place`: the box's own place ("small-claims:amountClaimed"). Left as
- * it is: a fact never answered (no state), or one only read from the story; a box that is itself where the newest
- * answer came from (the person typing in it, sent or not); a box already saying the same answer; a "not sure" typed in
- * the box. Otherwise: the newest answer's words, or empty when it was removed or is "not sure".
+ * it is: a fact never answered (no state), or one only read from the story; a box whose own edit in this tab is not
+ * saved yet (`ownEditWaiting`: typed and on its way, or refused as "Not saved yet"); a box already saying the same
+ * answer; a "not sure" typed in the box. Otherwise: the newest answer's words, or empty when it was removed or is "not
+ * sure". The newest answer coming from this same box is no reason to leave it: another tab may have typed it there
+ * (fact-two-tabs.spec.ts, 10 Nov: tab 1 kept 6000 after tab 2's newer 7000 from the same box, its own stored copy
+ * shown on reload; test:box-follows-other-tab).
  */
-export function followWords(file: CaseFile, fact: SlotFact, place: string, boxValue: unknown, formatDay: (iso: string) => string): string | null {
+export function followWords(file: CaseFile, fact: SlotFact, place: string, boxValue: unknown, formatDay: (iso: string) => string, ownEditWaiting = false): string | null {
   if (START_FACTS.has(fact) || fact === "story") return null;
   const slot = file[fact];
   if (!slot.confirmed) return null;
-  if (slot.source?.kind === "answer" && slot.source.question === place) return null;
+  if (ownEditWaiting) return null;
   const now = boxValue === undefined || boxValue === null ? "" : String(boxValue);
   if (slot.removed || slot.state === "unsure") return now.trim() && !isUnsureAnswer(now) ? "" : null;
   if (slot.state !== "answered") return null;
