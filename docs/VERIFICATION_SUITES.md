@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-254 documented, 26 without a header.
+255 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -83,6 +83,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:cross-forum-notes` | **Connection notes quote their sources exactly, are selected by topic alone,**<br>and a story's issues can only carry the user's own words. |
 | `npm run test:date-entry-points` | **Every entry point reads a date the same way (step 1, gate A: the same-behaviour check).**<br>What it checks: at least 40 real-world phrasings ("Oct 6", "6 Oct 2026", "2026-10-06", "last Tuesday", "10/06/2026", "Feb 30, 2026", "6 octobre 2026" ...) are fed, unchanged, through every place that reads a date the person typed or wrote: - the date boxes: th |
 | `npm run test:db-environments` | **Nothing in this repository says "dev" when it means production, and no**<br>migration can reach production without passing staging. |
+| `npm run test:deadline-date-keeps-when` | **A DATE THE PERSON GIVES ON THE STEP PAGE TO WORK OUT A DEADLINE NEVER REPLACES THEIR "WHEN IT HAPPENED" ANSWER**<br>(Chrome re-check of #545 at dc909096, 10 Nov 2026: "The date I gave for working out the deadline replaced the 'When it happened' answer: it changed from March 2026 to May 15, 2026"). |
 | `npm run test:deadlines` | **Does the deadline engine count correctly?**<br>Every case here is one somebody could actually be in, and every one of them is a date a person would get wrong by reasoning casually. A deadline that is right in the ordinary case and wrong across a long weekend is not 95% correct; it is a trap that springs ex |
 | `npm run test:depth-questions` | **Verifies the intake depth layer, offline.**<br>COSTS NOTHING. Every decision the depth layer makes about WHICH questions are asked is pure, so all four load-bearing properties are checkable without a single API call. The only model involvement is the voice lead-in, which is exercised by the paraphrase harn |
 | `npm run test:described-evidence` | **"No evidence identified" must only be said when it is true.**<br>evidenceIntelligenceEngine raises a high-severity "No evidence identified" gap when the normalized intake holds no evidence items. The keyword extractor that fills that list knows seven categories, so a user who listed invoices, contracts, photos, a bill of sa |
