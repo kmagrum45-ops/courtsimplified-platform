@@ -296,12 +296,13 @@ export function forceNoStore<T>(client: T): T {
   const embeddings = (client as unknown as { embeddings?: { create?: unknown } }).embeddings;
   if (embeddings && typeof embeddings.create === "function") {
     const embeddingsCreate = (embeddings.create as (...args: unknown[]) => unknown).bind(embeddings);
-    embeddings.create = ((original: Record<string, unknown>, options?: unknown) => {
+    // Refused at the cap and labelled (embedBody); then behind the spending limit and logged, like every call.
+    const embedBody = (original: Record<string, unknown>, run: (body: Record<string, unknown>) => unknown) => {
       const capped = spendCapRejection();
-      if (capped) return capped;
-      const body = labelled(original);
-      return aiSpendGate(() => observeAiCall(body, async () => counted(embeddingsCreate(body, options) as Promise<unknown>)), { body });
-    }) as never;
+      return capped ? capped : run(labelled(original));
+    };
+    embeddings.create = ((original: Record<string, unknown>, options?: unknown) =>
+      embedBody(original, (body) => aiSpendGate(() => observeAiCall(body, async () => counted(embeddingsCreate(body, options) as Promise<unknown>)), { body }))) as never;
   }
 
   return client;
