@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
+import { CONTACT_EMAIL } from "@/src/lib/site/contact";
 
 export const metadata: Metadata = {
   title: "Privacy Policy & Terms of Use | CourtSimplified",
   description:
     "How CourtSimplified collects, uses, and protects personal information, and the terms that apply to using the platform.",
 };
-
-const CONTACT_EMAIL = "privacy@courtsimplified.com";
 
 const LAST_UPDATED = "September 2026";
 

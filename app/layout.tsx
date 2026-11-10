@@ -9,6 +9,7 @@ import MobileNav from "./_components/MobileNav";
 import ScrollToTopOnNavigation from "./_components/ScrollToTopOnNavigation";
 import SafetyFooterLine from "./_components/SafetyFooterLine";
 import AiLimitNotice from "./_components/AiLimitNotice";
+import { CONTACT_EMAIL } from "@/src/lib/site/contact";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -129,6 +130,16 @@ export default function RootLayout({
                 ))}
 
                 <AuthNavAction className="font-semibold transition hover:text-[#2FB8AC]" />
+
+                {/* Feedback on every page: the shared footer is the only footer, and every page (builder and case pages
+                    included) renders inside it. A mailto to the privacy page's contact address; nothing stored here. */}
+                <a
+                  data-testid="send-feedback"
+                  href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("CourtSimplified feedback")}`}
+                  className="font-semibold transition hover:text-[#2FB8AC]"
+                >
+                  Send feedback
+                </a>
               </div>
             </div>
 
