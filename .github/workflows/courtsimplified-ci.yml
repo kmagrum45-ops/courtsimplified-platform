@@ -74,6 +74,9 @@ jobs:
       - name: Every OpenAI call goes through the one daily spending limit; a person, an address and the site each have a day's limit
         run: npm run test:ai-spend-limit
 
+      - name: Each AI call is priced from its model and real tokens (price table); a model with no price is never called
+        run: npm run test:ai-price-table
+
       - name: No OpenAI call can bypass the spending limit (one choke point, in the client)
         run: npm run test:ai-routes-limited
 

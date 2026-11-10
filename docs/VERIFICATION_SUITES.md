@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-256 documented, 26 without a header.
+257 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -15,6 +15,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:ai-call-log-sink` | **Does a test run write to the live database? It must not.**<br>COSTS NOTHING. No model call, no network, no database — which is the entire point, and is asserted rather than assumed: the Supabase client factory is replaced with one that throws, and the check fails if anything builds a client. |
 | `npm run test:ai-call-logging` | **Every model call is attributable in the audit log.**<br>COSTS NOTHING. Reads source off disk. No network, no AI, no database. |
 | `npm run test:ai-models` | **Every model call in the app takes its model from aiModels.ts, and the**<br>parameters sent match what that kind of model accepts. |
+| `npm run test:ai-price-table` | **EACH AI CALL IS PRICED FROM THE MODEL IT USED AND ITS REAL TOKEN COUNTS; A MODEL WITH NO PRICE IS NEVER CALLED**<br>(site owner, 10 Nov 2026: "replace the two fixed defaults with a price table in code keyed by model name"). |
 | `npm run test:ai-rate-limit` | **test:ai-rate-limit -- the AI routes that need no sign-in are limited per**<br>visitor and by a daily ceiling (src/lib/security/aiRateLimit.ts; 2026-10-14 audit, MASTER_PLAN build order 6C). |
 | `npm run test:ai-routes-limited` | **EVERY OPENAI CALL GOES THROUGH THE ONE SPENDING LIMIT (site owner, 10 Nov 2026).**<br>The limit lives in one place (src/lib/security/aiSpendLimit.ts aiSpendGate) and is applied by the one client every call site uses (openaiClient.ts createOpenAIClient -> forceNoStore). This reads the source and fails when any way around it appears: 1. a method  |
 | `npm run test:ai-spend-limit` | **THE SITE'S DAILY SPENDING LIMIT FOR AI HELP REFUSES CALLS BEFORE THEY ARE MADE (site owner, 10 Nov 2026).**<br>A fake OpenAI client (counts its calls, answers 1,000 input and 1,000 output tokens, $0.012 at the default prices) is wrapped by the site's own client wrapper (openaiClient.ts forceNoStore), exactly as createOpenAIClient wraps the real one, and asked as differ |

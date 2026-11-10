@@ -37,7 +37,7 @@ let limit: Limit | null = null;
 function fakeClient() {
   const counter = { calls: 0 };
   const client = forceNoStore({
-    chat: { completions: { create: async () => { counter.calls += 1; return { model: "fake", choices: [{ message: { content: "ok" } }], usage: { prompt_tokens: 1000, completion_tokens: 1000 } }; } } },
+    chat: { completions: { create: async () => { counter.calls += 1; return { model: "gpt-6.1-sol", choices: [{ message: { content: "ok" } }], usage: { prompt_tokens: 1000, completion_tokens: 1000 } }; } } },
   });
   return { counter, client: client as unknown as { chat: { completions: { create: (body: unknown) => Promise<unknown> } } } };
 }
@@ -47,7 +47,7 @@ async function ask(client: ReturnType<typeof fakeClient>["client"], asker: Asker
   let refused = 0;
   const words = new Set<string>();
   for (let i = 0; i < times; i++) {
-    const call = () => client.chat.completions.create({ model: "fake", messages: [{ role: "user", content: "hello" }] });
+    const call = () => client.chat.completions.create({ model: "gpt-6.1-sol", messages: [{ role: "user", content: "hello" }] });
     try {
       if (limit) await limit.withAiAskerForTests(asker, call);
       else await call();

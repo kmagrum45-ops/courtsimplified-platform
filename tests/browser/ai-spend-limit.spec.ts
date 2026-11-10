@@ -39,7 +39,7 @@ test.beforeAll(async () => {
     request.on("end", () => {
       counter.calls += 1;
       response.setHeader("content-type", "application/json");
-      response.end(JSON.stringify({ id: "fake", object: "chat.completion", created: 0, model: "fake", choices: [{ index: 0, finish_reason: "stop", message: { role: "assistant", content: "{}" } }], usage: { prompt_tokens: 1000, completion_tokens: 1000, total_tokens: 2000 } }));
+      response.end(JSON.stringify({ id: "fake", object: "chat.completion", created: 0, model: "gpt-6.1-sol", choices: [{ index: 0, finish_reason: "stop", message: { role: "assistant", content: "{}" } }], usage: { prompt_tokens: 1000, completion_tokens: 1000, total_tokens: 2000 } }));
     });
   });
   await new Promise<void>((resolve) => fake!.listen(PORT, "127.0.0.1", resolve));

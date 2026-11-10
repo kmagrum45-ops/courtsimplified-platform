@@ -13,10 +13,12 @@
  *   - the whole site a day .............. AI_SITE_DAILY_USD   (default 10): guests and signed-in people together
  * A "day" is the Toronto day (todayInOntario), so "back tomorrow" means after midnight in Ontario.
  *
- * The cost of a call is its token use as OpenAI reports it on the response (`usage`, already counted by openaiClient.ts
- * countUse), priced at AI_PRICE_INPUT_PER_M / AI_PRICE_OUTPUT_PER_M dollars per million tokens (the same prices the
- * run-level spending cap uses; default 2 and 10). A call is let through while the spend so far is under each limit and
- * its cost is added when it returns, so one call can finish a little over a limit; the next one is refused.
+ * The cost of a call is its token use as OpenAI reports it on the response (`usage`: input, cached input, output),
+ * priced from the price table by the model the response names (aiPrices.ts; the long-context rates when its input is
+ * over 272K tokens). A counted call to a model the table cannot price is refused before it is made, and an error is
+ * logged. AI_PRICE_INPUT_PER_M / AI_PRICE_OUTPUT_PER_M override the short-context input and output rates only. A call
+ * is let through while the spend so far is under each limit and its cost is added when it returns, so one call can
+ * finish a little over a limit; the next one is refused.
  *
  * Two layers, like aiRateLimit.ts: this server instance's memory (always on) and the shared ai_rate_limits table
  * (every instance; no new migration). AI_RATE_LIMITS=local uses memory only (CI); AI_RATE_LIMITS=off turns the limit off
@@ -41,6 +43,8 @@ import { createHash } from "node:crypto";
 import { todayInOntario } from "../case-system/dates";
 import { AI_LIMIT_COOKIE, AI_LIMIT_WORDS } from "./limitWords";
 import { localOnly, onProduction } from "./aiRateLimit";
+import { LONG_CONTEXT_TOKENS, PRICE_TABLE, costUsd, dearestPrice, inputTokensAtMost, priceFor, tokenCounts, withOverrides } from "./aiPrices";
+import { TIER_DEFAULTS } from "../case-system/aiModels";
 
 export { AI_LIMIT_WORDS, AI_LIMIT_COOKIE };
 
@@ -68,18 +72,65 @@ export function spendLimits(env: Env = processEnv()): SpendLimits {
   return limits;
 }
 
-/** Dollars per million tokens (the run-level cap's prices too: openaiClient.ts estimatedSpendUsd). */
+/**
+ * The site's default model's short-context input and output rates, overrides applied: for a token total that carries no
+ * model (openaiClient.ts estimatedSpendUsd given bare counts). Every call the limits count is priced by callCostUsd.
+ */
 export function tokenPrices(env: Env = processEnv()): { input: number; output: number } {
-  return { input: Number(env.AI_PRICE_INPUT_PER_M) || 2, output: Number(env.AI_PRICE_OUTPUT_PER_M) || 10 };
+  const { input, output } = withOverrides(PRICE_TABLE[TIER_DEFAULTS.deep.model] ?? dearestPrice(), env);
+  return { input, output };
 }
 
-/** One call's cost in dollars from the `usage` OpenAI returns (chat, responses and embeddings shapes). */
-export function callCostUsd(response: unknown, env: Env = processEnv()): number {
-  const usage = (response as { usage?: Record<string, unknown> } | null)?.usage;
-  if (!usage) return 0;
-  const n = (value: unknown) => (typeof value === "number" && value > 0 ? value : 0);
-  const prices = tokenPrices(env);
-  return (n(usage.prompt_tokens ?? usage.input_tokens) * prices.input + n(usage.completion_tokens ?? usage.output_tokens) * prices.output) / 1_000_000;
+// ---------------------------------------------------------------- price errors
+
+let priceErrorSink: ((message: string) => void) | null = null;
+/** Tests only: where price errors go instead of the server error log (null: the log again). */
+export function setPriceErrorSinkForTests(sink: ((message: string) => void) | null): void {
+  priceErrorSink = sink;
+}
+
+/** Logs a price error: the server error log (scrubbed there; it holds a model name and counts, never content). */
+function logPriceError(message: string): void {
+  if (priceErrorSink) {
+    priceErrorSink(message);
+    return;
+  }
+  console.error(`[aiSpendLimit] ${message}`);
+  void import("../monitoring/serverErrorLog")
+    .then(({ recordServerError }) => recordServerError(new AiModelNotPriced(message), {}, { routePath: "ai-price-table", routeType: "ai" }))
+    .catch(() => {});
+}
+
+/**
+ * One call's cost in dollars: the model the response names (or, without one, the model requested), priced from the
+ * table with its real input, cached-input and output counts (aiPrices.ts). A response naming a model the table lacks is
+ * counted at the dearest rates in the table, and an error is logged.
+ */
+export function callCostUsd(response: unknown, env: Env = processEnv(), requestedModel?: string): number {
+  const counts = tokenCounts(response);
+  if (!counts) return 0;
+  const named = (response as { model?: unknown } | null)?.model;
+  const model = typeof named === "string" && named.trim() ? named : requestedModel;
+  const price = priceFor(model, env);
+  if (price) return costUsd(price, counts);
+  logPriceError(`AI call answered by a model with no price in the table: "${String(model ?? "(none)").slice(0, 80)}" (requested "${String(requestedModel ?? "(none)").slice(0, 80)}"); counted at the dearest rates in the table.`);
+  return costUsd(withOverrides(dearestPrice(), env), counts);
+}
+
+/** What the client throws instead of calling a model the table cannot price. */
+export class AiModelNotPriced extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "AiModelNotPriced";
+  }
+}
+
+/** Why a counted call to this model with this request may not be made, or null when it may. */
+export function unpricedReason(model: unknown, body: unknown, env: Env = processEnv()): string | null {
+  const price = priceFor(model, env);
+  if (!price) return `AI call refused: the model "${String(model ?? "(none)").slice(0, 80)}" has no price in the table (src/lib/security/aiPrices.ts).`;
+  if (!price.longContext && inputTokensAtMost(body) > LONG_CONTEXT_TOKENS) return `AI call refused: the request may be over ${LONG_CONTEXT_TOKENS} input tokens and "${String(model).slice(0, 80)}" has no long-context price in the table.`;
+  return null;
 }
 
 /** Who a call is made for. */
@@ -287,14 +338,24 @@ async function markLimitForScreens(env: Env, now: number): Promise<void> {
  * THE GATE. Call it with the model call to make: the limit is checked first (a refused call is never made), and the
  * call's cost is recorded when it returns.
  */
-export async function aiSpendGate<T>(call: () => Promise<T>, deps: { env?: Env; now?: number } = {}): Promise<T> {
+export async function aiSpendGate<T>(call: () => Promise<T>, deps: { env?: Env; now?: number; body?: unknown } = {}): Promise<T> {
   const env = deps.env ?? processEnv();
   const decision = await checkAiSpend({ env, now: deps.now });
   if (!decision.allowed) {
     await markLimitForScreens(env, deps.now ?? Date.now());
     throw new AiLimitReached(decision.kind);
   }
+  // A counted call (every call on production; outside it, everyone but the exempt) must have a price before it is made.
+  const requestedModel = (deps.body as { model?: unknown } | null | undefined)?.model;
+  const counted = !spendExempt(decision.asker, env);
+  if (counted) {
+    const reason = unpricedReason(requestedModel, deps.body, env);
+    if (reason) {
+      logPriceError(reason);
+      throw new AiModelNotPriced(reason);
+    }
+  }
   const response = await call();
-  await recordAiSpend(decision.buckets, callCostUsd(response, env), env);
+  if (counted) await recordAiSpend(decision.buckets, callCostUsd(response, env, typeof requestedModel === "string" ? requestedModel : undefined), env);
   return response;
 }
