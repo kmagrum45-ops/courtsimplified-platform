@@ -71,6 +71,12 @@ jobs:
       - name: AI routes that need no sign-in are limited per visitor and by a daily ceiling
         run: npm run test:ai-rate-limit
 
+      - name: Every OpenAI call goes through the one daily spending limit; a person, an address and the site each have a day's limit
+        run: npm run test:ai-spend-limit
+
+      - name: No OpenAI call can bypass the spending limit (one choke point, in the client)
+        run: npm run test:ai-routes-limited
+
       - name: Server errors are logged without anything that identifies a person
         run: npm run test:server-error-log
 

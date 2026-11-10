@@ -8,6 +8,7 @@ import AuthStorageGuard from "./_components/AuthStorageGuard";
 import MobileNav from "./_components/MobileNav";
 import ScrollToTopOnNavigation from "./_components/ScrollToTopOnNavigation";
 import SafetyFooterLine from "./_components/SafetyFooterLine";
+import AiLimitNotice from "./_components/AiLimitNotice";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -91,6 +92,9 @@ export default function RootLayout({
               <MobileNav navLinks={navLinks} />
             </div>
           </header>
+
+          {/* The daily limit for AI help, said on every screen once it is reached (aiSpendLimit.ts). */}
+          <AiLimitNotice />
 
           <main className="flex-1">{children}</main>
 

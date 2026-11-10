@@ -445,6 +445,10 @@
     {
       "file": "tests/browser/chrome-544-6nov.spec.ts",
       "reason": "Chrome check of #544 (6 Nov 2026): Chrome's screens replayed with a real local or staging account and the model stand-ins. It passed on the code before the F1-F5 fixes as well (the stand-ins store the chat's answers differently from the live model, so Chrome's exact screens did not appear locally); the failing-first tests are the terminal suite test:newest-every-screen. Not added to a browser job without the owner's yes (each adds staging time)"
+    },
+    {
+      "file": "tests/browser/ai-spend-limit.spec.ts",
+      "reason": "needs its own server started with a fake OpenAI (OPENAI_BASE_URL) and AI_USER_DAILY_USD=0.01; CI's browser job shares one server with no OpenAI key across every spec. The limit's rules are checked in CI by test:ai-spend-limit and test:ai-routes-limited; run this spec locally as its header says."
     }
   ]
 }

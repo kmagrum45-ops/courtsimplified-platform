@@ -35,6 +35,7 @@ import OpenAI from "openai";
 
 import { observeAiCall } from "../audit/aiCallLog";
 import { createWithParamFallback } from "./aiModels";
+import { aiSpendGate, tokenPrices } from "../security/aiSpendLimit";
 
 /**
  * Logged when a model rejects a sampling parameter and the call is retried
@@ -145,8 +146,8 @@ export const tokenUse = { calls: 0, input: 0, cachedRead: 0, cacheWrite: 0, outp
  */
 const env = (name: string): string => (typeof process !== "undefined" ? (process.env[name] ?? "") : "");
 export function estimatedSpendUsd(use: { input: number; output: number } = tokenUse): number {
-  const input = Number(env("AI_PRICE_INPUT_PER_M")) || 2;
-  const output = Number(env("AI_PRICE_OUTPUT_PER_M")) || 10;
+  // One copy of the prices: the site's daily spending limit prices calls the same way (aiSpendLimit.ts).
+  const { input, output } = tokenPrices();
   return (use.input * input + use.output * output) / 1_000_000;
 }
 export class SpendCapReached extends Error {
@@ -224,13 +225,14 @@ export function forceNoStore<T>(client: T): T {
     // logged" has to be a property of the client, not a habit of seven callers.
     // observeAiCall is an observer: it returns and throws exactly what the call
     // returns and throws.
-    return namesBack(observeAiCall(body, async () =>
+    // THE SITE'S SPENDING LIMIT (aiSpendLimit.ts), in front of every call: a refused call is never made or logged.
+    return aiSpendGate(() => namesBack(observeAiCall(body, async () =>
       createWithParamFallback(
         (attempt) => counted(chatCreate({ ...attempt, store: false }, options) as Promise<unknown>),
         withoutCacheWrites(body),
         warnDroppedParam,
       ),
-    ));
+    )));
   }) as never;
 
   /*
@@ -256,13 +258,13 @@ export function forceNoStore<T>(client: T): T {
       const capped = spendCapRejection();
       if (capped) return capped;
       const body = labelled(original);
-      return namesBack(observeAiCall(body, async () =>
+      return aiSpendGate(() => namesBack(observeAiCall(body, async () =>
         createWithParamFallback(
           (attempt) => counted(chatParse({ ...attempt, store: false }, options) as Promise<unknown>),
           withoutCacheWrites(body),
           warnDroppedParam,
         ),
-      ));
+      )));
     }) as never;
   }
 
@@ -276,9 +278,9 @@ export function forceNoStore<T>(client: T): T {
       const capped = spendCapRejection();
       if (capped) return capped;
       const body = labelled(original);
-      return namesBack(observeAiCall(body, async () =>
+      return aiSpendGate(() => namesBack(observeAiCall(body, async () =>
         counted(responsesCreate({ ...withoutCacheWrites(body), store: false }, options) as Promise<unknown>),
-      ));
+      )));
     }) as never;
   }
 
@@ -293,8 +295,10 @@ export function forceNoStore<T>(client: T): T {
   if (embeddings && typeof embeddings.create === "function") {
     const embeddingsCreate = (embeddings.create as (...args: unknown[]) => unknown).bind(embeddings);
     embeddings.create = ((original: Record<string, unknown>, options?: unknown) => {
+      const capped = spendCapRejection();
+      if (capped) return capped;
       const body = labelled(original);
-      return observeAiCall(body, async () => embeddingsCreate(body, options));
+      return aiSpendGate(() => observeAiCall(body, async () => counted(embeddingsCreate(body, options) as Promise<unknown>)));
     }) as never;
   }
 
