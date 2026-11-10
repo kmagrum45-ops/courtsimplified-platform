@@ -12,6 +12,8 @@
  *   5. a response naming a model not in the table (the request named a priced one): priced at the dearest rates in
  *      the table, and an error logged, never priced at zero;
  *   6. AI_PRICE_INPUT_PER_M / AI_PRICE_OUTPUT_PER_M override the short-context input and output rates only.
+ *   7. embeddings (text-embedding-3-large $0.13, -small $0.02 per 1M input), from prompt_tokens or total_tokens;
+ *   8. a long embedding batch is not refused: embeddings have one flat rate, no long-context tier.
  * Costs nothing: no network, no database, no AI.
  *
  * WHAT FAILURE THIS CATCHES: the daily limits counting a call at the wrong price (a long or cached call, or a dearer
@@ -84,6 +86,25 @@ async function main() {
   const overridden = cost({ model: "gpt-6.1-sol", usage: { prompt_tokens: 10_000, completion_tokens: 2_000, prompt_tokens_details: { cached_tokens: 4_000 } } }, { ...env, AI_PRICE_INPUT_PER_M: "3", AI_PRICE_OUTPUT_PER_M: "12" });
   // 6,000 x $3 + 4,000 x $0.10 + 2,000 x $12 = $0.0424.
   check("6. overrides: input $3 and output $12, cached input still $0.10 ($0.0424)", near(overridden, 0.0424), `got $${overridden}`);
+
+  // 7. Embeddings (site owner, 10 Nov 2026: text-embedding-3-large $0.13, text-embedding-3-small $0.02 per 1M input
+  // tokens): input only, read from an embeddings response's usage (prompt_tokens / total_tokens, no completion tokens).
+  const large = cost({ model: "text-embedding-3-large", usage: { prompt_tokens: 1_000_000, total_tokens: 1_000_000 } }, env);
+  check("7a. text-embedding-3-large: 1M input tokens cost $0.13", near(large, 0.13), `got $${large}`);
+  const small = cost({ model: "text-embedding-3-small", usage: { prompt_tokens: 500_000, total_tokens: 500_000 } }, env);
+  check("7b. text-embedding-3-small: 500K input tokens cost $0.01", near(small, 0.01), `got $${small}`);
+  const totalOnly = cost({ model: "text-embedding-3-large", usage: { total_tokens: 2_000_000 } }, env);
+  check("7c. an embeddings usage with only total_tokens is priced from it ($0.26 for 2M)", near(totalOnly, 0.26), `got $${totalOnly}`);
+  // 8. An embedding batch is not refused for its length: embeddings have one flat rate, no long-context tier.
+  const embedCalls = { n: 0 };
+  const embedClient = forceNoStore({ chat: { completions: { create: async () => ({}) } }, embeddings: { create: async () => { embedCalls.n += 1; return { model: "text-embedding-3-large", data: [], usage: { prompt_tokens: 400_000, total_tokens: 400_000 } }; } } }) as unknown as { embeddings: { create: (body: unknown) => Promise<unknown> } };
+  let embedRefused = false;
+  try {
+    await spend.withAiAskerForTests({ userId: "00000000-0000-4000-8000-0000000000ac", visitor: "v-embed" }, () => embedClient.embeddings.create({ model: "text-embedding-3-large", input: ["x".repeat(1_200_000)], dimensions: 256 }));
+  } catch {
+    embedRefused = true;
+  }
+  check("8. a long embedding batch (over 272K tokens) is made once, not refused: embeddings have one flat rate", !embedRefused && embedCalls.n === 1, `refused ${embedRefused}, calls ${embedCalls.n}`);
 
   console.log(failures ? `\n${failures} check(s) failed.` : "\nEach AI call is priced from its model and real tokens; an unpriced model is never called.");
   process.exit(failures ? 1 : 0);

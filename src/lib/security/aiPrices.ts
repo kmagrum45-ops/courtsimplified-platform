@@ -28,6 +28,8 @@ export type ModelPrice = {
   output: number;
   /** Rates for a call whose input is over LONG_CONTEXT_TOKENS; absent when unknown (such a call is refused). */
   longContext?: { input: number; cachedInput: number; output: number };
+  /** An embeddings model: one flat input rate whatever the length (no long-context tier exists, so none is refused). */
+  flat?: true;
 };
 
 /** A call with more input tokens than this is priced at the long-context rates. */
@@ -37,6 +39,13 @@ export const LONG_CONTEXT_TOKENS = 272_000;
  * The table. gpt-6.1-sol: all rates from the site owner (10 Nov 2026). The other four: the owner's short-context input
  * and output rates (10 Nov 2026); their cached-input rate was not given, so it is the full input rate (never cheaper
  * than the truth), and they have no long-context rate (a call over 272K input tokens to them is refused).
+ * Embeddings (site owner, 10 Nov 2026, from OpenAI's pricing and model pages): text-embedding-3-large $0.13 and
+ * text-embedding-3-small $0.02 per 1M input tokens; input only, one flat rate.
+ *
+ * NOT CONFIRMED against OpenAI's current pricing page: the cached-input rates of gpt-6.1-terra, gpt-6-astra and
+ * gpt-6-luna (set to the full input rate, which over-counts: the safe direction), the whole gpt-5.5 row, and the 272K
+ * long-context rule (LONG_CONTEXT_TOKENS and gpt-6.1-sol's long-context rates). Overrides exist: AI_PRICE_INPUT_PER_M
+ * and AI_PRICE_OUTPUT_PER_M replace the short-context input and output rates for every model.
  */
 export const PRICE_TABLE: Readonly<Record<string, ModelPrice>> = {
   "gpt-6.1-sol": { input: 2, cachedInput: 0.1, output: 10, longContext: { input: 4, cachedInput: 0.2, output: 15 } },
@@ -44,6 +53,8 @@ export const PRICE_TABLE: Readonly<Record<string, ModelPrice>> = {
   "gpt-6-astra": { input: 10, cachedInput: 10, output: 50 },
   "gpt-6-luna": { input: 0.1, cachedInput: 0.1, output: 0.5 },
   "gpt-5.5": { input: 5, cachedInput: 5, output: 30 },
+  "text-embedding-3-large": { input: 0.13, cachedInput: 0.13, output: 0, flat: true },
+  "text-embedding-3-small": { input: 0.02, cachedInput: 0.02, output: 0, flat: true },
 };
 
 type Env = Record<string, string | undefined>;
@@ -87,8 +98,10 @@ export function tokenCounts(response: unknown): TokenCounts | null {
   if (!usage) return null;
   const n = (value: unknown) => (typeof value === "number" && value > 0 ? value : 0);
   const details = (usage.prompt_tokens_details ?? usage.input_tokens_details ?? {}) as Record<string, unknown>;
-  const input = n(usage.prompt_tokens ?? usage.input_tokens);
-  return { input, cached: Math.min(n(details.cached_tokens), input), output: n(usage.completion_tokens ?? usage.output_tokens) };
+  const output = n(usage.completion_tokens ?? usage.output_tokens);
+  // An embeddings response reports prompt_tokens and total_tokens (no output); total_tokens is the input when alone.
+  const input = n(usage.prompt_tokens ?? usage.input_tokens) || Math.max(0, n(usage.total_tokens) - output);
+  return { input, cached: Math.min(n(details.cached_tokens), input), output };
 }
 
 /** Dollars for these counts at this price (the long-context rates when input is over 272K and the model has them). */

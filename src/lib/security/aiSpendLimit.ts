@@ -129,7 +129,7 @@ export class AiModelNotPriced extends Error {
 export function unpricedReason(model: unknown, body: unknown, env: Env = processEnv()): string | null {
   const price = priceFor(model, env);
   if (!price) return `AI call refused: the model "${String(model ?? "(none)").slice(0, 80)}" has no price in the table (src/lib/security/aiPrices.ts).`;
-  if (!price.longContext && inputTokensAtMost(body) > LONG_CONTEXT_TOKENS) return `AI call refused: the request may be over ${LONG_CONTEXT_TOKENS} input tokens and "${String(model).slice(0, 80)}" has no long-context price in the table.`;
+  if (!price.longContext && !price.flat && inputTokensAtMost(body) > LONG_CONTEXT_TOKENS) return `AI call refused: the request may be over ${LONG_CONTEXT_TOKENS} input tokens and "${String(model).slice(0, 80)}" has no long-context price in the table.`;
   return null;
 }
 
