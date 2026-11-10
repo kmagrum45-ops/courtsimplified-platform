@@ -182,6 +182,18 @@ if (limit) {
   check("7. the shared count unreachable: the memory count still limits (never \"no limit\")", down.counter.calls === 3, `calls made: ${down.counter.calls}`);
 } else check("7. the shared count", false, "no limiter");
 
+// 8. The owner's limits (10 Nov 2026) when no variable is set, and each variable still overrides its own limit.
+if (limit) {
+  const defaults = limit.spendLimits({});
+  const owner = { "user-daily": 4, "user-hourly": 1.5, "ip-daily": 6, "site-daily": 10 };
+  check("8. with no variable set: $4 a day and $1.50 an hour a person, $6 a day an address, $10 a day the site", JSON.stringify(defaults) === JSON.stringify(owner), JSON.stringify(defaults));
+  const set = limit.spendLimits({ AI_USER_DAILY_USD: "3", AI_USER_HOURLY_USD: "1", AI_IP_DAILY_USD: "5", AI_SITE_DAILY_USD: "12" });
+  check("8. each variable sets its own limit", JSON.stringify(set) === JSON.stringify({ "user-daily": 3, "user-hourly": 1, "ip-daily": 5, "site-daily": 12 }), JSON.stringify(set));
+  // The site's day is one row of the project's own ai_rate_limits table (each project has its own database).
+  const buckets = limit.bucketsFor({ inRequest: true, userId: null, visitor: null, harness: false }, Date.UTC(2026, 10, 10, 17));
+  check("8. the site's day is one bucket in the project's own count, never a per-server or per-instance one", buckets.length === 1 && buckets[0].kind === "site-daily" && /^\$s:\d{4}-\d{2}-\d{2}$/.test(buckets[0].key), JSON.stringify(buckets));
+} else check("8. the owner's limits", false, "no limiter");
+
 scenario({});
 console.log(failures ? `\n${failures} check(s) failed.` : "\nThe daily limit for AI help refuses calls before they are made.");
 process.exit(failures ? 1 : 0);

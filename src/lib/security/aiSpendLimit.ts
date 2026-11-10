@@ -6,11 +6,11 @@
  * a route added next month is limited without knowing this file exists (test:ai-routes-limited asserts it).
  *
  * The limits, in dollars, each tunable by an environment variable:
- *   - per signed-in person a day ........ AI_USER_DAILY_USD   (default 2)
- *   - per signed-in person an hour ...... AI_USER_HOURLY_USD  (default 0.75): a burst cap inside the day
- *   - per visitor address a day ......... AI_IP_DAILY_USD     (default 4): the salted address hash aiRateLimit.ts already
+ *   - per signed-in person a day ........ AI_USER_DAILY_USD   (default 4)
+ *   - per signed-in person an hour ...... AI_USER_HOURLY_USD  (default 1.50): a burst cap inside the day
+ *   - per visitor address a day ......... AI_IP_DAILY_USD     (default 6): the salted address hash aiRateLimit.ts already
  *                                          uses, across every account, so several accounts from one person share it
- *   - the whole site a day .............. AI_SITE_DAILY_USD   (default 8): guests and signed-in people together
+ *   - the whole site a day .............. AI_SITE_DAILY_USD   (default 10): guests and signed-in people together
  * A "day" is the Toronto day (todayInOntario), so "back tomorrow" means after midnight in Ontario.
  *
  * The cost of a call is its token use as OpenAI reports it on the response (`usage`, already counted by openaiClient.ts
@@ -50,7 +50,7 @@ const processEnv = (): Env => (typeof process !== "undefined" ? process.env : {}
 export type SpendLimitKind = "user-daily" | "user-hourly" | "ip-daily" | "site-daily";
 export type SpendLimits = Record<SpendLimitKind, number>;
 
-const DEFAULTS: SpendLimits = { "user-daily": 2, "user-hourly": 0.75, "ip-daily": 4, "site-daily": 8 };
+const DEFAULTS: SpendLimits = { "user-daily": 4, "user-hourly": 1.5, "ip-daily": 6, "site-daily": 10 };
 const VARIABLES: Record<SpendLimitKind, string> = {
   "user-daily": "AI_USER_DAILY_USD",
   "user-hourly": "AI_USER_HOURLY_USD",
