@@ -17,9 +17,13 @@
  *      tenant"), and a company renting a warehouse or a shop for a business gets none;
  *   2. a story where the tenancy has ended gets the same LTB notice, marked `ended` (the boundary the legal review
  *      looks at), and a story that names a case already in Small Claims gets none;
+ *      a tenancy word alone is not enough: "I rent an apartment and a stranger hit my parked car", a neighbour's dog
+ *      bite, a car sold to a cousin who is also the landlord get none (site owner, 10 Nov 2026);
  *   3. the other tribunals on the out-of-scope list go through the same rule (a human rights complaint);
  *   4. the AI reading (understandCase) returns the tribunal with NO follow-up questions on a match, without calling the
  *      model; for an ended tenancy it keeps the reading and carries the notice;
+ *   6. the court-path classifier (the home page's check) agrees, offline, for the tenancy-word-alone stories and the
+ *      tenancy disputes;
  *   5. every screen shows the one notice component (TribunalNotice) with the forum's own sourced redirectMessage, the
  *      reading card shows it above its questions, and each entry point (home, builder chat, Small Claims chat) runs
  *      the shared rule before its first follow-up question.
@@ -33,6 +37,7 @@ import path from "node:path";
 import * as fixed from "../../src/lib/case-system/intelligence/fixedRegimes";
 import { OUT_OF_SCOPE_FORUMS } from "../../src/lib/case-system/intelligence/outOfScopeForums";
 import { understandCase } from "../../src/lib/case-system/understanding/understandCase";
+import { classifyCourtPath } from "../../src/lib/case-system/intelligence/courtPathClassifier";
 
 delete process.env.OPENAI_API_KEY;
 
@@ -60,6 +65,11 @@ export const TRIBUNAL_FIRST_STORIES = {
   "shop-rent-raised": "I rent a shop for my business and the landlord raised the rent",
   "tenancy-ended": "I moved out of my apartment in June 2026 and my landlord kept my $1,500 deposit.",
   "already-in-small-claims": "My former landlord sued me in Small Claims Court for $3,000 of rent.",
+  // A tenancy word alone is not a tenancy dispute (site owner, 10 Nov 2026): these name the person's rented home or
+  // their landlord, but the dispute has nothing to do with the tenancy.
+  "stranger-hit-car": "I rent an apartment and a stranger hit my parked car",
+  "neighbour-dog": "I rent an apartment and my neighbour's dog bit me",
+  "cousin-car-sale": "I sold my cousin a car and he owes me $2,000 (he is also my landlord)",
   "human-rights": "My employer discriminated against me because of my disability and refused the duty to accommodate.",
 } as const;
 const S = TRIBUNAL_FIRST_STORIES;
@@ -70,7 +80,7 @@ for (const id of ["tenant-mould", "tenant-repairs", "landlord-eviction", "tenant
   const found = tribunalOf(S[id]);
   check(`1. ${id}: the LTB, active tenancy`, found !== "missing" && found?.forum.id === "ltb" && found.ended === false, JSON.stringify(found));
 }
-for (const id of ["commercial-lease", "contractor-car", "own-car-rented", "business-landlord-deposit", "company-warehouse-deposit", "shop-rent-raised"] as const) {
+for (const id of ["commercial-lease", "contractor-car", "own-car-rented", "business-landlord-deposit", "company-warehouse-deposit", "shop-rent-raised", "stranger-hit-car", "neighbour-dog", "cousin-car-sale"] as const) {
   const found = tribunalOf(S[id]);
   check(`1. ${id}: no tribunal`, found === null, JSON.stringify(found));
 }
@@ -145,7 +155,21 @@ function screens() {
   check("5. home page: the rule is checked inside Continue BEFORE the AI reading is requested", ruleAt >= 0 && continueAt >= 0 && readingAt > continueAt && tribunalInContinue >= 0, `rule ${ruleAt}, continue ${continueAt}, reading ${readingAt}`);
 }
 
+// 6. The court-path classifier (the home page's check) agrees with the shared rule, offline: a tenancy word alone is
+// not the LTB, and the tenancy disputes still are.
+async function classifierAgrees() {
+  for (const id of ["stranger-hit-car", "neighbour-dog", "cousin-car-sale"] as const) {
+    const result = await classifyCourtPath({ story: S[id], allowExternalCognition: false });
+    check(`6. classifier, ${id}: not sent to the LTB`, result.outOfScopeForum?.id !== "ltb", JSON.stringify({ path: result.primaryPath, forum: result.outOfScopeForum?.id }));
+  }
+  for (const id of ["tenant-mould", "tenant-repairs", "landlord-eviction", "tenant-property-manager-mould", "tenant-numbered-company-repairs", "tenancy-ended"] as const) {
+    const result = await classifyCourtPath({ story: S[id], allowExternalCognition: false });
+    check(`6. classifier, ${id}: the LTB`, result.outOfScopeForum?.id === "ltb", JSON.stringify({ path: result.primaryPath, forum: result.outOfScopeForum?.id }));
+  }
+}
+
 readings()
+  .then(classifierAgrees)
   .then(screens)
   .then(() => {
     console.log(failures ? `\n${failures} check(s) failed.` : "\nThe tribunal notice comes first, from one rule, on every screen.");

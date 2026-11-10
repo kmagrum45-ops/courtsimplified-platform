@@ -14,7 +14,7 @@ import {
 
 import type { CaseProvince } from "../architecture/masterCaseSchema";
 import { userStory } from "../userStory";
-import { COMMERCIAL_TENANCY_WORDS, RESIDENTIAL_TENANCY_WORDS } from "../intelligence/tenancyWords";
+import { COMMERCIAL_TENANCY_WORDS, RESIDENTIAL_TENANCY_WORDS, hasTenancyDisputeSignal } from "../intelligence/tenancyWords";
 
 export type CasePartnerRole = "user" | "assistant" | "system";
 
@@ -769,7 +769,8 @@ export function inferCourtArea(message: string): CasePartnerCourtArea {
   const commercialTenancy =
     countSignals(message, [...COMMERCIAL_TENANCY_WORDS]) > 0 &&
     countSignals(message, [...RESIDENTIAL_TENANCY_WORDS]) === 0;
-  const ltb = commercialTenancy ? 0 : countSignals(message, [
+  // A tenancy word alone is not a tenancy dispute (site owner, 10 Nov 2026; tenancyWords.ts hasTenancyDisputeSignal).
+  const ltb = commercialTenancy || !hasTenancyDisputeSignal(message) ? 0 : countSignals(message, [
     "landlord",
     "tenant",
     "eviction",
