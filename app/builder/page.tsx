@@ -612,8 +612,10 @@ function BuilderPageContent() {
       // deleting it here made them ask it again (finding 1, the "not sure" path).
       if (temporaryGuide) {
         let started: unknown;
-        try { started = (JSON.parse(temporaryGuide) as { started?: unknown }).started; } catch { started = undefined; }
-        if (typeof started === "string") sessionStorage.setItem(COURT_PATH_FINDER_KEY, JSON.stringify({ started }));
+        let flowId: unknown;
+        try { ({ started, flowId } = JSON.parse(temporaryGuide) as { started?: unknown; flowId?: unknown }); } catch { started = undefined; }
+        // Still the intake's it was handed to (finderHandoff.ts), with no story left in it.
+        if (typeof started === "string") sessionStorage.setItem(COURT_PATH_FINDER_KEY, JSON.stringify({ started, ...(typeof flowId === "string" ? { flowId } : {}) }));
         else sessionStorage.removeItem(COURT_PATH_FINDER_KEY);
       }
 

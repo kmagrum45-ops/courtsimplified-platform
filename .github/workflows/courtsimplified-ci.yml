@@ -327,6 +327,9 @@ jobs:
       - name: Chrome check of #545 at 7bce410 -- one form rule, municipality once, story dates named, case file lines, saved title
         run: npm run test:chrome-545-round
 
+      - name: The court-path finder's story belongs to one intake; leaving "Before you start" leaves nothing in the tab
+        run: npm run test:finder-handoff
+
       - name: A date kept from the story never replaces the person's answer or their "not sure" (B2, 9 Nov)
         run: npm run test:story-date-never-replaces
 
@@ -892,6 +895,7 @@ jobs:
           tests/browser/chrome-545-round.spec.ts
           tests/browser/feedback-link.spec.ts
           tests/browser/tribunal-first.spec.ts
+          tests/browser/finder-story-leak.spec.ts
           tests/browser/claim-kind-one-value.spec.ts
           tests/browser/chrome-31oct-review.spec.ts
           tests/browser/change-answer.spec.ts
