@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-254 documented, 26 without a header.
+255 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -133,6 +133,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:library-chat` | **The chat can only say what has already been verified.**<br>COSTS NOTHING. No model call. Every check drives `validateSelection` and `assembleChatAnswer` with payloads a model might return — including the ones it must never return — because those are the two functions every answer passes through, whatever the model sai |
 | `npm run test:live-stories` | **Eight live stories through the full Small Claims pipeline: general intake ->**<br>claim-type confirmation -> depth phase -> readiness gate. |
 | `npm run test:lso-demo-cases` | **The demo test cases from docs/lso-ai-audit.md section 13, as a suite.**<br>WHY. That table was written as a list of things to try by hand, and five of its twenty rows were marked "expected to fail today" — cases 3, 4, 12, 13 and 19, the honest edges of the demo. Those five are the point of the LSO rewrite, so they cannot stay as a li |
+| `npm run test:married-only-topics` | **A PERSON WHO WAS NOT MARRIED TO THE OTHER PERSON IS NOT OFFERED MARRIED-ONLY FAMILY TOPICS (Chrome check of #545,**<br>9 Nov 2026, item 7: an unmarried couple's case-type boxes offered "Divorce", "Dividing property (equalization)" and "Who lives in the family home (matrimonial home...)"). |
 | `npm run test:mount-conditions` | **Surfaces that mount independently of the analysis pipeline are not gated on**<br>it. |
 | `npm run test:municipal-notice-first` | **The right municipality's law for an injury on a municipal way, and the**<br>10-day notice shown first in the intake (round 4 senior-lawyer review, 2026-10-14, persona civil-plaintiff-municipal-slip). |
 | `npm run test:mutations` | **Every family §3 / §2 check is proven able to fail.**<br>COSTS NOTHING. Local file edits plus suite runs. Slower than the suites themselves (it runs each one once per mutation), so it is not wired into the per-change loop — run it when a check is added or changed. |

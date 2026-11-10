@@ -28,6 +28,7 @@ import {
 } from "@/src/lib/case-system/deadlines/serviceEffectiveDate";
 
 import { findStage, stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
+import { MARRIED_ONLY_FAMILY_STEPS } from "../../../src/lib/case-system/family/marriedOnly";
 import { DEADLINE_EVENTS, caseDatesFrom } from "@/src/lib/case-system/deadlines/deadlineEvents";
 import { formatLongDate } from "@/src/lib/case-system/deadlines/holidays";
 import { computedDeadlinesFor } from "@/src/lib/content-library/computedDeadline";
@@ -1440,7 +1441,9 @@ export default function StageAnswerPanel({
     service?: Record<string, { method: ServiceMethod; enteredOn: string } | null>;
   }) => void;
 }) {
-  const options = stagesForPathway(courtPath).map((stage) => ({
+  // Someone not married to the other person is not offered a married-only step (marriedOnly.ts), unless it is the step
+  // saved or the one suggested: shown, so nothing is changed for them silently (CLAUDE.md s. 4).
+  const options = stagesForPathway(courtPath).filter((stage) => !(notMarried && MARRIED_ONLY_FAMILY_STEPS.has(stage.id) && stage.id !== initialStepId && stage.id !== suggestedStepId)).map((stage) => ({
     id: stage.id,
     group: groupOf(stage),
     label: stage.userQuestion,
