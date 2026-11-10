@@ -12,6 +12,9 @@
  *   1. one shared code rule, exclusiveTribunalFor (fixedRegimes.ts), names the LTB for a tenant's mould, a tenant's
  *      repairs and a landlord's eviction, and names nothing for a commercial lease, a landlord's contractor damaging a
  *      car, renting out one's own car, or a deposit dispute with a business landlord;
+ *      a residential tenant whose landlord is a company or property manager still gets the LTB (site owner, 10 Nov
+ *      2026: only a business renting commercial space is excluded -- shop, warehouse, office, "my company is the
+ *      tenant"), and a company renting a warehouse or a shop for a business gets none;
  *   2. a story where the tenancy has ended gets the same LTB notice, marked `ended` (the boundary the legal review
  *      looks at), and a story that names a case already in Small Claims gets none;
  *   3. the other tribunals on the out-of-scope list go through the same rule (a human rights complaint);
@@ -51,6 +54,10 @@ export const TRIBUNAL_FIRST_STORIES = {
   "contractor-car": "A contractor my landlord hired to fix the roof backed his truck into my parked car and damaged my car. The repair cost is $3,200 and he refuses to pay.",
   "own-car-rented": "I rented out my own car to a coworker for a week. He returned it with a dented door and will not pay for the repair.",
   "business-landlord-deposit": "I paid a $5,000 deposit to a business landlord to lease warehouse space for my company. They kept the deposit when the deal fell through.",
+  "tenant-property-manager-mould": "I rent an apartment from a property management company and there is mould",
+  "tenant-numbered-company-repairs": "my landlord is a numbered company and will not do repairs",
+  "company-warehouse-deposit": "My company rents a warehouse and the landlord kept our deposit",
+  "shop-rent-raised": "I rent a shop for my business and the landlord raised the rent",
   "tenancy-ended": "I moved out of my apartment in June 2026 and my landlord kept my $1,500 deposit.",
   "already-in-small-claims": "My former landlord sued me in Small Claims Court for $3,000 of rent.",
   "human-rights": "My employer discriminated against me because of my disability and refused the duty to accommodate.",
@@ -59,11 +66,11 @@ const S = TRIBUNAL_FIRST_STORIES;
 
 // 1. The shared rule.
 check("0. one shared code rule exists: exclusiveTribunalFor in fixedRegimes.ts", typeof rule === "function", `exports: ${Object.keys(fixed).join(", ")}`);
-for (const id of ["tenant-mould", "tenant-repairs", "landlord-eviction"] as const) {
+for (const id of ["tenant-mould", "tenant-repairs", "landlord-eviction", "tenant-property-manager-mould", "tenant-numbered-company-repairs"] as const) {
   const found = tribunalOf(S[id]);
   check(`1. ${id}: the LTB, active tenancy`, found !== "missing" && found?.forum.id === "ltb" && found.ended === false, JSON.stringify(found));
 }
-for (const id of ["commercial-lease", "contractor-car", "own-car-rented", "business-landlord-deposit"] as const) {
+for (const id of ["commercial-lease", "contractor-car", "own-car-rented", "business-landlord-deposit", "company-warehouse-deposit", "shop-rent-raised"] as const) {
   const found = tribunalOf(S[id]);
   check(`1. ${id}: no tribunal`, found === null, JSON.stringify(found));
 }
