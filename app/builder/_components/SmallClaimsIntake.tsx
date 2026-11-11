@@ -1312,7 +1312,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </AskedField>
 
           {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
-          <AskedField field="goal" value={input.goal} label={"What do you want the court to order?"}>
+          <AskedField field="goal" value={input.goal} label={isDefendantRole(input.yourRole) ? "What do you want to happen with the claim against you?" : "What do you want the court to order?"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               {/* A defendant does not ask the court for an order on the claim;
@@ -1679,7 +1679,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               ["timeline", "Important dates / timeline"],
               ["evidence", "Evidence you have"],
               ["missingEvidence", "Evidence still missing"],
-              ["goal", "What do you want the court to order?"],
+              ["goal", isDefendantRole(input.yourRole) ? "What do you want to happen with the claim against you?" : "What do you want the court to order?"],
               ["serviceDetails", "Service details"],
               ["agreementDetails", "Agreement or contract details"],
               ["paymentHistory", "Payment history"],
