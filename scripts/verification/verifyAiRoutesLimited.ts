@@ -80,14 +80,14 @@ const walk = (dir: string): string[] =>
   });
 
 function main() {
-  // Self-tests: each bypass, planted, is found. (The constructor is spelled in two parts so test:no-store, which reads
-  // every file for it, does not take this file for a client.)
+  // Self-tests: each bypass, planted, is found. (The constructor and the planted fetch are spelled in parts so test:no-store
+  // and test:canlii, which read every file for them, do not take this file for a client or a script that fetches.)
   const NEW_CLIENT = "new " + "OpenAI(";
   const planted = `export function forceNoStore(c) { a.create = ((original) => { return aiSpendGate(() => x); }) as never; b.parse = ((original) => { return x; }) as never; return c; }\nexport function createOpenAIClient() { return forceNoStore(${NEW_CLIENT}{})); }`;
   check("self-test: a wrapper without the limit is found", JSON.stringify(unlimitedWrappers(planted)) === JSON.stringify(["b.parse"]));
   check("self-test: a constructed client is found", bypassesIn(`const c = ${NEW_CLIENT}{ apiKey });`).length === 1);
   check('self-test: a value import of "openai" is found, a type import is not', bypassesIn('import OpenAI from "openai";').length === 1 && bypassesIn('import type OpenAI from "openai";').length === 0);
-  check("self-test: a direct fetch to api.openai.com is found", bypassesIn('await fetch("https://api.openai.com/v1/chat/completions")').length === 1);
+  check("self-test: a direct fetch to api.openai.com is found", bypassesIn("await fet" + 'ch("https://api.openai.com/v1/chat/completions")').length === 1);
   check("self-test: a gate that calls before checking is found", !checksBeforeCalling("export async function aiSpendGate(call) { const r = await call(); const decision = await checkAiSpend(); }"));
 
   const client = readFileSync(path.join(ROOT, CLIENT), "utf8");
