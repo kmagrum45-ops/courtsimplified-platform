@@ -388,7 +388,9 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // ("When it happened" stayed the person's "March 2026"; Chrome check of production c38e69fd, B2).
   const dates = object(position.dateAnswers);
   const keptFromStory = new Set(Array.isArray(position.datesFromStory) ? position.datesFromStory : []);
-  for (const [id, value] of Object.entries(dates)) if (!keptFromStory.has(id)) for (const fact of slotsOf(id)) give(file, fact, value, id);
+  // A day given there to work out a deadline never replaces "When it happened" given anywhere else (whenGivenElsewhere).
+  // Nor is the day a plaintiff served their own claim the day they got papers (servedDate), question-to-fact audit, 11 Nov.
+  for (const [id, value] of Object.entries(dates)) if (!keptFromStory.has(id)) for (const fact of slotsOf(id)) if (!(STEP_DATE_NEVER_REPLACES.has(fact) && givenElsewhere(fact, file[fact])) && !(fact === "servedDate" && bringsTheCase(file))) give(file, fact, value, id);
   // An older saved case (before 29 Oct) kept the kind in the analysis copy (intakeData.extra): read
   // here only, as a fallback: ticked, it is the person's; unticked, a proposal (claim type, rule 3).
   const extra = object(object(object(master).intakeData).extra);
@@ -579,15 +581,18 @@ export function sameAnswer(fact: SlotFact, heldValue: unknown, given: unknown): 
 /**
  * What a form box for `fact` must show to follow the newest saved answer (rule 3, site owner 6 Nov; Chrome check of
  * #544, step 14), or null to leave it as it is. `place`: the box's own place ("small-claims:amountClaimed"). Left as
- * it is: a fact never answered (no state), or one only read from the story; a box that is itself where the newest
- * answer came from (the person typing in it, sent or not); a box already saying the same answer; a "not sure" typed in
- * the box. Otherwise: the newest answer's words, or empty when it was removed or is "not sure".
+ * it is: a fact never answered (no state), or one only read from the story; a box whose own edit in this tab is not
+ * saved yet (`ownEditWaiting`: typed and on its way, or refused as "Not saved yet"); a box already saying the same
+ * answer; a "not sure" typed in the box. Otherwise: the newest answer's words, or empty when it was removed or is "not
+ * sure". The newest answer coming from this same box is no reason to leave it: another tab may have typed it there
+ * (fact-two-tabs.spec.ts, 10 Nov: tab 1 kept 6000 after tab 2's newer 7000 from the same box, its own stored copy
+ * shown on reload; test:box-follows-other-tab).
  */
-export function followWords(file: CaseFile, fact: SlotFact, place: string, boxValue: unknown, formatDay: (iso: string) => string): string | null {
+export function followWords(file: CaseFile, fact: SlotFact, place: string, boxValue: unknown, formatDay: (iso: string) => string, ownEditWaiting = false): string | null {
   if (START_FACTS.has(fact) || fact === "story") return null;
   const slot = file[fact];
   if (!slot.confirmed) return null;
-  if (slot.source?.kind === "answer" && slot.source.question === place) return null;
+  if (ownEditWaiting) return null;
   const now = boxValue === undefined || boxValue === null ? "" : String(boxValue);
   if (slot.removed || slot.state === "unsure") return now.trim() && !isUnsureAnswer(now) ? "" : null;
   if (slot.state !== "answered") return null;
@@ -815,6 +820,8 @@ function applyFactRecords(file: CaseFile, sections: Record<string, unknown>) {
     // That place's answer set aside since (a story change, "Start the questions again": the fresh sections hold nothing
     // there) is not brought back by its numbered copy. A box the person emptied records a removal instead (newer, no place).
     if (fromPlace && placeHolds(sections, question) === false) continue;
+    // A day the step page saved to work out a deadline never replaces "When it happened" the person gave elsewhere.
+    if (STEP_DATE_NEVER_REPLACES.has(fact) && fromCasePosition(question) && givenElsewhere(fact, file[fact])) continue;
     applyOne(file, fact, entry.state === "answered" ? { state: "answered", value: Array.isArray(value) ? strings(value) : value } : { state: entry.state as "removed" | "unsure" }, question, !fromPlace);
   }
   if (records.length) file.changedFacts = [...new Set([...(file.changedFacts ?? []), ...records.map(([fact]) => fact)])];
@@ -831,6 +838,36 @@ export const POSITION_PLACE = "position:";
 export function fromCasePosition(question: unknown): boolean {
   return typeof question === "string" && (question === CLAIM_KIND_QUESTION || question.startsWith(POSITION_PLACE));
 }
+/**
+ * Whether "When it happened" holds an answer given somewhere other than the step page: a day or a rough time ("March
+ * 2026"), from the review, the chat, a form, Change or the story. The step page's "Work out your dates" asks for a day only
+ * to count a deadline (`case-date-act-or-omission`); that day is kept in the saved position for the deadline, and fills
+ * "When it happened" only when nothing else does (Chrome re-check of #545 at dc909096, 10 Nov 2026: "March 2026" became
+ * "May 15, 2026", the day typed there). Each question writes only its own fact.
+ */
+/** The person is bringing the case (the plaintiff or applicant): papers they serve are not papers they got. */
+export function bringsTheCase(file: CaseFile): boolean {
+  return file.side.state === "answered" && file.side.value === "bringing";
+}
+
+export function whenGivenElsewhere(slot: Slot): boolean {
+  return givenElsewhere("whenHappened", slot);
+}
+
+/**
+ * Facts a step-page date may fill but never replace: the step page asks for a day to count a deadline, and the person's
+ * own answer elsewhere means something wider ("When it happened"; "the next court date", which a trial date must not
+ * replace: question-to-fact audit, 11 Nov). Each is kept from the review, the chat, a form, Change or the story.
+ */
+export const STEP_DATE_NEVER_REPLACES: ReadonlySet<SlotFact> = new Set<SlotFact>(["whenHappened", "courtDate"]);
+
+/** Whether `fact` holds an answer given somewhere other than the step page (a day, or a rough time kept as words). */
+export function givenElsewhere(fact: SlotFact, slot: Slot): boolean {
+  const held = slot.state === "answered" || (slot.state === "unsure" && !blank(slot.value));
+  const question = slot.source?.kind === "answer" ? slot.source.question : undefined;
+  return held && !(fromCasePosition(question) || (typeof question === "string" && (DATE_QUESTIONS_OF[fact] ?? []).includes(question)));
+}
+
 /** A kind the site suggested and the person ticked ("That's right"): theirs from then on. */
 export const CLAIM_KIND_TICKED = "claim-kind-suggestion";
 
@@ -884,6 +921,45 @@ export type ClaimKindHeld = {
 const DISPUTE_KIND: Record<string, string> = {
   defamation: "sc-claim-defamation-libel-slander",
   [DISPUTE_CATEGORY_WORDS.defamation]: "sc-claim-defamation-libel-slander",
+};
+
+/**
+ * THE ANSWERS TO "WHAT KIND OF CASE IS THIS?" THAT LEAD TO NO KIND OF CLAIM, AND WHY (coverage audit, 11 Nov 2026).
+ *
+ * An answer that names exactly one kind in the catalogue brings that kind's checklist with it (caseFile.ts claimKindOf,
+ * DISPUTE_KIND). Every other answer is listed here with the reason it brings none, so a gap is said, never silent (CLAUDE.md
+ * s. 2a: "a step the map lacks shows as not covered yet"). The screens already say so ("your answer does not name one of
+ * them yet"). test:answer-coverage fails on an answer neither mapped nor listed, and on a listed one that has since gained
+ * a kind (delete its line then). Filling these needs sourced checklists or a reviewed mapping: REVIEW_CHAT_ADDITIONS.md.
+ */
+export type CoverageCourt = "small-claims" | "civil" | "family";
+
+const SEVERAL = "covers several kinds of claim in the catalogue; the person picks the kind, none is assumed";
+const AREA = "an area of law the person picks on the form, not a kind in the catalogue; the case file holds Small Claims kinds only (claimKindOf)";
+
+export const ANSWERS_WITH_NO_KIND: Record<CoverageCourt, Record<string, string>> = {
+  "small-claims": {
+    "unpaid-money": SEVERAL,
+    "contract-dispute": SEVERAL,
+    "property-damage": SEVERAL,
+    "loan-or-debt": `${SEVERAL} (a personal loan, a co-signed loan, a settlement agreement, unpaid services; Chrome check of #547, G2)`,
+    "work-or-services": SEVERAL,
+    "deposit-refund": SEVERAL,
+    "consumer-purchase": SEVERAL,
+    "vehicle-dispute": SEVERAL,
+    "personal-injury": SEVERAL,
+    other: "names no kind by design",
+  },
+  civil: Object.fromEntries(
+    ["contract", "negligence", "institutional-negligence", "professional-negligence", "human-rights", "disability-accommodation", "employment-human-rights",
+      "housing-human-rights", "education-human-rights", "charter", "government-public-authority", "police-conduct", "judicial-review", "tribunal-overlap",
+      "defamation", "privacy", "property", "debt", "employment", "fraud-misrepresentation", "intentional-tort", "injunction", "estate", "motion", "appeal",
+      "enforcement", "other"].map((value) => [value, AREA]),
+  ),
+  family: Object.fromEntries(
+    ["decision-making-responsibility", "parenting-time", "child-support", "spousal-support", "divorce", "property-division", "sale-of-home", "matrimonial-home",
+      "safety-concerns", "relocation", "disclosure", "enforcement", "adoption", "other"].map((value) => [value, AREA]),
+  ),
 };
 
 const kindName = (id: string) => CLAIM_TYPES.find((claimType) => claimType.id === id)?.name ?? null;
@@ -1106,7 +1182,7 @@ const SAME_MOMENT: readonly (readonly string[])[] = [
 /** The step page's date questions for each day the person said they do not know: never asked again, shown folded as "Not answered yet: add it when you know" with "Add it" (StageAnswerPanel laterDates; site owner, 31 Oct). */
 export function unsureDateQuestions(file: CaseFile): string[] {
   const ids: Record<string, readonly string[]> = {
-    servedDate: ["sc-date-claim-served", "sc-date-defendants-claim-served", "case-date-served-with-application", "case-date-served-with-motion-to-change"],
+    servedDate: ["sc-date-claim-served", "case-date-served-with-application", "case-date-served-with-motion-to-change"],
     whenHappened: DATE_QUESTIONS_OF.whenHappened ?? [],
     conferenceDate: DATE_QUESTIONS_OF.conferenceDate ?? [],
     courtDate: DATE_QUESTIONS_OF.courtDate ?? [],
@@ -1165,6 +1241,9 @@ export function slotDay(slot: Slot, readDay: (text: string) => string | null): s
 export function withCaseFileDates(answered: Record<string, string>, file: CaseFile, readDay: (text: string) => string | null): Record<string, string> {
   const out = { ...answered };
   for (const [fact, ids] of Object.entries(DATE_QUESTIONS_OF) as [SlotFact, readonly string[]][]) {
+    // "The next court date" answers the first day of trial only when its words name a trial (a motion hearing first
+    // pre-filled the trial question: question-to-fact audit, 11 Nov).
+    if (fact === "courtDate" && !(typeof file.courtDate.value === "string" && /\btrial\b/i.test(file.courtDate.value))) continue;
     const day = slotDay(file[fact], readDay);
     if (day) for (const id of fact === "conferenceDate" ? conferenceQuestions(file[fact], typeof file.court.value === "string" ? file.court.value : "") : ids) if (!out[id]) out[id] = day;
   }

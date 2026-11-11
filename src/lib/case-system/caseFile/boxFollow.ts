@@ -11,22 +11,26 @@
  * (fieldFacts.ts), the words to put in it (caseFile.ts followWords). `field` is the container the boxes live in
  * ("small-claims"/"civil" keep theirs in "input"; Family keeps each box as its own field: null). The caller writes
  * the words into the form's copy as a follow, not as a new answer (no change, no confirmation change, nothing sent:
- * IntakeRecovery put with touched=false). Checked by form-box-follows-record.spec.ts.
+ * IntakeRecovery put with touched=false). `changes`: this tab's change record (caseFile.ts changesOf), so a box whose own
+ * edit is not saved yet keeps the person's words. Checked by form-box-follows-record.spec.ts and
+ * test:box-follows-other-tab.
  */
-import { followWords, type CaseFile, type SlotFact } from "./caseFile";
+import { followWords, type CaseFile, type FactChanges, type SlotFact } from "./caseFile";
 import { factOfField } from "./fieldFacts";
 import { SLOT_FACTS } from "./caseFile";
 
 const isSlot = (fact: string): fact is SlotFact => (SLOT_FACTS as readonly string[]).includes(fact);
 const textLike = (value: unknown) => value === undefined || value === null || typeof value === "string" || typeof value === "number";
 
-export function boxesToFollow(file: CaseFile, section: string, field: string | null, values: Record<string, unknown>, formatDay: (iso: string) => string, typing: ReadonlySet<string> = new Set()): Record<string, string> {
+export function boxesToFollow(file: CaseFile, section: string, field: string | null, values: Record<string, unknown>, formatDay: (iso: string) => string, typing: ReadonlySet<string> = new Set(), changes: FactChanges = {}): Record<string, string> {
   const out: Record<string, string> = {};
   for (const [key, value] of Object.entries(values)) {
     if (!textLike(value) || typing.has(key)) continue;
     const mapped = field ? factOfField(section, field, key) : factOfField(section, key);
     if (!("fact" in mapped) || !isSlot(mapped.fact)) continue;
-    const words = followWords(file, mapped.fact, `${section}:${key}`, value, formatDay);
+    const place = `${section}:${key}`;
+    // This tab's own edit of this box, not saved yet (on its way, or refused as "Not saved yet"): the person's words stay.
+    const words = followWords(file, mapped.fact, place, value, formatDay, changes[mapped.fact]?.place === place);
     if (words !== null) out[key] = words;
   }
   return out;

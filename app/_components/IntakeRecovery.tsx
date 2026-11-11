@@ -12,6 +12,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { addressWithoutACase, boundaryView, courtFromCaseAddress, openCaseFromAddress, withoutACase } from "../../src/lib/case-system/openCase";
 import { supabase } from "../../src/lib/supabase/client";
 import { COURT_PATH_FINDER_KEY, GUEST_INTAKE_SESSION_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
+import { keepFinderHandoff, takeFinderHandoff, withoutStarted } from "../../src/lib/case-system/storage/finderHandoff";
 import { onSideChange } from "../../src/lib/case-system/sideChange";
 import { BASIS_SECTION, discardedFields, discardStale, onStoryChange, reaffirmAnswers, storyAnswersOutdated, STORY_TEXT_FIELD, tagAnswers } from "../../src/lib/case-system/storyBasis";
 import { migrateStory, storyOf, STORY_INPUT_KEYS, STORY_SECTION, type CaseLocation } from "../../src/lib/case-system/intakeStory";
@@ -207,6 +208,11 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
     let active = true;
     let identity: string | null | undefined;
     let disposeStore = () => {};
+    // The court-path finder's hand-off belongs to the intake that takes it (finderHandoff.ts): any other opening drops
+    // it at once, from the address alone, never waiting on the account (the story left at "Before you start", 9 Nov).
+    try {
+      if (!window.location.pathname.startsWith("/builder") || !keepFinderHandoff(sessionStorage.getItem(COURT_PATH_FINDER_KEY), { requestedFlow: requestedFlow ?? null, selectedId: selectedId ?? null })) putFinderHandoff(null);
+    } catch { /* no storage: nothing handed over */ }
     async function initialize(ownerId: string | null) {
       const epoch = ++generation.current;
       disposeStore();
@@ -264,6 +270,10 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           if (elsewhere) { window.location.replace(elsewhere); return; }
           discardAllowed.current = false;
           if (!ownerId && window.location.pathname === "/") resetIntakeInBrowser();
+          if (window.location.pathname.startsWith("/builder")) {
+            // This new intake takes the finder's hand-off, if one is waiting (finderHandoff.ts).
+            putFinderHandoff(takeFinderHandoff(sessionStorage.getItem(COURT_PATH_FINDER_KEY), flowId));
+          }
           if (!writeIntakeSession(sessionStorage, { version: 2, ownerId, caseId: null, serverRevision: null, checkpoint: snapshot })) throw new Error("This tab cannot retain intake text. Please enable session storage before continuing.");
           const url = new URL(window.location.href);
           url.searchParams.set("intake", flowId);
@@ -690,11 +700,9 @@ function SituationGate({ court, ownerId, children }: { court: IntakeCourt; owner
       const handed = JSON.parse(sessionStorage.getItem(COURT_PATH_FINDER_KEY) ?? "null") as Record<string, unknown> | null;
       const started = handed?.started;
       // Taken once: what is left of the hand-off is the builder's to read, or nothing.
+      // Never written back without the intake it belongs to (finderHandoff.ts; this line rewrote the story unbound).
       if (handed && "started" in handed) {
-        const { started: _taken, ...rest } = handed;
-        void _taken;
-        if (Object.keys(rest).length) sessionStorage.setItem(COURT_PATH_FINDER_KEY, JSON.stringify(rest));
-        else sessionStorage.removeItem(COURT_PATH_FINDER_KEY);
+        putFinderHandoff(withoutStarted(JSON.stringify(handed)));
       }
       if (situation.where) return;
       if (started === "no") setSituation(withKnownCourt(answerSituation(situation, "where", "starting"), court));
@@ -879,6 +887,12 @@ export function useContinueHandler(key: ContinueKey, handler: () => void) {
 }
 
 /** The intake this tab holds, when it has a story and is not saved to the account. */
+/** The court-path finder's hand-off, written or dropped in this one place; finderHandoff.ts decides what it holds. */
+function putFinderHandoff(next: string | null) {
+  if (next) sessionStorage.setItem(COURT_PATH_FINDER_KEY, next);
+  else sessionStorage.removeItem(COURT_PATH_FINDER_KEY);
+}
+
 function readHeldIntake(ownerId: string | null): { court: IntakeCourt; flowId: string; signedIn: boolean } | null {
   try {
     const value = record(JSON.parse(sessionStorage.getItem(GUEST_INTAKE_SESSION_KEY) || "null"));

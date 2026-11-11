@@ -1,6 +1,7 @@
 "use client";
 
 import { useIntakeRecovery, useIntakeReviewView, useIntakeState } from "../../_components/IntakeRecovery";
+import TribunalNotice, { COURT_LABELS, useTribunalFirst } from "../../_components/TribunalNotice";
 import { answerNow, askedAndReplied, caseFileOf, chatMayAsk } from "../../../src/lib/case-system/caseFile/caseFile";
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { NOTHING_LEFT_TO_ASK } from "../../../src/lib/case-system/copy/askCopy";
@@ -159,6 +160,7 @@ export default function GuidedFormChat({
   closing = null,
   fromStart = [],
   startWords = {},
+  tribunalCourt,
 }: {
   fields: readonly GuidedField[];
   values: GuidedValues;
@@ -178,7 +180,14 @@ export default function GuidedFormChat({
    * 26 Oct re-test, case 16). From situationAnswers, the one place they are worded.
    */
   startWords?: Readonly<Record<string, string | undefined>>;
+  /**
+   * The court this chat belongs to (Family, Civil): with it, the one tribunal rule runs on the story before the first
+   * follow-up question, and a matter it gives to a tribunal is said first (C1, site owner 9 Nov 2026).
+   */
+  tribunalCourt?: keyof typeof COURT_LABELS;
 }) {
+  // The story is this chat's own first answer ("facts"), read from the values it was given.
+  const tribunalFirst = useTribunalFirst(typeof values.facts === "string" ? values.facts : "");
   const [skipped, setSkipped] = useIntakeState<Set<string>>("form-chat", "skipped", new Set());
   // The conversation as it went: each question and the field it was about (`key`; older entries are
   // matched by their words). What is SHOWN under each is the answer the case holds now (heardNow below).
@@ -225,6 +234,9 @@ export default function GuidedFormChat({
   const replied = useMemo(() => heard.flatMap(({ question, reply }) => [{ role: "assistant", text: question }, { role: "user", text: reply }]), [heard]);
   const pending = useMemo(() => pendingFields(fields, values, skipped).filter((field) => !heldElsewhere.has(field.key) && !askedAndReplied(replied, field.question)), [fields, values, skipped, heldElsewhere, replied]);
   const current = changing ? fields.find((field) => field.key === changing) ?? null : pending[0] ?? null;
+  // A follow-up question (anything after the story itself) waits behind the tribunal notice until the person sets it aside.
+  const tribunalShown = Boolean(tribunalCourt && tribunalFirst.tribunal && current && current.key !== "facts" && !changing);
+  const questionHeld = tribunalShown && tribunalFirst.held;
   // An unsent reply belongs to its question, including when the form changes which question comes next.
   const [drafts, setDrafts] = useIntakeState<Record<string, string | string[]>>("form-chat", "drafts", {});
   const draft = drafts[current?.key ?? "complete"] ?? "";
@@ -377,7 +389,16 @@ export default function GuidedFormChat({
         </ol>
       ) : null}
 
-      {current ? (
+      {tribunalShown && tribunalCourt && tribunalFirst.tribunal ? (
+        <TribunalNotice
+          tribunal={tribunalFirst.tribunal}
+          courtLabel={COURT_LABELS[tribunalCourt]}
+          context="GuidedFormChat:tribunal-first"
+          onContinue={questionHeld ? tribunalFirst.setAside : undefined}
+        />
+      ) : null}
+
+      {questionHeld ? null : current ? (
         <div data-testid="guided-form-question" data-key={current.key} className="mt-5 rounded-2xl border-2 border-[#2f7d67] bg-white p-4">
           {(() => {
             const offered = !changing && !notFromStory.has(current.key) ? current.fromStory?.(values) ?? null : null;

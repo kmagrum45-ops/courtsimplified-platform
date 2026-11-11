@@ -3,6 +3,7 @@
 import { dateAnswerCheck, dateSpans } from "../../../src/lib/case-system/dates";
 import { SMALL_CLAIMS_FILED_OPTIONS } from "./guidedFields";
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
+import TribunalNotice, { useTribunalFirst } from "../../_components/TribunalNotice";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
 import { panelAnswerFacts } from "../../../src/lib/case-system/intakeReview";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
@@ -689,6 +690,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   // land on an empty "Case story" summary with no visible way to type into it
   // until they notice the "Edit case story" toggle.
 
+  // The one tribunal rule on the story (C1, site owner 9 Nov 2026). The form asks no follow-up question one at a time,
+  // so nothing is held back here: the notice is shown first, above the form.
+  const tribunalFirst = useTribunalFirst(input.facts ?? "");
+
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const analysisRequest = useRef(new IntakeRequest());
   const requestScope = input;
@@ -1087,6 +1092,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
 
   return (
     <section onChangeCapture={() => analysisRequest.current.cancel()} className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
+      {tribunalFirst.tribunal ? <TribunalNotice tribunal={tribunalFirst.tribunal} courtLabel="Small Claims" context="SmallClaimsIntake:tribunal-first" /> : null}
       <div className="rounded-3xl bg-[#f2fbf7] p-5">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#2f7d67]">
           Small Claims intake
@@ -1312,7 +1318,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </AskedField>
 
           {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
-          <AskedField field="goal" value={input.goal} label={"What do you want the court to order?"}>
+          <AskedField field="goal" value={input.goal} label={isDefendantRole(input.yourRole) ? "What do you want to happen with the claim against you?" : "What do you want the court to order?"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               {/* A defendant does not ask the court for an order on the claim;
@@ -1679,7 +1685,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               ["timeline", "Important dates / timeline"],
               ["evidence", "Evidence you have"],
               ["missingEvidence", "Evidence still missing"],
-              ["goal", "What do you want the court to order?"],
+              ["goal", isDefendantRole(input.yourRole) ? "What do you want to happen with the claim against you?" : "What do you want the court to order?"],
               ["serviceDetails", "Service details"],
               ["agreementDetails", "Agreement or contract details"],
               ["paymentHistory", "Payment history"],

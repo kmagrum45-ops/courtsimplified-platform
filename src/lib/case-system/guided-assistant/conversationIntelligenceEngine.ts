@@ -14,6 +14,7 @@ import {
 
 import type { CaseProvince } from "../architecture/masterCaseSchema";
 import { userStory } from "../userStory";
+import { COMMERCIAL_TENANCY_WORDS, RESIDENTIAL_TENANCY_WORDS, hasTenancyDisputeSignal } from "../intelligence/tenancyWords";
 
 export type CasePartnerRole = "user" | "assistant" | "system";
 
@@ -766,19 +767,10 @@ export function inferCourtArea(message: string): CasePartnerCourtArea {
   // A lease described as commercial, with nothing residential in the story,
   // scores no LTB signal and falls through to the ordinary court paths.
   const commercialTenancy =
-    countSignals(message, [
-      "commercial",
-      "strip mall",
-      "storefront",
-      "retail unit",
-      "office space",
-      "my restaurant",
-      "my store",
-      "my shop",
-      "business premises",
-    ]) > 0 &&
-    countSignals(message, ["apartment", "residential", "rental unit", "basement", "my home", "house i rent"]) === 0;
-  const ltb = commercialTenancy ? 0 : countSignals(message, [
+    countSignals(message, [...COMMERCIAL_TENANCY_WORDS]) > 0 &&
+    countSignals(message, [...RESIDENTIAL_TENANCY_WORDS]) === 0;
+  // A tenancy word alone is not a tenancy dispute (site owner, 10 Nov 2026; tenancyWords.ts hasTenancyDisputeSignal).
+  const ltb = commercialTenancy || !hasTenancyDisputeSignal(message) ? 0 : countSignals(message, [
     "landlord",
     "tenant",
     "eviction",
@@ -787,6 +779,12 @@ export function inferCourtArea(message: string): CasePartnerCourtArea {
     "rent arrears",
     "residential lease",
     "rental unit",
+    // A tenant who names the apartment they rent, or a property manager, without the word "landlord" (site owner,
+    // 10 Nov 2026: "I rent an apartment from a property management company and there is mould" is the LTB's).
+    "rent an apartment",
+    "renting an apartment",
+    "property management company",
+    "property manager",
     // Not "locked me out" alone: "he locked me out of the bank accounts" is a
     // business partner, not a landlord (coverage test, 2026-10-05).
     "locked me out of my apartment",

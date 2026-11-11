@@ -9,6 +9,8 @@ import {
   remediesFor,
 } from "../../../src/lib/content-library/claimLibrary";
 import { assertApprovedUserContent } from "../../../src/lib/content-library/outputGuard";
+import { courtFitClaimType, defenceFitsCourt } from "../../../src/lib/case-system/intake/courtFitSources";
+import { sourceFitsCourt } from "../../../src/lib/content-library/sourceCourt";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 
 /**
@@ -36,10 +38,12 @@ function Source({ url }: { url?: string }) {
 }
 
 export default async function ClaimTypePage({ params }: { params: Promise<{ id: string }> }) {
-  const entry = libraryMatterType((await params).id);
-  if (!entry) notFound();
+  const found = libraryMatterType((await params).id);
+  if (!found) notFound();
+  // Nothing from another court's source (courtFitSources.ts).
+  const entry = courtFitClaimType(found);
   const ok = (text: string, where: string) => assertApprovedUserContent(text, `ClaimTypePage:${entry.id}:${where}`);
-  const defences = defencesFor(entry);
+  const defences = defencesFor(entry).filter((concept) => defenceFitsCourt(concept, entry.courtArea));
   const remedies = remediesFor(entry);
 
   return (
@@ -61,7 +65,7 @@ export default async function ClaimTypePage({ params }: { params: Promise<{ id: 
           {entry.plaintiffElements.map((element) => (
             <li key={element.id} className="rounded-2xl border border-[#d8e6df] bg-white p-5">
               <h3 className="font-bold text-[#10231f]">{ok(element.name, "element-name")}</h3>
-              <p className="mt-2 text-sm leading-6 text-[#24463d]">{ok(element.plainExplanation, "element")}</p>
+              {element.plainExplanation ? <p className="mt-2 text-sm leading-6 text-[#24463d]">{ok(element.plainExplanation, "element")}</p> : null}
               <Source url={element.sourceUrl} />
               {element.evidenceCategories.length > 0 ? (
                 <details className="mt-3 text-sm text-[#4d675f]">
@@ -143,7 +147,7 @@ export default async function ClaimTypePage({ params }: { params: Promise<{ id: 
       <section className="mt-10 rounded-2xl border border-[#d8e6df] bg-white p-5">
         <h2 className="text-lg font-bold text-[#10231f]">Sources</h2>
         <ul className="mt-3 space-y-2 text-sm text-[#4d675f]">
-          {entry.citations.map((citation) => (
+          {entry.citations.filter((citation) => sourceFitsCourt(citation.officialUrl, entry.courtArea)).map((citation) => (
             <li key={`${citation.sourceName}-${citation.pinpoint ?? ""}`}>
               <a href={citation.officialUrl} target="_blank" rel="noreferrer" className="font-semibold underline">
                 {citation.sourceName}

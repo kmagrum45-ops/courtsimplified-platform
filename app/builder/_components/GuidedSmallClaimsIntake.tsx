@@ -4,6 +4,7 @@ import { createPortal } from "react-dom";
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { isDateQuestionId } from "../../../src/lib/case-system/casePosition";
 import { intakeGuidanceHeaders, useIntakeReviewView, useIntakeState, useStory, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
+import TribunalNotice, { useTribunalFirst } from "../../_components/TribunalNotice";
 import { writeAnswer } from "../../_components/caseWrite";
 import { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import { inputRevision, remainingEssentialQuestions, reviewPhase } from "../../../src/lib/case-system/intakeReview";
@@ -1038,8 +1039,16 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   // Only a story that was already saved when this opened; one being typed stays in the box.
   const [showSavedStory, setShowSavedStory] = useState(() => Boolean(story.trim()));
 
-  function handleStorySubmit() {
+  // The one tribunal rule on the story, before the first follow-up question (C1, site owner 9 Nov 2026): a matter it
+  // gives to a tribunal is said first, and the story is not sent (no question, no model call) until the person sets
+  // the notice aside.
+  const tribunalFirst = useTribunalFirst(story);
+  const [tribunalAsked, setTribunalAsked] = useState(false);
+
+  function handleStorySubmit(setAside = false) {
     if (loading || turnRequest.current.pending || !inputText.trim()) return;
+    if (!setAside && tribunalFirst.held) { setTribunalAsked(true); return; }
+    setTribunalAsked(false);
     setStarted(true);
     const story = inputText;
     setReadFrom(story);
@@ -1519,6 +1528,14 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           <LegalAdviceDeflection reason="legal-advice" />
         </div>
       ) : null}
+      {tribunalFirst.tribunal && ((tribunalAsked && tribunalFirst.held) || (started && tribunalFirst.tribunal.ended)) ? (
+        <TribunalNotice
+          tribunal={tribunalFirst.tribunal}
+          courtLabel="Small Claims"
+          context="GuidedSmallClaimsIntake:tribunal-first"
+          onContinue={tribunalAsked && tribunalFirst.held ? () => { tribunalFirst.setAside(); handleStorySubmit(true); } : undefined}
+        />
+      ) : null}
       <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4" style={{ minHeight: 220 }}>
         {readingOutdated ? (
           <div data-testid="guided-reading-outdated" className="text-sm text-[#5c4a14]">
@@ -1535,7 +1552,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             <p className="font-semibold text-[#16302b]">Your story</p>
             <p className="mt-1 whitespace-pre-wrap text-[#2b4640]">{story}</p>
             <div className="mt-3 flex flex-wrap gap-2">
-              <WorkingButton data-testid="guided-send-saved-story" working={loading} workingLabel="Reading your story…" onClick={handleStorySubmit} className="rounded-xl bg-[#2f7d67] px-4 py-2 font-semibold text-white disabled:opacity-50">Send my story</WorkingButton>
+              <WorkingButton data-testid="guided-send-saved-story" working={loading} workingLabel="Reading your story…" onClick={() => handleStorySubmit()} className="rounded-xl bg-[#2f7d67] px-4 py-2 font-semibold text-white disabled:opacity-50">Send my story</WorkingButton>
               <button type="button" onClick={() => setShowSavedStory(false)} className="rounded-xl border border-[#d8e6df] px-4 py-2 font-semibold text-[#2f7d67]">Edit my story</button>
             </div>
           </div>

@@ -1002,6 +1002,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
 
         {mode === "chat" ? (<>
           <GuidedFormChat
+            tribunalCourt="civil"
             fields={guidedFields}
             values={guidedValues}
             fromStart={[...(fromStart.role ? ["yourRole"] : []), ...(fromStart.documents ? ["documents"] : [])]}
