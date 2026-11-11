@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-260 documented, 26 without a header.
+261 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -177,6 +177,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:presumed-limitation` | **The general two-year limit is counted from an injury date under the**<br>Limitations Act's presumption -- and says that it is a presumption -- on the injury notice steps and the before-filing limitation steps. |
 | `npm run test:public-data` | **Public reference data must not be read through a session-carrying client.**<br>The forms page went blank with "Could not load forms — JWT issued in the future". The court form catalogue is public: a read with the anon key alone returns rows from every one of those tables, and nothing about them depends on who is asking. |
 | `npm run test:published-library` | **The published set is what it says it is, and nothing else is servable.**<br>1. IMMUTABLE. The release carries a hash over its own blocks. Editing a published block by hand — fixing a typo, softening a sentence — changes the content without it having passed a single gate, and nothing downstream would know. Recomputing the hash makes th |
+| `npm run test:question-meanings` | **EACH QUESTION WRITES ONLY THE FACT IT ASKS ABOUT (question-to-fact audit, 11 Nov 2026; the family behind Chrome's**<br>"the date I gave for working out the deadline replaced 'When it happened'", #545 at dc909096). |
 | `npm run test:raw-keys` | **NO RAW FIELD NAME OR CODE ON A SCREEN: the copy guard's own checks (copy/rawKeys.ts).**<br>Checks, as properties: - every stored option value with a hyphen, every stage id and every field or slot name kept in code is found in screen text ("decision-making-responsibility", "upcomingCourtDate", "family:both:case-conference-scheduled"); - the same thin |
 | `npm run test:reachability` | **Every module is reachable from something a user can actually load, or it is**<br>listed here as dormant WITH A REASON. |
 | `npm run test:readability` | **Is the content readable by the people it is for?**<br>Content produced by the verified-content pipeline is HELD to Grade 8. That is the standard the pipeline drafts against, so failing it is a real defect in something we control end to end. |

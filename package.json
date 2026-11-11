@@ -286,6 +286,7 @@
     "test:in-flight-edit-kept": "node --import tsx scripts/verification/verifyInFlightEditKept.ts",
     "test:chrome-545-round": "node --import tsx scripts/verification/verifyChrome545Round.ts",
     "test:story-date-never-replaces": "node --import tsx scripts/verification/verifyStoryDateNeverReplaces.ts",
+    "test:question-meanings": "node --import tsx scripts/verification/verifyQuestionMeanings.ts",
     "test:deadline-date-keeps-when": "node --import tsx scripts/verification/verifyDeadlineDateKeepsWhen.ts",
     "test:sources-fit-court": "node --import tsx scripts/verification/verifySourcesFitCourt.ts",
     "test:one-deadline-source": "node --import tsx scripts/verification/verifyOneDeadlineSource.ts",

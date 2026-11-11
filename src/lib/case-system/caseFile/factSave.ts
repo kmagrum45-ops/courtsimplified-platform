@@ -12,7 +12,7 @@
 import { applyFactWrites, type FactConflict, type FactId, type FactRecords, type FactWrite, type FactWriteResult } from "./factRecord";
 import { updateMasterResult, type CaseRecordClient, type UpdateResult } from "../updateCaseRecord";
 import { factOfField } from "./fieldFacts";
-import { CLAIM_KIND_QUESTION, POSITION_PLACE, whenGivenElsewhere } from "./caseFile";
+import { bringsTheCase, CLAIM_KIND_QUESTION, givenElsewhere, POSITION_PLACE, STEP_DATE_NEVER_REPLACES } from "./caseFile";
 import { caseFileOfMaster } from "./caseFileOfMaster";
 import type { IntakeCourt } from "../intakeCheckpoint";
 
@@ -84,11 +84,14 @@ export function positionFactWrites(patch: { claimKind?: unknown; dateAnswers?: u
   const dates = patch.dateAnswers && typeof patch.dateAnswers === "object" && !Array.isArray(patch.dateAnswers) ? (patch.dateAnswers as Record<string, unknown>) : {};
   // "When it happened" as held without the step page (`master`: the saved case as the save changed it): a day given there to
   // work out a deadline never replaces it (caseFile.ts whenGivenElsewhere; Chrome re-check of #545 at dc909096).
-  const whenElsewhere = master && typeof master === "object" ? whenGivenElsewhere(caseFileOfMaster({ ...(master as Record<string, unknown>), position: undefined }).whenHappened) : false;
+  const held = master && typeof master === "object" ? caseFileOfMaster({ ...(master as Record<string, unknown>), position: undefined }) : null;
+  // A plaintiff's own service of their claim is not "Day you got the papers" (question-to-fact audit, 11 Nov).
+  const plaintiff = held ? bringsTheCase(held) : false;
   for (const [key, value] of Object.entries(dates)) {
     if (fromStory.has(key)) continue;
     const mapped = factOfField("position", "dateAnswers", key);
-    if ("fact" in mapped && mapped.fact === "whenHappened" && whenElsewhere) continue;
+    if ("fact" in mapped && held && STEP_DATE_NEVER_REPLACES.has(mapped.fact as never) && givenElsewhere(mapped.fact as never, held[mapped.fact as keyof typeof held] as never)) continue;
+    if ("fact" in mapped && mapped.fact === "servedDate" && plaintiff) continue;
     if ("fact" in mapped && typeof value === "string" && value.trim() && (!keptPosition || keptPosition.dateAnswers?.[key] === value)) add(mapped.fact, value, `${POSITION_PLACE}${key}`);
   }
   return writes;

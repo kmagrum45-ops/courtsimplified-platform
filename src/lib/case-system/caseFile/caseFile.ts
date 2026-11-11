@@ -389,7 +389,8 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   const dates = object(position.dateAnswers);
   const keptFromStory = new Set(Array.isArray(position.datesFromStory) ? position.datesFromStory : []);
   // A day given there to work out a deadline never replaces "When it happened" given anywhere else (whenGivenElsewhere).
-  for (const [id, value] of Object.entries(dates)) if (!keptFromStory.has(id)) for (const fact of slotsOf(id)) if (!(fact === "whenHappened" && whenGivenElsewhere(file.whenHappened))) give(file, fact, value, id);
+  // Nor is the day a plaintiff served their own claim the day they got papers (servedDate), question-to-fact audit, 11 Nov.
+  for (const [id, value] of Object.entries(dates)) if (!keptFromStory.has(id)) for (const fact of slotsOf(id)) if (!(STEP_DATE_NEVER_REPLACES.has(fact) && givenElsewhere(fact, file[fact])) && !(fact === "servedDate" && bringsTheCase(file))) give(file, fact, value, id);
   // An older saved case (before 29 Oct) kept the kind in the analysis copy (intakeData.extra): read
   // here only, as a fallback: ticked, it is the person's; unticked, a proposal (claim type, rule 3).
   const extra = object(object(object(master).intakeData).extra);
@@ -817,7 +818,7 @@ function applyFactRecords(file: CaseFile, sections: Record<string, unknown>) {
     // there) is not brought back by its numbered copy. A box the person emptied records a removal instead (newer, no place).
     if (fromPlace && placeHolds(sections, question) === false) continue;
     // A day the step page saved to work out a deadline never replaces "When it happened" the person gave elsewhere.
-    if (fact === "whenHappened" && fromCasePosition(question) && whenGivenElsewhere(file.whenHappened)) continue;
+    if (STEP_DATE_NEVER_REPLACES.has(fact) && fromCasePosition(question) && givenElsewhere(fact, file[fact])) continue;
     applyOne(file, fact, entry.state === "answered" ? { state: "answered", value: Array.isArray(value) ? strings(value) : value } : { state: entry.state as "removed" | "unsure" }, question, !fromPlace);
   }
   if (records.length) file.changedFacts = [...new Set([...(file.changedFacts ?? []), ...records.map(([fact]) => fact)])];
@@ -841,10 +842,27 @@ export function fromCasePosition(question: unknown): boolean {
  * "When it happened" only when nothing else does (Chrome re-check of #545 at dc909096, 10 Nov 2026: "March 2026" became
  * "May 15, 2026", the day typed there). Each question writes only its own fact.
  */
+/** The person is bringing the case (the plaintiff or applicant): papers they serve are not papers they got. */
+export function bringsTheCase(file: CaseFile): boolean {
+  return file.side.state === "answered" && file.side.value === "bringing";
+}
+
 export function whenGivenElsewhere(slot: Slot): boolean {
+  return givenElsewhere("whenHappened", slot);
+}
+
+/**
+ * Facts a step-page date may fill but never replace: the step page asks for a day to count a deadline, and the person's
+ * own answer elsewhere means something wider ("When it happened"; "the next court date", which a trial date must not
+ * replace: question-to-fact audit, 11 Nov). Each is kept from the review, the chat, a form, Change or the story.
+ */
+export const STEP_DATE_NEVER_REPLACES: ReadonlySet<SlotFact> = new Set<SlotFact>(["whenHappened", "courtDate"]);
+
+/** Whether `fact` holds an answer given somewhere other than the step page (a day, or a rough time kept as words). */
+export function givenElsewhere(fact: SlotFact, slot: Slot): boolean {
   const held = slot.state === "answered" || (slot.state === "unsure" && !blank(slot.value));
   const question = slot.source?.kind === "answer" ? slot.source.question : undefined;
-  return held && !(fromCasePosition(question) || (typeof question === "string" && (DATE_QUESTIONS_OF.whenHappened ?? []).includes(question)));
+  return held && !(fromCasePosition(question) || (typeof question === "string" && (DATE_QUESTIONS_OF[fact] ?? []).includes(question)));
 }
 
 /** A kind the site suggested and the person ticked ("That's right"): theirs from then on. */
@@ -1122,7 +1140,7 @@ const SAME_MOMENT: readonly (readonly string[])[] = [
 /** The step page's date questions for each day the person said they do not know: never asked again, shown folded as "Not answered yet: add it when you know" with "Add it" (StageAnswerPanel laterDates; site owner, 31 Oct). */
 export function unsureDateQuestions(file: CaseFile): string[] {
   const ids: Record<string, readonly string[]> = {
-    servedDate: ["sc-date-claim-served", "sc-date-defendants-claim-served", "case-date-served-with-application", "case-date-served-with-motion-to-change"],
+    servedDate: ["sc-date-claim-served", "case-date-served-with-application", "case-date-served-with-motion-to-change"],
     whenHappened: DATE_QUESTIONS_OF.whenHappened ?? [],
     conferenceDate: DATE_QUESTIONS_OF.conferenceDate ?? [],
     courtDate: DATE_QUESTIONS_OF.courtDate ?? [],
@@ -1181,6 +1199,9 @@ export function slotDay(slot: Slot, readDay: (text: string) => string | null): s
 export function withCaseFileDates(answered: Record<string, string>, file: CaseFile, readDay: (text: string) => string | null): Record<string, string> {
   const out = { ...answered };
   for (const [fact, ids] of Object.entries(DATE_QUESTIONS_OF) as [SlotFact, readonly string[]][]) {
+    // "The next court date" answers the first day of trial only when its words name a trial (a motion hearing first
+    // pre-filled the trial question: question-to-fact audit, 11 Nov).
+    if (fact === "courtDate" && !(typeof file.courtDate.value === "string" && /\btrial\b/i.test(file.courtDate.value))) continue;
     const day = slotDay(file[fact], readDay);
     if (day) for (const id of fact === "conferenceDate" ? conferenceQuestions(file[fact], typeof file.court.value === "string" ? file.court.value : "") : ids) if (!out[id]) out[id] = day;
   }
