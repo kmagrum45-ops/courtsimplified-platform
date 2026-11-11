@@ -35,6 +35,7 @@ import OpenAI from "openai";
 
 import { observeAiCall } from "../audit/aiCallLog";
 import { createWithParamFallback } from "./aiModels";
+import { aiSpendGate, tokenPrices } from "../security/aiSpendLimit";
 
 /**
  * Logged when a model rejects a sampling parameter and the call is retried
@@ -137,16 +138,18 @@ export const tokenUse = { calls: 0, input: 0, cachedRead: 0, cacheWrite: 0, outp
  * AI_SPEND_CAP_USD: every further call fails at once, and the site falls back
  * as it does when the AI is down. Unset (the live site), there is no cap.
  *
- * The estimate prices tokens at AI_PRICE_INPUT_PER_M / AI_PRICE_OUTPUT_PER_M
- * dollars per million (default 2 and 10, gpt-6.1-sol's published list price
- * on 2026-10-09; reasoning tokens are output). AI_TOKEN_LEDGER names a file
+ * The estimate prices the run's token totals at the site's default model's
+ * short-context rates from the price table (security/aiPrices.ts; gpt-6.1-sol,
+ * $2 and $10 a million; AI_PRICE_INPUT_PER_M / AI_PRICE_OUTPUT_PER_M override
+ * them; reasoning tokens are output). The site's daily limits price each call
+ * from its own model and token counts instead (aiSpendLimit.ts callCostUsd). AI_TOKEN_LEDGER names a file
  * that gets one line per call (model and token counts, never content), so a
  * run's report can say what it cost.
  */
 const env = (name: string): string => (typeof process !== "undefined" ? (process.env[name] ?? "") : "");
 export function estimatedSpendUsd(use: { input: number; output: number } = tokenUse): number {
-  const input = Number(env("AI_PRICE_INPUT_PER_M")) || 2;
-  const output = Number(env("AI_PRICE_OUTPUT_PER_M")) || 10;
+  // One copy of the prices: the site's daily spending limit prices calls the same way (aiSpendLimit.ts).
+  const { input, output } = tokenPrices();
   return (use.input * input + use.output * output) / 1_000_000;
 }
 export class SpendCapReached extends Error {
@@ -224,13 +227,14 @@ export function forceNoStore<T>(client: T): T {
     // logged" has to be a property of the client, not a habit of seven callers.
     // observeAiCall is an observer: it returns and throws exactly what the call
     // returns and throws.
-    return namesBack(observeAiCall(body, async () =>
+    // THE SITE'S SPENDING LIMIT (aiSpendLimit.ts), in front of every call: a refused call is never made or logged.
+    return aiSpendGate(() => namesBack(observeAiCall(body, async () =>
       createWithParamFallback(
         (attempt) => counted(chatCreate({ ...attempt, store: false }, options) as Promise<unknown>),
         withoutCacheWrites(body),
         warnDroppedParam,
       ),
-    ));
+    )), { body });
   }) as never;
 
   /*
@@ -256,13 +260,13 @@ export function forceNoStore<T>(client: T): T {
       const capped = spendCapRejection();
       if (capped) return capped;
       const body = labelled(original);
-      return namesBack(observeAiCall(body, async () =>
+      return aiSpendGate(() => namesBack(observeAiCall(body, async () =>
         createWithParamFallback(
           (attempt) => counted(chatParse({ ...attempt, store: false }, options) as Promise<unknown>),
           withoutCacheWrites(body),
           warnDroppedParam,
         ),
-      ));
+      )), { body });
     }) as never;
   }
 
@@ -276,9 +280,9 @@ export function forceNoStore<T>(client: T): T {
       const capped = spendCapRejection();
       if (capped) return capped;
       const body = labelled(original);
-      return namesBack(observeAiCall(body, async () =>
+      return aiSpendGate(() => namesBack(observeAiCall(body, async () =>
         counted(responsesCreate({ ...withoutCacheWrites(body), store: false }, options) as Promise<unknown>),
-      ));
+      )), { body });
     }) as never;
   }
 
@@ -292,10 +296,13 @@ export function forceNoStore<T>(client: T): T {
   const embeddings = (client as unknown as { embeddings?: { create?: unknown } }).embeddings;
   if (embeddings && typeof embeddings.create === "function") {
     const embeddingsCreate = (embeddings.create as (...args: unknown[]) => unknown).bind(embeddings);
-    embeddings.create = ((original: Record<string, unknown>, options?: unknown) => {
-      const body = labelled(original);
-      return observeAiCall(body, async () => embeddingsCreate(body, options));
-    }) as never;
+    // Refused at the cap and labelled (embedBody); then behind the spending limit and logged, like every call.
+    const embedBody = (original: Record<string, unknown>, run: (body: Record<string, unknown>) => unknown) => {
+      const capped = spendCapRejection();
+      return capped ? capped : run(labelled(original));
+    };
+    embeddings.create = ((original: Record<string, unknown>, options?: unknown) =>
+      embedBody(original, (body) => aiSpendGate(() => observeAiCall(body, async () => counted(embeddingsCreate(body, options) as Promise<unknown>)), { body }))) as never;
   }
 
   return client;

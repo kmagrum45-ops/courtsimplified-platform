@@ -8,6 +8,8 @@ import AuthStorageGuard from "./_components/AuthStorageGuard";
 import MobileNav from "./_components/MobileNav";
 import ScrollToTopOnNavigation from "./_components/ScrollToTopOnNavigation";
 import SafetyFooterLine from "./_components/SafetyFooterLine";
+import AiLimitNotice from "./_components/AiLimitNotice";
+import { CONTACT_EMAIL } from "@/src/lib/site/contact";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -92,6 +94,9 @@ export default function RootLayout({
             </div>
           </header>
 
+          {/* The daily limit for AI help, said on every screen once it is reached (aiSpendLimit.ts). */}
+          <AiLimitNotice />
+
           <main className="flex-1">{children}</main>
 
           <footer className="border-t border-[#D7E7E5] bg-white print:hidden">
@@ -125,6 +130,16 @@ export default function RootLayout({
                 ))}
 
                 <AuthNavAction className="font-semibold transition hover:text-[#2FB8AC]" />
+
+                {/* Feedback on every page: the shared footer is the only footer, and every page (builder and case pages
+                    included) renders inside it. A mailto to the privacy page's contact address; nothing stored here. */}
+                <a
+                  data-testid="send-feedback"
+                  href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("CourtSimplified feedback")}`}
+                  className="font-semibold transition hover:text-[#2FB8AC]"
+                >
+                  Send feedback
+                </a>
               </div>
             </div>
 

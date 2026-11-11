@@ -71,6 +71,18 @@ jobs:
       - name: AI routes that need no sign-in are limited per visitor and by a daily ceiling
         run: npm run test:ai-rate-limit
 
+      - name: Every OpenAI call goes through the one daily spending limit; a person, an address and the site each have a day's limit
+        run: npm run test:ai-spend-limit
+
+      - name: Each AI call is priced from its model and real tokens (price table); a model with no price is never called
+        run: npm run test:ai-price-table
+
+      - name: Every model the site can call has a price in the table (a model named in the code with no price fails)
+        run: npm run test:ai-models-priced
+
+      - name: No OpenAI call can bypass the spending limit (one choke point, in the client)
+        run: npm run test:ai-routes-limited
+
       - name: Server errors are logged without anything that identifies a person
         run: npm run test:server-error-log
 
@@ -875,6 +887,7 @@ jobs:
           tests/browser/worked-out-date-not-an-answer.spec.ts
           tests/browser/pick-everything-asked.spec.ts
           tests/browser/chrome-545-round.spec.ts
+          tests/browser/feedback-link.spec.ts
           tests/browser/claim-kind-one-value.spec.ts
           tests/browser/chrome-31oct-review.spec.ts
           tests/browser/change-answer.spec.ts
