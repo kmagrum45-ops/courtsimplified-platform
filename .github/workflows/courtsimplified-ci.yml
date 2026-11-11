@@ -329,6 +329,8 @@ jobs:
 
       - name: A day given on the step page to work out a deadline never replaces "When it happened" (Chrome re-check of #545)
         run: npm run test:deadline-date-keeps-when
+      - name: No case is sent to another court's source (Chrome check of #545, item 4)
+        run: npm run test:sources-fit-court
 
       - name: The case page and the case file page show the same deadlines, from one source (Chrome check of #544, F4)
         run: npm run test:one-deadline-source

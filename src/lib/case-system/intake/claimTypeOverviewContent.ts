@@ -49,6 +49,7 @@
 import { isKindOfClaim, kindFromStory } from "./claimKind";
 import { collectEvidenceCategories } from "./evidenceGapDetector";
 import { CLAIM_TYPES, DEFENCE_CONCEPTS, type ClaimType } from "./claimTypes";
+import { courtFitClaimType, defenceFitsCourt } from "./courtFitSources";
 
 export type SourcedListItem = {
   text: string;
@@ -90,7 +91,7 @@ function buildSourceUrlByCategoryName(claimType: ClaimType): Map<string, string>
   const sourceUrlByCategoryName = new Map<string, string>();
   for (const element of claimType.plaintiffElements) {
     for (const category of element.evidenceCategories) {
-      if (!sourceUrlByCategoryName.has(category.name)) {
+      if (!sourceUrlByCategoryName.has(category.name) && element.sourceUrl) {
         sourceUrlByCategoryName.set(category.name, element.sourceUrl);
       }
     }
@@ -119,7 +120,7 @@ function buildCommonDefences(claimType: ClaimType): SourcedListItem[] {
     seenIds.add(id);
 
     const concept = DEFENCE_CONCEPTS_BY_ID.get(id);
-    if (!concept || !concept.sourceUrl) continue;
+    if (!concept || !concept.sourceUrl || !defenceFitsCourt(concept, claimType.courtArea)) continue;
 
     items.push({ text: concept.plainExplanation, sourceUrl: concept.sourceUrl });
   }
@@ -161,6 +162,8 @@ export function buildClaimTypeOverviewContent(
     claimType = kindFromStory(storyText, claimTypes)?.claimType;
   }
   if (!claimType) return null;
+  // Nothing from another court's source (courtFitSources.ts).
+  claimType = courtFitClaimType(claimType);
   const sourceUrlByCategoryName = buildSourceUrlByCategoryName(claimType);
 
   const evidenceToOrganize: SourcedListItem[] = collectEvidenceCategories(claimType).map((category) => ({
@@ -168,7 +171,7 @@ export function buildClaimTypeOverviewContent(
     sourceUrl: sourceUrlByCategoryName.get(category.name),
   }));
 
-  const courtPoints: SourcedListItem[] = claimType.plaintiffElements.map((element) => ({
+  const courtPoints: SourcedListItem[] = claimType.plaintiffElements.filter((element) => element.plainExplanation).map((element) => ({
     text: element.plainExplanation,
     sourceUrl: element.sourceUrl,
   }));

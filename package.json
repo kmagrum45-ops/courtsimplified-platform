@@ -287,6 +287,7 @@
     "test:chrome-545-round": "node --import tsx scripts/verification/verifyChrome545Round.ts",
     "test:story-date-never-replaces": "node --import tsx scripts/verification/verifyStoryDateNeverReplaces.ts",
     "test:deadline-date-keeps-when": "node --import tsx scripts/verification/verifyDeadlineDateKeepsWhen.ts",
+    "test:sources-fit-court": "node --import tsx scripts/verification/verifySourcesFitCourt.ts",
     "test:one-deadline-source": "node --import tsx scripts/verification/verifyOneDeadlineSource.ts",
     "test:no-next-step-unconfirmed": "node --import tsx scripts/verification/verifyNoNextStepUnconfirmed.ts",
     "test:screens-read-record": "node --import tsx scripts/verification/verifyScreensReadRecord.ts",
