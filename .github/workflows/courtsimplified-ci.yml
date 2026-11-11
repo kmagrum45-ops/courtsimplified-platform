@@ -367,6 +367,9 @@ jobs:
       - name: Married-only Family topics are not offered to someone who was not married (Chrome check of #545, item 7)
         run: npm run test:married-only-topics
 
+      - name: Every Family situation question names only the boxes it shows (Chrome re-check of #545)
+        run: npm run test:triage-no-leftover-text
+
       - name: The case page and the case file page show the same deadlines, from one source (Chrome check of #544, F4)
         run: npm run test:one-deadline-source
 

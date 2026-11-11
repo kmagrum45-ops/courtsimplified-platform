@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-272 documented, 26 without a header.
+273 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -257,6 +257,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:tidy-wording` | **The spelling check can only fix spelling — never change what the user said.**<br>COSTS NOTHING. Pure validator runs, no model call. |
 | `npm run test:time-ran-out` | **A step whose time is "still running" is never shown beside a counted date that has passed.**<br>What it checks: each stage with whenTimeRunsOut links one of its OWN deadlines to a stage that exists, is a went-wrong stage, and that the map's own distinguishedFrom already tells apart from it (both ways) by whether the time has run out -- so the link adds n |
 | `npm run test:topic-guides` | **The in-depth guides quote their sources exactly, cite every paragraph, and**<br>never read as advice. |
+| `npm run test:triage-no-leftover-text` | **EVERY FAMILY SITUATION QUESTION NAMES ONLY THE BOXES IT SHOWS (Chrome re-check of #545 at dc909096, 10 Nov 2026: the**<br>question "Which municipality does the other person live in, if you know?" still said "'Where you live' is filled in from the location you gave on Home", though since #545 it shows only the other person's box). |
 | `npm run test:tribunal-first` | **THE LANDLORD AND TENANT BOARD NOTICE COMES FIRST, BEFORE ANY FOLLOW-UP QUESTION, FOR EVERY PERSON AND EVERY COURT**<br>(C1, site owner 9 Nov 2026). |
 | `npm run test:typecheck-live` | **The project's typecheck can actually fail.**<br>WHAT THIS CATCHES: a typecheck that reports success while checking nothing. |
 | `npm run test:understood-other-party` | **THE OTHER PARTY THE ACCEPTED STORY READING NAMES GOES ON THE RECORD, NEVER A WITNESS (Chrome check of production**<br>c38e69fd, 8 Nov 2026, B1). |
