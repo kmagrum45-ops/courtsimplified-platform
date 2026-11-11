@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-262 documented, 26 without a header.
+263 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -26,6 +26,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:analysis-safety` | **No analysis runs without a safety-check result for the story, on every**<br>analyze route, and a failed check is recorded as failed -- never clear. |
 | `npm run test:analysis-time-budget` | **The next-step analysis finishes inside the time the page and the server allow.**<br>What it checks: research's limit plus the main reasoning call's limit (plus a margin for the rest) fit inside how long the page waits (ANALYSIS_TIMEOUT_MS), and the page stops waiting before every area's analysis route reaches its maxDuration; the reasoning ca |
 | `npm run test:anon-grants` | **No migration grants anon write access, and no policy applies to PUBLIC.**<br>COSTS NOTHING. Reads supabase/migrations/*.sql off disk. No database connection, no network. |
+| `npm run test:answer-coverage` | **EVERY "WHAT KIND OF CASE" ANSWER LEADS TO A KIND OF ITS OWN COURT, OR ITS GAP IS DECLARED WITH THE REASON (coverage audit,**<br>11 Nov 2026; Chrome's #547 report, G2: "A loan or debt" brought no checklist, and nothing said why). |
 | `npm run test:answer-key-reader` | **THE ANSWER KEY'S READER (tests/answer-key/readAnswerKey.ts): reads a (case, field, expected)**<br>table as CSV, tab-separated or Markdown, the same rows from each; refuses a row with an empty cell, a header without the three columns, and a case and field given twice. |
 | `npm run test:assistant-blocks` | **The guided assistant can only say catalogued things.**<br>COSTS NOTHING. Reads source off disk and calls pure functions. |
 | `npm run test:assistant-context` | **Owned-context and canonical engine contracts, plus actual anonymous HTTP**<br>refusals. Full guidance is no longer available through anonymous fallback. Core factories isolate offline behavior; staging walkthroughs cover real auth. |

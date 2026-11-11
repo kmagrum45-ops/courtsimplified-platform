@@ -333,6 +333,9 @@ jobs:
       - name: A person being sued is never shown wording written for the person suing (role audit)
         run: npm run test:side-wording
 
+      - name: Every "what kind of case" answer leads to a kind of its own court, or its gap is declared (coverage audit)
+        run: npm run test:answer-coverage
+
       - name: A day given on the step page to work out a deadline never replaces "When it happened" (Chrome re-check of #545)
         run: npm run test:deadline-date-keeps-when
       - name: No case is sent to another court's source (Chrome check of #545, item 4)
