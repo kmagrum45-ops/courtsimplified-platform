@@ -94,7 +94,7 @@ export async function POST(request: Request) {
       const file = caseFileOf(court ? readCheckpoint((master as Record<string, unknown>).intakeCheckpoint, court) : null, { ...(master as Record<string, unknown>), position: undefined });
       return result.ok ? { ...master, position: { ...result.position, dateAnswers: withoutCaseFileDates(withoutSituationDates(result.position.dateAnswers, ownedCase.court_path, situationOfCase(master)), before, file, fullDayIn) } } : { reject: result.error };
     },
-    (changed) => positionFactWrites(patch, changed.position),
+    (changed) => positionFactWrites(patch, changed.position, changed),
     () => new Date(),
     // A cut-off save sent again as its page closed is tried once: a save landing between this read and write wins.
     { tries: request.headers.get(RESEND_HEADER) ? 1 : 3 },

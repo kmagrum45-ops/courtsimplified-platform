@@ -12,7 +12,8 @@ import { QUESTION_BANK } from "./intake/questionBank";
 import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 import { askOf } from "./intake/asker";
 import { alreadyAsked, CASE_FILE_SECTION, CHANGE_QUESTION, caseFileOf, fromCasePosition, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, repeatsAnswer, sameAnswer, NEWEST_TYPED_FACTS, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
-import { LOAN_WORDS } from "./intake/claimKind";
+import { LENT_MONEY, LOAN_WORDS } from "./intake/claimKind";
+import { servedDateAt } from "./servedWords";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
 
 type ObjectValue = Record<string, unknown>;
@@ -64,6 +65,18 @@ const FIELD_LABELS: Record<string, string> = {
   privacyRecordsFacts: "The records or privacy issue", damagesBreakdown: "What your losses are made up of",
   settlementEfforts: "What you have tried to settle it", limitationDeadline: "A deadline you know of",
   courtLocation: "Court location", courtFileNumber: "Court file number", otherParty: "The other party",
+  // The form's own words for the box, for either side ("Defendant address" was its code name: role audit, 11 Nov).
+  defendantAddress: "Other party address for service",
+};
+/**
+ * The labels a person being sued reads instead: the Small Claims form's own defendant wording (SmallClaimsIntake.tsx), so
+ * the review never says "your losses" or "the court to order" to them (role audit, 11 Nov; test:side-wording).
+ */
+export const RESPONDING_LABELS: Record<string, string> = {
+  damagesBreakdown: "Which part of the amount you dispute, and why",
+  goal: "What do you want to happen with the claim against you?",
+  // Civil's own box for it ("What would you like the court to order?").
+  legalRemedy: "What do you want to happen with the claim against you?",
 };
 /** Whether a field has words written for it (a field with none would show its code name turned into words). */
 export function hasWrittenLabel(courtPath: string, key: string): boolean {
@@ -111,6 +124,7 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   if (fromStart.caseStage) { source.caseStage = fromStart.caseStage; startKeys.add("caseStage"); }
   else if (Array.isArray(source[courtPath === "civil" ? "documents" : "filedDocuments"]) && fromStart.excludeDocuments) source[courtPath === "civil" ? "documents" : "filedDocuments"] = (source[courtPath === "civil" ? "documents" : "filedDocuments"] as string[]).filter(item => !fromStart.excludeDocuments!.includes(item));
   const entries: ReviewEntry[] = [];
+  const responding = sideOf(situationOf(sections)) === "responding" || /defendant|responding/i.test(String(source.yourRole ?? ""));
   const add = (area: string, key: string, value: unknown, nested?: string) => {
     // Civil keeps the location as city and province in its form input too: a second copy of the one location, not a second answer.
     if (UI.has(key) || (area !== STORY_SECTION && STORY_INPUT_KEYS.has(key)) || (area === "civil" && (key === "city" || key === "province")) || !(typeof value === "string" || typeof value === "number" || typeof value === "boolean" || (Array.isArray(value) && value.every(v => typeof v === "string")))) return;
@@ -136,7 +150,7 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
     // A question asked only on one side or in one situation (its `when`: "When and how you were
     // served" is the responding side's) is not essential for anyone else.
     const notTheirQuestion = definition?.when ? !definition.when({ ...asGiven, facts: storyOf(sections) } as never) : false;
-    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: notTheirIssue || notTheirQuestion ? false : definition?.initial ?? !OPTIONAL.has(key), ...(choices?.length ? { choices } : {}), ...(definition?.question ?? question?.text ? { question: definition?.question ?? question?.text } : {}), ...(fromStartHere ? { fromStart: true } : {}) });
+    entries.push({ section: area, field: key, nested, label: (responding ? RESPONDING_LABELS[key] : undefined) ?? definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: notTheirIssue || notTheirQuestion ? false : definition?.initial ?? !OPTIONAL.has(key), ...(choices?.length ? { choices } : {}), ...((responding ? RESPONDING_LABELS[key] : undefined) ?? definition?.question ?? question?.text ? { question: (responding ? RESPONDING_LABELS[key] : undefined) ?? definition?.question ?? question?.text } : {}), ...(fromStartHere ? { fromStart: true } : {}) });
   };
   // The one copy of the story and location comes first, whatever the route (intakeStory.ts).
   entries.push({ section: STORY_SECTION, field: "text", label: "Your story", value: storyOf(sections), essential: true });
@@ -671,7 +685,20 @@ const SIDE_CUES: [RegExp, string][] = [
   [/\b(owes? me|owed me|never paid|did not pay|didn't pay|won't pay|refused to (pay|refund|return)|kept my|i want to sue|i want (my|the) money|never came back|left the work|did not return|i paid|we paid|paid (him|her|them|a|an|the)|took (my|our|a|an|the)\b[^.]{0,30}\b(deposit|money|payment)|never (did|finished|completed|delivered|showed up|started))\b/i, "Bringing the claim (plaintiff)"],
 ];
 /** Small Claims' cue table for "What kind of dispute is this?", read by the one shared reader (storyAnswers.ts kindsFromStory). */
+/**
+ * Answers to "What kind of dispute is this?" worded for the person suing (role audit, 11 Nov; test:side-wording). Not
+ * "Something said about you (defamation)": test:side-change keeps it for someone served with a defamation claim (the
+ * owner's case M19), so its wording is for the review chat (REVIEW_CHAT_ADDITIONS.md item 7).
+ */
+export const PLAINTIFF_WORDED_KINDS: ReadonlySet<string> = new Set([
+  "Unpaid money owed to you",
+  "Work or a service you paid for (e.g. a contractor)",
+]);
+
 export const SMALL_CLAIMS_KIND_CUES: readonly KindCue[] = [
+  // Money the person lent is a loan, whatever it was for: before the work cue, which "for a car repair" also matches
+  // (Chrome check of #547, G1).
+  ["A loan or debt", LENT_MONEY],
   // A contractor's deposit is about the work, so this comes before "deposit".
   ["Work or a service you paid for (e.g. a contractor)", /\b(contractor|renovat\w*|repair\w*|roof\w*|plumb\w*|electrician|landscap\w*|mechanic)\b/i],
   ["A deposit that wasn't returned", /\bdeposit\b/i],
@@ -702,7 +729,8 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
   // Someone responding is asked about the claim against them: read the sentences about it, never
   // the claim they once meant to bring (26 Oct re-test, case 19 after the side change: "Work or a
   // service you paid for" was suggested for the defamation claim against him). None: nothing offered.
-  const story = sideOf(situationOf(checkpoint.sections)) === "responding" ? againstThemIn(whole) : whole;
+  const responding = sideOf(situationOf(checkpoint.sections)) === "responding";
+  const story = responding ? againstThemIn(whole) : whole;
   if (!story.trim()) return {};
   const out: Record<string, string> = {};
   const date = whenItHappened(story);
@@ -713,7 +741,10 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
   // (re-test round 7: an unpaid renovation invoice was suggested as "a service you paid for").
   // A loan named ("I lent my cousin $2,000 and she never paid it back") is a loan, not money owed for work.
   const owedForWork = /\b(invoice\w*|unpaid|never paid|did not pay|didn't pay|won't pay)\b/i.test(story) && !/\b(i|we) paid\b|\bdeposit\b/i.test(story) && !LOAN_WORDS.test(story);
-  const category = owedForWork ? "Unpaid money owed to you" : kindsFromStory(story, SMALL_CLAIMS_KIND_CUES, { first: true })?.value[0];
+  const found = owedForWork ? "Unpaid money owed to you" : kindsFromStory(story, SMALL_CLAIMS_KIND_CUES, { first: true })?.value[0];
+  // Someone being sued is never offered a kind worded for the person suing ("owed to you", "you paid for", "said about
+  // you"): role audit, 11 Nov. The choice stays theirs to make in the list.
+  const category = found && responding && PLAINTIFF_WORDED_KINDS.has(found) ? undefined : found;
   // Never a kind the person removed or turned down ("Not quite"), rule 6 (31 Oct): the case file says which.
   const file = caseFileOf(checkpoint);
   const named = claimKindOf({ ...emptyCaseFile(), claimKind: { state: "answered", value: category ?? "", confirmed: true } }).claimTypeId;
@@ -743,7 +774,8 @@ function whenItHappened(story: string): string | null {
     ...findDates(story).filter((date) => (date.precision === "day" ? countable(date) : date.precision === "month" && !dayWrittenBefore(story, date))).map((date) => ({ index: story.indexOf(date.source), date })),
     ...findDayMonthWithoutYear(story).filter((date) => !date.numeric).map((date) => ({ index: date.index, date: null })),
   ].filter((mention) => mention.index >= 0).sort((a, b) => a.index - b.index);
-  const chosen = mentions.find((mention) => notDeadline(mention.index));
+  // The day the person was served is its own fact, never when the dispute happened (servedWords.ts; Chrome check of #547, G3a).
+  const chosen = mentions.find((mention) => notDeadline(mention.index) && !servedDateAt(story, mention.index));
   if (!chosen || !chosen.date) return null;
   if (chosen.date.precision === "day") return chosen.date.iso;
   const [year, month] = chosen.date.iso.split("-").map(Number);

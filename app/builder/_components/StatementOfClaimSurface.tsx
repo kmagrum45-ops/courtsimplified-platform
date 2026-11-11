@@ -280,7 +280,7 @@ export default function StatementOfClaimSurface({
             {gate.outstanding.map((element) => (
               <div key={element.elementId} className="rounded-2xl border border-[#d8e6df] p-4">
                 <p className="font-semibold text-[#10231f]">{outstandingHeading(element)}</p>
-                <p className="mt-1 text-sm text-[#4d675f]">{element.plainExplanation}</p>
+                {element.plainExplanation ? <p className="mt-1 text-sm text-[#4d675f]">{element.plainExplanation}</p> : null}
 
                 {element.thingsThatOftenHelp.length > 0 ? (
                   <div className="mt-3 text-sm text-[#4d675f]">
@@ -331,14 +331,14 @@ export default function StatementOfClaimSurface({
                   stop you reaching a draft, and it is not a judgment about your case.
                 </p>
 
-                <a
+                {element.sourceShown ? <a
                   href={publicSourceUrl(element.sourceUrl)}
                   target="_blank"
                   rel="noreferrer"
                   className="mt-2 inline-block text-xs font-semibold text-[#2f7d67] underline"
                 >
                   Read the source for this
-                </a>
+                </a> : null}
               </div>
             ))}
           </div>

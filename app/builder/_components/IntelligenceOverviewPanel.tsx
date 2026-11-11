@@ -212,8 +212,9 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // already answered can surface here.
   const filingFacts = filingFactsFromDocuments(documents);
   const defenceQuestion = "Has the defendant filed a Defence?";
+  // Asked of the person suing only: for someone being sued, "the defendant" is themselves (role audit, 11 Nov).
   const askDefenceQuestion =
-    hasClaimAndService && !isQuestionAlreadyAnswered(defenceQuestion, filingFacts);
+    hasClaimAndService && !/defendant|responding/i.test(role) && !isQuestionAlreadyAnswered(defenceQuestion, filingFacts);
   /*
    * "What to confirm next" used to display a MODEL-WRITTEN QUESTION about this
    * user's matter, on the main builder screen, with no guard.

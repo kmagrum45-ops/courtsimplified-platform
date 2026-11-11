@@ -53,6 +53,7 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   "case-date-family-settlement-conference-date": ["conferenceDate"],
   "case-date-trial-management-conference-date": ["conferenceDate"],
   "case-date-pre-trial-conference-date": ["conferenceDate"],
+  // The first day of trial fills "the next court date" only when nothing else holds it (caseFile.ts STEP_DATE_NEVER_REPLACES).
   "case-date-trial-date": ["courtDate"],
   caseStage: ["stage"],
   // Small Claims guided questions and the review's.
@@ -69,16 +70,16 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   "sc-evidence-available": ["evidence"],
   "sc-remedy-sought": ["wants"],
   // The step page's date questions (casePosition.ts) for the same moments.
+  // The day served ("Day you got the papers") is the day the person got the papers that started their case: never a later
+  // service (a defendant's claim, a crossclaim, a third party claim), each kept as its own step-page date only (question-
+  // to-fact audit, 11 Nov: a later service replaced the first, and pre-filled the defence deadline's question).
   "sc-date-claim-served": ["servedDate"],
-  "sc-date-defendants-claim-served": ["servedDate"],
   "case-date-served-with-application": ["servedDate"],
   "case-date-served-with-motion-to-change": ["servedDate"],
   "sc-date-settlement-conference": ["conferenceDate"],
-  "case-date-served-with-crossclaim": ["servedDate"],
-  "case-date-served-with-third-party-claim": ["servedDate"],
   "sc-date-claim-issued": ["claimIssuedDate"],
+  // A defence FILED with the court; a defence served on the other side is another moment (its own step-page date only).
   "sc-date-defence-filed": ["defenceFiledDate"],
-  "case-date-defence-served": ["defenceFiledDate"],
   "case-date-own-defence-delivered": ["defenceFiledDate"],
   "case-date-act-or-omission": ["whenHappened"],
   // The Family triage.
@@ -124,11 +125,16 @@ const FACTS: Record<string, readonly CaseFact[]> = {
  * "what outcome are you seeking?" again). Null when the words name none of these.
  */
 const ASKS_FOR: [RegExp, CaseFact][] = [
-  [/\bwhat (?:outcome|result|remedy|remedies)\b|\boutcome (?:are|do) you (?:seeking|want)\b|\bwhat (?:do|would) you (?:want|like)(?: (?:to happen|the court to (?:order|do)))?\b|\bwhat are you (?:asking|seeking)\b|\bwhat (?:would you like|do you want) the court\b/i, "wants"],
-  [/\bhow much\b|\bwhat (?:is the )?amount\b/i, "amount"],
-  [/\bwhen were you served\b|\bwhat (?:date|day) were you served\b|\bhow were (?:the papers|you) served\b/i, "servedDate"],
+  // Each pattern names only what the person wants, claims, was served on, filed or sues: never a question that asks
+  // something else in similar words (question-to-fact audit, 11 Nov: "What would you like to know?", "What outcome did the
+  // tribunal reach?", "How much time has passed?", "How were you served?", "Have you filed a Defence?" and "Who is the
+  // defendant's insurer?" each wrote a fact they do not ask about). test:question-meanings.
+  [/\bwhat (?:outcome|result|remedy|remedies) (?:are|do|would) you\b|\boutcome (?:are|do) you (?:seeking|want)\b|\bwhat (?:do|would) you (?:want|like) (?:to happen|the court to (?:order|do))\b|\bwhat are you (?:asking|seeking)\b|\bwhat (?:would you like|do you want) the court\b/i, "wants"],
+  [/\bhow much (?:money )?(?:\w+\s+){0,4}?(?:owe[sd]?|owing|claim\w*|asking for|seeking|su(?:e|ing) for|in dispute)\b|\bwhat (?:is the )?amount (?:\w+\s+){0,3}?(?:claim\w*|owed|owing|in dispute|you are (?:asking|seeking))\b/i, "amount"],
+  [/\bwhen were you served\b|\bwhat (?:date|day) were you served\b/i, "servedDate"],
+  [/\b(?:have|has) (?:you|the defendant|they|he|she) (?:already )?filed (?:a |an |your |their |his |her )?defen[cs]e\b/i, "defenceFiled"],
   [/\b(?:have you|has anyone|has anything been) (?:already )?(?:started|filed)\b|\bstarted a court case\b/i, "filed"],
-  [/\bwho (?:is|are) the (?:other party|other side|defendants?|respondents?)\b|\bwho (?:exactly )?(?:are you|do you want to|will you|would you like to) su(?:e|ing)\b|\bwho (?:exactly )?(?:do|would) you (?:name|sue)\b/i, "otherParty"],
+  [/\bwho (?:is|are) the (?:other party|other side|defendants?|respondents?)\b(?!'s|s')|\bwho (?:exactly )?(?:are you|do you want to|will you|would you like to) su(?:e|ing)\b|\bwho (?:exactly )?(?:do|would) you (?:name|sue)\b/i, "otherParty"],
   [/\bwhen did (?:this|it|the [a-z]+) happen\b|\bwhat (?:date|day) did (?:this|it) happen\b/i, "whenHappened"],
 ];
 
