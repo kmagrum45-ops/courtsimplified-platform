@@ -327,6 +327,18 @@ jobs:
       - name: A date kept from the story never replaces the person's answer or their "not sure" (B2, 9 Nov)
         run: npm run test:story-date-never-replaces
 
+      - name: A story where the person lent money is a loan, whatever it was for (Chrome check of #547, G1)
+        run: npm run test:loan-stories-kind
+
+      - name: The day a person was served is never suggested as when the dispute happened (Chrome check of #547, G3)
+        run: npm run test:served-date-not-when
+
+      - name: No page says a wait is longer than usual before the usual time it states (Chrome check of #547, G4)
+        run: npm run test:usual-wait-agrees
+
+      - name: Send feedback shows the contact address as text beside the link (Chrome check of #547, G5)
+        run: npm run test:feedback-address-shown
+
       - name: The case page and the case file page show the same deadlines, from one source (Chrome check of #544, F4)
         run: npm run test:one-deadline-source
 
