@@ -336,6 +336,9 @@ jobs:
       - name: Every "what kind of case" answer leads to a kind of its own court, or its gap is declared (coverage audit)
         run: npm run test:answer-coverage
 
+      - name: 32 stories, all three courts, both sides -- no plaintiff wording for a defendant, no cross-court link, no grading, the right day (no AI)
+        run: npm run test:story-invariants
+
       - name: A day given on the step page to work out a deadline never replaces "When it happened" (Chrome re-check of #545)
         run: npm run test:deadline-date-keeps-when
       - name: No case is sent to another court's source (Chrome check of #545, item 4)

@@ -289,6 +289,7 @@
     "test:question-meanings": "node --import tsx scripts/verification/verifyQuestionMeanings.ts",
     "test:side-wording": "node --import tsx scripts/verification/verifySideWording.ts",
     "test:answer-coverage": "node --import tsx scripts/verification/verifyAnswerCoverage.ts",
+    "test:story-invariants": "node --import tsx scripts/verification/verifyStoryInvariants.ts",
     "test:deadline-date-keeps-when": "node --import tsx scripts/verification/verifyDeadlineDateKeepsWhen.ts",
     "test:sources-fit-court": "node --import tsx scripts/verification/verifySourcesFitCourt.ts",
     "test:loan-stories-kind": "node --import tsx scripts/verification/verifyLoanStoriesKind.ts",
