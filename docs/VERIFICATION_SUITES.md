@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-263 documented, 26 without a header.
+267 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -103,6 +103,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:family-role` | **A family user's side comes from their own answer, never from stray keywords.**<br>COSTS NOTHING. Pure normalizer runs plus a source scan of the intake. |
 | `npm run test:family-story-reading` | **Family story reading: a denied mention is not a mention.**<br>What it checks: existingFamilyOrder (which hides the "where to start a new case" rules behind "You told us there is already a court order") fires on a story that says there IS an order, and not on one that says there never was — "never married, never a court o |
 | `npm run test:family-triage-dates` | **THE FAMILY CARD TAKES THE LIVED-TOGETHER DATES FROM THE STORY, ACCEPTS A YEAR OR A MONTH, MOVES ON WHEN A QUESTION IS**<br>SET ASIDE, AND "WHAT TO CONFIRM NEXT" READS THE RECORDED MUNICIPALITY (Chrome check of production c38e69fd, B3). |
+| `npm run test:feedback-address-shown` | **"SEND FEEDBACK" SHOWS THE CONTACT ADDRESS AS TEXT BESIDE THE LINK (Chrome check of #547 at 0e0f7e9, G5: a person with no**<br>mail program on the computer gets nothing from a mailto link; the address must be there to copy). |
 | `npm run test:fixed-regimes` | **Checks the routing rules fixed by law (src/lib/case-system/intelligence/**<br>fixedRegimes.ts, CLAUDE.md s. 2a): a construction lien goes to the Superior Court whatever the amount, and a claimed amount over $50,000 leaves Small Claims -- decided in code, winning over the keyword pass and the model. |
 | `npm run test:fixture-guards` | **Asserts that runFixtures.ts cannot write a .actual.md from a run that**<br>threw, timed out, or silently degraded. |
 | `npm run test:fixtures` | **Session 35 -- runs the three whole-case fixtures in fixtures/ through the**<br>REAL pipeline the app uses, end to end, and writes what actually happened to fixtures/<id>.actual.md. |
@@ -138,6 +139,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:law-map` | **test:law-map -- the law map (docs/law-map/) stays well-formed and never**<br>judges a case (CLAUDE.md s. 2, "Draft from knowledge; publish only what is verified", 2026-10-13). |
 | `npm run test:library-chat` | **The chat can only say what has already been verified.**<br>COSTS NOTHING. No model call. Every check drives `validateSelection` and `assembleChatAnswer` with payloads a model might return — including the ones it must never return — because those are the two functions every answer passes through, whatever the model sai |
 | `npm run test:live-stories` | **Eight live stories through the full Small Claims pipeline: general intake ->**<br>claim-type confirmation -> depth phase -> readiness gate. |
+| `npm run test:loan-stories-kind` | **A STORY WHERE THE PERSON LENT MONEY IS A LOAN, WHATEVER THE MONEY WAS FOR (Chrome check of #547 at 0e0f7e9, G1: "In**<br>March 2026 I lent my friend Alex Testwood $4,500 for a car repair" was suggested as "Work or a service you paid for (e.g. a contractor)"). |
 | `npm run test:lso-demo-cases` | **The demo test cases from docs/lso-ai-audit.md section 13, as a suite.**<br>WHY. That table was written as a list of things to try by hand, and five of its twenty rows were marked "expected to fail today" — cases 3, 4, 12, 13 and 19, the honest edges of the demo. Those five are the point of the LSO rewrite, so they cannot stay as a li |
 | `npm run test:mount-conditions` | **Surfaces that mount independently of the analysis pipeline are not gated on**<br>it. |
 | `npm run test:municipal-notice-first` | **The right municipality's law for an injury on a municipal way, and the**<br>10-day notice shown first in the intake (round 4 senior-lawyer review, 2026-10-14, persona civil-plaintiff-municipal-slip). |
@@ -205,6 +207,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:sc-asker` | **THE SMALL CLAIMS ASKER (founder's plan, step 5, "the memory fix", 1 Nov): one saved record per case,**<br>one writer, one reader (caseFileOf), ONE ASKER -- the question engine (intake/asker.ts, used by selectQuestions.ts). Before any Small Claims question is shown, the engine asks the case file whether that question's fact is already held (answered, "not sure", or |
 | `npm run test:sc-one-asker` | **ONE ASKER FOR EVERY SMALL CLAIMS SCREEN (founder's plan step 5, 1 Nov: "the one asker, not per screen:**<br>check caseFileOf before any question is shown"). The permanent check that keeps it so. |
 | `npm run test:screens-read-record` | **THE SMALL CLAIMS DEMO SCREENS READ ANSWERS FROM THE CASE RECORD, NOT FROM A COPY (site owner, 6 Nov 2026; Chrome**<br>check of #544 and the sweep that followed it). |
+| `npm run test:served-date-not-when` | **THE DAY A PERSON WAS SERVED IS NEVER SUGGESTED AS THE DAY THE DISPUTE HAPPENED (Chrome check of #547 at 0e0f7e9, G3a:**<br>"On October 28, 2026 I was served with a Plaintiff's Claim..." offered October 28, 2026 for "When it happened"). |
 | `npm run test:server-error-log` | **test:server-error-log -- the built-in error log records a server error**<br>without anything that identifies a person (src/lib/monitoring/ serverErrorLog.ts, instrumentation.ts; 2026-10-14 audit). |
 | `npm run test:server-order` | **THE SERVER'S NUMBER DECIDES WHICH ANSWER IS NEWEST; THE TAB ORDERS ONLY ITS UNSENT EDITS (case core G2(a), G2(b);**<br>founder, 2 Nov; CASE_CORE_DESIGN.md §12). |
 | `npm run test:service-dates` | **When service counts from (serviceEffectiveDate.ts, build order Step 2D,**<br>2026-10-12). |
@@ -255,6 +258,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:unsure-never-saved` | **"I DO NOT KNOW YET" IS NEVER SAVED AS THE ANSWER, AND "NOT SURE" WHERE THE CASE IS STAYS NOT SURE**<br>(founder's Chrome check of #541 at 354e36fb, 2 Nov, steps 1 and 2; every court). |
 | `npm run test:upcoming-deadline` | **Checks the in-app deadline reminder on "My cases"**<br>(src/lib/case-workspace/upcomingDeadline.ts, master plan 6D). |
 | `npm run test:user-story` | **The user's own words are what pages show back to them, never the labelled**<br>record the analysis reads; and a date in their story without a year is still offered for counting their deadline. |
+| `npm run test:usual-wait-agrees` | **"THIS IS TAKING LONGER THAN USUAL" IS NEVER SAID BEFORE THE USUAL TIME THE SAME PAGE STATES (Chrome check of #547 at**<br>0e0f7e9, G4: the warning appeared at about 50 s while the line above said "This usually takes one to three minutes"). |
 | `npm run test:verdict-sources` | **Every provision a published answer was proved from is in its source list**<br>(2026-10-13). |
 | `npm run test:verifier` | **Does the verifier actually reject wrong content?**<br>The whole value of a drafter/verifier split rests on the verifier being willing to say no. A verifier that agrees with plausible text is not a check, it is a second opinion from the same kind of mind, and it would turn every block green while changing nothing. |
 | `npm run test:waiting-line-ends` | **"FINISH THE STEP SHOWN BELOW FIRST" ENDS WHEN A QUEUED START NEVER RUNS (Chrome check of #544 on a8c8cf57, 7 Nov 2026,**<br>the site owner's item 6). |

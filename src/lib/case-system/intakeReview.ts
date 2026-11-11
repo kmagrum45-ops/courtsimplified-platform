@@ -12,7 +12,8 @@ import { QUESTION_BANK } from "./intake/questionBank";
 import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 import { askOf } from "./intake/asker";
 import { alreadyAsked, CASE_FILE_SECTION, CHANGE_QUESTION, caseFileOf, fromCasePosition, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, repeatsAnswer, sameAnswer, NEWEST_TYPED_FACTS, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
-import { LOAN_WORDS } from "./intake/claimKind";
+import { LENT_MONEY, LOAN_WORDS } from "./intake/claimKind";
+import { servedDateAt } from "./servedWords";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
 
 type ObjectValue = Record<string, unknown>;
@@ -692,6 +693,9 @@ export const PLAINTIFF_WORDED_KINDS: ReadonlySet<string> = new Set([
 ]);
 
 export const SMALL_CLAIMS_KIND_CUES: readonly KindCue[] = [
+  // Money the person lent is a loan, whatever it was for: before the work cue, which "for a car repair" also matches
+  // (Chrome check of #547, G1).
+  ["A loan or debt", LENT_MONEY],
   // A contractor's deposit is about the work, so this comes before "deposit".
   ["Work or a service you paid for (e.g. a contractor)", /\b(contractor|renovat\w*|repair\w*|roof\w*|plumb\w*|electrician|landscap\w*|mechanic)\b/i],
   ["A deposit that wasn't returned", /\bdeposit\b/i],
@@ -767,7 +771,8 @@ function whenItHappened(story: string): string | null {
     ...findDates(story).filter((date) => (date.precision === "day" ? countable(date) : date.precision === "month" && !dayWrittenBefore(story, date))).map((date) => ({ index: story.indexOf(date.source), date })),
     ...findDayMonthWithoutYear(story).filter((date) => !date.numeric).map((date) => ({ index: date.index, date: null })),
   ].filter((mention) => mention.index >= 0).sort((a, b) => a.index - b.index);
-  const chosen = mentions.find((mention) => notDeadline(mention.index));
+  // The day the person was served is its own fact, never when the dispute happened (servedWords.ts; Chrome check of #547, G3a).
+  const chosen = mentions.find((mention) => notDeadline(mention.index) && !servedDateAt(story, mention.index));
   if (!chosen || !chosen.date) return null;
   if (chosen.date.precision === "day") return chosen.date.iso;
   const [year, month] = chosen.date.iso.split("-").map(Number);
