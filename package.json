@@ -299,6 +299,7 @@
     "test:served-date-not-when": "node --import tsx scripts/verification/verifyServedDateNotWhen.ts",
     "test:usual-wait-agrees": "node --import tsx scripts/verification/verifyUsualWaitAgrees.ts",
     "test:feedback-address-shown": "node --import tsx scripts/verification/verifyFeedbackAddressShown.ts",
+    "test:married-only-topics": "node --import tsx scripts/verification/verifyMarriedOnlyTopics.ts",
     "test:one-deadline-source": "node --import tsx scripts/verification/verifyOneDeadlineSource.ts",
     "test:no-next-step-unconfirmed": "node --import tsx scripts/verification/verifyNoNextStepUnconfirmed.ts",
     "test:screens-read-record": "node --import tsx scripts/verification/verifyScreensReadRecord.ts",

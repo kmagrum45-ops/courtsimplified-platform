@@ -24,7 +24,8 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { useIntakeRecovery } from "./IntakeRecovery";
 import { holdOpenEdit } from "./openEdits";
-import { type ChangeInput, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, type CaseFile, type ChangeInput, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import { notMarriedOf, withoutMarriedOnly } from "../../src/lib/case-system/family/marriedOnly";
 import { writeChange } from "./caseWrite";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { CIVIL_ISSUE_OPTIONS, FAMILY_ISSUE_OPTIONS } from "../builder/_components/guidedFields";
@@ -67,13 +68,18 @@ type Choices =
   | { kind: "text"; day: boolean };
 
 /** The choices "Change" offers for a fact in a court, or null when it is changed at the start. */
-export function changeChoices(fact: SlotFact, court: string | null | undefined): Choices | null {
+export function changeChoices(
+  fact: SlotFact,
+  court: string | null | undefined,
+  /** The case as held (Family: someone not married is not offered married-only topics, marriedOnly.ts), the topics chosen, and "Show all topics". */
+  context: { file?: CaseFile | null; story?: string; chosen?: readonly string[]; showAll?: boolean } = {},
+): Choices | null {
   if (CHANGED_AT_THE_START.has(fact)) return null;
   // The story is changed with its own story box (StoryEditor, storyBasis.ts), never as a one-line answer.
   if (fact === "story") return null;
   if (fact === "claimKind") {
     if (court === "civil") return { kind: "multi", options: CIVIL_ISSUE_OPTIONS };
-    if (court === "family") return { kind: "multi", options: FAMILY_ISSUE_OPTIONS };
+    if (court === "family") return { kind: "multi", options: context.showAll ? FAMILY_ISSUE_OPTIONS : withoutMarriedOnly(FAMILY_ISSUE_OPTIONS, notMarriedOf(context.file, context.story), context.chosen) };
     const choices = QUESTION_BANK.find((question) => question.id === "sc-orient-dispute-category")?.choices ?? [];
     return { kind: "choice", options: choices.map((choice) => ({ value: choice, label: choice })) };
   }
@@ -89,7 +95,11 @@ export default function ChangeAnswer({ fact, court, startOpen = false, current, 
   const [picks, setPicks] = useState<string[]>(Array.isArray(current) ? current.filter((item): item is string => typeof item === "string") : []);
   const box = useRef<HTMLSpanElement>(null);
   useEffect(() => { if (startOpen) box.current?.scrollIntoView({ block: "center" }); }, [startOpen]);
-  const choices = changeChoices(fact, court);
+  const [showAll, setShowAll] = useState(false);
+  const file = recovery ? caseFileOf(recovery.getReview().checkpoint) : null;
+  const choices = changeChoices(fact, court, { file, chosen: picks, showAll });
+  // Hidden from the story's words alone: never for good ("Show all topics"; CLAUDE.md s. 4).
+  const hiddenByStory = fact === "claimKind" && court === "family" && !showAll && notMarriedOf(file) === "story" && (choices?.kind === "multi" && choices.options.length < FAMILY_ISSUE_OPTIONS.length);
   const label = FACT_LABEL[fact];
   const editId = useId();
   /** The one write path (caseWrite.ts writeChange): the change record, a touched answer from the review. */
@@ -133,6 +143,7 @@ export default function ChangeAnswer({ fact, court, startOpen = false, current, 
       ) : choices.kind === "multi" ? (
         <span className="mt-1 block" role="group" aria-label={`Change: ${label}`}>
           {choices.options.map((option) => <label key={option.value} className="mr-3 block"><input type="checkbox" data-testid="change-answer-pick" value={option.value} checked={picks.includes(option.value)} onChange={() => setPicks((list) => (list.includes(option.value) ? list.filter((item) => item !== option.value) : [...list, option.value]))} /> {option.label}</label>)}
+          {hiddenByStory ? <button type="button" data-testid="change-answer-show-all" onClick={() => setShowAll(true)} className="mt-1 block text-sm font-semibold text-[#2f7d67] underline">Show all topics</button> : null}
           <button type="button" data-testid="change-answer-save" disabled={picks.length === 0} onClick={() => save({ state: "answered", value: picks })} className="mt-2 rounded border px-3 py-1 disabled:opacity-50">Save these</button>
         </span>
       ) : choices.kind === "yes-no" ? (
