@@ -388,7 +388,8 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // ("When it happened" stayed the person's "March 2026"; Chrome check of production c38e69fd, B2).
   const dates = object(position.dateAnswers);
   const keptFromStory = new Set(Array.isArray(position.datesFromStory) ? position.datesFromStory : []);
-  for (const [id, value] of Object.entries(dates)) if (!keptFromStory.has(id)) for (const fact of slotsOf(id)) give(file, fact, value, id);
+  // A day given there to work out a deadline never replaces "When it happened" given anywhere else (whenGivenElsewhere).
+  for (const [id, value] of Object.entries(dates)) if (!keptFromStory.has(id)) for (const fact of slotsOf(id)) if (!(fact === "whenHappened" && whenGivenElsewhere(file.whenHappened))) give(file, fact, value, id);
   // An older saved case (before 29 Oct) kept the kind in the analysis copy (intakeData.extra): read
   // here only, as a fallback: ticked, it is the person's; unticked, a proposal (claim type, rule 3).
   const extra = object(object(object(master).intakeData).extra);
@@ -815,6 +816,8 @@ function applyFactRecords(file: CaseFile, sections: Record<string, unknown>) {
     // That place's answer set aside since (a story change, "Start the questions again": the fresh sections hold nothing
     // there) is not brought back by its numbered copy. A box the person emptied records a removal instead (newer, no place).
     if (fromPlace && placeHolds(sections, question) === false) continue;
+    // A day the step page saved to work out a deadline never replaces "When it happened" the person gave elsewhere.
+    if (fact === "whenHappened" && fromCasePosition(question) && whenGivenElsewhere(file.whenHappened)) continue;
     applyOne(file, fact, entry.state === "answered" ? { state: "answered", value: Array.isArray(value) ? strings(value) : value } : { state: entry.state as "removed" | "unsure" }, question, !fromPlace);
   }
   if (records.length) file.changedFacts = [...new Set([...(file.changedFacts ?? []), ...records.map(([fact]) => fact)])];
@@ -831,6 +834,19 @@ export const POSITION_PLACE = "position:";
 export function fromCasePosition(question: unknown): boolean {
   return typeof question === "string" && (question === CLAIM_KIND_QUESTION || question.startsWith(POSITION_PLACE));
 }
+/**
+ * Whether "When it happened" holds an answer given somewhere other than the step page: a day or a rough time ("March
+ * 2026"), from the review, the chat, a form, Change or the story. The step page's "Work out your dates" asks for a day only
+ * to count a deadline (`case-date-act-or-omission`); that day is kept in the saved position for the deadline, and fills
+ * "When it happened" only when nothing else does (Chrome re-check of #545 at dc909096, 10 Nov 2026: "March 2026" became
+ * "May 15, 2026", the day typed there). Each question writes only its own fact.
+ */
+export function whenGivenElsewhere(slot: Slot): boolean {
+  const held = slot.state === "answered" || (slot.state === "unsure" && !blank(slot.value));
+  const question = slot.source?.kind === "answer" ? slot.source.question : undefined;
+  return held && !(fromCasePosition(question) || (typeof question === "string" && (DATE_QUESTIONS_OF.whenHappened ?? []).includes(question)));
+}
+
 /** A kind the site suggested and the person ticked ("That's right"): theirs from then on. */
 export const CLAIM_KIND_TICKED = "claim-kind-suggestion";
 

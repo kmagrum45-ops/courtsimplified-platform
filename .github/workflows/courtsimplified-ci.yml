@@ -327,6 +327,9 @@ jobs:
       - name: A date kept from the story never replaces the person's answer or their "not sure" (B2, 9 Nov)
         run: npm run test:story-date-never-replaces
 
+      - name: A day given on the step page to work out a deadline never replaces "When it happened" (Chrome re-check of #545)
+        run: npm run test:deadline-date-keeps-when
+
       - name: The case page and the case file page show the same deadlines, from one source (Chrome check of #544, F4)
         run: npm run test:one-deadline-source
 
