@@ -4,7 +4,7 @@
  *
  * What it checks, in all three courts (Small Claims' dispute kinds, civil's and Family's issues), with the real reader
  * (caseFile.ts claimKindOf):
- *   1. each answer leads to a kind of claim of its own court, or is listed in answerCoverage.ts with a reason;
+ *   1. each answer leads to a kind of claim of its own court, or is listed in caseFile.ts ANSWERS_WITH_NO_KIND with a reason;
  *   2. a listed answer still leads to no kind (one that gained a kind is deleted from the list: a list that must be kept
  *      is fine, a stale one is not);
  *   3. every kind in every catalogue has a checklist (evidence categories) and a sourced explanation on each element;
@@ -43,9 +43,9 @@ const catalogue: Record<Court, readonly { id: string; courtArea: string; plainti
 };
 
 async function main() {
-  const coverage = await import("../../src/lib/case-system/intake/answerCoverage").catch(() => null);
+  const coverage = await import("../../src/lib/case-system/caseFile/caseFile").catch(() => null);
   const declared = coverage?.ANSWERS_WITH_NO_KIND ?? null;
-  check("setup: the answers with no kind are declared (answerCoverage.ts)", Boolean(declared));
+  check("setup: the answers with no kind are declared (caseFile.ts ANSWERS_WITH_NO_KIND)", Boolean(declared));
   check(`setup: answers read in all three courts (${answers.length})`, (["small-claims", "civil", "family"] as const).every((court) => answers.some((answer) => answer.court === court)));
 
   const silent = answers.filter((answer) => !answer.kind && !declared?.[answer.court]?.[answer.value]?.trim()).map((answer) => `${answer.court}: ${answer.value}`);

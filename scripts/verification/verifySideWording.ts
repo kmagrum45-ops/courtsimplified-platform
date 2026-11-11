@@ -27,7 +27,14 @@ const check = (name: string, ok: boolean, detail = "") => {
 
 /** Phrases that only make sense to the person suing (the role audit's table). */
 export const PLAINTIFF_ONLY = [/\bdefendant address\b/i, /\byour losses\b/i, /\bthe court to order\b/i, /\bowed to you\b/i, /\byou paid for\b/i, /\bsaid about you\b/i];
-const plaintiffOnly = (text: string) => PLAINTIFF_ONLY.filter((pattern) => pattern.test(text)).map(String);
+/**
+ * Shown to a person being sued on purpose, until reviewed wording exists, each with why. A list that must be kept is fine;
+ * an entry that no longer applies is deleted.
+ */
+const KEPT_UNTIL_REVIEWED: Record<string, string> = {
+  "Something said about you (defamation)": "test:side-change (the owner's case M19) expects it for someone served with a defamation claim; wording listed for the review chat",
+};
+const plaintiffOnly = (text: string) => (KEPT_UNTIL_REVIEWED[text] ? [] : PLAINTIFF_ONLY.filter((pattern) => pattern.test(text)).map(String));
 
 const STORY = "Synthetic: I got served with a Plaintiff's Claim. My old landlord says I owe him $3,000 for an unpaid invoice for repairs. I don't think I owe it. It happened in March 2026.";
 const situation = (where: "served" | "starting", court: string) => ({ record: where === "served" ? { where, papers: "not-sure", receivedOn: "2026-10-01", court, courtFrom: "choice", stage: "just-served" } : { where, filed: "nothing", court, courtFrom: "choice" } });

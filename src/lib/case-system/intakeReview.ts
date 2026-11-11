@@ -685,11 +685,14 @@ const SIDE_CUES: [RegExp, string][] = [
   [/\b(owes? me|owed me|never paid|did not pay|didn't pay|won't pay|refused to (pay|refund|return)|kept my|i want to sue|i want (my|the) money|never came back|left the work|did not return|i paid|we paid|paid (him|her|them|a|an|the)|took (my|our|a|an|the)\b[^.]{0,30}\b(deposit|money|payment)|never (did|finished|completed|delivered|showed up|started))\b/i, "Bringing the claim (plaintiff)"],
 ];
 /** Small Claims' cue table for "What kind of dispute is this?", read by the one shared reader (storyAnswers.ts kindsFromStory). */
-/** Answers to "What kind of dispute is this?" worded for the person suing (role audit, 11 Nov; test:side-wording). */
+/**
+ * Answers to "What kind of dispute is this?" worded for the person suing (role audit, 11 Nov; test:side-wording). Not
+ * "Something said about you (defamation)": test:side-change keeps it for someone served with a defamation claim (the
+ * owner's case M19), so its wording is for the review chat (REVIEW_CHAT_ADDITIONS.md item 7).
+ */
 export const PLAINTIFF_WORDED_KINDS: ReadonlySet<string> = new Set([
   "Unpaid money owed to you",
   "Work or a service you paid for (e.g. a contractor)",
-  "Something said about you (defamation)",
 ]);
 
 export const SMALL_CLAIMS_KIND_CUES: readonly KindCue[] = [
