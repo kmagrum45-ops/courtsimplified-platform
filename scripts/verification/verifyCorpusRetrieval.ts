@@ -616,7 +616,11 @@ async function main() {
   const retrieval = read("src/lib/case-system/retrieval/storyRetrieval.ts");
   check("the retrieval calls are in the audit log", (retrieval.match(/withAiCallContext\(/g) ?? []).length >= 2);
   check("the query step is told to leave out personal details", /leave out every name, address, date, amount and other personal detail/.test(QUERY_SYSTEM_PROMPT));
-  check("the audit log redacts the queries", /"queries"/.test(read("src/lib/audit/aiCallLog.ts")));
+  // Site owner, 11 Nov 2026, option (a): the log keeps no part of a model's answer, so the queries are not kept at all
+  // (before: kept, with "queries" on a redaction list). test:ai-call-log-labels-only proves it on a logged call.
+  const aiLog = read("src/lib/audit/aiCallLog.ts");
+  const outputBody = /export function structuredOutputOf\([\s\S]*?\n\}/.exec(aiLog)?.[0] ?? "";
+  check("the audit log keeps no query text (structured_output is the token counts only)", /structured_output: structuredOutputOf\(/.test(aiLog) && /tokenCounts\(response\)/.test(outputBody) && !/choices|content|JSON\.parse/.test(outputBody));
   check("the client wraps embeddings in the audit log", /embeddings\.create = [\s\S]{0,120}observeAiCall/.test(read("src/lib/case-system/openaiClient.ts")));
 
   const config = read("next.config.ts");
