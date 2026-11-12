@@ -76,7 +76,7 @@ test("Small Claims: suggestions from the story answer the initial questions; Con
   await outcome.fill("Synthetic: my $9,000 back");
   await outcome.press("Tab");
   await expect(page.locator('input[data-testid="intake-unknown"]:checked')).toHaveCount(0);
-  await expect(needs).not.toContainText("an answer");
+  await expect(needs).toHaveCount(0);
   await tickIfAsked(page);
   await expect(needs).toHaveCount(0);
   await page.getByTestId("intake-confirm").click();
