@@ -1628,7 +1628,9 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
     // A real mouse press where the element is (Playwright's own click: it waits until nothing covers it, as a person would).
     const press = (target: ReturnType<typeof page.locator>) => target.click();
     if (keep) await press(panel.locator(`[data-testid=intake-initial-question][data-question="${keep}"]`).locator('[data-testid="intake-field-from-story"], [data-testid="intake-use-suggestion"]').first());
-    await press(page.getByTestId("intake-review-acknowledgement"));
+    // The tick, where the review still shows one (since 12 Nov it has none: "three choices, no tick").
+    const tick = page.getByTestId("intake-review-acknowledgement");
+    if (await tick.count()) await press(tick);
     // The late reading lands between the tick and the press, as it can for a person.
     await page.waitForTimeout(10_000);
     await press(page.getByTestId("intake-confirm"));
@@ -1659,7 +1661,7 @@ test("retest-27oct root cause 3 on staging: the Charter review, a one-click answ
     const unknowns = panel.locator(`[data-testid=intake-initial-question]${keep ? `:not([data-question="${keep}"])` : ""} input[data-testid="intake-unknown"]:not(:checked)`);
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 30_000 }); }
     if (keep) await panel.locator(`[data-testid=intake-initial-question][data-question="${keep}"]`).locator('[data-testid="intake-field-from-story"], [data-testid="intake-use-suggestion"]').first().click();
-    await page.getByTestId("intake-review-acknowledgement").click();
+    if (await page.getByTestId("intake-review-acknowledgement").count()) await page.getByTestId("intake-review-acknowledgement").click();
     await page.getByTestId("intake-confirm").click();
     const bounced = page.getByText(/Your initial facts changed|Initial information changed while saving/);
     await expect(panel.or(bounced).first()).toBeVisible();
