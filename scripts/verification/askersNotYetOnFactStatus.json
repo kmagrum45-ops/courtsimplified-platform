@@ -98,10 +98,6 @@
       "reason": "The assistant chat's evidence still-needed list runs with no case file; slice 5."
     },
     {
-      "file": "src/lib/case-system/intake/asker.ts",
-      "reason": "askOf and mayAsk: the first of the two gates the one function replaces; slice 1."
-    },
-    {
       "file": "src/lib/case-system/intake/depth/selectDepthQuestions.ts",
       "reason": "Depth questions: every authored question is asked, with no case-file check; slice 5."
     },

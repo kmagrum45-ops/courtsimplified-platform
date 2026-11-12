@@ -86,6 +86,9 @@ jobs:
       - name: Every place that asks, offers or says a fact is missing uses the one function (factStatus.ts), or is listed as not moved yet (the list only shrinks)
         run: npm run test:askers-fact-status
 
+      - name: The one function says whether a fact is known, offered, asked or settled; both gates use it; a quote is offered as the amount
+        run: npm run test:fact-status
+
       - name: Each AI call is priced from its model and real tokens (price table); a model with no price is never called
         run: npm run test:ai-price-table
 

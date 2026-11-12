@@ -41,6 +41,7 @@
     "test:ai-limit-banner": "node --import tsx scripts/verification/verifyAiLimitBanner.ts",
     "test:ask-once-expected": "node --import tsx scripts/verification/verifyAskOnceExpected.ts",
     "test:askers-fact-status": "node --import tsx scripts/verification/verifyAskersUseFactStatus.ts",
+    "test:fact-status": "node --import tsx scripts/verification/verifyFactStatus.ts",
     "test:ai-price-table": "node --import tsx scripts/verification/verifyAiPriceTable.ts",
     "test:ai-models-priced": "node --import tsx scripts/verification/verifyAiModelsPriced.ts",
     "test:ai-routes-limited": "node --import tsx scripts/verification/verifyAiRoutesLimited.ts",

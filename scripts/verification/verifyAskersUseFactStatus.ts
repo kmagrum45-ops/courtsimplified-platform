@@ -65,7 +65,8 @@ function walk(dir: string, out: string[] = []): string[] {
 export function askers(files: Record<string, string>): { file: string; uses: boolean }[] {
   return Object.entries(files)
     .filter(([file, text]) => !OWN(file) && (DECIDING.includes(file) || MARKERS.some((marker) => marker.test(text))))
-    .map(([file, text]) => ({ file, uses: /from ["'][^"']*caseFile\/factStatus["']/.test(text) }))
+    // A value import: a type-only import ("import type") uses none of the one function's decisions.
+    .map(([file, text]) => ({ file, uses: /import\s+(?!type\b)[^;]*?from ["'][^"']*caseFile\/factStatus["']/.test(text) }))
     .sort((a, b) => a.file.localeCompare(b.file));
 }
 

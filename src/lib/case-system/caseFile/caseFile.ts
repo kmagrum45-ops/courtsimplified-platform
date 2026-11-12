@@ -43,6 +43,7 @@ import { parseRecordedAmount } from "../format/recordedAmount";
 import type { StatementOfClaimDraftInput } from "../statementOfClaimDraftEngine";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
+import { slotStatus } from "./factStatus";
 
 /** The case file's slots, in the order "What we have so far" shows them. */
 export const SLOT_FACTS = [
@@ -59,8 +60,10 @@ export type SlotSource = { kind: "answer"; question: string } | { kind: "story";
  * `changed`: the value is the person's latest change (the change record, `CASE_FILE_SECTION.changes`).
  * `removed`: the person removed the answer (their latest change): not held, never brought back by an
  * older source, and not asked again by itself (they add it back with "Change").
+ * `declined`: the person said the story's value was not right ("No, that's not right"): not known, asked once
+ * (factStatus.ts, site owner 11 Nov 2026).
  */
-export type Slot = { state: SlotState; value?: string | number | boolean | string[]; source?: SlotSource; confirmed: boolean; changed?: true; removed?: true };
+export type Slot = { state: SlotState; value?: string | number | boolean | string[]; source?: SlotSource; confirmed: boolean; changed?: true; removed?: true; declined?: true };
 /** `answers`: every answer given to a named question (its id and words), for the step page's dates. */
 export type CaseFile = Record<SlotFact, Slot> & {
   answers?: Record<string, string>;
@@ -1055,8 +1058,11 @@ export function alreadyAsked(file: CaseFile, questionId: string, surface?: strin
   return slotsOf(questionId, surface).some((fact) => !notAsked(file[fact]));
 }
 
-/** Not asked yet: no answer, no "not sure", and not removed by the person (a removed answer is not asked again by itself). */
-export const notAsked = (slot: Slot) => slot.state === "not-asked" && !slot.removed;
+/**
+ * May still be asked or offered, from the one function (factStatus.ts): not known (no answer of the person's), not
+ * settled ("not sure", a skip, removed). A story value not yet decided is an offer, so it may be shown.
+ */
+export const notAsked = (slot: Slot) => { const status = slotStatus(slot); return status === "ask" || status === "offer"; };
 
 /**
  * THE ONE GATE. Of a screen's questions, in its order, the first whose facts the file

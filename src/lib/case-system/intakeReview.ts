@@ -2,12 +2,13 @@
 import { sentences as sharedSentences } from "./sentences";
 import { canonicalJson } from "./canonicalJson";
 import { sideOf, situationAnswers, situationOf, stageWords } from "./situation/situation";
-import { countable, dayWrittenBefore, findDates, formatForCourt, findDayMonthWithoutYear, MONTH_WORDS_EN } from "./dates";
+import { countable, dayWrittenBefore, findDates, formatForCourt, findDayMonthWithoutYear, isRealIsoDate, MONTH_WORDS_EN } from "./dates";
 import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
 import { freshSections } from "./storyBasis";
 import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
 import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../../app/builder/_components/guidedFields";
 import { amountFromStory, goalFromStory, kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
+import type { Stated } from "./caseFile/factStatus";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 import { askOf } from "./intake/asker";
@@ -754,6 +755,27 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
   if (amount) out["sc-amount-claimed"] = amount.value;
   const goal = goalFromStory(story);
   if (goal) out["sc-remedy-sought"] = goal.value;
+  return out;
+}
+
+/** "a quote for 1500", "the estimate was $2,300": an amount the person was quoted, offered once as the amount. */
+const QUOTED_AMOUNT = /\b(?:quote[sd]?|quoted|estimate[sd]?)\b(?:\s+(?:of|for|was|is|came to|at))*\s+\$?\s?(\d{1,3}(?:,\d{3})+(?:\.\d{2})?|\d+(?:\.\d{2})?)\b/i;
+
+/**
+ * THE ONE STORY READER for the facts a story can state (site owner, 11 Nov 2026; caseFile/factStatus.ts `stated`):
+ * when it happened (a full day only), the amount (the claim amount reader's, else a quote or an estimate the story
+ * names: offered once, never kept as a fact by itself, claimAmount.ts still skips it) and what the person wants.
+ * Each is only ever OFFERED (Yes / No, that's not right / I'm not sure); none is an answer until the person says Yes.
+ */
+export function statedInStory(story: string): Stated {
+  const out: Stated = {};
+  if (!story.trim()) return out;
+  const date = whenItHappened(story);
+  if (date && isRealIsoDate(date)) out.whenHappened = date;
+  const amount = amountFromStory(story)?.value ?? QUOTED_AMOUNT.exec(story)?.[1];
+  if (amount) out.amount = amount.replace(/[$,\s]/g, "");
+  const goal = goalFromStory(story);
+  if (goal) out.wants = goal.value;
   return out;
 }
 

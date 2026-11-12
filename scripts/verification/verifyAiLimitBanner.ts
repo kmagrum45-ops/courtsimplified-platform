@@ -16,6 +16,8 @@
  *
  * Run: npm run test:ai-limit-banner
  */
+export {};
+
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
   console.log(`${ok ? "pass" : "FAIL"}  ${name}${ok || !detail ? "" : `\n      ${detail}`}`);
