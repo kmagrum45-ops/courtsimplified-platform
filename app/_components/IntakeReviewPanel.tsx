@@ -413,13 +413,13 @@ export default function IntakeReviewPanel() {
   ].filter(Boolean) as string[];
   // scroll-mt-28: a scroll to the panel stops below the 77px sticky header, not under it (L46).
   return <section className="mx-auto my-4 max-w-6xl scroll-mt-28 rounded-2xl border border-[#d8e6df] bg-white p-6" data-testid="intake-review" data-phase={phase}>
-    <h2 className="text-xl font-bold">{phase === "user-confirmed" ? "Initial intake confirmed" : phase === "reviewing" ? "Review your initial case information" : "Your initial case information"}</h2>
-    {startBlocked === "confirm" && phase !== "user-confirmed" ? <p data-testid="next-start-blocked" role="alert" className="mt-3 text-sm font-semibold text-[#8a4b12]">Your next step was not shown yet: an answer changed after you confirmed, so your initial information needs confirming again first. Review it below and confirm, then choose &quot;Show my next step&quot;.</p> : null}
+    <h2 className="text-xl font-bold">{phase === "user-confirmed" ? "Initial intake confirmed" : phase === "reviewing" ? (tickAsked ? "Review your initial case information" : "Here is what we have") : "Your initial case information"}</h2>
+    {startBlocked === "confirm" && phase !== "user-confirmed" ? <p data-testid="next-start-blocked" role="alert" className="mt-3 text-sm font-semibold text-[#8a4b12]">{tickAsked ? <>Your next step was not shown yet: an answer changed after you confirmed, so your initial information needs confirming again first. Review it below and confirm, then choose &quot;Show my next step&quot;.</> : <>Your next step was not shown yet: an answer changed since you last continued. Look over the summary below and press Continue, then choose &quot;Show my next step&quot;.</>}</p> : null}
     {startBlocked === "story" && questionsOutdated ? <p data-testid="next-start-blocked" role="alert" className="mt-3 text-sm font-semibold text-[#8a4b12]">Your next step was not shown yet: your story has changed since the questions read it. Start the questions again first, so your next step comes from what you have now.</p> : null}
     {checkpoint.courtPath !== "family" && municipalNoticeFirst(story, { city }) && <aside aria-label="Urgent procedural warning" className="my-4"><h3 className="font-bold">Urgent procedural warning — check this while completing intake</h3><MunicipalNoticeFirst story={story} city={city} /></aside>}
     {legacy && <p>This case was completed before explicit review was introduced. There is no recorded confirmation under the new review process.</p>}
     <p>Initial questions establish your situation, side, what has happened, relevant dates and what you want. Evidence details and additional research are optional later work.</p>
-    <p>You can stop initial questioning and review once your city and situation are recorded. Details you do not know can stay unknown; confirmation does not supply missing facts.</p>
+    <p>You can stop initial questioning and review once your city and situation are recorded. Details you do not know can stay unknown; {phase === "reviewing" && !tickAsked ? "continuing" : "confirmation"} does not supply missing facts.</p>
     {showEntries && <>
       <p>{phase === "user-confirmed" ? "This is what you confirmed. Changing anything here means confirming again." : "Edit the information below, or return to the intake controls to change choices. Empty answers remain unknown."}</p>
       <div className="mt-4 grid gap-4 md:grid-cols-2">
@@ -526,7 +526,7 @@ export default function IntakeReviewPanel() {
         {tickAsked ? <label className="mt-5 block"><input data-testid="intake-review-acknowledgement" type="checkbox" checked={acceptedRevision === revision} disabled={busy} onChange={event => setAcceptedRevision(event.target.checked ? revision : null)} /> I have reviewed this information, including anything that is missing or uncertain.</label> : null}
         <button data-testid="intake-confirm" type="button" disabled={busy || needs.length > 0} onClick={() => void act("confirm")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">{busy ? "Saving…" : tickAsked ? "Confirm my initial information" : "Continue"}</button>{" "}
         <button type="button" disabled={busy} onClick={() => void act("collect")}>Return to intake controls</button>
-        {needs.length > 0 && <p data-testid="intake-confirm-needs" className="mt-2 text-sm text-[#4d675f]">Still needed before you can confirm: {needs.join("; ")}.</p>}
+        {needs.length > 0 && <p data-testid="intake-confirm-needs" className="mt-2 text-sm text-[#4d675f]">Still needed before you can {tickAsked ? "confirm" : "continue"}: {needs.join("; ")}.</p>}
         <StoryChangedNotice where="button" />
       </> : <button data-testid="intake-close-review" type="button" className="mt-4 rounded border px-4 py-2" onClick={() => setViewing(false)}>Close</button>}
     </>}
