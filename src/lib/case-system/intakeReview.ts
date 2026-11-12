@@ -538,8 +538,20 @@ export function undecidedStoryOffers(checkpoint: Checkpoint, master?: unknown): 
   const choices = reviewOfferChoicesOf(checkpoint);
   const questions = reviewQuestionList(checkpoint, master).filter((question) => questionOfferUndecided(question, suggestions, choices)).length;
   const file = caseFileOf(checkpoint, master);
-  const boxes = reviewEntries(checkpoint).filter((entry) => boxOfferUndecided(entry, file, choices)).length;
+  // Only the boxes the review shows: an offer the person cannot see has no choices to press (story pack, 12 Nov: the
+  // Charter review counted an empty optional box it does not draw, and Continue stayed disabled for good).
+  const boxes = shownReviewEntries(checkpoint, file).filter((entry) => boxOfferUndecided(entry, file, choices)).length;
   return questions + boxes;
+}
+
+/**
+ * The review's boxes as the review draws them: the Small Claims other party the record holds, and only the essential
+ * boxes and those holding something (optional ones with nothing in them are not shown, re-test 2026-10-18). The one
+ * list the review panel draws and undecidedStoryOffers counts, so Continue never waits on a box the person cannot see.
+ */
+export function shownReviewEntries(checkpoint: Checkpoint, file: CaseFile): ReviewEntry[] {
+  const blank = (value: ReviewEntry["value"]) => Array.isArray(value) ? value.length === 0 : typeof value === "string" ? !value.trim() : false;
+  return withHeldOtherParty(reviewEntries(checkpoint), checkpoint, file).filter((entry) => entry.essential || !blank(entry.value));
 }
 
 /**
