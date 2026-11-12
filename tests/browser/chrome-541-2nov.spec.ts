@@ -30,6 +30,7 @@ import { expectNoInternalCodes } from "./harness/noInternalCodes";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
 import { chooseOffers } from "./harness/offers";
+import { tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -106,8 +107,7 @@ async function confirmReview(page: Page) {
   const panel = page.getByTestId("intake-review");
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const left = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(left - 1, { timeout: 20_000 }); }
-  const ack = page.getByTestId("intake-review-acknowledgement");
-  if (!(await ack.isChecked())) await ack.check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
 }
