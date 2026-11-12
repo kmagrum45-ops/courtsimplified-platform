@@ -160,8 +160,9 @@ test("the review is a summary: every value typed or said Yes to, so no tick and 
     const panel = page.getByTestId("intake-review");
     await expect(panel).toBeVisible({ timeout: 60_000 });
     if ((await panel.getAttribute("data-phase")) === "collecting") await page.getByTestId("intake-start-review").filter({ visible: true }).first().click();
-    await expect(panel).toHaveAttribute("data-phase", /reviewing|user-confirmed/, { timeout: 60_000 });
-    if ((await panel.getAttribute("data-phase")) === "reviewing") {
+    // The summary is shown and nothing is confirmed for the person (CLAUDE.md s.4): they press once to go on.
+    await expect(panel, "the summary is shown, not confirmed for them").toHaveAttribute("data-phase", "reviewing", { timeout: 60_000 });
+    {
       // Unanswered initial questions are marked as the person does; nothing typed is confirmed again.
       const unknowns = page.locator('input[data-testid="intake-unknown"]:not(:checked)');
       while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
