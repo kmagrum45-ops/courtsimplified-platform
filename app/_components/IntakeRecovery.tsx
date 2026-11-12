@@ -4,7 +4,7 @@ import IntakeReviewPanel from "./IntakeReviewPanel";
 import { startSignIn } from "./startSignIn";
 import { markReviewNeeded } from "./reviewNeeded";
 import { blockedMessage, flushOpenEdits } from "./openEdits";
-import { applyFactRevisions, factsRevision, guidanceIsCurrent, inputRevision, reconcileReview, materialInitialFacts, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
+import { applyFactRevisions, factsRevision, guidanceIsCurrent, inputRevision, reconcileReview, materialInitialFacts, remainingEssentialQuestions, reviewPhase, transitionReview, undecidedStoryOffers } from "../../src/lib/case-system/intakeReview";
 import { IntakeRequest } from "./intakeRequest";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useSyncExternalStore, type Dispatch, type ReactNode, type SetStateAction } from "react";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
@@ -95,6 +95,15 @@ export function usePrepareCaseGuidance() {
     }
     if (reviewPhase(view.workflowStatus, view.checkpoint) !== "user-confirmed") {
       await recovery.transition("review", inputRevision(view.checkpoint));
+      // Nothing left to decide (site owner, 11 Nov 2026): every value is the person's own, typed or said Yes to, and
+      // no initial question is open. A value the person typed never asks for confirmation, so the press that asked for
+      // the next step completes the review itself; nothing is decided for them.
+      const reviewed = recovery.getReview();
+      const master = recovery.getSavedMaster() ?? undefined;
+      if (reviewPhase(reviewed.workflowStatus, reviewed.checkpoint) === "reviewing" && remainingEssentialQuestions(reviewed.checkpoint, master).length === 0 && undecidedStoryOffers(reviewed.checkpoint, master) === 0) {
+        const ok = await recovery.transition("confirm", inputRevision(reviewed.checkpoint)).then(() => true, () => false);
+        if (ok && reviewPhase(recovery.getReview().workflowStatus, recovery.getReview().checkpoint) === "user-confirmed") return true;
+      }
       // Said beside the button just pressed, with a link up to the panel, rather than
       // jumping the page there with no word why (L26, #465 re-test D).
       if (from) markReviewNeeded(from, inputRevision(view.checkpoint));

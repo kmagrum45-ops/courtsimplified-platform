@@ -22,7 +22,7 @@ import StoryEditor from "../builder/_components/StoryEditor";
 import { freshSections, staleAnswerKeys, storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
 import StoryChangedNotice from "./StoryChangedNotice";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
-import { canReview, changedAfterConfirm, initialAnswersOf, reviewQuestionField, inputRevision, notAnsweredYet, remainingEssentialQuestions, reviewBoxState, reviewEntries, reviewPhase, withHeldOtherParty, reviewQuestionList, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
+import { canReview, undecidedStoryOffers, changedAfterConfirm, initialAnswersOf, reviewQuestionField, inputRevision, notAnsweredYet, remainingEssentialQuestions, reviewBoxState, reviewEntries, reviewPhase, withHeldOtherParty, reviewQuestionList, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
 import { askOf } from "../../src/lib/case-system/intake/asker";
 import NextStepStatus, { nextStepPressed, useNextStepReading } from "./NextStepStatus";
 import { WorkingNote } from "./Working";
@@ -402,11 +402,14 @@ export default function IntakeReviewPanel() {
       writeAnswer(recovery, "small-claims", "input", { ...input, yourRole: value.includes("defendant") ? "defendant" : "plaintiff" }, { external: true, fromReview: true });
     }
   }
+  // THE REVIEW IS A SUMMARY (site owner, 11 Nov 2026): a value the person typed or confirmed is known and never asks for
+  // confirmation. Only an offer from the story not yet decided (a suggestion not used or answered) asks for it.
+  const tickAsked = phase === "reviewing" && undecidedStoryOffers(checkpoint, savedMaster ?? undefined) > 0;
   const needs = [
     !canReview(checkpoint) && "your city and a description of what happened",
     remaining.length > 0 && `an answer, or "I do not know yet", for: ${remaining.map(question => question.label).join("; ")}`,
     questionsOutdated && "the answers marked as given for an earlier version of your story answered again, or the questions started again from your story",
-    acceptedRevision !== revision && "a tick in \"I have reviewed this information\"",
+    tickAsked && acceptedRevision !== revision && "a tick in \"I have reviewed this information\"",
   ].filter(Boolean) as string[];
   // scroll-mt-28: a scroll to the panel stops below the 77px sticky header, not under it (L46).
   return <section className="mx-auto my-4 max-w-6xl scroll-mt-28 rounded-2xl border border-[#d8e6df] bg-white p-6" data-testid="intake-review" data-phase={phase}>
@@ -518,10 +521,10 @@ export default function IntakeReviewPanel() {
         {/* A late edit clears the tick (it covered the answers as they were); say so beside the
             button rather than leave it greyed out with no word why (site owner, 27 Oct). */}
         {/* Confirmed, then an answer changed (rule 6, 31 Oct): said in the owner's words until confirmed again, after a reload too. */}
-        {changedAfterConfirm(workflowStatus, checkpoint) && acceptedRevision !== revision ? <p data-testid="intake-confirm-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer, so please review and confirm again.</p>
-        : acceptedRevision !== null && acceptedRevision !== revision ? <p data-testid="intake-tick-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer. Please tick to confirm again.</p> : null}
-        <label className="mt-5 block"><input data-testid="intake-review-acknowledgement" type="checkbox" checked={acceptedRevision === revision} disabled={busy} onChange={event => setAcceptedRevision(event.target.checked ? revision : null)} /> I have reviewed this information, including anything that is missing or uncertain.</label>
-        <button data-testid="intake-confirm" type="button" disabled={busy || needs.length > 0} onClick={() => void act("confirm")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">{busy ? "Saving…" : "Confirm my initial information"}</button>{" "}
+        {tickAsked && changedAfterConfirm(workflowStatus, checkpoint) && acceptedRevision !== revision ? <p data-testid="intake-confirm-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer, so please review and confirm again.</p>
+        : tickAsked && acceptedRevision !== null && acceptedRevision !== revision ? <p data-testid="intake-tick-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer. Please tick to confirm again.</p> : null}
+        {tickAsked ? <label className="mt-5 block"><input data-testid="intake-review-acknowledgement" type="checkbox" checked={acceptedRevision === revision} disabled={busy} onChange={event => setAcceptedRevision(event.target.checked ? revision : null)} /> I have reviewed this information, including anything that is missing or uncertain.</label> : null}
+        <button data-testid="intake-confirm" type="button" disabled={busy || needs.length > 0} onClick={() => void act("confirm")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">{busy ? "Saving…" : tickAsked ? "Confirm my initial information" : "Continue"}</button>{" "}
         <button type="button" disabled={busy} onClick={() => void act("collect")}>Return to intake controls</button>
         {needs.length > 0 && <p data-testid="intake-confirm-needs" className="mt-2 text-sm text-[#4d675f]">Still needed before you can confirm: {needs.join("; ")}.</p>}
         <StoryChangedNotice where="button" />

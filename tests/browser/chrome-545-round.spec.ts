@@ -24,7 +24,7 @@ import { deleteHarnessUser, harnessAdmin } from "./harness/realTestSession";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { serveModelStandIns } from "./harness/thisCommitServer";
 import { openBuilder } from "./harness/builderGate";
-import { recordInitialUnknowns } from "./harness/intakeReview";
+import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
@@ -58,7 +58,7 @@ async function confirmedCase(page: Page, court: keyof typeof STORIES): Promise<s
   if (await panel.getAttribute("data-phase") === "collecting") await page.getByTestId("intake-start-review").filter({ visible: true }).first().click();
   await expect(panel).toHaveAttribute("data-phase", "reviewing", { timeout: 30_000 });
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
   await page.getByTestId("intake-continue-guidance").click();

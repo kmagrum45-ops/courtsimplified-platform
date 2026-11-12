@@ -32,7 +32,7 @@ import { serveModelStandIns } from "./harness/thisCommitServer";
 import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { deleteHarnessUser, harnessAdmin } from "./harness/realTestSession";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
-import { recordInitialUnknowns } from "./harness/intakeReview";
+import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
@@ -174,7 +174,7 @@ for (const court of ["small-claims", "civil", "family"] as const) {
 
       // Confirmed: the overview and the case page show the same answers.
       await recordInitialUnknowns(page);
-      await page.getByTestId("intake-review-acknowledgement").check();
+      await tickIfAsked(page);
       await page.getByTestId("intake-confirm").click();
       await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
       await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();

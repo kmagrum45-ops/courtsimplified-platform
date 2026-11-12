@@ -34,7 +34,7 @@ import { serveModelStandIns } from "./harness/thisCommitServer";
 import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { deleteHarnessUser } from "./harness/realTestSession";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
-import { recordInitialUnknowns } from "./harness/intakeReview";
+import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
@@ -190,7 +190,7 @@ for (const [court, atOnce] of [["small-claims", false], ["small-claims", true], 
       if (court === "small-claims") await question.getByRole("button", { name: new RegExp(`^${kind.first.value}`) }).click();
       else { await question.locator(`input[data-testid=intake-field-pick][value="${kind.first.value}"]`).check(); await question.getByTestId("intake-field-save").click(); }
       await recordInitialUnknowns(page);
-      await page.getByTestId("intake-review-acknowledgement").check();
+      await tickIfAsked(page);
       await page.getByTestId("intake-confirm").click();
       await expect(panelOf(page)).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
       await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();

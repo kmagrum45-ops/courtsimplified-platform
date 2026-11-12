@@ -45,6 +45,7 @@ import { CHARTER_STORIES, MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, ty
 import { appendRecord } from "./harness/packRecords";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 import { chooseOffers } from "./harness/offers";
+import { tickIfAsked } from "./harness/intakeReview";
 
 // Actions wait up to 60 s: on a slow runner the story is read, and a guided turn answered,
 // in more than 20 s, and a button still disabled then is waiting, not broken.
@@ -430,7 +431,7 @@ async function confirmAndContinue(page: Page) {
   const panel = page.getByTestId("intake-review");
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
   await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
@@ -752,7 +753,7 @@ for (const [id, court] of [["civil-deposit", "civil"], ["family-spousal", "famil
       note(run, "review", "every answer given again: nothing is left from the earlier story", (await page.getByTestId("intake-answer-stale").count()) === 0 && (await panel.getByTestId("intake-hidden-keep").count()) === 0);
       const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
       while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-      await page.getByTestId("intake-review-acknowledgement").check();
+      await tickIfAsked(page);
       const needs = await page.getByTestId("intake-confirm-needs").innerText().catch(() => "");
       note(run, "review", "confirm is not blocked by answers already given again", !/earlier version/.test(needs) && (await page.getByTestId("intake-confirm").isEnabled()), needs);
     });
@@ -855,7 +856,7 @@ for (const court of ["civil", "family", "small-claims"] as const) {
     const panel = page.getByTestId("intake-review");
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
     // The notice is owed again, as after signing in on this device.
@@ -905,7 +906,7 @@ for (const court of ["civil", "family", "small-claims"] as const) {
     const panel = page.getByTestId("intake-review");
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
     // The notice is owed again, as after signing in on this device.
@@ -959,7 +960,7 @@ test("retest-477 case 11: a confirmed case with no next step yet opens it from t
   const panel = page.getByTestId("intake-review");
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
   await page.waitForLoadState("networkidle").catch(() => {});
@@ -1387,7 +1388,7 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
     const panel = page.getByTestId("intake-review");
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     const confirm = page.getByTestId("intake-confirm");
     await confirm.scrollIntoViewIfNeeded();
     const box = await confirm.boundingBox();
@@ -1428,7 +1429,7 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
     await page.waitForTimeout(6_000);
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     const confirm = page.getByTestId("intake-confirm");
     await confirm.scrollIntoViewIfNeeded();
     const box = await confirm.boundingBox();
@@ -1493,7 +1494,7 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["family", "family-sp
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
     await page.waitForTimeout(6_000);
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     const confirm = page.getByTestId("intake-confirm");
     await confirm.scrollIntoViewIfNeeded();
     const box = await confirm.boundingBox();
@@ -1572,7 +1573,7 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
     const openId = await boxes.first().evaluate((node) => node.closest("[data-testid=intake-initial-question]")?.getAttribute("data-question") ?? "");
     const unknowns = panel.locator(`[data-testid=intake-initial-question]:not([data-question="${openId}"]) input[data-testid="intake-unknown"]:not(:checked)`);
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     // From here at the live site's speed.
     for (const host of ["**/auth/v1/**", "**/rest/v1/**"]) await page.route(host, async (route) => { await new Promise((done) => setTimeout(done, 1_500)); await route.fallback(); });
     // An answer typed to a question still open in the review, the box not left (it saves when left).
