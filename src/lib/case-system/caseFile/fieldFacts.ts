@@ -111,6 +111,7 @@ export const FIELD_ROWS: readonly FieldRow[] = [
   // The review and the builder.
   keyed("builder", "initialAnswers"),
   keyed("builder", "initialUnknowns"),
+  none("builder", "reviewOfferChoices", "the review's choice on each story offer (No / I'm not sure), by offer key: kept by the review, not a fact value; I'm not sure on a question also marks initialUnknowns"),
   keyed("builder", "triageState", { aliases: { marriedToOtherParty: "married-to-other-party", caseInvolvesChildren: "case-involves-children", haveChildTogether: "child-together" } }),
   ...["step", "familyQuestionsDone", "intakeCity", "startedModes"].map((field) => none("builder", field, PAGE_STATE)),
   // The case file's own section: the change record, "not sure", turned down, answered in review.
