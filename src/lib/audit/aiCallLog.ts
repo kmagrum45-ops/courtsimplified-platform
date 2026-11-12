@@ -51,6 +51,7 @@ import { appendFileSync } from "node:fs";
 import { createClient } from "@supabase/supabase-js";
 
 import { scrubErrorMessage } from "../monitoring/serverErrorLog";
+import { tokenCounts } from "../security/aiPrices";
 
 /**
  * Must match the CHECK constraint in
@@ -273,7 +274,7 @@ export function recordAiValidation(
   const context = storage.getStore();
   if (!context) return;
   context.validationResult = result;
-  context.validationDetail = detail ?? null;
+  context.validationDetail = labelOnly(detail);
 }
 
 /** Hoists the LSO Step 6d flag onto its own column. */
@@ -381,110 +382,31 @@ function systemPromptOf(body: Record<string, unknown>): string {
 }
 
 /**
- * Fields that carry the model's own prose about the user's matter.
+ * WHAT THE LOG KEEPS OF A MODEL'S ANSWER: ITS TOKEN COUNTS, NOTHING ELSE (site owner, 11 Nov 2026, option (a):
+ * "Store kind of request, model, token counts, times and result status. Never store story text, quotes, names or model
+ * output, in any column, including structured_output").
  *
- * *** WHY THIS LIST EXISTS — A CORRECTION ***
- *
- * The migration's Decision 2 said the structured output was "small, and
- * non-legal by construction", because "every user-facing model call now returns
- * structured output under a JSON schema: a classification label, a stage code,
- * a content id, a boolean". Independent review on 2026-09-23 found that is not
- * true of four of the six call types:
- *
- *   safety-pass            `reason` — the model's sentence about why it thinks
- *                          this person is in distress or danger. The most
- *                          sensitive string the platform produces.
- *   court-path-classifier  `reasoning` — a sentence about the user's story.
- *   small-claims-analysis  `caseFileRecorded` / `caseFileNotRecorded` — free
- *                          sentences naming evidence and counterparties.
- *   extract-intake-facts   its whole purpose is facts pulled from the story.
- *
- * Decision 1 says the user's narrative is never stored. Storing these would
- * have made that false the moment the migration ran — and the privacy wording
- * proposed in the report ("we do not keep what you wrote") false with it.
- *
- * *** WHAT IS KEPT INSTEAD ***
- *
- * The SHAPE of the prose, not the prose: the field name and its length. A
- * reviewer asking "did the model return a reason at all", "are reasons getting
- * longer", "which calls produced nothing" gets an answer. A reviewer asking
- * "what did this person say" does not, and should not.
- *
- * Redaction is by DENY-LIST, which is the weaker kind of control and is chosen
- * deliberately: an allowlist would silently drop the classification labels and
- * stage codes that are the whole point of the log the first time someone adds a
- * field. The deny-list is paired with `redactLongStrings` below, which catches
- * a prose field nobody thought to name.
+ * Before, the answer itself was kept, redacted by a list of prose fields and a length limit (80 characters). A short
+ * value under a field not on the list was still kept word for word: a quote from the story, a name, the person's own
+ * wording as the AI tidied it. Now no part of the answer is kept: structured_output holds the call's token counts
+ * (input, the cached part of the input, output), as OpenAI reports them on the response (aiPrices.ts tokenCounts).
  */
-const PROSE_FIELDS = new Set([
-  "reason",
-  "reasoning",
-  "caseFileRecorded",
-  "caseFileNotRecorded",
-  "plainLanguageSummary",
-  "structuredCaseSummary",
-  "missingInformation",
-  "missingEvidence",
-  "risksAndGaps",
-  "nextBestActions",
-  "summary",
-  "explanation",
-  "notes",
-  // 2026-10-05: the legal search phrases written from the user's story
-  // (retrieval/storyRetrieval.ts). Derived from the narrative, so not stored.
-  "queries",
-  // 2026-10-07: help with a court decision a person uploaded to their own
-  // case (case-workspace/decisionHelp.ts). A quote is the decision's own words
-  // and "why" ties it to the person's situation; CanLII's Terms s. 5.1 keep a
-  // decision out of logs, so neither is stored, however short.
-  "quote",
-  "why",
-]);
-
-/**
- * Any string longer than this is treated as prose whatever it is called.
- *
- * A classification label, a stage code, a content id and a claim-type id are
- * all comfortably under it. A sentence about someone's case is not. This is
- * what catches the prose field that gets added next year under a name nobody
- * put in the list above.
- */
-const MAX_STORED_STRING = 80;
-
-function redact(value: unknown, key?: string): unknown {
-  if (typeof value === "string") {
-    if (key && PROSE_FIELDS.has(key)) return `[redacted ${value.length} chars]`;
-    if (value.length > MAX_STORED_STRING) return `[redacted ${value.length} chars]`;
-    return value;
-  }
-  if (Array.isArray(value)) return value.map((entry) => redact(entry, key));
-  if (value && typeof value === "object") {
-    return Object.fromEntries(
-      Object.entries(value as Record<string, unknown>).map(([k, v]) => [k, redact(v, k)]),
-    );
-  }
-  return value;
+export function structuredOutputOf(response: unknown): { input_tokens: number; cached_input_tokens: number; output_tokens: number } | null {
+  const counts = tokenCounts(response);
+  return counts ? { input_tokens: counts.input, cached_input_tokens: counts.cached, output_tokens: counts.output } : null;
 }
 
 /**
- * The structured object the model returned, redacted, or null.
- *
- * An unparseable response is recorded as its LENGTH, not its text. The old
- * version stored 4,000 characters of it, reasoning that a failed parse is an
- * interesting row — which is true, and the interesting part is that it failed,
- * not what it said. Raw model output on a failed parse is exactly the case
- * where the content is least likely to be a tidy label.
+ * A validation detail is kept only when it is a short label (a fixed phrase or a code: "response was not JSON",
+ * "stage civil:plaintiff:x at high"); anything else (a sentence that could carry a person's words, a quote) is not.
+ * Every caller passes a fixed label or one built from codes (test:ai-call-log-labels-only scans them); this is the
+ * second guard.
  */
-function structuredOutputOf(response: unknown): unknown {
-  const choice = (response as { choices?: Array<{ message?: { content?: unknown } }> })?.choices?.[0];
-  const content = choice?.message?.content;
-  if (typeof content !== "string") return null;
-
-  try {
-    return redact(JSON.parse(content));
-  } catch {
-    return { unparsed: `[redacted ${content.length} chars]` };
-  }
+export function labelOnly(detail: string | null | undefined): string | null {
+  if (detail === null || detail === undefined) return null;
+  const label = detail.trim();
+  if (!label) return null;
+  return label.length <= 80 && !/["'“”‘’]/.test(label) && label.split(/\s+/).length <= 10 ? label : "[detail not kept]";
 }
 
 type AiCallLogRow = {

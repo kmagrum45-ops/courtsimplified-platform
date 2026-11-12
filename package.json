@@ -219,6 +219,7 @@
     "eval:assistant-law": "node --import tsx scripts/eval/assistantLawProbe.ts",
     "eval:law-exam": "node --import tsx scripts/eval/runLawExam.ts",
     "test:ai-call-log-sink": "node --import tsx scripts/verification/verifyAiCallLogSink.ts",
+    "test:ai-call-log-labels-only": "node --import tsx scripts/verification/verifyAiCallLogLabelsOnly.ts",
     "test:library-chat": "node --import tsx scripts/verification/verifyLibraryChat.ts",
     "test:presentation-help": "node --import tsx scripts/verification/verifyPresentationHelp.ts",
     "db:staging": "node --import tsx scripts/db/target.ts staging",

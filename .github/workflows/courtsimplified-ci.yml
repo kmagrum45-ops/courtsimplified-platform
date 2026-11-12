@@ -80,6 +80,15 @@ jobs:
       - name: The AI-limit banner names the limit and when help is back, and lasts only as long as that limit
         run: npm run test:ai-limit-banner
 
+      - name: The AI call log keeps labels, token counts and times only, never the story, names or the AI's words
+        run: npm run test:ai-call-log-labels-only
+
+      - name: The AI call log is written to the database on Vercel, awaited, and a failed write is loud
+        run: npm run test:ai-call-log-sink
+
+      - name: Every OpenAI call site is logged, and no column can hold the narrative
+        run: npm run test:ai-call-logging
+
       - name: The ask-once page test's expected-failure list may only shrink, and each entry has a reason
         run: npm run test:ask-once-expected
 
