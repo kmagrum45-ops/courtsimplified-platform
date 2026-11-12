@@ -34,6 +34,7 @@ import { serveModelStandIns, type Court } from "./harness/thisCommitServer";
 import { factsAskedTwice, factsOfAsk, heldViolations, recordAsks, repeatViolations, type Asked } from "./harness/askOnce";
 import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { chooseOffers } from "./harness/offers";
+import { expectThisRunsServer } from "./harness/siteAccess";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
 
@@ -290,6 +291,7 @@ for (const story of STORIES) {
     const typed = new Map<string, string>();
     const seen: string[] = [];
     const userId = await authenticateRealTestUser(page, { realCases: true });
+    await expectThisRunsServer(page);
     let reached = "start";
     try {
       await autoAnswerSituation(page, situationOf(story));

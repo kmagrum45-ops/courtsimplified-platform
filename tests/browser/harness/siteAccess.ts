@@ -51,3 +51,20 @@ export async function grantSiteAccess(page: Page): Promise<void> {
   // filed" unless the spec set its own (harness/situation.ts).
   await autoAnswerSituation(page, undefined, true);
 }
+
+/**
+ * Before each story: the server answering is this run's own and is up. On 12 Nov a local run's server was stopped by
+ * an older run on the same port, which then served its own build with its own site password: every later story saw
+ * a password screen or "connection refused", and read as broken pages. This says what happened instead
+ * (scripts/browser/portGuard.sh keeps it from happening; this is the check at the point of use).
+ */
+export async function expectThisRunsServer(page: Page): Promise<void> {
+  const base = process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000";
+  let status = 0;
+  try {
+    status = (await page.request.get("/", { maxRedirects: 0, timeout: 30_000 })).status();
+  } catch (error) {
+    throw new Error(`The test server at ${base} is not answering (${String((error as Error).message).split("\n")[0]}): it stopped, so this story cannot run.`);
+  }
+  if (status === 401) throw new Error(`The server at ${base} refused this run's site password: it is not this run's server (another run is on this port).`);
+}
