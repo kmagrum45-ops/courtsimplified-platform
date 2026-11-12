@@ -1650,6 +1650,9 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
                       key={choice}
                       type="button"
                       data-testid={`story-proposal-${choice}`}
+                      // Yes is the control that uses the suggestion: it carries the shared marker (UseSuggestion.tsx), so a
+                      // check that finds every offer on any screen finds this one.
+                      data-use-suggestion={choice === "yes" ? "" : undefined}
                       aria-pressed={draft.choice === choice}
                       disabled={loading}
                       onClick={() => updateProposalDraft(index, { choice, keep: choice === "yes", ...(choice === "yes" ? {} : { answer: draft.original }) })}

@@ -146,12 +146,12 @@ const keeps = [...card.matchAll(/keep: (true|false), original:/g)].map((match) =
 check("\"Here's what I understood\": every row starts unticked (keep: false)", keeps.length > 0 && keeps.every((keep) => keep === "false"), `keep: ${keeps.join(", ")}`);
 // Site owner, 11 Nov 2026: an offer has three explicit choices (Yes / No, that's not right / I'm not sure) in place of the
 // one "Use the suggestion" control; the rule guarded stays: nothing is chosen or filled in for the person until Yes.
-check("\"Here's what I understood\": a row offers three choices, none chosen, and no box is filled in until Yes", /data-testid=\{`story-proposal-\$\{choice\}`\}/.test(card) && /\[\["yes", "Yes"\], \["no", "No, that's not right"\], \["unsure", "I'm not sure"\]\]/.test(card) && /\{!draft\.keep \? null :/.test(card));
+check("\"Here's what I understood\": a row offers three choices, none chosen, no box filled in until Yes, and Yes is the one suggestion control", /data-testid=\{`story-proposal-\$\{choice\}`\}/.test(card) && /\[\["yes", "Yes"\], \["no", "No, that's not right"\], \["unsure", "I'm not sure"\]\]/.test(card) && /\{!draft\.keep \? null :/.test(card) && /data-use-suggestion=\{choice === "yes" \? "" : undefined\}/.test(card));
 
 const chat = code(read("app/builder/_components/GuidedFormChat.tsx"));
 check("the civil/Family chat: the part of an answer the story gives is not the box's value", /const boxValue = partial && !edited\.has\(current\.key\) \? "" :/.test(chat) && !/\? partial\.prefill :/.test(chat));
 check("the civil/Family chat: it is offered, and filled in only on its use", /<UseSuggestion[^>]*onUse=\{\(\) => editBox\(partial\.prefill\)\}/.test(chat));
-check("the civil/Family chat: the story's answer is offered with Yes, No, that's not right and I'm not sure", /data-testid="guided-form-from-story-yes"/.test(chat) && /data-testid="guided-form-from-story-no"/.test(chat) && /data-testid="guided-form-from-story-unsure"/.test(chat));
+check("the civil/Family chat: the story's answer is offered with the one control (Yes), No, that's not right and I'm not sure", /data-testid="guided-form-from-story-yes"\s+data-use-suggestion=""/.test(chat) && /data-testid="guided-form-from-story-no"/.test(chat) && /data-testid="guided-form-from-story-unsure"/.test(chat));
 
 const events = code(read("app/builder/_components/EventCandidateSurface.tsx"));
 check("the Timeline's kind of step starts empty, the suggestion offered beside it", /eventType: "",/.test(events) && !/eventType: suggestion/.test(events) && /suggestedType: suggestion\.eventType/.test(events));

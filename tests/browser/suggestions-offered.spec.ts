@@ -136,7 +136,10 @@ for (const use of [false, true]) {
       // those were right" were written in their name). The rule this test guards stays: nothing is chosen for them.
       await expect(row.locator("[aria-pressed=true]"), "no choice made before the person chooses").toHaveCount(0);
       await expect(row.locator("input[type=text]:not([disabled]), select:not([disabled])"), "no answer box filled in before the person chooses it").toHaveCount(0);
-      for (const choice of ["yes", "no", "unsure"]) await expect(row.getByTestId(`story-proposal-${choice}`), "offered with the three choices").toHaveCount(1);
+      const offer = row.locator(OFFER);
+      await expect(offer, "offered with the one control").toHaveCount(1);
+      await expect(offer).toHaveText("Yes");
+      for (const [choice, words] of [["yes", "Yes"], ["no", "No, that's not right"], ["unsure", "I'm not sure"]]) await expect(row.getByTestId(`story-proposal-${choice}`), "offered with the three choices").toHaveText(words);
       const before = await page.locator("[data-testid=guided-message][data-from=note]").count();
       await chooseOffers(proposals, use ? "yes" : "no");
       if (use) await expect(row.getByTestId("story-proposal-yes"), "one click chooses it").toHaveAttribute("aria-pressed", "true");
@@ -170,8 +173,10 @@ test("Civil questions one at a time: a story offer is the one control; 'No, let 
       if (await offered.isVisible().catch(() => false)) {
         const yes = question.getByTestId("guided-form-from-story-yes");
         // Site owner, 11 Nov 2026: the story offer has three explicit choices (Yes / No, that's not right / I'm not sure).
+        await expect(yes, "the story offer is the one control").toHaveAttribute("data-use-suggestion", "");
         await expect(yes, "the story offer is Yes").toHaveText("Yes");
-        await expect(question.getByTestId("guided-form-from-story-unsure"), "and I'm not sure").toHaveCount(1);
+        await expect(question.getByTestId("guided-form-from-story-no"), "and No, that's not right").toHaveText("No, that's not right");
+        await expect(question.getByTestId("guided-form-from-story-unsure"), "and I'm not sure").toHaveText("I'm not sure");
         await expect(offered.getByText(/that's right/i), "no words of its own").toHaveCount(0);
         if (!ignored) {
           await question.getByTestId("guided-form-from-story-no").click();

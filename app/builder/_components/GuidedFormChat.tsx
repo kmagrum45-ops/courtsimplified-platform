@@ -421,6 +421,7 @@ export default function GuidedFormChat({
                   <button
                     type="button"
                     data-testid="guided-form-from-story-yes"
+                    data-use-suggestion=""
                     onClick={() => (group.length > 1 ? acceptGroup(group) : answer(offered.value, true))}
                     className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
                   >
