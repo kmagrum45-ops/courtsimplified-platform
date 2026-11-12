@@ -121,7 +121,12 @@ async function everyScreen(page: Page, account: Account, panel: Locator, how: st
   // After the change and before the next Continue press, the case is not confirmed: neither the page nor the saved
   // case (site owner, 12 Nov: removing the tick does not remove the risk of a stale confirmation). Reading the
   // attribute and the saved row does not move the focus, so the box is still not left before the press.
-  await expect(panel, `${how}: not confirmed after the change, before Continue is pressed again`).toHaveAttribute("data-phase", "reviewing");
+  // Held for five seconds, not read once: a confirmation that lands a moment after the save is caught too (the
+  // deliberate-fault run of 12 Nov confirmed about two seconds after the save, after a single read had passed).
+  for (let look = 0; look < 10; look++) {
+    expect(await panel.getAttribute("data-phase"), `${how}: not confirmed after the change, before Continue is pressed again`).toBe("reviewing");
+    await page.waitForTimeout(500);
+  }
   expect(await savedPhase(account), `${how}: the saved case is not confirmed after the change, before Continue is pressed again`).not.toBe("user-confirmed");
   // The press leaves the box first (its blur), which saves the value, then confirms.
   if ((await panel.getAttribute("data-phase")) === "reviewing") await page.getByTestId("intake-confirm").click();
