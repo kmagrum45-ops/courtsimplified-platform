@@ -31,7 +31,8 @@
  *
  * When a limit is reached no call is made: the client throws AiLimitReached (the routes fall back as they do when the
  * AI is down, so nothing is lost and the rest of the site works), and a cookie tells every screen to show
- * AI_LIMIT_WORDS (AiLimitNotice in the shared layout).
+ * the words for that kind of limit until it ends (limitWords.ts; AiLimitNotice in the shared layout). A call that succeeds
+ * clears the mark.
  *
  * Never throws for any other reason: an error reading the shared count falls back to the memory count, never to "no
  * limit at all".
@@ -41,7 +42,7 @@ import { AsyncLocalStorage } from "node:async_hooks";
 import { createHash } from "node:crypto";
 
 import { todayInOntario } from "../case-system/dates";
-import { AI_LIMIT_COOKIE, AI_LIMIT_WORDS } from "./limitWords";
+import { AI_LIMIT_COOKIE, AI_LIMIT_WORDS, limitMark, limitWordsFor } from "./limitWords";
 import { localOnly, onProduction } from "./aiRateLimit";
 import { LONG_CONTEXT_TOKENS, PRICE_TABLE, costUsd, dearestPrice, inputTokensAtMost, priceFor, tokenCounts, withOverrides } from "./aiPrices";
 import { TIER_DEFAULTS } from "../case-system/aiModels";
@@ -313,24 +314,51 @@ export async function recordAiSpend(buckets: Bucket[], usd: number, env: Env = p
   if (store) await Promise.all(buckets.map((bucket) => store.add(bucket.key, bucket.hourly, micros)));
 }
 
-/** What the client throws instead of calling the model. */
+/** What the client throws instead of calling the model: the words for this kind of limit (limitWords.ts). */
 export class AiLimitReached extends Error {
   readonly kind: SpendLimitKind;
-  constructor(kind: SpendLimitKind) {
-    super(AI_LIMIT_WORDS);
+  constructor(kind: SpendLimitKind, now: number = Date.now()) {
+    super(limitWordsFor(kind, now));
     this.name = "AiLimitReached";
     this.kind = kind;
   }
 }
 
-/** Tells every screen in this browser that today's AI help is used up (a route handler can set cookies; elsewhere a no-op). */
-async function markLimitForScreens(env: Env, now: number): Promise<void> {
+/** The cookies the mark is written to: the request's (next/headers), or a test's stand-in. */
+type LimitCookieJar = { set(name: string, value: string, options: { path: string; sameSite: "lax"; httpOnly: boolean; secure: boolean; maxAge: number }): void; delete(name: string): void; has(name: string): boolean };
+let jarForTests: LimitCookieJar | null = null;
+/** Tests only. */
+export function setLimitCookieJarForTests(jar: LimitCookieJar | null): void {
+  jarForTests = jar;
+}
+async function limitCookieJar(): Promise<LimitCookieJar | null> {
+  if (jarForTests) return jarForTests;
   try {
     const { cookies } = await import("next/headers");
-    const day = todayInOntario(new Date(now));
-    (await cookies()).set(AI_LIMIT_COOKIE, day, { path: "/", sameSite: "lax", httpOnly: false, secure: onProduction(env), maxAge: 26 * 3_600 });
+    return (await cookies()) as unknown as LimitCookieJar;
+  } catch {
+    return null;
+  }
+}
+
+/** Tells every screen in this browser which limit refused, until that limit ends (a route handler can set cookies; elsewhere a no-op). */
+async function markLimitForScreens(env: Env, now: number, kind: SpendLimitKind): Promise<void> {
+  try {
+    const jar = await limitCookieJar();
+    const mark = limitMark(kind, now);
+    jar?.set(AI_LIMIT_COOKIE, mark.value, { path: "/", sameSite: "lax", httpOnly: false, secure: onProduction(env), maxAge: mark.maxAge });
   } catch {
     // Not in a route handler: the call is still refused.
+  }
+}
+
+/** A call went through: any limit mark in this browser is out of date, so the banner goes. */
+async function clearLimitForScreens(): Promise<void> {
+  try {
+    const jar = await limitCookieJar();
+    if (jar?.has(AI_LIMIT_COOKIE)) jar.delete(AI_LIMIT_COOKIE);
+  } catch {
+    // Not in a route handler: nothing to clear.
   }
 }
 
@@ -342,8 +370,8 @@ export async function aiSpendGate<T>(call: () => Promise<T>, deps: { env?: Env; 
   const env = deps.env ?? processEnv();
   const decision = await checkAiSpend({ env, now: deps.now });
   if (!decision.allowed) {
-    await markLimitForScreens(env, deps.now ?? Date.now());
-    throw new AiLimitReached(decision.kind);
+    await markLimitForScreens(env, deps.now ?? Date.now(), decision.kind);
+    throw new AiLimitReached(decision.kind, deps.now ?? Date.now());
   }
   // A counted call (every call on production; outside it, everyone but the exempt) must have a price before it is made.
   const requestedModel = (deps.body as { model?: unknown } | null | undefined)?.model;
@@ -356,6 +384,7 @@ export async function aiSpendGate<T>(call: () => Promise<T>, deps: { env?: Env; 
     }
   }
   const response = await call();
+  await clearLimitForScreens();
   if (counted) await recordAiSpend(decision.buckets, callCostUsd(response, env, typeof requestedModel === "string" ? requestedModel : undefined), env);
   return response;
 }

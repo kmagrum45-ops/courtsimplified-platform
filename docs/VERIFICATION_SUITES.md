@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-273 documented, 26 without a header.
+274 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -14,6 +14,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:address-wins` | **THE ADDRESS WINS: a page that reads its case or court from the address opens**<br>the case the address names (npm run test:address-wins). |
 | `npm run test:ai-call-log-sink` | **Does a test run write to the live database? It must not.**<br>COSTS NOTHING. No model call, no network, no database — which is the entire point, and is asserted rather than assumed: the Supabase client factory is replaced with one that throws, and the check fails if anything builds a client. |
 | `npm run test:ai-call-logging` | **Every model call is attributable in the audit log.**<br>COSTS NOTHING. Reads source off disk. No network, no AI, no database. |
+| `npm run test:ai-limit-banner` | **THE AI-LIMIT BANNER SAYS WHICH LIMIT AND WHEN HELP IS BACK, AND LASTS ONLY AS LONG AS THAT LIMIT (site owner,**<br>11 Nov 2026: production's first refusal was a person's HOURLY limit, and the banner said "back tomorrow" until midnight, long after help was back). |
 | `npm run test:ai-models` | **Every model call in the app takes its model from aiModels.ts, and the**<br>parameters sent match what that kind of model accepts. |
 | `npm run test:ai-models-priced` | **EVERY MODEL THE SITE CAN CALL HAS A PRICE IN THE TABLE (site owner, 10 Nov 2026: "Add a test that fails if a model name**<br>used anywhere in the code is not priced"). |
 | `npm run test:ai-price-table` | **EACH AI CALL IS PRICED FROM THE MODEL IT USED AND ITS REAL TOKEN COUNTS; A MODEL WITH NO PRICE IS NEVER CALLED**<br>(site owner, 10 Nov 2026: "replace the two fixed defaults with a price table in code keyed by model name"). |
