@@ -110,7 +110,7 @@ for (const court of ["small-claims", "civil", "family"] as const) {
     const filedId = court === "small-claims" ? "sc-claim-filed" : court === "civil" ? "documents" : "filedDocuments";
     await expect(question(page, sideId), "the side is not asked again").toHaveCount(0);
     await expect(question(page, filedId), "\"filed\" is not asked again").toHaveCount(0);
-    await expect(page.getByTestId("intake-confirm-needs")).not.toContainText(/side|filed/i);
+    await expect(page.getByTestId("intake-confirm-needs")).toHaveCount(0);
     await expect(page.getByTestId("situation-line"), "the answers given at the start stand").toContainText(court === "small-claims" ? "You're suing in Small Claims Court · nothing filed yet" : court === "civil" ? "You're bringing a civil case · nothing filed yet" : "You're bringing a family case · nothing filed yet");
   });
 

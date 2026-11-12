@@ -233,7 +233,7 @@ for (const court of COURTS) {
       await page.goto(`/builder?caseId=${caseId}&path=${court}&next=start`);
       await expect(page.getByTestId("intake-review")).toBeVisible({ timeout: 60_000 });
       await expect(page.getByTestId("next-start-blocked"), "the link said nothing about why no next step was shown").toBeVisible({ timeout: 30_000 });
-      await expect(page.getByTestId("next-start-blocked")).toContainText(/confirm/i);
+      await expect(page.getByTestId("next-start-blocked")).toContainText("an answer changed since you last continued");
     } finally {
       await deleteHarnessUser(userId);
     }
