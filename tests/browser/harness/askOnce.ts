@@ -273,7 +273,7 @@ const SCAN = `(() => {
     // Proposals: the rows confirmed when the card goes.
     window.__askOnceRows = window.__askOnceRows || [];
     const rows = [...document.querySelectorAll("[data-testid=story-proposal-row]")].filter(visible);
-    if (rows.length) window.__askOnceRows = rows.filter((row) => { const tick = row.querySelector("input[type=checkbox]"); return !tick || tick.checked; }).map((row) => row.getAttribute("data-question-id"));
+    if (rows.length) window.__askOnceRows = rows.filter((row) => Boolean(row.querySelector("[data-testid=story-proposal-yes][aria-pressed=true], [data-testid=story-proposal-unsure][aria-pressed=true]"))).map((row) => row.getAttribute("data-question-id"));
     else if (window.__askOnceRows.length) { for (const id of window.__askOnceRows) answer("sc-proposal", id); window.__askOnceRows = []; }
     // Step page dates: a date saved.
     for (const el of document.querySelectorAll("[data-testid^=stage-answer-known-]")) answer("date", el.getAttribute("data-testid").slice("stage-answer-known-".length));

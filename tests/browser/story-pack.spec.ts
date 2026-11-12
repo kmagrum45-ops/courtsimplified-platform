@@ -1938,6 +1938,7 @@ test("28oct working states: the story-suggestions card says it is working, and a
   });
   // Found by its place (the card's last button), so on a build without the fix the test fails on what it checks.
   const button = proposals.getByRole("button").last();
+  await chooseOffers(proposals, "no");
   await button.click();
   await expect(proposals.getByTestId("working-note"), "the card says it is working").toBeVisible({ timeout: 1_000 });
   await expect(proposals.getByTestId("working-note")).toContainText(/[A-Za-z]{4,}.*…/);
