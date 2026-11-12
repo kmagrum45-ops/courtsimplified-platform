@@ -107,6 +107,10 @@ for (const court of ["civil", "family"] as const) {
           const group = (await question.getByTestId("guided-form-from-story").getAttribute("data-group")) ?? key;
           await yes.click();
           for (const item of group.split(" ")) accepted.add(item);
+        } else if (await question.getByTestId("guided-form-from-story-no").isVisible().catch(() => false)) {
+          // Any other story offer (since 12 Nov the story's only amount is offered): "No, that's not right", so the
+          // question is asked once with its Skip, which the next pass presses, as before.
+          await question.getByTestId("guided-form-from-story-no").click();
         } else await question.getByTestId("guided-form-skip").click();
         await page.waitForTimeout(400);
       }
