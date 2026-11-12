@@ -107,8 +107,7 @@ async function confirmAgain(page: Page, id: string, court: string) {
   if (await panel.getAttribute("data-phase") === "collecting" && await start.isVisible().catch(() => false)) await start.click({ timeout: 10_000 }).catch(() => {});
   await expect(panel).toHaveAttribute("data-phase", "reviewing", { timeout: 30_000 });
   await recordInitialUnknowns(page);
-  const ack = page.getByTestId("intake-review-acknowledgement");
-  if (!(await ack.isChecked())) await ack.check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 120_000 });
   // The next step is shown again: until it is, the case's tabs and case file are hidden (B9, reported).

@@ -34,6 +34,14 @@ export async function saveCaseStory(page: Page) {
  * here instead, so nothing they check changes.
  */
 export async function tickIfAsked(page: Page) {
+  // Since 12 Nov there is no tick: each story offer still undecided in the review has its own choices (site owner, "three
+  // choices, no tick"). "No, that's not right" leaves the suggestion unused and the box empty, as the tick did.
+  const offers = page.getByTestId("intake-review").getByTestId("review-offer-no");
+  for (let i = 0; i < 20 && (await offers.count()); i++) {
+    const left = await offers.count();
+    await offers.first().click();
+    for (let wait = 0; wait < 80 && (await offers.count()) >= left; wait++) await page.waitForTimeout(250);
+  }
   const tick = page.getByTestId("intake-review-acknowledgement");
   if (await tick.waitFor({ state: "visible", timeout: 3_000 }).then(() => true, () => false)) await tick.check();
 }
