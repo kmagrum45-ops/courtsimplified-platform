@@ -188,3 +188,51 @@ test("the review is a summary: every value typed or said Yes to, so no tick and 
     await deleteHarnessUser(userId);
   }
 });
+
+test("the review's story offer has its own three choices and no tick; Continue waits for the choice, which is kept after a reload", async ({ page }) => {
+  test.setTimeout(600_000);
+  await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+  const userId = await authenticateRealTestUser(page, { realCases: true });
+  try {
+    await serveModelStandIns(page, "civil", userId);
+    // The page test's Civil story whose Timeline the chat never offers (12 Nov: its undecided offer brought back the tick).
+    await openBuilder(page, "civil", { city: "Kingston", story: "Synthetic: I was fired without notice on September 1, 2026 after eight years at my job.", situation: STARTING_NOTHING_FILED });
+    const question = page.getByTestId("guided-form-question");
+    for (let i = 0; i < 20; i++) {
+      await expect(question.or(page.getByTestId("guided-nothing-left")).first()).toBeVisible({ timeout: 60_000 });
+      if (!(await question.isVisible().catch(() => false))) break;
+      const key = (await question.getAttribute("data-key")) ?? "";
+      if (await question.getByTestId("guided-form-from-story-yes").isVisible().catch(() => false)) { await question.getByTestId("guided-form-from-story-yes").click(); continue; }
+      if (key === "yourRole" && await question.getByTestId("guided-option-plaintiff").isVisible().catch(() => false)) { await question.getByTestId("guided-option-plaintiff").click(); continue; }
+      await page.getByTestId("guided-form-skip").click();
+    }
+    const panel = page.getByTestId("intake-review");
+    await expect(panel).toBeVisible({ timeout: 60_000 });
+    if ((await panel.getAttribute("data-phase")) === "collecting") await page.getByTestId("intake-start-review").filter({ visible: true }).first().click();
+    await expect(panel).toHaveAttribute("data-phase", "reviewing", { timeout: 60_000 });
+    const unknowns = page.locator('input[data-testid="intake-unknown"]:not(:checked)');
+    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
+    const timeline = panel.locator("[data-testid=intake-entry][data-field=timeline]");
+    await expect(timeline.getByTestId("intake-entry-from-story"), "the story's timeline is offered (Yes)").toHaveCount(1);
+    await expect(timeline.getByTestId("review-offer-no"), "beside it: No, that's not right").toHaveText("No, that's not right");
+    await expect(timeline.getByTestId("review-offer-unsure"), "and: I'm not sure").toHaveText("I'm not sure");
+    await expect(page.getByTestId("intake-review-acknowledgement"), "no tick, even with an offer undecided").toHaveCount(0);
+    await expect(panel.getByText(/I have reviewed this information/), "nothing covers the typed values").toHaveCount(0);
+    await expect(page.getByTestId("intake-confirm"), "the one button continues").toHaveText("Continue");
+    await expect(page.getByTestId("intake-confirm"), "Continue waits for the offer's choice").toBeDisabled();
+    await expect(page.getByTestId("intake-confirm-needs"), "and says what it waits for").toContainText("a choice (Yes, No or I'm not sure) on each suggestion from your story");
+    await timeline.getByTestId("review-offer-no").click();
+    await expect(timeline.getByTestId("review-offer-choices"), "chosen: the choices go").toHaveCount(0);
+    await expect(timeline.getByTestId("intake-entry-from-story"), "No: the suggestion goes, the box is answered plainly").toHaveCount(0);
+    await expect(page.getByTestId("intake-confirm"), "chosen: Continue can be pressed").toBeEnabled({ timeout: 30_000 });
+    await expect(panel.locator("h2").first(), "nothing left to decide: the summary").toHaveText("Here is what we have");
+    await page.reload();
+    await expect(panel).toHaveAttribute("data-phase", "reviewing", { timeout: 60_000 });
+    await expect(timeline, "the box is still there after a reload").toHaveCount(1, { timeout: 60_000 });
+    await expect(timeline.getByTestId("review-offer-choices"), "the choice is kept after a reload").toHaveCount(0);
+    await page.getByTestId("intake-confirm").click();
+    await expect(panel, "one press").toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
+  } finally {
+    await deleteHarnessUser(userId);
+  }
+});
