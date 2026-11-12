@@ -16,6 +16,7 @@
  * Browser only, synthetic account (fakeAccount), this commit's own server calls (serveFromThisCommit); no staging.
  */
 import { expect, test, type Page } from "@playwright/test";
+import { chooseOffers } from "./harness/offers";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
@@ -41,7 +42,7 @@ async function guidedThenReview(page: Page, changedAmount?: string) {
   const question = page.locator("[data-testid=guided-message][data-from=assistant]").last();
   const proposals = page.getByTestId("story-proposals");
   await expect(proposals.or(question).first()).toBeVisible({ timeout: 60_000 });
-  if (await proposals.isVisible().catch(() => false)) await proposals.getByRole("button").last().click();
+  if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await proposals.getByRole("button").last().click(); }
   await expect(page.locator("textarea").last()).toBeVisible({ timeout: 60_000 });
 
   // The review: the amount held from the story's suggestion, so the form's own box is empty.

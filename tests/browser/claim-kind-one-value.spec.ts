@@ -48,6 +48,7 @@
  * tests/browser/claim-kind-one-value.spec.ts, with the staging loader's environment.
  */
 import { expect, test, type Page } from "@playwright/test";
+import { chooseOffers } from "./harness/offers";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { serveModelStandIns } from "./harness/thisCommitServer";
 import { authenticateRealTestUser } from "./harness/intakeDriver";
@@ -95,7 +96,7 @@ async function guidedUntilKind(page: Page, kind: string): Promise<boolean> {
     await page.waitForTimeout(600);
     if (await finished.isVisible().catch(() => false)) return false;
     if (await proposals.isVisible().catch(() => false)) {
-      await proposals.getByRole("button").last().click();
+      { await chooseOffers(proposals, "no"); await proposals.getByRole("button").last().click(); }
       await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 });
       continue;
     }
@@ -232,7 +233,7 @@ test("claim type, one value: a fresh case, the kind picked on the overview, the 
     const question = page.locator("[data-testid=guided-message][data-from=assistant]").last();
     const proposals = page.getByTestId("story-proposals");
     await expect(proposals.or(question).first()).toBeVisible({ timeout: 60_000 });
-    if (await proposals.isVisible().catch(() => false)) await proposals.getByRole("button").last().click();
+    if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await proposals.getByRole("button").last().click(); }
     await expect(page.locator("textarea").last()).toBeVisible({ timeout: 60_000 });
     // Nothing names the kind: "I don't know yet" for it in the review, with everything else.
     await reviewAndConfirm(page, null);

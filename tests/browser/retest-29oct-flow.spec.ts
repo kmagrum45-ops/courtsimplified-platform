@@ -37,6 +37,7 @@
  * served on PLAYWRIGHT_BASE_URL, with SITE_ACCESS_PASSWORD in the environment).
  */
 import { expect, test, type Page } from "@playwright/test";
+import { chooseOffers } from "./harness/offers";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { factOfField } from "../../src/lib/case-system/caseFile/fieldFacts";
 import { grantSiteAccess } from "./harness/siteAccess";
@@ -102,7 +103,7 @@ async function smallClaimsGuided(page: Page) {
   const question = page.locator("[data-testid=guided-message][data-from=assistant]").last();
   const proposals = page.getByTestId("story-proposals");
   await expect(proposals.or(question).first()).toBeVisible({ timeout: 60_000 });
-  if (await proposals.isVisible().catch(() => false)) await proposals.getByRole("button").last().click();
+  if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await proposals.getByRole("button").last().click(); }
   await expect(page.locator("textarea").last()).toBeVisible({ timeout: 60_000 });
 
   await confirmHere(page);
@@ -297,7 +298,7 @@ async function reachNextStep(page: import("@playwright/test").Page) {
   const question = page.locator("[data-testid=guided-message][data-from=assistant]").last();
   const proposals = page.getByTestId("story-proposals");
   await expect(proposals.or(question).first()).toBeVisible({ timeout: 60_000 });
-  if (await proposals.isVisible().catch(() => false)) await proposals.getByRole("button").last().click();
+  if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await proposals.getByRole("button").last().click(); }
   await expect(page.locator("textarea").last()).toBeVisible({ timeout: 60_000 });
   await page.getByTestId("intake-start-review").click();
   const panel = page.getByTestId("intake-review");
@@ -448,7 +449,7 @@ test("retest-29oct D1: typing into the form's timeline after Confirm keeps the c
   const question = page.locator("[data-testid=guided-message][data-from=assistant]").last();
   const proposals = page.getByTestId("story-proposals");
   await expect(proposals.or(question).first()).toBeVisible({ timeout: 60_000 });
-  if (await proposals.isVisible().catch(() => false)) await proposals.getByRole("button").last().click();
+  if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await proposals.getByRole("button").last().click(); }
   await expect(page.locator("textarea").last()).toBeVisible({ timeout: 60_000 });
   await page.getByRole("button", { name: "Stop initial questions and review" }).click();
   const panel = page.getByTestId("intake-review");
