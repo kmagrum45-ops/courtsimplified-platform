@@ -146,8 +146,11 @@ async function everyScreen(page: Page, account: Account, panel: Locator, how: st
   // The review shows the amount as text (a held line) or in its box (a text area's value is not in innerText).
   const boxValues = await panel.locator("input, textarea").evaluateAll((items) => items.map((item) => (item as HTMLInputElement).value).join(" "));
   expect(`${await panel.innerText()} ${boxValues}`, `${how}: after a reload, the review shows the new amount`).toMatch(/2,650/);
-  // The review's list of initial questions is drawn only while the review is open: checked here, where it is open again.
-  await expect(panel.locator(`[data-testid=intake-initial-question][data-question="${QUESTION}"]`).getByTestId("intake-question-answered"), `${how}: the review's list shows the new amount`).toContainText("2,650");
+  // One Continue press now confirms, and a confirmed review does not draw its list of initial questions (it did while
+  // the tick was asked again). Its amount line is where the review shows the amount once confirmed: checked here.
+  const amountLine = panel.locator("[data-testid=intake-entry][data-field=amountClaimedText]");
+  const amountBox = await amountLine.locator("input, textarea").evaluateAll((items) => items.map((item) => (item as HTMLInputElement).value).join(" "));
+  expect(`${await amountLine.innerText()} ${amountBox}`, `${how}: the review's amount line shows the new amount`).toMatch(/2,650/);
   const amounts = await panel.locator("input, textarea").evaluateAll((items) => items.map((item) => (item as HTMLInputElement).value).filter((value) => value.includes("$") && !value.startsWith("Synthetic story")));
   expect(amounts.filter((value) => value.includes("2,400")), `${how}: no box holds the older amount`).toEqual([]);
   expect(await savedAmount(account), `${how}: still saved after the reload`).toBe(2650);
