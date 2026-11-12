@@ -1628,9 +1628,9 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
     // A real mouse press where the element is (Playwright's own click: it waits until nothing covers it, as a person would).
     const press = (target: ReturnType<typeof page.locator>) => target.click();
     if (keep) await press(panel.locator(`[data-testid=intake-initial-question][data-question="${keep}"]`).locator('[data-testid="intake-field-from-story"], [data-testid="intake-use-suggestion"]').first());
-    // The tick, where the review still shows one (since 12 Nov it has none: "three choices, no tick").
-    const tick = page.getByTestId("intake-review-acknowledgement");
-    if (await tick.count()) await press(tick);
+    // Since 12 Nov there is no tick, and Continue waits for a choice on each story offer ("three choices, no tick"):
+    // the shared helper chooses "No, that's not right" on each offer still undecided, and ticks where a tick is shown.
+    await tickIfAsked(page);
     // The late reading lands between the tick and the press, as it can for a person.
     await page.waitForTimeout(10_000);
     await press(page.getByTestId("intake-confirm"));
