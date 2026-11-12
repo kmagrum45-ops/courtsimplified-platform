@@ -11,7 +11,12 @@
  *   3. the story reader offers a quote or estimate as the amount ("I got a quote for 1500"), while the automatic amount
  *      reader still skips it (claimAmountFromStory); it offers a full date as when it happened;
  *   4. stillNeeded lists every fact not known, with settled ones marked "add it when you know";
- *   5. a value the person typed is known, never an offer, even when the story states another.
+ *   5. a value the person typed is known, never an offer, even when the story states another;
+ *   6. a month and year ("In March 2026") is offered as when it happened, quoting its sentence;
+ *   7. a story's only dollar amount is offered as the amount (two different amounts: none), while the one-click
+ *      reader still skips it (#471);
+ *   8. the Family name the story gives ("I married Sam Testmarsh", "Jordan Testfield and I lived together") is read;
+ *   9. the civil chat's amount question offers the same amount as the one story reader (civil-builder's $140,000).
  *
  * WHAT FAILURE THIS CATCHES: a screen asking a fact the case knows, or not offering one the story states.
  *
