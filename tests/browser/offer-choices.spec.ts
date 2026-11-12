@@ -159,6 +159,12 @@ test("the review is a summary: every value typed or said Yes to, so no tick and 
     await chatToTheEnd(page, () => "yes");
     const panel = page.getByTestId("intake-review");
     await expect(panel).toBeVisible({ timeout: 60_000 });
+    // The questions' Continue before the summary was seen points to the summary; it says nothing needs confirming (site owner, 12 Nov).
+    const routeContinue = page.getByRole("button", { name: "Continue to your next steps", exact: true });
+    if (await routeContinue.isVisible().catch(() => false)) await routeContinue.click();
+    const beside = page.getByTestId("review-needed-beside-button").filter({ visible: true });
+    await expect(beside, "the line beside the questions' Continue is shown").toBeVisible({ timeout: 30_000 });
+    await expect(beside, "the line beside Continue does not say it needs confirming").not.toContainText(/needs confirming|confirm|tick/i);
     if ((await panel.getAttribute("data-phase")) === "collecting") await page.getByTestId("intake-start-review").filter({ visible: true }).first().click();
     // The summary is shown and nothing is confirmed for the person (CLAUDE.md s.4): they press once to go on.
     await expect(panel, "the summary is shown, not confirmed for them").toHaveAttribute("data-phase", "reviewing", { timeout: 60_000 });
@@ -169,6 +175,12 @@ test("the review is a summary: every value typed or said Yes to, so no tick and 
       await expect(page.getByTestId("intake-review-acknowledgement"), "no tick: a value the person typed never asks for confirmation").toHaveCount(0);
       await expect(page.getByTestId("intake-confirm"), "the one button continues").toHaveText("Continue");
       await expect(page.getByText("Confirm my initial information"), "no confirmation is asked").toHaveCount(0);
+      // It reads as a summary, with one Continue button, and asks for no confirmation or tick in any words (site owner, 12 Nov).
+      await expect(panel.locator("h2").first(), "it reads as a summary").toHaveText("Here is what we have");
+      await expect(panel.getByRole("button", { name: "Continue", exact: true }), "one Continue button").toHaveCount(1);
+      await expect(page.getByText(/needs confirming/i), "nothing on the page says it needs confirming").toHaveCount(0);
+      await expect(panel.getByText(/\btick\b/i), "nothing asks for a tick").toHaveCount(0);
+      await expect(panel.getByText(/\bconfirm/i), "the summary asks for no confirmation in any words").toHaveCount(0);
       await page.getByTestId("intake-confirm").click();
     }
     await expect(panel, "one press").toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
