@@ -99,6 +99,22 @@ async function main() {
   }
   const two = "I paid $600 for the venue and $200 for the flowers, and both were kept.";
   check("7. two different amounts: none is offered (which one is unclear)", statedInStory(two).amount === undefined, JSON.stringify(statedInStory(two)));
+
+  // 8 (page test, 12 Nov): the Family chat asked cold for the other person's name the story gives.
+  const { otherPartyNameFromStory } = await import("../../app/builder/_components/storyAnswers");
+  for (const [story, name] of [
+    ["Synthetic: Jordan Testfield and I lived together from 2018 to August 2025 but never married. Our daughter is 6 and lives with me.", "Jordan Testfield"],
+    ["Synthetic: I married Sam Testmarsh in 2015 and we separated in January 2026. We have two children who live with me.", "Sam Testmarsh"],
+    ["I was married to Pat Lee for ten years.", "Pat Lee"],
+    ["I have two kids with Chris Doe and we split last year.", "Chris Doe"],
+  ] as const) {
+    const read = otherPartyNameFromStory(story);
+    check(`8. the Family name the story gives is offered (${name})`, read?.value === name, JSON.stringify(read));
+  }
+  for (const story of ["Yesterday Jordan Smith and I went to court.", "My sister and I lived together.", "Mom and I separated from Dad.", "I married in 2015 and we separated in 2026."]) {
+    const read = otherPartyNameFromStory(story);
+    check(`8. no name, or never the words before it: '${story}'`, read === null, JSON.stringify(read));
+  }
   finish();
 }
 function finish() {

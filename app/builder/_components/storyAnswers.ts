@@ -441,6 +441,11 @@ export function otherPartyNameFromStory(story: string): StoryAnswer | null {
   const patterns = [
     new RegExp(`\\b${relation}(?:'s name is|\\s+(?:is )?named|\\s+(?:is )?called)\\s+${person}\\b`),
     new RegExp(`\\b${relation},?\\s+${person}(?=\\s*(?:,|\\.|;|$))`),
+    // The relationship said with the name (page test, 12 Nov: the Family chat asked cold for a name the story gave):
+    // "I married Sam Testmarsh", "I was married to Pat Lee", "I have two kids with Chris Doe".
+    new RegExp(`\\b[Ii] (?:married|was married to|am married to|divorced|separated from|lived with|(?:have|had) (?:a child|a baby|a son|a daughter|(?:two|three|four|\\d) (?:kids|children|sons|daughters)|kids|children) with)\\s+${person}\\b`),
+    // "Jordan Testfield and I lived together": only at the start of a sentence (never "Yesterday Jordan Smith").
+    new RegExp(`(?:^|:\\s+)${person} and I (?:lived|were|have been|had been|got|separated|split|broke up|married|dated|met|had|have)\\b`),
   ];
   for (const sentence of sentences(story)) {
     for (const pattern of patterns) {
