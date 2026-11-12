@@ -21,7 +21,8 @@
 #   CARRY_PORT=3401 CARRY_SKIP_BUILD=1 CARRY_GREP="carry end to end -- civil " bash scripts/browser/carryLocal.sh
 # Variables: CARRY_SLOT (0), CARRY_PORT (3400), CARRY_GREP (all), CARRY_SKIP_BUILD (reuse .next, which must
 # have been built by this script for the same slot), CARRY_OUT (records folder; default under $TEMP),
-# CARRY_STOP_STACK=1 (stop the stack at the end; default: leave it running for the next run).
+# CARRY_STOP_STACK=1 (stop the stack at the end; default: leave it running for the next run),
+# CARRY_SPEC (the spec to run; default tests/browser/carry-end-to-end.spec.ts; the ask-once page test runs here too).
 # Records: $CARRY_OUT/carry-records/*.json; the server log and Playwright output beside them.
 set -euo pipefail
 
@@ -155,7 +156,7 @@ export PLAYWRIGHT_BASE_URL="http://localhost:${PORT}"
 export STORY_PACK_RUN_ID="carry-local-${STAMP}-p${PORT}"
 START=$(date +%s)
 set +e
-npx playwright test tests/browser/carry-end-to-end.spec.ts --grep "$GREP" --reporter=line --workers=1 --output "$OUT/test-results" 2>&1 | tee "$OUT/spec.log"
+npx playwright test "${CARRY_SPEC:-tests/browser/carry-end-to-end.spec.ts}" --grep "$GREP" --reporter=line --workers=1 --output "$OUT/test-results" 2>&1 | tee "$OUT/spec.log"
 CODE=${PIPESTATUS[0]}
 set -e
 mkdir -p "$OUT/carry-records"

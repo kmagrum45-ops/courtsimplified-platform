@@ -1,0 +1,649 @@
+{
+  "_about": "The ask-once page test (tests/browser/ask-once-pages.spec.ts): the violations the site still makes, one entry each, with its reason. Measured on #549 (b120b43a) on 11 Nov 2026, before any fix. A violation not listed fails the test. The list may only shrink (test:ask-once-expected compares it with origin/main), and it must be empty when slice 4 (the draft, the filled PDF and the form boxes) lands.",
+  "entries": [
+    {
+      "story": "civil-builder",
+      "kind": "typed-reconfirm",
+      "fact": "amount",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "civil-builder",
+      "kind": "typed-reconfirm",
+      "fact": "otherParty",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "civil-builder",
+      "kind": "stated-cold",
+      "fact": "amount",
+      "screen": "chat@/builder",
+      "reason": "The Civil or Family chat asks cold for a fact the story states, without offering it from the story (GuidedFormChat); slices 1 and 2."
+    },
+    {
+      "story": "civil-fired",
+      "kind": "typed-reconfirm",
+      "fact": "amount",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "civil-fired",
+      "kind": "typed-reconfirm",
+      "fact": "otherParty",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "civil-loan-partner",
+      "kind": "typed-reconfirm",
+      "fact": "otherParty",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "civil-served-dismissal",
+      "kind": "typed-reconfirm",
+      "fact": "amount",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "civil-served-dismissal",
+      "kind": "typed-reconfirm",
+      "fact": "otherParty",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "civil-served-guarantee",
+      "kind": "typed-reconfirm",
+      "fact": "otherParty",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "civil-tree-fell",
+      "kind": "typed-reconfirm",
+      "fact": "otherParty",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "family-married-2015",
+      "kind": "typed-reconfirm",
+      "fact": "otherParty",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "family-married-2015",
+      "kind": "stated-cold",
+      "fact": "otherParty",
+      "screen": "chat@/builder",
+      "reason": "The Civil or Family chat asks cold for a fact the story states, without offering it from the story (GuidedFormChat); slices 1 and 2."
+    },
+    {
+      "story": "family-moved-away",
+      "kind": "typed-reconfirm",
+      "fact": "otherParty",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "family-never-married",
+      "kind": "typed-reconfirm",
+      "fact": "otherParty",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "family-never-married",
+      "kind": "stated-cold",
+      "fact": "otherParty",
+      "screen": "chat@/builder",
+      "reason": "The Civil or Family chat asks cold for a fact the story states, without offering it from the story (GuidedFormChat); slices 1 and 2."
+    },
+    {
+      "story": "family-sell-house",
+      "kind": "typed-reconfirm",
+      "fact": "otherParty",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "family-served-divorce",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "family-served-divorce",
+      "kind": "typed-reconfirm",
+      "fact": "otherParty",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "family-served-form8",
+      "kind": "typed-reconfirm",
+      "fact": "otherParty",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "family-served-form8",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "family-served-motion",
+      "kind": "typed-reconfirm",
+      "fact": "otherParty",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "family-served-motion",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "family-support-unpaid",
+      "kind": "typed-reconfirm",
+      "fact": "otherParty",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-car-backed",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-car-backed",
+      "kind": "typed-reconfirm",
+      "fact": "amount",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-car-backed",
+      "kind": "stated-cold",
+      "fact": "whenHappened",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-car-backed",
+      "kind": "stated-cold",
+      "fact": "amount",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-contractor-bathroom",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-contractor-bathroom",
+      "kind": "typed-reconfirm",
+      "fact": "amount",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-contractor-bathroom",
+      "kind": "stated-cold",
+      "fact": "whenHappened",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-contractor-bathroom",
+      "kind": "stated-cold",
+      "fact": "amount",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-deposit-landlord",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-deposit-landlord",
+      "kind": "typed-reconfirm",
+      "fact": "amount",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-deposit-landlord",
+      "kind": "stated-cold",
+      "fact": "whenHappened",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-deposit-landlord",
+      "kind": "stated-cold",
+      "fact": "amount",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-deposit-venue",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-deposit-venue",
+      "kind": "typed-reconfirm",
+      "fact": "amount",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-deposit-venue",
+      "kind": "stated-cold",
+      "fact": "whenHappened",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-deposit-venue",
+      "kind": "stated-cold",
+      "fact": "amount",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-invoice",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-invoice",
+      "kind": "typed-reconfirm",
+      "fact": "amount",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-invoice",
+      "kind": "stated-cold",
+      "fact": "whenHappened",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-invoice",
+      "kind": "stated-cold",
+      "fact": "amount",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-iou",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-iou",
+      "kind": "typed-reconfirm",
+      "fact": "amount",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-iou",
+      "kind": "stated-cold",
+      "fact": "whenHappened",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-iou",
+      "kind": "stated-cold",
+      "fact": "amount",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-laptop",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-laptop",
+      "kind": "typed-reconfirm",
+      "fact": "amount",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-laptop",
+      "kind": "stated-cold",
+      "fact": "whenHappened",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-laptop",
+      "kind": "stated-cold",
+      "fact": "amount",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-loan-friend",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-loan-friend",
+      "kind": "typed-reconfirm",
+      "fact": "amount",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-loan-friend",
+      "kind": "missing-label",
+      "fact": "otherParty",
+      "screen": "draft",
+      "reason": "The Form 7A draft reads its own copy of the fact (claimDraftEngine.ts extra.amountClaimed, the defendant line), never the case file; slice 4."
+    },
+    {
+      "story": "sc-loan-friend",
+      "kind": "stated-cold",
+      "fact": "whenHappened",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-loan-friend",
+      "kind": "stated-cold",
+      "fact": "amount",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-loan-sister",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-loan-sister",
+      "kind": "typed-reconfirm",
+      "fact": "amount",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-loan-sister",
+      "kind": "stated-cold",
+      "fact": "whenHappened",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-loan-sister",
+      "kind": "stated-cold",
+      "fact": "amount",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-mechanic",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-mechanic",
+      "kind": "typed-reconfirm",
+      "fact": "amount",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-mechanic",
+      "kind": "stated-cold",
+      "fact": "whenHappened",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-mechanic",
+      "kind": "stated-cold",
+      "fact": "amount",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-roofer",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-roofer",
+      "kind": "typed-reconfirm",
+      "fact": "amount",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-roofer",
+      "kind": "stated-cold",
+      "fact": "whenHappened",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-roofer",
+      "kind": "stated-cold",
+      "fact": "amount",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-served-cousin",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-served-furniture",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-served-kitchen",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-served-plumber",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-served-roommate",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-served-truck",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-slip-and-fall-changed",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-slip-and-fall-changed",
+      "kind": "missing-label",
+      "fact": "amount",
+      "screen": "draft",
+      "reason": "The Form 7A draft reads its own copy of the fact (claimDraftEngine.ts extra.amountClaimed, the defendant line), never the case file; slice 4."
+    },
+    {
+      "story": "sc-slip-and-fall-changed",
+      "kind": "missing-label",
+      "fact": "otherParty",
+      "screen": "draft",
+      "reason": "The Form 7A draft reads its own copy of the fact (claimDraftEngine.ts extra.amountClaimed, the defendant line), never the case file; slice 4."
+    },
+    {
+      "story": "sc-slip-and-fall-changed",
+      "kind": "stated-cold",
+      "fact": "whenHappened",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-slip-and-fall-changed",
+      "kind": "stated-cold",
+      "fact": "amount",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-slip-and-fall",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-slip-and-fall",
+      "kind": "typed-reconfirm",
+      "fact": "amount",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-slip-and-fall",
+      "kind": "missing-label",
+      "fact": "otherParty",
+      "screen": "draft",
+      "reason": "The Form 7A draft reads its own copy of the fact (claimDraftEngine.ts extra.amountClaimed, the defendant line), never the case file; slice 4."
+    },
+    {
+      "story": "sc-slip-and-fall",
+      "kind": "stated-cold",
+      "fact": "whenHappened",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-slip-and-fall",
+      "kind": "stated-cold",
+      "fact": "amount",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-tree-cut",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-tree-cut",
+      "kind": "typed-reconfirm",
+      "fact": "amount",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-tree-cut",
+      "kind": "missing-label",
+      "fact": "otherParty",
+      "screen": "draft",
+      "reason": "The Form 7A draft reads its own copy of the fact (claimDraftEngine.ts extra.amountClaimed, the defendant line), never the case file; slice 4."
+    },
+    {
+      "story": "sc-tree-cut",
+      "kind": "stated-cold",
+      "fact": "amount",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-wages",
+      "kind": "typed-reconfirm",
+      "fact": "whenHappened",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-wages",
+      "kind": "typed-reconfirm",
+      "fact": "amount",
+      "screen": "review",
+      "reason": "The review asks the person to confirm every value, including ones they typed (IntakeReviewPanel confirm-all); slice 3 makes the review a summary."
+    },
+    {
+      "story": "sc-wages",
+      "kind": "stated-cold",
+      "fact": "whenHappened",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    },
+    {
+      "story": "sc-wages",
+      "kind": "stated-cold",
+      "fact": "amount",
+      "screen": "sc-chat@/builder",
+      "reason": "The Small Claims chat asks cold for a fact the story states: its offer was declined by Continue with nothing ticked, or never made (GuidedSmallClaimsIntake, claimAmount.ts skips a quote); slices 1 and 2."
+    }
+  ]
+}

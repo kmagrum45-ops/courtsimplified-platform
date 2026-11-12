@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-274 documented, 26 without a header.
+276 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -29,6 +29,8 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:anon-grants` | **No migration grants anon write access, and no policy applies to PUBLIC.**<br>COSTS NOTHING. Reads supabase/migrations/*.sql off disk. No database connection, no network. |
 | `npm run test:answer-coverage` | **EVERY "WHAT KIND OF CASE" ANSWER LEADS TO A KIND OF ITS OWN COURT, OR ITS GAP IS DECLARED WITH THE REASON (coverage audit,**<br>11 Nov 2026; Chrome's #547 report, G2: "A loan or debt" brought no checklist, and nothing said why). |
 | `npm run test:answer-key-reader` | **THE ANSWER KEY'S READER (tests/answer-key/readAnswerKey.ts): reads a (case, field, expected)**<br>table as CSV, tab-separated or Markdown, the same rows from each; refuses a row with an empty cell, a header without the three columns, and a case and field given twice. |
+| `npm run test:ask-once-expected` | **THE ASK-ONCE EXPECTED-FAILURE LIST MAY ONLY SHRINK (site owner, 11 Nov 2026: "That list may only shrink, each entry**<br>has a reason, and it must be empty when slice 4 lands"). |
+| `npm run test:askers-fact-status` | **EVERY PLACE THAT ASKS, OFFERS OR SAYS A FACT IS MISSING GETS THAT FROM THE ONE FUNCTION (site owner, 11 Nov 2026:**<br>"any screen that asks, reads or writes facts another way fails the build"; the target is zero exceptions). |
 | `npm run test:assistant-blocks` | **The guided assistant can only say catalogued things.**<br>COSTS NOTHING. Reads source off disk and calls pure functions. |
 | `npm run test:assistant-context` | **Owned-context and canonical engine contracts, plus actual anonymous HTTP**<br>refusals. Full guidance is no longer available through anonymous fallback. Core factories isolate offline behavior; staging walkthroughs cover real auth. |
 | `npm run test:assistant-law` | **"The law on your question" in the Court Assistant**<br>(src/lib/case-system/retrieval/researchQuestion.ts, /api/assistant/law). |

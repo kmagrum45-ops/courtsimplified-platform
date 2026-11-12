@@ -1,0 +1,137 @@
+{
+  "_about": "Askers that do not use the one function (src/lib/case-system/caseFile/factStatus.ts) yet, each with its reason and the slice that moves it. test:askers-fact-status: may only shrink, stale entries fail, empty at slice 6 (site owner, 11 Nov 2026).",
+  "entries": [
+    {
+      "file": "app/_components/AskedField.tsx",
+      "reason": "Form boxes ask through the asker (askOf), not the one function yet; slice 4."
+    },
+    {
+      "file": "app/_components/CaseUnderstandingCard.tsx",
+      "reason": "The home reading shows AI-written \"What we still need to know\" questions, filtered only for side, filed and served; slice 5."
+    },
+    {
+      "file": "app/_components/IntakeRecovery.tsx",
+      "reason": "Holds the review and confirm flow state that asks for confirmation; slice 3."
+    },
+    {
+      "file": "app/_components/IntakeReviewPanel.tsx",
+      "reason": "The review asks to confirm every value, typed or not (confirm-all); slice 3 makes it a summary."
+    },
+    {
+      "file": "app/_components/NotAnsweredYet.tsx",
+      "reason": "Shows \"Not answered yet\" from the slot state it is given, not from stillNeeded; slice 3."
+    },
+    {
+      "file": "app/_components/ReviewNeededNotice.tsx",
+      "reason": "Says the initial information needs confirming whenever the review is not confirmed; slice 3."
+    },
+    {
+      "file": "app/api/generate-form/route.ts",
+      "reason": "The filled PDF reads the amount from intakeData and lists missing values on its own; slice 4."
+    },
+    {
+      "file": "app/builder/_components/civilAnalysis.ts",
+      "reason": "Civil analysis text says what is not yet entered from the form copy; slice 4."
+    },
+    {
+      "file": "app/builder/_components/familyAnalysis.ts",
+      "reason": "Family analysis text says what is not yet entered from the form copy; slice 4."
+    },
+    {
+      "file": "app/builder/_components/FamilyStatusTriage.tsx",
+      "reason": "The Family situation questions have their own list and record; slice 5."
+    },
+    {
+      "file": "app/builder/_components/GuidedFormChat.tsx",
+      "reason": "Civil and Family chat asks through chatMayAsk (the second gate), offers yes/no only; slice 2."
+    },
+    {
+      "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+      "reason": "The Small Claims chat: offers declined by Continue, then asked cold; slice 2."
+    },
+    {
+      "file": "app/builder/_components/IntelligenceOverviewPanel.tsx",
+      "reason": "The overview shows \"What to confirm next\" from the engine's own list; slice 5."
+    },
+    {
+      "file": "app/builder/_components/SmallClaimsIntake.tsx",
+      "reason": "The whole form's \"Still useful to add\" banner uses its own list over the form copy; slice 4."
+    },
+    {
+      "file": "app/builder/_components/SourcedQuestions.tsx",
+      "reason": "Law follow-up questions written by the AI, de-duplicated word for word only; slice 5."
+    },
+    {
+      "file": "app/builder/_components/StageAnswerPanel.tsx",
+      "reason": "Step-page date boxes: which dates from the stage map, filled from the case file, not through stillNeeded; slice 4."
+    },
+    {
+      "file": "app/builder/page.tsx",
+      "reason": "Seeds the chat and form from copies and shows the builder's own still-needed lines; slices 2 to 4."
+    },
+    {
+      "file": "app/cases/_components/CaseFilePanel.tsx",
+      "reason": "Shows \"Not answered yet\" from slot states read directly; slice 3."
+    },
+    {
+      "file": "app/cases/[id]/page.tsx",
+      "reason": "The case page passes its own date answers to the step page; slice 4."
+    },
+    {
+      "file": "src/lib/case-system/claimDraftEngine.ts",
+      "reason": "The Form 7A draft reads its own copy (extra.amountClaimed) and says \"not yet been clearly entered\"; slice 4."
+    },
+    {
+      "file": "src/lib/case-system/copy/askCopy.ts",
+      "reason": "Question wording; the decision of when to show it is the caller's; moves with its callers, slice 2."
+    },
+    {
+      "file": "src/lib/case-system/family/statusTriage.ts",
+      "reason": "The Family situation questions' own sequence; slice 5."
+    },
+    {
+      "file": "src/lib/case-system/guided-assistant/conversationIntelligenceEngine.ts",
+      "reason": "The assistant chat's own regexes for what was asked; slice 5."
+    },
+    {
+      "file": "src/lib/case-system/guided-assistant/guidedAssistantOrchestrator.ts",
+      "reason": "The assistant chat's evidence still-needed list runs with no case file; slice 5."
+    },
+    {
+      "file": "src/lib/case-system/intake/asker.ts",
+      "reason": "askOf and mayAsk: the first of the two gates the one function replaces; slice 1."
+    },
+    {
+      "file": "src/lib/case-system/intake/depth/selectDepthQuestions.ts",
+      "reason": "Depth questions: every authored question is asked, with no case-file check; slice 5."
+    },
+    {
+      "file": "src/lib/case-system/intake/selectQuestions.ts",
+      "reason": "Chooses bank questions through mayAsk, not the one function; slice 1."
+    },
+    {
+      "file": "src/lib/case-system/intakeReview.ts",
+      "reason": "Review entries and suggestions read each section's copy (reviewEntries, suggestInitialAnswers); slice 3."
+    },
+    {
+      "file": "src/lib/case-system/intelligence/answeredQuestions.ts",
+      "reason": "The overview's own regex filters for questions already answered; slice 5."
+    },
+    {
+      "file": "src/lib/case-system/intelligence/smallClaimsIntelligenceEngine.ts",
+      "reason": "Builds \"What to confirm next\" from intakeData (buildContactMissingInfo); slice 5."
+    },
+    {
+      "file": "src/lib/case-system/retrieval/sourcedQuestions.ts",
+      "reason": "Writes the law follow-up questions with the AI and checks them only against earlier wording; slice 5."
+    },
+    {
+      "file": "src/lib/case-system/statementOfClaimDraftEngine.ts",
+      "reason": "The Form 7A section lists what is missing on its own; slice 4."
+    },
+    {
+      "file": "src/lib/case-system/understanding/understandCase.ts",
+      "reason": "The home reading's AI questions, filtered only for side, filed and served; slice 5."
+    }
+  ]
+}

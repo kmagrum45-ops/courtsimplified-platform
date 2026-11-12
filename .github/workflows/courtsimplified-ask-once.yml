@@ -1,0 +1,65 @@
+name: CourtSimplified ask once on every page
+
+# The page-level ask-once test (tests/browser/ask-once-pages.spec.ts, site owner 11 Nov 2026): 35 stories in all three
+# courts, both sides, taken through the questions, the review, the next step, the case page, the case file page and
+# the draft. After every answer, no prompt may ask for a fact already answered or stated in the story, no value the
+# person typed may be shown again for confirmation, and no "not entered" label may show for a fact the case holds.
+# A violation not on the expected list (tests/browser/harness/askOnceExpected.json, which may only shrink) fails.
+#
+# Each machine starts its own local Supabase stack (scripts/browser/carryLocal.sh with CARRY_SPEC), so the run never
+# touches staging, needs no repository secrets and makes no AI calls (the spec stands in for every model route).
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Read-only token: it checks out the code and keeps artifacts; it writes nothing to the repository.
+permissions:
+  contents: read
+
+jobs:
+  ask-once:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - part: small-claims
+            grep: "ask once on every page -- sc-"
+          - part: civil-and-family
+            grep: "ask once on every page -- (civil|family)-"
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
+      NEXT_TELEMETRY_DISABLED: 1
+      AI_RATE_LIMITS: local
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 2.109.0
+      - run: npx playwright install --with-deps chromium
+      - name: Ask once on every page, on a local stack (${{ matrix.part }})
+        env:
+          CARRY_SPEC: tests/browser/ask-once-pages.spec.ts
+          CARRY_GREP: ${{ matrix.grep }}
+          CARRY_PORT: "3100"
+          CARRY_OUT: ${{ github.workspace }}/ask-once-out
+        run: bash scripts/browser/carryLocal.sh
+      - name: Keep the records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ask-once-records-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.part }}
+          path: |
+            ask-once-records/**
+            ask-once-out/*.log
+          retention-days: 14
+          if-no-files-found: ignore
