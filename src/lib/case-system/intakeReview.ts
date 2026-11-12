@@ -785,12 +785,26 @@ export function statedInStory(story: string): Stated {
   const out: Stated = {};
   if (!story.trim()) return out;
   const date = whenItHappened(story);
-  if (date && isRealIsoDate(date)) out.whenHappened = date;
-  const amount = amountFromStory(story)?.value ?? QUOTED_AMOUNT.exec(story)?.[1];
+  // A month and year ("In March 2026") is stated as well as a full date (page test, 12 Nov: it was read, then dropped).
+  if (date && (isRealIsoDate(date) || MONTH_AND_YEAR.test(date))) out.whenHappened = date;
+  const amount = amountFromStory(story)?.value ?? QUOTED_AMOUNT.exec(story)?.[1] ?? onlyDollarAmount(story);
   if (amount) out.amount = amount.replace(/[$,\s]/g, "");
   const goal = goalFromStory(story);
   if (goal) out.wants = goal.value;
   return out;
+}
+
+const MONTH_AND_YEAR = new RegExp(`^(?:${MONTH_WORDS_EN.join("|")}) \\d{4}$`);
+
+/**
+ * The story's one dollar amount, when it has exactly one ("A mechanic charged me $1,800", "a $600 deposit"): offered,
+ * never filled in (site owner, 12 Nov: a value stated in the story is offered once; Yes / No / Not sure). Two different
+ * amounts: none, which one is claimed is unclear. The one-click amount reader (claimAmount.ts) still skips a price, fee,
+ * deposit or amount paid (#471); this is only the offer, with the sentence it came from.
+ */
+function onlyDollarAmount(story: string): string | undefined {
+  const amounts = new Set([...story.matchAll(/\$\s?(\d[\d,]*(?:\.\d{2})?)/g)].map((match) => Number(match[1].replace(/,/g, ""))).filter((value) => Number.isFinite(value) && value > 0));
+  return amounts.size === 1 ? String([...amounts][0]) : undefined;
 }
 
 /** "payment was due July 10", "by July 10": a deadline, not when it happened. */

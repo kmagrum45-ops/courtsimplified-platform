@@ -79,6 +79,26 @@ async function main() {
   check("4. a settled fact is marked add it when you know", needed.find((item) => item.fact === "whenHappened")?.addWhenYouKnow === true);
 
   check("5. a typed value is known even when the story states another", factStatus(fileWith("amount", STATES[0][1]), "amount", { amount: "9999" }) === "known");
+
+  // 6 and 7 (page test, 12 Nov): stories the chat still asked cold. Offers only (Yes / No / Not sure); site owner, 12 Nov.
+  const { withStatedProposals } = await import("../../src/lib/case-system/intake/statedProposals");
+  const { QUESTION_BANK } = await import("../../src/lib/case-system/intake/questionBank");
+  const asked = (ids: string[]) => ids.map((id) => QUESTION_BANK.find((question) => question.id === id)).filter(Boolean) as never[];
+  const friend = "In March 2026 I lent my friend Alex Testwood $4,500 for a car repair. He promised to pay me back by June 1, 2026.";
+  check("6. a month and year is offered as when it happened", statedInStory(friend).whenHappened === "March 2026", JSON.stringify(statedInStory(friend)));
+  const monthOffer = withStatedProposals(friend, asked(["sc-orient-when-happened"]), []);
+  check("6. its offer shows the month and year and quotes the sentence it is in", monthOffer.length === 1 && monthOffer[0].answer === "March 2026" && monthOffer[0].storyQuote.startsWith("In March 2026 I lent"), JSON.stringify(monthOffer));
+  for (const [story, amount] of [
+    ["A mechanic charged me $1,800 on March 9, 2026 for a repair that did not fix my car's engine.", "1800"],
+    ["I paid a contractor $6,000 to renovate my bathroom in April 2026 and the work was never finished.", "6000"],
+    ["I paid a $600 deposit for a wedding venue on January 10, 2026. The venue cancelled and kept the deposit.", "600"],
+    ["My coworker signed an IOU for $900 on April 4, 2026 and has not paid it back.", "900"],
+  ] as const) {
+    check(`7. the story's only amount is offered (${amount})`, statedInStory(story).amount === amount, JSON.stringify(statedInStory(story)));
+    check(`7. the one-click amount reader still skips it (#471) (${amount})`, claimAmountFromStory(story) === null, JSON.stringify(claimAmountFromStory(story)));
+  }
+  const two = "I paid $600 for the venue and $200 for the flowers, and both were kept.";
+  check("7. two different amounts: none is offered (which one is unclear)", statedInStory(two).amount === undefined, JSON.stringify(statedInStory(two)));
   finish();
 }
 function finish() {

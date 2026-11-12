@@ -17,6 +17,8 @@ import type { IntakeQuestion } from "./questionBank";
 /** An offer as the chat card shows it (the AI's proposals have this shape too, plus their choices). */
 export type StatedOffer = { questionId: string; questionText: string; answer: string; storyQuote: string; dateQuestion?: boolean };
 
+const ISO_DAY = /^\d{4}-\d{2}-\d{2}$/;
+
 /** The fact a question asks for that the story reader can state. */
 const STATED_FACTS = ["amount", "whenHappened", "wants"] as const;
 
@@ -27,14 +29,17 @@ function quoteFor(story: string, fact: (typeof STATED_FACTS)[number], value: str
   const found = fact === "amount"
     ? all.find((sentence) => sentence.replace(/[$,]/g, "").includes(digits))
     : fact === "whenHappened"
-      ? all.find((sentence) => sentence.includes(String(Number(value.slice(8, 10)))) && sentence.includes(value.slice(0, 4)))
+      ? (ISO_DAY.test(value)
+        ? all.find((sentence) => sentence.includes(String(Number(value.slice(8, 10)))) && sentence.includes(value.slice(0, 4)))
+        : all.find((sentence) => sentence.toLowerCase().includes(value.toLowerCase())))
       : all.find((sentence) => sentence.toLowerCase().includes(value.toLowerCase().slice(0, 20)));
   return (found ?? all[0] ?? story).trim().slice(0, 300);
 }
 
 /** How the offer shows the value: a day as the court writes it, an amount in dollars, the words as written. */
 function shown(fact: (typeof STATED_FACTS)[number], value: string): string {
-  if (fact === "whenHappened") return formatForCourt(value);
+  // A month and year ("March 2026") is shown as the story wrote it; a full date as the court writes it.
+  if (fact === "whenHappened") return ISO_DAY.test(value) ? formatForCourt(value) : value;
   if (fact === "amount") return `$${Number(value).toLocaleString("en-CA", { minimumFractionDigits: /\./.test(value) ? 2 : 0, maximumFractionDigits: 2 })}`;
   return value;
 }
