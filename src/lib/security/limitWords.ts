@@ -61,8 +61,8 @@ export const AI_LIMIT_WORDS =
 export const AI_LIMIT_COOKIE = "cs_ai_limit";
 
 /** The spending limits (aiSpendLimit.ts SpendLimitKind), named here so the browser can read the mark. */
-export type LimitKind = "user-daily" | "user-hourly" | "ip-daily" | "site-daily";
-const KINDS: readonly LimitKind[] = ["user-daily", "user-hourly", "ip-daily", "site-daily"];
+export type SpendKind = "user-daily" | "user-hourly" | "ip-daily" | "site-daily";
+const KINDS: readonly SpendKind[] = ["user-daily", "user-hourly", "ip-daily", "site-daily"];
 
 /** The next Toronto midnight after `now` (Toronto's offsets are whole hours: the first hour whose day is another). */
 function nextOntarioMidnight(now: number): number {
@@ -73,18 +73,18 @@ function nextOntarioMidnight(now: number): number {
 }
 
 /** When a limit refused at `now` lets help back: the next clock hour for the hourly limit, else the next Toronto midnight. */
-export function limitEndsAt(kind: LimitKind, now: number): number {
+export function limitEndsAt(kind: SpendKind, now: number): number {
   return kind === "user-hourly" ? Math.floor(now / 3_600_000) * 3_600_000 + 3_600_000 : nextOntarioMidnight(now);
 }
 
 /** The words for a refusal by this limit: the owner's words for a day's limit; for the hour's, the time help is back. */
-export function limitWordsFor(kind: LimitKind, now: number = Date.now()): string {
+export function limitWordsFor(kind: SpendKind, now: number = Date.now()): string {
   if (kind !== "user-hourly") return AI_LIMIT_WORDS;
   return `You've reached this hour's limit for AI help. Your case is saved. The rest of the site still works, and AI help is back at ${timeOfDayInOntario(new Date(limitEndsAt(kind, now)))}.`;
 }
 
 /** The mark a refusal leaves: its cookie value, how long it lasts (seconds) and when it ends. Pure. */
-export function limitMark(kind: LimitKind, now: number): { value: string; maxAge: number; until: number } {
+export function limitMark(kind: SpendKind, now: number): { value: string; maxAge: number; until: number } {
   const until = limitEndsAt(kind, now);
   return { value: `${kind}|${until}`, maxAge: Math.max(1, Math.round((until - now) / 1000)), until };
 }
@@ -96,8 +96,8 @@ export function limitNoticeWords(cookieString: string, now: number): string | nu
     if (name !== AI_LIMIT_COOKIE) continue;
     const [kind, until] = decodeURIComponent(rest.join("=")).split("|");
     const ends = Number(until);
-    if (!KINDS.includes(kind as LimitKind) || !Number.isFinite(ends) || now >= ends) return null;
-    return limitWordsFor(kind as LimitKind, ends - 1);
+    if (!KINDS.includes(kind as SpendKind) || !Number.isFinite(ends) || now >= ends) return null;
+    return limitWordsFor(kind as SpendKind, ends - 1);
   }
   return null;
 }
