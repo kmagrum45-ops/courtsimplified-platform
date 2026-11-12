@@ -1087,14 +1087,6 @@
     "scanFound": true
   },
   {
-    "row": 78,
-    "fact": "amount",
-    "pattern": "am.claimAmountFromStory",
-    "file": "app/builder/_components/guidedFields.ts",
-    "reason": "Found by the guard's scan beside inventory row 78 (the same store or reader, in a file the inventory did not name): amount :: src/lib/case-system/claimAmount.ts / storyAnswers.ts:169 / narrativePrefill.ts / storyLines.ts",
-    "scanFound": true
-  },
-  {
     "row": 79,
     "fact": "outcome / wants",
     "pattern": "wo.legalRemedy",
