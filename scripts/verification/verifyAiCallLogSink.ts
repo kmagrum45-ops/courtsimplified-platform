@@ -103,6 +103,21 @@ check(
   "a typo in the override must fall back to the safe default, not to the database",
 );
 
+check(
+  "on Vercel (any VERCEL_ENV) with no override, the database is used — never the file sink",
+  ["production", "preview", "development"].every(
+    (value) => sinkFor({ VERCEL_ENV: value } as unknown as NodeJS.ProcessEnv) === "database",
+  ),
+  "Vercel's filesystem is read-only: the file sink there writes nothing, so an " +
+    "AI call on the live site or a preview left no audit row at all (item O, 2026-10-29)",
+);
+
+check(
+  "on Vercel the explicit override still wins",
+  sinkFor({ VERCEL_ENV: "preview", AI_CALL_LOG: "off" } as unknown as NodeJS.ProcessEnv) === "off" &&
+    sinkFor({ VERCEL_ENV: "preview", AI_CALL_LOG: "file" } as unknown as NodeJS.ProcessEnv) === "file",
+);
+
 // ---------------------------------------------------------------------------
 // 2. THE PART THAT MATTERS: nothing reaches the network
 // ---------------------------------------------------------------------------
@@ -164,6 +179,132 @@ async function logThreeCalls(): Promise<number> {
   return clientsBuilt;
 }
 
+// ---------------------------------------------------------------------------
+// 3. On the database sink, the write finishes before the wrapper resolves, and a
+//    failed write is loud, never silent, and never breaks the person's request.
+// ---------------------------------------------------------------------------
+//
+// The failure (item O, 2026-10-29): the insert was fire and forget. On Vercel a
+// function may be frozen the moment its response is sent, so an un-awaited
+// write can simply never happen, and a failed one only reached a console line
+// nobody reads. All with a fake client: no network, no database.
+
+const FAKE_ENV: Record<string, string> = {
+  AI_CALL_LOG: "database",
+  NEXT_PUBLIC_SUPABASE_URL: "https://fake.invalid",
+  SUPABASE_SERVICE_ROLE_KEY: "fake-not-a-key",
+};
+
+async function withFakeEnv<T>(work: () => Promise<T>): Promise<T> {
+  const saved: Record<string, string | undefined> = {};
+  for (const key of Object.keys(FAKE_ENV)) {
+    saved[key] = process.env[key];
+    process.env[key] = FAKE_ENV[key];
+  }
+  try {
+    return await work();
+  } finally {
+    for (const key of Object.keys(saved)) {
+      if (saved[key] === undefined) delete process.env[key];
+      else process.env[key] = saved[key];
+    }
+  }
+}
+
+type FakeInsert = (
+  table: string,
+  row: unknown,
+) => Promise<{ error: { code?: string; message?: string } | null }>;
+
+async function oneLoggedCall(insert: FakeInsert): Promise<string> {
+  const restore = setAiCallLogClientFactory((() => ({
+    from: (table: string) => ({ insert: (row: unknown) => insert(table, row) }),
+  })) as unknown as typeof import("@supabase/supabase-js").createClient);
+  try {
+    return await withFakeEnv(() =>
+      withAiCallContext({ callType: "stage-resolver", caseId: "sink-test" }, async () => {
+        await observeAiCall({ model: "gpt-4o-mini", messages: [] }, async () => ({
+          choices: [{ message: { content: "{}" } }],
+        }));
+        return "the person's answer";
+      }),
+    );
+  } finally {
+    restore();
+  }
+}
+
+async function captureErrors<T>(work: () => Promise<T>): Promise<{ result: T | Error; lines: string[] }> {
+  const lines: string[] = [];
+  const original = console.error;
+  console.error = (...args: unknown[]) => {
+    lines.push(args.map((arg) => (typeof arg === "string" ? arg : JSON.stringify(arg))).join(" "));
+  };
+  try {
+    return { result: await work(), lines };
+  } catch (error) {
+    return { result: error instanceof Error ? error : new Error(String(error)), lines };
+  } finally {
+    console.error = original;
+  }
+}
+
+async function checkDatabaseWriteIsAwaitedAndLoud(): Promise<void> {
+  // A slow insert: 150 ms. If the wrapper does not wait, it resolves first.
+  let slowWriteFinished = false;
+  await oneLoggedCall(async (table) => {
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    if (table === "ai_call_log") slowWriteFinished = true;
+    return { error: null };
+  });
+  check(
+    "the database write has FINISHED by the time the wrapper resolves",
+    slowWriteFinished,
+    "the insert was still in flight when the request's work returned — on Vercel " +
+      "the function can be frozen then and the row never written",
+  );
+
+  // A failed insert, as PostgREST reports a CHECK violation.
+  const tables: string[] = [];
+  const failed = await captureErrors(() =>
+    oneLoggedCall(async (table) => {
+      tables.push(table);
+      return table === "ai_call_log"
+        ? { error: { code: "23514", message: "violates check constraint" } }
+        : { error: null };
+    }),
+  );
+  check(
+    "a failed insert does not throw into the person's request",
+    failed.result === "the person's answer",
+    failed.result instanceof Error ? failed.result.message : String(failed.result),
+  );
+  check(
+    "a failed insert logs a loud, stable error line",
+    failed.lines.some((line) => line.startsWith("[aiCallLog] WRITE FAILED") && line.includes("23514")),
+    `console.error lines: ${JSON.stringify(failed.lines)}`,
+  );
+  check(
+    "a failed insert is also recorded in server_errors",
+    tables.includes("server_errors"),
+    `tables written: ${tables.join(", ") || "(none)"}`,
+  );
+
+  // An insert that rejects outright (network down) is just as loud and just as harmless.
+  const rejected = await captureErrors(() =>
+    oneLoggedCall(async (table) => {
+      if (table === "ai_call_log") throw new Error("fetch failed");
+      return { error: null };
+    }),
+  );
+  check(
+    "a rejected insert does not throw and logs the stable error line",
+    rejected.result === "the person's answer" &&
+      rejected.lines.some((line) => line.startsWith("[aiCallLog] WRITE FAILED")),
+    `result: ${String(rejected.result)}; lines: ${JSON.stringify(rejected.lines)}`,
+  );
+}
+
 async function main(): Promise<void> {
   // The rows are staged by observeAiCall and flushed when the context exits, so
   // they are on disk by the time this resolves.
@@ -209,6 +350,8 @@ async function main(): Promise<void> {
 
     rmSync(FILE_SINK_PATH);
   }
+
+  await checkDatabaseWriteIsAwaitedAndLoud();
 
   // ---------------------------------------------------------------------------
 
