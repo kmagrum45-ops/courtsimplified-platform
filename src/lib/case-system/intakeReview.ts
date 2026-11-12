@@ -535,10 +535,32 @@ const emptyValue = (value: ReviewEntry["value"]) => value === "" || (Array.isArr
  */
 export function undecidedStoryOffers(checkpoint: Checkpoint, master?: unknown): number {
   const suggestions = suggestInitialAnswers(checkpoint);
-  const questions = reviewQuestionList(checkpoint, master).filter((question) => !question.answered && !question.notYet && suggestions[question.id]).length;
+  const choices = reviewOfferChoicesOf(checkpoint);
+  const questions = reviewQuestionList(checkpoint, master).filter((question) => questionOfferUndecided(question, suggestions, choices)).length;
   const file = caseFileOf(checkpoint, master);
-  const boxes = reviewEntries(checkpoint).filter((entry) => entry.fromStory && emptyValue(entry.value) && reviewBoxState(entry, file) === "ask").length;
+  const boxes = reviewEntries(checkpoint).filter((entry) => boxOfferUndecided(entry, file, choices)).length;
   return questions + boxes;
+}
+
+/**
+ * THE REVIEW'S THREE CHOICES ON A STORY OFFER (site owner, 12 Nov 2026: "three choices, no tick"). Yes uses the
+ * suggestion (it becomes the answer); "no" (No, that's not right) leaves the box or question to answer plainly; "unsure"
+ * (I'm not sure) settles it, add it when you know. Kept in the review's own record, builder.reviewOfferChoices, by key.
+ */
+export type ReviewOfferChoice = "no" | "unsure";
+export const offerKeyOfQuestion = (id: string) => `q:${id}`;
+export const offerKeyOfEntry = (entry: Pick<ReviewEntry, "section" | "nested" | "field">) => `box:${entry.section}.${entry.nested ? `${entry.nested}.` : ""}${entry.field}`;
+export function reviewOfferChoicesOf(checkpoint: Checkpoint): Record<string, ReviewOfferChoice> {
+  const raw = object(object(checkpoint.sections.builder).reviewOfferChoices);
+  return Object.fromEntries(Object.entries(raw).filter(([, choice]) => choice === "no" || choice === "unsure")) as Record<string, ReviewOfferChoice>;
+}
+/** A question's story offer still to choose on: one rule for the count and for the screen, so Continue never waits on a choice not shown. */
+export function questionOfferUndecided(question: { id: string; answered: boolean; notYet?: unknown }, suggestions: Record<string, unknown>, choices: Record<string, ReviewOfferChoice>): boolean {
+  return !question.answered && !question.notYet && Boolean(suggestions[question.id]) && !choices[offerKeyOfQuestion(question.id)];
+}
+/** A review box's story offer still to choose on (the same rule for the count and for the screen). */
+export function boxOfferUndecided(entry: ReviewEntry, file: CaseFile, choices: Record<string, ReviewOfferChoice>): boolean {
+  return Boolean(entry.fromStory) && emptyValue(entry.value) && reviewBoxState(entry, file) === "ask" && !choices[offerKeyOfEntry(entry)];
 }
 
 /** The facts of the review's boxes that are shown: essential ones, and optional ones with something in them. */
