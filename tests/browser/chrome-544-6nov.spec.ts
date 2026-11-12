@@ -19,7 +19,7 @@ import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { deleteHarnessUser, harnessAdmin } from "./harness/realTestSession";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { serveModelStandIns } from "./harness/thisCommitServer";
-import { recordInitialUnknowns } from "./harness/intakeReview";
+import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 import { asksForDate } from "../../src/lib/case-system/dates";
 import { chooseOffers } from "./harness/offers";
@@ -98,7 +98,7 @@ export async function openReview(page: Page, id: string, step = "guided") {
 export async function confirmReview(page: Page) {
   const panel = page.getByTestId("intake-review");
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
 }

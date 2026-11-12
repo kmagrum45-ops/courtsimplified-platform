@@ -23,7 +23,7 @@ import { deleteHarnessUser } from "./harness/realTestSession";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns } from "./harness/thisCommitServer";
-import { recordInitialUnknowns, saveCaseStory } from "./harness/intakeReview";
+import { recordInitialUnknowns, saveCaseStory, tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
 
@@ -39,7 +39,7 @@ async function readyToConfirm(page: Page) {
   const filed = page.locator('[data-question="sc-claim-filed"]');
   if (await filed.count()) await filed.getByRole("button", { name: "No", exact: true }).click();
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
 }
 
 /** Each request that works out a next step (the analysis routes), counted from now. */

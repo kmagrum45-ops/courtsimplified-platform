@@ -74,6 +74,7 @@ import { factsAskedTwice, heldFacts, heldViolations, recordAsks, repeatViolation
 import { countsLine, countsOf, readBaseline, shows, splitByBaseline, splitUnreached, writeRunRecord, type CarryKind, type CarryViolation } from "./harness/carryCounts";
 import { asksForDate } from "../../src/lib/case-system/dates";
 import { chooseOffers } from "./harness/offers";
+import { tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
@@ -444,7 +445,7 @@ async function confirmAndShow(run: Run) {
   await answerReview(run);
   const panel = page.getByTestId("intake-review");
   if ((await panel.getAttribute("data-phase")) !== "user-confirmed") {
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
   }
@@ -800,7 +801,7 @@ async function secondCaseStageNotSure(run: Run) {
   if ((await panel.getAttribute("data-phase")) !== "user-confirmed") {
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
   }

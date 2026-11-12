@@ -17,7 +17,7 @@ import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { autoAnswerSituation } from "./harness/situation";
 import { serveFromThisCommit, serveModelStandIns } from "./harness/thisCommitServer";
-import { recordInitialUnknowns, saveCaseStory } from "./harness/intakeReview";
+import { recordInitialUnknowns, saveCaseStory, tickIfAsked } from "./harness/intakeReview";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 import { chooseOffers } from "./harness/offers";
 
@@ -81,7 +81,7 @@ async function confirmReview(page: Page) {
   if (await panel.getAttribute("data-phase") === "collecting") await page.getByTestId("intake-start-review").click();
   await expect(panel).toHaveAttribute("data-phase", "reviewing");
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
 }

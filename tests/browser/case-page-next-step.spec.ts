@@ -23,7 +23,7 @@ import { grantSiteAccess } from "./harness/siteAccess";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { serveFromThisCommit } from "./harness/thisCommitServer";
 import { openBuilder } from "./harness/builderGate";
-import { recordInitialUnknowns, saveCaseStory } from "./harness/intakeReview";
+import { recordInitialUnknowns, saveCaseStory, tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
@@ -42,7 +42,7 @@ async function confirmHere(page: Page) {
   if (await kind.count()) await kind.click();
   if (await q("sc-claim-filed").count()) await q("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
 }

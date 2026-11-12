@@ -26,7 +26,7 @@ import { deleteHarnessUser, harnessAdmin } from "./harness/realTestSession";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns } from "./harness/thisCommitServer";
-import { recordInitialUnknowns } from "./harness/intakeReview";
+import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
@@ -70,7 +70,7 @@ async function readyToConfirm(page: Page, court: string) {
     if (await kind.count()) await kind.click();
   }
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
 }
 
 for (const court of ["small-claims", "civil", "family"] as const) {

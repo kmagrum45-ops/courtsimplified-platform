@@ -20,7 +20,7 @@ import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { deleteHarnessUser, harnessAdmin } from "./harness/realTestSession";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { serveModelStandIns } from "./harness/thisCommitServer";
-import { recordInitialUnknowns } from "./harness/intakeReview";
+import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
@@ -37,7 +37,7 @@ async function confirmHere(page: Page) {
   await expect(panel).toHaveAttribute("data-phase", "reviewing", { timeout: 30_000 });
   // The kind is left "I do not know yet" here, and picked on the overview (Form 7A's checklist needs a kind of claim).
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
 }

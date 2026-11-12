@@ -26,6 +26,7 @@ import { deleteHarnessUser } from "./harness/realTestSession";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 import { NOTHING_LEFT_TO_ASK } from "../../src/lib/case-system/copy/askCopy";
+import { tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
@@ -119,7 +120,7 @@ for (const court of ["family", "civil", "small-claims"] as const) {
       else { await question.locator(`input[data-testid=intake-field-pick][value="${kind.value}"]`).check(); await question.getByTestId("intake-field-save").click(); }
       const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
       while (await unknowns.count()) { const n = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(n - 1, { timeout: 20_000 }); }
-      await page.getByTestId("intake-review-acknowledgement").check();
+      await tickIfAsked(page);
       await page.getByTestId("intake-confirm").click();
       await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
       await expect(page.getByTestId("intake-save-status")).toContainText(/saved/i, { timeout: 60_000 });

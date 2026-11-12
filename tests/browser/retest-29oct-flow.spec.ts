@@ -47,7 +47,7 @@ import { deleteHarnessUser } from "./harness/realTestSession";
 import { createClient } from "@supabase/supabase-js";
 import { isKnownProblem } from "./harness/knownProblems29oct-flow";
 import { openBuilder } from "./harness/builderGate";
-import { recordInitialUnknowns, saveCaseStory } from "./harness/intakeReview";
+import { recordInitialUnknowns, saveCaseStory, tickIfAsked } from "./harness/intakeReview";
 import { countedStepDeadlines } from "../../src/lib/case-system/caseFile/stepDeadlines";
 import { formatForCourt } from "../../src/lib/case-system/dates";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
@@ -78,7 +78,7 @@ async function confirmHere(page: Page) {
   const use = q("sc-amount-claimed").getByRole("button", { name: /^Use the suggestion: .*$/ });
   if (await use.count()) await use.first().click();
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
 }
@@ -308,7 +308,7 @@ async function reachNextStep(page: import("@playwright/test").Page) {
   if (await q("sc-claim-filed").count()) await q("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
   await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
@@ -460,7 +460,7 @@ test("retest-29oct D1: typing into the form's timeline after Confirm keeps the c
   const use = panel.getByRole("button", { name: /^Use the suggestion: \$6,000$/ });
   if (await use.count()) await use.first().click();
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
   await page.getByRole("button", { name: "Show my next step", exact: true }).first().click();

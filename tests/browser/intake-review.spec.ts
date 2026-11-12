@@ -1,4 +1,4 @@
-import { recordInitialUnknowns, saveCaseStory } from "./harness/intakeReview";
+import { recordInitialUnknowns, saveCaseStory, tickIfAsked } from "./harness/intakeReview";
 import { expect, test } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
 import { answerSituation, autoAnswerSituation } from "./harness/situation";
@@ -26,7 +26,7 @@ test("Small Claims guided route: review edits update the existing unsent story",
   await page.getByTestId("intake-review").getByTestId("review-story-save").click();
   await expect(story).toHaveValue(CORRECTION);
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   // Wait for the save to land: a reload mid-save correctly stays "reviewing" (CI race, 2026-10-18).
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
@@ -84,7 +84,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await page.getByTestId("intake-review").getByTestId("review-story-save").click();
     await expect(panel).toHaveAttribute("data-phase", "reviewing");
     await recordInitialUnknowns(page);
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
     const confirmed = master().workflowStatus as Record<string, unknown>;
@@ -124,7 +124,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     const count = await page.getByTestId("intake-unknown").count();
     await expect.poll(() => (((master().intakeCheckpoint as { sections: { builder?: { initialUnknowns?: string[] } } }).sections.builder?.initialUnknowns) ?? []).length).toBe(count);
     account.fail(true);
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel.getByRole("alert")).toContainText("not saved");
     expect((master().workflowStatus as Record<string, unknown>).intakeCompleted).toBe(false);
@@ -132,7 +132,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await expect(panel).toHaveAttribute("data-phase", "reviewing");
     account.fail(false);
     await recordInitialUnknowns(page);
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
     master().workflowStatus = { intakeCompleted: true, formsReviewed: true };
@@ -160,7 +160,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await page.reload();
     await expect(panel).toHaveAttribute("data-phase", "reviewing");
     await recordInitialUnknowns(page);
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
     await page.reload();
@@ -198,7 +198,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     checkpoint.revision = checkpoint.inputRevision = "99999999-9999-4999-8999-999999999999";
     master.workflowStatus = { intakeCompleted: false, intakeReview: { version: 1 } };
     const callsBeforeConfirmation = account.calls();
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(page.getByTestId("intake-review").getByRole("alert")).toContainText("not saved");
     expect((master.workflowStatus as Record<string, unknown>).intakeCompleted).toBe(false);

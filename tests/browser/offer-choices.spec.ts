@@ -148,3 +148,30 @@ test("Civil offer: Yes / No, that's not right / I'm not sure; not sure is never 
     await deleteHarnessUser(userId);
   }
 });
+
+test("the review is a summary: every value typed or said Yes to, so no tick and no confirmation; one press continues", async ({ page }) => {
+  test.setTimeout(600_000);
+  await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+  const userId = await authenticateRealTestUser(page, { realCases: true });
+  try {
+    await serveModelStandIns(page, "small-claims", userId);
+    await startSmallClaims(page);
+    await chatToTheEnd(page, () => "yes");
+    const panel = page.getByTestId("intake-review");
+    await expect(panel).toBeVisible({ timeout: 60_000 });
+    if ((await panel.getAttribute("data-phase")) === "collecting") await page.getByTestId("intake-start-review").filter({ visible: true }).first().click();
+    await expect(panel).toHaveAttribute("data-phase", /reviewing|user-confirmed/, { timeout: 60_000 });
+    if ((await panel.getAttribute("data-phase")) === "reviewing") {
+      // Unanswered initial questions are marked as the person does; nothing typed is confirmed again.
+      const unknowns = page.locator('input[data-testid="intake-unknown"]:not(:checked)');
+      while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
+      await expect(page.getByTestId("intake-review-acknowledgement"), "no tick: a value the person typed never asks for confirmation").toHaveCount(0);
+      await expect(page.getByTestId("intake-confirm"), "the one button continues").toHaveText("Continue");
+      await expect(page.getByText("Confirm my initial information"), "no confirmation is asked").toHaveCount(0);
+      await page.getByTestId("intake-confirm").click();
+    }
+    await expect(panel, "one press").toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
+  } finally {
+    await deleteHarnessUser(userId);
+  }
+});

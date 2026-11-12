@@ -527,6 +527,20 @@ export function remainingEssentialQuestions(stored: Checkpoint, master?: unknown
 /** Empty as a review box shows it: nothing typed, or an empty list. */
 const emptyValue = (value: ReviewEntry["value"]) => value === "" || (Array.isArray(value) && value.length === 0);
 
+/**
+ * THE OFFERS FROM THE STORY STILL UNDECIDED (site owner, 11 Nov 2026: "the review: Confirm only for story offers not yet
+ * decided. A value the person typed never asks for confirmation"). A suggestion read from the story for a question not
+ * answered and not said "not sure", and a review box with a value offered from the story that the case file does not
+ * hold. Zero: nothing is left for the person to decide, so the review asks for no confirmation.
+ */
+export function undecidedStoryOffers(checkpoint: Checkpoint, master?: unknown): number {
+  const suggestions = suggestInitialAnswers(checkpoint);
+  const questions = reviewQuestionList(checkpoint, master).filter((question) => !question.answered && !question.notYet && suggestions[question.id]).length;
+  const file = caseFileOf(checkpoint, master);
+  const boxes = reviewEntries(checkpoint).filter((entry) => entry.fromStory && emptyValue(entry.value) && reviewBoxState(entry, file) === "ask").length;
+  return questions + boxes;
+}
+
 /** The facts of the review's boxes that are shown: essential ones, and optional ones with something in them. */
 function shownBoxFacts(stored: Checkpoint): Set<SlotFact> {
   return new Set(reviewEntries(stored).filter(entry => entry.essential || !emptyValue(entry.value)).flatMap(entry => slotsOfQuestion(entry.field)));

@@ -26,6 +26,7 @@ import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { autoAnswerSituation } from "./harness/situation";
 import { expectServedNotAskedInReview, expectServedNotAskedOnNextStep, openServedAdd } from "./harness/servedOnce";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 20_000 });
 
@@ -129,7 +130,7 @@ for (const court of ["small-claims", "civil", "family"] as const) {
     const account = await start(page, court);
     const unknowns = panel(page).locator('input[data-testid="intake-unknown"]:not(:checked)');
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel(page)).toHaveAttribute("data-phase", "user-confirmed");
     await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
@@ -162,7 +163,7 @@ test(`Family: the review's "Day you were served" box asks for the year, and a ty
   await expect(panel(page).getByTestId("change-answer-needs-more")).toHaveCount(0);
   const unknowns = panel(page).locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel(page)).toHaveAttribute("data-phase", "user-confirmed");
   await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();

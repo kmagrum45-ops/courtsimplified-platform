@@ -52,7 +52,7 @@ import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation
 import { serveModelStandIns } from "./harness/thisCommitServer";
 import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { deleteHarnessUser } from "./harness/realTestSession";
-import { recordInitialUnknowns } from "./harness/intakeReview";
+import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { openBuilder } from "./harness/builderGate";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
@@ -138,7 +138,7 @@ async function reviewAndConfirm(page: Page, kind: string | null) {
   const kindQuestion = page.locator('[data-question="sc-orient-dispute-category"]');
   if (kind && (await kindQuestion.count())) await kindQuestion.getByRole("button", { name: choiceNamed(kind) }).click();
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
   await page.getByRole("button", { name: "Show my next step", exact: true }).first().click();
@@ -317,7 +317,7 @@ test("claim type, one value: a guest gives the kind in the review; it is never a
   await expect(kindQuestion, "the review asks the kind once (nothing has given it)").toHaveCount(1, { timeout: 60_000 });
   await kindQuestion.getByRole("button", { name: choiceNamed(DEFAMATION) }).click();
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   const panel = page.getByTestId("intake-review");
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });

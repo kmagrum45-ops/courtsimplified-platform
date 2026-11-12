@@ -25,6 +25,7 @@ import { grantSiteAccess } from "./harness/siteAccess";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 import { serveFromThisCommit } from "./harness/thisCommitServer";
 import { chooseOffers } from "./harness/offers";
+import { tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -174,7 +175,7 @@ test("Small Claims guided route, signed in: confirmed and next step made with $2
   // Everything else "I do not know yet", then Confirm and the next step (the saved case now holds $2,400 everywhere it copies it).
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const left = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(left - 1, { timeout: 20_000 }); }
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
   await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();

@@ -24,6 +24,7 @@ import { grantSiteAccess } from "./harness/siteAccess";
 import { serveFromThisCommit } from "./harness/thisCommitServer";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 import { chooseOffers } from "./harness/offers";
+import { tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -87,7 +88,7 @@ async function reviewWithAmount(page: Page): Promise<{ account: Account; panel: 
   await expect(question.getByTestId("intake-question-answered")).toContainText("$2,400", { timeout: 20_000 });
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const left = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(left - 1, { timeout: 20_000 }); }
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await expect(page.getByTestId("intake-confirm")).toBeEnabled({ timeout: 30_000 });
   return { account, panel, question };
 }
@@ -115,7 +116,7 @@ async function everyScreen(page: Page, account: Account, panel: Locator, how: st
   await expect(panel, `${how}: not confirmed on the tick given before the change`).toHaveAttribute("data-phase", "reviewing");
   await expect(panel, `${how}: the page asks for the tick again`).toContainText("Please tick to confirm again", { timeout: 20_000 });
   await expect(panel.locator(`[data-testid=intake-initial-question][data-question="${QUESTION}"]`).getByTestId("intake-question-answered"), `${how}: the review's list shows the new amount`).toContainText("2,650");
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel, `${how}: confirmed once ticked again`).toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
   await expect.poll(() => savedAmount(account), { timeout: 30_000, message: `${how}: the saved case (what the case page reads) holds the new amount` }).toBe(2650);

@@ -41,6 +41,7 @@ import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns, type Court } from "./harness/thisCommitServer";
 import { heldFacts, heldViolations, recordAsks, type Asked, type HeldState } from "./harness/askOnce";
 import { chooseOffers } from "./harness/offers";
+import { tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
@@ -271,7 +272,7 @@ for (const { court, entry } of RUNS) {
       while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
       await expect(page.getByTestId("intake-remaining-count").or(panel.locator("[data-testid=intake-confirm]")).first()).toBeVisible();
       if (await page.getByTestId("intake-remaining-count").count()) expect(await page.getByTestId("intake-remaining-count").innerText(), "nothing is still to answer once the rest is marked").toMatch(/^Nothing here is still to answer/);
-      await page.getByTestId("intake-review-acknowledgement").check();
+      await tickIfAsked(page);
       await expect(page.getByTestId("intake-confirm"), "Confirm is not blocked by a not-sure fact").toBeEnabled({ timeout: 30_000 });
       await page.getByTestId("intake-confirm").click();
       await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });

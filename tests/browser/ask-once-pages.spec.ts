@@ -32,7 +32,7 @@ import { autoAnswerSituation, answerSituation, situationAnswersFor, STARTING_NOT
 import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns, type Court } from "./harness/thisCommitServer";
 import { factsAskedTwice, factsOfAsk, heldViolations, recordAsks, repeatViolations, type Asked } from "./harness/askOnce";
-import { recordInitialUnknowns } from "./harness/intakeReview";
+import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { chooseOffers } from "./harness/offers";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
@@ -221,8 +221,11 @@ async function reviewAndNextStep(page: Page, story: Story, typed: Map<string, st
   await expect(panel).toHaveAttribute("data-phase", /reviewing|user-confirmed/, { timeout: 60_000 }).catch(() => {});
   const phase = await panel.getAttribute("data-phase");
   const confirmShown = await visible(page.getByTestId("intake-confirm"), 5_000);
-  seen.push(`review phase=${phase} confirm=${confirmShown} typed=${[...typed].map(([k, v]) => `${k}:${v}`).join(",")} text=${(await panel.innerText()).replace(/\s+/g, " ").slice(0, 4000)}`);
-  if (phase === "reviewing" && confirmShown) {
+  // The review asks for confirmation when it asks for its tick ("I have reviewed this information") next to "Confirm my
+  // initial information"; a "Continue" with no tick asks for nothing (the review as a summary, slice 3).
+  const confirmAsked = await visible(page.getByTestId("intake-review-acknowledgement"), 3_000);
+  seen.push(`review phase=${phase} confirm=${confirmShown} asked=${confirmAsked} typed=${[...typed].map(([k, v]) => `${k}:${v}`).join(",")} text=${(await panel.innerText()).replace(/\s+/g, " ").slice(0, 4000)}`);
+  if (phase === "reviewing" && confirmShown && confirmAsked) {
     // The words on the panel and the values in its boxes (a typed answer sits in a box, not in the text).
     const boxes = await panel.locator("input[type=text], input:not([type]), textarea").evaluateAll((items) => items.map((item) => (item as HTMLInputElement).value));
     const shown = `${(await panel.innerText()).replace(/\s+/g, " ")} ${boxes.join(" | ")}`;
@@ -232,8 +235,10 @@ async function reviewAndNextStep(page: Page, story: Story, typed: Map<string, st
       const hit = fact === "amount" ? new RegExp(`\\$?${digits.replace(/(\d)(?=(\d{3})+(\.|$))/g, "$1,?")}`).test(shown) : shown.toLowerCase().includes(value.toLowerCase());
       if (hit) found.push({ story: story.name, court: story.court, side: story.side, kind: "typed-reconfirm", fact, screen: "review", detail: `typed "${value}", shown again with "Confirm my initial information"` });
     }
+  }
+  if (phase === "reviewing" && confirmShown) {
     await recordInitialUnknowns(page).catch(() => {});
-    await page.getByTestId("intake-review-acknowledgement").check().catch(() => {});
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click().catch(() => {});
   }
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 }).catch(() => {});
