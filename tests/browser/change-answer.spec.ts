@@ -50,7 +50,8 @@ const KIND: Record<Court, { question: string; first: { value: string; words: str
   civil: { question: "issues", first: { value: "contract", words: "Contract / agreement dispute" }, then: { value: "debt", words: "Debt / money owed" } },
   "small-claims": { question: "sc-orient-dispute-category", first: { value: "Property damage", words: "Property damage" }, then: { value: "A contract or agreement dispute", words: "A contract or agreement dispute" } },
 };
-const CONFIRM_AGAIN = "You changed an answer, so please review and confirm again.";
+// The summary's words when an answer changed after Continue (site owner, 12 Nov 2026: "New words").
+const CHANGED_NOTE = "You changed an answer. Here is what we have now.";
 const NOT_CONFIRMED = /haven.t confirmed what kind of claim/i;
 
 async function start(page: Page, court: Court): Promise<void> {
@@ -177,12 +178,12 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       }
       await expect(reviewKindLine(page), "the review shows the new kind").toContainText(kind.then.words, { timeout: 30_000 });
       await expect(panelOf(page), "the confirmation is cancelled").toHaveAttribute("data-phase", "reviewing", { timeout: 30_000 });
-      await expect(page.getByTestId("intake-confirm-again"), "the review says why, in the owner's words").toHaveText(CONFIRM_AGAIN);
+      await expect(page.getByTestId("intake-confirm-again"), "the review says why, in the owner's words").toHaveText(CHANGED_NOTE);
       await savedNow(page);
       await page.reload();
       await openReview(page);
       await expect(panelOf(page), "reloaded, still not confirmed").toHaveAttribute("data-phase", "reviewing", { timeout: 60_000 });
-      await expect(page.getByTestId("intake-confirm-again"), "reloaded, the review still says why").toHaveText(CONFIRM_AGAIN);
+      await expect(page.getByTestId("intake-confirm-again"), "reloaded, the review still says why").toHaveText(CHANGED_NOTE);
       await expect(reviewKindLine(page), "reloaded, the review shows the new kind").toContainText(kind.then.words);
       expect.soft(await reviewKindLine(page).innerText(), "the review never shows the old kind").not.toContain(kind.first.words);
       await confirmAndShowNextStep(page);
@@ -196,7 +197,7 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       await expect(opened, "the case page's Change opens that fact's choices").toBeVisible({ timeout: 60_000 });
       await opened.getByTestId("change-answer-remove").click();
       await expect(reviewKindLine(page), "the review shows it removed").toHaveAttribute("data-removed", "true", { timeout: 30_000 });
-      await expect(page.getByTestId("intake-confirm-again")).toHaveText(CONFIRM_AGAIN);
+      await expect(page.getByTestId("intake-confirm-again")).toHaveText(CHANGED_NOTE);
       await savedNow(page);
       // Reloaded without ?change= (which would open the choices again, listing every kind).
       const reloaded = new URL(page.url());

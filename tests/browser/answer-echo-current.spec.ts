@@ -41,6 +41,8 @@ test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTi
 
 type Court = "family" | "civil" | "small-claims";
 const CONFIRM_AGAIN = "You changed an answer, so please review and confirm again.";
+// The summary's words when an answer changed after Continue (site owner, 12 Nov 2026: "New words"); the case page keeps CONFIRM_AGAIN.
+const CHANGED_NOTE = "You changed an answer. Here is what we have now.";
 const panelOf = (page: Page) => page.getByTestId("intake-review");
 const reviewKindLine = (page: Page) => panelOf(page).locator('[data-testid="intake-entry-held"][data-fact="claimKind"]');
 const savedNow = async (page: Page) => { await expect(page.getByTestId("intake-save-status")).toContainText(/saved/i, { timeout: 60_000 }).catch(() => {}); await page.waitForTimeout(1_500); };
@@ -201,12 +203,12 @@ for (const [court, atOnce] of [["small-claims", false], ["small-claims", true], 
       await openReview(page);
       await changeKind(page, court, kind.first.value, kind.then.value);
       await expect(reviewKindLine(page), "the review shows the new kind").toContainText(kind.then.words, { timeout: 30_000 });
-      await expect(page.getByTestId("intake-confirm-again"), "the review says why").toHaveText(CONFIRM_AGAIN);
+      await expect(page.getByTestId("intake-confirm-again"), "the review says why").toHaveText(CHANGED_NOTE);
       if (!atOnce) await savedNow(page);
       await page.reload();
       await expect(panelOf(page)).toBeVisible({ timeout: 60_000 });
       await openReview(page);
-      await expect(page.getByTestId("intake-confirm-again"), "reloaded, the review still says why").toHaveText(CONFIRM_AGAIN, { timeout: 30_000 });
+      await expect(page.getByTestId("intake-confirm-again"), "reloaded, the review still says why").toHaveText(CHANGED_NOTE, { timeout: 30_000 });
 
       // The case page, before confirming again: the message and the new kind, never the old one.
       await savedNow(page);
