@@ -102,6 +102,8 @@ export function confirmedDrafts<T extends Draft>(drafts: readonly T[], shownWith
     if (lead === undefined || lead < 0) return draft;
     const leader = drafts[lead];
     const edited = leader.answer.trim() !== (originals[lead] ?? "").trim();
-    return { ...draft, keep: leader.keep, answer: edited ? leader.answer : draft.answer };
+    // The choice made on the shown row (Yes / No / not sure) is the hidden row's too.
+    const choice = "choice" in leader ? { choice: (leader as { choice?: unknown }).choice } : {};
+    return { ...draft, keep: leader.keep, ...choice, answer: edited ? leader.answer : draft.answer } as T;
   });
 }

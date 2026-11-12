@@ -29,6 +29,7 @@ import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { expectNoInternalCodes } from "./harness/noInternalCodes";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
+import { chooseOffers } from "./harness/offers";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -64,7 +65,7 @@ async function smallClaimsChat(page: Page, goal: string, amount = "$3,000"): Pro
     await expect(finished.or(proposals).or(message).first()).toBeVisible({ timeout: 60_000 });
     await page.waitForTimeout(600);
     if (await finished.isVisible().catch(() => false)) break;
-    if (await proposals.isVisible().catch(() => false)) { await proposals.getByTestId("story-proposals-continue").click(); await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 }); continue; }
+    if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await proposals.getByTestId("story-proposals-continue").click(); await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 }); continue; }
     const text = (await message.innerText()).replace(/\s+/g, " ");
     if (text === last) break;
     last = text;

@@ -89,6 +89,9 @@ jobs:
       - name: The one function says whether a fact is known, offered, asked or settled; both gates use it; a quote is offered as the amount
         run: npm run test:fact-status
 
+      - name: No chip or suggested question asks the assistant for a prediction or a grade (rule 3)
+        run: npm run test:no-prediction-chips
+
       - name: Each AI call is priced from its model and real tokens (price table); a model with no price is never called
         run: npm run test:ai-price-table
 
@@ -964,6 +967,7 @@ jobs:
           tests/browser/review-save-on-leave.spec.ts
           tests/browser/removal-stays-removed.spec.ts
           tests/browser/review-writer.spec.ts
+          tests/browser/offer-choices.spec.ts
           --reporter=line --workers=1
 
       # The story-box spec saves a full-page screenshot of every story box at desktop and

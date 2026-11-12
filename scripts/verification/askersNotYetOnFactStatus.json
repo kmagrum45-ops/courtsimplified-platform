@@ -42,14 +42,6 @@
       "reason": "The Family situation questions have their own list and record; slice 5."
     },
     {
-      "file": "app/builder/_components/GuidedFormChat.tsx",
-      "reason": "Civil and Family chat asks through chatMayAsk (the second gate), offers yes/no only; slice 2."
-    },
-    {
-      "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
-      "reason": "The Small Claims chat: offers declined by Continue, then asked cold; slice 2."
-    },
-    {
       "file": "app/builder/_components/IntelligenceOverviewPanel.tsx",
       "reason": "The overview shows \"What to confirm next\" from the engine's own list; slice 5."
     },
@@ -100,10 +92,6 @@
     {
       "file": "src/lib/case-system/intake/depth/selectDepthQuestions.ts",
       "reason": "Depth questions: every authored question is asked, with no case-file check; slice 5."
-    },
-    {
-      "file": "src/lib/case-system/intake/selectQuestions.ts",
-      "reason": "Chooses bank questions through mayAsk, not the one function; slice 1."
     },
     {
       "file": "src/lib/case-system/intakeReview.ts",

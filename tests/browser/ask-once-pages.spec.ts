@@ -33,6 +33,7 @@ import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns, type Court } from "./harness/thisCommitServer";
 import { factsAskedTwice, factsOfAsk, heldViolations, recordAsks, repeatViolations, type Asked } from "./harness/askOnce";
 import { recordInitialUnknowns } from "./harness/intakeReview";
+import { chooseOffers } from "./harness/offers";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
 
@@ -154,6 +155,8 @@ async function smallClaimsChat(page: Page, story: Story, typed: Map<string, stri
     await page.waitForTimeout(800);
     if (await finished.isVisible().catch(() => false)) break;
     if (await proposals.isVisible().catch(() => false)) {
+      // Each offer answered Yes: the story's values are the person's (an offer never asked cold afterward).
+      await chooseOffers(proposals, "yes");
       await proposals.getByTestId("story-proposals-continue").click();
       await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 }).catch(() => {});
       continue;

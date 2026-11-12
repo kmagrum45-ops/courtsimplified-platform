@@ -44,6 +44,7 @@ import { UNSURE_SHOWN_SKIP, unsureShownAsAnswer } from "./harness/unsureShown";
 import { CHARTER_STORIES, MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, type Route } from "./storyPackMore";
 import { appendRecord } from "./harness/packRecords";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { chooseOffers } from "./harness/offers";
 
 // Actions wait up to 60 s: on a slow runner the story is read, and a guided turn answered,
 // in more than 20 s, and a button still disabled then is waiting, not broken.
@@ -346,7 +347,7 @@ async function smallClaimsGuided(page: Page, story: Story): Promise<number> {
       }
       // Pressed once, then waited for: while the next turn runs the card says it is working and its
       // button is held (owner, 28 Oct); pressing again then waited on a held button (#488 at real speed).
-      await proposals.getByTestId("story-proposals-continue").click();
+      await chooseOffers(proposals, "no"); await proposals.getByTestId("story-proposals-continue").click();
       await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 });
       continue;
     }

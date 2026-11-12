@@ -185,13 +185,13 @@ const SCAN = `(() => {
     const id = target ? target.getAttribute("data-testid") : "";
     if (id === "guided-form-skip" && chatKey) skipped.add("chat|" + chatKey);
     // An answer control of the chat's question, pressed: that question is answered (chatQuestionAnswered).
-    if (chatKey && (id === "guided-form-next" || id === "guided-form-from-story-yes" || id.startsWith("guided-option-"))) chatPressed.add(chatKey);
+    if (chatKey && (id === "guided-form-next" || id === "guided-form-from-story-yes" || id === "guided-form-from-story-unsure" || id.startsWith("guided-option-"))) chatPressed.add(chatKey);
     if (id === "triage-answer-not-yet" && triageKey) skipped.add("triage|" + triageKey);
     // The proposal card: read the ticks at the click itself. The scan runs every 200 ms, and an
     // untick followed at once by "continue" could otherwise leave the card's last-scanned ticks,
     // recording an unticked row as confirmed (m04-tenant, CI 29 Oct: a false "asked twice").
     const card = event.target instanceof Element ? event.target.closest("[data-testid=story-proposals]") : null;
-    if (card) window.__askOnceRows = [...card.querySelectorAll("[data-testid=story-proposal-row]")].filter((row) => { const tick = row.querySelector("input[type=checkbox]"); return !tick || tick.checked; }).map((row) => row.getAttribute("data-question-id"));
+    if (card) window.__askOnceRows = [...card.querySelectorAll("[data-testid=story-proposal-row]")].filter((row) => Boolean(row.querySelector("[data-testid=story-proposal-yes][aria-pressed=true], [data-testid=story-proposal-unsure][aria-pressed=true]"))).map((row) => row.getAttribute("data-question-id"));
     // The story given (founder's Chrome re-test of #536, 1 Nov): sent from the home page's story box, or from
     // the Small Claims chat's (its "Send" with the story box holding words, or "Send my story" under the saved story).
     const button = event.target instanceof Element ? event.target.closest("button") : null;

@@ -8,7 +8,8 @@
  */
 
 export type TranscriptMessage = {
-  from: "user" | "assistant";
+  /** "note": a neutral line about what the person chose on an offer card. */
+  from: "user" | "assistant" | "note";
   text: string;
   isQuestion?: boolean;
 };

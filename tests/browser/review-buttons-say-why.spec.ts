@@ -29,6 +29,7 @@ import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation
 import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns } from "./harness/thisCommitServer";
 import { recordInitialUnknowns, saveCaseStory } from "./harness/intakeReview";
+import { chooseOffers } from "./harness/offers";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
 
@@ -179,7 +180,7 @@ for (const route of ["small-claims form", "small-claims questions", "civil", "fa
           // The questions ended and the next step was asked for on their own: the review was sent back to its start.
           if (await page.getByTestId("intake-review").getAttribute("data-phase") === "reviewing") break;
           if (await proposals.isVisible().catch(() => false)) {
-            await proposals.getByTestId("story-proposals-continue").click();
+            await chooseOffers(proposals, "no"); await proposals.getByTestId("story-proposals-continue").click();
             await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 });
             continue;
           }

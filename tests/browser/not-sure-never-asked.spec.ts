@@ -40,6 +40,7 @@ import { answerSituation, autoAnswerSituation, situationAnswersFor, STARTING_NOT
 import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns, type Court } from "./harness/thisCommitServer";
 import { heldFacts, heldViolations, recordAsks, type Asked, type HeldState } from "./harness/askOnce";
+import { chooseOffers } from "./harness/offers";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
@@ -108,7 +109,7 @@ async function smallClaimsChat(page: Page): Promise<string | null> {
     await page.waitForTimeout(600);
     if (await finished.isVisible().catch(() => false)) break;
     if (await proposals.isVisible().catch(() => false)) {
-      await proposals.getByTestId("story-proposals-continue").click();
+      await chooseOffers(proposals, "no"); await proposals.getByTestId("story-proposals-continue").click();
       await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 });
       continue;
     }

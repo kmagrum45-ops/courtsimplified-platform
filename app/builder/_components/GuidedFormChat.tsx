@@ -2,7 +2,8 @@
 
 import { useIntakeRecovery, useIntakeReviewView, useIntakeState } from "../../_components/IntakeRecovery";
 import TribunalNotice, { COURT_LABELS, useTribunalFirst } from "../../_components/TribunalNotice";
-import { answerNow, askedAndReplied, caseFileOf, chatMayAsk } from "../../../src/lib/case-system/caseFile/caseFile";
+import { answerNow, askedAndReplied, caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
+import { mayShowQuestion } from "../../../src/lib/case-system/caseFile/factStatus";
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { NOTHING_LEFT_TO_ASK } from "../../../src/lib/case-system/copy/askCopy";
 import { openSituationChange } from "../../_components/SituationQuestions";
@@ -225,10 +226,10 @@ export default function GuidedFormChat({
   })), [caseFile, fields, values]);
   const heldElsewhere = useMemo(() => {
     if (!checkpoint || !caseFile) return new Set<string>();
-    // The one gate for every chat (caseFile.ts chatMayAsk): a fact the file holds, answered or "not
+    // The one function (factStatus.ts mayShowQuestion): a fact the file holds, answered or "not
     // sure", is not asked here, not even as the story's suggestion ("Is that right?"; site owner, 31
     // Oct: a not-sure fact is asked nowhere again, which replaced the story's one more offer).
-    return new Set(fields.filter((field) => !isAnswered(field, values[field.key]) && !chatMayAsk(caseFile, field.key)).map((field) => field.key));
+    return new Set(fields.filter((field) => !isAnswered(field, values[field.key]) && !mayShowQuestion(caseFile, field.key)).map((field) => field.key));
   }, [checkpoint, caseFile, fields, values]);
   // The conversation check (caseFile.ts askedAndReplied): a question this chat asked and the person replied to is not asked again.
   const replied = useMemo(() => heard.flatMap(({ question, reply }) => [{ role: "assistant", text: question }, { role: "user", text: reply }]), [heard]);
@@ -414,20 +415,32 @@ export default function GuidedFormChat({
                 <p className="mt-1 text-sm text-[#4d675f]">
                   From what you told us: &ldquo;{cutAtWord(offered.quote, 200)}&rdquo; Is that right?
                 </p>
+                {/* Three explicit choices (site owner, 11 Nov 2026): Yes keeps it; No, that's not right asks it once;
+                    I'm not sure records not sure for this question (never asked again, "add it when you know"). */}
                 <div className="mt-3 flex flex-wrap gap-2">
-                  {/* The one control every suggestion is offered with (owner, 31 Oct). */}
-                  <UseSuggestion
-                    testId="guided-form-from-story-yes"
-                    onUse={() => (group.length > 1 ? acceptGroup(group) : answer(offered.value, true))}
+                  <button
+                    type="button"
+                    data-testid="guided-form-from-story-yes"
+                    onClick={() => (group.length > 1 ? acceptGroup(group) : answer(offered.value, true))}
                     className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
-                  />
+                  >
+                    Yes
+                  </button>
                   <button
                     type="button"
                     data-testid="guided-form-from-story-no"
                     onClick={() => setNotFromStory((now) => new Set(now).add(current.key))}
                     className="rounded-xl border border-[#d8e6df] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67]"
                   >
-                    No, let me answer
+                    No, that&apos;s not right
+                  </button>
+                  <button
+                    type="button"
+                    data-testid="guided-form-from-story-unsure"
+                    onClick={() => answer(current.kind === "multi" ? [] : "")}
+                    className="rounded-xl border border-[#d8e6df] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67]"
+                  >
+                    I&apos;m not sure
                   </button>
                 </div>
               </div>

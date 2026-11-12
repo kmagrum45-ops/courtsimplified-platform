@@ -10,11 +10,12 @@
  *   - Small Claims review: the kind-of-dispute choice ("Property damage") is not pressed; it is
  *     offered with "Use the suggestion"; after a reload with nothing pressed, nothing was saved;
  *     one click saves it (the question moves out of Remaining, its choice marked).
- *   - Small Claims questions one at a time, "Here's what I understood": a row starts unticked and
- *     with no answer box filled in; continuing without using it confirms nothing; one click on
- *     "Use the suggestion" ticks it, and continuing records it.
- *   - Civil questions one at a time: a story offer is "Use the suggestion" (no "Yes, that's right");
- *     "No, let me answer" leaves every choice unpressed and nothing saved; one click saves it.
+ *   - Small Claims questions one at a time, "Here's what I understood": a row starts with no choice
+ *     made and no answer box filled in; since 11 Nov 2026 each row has three choices (Yes / No, that's
+ *     not right / I'm not sure); No confirms nothing; Yes keeps it, and what was chosen is a neutral
+ *     note, never the person's own bubble.
+ *   - Civil questions one at a time: a story offer is Yes / No, that's not right / I'm not sure;
+ *     No leaves every choice unpressed and nothing saved; one click on Yes saves it.
  *   - Family questions one at a time: the children box a part of the story answers starts EMPTY,
  *     with the story's words offered; one click fills it in.
  *
@@ -35,6 +36,7 @@ import { deleteHarnessUser } from "./harness/realTestSession";
 import { autoAnswerSituation, situationForSide, STARTING_NOTHING_FILED } from "./harness/situation";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 import { USE_THE_SUGGESTION } from "../../src/lib/case-system/copy/suggestionCopy";
+import { chooseOffers } from "./harness/offers";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
@@ -129,21 +131,21 @@ for (const use of [false, true]) {
       await startSmallClaims(page, DEFENDANT_STORY);
       const proposals = await guidedUntilProposals(page);
       const row = proposals.getByTestId("story-proposal-row").first();
-      await expect(row.locator("input[type=checkbox]"), "not ticked before the person chooses it").not.toBeChecked();
+      // Site owner, 11 Nov 2026: three explicit choices replace the tick box and the one "Use the suggestion" control,
+      // and what was chosen is a neutral note, never the person's own bubble ("Confirmed from my story" and "None of
+      // those were right" were written in their name). The rule this test guards stays: nothing is chosen for them.
+      await expect(row.locator("[aria-pressed=true]"), "no choice made before the person chooses").toHaveCount(0);
       await expect(row.locator("input[type=text]:not([disabled]), select:not([disabled])"), "no answer box filled in before the person chooses it").toHaveCount(0);
-      const offer = row.locator(OFFER);
-      await expect(offer, "offered with the one control").toHaveCount(1);
-      await expect(offer).toHaveText(offerWords);
-      const before = await page.locator("[data-testid=guided-message][data-from=user]").count();
-      if (use) {
-        await offer.click();
-        await expect(row.locator("input[type=checkbox]"), "one click ticks it").toBeChecked();
-      }
+      for (const choice of ["yes", "no", "unsure"]) await expect(row.getByTestId(`story-proposal-${choice}`), "offered with the three choices").toHaveCount(1);
+      const before = await page.locator("[data-testid=guided-message][data-from=note]").count();
+      await chooseOffers(proposals, use ? "yes" : "no");
+      if (use) await expect(row.getByTestId("story-proposal-yes"), "one click chooses it").toHaveAttribute("aria-pressed", "true");
       await proposals.getByTestId("story-proposals-continue").click();
-      const said = page.locator("[data-testid=guided-message][data-from=user]").nth(before);
+      const said = page.locator("[data-testid=guided-message][data-from=note]").nth(before);
       await expect(said).toBeVisible({ timeout: 60_000 });
-      if (use) await expect(said, "what was used is recorded").toContainText("Confirmed from my story");
-      else await expect(said, "ignored, nothing is confirmed").toHaveText(/None of those were right/);
+      if (use) await expect(said, "what was used is recorded").toContainText("You confirmed from your story");
+      else await expect(said, "ignored, nothing is confirmed").toHaveText(/Not right, so you'll be asked/);
+      await expect(page.locator("[data-testid=guided-message][data-from=user]").filter({ hasText: /Confirmed from|None of those/ }), "nothing written in the person's name").toHaveCount(0);
     } finally {
       await deleteHarnessUser(userId);
     }
@@ -167,8 +169,9 @@ test("Civil questions one at a time: a story offer is the one control; 'No, let 
       const offered = question.getByTestId("guided-form-from-story");
       if (await offered.isVisible().catch(() => false)) {
         const yes = question.getByTestId("guided-form-from-story-yes");
-        await expect(yes, "the story offer is the one control").toHaveAttribute("data-use-suggestion", "");
-        await expect(yes).toHaveText(offerWords);
+        // Site owner, 11 Nov 2026: the story offer has three explicit choices (Yes / No, that's not right / I'm not sure).
+        await expect(yes, "the story offer is Yes").toHaveText("Yes");
+        await expect(question.getByTestId("guided-form-from-story-unsure"), "and I'm not sure").toHaveCount(1);
         await expect(offered.getByText(/that's right/i), "no words of its own").toHaveCount(0);
         if (!ignored) {
           await question.getByTestId("guided-form-from-story-no").click();

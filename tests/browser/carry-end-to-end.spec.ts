@@ -73,6 +73,7 @@ import { serveModelStandIns, type Court } from "./harness/thisCommitServer";
 import { factsAskedTwice, heldFacts, heldViolations, recordAsks, repeatViolations, type Asked, type HeldState } from "./harness/askOnce";
 import { countsLine, countsOf, readBaseline, shows, splitByBaseline, splitUnreached, writeRunRecord, type CarryKind, type CarryViolation } from "./harness/carryCounts";
 import { asksForDate } from "../../src/lib/case-system/dates";
+import { chooseOffers } from "./harness/offers";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
@@ -292,7 +293,7 @@ async function smallClaimsQuestions(run: Run) {
     await page.waitForTimeout(600);
     if (await finished.isVisible().catch(() => false)) break;
     if (await proposals.isVisible().catch(() => false)) {
-      await proposals.getByTestId("story-proposals-continue").click();
+      await chooseOffers(proposals, "no"); await proposals.getByTestId("story-proposals-continue").click();
       await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 });
       continue;
     }

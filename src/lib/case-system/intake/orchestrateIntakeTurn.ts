@@ -69,6 +69,7 @@ const MAX_CAPTURED_ANSWER_LENGTH = 1_000;
 
 export { storySuggestsDanger } from "./dangerWords";
 import { storySuggestsDanger } from "./dangerWords";
+import { withStatedProposals } from "./statedProposals";
 
 export type OrchestrateIntakeTurnResult = {
   /** Set only when newStoryText was provided this turn -- undefined otherwise. */
@@ -483,6 +484,8 @@ export async function orchestrateIntakeTurn(
         storyProposals = [];
       }
     }
+    // What the story states and the AI did not propose (a quote as the amount, a full date): offered once too.
+    storyProposals = withStatedProposals(newStoryText, upcoming, storyProposals);
   }
 
   return finishTurn({
@@ -751,6 +754,7 @@ export async function applyConfirmedStoryAnswers(
         storyProposals = [];
       }
     }
+    storyProposals = withStatedProposals(repropose.story, upcoming, storyProposals);
   }
 
   return finishTurn({

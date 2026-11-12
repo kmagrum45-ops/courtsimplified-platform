@@ -60,6 +60,8 @@ export type StoryAnswerProposal = {
 export type ConfirmedStoryAnswer = {
   questionId: string;
   answerText: string;
+  /** Where it came from, so it is never read as typed: a story value the person said Yes to, or I'm not sure (11 Nov 2026). */
+  source?: "story-offer" | "not-sure";
 };
 
 /** Questions a proposal may be offered for: never the sensitive phase. */
