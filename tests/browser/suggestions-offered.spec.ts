@@ -143,7 +143,7 @@ for (const use of [false, true]) {
       await proposals.getByTestId("story-proposals-continue").click();
       const said = page.locator("[data-testid=guided-message][data-from=note]").nth(before);
       await expect(said).toBeVisible({ timeout: 60_000 });
-      if (use) await expect(said, "what was used is recorded").toContainText("You confirmed from your story");
+      if (use) await expect(said, "what was used is recorded").toContainText("Confirmed from the story");
       else await expect(said, "ignored, nothing is confirmed").toHaveText(/Not right, so you'll be asked/);
       await expect(page.locator("[data-testid=guided-message][data-from=user]").filter({ hasText: /Confirmed from|None of those/ }), "nothing written in the person's name").toHaveCount(0);
     } finally {

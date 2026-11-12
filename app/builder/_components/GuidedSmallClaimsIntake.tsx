@@ -238,7 +238,7 @@ const everyOfferChosen = (drafts: readonly ProposalDraft[]) => drafts.every((dra
  * (founder's Chrome check of #536, 1 Nov: the screens that repeat an answer back kept the old one).
  */
 function summaryText(rows: readonly ConfirmedRow[], from: string, file: CaseFile | null): string {
-  return [`You confirmed from ${from === "my story" ? "your story" : "what you told us"}:`, ...rows.map((row) => {
+  return [`Confirmed from ${from === "my story" ? "the story" : "your answers"}:`, ...rows.map((row) => {
     const now = answerNow(file, row.questionId, row.answer);
     const words = now.removed ? "you removed this answer" : Array.isArray(now.value) ? now.value.join(", ") : String(now.value ?? row.answer);
     return `• ${row.label}: ${words}${now.changed && !now.removed ? " (as you changed it)" : ""}`;
@@ -255,7 +255,7 @@ type ChatMessage = {
   questionId?: string;
   /** The opening story: shown from the one copy (useStory), never stored here a second time. */
   isStory?: boolean;
-  /** A "You confirmed from ..." note: its rows, shown as the case holds them now (summaryText). */
+  /** A "Confirmed from ..." note: its rows, shown as the case holds them now (summaryText). */
   confirmed?: ConfirmedRow[];
   confirmedFrom?: string;
   /** The note's lines for offers not kept (asked once, or not sure for now). */
@@ -880,10 +880,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       // question is asked. Nothing is applied until the user confirms; what
       // they say is not right is asked once; what they are not sure of is never asked again (11 Nov 2026).
       // Never an offer for a fact the case already knows or has settled (factStatus.ts, 11 Nov 2026).
-      const offers = (result.storyProposals ?? []).filter((proposal) => mayShowQuestion(fileNow, proposal.questionId));
-      if (offers.length > 0) {
+      result.storyProposals = (result.storyProposals ?? []).filter((proposal) => mayShowQuestion(fileNow, proposal.questionId));
+      if (result.storyProposals.length > 0) {
         // Offered, never pre-ticked (owner, 31 Oct): a row is kept only when the person uses it.
-        setProposalDrafts(offers.map((proposal) => ({ ...proposal, choice: null, keep: false, original: proposal.answer })));
+        setProposalDrafts(result.storyProposals.map((proposal) => ({ ...proposal, keep: false, choice: null, original: proposal.answer })));
         setMessages((current) => [
           ...current,
           {

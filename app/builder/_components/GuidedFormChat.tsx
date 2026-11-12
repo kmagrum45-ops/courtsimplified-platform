@@ -3,7 +3,7 @@
 import { useIntakeRecovery, useIntakeReviewView, useIntakeState } from "../../_components/IntakeRecovery";
 import TribunalNotice, { COURT_LABELS, useTribunalFirst } from "../../_components/TribunalNotice";
 import { answerNow, askedAndReplied, caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
-import { mayShowQuestion } from "../../../src/lib/case-system/caseFile/factStatus";
+import { chatMayAsk } from "../../../src/lib/case-system/caseFile/factStatus";
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { NOTHING_LEFT_TO_ASK } from "../../../src/lib/case-system/copy/askCopy";
 import { openSituationChange } from "../../_components/SituationQuestions";
@@ -226,10 +226,10 @@ export default function GuidedFormChat({
   })), [caseFile, fields, values]);
   const heldElsewhere = useMemo(() => {
     if (!checkpoint || !caseFile) return new Set<string>();
-    // The one function (factStatus.ts mayShowQuestion): a fact the file holds, answered or "not
-    // sure", is not asked here, not even as the story's suggestion ("Is that right?"; site owner, 31
-    // Oct: a not-sure fact is asked nowhere again, which replaced the story's one more offer).
-    return new Set(fields.filter((field) => !isAnswered(field, values[field.key]) && !mayShowQuestion(caseFile, field.key)).map((field) => field.key));
+    // The one gate for every chat (factStatus.ts chatMayAsk, the one function): a fact the file holds,
+    // answered or "not sure", is not asked here, not even as the story's suggestion ("Is that right?";
+    // site owner, 31 Oct: a not-sure fact is asked nowhere again, which replaced the story's one more offer).
+    return new Set(fields.filter((field) => !isAnswered(field, values[field.key]) && !chatMayAsk(caseFile, field.key)).map((field) => field.key));
   }, [checkpoint, caseFile, fields, values]);
   // The conversation check (caseFile.ts askedAndReplied): a question this chat asked and the person replied to is not asked again.
   const replied = useMemo(() => heard.flatMap(({ question, reply }) => [{ role: "assistant", text: question }, { role: "user", text: reply }]), [heard]);

@@ -543,7 +543,7 @@ async function readEchoes(run: Run, when: string) {
     await page.goto(`/builder?path=small-claims&intake=${run.caseA}&step=guided`);
     await passNotice(page);
     await page.waitForTimeout(3_000);
-    const confirmed = (await page.locator("[data-testid=guided-message][data-from=user]").allInnerTexts()).filter((text) => /^Confirmed from/.test(text.trim()));
+    const confirmed = (await page.locator("[data-testid=guided-message][data-from=user], [data-testid=guided-message][data-from=note]").allInnerTexts()).filter((text) => /^Confirmed from/.test(text.trim()));
     if (confirmed.length) judge(run, `questions echo (${when})`, {}, confirmed.join("\n"));
     return;
   }

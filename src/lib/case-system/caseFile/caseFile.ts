@@ -43,7 +43,7 @@ import { parseRecordedAmount } from "../format/recordedAmount";
 import type { StatementOfClaimDraftInput } from "../statementOfClaimDraftEngine";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
-import { slotStatus } from "./factStatus";
+import { chatMayAsk, slotStatus } from "./factStatus";
 
 /** The case file's slots, in the order "What we have so far" shows them. */
 export const SLOT_FACTS = [
@@ -1085,15 +1085,8 @@ export function askable(file: CaseFile, candidates: readonly string[], surface?:
   return candidates.filter((id) => nextQuestion(file, [id], { surface }) === id);
 }
 
-/**
- * THE GATE FOR EVERY CHAT (never ask twice, row 1, 29 Oct). A chat question is asked only when the
- * one gate lets it: a fact the file holds, answered or "not sure", is not asked by a chat, nor offered
- * as the story's suggestion (site owner, 31 Oct: a not-sure fact is asked nowhere again; screens show
- * it as "Not answered yet: add it when you know"). No file: nothing held.
- */
-export function chatMayAsk(file: CaseFile | null | undefined, questionId: string): boolean {
-  return !file || nextQuestion(file, [questionId]) === questionId;
-}
+/** THE GATE FOR EVERY CHAT: the one function's (factStatus.ts chatMayAsk), re-exported for its callers. */
+export { chatMayAsk };
 
 /**
  * What a chat asks for one of its question sentences: the sentence, when the gate lets its fact be

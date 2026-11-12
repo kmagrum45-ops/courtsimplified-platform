@@ -14,7 +14,8 @@ import { formatForCourt } from "../dates";
 import { factsOfQuestion } from "../caseFile/factsOfQuestion";
 import { sentences } from "../sentences";
 import type { IntakeQuestion } from "./questionBank";
-import type { StoryAnswerProposal } from "./storyAnswerProposals";
+/** An offer as the chat card shows it (the AI's proposals have this shape too, plus their choices). */
+export type StatedOffer = { questionId: string; questionText: string; answer: string; storyQuote: string; dateQuestion?: boolean };
 
 /** The fact a question asks for that the story reader can state. */
 const STATED_FACTS = ["amount", "whenHappened", "wants"] as const;
@@ -42,10 +43,10 @@ function shown(fact: (typeof STATED_FACTS)[number], value: string): string {
  * The AI's proposals, plus an offer for each question the story states the fact of and the AI did not propose.
  * `questions`: the questions due now, in order. Never more than one offer per question.
  */
-export function withStatedProposals(story: string, questions: readonly IntakeQuestion[], proposals: readonly StoryAnswerProposal[]): StoryAnswerProposal[] {
+export function withStatedProposals<P extends StatedOffer>(story: string, questions: readonly IntakeQuestion[], proposals: readonly P[]): (P | StatedOffer)[] {
   const stated = statedInStory(story);
   const proposed = new Set(proposals.map((proposal) => proposal.questionId));
-  const added: StoryAnswerProposal[] = [];
+  const added: StatedOffer[] = [];
   for (const question of questions) {
     if (proposed.has(question.id)) continue;
     const fact = STATED_FACTS.find((candidate) => factsOfQuestion(question.id).includes(candidate) && stated[candidate]);

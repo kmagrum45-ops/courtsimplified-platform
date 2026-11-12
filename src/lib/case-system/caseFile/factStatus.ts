@@ -67,3 +67,13 @@ export function stillNeeded(file: CaseFile | null | undefined, facts: readonly S
     return status === "known" ? [] : [{ fact, status, addWhenYouKnow: status === "settled" }];
   });
 }
+
+/**
+ * THE GATE FOR EVERY CHAT (never ask twice, row 1, 29 Oct), now the one function: a chat asks a question, or
+ * offers the story's value for it, only while mayShowQuestion lets it. A fact the file holds, answered or "not
+ * sure", is not asked by a chat, nor offered as the story's suggestion. No file: nothing held.
+ * caseFile.ts re-exports it, so every chat that used the gate gets this answer.
+ */
+export function chatMayAsk(file: CaseFile | null | undefined, questionId: string): boolean {
+  return mayShowQuestion(file, questionId);
+}
