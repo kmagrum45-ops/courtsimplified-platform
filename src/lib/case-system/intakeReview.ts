@@ -7,7 +7,7 @@ import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
 import { freshSections } from "./storyBasis";
 import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
 import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../../app/builder/_components/guidedFields";
-import { amountFromStory, goalFromStory, kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
+import { amountFromStory, amountOfferFromStory, goalFromStory, kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
 import type { Stated } from "./caseFile/factStatus";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
@@ -794,9 +794,6 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
   return out;
 }
 
-/** "a quote for 1500", "the estimate was $2,300": an amount the person was quoted, offered once as the amount. */
-const QUOTED_AMOUNT = /\b(?:quote[sd]?|quoted|estimate[sd]?)\b(?:\s+(?:of|for|was|is|came to|at))*\s+\$?\s?(\d{1,3}(?:,\d{3})+(?:\.\d{2})?|\d+(?:\.\d{2})?)\b/i;
-
 /**
  * THE ONE STORY READER for the facts a story can state (site owner, 11 Nov 2026; caseFile/factStatus.ts `stated`):
  * when it happened (a full day only), the amount (the claim amount reader's, else a quote or an estimate the story
@@ -809,7 +806,7 @@ export function statedInStory(story: string): Stated {
   const date = whenItHappened(story);
   // A month and year ("In March 2026") is stated as well as a full date (page test, 12 Nov: it was read, then dropped).
   if (date && (isRealIsoDate(date) || MONTH_AND_YEAR.test(date))) out.whenHappened = date;
-  const amount = amountFromStory(story)?.value ?? QUOTED_AMOUNT.exec(story)?.[1] ?? onlyDollarAmount(story);
+  const amount = amountOfferFromStory(story)?.value;
   if (amount) out.amount = amount.replace(/[$,\s]/g, "");
   const goal = goalFromStory(story);
   if (goal) out.wants = goal.value;
@@ -817,17 +814,6 @@ export function statedInStory(story: string): Stated {
 }
 
 const MONTH_AND_YEAR = new RegExp(`^(?:${MONTH_WORDS_EN.join("|")}) \\d{4}$`);
-
-/**
- * The story's one dollar amount, when it has exactly one ("A mechanic charged me $1,800", "a $600 deposit"): offered,
- * never filled in (site owner, 12 Nov: a value stated in the story is offered once; Yes / No / Not sure). Two different
- * amounts: none, which one is claimed is unclear. The one-click amount reader (claimAmount.ts) still skips a price, fee,
- * deposit or amount paid (#471); this is only the offer, with the sentence it came from.
- */
-function onlyDollarAmount(story: string): string | undefined {
-  const amounts = new Set([...story.matchAll(/\$\s?(\d[\d,]*(?:\.\d{2})?)/g)].map((match) => Number(match[1].replace(/,/g, ""))).filter((value) => Number.isFinite(value) && value > 0));
-  return amounts.size === 1 ? String([...amounts][0]) : undefined;
-}
 
 /** "payment was due July 10", "by July 10": a deadline, not when it happened. */
 const DEADLINE_BEFORE = /\b(?:due|deadline|payable|by|until|before|no later than|expires?|expiring)\s*(?:on\s*)?$/i;

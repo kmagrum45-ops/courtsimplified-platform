@@ -115,6 +115,17 @@ async function main() {
     const read = otherPartyNameFromStory(story);
     check(`8. no name, or never the words before it: '${story}'`, read === null, JSON.stringify(read));
   }
+  // 9 (page test, 12 Nov): the civil chat asked "How much money is involved?" cold for civil-builder's story, whose only
+  // amount is $140,000: its amount offer used the one-click reader (#471), not the one story reader. An offer only.
+  const { civilGuidedFields } = await import("../../app/builder/_components/guidedFields");
+  const civilAmount = civilGuidedFields({ issues: [], documents: [] }).find((field) => field.key === "amountClaimed");
+  const builder = "A builder took $140,000 from me for an addition in 2025 and walked off the job in February 2026.";
+  const civilOffer = civilAmount?.fromStory?.({ facts: builder } as never) ?? null;
+  check("9. the civil chat offers the story's only amount ($140,000), quoting its sentence", civilOffer !== null && String(civilOffer.value).replace(/[$,]/g, "") === "140000" && civilOffer.quote === builder, JSON.stringify(civilOffer));
+  check("9. the one-click amount reader still skips it (#471)", claimAmountFromStory(builder) === null, JSON.stringify(claimAmountFromStory(builder)));
+  check("9. the one story reader and the civil chat offer the same amount", statedInStory(builder).amount === String(civilOffer?.value ?? "").replace(/[$,]/g, ""), `${statedInStory(builder).amount} vs ${JSON.stringify(civilOffer)}`);
+  const twoAmounts = "I paid $600 for the venue and $200 for the flowers, and both were kept.";
+  check("9. two different amounts: the civil chat offers none", (civilAmount?.fromStory?.({ facts: twoAmounts } as never) ?? null) === null);
   finish();
 }
 function finish() {
