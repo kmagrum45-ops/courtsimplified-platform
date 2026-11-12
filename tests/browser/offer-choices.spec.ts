@@ -220,7 +220,7 @@ test("the review's story offer has its own three choices and no tick; Continue w
     await expect(panel.getByText(/I have reviewed this information/), "nothing covers the typed values").toHaveCount(0);
     await expect(page.getByTestId("intake-confirm"), "the one button continues").toHaveText("Continue");
     await expect(page.getByTestId("intake-confirm"), "Continue waits for the offer's choice").toBeDisabled();
-    await expect(page.getByTestId("intake-confirm-needs"), "and says what it waits for").toContainText("a choice (Yes, No or I'm not sure) on each suggestion from your story");
+    await expect(page.getByTestId("intake-confirm-needs"), "and says what it waits for").toContainText("a choice (Yes, No or I'm not sure) on each suggestion taken from the story");
     await timeline.getByTestId("review-offer-no").click();
     await expect(timeline.getByTestId("review-offer-choices"), "chosen: the choices go").toHaveCount(0);
     await expect(timeline.getByTestId("intake-entry-from-story"), "No: the suggestion goes, the box is answered plainly").toHaveCount(0);

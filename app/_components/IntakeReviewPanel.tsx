@@ -424,7 +424,7 @@ export default function IntakeReviewPanel() {
     !canReview(checkpoint) && "your city and a description of what happened",
     remaining.length > 0 && `an answer, or "I do not know yet", for: ${remaining.map(question => question.label).join("; ")}`,
     questionsOutdated && "the answers marked as given for an earlier version of your story answered again, or the questions started again from your story",
-    offersLeft > 0 && "a choice (Yes, No or I'm not sure) on each suggestion from your story",
+    offersLeft > 0 && "a choice (Yes, No or I'm not sure) on each suggestion taken from the story",
   ].filter(Boolean) as string[];
   // scroll-mt-28: a scroll to the panel stops below the 77px sticky header, not under it (L46).
   return <section className="mx-auto my-4 max-w-6xl scroll-mt-28 rounded-2xl border border-[#d8e6df] bg-white p-6" data-testid="intake-review" data-phase={phase}>
@@ -441,7 +441,7 @@ export default function IntakeReviewPanel() {
         {entries.map(entry => { const changed = changedFact(entry.field); const held = changed ? changed[1] : heldSlot(entry); const notYet = changed || held ? undefined : notYetFact(entry); const heldFact = changed ? changed[0] : held ? slotsOfQuestion(entry.field).find(fact => caseFile[fact] === held) : undefined; return <div key={`${entry.section}:${entry.nested ?? ""}:${entry.field}`} data-testid="intake-entry" data-field={entry.field} data-empty={empty(entry.value) && !entry.fromStart && !held && !notYet ? "true" : "false"} className="block text-sm">
           {entry.label}{!entry.essential && " (optional later detail)"}
           {entry.hint && empty(entry.value) && <span className="block text-[#4d675f]">{entry.hint}</span>}
-          {offerChoices[offerKeyOfEntry(entry)] === "unsure" && empty(entry.value) && !notYet ? <span data-testid="review-offer-unsure-note" className="block text-[#4d675f]">You said you are not sure. You can add it when you know.</span> : null}
+          {offerChoices[offerKeyOfEntry(entry)] === "unsure" && empty(entry.value) && !notYet ? <span data-testid="review-offer-unsure-note" className="block text-[#4d675f]">Marked not sure. You can add it when you know.</span> : null}
           {entry.fromStory && empty(entry.value) && !notYet && !offerChoices[offerKeyOfEntry(entry)] ? <UseSuggestion testId="intake-entry-from-story" disabled={busy} onUse={() => edit(entry, entry.fromStory!.value)} what={entry.fromStory.value.length > 160 ? `${entry.fromStory.value.slice(0, 157)}…` : entry.fromStory.value} className="mt-1 block rounded border px-3 py-1 text-left text-sm" /> : null}
           {boxOfferUndecided(entry, caseFile, offerChoices) ? otherChoices(offerKeyOfEntry(entry)) : null}
           {staleKeys.has(`${entry.section}.${entry.nested ? `${entry.nested}.` : ""}${entry.field}`) && <span data-testid="intake-answer-stale" className="block text-[#7a4b12]">Answered for an earlier version of your story. Answer it again, or start the questions again.</span>}
