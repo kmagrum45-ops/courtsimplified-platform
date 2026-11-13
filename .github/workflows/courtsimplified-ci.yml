@@ -100,6 +100,8 @@ jobs:
 
       - name: A case saved by main's code opens and reads the same (answers kept, nothing asked again, nothing rewritten)
         run: npm run test:old-shape-cases
+      - name: The site's own questions never become the person's facts (drafts, "From your story" quotes, the stored story; every court)
+        run: npm run test:site-text-never-facts
 
       - name: No chip or suggested question asks the assistant for a prediction or a grade (rule 3)
         run: npm run test:no-prediction-chips

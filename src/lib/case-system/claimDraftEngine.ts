@@ -1,4 +1,5 @@
 import { sentences as sharedSentences } from "./sentences";
+import { personWordsOnly } from "./personWords";
 export type ClaimDraftInput = {
   courtPath?: string;
   caseStage?: string;
@@ -78,7 +79,8 @@ function getPlaintiffAddress(input: ClaimDraftInput) {
 }
 
 function buildNumberedFacts(input: ClaimDraftInput) {
-  const facts = splitIntoSentences(input.facts);
+  // The person's words only: the site's questions are never numbered as their facts (personWords.ts).
+  const facts = splitIntoSentences(personWordsOnly(input.facts ?? ""));
   const timeline = splitIntoSentences(input.timeline);
 
   const combined = cleanList([...timeline, ...facts]);

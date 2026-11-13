@@ -1,6 +1,7 @@
 "use client";
 import { useIntakeReviewView, useSituation } from "../../_components/IntakeRecovery";
 import { sideOf } from "../../../src/lib/case-system/situation/situation";
+import { personWordsOnly } from "../../../src/lib/case-system/personWords";
 import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
 import { caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
 import { withCaseFileAnswers } from "../../../src/lib/case-system/caseFile/triageFromCaseFile";
@@ -149,7 +150,8 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
   // not being paid) is not choosing where to START a case; the start-a-case
   // court statutes and municipality list were the first thing they read
   // (held-back walkthrough, 2026-10-09). Hidden for them, with a line saying so.
-  const orderQuote = existingFamilyOrderQuote(story);
+  // Only the person's words are quoted "From your story", never a site question saved with it (personWords.ts).
+  const orderQuote = existingFamilyOrderQuote(personWordsOnly(story));
   const hasOrderAlready = orderQuote !== null;
   // The rules about where to start a case are for someone starting one: shown
   // once their story is known and says they are, not before and not to a

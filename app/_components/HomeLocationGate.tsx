@@ -1,6 +1,7 @@
 "use client";
 
 import { STORY_SECTION } from "../../src/lib/case-system/intakeStory";
+import { frontDoorStory } from "../../src/lib/case-system/personWords";
 import { courtOfPapers, filedFromSituation, sideOf, situationAnswers, situationFromRaw, situationSection, SITUATION_FIELD, SITUATION_SECTION, withKnownCourt } from "../../src/lib/case-system/situation/situation";
 import { writeIntakeSession } from "../../src/lib/case-system/intakeCheckpoint";
 import { useIntakeState, useIntakeRef, useStory, useCaseLocation, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, useSituation, IntakeRecoveryBoundary } from "./IntakeRecovery";
@@ -242,10 +243,11 @@ function HomeLocationGateContent() {
   async function goToIntake(chosenPath: BuilderDraftCourtPath, answers: { question: string; answer: string }[] = [], accepted = false) {
     requestRef.current.cancel();
     // Answers given to the front door's questions travel with the story, so
-    // the intake does not ask them again.
-    // An answer already in the story (Back, then Continue again) is not appended twice.
-    const answered = answers.filter((item) => item.answer.trim()).map((item) => `${item.question.trim()} ${item.answer.trim()}`).filter((line) => !facts.includes(line));
-    const story = [facts.trim(), ...answered].join("\n\n");
+    // the intake does not ask them again: the person's answers only, never the
+    // site's question (Chrome check of #550: the questions became numbered facts
+    // in every draft; personWords.ts). An answer already in the story (Back, then
+    // Continue again) is not appended twice.
+    const story = frontDoorStory(facts, answers);
     const acceptedOtherParty = accepted ? otherPartyFromUnderstanding(storedUnderstood?.understanding?.facts, facts) : null;
     try {
       if (recovery && chosenPath === path) {

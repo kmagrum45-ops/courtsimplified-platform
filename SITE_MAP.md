@@ -1051,7 +1051,7 @@ The civil and Family questions and their choices.
 
 - Reads (4): app/builder/_components/GuidedFormChat.tsx, **app/builder/_components/storyAnswers.ts**, **src/lib/case-system/casePosition.ts**, src/lib/case-system/copy/storyGuidance.ts
 - Read by (8): app/_components/ChangeAnswer.tsx, app/_components/IntakeReviewPanel.tsx, app/builder/_components/CivilIntake.tsx, app/builder/_components/FamilyIntake.tsx, app/builder/_components/GuidedFormChat.tsx, app/builder/_components/SmallClaimsIntake.tsx, **src/lib/case-system/copy/rawKeys.ts**, **src/lib/case-system/intakeReview.ts**
-- Checked by (12): scripts/verification/verifyAnswerCoverage.ts, scripts/verification/verifyCaseFile.ts, scripts/verification/verifyCaseWords.ts, scripts/verification/verifyChrome29OctFlow.ts, scripts/verification/verifyDateEntryPoints.ts, scripts/verification/verifyFactStatus.ts, scripts/verification/verifyFormsFromCaseFile.ts, scripts/verification/verifyGuidedFormChat.ts, scripts/verification/verifyMarriedOnlyTopics.ts, scripts/verification/verifyOwnAnswers.ts, scripts/verification/verifyRawKeys.ts, scripts/verification/verifyStoryAnswers.ts
+- Checked by (13): scripts/verification/verifyAnswerCoverage.ts, scripts/verification/verifyCaseFile.ts, scripts/verification/verifyCaseWords.ts, scripts/verification/verifyChrome29OctFlow.ts, scripts/verification/verifyDateEntryPoints.ts, scripts/verification/verifyFactStatus.ts, scripts/verification/verifyFormsFromCaseFile.ts, scripts/verification/verifyGuidedFormChat.ts, scripts/verification/verifyMarriedOnlyTopics.ts, scripts/verification/verifyOwnAnswers.ts, scripts/verification/verifyRawKeys.ts, scripts/verification/verifySiteTextNeverFacts.ts, scripts/verification/verifyStoryAnswers.ts
 
 ### src/lib/case-system/claimAmount.ts
 
