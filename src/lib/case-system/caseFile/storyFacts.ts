@@ -111,9 +111,15 @@ export function lostPayIn(story: string): StoryFact | null {
   const sentence = found(story, /\b(?:missed|lost|losing|off)\b[^.]*\b(?:work|pay|wages|income|shifts?)\b/i);
   if (!sentence) return null;
   const period = new RegExp(`\\b(${WORD_NUMBER}\\s+(?:weeks?|days?|months?|shifts?)(?:\\s+of\\s+(?:work|pay|wages))?)\\b`, "i").exec(sentence.slice(Math.max(0, sentence.search(/\b(?:missed|lost|losing|off)\b/i))))?.[1];
-  const amount = /\$\s?\d[\d,]*(?:\.\d{2})?/.exec(sentence.slice(Math.max(0, sentence.search(/\b(?:missed|lost|losing|off)\b/i))))?.[0];
+  // A rate ("$150 per day") is never the loss, and never replaces a total the person gave ("$450 total"): Chrome check
+  // of #550, S1 showed "Lost pay $150 (3 days of work)" for "$150 per day; $450 total".
+  const from = sentence.slice(Math.max(0, sentence.search(/\b(?:missed|lost|losing|off)\b/i)));
+  const amounts = [...from.matchAll(/\$\s?\d[\d,]*(?:\.\d{2})?(\s*(?:per|a|an|\/)\s*(?:day|hour|week|shift|month)\b)?/gi)];
+  const total = amounts.find((match) => !match[1]);
+  const rate = amounts.find((match) => match[1]);
+  const amount = total ? total[0] : rate ? `${rate[0].replace(/\s*\/\s*/, " per ").replace(/^\$\s/, "$").replace(/\s+/g, " ").trim()}` : undefined;
   if (!period && !amount) return null;
-  return { value: [amount?.replace(/\s/g, ""), period ? (amount ? `(${period})` : period) : null].filter(Boolean).join(" "), quote: sentence };
+  return { value: [amount?.replace(/^\$\s+/, "$"), period ? (amount ? `(${period})` : period) : null].filter(Boolean).join(" "), quote: sentence };
 }
 
 // ---- injury ----------------------------------------------------------------------------------

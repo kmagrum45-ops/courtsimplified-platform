@@ -214,5 +214,15 @@ check("Small Claims papers read as words", !/plaintiffs-claim|affidavit-service/
 check("case 20: the kind of dispute answered in the chat is held in its words", chatKind.claimKind.state === "answered" && chatKind.claimKind.value === "Unpaid money owed to you", JSON.stringify(chatKind.claimKind));
 for (const [read, story, want] of FILED) check(`papers filed, from the story: "${story}" -> ${want || "nothing offered"}`, filed(read, story) === want, filed(read, story));
 
+// Chrome check of #550, S1: "Lost pay $150 (3 days of work)" where the story gave $150 a day and a total of $450. A rate
+// is never shown as the loss, and a total the person gave is never replaced by the rate.
+{
+  const lostPay = (story: string) => storyLines(story, caseFileOf(null), false).find((line) => line.fact === "lostPay")?.value ?? "";
+  const withTotal = lostPay("I missed 3 days of work, October 5 to 7, 2026, at $150 per day; $450 total.");
+  check("lost pay: a total the person gave is the amount, never the daily rate", /\$450/.test(withTotal) && !/^\$150\b/.test(withTotal), withTotal);
+  const rateOnly = lostPay("I missed 3 days of work at $150 a day.");
+  check("lost pay: a daily rate alone is said as a rate, never as the loss", /\$150 (?:a|per) day/.test(rateOnly), rateOnly);
+}
+
 console.log(failures ? `\n${failures} failure(s)` : "\nall passed");
 process.exitCode = failures ? 1 : 0;
