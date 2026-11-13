@@ -853,6 +853,11 @@ export function bringsTheCase(file: CaseFile): boolean {
   return file.side.state === "answered" && file.side.value === "bringing";
 }
 
+/** The person is responding to a case someone else started (being sued): the view for their side (roleView.ts). */
+export function respondsToTheCase(file: CaseFile): boolean {
+  return file.side.state === "answered" && file.side.value === "responding";
+}
+
 export function whenGivenElsewhere(slot: Slot): boolean {
   return givenElsewhere("whenHappened", slot);
 }

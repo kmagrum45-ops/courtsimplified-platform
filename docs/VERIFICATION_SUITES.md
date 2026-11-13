@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-281 documented, 26 without a header.
+282 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -95,6 +95,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:db-environments` | **Nothing in this repository says "dev" when it means production, and no**<br>migration can reach production without passing staging. |
 | `npm run test:deadline-date-keeps-when` | **A DATE THE PERSON GIVES ON THE STEP PAGE TO WORK OUT A DEADLINE NEVER REPLACES THEIR "WHEN IT HAPPENED" ANSWER**<br>(Chrome re-check of #545 at dc909096, 10 Nov 2026: "The date I gave for working out the deadline replaced the 'When it happened' answer: it changed from March 2026 to May 15, 2026"). |
 | `npm run test:deadlines` | **Does the deadline engine count correctly?**<br>Every case here is one somebody could actually be in, and every one of them is a date a person would get wrong by reasoning casually. A deadline that is right in the ordinary case and wrong across a long weekend is not 95% correct; it is a trap that springs ex |
+| `npm run test:defendant-view` | **A PERSON BEING SUED IS NEVER SHOWN WHAT IS WRITTEN FOR THE PERSON SUING (Chrome check of #550, S5; site owner's**<br>decision on 6c, 13 Nov 2026). |
 | `npm run test:depth-questions` | **Verifies the intake depth layer, offline.**<br>COSTS NOTHING. Every decision the depth layer makes about WHICH questions are asked is pure, so all four load-bearing properties are checkable without a single API call. The only model involvement is the voice lead-in, which is exercised by the paraphrase harn |
 | `npm run test:described-evidence` | **"No evidence identified" must only be said when it is true.**<br>evidenceIntelligenceEngine raises a high-severity "No evidence identified" gap when the normalized intake holds no evidence items. The keyword extractor that fills that list knows seven categories, so a user who listed invoices, contracts, photos, a bill of sa |
 | `npm run test:document-link` | **OPEN, SAVE AND DELETE AN UPLOADED FILE (Charter re-test 2026-10-26).**<br>Checks, as properties, through the route itself (app/api/workspace/documents/link) with the database and storage stood in: - a link is made only for the signed-in owner's own file that is not being deleted: no sign-in, a bad id, someone else's file and a file  |

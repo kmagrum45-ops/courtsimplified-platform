@@ -50,6 +50,7 @@ import { isKindOfClaim, kindFromStory } from "./claimKind";
 import { collectEvidenceCategories } from "./evidenceGapDetector";
 import { CLAIM_TYPES, DEFENCE_CONCEPTS, type ClaimType } from "./claimTypes";
 import { courtFitClaimType, defenceFitsCourt } from "./courtFitSources";
+import { claimTypeForSide } from "./roleView";
 
 export type SourcedListItem = {
   text: string;
@@ -152,6 +153,12 @@ export function buildClaimTypeOverviewContent(
    * one the user said yes to.
    */
   confirmedClaimTypeId?: string | null,
+  /**
+   * The person is the one being sued (from the record: roleView.ts respondingSide). A kind written for the person
+   * suing then shows its defendant-side view, or the generic view for a person who has been served (roleView.ts,
+   * the one place; Chrome check of #550, S5).
+   */
+  responding = false,
 ): ClaimTypeOverviewContent | null {
   let claimType: ClaimType | undefined;
   if (confirmedClaimTypeId === null) return null;
@@ -162,8 +169,15 @@ export function buildClaimTypeOverviewContent(
     claimType = kindFromStory(storyText, claimTypes)?.claimType;
   }
   if (!claimType) return null;
+  // The view for the person's side (roleView.ts): never what is written for the person suing, to the person being sued.
+  claimType = claimTypeForSide(claimType, responding);
+  return overviewContentOf(claimType);
+}
+
+/** One claim type's overview content (its evidence list, court points and common defences), from another court's source never. */
+export function overviewContentOf(type: ClaimType): ClaimTypeOverviewContent {
   // Nothing from another court's source (courtFitSources.ts).
-  claimType = courtFitClaimType(claimType);
+  const claimType = courtFitClaimType(type);
   const sourceUrlByCategoryName = buildSourceUrlByCategoryName(claimType);
 
   const evidenceToOrganize: SourcedListItem[] = collectEvidenceCategories(claimType).map((category) => ({

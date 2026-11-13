@@ -47,6 +47,7 @@ import { CLAIM_TYPES, type ClaimType } from "./claimTypes";
 import { settledKindMatch } from "./claimKind";
 import { buildEvidenceCategoryGuidance, type EvidenceGuidance } from "./evidenceGapDetector";
 import { buildClaimGuidance, type ClaimGuidance } from "./claimGuidance";
+import { claimTypeForSide } from "./roleView";
 import { selectQuestions, type IntakeFacts } from "./selectQuestions";
 import type { CaseFile } from "../caseFile/caseFile";
 import { QUESTION_BANK, type CourtArea, type IntakeQuestion, type KnownFactField } from "./questionBank";
@@ -429,8 +430,10 @@ export async function orchestrateIntakeTurn(
     matchedClaimTypes = match ? [match] : [];
     if (match) {
       if (!overrides.intakeOnly) {
-        evidenceGuidance = buildEvidenceCategoryGuidance(match.claimType);
-        claimGuidance = buildClaimGuidance(match.claimType, facts);
+        // The view for the person's side (roleView.ts, the one place): never the person suing's to the person being sued.
+        const shownType = claimTypeForSide(match.claimType, facts.role === "defendant");
+        evidenceGuidance = buildEvidenceCategoryGuidance(shownType);
+        claimGuidance = buildClaimGuidance(shownType, facts);
       }
     } else if (isOpeningStory) {
       // Session 48. The AI classifier runs ONLY on the opening story.

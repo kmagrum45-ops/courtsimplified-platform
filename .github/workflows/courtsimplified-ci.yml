@@ -102,6 +102,8 @@ jobs:
         run: npm run test:old-shape-cases
       - name: The site's own questions never become the person's facts (drafts, "From your story" quotes, the stored story; every court)
         run: npm run test:site-text-never-facts
+      - name: A person being sued is never shown what is written for the person suing (every kind mapped or hidden for a defendant)
+        run: npm run test:defendant-view
 
       - name: No chip or suggested question asks the assistant for a prediction or a grade (rule 3)
         run: npm run test:no-prediction-chips
