@@ -16,6 +16,7 @@ import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { claimKindLine, claimKindOf, form7ADraftFields, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
 import { formatForCourt } from "@/src/lib/case-system/dates";
 import { heldWordsOf } from "@/src/lib/case-system/caseFile/caseFileOfMaster";
+import { factStatus } from "@/src/lib/case-system/caseFile/factStatus";
 import {
   draftStatementOfClaimParticulars,
   type StatementOfClaimDraft,
@@ -128,15 +129,21 @@ export default function StatementOfClaimSurface({
     [kindId],
   );
 
+  // What the person wants, from the one function: answered, or "I'm not sure", it is never asked again here
+  // (Chrome check of #550, S2-S4: "Choose what you are asking the court for" after it was answered).
+  const wantsStatus = factStatus(caseFile, "wants");
+  const remedyHeld = wantsStatus === "known" || wantsStatus === "settled";
+  const heldWants = heldWordsOf(caseFile, "wants");
   const gate = useMemo(
     () =>
       evaluateReadinessGate({
         claimType,
         elementStateMap: stateMap,
         confirmedRemedyId,
+        remedyHeld,
         storyText: mappedInput.facts || "",
       }),
-    [claimType, stateMap, confirmedRemedyId, mappedInput.facts],
+    [claimType, stateMap, confirmedRemedyId, remedyHeld, mappedInput.facts],
   );
 
   /**
@@ -244,6 +251,11 @@ export default function StatementOfClaimSurface({
         <h3 className="text-sm font-semibold uppercase tracking-wide text-[#2f7d67]">
           What are you asking the court for?
         </h3>
+        {remedyHeld ? (
+          <p data-testid="remedy-held" className="mt-3 text-sm text-[#10231f]">
+            {heldWants.held && heldWants.words ? heldWants.words : "Not answered yet: add it when you know."}
+          </p>
+        ) : (
         <div className="mt-3 space-y-2">
           {gate.remedyOptions.map((remedy) => (
             <label key={remedy.id} className="flex gap-3 rounded-2xl border border-[#d8e6df] p-3">
@@ -266,6 +278,7 @@ export default function StatementOfClaimSurface({
             </label>
           ))}
         </div>
+        )}
       </div>
 
       {/* --- Attestation for outstanding elements --- */}

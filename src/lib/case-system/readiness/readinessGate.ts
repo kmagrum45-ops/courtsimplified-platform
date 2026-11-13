@@ -108,6 +108,11 @@ export type ReadinessGateInput = {
   elementStateMap: ElementStateMap;
   /** The remedy id the user affirmatively confirmed, if any (design section 2). */
   confirmedRemedyId: string | null;
+  /**
+   * True when the case file holds the person's answer to what they want (factStatus "known" or "settled"): it is the
+   * remedy question's answer, and a settled fact is never asked again (Chrome check of #550, S2-S4).
+   */
+  remedyHeld?: boolean;
   /** The user's own narrative. Non-empty satisfies condition 4. */
   storyText: string;
 };
@@ -185,7 +190,7 @@ export function evaluateReadinessGate(input: ReadinessGateInput): ReadinessGateR
   // deciding for them (CLAUDE.md section 4).
   const remedyOptions = buildRemedyOptions(input.claimType);
 
-  if (!input.confirmedRemedyId) {
+  if (!input.confirmedRemedyId && !input.remedyHeld) {
     blockers.push({ kind: "no-remedy-confirmed" });
   }
 
