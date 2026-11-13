@@ -96,10 +96,14 @@ export default function IntakeReviewPanel() {
   // first opened Small Claims' chooser with no next step and no word why (case 11).
   // The line ends with the work it waited for: a start queued until its route was on the page ran later, and the line
   // stayed after the next step appeared (Chrome check of #544, 6 Nov, F6). A failed start ends it too (its error shows).
+  // The line is never shown again once the work it waited for has begun: `waiting` is cleared by this effect, which runs
+  // after the frame in which the work ended, so that frame painted the line (browser-regression run 43490561082,
+  // family: seen at 13.1 s; no-finish-line-while-working.spec.ts, frame by frame).
   const workSeen = useRef(false);
+  const [workBegan, setWorkBegan] = useState(false);
   useEffect(() => {
-    if (!waiting) { workSeen.current = false; return; }
-    if (working) workSeen.current = true;
+    if (!waiting) { workSeen.current = false; setWorkBegan(false); return; }
+    if (working) { workSeen.current = true; setWorkBegan(true); }
     else if (workSeen.current) {
       workSeen.current = false;
       setWaiting(false);
@@ -554,7 +558,7 @@ export default function IntakeReviewPanel() {
       <NextStepStatus />
       <StoryChangedNotice where="button" /></>}
     {/* Not while the next step is being worked out: its progress line says so (Chrome check of #544 on 9b960f7, F13). */}
-    {waiting && !working && phase === "user-confirmed" && <p data-testid="intake-continue-waiting" role="status" className="mt-2 text-sm">Finish the step shown below first; your next step will then appear.</p>}
+    {waiting && !working && !workBegan && phase === "user-confirmed" && <p data-testid="intake-continue-waiting" role="status" className="mt-2 text-sm">Finish the step shown below first; your next step will then appear.</p>}
     {error && <p role="alert">{error}</p>}
     <WorkingNote working={busy}>Saving your review…</WorkingNote>
   </section>;
