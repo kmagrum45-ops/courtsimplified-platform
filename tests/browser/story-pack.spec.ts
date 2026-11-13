@@ -1551,7 +1551,7 @@ for (const [court, id] of [["civil", "civil-deposit"], ["family", "family-spousa
 // saves when the box is left), and the next press is Confirm. That press both saves the answer and
 // confirms: it must confirm what is now on screen, at once, in every area.
 for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-deck-owed"], ["civil", "civil-deposit"], ["family", "family-spousal"]] as const) {
-  test(`retest-27oct root cause 3: an answer typed after the tick clears it and says so beside the button; one more tick confirms -- ${court} (${id})`, async ({ page }) => {
+  test(`retest-27oct root cause 3: an answer typed in the review is saved before one Continue press confirms it -- ${court} (${id})`, async ({ page }) => {
     test.setTimeout(480_000);
     const story = byId(id);
     await grantSiteAccess(page);
@@ -1581,18 +1581,28 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
     const label = (await box.getAttribute("aria-label")) ?? "";
     const answer = /when|date|day/i.test(label) ? "March 2026" : /amount|money|much/i.test(label) ? "$6,000" : "Payment of what is owed";
     await box.fill(answer);
-    // Pressed straight from the box: the press leaves the box, which saves the typed answer.
+    // The saved case, read as the review reads it (site owner, 12 Nov: a change is not confirmed until Continue is
+    // pressed, on the page or in the saved case; one Continue press confirms it, the new value saved first).
+    const savedMaster = () => ([...account.rows.values()][0] as { master_result?: { intakeCheckpoint?: unknown; workflowStatus?: unknown } } | undefined)?.master_result ?? {};
+    const { reviewPhase } = await import("../../src/lib/case-system/intakeReview");
+    const savedPhase = () => { const master = savedMaster(); return master.intakeCheckpoint ? reviewPhase((master.workflowStatus ?? {}) as Record<string, unknown>, master.intakeCheckpoint as never) : "none"; };
+    const savedHolds = () => JSON.stringify(savedMaster().intakeCheckpoint ?? {}).includes(answer);
+    // Not confirmed after typing, before Continue: held five seconds, looked at every half second, not read once.
+    for (let look = 0; look < 10; look++) {
+      expect(await panel.getAttribute("data-phase"), "not confirmed after typing, before Continue").toBe("reviewing");
+      await page.waitForTimeout(500);
+    }
+    expect(savedPhase(), "the saved case is not confirmed after typing, before Continue").not.toBe("user-confirmed");
+    // Pressed straight from the box: the press leaves the box, which saves the typed answer, then confirms.
     await page.getByTestId("intake-confirm").click({ force: true });
-    // The press saved the typed answer (it saves when its box is left): the tick covered the answers
-    // as they were, so it is cleared, and the reason is said beside the button.
-    await expect(page.getByTestId("intake-review-acknowledgement")).not.toBeChecked({ timeout: 20_000 });
-    await expect(page.getByTestId("intake-tick-again"), "the reason, beside the button").toHaveText("You changed an answer. Please tick to confirm again.");
+    await expect.poll(savedHolds, { timeout: 30_000, message: "the typed answer is saved once Continue is pressed" }).toBe(true);
     await expect(panel, "the typed answer was kept").toContainText(answer);
-    await expect(panel).toHaveAttribute("data-phase", "reviewing");
-    await page.getByTestId("intake-review-acknowledgement").click();
-    await expect(page.getByTestId("intake-tick-again"), "gone once ticked again").toHaveCount(0);
-    await page.getByTestId("intake-confirm").click();
-    await expect(panel, "one more press confirms").toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+    await expect(panel, "one Continue press confirms").toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+    // In place of the tick's own message (site owner, 12 Nov): no tick, and nothing asking for one, can quietly return.
+    await expect(page.getByTestId("intake-review-acknowledgement"), "the review has no tick").toHaveCount(0);
+    expect(await panel.innerText(), "the review asks for no tick").not.toMatch(/\btick/i);
+    await expect.poll(savedPhase, { timeout: 30_000, message: "the saved case is confirmed by that one press" }).toBe("user-confirmed");
+    expect(savedHolds(), "what was confirmed holds the typed answer, not the old one").toBe(true);
     await expect(page.getByText(/Your initial facts changed|Initial information changed while saving/), "never bounced back").toHaveCount(0);
  });
 }
