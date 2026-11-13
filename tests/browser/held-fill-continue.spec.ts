@@ -216,3 +216,30 @@ test("a box the fill put an amount in follows the amount changed in the review -
   await expect(page.getByTestId("completed-case-overview"), "the next step loads").toBeVisible({ timeout: 120_000 });
   expect(digits(sent.at(-1)), `the form's analysis sends the newest amount: ${JSON.stringify(sent)}`).toBe("2400");
 });
+
+/*
+ * EVERY analysis request carries the held amount, not only the last one (browser-regression run 43490561082 attempt 2:
+ * {"sent":"","shown":"$6,000.00","filled":"$6,000.00"}). The check above reads the last request only, so it failed only
+ * when an empty-amount request happened to be the last one. A person must never have an analysis run with no amount while
+ * the screen shows one. Each request is listed with its time and whether it came before or after Continue.
+ */
+test("every analysis request in the flow carries the held amount -- small-claims (sc-deck-owed)", async ({ page }) => {
+  test.setTimeout(300_000);
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
+  const t0 = Date.now();
+  let continued = false;
+  const requests: { at: number; amount: string; afterContinue: boolean }[] = [];
+  page.on("request", (request) => {
+    if (request.method() === "POST" && request.url().includes("/api/small-claims/analyze")) requests.push({ at: Date.now() - t0, amount: String(request.postDataJSON()?.input?.amountClaimed ?? ""), afterContinue: continued });
+  });
+  await guidedThenReview(page);
+  continued = true;
+  const seen = await amountsSeen(page, requests.map((request) => request.amount));
+  await page.waitForTimeout(1_000);
+  console.log(`analysis requests: ${JSON.stringify(requests)}`);
+  expect(requests.length, `at least one analysis ran: ${JSON.stringify(requests)}`).toBeGreaterThan(0);
+  for (const request of requests) expect(digits(request.amount), `an analysis request carried the amount on screen: ${JSON.stringify({ request, seen })}`).toBe("6000");
+});

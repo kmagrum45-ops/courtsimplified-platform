@@ -4,7 +4,7 @@ import { OPEN_WHOLE_FORM_EVENT } from "./_components/openWholeForm";
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
 import { caseFileOf, claimKindOf, kindForAnalysis, neverMarried, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
-import { factsWithRecord } from "../../src/lib/case-system/caseFile/chatTurnFacts";
+import { analysisFactsOf } from "../../src/lib/case-system/caseFile/chatTurnFacts";
 import { withoutUnsureAnswers } from "../../src/lib/case-system/caseFile/unsureAnswer";
 import { researchCaseContext } from "../../src/lib/case-system/caseFile/aiCaseContext";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
@@ -1345,7 +1345,10 @@ function BuilderPageContent() {
       const fileNow = caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult);
       // The record's answers, not the chat's older copy (rule 3; chatTurnFacts.ts factsWithRecord): an amount changed on
       // the review while the chat was open goes to the analysis at its new value; a removed answer does not go.
-      const recordFacts = factsWithRecord((result.facts ?? {}) as Record<string, unknown>, caseFileOf(recovery?.getReview().checkpoint ?? reviewView?.checkpoint ?? null, recovery?.getSavedMaster() ?? existingMasterResult)) as GuidedIntakeCompletionResult["facts"];
+      // The review's answers too, whichever way the analysis started (the chat finishing on its own carried only its own
+      // facts, so an amount given in the review went out empty: run 43490561082; chatTurnFacts.ts analysisFactsOf).
+      const checkpointNow = recovery?.getReview().checkpoint ?? reviewView?.checkpoint ?? null;
+      const recordFacts = analysisFactsOf((result.facts ?? {}) as Record<string, unknown>, checkpointNow, caseFileOf(checkpointNow, recovery?.getSavedMaster() ?? existingMasterResult)) as GuidedIntakeCompletionResult["facts"];
       const heldNow = claimKindOf(fileNow);
       // The kind in words, told to the AI research, from the same case file through the shared builder
       // (aiCaseContext.ts, rule 8; site owner, 31 Oct): a dispute category has no catalogue id.

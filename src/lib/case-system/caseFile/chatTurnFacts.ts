@@ -19,6 +19,8 @@
  */
 import { sameAnswer, slotsOfQuestion, type CaseFile } from "./caseFile";
 import { canonicalJson } from "../canonicalJson";
+import type { Checkpoint } from "../intakeCheckpoint";
+import { panelAnswerFacts } from "../intakeReview";
 
 type Facts = Record<string, unknown>;
 
@@ -61,4 +63,17 @@ export function factsWithRecord<T extends Facts>(facts: T, held: CaseFile, answe
     out[key] = typeof now === "string" && typeof slot.value === "number" ? String(slot.value) : slot.value;
   }
   return out as T;
+}
+
+/**
+ * The facts an analysis started from the Small Claims chat is given: the review's answers under the chat's own facts,
+ * then each answer the person holds at the record's value (factsWithRecord). One reader for both ways an analysis
+ * starts: the review's Continue and the chat finishing on its own. Before, only Continue added the review's answers,
+ * so when the chat's last turn finished the intake, an amount given only in the review ("Use the suggestion") was
+ * missing and the analysis ran with no amount while the screen showed one (browser-regression run 43490561082
+ * attempt 2; test:chat-uses-record check 5).
+ */
+export function analysisFactsOf<T extends Facts>(facts: T, checkpoint: Checkpoint | null, held: CaseFile): T {
+  const review = checkpoint ? panelAnswerFacts(checkpoint) as Facts : {};
+  return factsWithRecord({ ...review, ...facts } as T, held);
 }
