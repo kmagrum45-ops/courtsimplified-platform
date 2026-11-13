@@ -40,7 +40,7 @@ port_lock() {
 
 port_in_use() {
   (echo > "/dev/tcp/127.0.0.1/$1") 2>/dev/null && return 0
-  curl -s -o /dev/null --max-time 2 "http://[::1]:$1/" && return 0
+  curl -6 -s -o /dev/null --max-time 2 "http://localhost:$1/" && return 0  # IPv6 loopback (::1), named as localhost
   return 1
 }
 
