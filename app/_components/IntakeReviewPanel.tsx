@@ -22,7 +22,7 @@ import StoryEditor from "../builder/_components/StoryEditor";
 import { freshSections, staleAnswerKeys, storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
 import StoryChangedNotice from "./StoryChangedNotice";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
-import { canReview, shownReviewEntries, undecidedStoryOffers, boxOfferUndecided, questionOfferUndecided, offerKeyOfEntry, offerKeyOfQuestion, reviewOfferChoicesOf, type ReviewOfferChoice, changedAfterConfirm, initialAnswersOf, reviewQuestionField, inputRevision, notAnsweredYet, remainingEssentialQuestions, reviewBoxState, reviewPhase, reviewQuestionList, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
+import { canReview, reviewEntries, withHeldOtherParty, shownReviewEntries, undecidedStoryOffers, boxOfferUndecided, questionOfferUndecided, offerKeyOfEntry, offerKeyOfQuestion, reviewOfferChoicesOf, type ReviewOfferChoice, changedAfterConfirm, initialAnswersOf, reviewQuestionField, inputRevision, notAnsweredYet, remainingEssentialQuestions, reviewBoxState, reviewPhase, reviewQuestionList, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
 import { askOf } from "../../src/lib/case-system/intake/asker";
 import NextStepStatus, { nextStepPressed, useNextStepReading } from "./NextStepStatus";
 import { WorkingNote } from "./Working";
@@ -226,7 +226,7 @@ export default function IntakeReviewPanel() {
   const savedMaster = recovery.getSavedMaster();
   const caseFileNow = caseFileOf(checkpoint, savedMaster ?? undefined);
   // The Small Claims questions route also shows the other party the record holds (B1; shown only, never confirmed by itself).
-  const entries = shownReviewEntries(checkpoint, caseFileNow);
+  const entries = shownReviewEntries(withHeldOtherParty(reviewEntries(checkpoint), checkpoint, caseFileNow));
   // Still to answer: only what nobody has answered or said "not sure" to (the case file's one gate).
   const remaining = remainingEssentialQuestions(checkpoint, savedMaster ?? undefined);
   // Said "I don't know" or "not sure" anywhere (site owner, 31 Oct): a quiet line, never asked again here.
