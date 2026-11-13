@@ -108,6 +108,9 @@ const GUARDED: GuardedPath[] = [
     what: "the pathway description, and the out-of-scope forum redirect message",
     atLeast: 2,
   },
+  // The tribunal notice shown before any question in every intake (C1, pr/behaviour-fixes): it guards the forum redirect
+  // message itself, so a page that shows it never shows an unchecked one.
+  { file: "app/_components/TribunalNotice.tsx", what: "the out-of-scope forum redirect message, before any question", atLeast: 1 },
   // The seven pages below already called the guard and were never declared, so
   // this suite failed on them (found 2026-10-04 while moving the forms tool to
   // FormsWorkspace.tsx). Declaring them is what makes their guard a checked

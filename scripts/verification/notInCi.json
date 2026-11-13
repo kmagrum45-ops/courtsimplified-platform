@@ -37,16 +37,6 @@
       "reason": "a tool, not a suite: runs one named scenario and needs its id as an argument (npm run test:scenario <id>)"
     },
     {
-      "file": "scripts/verification/verifyAiCallLogSink.ts",
-      "script": "test:ai-call-log-sink",
-      "reason": "uses a database or a real test account; no workflow runs it; not run in this audit"
-    },
-    {
-      "file": "scripts/verification/verifyAiCallLogging.ts",
-      "script": "test:ai-call-logging",
-      "reason": "references the OpenAI client, so it may call the live model (billed); no workflow runs it (CLAUDE.md s. 7: billed runs are started by hand); not run in this audit"
-    },
-    {
       "file": "scripts/verification/verifyAmendmentTrails.ts",
       "script": "test:amendment-trails",
       "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"

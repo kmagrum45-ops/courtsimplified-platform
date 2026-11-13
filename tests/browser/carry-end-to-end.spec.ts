@@ -73,6 +73,8 @@ import { serveModelStandIns, type Court } from "./harness/thisCommitServer";
 import { factsAskedTwice, heldFacts, heldViolations, recordAsks, repeatViolations, type Asked, type HeldState } from "./harness/askOnce";
 import { countsLine, countsOf, readBaseline, shows, splitByBaseline, splitUnreached, writeRunRecord, type CarryKind, type CarryViolation } from "./harness/carryCounts";
 import { asksForDate } from "../../src/lib/case-system/dates";
+import { chooseOffers } from "./harness/offers";
+import { tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
@@ -292,7 +294,7 @@ async function smallClaimsQuestions(run: Run) {
     await page.waitForTimeout(600);
     if (await finished.isVisible().catch(() => false)) break;
     if (await proposals.isVisible().catch(() => false)) {
-      await proposals.getByTestId("story-proposals-continue").click();
+      await chooseOffers(proposals, "no"); await proposals.getByTestId("story-proposals-continue").click();
       await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 });
       continue;
     }
@@ -443,7 +445,7 @@ async function confirmAndShow(run: Run) {
   await answerReview(run);
   const panel = page.getByTestId("intake-review");
   if ((await panel.getAttribute("data-phase")) !== "user-confirmed") {
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
   }
@@ -541,7 +543,7 @@ async function readEchoes(run: Run, when: string) {
     await page.goto(`/builder?path=small-claims&intake=${run.caseA}&step=guided`);
     await passNotice(page);
     await page.waitForTimeout(3_000);
-    const confirmed = (await page.locator("[data-testid=guided-message][data-from=user]").allInnerTexts()).filter((text) => /^Confirmed from/.test(text.trim()));
+    const confirmed = (await page.locator("[data-testid=guided-message][data-from=user], [data-testid=guided-message][data-from=note]").allInnerTexts()).filter((text) => /^Confirmed from/.test(text.trim()));
     if (confirmed.length) judge(run, `questions echo (${when})`, {}, confirmed.join("\n"));
     return;
   }
@@ -799,7 +801,7 @@ async function secondCaseStageNotSure(run: Run) {
   if ((await panel.getAttribute("data-phase")) !== "user-confirmed") {
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
   }

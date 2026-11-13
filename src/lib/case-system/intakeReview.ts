@@ -2,17 +2,19 @@
 import { sentences as sharedSentences } from "./sentences";
 import { canonicalJson } from "./canonicalJson";
 import { sideOf, situationAnswers, situationOf, stageWords } from "./situation/situation";
-import { countable, dayWrittenBefore, findDates, formatForCourt, findDayMonthWithoutYear, MONTH_WORDS_EN } from "./dates";
+import { countable, dayWrittenBefore, findDates, formatForCourt, findDayMonthWithoutYear, isRealIsoDate, MONTH_WORDS_EN } from "./dates";
 import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
 import { freshSections } from "./storyBasis";
 import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
 import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../../app/builder/_components/guidedFields";
-import { amountFromStory, goalFromStory, kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
+import { amountFromStory, amountOfferFromStory, goalFromStory, kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
+import type { Stated } from "./caseFile/factStatus";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 import { askOf } from "./intake/asker";
 import { alreadyAsked, CASE_FILE_SECTION, CHANGE_QUESTION, caseFileOf, fromCasePosition, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, repeatsAnswer, sameAnswer, NEWEST_TYPED_FACTS, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
-import { LOAN_WORDS } from "./intake/claimKind";
+import { LENT_MONEY, LOAN_WORDS } from "./intake/claimKind";
+import { servedDateAt } from "./servedWords";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
 
 type ObjectValue = Record<string, unknown>;
@@ -64,6 +66,18 @@ const FIELD_LABELS: Record<string, string> = {
   privacyRecordsFacts: "The records or privacy issue", damagesBreakdown: "What your losses are made up of",
   settlementEfforts: "What you have tried to settle it", limitationDeadline: "A deadline you know of",
   courtLocation: "Court location", courtFileNumber: "Court file number", otherParty: "The other party",
+  // The form's own words for the box, for either side ("Defendant address" was its code name: role audit, 11 Nov).
+  defendantAddress: "Other party address for service",
+};
+/**
+ * The labels a person being sued reads instead: the Small Claims form's own defendant wording (SmallClaimsIntake.tsx), so
+ * the review never says "your losses" or "the court to order" to them (role audit, 11 Nov; test:side-wording).
+ */
+export const RESPONDING_LABELS: Record<string, string> = {
+  damagesBreakdown: "Which part of the amount you dispute, and why",
+  goal: "What do you want to happen with the claim against you?",
+  // Civil's own box for it ("What would you like the court to order?").
+  legalRemedy: "What do you want to happen with the claim against you?",
 };
 /** Whether a field has words written for it (a field with none would show its code name turned into words). */
 export function hasWrittenLabel(courtPath: string, key: string): boolean {
@@ -111,6 +125,7 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   if (fromStart.caseStage) { source.caseStage = fromStart.caseStage; startKeys.add("caseStage"); }
   else if (Array.isArray(source[courtPath === "civil" ? "documents" : "filedDocuments"]) && fromStart.excludeDocuments) source[courtPath === "civil" ? "documents" : "filedDocuments"] = (source[courtPath === "civil" ? "documents" : "filedDocuments"] as string[]).filter(item => !fromStart.excludeDocuments!.includes(item));
   const entries: ReviewEntry[] = [];
+  const responding = sideOf(situationOf(sections)) === "responding" || /defendant|responding/i.test(String(source.yourRole ?? ""));
   const add = (area: string, key: string, value: unknown, nested?: string) => {
     // Civil keeps the location as city and province in its form input too: a second copy of the one location, not a second answer.
     if (UI.has(key) || (area !== STORY_SECTION && STORY_INPUT_KEYS.has(key)) || (area === "civil" && (key === "city" || key === "province")) || !(typeof value === "string" || typeof value === "number" || typeof value === "boolean" || (Array.isArray(value) && value.every(v => typeof v === "string")))) return;
@@ -136,7 +151,7 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
     // A question asked only on one side or in one situation (its `when`: "When and how you were
     // served" is the responding side's) is not essential for anyone else.
     const notTheirQuestion = definition?.when ? !definition.when({ ...asGiven, facts: storyOf(sections) } as never) : false;
-    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: notTheirIssue || notTheirQuestion ? false : definition?.initial ?? !OPTIONAL.has(key), ...(choices?.length ? { choices } : {}), ...(definition?.question ?? question?.text ? { question: definition?.question ?? question?.text } : {}), ...(fromStartHere ? { fromStart: true } : {}) });
+    entries.push({ section: area, field: key, nested, label: (responding ? RESPONDING_LABELS[key] : undefined) ?? definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: notTheirIssue || notTheirQuestion ? false : definition?.initial ?? !OPTIONAL.has(key), ...(choices?.length ? { choices } : {}), ...((responding ? RESPONDING_LABELS[key] : undefined) ?? definition?.question ?? question?.text ? { question: (responding ? RESPONDING_LABELS[key] : undefined) ?? definition?.question ?? question?.text } : {}), ...(fromStartHere ? { fromStart: true } : {}) });
   };
   // The one copy of the story and location comes first, whatever the route (intakeStory.ts).
   entries.push({ section: STORY_SECTION, field: "text", label: "Your story", value: storyOf(sections), essential: true });
@@ -512,6 +527,55 @@ export function remainingEssentialQuestions(stored: Checkpoint, master?: unknown
 /** Empty as a review box shows it: nothing typed, or an empty list. */
 const emptyValue = (value: ReviewEntry["value"]) => value === "" || (Array.isArray(value) && value.length === 0);
 
+/**
+ * THE OFFERS FROM THE STORY STILL UNDECIDED (site owner, 11 Nov 2026: "the review: Confirm only for story offers not yet
+ * decided. A value the person typed never asks for confirmation"). A suggestion read from the story for a question not
+ * answered and not said "not sure", and a review box with a value offered from the story that the case file does not
+ * hold. Zero: nothing is left for the person to decide, so the review asks for no confirmation.
+ */
+export function undecidedStoryOffers(checkpoint: Checkpoint, master?: unknown): number {
+  const suggestions = suggestInitialAnswers(checkpoint);
+  const choices = reviewOfferChoicesOf(checkpoint);
+  const questions = reviewQuestionList(checkpoint, master).filter((question) => questionOfferUndecided(question, suggestions, choices)).length;
+  const file = caseFileOf(checkpoint, master);
+  // Only the boxes the review shows: an offer the person cannot see has no choices to press (story pack, 12 Nov: the
+  // Charter review counted an empty optional box it does not draw, and Continue stayed disabled for good).
+  const boxes = shownReviewEntries(withHeldOtherParty(reviewEntries(checkpoint), checkpoint, file)).filter((entry) => boxOfferUndecided(entry, file, choices)).length;
+  return questions + boxes;
+}
+
+/**
+ * Of the review's boxes (with the Small Claims other party the record holds: withHeldOtherParty), the ones the review
+ * draws: the essential boxes and those holding something (optional ones with nothing in them are not shown, re-test
+ * 2026-10-18). The one filter the review panel draws with and undecidedStoryOffers counts with, so Continue never waits
+ * on a box the person cannot see.
+ */
+export function shownReviewEntries(entries: ReviewEntry[]): ReviewEntry[] {
+  const blank = (value: ReviewEntry["value"]) => Array.isArray(value) ? value.length === 0 : typeof value === "string" ? !value.trim() : false;
+  return entries.filter((entry) => entry.essential || !blank(entry.value));
+}
+
+/**
+ * THE REVIEW'S THREE CHOICES ON A STORY OFFER (site owner, 12 Nov 2026: "three choices, no tick"). Yes uses the
+ * suggestion (it becomes the answer); "no" (No, that's not right) leaves the box or question to answer plainly; "unsure"
+ * (I'm not sure) settles it, add it when you know. Kept in the review's own record, builder.reviewOfferChoices, by key.
+ */
+export type ReviewOfferChoice = "no" | "unsure";
+export const offerKeyOfQuestion = (id: string) => `q:${id}`;
+export const offerKeyOfEntry = (entry: Pick<ReviewEntry, "section" | "nested" | "field">) => `box:${entry.section}.${entry.nested ? `${entry.nested}.` : ""}${entry.field}`;
+export function reviewOfferChoicesOf(checkpoint: Checkpoint): Record<string, ReviewOfferChoice> {
+  const raw = object(object(checkpoint.sections.builder).reviewOfferChoices);
+  return Object.fromEntries(Object.entries(raw).filter(([, choice]) => choice === "no" || choice === "unsure")) as Record<string, ReviewOfferChoice>;
+}
+/** A question's story offer still to choose on: one rule for the count and for the screen, so Continue never waits on a choice not shown. */
+export function questionOfferUndecided(question: { id: string; answered: boolean; notYet?: unknown }, suggestions: Record<string, unknown>, choices: Record<string, ReviewOfferChoice>): boolean {
+  return !question.answered && !question.notYet && Boolean(suggestions[question.id]) && !choices[offerKeyOfQuestion(question.id)];
+}
+/** A review box's story offer still to choose on (the same rule for the count and for the screen). */
+export function boxOfferUndecided(entry: ReviewEntry, file: CaseFile, choices: Record<string, ReviewOfferChoice>): boolean {
+  return Boolean(entry.fromStory) && emptyValue(entry.value) && reviewBoxState(entry, file) === "ask" && !choices[offerKeyOfEntry(entry)];
+}
+
 /** The facts of the review's boxes that are shown: essential ones, and optional ones with something in them. */
 function shownBoxFacts(stored: Checkpoint): Set<SlotFact> {
   return new Set(reviewEntries(stored).filter(entry => entry.essential || !emptyValue(entry.value)).flatMap(entry => slotsOfQuestion(entry.field)));
@@ -671,7 +735,20 @@ const SIDE_CUES: [RegExp, string][] = [
   [/\b(owes? me|owed me|never paid|did not pay|didn't pay|won't pay|refused to (pay|refund|return)|kept my|i want to sue|i want (my|the) money|never came back|left the work|did not return|i paid|we paid|paid (him|her|them|a|an|the)|took (my|our|a|an|the)\b[^.]{0,30}\b(deposit|money|payment)|never (did|finished|completed|delivered|showed up|started))\b/i, "Bringing the claim (plaintiff)"],
 ];
 /** Small Claims' cue table for "What kind of dispute is this?", read by the one shared reader (storyAnswers.ts kindsFromStory). */
+/**
+ * Answers to "What kind of dispute is this?" worded for the person suing (role audit, 11 Nov; test:side-wording). Not
+ * "Something said about you (defamation)": test:side-change keeps it for someone served with a defamation claim (the
+ * owner's case M19), so its wording is for the review chat (REVIEW_CHAT_ADDITIONS.md item 7).
+ */
+export const PLAINTIFF_WORDED_KINDS: ReadonlySet<string> = new Set([
+  "Unpaid money owed to you",
+  "Work or a service you paid for (e.g. a contractor)",
+]);
+
 export const SMALL_CLAIMS_KIND_CUES: readonly KindCue[] = [
+  // Money the person lent is a loan, whatever it was for: before the work cue, which "for a car repair" also matches
+  // (Chrome check of #547, G1).
+  ["A loan or debt", LENT_MONEY],
   // A contractor's deposit is about the work, so this comes before "deposit".
   ["Work or a service you paid for (e.g. a contractor)", /\b(contractor|renovat\w*|repair\w*|roof\w*|plumb\w*|electrician|landscap\w*|mechanic)\b/i],
   ["A deposit that wasn't returned", /\bdeposit\b/i],
@@ -702,7 +779,8 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
   // Someone responding is asked about the claim against them: read the sentences about it, never
   // the claim they once meant to bring (26 Oct re-test, case 19 after the side change: "Work or a
   // service you paid for" was suggested for the defamation claim against him). None: nothing offered.
-  const story = sideOf(situationOf(checkpoint.sections)) === "responding" ? againstThemIn(whole) : whole;
+  const responding = sideOf(situationOf(checkpoint.sections)) === "responding";
+  const story = responding ? againstThemIn(whole) : whole;
   if (!story.trim()) return {};
   const out: Record<string, string> = {};
   const date = whenItHappened(story);
@@ -713,7 +791,10 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
   // (re-test round 7: an unpaid renovation invoice was suggested as "a service you paid for").
   // A loan named ("I lent my cousin $2,000 and she never paid it back") is a loan, not money owed for work.
   const owedForWork = /\b(invoice\w*|unpaid|never paid|did not pay|didn't pay|won't pay)\b/i.test(story) && !/\b(i|we) paid\b|\bdeposit\b/i.test(story) && !LOAN_WORDS.test(story);
-  const category = owedForWork ? "Unpaid money owed to you" : kindsFromStory(story, SMALL_CLAIMS_KIND_CUES, { first: true })?.value[0];
+  const found = owedForWork ? "Unpaid money owed to you" : kindsFromStory(story, SMALL_CLAIMS_KIND_CUES, { first: true })?.value[0];
+  // Someone being sued is never offered a kind worded for the person suing ("owed to you", "you paid for", "said about
+  // you"): role audit, 11 Nov. The choice stays theirs to make in the list.
+  const category = found && responding && PLAINTIFF_WORDED_KINDS.has(found) ? undefined : found;
   // Never a kind the person removed or turned down ("Not quite"), rule 6 (31 Oct): the case file says which.
   const file = caseFileOf(checkpoint);
   const named = claimKindOf({ ...emptyCaseFile(), claimKind: { state: "answered", value: category ?? "", confirmed: true } }).claimTypeId;
@@ -725,6 +806,27 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
   if (goal) out["sc-remedy-sought"] = goal.value;
   return out;
 }
+
+/**
+ * THE ONE STORY READER for the facts a story can state (site owner, 11 Nov 2026; caseFile/factStatus.ts `stated`):
+ * when it happened (a full day only), the amount (the claim amount reader's, else a quote or an estimate the story
+ * names: offered once, never kept as a fact by itself, claimAmount.ts still skips it) and what the person wants.
+ * Each is only ever OFFERED (Yes / No, that's not right / I'm not sure); none is an answer until the person says Yes.
+ */
+export function statedInStory(story: string): Stated {
+  const out: Stated = {};
+  if (!story.trim()) return out;
+  const date = whenItHappened(story);
+  // A month and year ("In March 2026") is stated as well as a full date (page test, 12 Nov: it was read, then dropped).
+  if (date && (isRealIsoDate(date) || MONTH_AND_YEAR.test(date))) out.whenHappened = date;
+  const amount = amountOfferFromStory(story)?.value;
+  if (amount) out.amount = amount.replace(/[$,\s]/g, "");
+  const goal = goalFromStory(story);
+  if (goal) out.wants = goal.value;
+  return out;
+}
+
+const MONTH_AND_YEAR = new RegExp(`^(?:${MONTH_WORDS_EN.join("|")}) \\d{4}$`);
 
 /** "payment was due July 10", "by July 10": a deadline, not when it happened. */
 const DEADLINE_BEFORE = /\b(?:due|deadline|payable|by|until|before|no later than|expires?|expiring)\s*(?:on\s*)?$/i;
@@ -743,7 +845,8 @@ function whenItHappened(story: string): string | null {
     ...findDates(story).filter((date) => (date.precision === "day" ? countable(date) : date.precision === "month" && !dayWrittenBefore(story, date))).map((date) => ({ index: story.indexOf(date.source), date })),
     ...findDayMonthWithoutYear(story).filter((date) => !date.numeric).map((date) => ({ index: date.index, date: null })),
   ].filter((mention) => mention.index >= 0).sort((a, b) => a.index - b.index);
-  const chosen = mentions.find((mention) => notDeadline(mention.index));
+  // The day the person was served is its own fact, never when the dispute happened (servedWords.ts; Chrome check of #547, G3a).
+  const chosen = mentions.find((mention) => notDeadline(mention.index) && !servedDateAt(story, mention.index));
   if (!chosen || !chosen.date) return null;
   if (chosen.date.precision === "day") return chosen.date.iso;
   const [year, month] = chosen.date.iso.split("-").map(Number);

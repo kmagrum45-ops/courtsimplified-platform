@@ -28,7 +28,8 @@ import { deleteHarnessUser } from "./harness/realTestSession";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns } from "./harness/thisCommitServer";
-import { recordInitialUnknowns, saveCaseStory } from "./harness/intakeReview";
+import { recordInitialUnknowns, saveCaseStory, tickIfAsked } from "./harness/intakeReview";
+import { chooseOffers } from "./harness/offers";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
 
@@ -86,7 +87,7 @@ async function readyToConfirm(page: Page) {
   const filed = page.locator('[data-question="sc-claim-filed"]');
   if (await filed.count()) await filed.getByRole("button", { name: "No", exact: true }).click();
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
 }
 
 for (const court of COURTS) {
@@ -179,7 +180,7 @@ for (const route of ["small-claims form", "small-claims questions", "civil", "fa
           // The questions ended and the next step was asked for on their own: the review was sent back to its start.
           if (await page.getByTestId("intake-review").getAttribute("data-phase") === "reviewing") break;
           if (await proposals.isVisible().catch(() => false)) {
-            await proposals.getByTestId("story-proposals-continue").click();
+            await chooseOffers(proposals, "no"); await proposals.getByTestId("story-proposals-continue").click();
             await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 });
             continue;
           }
@@ -232,7 +233,7 @@ for (const court of COURTS) {
       await page.goto(`/builder?caseId=${caseId}&path=${court}&next=start`);
       await expect(page.getByTestId("intake-review")).toBeVisible({ timeout: 60_000 });
       await expect(page.getByTestId("next-start-blocked"), "the link said nothing about why no next step was shown").toBeVisible({ timeout: 30_000 });
-      await expect(page.getByTestId("next-start-blocked")).toContainText(/confirm/i);
+      await expect(page.getByTestId("next-start-blocked")).toContainText("an answer changed since you last continued");
     } finally {
       await deleteHarnessUser(userId);
     }

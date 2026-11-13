@@ -16,11 +16,12 @@
  * Browser only, synthetic account (fakeAccount), this commit's own server calls (serveFromThisCommit); no staging.
  */
 import { expect, test, type Page } from "@playwright/test";
+import { chooseOffers } from "./harness/offers";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { serveFromThisCommit, serveModelStandIns } from "./harness/thisCommitServer";
-import { recordInitialUnknowns } from "./harness/intakeReview";
+import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 const STORY = "I hired Test Decks Ltd. in March 2026 to build a deck for $8,000. I paid $2,000 and $6,000 is still owed. I have the contract, text messages and a bank receipt.";
@@ -41,7 +42,7 @@ async function guidedThenReview(page: Page, changedAmount?: string) {
   const question = page.locator("[data-testid=guided-message][data-from=assistant]").last();
   const proposals = page.getByTestId("story-proposals");
   await expect(proposals.or(question).first()).toBeVisible({ timeout: 60_000 });
-  if (await proposals.isVisible().catch(() => false)) await proposals.getByRole("button").last().click();
+  if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await proposals.getByRole("button").last().click(); }
   await expect(page.locator("textarea").last()).toBeVisible({ timeout: 60_000 });
 
   // The review: the amount held from the story's suggestion, so the form's own box is empty.
@@ -64,7 +65,7 @@ async function guidedThenReview(page: Page, changedAmount?: string) {
     await page.waitForTimeout(2_000);
   }
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
 
@@ -205,7 +206,7 @@ test("a box the fill put an amount in follows the amount changed in the review -
   await reviewAmount.blur();
   await page.waitForTimeout(2_000);
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
 

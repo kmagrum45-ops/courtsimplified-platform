@@ -8,21 +8,24 @@
  *
  * Each test (stand-ins only: fakeAccount, serveFromThisCommit; the guided chat first, as the founder did):
  * the amount answered $2,400 in the review (its suggestion used), everything else "I do not know yet", the
- * acknowledgement ticked; then $2,650 typed key by key into a box and Confirm pressed directly (or Enter
- * first). Then: the value is saved when Confirm is pressed (the press blurs the box); the page asks for the tick
- * again (the confirmation rule: an answer changed after the tick), so Confirm takes only once ticked again; the saved case read through caseFileOf (what the case page
- * reads); the overview; after a reload the review's text and boxes -- all $2,650, never $2,400. The review's
- * "Initial questions" list is drawn only while reviewing, so after Confirm the review is checked as the
- * confirmed review shows it.
+ * review ready to continue; then $2,650 typed key by key into a box and Continue pressed directly (or Enter
+ * first). Then: after the change and before Continue is pressed, the case is not confirmed, on the page or in the
+ * saved case (site owner, 12 Nov: there is no tick since then, and a stale confirmation is still the risk); one
+ * Continue press saves the value (the press blurs the box) and then confirms; the saved case read through caseFileOf
+ * (what the case page reads); the overview; after a reload the review's text, boxes and list of initial questions --
+ * all $2,650, never $2,400.
  *
  * WHAT FAILURE THIS CATCHES: a value typed into a review box lost, or an older value kept, when the person
- * goes straight to Confirm (or presses Enter) instead of clicking elsewhere first.
+ * goes straight to Continue (or presses Enter) instead of clicking elsewhere first; and a case marked confirmed
+ * after an answer changed, before the person pressed Continue again.
  */
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { serveFromThisCommit } from "./harness/thisCommitServer";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { chooseOffers } from "./harness/offers";
+import { tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -44,7 +47,7 @@ async function guidedChat(page: Page) {
     await expect(finished.or(proposals).or(message).first()).toBeVisible({ timeout: 60_000 });
     await page.waitForTimeout(600);
     if (await finished.isVisible().catch(() => false)) break;
-    if (await proposals.isVisible().catch(() => false)) { await proposals.getByTestId("story-proposals-continue").click(); await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 }); continue; }
+    if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await proposals.getByTestId("story-proposals-continue").click(); await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 }); continue; }
     const text = (await message.innerText()).replace(/\s+/g, " ");
     if (text === last) break;
     last = text;
@@ -86,7 +89,7 @@ async function reviewWithAmount(page: Page): Promise<{ account: Account; panel: 
   await expect(question.getByTestId("intake-question-answered")).toContainText("$2,400", { timeout: 20_000 });
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const left = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(left - 1, { timeout: 20_000 }); }
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await expect(page.getByTestId("intake-confirm")).toBeEnabled({ timeout: 30_000 });
   return { account, panel, question };
 }
@@ -105,18 +108,31 @@ async function savedAmount(account: Account): Promise<unknown> {
   return caseFileOf(master.intakeCheckpoint as never, master).amount.value;
 }
 
-/** After Confirm: every screen holds $2,650 and none $2,400. */
+/** The review's state as saved in the case (what every other screen reads), not as the page shows it. */
+async function savedPhase(account: Account): Promise<string> {
+  const row = [...account.rows.values()][0] as { master_result?: unknown } | undefined;
+  const { reviewPhase } = await import("../../src/lib/case-system/intakeReview");
+  const master = (row?.master_result ?? {}) as { intakeCheckpoint?: unknown; workflowStatus?: unknown };
+  return master.intakeCheckpoint ? reviewPhase((master.workflowStatus ?? {}) as Record<string, unknown>, master.intakeCheckpoint as never) : "none";
+}
+
+/** After the change: not confirmed until Continue is pressed again; one press saves the value, then confirms. Every screen holds $2,650 and none $2,400. */
 async function everyScreen(page: Page, account: Account, panel: Locator, how: string) {
-  // Confirm pressed straight after typing: the press leaves the box first (its blur), which saves the value; the
-  // value changed, so the confirmation rule asks for the acknowledgement again ("You changed an answer. Please tick
-  // to confirm again.") and nothing is confirmed on the older tick. The value is saved at once.
-  await expect.poll(() => savedAmount(account), { timeout: 30_000, message: `${how}: saved as soon as Confirm is pressed` }).toBe(2650);
-  await expect(panel, `${how}: not confirmed on the tick given before the change`).toHaveAttribute("data-phase", "reviewing");
-  await expect(panel, `${how}: the page asks for the tick again`).toContainText("Please tick to confirm again", { timeout: 20_000 });
-  await expect(panel.locator(`[data-testid=intake-initial-question][data-question="${QUESTION}"]`).getByTestId("intake-question-answered"), `${how}: the review's list shows the new amount`).toContainText("2,650");
-  await page.getByTestId("intake-review-acknowledgement").check();
-  await page.getByTestId("intake-confirm").click();
-  await expect(panel, `${how}: confirmed once ticked again`).toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+  // After the change and before the next Continue press, the case is not confirmed: neither the page nor the saved
+  // case (site owner, 12 Nov: removing the tick does not remove the risk of a stale confirmation). Reading the
+  // attribute and the saved row does not move the focus, so the box is still not left before the press.
+  // Held for five seconds, not read once: a confirmation that lands a moment after the save is caught too (the
+  // deliberate-fault run of 12 Nov confirmed about two seconds after the save, after a single read had passed).
+  for (let look = 0; look < 10; look++) {
+    expect(await panel.getAttribute("data-phase"), `${how}: not confirmed after the change, before Continue is pressed again`).toBe("reviewing");
+    await page.waitForTimeout(500);
+  }
+  expect(await savedPhase(account), `${how}: the saved case is not confirmed after the change, before Continue is pressed again`).not.toBe("user-confirmed");
+  // The press leaves the box first (its blur), which saves the value, then confirms.
+  if ((await panel.getAttribute("data-phase")) === "reviewing") await page.getByTestId("intake-confirm").click();
+  await expect.poll(() => savedAmount(account), { timeout: 30_000, message: `${how}: saved as soon as Continue is pressed` }).toBe(2650);
+  await expect(panel, `${how}: one Continue press confirms`).toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+  await expect.poll(() => savedPhase(account), { timeout: 30_000, message: `${how}: the saved case is confirmed by that one press` }).toBe("user-confirmed");
   await expect.poll(() => savedAmount(account), { timeout: 30_000, message: `${how}: the saved case (what the case page reads) holds the new amount` }).toBe(2650);
   await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
   const overview = page.getByTestId("completed-case-overview");
@@ -135,6 +151,11 @@ async function everyScreen(page: Page, account: Account, panel: Locator, how: st
   // The review shows the amount as text (a held line) or in its box (a text area's value is not in innerText).
   const boxValues = await panel.locator("input, textarea").evaluateAll((items) => items.map((item) => (item as HTMLInputElement).value).join(" "));
   expect(`${await panel.innerText()} ${boxValues}`, `${how}: after a reload, the review shows the new amount`).toMatch(/2,650/);
+  // One Continue press now confirms, and a confirmed review does not draw its list of initial questions (it did while
+  // the tick was asked again). Its amount line is where the review shows the amount once confirmed: checked here.
+  const amountLine = panel.locator("[data-testid=intake-entry][data-field=amountClaimedText]");
+  const amountBox = await amountLine.locator("input, textarea").evaluateAll((items) => items.map((item) => (item as HTMLInputElement).value).join(" "));
+  expect(`${await amountLine.innerText()} ${amountBox}`, `${how}: the review's amount line shows the new amount`).toMatch(/2,650/);
   const amounts = await panel.locator("input, textarea").evaluateAll((items) => items.map((item) => (item as HTMLInputElement).value).filter((value) => value.includes("$") && !value.startsWith("Synthetic story")));
   expect(amounts.filter((value) => value.includes("2,400")), `${how}: no box holds the older amount`).toEqual([]);
   expect(await savedAmount(account), `${how}: still saved after the reload`).toBe(2650);
@@ -146,8 +167,7 @@ test("the review's summary box: $2,650 typed, then Confirm pressed straight away
   const box = panel.locator("[data-testid=intake-entry][data-field=amountClaimedText]").locator("textarea, input").first();
   await expect(box).toHaveValue("$2,400", { timeout: 20_000 });
   await typeNew(box);
-  // No blur from the test: the next thing pressed is Confirm.
-  await page.getByTestId("intake-confirm").click();
+  // No blur from the test: the next thing pressed is Continue (everyScreen presses it, after checking nothing is confirmed yet).
   await everyScreen(page, account, panel, "summary box, then Confirm");
 });
 
@@ -155,11 +175,10 @@ test("the question's own box: $2,650 typed, then Confirm pressed straight away: 
   test.setTimeout(400_000);
   const { account, panel, question } = await reviewWithAmount(page);
   await typeNew(question.getByLabel(QUESTION_BOX, { exact: true }));
-  await page.getByTestId("intake-confirm").click();
   await everyScreen(page, account, panel, "question box, then Confirm");
 });
 
-test("Enter in the question's own box saves it and does not confirm the review; then tick again and Confirm", async ({ page }) => {
+test("Enter in the question's own box saves it and does not confirm the review; then one Continue press confirms", async ({ page }) => {
   test.setTimeout(400_000);
   const { account, panel, question } = await reviewWithAmount(page);
   const box = question.getByLabel(QUESTION_BOX, { exact: true });
@@ -167,7 +186,7 @@ test("Enter in the question's own box saves it and does not confirm the review; 
   await box.press("Enter");
   await expect(question.getByTestId("intake-question-answered"), "Enter saved the new amount").toContainText("2,650", { timeout: 20_000 });
   await expect(panel, "Enter does not confirm the review by itself").toHaveAttribute("data-phase", "reviewing");
-  // Enter saved it, so the tick is asked again before Confirm (everyScreen ticks, then confirms).
+  // Enter saved it; nothing is confirmed until Continue is pressed (everyScreen checks, then presses it once).
   await everyScreen(page, account, panel, "question box, Enter, then Confirm");
 });
 
@@ -178,6 +197,5 @@ test("Enter in the summary box adds a line (a text area; it does not submit); Co
   await typeNew(box);
   await box.press("Enter");
   await expect(panel, "Enter does not confirm the review by itself").toHaveAttribute("data-phase", "reviewing");
-  await page.getByTestId("intake-confirm").click();
   await everyScreen(page, account, panel, "summary box, Enter, then Confirm");
 });

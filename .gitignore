@@ -205,3 +205,6 @@ scripts/verification/storyReview/results*.json
 /law-exam-report.md
 /law-exam-report.json
 /law-exam.log
+
+# The ask-once page test's records (tests/browser/ask-once-pages.spec.ts)
+ask-once-records/

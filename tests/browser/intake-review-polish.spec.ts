@@ -14,7 +14,7 @@
 import { expect, test, type Page } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
 import { grantSiteAccess } from "./harness/siteAccess";
-import { confirmInitialInformation, saveCaseStory } from "./harness/intakeReview";
+import { confirmInitialInformation, saveCaseStory, tickIfAsked } from "./harness/intakeReview";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { passSituationGate } from "./harness/situation";
 import { serveFromThisCommit } from "./harness/thisCommitServer";
@@ -52,7 +52,7 @@ test("Small Claims: suggestions from the story answer the initial questions; Con
   await expect(panel).toHaveAttribute("data-phase", "reviewing");
   const needs = page.getByTestId("intake-confirm-needs");
   await expect(needs).toContainText("What kind of dispute is this?");
-  await expect(needs).toContainText("I have reviewed this information");
+  await expect(needs).toContainText("a choice (Yes, No or I'm not sure) on each suggestion taken from the story");
   await expect(page.getByTestId("intake-confirm")).toBeDisabled();
 
   // The side was given in the situation questions (step 2): not asked again here.
@@ -76,8 +76,8 @@ test("Small Claims: suggestions from the story answer the initial questions; Con
   await outcome.fill("Synthetic: my $9,000 back");
   await outcome.press("Tab");
   await expect(page.locator('input[data-testid="intake-unknown"]:checked')).toHaveCount(0);
-  await expect(needs).not.toContainText("an answer");
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await expect(needs).toHaveCount(0);
+  await tickIfAsked(page);
   await expect(needs).toHaveCount(0);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
@@ -376,7 +376,7 @@ test("Small Claims: answer, confirm, change the story, start again once, answer 
   await question("sc-amount-claimed").getByLabel(/^Answer: /).press("Tab");
   await question("sc-remedy-sought").getByLabel(/^Answer: /).fill("Synthetic: my $9,000 back");
   await question("sc-remedy-sought").getByLabel(/^Answer: /).press("Tab");
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
 
@@ -405,8 +405,8 @@ test("Small Claims: answer, confirm, change the story, start again once, answer 
   await expect(panel.getByLabel("Review: What outcome are you asking the court to order?"), "the outcome given is not kept").toHaveValue("Synthetic: my $9,000 back");
   await expect(page.locator('input[data-testid="intake-unknown"]:checked'), "no 'I do not know yet' needed").toHaveCount(0);
   if (await panel.getAttribute("data-phase") !== "user-confirmed") {
-    await expect(page.getByTestId("intake-confirm-needs")).not.toContainText("an answer");
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await expect(page.getByTestId("intake-confirm-needs")).toHaveCount(0);
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
   }
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");

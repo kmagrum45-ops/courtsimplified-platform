@@ -41,7 +41,8 @@
 import { sentences as sharedSentences } from "../sentences";
 import { checkedAnswer, type CheckedAnswer, type CheckedAnswerDeps } from "../retrieval/checkedAnswer";
 import type { RetrievalCourt } from "../retrieval/storyRetrieval";
-import { fixedRegimeFor, lienStepFor, type FixedRegimeId } from "../intelligence/fixedRegimes";
+import { exclusiveTribunalFor, fixedRegimeFor, lienStepFor, tribunalNoticeView, type ExclusiveTribunal, type FixedRegimeId, type TribunalNoticeView } from "../intelligence/fixedRegimes";
+export { tribunalNoticeView, type TribunalNoticeView } from "../intelligence/fixedRegimes";
 import { isMapOwnedInstruction, isMapOwnedProcedure } from "../procedureOwnership";
 import { ALL_STAGES, findStage, isSpecialStage, pathwayOf, type StagePathway } from "../stage-map/stageMap";
 
@@ -88,7 +89,15 @@ export type CaseUnderstanding = {
    * map does not cover yet, so no ordinary steps are shown for it.
    */
   regime: { id: FixedRegimeId; reasoning: string; ownProcedure: boolean } | null;
+  /**
+   * The tribunal the code rule names from the person's first message (fixedRegimes.ts exclusiveTribunalFor), shown
+   * first with its own sourced redirectMessage (C1, 9 Nov 2026). On a confident match the reading asks no follow-up
+   * question; `ended` (a former tenancy) keeps the reading and its questions under the notice.
+   */
+  tribunal?: TribunalNoticeView | null;
 };
+
+
 
 export type UnderstandResult =
   | {
@@ -448,19 +457,43 @@ function withSituation(understanding: CaseUnderstanding, situation: UnderstandIn
   };
 }
 
+/** The reading for a story the code rule gives to a tribunal: the notice and nothing to answer first (no model call). */
+function tribunalFirstUnderstanding(found: ExclusiveTribunal, situation: UnderstandInput["situation"]): CaseUnderstanding {
+  return {
+    summary: "",
+    facts: [],
+    matters: [{ title: "Your matter", court: "tribunal", forum: found.forum.name }],
+    mainCourt: "tribunal",
+    side: situation?.side ?? "unclear",
+    stage: "",
+    questions: [],
+    asksForPrediction: false,
+    step: null,
+    regime: null,
+    tribunal: tribunalNoticeView(found),
+  };
+}
+
+const NO_CHECKED_ANSWER: CheckedAnswer = { status: "unavailable", statements: [], notConfirmed: [], declinedToJudge: false, missingLaw: [] };
+
 export async function understandCase(input: UnderstandInput, deps: UnderstandDeps = {}): Promise<UnderstandResult> {
   try {
     const story = storyWithAnswers(input);
     if (!input.story.trim()) return { status: "unavailable" };
     deps.signal?.throwIfAborted();
+    // Rules fixed by law run before the model (CLAUDE.md s. 2a): a matter the code gives to a tribunal is said first,
+    // from the person's own first message, with no follow-up question before it (C1, 9 Nov 2026).
+    const tribunalFound = exclusiveTribunalFor(input.story);
+    if (tribunalFound && !tribunalFound.ended) return { status: "understood", understanding: tribunalFirstUnderstanding(tribunalFound, input.situation), answer: NO_CHECKED_ANSWER, drafted: [] };
+    const tribunal = tribunalFound ? tribunalNoticeView(tribunalFound) : null;
 
     const raw = await within(deps.reason ? deps.reason(story, input.chosenCourt) : reasonWithModel(story, input.chosenCourt, deps.signal, deps.understandMs, deps.intakeOnly), deps.understandMs ?? UNDERSTAND_TIME_MS, "");
     deps.signal?.throwIfAborted();
     const parsed = raw ? parseUnderstanding(raw) : null;
     if (!parsed) return { status: "unavailable" };
     const { points } = parsed;
-    const understanding = withSituation(withFixedRegime(parsed.understanding, story), input.situation);
-    if (deps.intakeOnly) return { status: "understood", understanding: { ...understanding, stage: "", step: null }, answer: { status: "unavailable", statements: [], notConfirmed: [], declinedToJudge: false, missingLaw: [] }, drafted: [] };
+    const understanding = { ...withSituation(withFixedRegime(parsed.understanding, story), input.situation), tribunal };
+    if (deps.intakeOnly) return { status: "understood", understanding: { ...understanding, stage: "", step: null }, answer: NO_CHECKED_ANSWER, drafted: [] };
 
     // The reasoning step's points become the draft the checker works on. The
     // checker never sees the reasoning, only each point and the official text.

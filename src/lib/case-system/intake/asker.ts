@@ -18,6 +18,7 @@
  */
 import { isUnsureAnswer, slotsOfQuestion, slotText, SLOT_FACTS, emptyCaseFile, type CaseFile, type Slot, type SlotFact } from "../caseFile/caseFile";
 import { formatForCourt } from "../dates";
+import { slotStatus } from "../caseFile/factStatus";
 
 export type Ask = { ask: true } | { ask: false; held: "answered" | "unsure" | "removed"; fact: SlotFact; slot: Slot };
 
@@ -29,12 +30,15 @@ export function askedFacts(questionId: string, surface?: string): SlotFact[] {
   return [...(FORM_FIELD_FACTS[questionId] ?? slotsOfQuestion(questionId, surface))];
 }
 
-/** Held by the person: their confirmed answer or "not sure", or removed by them. A story guess (confirmed false) is not. */
+/**
+ * Held by the person, from the one function (factStatus.ts): known is their answer, settled is "not sure" or removed.
+ * A story value not decided yet (an offer) and a story value said "not right" are not held.
+ */
 const heldState = (slot: Slot | undefined): "answered" | "unsure" | "removed" | null => {
-  if (!slot) return null;
-  if (slot.removed) return "removed";
-  if (!slot.confirmed) return null;
-  return slot.state === "not-asked" ? null : slot.state;
+  const status = slotStatus(slot);
+  if (status === "known") return "answered";
+  if (status !== "settled") return null;
+  return slot?.removed ? "removed" : "unsure";
 };
 
 /**

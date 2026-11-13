@@ -169,7 +169,7 @@ function isEarlierConversation(value: unknown): value is EarlierConversation {
     value.answers.every(
       (item) =>
         isRecord(item) &&
-        Object.keys(item).every((key) => key === "questionId" || key === "answerText") &&
+        confirmedKeysOk(item) &&
         typeof item.questionId === "string" &&
         item.questionId.length <= MAX_ANSWERED_ID_LENGTH &&
         typeof item.answerText === "string" &&
@@ -178,6 +178,15 @@ function isEarlierConversation(value: unknown): value is EarlierConversation {
   );
 }
 
+/**
+ * A confirmed answer's keys: its question and words, and optionally where it came from ("story-offer": a story value
+ * the person said Yes to; "not-sure": they chose I'm not sure), so it is never read as typed (site owner, 11 Nov 2026).
+ */
+function confirmedKeysOk(item: Record<string, unknown>): boolean {
+  return Object.keys(item).every((key) => key === "questionId" || key === "answerText" || (key === "source" && CONFIRMED_SOURCES.has(item.source as string)));
+}
+const CONFIRMED_SOURCES = new Set(["story-offer", "not-sure"]);
+
 function isConfirmedAnswers(value: unknown): value is ConfirmedStoryAnswer[] {
   return (
     Array.isArray(value) &&
@@ -185,7 +194,7 @@ function isConfirmedAnswers(value: unknown): value is ConfirmedStoryAnswer[] {
     value.every(
       (item) =>
         isRecord(item) &&
-        Object.keys(item).every((key) => key === "questionId" || key === "answerText") &&
+        confirmedKeysOk(item) &&
         typeof item.questionId === "string" &&
         item.questionId.length <= MAX_ANSWERED_ID_LENGTH &&
         typeof item.answerText === "string" &&

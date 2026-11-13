@@ -44,6 +44,8 @@ import { UNSURE_SHOWN_SKIP, unsureShownAsAnswer } from "./harness/unsureShown";
 import { CHARTER_STORIES, MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, type Route } from "./storyPackMore";
 import { appendRecord } from "./harness/packRecords";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { chooseOffers } from "./harness/offers";
+import { tickIfAsked } from "./harness/intakeReview";
 
 // Actions wait up to 60 s: on a slow runner the story is read, and a guided turn answered,
 // in more than 20 s, and a button still disabled then is waiting, not broken.
@@ -346,7 +348,7 @@ async function smallClaimsGuided(page: Page, story: Story): Promise<number> {
       }
       // Pressed once, then waited for: while the next turn runs the card says it is working and its
       // button is held (owner, 28 Oct); pressing again then waited on a held button (#488 at real speed).
-      await proposals.getByTestId("story-proposals-continue").click();
+      await chooseOffers(proposals, "no"); await proposals.getByTestId("story-proposals-continue").click();
       await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 });
       continue;
     }
@@ -429,7 +431,7 @@ async function confirmAndContinue(page: Page) {
   const panel = page.getByTestId("intake-review");
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
   await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
@@ -751,7 +753,7 @@ for (const [id, court] of [["civil-deposit", "civil"], ["family-spousal", "famil
       note(run, "review", "every answer given again: nothing is left from the earlier story", (await page.getByTestId("intake-answer-stale").count()) === 0 && (await panel.getByTestId("intake-hidden-keep").count()) === 0);
       const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
       while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-      await page.getByTestId("intake-review-acknowledgement").check();
+      await tickIfAsked(page);
       const needs = await page.getByTestId("intake-confirm-needs").innerText().catch(() => "");
       note(run, "review", "confirm is not blocked by answers already given again", !/earlier version/.test(needs) && (await page.getByTestId("intake-confirm").isEnabled()), needs);
     });
@@ -854,7 +856,7 @@ for (const court of ["civil", "family", "small-claims"] as const) {
     const panel = page.getByTestId("intake-review");
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
     // The notice is owed again, as after signing in on this device.
@@ -904,7 +906,7 @@ for (const court of ["civil", "family", "small-claims"] as const) {
     const panel = page.getByTestId("intake-review");
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
     // The notice is owed again, as after signing in on this device.
@@ -958,7 +960,7 @@ test("retest-477 case 11: a confirmed case with no next step yet opens it from t
   const panel = page.getByTestId("intake-review");
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
   await page.waitForLoadState("networkidle").catch(() => {});
@@ -1386,7 +1388,7 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
     const panel = page.getByTestId("intake-review");
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     const confirm = page.getByTestId("intake-confirm");
     await confirm.scrollIntoViewIfNeeded();
     const box = await confirm.boundingBox();
@@ -1427,7 +1429,7 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
     await page.waitForTimeout(6_000);
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     const confirm = page.getByTestId("intake-confirm");
     await confirm.scrollIntoViewIfNeeded();
     const box = await confirm.boundingBox();
@@ -1492,7 +1494,7 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["family", "family-sp
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
     await page.waitForTimeout(6_000);
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     const confirm = page.getByTestId("intake-confirm");
     await confirm.scrollIntoViewIfNeeded();
     const box = await confirm.boundingBox();
@@ -1549,7 +1551,7 @@ for (const [court, id] of [["civil", "civil-deposit"], ["family", "family-spousa
 // saves when the box is left), and the next press is Confirm. That press both saves the answer and
 // confirms: it must confirm what is now on screen, at once, in every area.
 for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-deck-owed"], ["civil", "civil-deposit"], ["family", "family-spousal"]] as const) {
-  test(`retest-27oct root cause 3: an answer typed after the tick clears it and says so beside the button; one more tick confirms -- ${court} (${id})`, async ({ page }) => {
+  test(`retest-27oct root cause 3: an answer typed in the review is saved before one Continue press confirms it -- ${court} (${id})`, async ({ page }) => {
     test.setTimeout(480_000);
     const story = byId(id);
     await grantSiteAccess(page);
@@ -1571,7 +1573,7 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
     const openId = await boxes.first().evaluate((node) => node.closest("[data-testid=intake-initial-question]")?.getAttribute("data-question") ?? "");
     const unknowns = panel.locator(`[data-testid=intake-initial-question]:not([data-question="${openId}"]) input[data-testid="intake-unknown"]:not(:checked)`);
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     // From here at the live site's speed.
     for (const host of ["**/auth/v1/**", "**/rest/v1/**"]) await page.route(host, async (route) => { await new Promise((done) => setTimeout(done, 1_500)); await route.fallback(); });
     // An answer typed to a question still open in the review, the box not left (it saves when left).
@@ -1579,18 +1581,28 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
     const label = (await box.getAttribute("aria-label")) ?? "";
     const answer = /when|date|day/i.test(label) ? "March 2026" : /amount|money|much/i.test(label) ? "$6,000" : "Payment of what is owed";
     await box.fill(answer);
-    // Pressed straight from the box: the press leaves the box, which saves the typed answer.
+    // The saved case, read as the review reads it (site owner, 12 Nov: a change is not confirmed until Continue is
+    // pressed, on the page or in the saved case; one Continue press confirms it, the new value saved first).
+    const savedMaster = () => ([...account.rows.values()][0] as { master_result?: { intakeCheckpoint?: unknown; workflowStatus?: unknown } } | undefined)?.master_result ?? {};
+    const { reviewPhase } = await import("../../src/lib/case-system/intakeReview");
+    const savedPhase = () => { const master = savedMaster(); return master.intakeCheckpoint ? reviewPhase((master.workflowStatus ?? {}) as Record<string, unknown>, master.intakeCheckpoint as never) : "none"; };
+    const savedHolds = () => JSON.stringify(savedMaster().intakeCheckpoint ?? {}).includes(answer);
+    // Not confirmed after typing, before Continue: held five seconds, looked at every half second, not read once.
+    for (let look = 0; look < 10; look++) {
+      expect(await panel.getAttribute("data-phase"), "not confirmed after typing, before Continue").toBe("reviewing");
+      await page.waitForTimeout(500);
+    }
+    expect(savedPhase(), "the saved case is not confirmed after typing, before Continue").not.toBe("user-confirmed");
+    // Pressed straight from the box: the press leaves the box, which saves the typed answer, then confirms.
     await page.getByTestId("intake-confirm").click({ force: true });
-    // The press saved the typed answer (it saves when its box is left): the tick covered the answers
-    // as they were, so it is cleared, and the reason is said beside the button.
-    await expect(page.getByTestId("intake-review-acknowledgement")).not.toBeChecked({ timeout: 20_000 });
-    await expect(page.getByTestId("intake-tick-again"), "the reason, beside the button").toHaveText("You changed an answer. Please tick to confirm again.");
+    await expect.poll(savedHolds, { timeout: 30_000, message: "the typed answer is saved once Continue is pressed" }).toBe(true);
     await expect(panel, "the typed answer was kept").toContainText(answer);
-    await expect(panel).toHaveAttribute("data-phase", "reviewing");
-    await page.getByTestId("intake-review-acknowledgement").click();
-    await expect(page.getByTestId("intake-tick-again"), "gone once ticked again").toHaveCount(0);
-    await page.getByTestId("intake-confirm").click();
-    await expect(panel, "one more press confirms").toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+    await expect(panel, "one Continue press confirms").toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+    // In place of the tick's own message (site owner, 12 Nov): no tick, and nothing asking for one, can quietly return.
+    await expect(page.getByTestId("intake-review-acknowledgement"), "the review has no tick").toHaveCount(0);
+    expect(await panel.innerText(), "the review asks for no tick").not.toMatch(/\btick/i);
+    await expect.poll(savedPhase, { timeout: 30_000, message: "the saved case is confirmed by that one press" }).toBe("user-confirmed");
+    expect(savedHolds(), "what was confirmed holds the typed answer, not the old one").toBe(true);
     await expect(page.getByText(/Your initial facts changed|Initial information changed while saving/), "never bounced back").toHaveCount(0);
  });
 }
@@ -1626,7 +1638,9 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
     // A real mouse press where the element is (Playwright's own click: it waits until nothing covers it, as a person would).
     const press = (target: ReturnType<typeof page.locator>) => target.click();
     if (keep) await press(panel.locator(`[data-testid=intake-initial-question][data-question="${keep}"]`).locator('[data-testid="intake-field-from-story"], [data-testid="intake-use-suggestion"]').first());
-    await press(page.getByTestId("intake-review-acknowledgement"));
+    // Since 12 Nov there is no tick, and Continue waits for a choice on each story offer ("three choices, no tick"):
+    // the shared helper chooses "No, that's not right" on each offer still undecided, and ticks where a tick is shown.
+    await tickIfAsked(page);
     // The late reading lands between the tick and the press, as it can for a person.
     await page.waitForTimeout(10_000);
     await press(page.getByTestId("intake-confirm"));
@@ -1657,7 +1671,7 @@ test("retest-27oct root cause 3 on staging: the Charter review, a one-click answ
     const unknowns = panel.locator(`[data-testid=intake-initial-question]${keep ? `:not([data-question="${keep}"])` : ""} input[data-testid="intake-unknown"]:not(:checked)`);
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 30_000 }); }
     if (keep) await panel.locator(`[data-testid=intake-initial-question][data-question="${keep}"]`).locator('[data-testid="intake-field-from-story"], [data-testid="intake-use-suggestion"]').first().click();
-    await page.getByTestId("intake-review-acknowledgement").click();
+    if (await page.getByTestId("intake-review-acknowledgement").count()) await page.getByTestId("intake-review-acknowledgement").click();
     await page.getByTestId("intake-confirm").click();
     const bounced = page.getByText(/Your initial facts changed|Initial information changed while saving/);
     await expect(panel.or(bounced).first()).toBeVisible();
@@ -1937,6 +1951,7 @@ test("28oct working states: the story-suggestions card says it is working, and a
   });
   // Found by its place (the card's last button), so on a build without the fix the test fails on what it checks.
   const button = proposals.getByRole("button").last();
+  await chooseOffers(proposals, "no");
   await button.click();
   await expect(proposals.getByTestId("working-note"), "the card says it is working").toBeVisible({ timeout: 1_000 });
   await expect(proposals.getByTestId("working-note")).toContainText(/[A-Za-z]{4,}.*…/);

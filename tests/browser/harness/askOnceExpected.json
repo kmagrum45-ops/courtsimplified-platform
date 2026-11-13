@@ -1,0 +1,33 @@
+{
+  "_about": "The ask-once page test (tests/browser/ask-once-pages.spec.ts): the violations the site still makes, one entry each, with its reason. Measured on #549 (b120b43a) on 11 Nov 2026, before any fix. A violation not listed fails the test. The list may only shrink (test:ask-once-expected compares it with origin/main), and it must be empty when slice 4 (the draft, the filled PDF and the form boxes) lands. Trimmed on 12 Nov 2026 after slices 0-3 to the four entries the page test still sees (35 of 35 stories reached every page); each belongs to slice 4.",
+  "entries": [
+    {
+      "story": "sc-loan-friend",
+      "kind": "missing-label",
+      "fact": "otherParty",
+      "screen": "draft",
+      "reason": "The Form 7A draft fills its defendant line from its own copy of the other party (claimDraftEngine.ts), never the case file, so it says \"Defendant name not entered\" while the case holds the name. Slice 4 (the draft, the filled PDF and the form boxes) moves the draft onto the case file. Still seen on 12 Nov after slices 0-3 (pr/ask-once-1)."
+    },
+    {
+      "story": "sc-slip-and-fall-changed",
+      "kind": "missing-label",
+      "fact": "otherParty",
+      "screen": "draft",
+      "reason": "The Form 7A draft fills its defendant line from its own copy of the other party (claimDraftEngine.ts), never the case file, so it says \"Defendant name not entered\" while the case holds the name. Slice 4 (the draft, the filled PDF and the form boxes) moves the draft onto the case file. Still seen on 12 Nov after slices 0-3 (pr/ask-once-1)."
+    },
+    {
+      "story": "sc-slip-and-fall",
+      "kind": "missing-label",
+      "fact": "otherParty",
+      "screen": "draft",
+      "reason": "The Form 7A draft fills its defendant line from its own copy of the other party (claimDraftEngine.ts), never the case file, so it says \"Defendant name not entered\" while the case holds the name. Slice 4 (the draft, the filled PDF and the form boxes) moves the draft onto the case file. Still seen on 12 Nov after slices 0-3 (pr/ask-once-1)."
+    },
+    {
+      "story": "sc-tree-cut",
+      "kind": "missing-label",
+      "fact": "otherParty",
+      "screen": "draft",
+      "reason": "The Form 7A draft fills its defendant line from its own copy of the other party (claimDraftEngine.ts), never the case file, so it says \"Defendant name not entered\" while the case holds the name. Slice 4 (the draft, the filled PDF and the form boxes) moves the draft onto the case file. Still seen on 12 Nov after slices 0-3 (pr/ask-once-1)."
+    }
+  ]
+}

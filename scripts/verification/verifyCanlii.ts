@@ -200,10 +200,38 @@ async function main() {
     const model = read("src/lib/case-workspace/decisionHelp.ts");
     check("AI help runs inside the audit context that keeps only a hash of the text", /withAiCallContext\(\{ callType: "decision-help"/.test(model));
     check("the model call never logs the decision or the person's words", !/console\.(log|error|warn|info)/.test(model));
-    const prose = /const PROSE_FIELDS = new Set\(\[([\s\S]*?)\]\)/.exec(read("src/lib/audit/aiCallLog.ts"))?.[1] ?? "";
+    // Option (a), 11 Nov 2026: the log keeps no part of a model's answer, so there is nothing left to redact. The row
+    // has exactly the columns below (none holds the answer's text), structured_output is the token counts only, and
+    // the log module never reads the answer's text (approved replacement of the redaction check, 13 Nov 2026).
+    const logSource = read("src/lib/audit/aiCallLog.ts");
+    const rowFields = (/type AiCallLogRow = \{([\s\S]*?)\n\};/.exec(logSource)?.[1] ?? "").split("\n").map((line) => /^\s*(\w+)\s*:/.exec(line)?.[1]).filter(Boolean);
+    const ROW_FIELDS = ["user_id", "case_id", "call_type", "model", "prompt_version", "input_sha256", "input_chars", "structured_output", "validation_result", "validation_detail", "requests_legal_advice", "output_guard_blocked", "latency_ms"];
+    const { structuredOutputOf, labelOnly } = await import("../../src/lib/audit/aiCallLog");
+    const decisionWords = "The court found the landlord breached the covenant of quiet enjoyment";
+    const answer = { output_text: JSON.stringify({ explanation: decisionWords, passages: [{ quote: decisionWords, why: decisionWords }] }), output: [{ content: [{ text: decisionWords }] }], usage: { input_tokens: 900, output_tokens: 120, input_tokens_details: { cached_tokens: 0 } } };
+    const kept = structuredOutputOf(answer);
     check(
-      "the AI call log redacts the help's explanation, quotes and notes, however short",
-      ["explanation", "quote", "why"].every((field) => prose.includes(`"${field}"`)),
+      "the AI call log row has no field that holds the model's answer or any of its text (explanation, quote, why), and the log module never reads the answer's text",
+      JSON.stringify(rowFields) === JSON.stringify(ROW_FIELDS)
+        && JSON.stringify(Object.keys(kept ?? {}).sort()) === JSON.stringify(["cached_input_tokens", "input_tokens", "output_tokens"])
+        && !/explanation|quote|why|quiet enjoyment/i.test(JSON.stringify(kept))
+        // The answer (the model call's response) is handed only to tokenCounts and returned to the caller unread.
+        && !/output_text|\.choices\b/.test(logSource)
+        && /tokenCounts\(response\)/.test(logSource)
+        && logSource.split("\n").filter((line) => /\bresponse\b/.test(line) && !/^\s*(\*|\/\/|\/\*)/.test(line))
+          .every((line) => [
+            "export function structuredOutputOf(response: unknown): { input_tokens: number; cached_input_tokens: number; output_tokens: number } | null {",
+            "const counts = tokenCounts(response);",
+            "const response = await run();",
+            "context.pending.push({ ...describe(), structured_output: structuredOutputOf(response) });",
+            "return response;",
+          ].includes(line.trim())),
+      `row fields ${JSON.stringify(rowFields)}; kept ${JSON.stringify(kept)}`,
+    );
+    check(
+      "no CanLII content can reach the AI call log: a decision's words in the answer or in a validation detail are not kept",
+      !JSON.stringify(kept).includes(decisionWords) && labelOnly(`"${decisionWords}"`) !== `"${decisionWords}"` && labelOnly(decisionWords) !== decisionWords,
+      `${JSON.stringify(kept)} | ${labelOnly(decisionWords)}`,
     );
     const upload = read("app/builder/_components/EvidenceUploadCard.tsx");
     check(
@@ -314,6 +342,7 @@ async function main() {
       [".github/workflows/courtsimplified-story-pack.yml", "the local site under test (the story pack polls http://localhost:3100)"],
       [".github/workflows/courtsimplified-carry.yml", "the local site under test (the carry test polls http://localhost:3100)"],
       ["scripts/browser/carryLocal.sh", "the local site under test (polls http://localhost:<port>)"],
+      ["scripts/browser/portGuard.sh", "the local site under test (checks http://localhost:<port> and http://[::1]:<port>)"],
       ["scripts/ai/spendGuard.mjs", "OpenAI's Costs API (api.openai.com)"],
       ["scripts/ai/openaiCredit.mjs", "OpenAI's chat completions API (api.openai.com), one token to see whether the balance is empty"],
       ["scripts/diagnose-auth-email.mjs", "Supabase"],
@@ -363,7 +392,7 @@ async function main() {
     // The local-database carry (31 Oct): its script and workflow reach only the local site and the local
     // stack (http://localhost / http://127.0.0.1), never a CanLII host or a hosted Supabase project.
     // Lines that are the script's own refusal pattern (a regex naming the local hosts) are not addresses.
-    const localCarryText = [read("scripts/browser/carryLocal.sh"), read(".github/workflows/courtsimplified-carry-local.yml")]
+    const localCarryText = [read("scripts/browser/carryLocal.sh"), read("scripts/browser/portGuard.sh"), read(".github/workflows/courtsimplified-carry-local.yml")]
       .join("\n").split("\n").filter((line) => !/=~\s*\^http/.test(line)).join("\n");
     const localCarryHosts = [...localCarryText.matchAll(/\b(?:https?|wss?):\/\/[^\s"'`;)]+/gi)].map((m) => m[0]);
     const localCarryOutside = localCarryHosts.filter((url) => !/^http:\/\/(?:localhost|127\.0\.0\.1)(?::\d+|:\$\{?\w+\}?)?(?:\/|$)/i.test(url));

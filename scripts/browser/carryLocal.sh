@@ -21,7 +21,8 @@
 #   CARRY_PORT=3401 CARRY_SKIP_BUILD=1 CARRY_GREP="carry end to end -- civil " bash scripts/browser/carryLocal.sh
 # Variables: CARRY_SLOT (0), CARRY_PORT (3400), CARRY_GREP (all), CARRY_SKIP_BUILD (reuse .next, which must
 # have been built by this script for the same slot), CARRY_OUT (records folder; default under $TEMP),
-# CARRY_STOP_STACK=1 (stop the stack at the end; default: leave it running for the next run).
+# CARRY_STOP_STACK=1 (stop the stack at the end; default: leave it running for the next run),
+# CARRY_SPEC (the spec to run; default tests/browser/carry-end-to-end.spec.ts; the ask-once page test runs here too).
 # Records: $CARRY_OUT/carry-records/*.json; the server log and Playwright output beside them.
 set -euo pipefail
 
@@ -107,7 +108,20 @@ if [ "$CFL" != 723 ] || [ "$CF" != 113 ] || [ "$FO" != 104 ]; then
   exit 3
 fi
 
-# 4. Build against this stack (NEXT_PUBLIC_* are baked into the build). The build records which stack it was for.
+# 4. This run's port and this worktree's build: one run per port, and no build while another run serves this one
+# (portGuard.sh: on 12 Nov an older run on the same port stopped a newer run's server, then served its own).
+# shellcheck source=portGuard.sh
+source "$(dirname "${BASH_SOURCE[0]}")/portGuard.sh"
+GUARDS="${TMPROOT}/cs-carry-local/guards"
+port_lock "$PORT" "$GUARDS" || exit 5
+trap port_release EXIT
+if port_in_use "$PORT"; then
+  echo "carry-local: REFUSED. Port ${PORT} is already in use (by something that is not a carry-local run)." >&2
+  exit 5
+fi
+serving_register "$ROOT" "$GUARDS"
+
+# Build against this stack (NEXT_PUBLIC_* are baked into the build). The build records which stack it was for.
 MARK=".next/carry-local-stack"
 if [ -n "${CARRY_SKIP_BUILD:-}" ]; then
   if [ "$(cat "$MARK" 2>/dev/null)" != "$NEXT_PUBLIC_SUPABASE_URL" ]; then
@@ -116,29 +130,29 @@ if [ -n "${CARRY_SKIP_BUILD:-}" ]; then
   fi
   echo "carry-local: reusing the build in .next"
 else
+  build_allowed "$ROOT" "$GUARDS" || exit 4
   echo "carry-local: building (log: ${OUT}/build.log)"
   NODE_OPTIONS="${NODE_OPTIONS:---max-old-space-size=4096}" npx next build > "$OUT/build.log" 2>&1 || { tail -40 "$OUT/build.log"; exit 1; }
   printf '%s' "$NEXT_PUBLIC_SUPABASE_URL" > "$MARK"
 fi
 
 # 5. Serve on our own port; a password for this run only (never printed).
-if (echo > "/dev/tcp/127.0.0.1/${PORT}") 2>/dev/null; then
-  echo "carry-local: REFUSED. Port ${PORT} is already in use." >&2
-  exit 5
-fi
 SITE_ACCESS_PASSWORD="$(node -e 'process.stdout.write(require("crypto").randomBytes(24).toString("hex"))')"
 export SITE_ACCESS_PASSWORD
 node node_modules/next/dist/bin/next start -p "$PORT" > "$OUT/server.log" 2>&1 &
 SERVER=$!
+OUR_LISTENERS=""
 stop_server() {
   kill "$SERVER" 2>/dev/null || true
   sleep 2
-  # Windows: the listener on OUR port only, which this script started.
+  # Windows: only the processes that were listening on our port once our server was up (the port was free and
+  # locked to this run before it started), never whatever else listens there by the time this run ends.
   if command -v taskkill >/dev/null 2>&1; then
-    for pid in $(netstat -ano 2>/dev/null | grep -E "[:.]${PORT} .*LISTEN" | awk '{print $NF}' | sort -u); do
-      taskkill //F //PID "$pid" >/dev/null 2>&1 || true
+    for pid in ${OUR_LISTENERS:-$(port_listeners "$PORT")}; do
+      taskkill //F //T //PID "$pid" >/dev/null 2>&1 || true
     done
   fi
+  port_release
   if [ -n "${CARRY_STOP_STACK:-}" ]; then "${SB[@]}" stop || true; fi
 }
 trap stop_server EXIT
@@ -147,6 +161,8 @@ for _ in $(seq 1 60); do
   sleep 2
 done
 curl -s -o /dev/null "http://localhost:${PORT}" || { echo "server did not start"; tail -40 "$OUT/server.log"; exit 1; }
+OUR_LISTENERS="$(port_listeners "$PORT")"
+own_server_check "$PORT" "$SITE_ACCESS_PASSWORD" "$OUT" || exit 6
 
 # 6. The carry test. The spec writes carry-records/<run>.json in the repo; afterwards this script moves
 # out only the records of the runs IT ran (named by the "CARRY COUNTS [<run>]" lines in its own log),
@@ -155,7 +171,7 @@ export PLAYWRIGHT_BASE_URL="http://localhost:${PORT}"
 export STORY_PACK_RUN_ID="carry-local-${STAMP}-p${PORT}"
 START=$(date +%s)
 set +e
-npx playwright test tests/browser/carry-end-to-end.spec.ts --grep "$GREP" --reporter=line --workers=1 --output "$OUT/test-results" 2>&1 | tee "$OUT/spec.log"
+npx playwright test "${CARRY_SPEC:-tests/browser/carry-end-to-end.spec.ts}" --grep "$GREP" --reporter=line --workers=1 --output "$OUT/test-results" 2>&1 | tee "$OUT/spec.log"
 CODE=${PIPESTATUS[0]}
 set -e
 mkdir -p "$OUT/carry-records"

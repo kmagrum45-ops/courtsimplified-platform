@@ -19,6 +19,7 @@ import { grantSiteAccess } from "./harness/siteAccess";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { serveFromThisCommit, serveModelStandIns } from "./harness/thisCommitServer";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { chooseOffers } from "./harness/offers";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -52,7 +53,7 @@ test("a typed reply changed later on the review: the chat says \"You changed thi
   for (let turn = 0; turn < 20; turn++) {
     await page.waitForTimeout(2_000);
     const proposals = page.getByTestId("story-proposals");
-    if (await proposals.isVisible().catch(() => false)) { await page.getByTestId("story-proposals-continue").click(); continue; }
+    if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await page.getByTestId("story-proposals-continue").click(); continue; }
     const ids = await page.locator(QUESTIONS).evaluateAll((nodes) => nodes.map((node) => node.getAttribute("data-question-id") ?? ""));
     const box = page.locator("textarea[placeholder='Your answer...']");
     if (ids.length <= answered || !(await box.isVisible().catch(() => false))) break;

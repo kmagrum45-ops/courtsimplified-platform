@@ -291,43 +291,18 @@ if (rogueConstructions.length === 0) {
    * because this is the claim the proposed privacy wording rests on.
    */
   {
+    // Since 11 Nov 2026 (site owner, option (a)), structured_output holds the call's token counts only: no part of the
+    // model's answer is kept, so none of its prose about the person can be. Replaces the redaction checks (a list of
+    // prose fields and a length limit), which a short quote or name under an unlisted field got past.
+    // test:ai-call-log-labels-only proves it on a real logged call; this checks the one function's body.
     const problems: string[] = [];
-
-    if (!/structured_output: structuredOutputOf\(/.test(auditSource)) {
-      problems.push("structured_output is not produced by structuredOutputOf()");
-    }
-    if (!/return redact\(JSON\.parse\(content\)\)/.test(auditSource)) {
-      problems.push("structuredOutputOf does not pass the parsed body through redact()");
-    }
-    if (/content\.slice\(/.test(auditSource)) {
-      problems.push(
-        "raw model text is still sliced into the row on a parse failure — record its length, not its content",
-      );
-    }
-
-    if (problems.length === 0) {
-      pass("structured_output is redacted before it is written");
-    } else {
-      fail("the audit log can store the model's prose about the user", problems.join("\n"));
-    }
-
-    // And the redactor must actually redact. A `redact` that returned its
-    // input would satisfy every check above.
-    const proseFields = auditSource.match(/const PROSE_FIELDS = new Set\(\[([\s\S]*?)\]\)/);
-    const named = Array.from(proseFields?.[1]?.matchAll(/"([^"]+)"/g) ?? [], (m) => m[1]);
-    // "explanation", "quote" and "why": help with an uploaded court decision
-    // (decisionHelp.ts), which CanLII's Terms keep out of logs (2026-10-07).
-    const mustCover = ["reason", "reasoning", "caseFileRecorded", "caseFileNotRecorded", "explanation", "quote", "why"];
-    const missing = mustCover.filter((field) => !named.includes(field));
-
-    if (missing.length === 0) {
-      pass(`PROSE_FIELDS names all ${mustCover.length} known prose fields (${named.length} total)`);
-    } else {
-      fail(
-        "PROSE_FIELDS omits a field a call type is known to return as prose",
-        missing.join(", "),
-      );
-    }
+    if (!/structured_output: structuredOutputOf\(/.test(auditSource)) problems.push("structured_output is not produced by structuredOutputOf()");
+    const body = auditSource.match(/export function structuredOutputOf\([\s\S]*?\n\}/)?.[0] ?? "";
+    if (!/tokenCounts\(response\)/.test(body)) problems.push("structuredOutputOf does not build the row from the token counts");
+    if (/choices|content|JSON\.parse/.test(body)) problems.push("structuredOutputOf reads the model's answer");
+    if (/content\.slice\(/.test(auditSource)) problems.push("raw model text is sliced into the row");
+    if (problems.length === 0) pass("structured_output holds token counts only, never the model's answer");
+    else fail("the audit log can store the model's prose about the user", problems.join("\n"));
   }
 
   // prompt_version is the one field whose name contains "prompt", and it must

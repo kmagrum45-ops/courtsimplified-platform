@@ -16,7 +16,7 @@ import type { GuidedChoice, GuidedField, GuidedValues } from "./GuidedFormChat";
 import { SERVED_LINE, storyHintsForDates } from "../../../src/lib/case-system/casePosition";
 import { STORY_LABEL } from "../../../src/lib/case-system/copy/storyGuidance";
 import {
-  amountFromStory,
+  amountOfferFromStory,
   childrenFromStory,
   courtDateFromStory,
   civilIssuesFromStory,
@@ -247,7 +247,7 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
     {
       key: "amountClaimed",
       label: "Amount",
-      fromStory: (values) => amountFromStory(storyOf(values)),
+      fromStory: (values) => amountOfferFromStory(storyOf(values)),
       question: "How much money is involved, if any?",
       why: "The amount decides which court and which procedure your case uses.",
       kind: "text",

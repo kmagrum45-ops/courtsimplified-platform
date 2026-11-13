@@ -68,11 +68,41 @@ jobs:
       - name: Routing rules fixed by law (construction liens, the $50,000 limit) win over the model
         run: npm run test:fixed-regimes
 
+      - name: The tribunal notice comes first, from one code rule, before any follow-up question (C1)
+        run: npm run test:tribunal-first
+
       - name: AI routes that need no sign-in are limited per visitor and by a daily ceiling
         run: npm run test:ai-rate-limit
 
       - name: Every OpenAI call goes through the one daily spending limit; a person, an address and the site each have a day's limit
         run: npm run test:ai-spend-limit
+
+      - name: The AI-limit banner names the limit and when help is back, and lasts only as long as that limit
+        run: npm run test:ai-limit-banner
+
+      - name: The AI call log keeps labels, token counts and times only, never the story, names or the AI's words
+        run: npm run test:ai-call-log-labels-only
+
+      - name: The AI call log is written to the database on Vercel, awaited, and a failed write is loud
+        run: npm run test:ai-call-log-sink
+
+      - name: Every OpenAI call site is logged, and no column can hold the narrative
+        run: npm run test:ai-call-logging
+
+      - name: The ask-once page test's expected-failure list may only shrink, and each entry has a reason
+        run: npm run test:ask-once-expected
+
+      - name: Every place that asks, offers or says a fact is missing uses the one function (factStatus.ts), or is listed as not moved yet (the list only shrinks)
+        run: npm run test:askers-fact-status
+
+      - name: The one function says whether a fact is known, offered, asked or settled; both gates use it; a quote is offered as the amount
+        run: npm run test:fact-status
+
+      - name: A case saved by main's code opens and reads the same (answers kept, nothing asked again, nothing rewritten)
+        run: npm run test:old-shape-cases
+
+      - name: No chip or suggested question asks the assistant for a prediction or a grade (rule 3)
+        run: npm run test:no-prediction-chips
 
       - name: Each AI call is priced from its model and real tokens (price table); a model with no price is never called
         run: npm run test:ai-price-table
@@ -321,11 +351,51 @@ jobs:
       - name: An answer changed while its previous save is on the way is kept; another tab's save is still a conflict
         run: npm run test:in-flight-edit-kept
 
+      - name: A form box follows another tab's newer save of the same box; the person's own unsaved words stay
+        run: npm run test:box-follows-other-tab
+
       - name: Chrome check of #545 at 7bce410 -- one form rule, municipality once, story dates named, case file lines, saved title
         run: npm run test:chrome-545-round
 
+      - name: The court-path finder's story belongs to one intake; leaving "Before you start" leaves nothing in the tab
+        run: npm run test:finder-handoff
+
       - name: A date kept from the story never replaces the person's answer or their "not sure" (B2, 9 Nov)
         run: npm run test:story-date-never-replaces
+
+      - name: Each question writes only the fact it asks about (question-to-fact audit)
+        run: npm run test:question-meanings
+
+      - name: A person being sued is never shown wording written for the person suing (role audit)
+        run: npm run test:side-wording
+
+      - name: Every "what kind of case" answer leads to a kind of its own court, or its gap is declared (coverage audit)
+        run: npm run test:answer-coverage
+
+      - name: 32 stories, all three courts, both sides -- no plaintiff wording for a defendant, no cross-court link, no grading, the right day (no AI)
+        run: npm run test:story-invariants
+
+      - name: A day given on the step page to work out a deadline never replaces "When it happened" (Chrome re-check of #545)
+        run: npm run test:deadline-date-keeps-when
+      - name: No case is sent to another court's source (Chrome check of #545, item 4)
+        run: npm run test:sources-fit-court
+      - name: A story where the person lent money is a loan, whatever it was for (Chrome check of #547, G1)
+        run: npm run test:loan-stories-kind
+
+      - name: The day a person was served is never suggested as when the dispute happened (Chrome check of #547, G3)
+        run: npm run test:served-date-not-when
+
+      - name: No page says a wait is longer than usual before the usual time it states (Chrome check of #547, G4)
+        run: npm run test:usual-wait-agrees
+
+      - name: Send feedback shows the contact address as text beside the link (Chrome check of #547, G5)
+        run: npm run test:feedback-address-shown
+
+      - name: Married-only Family topics are not offered to someone who was not married (Chrome check of #545, item 7)
+        run: npm run test:married-only-topics
+
+      - name: Every Family situation question names only the boxes it shows (Chrome re-check of #545)
+        run: npm run test:triage-no-leftover-text
 
       - name: The case page and the case file page show the same deadlines, from one source (Chrome check of #544, F4)
         run: npm run test:one-deadline-source
@@ -888,6 +958,8 @@ jobs:
           tests/browser/pick-everything-asked.spec.ts
           tests/browser/chrome-545-round.spec.ts
           tests/browser/feedback-link.spec.ts
+          tests/browser/tribunal-first.spec.ts
+          tests/browser/finder-story-leak.spec.ts
           tests/browser/claim-kind-one-value.spec.ts
           tests/browser/chrome-31oct-review.spec.ts
           tests/browser/change-answer.spec.ts
@@ -907,6 +979,7 @@ jobs:
           tests/browser/review-save-on-leave.spec.ts
           tests/browser/removal-stays-removed.spec.ts
           tests/browser/review-writer.spec.ts
+          tests/browser/offer-choices.spec.ts
           --reporter=line --workers=1
 
       # The story-box spec saves a full-page screenshot of every story box at desktop and

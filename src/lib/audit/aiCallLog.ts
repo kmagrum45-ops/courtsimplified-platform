@@ -50,6 +50,9 @@ import { appendFileSync } from "node:fs";
 
 import { createClient } from "@supabase/supabase-js";
 
+import { scrubErrorMessage } from "../monitoring/serverErrorLog";
+import { tokenCounts } from "../security/aiPrices";
+
 /**
  * Must match the CHECK constraint in
  * supabase/migrations/20260922120000_add_ai_call_log.sql. A value not in that
@@ -228,24 +231,29 @@ export function withAiCallContext<T>(
       } finally {
         // finally, not after the return: a call site that throws still made
         // the model call, and a failed request is a row worth having.
-        if (context) flush(context);
+        //
+        // AWAITED (item O, 2026-10-29). The write used to be fire and forget.
+        // On Vercel a function can be frozen once its response is sent, so an
+        // un-awaited insert may never run. flush() never throws, so awaiting
+        // it cannot turn a logging fault into a failed request.
+        if (context) await flush(context);
       }
     },
   );
 }
 
-/** Writes every row staged during this context, then clears the stage. */
-function flush(context: AiCallContext): void {
+/** Writes every row staged during this context, then clears the stage. Never throws. */
+async function flush(context: AiCallContext): Promise<void> {
   const staged = context.pending.splice(0, context.pending.length);
-  for (const row of staged) {
+  await Promise.all(staged.map((row) =>
     insertRow({
       ...row,
       validation_result: context.validationResult,
       validation_detail: context.validationDetail ?? null,
       requests_legal_advice: context.requestsLegalAdvice ?? null,
       output_guard_blocked: context.outputGuardBlocked,
-    });
-  }
+    }),
+  ));
 }
 
 /** The current context, or null outside one. */
@@ -266,7 +274,7 @@ export function recordAiValidation(
   const context = storage.getStore();
   if (!context) return;
   context.validationResult = result;
-  context.validationDetail = detail ?? null;
+  context.validationDetail = labelOnly(detail);
 }
 
 /** Hoists the LSO Step 6d flag onto its own column. */
@@ -374,110 +382,31 @@ function systemPromptOf(body: Record<string, unknown>): string {
 }
 
 /**
- * Fields that carry the model's own prose about the user's matter.
+ * WHAT THE LOG KEEPS OF A MODEL'S ANSWER: ITS TOKEN COUNTS, NOTHING ELSE (site owner, 11 Nov 2026, option (a):
+ * "Store kind of request, model, token counts, times and result status. Never store story text, quotes, names or model
+ * output, in any column, including structured_output").
  *
- * *** WHY THIS LIST EXISTS — A CORRECTION ***
- *
- * The migration's Decision 2 said the structured output was "small, and
- * non-legal by construction", because "every user-facing model call now returns
- * structured output under a JSON schema: a classification label, a stage code,
- * a content id, a boolean". Independent review on 2026-09-23 found that is not
- * true of four of the six call types:
- *
- *   safety-pass            `reason` — the model's sentence about why it thinks
- *                          this person is in distress or danger. The most
- *                          sensitive string the platform produces.
- *   court-path-classifier  `reasoning` — a sentence about the user's story.
- *   small-claims-analysis  `caseFileRecorded` / `caseFileNotRecorded` — free
- *                          sentences naming evidence and counterparties.
- *   extract-intake-facts   its whole purpose is facts pulled from the story.
- *
- * Decision 1 says the user's narrative is never stored. Storing these would
- * have made that false the moment the migration ran — and the privacy wording
- * proposed in the report ("we do not keep what you wrote") false with it.
- *
- * *** WHAT IS KEPT INSTEAD ***
- *
- * The SHAPE of the prose, not the prose: the field name and its length. A
- * reviewer asking "did the model return a reason at all", "are reasons getting
- * longer", "which calls produced nothing" gets an answer. A reviewer asking
- * "what did this person say" does not, and should not.
- *
- * Redaction is by DENY-LIST, which is the weaker kind of control and is chosen
- * deliberately: an allowlist would silently drop the classification labels and
- * stage codes that are the whole point of the log the first time someone adds a
- * field. The deny-list is paired with `redactLongStrings` below, which catches
- * a prose field nobody thought to name.
+ * Before, the answer itself was kept, redacted by a list of prose fields and a length limit (80 characters). A short
+ * value under a field not on the list was still kept word for word: a quote from the story, a name, the person's own
+ * wording as the AI tidied it. Now no part of the answer is kept: structured_output holds the call's token counts
+ * (input, the cached part of the input, output), as OpenAI reports them on the response (aiPrices.ts tokenCounts).
  */
-const PROSE_FIELDS = new Set([
-  "reason",
-  "reasoning",
-  "caseFileRecorded",
-  "caseFileNotRecorded",
-  "plainLanguageSummary",
-  "structuredCaseSummary",
-  "missingInformation",
-  "missingEvidence",
-  "risksAndGaps",
-  "nextBestActions",
-  "summary",
-  "explanation",
-  "notes",
-  // 2026-10-05: the legal search phrases written from the user's story
-  // (retrieval/storyRetrieval.ts). Derived from the narrative, so not stored.
-  "queries",
-  // 2026-10-07: help with a court decision a person uploaded to their own
-  // case (case-workspace/decisionHelp.ts). A quote is the decision's own words
-  // and "why" ties it to the person's situation; CanLII's Terms s. 5.1 keep a
-  // decision out of logs, so neither is stored, however short.
-  "quote",
-  "why",
-]);
-
-/**
- * Any string longer than this is treated as prose whatever it is called.
- *
- * A classification label, a stage code, a content id and a claim-type id are
- * all comfortably under it. A sentence about someone's case is not. This is
- * what catches the prose field that gets added next year under a name nobody
- * put in the list above.
- */
-const MAX_STORED_STRING = 80;
-
-function redact(value: unknown, key?: string): unknown {
-  if (typeof value === "string") {
-    if (key && PROSE_FIELDS.has(key)) return `[redacted ${value.length} chars]`;
-    if (value.length > MAX_STORED_STRING) return `[redacted ${value.length} chars]`;
-    return value;
-  }
-  if (Array.isArray(value)) return value.map((entry) => redact(entry, key));
-  if (value && typeof value === "object") {
-    return Object.fromEntries(
-      Object.entries(value as Record<string, unknown>).map(([k, v]) => [k, redact(v, k)]),
-    );
-  }
-  return value;
+export function structuredOutputOf(response: unknown): { input_tokens: number; cached_input_tokens: number; output_tokens: number } | null {
+  const counts = tokenCounts(response);
+  return counts ? { input_tokens: counts.input, cached_input_tokens: counts.cached, output_tokens: counts.output } : null;
 }
 
 /**
- * The structured object the model returned, redacted, or null.
- *
- * An unparseable response is recorded as its LENGTH, not its text. The old
- * version stored 4,000 characters of it, reasoning that a failed parse is an
- * interesting row — which is true, and the interesting part is that it failed,
- * not what it said. Raw model output on a failed parse is exactly the case
- * where the content is least likely to be a tidy label.
+ * A validation detail is kept only when it is a short label (a fixed phrase or a code: "response was not JSON",
+ * "stage civil:plaintiff:x at high"); anything else (a sentence that could carry a person's words, a quote) is not.
+ * Every caller passes a fixed label or one built from codes (test:ai-call-log-labels-only scans them); this is the
+ * second guard.
  */
-function structuredOutputOf(response: unknown): unknown {
-  const choice = (response as { choices?: Array<{ message?: { content?: unknown } }> })?.choices?.[0];
-  const content = choice?.message?.content;
-  if (typeof content !== "string") return null;
-
-  try {
-    return redact(JSON.parse(content));
-  } catch {
-    return { unparsed: `[redacted ${content.length} chars]` };
-  }
+export function labelOnly(detail: string | null | undefined): string | null {
+  if (detail === null || detail === undefined) return null;
+  const label = detail.trim();
+  if (!label) return null;
+  return label.length <= 80 && !/["'“”‘’]/.test(label) && label.split(/\s+/).length <= 10 ? label : "[detail not kept]";
 }
 
 type AiCallLogRow = {
@@ -496,12 +425,6 @@ type AiCallLogRow = {
   latency_ms: number;
 };
 
-/**
- * Writes one row. Fire and forget, and deliberately so: an audit-log insert
- * must never add latency to a user's request and must never be the reason a
- * page fails. A failed write is reported to the server console, where the
- * quarterly report's own gap check will also notice the hole.
- */
 /**
  * Where a row goes.
  *
@@ -528,6 +451,11 @@ type AiCallLogRow = {
  * else. A script run through tsx does not have it. So the database is used only
  * when we are demonstrably inside the app, and everything else — scripts, evals,
  * fixtures, anything added later — lands in a local file with no network call.
+ * `VERCEL_ENV` counts as "inside the app" too (item O, 2026-10-29): a Vercel
+ * deployment never falls back to the file sink. A script that loaded a
+ * VERCEL_ENV from a pulled env file would therefore write to the database;
+ * `.env.local` holds none today, and test:ai-call-log-sink asserts the
+ * no-VERCEL_ENV default stays the file.
  *
  * `AI_CALL_LOG` overrides it explicitly ("database", "file", "off") so a
  * deployment that somehow lacks NEXT_RUNTIME can force the database rather than
@@ -570,7 +498,14 @@ export function sinkFor(env: NodeJS.ProcessEnv = process.env): AiCallLogSink {
   if (override === "database" || override === "file" || override === "off") {
     return override;
   }
-  return env.NEXT_RUNTIME ? "database" : "file";
+  // VERCEL_ENV (production, preview or development) is set by Vercel on every
+  // deployment and by nothing in this repository's scripts. Recognised as
+  // "in the app" on its own (item O, 2026-10-29): NEXT_RUNTIME alone did not
+  // reliably reach this code there, and the fallback, the file sink, writes to
+  // a read-only filesystem on Vercel, so the audit row was simply lost.
+  // A deployment never defaults to the file sink.
+  if (env.NEXT_RUNTIME || (env.VERCEL_ENV ?? "").trim()) return "database";
+  return "file";
 }
 
 /** Where the file sink writes. Gitignored: rows describe calls, not secrets, but they are not content either. */
@@ -596,7 +531,72 @@ function appendToFile(row: AiCallLogRow): void {
   }
 }
 
-function insertRow(row: AiCallLogRow): void {
+/** How long the request waits for the audit write before giving up loudly. */
+const DATABASE_WRITE_TIMEOUT_MS = 3_000;
+
+/** The stable prefix of a failed audit write. Search Vercel's logs for it. */
+export const WRITE_FAILED_PREFIX = "[aiCallLog] WRITE FAILED";
+
+type InsertClient = {
+  from: (table: string) => {
+    insert: (row: unknown) => PromiseLike<{ error: { code?: string; message?: string } | null }>;
+  };
+};
+
+/**
+ * A failed audit write, said loudly: one console.error line with a stable
+ * prefix, and a row in `server_errors` (migration 20261015090000) so it is
+ * seen without trawling Vercel's console. Never throws. Carries the call type
+ * and the error code, never the row: a PostgREST error's `details` can echo
+ * the row back.
+ */
+async function reportWriteFailure(
+  client: InsertClient | null,
+  row: AiCallLogRow,
+  reason: string,
+): Promise<void> {
+  console.error(`${WRITE_FAILED_PREFIX}: ai_call_log row not recorded (${reason})`, {
+    call_type: row.call_type,
+  });
+  if (!client) return;
+  try {
+    const { error } = await client.from("server_errors").insert({
+      route: null,
+      method: null,
+      kind: "ai-call-log:write-failed",
+      message: scrubErrorMessage(`ai_call_log write failed for ${row.call_type}: ${reason}`),
+      digest: null,
+      environment: process.env.VERCEL_ENV || process.env.NODE_ENV || null,
+    });
+    if (error) {
+      console.error(`${WRITE_FAILED_PREFIX}: and server_errors was not written either`, {
+        code: error.code ?? null,
+      });
+    }
+  } catch (error) {
+    console.error(`${WRITE_FAILED_PREFIX}: and server_errors was not written either`, {
+      error: error instanceof Error ? error.name : "UnknownError",
+    });
+  }
+}
+
+/**
+ * Writes one row. AWAITED by flush(), and never throws.
+ *
+ * *** WHY AWAITED, AND NOT after() / waitUntil (item O, 2026-10-29) ***
+ *
+ * It used to be fire and forget, so as not to add latency. On Vercel that
+ * loses rows: a function may be frozen once its response is sent, and an
+ * un-awaited promise does not hold it open. Next 16's `after()` would hold it
+ * open without delaying the response, but it throws when called outside a
+ * request scope, and this module is reached from route handlers, server
+ * actions, and from scripts, evals and fixtures that have no request at all;
+ * it would also need a per-surface fallback. Awaiting works the same
+ * everywhere. Its cost is one insert (tens of milliseconds) after a model call
+ * that takes seconds, capped by DATABASE_WRITE_TIMEOUT_MS so a hung database
+ * cannot hold a person's request.
+ */
+async function insertRow(row: AiCallLogRow): Promise<void> {
   const sink = sinkFor();
 
   if (!announced) {
@@ -616,27 +616,43 @@ function insertRow(row: AiCallLogRow): void {
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!url || !serviceRoleKey) {
-    console.error("[aiCallLog] not configured; call not recorded", {
-      call_type: row.call_type,
-    });
+    await reportWriteFailure(null, row, "Supabase URL or service key not configured");
     return;
   }
 
-  const client = makeClient(url, serviceRoleKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
+  let client: InsertClient | null = null;
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    client = makeClient(url, serviceRoleKey, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    }) as unknown as InsertClient;
 
-  void client
-    .from("ai_call_log")
-    .insert(row)
-    .then(({ error }) => {
-      if (error) {
-        console.error("[aiCallLog] insert failed", {
-          call_type: row.call_type,
-          code: error.code,
-        });
-      }
+    const timedOut = new Promise<"timeout">((resolve) => {
+      timer = setTimeout(() => resolve("timeout"), DATABASE_WRITE_TIMEOUT_MS);
     });
+    const outcome = await Promise.race([
+      Promise.resolve(client.from("ai_call_log").insert(row)),
+      timedOut,
+    ]);
+
+    if (outcome === "timeout") {
+      await reportWriteFailure(client, row, `timed out after ${DATABASE_WRITE_TIMEOUT_MS} ms`);
+    } else if (outcome.error) {
+      await reportWriteFailure(
+        client,
+        row,
+        `code ${outcome.error.code ?? "unknown"}: ${(outcome.error.message ?? "").slice(0, 200)}`,
+      );
+    }
+  } catch (error) {
+    await reportWriteFailure(
+      client,
+      row,
+      `threw ${error instanceof Error ? `${error.name}: ${error.message.slice(0, 200)}` : "UnknownError"}`,
+    );
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
 }
 
 /**

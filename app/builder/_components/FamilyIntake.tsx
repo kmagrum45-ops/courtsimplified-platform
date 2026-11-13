@@ -1,7 +1,8 @@
 "use client";
 
 import { useOpenWholeForm } from "./openWholeForm";
-import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
+import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeReviewView, useIntakeState, useStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
+import { notMarriedOf, withoutMarriedOnly } from "../../../src/lib/case-system/family/marriedOnly";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
 import { caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
 import { NotAnsweredYetField } from "../../_components/NotAnsweredYet";
@@ -324,6 +325,10 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   const [pastLivingHistory, setPastLivingHistory] = useIntakeState("family", "pastLivingHistory", () => saved?.pastLivingHistory ?? "");
   // The one copy of the story (intakeStory.ts). A story read from a saved case fills an empty one once.
   const [facts, setFacts] = useStory();
+  // Someone not married to the other person is not offered married-only topics (marriedOnly.ts); a story reading alone
+  // hides them behind "Show all topics", never for good (CLAUDE.md s. 4).
+  const reviewView = useIntakeReviewView();
+  const [showAllIssues, setShowAllIssues] = useState(false);
   const storySeeded = useRef(false);
   useEffect(() => {
     if (storySeeded.current) return;
@@ -956,6 +961,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
 
         {mode === "chat" ? (<>
           <GuidedFormChat
+            tribunalCourt="family"
             fields={guidedFields}
             values={guidedValues}
             onAnswer={answerGuided}
@@ -1086,7 +1092,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
             What issues may exist?
           </h3>
           <div className="mt-3 grid gap-3 md:grid-cols-2">
-            {issueOptions.map((option) => (
+            {(showAllIssues ? issueOptions : withoutMarriedOnly(issueOptions, notMarriedOf(reviewView ? caseFileOf(reviewView.checkpoint) : null, facts), issues)).map((option) => (
               <button
                 key={option.value}
                 type="button"
@@ -1105,6 +1111,11 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
               </button>
             ))}
           </div>
+          {!showAllIssues && notMarriedOf(reviewView ? caseFileOf(reviewView.checkpoint) : null, facts) === "story" && withoutMarriedOnly(issueOptions, "story", issues).length < issueOptions.length ? (
+            <button type="button" data-testid="family-issue-show-all" onClick={() => setShowAllIssues(true)} className="mt-2 text-sm font-semibold text-[#2f7d67] underline">
+              Show all topics
+            </button>
+          ) : null}
         </div>
 
         {issues.includes("adoption") && <section className="rounded-2xl border border-[#cde7dc] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Adoption details to organize</h3><p className="mt-2 text-sm text-[#4d675f]">Answer only what you know. These questions do not confirm legal requirements.</p><textarea aria-label="Adoption details" value={adoptionDetails} onChange={(event) => setAdoptionDetails(event.target.value)} className="mt-4 min-h-48 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="Is the person to be adopted 18 or older? Does the adult person want to be adopted? Is the applicant a step-parent, relative, or another person? Does the adult live in Ontario? Is the biological parent known/contactable, unknown, or location currently unknown? What steps have been taken to locate or contact that parent? Is there an existing adoption, family, child-protection, or court file?" /></section>}

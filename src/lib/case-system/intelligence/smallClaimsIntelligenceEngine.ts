@@ -645,7 +645,9 @@ export async function analyzeSmallClaimsWithBrain(
   // which only exists because no Defence was filed. Both decisions come from
   // the shared filing-facts table rather than a local document check.
   const smallClaimsFilingFacts = filingFactsFromDocuments(input.filedDocuments);
+  // The plaintiff's own default step only: for someone being sued, "the defendant" is themselves (role audit, 11 Nov).
   const defaultStageReview =
+    !/defendant|responding/i.test(String(input.yourRole ?? "")) &&
     input.filedDocuments.includes("plaintiffs-claim") &&
     input.filedDocuments.includes("affidavit-service") &&
     !isQuestionAlreadyAnswered("Has the defendant filed a Defence?", smallClaimsFilingFacts);

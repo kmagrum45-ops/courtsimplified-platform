@@ -138,7 +138,8 @@ console.log("\n6. What the story already says is offered for one click, not aske
   }
   const chat = read("app/builder/_components/GuidedFormChat.tsx");
   check("the chat shows the story's words and asks 'Is that right?'", /From what you told us: &ldquo;/.test(chat) && /Is that right\?/.test(chat));
-  check("'No' asks the question plainly instead", /setNotFromStory/.test(chat) && /No, let me answer/.test(chat));
+  // The button's words are the site owner's (11 Nov 2026: "No, that's not right"; it was "No, let me answer").
+  check("'No' asks the question plainly instead", /setNotFromStory/.test(chat) && /No, that&apos;s not right/.test(chat));
 }
 
 console.log("\n7. Small Claims 'Here's what I understood' states answers once (2026-10-13)");

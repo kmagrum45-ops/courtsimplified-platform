@@ -434,11 +434,6 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
               You wrote: &ldquo;{storyQuoteFor(question.id, story)}&rdquo;
             </p>
           ) : null}
-          {question.kind !== "yes-no" && question.kind !== "yes-no-unsure" && question.kind !== "date-range" && homeCity && userMunicipality === homeCity ? (
-            <p data-testid="triage-home-city" className="mt-2 text-sm text-[#4f685f]">
-              &ldquo;Where you live&rdquo; is filled in from the location you gave on Home. Change it if it is not right.
-            </p>
-          ) : null}
           {answers(question)}
         </div>
       ) : (

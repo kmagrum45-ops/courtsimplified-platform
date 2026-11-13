@@ -25,6 +25,7 @@ import { grantSiteAccess } from "./harness/siteAccess";
 import { answerSituation, situationAnswersFor } from "./harness/situation";
 import { serveFromThisCommit } from "./harness/thisCommitServer";
 import { asksForDate } from "../../src/lib/case-system/dates";
+import { chooseOffers } from "./harness/offers";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -88,7 +89,7 @@ test("Small Claims questions one at a time: the amount and the date answered in 
     await expect(finished.or(proposals).or(question).first()).toBeVisible({ timeout: 60_000 });
     await page.waitForTimeout(600);
     if (await finished.isVisible().catch(() => false)) break;
-    if (await proposals.isVisible().catch(() => false)) { await proposals.getByTestId("story-proposals-continue").click(); await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 }); continue; }
+    if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await proposals.getByTestId("story-proposals-continue").click(); await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 }); continue; }
     const text = (await question.innerText()).replace(/\s+/g, " ");
     if (text === last) break;
     last = text;

@@ -37,6 +37,7 @@
  * served on PLAYWRIGHT_BASE_URL, with SITE_ACCESS_PASSWORD in the environment).
  */
 import { expect, test, type Page } from "@playwright/test";
+import { chooseOffers } from "./harness/offers";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { factOfField } from "../../src/lib/case-system/caseFile/fieldFacts";
 import { grantSiteAccess } from "./harness/siteAccess";
@@ -47,7 +48,7 @@ import { deleteHarnessUser } from "./harness/realTestSession";
 import { createClient } from "@supabase/supabase-js";
 import { isKnownProblem } from "./harness/knownProblems29oct-flow";
 import { openBuilder } from "./harness/builderGate";
-import { recordInitialUnknowns, saveCaseStory } from "./harness/intakeReview";
+import { recordInitialUnknowns, saveCaseStory, tickIfAsked } from "./harness/intakeReview";
 import { countedStepDeadlines } from "../../src/lib/case-system/caseFile/stepDeadlines";
 import { formatForCourt } from "../../src/lib/case-system/dates";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
@@ -78,7 +79,7 @@ async function confirmHere(page: Page) {
   const use = q("sc-amount-claimed").getByRole("button", { name: /^Use the suggestion: .*$/ });
   if (await use.count()) await use.first().click();
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
 }
@@ -102,7 +103,7 @@ async function smallClaimsGuided(page: Page) {
   const question = page.locator("[data-testid=guided-message][data-from=assistant]").last();
   const proposals = page.getByTestId("story-proposals");
   await expect(proposals.or(question).first()).toBeVisible({ timeout: 60_000 });
-  if (await proposals.isVisible().catch(() => false)) await proposals.getByRole("button").last().click();
+  if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await proposals.getByRole("button").last().click(); }
   await expect(page.locator("textarea").last()).toBeVisible({ timeout: 60_000 });
 
   await confirmHere(page);
@@ -297,7 +298,7 @@ async function reachNextStep(page: import("@playwright/test").Page) {
   const question = page.locator("[data-testid=guided-message][data-from=assistant]").last();
   const proposals = page.getByTestId("story-proposals");
   await expect(proposals.or(question).first()).toBeVisible({ timeout: 60_000 });
-  if (await proposals.isVisible().catch(() => false)) await proposals.getByRole("button").last().click();
+  if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await proposals.getByRole("button").last().click(); }
   await expect(page.locator("textarea").last()).toBeVisible({ timeout: 60_000 });
   await page.getByTestId("intake-start-review").click();
   const panel = page.getByTestId("intake-review");
@@ -308,7 +309,7 @@ async function reachNextStep(page: import("@playwright/test").Page) {
   if (await q("sc-claim-filed").count()) await q("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
   await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
@@ -448,7 +449,7 @@ test("retest-29oct D1: typing into the form's timeline after Confirm keeps the c
   const question = page.locator("[data-testid=guided-message][data-from=assistant]").last();
   const proposals = page.getByTestId("story-proposals");
   await expect(proposals.or(question).first()).toBeVisible({ timeout: 60_000 });
-  if (await proposals.isVisible().catch(() => false)) await proposals.getByRole("button").last().click();
+  if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await proposals.getByRole("button").last().click(); }
   await expect(page.locator("textarea").last()).toBeVisible({ timeout: 60_000 });
   await page.getByRole("button", { name: "Stop initial questions and review" }).click();
   const panel = page.getByTestId("intake-review");
@@ -460,7 +461,7 @@ test("retest-29oct D1: typing into the form's timeline after Confirm keeps the c
   const use = panel.getByRole("button", { name: /^Use the suggestion: \$6,000$/ });
   if (await use.count()) await use.first().click();
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
   await page.getByRole("button", { name: "Show my next step", exact: true }).first().click();

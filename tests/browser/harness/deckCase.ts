@@ -4,9 +4,10 @@
  * imported by another without running its tests), unchanged.
  */
 import { expect, type Page } from "@playwright/test";
-import { recordInitialUnknowns } from "./intakeReview";
+import { recordInitialUnknowns, tickIfAsked } from "./intakeReview";
 import { STORY_LABEL } from "../../../src/lib/case-system/copy/storyGuidance";
 import { asksForDate } from "../../../src/lib/case-system/dates";
+import { chooseOffers } from "./offers";
 
 export const DECK_STORY = "I hired a deck builder in March 2026 to build a deck at my home. They never finished it and kept the money I paid. My neighbour remembers their teal-orange van.";
 async function passNotice(page: Page) {
@@ -44,7 +45,7 @@ export async function deckChat(page: Page) {
     await expect(finished.or(proposals).or(message).first()).toBeVisible({ timeout: 60_000 });
     await page.waitForTimeout(600);
     if (await finished.isVisible().catch(() => false)) break;
-    if (await proposals.isVisible().catch(() => false)) { await proposals.getByTestId("story-proposals-continue").click(); await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 }); continue; }
+    if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await proposals.getByTestId("story-proposals-continue").click(); await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 }); continue; }
     const text = (await message.innerText()).replace(/\s+/g, " ");
     if (text === last) break;
     last = text;
@@ -76,7 +77,7 @@ export async function openReview(page: Page, id: string, step = "guided") {
 export async function confirmReview(page: Page) {
   const panel = page.getByTestId("intake-review");
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
 }
