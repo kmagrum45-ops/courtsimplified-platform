@@ -98,6 +98,9 @@ jobs:
       - name: The one function says whether a fact is known, offered, asked or settled; both gates use it; a quote is offered as the amount
         run: npm run test:fact-status
 
+      - name: A case saved by main's code opens and reads the same (answers kept, nothing asked again, nothing rewritten)
+        run: npm run test:old-shape-cases
+
       - name: No chip or suggested question asks the assistant for a prediction or a grade (rule 3)
         run: npm run test:no-prediction-chips
 
