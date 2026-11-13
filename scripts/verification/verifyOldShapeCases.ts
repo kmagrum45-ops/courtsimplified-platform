@@ -20,6 +20,10 @@
  *      confirmation), same input revision, same "story changed" mark, and every question main counted as answered
  *      is still answered;
  *   6. what the person typed is not rewritten: a fact main read from a typed answer keeps its words and its source.
+ * One difference is allowed, and only one (site owner, 13 Nov 2026; ALLOWED_DIFFERENCE below): the court date in
+ * family-served-divorce and family-served-motion, where this branch shows the person's typed words instead of the
+ * stage step's date, naming the same calendar day. Checks that a different day, another case, another fact or other
+ * words are refused.
  * The tree story (sc-tree-cut) and the slip-and-fall (sc-slip-and-fall, sc-slip-and-fall-changed) must be among them.
  *
  * WHAT FAILURE THIS CATCHES: a new reader that needs a new field (an old case would lose an answer, ask it again, or
@@ -54,6 +58,37 @@ function deepFreeze<T>(value: T): T {
   return value;
 }
 const same = (a: unknown, b: unknown) => JSON.stringify(a ?? null) === JSON.stringify(b ?? null);
+
+/**
+ * THE ONE DIFFERENCE ALLOWED (site owner, 13 Nov 2026), by story and fact, nothing else. In these two Family cases the
+ * person typed the upcoming court date ("March 3, 2026", intakeData.extra.upcomingCourtDate) and the stage step saved a
+ * trial date (position.dateAnswers "2026-03-03"). Main read the step's date over the typed answer (the audit's
+ * trial-date bug); this branch never lets a step's date replace the person's typed answer (caseFile.ts
+ * STEP_DATE_NEVER_REPLACES). Allowed only when the value now is exactly the person's typed words AND names the same
+ * calendar day as main's value, compared after parsing both. Any other case, any other fact, or another day fails.
+ */
+const ALLOWED_DIFFERENCE: Record<string, { fact: string; reason: string }> = {
+  "family-served-divorce": { fact: "courtDate", reason: "the person's typed court date is never replaced by a step's date (the audit's trial-date bug)" },
+  "family-served-motion": { fact: "courtDate", reason: "the person's typed court date is never replaced by a step's date (the audit's trial-date bug)" },
+};
+const MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+/** A calendar day as YYYY-MM-DD from "2026-03-03" or "March 3, 2026"; null for anything else. */
+function calendarDay(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const iso = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value.trim());
+  if (iso) return `${iso[1]}-${iso[2]}-${iso[3]}`;
+  const words = /^([A-Za-z]+)\s+(\d{1,2}),\s*(\d{4})$/.exec(value.trim());
+  const month = words ? MONTHS.indexOf(words[1].toLowerCase()) : -1;
+  if (!words || month < 0) return null;
+  return `${words[3]}-${String(month + 1).padStart(2, "0")}-${words[2].padStart(2, "0")}`;
+}
+/** The allowed difference holds: the typed words now, the same day as main's stored date. */
+function allowedDifference(item: { story: string; master: Record<string, unknown> }, fact: string, now: unknown, main: unknown): boolean {
+  if (ALLOWED_DIFFERENCE[item.story]?.fact !== fact) return false;
+  const typed = ((item.master.intakeData as Record<string, unknown> | undefined)?.extra as Record<string, unknown> | undefined)?.upcomingCourtDate;
+  const day = calendarDay(now);
+  return typeof typed === "string" && now === typed && day !== null && day === calendarDay(main);
+}
 
 async function main() {
   const { caseFileOf, notAsked } = await import("../../src/lib/case-system/caseFile/caseFile");
@@ -107,13 +142,13 @@ async function main() {
       if (!held && old.state !== "not-asked") storyValuesUnconfirmed.push(`${label} ${fact} (${old.state}, ${old.sourceKind}) -> ${slotStatus(slot as never)}`);
       if (held) {
         factsHeld += 1;
-        check(`3. ${label} ${fact}: held the same (${old.state})`, slot.state === old.state && same(slot.value, old.value) && Boolean(slot.removed) === old.removed && slot.confirmed === old.confirmed,
+        check(`3. ${label} ${fact}: held the same (${old.state})`, slot.state === old.state && (same(slot.value, old.value) || allowedDifference(item, fact, slot.value, old.value)) && Boolean(slot.removed) === old.removed && slot.confirmed === old.confirmed,
           `main: ${JSON.stringify(old)} | now: ${JSON.stringify({ state: slot.state, value: slot.value, removed: Boolean(slot.removed), confirmed: slot.confirmed })}`);
         const status = slotStatus(slot as never);
         check(`3. ${label} ${fact}: known or settled, never asked or offered`, status === "known" || status === "settled", `status ${status}`);
       }
       if (held && !old.wouldAsk) check(`4. ${label} ${fact}: not asked (main's gate held it)`, !notAsked(slot as never), JSON.stringify(slot));
-      if (old.sourceKind === "answer") check(`6. ${label} ${fact}: the typed words and their source are kept`, slot.source?.kind === "answer" && same(slot.value, old.value), JSON.stringify(slot));
+      if (old.sourceKind === "answer") check(`6. ${label} ${fact}: the typed words and their source are kept`, slot.source?.kind === "answer" && (same(slot.value, old.value) || allowedDifference(item, fact, slot.value, old.value)), JSON.stringify(slot));
     }
 
     if (checkpoint) {
@@ -126,6 +161,14 @@ async function main() {
       check(`5. ${label}: every question main counted as answered is still answered`, lost.length === 0, `no longer answered: ${lost.join(", ")}`);
     }
   }
+  // The allowance is that narrow: each of these must be refused.
+  const typedCase = { story: "family-served-divorce", master: { intakeData: { extra: { upcomingCourtDate: "March 3, 2026" } } } };
+  check("allowance: the typed words naming main's day are allowed", allowedDifference(typedCase, "courtDate", "March 3, 2026", "2026-03-03"));
+  check("allowance: a different day is refused", !allowedDifference(typedCase, "courtDate", "March 3, 2026", "2026-03-04"));
+  check("allowance: words that are not the person's typed words are refused", !allowedDifference(typedCase, "courtDate", "3 March 2026", "2026-03-03"));
+  check("allowance: another fact is refused", !allowedDifference(typedCase, "whenHappened", "March 3, 2026", "2026-03-03"));
+  check("allowance: another case is refused", !allowedDifference({ ...typedCase, story: "family-moved-away" }, "courtDate", "March 3, 2026", "2026-03-03"));
+  for (const [story, allowed] of Object.entries(ALLOWED_DIFFERENCE)) check(`setup: the allowed difference names a saved case (${story}, ${allowed.fact}: ${allowed.reason})`, cases.some((item) => item.story === story));
   check("setup: the fixtures hold facts to compare", factsHeld > 0, `${factsHeld}`);
   console.log(`${cases.length} saved case(s), ${factsHeld} held fact(s) compared.`);
   console.log(`Story values no one confirmed (not the person's answers; offered once now): ${storyValuesUnconfirmed.length}`);
