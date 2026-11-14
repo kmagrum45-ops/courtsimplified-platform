@@ -15,6 +15,8 @@
 import type { GuidedChoice, GuidedField, GuidedValues } from "./GuidedFormChat";
 import { SERVED_LINE, storyHintsForDates } from "../../../src/lib/case-system/casePosition";
 import { STORY_LABEL } from "../../../src/lib/case-system/copy/storyGuidance";
+import { factStatus } from "../../../src/lib/case-system/caseFile/factStatus";
+import type { CaseFile, SlotFact } from "../../../src/lib/case-system/caseFile/caseFile";
 import {
   amountOfferFromStory,
   childrenFromStory,
@@ -188,6 +190,8 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       key: "urgent",
       label: "Anything urgent",
       question: "Is anything urgent, like a deadline this week, a safety worry, or someone about to move away with a child?",
+      // Safety already answered (the home page's question, or the safety box): asked without it (5c).
+      askedWhenHeld: { fact: "safety", question: "Is anything urgent, like a deadline this week, or someone about to move away with a child?" },
       why: "Urgent situations can have a faster route, and we show those first.",
       kind: "longtext",
     },
@@ -302,6 +306,16 @@ export function isAnswered(field: GuidedField, value: GuidedValues[string]): boo
   if (Array.isArray(value)) return value.filter((item) => !(field.emptyValues ?? []).includes(item)).length > 0;
   const text = (value ?? "").trim();
   return text.length > 0 && !(field.emptyValues ?? []).includes(text);
+}
+
+/**
+ * The words a field is asked in, from the record: a question that asks about a fact the case already holds as well as
+ * something else is asked without that part (askedWhenHeld). Family's "Is anything urgent, like a deadline this week, a
+ * safety worry, ...?" after the person said "No safety concerns" (Chrome check of #550, 5c).
+ */
+export function guidedQuestion(field: Pick<GuidedField, "question" | "askedWhenHeld">, file: CaseFile | null | undefined): string {
+  const held = field.askedWhenHeld && file ? factStatus(file, field.askedWhenHeld.fact) : null;
+  return held === "known" || held === "settled" ? field.askedWhenHeld!.question : field.question;
 }
 
 /** The questions still to ask, in order: applicable, unanswered, not skipped. */

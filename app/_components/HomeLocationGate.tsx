@@ -304,7 +304,7 @@ function HomeLocationGateContent() {
           chosenCourt: path,
           ...(answers.length ? { answers } : {}),
           // The person's situation answers (step 2): their side and the day served, never read from the story instead.
-          ...(sideOf(situation) ? { situation: { side: sideOf(situation) === "responding" ? "responding" : "starting", ...(situationAnswers(path, situation).servedOn ? { servedOn: situationAnswers(path, situation).servedOn } : {}), ...(filedFromSituation(situation) !== undefined ? { filed: filedFromSituation(situation) } : {}) } } : {}),
+          ...(sideOf(situation) ? { situation: { side: sideOf(situation) === "responding" ? "responding" : "starting", ...(situationAnswers(path, situation).servedOn ? { servedOn: situationAnswers(path, situation).servedOn } : {}), ...(filedFromSituation(situation) !== undefined ? { filed: filedFromSituation(situation) } : {}), ...(situation.stage ? { stageGiven: true } : {}) } } : {}),
         }),
       });
       const result = (await response.json().catch(() => ({}))) as Partial<UnderstandResponse> & { ok?: boolean; skipped?: string };

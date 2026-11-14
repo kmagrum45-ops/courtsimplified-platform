@@ -122,7 +122,7 @@ export type UnderstandInput = {
    * side, and the day they were served. Told to the reasoning as their answers, and the
    * side read from the story never replaces them (step 2).
    */
-  situation?: { side?: "starting" | "responding"; servedOn?: string; filed?: boolean };
+  situation?: { side?: "starting" | "responding"; servedOn?: string; filed?: boolean; /** The start screen holds what has happened in the case so far. */ stageGiven?: true };
 };
 
 // ------------------------------------------------------------------ limits
@@ -432,6 +432,10 @@ export const aboutWhetherFiled = (text: string) =>
   /\b(?:filed?|started|start|issued|brought|opened)\b[^?]{0,60}\b(?:with|in|at) (?:the )?court\b|\b(?:started|opened|brought|filed)\b[^?]{0,20}\b(?:a |an |any )?(?:court )?(?:case|claim|lawsuit|action|application|proceeding)\b|\bis there (?:a|an|any) (?:open |current |existing )?(?:court )?(?:case|claim|lawsuit|action|proceeding)\b|\b(?:been|were|was) served\b[^?]{0,30}\b(?:papers|claim|application|documents)\b|\b(?:lawsuit|case|claim|court|filing|action)\s+status\b/i.test(text) ||
   /\bwhich court\b[^?]*\b(?:issued|filed|started|has|have)\b|\bcourt file (?:number|no\.?)|\b(?:existing|current|ongoing|pending) (?:court )?(?:case|claim|lawsuit|action|proceeding)\b|\b(?:claim|case|lawsuit|action|application)\b[^:?]{0,30}\b(?:already )?(?:started|filed|issued|commenced)\b|\balready (?:started|filed|issued|commenced)\b/i.test(text);
 
+/** "Has anything (else) happened in the case since you were served?", "Where is the case now?" */
+export const askedWhatHappenedSoFar = (question: string) =>
+  /\b(?:has|have) anything(?: else)? (?:happened|been done)\b[^?]*\b(?:case|court|claim|since)\b|\bsince you (?:were served|received|got)\b[^?]*\b(?:anything|happened)\b|\bwhat (?:has happened|stage)\b[^?]*\b(?:case|claim)\b|\bwhere (?:is|does) (?:the|your) (?:court )?case\b/i.test(question);
+
 /** "Are you suing, or is someone suing you?" */
 export const askedSide = (question: string) => /\b(?:are you|is (?:someone|anyone|the other)[^?]*)\b[^?]*\b(?:suing|being sued|sued|the (?:plaintiff|defendant|applicant|respondent))\b/i.test(question);
 
@@ -451,6 +455,9 @@ function withSituation(understanding: CaseUnderstanding, situation: UnderstandIn
       // case 19: "Have you already started a court claim?" after "No, nothing yet"; 26 Oct: "Which
       // court, if any, has issued your claim?").
       !(situation.filed !== undefined && aboutWhetherFiled(item.question)) &&
+      // What has happened in the case so far is the start screen's own answer (Chrome check of #550, 5b: "Has anything
+      // happened in the court case since you received the claim?" after it was answered).
+      !(situation.stageGiven && askedWhatHappenedSoFar(item.question)) &&
       !(situation.side && askedSide(item.question))),
     // And the reading's own rows about it go too: the person's answer stands, shown at the top.
     facts: situation.filed !== undefined ? understanding.facts.filter((fact) => !aboutWhetherFiled(`${fact.label}: ${fact.value}`)) : understanding.facts,

@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-283 documented, 26 without a header.
+284 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -132,6 +132,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:held-back-cases` | **The ten held-back finish-line cases stay held back**<br>(tests/browser/walkthrough/heldBackPersonas.ts; master plan decision log, 2026-10-08). |
 | `npm run test:help-at-limits` | **Where the site says it cannot do something, it points to a person who can**<br>(master plan finish line: "a case the site cannot fully handle says so and points to help"). |
 | `npm run test:historical-law` | **test:historical-law -- the "law as it read on a past date" shelf**<br>(scripts/retrieval/historicalSources.ts, 2026-10-09). |
+| `npm run test:home-answers-held` | **AN ANSWER GIVEN TO THE HOME PAGE'S QUESTIONS IS NEVER ASKED AGAIN (Chrome check of #550, 5b, 5c, 5d; site owner,**<br>14 Nov 2026: "a fact already given or marked 'I'm not sure' is never asked again, and every page reads the record"). |
 | `npm run test:in-flight-edit-kept` | **AN ANSWER CHANGED AGAIN WHILE ITS PREVIOUS SAVE IS STILL ON THE WAY IS KEPT, NOT TREATED AS ANOTHER TAB'S OLDER VIEW**<br>(read-only investigation, 9 Nov 2026: the carry test's occasional "typed 9350 in Change, pressed Confirm, every screen shows $9,100", 4 runs in 16 on a1ca8efe and on 7bce4102). |
 | `npm run test:intake-guidance-gate` | **Phase 4: the same confirmation/revision policy governs HTTP and presentation.**<br>Synthetic owned cases exercise collecting, review, legacy, forged proofs, cross-case/court/account refusal, late responses and stale generated guidance. Actual unauthenticated endpoints are called too: no network, AI or real data. |
 | `npm run test:intake-requests` | **Synthetic request failures only. No network, credentials, or case writes.**<br>Synthetic request failures only. No network, credentials, or case writes. |

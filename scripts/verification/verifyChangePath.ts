@@ -146,6 +146,7 @@ const FACTS: FactCase[] = [
   { fact: "servedDate", court: "family", sections: { family: { servedDate: "October 1, 2026" } }, value: "October 2, 2026", shows: (f) => caseFileModule.dayOfSlot(f.servedDate) === "2026-10-02" },
   { fact: "outcome", court: "small-claims", sections: { "small-claims": { input: { defendantOutcomeText: "dismissed" } } }, value: "settled", shows: (f) => valueOf(f, "outcome") === "settled" },
   { fact: "urgent", court: "civil", sections: { civil: { input: { urgent: "Hearing next week" } } }, value: "Nothing urgent now", shows: (f) => valueOf(f, "urgent") === "Nothing urgent now" },
+  { fact: "safety", court: "family", sections: { family: { safetyConcerns: "No safety concerns." } }, value: "A safety plan is in place", shows: (f) => valueOf(f, "safety") === "A safety plan is in place" },
 ];
 for (const item of FACTS) {
   const older = checkpointOf(item.court, item.sections);

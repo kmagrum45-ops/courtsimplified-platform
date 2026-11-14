@@ -106,6 +106,8 @@ jobs:
         run: npm run test:defendant-view
       - name: An amount is shown the same way everywhere ($1,500.00, never the story's raw $1500)
         run: npm run test:amount-format
+      - name: An answer given to the home page's questions is never asked again (case status, a claim of your own, safety, the other side)
+        run: npm run test:home-answers-held
 
       - name: No chip or suggested question asks the assistant for a prediction or a grade (rule 3)
         run: npm run test:no-prediction-chips

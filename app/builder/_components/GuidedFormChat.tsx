@@ -2,7 +2,7 @@
 
 import { useIntakeRecovery, useIntakeReviewView, useIntakeState } from "../../_components/IntakeRecovery";
 import TribunalNotice, { COURT_LABELS, useTribunalFirst } from "../../_components/TribunalNotice";
-import { answerNow, askedAndReplied, caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
+import { answerNow, askedAndReplied, caseFileOf, type SlotFact } from "../../../src/lib/case-system/caseFile/caseFile";
 import { chatMayAsk } from "../../../src/lib/case-system/caseFile/factStatus";
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { NOTHING_LEFT_TO_ASK } from "../../../src/lib/case-system/copy/askCopy";
@@ -43,6 +43,11 @@ export type GuidedField = {
   /** Initial orientation versus optional later detail. */
   initial?: boolean;
   question: string;
+  /**
+   * The words asked instead when the case already holds `fact` (guidedFields.ts guidedQuestion): the question without
+   * the part that fact answers, so nothing the person said is asked again (Chrome check of #550, 5c).
+   */
+  askedWhenHeld?: { fact: SlotFact; question: string };
   /** Why it matters, in plain words about what the answer is used for. */
   why: string;
   kind: "text" | "longtext" | "choice" | "multi";
@@ -97,7 +102,7 @@ export function answerNeedsMore(field: GuidedField, value: string | string[]): s
 export type GuidedValues = Record<string, string | string[] | undefined>;
 
 export { isAnswered, pendingFields } from "./guidedFields";
-import { isAnswered, pendingFields } from "./guidedFields";
+import { guidedQuestion, isAnswered, pendingFields } from "./guidedFields";
 import { isTypedUnsure } from "../../../src/lib/case-system/caseFile/unsureAnswer";
 
 /**
@@ -233,7 +238,8 @@ export default function GuidedFormChat({
   }, [checkpoint, caseFile, fields, values]);
   // The conversation check (caseFile.ts askedAndReplied): a question this chat asked and the person replied to is not asked again.
   const replied = useMemo(() => heard.flatMap(({ question, reply }) => [{ role: "assistant", text: question }, { role: "user", text: reply }]), [heard]);
-  const pending = useMemo(() => pendingFields(fields, values, skipped).filter((field) => !heldElsewhere.has(field.key) && !askedAndReplied(replied, field.question)), [fields, values, skipped, heldElsewhere, replied]);
+  // Each question in the words the record leaves to ask (guidedQuestion: a part the case already holds is not asked).
+  const pending = useMemo(() => pendingFields(fields, values, skipped).map((field) => ({ ...field, question: guidedQuestion(field, caseFile) })).filter((field) => !heldElsewhere.has(field.key) && !askedAndReplied(replied, field.question)), [fields, values, skipped, heldElsewhere, replied, caseFile]);
   const current = changing ? fields.find((field) => field.key === changing) ?? null : pending[0] ?? null;
   // A follow-up question (anything after the story itself) waits behind the tribunal notice until the person sets it aside.
   const tribunalShown = Boolean(tribunalCourt && tribunalFirst.tribunal && current && current.key !== "facts" && !changing);

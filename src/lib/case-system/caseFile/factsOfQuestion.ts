@@ -15,7 +15,7 @@ export type CaseFact =
   | "situation" | "side" | "court" | "stage" | "filed" | "defenceFiled" | "claimServed" | "papers"
   | "servedDate" | "serviceMethod" | "amount" | "otherParty" | "children" | "married" | "claimKind"
   | "wants" | "whenHappened" | "evidence" | "story" | "urgent" | "courtFileNumber" | "courtDate"
-  | "conferenceDate" | "claimIssuedDate" | "defenceFiledDate" | "marriedWhere" | "outcome" | "filedDocuments";
+  | "conferenceDate" | "claimIssuedDate" | "defenceFiledDate" | "marriedWhere" | "outcome" | "filedDocuments" | "safety";
 
 const FACTS: Record<string, readonly CaseFact[]> = {
   // The situation questions (situation.ts).
@@ -46,6 +46,13 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   amountClaimed: ["amount"],
   courtFileNumber: ["courtFileNumber"],
   defendantOutcomeText: ["outcome"],
+  // The person being sued says whether they want anything of their own in the same words as their outcome, so a claim
+  // of their own is the outcome (Chrome check of #550, 5b: offered again after "I only want to defend the claim").
+  "sc-defendant-outcome": ["outcome"],
+  "sc-defendant-counterclaim": ["outcome"],
+  counterclaimIntentText: ["outcome"],
+  // Family's safety box, and the home page's safety question (5c).
+  safetyConcerns: ["safety"],
   remedySought: ["wants"],
   placeOfMarriage: ["marriedWhere"],
   "case-date-case-conference-date": ["conferenceDate"],
@@ -135,11 +142,25 @@ const ASKS_FOR: [RegExp, CaseFact][] = [
   [/\b(?:have|has) (?:you|the defendant|they|he|she) (?:already )?filed (?:a |an |your |their |his |her )?defen[cs]e\b/i, "defenceFiled"],
   [/\b(?:have you|has anyone|has anything been) (?:already )?(?:started|filed)\b|\bstarted a court case\b/i, "filed"],
   [/\bwho (?:is|are) the (?:other party|other side|defendants?|respondents?)\b(?!'s|s')|\bwho (?:exactly )?(?:are you|do you want to|will you|would you like to) su(?:e|ing)\b|\bwho (?:exactly )?(?:do|would) you (?:name|sue)\b/i, "otherParty"],
+  // The other side named by their part in the story, in the words the home page's questions use for it (Chrome check of
+  // #550, 5d: "Who is the other side?" was asked after the home page's question about who bought the goods).
+  [/\bwho (?:bought|purchased|hired|owes|is suing)\b|\bwho did you (?:sell|lend|rent|pay|hire|buy)\b[^?]*\b(?:to|from)?\b|\bwho (?:is|was|are|were) the (?:buyers?|sellers?|purchasers?|landlords?|tenants?|contractors?|lenders?|borrowers?|employers?|customers?|clients?)\b(?!'s|s')|\bname of the (?:company|business|buyers?|sellers?|store|landlord|contractor|employer|person|customer|client)\b|\b(?:full|legal|exact) (?:legal )?name of (?:the )?(?:business|company|store|other)\b/i, "otherParty"],
   [/\bwhen did (?:this|it|the [a-z]+) happen\b|\bwhat (?:date|day) did (?:this|it) happen\b/i, "whenHappened"],
+  // A worry about safety, asked on its own (Chrome check of #550, 5c: "Is anything urgent ... a safety worry" after
+  // "No safety concerns"). Only a question about the person's or the child's safety, never "what safety rules".
+  [/\b(?:any|immediate|current|ongoing) (?:immediate )?safety (?:concerns?|worr(?:y|ies)|issues?|risks?)\b|\b(?:are|do) you (?:feel )?(?:safe|unsafe)\b|\bworried about (?:your|the child'?s|your child'?s|your children'?s) safety\b/i, "safety"],
+  // A claim of the person's own against the one suing them: the person's outcome (5b: "A claim of your own against them"
+  // was offered after "I only want to defend the claim").
+  [/\bclaim of your own\b|\bcounter-?claim\b|\bdefendant'?s claim\b/i, "outcome"],
 ];
 
-export function factOfAskedText(question: string): CaseFact | null {
-  return ASKS_FOR.find(([asks]) => asks.test(question))?.[1] ?? null;
+/** Read only for a person being sued: the same words asked of a person suing name another fact (or none). */
+const ASKS_FOR_RESPONDING: [RegExp, CaseFact][] = [
+  [/\b(?:do|does) you (?:believe|think) (?:that )?(?:the )?[\w' ]{1,40}? owes? you (?:any )?money\b/i, "outcome"],
+];
+
+export function factOfAskedText(question: string, options: { responding?: boolean } = {}): CaseFact | null {
+  return ASKS_FOR.find(([asks]) => asks.test(question))?.[1] ?? (options.responding ? ASKS_FOR_RESPONDING.find(([asks]) => asks.test(question))?.[1] : undefined) ?? null;
 }
 
 /**

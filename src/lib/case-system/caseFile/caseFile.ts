@@ -50,7 +50,7 @@ import { chatMayAsk, slotStatus } from "./factStatus";
 export const SLOT_FACTS = [
   "side", "court", "stage", "filed", "papers", "servedDate", "amount", "otherParty", "children",
   "married", "marriedWhere", "claimKind", "wants", "whenHappened", "conferenceDate", "defenceFiled",
-  "outcome", "urgent", "courtDate",
+  "outcome", "urgent", "courtDate", "safety",
   // The story, held once it is given (founder, 1 Nov: no screen asks for it again; its words are `storyText`).
   "story",
 ] as const;
@@ -296,7 +296,7 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   for (const item of Array.isArray(homeAnswers) ? homeAnswers : []) {
     const { question, answer } = object(item);
     if (typeof question !== "string" || typeof answer !== "string" || !answer.trim()) continue;
-    const fact = factOfAskedText(question);
+    const fact = factOfAskedText(question, { responding: respondsToTheCase(file) });
     if (fact) give(file, fact, answer.trim(), `home:${fact}`);
   }
   // The other party the story reading named, accepted by the person on the home page (understoodOtherParty.ts; B1).
