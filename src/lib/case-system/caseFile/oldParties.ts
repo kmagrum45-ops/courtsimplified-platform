@@ -40,7 +40,9 @@ export function partiesFromOldShapes(old: OldPartyShapes): Party[] {
   if (phone) you.details.phone = phone;
   if (email) you.details.email = email;
   if (Object.keys(you.details).length) list.push(you);
-  const otherName = clean(old.otherPartyName) || box("otherParty", "defendantName", "respondentName");
+  // The fact status is the gate (carry, 14 Nov: a removed name came back from the saved intake): an older box names the
+  // other party only while the person has neither removed nor settled the fact.
+  const otherName = clean(old.otherPartyName) || (old.otherPartySettled ? "" : box("otherParty", "defendantName", "respondentName"));
   const otherAddress = box("defendantAddress", "otherPartyAddress");
   if (otherName || otherAddress) {
     const company = otherName ? isCompanyName(otherName) : false;

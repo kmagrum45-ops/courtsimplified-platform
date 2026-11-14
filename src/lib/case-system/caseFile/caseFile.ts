@@ -512,6 +512,7 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
       recorded: false,
       list: partiesFromOldShapes({
         otherPartyName: file.otherParty.state === "answered" && typeof file.otherParty.value === "string" ? file.otherParty.value : undefined,
+        otherPartySettled: file.otherParty.removed === true || file.otherParty.state === "unsure",
         boxes: [object(object(sections["small-claims"]).input), masterIntake, object(masterIntake.extra)],
       }),
     };

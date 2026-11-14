@@ -18,7 +18,10 @@
  *      street, city, province, postal code, phone and email; Circle K as a company with its address; Test Manager as a
  *      second, separate person at the same address; nothing is offered twice or after a No, or for a detail already
  *      held;
- *   6. a sentence that only gives party details is not one of the story's facts (it is offered, not numbered).
+ *   6. a sentence that only gives party details is not one of the story's facts (it is offered, not numbered);
+ *   7. an older case whose other party the person removed (the box emptied) names no other party, though an older
+ *      saved copy (the whole form's box, the saved intake) still holds the name: the fact's status is the gate (carry,
+ *      14 Nov: "Jordan Testwood" shown again on the review after removal and reload, in 10 of 12 runs).
  *
  * WHAT FAILURE THIS CATCHES: a second copy of a party, a merged party, a detail asked after "I'm not sure", or a party
  * detail left in the story's facts.
@@ -26,7 +29,7 @@
  * Run: npm run test:parties-record
  */
 import assert from "node:assert/strict";
-import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, followAnswer, CASE_FILE_SECTION, type CaseFile } from "../../src/lib/case-system/caseFile/caseFile";
 import { readParties, detailStatus, detailsToAsk, partyName, storyPartyOffers, storyWithoutPartyDetails, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 
@@ -122,6 +125,25 @@ check("6. a sentence that only gives party details is not one of the story's fac
   const facts = storyWithoutPartyDetails(CHROME_FORMS_STORY);
   assert.ok(!/My name is|613-555-0100|test\.plaintiff@example\.com|I am suing/.test(facts), `party details left in the facts: ${facts}`);
   assert.ok(/slipped on a wet floor/.test(facts) && /\$450 in lost wages/.test(facts), `the story's own facts were lost: ${facts}`);
+});
+
+check("7. the other party removed: no other party is named from an older copy of the name", () => {
+  type Sections = Record<string, Record<string, unknown>>;
+  const follow = followAnswer as unknown as (sections: Sections, section: string, key: string, before: unknown, after: unknown, now?: Date, held?: CaseFile) => Record<string, unknown> | null;
+  const write = (sections: Sections, after: Record<string, unknown>, now: Date): Sections => {
+    const before = sections["small-claims"]?.input;
+    const change = follow(sections, "small-claims", "input", before, after, now, caseFileOf(checkpoint(sections)));
+    const next: Sections = { ...sections, "small-claims": { ...(sections["small-claims"] ?? {}), input: after } };
+    return change ? { ...next, [CASE_FILE_SECTION]: { ...(next[CASE_FILE_SECTION] ?? {}), changes: change } } : next;
+  };
+  let s: Sections = { ...(BRINGING as unknown as Sections) };
+  s = write(s, { otherParty: "Jordan Testwood", defendantName: "Jordan Testwood" }, new Date("2026-11-14T10:00:00Z"));
+  s = write(s, { otherParty: "", defendantName: "Jordan Testwood" }, new Date("2026-11-14T10:05:00Z"));
+  const master = { intakeData: { otherParty: "Jordan Testwood", defendantName: "Jordan Testwood" } };
+  const file = caseFileOf(checkpoint(s), master);
+  assert.notEqual(file.otherParty.state, "answered", `the removal itself was not read: ${JSON.stringify(file.otherParty)}`);
+  const named = file.parties.list.filter((party) => party.side === "other").map((party) => partyName(party));
+  assert.ok(!named.some((name) => /Testwood/.test(name)), `the removed other party is named again: ${JSON.stringify(named)}`);
 });
 
 if (failed) { console.log(`\n${failed} check(s) failed`); process.exit(1); }
