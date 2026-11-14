@@ -48,6 +48,7 @@
     "test:amount-format": "node --import tsx scripts/verification/verifyAmountFormat.ts",
     "test:home-answers-held": "node --import tsx scripts/verification/verifyHomeAnswersHeld.ts",
     "test:wants-follow-amount": "node --import tsx scripts/verification/verifyWantsFollowAmount.ts",
+    "test:not-married-everywhere": "node --import tsx scripts/verification/verifyNotMarriedEverywhere.ts",
     "test:no-prediction-chips": "node --import tsx scripts/verification/verifyNoPredictionChips.ts",
     "test:ai-price-table": "node --import tsx scripts/verification/verifyAiPriceTable.ts",
     "test:ai-models-priced": "node --import tsx scripts/verification/verifyAiModelsPriced.ts",

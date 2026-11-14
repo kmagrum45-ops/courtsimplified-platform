@@ -2677,11 +2677,17 @@ export function withoutDivorceApplication(view: PracticalView | null, notMarried
   if (!view || !notMarried) return view;
   // The view's own court: a lead form carries only its number, and Form 8A is another form in Small Claims and civil.
   const family = [...view.forms, ...view.formsIfClaimed].some((form) => form.court === "family");
+  // The divorce fee and the federal divorce fee note are a divorce's only (Chrome check of #550, 7.2).
+  const noDivorceFee = (fees: Fee[]) => fees.filter((fee) => fee.id !== "fam-answer-divorce");
+  const noDivorceNote = (lines: PlainLine[]) => lines.filter((line) => line !== FAMILY_DIVORCE_FEE_NOTE);
   return {
     ...view,
     forms: view.forms.filter((form) => !isDivorceApplication(form)),
     formsIfClaimed: view.formsIfClaimed.filter((form) => !isDivorceApplication(form)),
     leadForms: family ? view.leadForms.filter((lead) => !isDivorceApplication({ court: "family", number: lead.number })) : view.leadForms,
+    fees: noDivorceFee(view.fees),
+    feeNotes: noDivorceNote(view.feeNotes),
+    feesIfClaimed: view.feesIfClaimed ? { ...view.feesIfClaimed, fees: noDivorceFee(view.feesIfClaimed.fees), notes: noDivorceNote(view.feesIfClaimed.notes) } : null,
   };
 }
 

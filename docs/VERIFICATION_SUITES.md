@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-285 documented, 26 without a header.
+286 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -173,6 +173,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:no-prediction-chips` | **NO CHIP OR SUGGESTED QUESTION ASKS FOR A PREDICTION OR A GRADE (site owner, 11 Nov 2026: the assistant chip "What**<br>would a judge likely be concerned about?" asks for a prediction about a judge, which CLAUDE.md s. 3 forbids). |
 | `npm run test:no-stale-intake` | **Nothing from an earlier session is shown before the user opens a case.**<br>2026-09-28: a signed-in user opened the Small Claims intake and found an old test story already filled in. Earlier fixes had scoped browser storage per user and cleared it for anonymous visitors, but the builder deliberately RESTORED the signed-in user's own l |
 | `npm run test:no-store` | **Every OpenAI request carries `store: false`, and no call site can bypass it.**<br>COSTS NOTHING. Reads source off disk and calls the factory with a fake key. No network, no model call. |
+| `npm run test:not-married-everywhere` | **NOT MARRIED: MARRIED-ONLY TOPICS ARE HIDDEN EVERYWHERE, NOT ONLY IN THE TOPIC LIST (Chrome check of #550, 7.2; site**<br>owner, 14 Nov 2026, 6d). |
 | `npm run test:not-sure-goal-review` | **THE GOAL SAID "NOT SURE" IN THE SMALL CLAIMS GUIDED CHAT IS NEVER ASKED AGAIN IN THE REVIEW**<br>(founder, 1 Nov; strict check, NOT a carry-list entry). |
 | `npm run test:not-sure-never-asked` | **"NOT SURE" IS NEVER ASKED AGAIN, ANYWHERE (site owner, 31 Oct; replaces option 1 of 24 Oct).**<br>After a person says "I don't know" or "not sure" -- a skip in the questions one at a time, the words typed in the Small Claims guided chat or in the whole form, or the review's "I do not know yet" -- no screen in any of the three courts asks that question agai |
 | `npm run test:notice-step` | **A claim whose kind can need written notice before suing is pointed to that**<br>notice step first, and only when the person's own words place it. |

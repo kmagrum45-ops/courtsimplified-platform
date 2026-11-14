@@ -28,7 +28,7 @@ import {
 } from "@/src/lib/case-system/deadlines/serviceEffectiveDate";
 
 import { findStage, stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
-import { MARRIED_ONLY_FAMILY_STEPS } from "../../../src/lib/case-system/family/marriedOnly";
+import { MARRIED_ONLY_FAMILY_STEPS, withoutMarriedOnlyAnswer } from "../../../src/lib/case-system/family/marriedOnly";
 import { DEADLINE_EVENTS, caseDatesFrom } from "@/src/lib/case-system/deadlines/deadlineEvents";
 import { formatLongDate } from "@/src/lib/case-system/deadlines/holidays";
 import { computedDeadlinesFor } from "@/src/lib/content-library/computedDeadline";
@@ -1490,7 +1490,10 @@ export default function StageAnswerPanel({
   const [chosenHere, setChosenHere] = useState<string | null>(null);
   // A folded "not known yet" date the person chose to add after all.
   const [openedLater, setOpenedLater] = useState<Record<string, boolean>>({});
-  const [result, setResult] = useState<Response | null>(null);
+  const [heldResult, setResult] = useState<Response | null>(null);
+  // The answer as this person reads it: a person the record says was not married never reads the married-only
+  // sentences (marriedOnly.ts withoutMarriedOnlyAnswer; Chrome check of #550, 7.2). The card and the full answer read it.
+  const result = useMemo(() => withoutMarriedOnlyAnswer(heldResult, notMarried), [heldResult, notMarried]);
   const [municipality, setMunicipality] = useState("");
   const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState(false);

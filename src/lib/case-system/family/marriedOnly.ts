@@ -49,6 +49,36 @@ export function withoutMarriedOnly<T extends { value: string }>(options: readonl
   return options.filter((option) => !marriedOnly.has(option.value) || chosen.includes(option.value));
 }
 
+/**
+ * The step answers' sentences about a divorce, or a Part I or Part II claim, and nothing else (Chrome check of #550,
+ * 7.2: shown on a not-married case's next step). Word for word from the published answers (test:not-married-everywhere
+ * fails on one that is not there); the bases are the provisions in this file's header, and for the year of habitual
+ * residence the published answer's own Divorce Act citation. Shown whole or not at all; nothing is reworded.
+ */
+export const MARRIED_ONLY_SENTENCES: readonly string[] = [
+  "For a divorce, the court in Ontario is the Superior Court of Justice.",
+  "An Ontario court can hear a divorce if you or your spouse has been habitually resident in Ontario for at least one year.",
+  // The sentence before it, continued: the year before a divorce case starts.
+  "That year must be the one right before the case starts.",
+  "The Ontario Court of Justice is not a court for family property claims under Part I of the Family Law Act.",
+  "It is not one for matrimonial home claims under Part II either.",
+];
+
+/** The text without the married-only sentences, for a person the record says was not married; otherwise unchanged. */
+export function withoutMarriedOnlySentences(text: string, notMarried: boolean): string {
+  if (!notMarried || !text) return text;
+  let shown = text;
+  for (const sentence of MARRIED_ONLY_SENTENCES) shown = shown.split(sentence).join("");
+  return shown === text ? text : shown.replace(/[ \t]{2,}/g, " ").replace(/ +([.,;:])/g, "$1").replace(/[ \t]+\n/g, "\n").replace(/\n[ \t]+/g, "\n").trim();
+}
+
+/** A step answer as a person not married reads it: each section without the married-only sentences. */
+export function withoutMarriedOnlyAnswer<T extends object>(result: T | null, notMarried: boolean): T | null {
+  const answer = result && "answer" in result ? (result as { answer?: { sections?: { heading: string; text: string }[] } | null }).answer : null;
+  if (!notMarried || !answer?.sections) return result;
+  return { ...result, answer: { ...answer, sections: answer.sections.map((section) => ({ ...section, text: withoutMarriedOnlySentences(section.text, true) })) } } as T;
+}
+
 /** Whether any option was left out (so a story-only reading can offer "Show all topics"). */
 export function leavesOutMarriedOnly(options: readonly { value: string }[], notMarried: NotMarried | boolean, chosen: readonly string[] = []): boolean {
   return withoutMarriedOnly(options, notMarried, chosen).length < options.length;

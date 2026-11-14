@@ -110,6 +110,8 @@ jobs:
         run: npm run test:home-answers-held
       - name: Words built from amounts follow the amount the case holds ("What you want" after the amount is changed)
         run: npm run test:wants-follow-amount
+      - name: Not married - married-only topics hidden everywhere (step answers, fees), not only the topic list
+        run: npm run test:not-married-everywhere
 
       - name: No chip or suggested question asks the assistant for a prediction or a grade (rule 3)
         run: npm run test:no-prediction-chips
