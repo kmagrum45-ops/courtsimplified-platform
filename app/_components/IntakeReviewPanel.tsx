@@ -31,6 +31,7 @@ import SignInForSafetyCheck from "../builder/_components/SignInForSafetyCheck";
 import { supabase } from "../../src/lib/supabase/client";
 import { earlierAnswerWords } from "../../src/lib/case-system/earlierAnswerWords";
 import { savedStepOf } from "../../src/lib/case-system/savedStep";
+import PartiesStep from "./PartiesStep";
 
 /** What an answer with no line of its own is, in words. */
 const HIDDEN_ANSWER_NAMES: Record<string, string> = {
@@ -137,6 +138,9 @@ export default function IntakeReviewPanel() {
     return asked && (SLOT_FACTS as readonly string[]).includes(asked) ? asked as SlotFact : null;
   });
   useEffect(() => { if (changeFact) setViewing(true); }, [changeFact]);
+  // ?change=parties (or the other party): the case page's "Change" for the parties opens the Parties step (rule 1).
+  const [partiesAsked] = useState(() => typeof window !== "undefined" && ["parties", "otherParty"].includes(new URLSearchParams(window.location.search).get("change") ?? ""));
+  useEffect(() => { if (!partiesAsked) return; setViewing(true); window.setTimeout(() => document.getElementById("parties")?.scrollIntoView({ behavior: "auto", block: "start" }), 80); }, [partiesAsked]);
   // ?next=start: the case page's "Show my next step" or "Update my next steps" (layout.tsx), pressed there once.
   // Started here once the intake is confirmed, as this page's own button does, and taken out of the address so a
   // reload does not start it again (founder's Chrome check of #543, 5 Nov: the link only opened this page).
@@ -328,7 +332,7 @@ export default function IntakeReviewPanel() {
     return <p className="mt-1" data-testid="intake-entry-held" data-fact={fact} data-removed={slot.removed ? "true" : undefined} aria-label={ariaLabel}>
       {name ? <span className="font-semibold">{name}: </span> : null}{slot.removed ? "Removed" : heldWords(caseFile, fact, slot)}{" "}
       <span className="text-[#4d675f]">({slot.removed ? "you removed this answer; it is not asked again" : `your answer ${atStart ? "at the start; change it at the top of the page" : slot.changed ? "as you changed it; it is not asked again" : "already given; it is not asked again"}`})</span>
-      {fact && !atStart ? <ChangeAnswer key={`${fact}:${String(slot.value)}:${slot.removed ? "removed" : ""}`} fact={fact} court={court} startOpen={fact === changeFact} current={slot.value} /> : null}
+      {fact === "otherParty" && caseFile.parties.recorded ? <a data-testid="change-parties" href="#parties" className="ml-1 font-semibold text-[#2f7d67] underline">Change</a> : fact && !atStart ? <ChangeAnswer key={`${fact}:${String(slot.value)}:${slot.removed ? "removed" : ""}`} fact={fact} court={court} startOpen={fact === changeFact} current={slot.value} /> : null}
     </p>;
   };
   async function act(action: "review" | "collect" | "confirm") {
@@ -547,6 +551,8 @@ export default function IntakeReviewPanel() {
           {!quiet || quiet.markedHere ? unknownBox(question.id) : null}
         </div>;
       })}</fieldset>}
+      {/* The parties: the one place party details are asked (site owner, 14 Nov 2026, rule 1); "Change" on the other party opens it. */}
+      {phase === "reviewing" || partiesAsked ? <div className="mt-5"><PartiesStep /></div> : null}
       {phase === "reviewing" ? <>
         {/* An answer changed after Continue (rule 6, 31 Oct; site owner, 12 Nov: in the summary's words, after a reload too). */}
         {changedAfterConfirm(workflowStatus, checkpoint) ? <p data-testid="intake-confirm-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer. Here is what we have now.</p> : null}

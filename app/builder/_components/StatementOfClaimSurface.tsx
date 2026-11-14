@@ -13,9 +13,14 @@ import {
   type ElementStateMap,
 } from "@/src/lib/case-system/intake/depth/elementStateMap";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
-import { claimKindLine, claimKindOf, form7ADraftFields, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
-import { formatForCourt } from "@/src/lib/case-system/dates";
+import { askedQuestionsOf, claimKindLine, claimKindOf, form7ADraftFields, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
+import { addressLine, formContextOfFile } from "@/src/lib/case-system/forms/formContext";
+import { partyName } from "@/src/lib/case-system/parties/parties";
+import { useIntakeRecovery } from "../../_components/IntakeRecovery";
 import { heldWordsOf } from "@/src/lib/case-system/caseFile/caseFileOfMaster";
+import PartiesStep from "../../_components/PartiesStep";
+import FilledForm7A from "../../_components/FilledForm7A";
+import { formatForCourt } from "@/src/lib/case-system/dates";
 import { factStatus } from "@/src/lib/case-system/caseFile/factStatus";
 import {
   draftStatementOfClaimParticulars,
@@ -92,12 +97,6 @@ export type StatementOfClaimSurfaceProps = {
   onStateMapChange?: (map: ElementStateMap) => void;
 };
 
-type PartyDetails = {
-  yourName: string;
-  yourAddress: string;
-  otherParty: string;
-  defendantAddress: string;
-};
 
 export default function StatementOfClaimSurface({
   caseFile,
@@ -109,18 +108,18 @@ export default function StatementOfClaimSurface({
   const [stateMap, setStateMap] = useState<ElementStateMap>(() => ({ ...((caseFile.elementStates ?? {}) as ElementStateMap), ...(elementStatesThisVisit ?? {}) }));
   const [confirmedRemedyId, setConfirmedRemedyId] = useState<string | null>(null);
   const [answerDrafts, setAnswerDrafts] = useState<Record<string, string>>({});
-  const [party, setParty] = useState<PartyDetails>({
-    yourName: "",
-    yourAddress: "",
-    otherParty: "",
-    defendantAddress: "",
-  });
   const [showDraft, setShowDraft] = useState(false);
-  // "The other party's name" reads the case record (B1): the name the person gave anywhere (the accepted story reading,
-  // the whole form, a change), the newest one, until they type their own here.
-  const [otherPartyTyped, setOtherPartyTyped] = useState(false);
-  const heldOtherParty = heldWordsOf(caseFile, "otherParty");
-  const otherPartyName = otherPartyTyped ? party.otherParty : heldOtherParty.held ? heldOtherParty.words : "";
+  // The parties, from the case record (site owner, 14 Nov 2026, rule 1): asked once, in the Parties step, read here.
+  const recovery = useIntakeRecovery();
+  const formCtx = useMemo(() => formContextOfFile(caseFile, askedQuestionsOf(recovery?.getReview().checkpoint)), [caseFile, recovery]);
+  const plaintiff = formCtx.plaintiffs[0];
+  const defendant = formCtx.defendants[0];
+  const party = {
+    yourName: plaintiff ? partyName(plaintiff) : "",
+    yourAddress: addressLine(plaintiff),
+    otherParty: defendant ? partyName(defendant) : "",
+    defendantAddress: addressLine(defendant),
+  };
 
   const kindLine = claimKindLine(claimKind);
   const kindId = kindLine?.claimTypeId ?? null;
@@ -161,14 +160,14 @@ export default function StatementOfClaimSurface({
         ...mappedInput,
         yourName: party.yourName,
         yourAddress: party.yourAddress,
-        otherParty: otherPartyName,
+        otherParty: party.otherParty,
         defendantAddress: party.defendantAddress,
       },
       { claimTypeId: claimType.id, claimTypeName: claimType.name },
       // cannot-provide elements travel INTO the document, not just this screen.
       gate.cannotProvide.map((item) => ({ elementId: item.elementId, name: item.name })),
     );
-  }, [gate, claimType, mappedInput, party, otherPartyName]);
+  }, [gate, claimType, mappedInput, party.yourName, party.yourAddress, party.otherParty, party.defendantAddress]);
 
   function applyStateMap(next: ElementStateMap) {
     setStateMap(next);
@@ -372,38 +371,14 @@ export default function StatementOfClaimSurface({
         </div>
       ) : null}
 
-      {/* --- Party details the drafting engine needs --- */}
+      {/* --- The parties: the one shared asker (PartiesStep), read from the case record (rule 1) --- */}
       <div className="mt-8">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-[#2f7d67]">
-          Names and addresses
-        </h3>
-        <p className="mt-1 text-sm text-[#4d675f]">
-          The form asks for these. Leave anything you don&apos;t have yet blank and add it
-          later. Names are kept in your case file and are never sent to the AI.
-        </p>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          {(
-            [
-              ["yourName", "Your full legal name"],
-              ["yourAddress", "Your address"],
-              ["otherParty", "The other party's name"],
-              ["defendantAddress", "The other party's address"],
-            ] as [keyof PartyDetails, string][]
-          ).map(([field, label]) => (
-            <label key={field} className="block text-sm">
-              <span className="font-semibold text-[#10231f]">{label}</span>
-              <input
-                type="text"
-                value={field === "otherParty" ? otherPartyName : party[field]}
-                onChange={(event) => {
-                  if (field === "otherParty") setOtherPartyTyped(true);
-                  setParty((current) => ({ ...current, [field]: event.target.value }));
-                }}
-                className="mt-1 w-full rounded-xl border border-[#d8e6df] px-3 py-2"
-              />
-            </label>
-          ))}
-        </div>
+        <PartiesStep heading="Names and addresses" />
+      </div>
+
+      {/* --- The official Form 7A, every box filled from the record or said to be missing (rules 4, 5) --- */}
+      <div className="mt-8">
+        <FilledForm7A ctx={formCtx} caseId={recovery?.getCaseId() ?? null} addHref={(place) => (place === "parties" ? "#parties" : place === "amount" ? "?change=amount" : "#story")} />
       </div>
 
       {/* --- Guided self-completion (drafting is off; see CLAIM_DRAFTING_ENABLED) --- */}

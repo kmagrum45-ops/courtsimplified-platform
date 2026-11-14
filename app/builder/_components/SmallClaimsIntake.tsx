@@ -57,6 +57,7 @@ import {
 } from "../../../src/lib/case-system/intake/questionBank";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { analysisClaimType, caseFileOf, claimKindOf, kindForAnalysis } from "../../../src/lib/case-system/caseFile/caseFile";
+import PartiesStep from "../../_components/PartiesStep";
 import { AskedField, useBoxesFollow, useHeldFill } from "../../_components/AskedField";
 import { writeFormBox } from "../../_components/caseWrite";
 import { STORY_INPUT_KEYS } from "../../../src/lib/case-system/intakeStory";
@@ -1236,18 +1237,6 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         </div>
 
         <div className="grid gap-5 md:grid-cols-2">
-          <label className="block">
-            <span className="font-semibold text-[#16302b]">
-              Your full legal name or business name
-            </span>
-            <input
-              data-testid="sc-intake-yourName" value={input.yourName}
-              onChange={(event) => updateField("yourName", event.target.value)}
-              className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
-              placeholder="Full legal name or business name"
-            />
-          </label>
-
           {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
           <AskedField field="otherParty" value={input.otherParty} label={"Other party name"}>
           <label className="block">
@@ -1379,39 +1368,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </h3>
 
           <div className="mt-4 grid gap-5 md:grid-cols-2">
-            <input
-              data-testid="sc-intake-yourAddress" value={input.yourAddress}
-              onChange={(event) => updateField("yourAddress", event.target.value)}
-              className="rounded-2xl border border-[#d8e6df] px-4 py-3"
-              placeholder="Your address"
-            />
-
-            <input
-              data-testid="sc-intake-yourPostalCode" value={input.yourPostalCode}
-              onChange={(event) =>
-                updateField("yourPostalCode", event.target.value)
-              }
-              className="rounded-2xl border border-[#d8e6df] px-4 py-3"
-              placeholder="Your postal code"
-            />
-
-            <input
-              data-testid="sc-intake-yourEmail" value={input.yourEmail}
-              onChange={(event) => updateField("yourEmail", event.target.value)}
-              className="rounded-2xl border border-[#d8e6df] px-4 py-3"
-              placeholder="Your email"
-            />
-
-            <AskedField field="defendantAddress" value={input.defendantAddress} label={"Other party address for service"}>
-            <textarea
-              data-testid="sc-intake-defendantAddress" value={input.defendantAddress}
-              onChange={(event) =>
-                updateField("defendantAddress", event.target.value)
-              }
-              className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3 md:col-span-2"
-              placeholder="Other party address for service, if known"
-            />
-            </AskedField>
+            {/* Names, addresses, phone and email: the one shared asker, read from the case record (site owner, 14 Nov 2026, rule 1). */}
+            <div className="md:col-span-2"><PartiesStep heading="The parties" /></div>
 
             {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
             <AskedField field="serviceDetails" value={input.serviceDetails} label={"Service details"}>

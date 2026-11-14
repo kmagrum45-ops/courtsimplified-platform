@@ -12,6 +12,13 @@ import { personWordsOnly } from "../personWords";
 import type { Checkpoint } from "../intakeCheckpoint";
 import type { FormContext } from "./formMap";
 
+/** A party's address on one line, as given (street, city, province, postal code). */
+export function addressLine(party: { details: Partial<Record<string, string>> } | undefined): string {
+  if (!party) return "";
+  const { street, city, province, postalCode } = party.details;
+  return [street, [city, province].filter(Boolean).join(" "), postalCode].map((part) => (part ?? "").trim()).filter(Boolean).join(", ");
+}
+
 /** The amount the record holds, if answered. */
 export function heldAmount(file: CaseFile): number | null {
   if (file.amount.state !== "answered") return null;
@@ -25,7 +32,11 @@ export function reasonsOf(file: CaseFile, asked: readonly string[]): string {
 
 /** The context a form is filled from, for a saved case's checkpoint (and its saved master, for an older case). */
 export function formContextOf(checkpoint: Checkpoint | null, master?: unknown): FormContext {
-  const file = caseFileOf(checkpoint, master);
+  return formContextOfFile(caseFileOf(checkpoint, master), askedQuestionsOf(checkpoint));
+}
+
+/** The same, from a case file already read (a screen that holds one), with the questions the case recorded as asked. */
+export function formContextOfFile(file: CaseFile, asked: readonly string[]): FormContext {
   const sides = partiesByRole(file.parties.list, bringsTheCase(file) || !file.side.value);
-  return { file, plaintiffs: sides.plaintiffs, defendants: sides.defendants, amount: heldAmount(file), reasons: reasonsOf(file, askedQuestionsOf(checkpoint)) };
+  return { file, plaintiffs: sides.plaintiffs, defendants: sides.defendants, amount: heldAmount(file), reasons: reasonsOf(file, asked) };
 }

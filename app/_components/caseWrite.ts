@@ -19,6 +19,7 @@ import { answerChanges, UnmappedField } from "../../src/lib/case-system/caseFile
 import { fieldRow } from "../../src/lib/case-system/caseFile/fieldFacts";
 import type { FactId } from "../../src/lib/case-system/caseFile/factRecord";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
+import { readParties, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
 
 /** The parts of the intake recovery the writer uses (IntakeRecovery's value, or a stand-in in the checks). */
 export type CaseWriteRecovery = {
@@ -80,4 +81,16 @@ export function choosePending(recovery: CaseWriteRecovery, fact: SlotFact, keepM
 export function writeFormBox(recovery: CaseWriteRecovery, section: string, field: string, value: unknown): void {
   const saved = recovery.read(section, "input");
   writeAnswer(recovery, section, "input", { ...(saved && typeof saved === "object" ? (saved as Record<string, unknown>) : {}), [field]: value });
+}
+
+/**
+ * The parties (site owner, 14 Nov 2026, rule 1): the whole record, saved into the case record's own section
+ * (CASE_FILE_SECTION.parties), where caseFileOf reads it. The one place parties are written: the Parties step
+ * (PartiesStep.tsx) calls this and nothing else. Checked before it is saved (parties.ts readParties): a record that is
+ * not well formed is refused, never half-saved.
+ */
+export function writeParties(recovery: CaseWriteRecovery, record: PartiesRecord): void {
+  const checked = readParties(JSON.parse(JSON.stringify(record)));
+  if (!checked) throw new Error("The parties could not be saved: the record is not well formed.");
+  recovery.put(CASE_FILE_SECTION, "parties", checked, true, true, true);
 }

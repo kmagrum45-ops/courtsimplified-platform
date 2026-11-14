@@ -12,7 +12,7 @@
  * stand-ins and two tabs of one signed-in browser:
  *   1. tab A: the answer changed on the review; tab A's whole form box follows it;
  *   2. tab B: the same answer changed again, to a newer value;
- *   3. tab A, never reloaded: a different box ("Your name") typed and saved;
+ *   3. tab A, never reloaded: a different box ("Your name"; Small Claims: "Settlement efforts") typed and saved;
  *   4. tab B's value is still the saved one: on a fresh load the case page, the review and the whole form show it,
  *      and never tab A's older value.
  *
@@ -41,7 +41,9 @@ function box(page: Page, court: Court) {
   return page.locator("label").filter({ has: page.locator("span.font-semibold", { hasText: /^Other party$/ }) }).locator("input, textarea").first();
 }
 function nameBox(page: Page, court: Court) {
-  if (court === "small-claims") return page.getByTestId("sc-intake-yourName");
+  // Small Claims: the person's name is asked in the Parties step now (site owner, 14 Nov 2026, rule 1), so tab A types
+  // another box of the whole form, saved the same way (writeFormBox).
+  if (court === "small-claims") return page.getByTestId("sc-intake-settlementEfforts");
   return page.locator("label").filter({ has: page.locator("span.font-semibold", { hasText: /^Your name$/ }) }).locator("input, textarea").first();
 }
 async function openForm(page: Page, court: Court, caseId: string) {

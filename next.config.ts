@@ -30,6 +30,8 @@ const nextConfig: NextConfig = {
     "/api/assistant/law": RETRIEVAL_FILES,
     "/api/case/strategy": RETRIEVAL_FILES,
     "/api/case/understand": RETRIEVAL_FILES,
+    // The official form PDFs the site fills (src/lib/case-system/forms/officialPdf.ts reads them from disk).
+    "/api/cases/forms/filled": ["./docs/sources/forms/*.pdf"],
   },
   // Pages removed or folded into the case page in the 2026-10-04 clean-up,
   // sent to what replaced them so an old link or bookmark still lands
