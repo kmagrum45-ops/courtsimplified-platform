@@ -118,6 +118,8 @@ jobs:
         run: npm run test:form-maps
       - name: The four drafts read the parties and facts from the case record (Chrome forms test, rows 5, 11-13)
         run: npm run test:drafts-from-record
+      - name: Names, addresses, phone numbers and emails are never sent to the model (build check, and a fake party in all three courts)
+        run: npm run test:parties-never-to-ai
 
       - name: No chip or suggested question asks the assistant for a prediction or a grade (rule 3)
         run: npm run test:no-prediction-chips
