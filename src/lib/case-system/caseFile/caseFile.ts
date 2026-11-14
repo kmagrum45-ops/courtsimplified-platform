@@ -491,7 +491,34 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   applyPendingOverRecords(file, changesOf(sections), sections);
   // A suggestion waiting for an answer is never one the person turned down or removed.
   if (file.claimKindPending && file.claimKindRemoved?.includes(file.claimKindPending.claimTypeId)) delete file.claimKindPending;
+  // 12. Words built from amounts follow the amount held now (Chrome check of #550, 1.7): read, never saved.
+  const heldAmount = file.amount.state === "answered" ? (typeof file.amount.value === "number" ? file.amount.value : parseRecordedAmount(String(file.amount.value ?? ""))) : null;
+  if (heldAmount !== null && file.wants.state === "answered" && typeof file.wants.value === "string") {
+    const words = wordsFollowHeldAmount(file.wants.value, heldAmount);
+    if (words !== file.wants.value) file.wants = { ...file.wants, value: words };
+  }
   return file;
+}
+
+const MONEY_IN_WORDS = /\$\s?\d[\d,]*(?:\.\d{1,2})?/g;
+
+/**
+ * Words that name amounts, as the held amount has them now (site owner, 14 Nov 2026: "text built from amounts must be
+ * built from the record when it is shown"). Unchanged when an amount in them, or their sum, is the held amount. One
+ * amount that is not: replaced where it stands. A breakdown that no longer adds up: the words before it, then the held
+ * amount ("Payment of $5,000 for ..., $450 for ... and $18.45 for ..." after a change to $5,100: "Payment of
+ * $5,100.00."). Nothing saved is changed; this is how the case is read.
+ */
+export function wordsFollowHeldAmount(words: string, held: number): string {
+  const found = [...words.matchAll(MONEY_IN_WORDS)];
+  if (!found.length) return words;
+  const values = found.map((match) => parseRecordedAmount(match[0].replace(/\s/g, "")) ?? Number.NaN);
+  const same = (value: number) => Math.abs(value - held) < 0.005;
+  if (values.some(same) || same(values.reduce((sum, value) => sum + value, 0))) return words;
+  const shown = slotText({ state: "answered", value: held, confirmed: true }, (iso) => iso);
+  if (found.length === 1) return words.replace(found[0][0], shown);
+  const head = words.slice(0, found[0].index).trimEnd();
+  return `${head ? `${head} ` : ""}${shown}.`;
 }
 
 /** Unsent edits newer than the saved answer they were made against, applied after the fact record (G2(b)). */
