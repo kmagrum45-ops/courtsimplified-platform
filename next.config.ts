@@ -21,6 +21,9 @@ function caseSection(source: string, section: string) {
 const RETRIEVAL_FILES = ["./docs/sources/retrieval/**", "./docs/sources/corpus/*.txt", "./docs/sources/decisions/*.txt"];
 
 const nextConfig: NextConfig = {
+  // pdf.js loads its worker file from its own folder at run time; bundled, the worker is not found and every filled
+  // form fails (local build, 14 Nov: POST /api/cases/forms/filled answered 500). Loaded from node_modules instead.
+  serverExternalPackages: ["pdfjs-dist"],
   outputFileTracingIncludes: {
     "/api/small-claims/analyze": RETRIEVAL_FILES,
     "/api/civil/analyze": RETRIEVAL_FILES,

@@ -55,9 +55,9 @@ export async function POST(request: Request) {
     const bytes = await fillOfficialPdf(officialPdfBytes(map.pdf.file), pdfValues(fillForm(map, filledCtx)));
     const name = `${FILE_NAMES[map.id] ?? map.id.replace(/\W+/g, "-")}${map.id === "small-claims/1A" ? `-${copy}` : ""}.pdf`;
     return new NextResponse(Buffer.from(bytes), { status: 200, headers: { "Content-Type": "application/pdf", "Content-Disposition": `attachment; filename="${name}"`, "Cache-Control": "no-store" } });
-  } catch {
-    // Only the form's id: never a value from the case.
-    console.error(`filled form failed: ${map.id}`);
+  } catch (error) {
+    // Only the form's id and the error's kind: never a value from the case.
+    console.error(`filled form failed: ${map.id}`, { errorName: error instanceof Error ? error.name : typeof error });
     return NextResponse.json({ error: "The filled form could not be made just now. Please try again." }, { status: 500 });
   }
 }

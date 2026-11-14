@@ -14,7 +14,8 @@
  *   4. the amount box holds the record's total ($5,468.45) and the reasons keep the person's $5,000, $450 and $18.45;
  *   5. with nothing recorded, every box that is not optional or blank on purpose says what is missing and where to add
  *      it, and no box anywhere says "not entered";
- *   6. the reasons hold the person's own words only: no site question, no sentence that only gives party details.
+ *   6. the reasons hold the person's own words only: no site question, no sentence that only gives party details;
+ *   7. the built site loads pdf.js unbundled (next.config.ts serverExternalPackages), so the filled form works there too.
  *
  * WHAT FAILURE THIS CATCHES: a box added to an official form and not mapped, a box filled from anything but the record,
  * a merged party, or a box that hides what is missing.
@@ -23,6 +24,7 @@
  */
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
 import { FORM_MAPS } from "../../src/lib/case-system/forms/maps";
 import { FORM_7A } from "../../src/lib/case-system/forms/maps/form7A";
 import { FORM_1A, additionalParties, form1ACopies } from "../../src/lib/case-system/forms/maps/form1A";
@@ -167,6 +169,14 @@ async function main() {
   await check("6. the reasons are the person's own words: no site question, no party-detail sentence", () => {
     assert.ok(!/What injuries did the fall cause\?/.test(ctx.reasons), `a site question is in the reasons: ${ctx.reasons}`);
     assert.ok(!/My name is|I am suing|613-555-0100/.test(ctx.reasons), `a party-detail sentence is in the reasons: ${ctx.reasons}`);
+  });
+
+  await check("7. the built site loads pdf.js from node_modules, not bundled (bundled, its worker is not found and every filled form fails)", () => {
+    // Local build, 14 Nov 2026: POST /api/cases/forms/filled answered 500 in the browser test; the terminal checks above
+    // passed, because they run pdf.js unbundled. Any server file that imports pdf.js needs it external.
+    const config = readFileSync("next.config.ts", "utf8");
+    const external = /serverExternalPackages:\s*\[([^\]]*)\]/.exec(config)?.[1] ?? "";
+    assert.ok(/["']pdfjs-dist["']/.test(external), `next.config.ts serverExternalPackages does not list "pdfjs-dist": [${external}]`);
   });
 
   if (failed) { console.log(`\n${failed} check(s) failed`); process.exit(1); }

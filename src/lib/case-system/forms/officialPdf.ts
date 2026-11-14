@@ -21,7 +21,7 @@ async function pdfjs(): Promise<PdfJs> {
 
 /** The official PDF saved under docs/sources/forms/, as bytes. */
 export function officialPdfBytes(file: string): Uint8Array {
-  return new Uint8Array(readFileSync(path.join(process.cwd(), file)));
+  return new Uint8Array(readFileSync(path.join(/*turbopackIgnore: true*/ process.cwd(), file)));
 }
 
 async function open(bytes: Uint8Array) {
