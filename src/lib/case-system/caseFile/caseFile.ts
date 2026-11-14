@@ -41,7 +41,6 @@ import { CLAIM_TYPES } from "../intake/claimTypes";
 import { kindForSide } from "../intake/roleView";
 import { chatQuestionOf, chatSentencesFor, factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
 import { parseRecordedAmount } from "../format/recordedAmount";
-import type { StatementOfClaimDraftInput } from "../statementOfClaimDraftEngine";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
 import { chatMayAsk, slotStatus } from "./factStatus";
@@ -1096,7 +1095,14 @@ export function storyOfFile(file: CaseFile): string {
  * the person types them in the section, so an empty one stays empty and the draft says "[... to be
  * confirmed]".
  */
-export function form7ADraftFields(file: CaseFile, formatDay: (iso: string) => string): StatementOfClaimDraftInput {
+/**
+ * The fields the Form 7A draft engine reads, as plain words (the same shape as statementOfClaimDraftEngine.ts
+ * StatementOfClaimDraftInput). Declared here, not imported: the case file is read by routes that never call a model, and
+ * importing the engine reached the AI client through its own imports (test:no-names-to-model, 14 Nov 2026).
+ */
+export type Form7ADraftFields = { yourName: string; yourAddress: string; otherParty: string; defendantAddress: string; amountClaimed: string; facts: string; timeline: string; goal: string };
+
+export function form7ADraftFields(file: CaseFile, formatDay: (iso: string) => string): Form7ADraftFields {
   const said = (fact: "amount" | "wants") => (file[fact].state === "answered" ? slotText(file[fact], formatDay) : "");
   return { yourName: "", yourAddress: "", otherParty: "", defendantAddress: "", amountClaimed: said("amount"), facts: storyOfFile(file), timeline: "", goal: said("wants") };
 }
