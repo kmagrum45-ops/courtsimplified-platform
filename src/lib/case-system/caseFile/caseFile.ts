@@ -38,6 +38,7 @@ import { storyOfMaster } from "../intakeStory";
 import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation } from "../situation/situation";
 import { isKindOfClaim, kindFromStory, storyQuoteFor, wordsInStory } from "../intake/claimKind";
 import { CLAIM_TYPES } from "../intake/claimTypes";
+import { kindForSide } from "../intake/roleView";
 import { chatQuestionOf, chatSentencesFor, factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
 import { parseRecordedAmount } from "../format/recordedAmount";
 import type { StatementOfClaimDraftInput } from "../statementOfClaimDraftEngine";
@@ -867,6 +868,12 @@ export function bringsTheCase(file: CaseFile): boolean {
 }
 
 /** The person is responding to a case someone else started (being sued): the view for their side (roleView.ts). */
+/** The person is the one being sued, from the record: the case file's side, else the role the intake holds. */
+export function respondingFromRecord(file: CaseFile | null | undefined, role?: unknown): boolean {
+  if (file?.side?.state === "answered") return respondsToTheCase(file);
+  return typeof role === "string" && /defendant|responding/i.test(role);
+}
+
 export function respondsToTheCase(file: CaseFile): boolean {
   return file.side.state === "answered" && file.side.value === "responding";
 }
@@ -984,6 +991,12 @@ export const ANSWERS_WITH_NO_KIND: Record<CoverageCourt, Record<string, string>>
 };
 
 const kindName = (id: string) => CLAIM_TYPES.find((claimType) => claimType.id === id)?.name ?? null;
+/**
+ * The kind's name as this person reads it: for a person being sued, the name of the view their side is shown
+ * (roleView.ts kindForSide: the defendant-side kind, or the generic view for a person who has been served), never the
+ * name written for the person suing ("A homeowner will not pay the contractor"; site owner, 14 Nov 2026).
+ */
+const kindNameForSide = (file: CaseFile, id: string) => kindName(kindForSide(id, respondsToTheCase(file)).kindId ?? id) ?? kindName(id);
 
 /**
  * THE KIND OF CLAIM, AS THE CASE FILE HOLDS IT: every screen, card, checklist and AI prompt that
@@ -1006,7 +1019,7 @@ export function claimKindOf(file: CaseFile, listWords: (codes: string[]) => stri
     const value = slot.value;
     if (typeof value === "string" && isKindOfClaim(value)) {
       claimTypeId = kindName(value) ? value : null;
-      words = kindName(value) ?? value;
+      words = kindNameForSide(file, value) ?? value;
     } else if (typeof value === "string" && value.trim()) {
       words = DISPUTE_CATEGORY_WORDS[value] ?? value.trim();
       claimTypeId = DISPUTE_KIND[value] ?? DISPUTE_KIND[words] ?? null;
@@ -1024,7 +1037,7 @@ export function claimKindOf(file: CaseFile, listWords: (codes: string[]) => stri
   const removed = new Set(file.claimKindRemoved ?? []);
   if (slot.state === "not-asked" && (file.area === "small-claims" || file.area === undefined)) {
     const stored = file.claimKindProposal;
-    const name = stored ? kindName(stored.claimTypeId) : null;
+    const name = stored ? kindNameForSide(file, stored.claimTypeId) : null;
     if (stored && removed.has(stored.claimTypeId)) {
       // Turned down: nothing is proposed in its place from the same story.
     } else if (stored && name) {
@@ -1034,7 +1047,7 @@ export function claimKindOf(file: CaseFile, listWords: (codes: string[]) => stri
       if (quote) proposal = { claimTypeId: stored.claimTypeId, words: name, quote };
     } else if (!stored && story.trim()) {
       const read = kindFromStory(story, CLAIM_TYPES);
-      if (read && !removed.has(read.claimType.id)) proposal = { claimTypeId: read.claimType.id, words: read.claimType.name, quote: read.quote };
+      if (read && !removed.has(read.claimType.id)) proposal = { claimTypeId: read.claimType.id, words: kindNameForSide(file, read.claimType.id) ?? read.claimType.name, quote: read.quote };
     }
   }
   return { state: slot.state, claimTypeId, words, source, askedBy: question || null, quote, proposal };

@@ -38,14 +38,13 @@ import { userStory } from "@/src/lib/case-system/userStory";
 import { kindsOfClaim } from "@/src/lib/case-system/intake/claimKind";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { savePositionQueued } from "./positionSave";
-import { claimKindAnswer, recordWords, claimKindLine, claimKindOf, CLAIM_KIND_QUESTION, isUnsureAnswer, slotText, type CaseFile, type ClaimKindHeld } from "@/src/lib/case-system/caseFile/caseFile";
+import { claimKindAnswer, respondingFromRecord, recordWords, claimKindLine, claimKindOf, CLAIM_KIND_QUESTION, isUnsureAnswer, slotText, type CaseFile, type ClaimKindHeld } from "@/src/lib/case-system/caseFile/caseFile";
 import { formatForCourt } from "@/src/lib/case-system/dates";
 import { inWords } from "@/src/lib/case-system/copy/rawKeys";
 import { WorkingButton } from "@/app/_components/Working";
 import { UseSuggestion } from "@/app/_components/UseSuggestion";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
 import { answerWords } from "../../../src/lib/case-system/caseFile/unsureAnswer";
-import { respondingSide } from "../../../src/lib/case-system/intake/roleView";
 
 type Props = {
   analysis: AnalysisResult;
@@ -188,7 +187,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   const kindId = kind?.claimTypeId ?? null;
   // The person's side, from the record, chooses the view (roleView.ts): a person being sued never sees what is written
   // for the person suing (Chrome check of #550, S5).
-  const responding = respondingSide(caseFile, role);
+  const responding = respondingFromRecord(caseFile, role);
   const claimTypeContent = kindId && facts ? buildClaimTypeOverviewContent(facts, undefined, kindId, responding) : null;
   const hasDefamationSignal = issueSignals.some((item) => /defamation|reputation/i.test(item));
   const hasAdoptionSignal = issueSignals.some((item) => /adoption/i.test(item));

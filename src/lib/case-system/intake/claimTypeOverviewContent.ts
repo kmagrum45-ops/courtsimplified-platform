@@ -154,7 +154,7 @@ export function buildClaimTypeOverviewContent(
    */
   confirmedClaimTypeId?: string | null,
   /**
-   * The person is the one being sued (from the record: roleView.ts respondingSide). A kind written for the person
+   * The person is the one being sued (from the record: caseFile.ts respondingFromRecord). A kind written for the person
    * suing then shows its defendant-side view, or the generic view for a person who has been served (roleView.ts,
    * the one place; Chrome check of #550, S5).
    */

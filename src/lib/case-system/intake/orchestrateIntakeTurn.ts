@@ -47,7 +47,7 @@ import { CLAIM_TYPES, type ClaimType } from "./claimTypes";
 import { settledKindMatch } from "./claimKind";
 import { buildEvidenceCategoryGuidance, type EvidenceGuidance } from "./evidenceGapDetector";
 import { buildClaimGuidance, type ClaimGuidance } from "./claimGuidance";
-import { claimTypeForSide } from "./roleView";
+import { claimTypeForSide, kindNameForSide } from "./roleView";
 import { selectQuestions, type IntakeFacts } from "./selectQuestions";
 import type { CaseFile } from "../caseFile/caseFile";
 import { QUESTION_BANK, type CourtArea, type IntakeQuestion, type KnownFactField } from "./questionBank";
@@ -462,6 +462,9 @@ export async function orchestrateIntakeTurn(
       // (2026-10-13): the person can still pick a claim type themselves.
       // A defendant is asked about the claim made against them (step 2b).
       suggestedClaimType = (await classifyClaimType(newStoryText, claimTypes, apiKey, [], facts.role === "defendant").catch(() => null)) ?? undefined;
+      // Named as the person's side reads it (roleView.ts): a person being sued is never offered the name written for
+      // the person suing them.
+      if (suggestedClaimType) suggestedClaimType = { ...suggestedClaimType, claimTypeName: kindNameForSide(suggestedClaimType.claimTypeId, facts.role === "defendant", suggestedClaimType.claimTypeName) };
     }
   }
 

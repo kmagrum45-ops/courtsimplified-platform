@@ -13,7 +13,6 @@
  */
 import views from "./defendantViews.json";
 import { CLAIM_TYPES, type ClaimType } from "./claimTypes";
-import { respondsToTheCase, type CaseFile } from "../caseFile/caseFile";
 
 const MAPPED = views.mapped as Record<string, string>;
 const HIDDEN = new Set(views.hiddenForDefendant as string[]);
@@ -33,6 +32,12 @@ export function kindForSide(kindId: string | null, responding: boolean): { kindI
   return { kindId, plaintiffOnlyHidden: false };
 }
 
+/** The kind's name as this side reads it (kindForSide's kind's name), never the name written for the person suing. */
+export function kindNameForSide(kindId: string, responding: boolean, fallback: string): string {
+  const shown = kindForSide(kindId, responding).kindId;
+  return (shown ? CLAIM_TYPES.find((candidate) => candidate.id === shown)?.name : undefined) ?? fallback;
+}
+
 /** Parts of a defendant-side view that still speak to the person suing (defendantViews.json, for the review chat). */
 const HIDDEN_PARTS = (views.hiddenPartsForDefendant as { startsWith: string }[]).map((part) => part.startsWith);
 
@@ -50,10 +55,4 @@ export function claimTypeForSide(claimType: ClaimType, responding: boolean): Cla
   const shown = (kindId && kindId !== claimType.id ? CLAIM_TYPES.find((candidate) => candidate.id === kindId) : undefined) ?? claimType;
   if (!responding) return shown;
   return { ...shown, plaintiffElements: shown.plaintiffElements.map((element) => (hiddenForDefendant(element.plainExplanation ?? "") ? { ...element, plainExplanation: "" } : element)) };
-}
-
-/** The person is the one being sued, from the record: the case file's side, else the role the intake holds. */
-export function respondingSide(file: CaseFile | null | undefined, role?: unknown): boolean {
-  if (file?.side?.state === "answered") return respondsToTheCase(file);
-  return typeof role === "string" && /defendant|responding/i.test(role);
 }

@@ -21,7 +21,10 @@
  *      lender's list;
  *   4. the person suing still sees their own kind's content, unchanged;
  *   5. wiring: the overview (IntelligenceOverviewPanel.tsx) and the chat's guidance (orchestrateIntakeTurn.ts) read
- *      the side through the one function.
+ *      the side through the one function;
+ *   6. the kind's name line (caseFile.ts claimKindOf, which every screen's "Kind of claim" line reads): a person being
+ *      sued reads the defendant-side view's name, or the generic served view's, never the name written for the person
+ *      suing (site owner, 14 Nov 2026).
  *
  * WHAT FAILURE THIS CATCHES: any page that shows a person being sued the proof, points or wording written for the
  * person suing them, and a new kind added without saying what a person being sued sees for it.
@@ -32,6 +35,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import { buildClaimTypeOverviewContent, overviewContentOf } from "../../src/lib/case-system/intake/claimTypeOverviewContent";
+import { claimKindOf, emptyCaseFile } from "../../src/lib/case-system/caseFile/caseFile";
 
 type Views = { genericServedView: string; mapped: Record<string, string>; hiddenForDefendant: string[]; hiddenPartsForDefendant: { startsWith: string; why: string }[] };
 type RoleView = { claimTypeForSide?: (claimType: (typeof CLAIM_TYPES)[number], responding: boolean) => (typeof CLAIM_TYPES)[number] };
@@ -99,6 +103,20 @@ async function main() {
     assert.ok(/buildClaimTypeOverviewContent\([^)]*responding/.test(panel), "the overview does not pass the side from the record");
     const turn = readFileSync("src/lib/case-system/intake/orchestrateIntakeTurn.ts", "utf8");
     assert.ok(/claimTypeForSide\(match\.claimType/.test(turn), "the chat's guidance does not choose the view by side");
+  });
+
+  check("6. the kind's name line: a person being sued never reads the name written for the person suing", () => {
+    const fileWith = (kind: string, side: "bringing" | "responding") => {
+      const file = emptyCaseFile();
+      file.claimKind = { state: "answered", value: kind, source: { kind: "answer", question: "small-claims:claimKind" } } as never;
+      file.side = { state: "answered", value: side, source: { kind: "answer", question: "situation:side" } } as never;
+      return file;
+    };
+    const contractor = "sc-claim-homeowner-wont-pay-contractor";
+    assert.equal(claimKindOf(fileWith(contractor, "responding")).words, byId.get(views.mapped[contractor])!.name, "mapped kind: not the defendant-side view's name");
+    const loanKind = plaintiffKinds.find((id) => views.hiddenForDefendant.includes(id) && /loan/.test(id))!;
+    assert.equal(claimKindOf(fileWith(loanKind, "responding")).words, byId.get(views.genericServedView)!.name, "hidden kind: not the generic served view's name");
+    assert.equal(claimKindOf(fileWith(contractor, "bringing")).words, byId.get(contractor)!.name, "the person suing no longer reads their own kind's name");
   });
 
   if (failed) { console.log(`\n${failed} check(s) failed`); process.exit(1); }
