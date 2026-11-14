@@ -28,7 +28,7 @@
  * preview's SITE_ACCESS_PASSWORD in the environment.
  */
 import fs from "node:fs";
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { deleteHarnessUser, signInHarnessUser } from "./harness/smallClaimsDriver";
@@ -50,6 +50,45 @@ import { tickIfAsked } from "./harness/intakeReview";
 // Actions wait up to 60 s: on a slow runner the story is read, and a guided turn answered,
 // in more than 20 s, and a button still disabled then is waiting, not broken.
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
+
+/**
+ * ONE TICK SETTLES EXACTLY ONE BOX, EXCEPT THE NAMED PAIRS HERE (site owner, 14 Nov 2026, decision 1 on the batch report:
+ * "keep exactly the ticked box goes, with ONE named allowed pair"). The loops below tick "I do not know yet" on each
+ * open review question in turn; the ticked box must go and every other open box must stay, and no new one may appear.
+ *
+ * The one pair: "sc-defendant-outcome" ("...an outcome of your own?") and "sc-defendant-counterclaim" both record the
+ * same fact, `outcome` (src/lib/case-system/caseFile/factsOfQuestion.ts), so settling the first settles the second
+ * (5b: a fact is never asked twice). Any other box going with a tick is still a failure. Add a pair only for two
+ * questions that record one fact, with that reason beside it.
+ */
+const SETTLED_TOGETHER: Readonly<Record<string, readonly string[]>> = {
+  "sc-defendant-outcome": ["sc-defendant-counterclaim"],
+};
+
+/** The review question id of each open "I do not know yet" box, in order (null where a box has none). */
+async function openUnknownIds(unknowns: Locator): Promise<(string | null)[]> {
+  return unknowns.evaluateAll((boxes) => boxes.map((box) => box.closest('[data-testid="intake-initial-question"]')?.getAttribute("data-question") ?? null));
+}
+
+/** Tick each open "I do not know yet" box in turn; each tick settles exactly that box (and only its named pair). */
+async function tickEachUnknown(unknowns: Locator, options: { timeout?: number } = {}) {
+  while (await unknowns.count()) {
+    const before = await openUnknownIds(unknowns);
+    const ticked = before[0];
+    await unknowns.first().check();
+    if (ticked === null || before.some((id) => id === null)) {
+      // A box with no question id cannot be told apart: exactly one box goes.
+      await expect(unknowns).toHaveCount(before.length - 1, options);
+      continue;
+    }
+    const allowed = new Set<string>([ticked, ...(SETTLED_TOGETHER[ticked] ?? [])]);
+    const mustStay = before.filter((id) => !allowed.has(id!));
+    await expect.poll(async () => {
+      const now = await openUnknownIds(unknowns);
+      return { tickedGone: !now.includes(ticked), wentWithIt: mustStay.filter((id) => !now.includes(id)), appeared: now.filter((id) => !before.includes(id)) };
+    }, { ...options, message: `ticking "${ticked}" settles exactly that box (and only its named pair)` }).toEqual({ tickedGone: true, wentWithIt: [], appeared: [] });
+  }
+}
 
 /** A story: civil documents / Family filed documents as option values; Small Claims' amount the story's own words claim (storyPackMore.ts). */
 type Story = PackStory;
@@ -431,7 +470,7 @@ async function notSurePath(page: Page, story: Story) {
 async function confirmAndContinue(page: Page) {
   const panel = page.getByTestId("intake-review");
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
-  while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
+  await tickEachUnknown(unknowns);
   await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
@@ -753,7 +792,7 @@ for (const [id, court] of [["civil-deposit", "civil"], ["family-spousal", "famil
       await answerAgain(page, story);
       note(run, "review", "every answer given again: nothing is left from the earlier story", (await page.getByTestId("intake-answer-stale").count()) === 0 && (await panel.getByTestId("intake-hidden-keep").count()) === 0);
       const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
-      while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
+      await tickEachUnknown(unknowns);
       await tickIfAsked(page);
       const needs = await page.getByTestId("intake-confirm-needs").innerText().catch(() => "");
       note(run, "review", "confirm is not blocked by answers already given again", !/earlier version/.test(needs) && (await page.getByTestId("intake-confirm").isEnabled()), needs);
@@ -856,7 +895,7 @@ for (const court of ["civil", "family", "small-claims"] as const) {
     }
     const panel = page.getByTestId("intake-review");
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
-    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
+    await tickEachUnknown(unknowns);
     await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
@@ -906,7 +945,7 @@ for (const court of ["civil", "family", "small-claims"] as const) {
     }
     const panel = page.getByTestId("intake-review");
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
-    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
+    await tickEachUnknown(unknowns);
     await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
@@ -960,7 +999,7 @@ test("retest-477 case 11: a confirmed case with no next step yet opens it from t
   await answerInReview(page, story);
   const panel = page.getByTestId("intake-review");
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
-  while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
+  await tickEachUnknown(unknowns);
   await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
@@ -1396,7 +1435,7 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
     await page.route(`**/api/${court}/analyze`, async (route) => { await new Promise((done) => setTimeout(done, 20_000)); await route.fallback(); });
     const panel = page.getByTestId("intake-review");
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
-    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
+    await tickEachUnknown(unknowns, { timeout: 20_000 });
     await tickIfAsked(page);
     const confirm = page.getByTestId("intake-confirm");
     await confirm.scrollIntoViewIfNeeded();
@@ -1436,7 +1475,7 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
     await expect(panel).toBeVisible({ timeout: 120_000 });
     // Anything the review still needs is answered "I don't know yet" (Chrome had nothing left).
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
-    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
+    await tickEachUnknown(unknowns, { timeout: 20_000 });
     await page.waitForTimeout(6_000);
     await tickIfAsked(page);
     const confirm = page.getByTestId("intake-confirm");
@@ -1501,7 +1540,7 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["family", "family-sp
     const panel = page.getByTestId("intake-review");
     await expect(panel).toBeVisible({ timeout: 120_000 });
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
-    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
+    await tickEachUnknown(unknowns, { timeout: 20_000 });
     await page.waitForTimeout(6_000);
     await tickIfAsked(page);
     const confirm = page.getByTestId("intake-confirm");
@@ -1581,7 +1620,7 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
     expect(await boxes.count(), "the review has a question still open to type in").toBeGreaterThan(0);
     const openId = await boxes.first().evaluate((node) => node.closest("[data-testid=intake-initial-question]")?.getAttribute("data-question") ?? "");
     const unknowns = panel.locator(`[data-testid=intake-initial-question]:not([data-question="${openId}"]) input[data-testid="intake-unknown"]:not(:checked)`);
-    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
+    await tickEachUnknown(unknowns, { timeout: 20_000 });
     await tickIfAsked(page);
     // From here at the live site's speed.
     for (const host of ["**/auth/v1/**", "**/rest/v1/**"]) await page.route(host, async (route) => { await new Promise((done) => setTimeout(done, 1_500)); await route.fallback(); });
@@ -1641,7 +1680,7 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
     // The review's first answer from the story, where it offers one (not every story gives one).
     const keep = (await oneClick.count()) ? await oneClick.first().locator("xpath=ancestor::*[@data-testid='intake-initial-question'][1]").getAttribute("data-question") : null;
     const unknowns = panel.locator(`[data-testid=intake-initial-question]${keep ? `:not([data-question="${keep}"])` : ""} input[data-testid="intake-unknown"]:not(:checked)`);
-    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
+    await tickEachUnknown(unknowns, { timeout: 20_000 });
     // From here at the live site's speed, and each press at once, with the mouse.
     for (const host of ["**/auth/v1/**", "**/rest/v1/**"]) await page.route(host, async (route) => { await new Promise((done) => setTimeout(done, 1_500)); await route.fallback(); });
     // A real mouse press where the element is (Playwright's own click: it waits until nothing covers it, as a person would).
@@ -1678,7 +1717,7 @@ test("retest-27oct root cause 3 on staging: the Charter review, a one-click answ
     const oneClick = panel.locator('[data-testid="intake-field-from-story"], [data-testid="intake-use-suggestion"]');
     const keep = (await oneClick.count()) ? await oneClick.first().locator("xpath=ancestor::*[@data-testid='intake-initial-question'][1]").getAttribute("data-question") : null;
     const unknowns = panel.locator(`[data-testid=intake-initial-question]${keep ? `:not([data-question="${keep}"])` : ""} input[data-testid="intake-unknown"]:not(:checked)`);
-    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 30_000 }); }
+    await tickEachUnknown(unknowns, { timeout: 30_000 });
     if (keep) await panel.locator(`[data-testid=intake-initial-question][data-question="${keep}"]`).locator('[data-testid="intake-field-from-story"], [data-testid="intake-use-suggestion"]').first().click();
     if (await page.getByTestId("intake-review-acknowledgement").count()) await page.getByTestId("intake-review-acknowledgement").click();
     await page.getByTestId("intake-confirm").click();
