@@ -123,6 +123,8 @@ import { caseTitleFromIntake, isGeneratedTitle } from "../../src/lib/case-system
 import { caseFileOfMaster, heldWordsOf } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
 import { userWordsOf } from "../../src/lib/content-library/forms/formsInText";
 import { type CaseDraft } from "../../src/lib/case-system/drafts/caseDrafts";
+import { claimDraftOfRecord } from "../../src/lib/case-system/drafts/recordDrafts";
+import { formContextOf } from "../../src/lib/case-system/forms/formContext";
 import { startingDocumentDraft } from "../../src/lib/case-system/drafts/startingDocumentDraft";
 import AiUseNotice from "../_components/AiUseNotice";
 import PathwayUnavailable from "../_components/PathwayUnavailable";
@@ -1773,7 +1775,8 @@ function BuilderPageContent() {
       return;
     }
 
-    const draft = startingDocumentDraft("small-claims", caseData, new Date());
+    // From the case record (site owner, 14 Nov 2026, rule 7): the parties, the person's own words, the amount (recordDrafts.ts).
+    const draft = claimDraftOfRecord(formContextOf(reviewView?.checkpoint ?? null, existingMasterResult), { timeline: [], intake: caseData as unknown as Record<string, unknown>, now: new Date() });
     if (draft) void saveDraftAndOpen(caseId, draft);
   }
 

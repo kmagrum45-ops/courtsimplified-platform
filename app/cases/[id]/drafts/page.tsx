@@ -21,20 +21,20 @@ import TidyWordingReview from "../../../builder/_components/TidyWordingReview";
 import ScopePreviewNotice from "../../../builder/_components/ScopePreviewNotice";
 import {
   DRAFT_KIND_LABELS,
-  affidavitOutlineDraft,
   blankDraft,
-  chronologyDraft,
   draftAsPlainText,
   draftAsWordHtml,
   importLegacyWorkspaceDocument,
   newId,
   readCaseDrafts,
-  yourStoryDraft,
   type CaseDraft,
   type IntakeStory,
   type TimelineEntry,
 } from "@/src/lib/case-system/drafts/caseDrafts";
 import { startingDocumentDraft, startingDocumentTitle, type StartingDocumentIntake } from "@/src/lib/case-system/drafts/startingDocumentDraft";
+import { affidavitOutlineOfRecord, chronologyOfRecord, claimDraftOfRecord, recordDates, yourStoryOfRecord } from "@/src/lib/case-system/drafts/recordDrafts";
+import { formContextOf } from "@/src/lib/case-system/forms/formContext";
+import { readCheckpoint } from "@/src/lib/case-system/intakeCheckpoint";
 import { respondingDocumentDraft, respondingDocumentTitle, type RespondingDocumentIntake } from "@/src/lib/case-system/drafts/respondingDocumentDraft";
 import { COURT_DOCUMENT_DRAFTING_ENABLED } from "@/src/lib/case-system/policy/courtDocumentDrafting";
 import { FORM_COMPLETION_PAUSED } from "@/src/lib/content-library/phaseScope";
@@ -195,6 +195,10 @@ export default function CaseDraftsSection() {
   }
 
   const intake = (master.intakeData ?? {}) as IntakeStory;
+  // The parties and facts every draft reads, from the case record (site owner, 14 Nov 2026, rule 7; recordDrafts.ts).
+  const recordCtx = formContextOf(courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? readCheckpoint(master.intakeCheckpoint, courtPath, caseId) : null, master);
+  const recordGiven = (entries: TimelineEntry[]) => ({ timeline: entries, intake: intake as Record<string, unknown>, now: now() });
+  const recordedDates = recordDates(recordCtx).length;
 
   // The document that starts a case, offered only where the builder offers it:
   // drafting in scope, not paused, not already filed, and not to the side
@@ -301,20 +305,20 @@ export default function CaseDraftsSection() {
             description={
               timeline === null
                 ? "What happened, in date order, from your timeline and dated documents."
-                : `What happened, in date order: ${timeline.length} item${timeline.length === 1 ? "" : "s"} from your timeline and dated documents.`
+                : `What happened, in date order: ${timeline.length + recordedDates} item${timeline.length + recordedDates === 1 ? "" : "s"} from your case, timeline and dated documents.`
             }
-            onClick={() => void create(chronologyDraft(timeline ?? [], now()))}
+            onClick={() => void create(chronologyOfRecord(recordCtx, recordGiven(timeline ?? [])))}
             disabled={timeline === null}
           />
           <StartOption
             title="Your story"
             description="What happened and what you want, in the words you used when you told us."
-            onClick={() => void create(yourStoryDraft(intake, now()))}
+            onClick={() => void create(yourStoryOfRecord(recordCtx, recordGiven(timeline ?? [])))}
           />
           <StartOption
             title="Affidavit outline"
             description="Numbered statements, one per thing that happened, for you to rewrite in your own words."
-            onClick={() => void create(affidavitOutlineDraft(timeline ?? [], now()))}
+            onClick={() => void create(affidavitOutlineOfRecord(recordCtx, recordGiven(timeline ?? [])))}
             disabled={timeline === null}
           />
           {offerStartingDocument && startingTitle ? (
@@ -322,7 +326,8 @@ export default function CaseDraftsSection() {
               title={startingTitle.replace(/^Draft /, "")}
               description="The document that starts your case, laid out from your answers, to compare with the official form."
               onClick={() => {
-                const draft = startingDocumentDraft(courtPath, master.intakeData as StartingDocumentIntake, now());
+                // Small Claims: from the case record (rule 7); civil and Family still from the saved intake.
+                const draft = courtPath === "small-claims" ? claimDraftOfRecord(recordCtx, recordGiven(timeline ?? [])) : startingDocumentDraft(courtPath, master.intakeData as StartingDocumentIntake, now());
                 if (draft) void create(draft);
               }}
             />

@@ -116,6 +116,8 @@ jobs:
         run: npm run test:parties-record
       - name: Every box of every form the site fills is mapped and fills from the case record (Form 7A, Form 1A)
         run: npm run test:form-maps
+      - name: The four drafts read the parties and facts from the case record (Chrome forms test, rows 5, 11-13)
+        run: npm run test:drafts-from-record
 
       - name: No chip or suggested question asks the assistant for a prediction or a grade (rule 3)
         run: npm run test:no-prediction-chips
