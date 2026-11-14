@@ -44,6 +44,7 @@ import { parseRecordedAmount } from "../format/recordedAmount";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
 import { chatMayAsk, slotStatus } from "./factStatus";
+import { partiesFromOldShapes, partyName, readParties, type PartiesHeld } from "../parties/parties";
 
 /** The case file's slots, in the order "What we have so far" shows them. */
 export const SLOT_FACTS = [
@@ -109,6 +110,12 @@ export type CaseFile = Record<SlotFact, Slot> & {
    * reload, in a second tab and on every screen, never from a list held in the page (fault 1, 31 Oct).
    */
   answeredInReview?: string[];
+  /**
+   * The parties (site owner, 14 Nov 2026, rules 1 and 2): the person and every other party, each its own entry, from the
+   * case record (CASE_FILE_SECTION.parties, written by caseWrite.ts writeParties). An older case with no record: read from
+   * what it holds (`recorded: false`), never written back. Every page and form reads the parties here.
+   */
+  parties: PartiesHeld;
 };
 
 /** Where the case file keeps what it adds: the facts answered "not sure", and the questions answered in the review. */
@@ -125,7 +132,7 @@ const blank = (value: unknown) =>
   value === undefined || value === null || (typeof value === "string" && !value.trim()) || (Array.isArray(value) && value.length === 0);
 
 export function emptyCaseFile(): CaseFile {
-  return Object.fromEntries(SLOT_FACTS.map((fact) => [fact, { state: "not-asked", confirmed: false }])) as unknown as CaseFile;
+  return { ...Object.fromEntries(SLOT_FACTS.map((fact) => [fact, { state: "not-asked", confirmed: false }])), parties: { list: [], recorded: false } } as unknown as CaseFile;
 }
 
 /**
@@ -490,6 +497,24 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   applyPendingOverRecords(file, changesOf(sections), sections);
   // A suggestion waiting for an answer is never one the person turned down or removed.
   if (file.claimKindPending && file.claimKindRemoved?.includes(file.claimKindPending.claimTypeId)) delete file.claimKindPending;
+  // 11b. THE PARTIES, from the case record; an older case's from what it holds (read only). With a record, the other party
+  // is the first other party's own name: every screen that reads the other party reads the record (rule 1), and a second
+  // party is never merged into it (rule 2; Chrome forms test: "Circle K Convenience Stores Ltd. (Test Manager)").
+  const partiesRecord = readParties(object(sections[CASE_FILE_SECTION]).parties);
+  if (partiesRecord) {
+    file.parties = { list: partiesRecord.list, recorded: true };
+    const first = partiesRecord.list.find((party) => party.side === "other" && partyName(party));
+    if (first) file.otherParty = { state: "answered", value: partyName(first), source: { kind: "answer", question: "parties" }, confirmed: true };
+  } else {
+    const masterIntake = object(object(master).intakeData);
+    file.parties = {
+      recorded: false,
+      list: partiesFromOldShapes({
+        otherPartyName: file.otherParty.state === "answered" && typeof file.otherParty.value === "string" ? file.otherParty.value : undefined,
+        boxes: [object(object(sections["small-claims"]).input), masterIntake, object(masterIntake.extra)],
+      }),
+    };
+  }
   // 12. Words built from amounts follow the amount held now (Chrome check of #550, 1.7): read, never saved.
   const heldAmount = file.amount.state === "answered" ? (typeof file.amount.value === "number" ? file.amount.value : parseRecordedAmount(String(file.amount.value ?? ""))) : null;
   if (heldAmount !== null && file.wants.state === "answered" && typeof file.wants.value === "string") {

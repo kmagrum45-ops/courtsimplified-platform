@@ -112,6 +112,8 @@ jobs:
         run: npm run test:wants-follow-amount
       - name: Not married - married-only topics hidden everywhere (step answers, fees), not only the topic list
         run: npm run test:not-married-everywhere
+      - name: The parties are one record (each party its own entry, "not sure" never asked again, story details offered once)
+        run: npm run test:parties-record
 
       - name: No chip or suggested question asks the assistant for a prediction or a grade (rule 3)
         run: npm run test:no-prediction-chips

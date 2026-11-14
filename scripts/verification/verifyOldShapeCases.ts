@@ -19,7 +19,9 @@
  *   5. the review is where it was: same phase (a confirmed case stays confirmed, so nothing is shown as needing
  *      confirmation), same input revision, same "story changed" mark, and every question main counted as answered
  *      is still answered;
- *   6. what the person typed is not rewritten: a fact main read from a typed answer keeps its words and its source.
+ *   6. what the person typed is not rewritten: a fact main read from a typed answer keeps its words and its source;
+ *   7. the parties (14 Nov 2026): with no parties record, they are read from what the case holds, and the other party
+ *      main held is one party with that same name (never merged with another).
  * One difference is allowed, and only one (site owner, 13 Nov 2026; ALLOWED_DIFFERENCE below): the court date in
  * family-served-divorce and family-served-motion, where this branch shows the person's typed words instead of the
  * stage step's date, naming the same calendar day. Checks that a different day, another case, another fact or other
@@ -96,6 +98,7 @@ async function main() {
   const { readCheckpoint } = await import("../../src/lib/case-system/intakeCheckpoint");
   const review = await import("../../src/lib/case-system/intakeReview");
   const { storyAnswersOutdated } = await import("../../src/lib/case-system/storyBasis");
+  const { partyName } = await import("../../src/lib/case-system/parties/parties");
 
   const cases = (fs.existsSync(FIXTURE) ? JSON.parse(zlib.gunzipSync(fs.readFileSync(FIXTURE)).toString("utf8")).cases : []) as Fixture[];
   check("setup: the old-shape fixtures exist", cases.length > 0, FIXTURE);
@@ -103,7 +106,7 @@ async function main() {
     check(`setup: ${story} is among the saved cases`, cases.some((item) => item.story === story && item.oldReading.checkpointRead));
   }
   check("setup: every court is represented", ["small-claims", "civil", "family"].every((court) => cases.some((item) => item.court === court)));
-  const newKeys = /"reviewOfferChoices"|"source":"(story-offer|not-sure|chip)"/;
+  const newKeys = /"reviewOfferChoices"|"source":"(story-offer|not-sure|chip)"|"parties":{"version"/;
   check("setup: no fixture holds a field this branch adds (they are old-shape)", cases.every((item) => !newKeys.test(JSON.stringify(item.master))));
 
   let factsHeld = 0;
@@ -159,6 +162,16 @@ async function main() {
       const answeredNow = new Set(review.reviewQuestionList(checkpoint, master).filter((question) => question.answered).map((question) => question.id));
       const lost = item.oldReading.answeredQuestions.filter((id) => !answeredNow.has(id));
       check(`5. ${label}: every question main counted as answered is still answered`, lost.length === 0, `no longer answered: ${lost.join(", ")}`);
+    }
+
+    // 7. The parties (14 Nov 2026, rule 1): an old case has no parties record; it opens, and its parties are read from what
+    // it holds, nothing written back (check 2). The other party main held is one party with that same name, never merged.
+    const parties = (file as { parties?: { list: { side: string; you?: true }[]; recorded: boolean } }).parties;
+    check(`7. ${label}: the parties are read (no record, read from what the case holds)`, Boolean(parties) && parties!.recorded === false, JSON.stringify(parties ?? null));
+    const otherHeld = item.oldReading.facts.otherParty;
+    if (parties && otherHeld && otherHeld.state === "answered" && typeof otherHeld.value === "string") {
+      const others = parties.list.filter((party) => party.side === "other").map((party) => partyName(party as never));
+      check(`7. ${label}: the other party main held is one party with the same name`, others.length === 1 && others[0] === otherHeld.value, `main: ${otherHeld.value} | parties: ${JSON.stringify(others)}`);
     }
   }
   // The allowance is that narrow: each of these must be refused.
