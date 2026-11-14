@@ -9,8 +9,11 @@
  * with the words from the shared copy (src/lib/case-system/copy/suggestionCopy.ts). Nothing is ticked, selected or
  * filled in until the person presses Yes (CLAUDE.md s. 4).
  *
- * `onNo` / `onUnsure`: what the screen records for each. A screen that records nothing for them gets the offer set
- * aside on the page (the question stays, asked plainly); those screens are listed in verifySuggestionsOffered.ts.
+ * `offer` (required): what the offer is for, its key and the case file's fact it fills (offerChoice.ts). Its No and Not
+ * sure go through the one handler (offerChoiceSave.ts; site owner, 14 Nov 2026): kept under the key, so the offer is never
+ * made again, and "I'm not sure" settles the fact, so it is never asked again. An offer already decided is not shown.
+ * `onNo` / `onUnsure`: what else the screen does for each (open its own question, move on). A screen that keeps the choice
+ * in a record of its own says so (`offer.recordedBy: "screen"`) and passes both; listed in verifySuggestionsOffered.ts.
  * `pressed`: a screen that keeps the choice until its own Continue (the chat's story offers) shows it pressed and keeps
  * the three on the page.
  *
@@ -18,6 +21,8 @@
  * keeps a screen's own stable test id for Yes.
  */
 import { useState, type ReactNode } from "react";
+import { useOfferChoices } from "./offerChoiceSave";
+import type { OfferTarget } from "../../src/lib/case-system/caseFile/offerChoice";
 import { OFFER_CHOICES, suggestionLabel } from "../../src/lib/case-system/copy/suggestionCopy";
 import { WorkingButton } from "./Working";
 
@@ -28,6 +33,7 @@ const PRESSED = "aria-pressed:border-[#2f7d67] aria-pressed:bg-[#2f7d67] aria-pr
 export type OfferChoice = "yes" | "no" | "unsure";
 
 export function UseSuggestion({
+  offer,
   what,
   onUse,
   onNo,
@@ -42,6 +48,8 @@ export function UseSuggestion({
   className,
   note,
 }: {
+  /** What the offer is for (its key and fact): the one handler records No and Not sure against it. */
+  offer: OfferTarget;
   /** What the suggestion is, in the words the person reads ("Property damage", a date, a quote). */
   what?: string | null;
   onUse: () => void;
@@ -62,12 +70,16 @@ export function UseSuggestion({
   note?: ReactNode;
 }) {
   const [setAside, setSetAside] = useState<OfferChoice | null>(null);
+  const choices = useOfferChoices();
   const keeps = pressed !== undefined;
-  if (setAside && !keeps) return null;
+  const shared = offer.recordedBy !== "screen";
+  // Decided before (this visit or an earlier one): never offered again.
+  if (!keeps && (setAside || (shared && choices.choiceOf(offer.key)))) return null;
   const choose = (choice: "no" | "unsure") => {
-    const record = choice === "no" ? onNo : onUnsure;
-    if (record) record();
-    if (!keeps && !record) setSetAside(choice);
+    if (shared) void choices.record(offer, choice);
+    const screen = choice === "no" ? onNo : onUnsure;
+    if (screen) screen();
+    if (!keeps && (shared || !screen)) setSetAside(choice);
   };
   return (
     <span className="block" data-offer-choices="">

@@ -43,6 +43,7 @@ import { formatForCourt } from "@/src/lib/case-system/dates";
 import { inWords } from "@/src/lib/case-system/copy/rawKeys";
 import { WorkingButton } from "@/app/_components/Working";
 import { UseSuggestion } from "@/app/_components/UseSuggestion";
+import { useOfferChoices } from "@/app/_components/offerChoiceSave";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
 import { answerWords } from "../../../src/lib/case-system/caseFile/unsureAnswer";
 
@@ -131,6 +132,9 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // A kind picked from the list here, shown at once: it is written to the case file (the saved position's kind of claim,
   // read first by caseFileOf), which the page reads the next time it loads the case.
   const [pickedHere, setPickedHere] = useState<string | null>(null);
+  // The person's No on the proposed kind (the one offer handler, offerChoice.ts): the proposal is set aside and the kind
+  // is asked once, plainly, with the chooser (site owner, 14 Nov 2026, decision 2).
+  const offers = useOfferChoices();
   const caseStage = (confirmedStage || analysis.caseStage) as typeof analysis.caseStage;
   const role = textField(intake, "yourRole");
   // Only selections that record an actual filing. The Small Claims intake
@@ -182,7 +186,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   const kind = analysis.courtPath !== "small-claims" ? (areaKind?.held ? areaKind : null)
     : pickedName ? { label: "Kind of claim you chose", words: pickedName, claimTypeId: pickedHere, quote: null, held: true }
     : pickedHere === "not-sure" ? null
-    : claimKind ? claimKindLine(claimKind) : null;
+    : claimKind ? declinedProposal(claimKindLine(claimKind), offers.choiceOf) : null;
   const askKind = analysis.courtPath === "small-claims" && !kind;
   const kindId = kind?.claimTypeId ?? null;
   // The person's side, from the record, chooses the view (roleView.ts): a person being sued never sees what is written
@@ -390,7 +394,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
                   <dd data-testid="claim-kind" data-claim-type={kind.claimTypeId ?? "your-answer"} data-claim-kind-held={kind.held ? "yes" : "no"}>
                     {kind.words}
                     {kind.quote ? <span data-testid="claim-kind-quote" className="block text-xs text-[#4d675f]">From your story: &ldquo;{kind.quote}&rdquo;</span> : null}
-                    {!kind.held && kind.claimTypeId ? <ClaimKindOffer caseId={caseId} claimTypeId={kind.claimTypeId} words={kind.words} onChosen={setPickedHere} /> : null}
+                    {!kind.held && kind.claimTypeId ? <ClaimKindOffer caseId={caseId} claimTypeId={kind.claimTypeId} words={kind.words} onChosen={setPickedHere} onUnsure={() => setPickedHere("not-sure")} /> : null}
                   </dd>
                 </>
               ) : index === 0 && askKind ? (
@@ -566,7 +570,12 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
  * A kind of claim the site proposes (the story match) is only a proposal until the person uses it
  * (owner, 31 Oct): offered with the one control, saved to the case file as their choice on that click.
  */
-function ClaimKindOffer({ caseId, claimTypeId, words, onChosen }: { caseId: string | null; claimTypeId: string; words: string; onChosen: (value: string) => void }) {
+/** A proposed kind (not held) the person said No to: no kind line, so the chooser asks it once. */
+function declinedProposal<T extends { held?: boolean; claimTypeId?: string | null }>(line: T | null, choiceOf: (key: string) => string | null): T | null {
+  return line && !line.held && line.claimTypeId && choiceOf(`claim-kind:${line.claimTypeId}`) === "no" ? null : line;
+}
+
+function ClaimKindOffer({ caseId, claimTypeId, words, onChosen, onUnsure }: { caseId: string | null; claimTypeId: string; words: string; onChosen: (value: string) => void; onUnsure: () => void }) {
   const [saving, setSaving] = useState(false);
   const [failed, setFailed] = useState(false);
   const use = async () => {
@@ -580,7 +589,7 @@ function ClaimKindOffer({ caseId, claimTypeId, words, onChosen }: { caseId: stri
   };
   return (
     <span className="mt-2 block">
-      <UseSuggestion testId="claim-kind-use-suggestion" what={words} working={saving} onUse={() => void use()} />
+      <UseSuggestion offer={{ key: `claim-kind:${claimTypeId}`, fact: "claimKind" }} testId="claim-kind-use-suggestion" what={words} working={saving} onUse={() => void use()} onUnsure={onUnsure} />
       {failed ? <span className="mt-1 block text-sm text-[#8a4b12]">That could not be saved just now. Please try again.</span> : null}
     </span>
   );

@@ -454,7 +454,11 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   for (const [id, words] of Object.entries(object(builder.initialAnswers))) real(id, words);
   for (const answer of [...(Array.isArray(guided.earlierAnswers) ? guided.earlierAnswers : []), ...(Array.isArray(object(master).intakeAnswers) ? (object(master).intakeAnswers as unknown[]) : [])]) real(object(answer).questionId, object(answer).answerText);
   for (const [id, value] of Object.entries(dates)) real(id, value);
-  const saidUnsure = [...strings(builder.initialUnknowns), ...Object.entries(answers).filter(([, words]) => isUnsureAnswer(words)).map(([id]) => id)];
+  // A date offered from the story and answered "I'm not sure" (offerChoice.ts, key "date:<question id>"): that question
+  // only, never asked again (site owner, 14 Nov 2026, decision 2).
+  // (Read here, not through offerChoice.ts, which imports this module.)
+  const offerUnsureDates = Object.entries(object(object(sections[CASE_FILE_SECTION]).offerChoices)).filter(([key, choice]) => choice === "unsure" && key.startsWith("date:")).map(([key]) => key.slice("date:".length));
+  const saidUnsure = [...strings(builder.initialUnknowns), ...offerUnsureDates, ...Object.entries(answers).filter(([, words]) => isUnsureAnswer(words)).map(([id]) => id)];
   const unsureDates = saidUnsure.filter((id) => /-date-/.test(id) && !realAnswers.has(id) && !slotsOf(id).some((fact) => file[fact].state === "answered"));
   if (unsureDates.length) file.unsureDates = [...new Set(unsureDates)];
   file.answers = answers;
@@ -558,7 +562,7 @@ function applyPendingOverRecords(file: CaseFile, changes: FactChanges, sections:
   for (const [fact, change] of ordered) {
     if (!(fact in records) || change.held || change.seen === undefined) continue;
     if (change.seen < seenSeqOf(sections, fact)) continue;
-    applyOne(file, fact, change.state === "answered" ? { state: "answered", value: change.value } : { state: "removed" }, change.place ?? CHANGE_QUESTION, !change.place);
+    applyOne(file, fact, change.state === "answered" ? { state: "answered", value: change.value } : { state: change.state }, change.place ?? CHANGE_QUESTION, !change.place);
   }
 }
 
@@ -569,6 +573,8 @@ export const CHANGE_QUESTION = "change";
 export type FactChange = (
   | { state: "answered"; value: string | number | boolean | string[]; at: string; seq: number }
   | { state: "removed"; at: string; seq: number }
+  // "I'm not sure" on an offer (offerChoice.ts; site owner, 14 Nov 2026): the fact settled, never asked again.
+  | { state: "unsure"; at: string; seq: number }
 ) & PendingMarks;
 /**
  * G2(b), (c): what the tab keeps beside an unsent edit. `seen` is the server's number for that fact as the tab saw
@@ -582,7 +588,7 @@ export type FactChange = (
  */
 export type PendingMarks = { seen?: number; held?: { state: string; value?: unknown; seq: number }; force?: true; place?: string };
 export type FactChanges = Partial<Record<SlotFact, FactChange>>;
-export type ChangeInput = { state: "answered"; value: string | number | boolean | string[] } | { state: "removed" };
+export type ChangeInput = { state: "answered"; value: string | number | boolean | string[] } | { state: "removed" } | { state: "unsure" };
 
 const changeable = (value: unknown): value is string | number | boolean | string[] =>
   typeof value === "string" || typeof value === "number" || typeof value === "boolean" || Array.isArray(value);
@@ -602,6 +608,7 @@ export function changesOf(sections: Record<string, unknown> | undefined): FactCh
       ...(typeof entry.place === "string" && entry.place && entry.place.length <= 200 ? { place: entry.place } : {}),
     };
     if (entry.state === "removed") out[fact] = { state: "removed", at, seq: entry.seq, ...marks };
+    else if (entry.state === "unsure") out[fact] = { state: "unsure", at, seq: entry.seq, ...marks };
     else if (entry.state === "answered" && !blank(entry.value) && changeable(entry.value)) out[fact] = { state: "answered", value: Array.isArray(entry.value) ? strings(entry.value) : entry.value, at, seq: entry.seq, ...marks };
   }
   return out;

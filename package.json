@@ -48,6 +48,7 @@
     "test:amount-format": "node --import tsx scripts/verification/verifyAmountFormat.ts",
     "test:home-answers-held": "node --import tsx scripts/verification/verifyHomeAnswersHeld.ts",
     "test:parties-record": "node --import tsx scripts/verification/verifyPartiesRecord.ts",
+    "test:offer-choices": "node --import tsx scripts/verification/verifyOfferChoices.ts",
     "test:form-maps": "node --import tsx scripts/verification/verifyFormMaps.ts",
     "test:drafts-from-record": "node --import tsx scripts/verification/verifyDraftsFromRecord.ts",
     "test:parties-never-to-ai": "node --import tsx scripts/verification/verifyPartiesNeverToAi.ts",

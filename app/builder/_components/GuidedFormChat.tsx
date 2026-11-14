@@ -4,6 +4,7 @@ import { useIntakeRecovery, useIntakeReviewView, useIntakeState } from "../../_c
 import TribunalNotice, { COURT_LABELS, useTribunalFirst } from "../../_components/TribunalNotice";
 import { answerNow, askedAndReplied, caseFileOf, type SlotFact } from "../../../src/lib/case-system/caseFile/caseFile";
 import { chatMayAsk } from "../../../src/lib/case-system/caseFile/factStatus";
+import { offerForQuestion } from "../../../src/lib/case-system/caseFile/offerChoice";
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { NOTHING_LEFT_TO_ASK } from "../../../src/lib/case-system/copy/askCopy";
 import { openSituationChange } from "../../_components/SituationQuestions";
@@ -426,6 +427,7 @@ export default function GuidedFormChat({
                 {/* The one three-choice control every offer is made with (UseSuggestion.tsx; 14 Nov 2026). */}
                 <div className="mt-3">
                   <UseSuggestion
+                    offer={{ key: `chat-story:${current.key}`, fact: null }}
                     testId="guided-form-from-story-yes"
                     noTestId="guided-form-from-story-no"
                     unsureTestId="guided-form-from-story-unsure"
@@ -455,7 +457,7 @@ export default function GuidedFormChat({
             </p>
           ) : null}
           {partial && !edited.has(current.key) ? (
-            <UseSuggestion testId="guided-form-partial-use" what={partial.prefill} onUse={() => editBox(partial.prefill)} className="mt-2 rounded-xl border border-[#2f7d67] bg-white px-4 py-2 text-left text-sm font-semibold text-[#2f7d67]" />
+            <UseSuggestion offer={offerForQuestion(`chat-partial:${current.key}`, current.key)} testId="guided-form-partial-use" what={partial.prefill} onUse={() => editBox(partial.prefill)} className="mt-2 rounded-xl border border-[#2f7d67] bg-white px-4 py-2 text-left text-sm font-semibold text-[#2f7d67]" />
           ) : null}
           <p className="mt-1 text-sm text-[#4d675f]">Why we ask: {current.why}</p>
           {current.story ? <StoryGuidance id="guided-form-story-guidance" /> : null}

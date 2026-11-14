@@ -991,6 +991,8 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                         <p className="mt-1 font-normal text-[#2f7d67]">From your case: {pending.reason} Not saved yet.</p>
                         <div className="mt-2 flex flex-wrap gap-2">
                           <UseSuggestion
+                            // The forms page's own applicability answer, no case-file fact: a choice keeps the offer from coming back.
+                            offer={{ key: `forms:${question.field_path}`, fact: null }}
                             testId="forms-suggested-save"
                             what={pendingChoice.label}
                             working={applicabilitySaving}

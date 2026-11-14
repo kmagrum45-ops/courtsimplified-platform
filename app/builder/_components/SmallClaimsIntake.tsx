@@ -1,5 +1,6 @@
 "use client";
 
+import { offerForQuestion } from "../../../src/lib/case-system/caseFile/offerChoice";
 import { dateAnswerCheck, dateSpans } from "../../../src/lib/case-system/dates";
 import { SMALL_CLAIMS_FILED_OPTIONS } from "./guidedFields";
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
@@ -1163,6 +1164,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
                 <li key={fact.field}>
                   {fact.field}:{" "}
                   <UseSuggestion
+                    offer={offerForQuestion(`sc-form:${fact.field}`, fact.field)}
                     testId="sc-form-use-suggestion"
                     what={value}
                     onUse={() => updateField(fact.field as keyof SmallClaimsIntelligenceInput, value as never)}

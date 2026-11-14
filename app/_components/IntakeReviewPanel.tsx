@@ -272,9 +272,9 @@ export default function IntakeReviewPanel() {
   // button read "Use the suggestion"). Its No and Not sure are this panel's own choices; shown on their own only where no
   // offer control is on the line.
   const offeredHere = new Set<string>();
-  const reviewOffer = (key: string, questionId: string | undefined, props: Omit<Parameters<typeof UseSuggestion>[0], "onNo" | "onUnsure" | "noTestId" | "unsureTestId">) => {
+  const reviewOffer = (key: string, questionId: string | undefined, props: Omit<Parameters<typeof UseSuggestion>[0], "offer" | "onNo" | "onUnsure" | "noTestId" | "unsureTestId">) => {
     offeredHere.add(key);
-    return <span className="mt-1 block" data-testid="review-offer-choices" data-offer={key}><UseSuggestion {...props} noTestId="review-offer-no" unsureTestId="review-offer-unsure" onNo={() => chooseOffer(key, "no", questionId)} onUnsure={() => chooseOffer(key, "unsure", questionId)} /></span>;
+    return <span className="mt-1 block" data-testid="review-offer-choices" data-offer={key}><UseSuggestion {...props} offer={{ key, fact: null, recordedBy: "screen" }} noTestId="review-offer-no" unsureTestId="review-offer-unsure" onNo={() => chooseOffer(key, "no", questionId)} onUnsure={() => chooseOffer(key, "unsure", questionId)} /></span>;
   };
   const otherChoices = (key: string, questionId?: string) => offeredHere.has(key) ? null : <span className="mt-1 flex flex-wrap gap-2" data-testid="review-offer-choices" data-offer={key}>
     <button type="button" data-testid="review-offer-no" disabled={busy} onClick={() => chooseOffer(key, "no", questionId)} className="rounded border px-3 py-1">No, that&apos;s not right</button>

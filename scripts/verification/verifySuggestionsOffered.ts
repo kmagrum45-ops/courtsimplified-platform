@@ -10,8 +10,10 @@
  *
  * What it checks, from the source:
  *   1. The component renders the shared copy (the three choices) and marks its Yes `data-use-suggestion`; no screen
- *      marks a Yes of its own, and "Use the suggestion" is gone from every screen. Each offer whose No and Not sure
- *      the screen does not record is declared (SET_ASIDE_ONLY, with what happens), so a new one says so.
+ *      marks a Yes of its own, and "Use the suggestion" is gone from every screen. Every offer passes its target
+ *      (offer=...) and its No and Not sure go through the one handler (offerChoiceSave.ts), unless its screen keeps
+ *      them in a record of its own (declared, RECORDED_BY_SCREEN, with both onNo and onUnsure); none is set aside on
+ *      the page only (site owner, 14 Nov 2026; this replaced the SET_ASIDE_ONLY list).
  *   2. Every suggestion place in SUGGESTION_PLACES imports and renders <UseSuggestion>.
  *   3. No screen offers a suggestion with words of its own ("Use suggested", "Use “…” (from your
  *      story)", "(suggested from your story)", "Yes, save this date", "Count my deadline from",
@@ -151,41 +153,62 @@ const keeps = [...card.matchAll(/keep: (true|false), original:/g)].map((match) =
 check("\"Here's what I understood\": every row starts unticked (keep: false)", keeps.length > 0 && keeps.every((keep) => keep === "false"), `keep: ${keeps.join(", ")}`);
 // Site owner, 11 Nov 2026: an offer has three explicit choices (Yes / No, that's not right / I'm not sure) in place of the
 // one "Use the suggestion" control; the rule guarded stays: nothing is chosen or filled in for the person until Yes.
-check("\"Here's what I understood\": a row offers the three choices with the one control, none chosen, no box filled in until Yes", /<UseSuggestion\s+testId="story-proposal-yes"\s+noTestId="story-proposal-no"\s+unsureTestId="story-proposal-unsure"\s+pressed=\{draft\.choice\}/.test(card) && /\{!draft\.keep \? null :/.test(card) && /keep: false, choice: null|choice: null, keep: false/.test(card));
-check("the kind-of-claim card (2.4): Yes, No, that's not right and I'm not sure from the one control, recorded by the card", /<UseSuggestion\s+testId="claim-type-use-suggestion"\s+noTestId="claim-type-not-that-one"\s+unsureTestId="claim-type-not-sure"[\s\S]{0,400}onNo=\{\(\) => void resolveSuggestion\("reject"\)\}\s+onUnsure=/.test(card));
+check("\"Here's what I understood\": a row offers the three choices with the one control, none chosen, no box filled in until Yes", /<UseSuggestion\s+offer=\{[^\n]*?\}\s+testId="story-proposal-yes"\s+noTestId="story-proposal-no"\s+unsureTestId="story-proposal-unsure"\s+pressed=\{draft\.choice\}/.test(card) && /\{!draft\.keep \? null :/.test(card) && /keep: false, choice: null|choice: null, keep: false/.test(card));
+check("the kind-of-claim card (2.4): Yes, No, that's not right and I'm not sure from the one control, recorded by the card", /<UseSuggestion\s+offer=\{[^\n]*?\}\s+testId="claim-type-use-suggestion"\s+noTestId="claim-type-not-that-one"\s+unsureTestId="claim-type-not-sure"[\s\S]{0,400}onNo=\{\(\) => void resolveSuggestion\("reject"\)\}\s+onUnsure=/.test(card));
 const reviewPanel = code(read("app/_components/IntakeReviewPanel.tsx"));
 check("the review's offers (8.3): every one through the one control, its No and Not sure the review's own choices", !/<UseSuggestion testId=/.test(reviewPanel) && /noTestId="review-offer-no" unsureTestId="review-offer-unsure" onNo=\{\(\) => chooseOffer\(key, "no", questionId\)\} onUnsure=\{\(\) => chooseOffer\(key, "unsure", questionId\)\}/.test(reviewPanel) && (reviewPanel.match(/reviewOffer\(/g) ?? []).length >= 5);
 
 const chat = code(read("app/builder/_components/GuidedFormChat.tsx"));
 check("the civil/Family chat: the part of an answer the story gives is not the box's value", /const boxValue = partial && !edited\.has\(current\.key\) \? "" :/.test(chat) && !/\? partial\.prefill :/.test(chat));
 check("the civil/Family chat: it is offered, and filled in only on its use", /<UseSuggestion[^>]*onUse=\{\(\) => editBox\(partial\.prefill\)\}/.test(chat));
-check("the civil/Family chat: the story's answer is offered with the one control's three choices, each recorded by the chat", /<UseSuggestion\s+testId="guided-form-from-story-yes"\s+noTestId="guided-form-from-story-no"\s+unsureTestId="guided-form-from-story-unsure"[\s\S]{0,300}onNo=[\s\S]{0,120}onUnsure=/.test(chat));
+check("the civil/Family chat: the story's answer is offered with the one control's three choices, each recorded by the chat", /<UseSuggestion\s+offer=\{[^\n]*?\}\s+testId="guided-form-from-story-yes"\s+noTestId="guided-form-from-story-no"\s+unsureTestId="guided-form-from-story-unsure"[\s\S]{0,300}onNo=[\s\S]{0,120}onUnsure=/.test(chat));
 
-// ---- 5. Offers whose No and Not sure the screen does not record: declared -------------------------
+// ---- 5. Every offer's No and Not sure are recorded, through the one handler ------------------------------------
 /**
- * On these, "No, that's not right" and "I'm not sure" set the offer aside on the page (UseSuggestion.tsx); the question
- * or box stays, asked plainly, and nothing is recorded as "not sure". Listed so a new one says so (14 Nov 2026).
+ * Site owner, 14 Nov 2026 (decision 2 on the batch report): no offer's No or Not sure is set aside on the page only. Every
+ * <UseSuggestion> passes `offer` (its key and the case file's fact, offerChoice.ts), and the control sends each No and Not
+ * sure to the one handler (offerChoiceSave.ts), which keeps it, so neither is asked again anywhere. This replaces the
+ * SET_ASIDE_ONLY list of 14 Nov, which declared the twelve offers that recorded nothing; there is now no such list.
+ * test:offer-choices checks what each of the 13 records.
+ *
+ * Two kinds of offer are declared, each with why:
+ *   - RECORDED_BY_SCREEN: the screen keeps the choice in a record of its own (offer.recordedBy "screen") and must pass
+ *     both onNo and onUnsure;
+ *   - NO_FACT: the offer fills no case-file fact (offer.fact null): its choice is kept under its key only.
  */
-const SET_ASIDE_ONLY: Record<string, string> = {
-  "event-candidate-use-suggestion": "the Timeline's kind of step: the select stays",
-  "triage-story-suggestion-yes": "the Family triage: its own answer buttons stay",
-  "guided-form-partial-use": "the civil/Family chat's part answer: the box stays",
-  "claim-kind-use-suggestion": "the overview's kind of claim: its Choose list (with I'm not sure, recorded) stays",
-  "sc-form-use-suggestion": "the Small Claims form's facts from the story: the form's box stays",
-  "stage-answer-use-suggestion": "the step suggested: the step list stays",
-  "stage-answer-date-suggestion-": "a date from the story: the date box stays",
-  "stage-accept": "the stage suggested: the stage list stays",
-  "tidy-wording-use": "a wording fix: Keep mine stays",
-  "forms-suggested-save": "the forms page's answer: Change stays",
-  "case-understanding-continue-suggested": "the court suggested: the other courts stay",
+const RECORDED_BY_SCREEN: Record<string, string> = {
+  "IntakeReviewPanel.tsx": "the review keeps each story offer's choice in builder.reviewOfferChoices, and its Not sure ticks the question's own \"I do not know yet\"",
+  "PartiesStep.tsx": "the Parties step keeps a declined offer and an unsure detail in the parties record (parties.ts declined, unsure)",
+  "story-proposal-yes": "the story card keeps each row's choice until its own Continue, which records it with the row's answer",
 };
-const offers = screens.filter((file) => file.endsWith(".tsx")).flatMap((file) => [...code(read(file)).matchAll(/<UseSuggestion\b([\s\S]*?)\/>/g)].map((match) => ({ file, props: match[1] })));
-const unrecorded = offers.filter((offer) => !/onNo=/.test(offer.props)).map((offer) => /testId=\{?[`"]([^`"$]+)/.exec(offer.props)?.[1] ?? offer.file);
-const undeclared = unrecorded.filter((id) => !Object.keys(SET_ASIDE_ONLY).some((declared) => id.startsWith(declared)));
-check("every offer whose No and Not sure the screen does not record is declared (SET_ASIDE_ONLY)", undeclared.length === 0, undeclared.join(", "));
-const staleAside = Object.keys(SET_ASIDE_ONLY).filter((declared) => !unrecorded.some((id) => id.startsWith(declared)));
-check("every SET_ASIDE_ONLY entry is still such an offer (delete it once the screen records its No and Not sure)", staleAside.length === 0, staleAside.join(", "));
-console.log(`note  ${offers.length} offers; ${unrecorded.length} set aside on the page only: ${unrecorded.join(", ")}`);
+const NO_FACT: Record<string, string> = {
+  "IntakeReviewPanel.tsx": "recorded by the review itself (above)",
+  "PartiesStep.tsx": "the parties record is its own record, not a case-file fact",
+  "story-proposal-yes": "recorded by the card itself (above)",
+  "guided-form-from-story-yes": "the chat's own Not sure answers the question (recorded \"not sure\"); the key keeps the No",
+  "event-candidate-use-suggestion": "the Timeline's kind of step is the event's own answer, no case-file fact",
+  "stage-answer-date-suggestion-": "a date question settles itself only (caseFile.ts unsureDates, key date:<question>): one fact can have several date questions",
+  "stage-accept": "the card confirms its own \"I am not sure\" stage on Not sure, and opens its list on No",
+  "tidy-wording-use": "a wording fix is no case-file fact",
+  "forms-suggested-save": "the forms page's applicability answer is its own record",
+  "case-understanding-continue-suggested": "the person still chooses a court to go on, so Not sure settles no fact",
+};
+const offers = screens.filter((file) => file.endsWith(".tsx")).flatMap((file) => [...code(read(file)).matchAll(/<UseSuggestion\b([\s\S]*?)\/>/g)].map((match) => ({ file, props: match[1], id: /testId=\{?[`"]([^`"$]+)/.exec(match[1])?.[1] ?? path.basename(file) })));
+const declaredFor = (list: Record<string, string>, offer: { file: string; id: string }) => Object.keys(list).some((declared) => offer.id.startsWith(declared) || path.basename(offer.file) === declared);
+const noTarget = offers.filter((offer) => !/\boffer=\{/.test(offer.props));
+check("every offer passes its target (offer=...) to the one control", noTarget.length === 0, noTarget.map((offer) => `${offer.file}: ${offer.id}`).join(", "));
+const byScreen = offers.filter((offer) => /recordedBy: "screen"/.test(offer.props));
+const byScreenUndeclared = byScreen.filter((offer) => !declaredFor(RECORDED_BY_SCREEN, offer));
+check("an offer kept by its own screen is declared, with why (RECORDED_BY_SCREEN)", byScreenUndeclared.length === 0, byScreenUndeclared.map((offer) => `${offer.file}: ${offer.id}`).join(", "));
+const byScreenWithout = byScreen.filter((offer) => !(/onNo=/.test(offer.props) && /onUnsure=/.test(offer.props)));
+check("an offer kept by its own screen records both its No and its Not sure there (onNo and onUnsure)", byScreenWithout.length === 0, byScreenWithout.map((offer) => `${offer.file}: ${offer.id}`).join(", "));
+const noFact = offers.filter((offer) => /fact: null/.test(offer.props));
+const noFactUndeclared = noFact.filter((offer) => !declaredFor(NO_FACT, offer));
+check("an offer that fills no case-file fact is declared, with why (NO_FACT)", noFactUndeclared.length === 0, noFactUndeclared.map((offer) => `${offer.file}: ${offer.id}`).join(", "));
+const control = code(read("app/_components/UseSuggestion.tsx"));
+check("the one control sends every No and Not sure to the one handler, unless the screen keeps it", /offer: OfferTarget;/.test(control) && /const shared = offer\.recordedBy !== "screen";/.test(control) && /if \(shared\) void choices\.record\(offer, choice\);/.test(control));
+check("nothing else saves an offer's choice: only the one handler calls writeOfferChoice", screens.filter((file) => /writeOfferChoice\(/.test(code(read(file)))).every((file) => /offerChoiceSave\.ts$|caseWrite\.ts$/.test(file)));
+console.log(`note  ${offers.length} offers; ${byScreen.length} kept by their own screen, ${noFact.length} for no case-file fact, none set aside on the page only`);
 
 const events = code(read("app/builder/_components/EventCandidateSurface.tsx"));
 check("the Timeline's kind of step starts empty, the suggestion offered beside it", /eventType: "",/.test(events) && !/eventType: suggestion/.test(events) && /suggestedType: suggestion\.eventType/.test(events));

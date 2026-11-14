@@ -137,9 +137,14 @@ export default function StageConfirmation({
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           <UseSuggestion
+            // The card confirms the stage itself: "I'm not sure" is its own "I am not sure" stage, confirmed as if chosen from
+            // the list (never asked again); No opens the list, asked once (site owner, 14 Nov 2026, decision 2).
+            offer={{ key: `stage:${suggestedStage}`, fact: null }}
             testId="stage-accept"
             what={labelFor(suggestedStage, pathway)}
             onUse={() => onConfirm(suggestedStage)}
+            onNo={() => setChanging(true)}
+            onUnsure={() => onConfirm("not-sure")}
             className="rounded-xl bg-[#2f7d67] px-5 py-2 text-sm font-semibold text-white"
           />
           <button

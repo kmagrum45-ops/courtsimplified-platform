@@ -14,7 +14,9 @@ import { updateMasterResult, type CaseRecordClient, type UpdateResult } from "..
 import { factOfField } from "./fieldFacts";
 import { bringsTheCase, CLAIM_KIND_QUESTION, givenElsewhere, POSITION_PLACE, STEP_DATE_NEVER_REPLACES } from "./caseFile";
 import { caseFileOfMaster } from "./caseFileOfMaster";
-import type { IntakeCourt } from "../intakeCheckpoint";
+import { readCheckpoint, type IntakeCourt } from "../intakeCheckpoint";
+import { CASE_FILE_SECTION } from "./caseFile";
+import { sectionWithOfferChoices, type OfferChoice } from "./offerChoice";
 
 const NOTHING_TO_SAVE = "nothing-to-save";
 
@@ -27,12 +29,21 @@ export async function saveFactWrites(
   ids: { caseId: string; userId: string; court: IntakeCourt },
   writes: readonly FactWrite[],
   clock: () => Date = () => new Date(),
+  /** The person's choices on offers (offerChoice.ts), kept in the same save. */
+  offers: readonly { key: string; choice: OfferChoice }[] = [],
 ): Promise<FactSaveOutcome> {
   // The change runs once per attempt; the last attempt's result is the one written.
   let last: FactWriteResult | null = null;
   const saved = await updateMasterResult(client, { caseId: ids.caseId, userId: ids.userId, courtPath: ids.court }, (master) => {
     last = applyFactWrites(master, ids.court, ids.caseId, writes, clock());
     if (!last.ok) return { reject: last.reject };
+    if (offers.length) {
+      const checkpoint = readCheckpoint(last.master.intakeCheckpoint, ids.court, ids.caseId);
+      if (!checkpoint) return { reject: "no-intake-checkpoint" };
+      const next = { ...checkpoint, sections: { ...checkpoint.sections, [CASE_FILE_SECTION]: sectionWithOfferChoices(checkpoint.sections[CASE_FILE_SECTION], offers) } };
+      if (!readCheckpoint(next, ids.court, ids.caseId)) return { reject: "intake-too-large" };
+      return { ...last.master, intakeCheckpoint: next };
+    }
     // Nothing new written (every write a conflict, or an answer the record already holds): the row is left as it is.
     if (last.master === master) return { reject: NOTHING_TO_SAVE };
     return last.master;

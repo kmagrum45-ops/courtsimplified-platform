@@ -1647,6 +1647,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
                     (UseSuggestion.tsx); kept on the card until Continue. */}
                 <div className="mt-2">
                   <UseSuggestion
+                    offer={{ key: `story-card:${draft.questionId}`, fact: null, recordedBy: "screen" }}
                     testId="story-proposal-yes"
                     noTestId="story-proposal-no"
                     unsureTestId="story-proposal-unsure"
@@ -1739,8 +1740,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           <WorkingNote working={resolvingSuggestion}>Saving your answer about the kind of claim…</WorkingNote>
           <div className="mt-3 flex flex-wrap gap-2">
             {/* The one control every offer is made with, three choices (site owner, 14 Nov 2026; Chrome check of #550,
-                2.4). "I'm not sure" applies nothing and moves on (suggest, never decide). */}
+                2.4). "I'm not sure" applies nothing to the kind and settles it through the one offer handler, so the kind is
+                never asked again (decision 2 on the batch report); "No" turns this kind down and the next is offered. */}
             <UseSuggestion
+              offer={{ key: `claim-kind:${pendingSuggestion.claimTypeId}`, fact: "claimKind" }}
               testId="claim-type-use-suggestion"
               noTestId="claim-type-not-that-one"
               unsureTestId="claim-type-not-sure"

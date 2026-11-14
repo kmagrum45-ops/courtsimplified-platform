@@ -194,6 +194,8 @@ export default function CaseUnderstandingCard({
           {suggested && isPathwayAvailable(suggested) && (
             // The one control every suggestion is offered with (owner, 31 Oct).
             <UseSuggestion
+              // Where to continue: the person still chooses a court to go on, so "not sure" settles no fact; the offer is not made again.
+              offer={{ key: `court:${suggested}`, fact: null }}
               disabled={updating || openingPath !== null}
               working={openingPath === suggested}
               workingLabel="Opening your intake…"

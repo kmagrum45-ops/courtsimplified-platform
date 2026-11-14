@@ -1,5 +1,6 @@
 "use client";
 import { useIntakeReviewView, useSituation } from "../../_components/IntakeRecovery";
+import { offerForQuestion } from "../../../src/lib/case-system/caseFile/offerChoice";
 import { sideOf } from "../../../src/lib/case-system/situation/situation";
 import { personWordsOnly } from "../../../src/lib/case-system/personWords";
 import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
@@ -219,9 +220,12 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
               Is this right: <strong>{suggestion.say}</strong>?
             </p>
             <UseSuggestion
+              offer={offerForQuestion(`triage:${current.id}`, current.id)}
               testId="triage-story-suggestion-yes"
               what={suggestion.say}
               onUse={() => record(suggestion.value)}
+              // "Is a divorce sought?" has its own "not sure" answer: recorded as the triage's answer too.
+              onUnsure={current.id === "divorce-sought" ? () => record("unsure") : undefined}
               className="mt-2 rounded-full bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
             />
           </div>

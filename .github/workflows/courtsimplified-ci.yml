@@ -114,6 +114,8 @@ jobs:
         run: npm run test:not-married-everywhere
       - name: The parties are one record (each party its own entry, "not sure" never asked again, story details offered once)
         run: npm run test:parties-record
+      - name: An offer's No and Not sure are recorded through the one handler (never offered or asked again)
+        run: npm run test:offer-choices
       - name: Every box of every form the site fills is mapped and fills from the case record (Form 7A, Form 1A)
         run: npm run test:form-maps
       - name: The four drafts read the parties and facts from the case record (Chrome forms test, rows 5, 11-13)

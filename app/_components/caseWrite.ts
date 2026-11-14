@@ -20,6 +20,7 @@ import { fieldRow } from "../../src/lib/case-system/caseFile/fieldFacts";
 import type { FactId } from "../../src/lib/case-system/caseFile/factRecord";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { readParties, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
+import { offerChoiceParts, OFFER_CHOICES_FIELD, type OfferChoice, type OfferTarget } from "../../src/lib/case-system/caseFile/offerChoice";
 
 /** The parts of the intake recovery the writer uses (IntakeRecovery's value, or a stand-in in the checks). */
 export type CaseWriteRecovery = {
@@ -93,4 +94,16 @@ export function writeParties(recovery: CaseWriteRecovery, record: PartiesRecord)
   const checked = readParties(JSON.parse(JSON.stringify(record)));
   if (!checked) throw new Error("The parties could not be saved: the record is not well formed.");
   recovery.put(CASE_FILE_SECTION, "parties", checked, true, true, true);
+}
+
+/**
+ * The person's No or I'm not sure on an offer (site owner, 14 Nov 2026; offerChoice.ts): kept under the offer's key, and
+ * for "I'm not sure" on an offer for a fact, that fact settled "not sure" in the change record (sent to the server like
+ * every edit). The one place an offer's choice is written for a screen with the intake's save (offerChoiceSave.ts).
+ */
+export function writeOfferChoice(recovery: CaseWriteRecovery, target: OfferTarget, choice: OfferChoice): void {
+  const seen = target.fact ? seenSeqOf({ [CASE_FILE_SECTION]: { facts: recovery.read(CASE_FILE_SECTION, "facts") } }, target.fact) : undefined;
+  const parts = offerChoiceParts({ offerChoices: recovery.read(CASE_FILE_SECTION, OFFER_CHOICES_FIELD), changes: recovery.read(CASE_FILE_SECTION, "changes") }, target, choice, new Date(), seen);
+  recovery.put(CASE_FILE_SECTION, OFFER_CHOICES_FIELD, parts.offerChoices, true, true, true);
+  if (parts.changes) recovery.put(CASE_FILE_SECTION, "changes", parts.changes, true, true, true);
 }

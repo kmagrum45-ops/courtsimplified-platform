@@ -1485,6 +1485,8 @@ export default function StageAnswerPanel({
   const startingStep = savedStep || (stepNotSure ? "" : suggested);
   const [stageId, setStageId] = useState(startingStep);
   const [choosingStep, setChoosingStep] = useState(false);
+  // "I'm not sure" on the suggested step (the one offer handler settles the step in the case file): folded at once.
+  const [stepUnsureHere, setStepUnsureHere] = useState(false);
   // The step the person chose on this page ("Use the suggestion" or the list): until then a step the site
   // suggested is named as a suggestion, never as theirs (owner, 31 Oct).
   const [chosenHere, setChosenHere] = useState<string | null>(null);
@@ -1806,7 +1808,7 @@ export default function StageAnswerPanel({
       className="rounded-3xl border border-[#d8e6df] bg-white p-5 shadow-sm"
     >
       <h3 className="text-lg font-bold text-[#10231f]">What happens next at your exact step</h3>
-      {stepNotSure && !stageId && !choosingStep ? (
+      {(stepNotSure || stepUnsureHere) && !stageId && !choosingStep ? (
         // Said "not sure" where the case is: the quiet line, never the question again (founder, 1 Nov).
         <p className="mt-4 text-sm text-[#4d675f]" data-testid="stage-not-answered-yet" data-fact="stage">
           <span className="font-semibold text-[#16302b]">Where is your case: </span>{NOT_ANSWERED_YET}.{" "}
@@ -1836,8 +1838,12 @@ export default function StageAnswerPanel({
             ""}{" "}
           {stageId === suggested && stageId !== savedStep && stageId !== chosenHere ? (
             <UseSuggestion
+              offer={{ key: `step:${stageId}`, fact: "stage" }}
               testId="stage-answer-use-suggestion"
               onUse={() => chooseStep(stageId)}
+              // No: the step list, asked once; I'm not sure: folded, never asked again (site owner, 14 Nov 2026).
+              onNo={() => setChoosingStep(true)}
+              onUnsure={() => { setStepUnsureHere(true); setStageId(""); setChoosingStep(false); }}
               className="mr-2 mt-1 rounded-xl border border-[#2f7d67] bg-white px-3 py-1 text-sm font-semibold text-[#2f7d67]"
             />
           ) : null}
@@ -1988,6 +1994,7 @@ export default function StageAnswerPanel({
                         // Held while a deadline is counted ("Counting your deadline…" says so): pressed twice it counted twice (fresh review, 28 Oct).
                         // The one control every suggestion is offered with (owner, 31 Oct).
                         <UseSuggestion
+                          offer={{ key: `date:${question.id}`, fact: null }}
                           testId={`stage-answer-date-suggestion-${question.id}`}
                           what={formatIso(fromStory.value)}
                           disabled={dateStatus === "saving"}
@@ -1995,6 +2002,18 @@ export default function StageAnswerPanel({
                             const draft = { ...dateDraft, [question.id]: fromStory.value };
                             setDateDraft(draft);
                             void countDeadline(draft);
+                          }}
+                          // No: the story's day is dropped and the date box opens, asked once (as "No, change it");
+                          // I'm not sure: the story's day is dropped and the question folds (the one offer handler keeps it).
+                          onNo={() => {
+                            setEditing({ ...editing, [question.id]: true });
+                            const dropped = { ...rejected, [question.id]: true };
+                            setRejected(dropped);
+                            void load(stageId, factsForStep(stageId, municipality), dateAnswers, dropped);
+                          }}
+                          onUnsure={() => {
+                            const dropped = { ...rejected, [question.id]: true };
+                            setRejected(dropped);
                           }}
                           className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
                         />
@@ -2159,6 +2178,7 @@ export default function StageAnswerPanel({
                     // choosing it is the user's confirmation (page review,
                     // 2026-10-06: no served person ever saw their due date).
                     <UseSuggestion
+                      offer={{ key: `date:${question.id}`, fact: null }}
                       testId={`stage-answer-date-suggestion-${question.id}`}
                       what={formatIso(suggestion.value)}
                       note={suggestion.basis}
