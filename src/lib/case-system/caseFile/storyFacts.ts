@@ -113,6 +113,10 @@ export function lostPayIn(story: string): StoryFact | null {
   const period = new RegExp(`\\b(${WORD_NUMBER}\\s+(?:weeks?|days?|months?|shifts?)(?:\\s+of\\s+(?:work|pay|wages))?)\\b`, "i").exec(sentence.slice(Math.max(0, sentence.search(/\b(?:missed|lost|losing|off)\b/i))))?.[1];
   // A rate ("$150 per day") is never the loss, and never replaces a total the person gave ("$450 total"): Chrome check
   // of #550, S1 showed "Lost pay $150 (3 days of work)" for "$150 per day; $450 total".
+  // An amount said for the loss itself ("$450 in lost wages") is the loss; the next amount in the sentence ("and $18.45
+  // for medicine") is something else (Chrome forms test on #550, row 6: "Lost pay $18.45").
+  const named = /(\$\s?\d[\d,]*(?:\.\d{2})?)\s+(?:in|for|of)\s+(?:lost|missed)\s+(?:wages|pay|income|work)\b/i.exec(sentence)?.[1];
+  if (named) return { value: [named.replace(/^\$\s+/, "$"), period ? `(${period})` : null].filter(Boolean).join(" "), quote: sentence };
   const from = sentence.slice(Math.max(0, sentence.search(/\b(?:missed|lost|losing|off)\b/i)));
   const amounts = [...from.matchAll(/\$\s?\d[\d,]*(?:\.\d{2})?(\s*(?:per|a|an|\/)\s*(?:day|hour|week|shift|month)\b)?/gi)];
   const total = amounts.find((match) => !match[1]);

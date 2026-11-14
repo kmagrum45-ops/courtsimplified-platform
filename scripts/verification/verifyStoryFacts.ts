@@ -222,6 +222,10 @@ for (const [read, story, want] of FILED) check(`papers filed, from the story: "$
   check("lost pay: a total the person gave is the amount, never the daily rate", /\$450/.test(withTotal) && !/^\$150\b/.test(withTotal), withTotal);
   const rateOnly = lostPay("I missed 3 days of work at $150 a day.");
   check("lost pay: a daily rate alone is said as a rate, never as the loss", /\$150 (?:a|per) day/.test(rateOnly), rateOnly);
+  // Chrome forms test on #550, row 6: "Lost pay $18.45 (from your story)" for "$450 in lost wages and $18.45 for medicine":
+  // the amount said for the lost pay is the one before "in lost wages", never the next amount in the sentence.
+  const listed = lostPay("I want to claim $5,000 for pain and suffering, $450 in lost wages and $18.45 for medicine.");
+  check("lost pay: \"$450 in lost wages\" is $450, never the next amount ($18.45 for medicine)", /^\$450\b/.test(listed), listed);
 }
 
 console.log(failures ? `\n${failures} failure(s)` : "\nall passed");
