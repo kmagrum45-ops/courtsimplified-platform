@@ -13,6 +13,8 @@ const clean = (value: unknown): string => (typeof value === "string" ? value.rep
 export type OldPartyShapes = {
   /** The other party's name, as the case file holds it (answered), if any. */
   otherPartyName?: string;
+  /** The other party fact was removed or settled ("not sure") by the person: no older copy of a name is read. */
+  otherPartySettled?: boolean;
   /** The whole Small Claims form's boxes, and the saved intake's (and its extra's) of the same names. */
   boxes: Record<string, unknown>[];
 };
