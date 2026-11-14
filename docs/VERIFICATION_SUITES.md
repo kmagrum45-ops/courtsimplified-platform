@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-286 documented, 26 without a header.
+290 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -100,6 +100,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:depth-questions` | **Verifies the intake depth layer, offline.**<br>COSTS NOTHING. Every decision the depth layer makes about WHICH questions are asked is pure, so all four load-bearing properties are checkable without a single API call. The only model involvement is the voice lead-in, which is exercised by the paraphrase harn |
 | `npm run test:described-evidence` | **"No evidence identified" must only be said when it is true.**<br>evidenceIntelligenceEngine raises a high-severity "No evidence identified" gap when the normalized intake holds no evidence items. The keyword extractor that fills that list knows seven categories, so a user who listed invoices, contracts, photos, a bill of sa |
 | `npm run test:document-link` | **OPEN, SAVE AND DELETE AN UPLOADED FILE (Charter re-test 2026-10-26).**<br>Checks, as properties, through the route itself (app/api/workspace/documents/link) with the database and storage stood in: - a link is made only for the signed-in owner's own file that is not being deleted: no sign-in, a bad id, someone else's file and a file  |
+| `npm run test:drafts-from-record` | **THE FOUR DRAFTS READ THE PARTIES AND FACTS FROM THE CASE RECORD (site owner, 14 Nov 2026, rules 7 and 8; Chrome forms**<br>test on #550, rows 5 and 11 to 13: the Plaintiff's Claim draft said "Plaintiff name not entered" and "Defendant name not entered" and listed the site's questions as numbered facts; "Your story" held the site's questions; the affidavit outline and the chronolog |
 | `npm run test:elided-quote` | **Does a quote that skips material with "..." get found wherever it really is,**<br>and only there? |
 | `npm run test:evidence-guidance` | **Pins the removal of the false "already mentioned" claim.**<br>COSTS NOTHING. Pure functions and a source-order check. |
 | `npm run test:fact-coexistence` | **FAILING FIRST: ONCE A FACT RECORD EXISTS, EVERY OLD COPY IS IGNORED (case core G0; CASE_CORE_DESIGN.md §11).**<br>FAILING FIRST, NOW PASSING: option A (caseFileOf applies the fact record, 1 Nov) and G1a (the readers through the case file) passed 17 of 20; G2(c) (saveCheckpoint keeps the stored fact record, serverFacts.ts) passes the last three (2 Nov). (Written failing on |
@@ -120,6 +121,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:form-completion-paused` | **While official-form completion is paused, every door to it stays shut.**<br>FORM_COMPLETION_PAUSED (src/lib/content-library/phaseScope.ts) was set on 2026-09-27 for the LSO A2I application, which tells the Law Society that filling official court forms and drafting claim particulars are out of scope until it gives guidance. That statem |
 | `npm run test:form-count` | **EVERY PAGE GIVES ONE COUNT OF A COURT'S OFFICIAL FORMS, FROM ONE SOURCE, AND THE FORMS TAB SHOWS EACH FORM ONCE**<br>(Chrome check of production c38e69fd, 8 Nov 2026, B5). |
 | `npm run test:form-explanations` | **Every official form is in the guide, explained from the rules that name it,**<br>and the rule quotes are still the regulation's own words. |
+| `npm run test:form-maps` | **EVERY BOX OF EVERY FORM THE SITE FILLS IS MAPPED, AND FILLS FROM THE CASE RECORD (site owner, 14 Nov 2026, rules 2, 4,**<br>5, 8; Chrome forms test on #550: no filled PDF existed, the parties were "not entered", a second defendant was merged). |
 | `npm run test:forms-from-case-file` | **What reaches a draft form is the person's own case-file facts, under the**<br>right labels, and every fact they gave reaches it (site owner's Chrome re-test, 29 Oct 2026, items A and B). |
 | `npm run test:generic-library` | **Stage-independent content rests on quoted sources, renders the same whatever stage**<br>the case is in, and renders NOTHING while nothing is verified. |
 | `npm run test:glossary` | **Every glossary entry says what a word means wherever it is used, rests on**<br>sources whose quoted words are really in the saved copy, and keeps the law's own definitions verbatim. |
@@ -187,6 +189,8 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:overview-labels` | **Guards the two leaks the browser scenario harness found on 2026-08-22, across**<br>16 and 8 scenarios respectively: |
 | `npm run test:overview-relevance` | **The overview shows what fits the claim the user confirmed, and nothing is**<br>silently dropped or reworded. |
 | `npm run test:own-answers` | **THE PERSON'S OWN ANSWER WINS, AND NO QUESTION IS DROPPED (Charter re-test, 27 Oct, root cause 2).**<br>Checks, as properties, in all three areas: - an answer given to the story reading's questions on the home page fills the fact its question asks for (caseFile.ts, factsOfQuestion.ts factOfAskedText), declaration and all: "What you want" is the person's own answ |
+| `npm run test:parties-never-to-ai` | **NAMES, ADDRESSES, PHONE NUMBERS AND EMAILS ARE NEVER SENT TO OPENAI (site owner, 14 Nov 2026, rule 3). They are put**<br>into a form only at render time, on the server, from the case record (POST /api/cases/forms/filled). |
+| `npm run test:parties-record` | **THE PARTIES ARE ONE RECORD, READ ONE WAY (site owner, 14 Nov 2026, rules 1 and 2; Chrome forms test on #550: Form 7A**<br>said "Plaintiff name not entered" and "Defendant name not entered", the site never asked the person's name, address, phone or email or the defendant's address, details typed in the story became numbered facts, and a second defendant was merged into the first:  |
 | `npm run test:pending-position-saves` | **A SAVE OF THE STEP OR DATES STILL ON ITS WAY SURVIVES A FULL PAGE LOAD (28 Oct, #488 at real speed).**<br>Checks, as properties (pendingPositionSaves.ts, positionSave.ts): - a save is written down before it is sent, and crossed off once the case holds it; - one that finished, even as failed or refused, is crossed off; only one cut off by the page going stays; - re |
 | `npm run test:phase-scope` | **No user reaches an empty screen: a pathway is open only when it has real**<br>content, and a closed one says so at every door. |
 | `npm run test:plain-explanations` | **Plain-language explanations of provisions are shown only when an**<br>independent second model call and code have both found nothing wrong with them (src/lib/case-system/retrieval/explainProvision.ts). |
