@@ -1490,10 +1490,10 @@ export default function StageAnswerPanel({
   const [chosenHere, setChosenHere] = useState<string | null>(null);
   // A folded "not known yet" date the person chose to add after all.
   const [openedLater, setOpenedLater] = useState<Record<string, boolean>>({});
-  const [heldResult, setResult] = useState<Response | null>(null);
+  const [serverResult, setResult] = useState<Response | null>(null);
   // The answer as this person reads it: a person the record says was not married never reads the married-only
   // sentences (marriedOnly.ts withoutMarriedOnlyAnswer; Chrome check of #550, 7.2). The card and the full answer read it.
-  const result = useMemo(() => withoutMarriedOnlyAnswer(heldResult, notMarried), [heldResult, notMarried]);
+  const result = useMemo(() => withoutMarriedOnlyAnswer(serverResult, notMarried), [serverResult, notMarried]);
   const [municipality, setMunicipality] = useState("");
   const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState(false);
