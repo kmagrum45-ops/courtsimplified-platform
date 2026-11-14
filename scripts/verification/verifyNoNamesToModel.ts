@@ -173,7 +173,13 @@ function smallClaimsInput(story: string): SmallClaimsIntelligenceInput {
   // case reader, sourced questions, depth turns, stage resolving) sets the saved case's names.
   const caseId = "11111111-1111-4111-8111-111111111478";
   const revision = "22222222-2222-4222-8222-222222222478";
-  const cp: Checkpoint = { version: 1, flowId: caseId, courtPath: "family", revision, inputRevision: revision, sections: { story: { text: familyIntake.facts, location: { city: "Toronto", province: "Ontario" } }, builder: {} } };
+  // The case holds the person's Family answers in its checkpoint, as a real case does (Family keeps its fields at the top
+  // of its section), and "I do not know yet" is marked only on the questions still to answer. Until 14 Nov 2026 the setup
+  // held no name in the checkpoint and marked every essential question unknown, the other party included, while the
+  // saved intake named them: a "not sure" the review never offers once a name is held (site owner, decision B).
+  const familyBoxes = { yourName: USER, otherParty: OTHER, childrenInfo: familyIntake.childrenInfo };
+  const cp: Checkpoint = { version: 1, flowId: caseId, courtPath: "family", revision, inputRevision: revision, sections: { story: { text: familyIntake.facts, location: { city: "Toronto", province: "Ontario" } }, builder: {}, family: familyBoxes } as Checkpoint["sections"] };
+  check("Setup: with the name held, the review does not ask who the other party is", !remainingEssentialQuestions(cp).some((question) => question.id === "otherParty"), remainingEssentialQuestions(cp).map((question) => question.id).join(", "));
   cp.sections.builder.initialUnknowns = remainingEssentialQuestions(cp).map((question) => question.id);
   const master: Record<string, unknown> = { intakeCheckpoint: cp, workflowStatus: transitionReview(transitionReview({}, cp, "review", revision, "now"), cp, "confirm", revision, "now"), guidanceInputRevision: revision, intakeData: familyIntake };
   const owner = { id: "44444444-4444-4444-8444-444444444478" };
@@ -198,6 +204,13 @@ function smallClaimsInput(story: string): SmallClaimsIntelligenceInput {
   const values = getCaseValues(master, "family");
   check("Form: the person's name fills the form", values.plaintiffName === USER, JSON.stringify(values.plaintiffName));
   check("Form: the other party's name fills the form", values.defendantName === OTHER, JSON.stringify(values.defendantName));
+  // No name held, and the person said they do not know who the other party is: the form leaves it blank; an older saved
+  // copy of a name is not brought back over their "not sure".
+  const cpNoName: Checkpoint = { version: 1, flowId: caseId, courtPath: "family", revision, inputRevision: revision, sections: { story: { text: familyIntake.facts, location: { city: "Toronto", province: "Ontario" } }, builder: {} } };
+  check("Setup: with no name held, the review asks who the other party is", remainingEssentialQuestions(cpNoName).some((question) => question.id === "otherParty"));
+  cpNoName.sections.builder.initialUnknowns = remainingEssentialQuestions(cpNoName).map((question) => question.id);
+  const noName = getCaseValues({ intakeCheckpoint: cpNoName, intakeData: { ...familyIntake, otherParty: "Older Copy" } }, "family");
+  check("Form: the other party marked \"not sure\" with no name held is left blank", noName.defendantName === "", JSON.stringify(noName.defendantName));
   check("Form: a name field on the form takes it", pickValueForField("Applicant full name", values).value === USER || pickValueForField("Name of applicant", values).value === USER, JSON.stringify(pickValueForField("Applicant full name", values)));
   const draft = JSON.stringify(yourStoryDraft(familyIntake as never, new Date("2026-10-25T00:00:00Z")));
   check("Draft: the names are in the person's draft", draft.includes(USER) && draft.includes(OTHER));
