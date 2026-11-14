@@ -16,7 +16,7 @@
  * Where it is kept: the case record's own section, `caseFile.offerChoices` (additive: a case saved before has none and
  * reads as no choice made). Pure: no React, no network. States no law.
  */
-import { CASE_FILE_SECTION, emptyCaseFile, withChange, type FactChanges, type SlotFact } from "./caseFile";
+import { CASE_FILE_SECTION, emptyCaseFile, withChange, type CaseFile, type FactChanges, type SlotFact } from "./caseFile";
 import { factsOfQuestion } from "./factsOfQuestion";
 import type { FactWrite } from "./factRecord";
 
@@ -55,6 +55,13 @@ export function offerForQuestion(key: string, questionId: string, surface?: stri
   return { key, fact: fact ?? null };
 }
 
+/**
+ * Whether the case file holds an answer to this fact. "I'm not sure" never takes an answer away (site owner, 14 Nov 2026,
+ * decision B: a typed answer beats "not sure" for the same fact; only "removed" takes an answer away): an offer's Not sure
+ * on an answered fact keeps the choice under its key and leaves the fact as it is.
+ */
+export const answeredIn = (held: CaseFile, fact: SlotFact): boolean => held[fact]?.state === "answered";
+
 /** The choices a case holds, by offer key (a malformed entry is left out). */
 export function offerChoicesOf(sections: Record<string, unknown> | undefined): Record<string, OfferChoice> {
   const raw = object(object(object(sections)[CASE_FILE_SECTION])[OFFER_CHOICES_FIELD]);
@@ -79,18 +86,18 @@ export function withOfferChoice(choices: unknown, key: string, choice: OfferChoi
  * The case-file section's new parts for one choice, for a screen with the intake's save (IntakeRecovery): the choices,
  * and, for "I'm not sure" on an offer for a fact, the change record with that fact settled "not sure".
  */
-export function offerChoiceParts(caseFileSection: unknown, target: OfferTarget, choice: OfferChoice, now: Date = new Date(), seen?: number): { offerChoices: Record<string, OfferChoice>; changes?: FactChanges } {
+export function offerChoiceParts(caseFileSection: unknown, target: OfferTarget, choice: OfferChoice, now: Date, seen: number | undefined, held: CaseFile): { offerChoices: Record<string, OfferChoice>; changes?: FactChanges } {
   const section = object(caseFileSection);
   const offerChoices = withOfferChoice(section[OFFER_CHOICES_FIELD], target.key, choice);
-  if (choice !== "unsure" || !target.fact) return { offerChoices };
+  if (choice !== "unsure" || !target.fact || answeredIn(held, target.fact)) return { offerChoices };
   const changes = withChange(section.changes, target.fact, { state: "unsure" }, now, seen);
   changes[target.fact] = { ...changes[target.fact]!, place: `${OFFER_UNSURE_PLACE}:${target.key}`.slice(0, 200) };
   return { offerChoices, changes };
 }
 
 /** The same choice as the server's fact write, for a screen with no intake save (the case pages: POST /api/cases/facts). */
-export function offerChoiceWrites(target: OfferTarget, choice: OfferChoice, seenSeq = 0): FactWrite[] {
-  if (choice !== "unsure" || !target.fact) return [];
+export function offerChoiceWrites(target: OfferTarget, choice: OfferChoice, seenSeq: number, held: CaseFile): FactWrite[] {
+  if (choice !== "unsure" || !target.fact || answeredIn(held, target.fact)) return [];
   return [{ fact: target.fact as FactWrite["fact"], state: "unsure", source: "person", question: `${OFFER_UNSURE_PLACE}:${target.key}`.slice(0, 200), seenSeq }];
 }
 

@@ -19,6 +19,7 @@ import { writeOfferChoice } from "./caseWrite";
 import { authHeaders, CaseHomeContext } from "../cases/_components/CaseHomeContext";
 import { offerChoicesOf, offerChoiceWrites, type OfferChoice, type OfferTarget } from "../../src/lib/case-system/caseFile/offerChoice";
 import { readCheckpoint } from "../../src/lib/case-system/intakeCheckpoint";
+import { caseFileOfMaster } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
 
 export type OfferChoices = {
   /** The choice the case holds on this offer, or null. */
@@ -52,7 +53,7 @@ export function useOfferChoices(): OfferChoices {
       const headers = await authHeaders();
       if (!headers) return false;
       try {
-        const response = await fetch("/api/cases/facts", { method: "POST", headers, body: JSON.stringify({ caseId: home.caseRecord.id, facts: offerChoiceWrites(target, choice), offers: [{ key: target.key, choice }] }) });
+        const response = await fetch("/api/cases/facts", { method: "POST", headers, body: JSON.stringify({ caseId: home.caseRecord.id, facts: offerChoiceWrites(target, choice, 0, caseFileOfMaster(home.caseRecord.master_result ?? {}, home.courtPath)), offers: [{ key: target.key, choice }] }) });
         if (!response.ok) return false;
         await home.reload();
         return true;

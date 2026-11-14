@@ -16,7 +16,7 @@ import { bringsTheCase, CLAIM_KIND_QUESTION, givenElsewhere, POSITION_PLACE, STE
 import { caseFileOfMaster } from "./caseFileOfMaster";
 import { readCheckpoint, type IntakeCourt } from "../intakeCheckpoint";
 import { CASE_FILE_SECTION } from "./caseFile";
-import { sectionWithOfferChoices, type OfferChoice } from "./offerChoice";
+import { OFFER_UNSURE_PLACE, sectionWithOfferChoices, type OfferChoice } from "./offerChoice";
 
 const NOTHING_TO_SAVE = "nothing-to-save";
 
@@ -35,7 +35,11 @@ export async function saveFactWrites(
   // The change runs once per attempt; the last attempt's result is the one written.
   let last: FactWriteResult | null = null;
   const saved = await updateMasterResult(client, { caseId: ids.caseId, userId: ids.userId, courtPath: ids.court }, (master) => {
-    last = applyFactWrites(master, ids.court, ids.caseId, writes, clock());
+    // An offer's "I'm not sure" never takes an answer away (site owner, 14 Nov 2026, decision B; offerChoice.ts
+    // answeredIn): dropped for a fact this row's case file holds answered, whoever sent it.
+    const held = writes.some((write) => write.state === "unsure" && write.question?.startsWith(`${OFFER_UNSURE_PLACE}:`)) ? caseFileOfMaster(master, ids.court) : null;
+    const kept = held ? writes.filter((write) => !(write.state === "unsure" && write.question?.startsWith(`${OFFER_UNSURE_PLACE}:`) && held[write.fact as keyof typeof held] && (held[write.fact as keyof typeof held] as { state?: string }).state === "answered")) : writes;
+    last = applyFactWrites(master, ids.court, ids.caseId, kept, clock());
     if (!last.ok) return { reject: last.reject };
     if (offers.length) {
       const checkpoint = readCheckpoint(last.master.intakeCheckpoint, ids.court, ids.caseId);

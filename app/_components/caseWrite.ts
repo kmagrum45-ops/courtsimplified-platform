@@ -103,7 +103,7 @@ export function writeParties(recovery: CaseWriteRecovery, record: PartiesRecord)
  */
 export function writeOfferChoice(recovery: CaseWriteRecovery, target: OfferTarget, choice: OfferChoice): void {
   const seen = target.fact ? seenSeqOf({ [CASE_FILE_SECTION]: { facts: recovery.read(CASE_FILE_SECTION, "facts") } }, target.fact) : undefined;
-  const parts = offerChoiceParts({ offerChoices: recovery.read(CASE_FILE_SECTION, OFFER_CHOICES_FIELD), changes: recovery.read(CASE_FILE_SECTION, "changes") }, target, choice, new Date(), seen);
+  const parts = offerChoiceParts({ offerChoices: recovery.read(CASE_FILE_SECTION, OFFER_CHOICES_FIELD), changes: recovery.read(CASE_FILE_SECTION, "changes") }, target, choice, new Date(), seen, caseFileOf(recovery.getReview().checkpoint, recovery.getSavedMaster() ?? undefined));
   recovery.put(CASE_FILE_SECTION, OFFER_CHOICES_FIELD, parts.offerChoices, true, true, true);
   if (parts.changes) recovery.put(CASE_FILE_SECTION, "changes", parts.changes, true, true, true);
 }
