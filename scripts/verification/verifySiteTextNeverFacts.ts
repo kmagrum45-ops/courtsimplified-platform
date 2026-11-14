@@ -17,11 +17,16 @@
  *      person's words only: userStory, every starting and responding draft in Small Claims, Family and Civil, and the
  *      Family "From your story" order quote carry no question text, and keep every answer;
  *   3. the follow-up answers about the law: their questions never reach a draft either;
- *   4. build check: HomeLocationGate.tsx builds the story through frontDoorStory and never joins a question into it.
+ *   4. build check: HomeLocationGate.tsx builds the story through frontDoorStory and never joins a question into it;
+ *   5. the old-case reader removes ONLY text that exactly matches a site question (the fixed list, siteQuestions.ts,
+ *      or a question the case itself recorded as asked), never the person's own words (site owner, 14 Nov 2026, item
+ *      B): a paragraph of the person's own holding a question mark keeps every word; a joined site question is the
+ *      only text taken out; a question on neither list is left in, never guessed at.
  *
- * The question list is the site's own: the Small Claims question bank, the depth questions, the Family and Civil chat
- * fields, and the questions Chrome saw the home page ask (those are written by the model each time, so the ones seen
- * are listed by their words).
+ * The question list is the site's own fixed list (the Small Claims question bank, the depth questions, the Family and
+ * Civil chat fields; built here from the sources). The home page's questions are written by the model each time, so
+ * the ones Chrome saw are listed by their words: the writer (check 1) keeps every one of them out, and an old case
+ * loses them only where the case recorded them as asked (check 2c).
  *
  * WHAT FAILURE THIS CATCHES: any site question, in any court, turning up in a draft, a "From your story" quote or the
  * stored story.
@@ -39,7 +44,7 @@ import { respondingDocumentDraft } from "../../src/lib/case-system/drafts/respon
 import { existingFamilyOrderQuote } from "../../src/lib/case-system/familyStoryReading";
 import { sourcedAnswerListText } from "../../app/builder/_components/sourcedAnswers";
 
-type Words = { personWordsOnly?: (text: string) => string; frontDoorStory?: (story: string, answers: { question: string; answer: string }[]) => string };
+type Words = { personWordsOnly?: (text: string, asked?: readonly string[]) => string; frontDoorStory?: (story: string, answers: { question: string; answer: string }[]) => string };
 
 /** The questions Chrome saw the home page and the chats ask on 13 Nov (written by the model, so listed by their words). */
 const SEEN_QUESTIONS = [
@@ -53,10 +58,11 @@ const SEEN_QUESTIONS = [
   "Are there any existing court orders or written agreements about parenting?",
 ];
 
-function siteQuestions(): string[] {
+/** The fixed list, built here from the sources themselves (so the suite does not trust the module it checks). */
+function fixedQuestions(): string[] {
   const choice = { issues: [], filed: [], documents: [] } as never;
   const fields = [...familyGuidedFields(choice), ...civilGuidedFields(choice)].map((field) => (field as { question?: string }).question ?? "");
-  return [...new Set([...QUESTION_BANK.map((q) => q.text), ...DEPTH_QUESTIONS.map((q) => q.text), ...fields, ...SEEN_QUESTIONS].map((q) => q.trim()).filter((q) => q.length > 12 && q.endsWith("?")))];
+  return [...new Set([...QUESTION_BANK.map((q) => q.text), ...DEPTH_QUESTIONS.map((q) => q.text), ...fields].map((q) => q.trim()).filter((q) => q.length > 12 && q.endsWith("?")))];
 }
 
 const STORY = "I slipped on a wet floor at a store on October 4, 2026 and hurt my hip.";
@@ -64,15 +70,18 @@ const ANSWER = "No, there are no orders or written agreements.";
 
 async function main() {
   const words = await import("../../src/lib/case-system/personWords").catch(() => ({})) as Words;
-  const questions = siteQuestions();
+  const fixed = fixedQuestions();
+  const questions = [...new Set([...fixed, ...SEEN_QUESTIONS])];
   let failed = 0;
   const check = (name: string, run: () => void) => { try { run(); console.log(`PASS  ${name}`); } catch (error) { failed++; console.log(`FAIL  ${name}\n      ${(error as Error).message.split("\n")[0]}`); } };
   const noQuestion = (where: string, text: string) => {
     const found = questions.find((question) => text.includes(question));
     assert.equal(found, undefined, `${where} holds the site's question ${JSON.stringify(found)}`);
   };
-  // A case saved the old way: each question and its answer added to the story as one line.
-  const oldStory = [STORY, ...questions.map((question) => `${question} ${ANSWER}`)].join("\n\n");
+  // A case saved the old way: each of the site's fixed questions and its answer added to the story as one line.
+  const oldStory = [STORY, ...fixed.map((question) => `${question} ${ANSWER}`)].join("\n\n");
+  // The same, with the home page's model-written questions too (removed only where the case recorded them as asked).
+  const oldStoryWithHome = [oldStory, ...SEEN_QUESTIONS.map((question) => `${question} ${ANSWER}`)].join("\n\n");
 
   check("setup: the site's question list is not empty, in every court's source", () => {
     assert.ok(questions.length >= 30, `only ${questions.length} questions`);
@@ -105,7 +114,30 @@ async function main() {
 
   check("2c. Family: the site's question about court orders is never quoted as \"From your story\"", () => {
     assert.equal(typeof words.personWordsOnly, "function", "personWordsOnly (personWords.ts) does not exist");
-    assert.equal(existingFamilyOrderQuote(words.personWordsOnly!(oldStory)), null);
+    assert.equal(existingFamilyOrderQuote(words.personWordsOnly!(oldStoryWithHome, SEEN_QUESTIONS)), null);
+  });
+
+  const OWN = "I asked him twice: why won't you pay me? He said, \"What invoice?\" and hung up. I still have the texts.";
+  check("5a. old case: a paragraph of the person's own that holds a question mark keeps every word", () => {
+    const story = `${STORY}\n\n${OWN}`;
+    assert.equal(words.personWordsOnly!(story), story);
+    assert.ok(userStory({ facts: story }).includes(OWN), "userStory lost the person's words");
+  });
+
+  check("5b. old case: a joined site question is the only text taken out", () => {
+    const question = fixed[0];
+    assert.equal(words.personWordsOnly!(`${STORY}\n\n${question} ${ANSWER}\n\n${OWN}`), `${STORY}\n\n${ANSWER}\n\n${OWN}`);
+  });
+
+  check("5c. old case: a question on neither list is left in, never guessed at", () => {
+    const unlisted = "Is the dog still at the same address? Yes, it is.";
+    assert.equal(words.personWordsOnly!(`${STORY}\n\n${unlisted}`), `${STORY}\n\n${unlisted}`);
+  });
+
+  check("5d. build check: the reader removes by the site's own list (siteQuestions.ts), never by a question mark", () => {
+    const module = readFileSync("src/lib/case-system/personWords.ts", "utf8");
+    assert.ok(/siteQuestions\(\)/.test(module), "personWords.ts does not read the site's question list");
+    assert.ok(!/QUESTION_THEN_ANSWER/.test(module), "personWords.ts still cuts at a question mark");
   });
 
   check("3. the follow-up answers about the law: their questions never reach a draft", () => {

@@ -8,9 +8,11 @@
  *
  * frontDoorStory is the home page's one writer: the story, then each answer, never the question.
  * personWordsOnly is the one reader for text that may hold either older shape: it keeps the story and the answers and
- * drops the questions and the site's own heading. It changes nothing that is stored; a case saved the old way reads
+ * drops only exact site questions and the site's own heading. It changes nothing that is stored; a case saved the old way reads
  * the same, minus the site's questions.
  */
+
+import { siteQuestions } from "./siteQuestions";
 
 const FOLLOW_UP_HEADING = /^Answers to follow-up questions about the law that applies:\s*$/;
 
@@ -22,31 +24,38 @@ export function frontDoorStory(story: string, answers: readonly { question: stri
 }
 
 /**
- * A paragraph the home page added the old way: the question (its words up to the last "?", which may be more than one
- * sentence) followed by the answer. Only paragraphs after the first are read this way: the first is always the person's
- * story as they wrote it. Known cost, for a case saved the old way only: a later paragraph of the person's own that
- * asks a question is shown from the words after its last "?". Nothing stored is changed.
+ * A line the home page added the old way: "<question> <answer>". Taken out is ONLY a question that exactly matches the
+ * site's own fixed list (siteQuestions.ts) or a question this case recorded as asked (caseFile.ts askedQuestionsOf), and only at the
+ * start of a line after the person's first paragraph. Nothing is cut at a question mark, so none of the person's own
+ * words can be removed (site owner, 14 Nov 2026, item B). A model-written question the case did not record stays in.
  */
-const QUESTION_THEN_ANSWER = /^([\s\S]*\?)\s+([^?]*\S[^?]*)$/;
-
-/** The text with every site question and site heading taken out: the person's story and answers only. */
-export function personWordsOnly(text: string): string {
-  if (!text) return text;
-  const lines = text.split(/\r?\n/);
-  const kept: string[] = [];
-  for (const line of lines) {
-    if (FOLLOW_UP_HEADING.test(line.trim())) continue;
-    if (/^\s*Q:\s/.test(line)) continue;
-    kept.push(line.replace(/^(\s*)A:\s+/, "$1"));
+function withoutSiteQuestion(line: string, questions: readonly string[]): string {
+  const trimmed = line.trim();
+  for (const question of questions) {
+    if (trimmed === question) return "";
+    if (trimmed.startsWith(question) && /^\s/.test(trimmed.slice(question.length))) return trimmed.slice(question.length).trim();
   }
-  const paragraphs = kept.join("\n").split(/\n{2,}/);
-  return paragraphs
-    .map((paragraph, index) => {
-      if (index === 0) return paragraph;
-      const match = paragraph.trim().match(QUESTION_THEN_ANSWER);
-      return match ? match[2].trim() : paragraph;
-    })
-    .filter((paragraph) => paragraph.trim())
-    .join("\n\n")
-    .trim();
+  return line;
+}
+
+/**
+ * The text with the site's questions and the site's own heading taken out: the person's story and answers only.
+ * `asked`: questions this case recorded as asked (askedQuestionsOf), removed the same exact way as the fixed list.
+ */
+export function personWordsOnly(text: string, asked: readonly string[] = []): string {
+  if (!text) return text;
+  // Longest first, so a question that begins with a shorter one is matched whole.
+  const questions = [...new Set([...siteQuestions(), ...asked.map((question) => question.trim()).filter(Boolean)])].sort((a, b) => b.length - a.length);
+  const kept: string[] = [];
+  let inFollowUps = false;
+  let pastFirstParagraph = false;
+  for (const line of text.split(/\r?\n/)) {
+    if (FOLLOW_UP_HEADING.test(line.trim())) { inFollowUps = true; continue; }
+    if (!line.trim()) { inFollowUps = false; pastFirstParagraph = kept.some((earlier) => earlier.trim()); kept.push(line); continue; }
+    // The follow-up block the site writes (sourcedAnswerListText): its "Q:" lines are the site's, its "A:" the person's.
+    if (inFollowUps && /^\s*Q:\s/.test(line)) continue;
+    if (inFollowUps) { kept.push(line.replace(/^(\s*)A:\s+/, "$1")); continue; }
+    kept.push(pastFirstParagraph ? withoutSiteQuestion(line, questions) : line);
+  }
+  return kept.join("\n").split(/\n{2,}/).filter((paragraph) => paragraph.trim()).join("\n\n").trim();
 }

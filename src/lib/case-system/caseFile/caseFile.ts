@@ -240,6 +240,19 @@ const slotsOf = (questionId: string, surface?: string): SlotFact[] => factsOfQue
  * case's master result, which adds the saved position: the dates given on the step page,
  * the stage chosen there, and a kind of claim chosen.
  */
+/**
+ * The questions this case recorded as asked on the home page, by their words (the story reading's questions and the
+ * drafts of them): personWords.ts personWordsOnly removes exactly these, and the site's fixed list, from a story saved
+ * the old way (site owner, 14 Nov 2026, item B).
+ */
+export function askedQuestionsOf(checkpoint: Checkpoint | null | undefined): string[] {
+  const home = object(object(checkpoint?.sections).home);
+  return [home.understoodAnswers, home.draftAnswers].flatMap((list) => (Array.isArray(list) ? list : []))
+    .map((item) => object(item).question)
+    .filter((question): question is string => typeof question === "string" && question.trim().length > 0)
+    .map((question) => question.trim());
+}
+
 export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): CaseFile {
   const file = emptyCaseFile();
   const sections = checkpoint ? freshSections(checkpoint) : {};
