@@ -44,7 +44,8 @@ import { parseRecordedAmount } from "../format/recordedAmount";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
 import { chatMayAsk, slotStatus } from "./factStatus";
-import { partiesFromOldShapes, partyName, readParties, type PartiesHeld } from "../parties/parties";
+import { partyName, readParties, type PartiesHeld } from "../parties/parties";
+import { partiesFromOldShapes } from "./oldParties";
 
 /** The case file's slots, in the order "What we have so far" shows them. */
 export const SLOT_FACTS = [

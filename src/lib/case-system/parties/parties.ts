@@ -4,7 +4,7 @@
  * Where it lives: the case record's own section, `sections.caseFile.parties` (CASE_FILE_SECTION), written only by the
  * browser's one writer (app/_components/caseWrite.ts writeParties) and saved with the case like every other answer.
  * Read only through caseFileOf (`file.parties`). An older case has no record: its parties are read from what it holds
- * (the other party's name, the whole Small Claims form's boxes), never written back.
+ * (the other party's name, the whole Small Claims form's boxes: caseFile/oldParties.ts), never written back.
  *
  * The person is the party with `you: true`. Every party is on a side: "yours" (the person's side: co-plaintiffs, or
  * co-defendants when the person is sued) or "other". A form puts each side in its own boxes (plaintiffs or defendants by
@@ -247,54 +247,6 @@ export function storyPartyOffers(story: string, record: PartiesRecord): PartyOff
 /** The story without its sentences that only give the parties' details (they are offered, never numbered as facts). */
 export function storyWithoutPartyDetails(story: string): string {
   return storySentences(story).filter((sentence) => !isYouSentence(sentence) && !isSuingSentence(sentence)).join(" ");
-}
-
-// ---- An older case: its parties from what it holds (read only) --------------------------------------------------
-
-export type OldPartyShapes = {
-  /** The other party's name, as the case file holds it (answered), if any. */
-  otherPartyName?: string;
-  /** The whole Small Claims form's boxes, and the saved intake's (and its extra's) of the same names. */
-  boxes: Record<string, unknown>[];
-};
-
-/** The parties an older case holds, read from its own answers; never saved. */
-export function partiesFromOldShapes(old: OldPartyShapes): Party[] {
-  const box = (...keys: string[]) => { for (const source of old.boxes) for (const key of keys) { const value = clean(source[key]); if (value) return value; } return ""; };
-  const list: Party[] = [];
-  const name = box("yourName");
-  const street = box("yourAddress", "addressDetails");
-  const you: Party = { id: "you", you: true, side: "yours", details: {}, unsure: [] };
-  if (name) you.details.fullName = name;
-  if (street) {
-    you.details.street = street;
-    // The city and province boxes start filled from where the case is heard; read only beside an address the person gave.
-    const city = box("yourCity");
-    const province = box("yourProvince");
-    if (city) you.details.city = city;
-    if (province) you.details.province = province;
-  }
-  const postal = box("yourPostalCode");
-  const phone = box("yourPhone");
-  const email = box("yourEmail");
-  if (postal) you.details.postalCode = postal;
-  if (phone) you.details.phone = phone;
-  if (email) you.details.email = email;
-  if (Object.keys(you.details).length) list.push(you);
-  const otherName = clean(old.otherPartyName) || box("otherParty", "defendantName", "respondentName");
-  const otherAddress = box("defendantAddress", "otherPartyAddress");
-  if (otherName || otherAddress) {
-    const company = otherName ? isCompanyName(otherName) : false;
-    list.push({
-      id: "other-1",
-      side: "other",
-      ...(otherName ? { kind: company ? ("company" as const) : undefined } : {}),
-      details: { ...(otherName ? (company ? { companyName: otherName } : { fullName: otherName }) : {}), ...(otherAddress ? { street: otherAddress } : {}) },
-      unsure: [],
-    });
-    if (list[list.length - 1].kind === undefined) delete list[list.length - 1].kind;
-  }
-  return list;
 }
 
 /** The plaintiffs and defendants, in order, by the person's role: each party its own entry. */
