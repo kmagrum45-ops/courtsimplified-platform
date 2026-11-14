@@ -1,9 +1,10 @@
 /**
- * ASK ONCE, ON EVERY PAGE, FOR 37 STORIES (site owner, 11 Nov 2026: "the site must remember the case and every
+ * ASK ONCE, ON EVERY PAGE, FOR 38 STORIES (site owner, 11 Nov 2026: "the site must remember the case and every
  * screen must read from it"; target ZERO, no baseline).
  *
  * Each story (the 32 of test:story-invariants, the tree story from the live site, the slip-and-fall, and three of Chrome's
- * check of #550 read on the home page with its own questions: 5b, 5c, 5d) is given
+ * check of #550 read on the home page with its own questions: 5b, 5c, 5d, and Chrome's forms story: the person's details and
+ * two defendants typed in the story, the Parties step answered from its offers) is given
  * once, signed in, and taken through the questions (Small Claims: the chat, pressing Continue on its story offers
  * without ticking, as the person on the live site did; civil and Family: one question at a time, using an offer
  * from the story when one is made), the review, the next step, the case page, the case file page and, for a Small
@@ -26,6 +27,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { pdfBoxes } from "../../src/lib/case-system/forms/officialPdf";
 import { asksForDate } from "../../src/lib/case-system/dates";
 import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { deleteHarnessUser } from "./harness/realTestSession";
@@ -42,7 +44,8 @@ test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTi
 type Side = "bringing" | "responding";
 type Stated = { amount?: string; when?: string; otherParty?: string };
 /** `home`: the home page's story reading asks these questions (Chrome check of #550, 5b-5d), answered with these words. */
-type Story = { name: string; court: Court; side: Side; text: string; served?: string; stated: Stated; amountLater?: true; home?: { question: string; answer: string }[] };
+/** `parties`: the story gives the parties' details; the Parties step is answered from its offers (Chrome forms test, #550). */
+type Story = { name: string; court: Court; side: Side; text: string; served?: string; stated: Stated; amountLater?: true; home?: { question: string; answer: string }[]; parties?: true };
 const S = (name: string, court: Court, side: Side, text: string, stated: Stated, served?: string): Story => ({ name, court, side, text: `Synthetic: ${text}`, stated, served });
 
 export const STORIES: Story[] = [
@@ -99,6 +102,9 @@ export const STORIES: Story[] = [
   // 5d: Civil; "Who is the other side?" asked after the home page's question about who bought the goods was answered.
   { ...S("civil-goods-home", "civil", "bringing", "I sold $85,000 of equipment personally to a company in Ottawa. Payment was due September 30, 2026 and nothing has been paid.", { amount: "85000" }),
     home: [{ question: "Who bought the goods from you?", answer: "Testgoods Ltd., in Ottawa." }] },
+  // Chrome's forms test on #550 (14 Nov): the person's own details and two defendants, typed in the story; the Parties step
+  // offers each once; no party detail is asked again on any page afterwards.
+  { ...S("sc-forms-chrome", "small-claims", "bringing", "On October 4, 2026 I slipped on a wet floor at the Circle K on Sample Road in Ottawa and fell. I want to claim $5,000 for pain and suffering, $450 in lost wages and $18.45 for medicine. My name is Test Plaintiff, 12 Example Street, Ottawa ON K1A 0A1, phone 613-555-0100, email test.plaintiff@example.com. I am suing Circle K Convenience Stores Ltd., 100 Sample Road, Ottawa ON K1B 0B1, and also the store manager, Test Manager, at the same address.", { amount: "5468.45", when: "October 4, 2026", otherParty: "Circle K Convenience Stores Ltd." }), parties: true },
 ];
 
 export type Violation = { story: string; court: Court; side: Side; kind: "asked-twice" | "stated-cold" | "typed-reconfirm" | "missing-label"; fact: string; screen: string; detail: string };
@@ -113,7 +119,7 @@ const expectedFor = (item: Violation) => EXPECTED.some((entry) => keyOf(entry) =
 const REPORT = Boolean(process.env.ASK_ONCE_REPORT);
 const TYPED_NOT_SURE = "I do not know yet";
 /** Surfaces that offer a value from the story for one confirmation (allowed once), not a cold ask. */
-const OFFER_SURFACES = new Set(["sc-proposal", "story-proposal-row", "guided-form-from-story", "claim-kind"]);
+const OFFER_SURFACES = new Set(["sc-proposal", "story-proposal-row", "guided-form-from-story", "claim-kind", "parties-offer"]);
 
 function situationOf(story: Story): SituationAnswers {
   if (story.side === "bringing") return { ...STARTING_NOTHING_FILED, court: story.court };
@@ -274,6 +280,7 @@ async function reviewAndNextStep(page: Page, story: Story, typed: Map<string, st
       if (hit) found.push({ story: story.name, court: story.court, side: story.side, kind: "typed-reconfirm", fact, screen: "review", detail: `typed "${value}", shown again with "Confirm my initial information"` });
     }
   }
+  if (phase === "reviewing" && story.parties) await answerParties(page, seen);
   if (phase === "reviewing" && confirmShown) {
     await recordInitialUnknowns(page).catch(() => {});
     await tickIfAsked(page);
@@ -283,6 +290,62 @@ async function reviewAndNextStep(page: Page, story: Story, typed: Map<string, st
   const next = page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first();
   if (await visible(next, 10_000)) await next.click();
   return visible(page.getByTestId("completed-case-overview"), 240_000);
+}
+
+/**
+ * The Parties step, answered as a person would from what their story gives: Yes to each detail offered, "A person" where it
+ * asks whether a party is a person or a company, Yes to the name split from their own words. Every detail of the story's
+ * parties is then held, so none is asked again on any page (the recorder's "parties" surfaces).
+ */
+async function answerParties(page: Page, seen: string[]) {
+  const step = page.getByTestId("parties-step").first();
+  if (!(await visible(step, 30_000))) { seen.push("parties: no Parties step shown"); return; }
+  for (let round = 0; round < 60; round += 1) {
+    const yes = step.locator("[data-testid=parties-offer-yes], [data-testid=parties-name-split-yes]").first();
+    const person = step.locator("[data-testid=parties-kind-person]").first();
+    if (await yes.isVisible().catch(() => false)) await yes.click();
+    else if (await person.isVisible().catch(() => false)) await person.click();
+    else break;
+    await page.waitForTimeout(300);
+  }
+  seen.push(`parties: ${(await step.innerText()).replace(/s+/g, " ").slice(0, 900)}`);
+}
+
+/** A filled official form, downloaded through the real route with the person's own session (POST /api/cases/forms/filled). */
+async function filledForm(page: Page, caseId: string, form: string, copy = 1): Promise<Map<string, unknown>> {
+  const got = await page.evaluate(async ({ caseId, form, copy }) => {
+    const key = Object.keys(window.localStorage).find((name) => /^sb-.*-auth-token$/.test(name));
+    const token = key ? (JSON.parse(window.localStorage.getItem(key) || "{}") as { access_token?: string }).access_token : undefined;
+    const response = await fetch("/api/cases/forms/filled", { method: "POST", headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) }, body: JSON.stringify({ caseId, form, copy }) });
+    return { status: response.status, type: response.headers.get("content-type"), bytes: response.ok ? Array.from(new Uint8Array(await response.arrayBuffer())) : [] };
+  }, { caseId, form, copy });
+  expect(got.status, `${form} downloads`).toBe(200);
+  expect(got.type).toContain("application/pdf");
+  const boxes = new Map<string, unknown>();
+  for (const box of await pdfBoxes(new Uint8Array(got.bytes))) if (!boxes.has(box.name) || box.value) boxes.set(box.name, box.value);
+  return boxes;
+}
+
+/**
+ * Chrome's forms test: the official Form 7A and Form 1A, filled on the server from the case record, hold the parties the
+ * person gave in the Parties step, each its own entry (rules 2 and 4), and the amount (rule 8).
+ */
+async function checkFilledForms(page: Page, caseId: string, seen: string[]) {
+  const form7A = await filledForm(page, caseId, "small-claims/7A");
+  seen.push(`form 7A: ${JSON.stringify(Object.fromEntries([...form7A].filter(([, value]) => value && value !== "Off")))}`.slice(0, 2000));
+  expect(form7A.get("Plaintiff's last name or the company's name"), "Form 7A: the plaintiff's last name").toBe("Plaintiff");
+  expect(form7A.get("First name of the Plaintiff"), "Form 7A: the plaintiff's first name").toBe("Test");
+  expect(form7A.get("Plaintiff's address (street number, apartment, unit number)")).toBe("12 Example Street");
+  expect(form7A.get("Plaintiff's phone number")).toBe("613-555-0100");
+  expect(form7A.get("Plaintiff's email address")).toBe("test.plaintiff@example.com");
+  expect(form7A.get("Defendant's last name or company's name"), "Form 7A: Defendant No. 1 is Circle K alone").toBe("Circle K Convenience Stores Ltd.");
+  expect(form7A.get("Defendant's address (street number, apartment, unit number)")).toBe("100 Sample Road");
+  expect(form7A.get("Additional defendant(s) listed on attached Form 1A"), "Form 7A: the second defendant is listed on Form 1A").not.toBe("Off");
+  expect(form7A.get("Principal amount claimed"), "Form 7A: the amount the case holds").toBe("5,468.45");
+  const form1A = await filledForm(page, caseId, "small-claims/1A", 1);
+  expect(form1A.get("Last name or name of company 1"), "Form 1A: Defendant No. 2 is Test Manager, its own entry").toBe("Manager");
+  expect(form1A.get("First name 1")).toBe("Test");
+  expect(form1A.get("Defendant number 1")).toBe("2");
 }
 
 /** Waits up to `ms` for the element to show (Playwright's isVisible does not wait). */
@@ -355,6 +418,7 @@ for (const story of STORIES) {
       }
       const known = new Set<string>([...Object.keys(story.stated).filter((fact) => fact !== "when").concat(story.stated.when && /\d{1,2}, \d{4}/.test(story.stated.when) ? ["whenHappened"] : []), ...typed.keys()]);
       await readLabels(page, story, id, known, found, seen);
+      if (story.parties) await checkFilledForms(page, id, seen);
       reached = reached === "next step" ? "all pages" : reached;
       const situation = situationOf(story);
       for (const violation of [...repeatViolations(factsAskedTwice(events, situation)), ...heldViolations(events)]) {

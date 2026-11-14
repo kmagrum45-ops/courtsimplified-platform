@@ -41,7 +41,7 @@ import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { asksForDate } from "../../src/lib/case-system/dates";
 import { internalWordingIn, rawKeysIn } from "../../src/lib/case-system/copy/rawKeys";
 import { UNSURE_SHOWN_SKIP, unsureShownAsAnswer } from "./harness/unsureShown";
-import { CHARTER_STORIES, MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, type Route } from "./storyPackMore";
+import { CHARTER_STORIES, FORMS_STORIES, MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, type Route } from "./storyPackMore";
 import { appendRecord } from "./harness/packRecords";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 import { chooseOffers } from "./harness/offers";
@@ -128,6 +128,7 @@ const STORIES: Story[] = [
   ...MESSY_STORIES,
   ...WALKTHROUGH_STORIES,
   ...CHARTER_STORIES,
+  ...FORMS_STORIES,
 ];
 
 const INTERNAL = /Court path:|Stage: Stage unclear|Main story:|Case story:|Reasoning domain|privilege \/ recipient|procedural stage is uncertain|Important limitation|Knowledge retrieval warning|\bundefined\b|\[object Object\]|\bNaN\b/;
@@ -1970,4 +1971,48 @@ test("28oct working states: the story-suggestions card says it is working, and a
     await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 60_000 });
   });
   expect(turns, "a second press sent no second request").toBe(1);
+});
+
+// Chrome's forms test on #550 (14 Nov 2026): the site never asked the person's name, address, phone or email or the
+// defendant's address, details typed in the story became numbered facts, and a second defendant was merged into the first
+// ("Circle K Convenience Stores Ltd. (Test Manager)"). The Parties step offers each detail the story gives, once, with the
+// three choices; answered, both defendants are their own entries; after a reload nothing is offered or asked again.
+test("forms test of #550: the Parties step offers each story detail once; the two defendants stay separate -- small-claims", async ({ page }) => {
+  test.setTimeout(300_000);
+  const story = FORMS_STORIES.find((item) => item.id === "f1-chrome-forms")!;
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
+  await smallClaims(page, story, true);
+  const step = page.getByTestId("parties-step").first();
+  await expect(step, "the Parties step is in the review").toBeVisible({ timeout: 60_000 });
+  const offered: string[] = [];
+  for (let round = 0; round < 60; round += 1) {
+    for (const what of await step.locator("[data-testid=parties-offer-yes-what], [data-testid=parties-name-split-yes-what]").allInnerTexts()) if (!offered.includes(what)) offered.push(what);
+    const yes = step.locator("[data-testid=parties-offer-yes], [data-testid=parties-name-split-yes]").first();
+    const person = step.locator("[data-testid=parties-kind-person]").first();
+    if (await yes.isVisible().catch(() => false)) await yes.click();
+    else if (await person.isVisible().catch(() => false)) await person.click();
+    else break;
+    await page.waitForTimeout(300);
+  }
+  for (const detail of ["Name: Test Plaintiff", "Street address (number, street, apartment or unit): 12 Example Street", "Phone number: 613-555-0100", "Email address: test.plaintiff@example.com", "Company's full legal name: Circle K Convenience Stores Ltd."]) {
+    expect.soft(offered, `offered from the story: ${detail}`).toContain(detail);
+  }
+  const headings = await step.locator("[data-testid=parties-party] h3").allInnerTexts();
+  expect(headings.some((text) => /Circle K Convenience Stores Ltd\./.test(text) && !/Test Manager/.test(text)), `Circle K is its own party: ${headings.join(" | ")}`).toBe(true);
+  expect(headings.some((text) => /Test Manager/.test(text) && !/Circle K/.test(text)), `Test Manager is its own party: ${headings.join(" | ")}`).toBe(true);
+  await expect(step.locator("[data-testid=parties-detail-ask]"), "every detail the story gives is held: nothing left to ask").toHaveCount(0);
+  // After a reload: nothing offered again, nothing asked again, every detail still held.
+  await page.reload();
+  await page.waitForLoadState("networkidle").catch(() => {});
+  const panel = page.getByTestId("intake-review");
+  if ((await panel.getAttribute("data-phase").catch(() => null)) === "collecting") await page.getByTestId("intake-start-review").filter({ visible: true }).first().click().catch(() => {});
+  const again = page.getByTestId("parties-step").first();
+  await expect(again).toBeVisible({ timeout: 60_000 });
+  await expect(again.locator("[data-testid=parties-offer-yes]"), "no detail offered again after a reload").toHaveCount(0);
+  await expect(again.locator("[data-testid=parties-detail-ask], [data-testid=parties-kind]"), "no detail asked again after a reload").toHaveCount(0);
+  await expect(again).toContainText("100 Sample Road");
+  await expect(again).toContainText("613-555-0100");
 });

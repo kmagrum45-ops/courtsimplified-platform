@@ -149,6 +149,11 @@ const SCAN = `(() => {
     ["end", "[data-testid=case-file-line][data-state=unsure] [data-testid=case-file-answer-now]", (el) => [el.closest("[data-testid=case-file-line]").getAttribute("data-question")]],
     ["claim-kind", "[data-testid=claim-kind-chooser]", () => ["claim-kind-suggestion"]],
     ["sc-form", "[data-testid=sc-intake-documents][data-empty=true]", () => ["filedDocuments"]],
+    // The Parties step (site owner, 14 Nov 2026, rule 1): an empty box asks for that party's detail, the person-or-company
+    // question for its kind; a story offer asks once (its own id, by what it offers). Each party by its id in the record.
+    ["parties", "[data-testid=parties-detail-ask]", (el) => ["party:" + ((el.closest("[data-party-id]") || el).getAttribute("data-party-id") || "") + ":" + el.getAttribute("data-detail")]],
+    ["parties", "[data-testid=parties-kind]", (el) => ["party:" + ((el.closest("[data-party-id]") || el).getAttribute("data-party-id") || "") + ":kind"]],
+    ["parties-offer", "[data-testid=parties-step] [data-offer-choices]", (el) => ["party-offer:" + words(el.querySelector("[data-testid$=-what]"))]],
     // "Things that may have happened in your case" (EventCandidateSurface): each candidate quotes the
     // person's own sentence. A date box left empty while that very sentence gives the date asks for
     // it again (Chrome 29 Oct, finding 1: "March 2026" in the story, "When, in your words" asked).

@@ -95,6 +95,9 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
   const box = (party: Party, detail: PartyDetail, optional = false) => {
     const key = `${party.id}:${detail}`;
     const status = detailStatus(party, detail);
+    // The story gives this detail: it is offered (Yes / No / Not sure), not asked as an empty box beside the offer.
+    if (status === "ask" && offersFor(party).some((offer) => offer.detail === detail || ((detail === "firstName" || detail === "lastName" || detail === "companyName") && (offer.detail === "fullName" || offer.detail === "companyName")))) return null;
+    if (status === "ask" && (detail === "firstName" || detail === "lastName") && nameSplit(party, record.declined)) return null;
     if (status === "known") {
       return (
         <p key={key} data-testid="parties-detail-held" data-detail={detail} className="text-sm">
@@ -127,7 +130,7 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
         const own = offersFor(party);
         const number = record.list.filter((other) => other.side === party.side).indexOf(party) + 1;
         return (
-          <article key={party.id} data-testid="parties-party" data-party={party.you ? "you" : party.side} className="space-y-2 rounded-lg border border-[#e3ece7] p-3">
+          <article key={party.id} data-testid="parties-party" data-party={party.you ? "you" : party.side} data-party-id={party.id} className="space-y-2 rounded-lg border border-[#e3ece7] p-3">
             <h3 className="font-semibold">{sideWord(party)} {number}{party.you ? " (you)" : ""}{partyName(party) ? `: ${partyName(party)}` : ""}</h3>
             {own.map((offer) => (
               <UseSuggestion key={offer.key} testId="parties-offer-yes" noTestId="parties-offer-no" unsureTestId="parties-offer-unsure" what={`${LABELS[offer.detail]}: ${offer.value}`} note={`From your story: "${offer.quote}"`} onUse={() => acceptOffer(offer)} onNo={() => declineOffer(offer)} onUnsure={() => unsureOffer(offer)} />
