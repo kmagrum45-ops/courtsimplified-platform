@@ -1002,6 +1002,14 @@ for (const [label, damage] of [
   });
 }
 
+/**
+ * An offer's Yes is named with what it offers ("Yes: $70,000"; UseSuggestion.tsx, 14 Nov 2026: the button itself reads
+ * "Yes", the offer shown beside it). The same value, read from the name the button carries.
+ */
+function offerName(words: string | RegExp): RegExp {
+  return words instanceof RegExp ? new RegExp(`^Yes: .*(?:${words.source})`, words.flags) : new RegExp(`^Yes: .*${words.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`);
+}
+
 // Case 19: Marcus started as the one suing ($1,650), then changed his answer: Circuit Doctors'
 // owner served him with a claim on October 20. "Amount claimed: $1,650 (your answer already
 // given; it is not asked again)" stayed on the claim against him. The old side's facts are
@@ -1085,7 +1093,7 @@ for (const id of ["m14-served-divorce", "m16-conference-safety"]) {
       const box = panel.locator(`[data-testid=intake-initial-question][data-question="${question}"]`);
       if (!(await box.count())) continue; // answered already, from the story, in the questions
       const offer = box.getByTestId("intake-field-from-story");
-      await expect(offer, `${question}: offered from the story`).toContainText(words);
+      await expect(offer, `${question}: offered from the story`).toHaveAttribute("aria-label", offerName(words));
       await offer.click();
       await expect(box).toHaveAttribute("data-answered", "true");
     }
@@ -1152,7 +1160,7 @@ test("retest-477 repeat: the amount the story claims is offered for one click --
   await guidedQuestions(page, story, true);
   await answerInReview(page, story);
   const box = page.getByTestId("intake-review").locator('[data-testid=intake-initial-question][data-question="amountClaimed"]');
-  if (await box.count()) await expect(box.getByTestId("intake-field-from-story")).toContainText("$70,000");
+  if (await box.count()) await expect(box.getByTestId("intake-field-from-story")).toHaveAttribute("aria-label", offerName("$70,000"));
   else expect(await page.getByTestId("intake-review").innerText(), "the amount is held from the story").toContain("70,000");
 });
 
@@ -1318,8 +1326,8 @@ test("retest Charter: the review fits the claim, the story answers in one click,
   const issues = panel.locator('[data-testid=intake-initial-question][data-question="issues"]');
   if (await issues.count()) {
     await expect(issues.locator('input[data-testid=intake-field-pick][value="charter"]')).not.toBeChecked();
-    await expect(issues.getByTestId("intake-field-use-suggestion")).toContainText("Charter");
-    await expect(issues.getByTestId("intake-field-use-suggestion")).toContainText("Police");
+    await expect(issues.getByTestId("intake-field-use-suggestion")).toHaveAttribute("aria-label", offerName("Charter"));
+    await expect(issues.getByTestId("intake-field-use-suggestion")).toHaveAttribute("aria-label", offerName("Police"));
     await expect(issues.getByTestId("intake-field-pick-quote")).toContainText("Charter");
     await issues.getByTestId("intake-field-use-suggestion").click();
     await expect(issues).toHaveAttribute("data-answered", "true");
@@ -1328,7 +1336,7 @@ test("retest Charter: the review fits the claim, the story answers in one click,
   for (const [question, words] of [["amountClaimed", "$75,000"], ["legalRemedy", "violating my Charter rights"]] as const) {
     const box = panel.locator(`[data-testid=intake-initial-question][data-question="${question}"]`);
     if (!(await box.count())) continue;
-    await expect(box.getByTestId("intake-field-from-story"), `${question}: offered from the story`).toContainText(words);
+    await expect(box.getByTestId("intake-field-from-story"), `${question}: offered from the story`).toHaveAttribute("aria-label", offerName(words));
     await box.getByTestId("intake-field-from-story").click();
     await expect(box).toHaveAttribute("data-answered", "true");
   }
