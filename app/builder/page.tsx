@@ -4,7 +4,7 @@ import { OPEN_WHOLE_FORM_EVENT } from "./_components/openWholeForm";
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
 import { caseFileOf, claimKindOf, kindForAnalysis, neverMarried, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
-import { analysisFactsOf } from "../../src/lib/case-system/caseFile/chatTurnFacts";
+import { analysisFactsOf, formAnalysisInput } from "../../src/lib/case-system/caseFile/chatTurnFacts";
 import { withoutUnsureAnswers } from "../../src/lib/case-system/caseFile/unsureAnswer";
 import { researchCaseContext } from "../../src/lib/case-system/caseFile/aiCaseContext";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
@@ -1448,7 +1448,18 @@ function BuilderPageContent() {
   ) {
     // Every court's answers enter the analysis input here: an answer that is only "I do not know yet" is kept
     // as not answered (the case file's "not sure"), never saved or shown as the answer (unsureAnswer.ts).
-    const payload = withoutUnsureAnswers(given);
+    const answered = withoutUnsureAnswers(given);
+    // The hand-off's answer boxes with the record's answers, the record winning, for every court (chatTurnFacts.ts
+    // formAnalysisInput, the one function every route builds its analysis input with; site owner, 14 Nov 2026).
+    const checkpointAtHandOff = recovery?.getReview().checkpoint ?? null;
+    const payload: StoredCaseData = {
+      ...answered,
+      ...formAnalysisInput(
+        { yourName: answered.yourName, otherParty: answered.otherParty, timeline: answered.timeline, evidence: answered.evidence, missingEvidence: answered.missingEvidence, goal: answered.goal, urgent: answered.urgent },
+        checkpointAtHandOff,
+        caseFileOf(checkpointAtHandOff, recovery?.getSavedMaster() ?? existingMasterResult),
+      ),
+    };
     const previousRevision = analysisInputRevision.current;
     const previousFacts = analysisFactsRevision.current;
     analysisInputRevision.current = recovery?.getReview().checkpoint.inputRevision ?? null;

@@ -5,6 +5,7 @@ import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIn
 import { notMarriedOf, withoutMarriedOnly } from "../../../src/lib/case-system/family/marriedOnly";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
 import { caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
+import { formAnalysisInput } from "../../../src/lib/case-system/caseFile/chatTurnFacts";
 import { NotAnsweredYetField } from "../../_components/NotAnsweredYet";
 import { useBoxesFollow } from "../../_components/AskedField";
 import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
@@ -684,7 +685,10 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
 
     try {
       const narrative = buildNarrative();
-      const familyInput: FamilyMasterCaseInput = {
+      // The form's boxes with the record's answers, the record winning (chatTurnFacts.ts formAnalysisInput, the one
+      // function every route builds its analysis input with; site owner, 14 Nov 2026).
+      const checkpointNow = recovery?.getReview().checkpoint ?? null;
+      const familyInput: FamilyMasterCaseInput = formAnalysisInput<FamilyMasterCaseInput>({
         // The issues picked, in words, told to the AI research, from the case file through the shared
         // builder (aiCaseContext.ts, rule 8; site owner, 31 Oct).
         caseContext: researchCaseContext(caseFileOf(recovery?.getReview().checkpoint ?? null)),
@@ -718,7 +722,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           source: file.source,
           notes: cleanList([file.evidenceDate, file.relevance]).join("; "),
         })),
-      };
+      }, checkpointNow, caseFileOf(checkpointNow, recovery?.getSavedMaster() ?? undefined));
       const {
         data: { session },
       } = await supabase.auth.getSession();

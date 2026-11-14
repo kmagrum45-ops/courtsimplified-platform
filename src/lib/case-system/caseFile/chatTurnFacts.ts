@@ -77,3 +77,26 @@ export function analysisFactsOf<T extends Facts>(facts: T, checkpoint: Checkpoin
   const review = checkpoint ? panelAnswerFacts(checkpoint) as Facts : {};
   return factsWithRecord({ ...review, ...facts } as T, held);
 }
+
+/**
+ * A FORM'S ANALYSIS INPUT: THE RECORD PLUS THE FORM'S STATE, THE RECORD WINS (site owner, 14 Nov 2026, item 5 of the
+ * decisions on the batch report: the Small Claims form, Family, Civil and the hand-off, page.tsx handleComplete, build
+ * the analysis input with analysisFactsOf, one function, and a value held in the record but missing from the form's
+ * boxes is sent). The form's own keys only: the review's keys analysisFactsOf reads under them are not sent as fields of
+ * their own (each route checks its input). A box for a fact the person removed is sent empty. `FORM_COMPUTED` keys are
+ * left as the form has them: the story, and what the form works out in its own terms (the stage, the side, the issues and
+ * documents as labels), which the record holds in other terms.
+ */
+export const FORM_COMPUTED = ["facts", "caseStage", "yourRole", "role", "issues", "filedDocuments", "caseId", "caseContext", "uploadedFiles"] as const;
+export function formAnalysisInput<T extends Facts>(input: T, checkpoint: Checkpoint | null, held: CaseFile): T {
+  const computed = new Set<string>(FORM_COMPUTED);
+  const boxes = Object.fromEntries(Object.entries(input).filter(([key]) => !computed.has(key))) as Facts;
+  const recorded = analysisFactsOf(boxes, checkpoint, held) as Facts;
+  const out: Facts = { ...input };
+  for (const key of Object.keys(boxes)) {
+    if (key in recorded) out[key] = recorded[key];
+    else if (typeof input[key] === "string") out[key] = "";
+    else if (Array.isArray(input[key])) out[key] = [];
+  }
+  return out as T;
+}

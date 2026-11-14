@@ -58,6 +58,7 @@ import {
 } from "../../../src/lib/case-system/intake/questionBank";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { analysisClaimType, caseFileOf, claimKindOf, kindForAnalysis } from "../../../src/lib/case-system/caseFile/caseFile";
+import { formAnalysisInput } from "../../../src/lib/case-system/caseFile/chatTurnFacts";
 import PartiesStep from "../../_components/PartiesStep";
 import { AskedField, useBoxesFollow, useHeldFill } from "../../_components/AskedField";
 import { writeFormBox } from "../../_components/caseWrite";
@@ -1004,13 +1005,18 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       // Answers given in the review panel count here too, where the form left them empty
       // (re-test round 7: after "start the questions again" they were the only answers).
       const panel = recovery ? panelAnswerFacts(recovery.getReview().checkpoint) : {};
+      // The form's boxes with the record's answers, the record winning (chatTurnFacts.ts formAnalysisInput, the one
+      // function every route builds its analysis input with; site owner, 14 Nov 2026): an answer held in the case file
+      // and missing from a box is sent, never the box's older copy.
+      const checkpointNow = recovery?.getReview().checkpoint ?? null;
+      const boxes = formAnalysisInput(input, checkpointNow, caseFileOf(checkpointNow, recovery?.getSavedMaster() ?? undefined));
       const preparedInput: SmallClaimsIntelligenceInput = {
-        ...input,
-        amountClaimed: input.amountClaimed || String(panel.amountClaimedText ?? ""),
-        goal: input.goal || String(panel.remedySoughtText ?? ""),
+        ...boxes,
+        amountClaimed: boxes.amountClaimed || String(panel.amountClaimedText ?? ""),
+        goal: boxes.goal || String(panel.remedySoughtText ?? ""),
         // The situation answer is the side; an older answer in the review panel never replaces it (step 2 reviewer).
         yourRole: fromStart.role === "plaintiff" || fromStart.role === "defendant" ? fromStart.role : input.yourRole === "plaintiff" || input.yourRole === "defendant" ? input.yourRole : (panel.role === "plaintiff" || panel.role === "defendant" ? panel.role : input.yourRole),
-        timeline: input.timeline || String(panel.timelineText ?? ""),
+        timeline: boxes.timeline || String(panel.timelineText ?? ""),
         caseStage: stage,
         issues: inferIssuesFromStory(input),
         filedDocuments:
