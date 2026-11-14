@@ -13,6 +13,7 @@ import { statedInStory } from "../intakeReview";
 import { formatForCourt, isRealIsoDate } from "../dates";
 import { factsOfQuestion } from "../caseFile/factsOfQuestion";
 import { sentences } from "../sentences";
+import { formatRecordedAmount } from "../format/recordedAmount";
 import type { IntakeQuestion } from "./questionBank";
 /** An offer as the chat card shows it (the AI's proposals have this shape too, plus their choices). */
 export type StatedOffer = { questionId: string; questionText: string; answer: string; storyQuote: string; dateQuestion?: boolean };
@@ -38,7 +39,7 @@ function quoteFor(story: string, fact: (typeof STATED_FACTS)[number], value: str
 function shown(fact: (typeof STATED_FACTS)[number], value: string): string {
   // A month and year ("March 2026") is shown as the story wrote it; a full date as the court writes it.
   if (fact === "whenHappened") return isRealIsoDate(value) ? formatForCourt(value) : value;
-  if (fact === "amount") return `$${Number(value).toLocaleString("en-CA", { minimumFractionDigits: /\./.test(value) ? 2 : 0, maximumFractionDigits: 2 })}`;
+  if (fact === "amount") return formatRecordedAmount(value);
   return value;
 }
 
@@ -64,5 +65,8 @@ export function withStatedProposals<P extends StatedOffer>(story: string, questi
     });
     proposed.add(question.id);
   }
-  return [...proposals, ...added];
+  // Every amount offer, the AI's own included, as the rest of the site shows an amount ("$1,500.00"; Chrome check of
+  // #550, 2.6: the AI's "$1500" reached the chat, the review and the draft as written). Not a plain sum: as written.
+  const asShown = <O extends StatedOffer>(offer: O): O => (factsOfQuestion(offer.questionId).includes("amount") ? { ...offer, answer: formatRecordedAmount(offer.answer) || offer.answer } : offer);
+  return [...proposals.map(asShown), ...added];
 }

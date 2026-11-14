@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-282 documented, 26 without a header.
+283 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -24,6 +24,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:ai-spend-limit` | **THE SITE'S DAILY SPENDING LIMIT FOR AI HELP REFUSES CALLS BEFORE THEY ARE MADE (site owner, 10 Nov 2026).**<br>A fake OpenAI client (counts its calls, answers 1,000 input and 1,000 output tokens, $0.012 at the default prices) is wrapped by the site's own client wrapper (openaiClient.ts forceNoStore), exactly as createOpenAIClient wraps the real one, and asked as differ |
 | `npm run test:amendment-trails` | **Every vendored source's recent amendments, and whether anyone traced them.**<br>COSTS NOTHING. Reads docs/sources/ off disk. No network. |
 | `npm run test:amount-consistency` | **The amount claimed and the amount asked for must agree, or the user is told.**<br>Found 2026-09-27: a case-review story claimed $6,200 and asked the court to order $5,000, and the output never said so. amountConsistency.ts now warns. |
+| `npm run test:amount-format` | **AN AMOUNT IS SHOWN THE SAME WAY EVERYWHERE (Chrome check of #550, finding 2.6; site owner, 14 Nov 2026).**<br>Chrome's tree story ("I got a quote for $1500") showed "$1,500.00" on the case page but "$1500" in the chat's offer, the chat's summary, the review and the Plaintiff's Claim draft: the story's raw text reached every screen that did not go through the site's on |
 | `npm run test:amount-notes` | **The amount the user recorded is set against the court's money limits at**<br>the step where they start their claim -- correctly on each side of each limit, conditionally, and with its provisions. |
 | `npm run test:analysis-safety` | **No analysis runs without a safety-check result for the story, on every**<br>analyze route, and a failed check is recorded as failed -- never clear. |
 | `npm run test:analysis-time-budget` | **The next-step analysis finishes inside the time the page and the server allow.**<br>What it checks: research's limit plus the main reasoning call's limit (plus a margin for the rest) fit inside how long the page waits (ANALYSIS_TIMEOUT_MS), and the page stops waiting before every area's analysis route reaches its maxDuration; the reasoning ca |

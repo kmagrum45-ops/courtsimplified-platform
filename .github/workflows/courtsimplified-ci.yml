@@ -104,6 +104,8 @@ jobs:
         run: npm run test:site-text-never-facts
       - name: A person being sued is never shown what is written for the person suing (every kind mapped or hidden for a defendant)
         run: npm run test:defendant-view
+      - name: An amount is shown the same way everywhere ($1,500.00, never the story's raw $1500)
+        run: npm run test:amount-format
 
       - name: No chip or suggested question asks the assistant for a prediction or a grade (rule 3)
         run: npm run test:no-prediction-chips

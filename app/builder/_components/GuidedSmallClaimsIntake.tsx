@@ -33,7 +33,7 @@ import { KNOWN_FACT_FIELDS, QUESTION_BANK } from "@/src/lib/case-system/intake/q
 import { factsOfQuestion } from "@/src/lib/case-system/caseFile/factsOfQuestion";
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
-import { cardLabel, confirmedDrafts, sameDayAs, respondingFromAnswers } from "./proposalCard";
+import { answerWords, cardLabel, confirmedDrafts, sameDayAs, respondingFromAnswers } from "./proposalCard";
 import { unansweredQuestionStart } from "./heldQuestion";
 import { SourcedQuestionsCard, sourcedAnswerListText, useSourcedQuestions, type SourcedAnswer } from "./SourcedQuestions";
 import MunicipalNoticeFirst from "./MunicipalNoticeFirst";
@@ -240,7 +240,7 @@ const everyOfferChosen = (drafts: readonly ProposalDraft[]) => drafts.every((dra
 function summaryText(rows: readonly ConfirmedRow[], from: string, file: CaseFile | null): string {
   return [`Confirmed from ${from === "my story" ? "the story" : "your answers"}:`, ...rows.map((row) => {
     const now = answerNow(file, row.questionId, row.answer);
-    const words = now.removed ? "you removed this answer" : Array.isArray(now.value) ? now.value.join(", ") : String(now.value ?? row.answer);
+    const words = now.removed ? "you removed this answer" : answerWords(row.questionId, now.value ?? row.answer);
     return `• ${row.label}: ${words}${now.changed && !now.removed ? " (as you changed it)" : ""}`;
   })].join("\n");
 }

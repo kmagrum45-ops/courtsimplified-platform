@@ -930,7 +930,7 @@ The case file of a saved case (its checkpoint and saved position), for readers t
 Which fact each question asks for.
 
 - Reads (0): nothing in the repo
-- Read by (8): app/builder/_components/GuidedSmallClaimsIntake.tsx, **src/lib/case-system/caseFile/caseFile.ts**, **src/lib/case-system/caseFile/factRecord.ts**, src/lib/case-system/caseFile/factStatus.ts, **src/lib/case-system/caseFile/fieldFacts.ts**, src/lib/case-system/intake/statedProposals.ts, src/lib/case-system/intake/storyAnswerProposals.ts, **src/lib/case-system/sideChange.ts**
+- Read by (9): app/builder/_components/GuidedSmallClaimsIntake.tsx, app/builder/_components/proposalCard.ts, **src/lib/case-system/caseFile/caseFile.ts**, **src/lib/case-system/caseFile/factRecord.ts**, src/lib/case-system/caseFile/factStatus.ts, **src/lib/case-system/caseFile/fieldFacts.ts**, src/lib/case-system/intake/statedProposals.ts, src/lib/case-system/intake/storyAnswerProposals.ts, **src/lib/case-system/sideChange.ts**
 - Checked by (6): scripts/verification/verifyChatAsksByFact.ts, scripts/verification/verifyFactRails.ts, scripts/verification/verifyOwnAnswers.ts, scripts/verification/verifyQuestionMeanings.ts, tests/browser/harness/askOnce.ts, tests/browser/harness/chatQuestionFacts.ts
 
 ### src/lib/case-system/caseFile/factRecord.ts
@@ -1066,7 +1066,7 @@ The amount offered from the story.
 An amount typed, as a number.
 
 - Reads (0): nothing in the repo
-- Read by (11): app/builder/_components/CivilIntake.tsx, app/builder/_components/IntelligenceOverviewPanel.tsx, app/builder/_components/StageAnswerPanel.tsx, src/lib/case-system/amountNotes.ts, **src/lib/case-system/caseFile/caseFile.ts**, src/lib/case-system/caseReview/caseReview.ts, src/lib/case-system/caseReview/caseReviewModel.ts, src/lib/case-system/family/childSupportDraftEngine.ts, src/lib/case-system/intelligence/smallClaimsIntelligenceEngine.ts, src/lib/case-system/orchestration/civilIntakeCanonicalAdapter.ts, src/lib/case-system/statementOfClaimDraftEngine.ts
+- Read by (14): app/builder/_components/CivilIntake.tsx, app/builder/_components/IntelligenceOverviewPanel.tsx, app/builder/_components/StageAnswerPanel.tsx, app/builder/_components/proposalCard.ts, src/lib/case-system/amountNotes.ts, **src/lib/case-system/caseFile/caseFile.ts**, src/lib/case-system/caseReview/caseReview.ts, src/lib/case-system/caseReview/caseReviewModel.ts, src/lib/case-system/claimDraftEngine.ts, src/lib/case-system/family/childSupportDraftEngine.ts, src/lib/case-system/intake/statedProposals.ts, src/lib/case-system/intelligence/smallClaimsIntelligenceEngine.ts, src/lib/case-system/orchestration/civilIntakeCanonicalAdapter.ts, src/lib/case-system/statementOfClaimDraftEngine.ts
 - Checked by (2): scripts/verification/verifyRecordedAmount.ts, scripts/verification/verifyStatementOfClaimSurface.ts
 
 ### src/lib/case-system/intake/claimKind.ts

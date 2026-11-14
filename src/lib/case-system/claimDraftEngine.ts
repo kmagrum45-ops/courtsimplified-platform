@@ -1,5 +1,6 @@
 import { sentences as sharedSentences } from "./sentences";
 import { personWordsOnly } from "./personWords";
+import { formatRecordedAmount } from "./format/recordedAmount";
 export type ClaimDraftInput = {
   courtPath?: string;
   caseStage?: string;
@@ -101,7 +102,8 @@ function buildDamagesSection(input: ClaimDraftInput) {
   const damages: string[] = [];
 
   if (amount) {
-    damages.push(`The Plaintiff claims ${amount}.`);
+    // As the rest of the site shows an amount ("$1,500.00"); words that are not a plain sum, as written.
+    damages.push(`The Plaintiff claims ${formatRecordedAmount(amount)}.`);
   } else {
     damages.push("The amount claimed has not yet been clearly entered.");
   }
