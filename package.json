@@ -48,6 +48,7 @@
     "test:amount-format": "node --import tsx scripts/verification/verifyAmountFormat.ts",
     "test:home-answers-held": "node --import tsx scripts/verification/verifyHomeAnswersHeld.ts",
     "test:parties-record": "node --import tsx scripts/verification/verifyPartiesRecord.ts",
+    "test:form-maps": "node --import tsx scripts/verification/verifyFormMaps.ts",
     "test:wants-follow-amount": "node --import tsx scripts/verification/verifyWantsFollowAmount.ts",
     "test:not-married-everywhere": "node --import tsx scripts/verification/verifyNotMarriedEverywhere.ts",
     "test:no-prediction-chips": "node --import tsx scripts/verification/verifyNoPredictionChips.ts",

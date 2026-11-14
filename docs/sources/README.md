@@ -1132,3 +1132,15 @@ against these files.
 | `decisions/bc-wcb-v-figliola-2011-SCC-52.html.txt` | British Columbia (Workers' Compensation Board) v. Figliola, 2011 SCC 52 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/7968/index.do |
 | `decisions/tranchemontagne-v-ontario-2006-SCC-14.html.txt` | Tranchemontagne v. Ontario (Director, Disability Support Program), 2006 SCC 14 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/7/index.do |
 | `decisions/central-okanagan-v-renaud-1992-2-SCR-970.html.txt` | Central Okanagan School District No. 23 v. Renaud, [1992] 2 S.C.R. 970 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/910/index.do |
+
+## Official court forms that the site fills (`forms/`, 2026-11-14)
+
+The official fillable PDFs, saved as published, for the filled forms (src/lib/case-system/forms/maps/). The site fills
+the form's own boxes and never redraws it. Both are encrypted (standard owner-password protection, opened without a
+password): pdf-lib cannot read them, pdf.js (pdfjs-dist) reads and fills them (docs/SOURCING_NOTES.md, "Official
+form PDFs"). test:form-maps checks each file's sha256 and that every box in it has a map entry.
+
+| File | Form | URL | Downloaded | sha256 |
+|---|---|---|---|---|
+| `forms/scr-7a-aug22-en-fil.pdf` | Small Claims Court Form 7A, Plaintiff's Claim (Aug. 1, 2022; SCR 7.01-7A) | https://ontariocourtforms.on.ca/static/media/uploads/courtforms/scc/07a/scr-7a-aug22-en-fil.pdf | 2026-11-14 | 8a10d53ae1fbc4e4d4b2022e0e6aea9f3ae3c24c9d9b1d4ee0e8ac1fed970e78 |
+| `forms/scr-1a-jan21-en-fil.pdf` | Small Claims Court Form 1A, Additional Parties (Jan. 1, 2021) | https://ontariocourtforms.on.ca/static/media/uploads/courtforms/scc/01a/scr-1a-jan21-en-fil.pdf | 2026-11-14 | a1c9688900ec8b19fc675b9ff6485ee04aba84df47ad5ab80822a0d9ea107501 |

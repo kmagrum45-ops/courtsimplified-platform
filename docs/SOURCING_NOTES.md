@@ -2192,3 +2192,25 @@ So the Act gives the Small Claims Court actions for money and for the return of 
 (s. 23 (1)); equitable relief and declarations are expressly excluded (ss. 96 (3), 97). An order
 to apologise is neither money nor property. s. 25's "such order as is considered just" sits within
 the s. 23 jurisdiction; no decision was read for this note, so nothing here rests on case law.
+
+## Official form PDFs: filling the court's own boxes (2026-11-14)
+
+**What works.** The official Small Claims PDFs (`-fil.pdf`, e.g. Form 7A `scr-7a-aug22-en-fil.pdf`, Form 1A
+`scr-1a-jan21-en-fil.pdf`) are ordinary AcroForm forms, not XFA: Form 7A has 60 named boxes over 4 pages, Form 1A
+67 on one page. They are **encrypted** (`/Encrypt`, `/Filter/Standard`: owner-password protection; they open
+without a password). **pdf-lib cannot read them**: `PDFDocument.load(bytes, { ignoreEncryption: true })` logs
+"Invalid object ref" for the object streams and then throws "Expected instance of PDFDict, but got instance of
+undefined" at the page tree, so the repository's `app/api/generate-form` (pdf-lib) never filled them. **pdf.js
+(`pdfjs-dist`, legacy build) does**: `getAnnotations()` lists every box (`fieldName`, `fieldType`, `checkBox`,
+`rect`), `doc.annotationStorage.setValue(annotation.id, { value })` fills one, and `doc.saveDocument()` writes the
+filled file as an update of the original, so layout, fonts and wording stay the court's. Reading the saved file back
+with pdf.js returns each value. Used by `src/lib/case-system/forms/officialPdf.ts`; checked by `test:form-maps`.
+
+**Traps.**
+- Form 7A's plaintiff and defendant "Also known as" boxes share one field name ("Any other names the plaintiff is
+  known by"), so a value prints in both. The map leaves it blank on purpose.
+- pdfjs 6 has no `isEvalSupported` option and no `PDFDocumentProxy.destroy()`; destroy the loading task instead.
+- To look at a filled page, render it with pdf.js and `@napi-rs/canvas` (already installed); the test renderer's
+  substitute font spaces letters out, which is the renderer, not the file.
+- Form 7A has room for one plaintiff and one defendant; the rest go on Form 1A ("Additional plaintiff(s) / defendant(s)
+  listed on attached Form 1A"), three to a copy.
