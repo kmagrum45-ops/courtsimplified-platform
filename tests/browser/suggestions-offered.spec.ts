@@ -35,13 +35,14 @@ import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { deleteHarnessUser } from "./harness/realTestSession";
 import { autoAnswerSituation, situationForSide, STARTING_NOTHING_FILED } from "./harness/situation";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
-import { USE_THE_SUGGESTION } from "../../src/lib/case-system/copy/suggestionCopy";
+import { OFFER_CHOICES, suggestionLabel } from "../../src/lib/case-system/copy/suggestionCopy";
 import { chooseOffers } from "./harness/offers";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
 const OFFER = "[data-use-suggestion]";
-const offerWords = new RegExp(`^${USE_THE_SUGGESTION}`);
+/** Every offer's Yes reads "Yes" (the three choices, 14 Nov 2026). */
+const offerWords = OFFER_CHOICES.yes;
 
 async function startSmallClaims(page: Page, story: string): Promise<string> {
   await page.goto("/?path=small-claims");
@@ -81,7 +82,8 @@ test("Small Claims review: the kind of dispute is offered, not pressed; ignored 
     await expect(question().locator('button[aria-pressed="true"]'), "no choice is pressed before the person presses one").toHaveCount(0);
     const offer = question().locator(OFFER);
     await expect(offer, "the story's suggestion is offered with the one control").toHaveCount(1);
-    await expect(offer).toHaveText(`${USE_THE_SUGGESTION}: Property damage`);
+    await expect(offer).toHaveText(OFFER_CHOICES.yes);
+    await expect(offer, "named with what is offered").toHaveAttribute("aria-label", suggestionLabel("Property damage"));
 
     // Ignored, and the page read again: nothing was saved.
     await page.reload();

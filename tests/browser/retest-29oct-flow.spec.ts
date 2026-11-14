@@ -76,7 +76,7 @@ async function confirmHere(page: Page) {
   const kind = q("sc-orient-dispute-category").getByRole("button").first();
   if (await kind.count()) await kind.click();
   if (await q("sc-claim-filed").count()) await q("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
-  const use = q("sc-amount-claimed").getByRole("button", { name: /^Use the suggestion: .*$/ });
+  const use = q("sc-amount-claimed").getByRole("button", { name: /^Yes: .*$/ });
   if (await use.count()) await use.first().click();
   await recordInitialUnknowns(page);
   await tickIfAsked(page);
@@ -458,7 +458,7 @@ test("retest-29oct D1: typing into the form's timeline after Confirm keeps the c
   const kind = q("sc-orient-dispute-category").getByRole("button").first();
   if (await kind.count()) await kind.click();
   if (await q("sc-claim-filed").count()) await q("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
-  const use = panel.getByRole("button", { name: /^Use the suggestion: \$6,000$/ });
+  const use = panel.getByRole("button", { name: /^Yes: \$6,000$/ });
   if (await use.count()) await use.first().click();
   await recordInitialUnknowns(page);
   await tickIfAsked(page);

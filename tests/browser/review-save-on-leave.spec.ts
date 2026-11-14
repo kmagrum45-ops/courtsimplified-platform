@@ -85,7 +85,7 @@ async function reviewWithAmount(page: Page): Promise<{ account: Account; panel: 
   if ((await panel.getAttribute("data-phase")) === "collecting") await page.getByTestId("intake-start-review").click();
   await expect(panel).toHaveAttribute("data-phase", "reviewing", { timeout: 60_000 });
   const question = panel.locator(`[data-testid=intake-initial-question][data-question="${QUESTION}"]`);
-  await question.getByRole("button", { name: "Use the suggestion: $2,400" }).click();
+  await question.getByRole("button", { name: "Yes: $2,400" }).click();
   await expect(question.getByTestId("intake-question-answered")).toContainText("$2,400", { timeout: 20_000 });
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const left = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(left - 1, { timeout: 20_000 }); }

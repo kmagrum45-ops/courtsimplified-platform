@@ -1643,24 +1643,20 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
               <div key={draft.questionId} data-testid="story-proposal-row" data-question-id={draft.questionId} className="rounded-xl border border-[#d8e6df] p-3">
                 <p className="font-semibold">{cardLabel(draft.questionId, draft.questionText, { responding: respondingFromAnswers([...earlierAnswers, ...proposalDrafts], facts) })}</p>
                 {!draft.keep ? <p data-testid="story-proposal-value" className="mt-1">{draft.answer}</p> : null}
-                {/* Three explicit choices, no silent decision (site owner, 11 Nov 2026). */}
-                <div role="group" aria-label="Is this right?" className="mt-2 flex flex-wrap gap-2">
-                  {([["yes", "Yes"], ["no", "No, that's not right"], ["unsure", "I'm not sure"]] as const).map(([choice, words]) => (
-                    <button
-                      key={choice}
-                      type="button"
-                      data-testid={`story-proposal-${choice}`}
-                      // Yes is the control that uses the suggestion: it carries the shared marker (UseSuggestion.tsx), so a
-                      // check that finds every offer on any screen finds this one.
-                      data-use-suggestion={choice === "yes" ? "" : undefined}
-                      aria-pressed={draft.choice === choice}
-                      disabled={loading}
-                      onClick={() => updateProposalDraft(index, { choice, keep: choice === "yes", ...(choice === "yes" ? {} : { answer: draft.original }) })}
-                      className={`rounded-lg border px-3 py-2 text-left font-semibold disabled:opacity-50 ${draft.choice === choice ? "border-[#2f7d67] bg-[#2f7d67] text-white" : "border-[#2f7d67] bg-white text-[#2f7d67]"}`}
-                    >
-                      {words}
-                    </button>
-                  ))}
+                {/* Three explicit choices, no silent decision (site owner, 11 Nov 2026), from the one shared control
+                    (UseSuggestion.tsx); kept on the card until Continue. */}
+                <div className="mt-2">
+                  <UseSuggestion
+                    testId="story-proposal-yes"
+                    noTestId="story-proposal-no"
+                    unsureTestId="story-proposal-unsure"
+                    pressed={draft.choice}
+                    disabled={loading}
+                    onUse={() => updateProposalDraft(index, { choice: "yes", keep: true })}
+                    onNo={() => updateProposalDraft(index, { choice: "no", keep: false, answer: draft.original })}
+                    onUnsure={() => updateProposalDraft(index, { choice: "unsure", keep: false, answer: draft.original })}
+                    className="rounded-lg border border-[#2f7d67] bg-white px-3 py-2 text-left font-semibold text-[#2f7d67] disabled:opacity-50"
+                  />
                 </div>
                 {!draft.keep ? null : draft.choices && draft.choices.length > 0 ? (
                   <select
@@ -1742,35 +1738,22 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           </p>
           <WorkingNote working={resolvingSuggestion}>Saving your answer about the kind of claim…</WorkingNote>
           <div className="mt-3 flex flex-wrap gap-2">
-            {/* The one control every suggestion is offered with (owner, 31 Oct). */}
+            {/* The one control every offer is made with, three choices (site owner, 14 Nov 2026; Chrome check of #550,
+                2.4). "I'm not sure" applies nothing and moves on (suggest, never decide). */}
             <UseSuggestion
               testId="claim-type-use-suggestion"
+              noTestId="claim-type-not-that-one"
+              unsureTestId="claim-type-not-sure"
               what={pendingSuggestion.claimTypeName}
               disabled={resolvingSuggestion}
               onUse={() => void resolveSuggestion("confirm")}
-              className="rounded-full bg-[#2f7d67] px-4 py-2 text-xs font-bold text-white disabled:opacity-60"
-            />
-            <button
-              type="button"
-              disabled={resolvingSuggestion}
-              onClick={() => void resolveSuggestion("reject")}
-              className="rounded-full border border-[#c9b26a] bg-white px-4 py-2 text-xs font-bold text-[#4a3b12] disabled:opacity-60"
-            >
-              No, not that one
-            </button>
-            {/* Now that the next question waits on this one, there has to be a
-                way past it that applies nothing (suggest, never decide). */}
-            <button
-              type="button"
-              disabled={resolvingSuggestion}
-              onClick={() => {
+              onNo={() => void resolveSuggestion("reject")}
+              onUnsure={() => {
                 setPendingSuggestion(null);
                 setRejectedSuggestionIds([]);
               }}
-              className="rounded-full px-4 py-2 text-xs font-semibold text-[#4a3b12] underline disabled:opacity-60"
-            >
-              Not sure, skip this
-            </button>
+              className="rounded-full bg-[#2f7d67] px-4 py-2 text-xs font-bold text-white disabled:opacity-60"
+            />
           </div>
         </div>
       ) : null}

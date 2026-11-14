@@ -398,7 +398,7 @@ for (const who of ["guest", "signed-in"] as const) {
       await expect(kind, "the review asks the kind (nothing has given it)").toHaveCount(1, { timeout: 60_000 });
       const suggested = kind.locator("[data-use-suggestion]");
       await expect(suggested, "the kind the story names is suggested").toHaveCount(1, { timeout: 10_000 });
-      expect.soft((await suggested.innerText()).trim(), "property damage, the kind the words name (\"broke my dining table\")").toBe("Use the suggestion: Property damage");
+      expect.soft(((await suggested.getAttribute("aria-label")) ?? "").trim(), "property damage, the kind the words name (\"broke my dining table\")").toBe("Yes: Property damage");
     } finally {
       if (userId) await deleteHarnessUser(userId);
     }

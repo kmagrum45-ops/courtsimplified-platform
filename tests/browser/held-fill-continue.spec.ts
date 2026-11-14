@@ -53,7 +53,7 @@ async function guidedThenReview(page: Page, changedAmount?: string) {
   const kind = q("sc-orient-dispute-category").getByRole("button").first();
   if (await kind.count()) await kind.click();
   if (await q("sc-claim-filed").count()) await q("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
-  const use = q("sc-amount-claimed").getByRole("button", { name: /^Use the suggestion: .*$/ });
+  const use = q("sc-amount-claimed").getByRole("button", { name: /^Yes: .*$/ });
   if (await use.count()) await use.first().click();
   // The amount given by the story's suggestion, then changed by the person in the same question's box.
   if (changedAmount) {

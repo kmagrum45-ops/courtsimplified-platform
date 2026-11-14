@@ -59,15 +59,15 @@ test("Small Claims: suggestions from the story answer the initial questions; Con
   await expect(page.locator('[data-question="sc-orient-role"]')).toHaveCount(0);
   // Suggested, never chosen for the person.
   const kind = page.locator('[data-question="sc-orient-dispute-category"]');
-  await kind.getByRole("button", { name: /^Use the suggestion: Work or a service you paid for/ }).click();
+  await kind.getByRole("button", { name: /^Yes: Work or a service you paid for/ }).click();
   const when = page.locator('[data-question="sc-orient-when-happened"]');
   if (await when.count()) {
-    await when.getByRole("button", { name: "Use the suggestion: 2026-05-12" }).click();
+    await when.getByRole("button", { name: "Yes: 2026-05-12" }).click();
   }
   // Choosing a side brings up the questions that depend on it (re-test round 7).
   // An amount already paid is never offered in one click (#471 re-test): it is typed.
   const amount = page.locator('[data-question="sc-amount-claimed"]');
-  await expect(amount.getByRole("button", { name: /^Use the suggestion/ })).toHaveCount(0);
+  await expect(amount.getByRole("button", { name: /^Yes: / })).toHaveCount(0);
   await amount.getByLabel(/^Answer: /).fill("$9,000");
   await amount.getByLabel(/^Answer: /).press("Tab");
   // "Nothing filed yet" was given in the situation questions too.
@@ -163,7 +163,7 @@ test("Small Claims: month and year are suggested; the side, given at the start, 
   test.setTimeout(180_000);
   await smallClaimsFromStart(page, "Synthetic story: a contractor took a $3,000 deposit and never did the work, in August 2026.");
   await page.getByTestId("intake-start-review").click();
-  await expect(page.locator('[data-question="sc-orient-when-happened"]').getByRole("button", { name: "Use the suggestion: August 2026" })).toBeVisible();
+  await expect(page.locator('[data-question="sc-orient-when-happened"]').getByRole("button", { name: "Yes: August 2026" })).toBeVisible();
   await expect(page.locator('[data-question="sc-orient-role"]')).toHaveCount(0);
   await expect(page.getByTestId("situation-line")).toContainText("You're suing in Small Claims Court");
 });
@@ -394,7 +394,7 @@ test("Small Claims: answer, confirm, change the story, start again once, answer 
   // The restart keeps every answer the person gave, even for a story rewritten from start to finish (site owner, 6 Nov:
   // test:restart-keeps-answers). It used to ask again here, offering the new story's date (2026-06-10) and taking new answers.
   // Nothing from the earlier answers is asked again, and no suggestion from the new story replaces them.
-  await expect(question("sc-orient-when-happened").getByRole("button", { name: /^Use the suggestion/ }), "the date given is offered again from the new story").toHaveCount(0);
+  await expect(question("sc-orient-when-happened").getByRole("button", { name: /^Yes: / }), "the date given is offered again from the new story").toHaveCount(0);
   await expect(question("sc-orient-when-happened"), "the date given is not kept").toContainText("Answered: 2026-05-12");
   await expect(panel, "the kind given is not kept").toContainText("Work or a service you paid for");
   await expect(page.locator('[data-testid="intake-initial-question"][data-answered="false"]'), "a question the person answered is asked again").toHaveCount(0);

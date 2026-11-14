@@ -76,7 +76,7 @@ test("Small Claims review: the amount from the review's question, cleared in its
   if ((await panel.getAttribute("data-phase")) === "collecting") await page.getByTestId("intake-start-review").click();
   await expect(panel).toHaveAttribute("data-phase", "reviewing", { timeout: 60_000 });
   const question = panel.locator(`[data-testid=intake-initial-question][data-question="${QUESTION}"]`);
-  await question.getByRole("button", { name: "Use the suggestion: $2,400" }).click();
+  await question.getByRole("button", { name: "Yes: $2,400" }).click();
   await expect(question.getByTestId("intake-question-answered")).toContainText("$2,400", { timeout: 20_000 });
 
   // The summary box draws the review's answer; the person clears it and leaves the box.

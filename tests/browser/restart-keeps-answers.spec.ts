@@ -51,7 +51,7 @@ async function signedInCase(page: Page) {
   return { account, caseId };
 }
 
-/** The kind card first ("Use the suggestion"), then each question answered from `answers` ("I do not know yet" otherwise); the ids asked. */
+/** The kind card first ("Yes"), then each question answered from `answers` ("I do not know yet" otherwise); the ids asked. */
 async function answerChat(page: Page, answers: Record<string, string>): Promise<string[]> {
   const card = page.getByTestId("claim-type-suggestion");
   let answered = 0;

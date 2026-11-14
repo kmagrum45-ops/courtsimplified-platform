@@ -294,8 +294,8 @@ async function smallClaims(page: Page, story: Story, viaReview: boolean): Promis
     // The questions one at a time (the guided route), answered as the person would.
     await smallClaimsGuided(page, story);
     // The review then offers nothing it has not been told, or the amount the story claims.
-    const use = page.locator('[data-question="sc-amount-claimed"]').getByRole("button", { name: /^Use the suggestion: .*$/ });
-    return (await use.count()) ? (/^Use the suggestion: (.*)$/.exec((await use.first().innerText()) ?? "")?.[1] ?? null) : null;
+    const use = page.locator('[data-question="sc-amount-claimed"]').getByRole("button", { name: /^Yes: .*$/ });
+    return (await use.count()) ? (/^Yes: (.*)$/.exec((await use.first().getAttribute("aria-label")) ?? "")?.[1] ?? null) : null;
   }
   return answerSmallClaimsReview(page, story);
 }
@@ -311,8 +311,8 @@ async function answerSmallClaimsReview(page: Page, story: Story): Promise<string
   if (await kind.count()) await kind.click();
   const filedQuestion = story.side === "defendant" ? "sc-defendant-defence-filed" : "sc-claim-filed";
   if (await q(filedQuestion).count()) await q(filedQuestion).getByRole("button", { name: "No", exact: true }).click();
-  const use = q("sc-amount-claimed").getByRole("button", { name: /^Use the suggestion: .*$/ });
-  const offered = (await use.count()) ? (/^Use the suggestion: (.*)$/.exec((await use.first().innerText()) ?? "")?.[1] ?? null) : null;
+  const use = q("sc-amount-claimed").getByRole("button", { name: /^Yes: .*$/ });
+  const offered = (await use.count()) ? (/^Yes: (.*)$/.exec((await use.first().getAttribute("aria-label")) ?? "")?.[1] ?? null) : null;
   if (offered) await use.first().click();
   await reviewDates(page, story.id);
   return offered;
@@ -1015,7 +1015,7 @@ test("retest-477 case 19: after changing side, the old side's amount is not carr
   await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
   await smallClaims(page, story, true);
   const amount = page.locator('[data-question="sc-amount-claimed"]');
-  if (!(await amount.getByRole("button", { name: /^Use the suggestion/ }).count())) {
+  if (!(await amount.getByRole("button", { name: /^Yes: / }).count())) {
     // No amount offered: the person types the total they want back.
     await amount.getByRole("textbox").fill("$1,650");
     await amount.getByRole("textbox").press("Enter");
@@ -1139,7 +1139,7 @@ test("retest-477 repeat: the amount the story wants is offered for one click -- 
   const amount = page.locator('[data-question="sc-amount-claimed"]');
   await expect(amount, "one click answered it").toHaveAttribute("data-answered", "true");
   await expect(amount.getByTestId("intake-question-answered"), "the answer is the amount offered").toContainText("$1,650");
-  await expect(amount.getByRole("button", { name: /^Use the suggestion/ }), "a used suggestion is not offered again").toHaveCount(0);
+  await expect(amount.getByRole("button", { name: /^Yes: / }), "a used suggestion is not offered again").toHaveCount(0);
 });
 test("retest-477 repeat: the amount the story claims is offered for one click -- civil", async ({ page }) => {
   test.setTimeout(240_000);

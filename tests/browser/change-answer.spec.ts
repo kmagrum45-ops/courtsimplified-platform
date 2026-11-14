@@ -252,7 +252,7 @@ test("one change path (small-claims): \"No, not that one\" on the guided suggest
     const card = page.getByTestId("claim-type-suggestion");
     await expect(card, "the stand-in's suggestion is offered once").toBeVisible({ timeout: 60_000 });
     await expect(card).toContainText(suggestion.claimTypeName);
-    await card.getByRole("button", { name: "No, not that one" }).click();
+    await card.getByTestId("claim-type-not-that-one").click();
     await expect(card).toHaveCount(0, { timeout: 60_000 });
     await savedNow(page);
 

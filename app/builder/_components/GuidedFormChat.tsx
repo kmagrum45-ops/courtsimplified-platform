@@ -423,32 +423,17 @@ export default function GuidedFormChat({
                 </p>
                 {/* Three explicit choices (site owner, 11 Nov 2026): Yes keeps it; No, that's not right asks it once;
                     I'm not sure records not sure for this question (never asked again, "add it when you know"). */}
-                <div className="mt-3 flex flex-wrap gap-2">
-                  <button
-                    type="button"
-                    data-testid="guided-form-from-story-yes"
-                    data-use-suggestion=""
-                    onClick={() => (group.length > 1 ? acceptGroup(group) : answer(offered.value, true))}
+                {/* The one three-choice control every offer is made with (UseSuggestion.tsx; 14 Nov 2026). */}
+                <div className="mt-3">
+                  <UseSuggestion
+                    testId="guided-form-from-story-yes"
+                    noTestId="guided-form-from-story-no"
+                    unsureTestId="guided-form-from-story-unsure"
+                    onUse={() => (group.length > 1 ? acceptGroup(group) : answer(offered.value, true))}
+                    onNo={() => setNotFromStory((now) => new Set(now).add(current.key))}
+                    onUnsure={() => answer(current.kind === "multi" ? [] : "")}
                     className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
-                  >
-                    Yes
-                  </button>
-                  <button
-                    type="button"
-                    data-testid="guided-form-from-story-no"
-                    onClick={() => setNotFromStory((now) => new Set(now).add(current.key))}
-                    className="rounded-xl border border-[#d8e6df] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67]"
-                  >
-                    No, that&apos;s not right
-                  </button>
-                  <button
-                    type="button"
-                    data-testid="guided-form-from-story-unsure"
-                    onClick={() => answer(current.kind === "multi" ? [] : "")}
-                    className="rounded-xl border border-[#d8e6df] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67]"
-                  >
-                    I&apos;m not sure
-                  </button>
+                  />
                 </div>
               </div>
             );
