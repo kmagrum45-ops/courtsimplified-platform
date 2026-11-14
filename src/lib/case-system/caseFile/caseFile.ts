@@ -35,7 +35,7 @@ import type { Checkpoint } from "../intakeCheckpoint";
 import { freshSections } from "../storyBasis";
 import { isTypedUnsure, isUnsureAnswer } from "./unsureAnswer";
 import { storyOfMaster } from "../intakeStory";
-import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation } from "../situation/situation";
+import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation, SERVED_DATE_QUESTION } from "../situation/situation";
 import { isKindOfClaim, kindFromStory, storyQuoteFor, wordsInStory } from "../intake/claimKind";
 import { CLAIM_TYPES } from "../intake/claimTypes";
 import { kindForSide } from "../intake/roleView";
@@ -1344,7 +1344,13 @@ export function withCaseFileDates(answered: Record<string, string>, file: CaseFi
   // The day served, given anywhere but the situation questions (whose day withSituationDates
   // places by the papers picked): only the court's own first served-date question (reviewer 2).
   const served = file.servedDate;
-  const servedDay = served.source?.kind === "answer" && !served.source.question.startsWith("situation:") ? slotDay(served, readDay) : null;
+  // A day from the situation questions is placed there by the papers picked; with the papers not named ("not sure") it is
+  // placed on no question, so the court's own served-date question reads it too, unless some served-date question already
+  // holds that day (ask-once story sc-served-kitchen-home, 14 Nov: the case page asked the served day the header showed).
+  const fromSituation = served.source?.kind === "answer" && served.source.question.startsWith("situation:");
+  const situationDay = fromSituation ? slotDay(served, readDay) : null;
+  const placedBySituation = situationDay !== null && Object.values(SERVED_DATE_QUESTION).some((id) => out[id] === situationDay);
+  const servedDay = served.source?.kind === "answer" && (!fromSituation || !placedBySituation) ? slotDay(served, readDay) : null;
   const court = typeof file.court.value === "string" ? file.court.value : "";
   const servedId = court === "family" ? "case-date-served-with-application" : court === "small-claims" || court === "civil" ? "sc-date-claim-served" : null;
   if (servedDay && servedId && !out[servedId]) out[servedId] = servedDay;
