@@ -339,7 +339,10 @@ export function factsOfAsk(item: Pick<Asked, "surface" | "id" | "text">): string
   }
   // A Small Claims depth question carries its own depth id: its fact is read from its words.
   if (item.surface === "sc-chat" && item.id.startsWith("depth-")) { const facts = factsOfWords(item.text); return facts.length ? facts : [item.id]; }
-  return factsOfQuestion(item.id, item.surface);
+  // A question that asks about safety in its words asks that too (Family's "Is anything urgent, like ..., a safety
+  // worry, ...?": Chrome check of #550, 5c), whatever its own field asks for.
+  const own = factsOfQuestion(item.id, item.surface);
+  return /\bsafety (?:concerns?|worry|worries)\b/i.test(item.text ?? "") && !own.includes("safety") ? [...own, "safety"] : own;
 }
 
 /** What the saved case holds at a moment: each slot the person answered (confirmed), answered or unsure. Story guesses (confirmed false) are not held. */

@@ -20,6 +20,8 @@ import { createStageAnswerPost } from "../../../app/api/case/stage-answer/route"
 import { createGuidedAssistantPost } from "../../../app/api/guided-assistant/route";
 import { createGuidedTurnPost } from "../../../app/api/intake/guided-turn/route";
 import { orchestrateIntakeTurn } from "../../../src/lib/case-system/intake/orchestrateIntakeTurn";
+import { understandCase } from "../../../src/lib/case-system/understanding/understandCase";
+import { checkedAnswerView } from "../../../src/lib/case-system/retrieval/checkedAnswer";
 import { sideInAnswer } from "../../../app/builder/_components/stageFromAnswers";
 import { candidatesFromMasterResult, resolveCandidates } from "../../../src/lib/case-system/events/caseEventCandidates";
 
@@ -88,6 +90,23 @@ export async function serveFromThisCommit(page: Page, court: Court, rows: Rows) 
 }
 
 /**
+ * The home page's story reading (/api/case/understand) for a story read with questions: this commit's own
+ * understandCase, with only the model's reasoning replaced by these questions on the first reading (none once the
+ * person has answered), so what the reading does with the situation answers (which questions it drops) is the site's
+ * own code (Chrome check of #550, 5b-5d).
+ */
+async function serveHomeReading(page: Page, court: Court, questions: readonly string[]) {
+  await page.route("**/api/case/understand", async (route) => {
+    const body = route.request().postDataJSON() as { story: string; answers?: { question: string; answer: string }[]; situation?: { side?: string } };
+    const asked = body.answers?.length ? [] : questions;
+    const reason = async () => JSON.stringify({ summary: "Synthetic reading.", facts: [], matters: [{ title: "Your matter", court }], mainCourt: court, side: body.situation?.side ?? "unclear", stage: "", questions: asked.map((question) => ({ question, why: "Synthetic." })), asksForPrediction: false, step: null, points: [] });
+    const result = await understandCase({ story: body.story, ...(body.answers ? { answers: body.answers } : {}), ...(body.situation ? { situation: body.situation } : {}) } as never, { reason, intakeOnly: true, check: { answer: async () => ({ status: "unavailable", statements: [], notConfirmed: [], declinedToJudge: false, missingLaw: [] }) } as never });
+    if (result.status !== "understood") return route.fulfill({ json: { ok: true, skipped: "unavailable" } });
+    return route.fulfill({ json: { ok: true, understanding: result.understanding, answer: checkedAnswerView(result.answer) } });
+  });
+}
+
+/**
  * ONLY the routes that would call a model, each answered by this commit's own code with every
  * model step replaced (as above). Everything else -- the account, the case rows, every /api
  * route and every save -- is left to the real site. For a test that must use the real save path
@@ -95,10 +114,12 @@ export async function serveFromThisCommit(page: Page, court: Court, rows: Rows) 
  * `ownerId`: the signed-in user the guided-turn route is told it serves.
  * `suggestKind`: the claim-type classifier's stand-in suggests this kind on every opening story
  * (default: none), and "No, not that one" gets "no match" back -- for the "Not quite" test.
+ * `homeQuestions`: the home page's story reading asks these (serveHomeReading); without them it is off.
  */
-export async function serveModelStandIns(page: Page, court: Court, ownerId: string = OWNER, standIns: { suggestKind?: { claimTypeId: string; claimTypeName: string; quote: string }; propose?: Record<string, string> } = {}) {
+export async function serveModelStandIns(page: Page, court: Court, ownerId: string = OWNER, standIns: { suggestKind?: { claimTypeId: string; claimTypeName: string; quote: string }; propose?: Record<string, string>; homeQuestions?: readonly string[] } = {}) {
   await page.route("**/api/case/read", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
-  await page.route("**/api/case/understand", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
+  if (standIns.homeQuestions?.length) await serveHomeReading(page, court, standIns.homeQuestions);
+  else await page.route("**/api/case/understand", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
   await page.route("**/api/classify-court-path", (route) => route.fulfill({ json: { primaryPath: court, confidence: 0.95 } }));
   await page.route("**/api/assistant/law", (route) => route.fulfill({ json: { findings: [] } }));
   await page.route("**/api/intake/guided-turn", (route) => {

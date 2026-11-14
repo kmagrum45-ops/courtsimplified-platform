@@ -1,8 +1,9 @@
 /**
- * ASK ONCE, ON EVERY PAGE, FOR 34 STORIES (site owner, 11 Nov 2026: "the site must remember the case and every
+ * ASK ONCE, ON EVERY PAGE, FOR 37 STORIES (site owner, 11 Nov 2026: "the site must remember the case and every
  * screen must read from it"; target ZERO, no baseline).
  *
- * Each story (the 32 of test:story-invariants, the tree story from the live site and the slip-and-fall) is given
+ * Each story (the 32 of test:story-invariants, the tree story from the live site, the slip-and-fall, and three of Chrome's
+ * check of #550 read on the home page with its own questions: 5b, 5c, 5d) is given
  * once, signed in, and taken through the questions (Small Claims: the chat, pressing Continue on its story offers
  * without ticking, as the person on the live site did; civil and Family: one question at a time, using an offer
  * from the story when one is made), the review, the next step, the case page, the case file page and, for a Small
@@ -40,7 +41,8 @@ test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTi
 
 type Side = "bringing" | "responding";
 type Stated = { amount?: string; when?: string; otherParty?: string };
-type Story = { name: string; court: Court; side: Side; text: string; served?: string; stated: Stated; amountLater?: true };
+/** `home`: the home page's story reading asks these questions (Chrome check of #550, 5b-5d), answered with these words. */
+type Story = { name: string; court: Court; side: Side; text: string; served?: string; stated: Stated; amountLater?: true; home?: { question: string; answer: string }[] };
 const S = (name: string, court: Court, side: Side, text: string, stated: Stated, served?: string): Story => ({ name, court, side, text: `Synthetic: ${text}`, stated, served });
 
 export const STORIES: Story[] = [
@@ -81,6 +83,22 @@ export const STORIES: Story[] = [
   // The slip-and-fall: $5,000, $450 and $18.45 saved; the draft said the amount "has not yet been clearly entered".
   { ...S("sc-slip-and-fall-changed", "small-claims", "bringing", "On March 14, 2026 I slipped on an icy step outside Testmart Grocery and broke my wrist. I am claiming $5,000 for pain and suffering, $450 for physiotherapy and $18.45 for a wrist brace.", { amount: "5468.45", when: "March 14, 2026", otherParty: "Testmart Grocery" }), amountLater: true },
   S("sc-slip-and-fall", "small-claims", "bringing", "On March 14, 2026 I slipped on an icy step outside Testmart Grocery and broke my wrist. I am claiming $5,000 for pain and suffering, $450 for physiotherapy and $18.45 for a wrist brace.", { amount: "5468.45", when: "March 14, 2026", otherParty: "Testmart Grocery" }),
+  // Chrome check of #550 (13 Nov), with the home page's own questions as Chrome saw them asked.
+  // 5b: being sued; the case status asked again after the start screen, and a claim of your own offered again.
+  { ...S("sc-served-kitchen-home", "small-claims", "responding", "A contractor redid my kitchen in August 2026. The agreed price was $6,200 and I paid $2,000. They have sued me for the other $4,200. I dispute all of it: the cabinets are crooked and the countertop is cracked.", { amount: "4200" }, "October 20, 2026"),
+    home: [
+      { question: "Has anything happened in the court case since you received the claim?", answer: "No, nothing else has happened yet." },
+      { question: "Do you want to make a claim of your own against the contractor?", answer: "No. I only want to defend the claim. I am not seeking money from the contractor." },
+    ] },
+  // 5c: Family; "Is anything urgent ... a safety worry" asked after "No safety concerns".
+  { ...S("family-not-married-home", "family", "bringing", "Jordan Testcase and I were never married. Our daughter has lived with me in Ottawa since birth and sees Jordan every second weekend. Jordan does not agree to a parenting schedule.", { otherParty: "Jordan Testcase" }),
+    home: [
+      { question: "Are there any immediate safety concerns for you or your child?", answer: "No safety concerns." },
+      { question: "Are there any existing court orders or written agreements about parenting?", answer: "No, there are no orders or written agreements." },
+    ] },
+  // 5d: Civil; "Who is the other side?" asked after the home page's question about who bought the goods was answered.
+  { ...S("civil-goods-home", "civil", "bringing", "I sold $85,000 of equipment personally to a company in Ottawa. Payment was due September 30, 2026 and nothing has been paid.", { amount: "85000" }),
+    home: [{ question: "Who bought the goods from you?", answer: "Testgoods Ltd., in Ottawa." }] },
 ];
 
 export type Violation = { story: string; court: Court; side: Side; kind: "asked-twice" | "stated-cold" | "typed-reconfirm" | "missing-label"; fact: string; screen: string; detail: string };
@@ -114,7 +132,26 @@ function answerFor(story: Story, text: string): { value: string; fact: string | 
 }
 
 async function giveStory(page: Page, story: Story) {
-  if (story.court === "small-claims") {
+  if (story.home) {
+    // The home page, as Chrome used it: the start screen first (answered by the page's handler), the story, then the
+    // reading's questions answered in their boxes and "Update with my answers", then the suggested court.
+    await page.goto(`/?path=${story.court}`);
+    await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
+    await page.getByLabel("City or municipality").fill("Kingston");
+    await page.getByLabel(STORY_LABEL, { exact: true }).fill(story.text);
+    await page.getByRole("button", { name: `Continue to ${{ "small-claims": "Small Claims", family: "Family", civil: "Civil" }[story.court]} intake` }).click();
+    const questions = page.getByTestId("case-understanding-questions");
+    if (await visible(questions, 120_000)) {
+      for (const { question, answer } of story.home) {
+        const box = questions.getByLabel(question, { exact: true });
+        if (await box.isVisible().catch(() => false)) await box.fill(answer);
+      }
+      await page.getByTestId("case-understanding-update").click().catch(() => {});
+      await expect(questions).toHaveCount(0, { timeout: 120_000 }).catch(() => {});
+    }
+    await page.getByTestId("case-understanding-continue-suggested").click();
+    await page.waitForURL(/\/builder\?.*intake=/, { timeout: 90_000 });
+  } else if (story.court === "small-claims") {
     await page.goto("/?path=small-claims");
     await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
     await page.getByLabel("City or municipality").fill("Kingston");
@@ -295,7 +332,7 @@ for (const story of STORIES) {
     let reached = "start";
     try {
       await autoAnswerSituation(page, situationOf(story));
-      await serveModelStandIns(page, story.court, userId);
+      await serveModelStandIns(page, story.court, userId, story.home ? { homeQuestions: story.home.map((item) => item.question) } : {});
       const events: Asked[] = await recordAsks(page);
       await giveStory(page, story);
       reached = "story";
