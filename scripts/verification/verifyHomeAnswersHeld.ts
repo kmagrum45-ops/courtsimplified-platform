@@ -20,6 +20,9 @@
  *   4. an answer to the home page's question about who the other side is, in the words the model uses for it
  *      (the buyer, who you sold to, the company's name), is the other party: the Civil chat does not ask it again;
  *   5. none of these words are read as a fact they do not ask about (the reader stays narrow).
+ *   6. Family: the chat's urgent question, which asks about a safety worry, holds safety when it is answered or
+ *      skipped, so the review's safety box is not asked again; Civil's urgent question (no safety in it) holds none,
+ *      and a safety answer of its own is kept.
  *
  * WHAT FAILURE THIS CATCHES: a home-page answer the case file does not know, so a later screen asks it again.
  *
@@ -94,6 +97,27 @@ async function main() {
     assert.equal(factOfAskedText("Do you believe Alex still owes you money?"), null, "read as a fact for the person suing");
     {
     }
+  });
+
+  // 6. The Family chat's urgent question asks about a safety worry in its own words, so its answer (or "I'm not sure")
+  // is the safety answer when safety is not held yet: the review's "Safety or urgent concerns" box does not ask again
+  // (carry and ask-once page test, 14 Nov 2026: asked-twice safety @ review-entry in every Family run).
+  for (const [name, sections] of [
+    ["answered", { family: { urgent: "A hearing on Friday." } }],
+    ["not sure", { "form-chat": { skipped: ["urgent"] } }],
+  ] as const) {
+    await check(`6. Family: the chat's urgent question ${name} holds safety; the safety box is not asked again`, () => {
+      const file = caseFileOf(checkpoint("family", sections));
+      assert.ok(!["ask", "offer"].includes(questionStatus(file, "safetyConcerns")), `the safety box may still be asked: ${questionStatus(file, "safetyConcerns")}`);
+    });
+  }
+  await check("6. Civil: its urgent question does not ask about safety, so its answer holds no safety", () => {
+    const file = caseFileOf(checkpoint("civil", { civil: { input: { urgent: "A hearing on Friday." } } }));
+    assert.equal(file.safety.state, "not-asked", `civil urgent answer held as safety: ${JSON.stringify(file.safety)}`);
+  });
+  await check("6. Family: a safety answer of its own is kept over the urgent answer", () => {
+    const file = caseFileOf(checkpoint("family", { ...home("Are there any immediate safety concerns for you or your child?", "No safety concerns."), family: { urgent: "A hearing on Friday." } }));
+    assert.equal(file.safety.value, "No safety concerns.", `safety replaced: ${JSON.stringify(file.safety)}`);
   });
 
   if (failed) { console.log(`\n${failed} check(s) failed`); process.exit(1); }

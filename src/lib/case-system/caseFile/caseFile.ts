@@ -497,6 +497,10 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
     const words = wordsFollowHeldAmount(file.wants.value, heldAmount);
     if (words !== file.wants.value) file.wants = { ...file.wants, value: words };
   }
+  // 13. Family's urgent question asks about a safety worry in its own words (guidedFields.ts, asked whole only while
+  // safety is not held), so its answer or "not sure" is the safety answer until safety has one of its own (site owner,
+  // 14 Nov 2026, 5c: never asked again; carry: the review's "Safety or urgent concerns" box asked after it). Read only.
+  if (file.area === "family" && notAsked(file.safety) && !notAsked(file.urgent)) file.safety = { state: file.urgent.state, value: file.urgent.value, source: file.urgent.source, confirmed: file.urgent.confirmed };
   return file;
 }
 
