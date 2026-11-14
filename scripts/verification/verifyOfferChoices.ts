@@ -13,6 +13,8 @@
  *      once, plainly;
  *   4. "I'm not sure" on a fact is sent to the server like every edit (pendingWrites), and the server's save keeps the
  *      offer choices beside the facts, also when a request holds offer choices only (a "No");
+ *   6. "I'm not sure" never takes an answer away, in every court: an answer held from the fact record or the form's box
+ *      stays through the intake's save, the case page's save and the server's save (only "removed" takes one away);
  *   5. the 13 offers each pass their target to the one control (UseSuggestion offer=...), and the control records every
  *      No and Not sure through the one handler (offerChoiceSave.ts) unless the offer says its screen keeps it.
  *
@@ -40,7 +42,7 @@ const cp = (court: Court, sections: Record<string, unknown>): Checkpoint => ({ v
 /** One choice through the intake's save (caseWrite.ts writeOfferChoice), then the saved checkpoint read back. */
 function choose(court: Court, target: OfferTarget, choice: OfferChoice, sections: Record<string, unknown> = {}): Checkpoint {
   const caseFile = (sections[CASE_FILE_SECTION] ?? {}) as Record<string, unknown>;
-  const parts = offerChoiceParts(caseFile, target, choice, new Date("2026-11-14T12:00:00Z"));
+  const parts = offerChoiceParts(caseFile, target, choice, new Date("2026-11-14T12:00:00Z"), undefined, caseFileOf(cp(court, sections)));
   const next = cp(court, { ...sections, [CASE_FILE_SECTION]: { ...caseFile, ...parts } });
   const read = readCheckpoint(JSON.parse(JSON.stringify(next)), court, ID);
   if (!read) throw new Error("the checkpoint was refused");
@@ -97,7 +99,7 @@ check("2. the 13 offers are all covered", CASES.length === 13, String(CASES.leng
   const unsure = choose("small-claims", { key: "claim-kind:sc-claim-unpaid-invoice", fact: "claimKind" }, "unsure");
   const writes = pendingWrites((unsure.sections[CASE_FILE_SECTION as never] as Record<string, unknown>).changes);
   check("4. I'm not sure on a fact is sent like every edit (pendingWrites)", writes.length === 1 && writes[0].fact === "claimKind" && writes[0].state === "unsure", JSON.stringify(writes));
-  check("4. the case page's save sends the same fact", JSON.stringify(offerChoiceWrites({ key: "claim-kind:x", fact: "claimKind" }, "unsure").map((write) => [write.fact, write.state])) === JSON.stringify([["claimKind", "unsure"]]) && offerChoiceWrites({ key: "tidy:x", fact: null }, "unsure").length === 0);
+  check("4. the case page's save sends the same fact", JSON.stringify(offerChoiceWrites({ key: "claim-kind:x", fact: "claimKind" }, "unsure", 0, caseFileOf(null)).map((write) => [write.fact, write.state])) === JSON.stringify([["claimKind", "unsure"]]) && offerChoiceWrites({ key: "tidy:x", fact: null }, "unsure", 0, caseFileOf(null)).length === 0);
   check("4. the server's section keeps the offer choices beside what it held", JSON.stringify(sectionWithOfferChoices({ facts: { a: 1 } }, [{ key: "step:x", choice: "no" }])) === JSON.stringify({ facts: { a: 1 }, offerChoices: { "step:x": "no" } }));
 
   const master = { intakeCheckpoint: cp("small-claims", { situation: { record: { where: "starting", filed: "nothing", court: "small-claims" } } }) };
@@ -120,7 +122,7 @@ check("2. the 13 offers are all covered", CASES.length === 13, String(CASES.leng
     const onlyNo = await saveFactWrites(client as never, { caseId: ID, userId: "u1", court: "small-claims" }, [], () => new Date("2026-11-14T12:00:00Z"), [{ key: "step:x", choice: "no" }]);
     const savedSections = ((db.row.master_result.intakeCheckpoint as Checkpoint).sections ?? {}) as Record<string, unknown>;
     check("4. a request with offer choices only (a No) is saved", onlyNo.ok && offerChoiceOf(savedSections, "step:x") === "no", JSON.stringify(onlyNo));
-    const withFact = await saveFactWrites(client as never, { caseId: ID, userId: "u1", court: "small-claims" }, offerChoiceWrites({ key: "claim-kind:y", fact: "claimKind" }, "unsure"), () => new Date("2026-11-14T12:01:00Z"), [{ key: "claim-kind:y", choice: "unsure" }]);
+    const withFact = await saveFactWrites(client as never, { caseId: ID, userId: "u1", court: "small-claims" }, offerChoiceWrites({ key: "claim-kind:y", fact: "claimKind" }, "unsure", 0, caseFileOf(null)), () => new Date("2026-11-14T12:01:00Z"), [{ key: "claim-kind:y", choice: "unsure" }]);
     const after = readCheckpoint(db.row.master_result.intakeCheckpoint, "small-claims", ID)!;
     check("4. I'm not sure on a case page: the fact settled and the choice kept, in one save", withFact.ok && caseFileOf(after).claimKind.state === "unsure" && offerChoiceOf(after.sections as Record<string, unknown>, "claim-kind:y") === "unsure" && offerChoiceOf(after.sections as Record<string, unknown>, "step:x") === "no", JSON.stringify(caseFileOf(after).claimKind));
 
@@ -145,6 +147,49 @@ check("2. the 13 offers are all covered", CASES.length === 13, String(CASES.leng
     ];
     for (const [offer, file, pattern] of TARGETS) check(`5. ${offer}: its target is passed to the one control, recorded by the one handler`, pattern.test(read(file)), file);
     check("5. the 13 are all checked", TARGETS.length === 13, String(TARGETS.length));
+
+    // 6. "I'm not sure" never takes an answer away (site owner, 14 Nov 2026, decision B: a typed answer beats "not sure"
+    // for the same fact; only "removed" takes an answer away). In every court, an answer held from the fact record or from
+    // the form's own box, then "I'm not sure" on an offer for that fact: through the intake's save, the case page's save
+    // and the server's save, the answer stays.
+    const FORM_BOX: Record<string, Record<string, unknown>> = {
+      "small-claims": { "small-claims": { input: { otherParty: "Jordan Testwood" } } },
+      civil: { civil: { input: { otherParty: "Jordan Testwood" } } },
+      family: { family: { otherParty: "Jordan Testwood" } },
+    };
+    for (const court of ["small-claims", "civil", "family"] as const) {
+      for (const [how, sections] of [
+        ["the fact record", { [CASE_FILE_SECTION]: { facts: { otherParty: { state: "answered", value: "Jordan Testwood", source: "person", at: "2026-11-14T11:00:00.000Z", seq: 1 } } } }],
+        ["the form's own box", FORM_BOX[court]],
+      ] as const) {
+        const target: OfferTarget = { key: "sc-form:otherParty", fact: "otherParty" };
+        const before = caseFileOf(cp(court, sections as Record<string, unknown>));
+        if (before.otherParty.state !== "answered") { check(`6. ${court}, ${how}: the setup holds the answer`, false, JSON.stringify(before.otherParty)); continue; }
+        const intake = choose(court, target, "unsure", sections as Record<string, unknown>);
+        check(`6. ${court}, answered in ${how}: I'm not sure through the intake's save leaves the answer`, caseFileOf(intake).otherParty.value === "Jordan Testwood" && offerChoiceOf(intake.sections as Record<string, unknown>, target.key) === "unsure", JSON.stringify(caseFileOf(intake).otherParty));
+        check(`6. ${court}, answered in ${how}: the case page's save sends no "not sure" for it`, offerChoiceWrites(target, "unsure", 0, before).length === 0, JSON.stringify(offerChoiceWrites(target, "unsure", 0, before)));
+        const db2 = { row: { master_result: { intakeCheckpoint: cp(court, sections as Record<string, unknown>) } as Record<string, unknown>, updated_at: "t1" } };
+        const chain2 = (kind: "select" | "update", values?: Record<string, unknown>) => {
+          const filters: Record<string, string> = {};
+          const self = {
+            eq(column: string, value: string) { filters[column] = value; return self; },
+            async maybeSingle() { return { data: { master_result: db2.row.master_result, updated_at: db2.row.updated_at }, error: null }; },
+            async select() {
+              if (kind !== "update" || filters.updated_at !== db2.row.updated_at) return { data: [], error: null };
+              db2.row = { master_result: values!.master_result as Record<string, unknown>, updated_at: String(values!.updated_at) };
+              return { data: [{ id: ID }], error: null };
+            },
+          };
+          return self;
+        };
+        const client2 = { from: () => ({ select: () => chain2("select"), update: (values: Record<string, unknown>) => chain2("update", values) }) };
+        // A "not sure" write from an offer reaching the server anyway (an older tab, a hand-made request).
+        await saveFactWrites(client2 as never, { caseId: ID, userId: "u1", court }, [{ fact: "otherParty", state: "unsure", source: "person", question: "offer:sc-form:otherParty", seenSeq: 1 }], () => new Date("2026-11-14T12:02:00Z"), [{ key: target.key, choice: "unsure" }]);
+        const serverAfter = readCheckpoint(db2.row.master_result.intakeCheckpoint, court, ID);
+        check(`6. ${court}, answered in ${how}: the server refuses an offer's "not sure" over the answer`, Boolean(serverAfter) && caseFileOf(serverAfter!).otherParty.value === "Jordan Testwood", JSON.stringify(serverAfter ? caseFileOf(serverAfter).otherParty : null));
+      }
+    }
+
 
     if (failed) { console.log(`\n${failed} check(s) failed`); process.exit(1); }
     console.log("\nAll checks passed");
