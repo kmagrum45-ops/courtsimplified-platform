@@ -1,0 +1,6 @@
+# Sources saved as served (scripts/sources/fetchFormSources.ts): stored byte for byte, never line-ending converted,
+# so each file's sha256 matches the one recorded in docs/sources/README.md (15 Nov 2026: the Interest Act page is
+# served with CRLF and was converted on commit).
+docs/sources/federal/*.html -text
+docs/sources/interest-rates/*.html -text
+docs/sources/court-locations/ontario-ca-court-locations.html -text
