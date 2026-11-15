@@ -16,7 +16,12 @@
  *   3. the official form's boxes are still filled in the download (read back after the pages are added);
  *   4. reasons that fit: no tick and no extra page (7A; 9A); 9A when the record does not say the person is the defendant:
  *      no reasons, no tick, no pages;
- *   5. NEGATIVE CONTROL: the comparison catches pages that lose the last word of the overflow, and a tick with no pages.
+ *   5. NEGATIVE CONTROL: the comparison catches pages that lose the last word of the overflow, and a tick with no pages;
+ *   7. the person can still change the boxes of a download with pages: every box of the official form is there, on the
+ *      same page, with the same kind and flags, none read-only, and a box filled again reads back the new value;
+ *   8. a download without pages keeps the official file's protection exactly (the same permissions; 15 Nov 2026: the
+ *      official forms allow filling and printing and deny changing the document, comments and page assembly; a
+ *      download with pages has no protection, as rebuilt by pdf.js, which the site owner was told).
  *
  * WHAT FAILURE THIS CATCHES: a ticked "pages attached" with no pages, pages with words missing or cut off, or pages that
  * hold words that are not the person's.
@@ -28,7 +33,7 @@ import { FORM_7A } from "../../src/lib/case-system/forms/maps/form7A";
 import { FORM_9A } from "../../src/lib/case-system/forms/maps/form9A";
 import { fillForm, type FormMapDefinition } from "../../src/lib/case-system/forms/formMap";
 import { formContextOf } from "../../src/lib/case-system/forms/formContext";
-import { filledFormPdf, officialPdfBytes, pdfBoxes } from "../../src/lib/case-system/forms/officialPdf";
+import { fillOfficialPdf, filledFormPdf, officialPdfBytes, pdfBoxes } from "../../src/lib/case-system/forms/officialPdf";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 
 type PdfJs = typeof import("pdfjs-dist/legacy/build/pdf.mjs");
@@ -99,6 +104,26 @@ function attachedProblems(map: FormMapDefinition, lines: readonly Line[], firstA
   return problems;
 }
 
+/** Each widget of a PDF: page, name, kind and flags (its key, in order), and whether it is read-only. */
+async function widgets(bytes: Uint8Array): Promise<{ key: string; readOnly: boolean }[]> {
+  const lib = (await import("pdfjs-dist/legacy/build/pdf.mjs")) as PdfJs;
+  const task = lib.getDocument({ data: bytes.slice(), verbosity: lib.VerbosityLevel.ERRORS });
+  const doc = await task.promise;
+  const out: { key: string; readOnly: boolean }[] = [];
+  for (let page = 1; page <= doc.numPages; page++) for (const a of await (await doc.getPage(page)).getAnnotations()) if (a.subtype === "Widget") out.push({ key: `p${page} ${a.fieldName} ${a.fieldType} ${a.fieldFlags}`, readOnly: Boolean(a.readOnly) });
+  await task.destroy();
+  return out.sort((x, y) => x.key.localeCompare(y.key));
+}
+
+/** The permissions a protected PDF grants (pdf.js), or null when it has no protection. */
+async function permissions(bytes: Uint8Array): Promise<number[] | null> {
+  const lib = (await import("pdfjs-dist/legacy/build/pdf.mjs")) as PdfJs;
+  const task = lib.getDocument({ data: bytes.slice(), verbosity: lib.VerbosityLevel.ERRORS });
+  const granted = await (await task.promise).getPermissions();
+  await task.destroy();
+  return granted ? [...granted].sort((a, b) => a - b) : null;
+}
+
 let failed = 0;
 const check = async (name: string, run: () => void | Promise<void>) => { try { await run(); console.log(`PASS  ${name}`); } catch (error) { failed++; console.log(`FAIL  ${name}\n      ${(error as Error).message.split("\n").slice(0, 6).join("\n      ")}`); } };
 
@@ -138,6 +163,13 @@ async function main() {
       assert.ok(typeof first?.value === "string" && first.value.length > 100, "the first reasons box is empty in the download");
       assert.ok(boxes.some((box) => box.value === "Example Renovations Inc."), "the other party's name is not in the download");
     });
+    await check(`7. ${map.id}, download with pages: every official box is there, unchanged and not read-only, and can be filled again`, async () => {
+      const [official, download] = [await widgets(officialPdfBytes(map.pdf.file)), await widgets(bytes)];
+      assert.deepEqual(download.map((box) => box.key), official.map((box) => box.key));
+      assert.deepEqual(download.filter((box) => box.readOnly).map((box) => box.key), []);
+      const again = await pdfBoxes(await fillOfficialPdf(bytes, { [reasons[0]]: "Changed by the person." }));
+      assert.equal(again.find((box) => box.name === reasons[0])?.value, "Changed by the person.");
+    });
     if (map === FORM_7A) {
       await check("5. negative control: pages that lose the last word of the overflow are caught", () => {
         const shortened = lines.filter((line) => !(line.page === pages && line === lines.filter((l) => l.page === pages).at(-1)));
@@ -157,6 +189,12 @@ async function main() {
       const tick = (await pdfBoxes(bytes)).find((box) => box.name === TICK);
       assert.ok(!tick?.value || tick.value === "Off", "the tick is on");
       assert.equal((await pageLines(bytes)).pages, await officialPages(map));
+    });
+    await check(`8. ${map.id}, ${label}: the download keeps the official file's protection exactly`, async () => {
+      const bytes = await filledFormPdf(map, formContextOf(rec));
+      const official = await permissions(officialPdfBytes(map.pdf.file));
+      assert.ok(official !== null, "the official file is not protected: this check no longer applies as written");
+      assert.deepEqual(await permissions(bytes), official);
     });
   }
 

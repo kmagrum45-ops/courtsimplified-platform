@@ -40,21 +40,41 @@ that goes with them; see `docs/forms/wording-needed.md`.
   blank.
 - **Family, Superior Court of Justice (including the Family Court branch):** the same directory. **50 locations list
   a family service, all with an address.** Only 30 of them carry a phone on the page.
-- **Family, Ontario Court of Justice:** **there is no saved source with addresses.**
-  - `ocjCourthouses.json`, from https://www.ontariocourts.ca/ocj/courthouse-email-addresses/ (saved as
-    `docs/sources/court-locations/ocj-courthouse-email-addresses.txt`), lists 58 courthouses by region with **emails
-    only**.
-  - The OCJ location pages carry the address inside an HTML comment, so it is not reliably what the page shows
-    (`courtLocations.ts` header).
-  - **Saved 15 Nov 2026:** the Ministry's own directory, https://www.ontario.ca/locations/courts/
-    (`docs/sources/court-locations/ontario-ca-court-locations.html`, `.txt`). It is an A to Z index of every
-    courthouse address in Ontario, linking 144 courthouse pages.
-  - **The index does not say which court sits at an address.** Each courthouse's own page does (checked on one:
-    `/locations/courts/4810-toronto-10-armoury-street/` reads "Ontario Court of Justice – Toronto, 10 Armoury Street").
-    So no single official page lists the Ontario Court of Justice's courthouses with their addresses.
-  - The court-to-address pairing needs the 144 courthouse pages, fetched the same way (fixed host, CanLII refused).
-    That is not done yet: it waits for the owner's go-ahead.
-  - Until then, an OCJ family office fills **the name only** and leaves the address blank with the reason.
+- **Family, Ontario Court of Justice:** **the 4 family offices the site uses now have an address, from the
+  Ministry's own courthouse pages (15 Nov 2026).**
+  - `ocjCourthouses.json` (https://www.ontariocourts.ca/ocj/courthouse-email-addresses/, saved as
+    `docs/sources/court-locations/ocj-courthouse-email-addresses.txt`) lists 58 courthouses with **emails only**. The
+    site treats 4 as family offices, the ones the list marks family (`nextStepPractical.ts` `ocjFamilyEmails`):
+    Milton, Thunder Bay, 311 Jarvis Family and 47 Sheppard Family.
+  - **Saved 15 Nov 2026:** all 144 courthouse pages of the Ministry's directory (`docs/sources/court-locations/ontario-ca/`,
+    rows in `docs/sources/README.md`), read into `src/lib/content-library/courts/ministryCourthouses.json`: each
+    courthouse's name, address and types of court, each with its `.txt` line (`test:form-maps`,
+    `verifyMinistryCourthouses.ts`).
+  - **Correction to my report of 15 Nov (third round):** I wrote that each courthouse's page says which court sits
+    there. It does not. A page lists types of court ("Family", "Small claims", "Civil" …) but almost never whether the
+    Ontario Court of Justice or the Superior Court of Justice runs them: only 3 of 144 mention the Ontario Court of
+    Justice, none the Superior Court. My one checked page (10 Armoury Street) is the exception: its own name is
+    "Ontario Court of Justice – Toronto".
+  - So each office is matched by evidence, and the method is recorded in the data file:
+
+    | Office (the OCJ list's name) | Method | Address (the Ministry page) |
+    |---|---|---|
+    | 311 Jarvis Family | street: "311 Jarvis" begins exactly one page's address | 311 Jarvis St., Toronto, Ontario M5B 2C4 |
+    | 47 Sheppard Family | street | 47 Sheppard Ave. East, Toronto, Ontario M2N 5N1 |
+    | Milton | the only courthouse in Milton the Ministry lists with Family | 491 Steeles Ave E., Milton, Ontario L9T 1Y7 |
+    | Thunder Bay | the only courthouse in Thunder Bay with Family | 125 Brodie Street North, Thunder Bay, Ontario P7C 0A3 |
+
+    - 311 Jarvis's page lists **no** types of court; that a family office is there comes from the OCJ list's own name
+      for it ("311 Jarvis Family").
+    - A "city" match is two sources put together (the OCJ hears family cases in Milton; the Ministry lists one
+      family courthouse in Milton), not one page saying both. **Whether the site may show an address matched that way
+      is the site owner's call**; until then Lane B does not wire these addresses into a form.
+    - The pages write the city line as "Milton , Ontario" (a space before the comma, from the page's markup). The data
+      keeps the line as on the page; a box would need it written "Milton, Ontario".
+  - Beyond the 4: of the 58 courthouses on the OCJ list, 46 are in a city where the Ministry lists exactly one family
+    courthouse, 10 in a city with several (Toronto, Sudbury, Timmins, Brantford, Napanee, Stratford, Windsor), and 2
+    find none only because the names differ ("Durham (Oshawa)"; "L’Orignal" with a different apostrophe). The site
+    does not use them as family offices.
 - Which court (OCJ or SCJ) a Family case belongs in is not decided here. That is the court-and-process rule in
   CLAUDE.md s. 2a.
 
@@ -159,3 +179,28 @@ own save, and its own screen that can be left and resumed, with figures that add
 - Totals are added up by code from the person's figures, never by a model.
 - **Privacy:** figures, employers and account details are sent to no model. The same build check as the parties
   (`test:parties-never-to-ai`) must cover the new section before anything is asked.
+
+## Printing French in the official boxes: a decision for the site owner (15 Nov 2026)
+
+Not a fact to collect, but it decides whether facts already collected print correctly.
+
+- **What happens today.** Many of the court's boxes carry their own copy of Helvetica with **no character map** (no
+  `/Encoding`), so only the font's standard set is available, which has no é, è, ç or €. The form's main Helvetica
+  (PDFDocEncoding) and its Arial (WinAnsiEncoding) have them. When a value has a character the box's font cannot
+  encode, pdf.js saves **no drawing** for that box and sets `NeedAppearances` on the file, so every viewer must draw
+  every box itself.
+- **How many.** French drawn correctly by pdf.js, by form (`verifyFormCharacters.ts` check 3): 7A 6 of 50 boxes; 1A 60
+  of 61; 9A 55 of 57; 8A 3 of 62; Family 8 79 of 90; Family 10 22 of 41; Family 13 221 of 296; Family 13.1 20 of 302.
+  On Form 7A every party name and address box is affected: "Gagné" or "Côté" goes this way today.
+- **What viewers then show.** MuPDF draws the boxes correctly from their values (checked by rendering). pdf.js run on
+  a server (no canvas) draws them garbled ("Élève" as "lËve"). A browser's pdf.js has a fallback font for this, and
+  Acrobat redraws boxes when `NeedAppearances` is set; neither could be checked here.
+- **Options (none built):**
+  1. Leave it: the person's viewer draws those boxes.
+  2. Give those boxes the form's own character map before filling (the same PDFDocEncoding object the court's main
+     Helvetica already uses; same font, same size, nothing visible changes). pdf.js cannot change a font, and pdf-lib
+     cannot open the protected file, so the file must first be rebuilt by pdf.js (as for attached pages), which **drops
+     the court's protection** from every download that needs it.
+  3. As 2, but for every download, so protection does not depend on what the person typed.
+- Characters no font here covers (Chinese, for example) are now refused in the boxes too, naming them (they were
+  left to each viewer, and pdf.js garbled them).

@@ -4,3 +4,4 @@
 docs/sources/federal/*.html -text
 docs/sources/interest-rates/*.html -text
 docs/sources/court-locations/ontario-ca-court-locations.html -text
+docs/sources/court-locations/ontario-ca/*.html -text

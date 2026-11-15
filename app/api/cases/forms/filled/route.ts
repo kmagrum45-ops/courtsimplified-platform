@@ -21,7 +21,7 @@ import { formContextOf } from "../../../../../src/lib/case-system/forms/formCont
 import { FORM_MAPS } from "../../../../../src/lib/case-system/forms/maps";
 import { additionalParties, form1ACopies } from "../../../../../src/lib/case-system/forms/maps/form1A";
 import { filledFormPdf } from "../../../../../src/lib/case-system/forms/officialPdf";
-import { UnprintableText } from "../../../../../src/lib/case-system/forms/attachedPages";
+import { UnprintableText, unprintableMessage } from "../../../../../src/lib/case-system/forms/attachedPages";
 
 const FILE_NAMES: Record<string, string> = { "small-claims/7A": "Form-7A-Plaintiffs-Claim", "small-claims/1A": "Form-1A-Additional-Parties" };
 
@@ -60,7 +60,7 @@ export async function POST(request: Request) {
     // Only the form's id and the error's kind: never a value from the case.
     console.error(`filled form failed: ${map.id}`, { errorName: error instanceof Error ? error.name : typeof error });
     // The person's words have a character the attached pages cannot print: say so, never change or drop it.
-    if (error instanceof UnprintableText) return NextResponse.json({ error: "Some of your words use a character the attached pages cannot print, so the form was not made. Please write those words by hand on a page you attach." }, { status: 422 });
+    if (error instanceof UnprintableText) return NextResponse.json({ error: unprintableMessage(error.characters) }, { status: 422 });
     return NextResponse.json({ error: "The filled form could not be made just now. Please try again." }, { status: 500 });
   }
 }

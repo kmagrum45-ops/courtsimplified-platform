@@ -33,7 +33,11 @@ async function main() {
   const doc = await PDFDocument.create();
   const font = doc.embedStandardFont(StandardFonts.Helvetica);
   const widths: Record<string, number> = {};
-  const codePoints = [...Array.from({ length: 95 }, (_, i) => 32 + i), ...Array.from({ length: 96 }, (_, i) => 160 + i), 0x2018, 0x2019, 0x201c, 0x201d, 0x2013, 0x2014, 0x2026, 0x20ac, 0x2022];
+  // Every character of WinAnsiEncoding (the Windows-1252 code page), the encoding pdf-lib writes the standard fonts in:
+  // the printable ASCII, the Latin-1 letters, and 0x80-0x9F (€ ‘ ’ “ ” – — œ Œ Ÿ ™ ...). A hand-picked list here left out œ, Œ
+  // and Ÿ (15 Nov 2026), so French with œ could not be printed on the attached pages.
+  const cp1252 = new TextDecoder("windows-1252");
+  const codePoints = Array.from({ length: 224 }, (_, i) => cp1252.decode(new Uint8Array([32 + i])).codePointAt(0)!);
   for (const code of codePoints) {
     const char = String.fromCodePoint(code);
     try { widths[char] = Math.round(font.widthOfTextAtSize(char, 1000)); } catch { /* not in WinAnsi: measured as the widest */ }

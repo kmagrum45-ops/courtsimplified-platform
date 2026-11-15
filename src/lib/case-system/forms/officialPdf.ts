@@ -13,6 +13,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { attachedSections, fillForm, pdfValues, type BoxValue, type FormContext, type FormMapDefinition } from "./formMap";
 import { attachedPagesPdf } from "./attachedPages";
+import { UnprintableText, forPrinting, unprintableCharacters } from "./printableText";
 
 type PdfJs = typeof import("pdfjs-dist/legacy/build/pdf.mjs");
 
@@ -82,9 +83,15 @@ export async function fillOfficialPdf(bytes: Uint8Array, values: Readonly<Record
  * The pages are added with pdf.js's own page assembly (`extractPages`), from the filled form as saved, so every box keeps
  * its value (assembling from the open document instead dropped them: 15 Nov 2026). pdf.js writes the result as a new
  * file, without the official file's owner-password protection; the pages, fonts and boxes are the court's own.
+ * Throws UnprintableText (printableText.ts) when a value or the overflow has a character no font here can print.
  */
 export async function filledFormPdf(map: FormMapDefinition, ctx: FormContext): Promise<Uint8Array> {
-  const filled = await fillOfficialPdf(officialPdfBytes(map.pdf.file), pdfValues(fillForm(map, ctx)));
+  // Every kind of space prints as a space; a character none of the form's fonts covers (Chinese, for example) stops the
+  // download, naming it, rather than leaving the box to each viewer to draw or garble (printableText.ts, 15 Nov 2026).
+  const values = Object.fromEntries(Object.entries(pdfValues(fillForm(map, ctx))).map(([box, value]) => [box, typeof value === "string" ? forPrinting(value) : value]));
+  const unprintable = unprintableCharacters(Object.values(values).filter((value): value is string => typeof value === "string"), "boxes");
+  if (unprintable.length) throw new UnprintableText(unprintable);
+  const filled = await fillOfficialPdf(officialPdfBytes(map.pdf.file), values);
   const pages = await attachedPagesPdf(attachedSections(map, ctx));
   if (!pages) return filled;
   const doc = await open(filled);

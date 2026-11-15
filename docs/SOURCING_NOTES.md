@@ -2272,9 +2272,31 @@ each glyph's width), now `scripts/verification/pdfDrawnText.ts`, the judge in `v
   finds those first. The section in force is the one under the marginal note "When per annum rate not stipulated", in
   the body of the Act (line 59 of the saved `.txt`).
 - **ontario.ca/locations/courts/** (the Ministry's court directory) is served as plain HTML: an A to Z index of every
-  courthouse address, linking 144 courthouse pages (`/locations/courts/<id>-<city>-<street>`). Only a courthouse's own
-  page names its court ("Ontario Court of Justice – Toronto"). No single official page pairs the Ontario Court of
-  Justice's courthouses with their addresses.
+  courthouse address, linking 144 courthouse pages (`/locations/courts/<id>-<city>-<street>`). No single official page
+  pairs the Ontario Court of Justice's courthouses with their addresses.
+- **The 144 courthouse pages (saved 15 Nov 2026, `scripts/sources/fetchCourthousePages.ts`) do NOT say which court runs
+  a service.** Each lists types of court ("Family Telephone: …", "Small claims …", "Civil …"), never "Ontario Court of
+  Justice family" or "Superior Court of Justice family". Only 3 mention the Ontario Court of Justice: 10 Armoury Street
+  in its own name, and Red Lake and Sioux Lookout giving Dryden's mailing address. None mentions the Superior Court.
+  The round-3 note that "only a courthouse's own page names its court" came from checking one page, the exception;
+  it was wrong.
+  - A page URL needs its **trailing slash**. Without it the server answers 302 with a bot-check script (perfdrive),
+    not the page.
+  - One request every 3 seconds met no bot check across all 144.
+  - Every page has the same layout: the name on `.txt` line 7, the address on the lines up to "Get directions". But
+    **311 Jarvis St. has no "Types of court and contacts" section at all**, so "is this a courthouse page" is told by
+    the title ("… | Courts | ontario.ca"), not by that section.
+  - The pages write apostrophes as `&#x27;` and the city line as "Milton , Ontario" (a space before the comma, from the
+    markup). `pageText.ts` now decodes numeric character codes; the space is kept as on the page.
+- **Never import a fetch script to reuse a helper.** Importing `fetchFormSources.ts` for `pageText` ran its `main()`,
+  which fetched the saved sources again and overwrote them (15 Nov 2026). The interest-rate page came back with a new
+  sha256, because the page changes between fetches. `git checkout` restored them. `pageText` now lives in its own
+  module, and each fetch script runs only when it is the script started.
+- **The court forms' boxes do not all share one font map** (15 Nov 2026). Many boxes carry their own Helvetica with no
+  `/Encoding`, so é, è, ç and € cannot be encoded in them, and pdf.js then saves no drawing for the box and sets
+  `NeedAppearances`. Counts per form and the options: `docs/forms/facts-needed.md`, "Printing French in the official
+  boxes". To see a box's font, MuPDF (npm `mupdf`, AGPL, scratch only) reads the decrypted objects; pdf.js does not
+  expose them.
 - The Ministry's interest-rate page (https://www.ontario.ca/page/prejudgment-and-postjudgment-interest-rates) is plain
   HTML with both tables in the page.
   - **A web search summary of it gave rates that are not the page's:** the saved page's 2026 prejudgment row differs

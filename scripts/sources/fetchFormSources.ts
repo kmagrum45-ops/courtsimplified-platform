@@ -10,6 +10,7 @@ import { createHash } from "node:crypto";
 import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { refuseCanliiContent } from "../../src/lib/canlii/canliiCore";
+import { pageText } from "./pageText";
 
 /** The only hosts this script fetches from: Ontario's and Canada's own sites. */
 export const HOSTS = new Set(["www.ontario.ca", "laws-lois.justice.gc.ca", "ontariocourtforms.on.ca"]);
@@ -20,17 +21,6 @@ const SOURCES: { url: string; file: string }[] = [
   { url: "https://ontariocourtforms.on.ca/static/media/uploads/courtforms/scc/04a/scr-4a-jan21-en-fil.pdf", file: "docs/sources/forms-reference/scr-4a-jan21-en-fil.pdf" },
   { url: "https://www.ontario.ca/locations/courts/", file: "docs/sources/court-locations/ontario-ca-court-locations.html" },
 ];
-
-/** The text a reader sees: scripts, styles and comments removed, tags turned to line breaks, entities decoded. */
-export function pageText(html: string): string {
-  return html
-    .replace(/<!--[\s\S]*?-->/g, " ")
-    .replace(/<(script|style|noscript|svg)[\s\S]*?<\/\1>/gi, " ")
-    .replace(/<(br|\/p|\/div|\/li|\/tr|\/h[1-6]|\/td|\/th)[^>]*>/gi, "\n")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, "\"").replace(/&#39;|&rsquo;|&#8217;/g, "'").replace(/&ndash;|&#8211;/g, "–").replace(/&mdash;|&#8212;/g, "—")
-    .split("\n").map((line) => line.replace(/[ \t]+/g, " ").trim()).filter(Boolean).join("\n");
-}
 
 async function main() {
   const today = new Date().toISOString().slice(0, 10);

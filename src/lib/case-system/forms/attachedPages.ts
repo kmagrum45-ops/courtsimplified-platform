@@ -6,12 +6,12 @@
  *
  * Laid out with Helvetica at 11pt inside 1-inch margins, broken into lines with the same widths textFit.ts measures with
  * (helveticaWidths.json, pdf-lib's standard metrics), so no line is cut off. A character Helvetica cannot print is not
- * changed or dropped: the pages are not made, and the error says so. Server only (officialPdf.ts filledFormPdf).
+ * changed or dropped: the pages are not made, and the error names it (printableText.ts). Server only (officialPdf.ts filledFormPdf).
  */
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import type { AttachedSection } from "./formMap";
 import { textWidth, wrapLines } from "./textFit";
-import widths from "./helveticaWidths.json";
+import { UnprintableText, forPrinting, unprintableCharacters } from "./printableText";
 
 export const PAGE = { width: 612, height: 792, margin: 72 };
 const BODY = 11;
@@ -20,21 +20,13 @@ const TITLE = 10;
 const HEADING = 11;
 const LABEL = 9;
 
-/** The person's text has a character the attached pages cannot print (Helvetica covers Western European text). */
-export class UnprintableText extends Error {
-  constructor(readonly characters: string[]) {
-    super(`the attached pages cannot print: ${characters.map((char) => `U+${char.codePointAt(0)!.toString(16).toUpperCase()}`).join(", ")}`);
-    this.name = "UnprintableText";
-  }
-}
-
-const printable = widths as Record<string, number>;
+export { UnprintableText, unprintableMessage } from "./printableText";
 
 /** The pages for these sections, in order, each section starting a new page; null when there is nothing to attach. */
 export async function attachedPagesPdf(sections: readonly AttachedSection[]): Promise<Uint8Array | null> {
-  const withText = sections.filter((section) => section.text.trim());
+  const withText = sections.filter((section) => section.text.trim()).map((section) => ({ ...section, text: forPrinting(section.text) }));
   if (!withText.length) return null;
-  const unprintable = [...new Set(withText.flatMap((section) => [...`${section.title}${section.heading}${section.text}`].filter((char) => !(char in printable) && !/\s/.test(char))))];
+  const unprintable = unprintableCharacters(withText.flatMap((section) => [section.title, section.heading, section.text]), "pages");
   if (unprintable.length) throw new UnprintableText(unprintable);
 
   const room = PAGE.width - 2 * PAGE.margin;

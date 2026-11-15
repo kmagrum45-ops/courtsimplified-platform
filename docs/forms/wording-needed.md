@@ -159,9 +159,15 @@ procedure, and those need a source or a rewording.
   box's printed heading with "(continued)" ("REASONS FOR CLAIM AND DETAILS (continued)"; "REASONS FOR DISPUTING THE
   CLAIM AND DETAILS (continued)"), and "Attached page N of M". The headings are the forms' own words; "(continued)"
   and the page label are the site's.
-- The download's error when the person's words use a character the pages cannot print: "Some of your words use a
-  character the attached pages cannot print, so the form was not made. Please write those words by hand on a page you
-  attach." (`app/api/cases/forms/filled/route.ts`).
+- The download's error when a character cannot be printed. **Replaced 15 Nov 2026 (fourth round)**, because the owner
+  asked that it name the characters and never blame the person. The first version ("Some of your words use a character
+  the attached pages cannot print, so the form was not made. Please write those words by hand on a page you attach.")
+  did neither. Now (`printableText.ts` `unprintableMessage`, shown by `app/api/cases/forms/filled/route.ts`):
+  "The form could not be made, because the site cannot yet print these characters in a PDF: 你 好. This is a limit of
+  the site. You could write them by hand on the printed form." It now covers the boxes as well as the attached pages.
+- **How some characters are printed (please confirm):** every kind of space (no-break, narrow no-break, thin, a tab)
+  prints as a space, and the no-break hyphen (U+2011) as a hyphen. Helvetica draws each with the same mark. No letter is
+  ever swapped or dropped (`printableText.ts` `forPrinting`).
 
 ## 9. Family Form 10: the applicant's address (question for the legal chat)
 
