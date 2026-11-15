@@ -833,6 +833,9 @@ export const FACT_RECORD_QUESTION = "fact-record";
 /** `changed`: false for an answer given at a place (G2 `place`), which is that place's own answer, not a change. */
 function applyOne(file: CaseFile, fact: SlotFact, change: { state: "removed" } | { state: "unsure" } | { state: "answered"; value: string | number | boolean | string[] }, question: string, changed = true) {
   const was = file[fact];
+  // A typed answer beats "not sure" for the same fact; only "removed" takes an answer away (site owner, 15 Nov 2026;
+  // offerChoice.ts answeredIn is the same rule at the write).
+  if (change.state === "unsure" && was.state === "answered" && was.source?.kind === "answer") return;
   if (change.state === "removed") {
     // A removed kind is never offered back as the story's or the classifier's proposal either.
     const kind = fact === "claimKind" ? heldKindId(was) ?? file.claimKindProposal?.claimTypeId ?? null : null;
