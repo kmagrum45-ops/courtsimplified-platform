@@ -1,0 +1,240 @@
+{
+ "docs/sources/forms/scr-7a-aug22-en-fil.pdf": {
+  "sha256": "8a10d53ae1fbc4e4d4b2022e0e6aea9f3ae3c24c9d9b1d4ee0e8ac1fed970e78",
+  "fonts": [
+   {
+    "object": 284,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "108 0 R"
+   },
+   {
+    "object": 302,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "108 0 R"
+   },
+   {
+    "object": 353,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "108 0 R"
+   }
+  ]
+ },
+ "docs/sources/forms/scr-1a-jan21-en-fil.pdf": {
+  "sha256": "a1c9688900ec8b19fc675b9ff6485ee04aba84df47ad5ab80822a0d9ea107501",
+  "fonts": [
+   {
+    "object": 159,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "80 0 R"
+   }
+  ]
+ },
+ "docs/sources/forms/scr-9a-aug22-en-fil.pdf": {
+  "sha256": "32fa5e1e13a2de947c944fb45bb69a282591615efb71ee80a7bf8afff986ece6",
+  "fonts": [
+   {
+    "object": 208,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "135 0 R"
+   },
+   {
+    "object": 320,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "135 0 R"
+   },
+   {
+    "object": 471,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "135 0 R"
+   }
+  ]
+ },
+ "docs/sources/forms/scr-8a-aug22-en-fil.pdf": {
+  "sha256": "303bfa9e9f9ddb0d9c09d766c24a683dcf6be767fd85c32cbe5857fde0874738",
+  "fonts": [
+   {
+    "object": 263,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "197 0 R"
+   },
+   {
+    "object": 539,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "197 0 R"
+   },
+   {
+    "object": 735,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "197 0 R"
+   }
+  ]
+ },
+ "docs/sources/forms/flr-8-jun25-en.pdf": {
+  "sha256": "3a91056a1a947218af57f49b6d6e984435152736092e779ed2515eb4e2b8936a",
+  "fonts": [
+   {
+    "object": 466,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "352 0 R"
+   },
+   {
+    "object": 520,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "352 0 R"
+   },
+   {
+    "object": 570,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "352 0 R"
+   },
+   {
+    "object": 600,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "352 0 R"
+   },
+   {
+    "object": 1261,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "352 0 R"
+   }
+  ]
+ },
+ "docs/sources/forms/flr-10-jun25-en-fil.pdf": {
+  "sha256": "a1dc3693c8357adea943916a36617f9b1094fd8d662c61c373fc14f6d5c15cd9",
+  "fonts": [
+   {
+    "object": 328,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "228 0 R"
+   },
+   {
+    "object": 490,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "228 0 R"
+   },
+   {
+    "object": 644,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "228 0 R"
+   },
+   {
+    "object": 674,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "228 0 R"
+   },
+   {
+    "object": 808,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "228 0 R"
+   }
+  ]
+ },
+ "docs/sources/forms/flr-13-may21-en-fil.pdf": {
+  "sha256": "08f2e7e1bb112556f0c9d3f1959097eba0122e2c0e5724e50cef961981ab294d",
+  "fonts": [
+   {
+    "object": 967,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "478 0 R"
+   },
+   {
+    "object": 3253,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "478 0 R"
+   },
+   {
+    "object": 3538,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "478 0 R"
+   }
+  ]
+ },
+ "docs/sources/forms/flr-13-1-may21-en-fil.pdf": {
+  "sha256": "26c3dc34267f93a107ffdec0a9c31693e998f54bf81778756fe9f33cf2c00e53",
+  "fonts": [
+   {
+    "object": 533,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "447 0 R"
+   },
+   {
+    "object": 927,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "447 0 R"
+   },
+   {
+    "object": 1137,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "447 0 R"
+   },
+   {
+    "object": 1295,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "447 0 R"
+   },
+   {
+    "object": 1559,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "447 0 R"
+   },
+   {
+    "object": 1781,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "447 0 R"
+   },
+   {
+    "object": 2011,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "447 0 R"
+   },
+   {
+    "object": 2278,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "447 0 R"
+   },
+   {
+    "object": 2685,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "447 0 R"
+   },
+   {
+    "object": 3092,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "447 0 R"
+   }
+  ]
+ }
+}

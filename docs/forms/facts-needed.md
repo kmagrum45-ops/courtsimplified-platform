@@ -67,8 +67,11 @@ that goes with them; see `docs/forms/wording-needed.md`.
     - 311 Jarvis's page lists **no** types of court; that a family office is there comes from the OCJ list's own name
       for it ("311 Jarvis Family").
     - A "city" match is two sources put together (the OCJ hears family cases in Milton; the Ministry lists one
-      family courthouse in Milton), not one page saying both. **Whether the site may show an address matched that way
-      is the site owner's call**; until then Lane B does not wire these addresses into a form.
+      family courthouse in Milton), not one page saying both.
+    - **Site owner's decision (15 Nov 2026, fifth round):** when the Family forms get screens, wire **only the
+      street-matched offices** (311 Jarvis Family, 47 Sheppard Family) into the court office address box. **Milton and
+      Thunder Bay stay name-only**, the address box blank with its reason. Nothing is wired yet: no screen offers the
+      Family forms.
     - The pages write the city line as "Milton , Ontario" (a space before the comma, from the page's markup). The data
       keeps the line as on the page; a box would need it written "Milton, Ontario".
   - Beyond the 4: of the 58 courthouses on the OCJ list, 46 are in a city where the Ministry lists exactly one family
@@ -180,27 +183,41 @@ own save, and its own screen that can be left and resumed, with figures that add
 - **Privacy:** figures, employers and account details are sent to no model. The same build check as the parties
   (`test:parties-never-to-ai`) must cover the new section before anything is asked.
 
-## Printing French in the official boxes: a decision for the site owner (15 Nov 2026)
+## Printing French in the official boxes (decided and built, 15 Nov 2026)
 
 Not a fact to collect, but it decides whether facts already collected print correctly.
 
-- **What happens today.** Many of the court's boxes carry their own copy of Helvetica with **no character map** (no
+- **The cause.** Many of the court's boxes carry their own copy of Helvetica with **no character map** (no
   `/Encoding`), so only the font's standard set is available, which has no é, è, ç or €. The form's main Helvetica
-  (PDFDocEncoding) and its Arial (WinAnsiEncoding) have them. When a value has a character the box's font cannot
-  encode, pdf.js saves **no drawing** for that box and sets `NeedAppearances` on the file, so every viewer must draw
-  every box itself.
-- **How many.** French drawn correctly by pdf.js, by form (`verifyFormCharacters.ts` check 3): 7A 6 of 50 boxes; 1A 60
-  of 61; 9A 55 of 57; 8A 3 of 62; Family 8 79 of 90; Family 10 22 of 41; Family 13 221 of 296; Family 13.1 20 of 302.
-  On Form 7A every party name and address box is affected: "Gagné" or "Côté" goes this way today.
-- **What viewers then show.** MuPDF draws the boxes correctly from their values (checked by rendering). pdf.js run on
-  a server (no canvas) draws them garbled ("Élève" as "lËve"). A browser's pdf.js has a fallback font for this, and
-  Acrobat redraws boxes when `NeedAppearances` is set; neither could be checked here.
-- **Options (none built):**
-  1. Leave it: the person's viewer draws those boxes.
-  2. Give those boxes the form's own character map before filling (the same PDFDocEncoding object the court's main
-     Helvetica already uses; same font, same size, nothing visible changes). pdf.js cannot change a font, and pdf-lib
-     cannot open the protected file, so the file must first be rebuilt by pdf.js (as for attached pages), which **drops
-     the court's protection** from every download that needs it.
-  3. As 2, but for every download, so protection does not depend on what the person typed.
-- Characters no font here covers (Chinese, for example) are now refused in the boxes too, naming them (they were
-  left to each viewer, and pdf.js garbled them).
+  (PDFDocEncoding) and its Arial (WinAnsiEncoding) have them. When a value had a character the box's font could not
+  encode, pdf.js saved **no drawing** for that box and set `NeedAppearances`, leaving every viewer to draw every box.
+  Before the fix, French drew correctly in: 7A 6 of 50 boxes; 1A 60 of 61; 9A 55 of 57; 8A 3 of 62; Family 8 79 of 90;
+  Family 10 22 of 41; Family 13 221 of 296; Family 13.1 20 of 302.
+- **Site owner's decision (fifth round): option 2**, applied only when the person's words need it. Built as
+  `fontMaps.ts`, used by `officialPdf.ts` `fillReadable`:
+  - The form is filled as published. Only if pdf.js left a box for viewers to draw is it filled again, on the court's
+    file with an **update appended** (as PDF allows) that redefines only the map-less box fonts, adding the character
+    map the form's main Helvetica already uses (the court's own map object). Same font, same size, nothing visible
+    changes.
+  - **The court's protection is kept**, even when the update is added: a font object holds no text, so nothing in the
+    update needs encrypting, and every byte of the court's file stays as it was (check 3: same permissions as the
+    official file). So nothing was "rebuilt" in the sense of option 2 as first described; the protection question
+    did not arise.
+  - A download whose words need no map is byte for byte what pdf.js makes of the court's file (check 6, clock and
+    randomness fixed: pdf.js encrypts every string it writes with a random starting block, so no two fills are alike
+    otherwise).
+  - Which fonts, and which map, come from `fontMaps.json` (33 fonts across the 8 forms), built by
+    `npm run forms:font-maps` with MuPDF from outside the project (AGPL, build time only), keyed by each PDF's sha256.
+    A changed court PDF is refused until the table is rebuilt.
+- **Result:** every text box of the 8 forms reads back each of the owner's values ("Gagné", "Élève", "Saint-Jérôme",
+  "François-Xavier", "œuvre", "€") exactly, in pdf.js and in MuPDF. **No box still cannot draw French.** The only
+  values left out are ones too long for their box (two-digit year boxes, age boxes and the like), which the site leaves
+  blank with the whole value to write by hand, as for any text.
+- MuPDF is not a dependency of the site, so CI reads back with pdf.js only and says the MuPDF part was skipped. Run
+  with `MUPDF_MODULE=<path to mupdf/dist/mupdf.js>` to include it.
+- Downloads with **attached pages** are still rebuilt by pdf.js and have no protection, as before (unchanged by this).
+- **Trap for later:** pdf.js's page assembly (`extractPages`) splits a box name at a full stop. Family 13's 75 boxes
+  named like "Value or Amount (0.00) 2" come out as "00) 2". No form with such names has attached pages today; if one
+  gets them, that must be solved first.
+- Characters no font here covers (Chinese, for example) are still refused, in the boxes and the attached pages, with
+  the same message.

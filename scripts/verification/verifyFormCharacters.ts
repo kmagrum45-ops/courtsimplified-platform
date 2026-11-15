@@ -11,13 +11,19 @@
  *      with French are wrapped by their true width, never by the "unknown: widest" guess;
  *   2. a Form 7A whose reasons end in French overflowing to the attached pages: the pages hold every French word exactly,
  *      in order, including French spacing (no-break, narrow no-break and thin spaces, a tab) printed as spaces;
- *   3. every text box the site fills, filled with French: pdf.js saves a drawing of it that reads back as the French
- *      exactly (the drawing a viewer shows and prints as saved). A form whose boxes cannot yet is listed in
- *      FRENCH_IN_BOXES_PENDING with the reason; an entry must still be needed (at least one box still fails), so it is
- *      deleted when the cause is fixed;
+ *   3. every text box of each form, filled with the site owner's real French values ("Gagné", "Élève", "Saint-Jérôme",
+ *      "François-Xavier", "œuvre", "€"; fillReadable, what the download uses): pdf.js saves a drawing that reads back as
+ *      the French exactly, no box is left for viewers to draw (NeedAppearances), MuPDF reads the same back (when
+ *      MUPDF_MODULE points at a copy outside the project; skipped and said otherwise), and the court's protection is
+ *      unchanged. Also a Form 7A filled from a real record with French names, company and city. A form whose boxes
+ *      cannot yet is listed in FRENCH_IN_BOXES_PENDING with the reason; an entry must still be needed (at least one box
+ *      still fails), so it is deleted when the cause is fixed (the list is empty since the fifth round);
  *   4. Chinese in the overflow, or in a box: the download is refused with UnprintableText, which names each character
  *      (as written and as U+ code), and the message the person sees names them and does not say they did anything wrong;
- *   5. NEGATIVE CONTROL: the read-back comparison catches a French word printed without its accent.
+ *   5. NEGATIVE CONTROL: the read-back comparison catches a French word printed without its accent;
+ *   6. a download whose words need no character map is byte for byte the court's file filled by pdf.js (clock stopped),
+ *      for every form: nothing is appended, the protection is as before;
+ *   7. NEGATIVE CONTROL: a file with one box font left without its map fails check 3's read-back.
  *
  * WHAT FAILURE THIS CATCHES: French that is dropped, garbled, refused, or measured as unknown (and so wrapped wrongly),
  * in the attached pages or in the boxes; a refusal that does not say which characters, or blames the person.
@@ -28,7 +34,11 @@ import assert from "node:assert/strict";
 import { FORM_7A } from "../../src/lib/case-system/forms/maps/form7A";
 import { FORM_MAPS } from "../../src/lib/case-system/forms/maps";
 import { formContextOf } from "../../src/lib/case-system/forms/formContext";
-import { fillOfficialPdf, filledFormPdf, officialPdfBytes, pdfBoxes } from "../../src/lib/case-system/forms/officialPdf";
+import { pathToFileURL } from "node:url";
+import { fillOfficialPdf, fillReadable, filledFormPdf, officialPdfBytes, pdfBoxes } from "../../src/lib/case-system/forms/officialPdf";
+import { fillForm, pdfValues } from "../../src/lib/case-system/forms/formMap";
+import { fitValue } from "../../src/lib/case-system/forms/textFit";
+import { FONT_MAPS, leftBoxesToViewers, withCharacterMaps } from "../../src/lib/case-system/forms/fontMaps";
 import { UnprintableText, forPrinting, unprintableMessage } from "../../src/lib/case-system/forms/printableText";
 import widths from "../../src/lib/case-system/forms/helveticaWidths.json";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
@@ -61,17 +71,63 @@ const record = (story: string): Checkpoint => ({
 });
 
 /**
- * Forms whose boxes cannot yet hold French as drawn by pdf.js, and why (15 Nov 2026). Many of the court's boxes carry
- * their own copy of Helvetica with no character map (no /Encoding: the font's standard set, which has no é, è, ç, €),
- * unlike the form's main Helvetica (PDFDocEncoding) or Arial (WinAnsiEncoding). pdf.js cannot write é in such a box, so
- * it saves no drawing for it and sets NeedAppearances, leaving each viewer to draw the box itself. Fixing it means
- * changing the court's PDF before filling (giving those boxes the form's own character map) or rebuilding the file
- * without its protection: the site owner's decision. Delete an entry when its form's boxes all pass.
+ * Forms whose boxes cannot yet hold French as drawn by pdf.js, with the reason. An entry must still be needed (at least
+ * one box still fails), so it is deleted when the cause is fixed. Empty since 15 Nov 2026 (fifth round): the boxes whose
+ * own Helvetica had no character map are given the form's main map when a value needs it (fontMaps.ts). Until then all 8
+ * forms were listed.
  */
-const FRENCH_IN_BOXES_PENDING: Record<string, string> = Object.fromEntries(
-  ["small-claims/7A", "small-claims/1A", "small-claims/9A", "small-claims/8A", "family/8", "family/10", "family/13", "family/13.1"].map((id) => [id, "boxes with their own Helvetica without a character map: awaiting the site owner's decision (15 Nov 2026)"]),
-);
-const BOX_SAMPLE = "Côté Œuvre l’été – 5 € « Ève » “Noël”";
+const FRENCH_IN_BOXES_PENDING: Record<string, string> = {};
+/** The site owner's real French values (15 Nov 2026), together in every box. */
+const REAL_FRENCH = ["Gagné", "Élève", "Saint-Jérôme", "François-Xavier", "œuvre", "€"];
+const BOX_SAMPLE = REAL_FRENCH.join(" ");
+const ASCII_SAMPLE = "Test Person 1 Example Street";
+
+/** The boxes of `bytes` whose drawing (pdf.js's operator list) does not read back as `want`. */
+async function wrongInPdfJs(bytes: Uint8Array, names: readonly string[], want: string): Promise<string[]> {
+  const right = new Set((await drawnText(bytes)).filter((box) => box.lines.map((line) => line.text).join(" ").replace(/\s+/g, " ").trim() === want).map((box) => box.name));
+  return names.filter((name) => !right.has(name));
+}
+
+/**
+ * The same, read by MuPDF from each box's drawing. MuPDF is AGPL and not a dependency of the site: this runs only when
+ * MUPDF_MODULE points at a copy installed outside the project (null otherwise, and the check says it was skipped).
+ */
+async function wrongInMupdf(bytes: Uint8Array, names: readonly string[], want: string, each?: Readonly<Record<string, string>>): Promise<string[] | null> {
+  if (!process.env.MUPDF_MODULE) return null;
+  const mupdf = await import(pathToFileURL(process.env.MUPDF_MODULE).href);
+  const doc = mupdf.Document.openDocument(bytes, "application/pdf");
+  const read = new Map<string, string[]>();
+  for (let page = 0; page < doc.countPages(); page++) for (const widget of doc.loadPage(page).getWidgets()) {
+    const text = String(widget.toDisplayList().toStructuredText("preserve-whitespace").asText()).replace(/\s+/g, " ").trim();
+    read.set(widget.getName(), [...(read.get(widget.getName()) ?? []), text]);
+  }
+  const expected = (name: string) => (each ? each[name] : want).replace(/\s+/g, " ").trim();
+  return names.filter((name) => !(read.get(name) ?? []).every((text) => text === expected(name))).map((name) => `${name}: ${expected(name)} read as ${JSON.stringify(read.get(name))}`);
+}
+
+/** The permissions a protected PDF grants (pdf.js), or null when it has no protection. */
+async function permissions(bytes: Uint8Array): Promise<number[] | null> {
+  const lib = (await import("pdfjs-dist/legacy/build/pdf.mjs")) as PdfJs;
+  const task = lib.getDocument({ data: bytes.slice(), verbosity: lib.VerbosityLevel.ERRORS });
+  const granted = await (await task.promise).getPermissions();
+  await task.destroy();
+  return granted ? [...granted].sort((a, b) => a - b) : null;
+}
+
+/**
+ * Runs `work` with the clock stopped and pdf.js's randomness seeded, so two fills of the same values can be compared
+ * byte for byte. pdf.js encrypts each string it writes into a protected file with AES and a fresh random starting block
+ * (crypto.getRandomValues), so without this no two fills are alike, even of the same file and values (15 Nov 2026).
+ */
+async function repeatable<T>(work: () => Promise<T>): Promise<T> {
+  const RealDate = Date;
+  const fixed = new RealDate("2026-11-15T12:00:00Z").getTime();
+  class FixedDate extends RealDate { constructor(...args: unknown[]) { if (args.length) super(...(args as [number])); else super(fixed); } static now() { return fixed; } }
+  let seed = 0;
+  Object.defineProperty(globalThis.crypto, "getRandomValues", { configurable: true, value: <A extends ArrayBufferView>(array: A) => { const view = new Uint8Array(array.buffer, array.byteOffset, array.byteLength); for (let i = 0; i < view.length; i++) view[i] = (seed++ * 37 + 11) & 255; return array; } });
+  globalThis.Date = FixedDate as DateConstructor;
+  try { return await work(); } finally { globalThis.Date = RealDate; delete (globalThis.crypto as unknown as Record<string, unknown>).getRandomValues; }
+}
 
 let failed = 0;
 const check = async (name: string, run: () => void | Promise<void>) => { try { await run(); console.log(`PASS  ${name}`); } catch (error) { failed++; console.log(`FAIL  ${name}\n      ${(error as Error).message.split("\n").slice(0, 8).join("\n      ")}`); } };
@@ -110,20 +166,81 @@ async function main() {
   });
 
   for (const map of FORM_MAPS) {
-    await check(`3. ${map.id}: every text box filled with French draws it exactly${FRENCH_IN_BOXES_PENDING[map.id] ? " (pending: the entry must still be needed)" : ""}`, async () => {
-      const bytes = officialPdfBytes(map.pdf.file);
-      const names = [...new Set((await pdfBoxes(bytes)).filter((box) => box.type === "Tx").map((box) => box.name))];
-      const drawn = await drawnText(await fillOfficialPdf(bytes, Object.fromEntries(names.map((name) => [name, BOX_SAMPLE]))));
-      const right = new Set(drawn.filter((box) => box.lines.map((line) => line.text).join(" ").replace(/\s+/g, " ").trim() === BOX_SAMPLE).map((box) => box.name));
-      const wrong = names.filter((name) => !right.has(name));
-      if (FRENCH_IN_BOXES_PENDING[map.id]) {
-        assert.ok(wrong.length > 0, `every box now draws French: delete "${map.id}" from FRENCH_IN_BOXES_PENDING`);
-        console.log(`      ${wrong.length} of ${names.length} boxes cannot draw French yet: ${FRENCH_IN_BOXES_PENDING[map.id]}`);
-      } else {
-        assert.deepEqual(wrong, [], `${wrong.length} of ${names.length} boxes do not draw French exactly`);
+    await check(`3. ${map.id}: every text box, given each real French value that fits it (${REAL_FRENCH.join(", ")}), draws it exactly in pdf.js and MuPDF, with the court's protection kept${FRENCH_IN_BOXES_PENDING[map.id] ? " (pending: the entry must still be needed)" : ""}`, async () => {
+      const official = officialPdfBytes(map.pdf.file);
+      const names = [...new Set((await pdfBoxes(official)).filter((box) => box.type === "Tx").map((box) => box.name))];
+      // Six passes: each box gets each real value once, as the site would put it there (textFit fitValue: only a value
+      // that fits; a value too long for the box is left out, as fillForm leaves it blank, and counted).
+      const wrongPdfJs: string[] = [], wrongMupdf: string[] = [], tooLong: string[] = [];
+      let mupdfRan = false, viewers = false, protection = true;
+      for (let pass = 0; pass < REAL_FRENCH.length; pass++) {
+        const values: Record<string, string> = {};
+        names.forEach((name, index) => {
+          const value = REAL_FRENCH[(index + pass) % REAL_FRENCH.length];
+          const fit = fitValue(map.pdf.file, name, value);
+          if (fit && !fit.fits) tooLong.push(`${name}: ${value}`); else values[name] = fit?.fits ? fit.value : value;
+        });
+        const filled = await fillReadable(map.pdf.file, values);
+        viewers ||= leftBoxesToViewers(official, filled);
+        if (JSON.stringify(await permissions(filled)) !== JSON.stringify(await permissions(official))) protection = false;
+        const drawn = await drawnText(filled);
+        for (const [name, value] of Object.entries(values)) {
+          const boxes = drawn.filter((box) => box.name === name).map((box) => box.lines.map((line) => line.text).join(" ").replace(/\s+/g, " ").trim());
+          if (!boxes.length || boxes.some((text) => text !== value.replace(/\s+/g, " ").trim())) wrongPdfJs.push(`${name}: ${value} drawn as ${JSON.stringify(boxes)}`);
+        }
+        const mupdf = await wrongInMupdf(filled, Object.keys(values), "", values);
+        if (mupdf) { mupdfRan = true; wrongMupdf.push(...mupdf); }
       }
+      if (FRENCH_IN_BOXES_PENDING[map.id]) {
+        assert.ok(wrongPdfJs.length > 0, `every box now draws French: delete "${map.id}" from FRENCH_IN_BOXES_PENDING`);
+        console.log(`      ${wrongPdfJs.length} box values cannot draw French yet: ${FRENCH_IN_BOXES_PENDING[map.id]}`);
+        return;
+      }
+      assert.deepEqual(wrongPdfJs.slice(0, 5), [], `pdf.js: ${wrongPdfJs.length} of ${names.length * REAL_FRENCH.length} box values do not draw exactly`);
+      assert.equal(viewers, false, "a box was still left for each viewer to draw (NeedAppearances)");
+      if (!mupdfRan) console.log("      MuPDF read-back skipped: MUPDF_MODULE is not set (MuPDF is not a dependency of the site)");
+      else assert.deepEqual(wrongMupdf.slice(0, 5), [], `MuPDF: ${wrongMupdf.length} box values do not read back exactly`);
+      assert.ok(protection, "the court's protection changed");
+      console.log(`      ${names.length} boxes x ${REAL_FRENCH.length} values${mupdfRan ? ", pdf.js and MuPDF" : ", pdf.js"}; ${tooLong.length} value(s) too long for their box, left out as the site would${tooLong.length ? `: ${[...new Set(tooLong.map((entry) => entry.split(": ")[0]))].slice(0, 6).join(" / ")}` : ""}`);
     });
   }
+
+  await check("3. Form 7A from a real record (names, company, city in French): every filled box reads back as recorded", async () => {
+    const rec = record("A short story.");
+    const parties = (rec.sections as unknown as { caseFile: { parties: { list: { details: Record<string, string> }[] } } }).caseFile.parties.list;
+    Object.assign(parties[0].details, { firstName: "François-Xavier", lastName: "Gagné", city: "Saint-Jérôme", street: "12 rue de l’Église" });
+    Object.assign(parties[1].details, { companyName: "Œuvre Élève Rénovations Inc.", city: "Montréal" });
+    const ctx = formContextOf(rec);
+    const want = Object.entries(pdfValues(fillForm(FORM_7A, ctx))).filter((entry): entry is [string, string] => typeof entry[1] === "string" && /[^\x20-\x7e]/.test(entry[1]));
+    assert.ok(want.length >= 4, "the record's French did not reach the form");
+    const drawn = await drawnText(await filledFormPdf(FORM_7A, ctx));
+    const wrong = want.filter(([name, value]) => drawn.find((box) => box.name === name)?.lines.map((line) => line.text).join(" ").replace(/\s+/g, " ").trim() !== value.replace(/\s+/g, " ").trim());
+    assert.deepEqual(wrong.map(([name, value]) => `${name}: ${value}`), []);
+  });
+
+  await check("6. a download whose words need no character map is byte for byte the court's file filled by pdf.js (nothing added)", async () => {
+    for (const map of FORM_MAPS) {
+      const official = officialPdfBytes(map.pdf.file);
+      const names = [...new Set((await pdfBoxes(official)).filter((box) => box.type === "Tx").map((box) => box.name))];
+      const values = Object.fromEntries(names.map((name) => [name, ASCII_SAMPLE]));
+      const now = await repeatable(() => fillReadable(map.pdf.file, values));
+      const plain = await repeatable(() => fillOfficialPdf(official, values));
+      assert.ok(Buffer.from(now).equals(Buffer.from(plain)), `${map.id}: the download changed although no box needed a map`);
+    }
+    // Control: the same comparison does see the map update when French needs it.
+    const official = officialPdfBytes(FORM_7A.pdf.file);
+    const french = { "Defendant's last name or company's name": "Gagné" };
+    const [mapped, plain] = [await repeatable(() => fillReadable(FORM_7A.pdf.file, french)), await repeatable(() => fillOfficialPdf(official, french))];
+    assert.ok(!Buffer.from(mapped).equals(Buffer.from(plain)), "the comparison cannot tell a mapped download from a plain one");
+  });
+
+  await check("7. NEGATIVE CONTROL: with one box font left without its map, some box no longer draws French", async () => {
+    const official = officialPdfBytes(FORM_7A.pdf.file);
+    const names = [...new Set((await pdfBoxes(official)).filter((box) => box.type === "Tx").map((box) => box.name))];
+    const left = FONT_MAPS[FORM_7A.pdf.file].fonts[0].object;
+    const partial = await fillOfficialPdf(withCharacterMaps(FORM_7A.pdf.file, official, (object) => object !== left), Object.fromEntries(names.map((name) => [name, BOX_SAMPLE])));
+    assert.ok((await wrongInPdfJs(partial, names, BOX_SAMPLE)).length > 0, "leaving a font without its map was not caught");
+  });
 
   await check("4. Chinese in the overflow: refused, the characters named, and the message does not blame the person", async () => {
     const story = `${LONG} The builder wrote 你好 on the invoice.`;

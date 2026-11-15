@@ -51,6 +51,7 @@
     "test:offer-choices": "node --import tsx scripts/verification/verifyOfferChoices.ts",
     "test:analysis-input-from-record": "node --import tsx scripts/verification/verifyAnalysisInputFromRecord.ts",
     "test:form-maps": "node --import tsx scripts/verification/verifyFormMaps.ts && node --import tsx scripts/verification/verifyFormMapsMore.ts && node --import tsx scripts/verification/verifyFormTextFit.ts && node --import tsx scripts/verification/verifyAttachedPages.ts && node --import tsx scripts/verification/verifyFormCharacters.ts && node --import tsx scripts/verification/verifyMinistryCourthouses.ts",
+    "forms:font-maps": "node --import tsx scripts/forms/buildFontMaps.ts",
     "forms:geometry": "node --import tsx scripts/forms/buildBoxGeometry.ts",
     "test:drafts-from-record": "node --import tsx scripts/verification/verifyDraftsFromRecord.ts",
     "test:parties-never-to-ai": "node --import tsx scripts/verification/verifyPartiesNeverToAi.ts",

@@ -2294,9 +2294,26 @@ each glyph's width), now `scripts/verification/pdfDrawnText.ts`, the judge in `v
   module, and each fetch script runs only when it is the script started.
 - **The court forms' boxes do not all share one font map** (15 Nov 2026). Many boxes carry their own Helvetica with no
   `/Encoding`, so é, è, ç and € cannot be encoded in them, and pdf.js then saves no drawing for the box and sets
-  `NeedAppearances`. Counts per form and the options: `docs/forms/facts-needed.md`, "Printing French in the official
-  boxes". To see a box's font, MuPDF (npm `mupdf`, AGPL, scratch only) reads the decrypted objects; pdf.js does not
-  expose them.
+  `NeedAppearances`. Fixed (fifth round) by `fontMaps.ts`; counts and design: `docs/forms/facts-needed.md`, "Printing
+  French in the official boxes". To see a box's font, MuPDF (npm `mupdf`, AGPL, outside the project) reads the decrypted
+  objects; pdf.js does not expose them.
+- **What the court's PDFs allow, learned building that fix (15 Nov 2026):**
+  - Every widget, font and the page tree sit inside **encrypted object streams**. pdf-lib cannot read them at all,
+    even with `ignoreEncryption` (it cannot find the pages). So the site cannot find fonts at run time; they are listed
+    once, at build time, in `fontMaps.json`.
+  - **An appended update keeps the protection.** A font object holds no strings or streams, so it needs no
+    encrypting; a cross-reference stream is never encrypted (PDF standard). The last cross-reference section's
+    dictionary (each file is linearized: `startxref` points near the start) is plain text and gives `/Root`,
+    `/Encrypt`, `/ID`, `/Info` and `/Size` to repeat.
+  - **pdf.js `extractPages` with one document keeps the protection** (it re-encrypts with the same key); with two it
+    writes an unprotected file. And it **splits box names at a full stop**: Family 13's "Value or Amount (0.00) 2"
+    becomes "00) 2". Both ruled out a "decrypt, edit with pdf-lib, refill" route.
+  - **No two pdf.js fills of a protected PDF are byte-identical**: each string it writes is AES-encrypted with a random
+    starting block (`crypto.getRandomValues`). A byte-for-byte check must seed that and stop the clock
+    (`verifyFormCharacters.ts` `repeatable`).
+  - pdf.js picks a single-line auto-size box's font size from its height only; a value too wide runs past the edge in
+    every viewer (MuPDF showed "œuvr|"). `textFit` is what prevents it, so character checks must fill values the way
+    the site does (`fitValue`).
 - The Ministry's interest-rate page (https://www.ontario.ca/page/prejudgment-and-postjudgment-interest-rates) is plain
   HTML with both tables in the page.
   - **A web search summary of it gave rates that are not the page's:** the saved page's 2026 prejudgment row differs

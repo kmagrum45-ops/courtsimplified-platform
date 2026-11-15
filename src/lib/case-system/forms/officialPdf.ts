@@ -14,6 +14,7 @@ import path from "node:path";
 import { attachedSections, fillForm, pdfValues, type BoxValue, type FormContext, type FormMapDefinition } from "./formMap";
 import { attachedPagesPdf } from "./attachedPages";
 import { UnprintableText, forPrinting, unprintableCharacters } from "./printableText";
+import { leftBoxesToViewers, withCharacterMaps } from "./fontMaps";
 
 type PdfJs = typeof import("pdfjs-dist/legacy/build/pdf.mjs");
 
@@ -76,6 +77,20 @@ export async function fillOfficialPdf(bytes: Uint8Array, values: Readonly<Record
 }
 
 /**
+ * The official PDF `pdfFile` filled with these values so that every box is drawn as written (15 Nov 2026, option 2).
+ * Filled as published first; only when pdf.js could not write some box's text in that box's font (French in a box whose
+ * own Helvetica has no character map) is it filled again on the court's file with those fonts given the form's own
+ * character map (fontMaps.ts, an update appended to the file; its protection is kept). So a download that needs no map
+ * is byte for byte what it was before.
+ */
+export async function fillReadable(pdfFile: string, values: Readonly<Record<string, BoxValue>>): Promise<Uint8Array> {
+  const official = officialPdfBytes(pdfFile);
+  const filled = await fillOfficialPdf(official, values);
+  if (!leftBoxesToViewers(official, filled)) return filled;
+  return fillOfficialPdf(withCharacterMaps(pdfFile, official), values);
+}
+
+/**
  * The download: the official form filled from the case record, followed by the attached pages when the person's words
  * overflowed its boxes (attachedPages.ts), and by nothing when they did not. The form's "pages attached" tick reads the
  * same sections (formMap.ts attachedSections), so a ticked form always has its pages.
@@ -91,7 +106,7 @@ export async function filledFormPdf(map: FormMapDefinition, ctx: FormContext): P
   const values = Object.fromEntries(Object.entries(pdfValues(fillForm(map, ctx))).map(([box, value]) => [box, typeof value === "string" ? forPrinting(value) : value]));
   const unprintable = unprintableCharacters(Object.values(values).filter((value): value is string => typeof value === "string"), "boxes");
   if (unprintable.length) throw new UnprintableText(unprintable);
-  const filled = await fillOfficialPdf(officialPdfBytes(map.pdf.file), values);
+  const filled = await fillReadable(map.pdf.file, values);
   const pages = await attachedPagesPdf(attachedSections(map, ctx));
   if (!pages) return filled;
   const doc = await open(filled);
