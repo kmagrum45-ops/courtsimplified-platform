@@ -2,11 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-import { supabase } from "@/src/lib/supabase/client";
-import {
-  readAcknowledgement,
-  writeAcknowledgement,
-} from "@/src/lib/content-library/acknowledgement";
+import { writeAcknowledgement } from "@/src/lib/content-library/acknowledgement";
+import { loadNoticeStatus, setNoticeOutstanding } from "./noticeStatus";
 
 /**
  * One screen, one checkbox, shown once, before a user starts a case.
@@ -64,11 +61,10 @@ export default function FirstUseAcknowledgement({
     let active = true;
 
     async function load() {
-      const { data } = await supabase.auth.getUser().catch(() => ({ data: { user: null } }));
+      // The page-wide status is reported too (noticeStatus.ts), so work drawn outside this notice waits for it.
+      const { userId: id, outstanding } = await loadNoticeStatus();
       if (!active) return;
-      const id = data.user?.id ?? null;
       setUserId(id);
-      const outstanding = !readAcknowledgement(id);
       setNeeded(outstanding);
       onStatus?.(outstanding);
     }
@@ -126,6 +122,7 @@ export default function FirstUseAcknowledgement({
         onClick={() => {
           writeAcknowledgement(userId);
           setNeeded(false);
+          setNoticeOutstanding(false);
           onStatus?.(false);
           onAcknowledged?.();
           window.dispatchEvent(new Event(NOTICE_GIVEN_EVENT));

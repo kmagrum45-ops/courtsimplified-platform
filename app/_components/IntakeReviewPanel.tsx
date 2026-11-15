@@ -6,7 +6,7 @@ import MunicipalNoticeFirst from "../builder/_components/MunicipalNoticeFirst";
 import { municipalNoticeFirst } from "../../src/lib/content-library/municipalNoticeFirst";
 import { useIntakeRecovery } from "./IntakeRecovery";
 import { writeAnswer } from "./caseWrite";
-import { NOTICE_GIVEN_EVENT } from "./FirstUseAcknowledgement";
+import { loadNoticeStatus, noticeOutstandingNow, useNoticeOutstanding } from "./noticeStatus";
 import { familyTimelineValues, withServedDate } from "../builder/_components/guidedFields";
 import { withFullStop } from "../builder/_components/GuidedFormChat";
 import { dateAnswerCheck, formatForCourt, isDateQuestion } from "../../src/lib/case-system/dates";
@@ -110,12 +110,28 @@ export default function IntakeReviewPanel() {
       setWaiting(false);
     }
   }, [waiting, working]);
+  // A start waits for the "Before you start" notice (site owner, 15 Nov 2026): while it is not accepted (or not known yet:
+  // it was still loading when the case page's start arrived, so the start was taken as begun and the button said
+  // "Working out your next step" while the builder held the work), nothing is started and the button and the line say
+  // "Finish the step shown below first". Once it is accepted (noticeStatus.ts), the start runs, once.
+  const noticeWaits = useNoticeOutstanding();
+  const [heldForNotice, setHeldForNotice] = useState(false);
+  const holdForNotice = (): boolean => {
+    const now = noticeOutstandingNow();
+    if (now === false) return false;
+    if (now === null) void loadNoticeStatus();
+    showWaitingStep();
+    setWaiting(true);
+    setHeldForNotice(true);
+    return true;
+  };
   useEffect(() => {
-    if (!waiting || !recovery) return;
-    const given = () => { setWaiting(false); nextStepPressed(); recovery.continueToGuidance(); };
-    window.addEventListener(NOTICE_GIVEN_EVENT, given);
-    return () => window.removeEventListener(NOTICE_GIVEN_EVENT, given);
-  }, [waiting, recovery]);
+    if (!heldForNotice || noticeWaits !== false || !recovery) return;
+    setHeldForNotice(false);
+    setWaiting(false);
+    nextStepPressed();
+    recovery.continueToGuidance();
+  }, [heldForNotice, noticeWaits, recovery]);
   // The day of service is saved into a Timeline line, which trims it: typed key by key,
   // "October 12" lost its spaces (re-test 2026-10-18). It is kept as typed here and
   // saved, trimmed, when the person leaves the field.
@@ -170,7 +186,7 @@ export default function IntakeReviewPanel() {
     url.searchParams.delete("next");
     window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}`);
     if (openSavedStep(recovery)) return;
-    if (showWaitingStep()) { setWaiting(true); return; }
+    if (holdForNotice()) return;
     nextStepPressed();
     setWaiting(!recovery.continueToGuidance());
   }, [startAsked, recovery, view, pathname, startPhase, startOutdated, busy, working]);
@@ -183,7 +199,7 @@ export default function IntakeReviewPanel() {
     pressNext.current = () => {
       if (!recovery) return;
       if (openSavedStep(recovery)) return;
-      if (showWaitingStep()) { setWaiting(true); return; }
+      if (holdForNotice()) return;
       nextStepPressed();
       setWaiting(!recovery.continueToGuidance());
       void supabase.auth.getSession().then(({ data }) => setSignInNeeded(!data.session)).catch(() => undefined);
@@ -565,7 +581,7 @@ export default function IntakeReviewPanel() {
     {/* Not reviewing yet (reloaded before the change was saved, or back at the questions): still said, from the saved record. */}
     {phase === "collecting" && changedAfterConfirm(workflowStatus, checkpoint) ? <p data-testid="intake-confirm-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer, so please review and confirm again.</p> : null}
     {phase === "collecting" && <button data-testid="intake-start-review" type="button" disabled={busy || !canReview(checkpoint)} onClick={() => void act("review")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Stop initial questions and review</button>}
-    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={questionsOutdated || working || nextQueued} onClick={() => { if (busy) { setNextQueued(true); return; } pressNext.current(); }} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">{working ? "Working out your next step…" : busy || nextQueued ? "Saving…" : "Show my next step"}</button>{" "}<button data-testid="intake-view-review" type="button" disabled={viewQueued} onClick={() => { if (busy) { setViewQueued(true); return; } setViewing(true); }}>{viewQueued ? "Saving…" : "Review or correct initial information"}</button>
+    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={questionsOutdated || working || nextQueued} onClick={() => { if (busy) { setNextQueued(true); return; } pressNext.current(); }} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">{heldForNotice ? "Finish the step shown below first" : working ? "Working out your next step…" : busy || nextQueued ? "Saving…" : "Show my next step"}</button>{" "}<button data-testid="intake-view-review" type="button" disabled={viewQueued} onClick={() => { if (busy) { setViewQueued(true); return; } setViewing(true); }}>{viewQueued ? "Saving…" : "Review or correct initial information"}</button>
       {/* A guest: the next step needs an account (the safety check runs first). Said here, under the button pressed,
           not only at the foot of the form (Chrome check of #542, 3 Nov, B1: the button seemed to do nothing). */}
       {signInNeeded ? <SignInForSafetyCheck testId="intake-continue-sign-in" area={court === "family" ? "Family" : court === "civil" ? "Civil" : "Small Claims"} /> : null}

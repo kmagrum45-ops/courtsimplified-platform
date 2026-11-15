@@ -10,13 +10,15 @@
  *   1. a confirmed case, the notice not given on this browser, the case page's "Show my next step" pressed: while the
  *      notice shows, NO work request is sent (any analysis, AI or next-step route: WORK below); once it is accepted the
  *      next step is worked out (the press is kept, not lost);
- *   2. a new case from the home page, the notice not given: from the builder's first paint until the notice is
- *      accepted, NO work request is sent.
+ *      While it waits, the button says "Finish the step shown below first" and so does the waiting line, never
+ *      "Working out your next step" (site owner, 15 Nov: the button said the site was working while it was waiting);
+ *   2. the builder opened directly for a new case (a link, the "fill in the form" route), the notice not given: from its
+ *      first paint until the notice is accepted, NO work request is sent.
  *
  * What failure it catches: a route that starts analysis or an AI request before the person has accepted the notice.
  *
- * Not covered here, on purpose: the home page itself reads the story (/api/case/understand, /api/classify-court-path)
- * before the builder, where the notice is first shown. Reported to the site owner (15 Nov); counted from the builder on.
+ * The home page's own notice, before its story reading and court suggestion: home-notice.spec.ts. Every place that
+ * sends work, and the pages that do not show the notice: test:notice-gate.
  */
 import { expect, test, type Page, type Request } from "@playwright/test";
 import { authenticateRealTestUser } from "./harness/intakeDriver";
@@ -26,7 +28,6 @@ import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns } from "./harness/thisCommitServer";
 import { recordInitialUnknowns, saveCaseStory, tickIfAsked } from "./harness/intakeReview";
 import { ACKNOWLEDGEMENT_KEY } from "../../src/lib/content-library/acknowledgement";
-import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 import { WORK_ROUTE } from "../../src/lib/content-library/noticeGate";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
@@ -92,7 +93,11 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       await page.getByTestId("case-show-next-step").click();
       await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
       await expect(page.getByTestId("acknowledgement-checkbox"), "the notice is shown").toBeVisible({ timeout: 60_000 });
+      await expect(page.getByTestId("intake-continue-guidance"), "the button says what the person must do").toHaveText("Finish the step shown below first", { timeout: 30_000 });
+      await expect(page.getByTestId("intake-continue-waiting"), "the waiting line shows on this route").toContainText("Finish the step shown below first");
       await page.waitForTimeout(8_000);
+      await expect(page.getByText(/Working out your next step/), "nothing says the site is working while the notice waits").toHaveCount(0);
+      await expect(page.getByTestId("intake-continue-guidance"), "still says what the person must do").toHaveText("Finish the step shown below first");
       expect(work, "work requests sent while the notice was not yet accepted").toEqual([]);
       await accept(page);
       await expect(page.getByTestId("completed-case-overview"), "once accepted, the next step is worked out").toBeVisible({ timeout: 240_000 });
@@ -102,22 +107,16 @@ for (const court of ["small-claims", "civil", "family"] as const) {
     }
   });
 
-  test(`a new case from the home page: no work starts on the builder before the notice is accepted -- ${court}`, async ({ page }) => {
+  test(`the builder opened directly for a new case: no work starts before the notice is accepted -- ${court}`, async ({ page }) => {
     test.setTimeout(600_000);
     const userId = await authenticateRealTestUser(page, { realCases: true });
     try {
       await autoAnswerSituation(page, STARTING_NOTHING_FILED);
       await serveModelStandIns(page, court, userId);
-      await page.goto(`/?path=${court}`);
-      await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
+      await page.goto("/about");
       await forgetNotice(page);
-      await page.getByLabel("City or municipality").fill("Ottawa");
-      await page.getByLabel(STORY_LABEL, { exact: true }).fill(STORY);
-      await page.getByRole("button", { name: `Continue to ${LABEL[court]} intake` }).click();
-      const accepted = page.getByTestId("case-understanding-continue-suggested").or(page.getByTestId("case-understanding-continue-chosen")).first();
-      if (await accepted.isVisible({ timeout: 60_000 }).catch(() => false)) await accepted.click();
-      await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
       const work = watchWork(page);
+      await page.goto(`/builder?path=${court}`);
       await expect(page.getByTestId("acknowledgement-checkbox"), "the notice is shown").toBeVisible({ timeout: 60_000 });
       await page.waitForTimeout(8_000);
       expect(work, "work requests sent on the builder while the notice was not yet accepted").toEqual([]);
