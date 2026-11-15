@@ -265,9 +265,21 @@ async function guidedForm(page: Page, story: Story, typed: Map<string, string>) 
 async function triageMarriedUnsure(page: Page, seen: string[], wait: number): Promise<boolean> {
   const married = page.locator("[data-testid=triage-question][data-question=married-to-other-party]");
   if (!(await visible(married, wait))) return false;
+  // The answer must reach the saved intake record (the case page reads it). A person who leaves is held until it is
+  // saved (a link saves first; typing an address asks "Leave site?"); page.goto skips that prompt, so without this wait
+  // the test left inside the save's delay and the answer was never saved (runs6, 15 Nov).
+  const saved = page.waitForResponse((response) => {
+    const request = response.request();
+    if (request.method() !== "PATCH" || !request.url().includes("/rest/v1/cases") || !response.ok()) return false;
+    try {
+      const body = JSON.parse(request.postData() ?? "{}") as { master_result?: { intakeCheckpoint?: { sections?: { builder?: { triageState?: { record?: { marriedToOtherParty?: string } } } } } } };
+      return body.master_result?.intakeCheckpoint?.sections?.builder?.triageState?.record?.marriedToOtherParty === "unsure";
+    } catch { return false; }
+  }, { timeout: 60_000 });
   await married.getByTestId("triage-answer-unsure").click();
   await expect(married).toHaveCount(0, { timeout: 30_000 });
-  seen.push("triage: married answered I'm not sure");
+  await saved.catch(() => { throw new Error("the married \"I'm not sure\" answer never reached the saved intake record"); });
+  seen.push("triage: married answered I'm not sure, saved");
   return true;
 }
 
