@@ -249,6 +249,7 @@
     "test:workspace-dates": "node --import tsx scripts/verification/verifyWorkspaceDates.ts",
     "test:workspace-catalogue": "node --import tsx scripts/verification/verifyWorkspaceCatalogue.ts",
     "test:canlii": "node --import tsx scripts/verification/verifyCanlii.ts",
+    "test:notice-gate": "node --import tsx scripts/verification/verifyNoticeGate.ts",
     "test:law-exam": "node --import tsx scripts/verification/verifyLawExam.ts",
     "test:checked-answer": "node --import tsx scripts/verification/verifyCheckedAnswer.ts",
     "test:case-understanding": "node --import tsx scripts/verification/verifyCaseUnderstanding.ts",

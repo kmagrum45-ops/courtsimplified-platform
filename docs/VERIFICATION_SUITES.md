@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-292 documented, 26 without a header.
+293 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -179,6 +179,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:not-married-everywhere` | **NOT MARRIED: MARRIED-ONLY TOPICS ARE HIDDEN EVERYWHERE, NOT ONLY IN THE TOPIC LIST (Chrome check of #550, 7.2; site**<br>owner, 14 Nov 2026, 6d). |
 | `npm run test:not-sure-goal-review` | **THE GOAL SAID "NOT SURE" IN THE SMALL CLAIMS GUIDED CHAT IS NEVER ASKED AGAIN IN THE REVIEW**<br>(founder, 1 Nov; strict check, NOT a carry-list entry). |
 | `npm run test:not-sure-never-asked` | **"NOT SURE" IS NEVER ASKED AGAIN, ANYWHERE (site owner, 31 Oct; replaces option 1 of 24 Oct).**<br>After a person says "I don't know" or "not sure" -- a skip in the questions one at a time, the words typed in the Small Claims guided chat or in the whole form, or the review's "I do not know yet" -- no screen in any of the three courts asks that question agai |
+| `npm run test:notice-gate` | **NO PAGE STARTS WORK WITHOUT GOING THROUGH THE "BEFORE YOU START" NOTICE (site owner, 15 Nov 2026).**<br>"A terminal check with a declared list of every place that sends a work request (analysis, AI, next step, story reading, court suggestion); it fails if a request is not on the list or does not go through the notice gate." |
 | `npm run test:notice-step` | **A claim whose kind can need written notice before suing is pointed to that**<br>notice step first, and only when the person's own words place it. |
 | `npm run test:offer-choices` | **AN OFFER'S "NO" AND "I'M NOT SURE" ARE RECORDED ONCE, THROUGH THE ONE HANDLER (site owner, 14 Nov 2026, decision 2 on**<br>the batch report: the 12 offers set aside on the page only, and "I'm not sure" on the kind of case; "No, that's not right" must record "ask once" and "I'm not sure" must record settled, so neither is asked again anywhere). |
 | `npm run test:official-forms` | **The official-forms watch reads the Ontario Court Forms pages correctly, and**<br>the recorded official list covers every live form the regulations name. |
