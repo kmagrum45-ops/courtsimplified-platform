@@ -112,6 +112,22 @@ export function claimAmountFromStory(story: string): ClaimAmount | null {
     const total = Number(sum[1].replace(/,/g, "")) + Number(sum[2].replace(/,/g, ""));
     if (Number.isFinite(total) && total > 0) return { value: `$${total.toLocaleString("en-CA")}`, quote: sentence };
   }
+  // What they claim as a list, each amount with what it is for ("I want to claim $5,000 for pain and suffering, $450 in
+  // lost wages and $18.45 for medicine"): the total, offered with their words (Chrome's forms test on #550, 14 Nov 2026;
+  // rule 8). Only after a claim verb, and only when every amount in the rest of the sentence says what it is for: a list
+  // of prices or payments ("I paid $1,200 for the table and $300 for the delivery") is not added.
+  for (const sentence of sentences(story)) {
+    const claimed = /\b(?:want(?:s|ed)? to claim|claim(?:s|ing)?|am claiming|asking for|seek(?:s|ing)?)\b(.*)$/i.exec(sentence);
+    if (!claimed) continue;
+    const rest = claimed[1];
+    const all = rest.match(/\$\s?\d/g) ?? [];
+    const items = [...rest.matchAll(/\$\s?(\d[\d,]*(?:\.\d{2})?)\s+(?:for|in)\s+[^$]+?(?=\s*,\s*(?:and\s+)?\$|\s+and\s+\$|\s*[.!]?\s*$)/gi)];
+    if (items.length < 2 || items.length !== all.length) continue;
+    const numbers = items.map((item) => item[1].replace(/,/g, ""));
+    const total = numbers.reduce((sum, value) => sum + Number(value), 0);
+    const cents = numbers.some((value) => /\./.test(value));
+    if (Number.isFinite(total) && total > 0) return { value: `$${total.toLocaleString("en-CA", { minimumFractionDigits: cents ? 2 : 0, maximumFractionDigits: 2 })}`, quote: sentence };
+  }
   const mentions = moneyMentions(story);
   const distinct = (list: Mention[]) => [...new Set(list.map((mention) => mention.number))];
   for (const kind of CLAIMABLE) {
