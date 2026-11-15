@@ -31,13 +31,20 @@ async function open(bytes: Uint8Array) {
   return Object.assign(doc, { close: () => task.destroy() });
 }
 
-/** Every box the PDF holds: its name, kind and page (a name used twice is listed twice). */
-export async function pdfBoxes(bytes: Uint8Array): Promise<{ name: string; type: string; checkBox: boolean; radio: boolean; page: number; value: unknown }[]> {
+/** One box of the PDF: its name, kind, page, value, and the size and font size its text is drawn at (0: fitted to the box). */
+export type PdfBox = { name: string; type: string; checkBox: boolean; radio: boolean; page: number; value: unknown; width: number; height: number; fontSize: number; multiLine: boolean };
+
+/** Every box the PDF holds (a name used twice is listed twice). */
+export async function pdfBoxes(bytes: Uint8Array): Promise<PdfBox[]> {
   const doc = await open(bytes.slice());
-  const out: { name: string; type: string; checkBox: boolean; radio: boolean; page: number; value: unknown }[] = [];
+  const out: PdfBox[] = [];
   for (let page = 1; page <= doc.numPages; page++) {
     for (const annotation of await (await doc.getPage(page)).getAnnotations()) {
-      if (annotation.subtype === "Widget" && annotation.fieldName) out.push({ name: annotation.fieldName, type: annotation.fieldType, checkBox: Boolean(annotation.checkBox), radio: Boolean(annotation.radioButton), page, value: annotation.fieldValue });
+      const [x1, y1, x2, y2] = annotation.rect as number[];
+      if (annotation.subtype === "Widget" && annotation.fieldName) out.push({
+        name: annotation.fieldName, type: annotation.fieldType, checkBox: Boolean(annotation.checkBox), radio: Boolean(annotation.radioButton), page, value: annotation.fieldValue,
+        width: x2 - x1, height: y2 - y1, fontSize: Number(annotation.defaultAppearanceData?.fontSize ?? 0), multiLine: Boolean(annotation.multiLine),
+      });
     }
   }
   await doc.close();

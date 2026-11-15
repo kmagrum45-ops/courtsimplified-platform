@@ -29,6 +29,7 @@ import { readdirSync } from "node:fs";
 import { FORM_MAPS } from "../../src/lib/case-system/forms/maps";
 import { FORM_9A } from "../../src/lib/case-system/forms/maps/form9A";
 import { FORM_8A } from "../../src/lib/case-system/forms/maps/form8A";
+import { FORM_1A, additionalParties, form1ACopies } from "../../src/lib/case-system/forms/maps/form1A";
 import { FAMILY_FORM_8 } from "../../src/lib/case-system/forms/maps/familyForm8";
 import { FAMILY_FORM_10 } from "../../src/lib/case-system/forms/maps/familyForm10";
 import { FAMILY_FORM_13 } from "../../src/lib/case-system/forms/maps/familyForm13";
@@ -38,6 +39,8 @@ import { formContextOf } from "../../src/lib/case-system/forms/formContext";
 import { fillOfficialPdf, officialPdfBytes, pdfBoxes } from "../../src/lib/case-system/forms/officialPdf";
 import type { PartiesRecord } from "../../src/lib/case-system/parties/parties";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
+import { siteQuestions } from "../../src/lib/case-system/siteQuestions";
+import { sourcedAnswerListText } from "../../app/builder/_components/sourcedAnswers";
 
 const ID = "00000000-0000-4000-8000-000000000613";
 const checkpoint = (court: "small-claims" | "family", sections: Record<string, unknown>): Checkpoint => ({ version: 1, flowId: ID, courtPath: court, revision: ID, sections: sections as never });
@@ -96,6 +99,13 @@ const EXPECTED_9A: Record<string, BoxValue> = {
   "Name(s) of defendant(s)": "Test Avery Defendant; Second Defendant Ltd.",
   "Reasons for disputing the claim and details": "I hired Example Renovations Inc. in June 2026 to redo my kitchen. They left in August 2026 with the cabinets unfinished and the sink not connected. I paid $2,000 up front and I do not agree that I owe the $3,200 they claim. An e-transfer on June 3, 2026.",
 };
+/** Form 1A for the defence (one copy): entry 1 the plaintiffs' second party, entry 2 the person's co-defendant; entry 3 empty. */
+const EXPECTED_1A_DEFENCE: Record<string, BoxValue> = {
+  "Plaintiff 1": true, "Plaintiff number 1": "2",
+  "Last name or name of company 1": "Owner", "First name 1": "Pat", "Address (street number, apartment, unit) 1": "50 Example Road", "City/Town 1": "Ottawa", "Province 1": "ON", "Postal code 1": "K2P 0A5",
+  "Defendant 2": true, "Defendant number 2": "2",
+  "Last name or name of company 2": "Second Defendant Ltd.", "Address (street number, apartment, unit) 2": "8 Sample Crescent", "City/Town 2": "Kingston", "Province 2": "ON", "Postal code 2": "K7L 1A2",
+};
 const EXPECTED_8A: Record<string, BoxValue> = {
   "Plaintiff(s)": "Example Renovations Inc.; Pat Owner",
   "Defendant(s)": "Test Avery Defendant; Second Defendant Ltd.",
@@ -108,7 +118,10 @@ const EXPECTED_F8: Record<string, BoxValue> = {
   "Married on": true,
 };
 const EXPECTED_F10: Record<string, BoxValue> = {
-  "Full legal name - Applicant(s)": "Test Rae Other", "Address - Applicant(s)": "44 Example Drive, Sudbury ON, P3B 2B2", "Phone & fax - Applicant(s)": "705-555-0144",
+  // The applicant's address box on the official Form 10 is one line at a fixed 12pt, 200pt wide: this ordinary address
+  // does not fit (pdf.js printed "44 Example Drive, Sudbury ON," and lost the postal code below the box, 15 Nov 2026).
+  // It is left blank and the screen gives the whole address to write by hand (check 9).
+  "Full legal name - Applicant(s)": "Test Rae Other", "Phone & fax - Applicant(s)": "705-555-0144",
   "Name - Applicant(s) Lawyer": "Lee Counsel", "Address - Applicant(s) Lawyer": "9 Law Lane, Sudbury ON, P3C 3C3", "Phone & fax - Applicant(s) Lawyer": "705-555-0199", "Email - Applicant(s) Lawyer": "lee@example.com",
   "Full legal name - Respondent(s)": "Test Person", "Address - Respondent(s)": "21 Example Avenue, Sudbury ON, P3A 1A1", "Phone & fax - Respondent(s)": "705-555-0101", "Email - Respondent(s)": "test.person@example.com",
   "Full legal name": "Test Person",
@@ -157,7 +170,10 @@ function differences(read: Map<string, BoxValue>, expected: Record<string, BoxVa
   const wrong: string[] = [];
   for (const [box, value] of read) {
     const want = box in expected ? expected[box] : typeof value === "boolean" ? false : "";
-    if (value !== want) wrong.push(`${box}: ${JSON.stringify(value)} (expected ${JSON.stringify(want)})`);
+    // A box of several lines holds the line breaks the site puts in so pdf.js never breaks a line itself (textFit.ts):
+    // where they fall is layout, checked by verifyFormTextFit.ts against pdf.js; here a line break reads as a space.
+    const words = (item: string | boolean) => (typeof item === "string" ? item.replace(/[ \t]*\n[ \t]*/g, " ") : item);
+    if (words(value) !== words(want)) wrong.push(`${box}: ${JSON.stringify(value)} (expected ${JSON.stringify(want)})`);
   }
   for (const box of Object.keys(expected)) if (!read.has(box)) wrong.push(`${box}: not a box of the PDF`);
   return wrong;
@@ -249,6 +265,55 @@ async function main() {
     assert.ok(reasons.includes("$3,200") && reasons.includes("$2,000"), `the person's amounts are missing: ${reasons}`);
     assert.ok(!/What did you pay them with\?/.test(reasons), `a site question is in the reasons: ${reasons}`);
     assert.ok(!/My name is|613-555-0142/.test(reasons), `a party-detail sentence is in the reasons: ${reasons}`);
+  });
+
+  // 7. The defence's reasons only when the record says the person is the defendant (site owner, 15 Nov 2026), and never
+  // with site text in them: every fixed question the site asks (siteQuestions.ts) and its follow-up block are checked.
+  const REASONS = ["Reasons for disputing the claim and details", "Reasons for disputing the claim and details, continued"];
+  const withSide = (where: "starting" | null) => ({ ...DEFENCE, sections: { ...DEFENCE.sections, situation: { record: where ? { where, court: "small-claims", filed: "nothing" } : { court: "small-claims" } } } } as Checkpoint);
+  for (const [label, record] of [["the person is bringing the case", withSide("starting")], ["the record does not say which side the person is on", withSide(null)]] as const) {
+    await check(`7. 9A when ${label}: the reasons boxes stay empty (the story is not a defence unless the person is the defendant)`, () => {
+      const values = pdfValues(fillForm(FORM_9A, formContextOf(record)));
+      for (const box of REASONS) assert.ok(!(box in values), `${box} holds ${String(values[box]).slice(0, 80)}`);
+    });
+  }
+  await check("7. 9A as the defendant, with every site question and the follow-up block in the saved story: none of the site's text reaches the reasons", () => {
+    const questions = siteQuestions();
+    assert.ok(questions.length > 20, `only ${questions.length} site questions found`);
+    const story = [DEFENCE_STORY, ...questions.map((question, index) => `${question} My answer ${index + 1}.`), sourcedAnswerListText([{ question: questions[0], answer: "My follow-up answer." }, { question: questions[1], answer: "My second follow-up answer." }])].join("\n\n");
+    const record = { ...DEFENCE, sections: { ...DEFENCE.sections, story: { text: story } } } as Checkpoint;
+    const values = pdfValues(fillForm(FORM_9A, formContextOf(record)));
+    const text = REASONS.map((box) => String(values[box] ?? "")).join(" ");
+    assert.ok(text.includes("I hired Example Renovations Inc.") && text.includes("My answer 1.") && text.includes("My follow-up answer."), `the person's own words are missing: ${text.slice(0, 120)}`);
+    const found = questions.filter((question) => text.includes(question));
+    assert.deepEqual(found.slice(0, 5).map((question) => `${question} <<< ${text.slice(Math.max(0, text.indexOf(question) - 60), text.indexOf(question) + question.length + 30)}`), [], `${found.length} site question(s) in the reasons`);
+    assert.ok(!/Answers to follow-up questions|(^|\s)Q:\s/.test(text), "the site's follow-up block is in the reasons");
+  });
+
+  // 8. Form 1A with a Defence: the other side's second plaintiff and the person's own second defendant, each its own
+  // entry with its number on its side (the same way as with Form 7A), read back from the filled official PDF.
+  const defenceCtx = formContextOf(DEFENCE);
+  const defenceCopies = form1ACopies(additionalParties(defenceCtx.plaintiffs, defenceCtx.defendants));
+  await check("8. Form 1A with 9A: one copy; every box read back as the table says (Plaintiff No. 2, then Defendant No. 2)", async () => {
+    assert.equal(defenceCopies.length, 1, `copies: ${defenceCopies.length}`);
+    const wrong = differences(await readBack(await filledPdf(FORM_1A, { ...defenceCtx, additional: defenceCopies[0] })), EXPECTED_1A_DEFENCE);
+    assert.equal(wrong.length, 0, `${wrong.length} box(es) wrong:\n${wrong.join("\n")}`);
+  });
+  await check("8. Form 1A with 9A: 9A's two \"listed on attached Form 1A\" ticks match what Form 1A holds", () => {
+    const values = pdfValues(fillForm(FORM_9A, defenceCtx));
+    const sides = defenceCopies.flat().map((item) => item.side);
+    assert.equal(values["Additional plaintiff(s) listed on attached Form 1A"], sides.includes("plaintiff"));
+    assert.equal(values["Additional defendant(s) listed on attached Form 1A"], sides.includes("defendant"));
+  });
+  await check("8. negative control: Form 1A built with the sides swapped (the person taken as the plaintiff) is caught", async () => {
+    const swapped = form1ACopies(additionalParties(defenceCtx.defendants, defenceCtx.plaintiffs));
+    const wrong = differences(await readBack(await filledPdf(FORM_1A, { ...defenceCtx, additional: swapped[0] })), EXPECTED_1A_DEFENCE);
+    assert.ok(wrong.length >= 8, `only ${wrong.length} difference(s): ${wrong.join(" | ")}`);
+  });
+
+  await check("9. Family 10: an address too long for the one-line applicant box is left blank, and the screen gives the whole address to write by hand", () => {
+    const result = fillForm(FAMILY_FORM_10, formContextOf(FAMILY_RESPONDENT)).find((item) => item.box === "Address - Applicant(s)");
+    assert.ok(result?.state === "blank" && /too long/i.test(result.why) && result.why.includes("44 Example Drive, Sudbury ON, P3B 2B2"), JSON.stringify(result));
   });
 
   if (failed) { console.log(`\n${failed} check(s) failed`); process.exit(1); }

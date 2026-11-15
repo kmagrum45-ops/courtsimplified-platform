@@ -114,7 +114,10 @@ function compare(label: string, read: Map<string, string | boolean>, expected: R
   const wrong: string[] = [];
   for (const [box, value] of read) {
     const want = box in expected ? expected[box] : typeof value === "boolean" ? false : "";
-    if (value !== want) wrong.push(`${box}: ${JSON.stringify(value)} (expected ${JSON.stringify(want)})`);
+    // A box of several lines holds the line breaks the site puts in so pdf.js never breaks a line itself (textFit.ts):
+    // where they fall is layout, checked by verifyFormTextFit.ts against pdf.js; here a line break reads as a space.
+    const words = (item: string | boolean) => (typeof item === "string" ? item.replace(/[ \t]*\n[ \t]*/g, " ") : item);
+    if (words(value) !== words(want)) wrong.push(`${box}: ${JSON.stringify(value)} (expected ${JSON.stringify(want)})`);
   }
   for (const box of Object.keys(expected)) if (!read.has(box)) wrong.push(`${box}: not a box of the PDF`);
   assert.equal(wrong.length, 0, `${label}: ${wrong.length} box(es) wrong:\n${wrong.join("\n")}`);

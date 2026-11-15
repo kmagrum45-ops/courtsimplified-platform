@@ -2233,3 +2233,26 @@ are AcroForm, none XFA, all read and fill with the same pdf.js route. Box counts
 - 9A's plaintiff and defendant "also known as" boxes have their own names, so (unlike 7A) both can be filled.
 - `test:parties-never-to-ai`'s import walk did not follow a bare `import "x";` (no `from`): a planted one in a form map
   went unseen. Fixed the same day; the walk follows it.
+
+**Text that does not fit a box (2026-11-15, Lane B).** pdf.js 6.3 cuts text off silently when it fills a box; found by
+reading its own drawing (`page.getOperatorList({ annotationMode: AnnotationMode.ENABLE_STORAGE })`: per box a
+`beginAnnotation` with its rect, `setFont` with the size used, `setTextMatrix`/`moveText` for each line, `showText` with
+each glyph's width), now `scripts/verification/pdfDrawnText.ts`, the judge in `verifyFormTextFit.ts`:
+- **A box with a fixed font size cannot shrink** (most of Form 9A and Form 1A: 10pt Arial; Family 10's applicant boxes:
+  12pt, one line, 200pt wide). pdf.js has no way to set a size from outside: `annotationStorage` takes only `value`
+  (and `rotation`, flags), and the saved field keeps its own `/DA`. An ordinary address does not fit Family 10's box: the
+  postal code was lost below it.
+- **A box sized to fit (font size 0) shrinks without limit**: two parties' names joined in one Family box drew at 1pt.
+- **In a box of several lines, pdf.js's `_splitLine` skips the first glyph of each new line when it measures** (it sets
+  `i = lastSpacePos + 1` and the loop's `i++` passes over it), so a wrapped line can run one letter past the box (the
+  "t" of "not" was cut on Form 7A); and its auto size checks `lines * fontSize` against the height, not the line height
+  (1.35 x), so the last lines fell below the box.
+- Layout to copy when predicting: 2pt padding left and right, 1pt above and below; a multi-line box holds
+  `round((height - 2) / (1.35 * size))` lines (at least one), each an equal share of the height, from the top; a fitted
+  multi-line box starts from 12pt. Glyph widths are Helvetica's for both Helv and Arial boxes (pdf-lib's standard-font
+  metrics give the same numbers).
+- The way round it (`src/lib/case-system/forms/textFit.ts`): give pdf.js text already broken into lines that fit at the
+  size it will use, so it never breaks a line; leave a value that cannot fit at a readable size (6pt; 8pt for several
+  lines) out of the box, with the whole value on screen to write by hand. Box sizes: `npm run forms:geometry`.
+- Rendering to look: the test renderer's substitute font spaces letters out and looks wider than the real one, so a
+  render that seems to clip at the right edge must be confirmed with the operator list before it is called a fault.

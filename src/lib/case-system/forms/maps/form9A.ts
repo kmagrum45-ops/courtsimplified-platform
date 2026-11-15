@@ -13,13 +13,16 @@
  * Pure. States no law: a box the site has no fact or wording for is left blank, with the reason.
  */
 import { partyName } from "../../parties/parties";
+import { respondsToTheCase } from "../../caseFile/caseFile";
 import type { FormMapDefinition, FormContext } from "../formMap";
 import { partyBoxes } from "../partyBoxes";
-import { splitText } from "../splitText";
+import { splitToBoxes } from "../textFit";
 
-/** The room in the page 2 box and the page 3 continued box (each about the same share of its box as Form 7A's). */
-export const DEFENCE_REASONS_BUDGETS = [2_600, 1_400] as const;
-const reasons = (ctx: FormContext) => splitText(ctx.reasons, DEFENCE_REASONS_BUDGETS);
+const PDF_FILE = "docs/sources/forms/scr-9a-aug22-en-fil.pdf";
+/** The reasons over the page 2 box and the page 3 continued box, as many whole sentences as each holds (textFit.ts, measured), then the rest. */
+const reasons = (ctx: FormContext) => splitToBoxes(PDF_FILE, ["Reasons for disputing the claim and details", "Reasons for disputing the claim and details, continued"], ctx.reasons);
+/** The story is a defence only when the record says the person is the defendant (site owner, 15 Nov 2026). */
+const notTheDefendant = (ctx: FormContext): string | null => (respondsToTheCase(ctx.file) ? null : "Filled from your own words only when the case record says you are the defendant.");
 
 const plaintiff = (ctx: FormContext) => ctx.plaintiffs[0];
 const defendant = (ctx: FormContext) => ctx.defendants[0];
@@ -40,7 +43,7 @@ export const FORM_9A: FormMapDefinition = {
   number: "9A",
   title: "Defence",
   pdf: {
-    file: "docs/sources/forms/scr-9a-aug22-en-fil.pdf",
+    file: PDF_FILE,
     url: "https://ontariocourtforms.on.ca/static/media/uploads/courtforms/scc/09a/scr-9a-aug22-en-fil.pdf",
     sha256: "32fa5e1e13a2de947c944fb45bb69a282591615efb71ee80a7bf8afff986ece6",
     fetched: "2026-11-15",
@@ -85,16 +88,16 @@ export const FORM_9A: FormMapDefinition = {
     "week/month 2": termsBox,
     "Day and month of payment 2": termsBox,
     "Year of payment (yy) 2": termsBox,
-    "Reasons for disputing the claim and details": { kind: "fill", fact: "story (the person's own words)", read: (ctx) => reasons(ctx)[0], missing: { what: "what happened, in your own words", addAt: "story" } },
+    "Reasons for disputing the claim and details": { kind: "fill", fact: "story (the person's own words)", read: (ctx) => reasons(ctx)[0], missing: { what: "what happened, in your own words", addAt: "story" }, blankWhen: notTheDefendant },
 
     // ---- Page 3: the reasons continued, why the person disagrees, the date and signature
     "Claim Number, page 3": claimNumberBox,
-    "Reasons for disputing the claim and details, continued": { kind: "fill", fact: "story, continued", read: (ctx) => reasons(ctx)[1], missing: { what: "", addAt: "story" }, optional: true },
+    "Reasons for disputing the claim and details, continued": { kind: "fill", fact: "story, continued", read: (ctx) => reasons(ctx)[1], missing: { what: "", addAt: "story" }, optional: true, blankWhen: notTheDefendant },
     "Reasons for disagreeing with all or part of the claim": {
       kind: "blank", why: "Why you disagree with the claim is not asked on its own yet. Write it in your own words.",
       needsFact: "why the person disagrees with all or part of the claim, in their own words (asked on its own, not taken from the story)",
     },
-    "Additional pages attached because more room was needed": { kind: "fill", fact: "story longer than both boxes", read: (ctx) => reasons(ctx)[2].length > 0, missing: { what: "", addAt: "story" } },
+    "Additional pages attached because more room was needed": { kind: "fill", fact: "story longer than both boxes", read: (ctx) => reasons(ctx)[2].length > 0, missing: { what: "", addAt: "story" }, blankWhen: notTheDefendant },
     "Day and month of signature": signedBox,
     "Year of signature (yy)": signedBox,
     "Signature of defendant or representative": { kind: "blank", why: "Signed by hand." },

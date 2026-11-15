@@ -12,22 +12,17 @@
 import { formatRecordedAmount } from "../../format/recordedAmount";
 import type { FormMapDefinition, FormContext } from "../formMap";
 import { partyBoxes } from "../partyBoxes";
+import { splitToBoxes } from "../textFit";
 
-/** How much of the reasons the first box takes; the rest goes in the continued box on page 3, then on added pages. */
-export const REASONS_FIRST_BOX = 3_400;
-export const REASONS_CONTINUED_BOX = 1_200;
+const PDF_FILE = "docs/sources/forms/scr-7a-aug22-en-fil.pdf";
 
-/** The reasons split at a paragraph or sentence end, so no line is cut in the middle. */
+/**
+ * The reasons over the page 2 box and the page 3 continued box, as many whole sentences as each holds at a readable size
+ * (textFit.ts, measured: until 15 Nov 2026 a fixed 3,400 and 1,200 characters, which lost the last lines below the box),
+ * then the rest, for added pages.
+ */
 export function splitReasons(text: string): [string, string, string] {
-  const take = (rest: string, budget: number): [string, string] => {
-    if (rest.length <= budget) return [rest, ""];
-    const window = rest.slice(0, budget);
-    const cut = Math.max(window.lastIndexOf("\n"), window.lastIndexOf(". ") + 1);
-    const at = cut > budget * 0.5 ? cut : budget;
-    return [rest.slice(0, at).trimEnd(), rest.slice(at).trimStart()];
-  };
-  const [first, afterFirst] = take(text.trim(), REASONS_FIRST_BOX);
-  const [second, rest] = take(afterFirst, REASONS_CONTINUED_BOX);
+  const [first, second, rest] = splitToBoxes(PDF_FILE, ["Reasons for claim and details", "Reasons for claim and details_continued"], text);
   return [first, second, rest];
 }
 
@@ -41,7 +36,7 @@ export const FORM_7A: FormMapDefinition = {
   number: "7A",
   title: "Plaintiff's Claim",
   pdf: {
-    file: "docs/sources/forms/scr-7a-aug22-en-fil.pdf",
+    file: PDF_FILE,
     url: "https://ontariocourtforms.on.ca/static/media/uploads/courtforms/scc/07a/scr-7a-aug22-en-fil.pdf",
     sha256: "8a10d53ae1fbc4e4d4b2022e0e6aea9f3ae3c24c9d9b1d4ee0e8ac1fed970e78",
     fetched: "2026-11-14",
