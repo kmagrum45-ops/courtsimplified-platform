@@ -226,7 +226,9 @@ test("Family questions one at a time: the children box a part of the story answe
         const offer = question.locator(OFFER);
         await expect(offer, "offered with the one control").toHaveCount(1);
         await expect(offer).toHaveText(offerWords);
-        const words = ((await offer.innerText()).split(": ").slice(1).join(": ")).trim();
+        // What is offered is in Yes's name ("Yes: One daughter."), the button itself reads "Yes" (the three-choice control).
+        const words = (((await offer.getAttribute("aria-label")) ?? "").split(": ").slice(1).join(": ")).trim();
+        expect(words, "the offer says what it fills in").not.toBe("");
         await offer.click();
         await expect.poll(async () => (await box.inputValue()).trim(), { message: "one click fills it in" }).toBe(words);
         break;

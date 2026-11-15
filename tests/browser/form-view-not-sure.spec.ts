@@ -34,6 +34,12 @@ const STORIES: Record<Court, string> = {
 };
 /** Not answers about the case: left as they are. */
 const SKIP = /story|city|municipality|your name|your full legal name|your address|your phone|your email|yourPostalCode|yourAddress|yourPhone|yourEmail|yourName|court file number|search/i;
+/**
+ * The form's boxes the test may fill. The Parties step's boxes (each party's name, address and contact, site owner 14 Nov
+ * rule 1: where "your name" and "your address" moved) are the person's own details, left alone like SKIP's: filling one
+ * saves it and turns it into a held line, which moved every later box's position (PR #550 CI, nth(15)).
+ */
+const FORM_BOXES = ["input[type=text]", "input:not([type])", "textarea", "select"].map((kind) => `${kind}:not([data-testid^="parties-"]):visible`).join(", ");
 
 async function openForm(page: Page, court: Court) {
   if (court === "small-claims") {
@@ -52,7 +58,7 @@ async function openForm(page: Page, court: Court) {
 /** The form's boxes, as (kind, accessible name) for each visible one the test may fill. */
 async function boxes(page: Page) {
   const form = page.locator("main");
-  return form.locator("input[type=text]:visible, input:not([type]):visible, textarea:visible, select:visible").evaluateAll((nodes) => nodes.map((node, index) => {
+  return form.locator(FORM_BOXES).evaluateAll((nodes) => nodes.map((node, index) => {
     const element = node as HTMLInputElement;
     const label = element.labels?.[0]?.innerText ?? element.getAttribute("aria-label") ?? element.getAttribute("placeholder") ?? element.name ?? "";
     const options = element.tagName === "SELECT" ? [...(element as unknown as HTMLSelectElement).options].map((option) => ({ value: option.value, text: option.text })) : [];
@@ -70,7 +76,7 @@ for (const court of ["small-claims", "civil", "family"] as const) {
     await openForm(page, court);
 
     const filled: string[] = [];
-    const all = page.locator("main").locator("input[type=text]:visible, input:not([type]):visible, textarea:visible, select:visible");
+    const all = page.locator("main").locator(FORM_BOXES);
     for (const box of await boxes(page)) {
       if (box.disabled || box.readOnly || SKIP.test(`${box.label} ${box.testId}`)) continue;
       const element = all.nth(box.index);

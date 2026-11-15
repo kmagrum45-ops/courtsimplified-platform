@@ -130,12 +130,7 @@ export default function StageConfirmation({
         data-suggested={suggestedStage}
         className="rounded-3xl border-2 border-[#2f7d67] bg-white p-5 shadow-sm"
       >
-        <p className="text-sm leading-6 text-[#16302b]">
-          {/* No "From what you told us" without what they told us (#469 re-test): the
-              suggestion is the analysis's, and its basis is quoted when there is one. */}
-          Suggested for your case: <strong className="text-[#10231f]">{labelFor(suggestedStage, pathway)}</strong>.
-        </p>
-        <div className="mt-3 flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2">
           <UseSuggestion
             // The card confirms the stage itself: "I'm not sure" is its own "I am not sure" stage, confirmed as if chosen from
             // the list (never asked again); No opens the list, asked once (site owner, 14 Nov 2026, decision 2).
@@ -146,6 +141,9 @@ export default function StageConfirmation({
             onNo={() => setChanging(true)}
             onUnsure={() => onConfirm("not-sure")}
             className="rounded-xl bg-[#2f7d67] px-5 py-2 text-sm font-semibold text-white"
+            // No "From what you told us" without what they told us (#469 re-test): the suggestion is the analysis's, and
+            // its basis is quoted when there is one. Drawn by the one control, so never without its buttons (PR #550 CI).
+            ask={<span className="mb-3 block text-sm leading-6 text-[#16302b]">Suggested for your case: <strong className="text-[#10231f]">{labelFor(suggestedStage, pathway)}</strong>.</span>}
           />
           <button
             type="button"

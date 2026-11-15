@@ -17,6 +17,12 @@
  * `pressed`: a screen that keeps the choice until its own Continue (the chat's story offers) shows it pressed and keeps
  * the three on the page.
  *
+ * `ask` / `frame`: the screen's question for this offer ("From what you told us: ... Is that right?") and the box it sits
+ * in are drawn BY THIS CONTROL, so they show only with the three buttons and go with them (PR #550 CI: the Civil chat drew
+ * its question with no buttons under it). A screen never draws an offer's question outside the control.
+ * A choice made here hides only the offer it was made on (its key): the control is reused in place for the next offer
+ * (the chat), and a choice kept in plain state hid the next offer's buttons too (PR #550 CI, offer-choices Civil).
+ *
  * Every Yes carries `data-use-suggestion`, so a browser check finds each offer without knowing the screen; `testId`
  * keeps a screen's own stable test id for Yes.
  */
@@ -47,6 +53,8 @@ export function UseSuggestion({
   unsureTestId,
   className,
   note,
+  ask,
+  frame,
 }: {
   /** What the offer is for (its key and fact): the one handler records No and Not sure against it. */
   offer: OfferTarget;
@@ -68,21 +76,26 @@ export function UseSuggestion({
   className?: string;
   /** A smaller line under what is offered (where the suggestion came from). */
   note?: ReactNode;
+  /** The screen's question for this offer, drawn above what is offered, only with the buttons. */
+  ask?: ReactNode;
+  /** The box the whole offer sits in (its test id, look and data attributes), drawn only with the buttons. */
+  frame?: { testId?: string; className?: string; attrs?: Record<string, string> };
 }) {
-  const [setAside, setSetAside] = useState<OfferChoice | null>(null);
+  const [setAside, setSetAside] = useState<{ key: string; choice: OfferChoice } | null>(null);
   const choices = useOfferChoices();
   const keeps = pressed !== undefined;
   const shared = offer.recordedBy !== "screen";
   // Decided before (this visit or an earlier one): never offered again.
-  if (!keeps && (setAside || (shared && choices.choiceOf(offer.key)))) return null;
+  if (!keeps && (setAside?.key === offer.key || (shared && choices.choiceOf(offer.key)))) return null;
   const choose = (choice: "no" | "unsure") => {
     if (shared) void choices.record(offer, choice);
     const screen = choice === "no" ? onNo : onUnsure;
     if (screen) screen();
-    if (!keeps && (shared || !screen)) setSetAside(choice);
+    if (!keeps && (shared || !screen)) setSetAside({ key: offer.key, choice });
   };
-  return (
+  const control = (
     <span className="block" data-offer-choices="">
+      {ask ? <span data-offer-ask="" className="block">{ask}</span> : null}
       {what ? <span data-testid={`${testId}-what`} className="block font-semibold">{what}</span> : null}
       {note ? <span className="block text-xs font-normal text-[#4d675f]">{note}</span> : null}
       <span role="group" aria-label="Is this right?" className="mt-1 flex flex-wrap gap-2">
@@ -110,4 +123,5 @@ export function UseSuggestion({
       </span>
     </span>
   );
+  return frame ? <div data-testid={frame.testId} className={frame.className} {...frame.attrs}>{control}</div> : control;
 }

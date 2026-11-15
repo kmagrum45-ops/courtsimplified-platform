@@ -11,6 +11,7 @@ import { openSituationChange } from "../../_components/SituationQuestions";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import StoryGuidance from "../../_components/StoryGuidance";
 import { UseSuggestion } from "../../_components/UseSuggestion";
+import { useOfferChoices } from "../../_components/offerChoiceSave";
 
 /**
  * ONE QUESTION AT A TIME, OVER THE COURT'S OWN FORM (build order Step 2C,
@@ -202,6 +203,8 @@ export default function GuidedFormChat({
   const [changing, setChanging] = useIntakeState<string | null>("form-chat", "changing", null);
   // Story answers the person said were not right: asked plainly instead.
   const [notFromStory, setNotFromStory] = useIntakeState<Set<string>>("form-chat", "notFromStory", new Set());
+  // Offers already answered (this visit or an earlier one): never made again.
+  const offerChoices = useOfferChoices();
   // What the answer just given still needs (answerNeedsMore), shown under the box.
   const [needsMore, setNeedsMore] = useIntakeState<string | null>("form-chat", "needsMore", null);
   // Questions whose story-filled part the person has edited (partialFromStory).
@@ -409,40 +412,41 @@ export default function GuidedFormChat({
       {questionHeld ? null : current ? (
         <div data-testid="guided-form-question" data-key={current.key} className="mt-5 rounded-2xl border-2 border-[#2f7d67] bg-white p-4">
           {(() => {
-            const offered = !changing && !notFromStory.has(current.key) ? current.fromStory?.(values) ?? null : null;
+            // An offer already answered (this visit or an earlier one) is not made again: the question is asked plainly.
+            const offered = !changing && !notFromStory.has(current.key) && !offerChoices.choiceOf(`chat-story:${current.key}`) ? current.fromStory?.(values) ?? null : null;
             if (!offered || answerNeedsMore(current, offered.value)) return null;
             const words = (field: GuidedField, value: string | string[]) => (Array.isArray(value) ? value : [value])
               .map((item) => field.options?.find((option) => option.value === item)?.label ?? item)
               .join("; ");
             const together = current.confirmAlone ? [] : storyGroup(offered.quote);
             const group = together.some(({ field }) => field.key === current.key) ? together : [{ field: current, offer: offered }];
+            // Three explicit choices (site owner, 11 Nov 2026): Yes keeps it; No, that's not right asks it once;
+            // I'm not sure records not sure for this question (never asked again, "add it when you know").
+            // The one three-choice control every offer is made with (UseSuggestion.tsx; 14 Nov 2026) draws the box and the
+            // question too, so they never show without the buttons (PR #550 CI).
             return (
-              <div data-testid="guided-form-from-story" data-value={JSON.stringify(offered.value)} data-group={group.map(({ field }) => field.key).join(" ")}>
-                {group.map(({ field, offer }) => <p key={field.key} className="font-semibold text-[#10231f]">{field.label}: {cutAtWord(words(field, offer.value), 160)}</p>)}
-                <p className="mt-1 text-sm text-[#4d675f]">
-                  From what you told us: &ldquo;{cutAtWord(offered.quote, 200)}&rdquo; Is that right?
-                </p>
-                {/* Three explicit choices (site owner, 11 Nov 2026): Yes keeps it; No, that's not right asks it once;
-                    I'm not sure records not sure for this question (never asked again, "add it when you know"). */}
-                {/* The one three-choice control every offer is made with (UseSuggestion.tsx; 14 Nov 2026). */}
-                <div className="mt-3">
-                  <UseSuggestion
-                    offer={{ key: `chat-story:${current.key}`, fact: null }}
-                    testId="guided-form-from-story-yes"
-                    noTestId="guided-form-from-story-no"
-                    unsureTestId="guided-form-from-story-unsure"
-                    onUse={() => (group.length > 1 ? acceptGroup(group) : answer(offered.value, true))}
-                    onNo={() => setNotFromStory((now) => new Set(now).add(current.key))}
-                    onUnsure={() => answer(current.kind === "multi" ? [] : "")}
-                    className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
-                  />
-                </div>
-              </div>
+              <UseSuggestion
+                offer={{ key: `chat-story:${current.key}`, fact: null }}
+                testId="guided-form-from-story-yes"
+                noTestId="guided-form-from-story-no"
+                unsureTestId="guided-form-from-story-unsure"
+                onUse={() => (group.length > 1 ? acceptGroup(group) : answer(offered.value, true))}
+                onNo={() => setNotFromStory((now) => new Set(now).add(current.key))}
+                onUnsure={() => answer(current.kind === "multi" ? [] : "")}
+                className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
+                frame={{ testId: "guided-form-from-story", attrs: { "data-value": JSON.stringify(offered.value), "data-group": group.map(({ field }) => field.key).join(" ") } }}
+                ask={<>
+                  {group.map(({ field, offer }) => <span key={field.key} className="block font-semibold text-[#10231f]">{field.label}: {cutAtWord(words(field, offer.value), 160)}</span>)}
+                  <span className="mt-1 mb-3 block text-sm text-[#4d675f]">
+                    From what you told us: &ldquo;{cutAtWord(offered.quote, 200)}&rdquo; Is that right?
+                  </span>
+                </>}
+              />
             );
           })() ?? (() => {
           // Part of the answer from the story, OFFERED (owner, 31 Oct: never typed into the box
           // unseen); only the rest is asked. The box starts empty until the person uses it or types.
-          const partial = !changing && !notFromStory.has(current.key) ? current.partialFromStory?.(values) ?? null : null;
+          const partial = !changing && !notFromStory.has(current.key) && !offerChoices.choiceOf(`chat-partial:${current.key}`) ? current.partialFromStory?.(values) ?? null : null;
           const boxValue = partial && !edited.has(current.key) ? "" : typeof draft === "string" ? draft : "";
           const editBox = (text: string) => {
             setEdited((now) => new Set(now).add(current.key));
@@ -451,13 +455,10 @@ export default function GuidedFormChat({
           return (
           <>
           <p className="font-semibold text-[#10231f]">{partial ? partial.question : current.question}</p>
-          {partial ? (
-            <p data-testid="guided-form-partial-from-story" className="mt-1 text-sm text-[#4d675f]">
-              From what you told us: &ldquo;{cutAtWord(partial.quote, 200)}&rdquo; You can use what that says, then add the rest.
-            </p>
-          ) : null}
+          {/* The quote and its offer are one control (UseSuggestion.tsx): once used, typed over or answered, both go. */}
           {partial && !edited.has(current.key) ? (
-            <UseSuggestion offer={offerForQuestion(`chat-partial:${current.key}`, current.key)} testId="guided-form-partial-use" what={partial.prefill} onUse={() => editBox(partial.prefill)} className="mt-2 rounded-xl border border-[#2f7d67] bg-white px-4 py-2 text-left text-sm font-semibold text-[#2f7d67]" />
+            <UseSuggestion offer={offerForQuestion(`chat-partial:${current.key}`, current.key)} testId="guided-form-partial-use" what={partial.prefill} onUse={() => editBox(partial.prefill)} className="mt-2 rounded-xl border border-[#2f7d67] bg-white px-4 py-2 text-left text-sm font-semibold text-[#2f7d67]"
+              ask={<span data-testid="guided-form-partial-from-story" className="mt-1 mb-2 block text-sm text-[#4d675f]">From what you told us: &ldquo;{cutAtWord(partial.quote, 200)}&rdquo; You can use what that says, then add the rest.</span>} />
           ) : null}
           <p className="mt-1 text-sm text-[#4d675f]">Why we ask: {current.why}</p>
           {current.story ? <StoryGuidance id="guided-form-story-guidance" /> : null}

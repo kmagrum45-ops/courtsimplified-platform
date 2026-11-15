@@ -215,11 +215,8 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
         {suggestion ? (
           // Said plainly and confirmed in one click (walkthrough run
           // 38525903567, FR: "my ex gf" was asked "Were you married?").
-          <div data-testid="triage-story-suggestion" className="mt-4 rounded-xl border border-[#2f7d67] bg-white p-3">
-            <p className="text-sm text-[#10231f]">
-              {/* A question, not a fact of ours: no quote to show here (#469 re-test). */}
-              Is this right: <strong>{suggestion.say}</strong>?
-            </p>
+          // The box and its question are drawn by the one control, so they never show without its buttons (PR #550 CI).
+          // A question, not a fact of ours: no quote to show here (#469 re-test).
             <UseSuggestion
               offer={offerForQuestion(`triage:${current.id}`, current.id)}
               testId="triage-story-suggestion-yes"
@@ -228,8 +225,9 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
               // "Is a divorce sought?" has its own "not sure" answer: recorded as the triage's answer too.
               onUnsure={current.id === "divorce-sought" || current.id === "married-to-other-party" ? () => record("unsure") : undefined}
               className="mt-2 rounded-full bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
+              frame={{ testId: "triage-story-suggestion", className: "mt-4 rounded-xl border border-[#2f7d67] bg-white p-3" }}
+              ask={<span className="block text-sm text-[#10231f]">Is this right: <strong>{suggestion.say}</strong>?</span>}
             />
-          </div>
         ) : null}
         <div className="mt-4 flex flex-wrap gap-3">
           {values.map((value) => (

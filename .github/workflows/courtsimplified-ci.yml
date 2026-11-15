@@ -994,6 +994,8 @@ jobs:
           tests/browser/suggestions-offered.spec.ts
           tests/browser/never-ask-twice-reading.spec.ts
           tests/browser/story-box-guidance.spec.ts
+          tests/browser/phone-width.spec.ts
+          tests/browser/offer-never-without-buttons.spec.ts
           tests/browser/address-opens-chosen-case.spec.ts
           tests/browser/review-answer-clears-unknown.spec.ts
           tests/browser/not-sure-never-asked.spec.ts

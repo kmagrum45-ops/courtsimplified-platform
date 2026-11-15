@@ -41,6 +41,7 @@ import { situationLine, situationOfCase, stageFromSituation } from "@/src/lib/ca
 import { FILE_OPEN_FAILED, openAfterCheck, saveFile } from "@/src/lib/case-workspace/fileFetch";
 import { WorkingButton } from "../_components/Working";
 import { UseSuggestion } from "../_components/UseSuggestion";
+import { useOfferChoices } from "../_components/offerChoiceSave";
 import { openCaseFromAddress } from "@/src/lib/case-system/openCase";
 import { officialFormCount, oneRowPerForm } from "@/src/lib/content-library/forms/formCount";
 
@@ -396,6 +397,8 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
   // Answers kept from what the person already entered, with why (Step 2B).
   const [keptFromCase, setKeptFromCase] = useState<Record<string, string>>({});
   const [changingKept, setChangingKept] = useState<Record<string, boolean>>({});
+  // Offers already answered are not made again: the question is asked with its list (PR #550 CI).
+  const offerChoices = useOfferChoices();
   const autoKeptKey = useRef("");
   const [verifiedRecommendations, setVerifiedRecommendations] = useState<
     VerifiedFormRecommendation[]
@@ -983,12 +986,11 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                   const pendingChoice = pending
                     ? question.choices.find((choice) => JSON.stringify(choice.value) === JSON.stringify(pending.value))
                     : undefined;
-                  if (pending && pendingChoice && !changingKept[question.field_path]) {
+                  if (pending && pendingChoice && !changingKept[question.field_path] && !offerChoices.choiceOf(`forms:${question.field_path}`)) {
                     const [, group, field] = question.field_path.split(".");
                     return (
                       <div key={question.field_path} data-testid="forms-suggested-from-case" className="block rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4">
                         <p className="font-semibold">{question.question}</p>
-                        <p className="mt-1 font-normal text-[#2f7d67]">From your case: {pending.reason} Not saved yet.</p>
                         <div className="mt-2 flex flex-wrap gap-2">
                           <UseSuggestion
                             // The forms page's own applicability answer, no case-file fact: a choice keeps the offer from coming back.
@@ -998,6 +1000,8 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                             working={applicabilitySaving}
                             onUse={() => void saveApplicability({ [group]: { [field]: pending.value } }, { [question.field_path]: pending.reason })}
                             className="rounded-xl bg-[#2f7d67] px-4 py-2 text-left text-sm font-semibold text-white disabled:opacity-70"
+                            // Where the suggestion came from is drawn by the one control, so never without its buttons (PR #550 CI).
+                            ask={<span className="mb-2 block font-normal text-[#2f7d67]">From your case: {pending.reason} Not saved yet.</span>}
                           />
                           <button type="button" onClick={() => setChangingKept((current) => ({ ...current, [question.field_path]: true }))} className="rounded-xl border border-[#d8e6df] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67]">
                             Change

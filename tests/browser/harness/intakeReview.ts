@@ -2,10 +2,17 @@
 import { expect, type Page } from "@playwright/test";
 export async function recordInitialUnknowns(page: Page) {
   const unknowns = page.locator('input[data-testid="intake-unknown"]:not(:checked)');
+  const ticked = page.locator('input[data-testid="intake-unknown"]:checked');
   while (await unknowns.count()) {
     const count = await unknowns.count();
+    const before = await ticked.count();
     await unknowns.first().check();
-    await expect(unknowns).toHaveCount(count - 1);
+    // One tick settles exactly the ticked box: one more box is ticked, never another ticked for the person (site owner's
+    // ticked-box rule). The unticked list shrinks by at least that one: a question that asks the same fact is then not
+    // asked (never ask twice; e.g. Small Claims' outcome and counterclaim both ask "outcome", 057db2c3), so it leaves the
+    // page, unticked (PR #550 CI, stage-rule: 2 unticked became 0 after one tick).
+    await expect.poll(() => ticked.count(), { message: "one tick ticks exactly one box" }).toBe(before + 1);
+    await expect.poll(() => unknowns.count(), { message: "the ticked box leaves the unticked list" }).toBeLessThanOrEqual(count - 1);
   }
 }
 export async function confirmInitialInformation(page: Page) {

@@ -40,6 +40,13 @@ function box(page: Page, court: Court) {
   if (court === "small-claims") return page.getByTestId("sc-intake-amountClaimed");
   return page.locator("label").filter({ has: page.locator("span.font-semibold", { hasText: /^Other party$/ }) }).locator("input, textarea").first();
 }
+/** Small Claims' box sits in the closed "Optional details for specific case types" section: opened as a person would. */
+async function openNameBox(page: Page, court: Court) {
+  if (court !== "small-claims") return;
+  const section = page.locator("details").filter({ hasText: "Optional details for specific case types" });
+  if ((await section.getAttribute("open")) === null) await section.locator("summary").click();
+  await expect(nameBox(page, court), "the other box is shown").toBeVisible();
+}
 function nameBox(page: Page, court: Court) {
   // Small Claims: the person's name is asked in the Parties step now (site owner, 14 Nov 2026, rule 1), so tab A types
   // another box of the whole form, saved the same way (writeFormBox).
@@ -116,6 +123,7 @@ for (const court of Object.keys(CASES) as Court[]) {
       // 3. Tab A, never reloaded: something else typed and saved.
       await page.bringToFront();
       console.log(`[${court}] tab A box before its save: ${await box(page, court).inputValue()}`);
+      await openNameBox(page, court);
       await nameBox(page, court).fill("Synthetic Testperson");
       await nameBox(page, court).blur();
       await page.waitForTimeout(6_000);
