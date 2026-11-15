@@ -12,6 +12,7 @@
  * States no law. No model.
  */
 import { useState } from "react";
+import { WorkingButton } from "./Working";
 import { FORM_7A } from "../../src/lib/case-system/forms/maps/form7A";
 import { additionalParties, form1ACopies } from "../../src/lib/case-system/forms/maps/form1A";
 import { fillForm, type AddPlace, type BoxResult, type FormContext } from "../../src/lib/case-system/forms/formMap";
@@ -62,13 +63,14 @@ export default function FilledForm7A({ ctx, caseId, addHref }: { ctx: FormContex
       <h2 className="text-lg font-semibold text-[#16302b]">Form 7A, Plaintiff&apos;s Claim, filled from your case</h2>
       <p className="text-sm">{missing.length ? `${missing.length} box${missing.length === 1 ? "" : "es"} still need${missing.length === 1 ? "s" : ""} something from you (listed below).` : "Every box the site fills is filled from your case."}{" "}Check every box before you file it.</p>
       <div className="flex flex-wrap gap-2">
-        <button type="button" data-testid="filled-form-7a-download" disabled={!caseId || busy !== null} onClick={() => void download("small-claims/7A", 1, "Form-7A-Plaintiffs-Claim.pdf")} className="rounded-full bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white disabled:opacity-60">
-          {busy === "small-claims/7A:1" ? "Making the PDF…" : "Download Form 7A (PDF)"}
-        </button>
+        {/* The site's own held button (Working.tsx): while the PDF is made it says so and is held (test:working-states). */}
+        <WorkingButton type="button" data-testid="filled-form-7a-download" disabled={!caseId || busy !== null} working={busy === "small-claims/7A:1"} workingLabel="Making the PDF…" onClick={() => void download("small-claims/7A", 1, "Form-7A-Plaintiffs-Claim.pdf")} className="rounded-full bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white disabled:opacity-60">
+          Download Form 7A (PDF)
+        </WorkingButton>
         {copies.map((copy, index) => (
-          <button key={index} type="button" data-testid="filled-form-1a-download" disabled={!caseId || busy !== null} onClick={() => void download("small-claims/1A", index + 1, `Form-1A-Additional-Parties-${index + 1}.pdf`)} className="rounded-full border border-[#2f7d67] px-4 py-2 text-sm font-semibold text-[#2f7d67] disabled:opacity-60">
-            {busy === `small-claims/1A:${index + 1}` ? "Making the PDF…" : `Download Form 1A${copies.length > 1 ? ` (${index + 1} of ${copies.length})` : ""}: ${copy.map((entry) => partyName(entry.party) || `${entry.side} ${entry.number}`).join(", ")}`}
-          </button>
+          <WorkingButton key={index} type="button" data-testid="filled-form-1a-download" disabled={!caseId || busy !== null} working={busy === `small-claims/1A:${index + 1}`} workingLabel="Making the PDF…" onClick={() => void download("small-claims/1A", index + 1, `Form-1A-Additional-Parties-${index + 1}.pdf`)} className="rounded-full border border-[#2f7d67] px-4 py-2 text-sm font-semibold text-[#2f7d67] disabled:opacity-60">
+            {`Download Form 1A${copies.length > 1 ? ` (${index + 1} of ${copies.length})` : ""}: ${copy.map((entry) => partyName(entry.party) || `${entry.side} ${entry.number}`).join(", ")}`}
+          </WorkingButton>
         ))}
       </div>
       {!caseId ? <p className="text-sm text-[#4d675f]">Save your case (sign in) to download the filled form.</p> : null}

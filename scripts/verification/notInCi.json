@@ -197,11 +197,6 @@
       "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"
     },
     {
-      "file": "scripts/verification/verifyNoNamesToModel.ts",
-      "script": "test:no-names-to-model",
-      "reason": "references the OpenAI client, so it may call the live model (billed); no workflow runs it (CLAUDE.md s. 7: billed runs are started by hand); not run in this audit"
-    },
-    {
       "file": "scripts/verification/verifyNoStaleIntake.ts",
       "script": "test:no-stale-intake",
       "reason": "no reason recorded; passed locally (6 Nov 2026) with no model or database: candidate to add to CI (owner to decide)"

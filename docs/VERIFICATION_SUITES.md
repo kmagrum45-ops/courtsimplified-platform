@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-291 documented, 26 without a header.
+292 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -26,6 +26,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:amount-consistency` | **The amount claimed and the amount asked for must agree, or the user is told.**<br>Found 2026-09-27: a case-review story claimed $6,200 and asked the court to order $5,000, and the output never said so. amountConsistency.ts now warns. |
 | `npm run test:amount-format` | **AN AMOUNT IS SHOWN THE SAME WAY EVERYWHERE (Chrome check of #550, finding 2.6; site owner, 14 Nov 2026).**<br>Chrome's tree story ("I got a quote for $1500") showed "$1,500.00" on the case page but "$1500" in the chat's offer, the chat's summary, the review and the Plaintiff's Claim draft: the story's raw text reached every screen that did not go through the site's on |
 | `npm run test:amount-notes` | **The amount the user recorded is set against the court's money limits at**<br>the step where they start their claim -- correctly on each side of each limit, conditionally, and with its provisions. |
+| `npm run test:analysis-input-from-record` | **EVERY ROUTE BUILDS ITS ANALYSIS INPUT FROM THE RECORD PLUS THE FORM'S STATE, THE RECORD WINS (site owner, 14 Nov 2026,**<br>item 5 of the decisions on the batch report; batch report item D: the Small Claims form, Family and Civil built the analysis input from their own copies, and the hand-off, page.tsx handleComplete, merged nothing from the record). |
 | `npm run test:analysis-safety` | **No analysis runs without a safety-check result for the story, on every**<br>analyze route, and a failed check is recorded as failed -- never clear. |
 | `npm run test:analysis-time-budget` | **The next-step analysis finishes inside the time the page and the server allow.**<br>What it checks: research's limit plus the main reasoning call's limit (plus a margin for the rest) fit inside how long the page waits (ANALYSIS_TIMEOUT_MS), and the page stops waiting before every area's analysis route reaches its maxDuration; the reasoning ca |
 | `npm run test:anon-grants` | **No migration grants anon write access, and no policy applies to PUBLIC.**<br>COSTS NOTHING. Reads supabase/migrations/*.sql off disk. No database connection, no network. |

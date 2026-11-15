@@ -199,7 +199,11 @@ async function main() {
   for (const [label, fields] of required) {
     check(`risk (a): "${label}" is supplied by a form field`, fields.length > 0);
     for (const field of fields) {
-      check(`risk (a): "${label}" -- the Small Claims form has a box for ${field}`, form.includes(`sc-intake-${field}`));
+      // The parties' names and addresses are given in the Parties step (site owner, 14 Nov 2026, rule 1), which the form
+      // renders in place of its own name and address boxes; the draft reads them from the parties record
+      // (test:drafts-from-record). Only these three fields; every other field still needs its own box.
+      const PARTY_FIELDS = new Set(["yourName", "yourAddress", "defendantAddress"]);
+      check(`risk (a): "${label}" -- the Small Claims form has a box for ${field}`, form.includes(`sc-intake-${field}`) || (PARTY_FIELDS.has(field) && /<PartiesStep\b/.test(form)));
       if (!asker) continue;
       const own = asker.askedFacts(field);
       // Not held: askable, whatever else the file holds.

@@ -18,6 +18,7 @@
  *
  * Pure: no React, no network, no model. States no law.
  */
+import { sentences } from "../sentences";
 
 export const PARTY_DETAILS = [
   "companyName", "firstName", "secondName", "lastName", "fullName", "alsoKnownAs",
@@ -144,7 +145,8 @@ const SAME_ADDRESS_RE = /\bat the same address\b/i;
 
 /** The story's sentences, kept whole ("Ltd., 100 Sample Road" and "ON K1A 0A1" are not ends of sentences). */
 export function storySentences(story: string): string[] {
-  return story.replace(/\s+/g, " ").trim().split(/(?<=[.!?])\s+(?=[A-Z"“(])/).map((sentence) => sentence.trim()).filter(Boolean);
+  // The one sentence splitter (sentences.ts; test:shared-behaviour).
+  return sentences(story.replace(/\s+/g, " ").trim()).map((sentence) => sentence.trim()).filter(Boolean);
 }
 
 type Address = { street: string; city: string; province: string; postalCode?: string; quote: string };

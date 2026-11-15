@@ -62,8 +62,12 @@ for (const [file, call] of [["app/builder/_components/StageAnswerPanel.tsx", "he
   check(`B1. ${file} passes the record's answer to the forms named in its step`, read(file).includes(call));
 }
 for (const file of ["app/builder/page.tsx", "app/cases/[id]/page.tsx", "app/cases/[id]/forms/page.tsx"]) {
-  check(`B1. ${file} reads "never married" through neverMarried, never its own copy`, /neverMarried\(/.test(read(file)) && !/married\.value === false/.test(read(file)));
+  // Through the one reader (neverMarried), or the one helper over it that also hides married-only content for "not sure"
+  // (marriedOnly.ts hidesMarriedOnly; site owner, 14 Nov 2026, decision A), checked below to call neverMarried itself.
+  check(`B1. ${file} reads "never married" through neverMarried, never its own copy`, /(?:neverMarried|hidesMarriedOnly)\(/.test(read(file)) && !/married\.value === false/.test(read(file)));
 }
+const hideHelper = read("src/lib/case-system/family/marriedOnly.ts").replace(/\r\n/g, "\n").split("export function hidesMarriedOnly")[1]?.split("\n}")[0] ?? "";
+check("B1. the helper that hides married-only content reads never married through neverMarried", /neverMarried\(file!?\)/.test(hideHelper), hideHelper.slice(0, 200));
 
 // ---- B2 ----
 const settled = { ...emptyStatusRecord(), marriedToOtherParty: "no" as const, cohabitationStart: "2018", cohabitationEnd: "2025", haveChildTogether: "yes" as const, caseInvolvesChildren: "yes" as const };
