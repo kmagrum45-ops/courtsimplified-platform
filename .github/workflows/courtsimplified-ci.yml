@@ -584,6 +584,9 @@ jobs:
       - name: Court decisions from CanLII follow CanLII's terms (attribution, isolation, no scraping, rate limit, works with no key)
         run: npm run test:canlii
 
+      - name: No page starts work before the "Before you start" notice (declared work senders, gated pages, the gates themselves)
+        run: npm run test:notice-gate
+
       - name: Checked answers show only statements the official text supports
         run: npm run test:checked-answer
 
@@ -998,6 +1001,7 @@ jobs:
           tests/browser/phone-width.spec.ts
           tests/browser/offer-never-without-buttons.spec.ts
           tests/browser/notice-before-work.spec.ts
+          tests/browser/home-notice.spec.ts
           tests/browser/address-opens-chosen-case.spec.ts
           tests/browser/review-answer-clears-unknown.spec.ts
           tests/browser/not-sure-never-asked.spec.ts

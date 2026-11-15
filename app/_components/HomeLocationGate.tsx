@@ -37,6 +37,8 @@ import { writeAnswer } from "./caseWrite";
 import { otherPartyFromUnderstanding } from "../../src/lib/case-system/caseFile/understoodOtherParty";
 import StoryGuidance from "./StoryGuidance";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import FirstUseAcknowledgement from "./FirstUseAcknowledgement";
+import { loadNoticeStatus, noticeOutstandingNow, useNoticeOutstanding } from "./noticeStatus";
 
 const pathLabels: Record<BuilderDraftCourtPath, string> = {
   family: "Family",
@@ -117,6 +119,22 @@ export default function HomeLocationGate() {
 
 function HomeLocationGateContent() {
   const recovery = useIntakeRecovery();
+  // The "Before you start" notice before the story goes anywhere (site owner, 15 Nov 2026): Continue, with the notice not
+  // yet accepted, shows the same notice here and sends nothing; once it is accepted, Continue carries on by itself.
+  const noticeWaits = useNoticeOutstanding();
+  const [noticeAsked, setNoticeAsked] = useState(false);
+  const noticeFirst = async (): Promise<boolean> => {
+    const outstanding = noticeOutstandingNow() ?? (await loadNoticeStatus()).outstanding;
+    if (outstanding) setNoticeAsked(true);
+    return outstanding;
+  };
+  useEffect(() => {
+    if (!noticeAsked || noticeWaits !== false) return;
+    setNoticeAsked(false);
+    void continueToIntake();
+    // Once, when the notice is accepted: Continue carries on as the person pressed it.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [noticeAsked, noticeWaits]);
   const beforeIntakeAI = useBeforeIntakeAI();
   const validateIntakeResponse = useValidateIntakeResponse();
   const router = useRouter();
@@ -334,6 +352,7 @@ function HomeLocationGateContent() {
 
   async function updateWithAnswers(answers: { question: string; answer: string }[]) {
     if (checking) return;
+    if (await noticeFirst()) return;
     // A reading still running (the story's own, started as it was typed) gave the first click no
     // feedback for half a minute (Charter re-test 2026-10-26). The new reading includes the story
     // and the answers, so the older one is cancelled and "Updating…" shows at once.
@@ -348,6 +367,7 @@ function HomeLocationGateContent() {
 
   async function continueToIntake() {
     if (!isOntarioReady || !path || checking || requestRef.current.pending) return;
+    if (await noticeFirst()) return;
 
     setChecking(true);
     setRequestError("");
@@ -737,6 +757,8 @@ function HomeLocationGateContent() {
           <div className="mt-5">
             <AiUseNotice activity="read what you write, work out your situation and next step, and check the law it states against the official text" />
           </div>
+
+          {noticeAsked && noticeWaits !== false ? <div className="mt-5" data-testid="home-notice"><FirstUseAcknowledgement /></div> : null}
 
           <button type="button" onClick={continueToIntake} disabled={!isOntarioReady || checking} className="mt-6 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300">{checking ? "Reading your story and checking the law (this can take a minute or two)…" : understood ? "Check again" : `Continue to ${pathLabels[path]} intake`}</button>
           {/* A button that cannot be pressed says why (item 12: a blank city gave no message). */}

@@ -76,10 +76,37 @@ export async function autoAnswerSituation(page: Page, answers: SituationAnswers 
   if (!(keepEarlier && ANSWERS.has(page))) ANSWERS.set(page, answers);
   if (REGISTERED.has(page)) return;
   REGISTERED.add(page);
+  await acceptHomeNoticeAsAPerson(page);
   await page.addLocatorHandler(page.getByTestId("situation-questions"), async () => {
     const chosen = ANSWERS.get(page);
     if (chosen) await answerSituation(page, chosen);
   }, { noWaitAfter: true });
+}
+
+/** Set in sessionStorage by a spec that answers the home page's notice itself (home-notice.spec.ts). */
+export const HOME_NOTICE_BY_SPEC = "cs-test-home-notice-by-spec";
+
+/**
+ * A STAND-IN, listed in reports: the home page's "Before you start" notice (shown at Continue since 15 Nov 2026, before
+ * the story is read) ticked and continued as a person would, by a script in the page, so the specs that start on the home
+ * page go on as before. Only the home page's notice ([data-testid=home-notice]); the builder's is left to each spec. A
+ * script, not a locator handler: many specs wait for the address after Continue, and a handler runs only before actions.
+ * A spec that checks the notice itself sets HOME_NOTICE_BY_SPEC first.
+ */
+async function acceptHomeNoticeAsAPerson(page: Page): Promise<void> {
+  await page.addInitScript((flag) => {
+    const press = () => {
+      if (window.sessionStorage.getItem(flag) === "1") return;
+      const notice = document.querySelector('[data-testid="home-notice"]');
+      const box = notice?.querySelector<HTMLInputElement>('[data-testid="acknowledgement-checkbox"]');
+      const go = notice?.querySelector<HTMLButtonElement>('[data-testid="acknowledgement-continue"]');
+      if (!box || !go) return;
+      if (!box.checked) box.click();
+      else if (!go.disabled) go.click();
+    };
+    const start = () => new MutationObserver(press).observe(document.body, { subtree: true, childList: true, attributes: true });
+    if (document.body) start(); else document.addEventListener("DOMContentLoaded", start);
+  }, HOME_NOTICE_BY_SPEC);
 }
 
 /** The answers this page's situation questions are given (autoAnswerSituation), or the default. */
