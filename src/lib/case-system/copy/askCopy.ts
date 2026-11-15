@@ -21,3 +21,8 @@ export const NOTHING_LEFT_TO_ASK = "Everything we need for now is already answer
 export const NOT_ANSWERED_YET = "Not answered yet: add it when you know";
 /** The control beside NOT_ANSWERED_YET. */
 export const ADD_IT_LATER = "Add it";
+/**
+ * Said where married-only topics are left out because the person answered "I'm not sure" to whether they were married
+ * (site owner, 14 Nov 2026, decision A: the owner's own words).
+ */
+export const MARRIED_UNSURE_NOTE = "You can add this when you know.";

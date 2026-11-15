@@ -28,5 +28,8 @@ export function withCaseFileAnswers(record: FamilyStatusRecord, file: CaseFile):
     if (slot.source?.kind === "answer" && Object.keys(TRIAGE_FIELD).includes(slot.source.question)) continue;
     out[field] = yesOrNoOf(slot) ?? "not-asked";
   }
+  // "I'm not sure" whether married, said anywhere (the review, the triage's story offer): never asked here again (site
+  // owner, 14 Nov 2026, decision A). Only "not sure" is carried; a Yes or No is still asked here first (reviewer 7).
+  if (out.marriedToOtherParty === "not-yet" && file.married.state === "unsure") out.marriedToOtherParty = "unsure";
   return out as FamilyStatusRecord;
 }

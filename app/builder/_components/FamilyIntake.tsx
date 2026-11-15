@@ -3,6 +3,7 @@
 import { useOpenWholeForm } from "./openWholeForm";
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeReviewView, useIntakeState, useStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
 import { notMarriedOf, withoutMarriedOnly } from "../../../src/lib/case-system/family/marriedOnly";
+import { MARRIED_UNSURE_NOTE } from "../../../src/lib/case-system/copy/askCopy";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
 import { caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
 import { formAnalysisInput } from "../../../src/lib/case-system/caseFile/chatTurnFacts";
@@ -1119,6 +1120,10 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
             <button type="button" data-testid="family-issue-show-all" onClick={() => setShowAllIssues(true)} className="mt-2 text-sm font-semibold text-[#2f7d67] underline">
               Show all topics
             </button>
+          ) : null}
+          {/* Married "I'm not sure" (decision A, 14 Nov 2026): the married-only topics are left out, said plainly. */}
+          {notMarriedOf(reviewView ? caseFileOf(reviewView.checkpoint) : null, facts) === "unsure" && withoutMarriedOnly(issueOptions, "unsure", issues).length < issueOptions.length ? (
+            <p data-testid="family-issue-married-unsure" className="mt-2 text-sm text-[#4d675f]">Topics only for married people are not shown. {MARRIED_UNSURE_NOTE}</p>
           ) : null}
         </div>
 

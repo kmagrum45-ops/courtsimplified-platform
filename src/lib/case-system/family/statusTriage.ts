@@ -31,6 +31,7 @@
  * than stating it, because it cannot be argued with.
  */
 import { MONTH_WORDS_EN } from "../dates";
+import { MARRIED_UNSURE_NOTE } from "../copy/askCopy";
 
 /**
  * Every source cited below is vendored under docs/sources/ and checked by
@@ -60,7 +61,9 @@ export type YesNoUnsure = "yes" | "no" | "unsure";
 
 export type FamilyStatusRecord = {
   /** The FACT, never the word "spouse" — which is the term doing ambiguous work. */
-  marriedToOtherParty: YesNo | "not-yet";
+  // "unsure": the person said "I'm not sure" (site owner, 14 Nov 2026, decision A): settled, never asked again; only what
+  // applies either way is asked, and the married-only topics stay hidden (marriedOnly.ts hidesMarriedOnly).
+  marriedToOtherParty: YesNoUnsure | "not-yet";
 
   /** Asked only when married. The Divorce-Act-versus-provincial fork. */
   divorceSought: YesNoUnsure | "not-asked" | "not-yet";
@@ -139,7 +142,7 @@ export type TriageQuestion = {
 const QUESTIONS: Record<TriageQuestionId, TriageQuestion> = {
   "married-to-other-party": {
     id: "married-to-other-party",
-    kind: "yes-no",
+    kind: "yes-no-unsure",
     prompt: "Were you and the other person married to each other?",
     whyAsked:
       "Ontario's family statutes treat married and unmarried couples differently in some " +
@@ -218,7 +221,8 @@ export function selectNextTriageQuestion(record: FamilyStatusRecord, deferred: R
   if (record.marriedToOtherParty === "not-yet") due.push("married-to-other-party");
   if (record.marriedToOtherParty === "yes") {
     if (record.divorceSought === "not-yet") due.push("divorce-sought");
-  } else {
+  } else if (record.marriedToOtherParty !== "unsure") {
+    // Not married (or not answered yet). "I'm not sure" asks neither branch: only what applies either way.
     if (record.cohabitationStart === null) due.push("cohabitation-dates");
     if (record.haveChildTogether === "not-yet") due.push("child-together");
   }
@@ -290,6 +294,7 @@ export function livedTogetherFromStory(story: string): { start: string; end: str
 export function prunedQuestions(record: FamilyStatusRecord): TriageQuestionId[] {
   if (record.marriedToOtherParty === "yes") return ["cohabitation-dates", "child-together"];
   if (record.marriedToOtherParty === "no") return ["divorce-sought"];
+  if (record.marriedToOtherParty === "unsure") return ["divorce-sought", "cohabitation-dates", "child-together"];
   return [];
 }
 
@@ -602,7 +607,7 @@ export function buildTriageOutcome(record: FamilyStatusRecord): TriageOutcome {
   const recorded: RecordedFact[] = [
     fact(
       "Married to the other person",
-      YES_NO_TEXT[record.marriedToOtherParty] ?? "not-yet",
+      record.marriedToOtherParty === "unsure" ? `Not sure. ${MARRIED_UNSURE_NOTE}` : YES_NO_TEXT[record.marriedToOtherParty] ?? "not-yet",
       false,
     ),
     fact(

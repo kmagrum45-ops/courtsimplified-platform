@@ -1,10 +1,10 @@
 /**
- * ASK ONCE, ON EVERY PAGE, FOR 38 STORIES (site owner, 11 Nov 2026: "the site must remember the case and every
+ * ASK ONCE, ON EVERY PAGE, FOR 39 STORIES (site owner, 11 Nov 2026: "the site must remember the case and every
  * screen must read from it"; target ZERO, no baseline).
  *
  * Each story (the 32 of test:story-invariants, the tree story from the live site, the slip-and-fall, and three of Chrome's
  * check of #550 read on the home page with its own questions: 5b, 5c, 5d, and Chrome's forms story: the person's details and
- * two defendants typed in the story, the Parties step answered from its offers) is given
+ * two defendants typed in the story, the Parties step answered from its offers; and a Family story whose "Were you married?" is answered "I'm not sure" in the triage, decision A of 14 Nov 2026) is given
  * once, signed in, and taken through the questions (Small Claims: the chat, pressing Continue on its story offers
  * without ticking, as the person on the live site did; civil and Family: one question at a time, using an offer
  * from the story when one is made), the review, the next step, the case page, the case file page and, for a Small
@@ -37,6 +37,7 @@ import { serveModelStandIns, type Court } from "./harness/thisCommitServer";
 import { factsAskedTwice, factsOfAsk, heldViolations, recordAsks, repeatViolations, type Asked } from "./harness/askOnce";
 import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { chooseOffers } from "./harness/offers";
+import { MARRIED_ONLY_SENTENCES } from "../../src/lib/case-system/family/marriedOnly";
 import { expectThisRunsServer } from "./harness/siteAccess";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
@@ -45,7 +46,7 @@ type Side = "bringing" | "responding";
 type Stated = { amount?: string; when?: string; otherParty?: string };
 /** `home`: the home page's story reading asks these questions (Chrome check of #550, 5b-5d), answered with these words. */
 /** `parties`: the story gives the parties' details; the Parties step is answered from its offers (Chrome forms test, #550). */
-type Story = { name: string; court: Court; side: Side; text: string; served?: string; stated: Stated; amountLater?: true; home?: { question: string; answer: string }[]; parties?: true };
+type Story = { name: string; court: Court; side: Side; text: string; served?: string; stated: Stated; amountLater?: true; home?: { question: string; answer: string }[]; parties?: true; marriedUnsure?: true };
 const S = (name: string, court: Court, side: Side, text: string, stated: Stated, served?: string): Story => ({ name, court, side, text: `Synthetic: ${text}`, stated, served });
 
 export const STORIES: Story[] = [
@@ -94,6 +95,9 @@ export const STORIES: Story[] = [
       { question: "Do you want to make a claim of your own against the contractor?", answer: "No. I only want to defend the claim. I am not seeking money from the contractor." },
     ] },
   // 5c: Family; "Is anything urgent ... a safety worry" asked after "No safety concerns".
+  // Decision A (14 Nov 2026): "Were you married?" answered "I'm not sure" in the triage; never asked again on any page,
+  // and no married-only sentence on the case page.
+  { ...S("family-married-unsure", "family", "bringing", "Jordan Testmarry and I separated in March 2026. Our son is 5 and lives with me. I want a parenting schedule and child support.", { otherParty: "Jordan Testmarry" }), marriedUnsure: true },
   { ...S("family-not-married-home", "family", "bringing", "Jordan Testcase and I were never married. Our daughter has lived with me in Ottawa since birth and sees Jordan every second weekend. Jordan does not agree to a parenting schedule.", { otherParty: "Jordan Testcase" }),
     home: [
       { question: "Are there any immediate safety concerns for you or your child?", answer: "No safety concerns." },
@@ -257,6 +261,16 @@ async function guidedForm(page: Page, story: Story, typed: Map<string, string>) 
   await page.getByTestId("guided-form-done").click().catch(() => {});
 }
 
+/** The Family triage's "Were you married?" answered "I'm not sure" when it is on the page (decision A); true once answered. */
+async function triageMarriedUnsure(page: Page, seen: string[], wait: number): Promise<boolean> {
+  const married = page.locator("[data-testid=triage-question][data-question=married-to-other-party]");
+  if (!(await visible(married, wait))) return false;
+  await married.getByTestId("triage-answer-unsure").click();
+  await expect(married).toHaveCount(0, { timeout: 30_000 });
+  seen.push("triage: married answered I'm not sure");
+  return true;
+}
+
 /** The review: what the person typed shown again as needing confirmation; then confirmed and the next step shown. */
 async function reviewAndNextStep(page: Page, story: Story, typed: Map<string, string>, found: Violation[], seen: string[]) {
   const panel = page.getByTestId("intake-review");
@@ -400,8 +414,11 @@ for (const story of STORIES) {
       await giveStory(page, story);
       reached = "story";
       const id = new URL(page.url()).searchParams.get("intake") ?? "";
+      let triaged = story.marriedUnsure ? await triageMarriedUnsure(page, seen, 20_000) : false;
       if (story.court === "small-claims") await smallClaimsChat(page, story, typed);
       else await guidedForm(page, story, typed);
+      if (story.marriedUnsure && !triaged) triaged = await triageMarriedUnsure(page, seen, 30_000);
+      if (story.marriedUnsure) expect(triaged, "the triage asked whether married, and took \"I'm not sure\"").toBe(true);
       reached = "questions";
       if (await reviewAndNextStep(page, story, typed, found, seen)) reached = "next step";
       if (story.amountLater && story.stated.amount) {
@@ -419,6 +436,13 @@ for (const story of STORIES) {
       const known = new Set<string>([...Object.keys(story.stated).filter((fact) => fact !== "when").concat(story.stated.when && /\d{1,2}, \d{4}/.test(story.stated.when) ? ["whenHappened"] : []), ...typed.keys()]);
       await readLabels(page, story, id, known, found, seen);
       if (story.parties) await checkFilledForms(page, id, seen);
+      if (story.marriedUnsure) {
+        await page.goto(`/cases/${id}`);
+        await expect(page.getByRole("heading", { name: "Your next step" })).toBeVisible({ timeout: 120_000 }).catch(() => {});
+        const text = await page.locator("main").innerText();
+        const shown = MARRIED_ONLY_SENTENCES.filter((sentence) => text.includes(sentence));
+        expect(shown, "no married-only sentence on the case page after married \"I'm not sure\"").toEqual([]);
+      }
       reached = reached === "next step" ? "all pages" : reached;
       const situation = situationOf(story);
       for (const violation of [...repeatViolations(factsAskedTwice(events, situation)), ...heldViolations(events)]) {

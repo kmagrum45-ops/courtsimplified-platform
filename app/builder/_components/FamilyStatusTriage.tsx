@@ -55,6 +55,7 @@ import {
 } from "../../../src/lib/case-system/family/statusTriage";
 import { storyQuoteFor, storySuggestionFor } from "../../../src/lib/case-system/family/triageStoryQuote";
 import { UseSuggestion } from "../../_components/UseSuggestion";
+import { OFFER_CHOICES } from "../../../src/lib/case-system/copy/suggestionCopy";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 
 export type FamilyTriageState = {
@@ -204,7 +205,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
       // no choice is shown chosen and nothing is recorded until they press one (owner, 31 Oct).
       const suggestion = storySuggestionFor(current.id, story);
       const record = (value: string) => {
-        if (current.id === "married-to-other-party") update({ marriedToOtherParty: value as "yes" | "no" });
+        if (current.id === "married-to-other-party") update({ marriedToOtherParty: value as "yes" | "no" | "unsure" });
         if (current.id === "divorce-sought") update({ divorceSought: value as "yes" | "no" | "unsure" });
         if (current.id === "child-together") update({ haveChildTogether: value as "yes" | "no" });
         if (current.id === "case-involves-children") update({ caseInvolvesChildren: value as "yes" | "no" });
@@ -225,7 +226,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
               what={suggestion.say}
               onUse={() => record(suggestion.value)}
               // "Is a divorce sought?" has its own "not sure" answer: recorded as the triage's answer too.
-              onUnsure={current.id === "divorce-sought" ? () => record("unsure") : undefined}
+              onUnsure={current.id === "divorce-sought" || current.id === "married-to-other-party" ? () => record("unsure") : undefined}
               className="mt-2 rounded-full bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
             />
           </div>
@@ -239,7 +240,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
               onClick={() => record(value)}
               className={chip}
             >
-              {value === "unsure" ? "I'm not sure" : value === "yes" ? "Yes" : "No"}
+              {value === "unsure" ? OFFER_CHOICES.unsure : value === "yes" ? "Yes" : "No"}
             </button>
           ))}
           {/*

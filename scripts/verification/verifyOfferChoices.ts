@@ -186,6 +186,9 @@ check("2. the 13 offers are all covered", CASES.length === 13, String(CASES.leng
       const stillNever = screens.filter((file) => /notMarried(?:=\{| = )neverMarried\(/.test(read(file)));
       check("7. every screen that hides married-only content hides it for \"not sure\" too (hidesMarriedOnly)", stillNever.length === 0 && screens.every((file) => /hidesMarriedOnly\(/.test(read(file))), stillNever.join(", "));
       check("7. the Family topics list says the note where it leaves the married-only topics out", /MARRIED_UNSURE_NOTE/.test(read("app/builder/_components/FamilyIntake.tsx")));
+      const fromReview = caseFileOf(cp("family", { builder: { initialUnknowns: ["married-to-other-party"] } }));
+      const { withCaseFileAnswers } = await import("../../src/lib/case-system/caseFile/triageFromCaseFile");
+      check("7. \"not sure\" said elsewhere first: the triage does not ask whether married again", fromReview.married.state === "unsure" && triage.selectNextTriageQuestion(withCaseFileAnswers(triage.emptyStatusRecord(), fromReview))?.id !== "married-to-other-party", JSON.stringify(fromReview.married));
     }
 
 

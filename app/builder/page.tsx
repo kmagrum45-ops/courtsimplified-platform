@@ -3,7 +3,8 @@
 import { OPEN_WHOLE_FORM_EVENT } from "./_components/openWholeForm";
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
-import { caseFileOf, claimKindOf, kindForAnalysis, neverMarried, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, claimKindOf, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { hidesMarriedOnly } from "../../src/lib/case-system/family/marriedOnly";
 import { analysisFactsOf, formAnalysisInput } from "../../src/lib/case-system/caseFile/chatTurnFacts";
 import { withoutUnsureAnswers } from "../../src/lib/case-system/caseFile/unsureAnswer";
 import { researchCaseContext } from "../../src/lib/case-system/caseFile/aiCaseContext";
@@ -2522,7 +2523,7 @@ function BuilderPageContent() {
             {confirmedStage ? (
               <StageAnswerPanel
                 courtPath={courtPath}
-                notMarried={neverMarried(builderCaseFile)}
+                notMarried={hidesMarriedOnly(builderCaseFile)}
                 confirmedStage={confirmedStage}
                 responding={respondingSide}
                 sideFromRecord={sideOf(situation) !== null}

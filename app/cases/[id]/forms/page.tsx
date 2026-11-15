@@ -11,7 +11,7 @@ import { officialFormsNamedIn, relevantToFamilyCase, userWordsOf } from "@/src/l
 import { authHeaders, useCaseHome } from "../../_components/CaseHomeContext";
 import { noticeStepForCase } from "@/src/lib/case-system/caseStep";
 import { caseFileOfMaster } from "@/src/lib/case-system/caseFile/caseFileOfMaster";
-import { neverMarried } from "@/src/lib/case-system/caseFile/caseFile";
+import { hidesMarriedOnly } from "@/src/lib/case-system/family/marriedOnly";
 
 /**
  * Forms: first the forms the user's own next step names (so the Defence a
@@ -35,7 +35,7 @@ export default function CaseFormsSection() {
   // fee notes and service lines for every kind of case on the step).
   const noticeStepId = noticeStepForCase(caseRecord.master_result, courtPath ?? null) ?? "";
   // Never married, as the person recorded it (the Family card): no Form 8A (B4; the same rule as the Overview card).
-  const notMarried = neverMarried(caseFileOfMaster(caseRecord.master_result, courtPath));
+  const notMarried = hidesMarriedOnly(caseFileOfMaster(caseRecord.master_result, courtPath));
   const practical =
     withoutDivorceApplication(courtPath && stepId ? practicalFor(stepId, courtPath as PracticalCourt, city, responding, userWords, noticeStepId) : null, notMarried);
 
