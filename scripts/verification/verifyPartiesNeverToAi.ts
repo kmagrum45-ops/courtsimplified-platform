@@ -28,6 +28,7 @@ import { withConfirmedGuidance } from "../../src/lib/security/intakeGuidanceGate
 import { remainingEssentialQuestions, transitionReview } from "../../src/lib/case-system/intakeReview";
 import { fillForm, pdfValues } from "../../src/lib/case-system/forms/formMap";
 import { FORM_7A } from "../../src/lib/case-system/forms/maps/form7A";
+import { FORM_MAPS } from "../../src/lib/case-system/forms/maps";
 import { formContextOf } from "../../src/lib/case-system/forms/formContext";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import type { PartiesRecord } from "../../src/lib/case-system/parties/parties";
@@ -68,8 +69,9 @@ export function filesReachingClient(files: readonly string[]): Set<string> {
   const importedBy = new Map<string, string[]>();
   for (const file of files) {
     const text = fs.readFileSync(file, "utf8");
-    for (const match of text.matchAll(/(?:import|export)\s[^'"]*?from\s*["']([^"']+)["']|import\(\s*["']([^"']+)["']\s*\)/g)) {
-      const target = resolveFrom(file, match[1] ?? match[2]);
+    // A bare `import "x";` (no `from`) loads x too: followed as well (Lane B, 15 Nov 2026: a planted one went unseen).
+    for (const match of text.matchAll(/(?:import|export)\s[^'"]*?from\s*["']([^"']+)["']|import\(\s*["']([^"']+)["']\s*\)|(?:^|;|\n)\s*import\s+["']([^"']+)["']/g)) {
+      const target = resolveFrom(file, match[1] ?? match[2] ?? match[3]);
       if (target) importedBy.set(target, [...(importedBy.get(target) ?? []), file]);
     }
   }
@@ -92,6 +94,13 @@ const reaching = new Set([...filesReachingClient(files)].filter((file) => file.s
 check("1. setup: the walk finds the AI client's callers (understandCase, the brain, the case reader)", ["understandCase.ts", "courtSimplifiedBrain.ts", "caseReaderModel.ts"].every((name) => [...reaching].some((file) => file.endsWith(name))), `${reaching.size} files`);
 const offenders = [...reaching].map((file) => [path.relative(ROOT, file), partyReadsIn(fs.readFileSync(file, "utf8"))] as const).filter(([file, reads]) => reads.length && !LABEL_LAYER.has(file));
 check("1. no file that can reach the AI client reads party details", offenders.length === 0, offenders.map(([file, reads]) => `${file}: ${reads.join(", ")}`).join(" | "));
+// Every form map and the code that fills them (forms/, every form added there included) fills on the server only: none
+// of it can reach the AI client at all, whatever it reads (Lane B, 15 Nov 2026: the forms after 7A).
+const FORMS_DIR = path.join(ROOT, "src", "lib", "case-system", "forms") + path.sep;
+const formFiles = files.filter((file) => file.startsWith(FORMS_DIR));
+check("1. setup: the forms' code is found (the maps, the filler)", formFiles.some((file) => file.endsWith("officialPdf.ts")) && formFiles.filter((file) => file.includes(`${path.sep}maps${path.sep}`)).length >= FORM_MAPS.length, `${formFiles.length} files`);
+const formsReaching = formFiles.filter((file) => reaching.has(file)).map((file) => path.relative(ROOT, file));
+check("1. no form map, and nothing that fills a form, can reach the AI client", formsReaching.length === 0, formsReaching.join(" | "));
 for (const [file, reason] of LABEL_LAYER) check(`1. the declared exception still reads the record (${file}: ${reason})`, partyReadsIn(fs.readFileSync(path.join(ROOT, file), "utf8")).length > 0, "stale: delete it from LABEL_LAYER");
 check("1. self-test: a planted read is found", partyReadsIn(`import { partyName } from "../parties/parties";`).length > 0 && partyReadsIn(`const names = file.parties.list;`).length > 0);
 check("1. self-test: a comment naming the record is not a read", partyReadsIn(`// file.parties.list is read by the forms only`).length === 0);
@@ -146,6 +155,11 @@ async function main() {
     if (court === "small-claims") {
       const values = pdfValues(fillForm(FORM_7A, formContextOf(cp, master)));
       check("3. negative control: the filled form holds the details (the server puts them in, from the record)", Object.values(values).some((value) => value === FAKE.street) && Object.values(values).some((value) => value === FAKE.company), JSON.stringify(values).slice(0, 200));
+    }
+    // Every other form of this court (Form 1A is filled per copy, from the parties after the first: checked in test:form-maps).
+    for (const map of FORM_MAPS.filter((item) => item.court === court && item.id !== "small-claims/1A" && item.id !== "small-claims/7A")) {
+      const text = JSON.stringify(Object.values(pdfValues(fillForm(map, formContextOf(cp, master)))));
+      check(`3. negative control, ${map.id}: the filled form holds the fake party's details (put in on the server, from the record)`, SECRETS.some((secret) => text.includes(secret)), text.slice(0, 200));
     }
   }
   console.log(failures ? `\n${failures} check(s) failed.` : "\nAll checks passed.");

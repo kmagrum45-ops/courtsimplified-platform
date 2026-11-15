@@ -37,6 +37,9 @@ import { remainingEssentialQuestions, transitionReview } from "../../src/lib/cas
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { getCaseValues, pickValueForField } from "../../app/api/generate-form/route";
 import { yourStoryDraft } from "../../src/lib/case-system/drafts/caseDrafts";
+import { FORM_MAPS } from "../../src/lib/case-system/forms/maps";
+import { fillForm, pdfValues } from "../../src/lib/case-system/forms/formMap";
+import { formContextOf } from "../../src/lib/case-system/forms/formContext";
 
 // Names chosen so they cannot appear in any template or source by accident.
 const USER = "Zebediah Quartermaine";
@@ -215,6 +218,12 @@ function smallClaimsInput(story: string): SmallClaimsIntelligenceInput {
   const draft = JSON.stringify(yourStoryDraft(familyIntake as never, new Date("2026-10-25T00:00:00Z")));
   check("Draft: the names are in the person's draft", draft.includes(USER) && draft.includes(OTHER));
   check("Form and draft, with the AI for the same case: the names went nowhere near the model", ![USER, OTHER].some((name) => hasName(allSent, name)));
+  // The official Family forms (forms/maps: Forms 8, 10, 13, 13.1) are filled on the server from the same saved case: both
+  // names are in each (the negative control: the names are there to be found), and the checks above show none was sent.
+  for (const map of FORM_MAPS.filter((item) => item.court === "family")) {
+    const text = JSON.stringify(Object.values(pdfValues(fillForm(map, formContextOf(cp, master)))));
+    check(`Official form ${map.id}: both names fill it, on the server, from the saved case`, text.includes(USER) && text.includes(OTHER), text.slice(0, 200));
+  }
 
   // Every API route that can reach the AI client sets its case's names: it is behind the
   // confirmed-guidance gate or withRequestNames. A new AI route without either fails here.

@@ -57,6 +57,12 @@ export type BlankBox = {
   why: string;
   /** No wording the site may write is held for this box: listed for the legal review chat (rule 6). */
   needsWording?: true;
+  /**
+   * The fact the case record would have to hold for this box to be filled, in words ("the court office the claim was
+   * issued at"). The record does not hold it today, so the box is blank; these are the requests to the case record's
+   * owners (neededFacts in forms/maps/index.ts). Never filled from anywhere else meanwhile.
+   */
+  needsFact?: string;
 };
 
 export type BoxEntry = FillBox | BlankBox;

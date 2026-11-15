@@ -50,7 +50,7 @@
     "test:parties-record": "node --import tsx scripts/verification/verifyPartiesRecord.ts",
     "test:offer-choices": "node --import tsx scripts/verification/verifyOfferChoices.ts",
     "test:analysis-input-from-record": "node --import tsx scripts/verification/verifyAnalysisInputFromRecord.ts",
-    "test:form-maps": "node --import tsx scripts/verification/verifyFormMaps.ts",
+    "test:form-maps": "node --import tsx scripts/verification/verifyFormMaps.ts && node --import tsx scripts/verification/verifyFormMapsMore.ts",
     "test:drafts-from-record": "node --import tsx scripts/verification/verifyDraftsFromRecord.ts",
     "test:parties-never-to-ai": "node --import tsx scripts/verification/verifyPartiesNeverToAi.ts",
     "test:wants-follow-amount": "node --import tsx scripts/verification/verifyWantsFollowAmount.ts",

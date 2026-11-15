@@ -2214,3 +2214,22 @@ with pdf.js returns each value. Used by `src/lib/case-system/forms/officialPdf.t
   substitute font spaces letters out, which is the renderer, not the file.
 - Form 7A has room for one plaintiff and one defendant; the rest go on Form 1A ("Additional plaintiff(s) / defendant(s)
   listed on attached Form 1A"), three to a copy.
+
+**The forms after 7A (2026-11-15, Lane B).** Small Claims 9A and 8A, Family 8, 10, 13 and 13.1 downloaded from the
+`static/media/uploads/courtforms/...` URLs the repository already records (plain `curl`, 200, `application/pdf`); all
+are AcroForm, none XFA, all read and fill with the same pdf.js route. Box counts (unique names): 9A 66, 8A 97, Family 8
+159, 10 86, 13 344, 13.1 327. What is not what it looks like:
+- **Family Form 8 has no `-fil` file**: `family/08/flr-8-jun25-en-fil.pdf` answers 404. The plain `flr-8-jun25-en.pdf`
+  has 159 fillable boxes anyway. Do not conclude from the missing `-fil` name that a form is not fillable.
+- **Family Form 13 is not encrypted** (no `/Encrypt`), unlike every other official form here, and it has **24 radio
+  buttons** (its Yes/No pairs on page 6), the only ones in these forms. `pdfBoxes` reports `radio`; `fillOfficialPdf`
+  refuses a value for one until a map needs it.
+- **Family Form 10 ships with text in a box**: "Facts that form the legal basis for my position in paragraph 2" reads
+  back "1. " from the blank official PDF (its own numbering start). A read-back test must expect it.
+- **Family Form 13's "Applicant" box is a text box** where a tick belongs (its "Respondent" box beside it is a check
+  box). Form 13.1 has two proper check boxes for the same choice.
+- **Family Form 8's child rows skip a number**: the "Now Living With" boxes are numbered 1, 2, 3, 4, 6, 7 (child 5's
+  is "6"). Form 8A has "Name of  director 5" with two spaces. Copy box names from the PDF, never retype them.
+- 9A's plaintiff and defendant "also known as" boxes have their own names, so (unlike 7A) both can be filled.
+- `test:parties-never-to-ai`'s import walk did not follow a bare `import "x";` (no `from`): a planted one in a form map
+  went unseen. Fixed the same day; the walk follows it.

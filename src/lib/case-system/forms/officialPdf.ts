@@ -32,12 +32,12 @@ async function open(bytes: Uint8Array) {
 }
 
 /** Every box the PDF holds: its name, kind and page (a name used twice is listed twice). */
-export async function pdfBoxes(bytes: Uint8Array): Promise<{ name: string; type: string; checkBox: boolean; page: number; value: unknown }[]> {
+export async function pdfBoxes(bytes: Uint8Array): Promise<{ name: string; type: string; checkBox: boolean; radio: boolean; page: number; value: unknown }[]> {
   const doc = await open(bytes.slice());
-  const out: { name: string; type: string; checkBox: boolean; page: number; value: unknown }[] = [];
+  const out: { name: string; type: string; checkBox: boolean; radio: boolean; page: number; value: unknown }[] = [];
   for (let page = 1; page <= doc.numPages; page++) {
     for (const annotation of await (await doc.getPage(page)).getAnnotations()) {
-      if (annotation.subtype === "Widget" && annotation.fieldName) out.push({ name: annotation.fieldName, type: annotation.fieldType, checkBox: Boolean(annotation.checkBox), page, value: annotation.fieldValue });
+      if (annotation.subtype === "Widget" && annotation.fieldName) out.push({ name: annotation.fieldName, type: annotation.fieldType, checkBox: Boolean(annotation.checkBox), radio: Boolean(annotation.radioButton), page, value: annotation.fieldValue });
     }
   }
   await doc.close();
@@ -53,6 +53,8 @@ export async function fillOfficialPdf(bytes: Uint8Array, values: Readonly<Record
       if (annotation.subtype !== "Widget" || !annotation.fieldName || !(annotation.fieldName in values)) continue;
       const value = values[annotation.fieldName];
       found.add(annotation.fieldName);
+      // A radio button (Family Form 13's Yes/No pairs) is not filled by any map yet: refuse rather than write text into it.
+      if (annotation.radioButton) { await doc.close(); throw new Error(`a radio button is not filled by a map yet: ${annotation.fieldName}`); }
       if (annotation.checkBox) doc.annotationStorage.setValue(annotation.id, { value: value === true });
       else doc.annotationStorage.setValue(annotation.id, { value: typeof value === "string" ? value : "" });
     }
