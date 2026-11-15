@@ -14,7 +14,7 @@
  */
 import { partyName } from "../../parties/parties";
 import { respondsToTheCase } from "../../caseFile/caseFile";
-import type { FormMapDefinition, FormContext } from "../formMap";
+import type { AttachedSection, FormMapDefinition, FormContext } from "../formMap";
 import { partyBoxes } from "../partyBoxes";
 import { splitToBoxes } from "../textFit";
 
@@ -23,6 +23,12 @@ const PDF_FILE = "docs/sources/forms/scr-9a-aug22-en-fil.pdf";
 const reasons = (ctx: FormContext) => splitToBoxes(PDF_FILE, ["Reasons for disputing the claim and details", "Reasons for disputing the claim and details, continued"], ctx.reasons);
 /** The story is a defence only when the record says the person is the defendant (site owner, 15 Nov 2026). */
 const notTheDefendant = (ctx: FormContext): string | null => (respondsToTheCase(ctx.file) ? null : "Filled from your own words only when the case record says you are the defendant.");
+/**
+ * The reasons that did not fit either box, for the attached pages, only when the person is the defendant: headed with the
+ * official form's own words (page 1's "Form 9A" and "Defence"; page 2's "REASONS FOR DISPUTING THE CLAIM AND DETAILS").
+ */
+const reasonsAttached = (ctx: FormContext): AttachedSection[] =>
+  notTheDefendant(ctx) ? [] : [{ title: "Form 9A, Defence", heading: "REASONS FOR DISPUTING THE CLAIM AND DETAILS (continued)", text: reasons(ctx)[2] }];
 
 const plaintiff = (ctx: FormContext) => ctx.plaintiffs[0];
 const defendant = (ctx: FormContext) => ctx.defendants[0];
@@ -97,9 +103,11 @@ export const FORM_9A: FormMapDefinition = {
       kind: "blank", why: "Why you disagree with the claim is not asked on its own yet. Write it in your own words.",
       needsFact: "why the person disagrees with all or part of the claim, in their own words (asked on its own, not taken from the story)",
     },
-    "Additional pages attached because more room was needed": { kind: "fill", fact: "story longer than both boxes", read: (ctx) => reasons(ctx)[2].length > 0, missing: { what: "", addAt: "story" }, blankWhen: notTheDefendant },
+    // Ticked exactly when pages are attached: the same sections the download attaches (officialPdf.ts filledFormPdf).
+    "Additional pages attached because more room was needed": { kind: "fill", fact: "story longer than both boxes (the attached pages)", read: (ctx) => reasonsAttached(ctx).some((section) => section.text.trim().length > 0), missing: { what: "", addAt: "story" }, blankWhen: notTheDefendant },
     "Day and month of signature": signedBox,
     "Year of signature (yy)": signedBox,
     "Signature of defendant or representative": { kind: "blank", why: "Signed by hand." },
   },
+  attachments: reasonsAttached,
 };

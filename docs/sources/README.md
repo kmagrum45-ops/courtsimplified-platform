@@ -1150,3 +1150,18 @@ form PDFs"). test:form-maps checks each file's sha256 and that every box in it h
 | `forms/flr-10-jun25-en-fil.pdf` | Family Law Rules Form 10, Answer (FLR 10, June 13, 2025) | https://ontariocourtforms.on.ca/static/media/uploads/courtforms/family/10/flr-10-jun25-en-fil.pdf | 2026-11-15 | a1dc3693c8357adea943916a36617f9b1094fd8d662c61c373fc14f6d5c15cd9 |
 | `forms/flr-13-may21-en-fil.pdf` | Family Law Rules Form 13, Financial Statement (Support Claims) (FLR 13, May 1, 2021). Not encrypted, unlike the others | https://ontariocourtforms.on.ca/static/media/uploads/courtforms/family/13/flr-13-may21-en-fil.pdf | 2026-11-15 | 08f2e7e1bb112556f0c9d3f1959097eba0122e2c0e5724e50cef961981ab294d |
 | `forms/flr-13-1-may21-en-fil.pdf` | Family Law Rules Form 13.1, Financial Statement (Property and Support Claims) (FLR 13.1, May 1, 2021) | https://ontariocourtforms.on.ca/static/media/uploads/courtforms/family/13_1/flr-13-1-may21-en-fil.pdf | 2026-11-15 | 26c3dc34267f93a107ffdec0a9c31693e998f54bf81778756fe9f33cf2c00e53 |
+
+## Sources for the forms' wording list (2026-11-15)
+
+Saved by `scripts/sources/fetchFormSources.ts`. It fetches a fixed list of URLs and only from a declared list of
+official hosts (www.ontario.ca, laws-lois.justice.gc.ca, ontariocourtforms.on.ca); it refuses CanLII
+(`refuseCanliiContent`) and any other host. Each HTML page is saved as served (the sha256 below is of that file),
+with a plain-text copy beside it (`.txt`) for reading. Where in each the answers are: `docs/forms/wording-needed.md`.
+No wording has been written from them.
+
+| File | What it is | URL | Downloaded | sha256 |
+|---|---|---|---|---|
+| `interest-rates/ontario-prejudgment-postjudgment-interest-rates.html` | Ministry of the Attorney General, "Prejudgment and postjudgment interest rates" (the rates the Courts of Justice Act requires to be published). The page reads "Updated: September 02, 2026" | https://www.ontario.ca/page/prejudgment-and-postjudgment-interest-rates | 2026-11-15 | 17e34e69a2f930befe50d08d96e3b6604c7db6b82e3a64209f26a22dff34d685 |
+| `federal/interest-act-I-15.html` | Interest Act, R.S.C., 1985, c. I-15, full text from Justice Laws. "Act current to 2026-10-19 and last amended on 2008-06-18". Holds s. 4 in force AND, under "AMENDMENTS NOT IN FORCE", two replacement texts of s. 4 that are not law: see the trap in docs/SOURCING_NOTES.md | https://laws-lois.justice.gc.ca/eng/acts/I-15/FullText.html | 2026-11-15 | 53122748b1f2e29bdf9f89c5655b2853cf8ac4dbe82d2d71fc859c5bc99b05dd |
+| `forms-reference/scr-4a-jan21-en-fil.pdf` | Small Claims Court Form 4A, Consent to Act as Litigation Guardian (Jan. 1, 2021). Kept apart from `forms/`: the site does not fill it (every PDF in `forms/` must have a map) | https://ontariocourtforms.on.ca/static/media/uploads/courtforms/scc/04a/scr-4a-jan21-en-fil.pdf | 2026-11-15 | 80401edfc4677fa3275ee758cb8f985d91023a5f00d60f8bfefbc097e2f48577 |
+| `court-locations/ontario-ca-court-locations.html` | Ministry of the Attorney General, "Ontario court locations, service hours and contacts": the A to Z index of every courthouse address in Ontario (144 courthouse pages linked). The index does not say which court sits at an address; each courthouse's own page does | https://www.ontario.ca/locations/courts/ | 2026-11-15 | 79be3cf81e4623ce0996bee82e784010dc02cf20216ac60dadd3b7ede0b43db1 |

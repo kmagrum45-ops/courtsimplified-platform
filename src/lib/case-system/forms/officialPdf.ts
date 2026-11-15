@@ -11,7 +11,8 @@
  */
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import type { BoxValue } from "./formMap";
+import { attachedSections, fillForm, pdfValues, type BoxValue, type FormContext, type FormMapDefinition } from "./formMap";
+import { attachedPagesPdf } from "./attachedPages";
 
 type PdfJs = typeof import("pdfjs-dist/legacy/build/pdf.mjs");
 
@@ -71,4 +72,27 @@ export async function fillOfficialPdf(bytes: Uint8Array, values: Readonly<Record
   const saved = await doc.saveDocument();
   await doc.close();
   return saved;
+}
+
+/**
+ * The download: the official form filled from the case record, followed by the attached pages when the person's words
+ * overflowed its boxes (attachedPages.ts), and by nothing when they did not. The form's "pages attached" tick reads the
+ * same sections (formMap.ts attachedSections), so a ticked form always has its pages.
+ *
+ * The pages are added with pdf.js's own page assembly (`extractPages`), from the filled form as saved, so every box keeps
+ * its value (assembling from the open document instead dropped them: 15 Nov 2026). pdf.js writes the result as a new
+ * file, without the official file's owner-password protection; the pages, fonts and boxes are the court's own.
+ */
+export async function filledFormPdf(map: FormMapDefinition, ctx: FormContext): Promise<Uint8Array> {
+  const filled = await fillOfficialPdf(officialPdfBytes(map.pdf.file), pdfValues(fillForm(map, ctx)));
+  const pages = await attachedPagesPdf(attachedSections(map, ctx));
+  if (!pages) return filled;
+  const doc = await open(filled);
+  try {
+    const assembled = await doc.extractPages([{ document: null }, { document: pages }]);
+    if (!assembled) throw new Error("the attached pages could not be added");
+    return assembled;
+  } finally {
+    await doc.close();
+  }
 }

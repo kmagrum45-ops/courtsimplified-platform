@@ -78,7 +78,23 @@ export type FormMapDefinition = {
   pdf: { file: string; url: string; sha256: string; fetched: string };
   /** The official PDF's own box names, each mapped. A name the PDF uses twice is one entry. */
   boxes: Record<string, BoxEntry>;
+  /**
+   * The person's words that did not fit the form's boxes, for pages attached after the official form (attachedPages.ts).
+   * The form's "additional pages attached" tick reads the same function, so the tick and the pages always agree.
+   */
+  attachments?: (ctx: FormContext) => AttachedSection[];
 };
+
+/**
+ * One run of attached pages: headed with the official form's own words (its number and title, then the box's printed
+ * heading with "(continued)"), holding only the person's words. No wording of the site's own.
+ */
+export type AttachedSection = { title: string; heading: string; text: string };
+
+/** The sections that have words to attach (none when nothing overflowed). */
+export function attachedSections(map: FormMapDefinition, ctx: FormContext): AttachedSection[] {
+  return (map.attachments?.(ctx) ?? []).filter((section) => section.text.trim().length > 0);
+}
 
 export type BoxResult =
   | { box: string; state: "filled"; fact: string; value: BoxValue }

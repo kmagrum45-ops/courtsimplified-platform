@@ -2256,3 +2256,29 @@ each glyph's width), now `scripts/verification/pdfDrawnText.ts`, the judge in `v
   lines) out of the box, with the whole value on screen to write by hand. Box sizes: `npm run forms:geometry`.
 - Rendering to look: the test renderer's substitute font spaces letters out and looks wider than the real one, so a
   render that seems to clip at the right edge must be confirmed with the operator list before it is called a fault.
+
+**Attached pages, and the sources saved for the wording list (2026-11-15, Lane B, second round).**
+- **Adding pages to an official form:** pdf-lib still cannot open the encrypted official PDFs, but pdf.js 6.3 can
+  assemble one: `doc.extractPages([{ document: null }, { document: otherPdfBytes }])` returns a new PDF of the open
+  document's pages followed by the other's.
+  - **Trap:** assembled from the open document with values set in `annotationStorage`, every box came out EMPTY. Fill
+    and `saveDocument()` first, then open the saved bytes and assemble: the values are kept
+    (`officialPdf.ts filledFormPdf`).
+  - The result is written fresh, without the official file's owner-password protection.
+- **The tick on Form 7A's "ADDITIONAL PAGES ARE ATTACHED"** draws ZapfDingbats character 110 ("■", the form's own
+  mark). The test renderer has no ZapfDingbats and shows an outline: confirm a tick from the operator list, not by eye.
+- **Interest Act (Canada), Justice Laws `FullText.html`:** the page carries the Act **and its "AMENDMENTS NOT IN
+  FORCE"**, which include two complete replacement texts of s. 4 (1996, c. 17; 2001, c. 4). A search for "4 (1)"
+  finds those first. The section in force is the one under the marginal note "When per annum rate not stipulated", in
+  the body of the Act (line 59 of the saved `.txt`).
+- **ontario.ca/locations/courts/** (the Ministry's court directory) is served as plain HTML: an A to Z index of every
+  courthouse address, linking 144 courthouse pages (`/locations/courts/<id>-<city>-<street>`). Only a courthouse's own
+  page names its court ("Ontario Court of Justice – Toronto"). No single official page pairs the Ontario Court of
+  Justice's courthouses with their addresses.
+- The Ministry's interest-rate page (https://www.ontario.ca/page/prejudgment-and-postjudgment-interest-rates) is plain
+  HTML with both tables in the page.
+  - **A web search summary of it gave rates that are not the page's:** the saved page's 2026 prejudgment row differs
+    from what the search tool said. Read the saved page; never a summary.
+- `test:canlii` failed three checks on Windows for every file: its walker built paths with "\" and its declarations use
+  "/". Fixed in the suite (paths always "/"); the CanLII guard itself was unchanged. Proved by removing
+  `refuseCanliiContent` from the new fetch script: the check then fails and names it.

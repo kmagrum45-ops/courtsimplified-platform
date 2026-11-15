@@ -38,15 +38,28 @@ No rate, amount or "you will get" is to be stated.
 - `docs/sources/corpus/guide-making-a-claim.txt`, the ontario.ca "Guide to procedures in small claims court: Making a
   claim". Lines 58–60 and 120–127 cover exactly these boxes, including a sample sentence and the yearly-rate rule.
 
-**Still needed before any rate is shown (not saved):**
+**Saved 15 Nov 2026 (second round)** by `scripts/sources/fetchFormSources.ts`; README rows in `docs/sources/README.md`,
+"Sources for the forms' wording list". Line numbers are in the `.txt` copy beside each file.
 
-1. The Ministry's published **prejudgment and postjudgment interest rate table**. The guide (line 126) says the rates
-   are "available in the court office and on the Ministry's website at: www.ontario.ca/attorneygeneral". Retrieve the
-   current table page from ontario.ca, save it under `docs/sources/`, and add a README row (URL, date, sha256). It is
-   needed only if the site ever states a rate. The four boxes themselves need only the person's choice and dates.
-2. The **Interest Act (Canada), s. 4**, which the guide paraphrases on line 127 (the 5% rule where a contract gives no
-   yearly rate). Retrieve it from laws-lois.justice.gc.ca and save it in `docs/sources/corpus/` (via `rules:fetch` if
-   it is added to the source list) before any sentence relies on it.
+1. **The Ministry's prejudgment and postjudgment interest rate page**:
+   `docs/sources/interest-rates/ontario-prejudgment-postjudgment-interest-rates.txt`
+   (https://www.ontario.ca/page/prejudgment-and-postjudgment-interest-rates, "Updated: September 02, 2026").
+   - **Lines 80–92: what the four boxes are about.** That interest must be mentioned in the claim to be included
+     (line 85); an agreed rate is stated in the claim (line 87); a rate set by another source, for example the rule for
+     non-pecuniary loss in personal injury (line 89); otherwise the Courts of Justice Act rate (line 91).
+   - **Lines 99–106 and 107–132:** how each kind of interest is worked out, with examples. Lines 134–135: the page is
+     where the Ministry publishes the rates "under the Courts of Justice Act".
+   - **Line 136 on:** the prejudgment table, by year and quarter, for causes of action arising after October 23, 1989.
+   - **Line 332 on:** the postjudgment table (and prejudgment for causes of action arising on or before October 23,
+     1989).
+   - The four boxes need only the person's choice and dates. A rate from the tables is stated only if the site ever
+     shows one, and then with the page's date.
+2. **The Interest Act (Canada), s. 4**: `docs/sources/federal/interest-act-I-15.txt`
+   (https://laws-lois.justice.gc.ca/eng/acts/I-15/FullText.html, "Act current to 2026-10-19").
+   - **Line 59 is s. 4 as in force** (marginal note "When per annum rate not stipulated", line 58).
+   - **Trap:** lines 102 and 115 hold two *other* texts of s. 4. They sit under "AMENDMENTS NOT IN FORCE" (1996, c. 17,
+     s. 17; 2001, c. 4, s. 175) and are not the law. Quote only line 59.
+   - Line 56 is s. 3 (the rate where none is fixed), which the guide does not mention.
 
 ## 2. Form 7A, the court office (3 boxes, currently marked needsWording)
 
@@ -86,8 +99,9 @@ guardian, and their consent on Form 4A. The next step comes from the stage map, 
 **Sources:**
 
 - Saved: `docs/sources/corpus/oreg-258-98-small-claims-rules.txt`, rr. 4.01–4.02 (from line 660).
-- **Not saved:** Form 4A itself (`scr-4a-…-fil.pdf`). The library only links to it. Save it under
-  `docs/sources/forms/` if the site will ever fill it.
+- **Saved 15 Nov 2026:** Form 4A itself, `docs/sources/forms-reference/scr-4a-jan21-en-fil.pdf` (Jan. 1, 2021, from
+  ontariocourtforms.on.ca). It is kept apart from `forms/` because the site does not fill it. Its own text is the
+  wording of the consent; the rules say when it is needed.
 
 ## 6. Form 9A: admitting the claim, and terms of payment
 
@@ -138,3 +152,46 @@ procedure, and those need a source or a rewording.
   - These are the form's own labels ("Signature of clerk"). Low risk, but listed.
 - Family Forms 13 and 13.1: "Filled in when the statement is sworn or affirmed before a commissioner."
   - Should come from the form's own jurat text.
+
+**Added with the attached pages (15 Nov 2026, second round):**
+
+- Each attached page's own words: the form's number and title ("Form 7A, Plaintiff's Claim"; "Form 9A, Defence"), the
+  box's printed heading with "(continued)" ("REASONS FOR CLAIM AND DETAILS (continued)"; "REASONS FOR DISPUTING THE
+  CLAIM AND DETAILS (continued)"), and "Attached page N of M". The headings are the forms' own words; "(continued)"
+  and the page label are the site's.
+- The download's error when the person's words use a character the pages cannot print: "Some of your words use a
+  character the attached pages cannot print, so the form was not made. Please write those words by hand on a page you
+  attach." (`app/api/cases/forms/filled/route.ts`).
+
+## 9. Family Form 10: the applicant's address (question for the legal chat)
+
+**What the box allows.** The official PDF's "Address - Applicant(s)", and the applicant's name, phone and email boxes
+beside it, are:
+
+- 200.08 × 14.4 points;
+- Helvetica at a **fixed 12pt**, with the PDF's own "multi-line" and **"do not scroll"** flags.
+
+That leaves about 195pt for one line at 12pt. An ordinary address does not fit: "44 Example Drive, Sudbury ON, P3B 2B2"
+is 37 characters and 221pt; it would need 10.6pt. About 28 characters fit. Because of "do not scroll", a person typing
+into the box in Acrobat or Reader cannot enter more than fits either.
+
+The respondent's boxes, the same size, are set to fit (0). Only the applicant's are fixed.
+
+**What the site cannot do.** pdf.js offers no way to set a box's font size when filling it. Changing the box's own size
+or font in the PDF would be editing the court's form, which the site does not do (rule: the official form, as
+published). So the box stays blank with the whole address to write by hand. That is the standing rule, unchanged.
+
+**Two possible ways forward, neither built.**
+
+1. **The person's own shorter version**, typed by the person for this box only. It is their own words, and the box
+   fills only if it fits. No legal wording is needed; it is a request to Lane A (`facts-needed.md` (d)).
+   - **It is weak.** Measured: "44 Example Dr, Sudbury ON P3B 2B2" (33 characters, 203pt) still does not fit.
+     "44 Example Dr, Sudbury P3B 2B2" (30 characters, 181pt) fits only by leaving out the province.
+   - Whether an address without its province, or without its postal code, is acceptable on the form is not for the site
+     to say.
+2. **An attached page.** The full address on an attached page, under the box's own label "Address - Applicant(s)".
+   - Form 10 has no "additional pages attached" tick, and nothing in the box would tell a reader to look for the page.
+     Writing "see attached" in the box would be the site's own wording, on a court form.
+   - **Question for the legal chat:** does any saved source (the Family Law Rules, `docs/sources/corpus/family-law-rules.txt`,
+     or the form's own instructions) say whether, and how, a party may continue a Form 10 box on an attached page?
+     Until it is answered from a source, the site does not attach a page for it.

@@ -46,8 +46,15 @@ that goes with them; see `docs/forms/wording-needed.md`.
     only**.
   - The OCJ location pages carry the address inside an HTML comment, so it is not reliably what the page shows
     (`courtLocations.ts` header).
-  - Until an OCJ address source is retrieved and saved, an OCJ family office fills **the name only** and leaves the
-    address blank with the reason.
+  - **Saved 15 Nov 2026:** the Ministry's own directory, https://www.ontario.ca/locations/courts/
+    (`docs/sources/court-locations/ontario-ca-court-locations.html`, `.txt`). It is an A to Z index of every
+    courthouse address in Ontario, linking 144 courthouse pages.
+  - **The index does not say which court sits at an address.** Each courthouse's own page does (checked on one:
+    `/locations/courts/4810-toronto-10-armoury-street/` reads "Ontario Court of Justice – Toronto, 10 Armoury Street").
+    So no single official page lists the Ontario Court of Justice's courthouses with their addresses.
+  - The court-to-address pairing needs the 144 courthouse pages, fetched the same way (fixed host, CanLII refused).
+    That is not done yet: it waits for the owner's go-ahead.
+  - Until then, an OCJ family office fills **the name only** and leaves the address blank with the reason.
 - Which court (OCJ or SCJ) a Family case belongs in is not decided here. That is the court-and-process rule in
   CLAUDE.md s. 2a.
 
@@ -81,7 +88,8 @@ Form 8A needs how the person (or whoever they used) *served* someone. That is a 
 | `interest.fromDate` | date | 7A "Start date for accruing prejudgment interest" | "From what date are you asking for interest?" **(needs checked wording)** | Same step | Yes |
 | `party.under18` | yes / no, for each party who is a person | 7A "Plaintiff under 18 years of age", "Defendant under 18 years of age"; 9A the same two boxes | For the person: "Are you under 18?" For each other party: "Is [name] under 18, as far as you know?" **(needs checked wording)** If anyone is under 18, rules 4.01–4.02 apply (litigation guardian; saved in `docs/sources/corpus/oreg-258-98-small-claims-rules.txt`), and the next step must come from the map, not the asker. | Parties step, one line per person (a company has no age) | Yes for the other side; no for the person themselves |
 
-Form 1A has no under-18 box; a party listed there is shown on the form as listed.
+Form 1A has no under-18 box; a party listed there is shown on the form as listed. Form 4A (consent to act as litigation
+guardian) is now saved for reference (`docs/sources/forms-reference/scr-4a-jan21-en-fil.pdf`); the site does not fill it.
 
 ---
 
@@ -100,6 +108,7 @@ Form 1A has no under-18 box; a party listed there is shown on the form as listed
 | `family.answer.position` | which of the applicant's claims the person agrees with and which they do not (by the application's numbers) | Family 10 para. 1–2 | "Which of the applicant's claims do you agree with, and which do you not? (Use the numbers beside the boxes on page 4 of their application.)" | Family respondent step | Yes |
 | `family.answer.historyCorrect` | yes / no | Family 10 "The FAMILY HISTORY … is correct / is not correct" | "Is the family history in the application correct?" | Family respondent step | Yes |
 | `family.addedParties` | list: full legal name and address of any added respondent or party | Family 8 / 10 "AND TO", added party; the Children's Lawyer agent box | "Is anyone else a party to this case (an added respondent)? Their full legal name and address." | Parties step, Family | Yes |
+| `party.addressForBox` (optional, second round) | text, the person's own shorter version of an address, for one box only | Family 10 "Address - Applicant(s)" (one line at a fixed 12pt: about 28 characters fit) | "This address is too long for its box on the form. If you want, type a shorter version for this box; otherwise write it by hand." Offered only when the full address does not fit. | Beside the box on the form screen | Yes: skipping leaves the box blank, as now. **Weak:** a full Ontario address with its province and postal code does not fit (see `wording-needed.md` s. 9) |
 
 ---
 
