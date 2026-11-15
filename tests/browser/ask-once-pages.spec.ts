@@ -418,9 +418,13 @@ for (const story of STORIES) {
       if (story.court === "small-claims") await smallClaimsChat(page, story, typed);
       else await guidedForm(page, story, typed);
       if (story.marriedUnsure && !triaged) triaged = await triageMarriedUnsure(page, seen, 30_000);
-      if (story.marriedUnsure) expect(triaged, "the triage asked whether married, and took \"I'm not sure\"").toBe(true);
       reached = "questions";
-      if (await reviewAndNextStep(page, story, typed, found, seen)) reached = "next step";
+      const nextStep = await reviewAndNextStep(page, story, typed, found, seen);
+      // The page asks "Were you married?" only once the questions are finished (the review's Continue: familyQuestionsDone,
+      // page.tsx), so it is looked for after the review too.
+      if (story.marriedUnsure && !triaged) triaged = await triageMarriedUnsure(page, seen, 60_000);
+      if (story.marriedUnsure) expect(triaged, "the triage asked whether married, and took \"I'm not sure\"").toBe(true);
+      if (nextStep) reached = "next step";
       if (story.amountLater && story.stated.amount) {
         await page.goto(`/builder?path=${story.court}&intake=${id}&change=amount`);
         const change = page.getByTestId("intake-review").locator("[data-testid=change-answer][data-fact=amount]").first();
@@ -439,7 +443,7 @@ for (const story of STORIES) {
       if (story.marriedUnsure) {
         await page.goto(`/cases/${id}`);
         await expect(page.getByRole("heading", { name: "Your next step" })).toBeVisible({ timeout: 120_000 }).catch(() => {});
-        const text = await page.locator("main").innerText();
+        const text = await page.locator("body").innerText(); // the whole page (it has two <main>)
         const shown = MARRIED_ONLY_SENTENCES.filter((sentence) => text.includes(sentence));
         expect(shown, "no married-only sentence on the case page after married \"I'm not sure\"").toEqual([]);
       }
