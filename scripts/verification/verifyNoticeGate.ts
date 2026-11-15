@@ -5,7 +5,7 @@
  * reading, court suggestion); it fails if a request is not on the list or does not go through the notice gate."
  *
  * What it checks, reading the source (no build, no browser):
- *   1. Every browser fetch of a work route (WORK_ROUTE, src/lib/content-library/noticeGate.ts) is declared in
+ *   1. Every browser fetch of a work route (WORK_ROUTE, scripts/verification/noticeGateList.ts) is declared in
  *      WORK_SENDERS, file and route, and every declared one still exists (the list is the code's list, both ways).
  *   2. A fetch whose address is not written out (a variable, a template) is declared in BUILT_ADDRESSES with what it
  *      calls, so a work request cannot hide behind a variable.
@@ -24,7 +24,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { importClosure } from "../ai/importClosureHash.mjs";
-import { NOT_GATED, PAGES_WITHOUT_NOTICE, WORK_ROUTE, WORK_SENDERS, BUILT_ADDRESSES } from "../../src/lib/content-library/noticeGate";
+import { NOT_GATED, PAGES_WITHOUT_NOTICE, WORK_ROUTE, WORK_SENDERS, BUILT_ADDRESSES } from "./noticeGateList";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const rel = (file: string) => path.relative(ROOT, file).replace(/\\/g, "/");

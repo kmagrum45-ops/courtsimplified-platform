@@ -10,6 +10,9 @@
  * the notice. test:notice-gate (scripts/verification/verifyNoticeGate.ts) keeps all three the code's lists and checks
  * each gate: the builder page's notice return, the review panel's held start, the home page's Continue.
  *
+ * A declared list for the checks, not site code: it lives under scripts/ so the guards that scan app/ and src/ for route
+ * names (test:ai-rate-limit, test:case-file-guard) do not read the list itself as a screen sending them.
+ *
  * NOT_GATED: work routes sent with no notice anywhere before them. Empty since the home page's notice (15 Nov 2026).
  */
 export const WORK_ROUTE = /^\/api\/(small-claims|civil|family)\/analyze$|^\/api\/case\/(review|stage-answer|strategy|read|understand)$|^\/api\/intake\/(guided-turn|depth-turn|classify-claim-type|safety-check|sourced-questions|tidy-wording)$|^\/api\/(guided-assistant|assistant\/law|law\/explain|generate-form|classify-court-path|cases\/event-candidates|workspace\/documents\/decision-help)$/;

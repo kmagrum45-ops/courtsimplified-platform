@@ -23,7 +23,7 @@ import { serveModelStandIns } from "./harness/thisCommitServer";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { ACKNOWLEDGEMENT_KEY } from "../../src/lib/content-library/acknowledgement";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
-import { WORK_ROUTE } from "../../src/lib/content-library/noticeGate";
+import { WORK_ROUTE } from "../../scripts/verification/noticeGateList";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
 

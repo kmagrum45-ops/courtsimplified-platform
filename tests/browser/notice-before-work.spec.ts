@@ -28,7 +28,7 @@ import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns } from "./harness/thisCommitServer";
 import { recordInitialUnknowns, saveCaseStory, tickIfAsked } from "./harness/intakeReview";
 import { ACKNOWLEDGEMENT_KEY } from "../../src/lib/content-library/acknowledgement";
-import { WORK_ROUTE } from "../../src/lib/content-library/noticeGate";
+import { WORK_ROUTE } from "../../scripts/verification/noticeGateList";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
 
