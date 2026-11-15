@@ -13,6 +13,8 @@
  *      once, plainly;
  *   4. "I'm not sure" on a fact is sent to the server like every edit (pendingWrites), and the server's save keeps the
  *      offer choices beside the facts, also when a request holds offer choices only (a "No");
+ *   7. offer 14, the Family triage's "Were you married?": a third choice, "I'm not sure", recorded as settled, never asked
+ *      again; only what applies either way is asked; married-only content hidden everywhere, with the note;
  *   6. "I'm not sure" never takes an answer away, in every court: an answer held from the fact record or the form's box
  *      stays through the intake's save, the case page's save and the server's save (only "removed" takes one away);
  *   5. the 13 offers each pass their target to the one control (UseSuggestion offer=...), and the control records every
@@ -147,6 +149,45 @@ check("2. the 13 offers are all covered", CASES.length === 13, String(CASES.leng
     ];
     for (const [offer, file, pattern] of TARGETS) check(`5. ${offer}: its target is passed to the one control, recorded by the one handler`, pattern.test(read(file)), file);
     check("5. the 13 are all checked", TARGETS.length === 13, String(TARGETS.length));
+
+    // 7. Offer 14, the Family triage's "Were you married?" (site owner, 14 Nov 2026, decision A): a third choice, "I'm not
+    // sure", in the shared wording; recorded as settled; never asked again; the triage asks only what applies either way;
+    // the married-only topics stay hidden everywhere (the not-married hiding), with the note "You can add this when you know".
+    {
+      const triage = await import("../../src/lib/case-system/family/statusTriage");
+      const married = await import("../../src/lib/case-system/family/marriedOnly");
+      const { OFFER_CHOICES } = await import("../../src/lib/case-system/copy/suggestionCopy");
+      const { MARRIED_UNSURE_NOTE } = await import("../../src/lib/case-system/copy/askCopy");
+      const first = triage.selectNextTriageQuestion(triage.emptyStatusRecord());
+      check("7. the triage: \"Were you married?\" offers a third choice, \"I'm not sure\"", first?.id === "married-to-other-party" && first.kind === "yes-no-unsure", JSON.stringify(first && { id: first.id, kind: first.kind }));
+      const unsureRecord = { ...triage.emptyStatusRecord(), marriedToOtherParty: "unsure" } as never;
+      const asked: string[] = [];
+      let record = unsureRecord as Record<string, unknown>;
+      for (let turn = 0; turn < 8; turn++) {
+        const next = triage.selectNextTriageQuestion(record as never);
+        if (!next) break;
+        asked.push(next.id);
+        record = next.id === "case-involves-children" ? { ...record, caseInvolvesChildren: "yes" } : next.id === "municipalities" ? { ...record, userMunicipality: "Ottawa" } : next.id === "other-party-municipality" ? { ...record, otherPartyMunicipality: "Ottawa" } : { ...record, [next.id]: "x" };
+      }
+      check("7. the triage: after \"I'm not sure\" the married question is never asked again", !asked.includes("married-to-other-party"), asked.join(", "));
+      check("7. the triage: only what applies either way is asked (no divorce, no lived-together dates, no child-together)", !asked.some((id) => ["divorce-sought", "cohabitation-dates", "child-together"].includes(id)) && asked.includes("case-involves-children"), asked.join(", "));
+      const topics = triage.surfacedTopics(unsureRecord).map((topic) => topic.id ?? topic.title);
+      check("7. the triage: no married-only or unmarried-only topic is surfaced", topics.length === 0, JSON.stringify(topics));
+      const outcome = JSON.stringify(triage.buildTriageOutcome(unsureRecord));
+      check("7. the triage's summary says it plainly, with the note", outcome.includes(MARRIED_UNSURE_NOTE) && MARRIED_UNSURE_NOTE === "You can add this when you know.", outcome.slice(0, 300));
+      const file = caseFileOf(cp("family", { builder: { triageState: { record: { ...triage.emptyStatusRecord(), marriedToOtherParty: "unsure" } } } }));
+      check("7. the case file holds married as settled (\"not sure\")", file.married.state === "unsure", JSON.stringify(file.married));
+      check("7. married-only content is hidden for it, as for a person not married", married.hidesMarriedOnly(file) && married.notMarriedOf(file) === "unsure" && married.withoutMarriedOnly([{ value: "divorce" }, { value: "matrimonial-home" }, { value: "parenting" }], married.notMarriedOf(file)).map((option) => option.value).join() === "parenting" && !married.withoutMarriedOnlySentences(married.MARRIED_ONLY_SENTENCES[0], married.hidesMarriedOnly(file)).includes("divorce"));
+      const answeredYes = caseFileOf(cp("family", { builder: { triageState: { record: { ...triage.emptyStatusRecord(), marriedToOtherParty: "yes" } } } }));
+      check("7. married Yes still shows the married-only content", !married.hidesMarriedOnly(answeredYes));
+      const read = (file: string) => readFileSync(file, "utf8").replace(/\r\n/g, "\n");
+      check("7. the triage's third choice uses the shared wording", /OFFER_CHOICES\.unsure/.test(read("app/builder/_components/FamilyStatusTriage.tsx")) && OFFER_CHOICES.unsure === "I'm not sure");
+      const screens = ["app/builder/page.tsx", "app/cases/[id]/page.tsx", "app/cases/[id]/forms/page.tsx"];
+      const stillNever = screens.filter((file) => /notMarried(?:=\{| = )neverMarried\(/.test(read(file)));
+      check("7. every screen that hides married-only content hides it for \"not sure\" too (hidesMarriedOnly)", stillNever.length === 0 && screens.every((file) => /hidesMarriedOnly\(/.test(read(file))), stillNever.join(", "));
+      check("7. the Family topics list says the note where it leaves the married-only topics out", /MARRIED_UNSURE_NOTE/.test(read("app/builder/_components/FamilyIntake.tsx")));
+    }
+
 
     // 6. "I'm not sure" never takes an answer away (site owner, 14 Nov 2026, decision B: a typed answer beats "not sure"
     // for the same fact; only "removed" takes an answer away). In every court, an answer held from the fact record or from
