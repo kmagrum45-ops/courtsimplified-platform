@@ -120,7 +120,7 @@ jobs:
         run: npm run test:analysis-input-from-record
       - name: No name reaches the model (every route and the AI client; a held name fills the form, "not sure" leaves it blank)
         run: npm run test:no-names-to-model
-      - name: Every box of every form the site fills is mapped and fills from the case record (Form 7A, Form 1A)
+      - name: Every box of every form the site fills is mapped and fills from the case record (Small Claims 7A, 1A, 9A, 8A; Family 8, 10, 13, 13.1)
         run: npm run test:form-maps
       - name: The four drafts read the parties and facts from the case record (Chrome forms test, rows 5, 11-13)
         run: npm run test:drafts-from-record

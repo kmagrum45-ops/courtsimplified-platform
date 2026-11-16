@@ -7,6 +7,7 @@ import { createClient } from "@supabase/supabase-js";
 import { randomUUID } from "node:crypto";
 
 import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
+import { SiteMessageError, safeError } from "@/src/lib/logging/safeLog";
 
 export const runtime = "nodejs";
 
@@ -266,7 +267,7 @@ export async function GET(req: NextRequest) {
       cases: (data || []).map(row => ({ ...row, master_result: intakeRecordView(row.master_result, row.court_path, row.id) })),
     });
   } catch (error) {
-    console.error("cases GET error:", error);
+    console.error("cases GET error:", safeError(error));
 
     return NextResponse.json(
       {
@@ -371,7 +372,7 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("cases POST error:", error);
+    console.error("cases POST error:", safeError(error));
 
     return NextResponse.json(
       {
@@ -429,7 +430,7 @@ export async function DELETE(req: NextRequest) {
     if (!error && data && objectPaths.length > 0) {
       const failed = await removeObjects(bucket, objectPaths);
       if (failed > 0) {
-        await recordServerError(new Error(`case delete: ${failed} of ${objectPaths.length} stored file(s) could not be removed`), { path: "/api/cases", method: "DELETE" }, { routePath: "/api/cases", routeType: "route" });
+        await recordServerError(new SiteMessageError(`case delete: ${failed} of ${objectPaths.length} stored file(s) could not be removed`), { path: "/api/cases", method: "DELETE" }, { routePath: "/api/cases", routeType: "route" });
       }
     }
 
@@ -458,7 +459,7 @@ export async function DELETE(req: NextRequest) {
       deletedId: id,
     });
   } catch (error) {
-    console.error("cases DELETE error:", error);
+    console.error("cases DELETE error:", safeError(error));
 
     return NextResponse.json(
       {

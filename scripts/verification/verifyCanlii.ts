@@ -77,7 +77,9 @@ function filesUnder(relative: string, extensions: RegExp): string[] {
   const out: string[] = [];
   for (const entry of readdirSync(start, { withFileTypes: true })) {
     if (entry.name === "node_modules" || entry.name.startsWith(".next")) continue;
-    const child = path.join(relative, entry.name);
+    // Written with "/" on every system: the declarations below name files that way, and on Windows path.join gives "\"
+    // (15 Nov 2026: three checks failed on Windows for every file, the CanLII guard unchanged).
+    const child = path.join(relative, entry.name).split(path.sep).join("/");
     if (entry.isDirectory()) out.push(...filesUnder(child, extensions));
     else if (extensions.test(entry.name)) out.push(child);
   }

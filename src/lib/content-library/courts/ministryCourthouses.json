@@ -1,0 +1,7101 @@
+{
+ "source": "https://www.ontario.ca/locations/courts/",
+ "savedIn": "docs/sources/court-locations/ontario-ca",
+ "retrieved": "2026-11-15",
+ "note": "Each value is on the given line of the page's .txt copy (test:form-maps verifyMinistryCourthouses). The pages list types of court, not which court (OCJ or SCJ) runs them.",
+ "courthouses": [
+  {
+   "slug": "3000-alexandria-110-main-st-north-po-box-699",
+   "url": "https://www.ontario.ca/locations/courts/3000-alexandria-110-main-st-north-po-box-699/",
+   "retrieved": "2026-11-15",
+   "sha256": "ff9e3fe552d10082d4b5aa15f22608bf548687ccdbddeb870050c4f175fd9051",
+   "txt": "docs/sources/court-locations/ontario-ca/3000-alexandria-110-main-st-north-po-box-699.txt",
+   "name": {
+    "text": "Alexandria Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "110 Main St. North, PO Box 699",
+     "line": 8
+    },
+    {
+     "text": "Alexandria , Ontario K0C 1A0",
+     "line": 9
+    }
+   ],
+   "city": "Alexandria",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "613-525-4330",
+     "line": 19
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "613-525-4330",
+     "line": 20
+    },
+    {
+     "type": "Small claims",
+     "phone": "613-525-4330",
+     "line": 21
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5000-armstrong-ardc-building-111-queen-st-po-box-2000",
+   "url": "https://www.ontario.ca/locations/courts/5000-armstrong-ardc-building-111-queen-st-po-box-2000/",
+   "retrieved": "2026-11-15",
+   "sha256": "cbb3ceb09a70008a78423924f5ca71f8bf1bfeccb25a59837e280cdf6888ab0d",
+   "txt": "docs/sources/court-locations/ontario-ca/5000-armstrong-ardc-building-111-queen-st-po-box-2000.txt",
+   "name": {
+    "text": "Armstrong Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "ARDC Building 111 Queen St, PO Box 2000",
+     "line": 8
+    },
+    {
+     "text": "Armstrong , Ontario P0T 1A0",
+     "line": 9
+    }
+   ],
+   "city": "Armstrong",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-626-7100",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-626-7100",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-626-7100",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5001-atikokan-108-124-mark-street",
+   "url": "https://www.ontario.ca/locations/courts/5001-atikokan-108-124-mark-street/",
+   "retrieved": "2026-11-15",
+   "sha256": "7481fc4b85fb2f7c65fc5806e1cceb224b391fa69ca99326eed7fc8cb290ddb6",
+   "txt": "docs/sources/court-locations/ontario-ca/5001-atikokan-108-124-mark-street.txt",
+   "name": {
+    "text": "Atikokan Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "108-124 Mark Street",
+     "line": 8
+    },
+    {
+     "text": "Atikokan , Ontario P0T 1C0",
+     "line": 9
+    }
+   ],
+   "city": "Atikokan",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-274-5961",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-274-5961",
+     "line": 19
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4000-attawapiskat-reg-louttit-sportsplex",
+   "url": "https://www.ontario.ca/locations/courts/4000-attawapiskat-reg-louttit-sportsplex/",
+   "retrieved": "2026-11-15",
+   "sha256": "edd65a1e960ff7821dab896d7385fd26e685819643e5fc8a7d8d074e315c9f2e",
+   "txt": "docs/sources/court-locations/ontario-ca/4000-attawapiskat-reg-louttit-sportsplex.txt",
+   "name": {
+    "text": "Attawapiskat Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Reg Louttit Sportsplex",
+     "line": 8
+    },
+    {
+     "text": "Attawapiskat , Ontario P0L 1A0",
+     "line": 9
+    }
+   ],
+   "city": "Attawapiskat",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "705-272-4256",
+     "line": 18
+    },
+    {
+     "type": "Criminal",
+     "phone": "705-272-4256",
+     "line": 19
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-272-4256",
+     "line": 20
+    },
+    {
+     "type": "Enforcement",
+     "phone": "705-272-4256",
+     "line": 21
+    },
+    {
+     "type": "Family",
+     "phone": "705-272-4256",
+     "line": 22
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-272-4256",
+     "line": 23
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "3002-bancroft-5-fairway-blvd",
+   "url": "https://www.ontario.ca/locations/courts/3002-bancroft-5-fairway-blvd/",
+   "retrieved": "2026-11-15",
+   "sha256": "73e6dae51de48ac226db5cf023e59d4d5b8ea54b44061971cfa32c97b3fa431a",
+   "txt": "docs/sources/court-locations/ontario-ca/3002-bancroft-5-fairway-blvd.txt",
+   "name": {
+    "text": "Bancroft Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "5 Fairway Blvd",
+     "line": 8
+    },
+    {
+     "text": "Bancroft , Ontario K0L 1C0",
+     "line": 9
+    }
+   ],
+   "city": "Bancroft",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "613-962-9106",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "613-962-9106",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "613-962-9106",
+     "line": 20
+    },
+    {
+     "type": "Small claims",
+     "phone": "613-962-9106",
+     "line": 21
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "1000-barrie-75-mulcaster-street",
+   "url": "https://www.ontario.ca/locations/courts/1000-barrie-75-mulcaster-street/",
+   "retrieved": "2026-11-15",
+   "sha256": "edcd2e1c984aa6648e7e49e3cc242906af47810edc8c40aba95ba98f882f14c4",
+   "txt": "docs/sources/court-locations/ontario-ca/1000-barrie-75-mulcaster-street.txt",
+   "name": {
+    "text": "Barrie Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "75 Mulcaster Street",
+     "line": 8
+    },
+    {
+     "text": "Barrie , Ontario L4M 3P2",
+     "line": 9
+    }
+   ],
+   "city": "Barrie",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "705-739-6111",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "705-739-6111",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-739-6111",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "705-739-6188",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "705-739-6100",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "705-739-6111",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "705-739-6560",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-739-6111",
+     "line": 29
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5002-bearskin-lake-community-centre-general-delivery",
+   "url": "https://www.ontario.ca/locations/courts/5002-bearskin-lake-community-centre-general-delivery/",
+   "retrieved": "2026-11-15",
+   "sha256": "ea80ff4beeb7674fc78bf4db032631c4a4bd8b98e98a7d5af41d2d506c1a9489",
+   "txt": "docs/sources/court-locations/ontario-ca/5002-bearskin-lake-community-centre-general-delivery.txt",
+   "name": {
+    "text": "Bearskin Lake Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Community Centre, General Delivery",
+     "line": 8
+    },
+    {
+     "text": "Bearskin Lake , Ontario P0V 1G0",
+     "line": 9
+    }
+   ],
+   "city": "Bearskin Lake",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-468-2842",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-468-2842",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-468-2842",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "3003-belleville-15-bridge-street-west",
+   "url": "https://www.ontario.ca/locations/courts/3003-belleville-15-bridge-street-west/",
+   "retrieved": "2026-11-15",
+   "sha256": "f2c73ce25da2cfe7e54ae14db2e62d4166ef34c8b6709c620ff2661aa7ccb94c",
+   "txt": "docs/sources/court-locations/ontario-ca/3003-belleville-15-bridge-street-west.txt",
+   "name": {
+    "text": "Belleville Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "15 Bridge Street West",
+     "line": 8
+    },
+    {
+     "text": "Belleville , Ontario K8P 0C7",
+     "line": 9
+    }
+   ],
+   "city": "Belleville",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "613-962-9106",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "613-962-9106",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "613-962-0772",
+     "line": 21
+    },
+    {
+     "type": "Enforcement",
+     "phone": "613-962-9106",
+     "line": 24
+    },
+    {
+     "type": "Family",
+     "phone": "613-962-9106",
+     "line": 25
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "613-962-3005",
+     "line": 26
+    },
+    {
+     "type": "Small claims",
+     "phone": "613-962-9106",
+     "line": 29
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5003-big-trout-lake-community-hall",
+   "url": "https://www.ontario.ca/locations/courts/5003-big-trout-lake-community-hall/",
+   "retrieved": "2026-11-15",
+   "sha256": "5d7189143101e4ce48e6870a7e44a22c12db3df291707b0e79c739740de043fb",
+   "txt": "docs/sources/court-locations/ontario-ca/5003-big-trout-lake-community-hall.txt",
+   "name": {
+    "text": "Big Trout Lake Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Community Hall",
+     "line": 8
+    },
+    {
+     "text": "Big Trout Lake , Ontario P0V 1G0",
+     "line": 9
+    }
+   ],
+   "city": "Big Trout Lake",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-223-2348",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-223-2348",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-223-2348",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "1002-bracebridge-3a-dominion-st",
+   "url": "https://www.ontario.ca/locations/courts/1002-bracebridge-3a-dominion-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "8040480508ded5f89e9bf033eb37173b51c7bb1821284806834459e45d664ed1",
+   "txt": "docs/sources/court-locations/ontario-ca/1002-bracebridge-3a-dominion-st.txt",
+   "name": {
+    "text": "Bracebridge (Muskoka District) Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "3A Dominion St.",
+     "line": 8
+    },
+    {
+     "text": "Bracebridge , Ontario P1L 2E6",
+     "line": 9
+    }
+   ],
+   "city": "Bracebridge",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "705-645-8793",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "705-645-8793",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-645-8793",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "705-645-2411",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "705-645-8793",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "705-645-8793",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "705-645-3516",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-645-8793",
+     "line": 29
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "1003-bradford-57-holland-st-e",
+   "url": "https://www.ontario.ca/locations/courts/1003-bradford-57-holland-st-e/",
+   "retrieved": "2026-11-15",
+   "sha256": "665acd2814392bf3f8b670583840e3094a5808dd599143d193393ebb26beb6c9",
+   "txt": "docs/sources/court-locations/ontario-ca/1003-bradford-57-holland-st-e.txt",
+   "name": {
+    "text": "Bradford (West Gwillimbury) Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "57 Holland St. E.",
+     "line": 8
+    },
+    {
+     "text": "Bradford , Ontario L3Z 1H8",
+     "line": 9
+    }
+   ],
+   "city": "Bradford",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "905-775-2621",
+     "line": 18
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "705-739-6188",
+     "line": 19
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "2000-brampton-7755-hurontario-street",
+   "url": "https://www.ontario.ca/locations/courts/2000-brampton-7755-hurontario-street/",
+   "retrieved": "2026-11-15",
+   "sha256": "a1d8177e8db3a74c180eceb32628bc93f317b8e7011e9e5e50b0a0cfb895bfc9",
+   "txt": "docs/sources/court-locations/ontario-ca/2000-brampton-7755-hurontario-street.txt",
+   "name": {
+    "text": "Brampton (A. Grenville and William Davis) Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "7755 Hurontario Street",
+     "line": 8
+    },
+    {
+     "text": "Brampton , Ontario L6W 4T1",
+     "line": 9
+    }
+   ],
+   "city": "Brampton",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "905-456-4700",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "905-456-4700",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "905-456-4700",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "905-456-4778",
+     "line": 22
+    },
+    {
+     "type": "Divisional",
+     "phone": "905-456-4700",
+     "line": 25
+    },
+    {
+     "type": "Enforcement",
+     "phone": "905-456-4700",
+     "line": 26
+    },
+    {
+     "type": "Family",
+     "phone": "905-456-4700",
+     "line": 27
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "905-456-4797",
+     "line": 28
+    },
+    {
+     "type": "Small claims",
+     "phone": "905-456-4701",
+     "line": 31
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "2001-brampton-7765-hurontario-street",
+   "url": "https://www.ontario.ca/locations/courts/2001-brampton-7765-hurontario-street/",
+   "retrieved": "2026-11-15",
+   "sha256": "ec7da8971051c7d0fe6b8171a22e01ed840a7bd84fc96221b983fab08d3cb8ec",
+   "txt": "docs/sources/court-locations/ontario-ca/2001-brampton-7765-hurontario-street.txt",
+   "name": {
+    "text": "Brampton (A. Grenville and William Davis) Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "7765 Hurontario Street",
+     "line": 8
+    },
+    {
+     "text": "Brampton , Ontario L6W 4T1",
+     "line": 9
+    }
+   ],
+   "city": "Brampton",
+   "services": [
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "905-456-4778",
+     "line": 19
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "905-456-4797",
+     "line": 21
+    },
+    {
+     "type": "Small claims",
+     "phone": "905-456-4700",
+     "line": 24
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "2002-brantford-70-wellington-st",
+   "url": "https://www.ontario.ca/locations/courts/2002-brantford-70-wellington-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "194521bd6be1c15c4fbfe5ffb608f7090a86442bb28fe9a1f4b22e8c9f83b933",
+   "txt": "docs/sources/court-locations/ontario-ca/2002-brantford-70-wellington-st.txt",
+   "name": {
+    "text": "Brantford Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "70 Wellington St.",
+     "line": 8
+    },
+    {
+     "text": "Brantford , Ontario N3T 2L9",
+     "line": 9
+    }
+   ],
+   "city": "Brantford",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "519-752-7828",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "519-752-7828",
+     "line": 20
+    },
+    {
+     "type": "Enforcement",
+     "phone": "519-752-7828",
+     "line": 21
+    },
+    {
+     "type": "Family",
+     "phone": "519-752-7828",
+     "line": 22
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "519-752-5725",
+     "line": 23
+    },
+    {
+     "type": "Small claims",
+     "phone": "519-752-7828",
+     "line": 25
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "2003-brantford-44-queen-st",
+   "url": "https://www.ontario.ca/locations/courts/2003-brantford-44-queen-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "dfa9bb4601ed035adcf328fd727d3c795912333dd2410594d5ccb8d4cdcce669",
+   "txt": "docs/sources/court-locations/ontario-ca/2003-brantford-44-queen-st.txt",
+   "name": {
+    "text": "Brantford Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "44 Queen St.",
+     "line": 8
+    },
+    {
+     "text": "Brantford , Ontario N3T 3B2",
+     "line": 9
+    }
+   ],
+   "city": "Brantford",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "519-758-3460",
+     "line": 19
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "519-758-3460",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "519-758-3480",
+     "line": 21
+    },
+    {
+     "type": "Family",
+     "phone": "519-758-3460",
+     "line": 24
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "519-752-5725",
+     "line": 25
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "3006-brockville-41-court-house-square",
+   "url": "https://www.ontario.ca/locations/courts/3006-brockville-41-court-house-square/",
+   "retrieved": "2026-11-15",
+   "sha256": "005a21efc940174949a2e441413ed2a221805ddd34a0a00fd6ec3f6a778225b5",
+   "txt": "docs/sources/court-locations/ontario-ca/3006-brockville-41-court-house-square.txt",
+   "name": {
+    "text": "Brockville Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "41 Court House Square",
+     "line": 8
+    },
+    {
+     "text": "Brockville , Ontario K6V 7N3",
+     "line": 9
+    }
+   ],
+   "city": "Brockville",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "613-341-2800",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "613-341-2800",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "613-341-2800",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "613-345-3092",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "613-341-2800",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "613-341-2800",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "613-341-2810",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "613-341-2800",
+     "line": 30
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "2004-burlington-2021-plains-rd-e",
+   "url": "https://www.ontario.ca/locations/courts/2004-burlington-2021-plains-rd-e/",
+   "retrieved": "2026-11-15",
+   "sha256": "312ece5c7f4730883bf8c8f751f22c4a6f35e2628df81e014011f23e076a7be4",
+   "txt": "docs/sources/court-locations/ontario-ca/2004-burlington-2021-plains-rd-e.txt",
+   "name": {
+    "text": "Burlington Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "2021 Plains Rd. E.",
+     "line": 8
+    },
+    {
+     "text": "Burlington , Ontario L7R 4M3",
+     "line": 9
+    }
+   ],
+   "city": "Burlington",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "905-637-4125",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "905-637-4125",
+     "line": 19
+    },
+    {
+     "type": "Small claims",
+     "phone": "905-637-4125",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5004-cat-lake-school-gym",
+   "url": "https://www.ontario.ca/locations/courts/5004-cat-lake-school-gym/",
+   "retrieved": "2026-11-15",
+   "sha256": "3988d662d54aabe1b48de1d8db53ac31955ed0983a79cbd1bc0ec9ad83cd24af",
+   "txt": "docs/sources/court-locations/ontario-ca/5004-cat-lake-school-gym.txt",
+   "name": {
+    "text": "Cat Lake Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "School Gym",
+     "line": 8
+    },
+    {
+     "text": "Cat Lake , Ontario P0V 1J0",
+     "line": 9
+    }
+   ],
+   "city": "Cat Lake",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-468-2842",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-468-2842",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-468-2842",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "2005-cayuga-55-munsee-st-n",
+   "url": "https://www.ontario.ca/locations/courts/2005-cayuga-55-munsee-st-n/",
+   "retrieved": "2026-11-15",
+   "sha256": "2a5e499df291ec4ed363ce3dc8a515cc8fa894d2510189862c9cd9b55e6d41db",
+   "txt": "docs/sources/court-locations/ontario-ca/2005-cayuga-55-munsee-st-n.txt",
+   "name": {
+    "text": "Cayuga Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "55 Munsee St. N.",
+     "line": 8
+    },
+    {
+     "text": "Cayuga , Ontario N0A 1E0",
+     "line": 9
+    }
+   ],
+   "city": "Cayuga",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "905-772-3335",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "905-772-3335",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "905-772-3335",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "905-772-5043",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "905-772-3335",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "905-772-3335",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "905-772-6129",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "905-772-3335",
+     "line": 28
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4003-chapleau-civic-centre-20-pine-st-w",
+   "url": "https://www.ontario.ca/locations/courts/4003-chapleau-civic-centre-20-pine-st-w/",
+   "retrieved": "2026-11-15",
+   "sha256": "10e7fd3e689cd1b90763f8e5032d6d22470a1af0df8792c53e1727534346cfa9",
+   "txt": "docs/sources/court-locations/ontario-ca/4003-chapleau-civic-centre-20-pine-st-w.txt",
+   "name": {
+    "text": "Chapleau Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Civic Centre - 20 Pine St. W",
+     "line": 8
+    },
+    {
+     "text": "Chapleau , Ontario P0M 1K0",
+     "line": 9
+    }
+   ],
+   "city": "Chapleau",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-267-7799",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-267-7799",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "705-267-7799",
+     "line": 20
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-267-7799",
+     "line": 21
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "7001-chatham-425-grand-ave-w-entire-bldg",
+   "url": "https://www.ontario.ca/locations/courts/7001-chatham-425-grand-ave-w-entire-bldg/",
+   "retrieved": "2026-11-15",
+   "sha256": "1bbe437a375f3aa33d593c51fa53b8dcedbaf03d490171239e467576bfd34f76",
+   "txt": "docs/sources/court-locations/ontario-ca/7001-chatham-425-grand-ave-w-entire-bldg.txt",
+   "name": {
+    "text": "Chatham Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "425 Grand Ave W (Entire Bldg)",
+     "line": 8
+    },
+    {
+     "text": "Chatham , Ontario N7M 6M8",
+     "line": 9
+    }
+   ],
+   "city": "Chatham",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "519-355-2200",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "519-355-2200",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "519-355-2200",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "519-355-2240",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "519-355-2200",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "519-355-2200",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "519-355-2216",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "519-355-2200",
+     "line": 29
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "1007-cobourg-860-william-st",
+   "url": "https://www.ontario.ca/locations/courts/1007-cobourg-860-william-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "7efd633965b042ff7ca1d720a5849b7ea55abf8fd78475a8e01386e2b2e306e0",
+   "txt": "docs/sources/court-locations/ontario-ca/1007-cobourg-860-william-st.txt",
+   "name": {
+    "text": "Cobourg (Northumberland County) Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "860 William St.",
+     "line": 8
+    },
+    {
+     "text": "Cobourg , Ontario K9A 3A9",
+     "line": 9
+    }
+   ],
+   "city": "Cobourg",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "905-372-3751",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "905-372-3751",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "905-372-3751",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "905-372-8784",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "905-372-3751",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "905-372-3751",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "905-373-4023",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "905-372-3751",
+     "line": 29
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4004-cochrane-149-fourth-ave",
+   "url": "https://www.ontario.ca/locations/courts/4004-cochrane-149-fourth-ave/",
+   "retrieved": "2026-11-15",
+   "sha256": "a2e3d763c33aa3d37d3e29f0f7adcf9b2d939944afc7af276f5a4f7f9f33467a",
+   "txt": "docs/sources/court-locations/ontario-ca/4004-cochrane-149-fourth-ave.txt",
+   "name": {
+    "text": "Cochrane Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "149 Fourth Ave",
+     "line": 8
+    },
+    {
+     "text": "Cochrane , Ontario P0L 1C0",
+     "line": 9
+    }
+   ],
+   "city": "Cochrane",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "705-272-4256",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "705-272-4256",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-272-4256",
+     "line": 21
+    },
+    {
+     "type": "Enforcement",
+     "phone": "705-272-4256",
+     "line": 22
+    },
+    {
+     "type": "Family",
+     "phone": "705-272-4256",
+     "line": 23
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-272-4256",
+     "line": 24
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "1008-collingwood-49-huron-st",
+   "url": "https://www.ontario.ca/locations/courts/1008-collingwood-49-huron-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "da55dba44f8fe10d7e31253fa8246e73e51a8b1c6c07d9c784d723a7636a0fe8",
+   "txt": "docs/sources/court-locations/ontario-ca/1008-collingwood-49-huron-st.txt",
+   "name": {
+    "text": "Collingwood Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "49 Huron St.",
+     "line": 8
+    },
+    {
+     "text": "Collingwood , Ontario L9Y 1C5",
+     "line": 9
+    }
+   ],
+   "city": "Collingwood",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-445-9332",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-445-9332",
+     "line": 19
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "705-739-6188",
+     "line": 20
+    },
+    {
+     "type": "Family",
+     "phone": "705-445-9332",
+     "line": 22
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-445-9332",
+     "line": 23
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "3007-cornwall-29-second-st-w",
+   "url": "https://www.ontario.ca/locations/courts/3007-cornwall-29-second-st-w/",
+   "retrieved": "2026-11-15",
+   "sha256": "6f99f5d73db3fa0afba32635daac2c8c336b09bad49c1a75bc588a1db3fda338",
+   "txt": "docs/sources/court-locations/ontario-ca/3007-cornwall-29-second-st-w.txt",
+   "name": {
+    "text": "Cornwall Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "29 Second St. W.",
+     "line": 8
+    },
+    {
+     "text": "Cornwall , Ontario K6J 1G3",
+     "line": 9
+    }
+   ],
+   "city": "Cornwall",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "613-933-7500",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "613-933-7500",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "613-933-7500",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "613-932-5903",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "613-933-7500",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "613-933-7500",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "613-933-7744",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "613-933-7500",
+     "line": 30
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5005-deer-lake-david-meekis-memorial-school",
+   "url": "https://www.ontario.ca/locations/courts/5005-deer-lake-david-meekis-memorial-school/",
+   "retrieved": "2026-11-15",
+   "sha256": "2f53827bc267452f3a2ccb7ea3f5ac4fb5c9ac5f6999fe61ff19d49087a25661",
+   "txt": "docs/sources/court-locations/ontario-ca/5005-deer-lake-david-meekis-memorial-school.txt",
+   "name": {
+    "text": "Deer Lake Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "David Meekis Memorial School",
+     "line": 8
+    },
+    {
+     "text": "Deer Lake , Ontario P0V 1N0",
+     "line": 9
+    }
+   ],
+   "city": "Deer Lake",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-468-2842",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-468-2842",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-468-2842",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5006-dryden-479-government-st-box-1",
+   "url": "https://www.ontario.ca/locations/courts/5006-dryden-479-government-st-box-1/",
+   "retrieved": "2026-11-15",
+   "sha256": "8540f6100cdcb87d8c33cf93f41442521fedf41c9f3c8df5ac8c302c4ebf563d",
+   "txt": "docs/sources/court-locations/ontario-ca/5006-dryden-479-government-st-box-1.txt",
+   "name": {
+    "text": "Dryden Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "479 Government St. Box 1",
+     "line": 8
+    },
+    {
+     "text": "Dryden , Ontario P8N 3K9",
+     "line": 9
+    }
+   ],
+   "city": "Dryden",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-223-2348",
+     "line": 19
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-223-2348",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "807-223-3351",
+     "line": 21
+    },
+    {
+     "type": "Family",
+     "phone": "807-223-2348",
+     "line": 24
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "807-223-7310",
+     "line": 25
+    },
+    {
+     "type": "Small claims",
+     "phone": "807-223-2348",
+     "line": 27
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4005-elliot-lake-200-ontario-ave",
+   "url": "https://www.ontario.ca/locations/courts/4005-elliot-lake-200-ontario-ave/",
+   "retrieved": "2026-11-15",
+   "sha256": "90ad164704130553dd62af32fc86bbbccb846c04c79db811a6736efcda3dd6f8",
+   "txt": "docs/sources/court-locations/ontario-ca/4005-elliot-lake-200-ontario-ave.txt",
+   "name": {
+    "text": "Elliot Lake Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "200 Ontario Ave",
+     "line": 8
+    },
+    {
+     "text": "Elliot Lake , Ontario P5A 1Y5",
+     "line": 9
+    }
+   ],
+   "city": "Elliot Lake",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-848-2500",
+     "line": 19
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-848-2500",
+     "line": 20
+    },
+    {
+     "type": "Family",
+     "phone": "705-848-2023",
+     "line": 21
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-848-2383",
+     "line": 22
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4006-espanola-100-tudhope-st-2nd-fl-suite-3",
+   "url": "https://www.ontario.ca/locations/courts/4006-espanola-100-tudhope-st-2nd-fl-suite-3/",
+   "retrieved": "2026-11-15",
+   "sha256": "e4d754af0443e6140344512758c1be28aa3e57bfcaa03a94142bfec6fd4e6953",
+   "txt": "docs/sources/court-locations/ontario-ca/4006-espanola-100-tudhope-st-2nd-fl-suite-3.txt",
+   "name": {
+    "text": "Espanola Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "100 Tudhope St.,2nd fl, Suite 3",
+     "line": 8
+    },
+    {
+     "text": "Espanola , Ontario P5E 1S6",
+     "line": 9
+    }
+   ],
+   "city": "Espanola",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-869-4334",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-869-4334",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "705-869-4334",
+     "line": 20
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-869-4334",
+     "line": 21
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4007-fort-albany-mundo-peetabeck-academy",
+   "url": "https://www.ontario.ca/locations/courts/4007-fort-albany-mundo-peetabeck-academy/",
+   "retrieved": "2026-11-15",
+   "sha256": "3a475aab2e282abe3319ef0578106a27068c4dae08017550125268f60b44863b",
+   "txt": "docs/sources/court-locations/ontario-ca/4007-fort-albany-mundo-peetabeck-academy.txt",
+   "name": {
+    "text": "Fort Albany Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Mundo Peetabeck Academy",
+     "line": 8
+    },
+    {
+     "text": "Fort Albany , Ontario P0L 1H0",
+     "line": 9
+    }
+   ],
+   "city": "Fort Albany",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-267-7799",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-267-7799",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "705-267-7799",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "2006-fort-erie-200-jarvis-st",
+   "url": "https://www.ontario.ca/locations/courts/2006-fort-erie-200-jarvis-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "96a29680c8d903d4bc5699e83c539ca415c06fcb48a6cb64c7c36d319a36e128",
+   "txt": "docs/sources/court-locations/ontario-ca/2006-fort-erie-200-jarvis-st.txt",
+   "name": {
+    "text": "Fort Erie Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "200 Jarvis St.",
+     "line": 8
+    },
+    {
+     "text": "Fort Erie , Ontario L2A 2S7",
+     "line": 9
+    }
+   ],
+   "city": "Fort Erie",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "905-988-6200",
+     "line": 18
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5007-fort-frances-333-church-st",
+   "url": "https://www.ontario.ca/locations/courts/5007-fort-frances-333-church-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "71b4245b2b76ba1b393c87403ba98dabee456c56d292e384044353358801093c",
+   "txt": "docs/sources/court-locations/ontario-ca/5007-fort-frances-333-church-st.txt",
+   "name": {
+    "text": "Fort Frances Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "333 Church St.",
+     "line": 8
+    },
+    {
+     "text": "Fort Frances , Ontario P9A 1C9",
+     "line": 9
+    }
+   ],
+   "city": "Fort Frances",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "807-274-5961",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "807-274-5961",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-274-5961",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "807-274-9825",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "807-274-5961",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "807-274-5961",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "807-274-3331",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "807-274-5961",
+     "line": 29
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5008-fort-hope-co-op-building",
+   "url": "https://www.ontario.ca/locations/courts/5008-fort-hope-co-op-building/",
+   "retrieved": "2026-11-15",
+   "sha256": "3f4950621b88058cf8b2b127a7ebe5c92cf9a45c627e84be82c09cd4a901b694",
+   "txt": "docs/sources/court-locations/ontario-ca/5008-fort-hope-co-op-building.txt",
+   "name": {
+    "text": "Fort Hope Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Co-Op Building",
+     "line": 8
+    },
+    {
+     "text": "Fort Hope , Ontario",
+     "line": 9
+    }
+   ],
+   "city": "Fort Hope",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-626-7100",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-626-7100",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-626-7100",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5009-fort-severn-wasaho-1st-nation-school",
+   "url": "https://www.ontario.ca/locations/courts/5009-fort-severn-wasaho-1st-nation-school/",
+   "retrieved": "2026-11-15",
+   "sha256": "c88e1f9b7ba5be4511678ca5dd116a9aad62d5355de7daa2248509bb4fb368b2",
+   "txt": "docs/sources/court-locations/ontario-ca/5009-fort-severn-wasaho-1st-nation-school.txt",
+   "name": {
+    "text": "Fort Severn Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Wasaho 1st Nation School",
+     "line": 8
+    },
+    {
+     "text": "Fort Severn , Ontario P0V 1W0",
+     "line": 9
+    }
+   ],
+   "city": "Fort Severn",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-468-2842",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-468-2842",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-468-2842",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5011-geraldton-1800-main-st",
+   "url": "https://www.ontario.ca/locations/courts/5011-geraldton-1800-main-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "1bd1e35cae7cc53542f1ef75f1c2b5c6699b1820289c88efd479edacae7cd9a3",
+   "txt": "docs/sources/court-locations/ontario-ca/5011-geraldton-1800-main-st.txt",
+   "name": {
+    "text": "Geraldton Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "1800 Main St.",
+     "line": 8
+    },
+    {
+     "text": "Geraldton , Ontario P0T 1M0",
+     "line": 9
+    }
+   ],
+   "city": "Geraldton",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-626-7100",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-626-7100",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-626-7100",
+     "line": 20
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "807-854-2181",
+     "line": 21
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "7004-goderich-1-courthouse-sq",
+   "url": "https://www.ontario.ca/locations/courts/7004-goderich-1-courthouse-sq/",
+   "retrieved": "2026-11-15",
+   "sha256": "742b1ff912f40518100df150f6cb7a7c6541aae0fcb8be7ce5e571acadbcd0ba",
+   "txt": "docs/sources/court-locations/ontario-ca/7004-goderich-1-courthouse-sq.txt",
+   "name": {
+    "text": "Goderich Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "1 Courthouse Sq.",
+     "line": 8
+    },
+    {
+     "text": "Goderich , Ontario N7A 1M2",
+     "line": 9
+    }
+   ],
+   "city": "Goderich",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "519-524-2519",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "519-524-2519",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "519-524-9272",
+     "line": 21
+    },
+    {
+     "type": "Enforcement",
+     "phone": "519-524-7322",
+     "line": 24
+    },
+    {
+     "type": "Family",
+     "phone": "519-524-2990",
+     "line": 25
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "519-524-4085",
+     "line": 26
+    },
+    {
+     "type": "Small claims",
+     "phone": "519-524-7322",
+     "line": 28
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4008-gogama-community-centre-hwy-661",
+   "url": "https://www.ontario.ca/locations/courts/4008-gogama-community-centre-hwy-661/",
+   "retrieved": "2026-11-15",
+   "sha256": "b13fc6972805258a5a4cf6cf1935a12e2e7f894042c058455649c1fc72e4c077",
+   "txt": "docs/sources/court-locations/ontario-ca/4008-gogama-community-centre-hwy-661.txt",
+   "name": {
+    "text": "Gogama Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Community Centre Hwy 661",
+     "line": 8
+    },
+    {
+     "text": "Gogama , Ontario P0M 1W0",
+     "line": 9
+    }
+   ],
+   "city": "Gogama",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-267-7799",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-267-7799",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "705-267-7799",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4009-gore-bay-27-phipps-street",
+   "url": "https://www.ontario.ca/locations/courts/4009-gore-bay-27-phipps-street/",
+   "retrieved": "2026-11-15",
+   "sha256": "ac483464ff91b7d81d68c9321ccc308d68f5473358e0a3d1ee29dfeae3e4070d",
+   "txt": "docs/sources/court-locations/ontario-ca/4009-gore-bay-27-phipps-street.txt",
+   "name": {
+    "text": "Gore Bay Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "27 Phipps Street",
+     "line": 8
+    },
+    {
+     "text": "Gore Bay , Ontario P0P 1H0",
+     "line": 9
+    }
+   ],
+   "city": "Gore Bay",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "705-282-2461",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "705-282-2461",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-282-2461",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "705-282-0194",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "705-282-2461",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "705-282-2461",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "705-282-1924",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-282-2461",
+     "line": 29
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "7005-guelph-74-woolwich-st",
+   "url": "https://www.ontario.ca/locations/courts/7005-guelph-74-woolwich-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "48ac2c11ff508b7087293e6bab5afafda266f1fcf02b0a04c097230f6fd091c1",
+   "txt": "docs/sources/court-locations/ontario-ca/7005-guelph-74-woolwich-st.txt",
+   "name": {
+    "text": "Guelph Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "74 Woolwich St.",
+     "line": 8
+    },
+    {
+     "text": "Guelph , Ontario N1H 3T9",
+     "line": 9
+    }
+   ],
+   "city": "Guelph",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "519-824-4100",
+     "line": 19
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "519-822-1031",
+     "line": 20
+    },
+    {
+     "type": "Enforcement",
+     "phone": "519-824-4100",
+     "line": 22
+    },
+    {
+     "type": "Family",
+     "phone": "519-824-4100",
+     "line": 23
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "519-837-6366",
+     "line": 24
+    },
+    {
+     "type": "Small claims",
+     "phone": "519-824-4100",
+     "line": 26
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "7006-guelph-36-wyndham-street-south",
+   "url": "https://www.ontario.ca/locations/courts/7006-guelph-36-wyndham-street-south/",
+   "retrieved": "2026-11-15",
+   "sha256": "32b4a1c0a84f03e41634590ddd332eeb4055363a570969dcdb68a48d7234800f",
+   "txt": "docs/sources/court-locations/ontario-ca/7006-guelph-36-wyndham-street-south.txt",
+   "name": {
+    "text": "Guelph Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "36 Wyndham Street South",
+     "line": 8
+    },
+    {
+     "text": "Guelph , Ontario N1H 7J5",
+     "line": 9
+    }
+   ],
+   "city": "Guelph",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "519-826-4431",
+     "line": 19
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "519-826-4431",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "519-822-1031",
+     "line": 21
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "519-837-6366",
+     "line": 23
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4010-haileybury-393-main-st-box-609",
+   "url": "https://www.ontario.ca/locations/courts/4010-haileybury-393-main-st-box-609/",
+   "retrieved": "2026-11-15",
+   "sha256": "770963cbff4bc58fdac6b4903e5cc35b9362f5d1055a4de32c627977fc1740f7",
+   "txt": "docs/sources/court-locations/ontario-ca/4010-haileybury-393-main-st-box-609.txt",
+   "name": {
+    "text": "Haileybury Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "393 Main St. Box 609",
+     "line": 8
+    },
+    {
+     "text": "Haileybury , Ontario P0J 1K0",
+     "line": 9
+    }
+   ],
+   "city": "Haileybury",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "705-672-3321",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "705-672-3321",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-672-3321",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "705-672-3308",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "705-672-3321",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "705-672-3321",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "705-672-4050",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-672-3321",
+     "line": 30
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "2007-hamilton-55-main-st-w",
+   "url": "https://www.ontario.ca/locations/courts/2007-hamilton-55-main-st-w/",
+   "retrieved": "2026-11-15",
+   "sha256": "05a440810921184f598831b3235fd895cc3ea2848b01ecd1a3c7d4e6aa2089a1",
+   "txt": "docs/sources/court-locations/ontario-ca/2007-hamilton-55-main-st-w.txt",
+   "name": {
+    "text": "Hamilton Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "55 Main St. W.",
+     "line": 8
+    },
+    {
+     "text": "Hamilton , Ontario L8P 1H4",
+     "line": 9
+    }
+   ],
+   "city": "Hamilton",
+   "services": [
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "905-645-5262",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "905-645-6250",
+     "line": 21
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "905-645-5272",
+     "line": 22
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "2008-hamilton-45-main-st-e",
+   "url": "https://www.ontario.ca/locations/courts/2008-hamilton-45-main-st-e/",
+   "retrieved": "2026-11-15",
+   "sha256": "72d69eb9d4c619c59147bf362a433b0dd76fde3fff9ade142c4c03d9d42b3ab8",
+   "txt": "docs/sources/court-locations/ontario-ca/2008-hamilton-45-main-st-e.txt",
+   "name": {
+    "text": "Hamilton (John Sopinka) Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "45 Main St. E.",
+     "line": 8
+    },
+    {
+     "text": "Hamilton , Ontario L8N 2B7",
+     "line": 9
+    }
+   ],
+   "city": "Hamilton",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "905-645-5252",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "905-645-5252",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "905-645-5252",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "905-645-5262",
+     "line": 22
+    },
+    {
+     "type": "Divisional",
+     "phone": "905-645-5252",
+     "line": 25
+    },
+    {
+     "type": "Enforcement",
+     "phone": "905-645-5252",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "905-645-5272",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "905-645-5252",
+     "line": 29
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4011-hearst-141-gasp-sie-road",
+   "url": "https://www.ontario.ca/locations/courts/4011-hearst-141-gasp-sie-road/",
+   "retrieved": "2026-11-15",
+   "sha256": "a0ad775f76b638357f8d26218e1fc74b4a7db849746fe837ae6d8e3ccb10df68",
+   "txt": "docs/sources/court-locations/ontario-ca/4011-hearst-141-gasp-sie-road.txt",
+   "name": {
+    "text": "Hearst Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "141 Gaspésie Road",
+     "line": 8
+    },
+    {
+     "text": "Hearst , Ontario P0L 1R0",
+     "line": 9
+    }
+   ],
+   "city": "Hearst",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-272-4256",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-272-4256",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "705-272-4256",
+     "line": 20
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-272-4256",
+     "line": 21
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4013-hornepayne-48-6th-ave",
+   "url": "https://www.ontario.ca/locations/courts/4013-hornepayne-48-6th-ave/",
+   "retrieved": "2026-11-15",
+   "sha256": "bbc1ac78ce06daece7cfeec873d0c09bb86ede9f99b03a7d002a7cb10aa88f7d",
+   "txt": "docs/sources/court-locations/ontario-ca/4013-hornepayne-48-6th-ave.txt",
+   "name": {
+    "text": "Hornepayne Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "48 - 6th Ave",
+     "line": 8
+    },
+    {
+     "text": "Hornepayne , Ontario P0M 1Z0",
+     "line": 9
+    }
+   ],
+   "city": "Hornepayne",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-272-4256",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-272-4256",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "705-272-4256",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "1009-huntsville-36-chaffey-st",
+   "url": "https://www.ontario.ca/locations/courts/1009-huntsville-36-chaffey-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "aa1d08c1b819a4c983b9f3b398fc53bec05dbfb71914d4cd0863917ba8be1c23",
+   "txt": "docs/sources/court-locations/ontario-ca/1009-huntsville-36-chaffey-st.txt",
+   "name": {
+    "text": "Huntsville Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "36 Chaffey St.",
+     "line": 8
+    },
+    {
+     "text": "Huntsville , Ontario P1H 1J4",
+     "line": 9
+    }
+   ],
+   "city": "Huntsville",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-645-8793",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-645-8793",
+     "line": 19
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "705-645-2411",
+     "line": 20
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-645-8793",
+     "line": 22
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5012-ignace-ignace-recreation-complex-200-beaver-street",
+   "url": "https://www.ontario.ca/locations/courts/5012-ignace-ignace-recreation-complex-200-beaver-street/",
+   "retrieved": "2026-11-15",
+   "sha256": "50f09251f5777455fceed03b4749d13aab873c464a8b3cf9eb274da9b33fcb37",
+   "txt": "docs/sources/court-locations/ontario-ca/5012-ignace-ignace-recreation-complex-200-beaver-street.txt",
+   "name": {
+    "text": "Ignace Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Ignace Recreation Complex, 200 Beaver Street",
+     "line": 8
+    },
+    {
+     "text": "Ignace , Ontario P0T 1T0",
+     "line": 9
+    }
+   ],
+   "city": "Ignace",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-223-2348",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-223-2348",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-223-2348",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4014-iroquois-falls-253-main-st",
+   "url": "https://www.ontario.ca/locations/courts/4014-iroquois-falls-253-main-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "816c6f4c19ea2fc14db3bd89fe58b8a8347f1065304ec85e4e5c5880f7a4a308",
+   "txt": "docs/sources/court-locations/ontario-ca/4014-iroquois-falls-253-main-st.txt",
+   "name": {
+    "text": "Iroquois Falls Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "253 Main St.",
+     "line": 8
+    },
+    {
+     "text": "Iroquois Falls , Ontario P0L 1C0",
+     "line": 9
+    }
+   ],
+   "city": "Iroquois Falls",
+   "services": [
+    {
+     "type": "Small claims",
+     "phone": "705-272-4256",
+     "line": 18
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4015-kapuskasing-civic-centre-88-riverside-dr",
+   "url": "https://www.ontario.ca/locations/courts/4015-kapuskasing-civic-centre-88-riverside-dr/",
+   "retrieved": "2026-11-15",
+   "sha256": "fcc412ef6f8b8d93a2d4506334d5a78e0bc49d0c7ed7bcc1026b24c9fb2b84b8",
+   "txt": "docs/sources/court-locations/ontario-ca/4015-kapuskasing-civic-centre-88-riverside-dr.txt",
+   "name": {
+    "text": "Kapuskasing Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Civic Centre, 88 Riverside Dr.",
+     "line": 8
+    },
+    {
+     "text": "Kapuskasing , Ontario P5N 1B3",
+     "line": 9
+    }
+   ],
+   "city": "Kapuskasing",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-272-4256",
+     "line": 19
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-272-4256",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "705-335-6184",
+     "line": 21
+    },
+    {
+     "type": "Family",
+     "phone": "705-272-4256",
+     "line": 23
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "705-337-4330",
+     "line": 24
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-337-1477",
+     "line": 27
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5013-kasabonika-community-school",
+   "url": "https://www.ontario.ca/locations/courts/5013-kasabonika-community-school/",
+   "retrieved": "2026-11-15",
+   "sha256": "0acd4b28a0e5c70b6c611c92318b9b272629ab1ae18680b789fdcc7292de3c99",
+   "txt": "docs/sources/court-locations/ontario-ca/5013-kasabonika-community-school.txt",
+   "name": {
+    "text": "Kasabonika Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Community School",
+     "line": 8
+    },
+    {
+     "text": "Kasabonika , Ontario",
+     "line": 9
+    }
+   ],
+   "city": "Kasabonika",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-223-2348",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-223-2348",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-223-2348",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4017-kashechewan-kaschechewan-school-auditorium",
+   "url": "https://www.ontario.ca/locations/courts/4017-kashechewan-kaschechewan-school-auditorium/",
+   "retrieved": "2026-11-15",
+   "sha256": "85d1db3979ef9a1104547b19958388ef4a45966bafccffcc91ad7fa46afd796f",
+   "txt": "docs/sources/court-locations/ontario-ca/4017-kashechewan-kaschechewan-school-auditorium.txt",
+   "name": {
+    "text": "Kashechewan Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Kaschechewan School Auditorium",
+     "line": 8
+    },
+    {
+     "text": "Kashechewan , Ontario P0L 1S0",
+     "line": 9
+    }
+   ],
+   "city": "Kashechewan",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-272-4256",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-272-4256",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "705-272-4256",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5042-keewaywin-community-centre",
+   "url": "https://www.ontario.ca/locations/courts/5042-keewaywin-community-centre/",
+   "retrieved": "2026-11-15",
+   "sha256": "97ac64c4977ca2f3a8ddaa2350c319103e32f354a35c406aafc8a4eea836df6f",
+   "txt": "docs/sources/court-locations/ontario-ca/5042-keewaywin-community-centre.txt",
+   "name": {
+    "text": "Keewaywin Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Community Centre",
+     "line": 8
+    },
+    {
+     "text": "Keewaywin , Ontario",
+     "line": 9
+    }
+   ],
+   "city": "Keewaywin",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-468-2842",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-468-2842",
+     "line": 19
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5014-kenora-216-water-street",
+   "url": "https://www.ontario.ca/locations/courts/5014-kenora-216-water-street/",
+   "retrieved": "2026-11-15",
+   "sha256": "8e82ba1452195c48af4d67571d44dc7b195b46604b97565328cbe15f09a15704",
+   "txt": "docs/sources/court-locations/ontario-ca/5014-kenora-216-water-street.txt",
+   "name": {
+    "text": "Kenora Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "216 Water Street",
+     "line": 8
+    },
+    {
+     "text": "Kenora , Ontario P9N 1S4",
+     "line": 9
+    }
+   ],
+   "city": "Kenora",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "807-468-2842",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "807-468-2842",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-468-2842",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "807-468-2835",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "807-468-2842",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "807-468-2842",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "807-468-2839",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "807-468-2842",
+     "line": 29
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "3010-killaloe-47-mill-st",
+   "url": "https://www.ontario.ca/locations/courts/3010-killaloe-47-mill-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "eea86cd5da67c92d977f9bb2b7f59b8ce5af399cc1481480f3355d6db0144bf1",
+   "txt": "docs/sources/court-locations/ontario-ca/3010-killaloe-47-mill-st.txt",
+   "name": {
+    "text": "Killaloe Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "47 Mill St.",
+     "line": 8
+    },
+    {
+     "text": "Killaloe , Ontario K0J 2A0",
+     "line": 9
+    }
+   ],
+   "city": "Killaloe",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "613-732-8581",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "613-732-8581",
+     "line": 19
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5015-kingfisher-mission-building",
+   "url": "https://www.ontario.ca/locations/courts/5015-kingfisher-mission-building/",
+   "retrieved": "2026-11-15",
+   "sha256": "5d2ec266964a5424024437b97d828c80786b320cd741d19f20535feafefd5b46",
+   "txt": "docs/sources/court-locations/ontario-ca/5015-kingfisher-mission-building.txt",
+   "name": {
+    "text": "Kingfisher Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Mission Building",
+     "line": 8
+    },
+    {
+     "text": "Kingfisher , Ontario",
+     "line": 9
+    }
+   ],
+   "city": "Kingfisher",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-468-2842",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-468-2842",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-468-2842",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "3013-kingston-469-montreal-st",
+   "url": "https://www.ontario.ca/locations/courts/3013-kingston-469-montreal-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "e37790cf122ac77338a6db350258398c367dd4ff8cba645cf8cbe128ef82e594",
+   "txt": "docs/sources/court-locations/ontario-ca/3013-kingston-469-montreal-st.txt",
+   "name": {
+    "text": "Kingston Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "469 Montreal St.",
+     "line": 8
+    },
+    {
+     "text": "Kingston , Ontario K7K 3H9",
+     "line": 9
+    }
+   ],
+   "city": "Kingston",
+   "services": [
+    {
+     "type": "Family",
+     "phone": "613-548-6789",
+     "line": 19
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "613-548-6213",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "3011-kingston-279-wellington-st",
+   "url": "https://www.ontario.ca/locations/courts/3011-kingston-279-wellington-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "62877d42414eed22dadda5715f6a30ea740739f45fcaa26b2ed7d3129e95e990",
+   "txt": "docs/sources/court-locations/ontario-ca/3011-kingston-279-wellington-st.txt",
+   "name": {
+    "text": "Kingston Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "279 Wellington St.",
+     "line": 8
+    },
+    {
+     "text": "Kingston , Ontario K7K 6E1",
+     "line": 9
+    }
+   ],
+   "city": "Kingston",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "613-548-6200",
+     "line": 19
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "613-548-6200",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "613-548-6220",
+     "line": 21
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "613-548-6213",
+     "line": 23
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "3012-kingston-5-court-street",
+   "url": "https://www.ontario.ca/locations/courts/3012-kingston-5-court-street/",
+   "retrieved": "2026-11-15",
+   "sha256": "6ade72c8f07d17793b923ab6d8c8aeec269b40d614a4f3db5abfb6d7744c6b5f",
+   "txt": "docs/sources/court-locations/ontario-ca/3012-kingston-5-court-street.txt",
+   "name": {
+    "text": "Kingston (Frontenac County) Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "5 Court Street",
+     "line": 8
+    },
+    {
+     "text": "Kingston , Ontario K7L 2N4",
+     "line": 9
+    }
+   ],
+   "city": "Kingston",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "613-548-6811",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "613-548-6811",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "613-548-6220",
+     "line": 21
+    },
+    {
+     "type": "Enforcement",
+     "phone": "613-548-6811",
+     "line": 23
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "613-548-6213",
+     "line": 24
+    },
+    {
+     "type": "Small claims",
+     "phone": "613-548-6811",
+     "line": 26
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4018-kirkland-lake-140-government-rd-e-po-box-730",
+   "url": "https://www.ontario.ca/locations/courts/4018-kirkland-lake-140-government-rd-e-po-box-730/",
+   "retrieved": "2026-11-15",
+   "sha256": "0eadd749170a0b864f48d481d073e7ff0a94494e6d3059dd68136913ae9b9976",
+   "txt": "docs/sources/court-locations/ontario-ca/4018-kirkland-lake-140-government-rd-e-po-box-730.txt",
+   "name": {
+    "text": "Kirkland Lake Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "140 Government Rd, E. PO Box 730",
+     "line": 8
+    },
+    {
+     "text": "Kirkland Lake , Ontario P2N 3K1",
+     "line": 9
+    }
+   ],
+   "city": "Kirkland Lake",
+   "services": [
+    {
+     "type": "Criminal youth",
+     "phone": "705-567-9381",
+     "line": 18
+    },
+    {
+     "type": "Family",
+     "phone": "705-567-9381",
+     "line": 19
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-567-9381",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "7024-kitchener-85-frederick-street",
+   "url": "https://www.ontario.ca/locations/courts/7024-kitchener-85-frederick-street/",
+   "retrieved": "2026-11-15",
+   "sha256": "50bd859fb567ad70642b74cc3baa5ce6923c0c43aa8c04e268abe03c10f11ed5",
+   "txt": "docs/sources/court-locations/ontario-ca/7024-kitchener-85-frederick-street.txt",
+   "name": {
+    "text": "Waterloo Region Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "85 Frederick Street",
+     "line": 8
+    },
+    {
+     "text": "Kitchener , Ontario N2H 0A7",
+     "line": 9
+    }
+   ],
+   "city": "Kitchener",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "519-741-3200",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "519-741-3200",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "519-741-3222",
+     "line": 21
+    },
+    {
+     "type": "Enforcement",
+     "phone": "519-741-3266",
+     "line": 23
+    },
+    {
+     "type": "Family",
+     "phone": "519-741-3200",
+     "line": 24
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "519-741-3351",
+     "line": 25
+    },
+    {
+     "type": "Small claims",
+     "phone": "519-741-3270",
+     "line": 26
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "3014-l-orignal-1023-king-st",
+   "url": "https://www.ontario.ca/locations/courts/3014-l-orignal-1023-king-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "bb65aebbbfb9b67c2e86b3338cdc35e977a7f776783fa9efc0e038ad1a43c58b",
+   "txt": "docs/sources/court-locations/ontario-ca/3014-l-orignal-1023-king-st.txt",
+   "name": {
+    "text": "L'Orignal Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "1023 King St.",
+     "line": 8
+    },
+    {
+     "text": "L'Orignal , Ontario K0B 1K0",
+     "line": 9
+    }
+   ],
+   "city": "L'Orignal",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "613-675-4567",
+     "line": 24
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "613-675-4567",
+     "line": 25
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "613-675-4460",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "613-675-1991",
+     "line": 28
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "3015-l-orignal-59-court-st-2nd-fl",
+   "url": "https://www.ontario.ca/locations/courts/3015-l-orignal-59-court-st-2nd-fl/",
+   "retrieved": "2026-11-15",
+   "sha256": "a717c86af2f7a57f09826428922f5de8e6f8c0713572105d6d6a22c9c15617a9",
+   "txt": "docs/sources/court-locations/ontario-ca/3015-l-orignal-59-court-st-2nd-fl.txt",
+   "name": {
+    "text": "L'Orignal Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "59 Court St., 2nd Fl.",
+     "line": 8
+    },
+    {
+     "text": "L'Orignal , Ontario K0B 1K0",
+     "line": 9
+    }
+   ],
+   "city": "L'Orignal",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "613-675-4567",
+     "line": 24
+    },
+    {
+     "type": "Criminal",
+     "phone": "613-675-4567",
+     "line": 25
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "613-675-4460",
+     "line": 26
+    },
+    {
+     "type": "Enforcement",
+     "phone": "613-675-4567",
+     "line": 28
+    },
+    {
+     "type": "Family",
+     "phone": "613-675-4567",
+     "line": 29
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "613-675-1991",
+     "line": 30
+    },
+    {
+     "type": "Small claims",
+     "phone": "613-675-4567",
+     "line": 33
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5016-lac-seul-education-building",
+   "url": "https://www.ontario.ca/locations/courts/5016-lac-seul-education-building/",
+   "retrieved": "2026-11-15",
+   "sha256": "d31e6d72993b31261ac8c5e004378b18e1bbfcaeb51599c9b2da3d4177dd3ee4",
+   "txt": "docs/sources/court-locations/ontario-ca/5016-lac-seul-education-building.txt",
+   "name": {
+    "text": "Lac Seul Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Education Building",
+     "line": 8
+    },
+    {
+     "text": "Lac Seul , Ontario P0V 1X0",
+     "line": 9
+    }
+   ],
+   "city": "Lac Seul",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-223-2348",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-223-2348",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-223-2348",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5017-landsdowne-house-neskantage-community-centre",
+   "url": "https://www.ontario.ca/locations/courts/5017-landsdowne-house-neskantage-community-centre/",
+   "retrieved": "2026-11-15",
+   "sha256": "12f615350e67d35440ce0dffe101553b62160b7a43f662f7203b1974aecbf933",
+   "txt": "docs/sources/court-locations/ontario-ca/5017-landsdowne-house-neskantage-community-centre.txt",
+   "name": {
+    "text": "Lansdowne House Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Neskantage Community Centre",
+     "line": 8
+    },
+    {
+     "text": "Landsdowne House , Ontario",
+     "line": 9
+    }
+   ],
+   "city": "Landsdowne House",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-626-7100",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-626-7100",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-626-7100",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "7009-leamington-7-clark-st-west",
+   "url": "https://www.ontario.ca/locations/courts/7009-leamington-7-clark-st-west/",
+   "retrieved": "2026-11-15",
+   "sha256": "cf6c32260455d6dd4a43e15445ce536c9e7fe741a24f5297849b282b54060817",
+   "txt": "docs/sources/court-locations/ontario-ca/7009-leamington-7-clark-st-west.txt",
+   "name": {
+    "text": "Leamington Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "7 Clark St. West",
+     "line": 8
+    },
+    {
+     "text": "Leamington , Ontario N8H 1E5",
+     "line": 9
+    }
+   ],
+   "city": "Leamington",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "519-973-6665",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "519-973-6665",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "519-973-6670",
+     "line": 20
+    },
+    {
+     "type": "Small claims",
+     "phone": "519-973-6620",
+     "line": 21
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "1010-lindsay-440-kent-st-w",
+   "url": "https://www.ontario.ca/locations/courts/1010-lindsay-440-kent-st-w/",
+   "retrieved": "2026-11-15",
+   "sha256": "91f76fb5e2a7864b3339121eb385ccc284736a1aa734708f046355f107a4695e",
+   "txt": "docs/sources/court-locations/ontario-ca/1010-lindsay-440-kent-st-w.txt",
+   "name": {
+    "text": "Lindsay Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "440 Kent St. W.",
+     "line": 8
+    },
+    {
+     "text": "Lindsay , Ontario K9V 6K2",
+     "line": 9
+    }
+   ],
+   "city": "Lindsay",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "705-324-1400",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "705-324-1400",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-324-1400",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "705-324-1420",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "705-324-1400",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "705-324-1400",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "705-324-1429",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-324-1400",
+     "line": 29
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "7011-london-80-dundas-st",
+   "url": "https://www.ontario.ca/locations/courts/7011-london-80-dundas-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "f0562b38ed376c75bbcd452d2dea7d91c763ca51deb245b3e05e31c954568dfc",
+   "txt": "docs/sources/court-locations/ontario-ca/7011-london-80-dundas-st.txt",
+   "name": {
+    "text": "London Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "80 Dundas St.",
+     "line": 8
+    },
+    {
+     "text": "London , Ontario N6A 6A3",
+     "line": 9
+    }
+   ],
+   "city": "London",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "519-660-3000",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "519-660-3000",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "519-660-3013",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "519-660-3003",
+     "line": 22
+    },
+    {
+     "type": "Divisional",
+     "phone": "519-660-3000",
+     "line": 25
+    },
+    {
+     "type": "Enforcement",
+     "phone": "519-660-3004",
+     "line": 26
+    },
+    {
+     "type": "Family",
+     "phone": "519-660-3044",
+     "line": 27
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "519-660-3041",
+     "line": 28
+    },
+    {
+     "type": "Small claims",
+     "phone": "519-660-3000",
+     "line": 30
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5018-longlac-117-dieppe-rd-royal-canadian-legion",
+   "url": "https://www.ontario.ca/locations/courts/5018-longlac-117-dieppe-rd-royal-canadian-legion/",
+   "retrieved": "2026-11-15",
+   "sha256": "b83a84704201e3849ecd857b63e664f9e945894207e836081e89ff753b9c5329",
+   "txt": "docs/sources/court-locations/ontario-ca/5018-longlac-117-dieppe-rd-royal-canadian-legion.txt",
+   "name": {
+    "text": "Longlac Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "117 Dieppe Rd., Royal Canadian Legion",
+     "line": 8
+    },
+    {
+     "text": "Longlac , Ontario P0T 2A0",
+     "line": 9
+    }
+   ],
+   "city": "Longlac",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-626-7100",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-626-7100",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-626-7100",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5019-manitouwadge-1-mississauga-dr",
+   "url": "https://www.ontario.ca/locations/courts/5019-manitouwadge-1-mississauga-dr/",
+   "retrieved": "2026-11-15",
+   "sha256": "1839bbac9b845f23a2d24cb19c9121ff9b2ced0696be5be452f712bd9bab04ef",
+   "txt": "docs/sources/court-locations/ontario-ca/5019-manitouwadge-1-mississauga-dr.txt",
+   "name": {
+    "text": "Manitouwadge Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "1 Mississauga Dr",
+     "line": 8
+    },
+    {
+     "text": "Manitouwadge , Ontario P0T 2C0",
+     "line": 9
+    }
+   ],
+   "city": "Manitouwadge",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-626-7100",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-626-7100",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-626-7100",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5020-marathon-37-peninsula-rd",
+   "url": "https://www.ontario.ca/locations/courts/5020-marathon-37-peninsula-rd/",
+   "retrieved": "2026-11-15",
+   "sha256": "130f2f1338cd56a477f69c60fdd5b91a329ddbaaef87b7f9521b3140132208e8",
+   "txt": "docs/sources/court-locations/ontario-ca/5020-marathon-37-peninsula-rd.txt",
+   "name": {
+    "text": "Marathon Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "37 Peninsula Rd.",
+     "line": 8
+    },
+    {
+     "text": "Marathon , Ontario P0T 2E0",
+     "line": 9
+    }
+   ],
+   "city": "Marathon",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-626-7100",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-626-7100",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-626-7100",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5021-markham-8500-leslie-st-suite-395",
+   "url": "https://www.ontario.ca/locations/courts/5021-markham-8500-leslie-st-suite-395/",
+   "retrieved": "2026-11-15",
+   "sha256": "7fca9226bfa65f5ef1f00b5a93e487c9ad28b41ce9a57e309e390e5b40a4951c",
+   "txt": "docs/sources/court-locations/ontario-ca/5021-markham-8500-leslie-st-suite-395.txt",
+   "name": {
+    "text": "Small Claims Court Administration Office - Le Parc Office Tower",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "8500 Leslie St., Suite 395",
+     "line": 8
+    },
+    {
+     "text": "Markham , Ontario L3T 7M8",
+     "line": 9
+    }
+   ],
+   "city": "Markham",
+   "services": [
+    {
+     "type": "Small claims",
+     "phone": "905-731-2664",
+     "line": 19
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "1011-midland-605-yonge-st",
+   "url": "https://www.ontario.ca/locations/courts/1011-midland-605-yonge-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "9222852ae41d137a1b6210826221c11ad90e7e05e86160c8ee3d94e801452586",
+   "txt": "docs/sources/court-locations/ontario-ca/1011-midland-605-yonge-st.txt",
+   "name": {
+    "text": "Midland Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "605 Yonge St.",
+     "line": 8
+    },
+    {
+     "text": "Midland , Ontario L4R 2E1",
+     "line": 9
+    }
+   ],
+   "city": "Midland",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-526-0251",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-526-0251",
+     "line": 19
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "705-739-6188",
+     "line": 20
+    },
+    {
+     "type": "Family",
+     "phone": "705-526-0251",
+     "line": 22
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-526-0251",
+     "line": 23
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "2009-milton-491-steeles-ave-e",
+   "url": "https://www.ontario.ca/locations/courts/2009-milton-491-steeles-ave-e/",
+   "retrieved": "2026-11-15",
+   "sha256": "e9c14e4ccf05a269421b23a33f148d3b460d30cbb147ba682a8bb93960680185",
+   "txt": "docs/sources/court-locations/ontario-ca/2009-milton-491-steeles-ave-e.txt",
+   "name": {
+    "text": "Milton Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "491 Steeles Ave E.",
+     "line": 8
+    },
+    {
+     "text": "Milton , Ontario L9T 1Y7",
+     "line": 9
+    }
+   ],
+   "city": "Milton",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "905-878-4165",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "905-878-4165",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "905-878-4165",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "905-878-7291",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "905-878-4165",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "905-878-4165",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "905-878-6292",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "905-878-4165",
+     "line": 30
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "1012-minden-7-milne-st",
+   "url": "https://www.ontario.ca/locations/courts/1012-minden-7-milne-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "c09d47f340894e368c6edb4638d62abbc39f65a7b132b2a44e3a1d7a4acddcb5",
+   "txt": "docs/sources/court-locations/ontario-ca/1012-minden-7-milne-st.txt",
+   "name": {
+    "text": "Minden Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "7 Milne St.",
+     "line": 8
+    },
+    {
+     "text": "Minden , Ontario K0M 2K0",
+     "line": 9
+    }
+   ],
+   "city": "Minden",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-324-1400",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-324-1400",
+     "line": 19
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "705-324-1420",
+     "line": 20
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-324-1400",
+     "line": 22
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5026-mishkeegogamang-community-centre-mishkeegogamang-first-nation",
+   "url": "https://www.ontario.ca/locations/courts/5026-mishkeegogamang-community-centre-mishkeegogamang-first-nation/",
+   "retrieved": "2026-11-15",
+   "sha256": "05be29fcff105137a40acbfb9681061c71fd2edf61245a8b17bb47488f1450cb",
+   "txt": "docs/sources/court-locations/ontario-ca/5026-mishkeegogamang-community-centre-mishkeegogamang-first-nation.txt",
+   "name": {
+    "text": "Mishkeegogamang Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Community Centre, Mishkeegogamang First Nation",
+     "line": 8
+    },
+    {
+     "text": "Mishkeegogamang , Ontario P0V 2H0",
+     "line": 9
+    }
+   ],
+   "city": "Mishkeegogamang",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-223-2348",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-223-2348",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-223-2348",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4020-moosonee-38-revillion-rd-north",
+   "url": "https://www.ontario.ca/locations/courts/4020-moosonee-38-revillion-rd-north/",
+   "retrieved": "2026-11-15",
+   "sha256": "61bf222e55724b88e23661d6aaa72b0976b3bfe2386ec2af3c53c83e3e0be1ea",
+   "txt": "docs/sources/court-locations/ontario-ca/4020-moosonee-38-revillion-rd-north.txt",
+   "name": {
+    "text": "Moosonee Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "38 Revillion Rd. North",
+     "line": 8
+    },
+    {
+     "text": "Moosonee , Ontario P0L 1Y0",
+     "line": 9
+    }
+   ],
+   "city": "Moosonee",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-267-7799",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-267-7799",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "705-267-7799",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "3016-morrisburg-6-5th-street-w-box-858",
+   "url": "https://www.ontario.ca/locations/courts/3016-morrisburg-6-5th-street-w-box-858/",
+   "retrieved": "2026-11-15",
+   "sha256": "8c553f35eb10dbc63156d1d7944093ce6c1dca3a167e8ad395a342c84a6e22fd",
+   "txt": "docs/sources/court-locations/ontario-ca/3016-morrisburg-6-5th-street-w-box-858.txt",
+   "name": {
+    "text": "Morrisburg Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "6 - 5th Street W. Box 858",
+     "line": 8
+    },
+    {
+     "text": "Morrisburg , Ontario K0C 1X0",
+     "line": 9
+    }
+   ],
+   "city": "Morrisburg",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "613-543-2193",
+     "line": 19
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "613-543-2193",
+     "line": 20
+    },
+    {
+     "type": "Small claims",
+     "phone": "613-543-2193",
+     "line": 21
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5022-muskrat-dam-muskrat-dam-school-gym",
+   "url": "https://www.ontario.ca/locations/courts/5022-muskrat-dam-muskrat-dam-school-gym/",
+   "retrieved": "2026-11-15",
+   "sha256": "92b38da9eebae9037e180fbf50aa975b0bc8d44b1df896ae1d71d3ba7945ee4c",
+   "txt": "docs/sources/court-locations/ontario-ca/5022-muskrat-dam-muskrat-dam-school-gym.txt",
+   "name": {
+    "text": "Muskrat Dam Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Muskrat Dam School Gym",
+     "line": 8
+    },
+    {
+     "text": "Muskrat Dam , Ontario P0V 2B0",
+     "line": 9
+    }
+   ],
+   "city": "Muskrat Dam",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-468-2842",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-468-2842",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-468-2842",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "3018-napanee-41-dundas-st-w",
+   "url": "https://www.ontario.ca/locations/courts/3018-napanee-41-dundas-st-w/",
+   "retrieved": "2026-11-15",
+   "sha256": "8be641b64aaf3d71cd19345c6463e2bc0b499d331f729748e2314544e8e06b8a",
+   "txt": "docs/sources/court-locations/ontario-ca/3018-napanee-41-dundas-st-w.txt",
+   "name": {
+    "text": "Napanee Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "41 Dundas St. W.",
+     "line": 8
+    },
+    {
+     "text": "Napanee , Ontario K7R 1Z5",
+     "line": 9
+    }
+   ],
+   "city": "Napanee",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "613-354-3845",
+     "line": 22
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "613-354-5450",
+     "line": 23
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "613-354-2144",
+     "line": 24
+    },
+    {
+     "type": "Enforcement",
+     "phone": "613-354-3845",
+     "line": 26
+    },
+    {
+     "type": "Family",
+     "phone": "613-354-3845",
+     "line": 27
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "613-545-2455",
+     "line": 28
+    },
+    {
+     "type": "Small claims",
+     "phone": "613-354-3845",
+     "line": 30
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "3017-napanee-97-thomas-st-e",
+   "url": "https://www.ontario.ca/locations/courts/3017-napanee-97-thomas-st-e/",
+   "retrieved": "2026-11-15",
+   "sha256": "9d452cb019569092d58b8b864c8693e49d27c7224f8ba51fed8bd9fa5779988c",
+   "txt": "docs/sources/court-locations/ontario-ca/3017-napanee-97-thomas-st-e.txt",
+   "name": {
+    "text": "Napanee Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "97 Thomas St. E.",
+     "line": 8
+    },
+    {
+     "text": "Napanee , Ontario K7R 4B9",
+     "line": 9
+    }
+   ],
+   "city": "Napanee",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "613-354-3845",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "613-354-3845",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "613-354-2144",
+     "line": 21
+    },
+    {
+     "type": "Family",
+     "phone": "613-354-3845",
+     "line": 23
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "613-354-6279",
+     "line": 24
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "1013-newmarket-50-eagle-st-w",
+   "url": "https://www.ontario.ca/locations/courts/1013-newmarket-50-eagle-st-w/",
+   "retrieved": "2026-11-15",
+   "sha256": "af8a9659143fba08525b5e448b99998370234188fb7e317e4eb5ba64b1a0add5",
+   "txt": "docs/sources/court-locations/ontario-ca/1013-newmarket-50-eagle-st-w.txt",
+   "name": {
+    "text": "Newmarket Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "50 Eagle St. W.",
+     "line": 8
+    },
+    {
+     "text": "Newmarket , Ontario L3Y 6B1",
+     "line": 9
+    }
+   ],
+   "city": "Newmarket",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "905-853-4809",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "905-853-4801",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "905-853-4801",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "905-853-4800",
+     "line": 22
+    },
+    {
+     "type": "Divisional",
+     "phone": "905-853-4809",
+     "line": 25
+    },
+    {
+     "type": "Enforcement",
+     "phone": "905-853-4809",
+     "line": 26
+    },
+    {
+     "type": "Family",
+     "phone": "905-853-4809",
+     "line": 27
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "905-853-4818",
+     "line": 28
+    },
+    {
+     "type": "Small claims",
+     "phone": "905-853-4809",
+     "line": 30
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5023-nipigon-138-wadsworth-st-recreation-centre",
+   "url": "https://www.ontario.ca/locations/courts/5023-nipigon-138-wadsworth-st-recreation-centre/",
+   "retrieved": "2026-11-15",
+   "sha256": "a70674701c6d2ce2c74ce16e95c6bf6010c8a0807c9f81982232784ed835213a",
+   "txt": "docs/sources/court-locations/ontario-ca/5023-nipigon-138-wadsworth-st-recreation-centre.txt",
+   "name": {
+    "text": "Nipigon Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "138 Wadsworth St. Recreation Centre",
+     "line": 8
+    },
+    {
+     "text": "Nipigon , Ontario P0T 2J0",
+     "line": 9
+    }
+   ],
+   "city": "Nipigon",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-626-7100",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-626-7100",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-626-7100",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4021-north-bay-360-plouffe-street",
+   "url": "https://www.ontario.ca/locations/courts/4021-north-bay-360-plouffe-street/",
+   "retrieved": "2026-11-15",
+   "sha256": "aa0ddffbc4bf9651535ac3c9c0203f1ee145f20dc974feb9db519a4c53da76d0",
+   "txt": "docs/sources/court-locations/ontario-ca/4021-north-bay-360-plouffe-street.txt",
+   "name": {
+    "text": "North Bay Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "360 Plouffe Street",
+     "line": 8
+    },
+    {
+     "text": "North Bay , Ontario P1B 9L5",
+     "line": 9
+    }
+   ],
+   "city": "North Bay",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "705-495-8309",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "705-495-8309",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-495-8309",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "705-495-8313",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "705-495-8309",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "705-495-8309",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "705-495-8339",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-495-8309",
+     "line": 30
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5024-north-spirit-lake-nursing-station",
+   "url": "https://www.ontario.ca/locations/courts/5024-north-spirit-lake-nursing-station/",
+   "retrieved": "2026-11-15",
+   "sha256": "6cf15e8af9422f4bb2b32ae23b51cdd5e47e2c19e157af0ba0b2b5f955fc61e9",
+   "txt": "docs/sources/court-locations/ontario-ca/5024-north-spirit-lake-nursing-station.txt",
+   "name": {
+    "text": "North Spirit Lake Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Nursing Station",
+     "line": 8
+    },
+    {
+     "text": "North Spirit Lake , Ontario P0V 2G0",
+     "line": 9
+    }
+   ],
+   "city": "North Spirit Lake",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-468-2842",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-468-2842",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-468-2842",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5025-ogoki-post-community-centre",
+   "url": "https://www.ontario.ca/locations/courts/5025-ogoki-post-community-centre/",
+   "retrieved": "2026-11-15",
+   "sha256": "b236575fd6a1e1cac712022bc4213b102dcd129bb46cdbb3c31e795059e8cc99",
+   "txt": "docs/sources/court-locations/ontario-ca/5025-ogoki-post-community-centre.txt",
+   "name": {
+    "text": "Ogoki Post Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Community Centre",
+     "line": 8
+    },
+    {
+     "text": "Ogoki Post , Ontario P0T 2L0",
+     "line": 9
+    }
+   ],
+   "city": "Ogoki Post",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-626-7100",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-626-7100",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-626-7100",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "2011-orangeville-10-louisa-st",
+   "url": "https://www.ontario.ca/locations/courts/2011-orangeville-10-louisa-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "53874d618e1ff86566f1b3b542e10aa3b51f3923a7a9282028d1d9314473c8ad",
+   "txt": "docs/sources/court-locations/ontario-ca/2011-orangeville-10-louisa-st.txt",
+   "name": {
+    "text": "Orangeville (County of Dufferin) Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "10 Louisa St.",
+     "line": 8
+    },
+    {
+     "text": "Orangeville , Ontario L9W 3P9",
+     "line": 9
+    }
+   ],
+   "city": "Orangeville",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "519-941-5802",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "519-941-5802",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "519-941-5802",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "519-941-4471",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "519-941-5802",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "519-941-5802",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "519-941-7132",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "519-941-5802",
+     "line": 30
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "1014-orillia-700-memorial-ave-cottage-c",
+   "url": "https://www.ontario.ca/locations/courts/1014-orillia-700-memorial-ave-cottage-c/",
+   "retrieved": "2026-11-15",
+   "sha256": "149fcdf6b3599631f01bd57e6ffa27262fb1b9741240beace2dfca9a48099eae",
+   "txt": "docs/sources/court-locations/ontario-ca/1014-orillia-700-memorial-ave-cottage-c.txt",
+   "name": {
+    "text": "Orillia Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "700 Memorial Ave. Cottage C",
+     "line": 8
+    },
+    {
+     "text": "Orillia , Ontario L3V 0T7",
+     "line": 9
+    }
+   ],
+   "city": "Orillia",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-326-2671",
+     "line": 19
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-326-2671",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "705-739-6188",
+     "line": 21
+    },
+    {
+     "type": "Family",
+     "phone": "705-326-2671",
+     "line": 23
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-326-2671",
+     "line": 24
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "1024-oshawa-150-bond-street-east",
+   "url": "https://www.ontario.ca/locations/courts/1024-oshawa-150-bond-street-east/",
+   "retrieved": "2026-11-15",
+   "sha256": "7e0204d13a458014251d8ffbf59c2890f238a9495b479bcdd80c0cffa4826a4c",
+   "txt": "docs/sources/court-locations/ontario-ca/1024-oshawa-150-bond-street-east.txt",
+   "name": {
+    "text": "Lieutenant-Colonel Samuel S. Sharpe, DSO, MP Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "150 Bond Street East",
+     "line": 8
+    },
+    {
+     "text": "Oshawa , Ontario L1G 0A2",
+     "line": 9
+    }
+   ],
+   "city": "Oshawa",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "905-743-2800",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "905-743-2800",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "905-743-2800",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "905-743-2700",
+     "line": 22
+    },
+    {
+     "type": "Divisional",
+     "phone": "905-743-2800",
+     "line": 25
+    },
+    {
+     "type": "Enforcement",
+     "phone": "905-743-2800",
+     "line": 26
+    },
+    {
+     "type": "Family",
+     "phone": "905-743-2800",
+     "line": 27
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "905-743-2790",
+     "line": 28
+    },
+    {
+     "type": "Small claims",
+     "phone": "905-743-2800",
+     "line": 31
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "3019-ottawa-161-elgin-st-2nd-fl",
+   "url": "https://www.ontario.ca/locations/courts/3019-ottawa-161-elgin-st-2nd-fl/",
+   "retrieved": "2026-11-15",
+   "sha256": "5b7409e09dd14aa687e4056b334d71c2b978f190241dca3717907663329ba077",
+   "txt": "docs/sources/court-locations/ontario-ca/3019-ottawa-161-elgin-st-2nd-fl.txt",
+   "name": {
+    "text": "Ottawa Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "161 Elgin St., 2nd Fl.",
+     "line": 8
+    },
+    {
+     "text": "Ottawa , Ontario K2P 2K1",
+     "line": 9
+    }
+   ],
+   "city": "Ottawa",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "613-239-1054",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "613-239-1153",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "613-239-1153",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "613-239-1200",
+     "line": 22
+    },
+    {
+     "type": "Divisional",
+     "phone": "613-239-1054",
+     "line": 25
+    },
+    {
+     "type": "Enforcement",
+     "phone": "613-239-1050",
+     "line": 26
+    },
+    {
+     "type": "Family",
+     "phone": "613-239-1274",
+     "line": 27
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "613-239-1229",
+     "line": 28
+    },
+    {
+     "type": "Small claims",
+     "phone": "613-239-1079",
+     "line": 30
+    },
+    {
+     "type": "Bankruptcy",
+     "phone": "613-239-1071",
+     "line": 31
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "7013-owen-sound-611-9th-ave-east",
+   "url": "https://www.ontario.ca/locations/courts/7013-owen-sound-611-9th-ave-east/",
+   "retrieved": "2026-11-15",
+   "sha256": "39758c17e69cd7e64f76c2cf2b0b37ef85c7c2e351db8a2ce7c855ad27fb813d",
+   "txt": "docs/sources/court-locations/ontario-ca/7013-owen-sound-611-9th-ave-east.txt",
+   "name": {
+    "text": "Owen Sound Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "611 - 9th Ave. East",
+     "line": 8
+    },
+    {
+     "text": "Owen Sound , Ontario N4K 6Z4",
+     "line": 9
+    }
+   ],
+   "city": "Owen Sound",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "519-370-2430",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "519-370-2430",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "519-370-2430",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "519-370-2470",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "519-370-2430",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "519-370-2430",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "519-376-8927",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "519-370-2430",
+     "line": 30
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4022-parry-sound-89-james-st",
+   "url": "https://www.ontario.ca/locations/courts/4022-parry-sound-89-james-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "b57cee43e38c7621ff28a6343d202f884284a7cc5fbc6d29c48ea69a3be8aefd",
+   "txt": "docs/sources/court-locations/ontario-ca/4022-parry-sound-89-james-st.txt",
+   "name": {
+    "text": "Parry Sound Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "89 James St.",
+     "line": 8
+    },
+    {
+     "text": "Parry Sound , Ontario P2A 1T7",
+     "line": 9
+    }
+   ],
+   "city": "Parry Sound",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "705-746-4251",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "705-746-4251",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-746-4237",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "705-746-2331",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "705-746-4251",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "705-746-4251",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "705-746-7713",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-746-4237",
+     "line": 30
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4023-peawanuck-church-basement",
+   "url": "https://www.ontario.ca/locations/courts/4023-peawanuck-church-basement/",
+   "retrieved": "2026-11-15",
+   "sha256": "a33b3c98d64588f2b491ce72443f99af0b582720b9be91434870520ac435d9fc",
+   "txt": "docs/sources/court-locations/ontario-ca/4023-peawanuck-church-basement.txt",
+   "name": {
+    "text": "Peawanuck Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Church basement",
+     "line": 8
+    },
+    {
+     "text": "Peawanuck , Ontario P0L 2HO",
+     "line": 9
+    }
+   ],
+   "city": "Peawanuck",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-272-4256",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-272-4256",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "705-272-4256",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "3020-pembroke-297-pembroke-st-e",
+   "url": "https://www.ontario.ca/locations/courts/3020-pembroke-297-pembroke-st-e/",
+   "retrieved": "2026-11-15",
+   "sha256": "ea2ace568a2a0cc1379dc0e24900195d74f1d4f311ee1144129ef277191bba41",
+   "txt": "docs/sources/court-locations/ontario-ca/3020-pembroke-297-pembroke-st-e.txt",
+   "name": {
+    "text": "Pembroke (Renfrew County) Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "297 Pembroke St E",
+     "line": 8
+    },
+    {
+     "text": "Pembroke , Ontario K8A 3K2",
+     "line": 9
+    }
+   ],
+   "city": "Pembroke",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "613-732-8581",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "613-732-8581",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "613-732-8581",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "613-732-2261",
+     "line": 22
+    },
+    {
+     "type": "Divisional",
+     "phone": "613-732-8581",
+     "line": 25
+    },
+    {
+     "type": "Enforcement",
+     "phone": "613-732-8581",
+     "line": 26
+    },
+    {
+     "type": "Family",
+     "phone": "613-732-8581",
+     "line": 27
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "613-732-2035",
+     "line": 28
+    },
+    {
+     "type": "Small claims",
+     "phone": "613-732-8581",
+     "line": 31
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "3021-perth-43-drummond-st-e",
+   "url": "https://www.ontario.ca/locations/courts/3021-perth-43-drummond-st-e/",
+   "retrieved": "2026-11-15",
+   "sha256": "cd978e7cbe156795b5da744bc7e9409bd80e4aa71ffc1d4f7c2865e7f305ec1f",
+   "txt": "docs/sources/court-locations/ontario-ca/3021-perth-43-drummond-st-e.txt",
+   "name": {
+    "text": "Perth Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "43 Drummond St E",
+     "line": 8
+    },
+    {
+     "text": "Perth , Ontario K7H 1G1",
+     "line": 9
+    }
+   ],
+   "city": "Perth",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "613-267-2021",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "613-267-2021",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "613-267-2021",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "613-264-1900",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "613-267-2021",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "613-267-2021",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "613-264-8387",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "613-267-2021",
+     "line": 30
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "1019-peterborough-70-simcoe-st",
+   "url": "https://www.ontario.ca/locations/courts/1019-peterborough-70-simcoe-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "35a4b39148546d1b533dab17fd75c3612462f31fe1424fab63ff675af7d64ea6",
+   "txt": "docs/sources/court-locations/ontario-ca/1019-peterborough-70-simcoe-st.txt",
+   "name": {
+    "text": "Peterborough Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "70 Simcoe St.",
+     "line": 8
+    },
+    {
+     "text": "Peterborough , Ontario K9H 7G9",
+     "line": 9
+    }
+   ],
+   "city": "Peterborough",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-876-3846",
+     "line": 19
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-876-3846",
+     "line": 20
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "705-755-5150",
+     "line": 21
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "1018-peterborough-470-water-st",
+   "url": "https://www.ontario.ca/locations/courts/1018-peterborough-470-water-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "03c1c7074dddee081142116686e0d6e1b369f47490f9ee8daf7230c234f874cb",
+   "txt": "docs/sources/court-locations/ontario-ca/1018-peterborough-470-water-st.txt",
+   "name": {
+    "text": "Peterborough Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "470 Water St.",
+     "line": 8
+    },
+    {
+     "text": "Peterborough , Ontario K9H 3M3",
+     "line": 9
+    }
+   ],
+   "city": "Peterborough",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "705-876-3846",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "705-876-3846",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "705-755-5360",
+     "line": 21
+    },
+    {
+     "type": "Enforcement",
+     "phone": "705-876-3846",
+     "line": 24
+    },
+    {
+     "type": "Family",
+     "phone": "705-876-3846",
+     "line": 25
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "705-755-5150",
+     "line": 26
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-876-3846",
+     "line": 28
+    },
+    {
+     "type": "Court of Appeal",
+     "phone": "705-755-5360",
+     "line": 29
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "3022-picton-44-union-st",
+   "url": "https://www.ontario.ca/locations/courts/3022-picton-44-union-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "257ab8f8d9f6ca3ddb98ae4bd71df74745b0f93faa41c4937ad7273b3590969c",
+   "txt": "docs/sources/court-locations/ontario-ca/3022-picton-44-union-st.txt",
+   "name": {
+    "text": "Picton Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "44 Union St.",
+     "line": 8
+    },
+    {
+     "text": "Picton , Ontario K0K 2T0",
+     "line": 9
+    }
+   ],
+   "city": "Picton",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "613-476-6236",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "613-476-6236",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "613-476-6267",
+     "line": 21
+    },
+    {
+     "type": "Enforcement",
+     "phone": "613-476-6236",
+     "line": 24
+    },
+    {
+     "type": "Family",
+     "phone": "613-476-6236",
+     "line": 25
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "613-962-3005",
+     "line": 26
+    },
+    {
+     "type": "Small claims",
+     "phone": "613-476-6236",
+     "line": 29
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "3023-picton-67-king-st",
+   "url": "https://www.ontario.ca/locations/courts/3023-picton-67-king-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "f43179194ec16ab43748eea81d2c915153b1839d40a547035babe219c7edde6e",
+   "txt": "docs/sources/court-locations/ontario-ca/3023-picton-67-king-st.txt",
+   "name": {
+    "text": "Picton Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "67 King St.",
+     "line": 8
+    },
+    {
+     "text": "Picton , Ontario K0K 2T0",
+     "line": 9
+    }
+   ],
+   "city": "Picton",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "613-476-6236",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "613-476-6236",
+     "line": 19
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "613-962-3005",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5027-pikangikum-hotel",
+   "url": "https://www.ontario.ca/locations/courts/5027-pikangikum-hotel/",
+   "retrieved": "2026-11-15",
+   "sha256": "6f26dd26178e3bfc37b873cf9e0f9542e6e75ee3dfb671a061ab504050510351",
+   "txt": "docs/sources/court-locations/ontario-ca/5027-pikangikum-hotel.txt",
+   "name": {
+    "text": "Pikangikum Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Hotel",
+     "line": 8
+    },
+    {
+     "text": "Pikangikum , Ontario P0V 2L0",
+     "line": 9
+    }
+   ],
+   "city": "Pikangikum",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-468-2842",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-468-2842",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-468-2842",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5028-poplar-hill-community-centre",
+   "url": "https://www.ontario.ca/locations/courts/5028-poplar-hill-community-centre/",
+   "retrieved": "2026-11-15",
+   "sha256": "54a2f38d38cb3fd1fd9c948a3451a5a213d71ce4e1fd98b13dff4f3a82cec2bd",
+   "txt": "docs/sources/court-locations/ontario-ca/5028-poplar-hill-community-centre.txt",
+   "name": {
+    "text": "Poplar Hill Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Community Centre",
+     "line": 8
+    },
+    {
+     "text": "Poplar Hill , Ontario P0V 3E0",
+     "line": 9
+    }
+   ],
+   "city": "Poplar Hill",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-468-2842",
+     "line": 19
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-468-2842",
+     "line": 20
+    },
+    {
+     "type": "Family",
+     "phone": "807-468-2842",
+     "line": 21
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5029-rainy-river-royal-canadian-legion-130-atwood-ave",
+   "url": "https://www.ontario.ca/locations/courts/5029-rainy-river-royal-canadian-legion-130-atwood-ave/",
+   "retrieved": "2026-11-15",
+   "sha256": "7b380db464a533919cee259d45d871fc3d4e0d90d9f3e1da2f8f2c70f4cf4997",
+   "txt": "docs/sources/court-locations/ontario-ca/5029-rainy-river-royal-canadian-legion-130-atwood-ave.txt",
+   "name": {
+    "text": "Rainy River Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Royal Canadian Legion, 130 Atwood Ave.",
+     "line": 8
+    },
+    {
+     "text": "Rainy River , Ontario P0W 1L0",
+     "line": 9
+    }
+   ],
+   "city": "Rainy River",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-274-5961",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-274-5961",
+     "line": 19
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5030-red-lake-115-howey-street-box-1070",
+   "url": "https://www.ontario.ca/locations/courts/5030-red-lake-115-howey-street-box-1070/",
+   "retrieved": "2026-11-15",
+   "sha256": "18fa610e451532081f8e41133cb2fa500dd84d6015753451b3eaa868b1a5f4b4",
+   "txt": "docs/sources/court-locations/ontario-ca/5030-red-lake-115-howey-street-box-1070.txt",
+   "name": {
+    "text": "Red Lake Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "115 Howey Street, Box 1070",
+     "line": 8
+    },
+    {
+     "text": "Red Lake , Ontario P0V 2M0",
+     "line": 9
+    }
+   ],
+   "city": "Red Lake",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-727-2376",
+     "line": 25
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-727-2376",
+     "line": 26
+    },
+    {
+     "type": "Family",
+     "phone": "807-727-2376",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "807-727-2376",
+     "line": 28
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "1021-richmond-hill-855-major-mackenzie-drive-east",
+   "url": "https://www.ontario.ca/locations/courts/1021-richmond-hill-855-major-mackenzie-drive-east/",
+   "retrieved": "2026-11-15",
+   "sha256": "62f68f18a837316f1351a0c5e1d6e4bd1028a33fd8c0d897a9c5ac0107346b48",
+   "txt": "docs/sources/court-locations/ontario-ca/1021-richmond-hill-855-major-mackenzie-drive-east.txt",
+   "name": {
+    "text": "Richmond Hill Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "855 Major Mackenzie Drive East",
+     "line": 8
+    },
+    {
+     "text": "Richmond Hill , Ontario L4B 4X7",
+     "line": 9
+    }
+   ],
+   "city": "Richmond Hill",
+   "services": [
+    {
+     "type": "Small claims",
+     "phone": "905-731-2664",
+     "line": 14
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5031-sachigo-lake-resource-centre",
+   "url": "https://www.ontario.ca/locations/courts/5031-sachigo-lake-resource-centre/",
+   "retrieved": "2026-11-15",
+   "sha256": "fd5473b0c73baa258646d49341dbf8d5f849d62a5dc2c202e2558faddac75534",
+   "txt": "docs/sources/court-locations/ontario-ca/5031-sachigo-lake-resource-centre.txt",
+   "name": {
+    "text": "Sachigo Lake Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Resource Centre",
+     "line": 8
+    },
+    {
+     "text": "Sachigo Lake , Ontario P0V 2P0",
+     "line": 9
+    }
+   ],
+   "city": "Sachigo Lake",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-468-2842",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-468-2842",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-468-2842",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5032-sandy-lake-school",
+   "url": "https://www.ontario.ca/locations/courts/5032-sandy-lake-school/",
+   "retrieved": "2026-11-15",
+   "sha256": "806bae6ba507aeb9efc6296cff89fc81cb592edcdf32e2ca5067cdb242c395d3",
+   "txt": "docs/sources/court-locations/ontario-ca/5032-sandy-lake-school.txt",
+   "name": {
+    "text": "Sandy Lake Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "School",
+     "line": 8
+    },
+    {
+     "text": "Sandy Lake , Ontario P0V 1V0",
+     "line": 9
+    }
+   ],
+   "city": "Sandy Lake",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-468-2842",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-468-2842",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-468-2842",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "7014-sarnia-700-n-christina-street",
+   "url": "https://www.ontario.ca/locations/courts/7014-sarnia-700-n-christina-street/",
+   "retrieved": "2026-11-15",
+   "sha256": "b31ac9c98527714ed2593cdf0f2c9b1d79d5679114ef4339ab1fcd7543c1f825",
+   "txt": "docs/sources/court-locations/ontario-ca/7014-sarnia-700-n-christina-street.txt",
+   "name": {
+    "text": "Sarnia Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "700 N. Christina Street",
+     "line": 8
+    },
+    {
+     "text": "Sarnia , Ontario N7V 3C2",
+     "line": 9
+    }
+   ],
+   "city": "Sarnia",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "519-333-2950",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "519-333-2950",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "519-333-2950",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "519-333-2980",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "519-333-2950",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "519-333-2950",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "519-337-1766",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "519-333-2950",
+     "line": 30
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4024-sault-ste-marie-426-queen-st-e",
+   "url": "https://www.ontario.ca/locations/courts/4024-sault-ste-marie-426-queen-st-e/",
+   "retrieved": "2026-11-15",
+   "sha256": "e1c7a695be2227412c13587e3f9819bd912d58191102f71a117f664f02ce834f",
+   "txt": "docs/sources/court-locations/ontario-ca/4024-sault-ste-marie-426-queen-st-e.txt",
+   "name": {
+    "text": "Sault Ste. Marie Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "426 Queen St. E.",
+     "line": 8
+    },
+    {
+     "text": "Sault Ste. Marie , Ontario P6A 6W2",
+     "line": 9
+    }
+   ],
+   "city": "Sault Ste. Marie",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "705-945-8000",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "705-945-8000",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-945-8000",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "705-945-8001",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "705-945-8000",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "705-945-8000",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "705-946-6567",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-945-8000",
+     "line": 29
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5033-schreiber-100-langworthy-street-recreation-centre",
+   "url": "https://www.ontario.ca/locations/courts/5033-schreiber-100-langworthy-street-recreation-centre/",
+   "retrieved": "2026-11-15",
+   "sha256": "7836d643542a2edd2609dd001e99ac0b84b5db6e6599320161776b60d955ee95",
+   "txt": "docs/sources/court-locations/ontario-ca/5033-schreiber-100-langworthy-street-recreation-centre.txt",
+   "name": {
+    "text": "Schreiber Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "100 Langworthy Street Recreation Centre",
+     "line": 8
+    },
+    {
+     "text": "Schreiber , Ontario P0T 2S5",
+     "line": 9
+    }
+   ],
+   "city": "Schreiber",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-626-7100",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-626-7100",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-626-7100",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "3025-sharbot-lake-1107-garrett-st-oso-township-hall",
+   "url": "https://www.ontario.ca/locations/courts/3025-sharbot-lake-1107-garrett-st-oso-township-hall/",
+   "retrieved": "2026-11-15",
+   "sha256": "2c7a3d389eeceb6c22a2dc708bb11ca1a48ee8cc0ef0fcf7a3bacb0f555890ba",
+   "txt": "docs/sources/court-locations/ontario-ca/3025-sharbot-lake-1107-garrett-st-oso-township-hall.txt",
+   "name": {
+    "text": "Sharbot Lake Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "1107 Garrett St. 'OSO Township Hall",
+     "line": 8
+    },
+    {
+     "text": "Sharbot Lake , Ontario K0H 2P0",
+     "line": 9
+    }
+   ],
+   "city": "Sharbot Lake",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "613-548-6200",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "613-548-6200",
+     "line": 19
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "2012-simcoe-suite-301-50-frederick-hobson-vc-drive",
+   "url": "https://www.ontario.ca/locations/courts/2012-simcoe-suite-301-50-frederick-hobson-vc-drive/",
+   "retrieved": "2026-11-15",
+   "sha256": "4642a46255544e320145eb8f4eaa2a46ddbf36cb057682d12537ab21c3709be6",
+   "txt": "docs/sources/court-locations/ontario-ca/2012-simcoe-suite-301-50-frederick-hobson-vc-drive.txt",
+   "name": {
+    "text": "Simcoe Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Suite 301 - 50 Frederick Hobson VC Drive",
+     "line": 8
+    },
+    {
+     "text": "Simcoe , Ontario N3Y 0E4",
+     "line": 9
+    }
+   ],
+   "city": "Simcoe",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "519-426-6550",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "519-426-6550",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "519-426-6550",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "519-426-5920",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "519-426-6550",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "519-426-6550",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "519-428-1080",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "519-426-6550",
+     "line": 28
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5034-sioux-lookout-18-4th-avenue-south",
+   "url": "https://www.ontario.ca/locations/courts/5034-sioux-lookout-18-4th-avenue-south/",
+   "retrieved": "2026-11-15",
+   "sha256": "5cfaa8cb66caa34012168c80a7a0b43202d9f9b3efefaf3b7ae412f1a48f7c85",
+   "txt": "docs/sources/court-locations/ontario-ca/5034-sioux-lookout-18-4th-avenue-south.txt",
+   "name": {
+    "text": "Sioux Lookout Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "18-4th Avenue South",
+     "line": 8
+    },
+    {
+     "text": "Sioux Lookout , Ontario P8T 1C5",
+     "line": 9
+    }
+   ],
+   "city": "Sioux Lookout",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-737-4305",
+     "line": 25
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-737-4305",
+     "line": 26
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "807-737-4391",
+     "line": 27
+    },
+    {
+     "type": "Family",
+     "phone": "807-737-4305",
+     "line": 28
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "807-223-7310",
+     "line": 29
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4025-smooth-rock-falls-195-5th-st",
+   "url": "https://www.ontario.ca/locations/courts/4025-smooth-rock-falls-195-5th-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "1c4ad3ae6addc100ebd4a408bc43926735ee4a7d7b27838ba6aec445a29f65c9",
+   "txt": "docs/sources/court-locations/ontario-ca/4025-smooth-rock-falls-195-5th-st.txt",
+   "name": {
+    "text": "Smooth Rock Falls Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "195 5th St.",
+     "line": 8
+    },
+    {
+     "text": "Smooth Rock Falls , Ontario P0L 2B0",
+     "line": 9
+    }
+   ],
+   "city": "Smooth Rock Falls",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-272-4256",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-272-4256",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "705-272-4256",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "2013-st-catharines-59-church-street",
+   "url": "https://www.ontario.ca/locations/courts/2013-st-catharines-59-church-street/",
+   "retrieved": "2026-11-15",
+   "sha256": "e7ac2f4f95b26374f811d7882009460109154d8927fd84019e5d0bc7ccde523e",
+   "txt": "docs/sources/court-locations/ontario-ca/2013-st-catharines-59-church-street.txt",
+   "name": {
+    "text": "St. Catharines Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "59 Church Street",
+     "line": 8
+    },
+    {
+     "text": "St. Catharines , Ontario L2R 7N8",
+     "line": 9
+    }
+   ],
+   "city": "St. Catharines",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "905-988-6200",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "905-988-6200",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "905-988-6200",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "905-685-4293",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "905-988-6200",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "905-988-6200",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "905-685-2671",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "905-988-6200",
+     "line": 29
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "7015-st-thomas-4-wellington-street",
+   "url": "https://www.ontario.ca/locations/courts/7015-st-thomas-4-wellington-street/",
+   "retrieved": "2026-11-15",
+   "sha256": "0ac507dc0d7c6eb1589b7167ecec578a6b5ea7465390afb83ef1938a2acc0232",
+   "txt": "docs/sources/court-locations/ontario-ca/7015-st-thomas-4-wellington-street.txt",
+   "name": {
+    "text": "Elgin County Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "4 Wellington Street",
+     "line": 8
+    },
+    {
+     "text": "St. Thomas , Ontario N5R 2P2",
+     "line": 9
+    }
+   ],
+   "city": "St. Thomas",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "519-633-1720",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "519-633-1720",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "519-631-1506",
+     "line": 21
+    },
+    {
+     "type": "Enforcement",
+     "phone": "519-633-1720",
+     "line": 23
+    },
+    {
+     "type": "Family",
+     "phone": "519-633-1720",
+     "line": 24
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "519-633-1920",
+     "line": 25
+    },
+    {
+     "type": "Small claims",
+     "phone": "519-633-1720",
+     "line": 27
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "7017-stratford-100-st-patrick-st",
+   "url": "https://www.ontario.ca/locations/courts/7017-stratford-100-st-patrick-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "7c40907580af055c88359c7b5e6a81fedb31f5e7a086a96d7d61c33f998ed56f",
+   "txt": "docs/sources/court-locations/ontario-ca/7017-stratford-100-st-patrick-st.txt",
+   "name": {
+    "text": "Stratford Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "100 St. Patrick St.",
+     "line": 8
+    },
+    {
+     "text": "Stratford , Ontario N5A 7W1",
+     "line": 9
+    }
+   ],
+   "city": "Stratford",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "519-271-9252",
+     "line": 19
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "519-271-9252",
+     "line": 20
+    },
+    {
+     "type": "Enforcement",
+     "phone": "519-271-9252",
+     "line": 21
+    },
+    {
+     "type": "Family",
+     "phone": "519-271-9252",
+     "line": 22
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "519-271-5221",
+     "line": 23
+    },
+    {
+     "type": "Small claims",
+     "phone": "519-271-9252",
+     "line": 26
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "7018-stratford-1-huron-st",
+   "url": "https://www.ontario.ca/locations/courts/7018-stratford-1-huron-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "c1ce8f0aeb278228d56c9ef1fda9009141a9e1e43b8c870afdd8b713391a6b56",
+   "txt": "docs/sources/court-locations/ontario-ca/7018-stratford-1-huron-st.txt",
+   "name": {
+    "text": "Stratford (Perth County) Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "1 Huron St.",
+     "line": 8
+    },
+    {
+     "text": "Stratford , Ontario N5A 5S4",
+     "line": 9
+    }
+   ],
+   "city": "Stratford",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "519-271-1850",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "519-271-1850",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "519-271-4020",
+     "line": 21
+    },
+    {
+     "type": "Family",
+     "phone": "519-271-1850",
+     "line": 24
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "519-271-5221",
+     "line": 25
+    },
+    {
+     "type": "Small claims",
+     "phone": "519-271-1850",
+     "line": 28
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4026-sturgeon-falls-201-river-rd-royal-canadian-legion",
+   "url": "https://www.ontario.ca/locations/courts/4026-sturgeon-falls-201-river-rd-royal-canadian-legion/",
+   "retrieved": "2026-11-15",
+   "sha256": "97d1897ff2c32570cc25b2fca97b50e27db36c3a36d66e24dd4db48bb0aaa818",
+   "txt": "docs/sources/court-locations/ontario-ca/4026-sturgeon-falls-201-river-rd-royal-canadian-legion.txt",
+   "name": {
+    "text": "Sturgeon Falls Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "201 River Rd., Royal Canadian Legion",
+     "line": 8
+    },
+    {
+     "text": "Sturgeon Falls , Ontario P2B 1T4",
+     "line": 9
+    }
+   ],
+   "city": "Sturgeon Falls",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-495-8309",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-495-8309",
+     "line": 19
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4028-sudbury-201-159-cedar-street",
+   "url": "https://www.ontario.ca/locations/courts/4028-sudbury-201-159-cedar-street/",
+   "retrieved": "2026-11-15",
+   "sha256": "7263b257445676656042a19dbefe05a3be729f38e867e30f48a408be149f6b41",
+   "txt": "docs/sources/court-locations/ontario-ca/4028-sudbury-201-159-cedar-street.txt",
+   "name": {
+    "text": "Sudbury Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "201-159 Cedar Street",
+     "line": 8
+    },
+    {
+     "text": "Sudbury , Ontario P3E 6A5",
+     "line": 9
+    }
+   ],
+   "city": "Sudbury",
+   "services": [
+    {
+     "type": "Criminal youth",
+     "phone": "705-564-7600",
+     "line": 19
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "705-564-7698",
+     "line": 20
+    },
+    {
+     "type": "Enforcement",
+     "phone": "705-564-7600",
+     "line": 22
+    },
+    {
+     "type": "Family",
+     "phone": "705-564-7600",
+     "line": 23
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "705-564-7694",
+     "line": 24
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-564-7600",
+     "line": 26
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4027-sudbury-155-elm-st",
+   "url": "https://www.ontario.ca/locations/courts/4027-sudbury-155-elm-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "96bd3b5c165bb68b5191413d8300272c09930a970a95b5dad824f875b8ff4667",
+   "txt": "docs/sources/court-locations/ontario-ca/4027-sudbury-155-elm-st.txt",
+   "name": {
+    "text": "Sudbury Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "155 Elm St",
+     "line": 8
+    },
+    {
+     "text": "Sudbury , Ontario P3C 1T9",
+     "line": 9
+    }
+   ],
+   "city": "Sudbury",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "705-564-7600",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "705-564-7600",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "705-564-7698",
+     "line": 21
+    },
+    {
+     "type": "Divisional",
+     "phone": "705-564-7600",
+     "line": 23
+    },
+    {
+     "type": "Family",
+     "phone": "705-564-7600",
+     "line": 24
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "705-564-7694",
+     "line": 25
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5035-summer-beaver-school",
+   "url": "https://www.ontario.ca/locations/courts/5035-summer-beaver-school/",
+   "retrieved": "2026-11-15",
+   "sha256": "d426eefc90085fd348f5a8448775b5be8f11653024c5c1ea619d62202f523f9f",
+   "txt": "docs/sources/court-locations/ontario-ca/5035-summer-beaver-school.txt",
+   "name": {
+    "text": "Summer Beaver Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "School",
+     "line": 8
+    },
+    {
+     "text": "Summer Beaver , Ontario P0T 3B0",
+     "line": 9
+    }
+   ],
+   "city": "Summer Beaver",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-626-7100",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-626-7100",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-626-7100",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4029-sundridge-sundridge-strong-and-joly-arena-14-albert-st-n",
+   "url": "https://www.ontario.ca/locations/courts/4029-sundridge-sundridge-strong-and-joly-arena-14-albert-st-n/",
+   "retrieved": "2026-11-15",
+   "sha256": "317b6bf05a34ef0ca188655829c75c21ecf980fe5198ad9bc8b1c372d0e4899b",
+   "txt": "docs/sources/court-locations/ontario-ca/4029-sundridge-sundridge-strong-and-joly-arena-14-albert-st-n.txt",
+   "name": {
+    "text": "Sundridge Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Sundridge Strong and Joly Arena, 14 Albert St. N.",
+     "line": 8
+    },
+    {
+     "text": "Sundridge , Ontario P0A 1Z0",
+     "line": 9
+    }
+   ],
+   "city": "Sundridge",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-746-4237",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-746-4237",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "705-746-4251",
+     "line": 20
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "705-564-6252",
+     "line": 21
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-746-4237",
+     "line": 24
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5037-thunder-bay-125-brodie-street-north",
+   "url": "https://www.ontario.ca/locations/courts/5037-thunder-bay-125-brodie-street-north/",
+   "retrieved": "2026-11-15",
+   "sha256": "71881b619ce8b0a41fac9aa636260477f9e971d316b39e082ce95bce721aae3a",
+   "txt": "docs/sources/court-locations/ontario-ca/5037-thunder-bay-125-brodie-street-north.txt",
+   "name": {
+    "text": "Thunder Bay Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "125 Brodie Street North",
+     "line": 8
+    },
+    {
+     "text": "Thunder Bay , Ontario P7C 0A3",
+     "line": 9
+    }
+   ],
+   "city": "Thunder Bay",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "807-626-7100",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "807-626-7100",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-626-7100",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "807-626-7155",
+     "line": 22
+    },
+    {
+     "type": "Divisional",
+     "phone": "807-626-7100",
+     "line": 25
+    },
+    {
+     "type": "Enforcement",
+     "phone": "807-626-7100",
+     "line": 26
+    },
+    {
+     "type": "Family",
+     "phone": "807-626-7100",
+     "line": 27
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "807-626-7120",
+     "line": 28
+    },
+    {
+     "type": "Small claims",
+     "phone": "807-626-7100",
+     "line": 30
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4031-timmins-38-pine-street-n",
+   "url": "https://www.ontario.ca/locations/courts/4031-timmins-38-pine-street-n/",
+   "retrieved": "2026-11-15",
+   "sha256": "09fc6e7127823222a203fbc1aa631e79f1400ceab944c9f1354f25e3138b915c",
+   "txt": "docs/sources/court-locations/ontario-ca/4031-timmins-38-pine-street-n.txt",
+   "name": {
+    "text": "Timmins Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "38 Pine Street N.",
+     "line": 8
+    },
+    {
+     "text": "Timmins , Ontario P4N 6K6",
+     "line": 9
+    }
+   ],
+   "city": "Timmins",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-267-7799",
+     "line": 19
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-267-7799",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "705-264-5234",
+     "line": 21
+    },
+    {
+     "type": "Family",
+     "phone": "705-267-7799",
+     "line": 24
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "705-360-1905",
+     "line": 25
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-267-7799",
+     "line": 28
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4032-timmins-48-spruce-st-n",
+   "url": "https://www.ontario.ca/locations/courts/4032-timmins-48-spruce-st-n/",
+   "retrieved": "2026-11-15",
+   "sha256": "ee24000331753f1376481f99e80a69e265ee5761464f73dac82723a816a734d1",
+   "txt": "docs/sources/court-locations/ontario-ca/4032-timmins-48-spruce-st-n.txt",
+   "name": {
+    "text": "Timmins Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "48 Spruce St. N.",
+     "line": 8
+    },
+    {
+     "text": "Timmins , Ontario P4N 6M7",
+     "line": 9
+    }
+   ],
+   "city": "Timmins",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "705-272-4256",
+     "line": 18
+    },
+    {
+     "type": "Criminal",
+     "phone": "705-272-4256",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "705-272-4256",
+     "line": 20
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "705-360-1905",
+     "line": 21
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "6004-toronto-47-sheppard-ave-east",
+   "url": "https://www.ontario.ca/locations/courts/6004-toronto-47-sheppard-ave-east/",
+   "retrieved": "2026-11-15",
+   "sha256": "70329cd32b5709d848c3bfc50624df2894ff515a1eba9e205f1710ff610ad363",
+   "txt": "docs/sources/court-locations/ontario-ca/6004-toronto-47-sheppard-ave-east.txt",
+   "name": {
+    "text": "47 Sheppard - Toronto",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "47 Sheppard Ave. East",
+     "line": 8
+    },
+    {
+     "text": "Toronto , Ontario M2N 5N1",
+     "line": 9
+    }
+   ],
+   "city": "Toronto",
+   "services": [
+    {
+     "type": "Family",
+     "phone": "416-326-3592",
+     "line": 19
+    },
+    {
+     "type": "Small claims",
+     "phone": "416-326-3554",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "6007-toronto-2201-finch-ave-west",
+   "url": "https://www.ontario.ca/locations/courts/6007-toronto-2201-finch-ave-west/",
+   "retrieved": "2026-11-15",
+   "sha256": "57b9b638f1dcf126d49f5503118704f1a114188428c2d530c469316a805390d1",
+   "txt": "docs/sources/court-locations/ontario-ca/6007-toronto-2201-finch-ave-west.txt",
+   "name": {
+    "text": "2201 Finch - Toronto",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "2201 Finch Ave. West",
+     "line": 8
+    },
+    {
+     "text": "Toronto , Ontario M9M 2Y9",
+     "line": 9
+    }
+   ],
+   "city": "Toronto",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "416-314-3962",
+     "line": 19
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "416-314-3936",
+     "line": 20
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "416-314-3944",
+     "line": 22
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "6001-toronto-130-queen-st-west",
+   "url": "https://www.ontario.ca/locations/courts/6001-toronto-130-queen-st-west/",
+   "retrieved": "2026-11-15",
+   "sha256": "1e055c589392fa6a4c69b8f19c902100a461932f4ca563e0a063e87ce25f931e",
+   "txt": "docs/sources/court-locations/ontario-ca/6001-toronto-130-queen-st-west.txt",
+   "name": {
+    "text": "Osgoode Hall",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "130 Queen St. West",
+     "line": 8
+    },
+    {
+     "text": "Toronto , Ontario M5H 2N5",
+     "line": 9
+    }
+   ],
+   "city": "Toronto",
+   "services": [
+    {
+     "type": "Divisional",
+     "phone": "416-327-5100",
+     "line": 19
+    },
+    {
+     "type": "Court of Appeal",
+     "phone": "416-327-5020",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "6009-toronto-393-university-ave-6th-fl",
+   "url": "https://www.ontario.ca/locations/courts/6009-toronto-393-university-ave-6th-fl/",
+   "retrieved": "2026-11-15",
+   "sha256": "1305df2f7d36ce218d118ac5f3e4099758312dcc087b6f9ec10e04bef10490ca",
+   "txt": "docs/sources/court-locations/ontario-ca/6009-toronto-393-university-ave-6th-fl.txt",
+   "name": {
+    "text": "393 University - Toronto",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "393 University Ave. - 6th Fl.",
+     "line": 8
+    },
+    {
+     "text": "Toronto , Ontario M5G 1E6",
+     "line": 9
+    }
+   ],
+   "city": "Toronto",
+   "services": [
+    {
+     "type": "Enforcement",
+     "phone": "416-327-5600",
+     "line": 19
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "6010-toronto-330-university-ave",
+   "url": "https://www.ontario.ca/locations/courts/6010-toronto-330-university-ave/",
+   "retrieved": "2026-11-15",
+   "sha256": "9ee76fb3046f447992dce7b35a8c2ebd4f1041df7016e76a20561ce3e0ebfdb4",
+   "txt": "docs/sources/court-locations/ontario-ca/6010-toronto-330-university-ave.txt",
+   "name": {
+    "text": "330 University - Toronto",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "330 University Ave.",
+     "line": 8
+    },
+    {
+     "text": "Toronto , Ontario M5G 1R7",
+     "line": 9
+    }
+   ],
+   "city": "Toronto",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "416-327-5440",
+     "line": 19
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "6000-toronto-311-jarvis-st",
+   "url": "https://www.ontario.ca/locations/courts/6000-toronto-311-jarvis-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "b27a353dc245b118ae2408236765659aad79761cdd693e2fc2b81ef42b6e0943",
+   "txt": "docs/sources/court-locations/ontario-ca/6000-toronto-311-jarvis-st.txt",
+   "name": {
+    "text": "311 Jarvis - Toronto",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "311 Jarvis St.",
+     "line": 8
+    },
+    {
+     "text": "Toronto , Ontario M5B 2C4",
+     "line": 9
+    }
+   ],
+   "city": "Toronto",
+   "services": [],
+   "courtNamed": null
+  },
+  {
+   "slug": "6002-toronto-361-university-ave",
+   "url": "https://www.ontario.ca/locations/courts/6002-toronto-361-university-ave/",
+   "retrieved": "2026-11-15",
+   "sha256": "8d25329a626bf018ec7849c8a1fe6596d4731b61c3cbc3c6925bff82682443b3",
+   "txt": "docs/sources/court-locations/ontario-ca/6002-toronto-361-university-ave.txt",
+   "name": {
+    "text": "361 University - Toronto",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "361 University Ave.",
+     "line": 8
+    },
+    {
+     "text": "Toronto , Ontario M5G 1T3",
+     "line": 9
+    }
+   ],
+   "city": "Toronto",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "416-327-5284",
+     "line": 19
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "416-327-5990",
+     "line": 20
+    },
+    {
+     "type": "Family",
+     "phone": "416-327-2064",
+     "line": 23
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "416-327-5946",
+     "line": 24
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4810-toronto-10-armoury-street",
+   "url": "https://www.ontario.ca/locations/courts/4810-toronto-10-armoury-street/",
+   "retrieved": "2026-11-15",
+   "sha256": "12793b2a09c74d6713df4aa23d82f8e79357f187db9d9a836fa1aa126f0e009b",
+   "txt": "docs/sources/court-locations/ontario-ca/4810-toronto-10-armoury-street.txt",
+   "name": {
+    "text": "Ontario Court of Justice – Toronto",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "10 Armoury Street",
+     "line": 8
+    },
+    {
+     "text": "Toronto , Ontario M7A 0B9",
+     "line": 9
+    }
+   ],
+   "city": "Toronto",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "416-212-2701",
+     "line": 19
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "416-212-2701",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "416-212-2707",
+     "line": 21
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "416-212-2705",
+     "line": 34
+    }
+   ],
+   "courtNamed": {
+    "text": "Ontario Court of Justice",
+    "line": 7
+   }
+  },
+  {
+   "slug": "7019-walkerton-207-cayley-st-po-box-39",
+   "url": "https://www.ontario.ca/locations/courts/7019-walkerton-207-cayley-st-po-box-39/",
+   "retrieved": "2026-11-15",
+   "sha256": "bae985a59e7a0497a46b12b66bea5bbd05bf3fdd094ddb5b7f5dfd66dc3f21ba",
+   "txt": "docs/sources/court-locations/ontario-ca/7019-walkerton-207-cayley-st-po-box-39.txt",
+   "name": {
+    "text": "Walkerton (County of Bruce) Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "207 Cayley St. PO Box 39",
+     "line": 8
+    },
+    {
+     "text": "Walkerton , Ontario N0G 2VO",
+     "line": 9
+    }
+   ],
+   "city": "Walkerton",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "519-881-1052",
+     "line": 18
+    },
+    {
+     "type": "Criminal",
+     "phone": "519-881-2333",
+     "line": 19
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "519-881-2333",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "519-881-0432",
+     "line": 21
+    },
+    {
+     "type": "Enforcement",
+     "phone": "519-881-1772",
+     "line": 24
+    },
+    {
+     "type": "Family",
+     "phone": "519-881-0211",
+     "line": 25
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "519-881-3882",
+     "line": 26
+    },
+    {
+     "type": "Small claims",
+     "phone": "519-881-1772",
+     "line": 29
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "1711-walpole-island-governance-building-117-tahgahoning-road",
+   "url": "https://www.ontario.ca/locations/courts/1711-walpole-island-governance-building-117-tahgahoning-road/",
+   "retrieved": "2026-11-15",
+   "sha256": "2d470e0a4c5e4e626004eea5db4a294e503c321e05b49a9bf48c09bb6f412261",
+   "txt": "docs/sources/court-locations/ontario-ca/1711-walpole-island-governance-building-117-tahgahoning-road.txt",
+   "name": {
+    "text": "Walpole Island First Nation court",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Governance Building, 117 Tahgahoning Road",
+     "line": 8
+    },
+    {
+     "text": "Walpole Island , Ontario N8A 4K9",
+     "line": 9
+    }
+   ],
+   "city": "Walpole Island",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "519-333-2950",
+     "line": 18
+    },
+    {
+     "type": "Family",
+     "phone": "519-333-2950",
+     "line": 19
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5038-wapekeka-school",
+   "url": "https://www.ontario.ca/locations/courts/5038-wapekeka-school/",
+   "retrieved": "2026-11-15",
+   "sha256": "f349452ccc2d8640cbe6cbe67979ea3da08b5d9c58cb737846fa2ded9098e9b8",
+   "txt": "docs/sources/court-locations/ontario-ca/5038-wapekeka-school.txt",
+   "name": {
+    "text": "Wapekeka Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "School",
+     "line": 8
+    },
+    {
+     "text": "Wapekeka , Ontario",
+     "line": 9
+    }
+   ],
+   "city": "Wapekeka",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-223-2348",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-223-2348",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-223-2348",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4033-wawa-40-broadway-ave",
+   "url": "https://www.ontario.ca/locations/courts/4033-wawa-40-broadway-ave/",
+   "retrieved": "2026-11-15",
+   "sha256": "c9ed39023f3a8d2ae89d8e2358643431184b554e0d247098389654da99478032",
+   "txt": "docs/sources/court-locations/ontario-ca/4033-wawa-40-broadway-ave.txt",
+   "name": {
+    "text": "Wawa Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "40 Broadway Ave.",
+     "line": 8
+    },
+    {
+     "text": "Wawa , Ontario P0S 1C2",
+     "line": 9
+    }
+   ],
+   "city": "Wawa",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "705-945-8000",
+     "line": 18
+    },
+    {
+     "type": "Criminal",
+     "phone": "705-945-8000",
+     "line": 19
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-945-8000",
+     "line": 20
+    },
+    {
+     "type": "Family",
+     "phone": "705-945-8000",
+     "line": 21
+    },
+    {
+     "type": "Small claims",
+     "phone": "705-945-8000",
+     "line": 22
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5039-weagamow-lake-recreational-hall",
+   "url": "https://www.ontario.ca/locations/courts/5039-weagamow-lake-recreational-hall/",
+   "retrieved": "2026-11-15",
+   "sha256": "38e2eaabb9693ee81a5edd93d108bea6466e56b7c829e034622f6a5f91a9d907",
+   "txt": "docs/sources/court-locations/ontario-ca/5039-weagamow-lake-recreational-hall.txt",
+   "name": {
+    "text": "Weagamow Lake Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Recreational Hall",
+     "line": 8
+    },
+    {
+     "text": "Weagamow Lake , Ontario P0V 2Y0",
+     "line": 9
+    }
+   ],
+   "city": "Weagamow Lake",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-223-2348",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-223-2348",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-223-2348",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5040-webequie-webequie-band-hall",
+   "url": "https://www.ontario.ca/locations/courts/5040-webequie-webequie-band-hall/",
+   "retrieved": "2026-11-15",
+   "sha256": "05aec8e83404fac479aab1d91dcd96963f41d4ded2b5f7d9d18c16ed25457a44",
+   "txt": "docs/sources/court-locations/ontario-ca/5040-webequie-webequie-band-hall.txt",
+   "name": {
+    "text": "Webequie Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Webequie Band Hall",
+     "line": 8
+    },
+    {
+     "text": "Webequie , Ontario P0T 3A0",
+     "line": 9
+    }
+   ],
+   "city": "Webequie",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-626-7100",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-626-7100",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-626-7100",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "2014-welland-102-east-main-street",
+   "url": "https://www.ontario.ca/locations/courts/2014-welland-102-east-main-street/",
+   "retrieved": "2026-11-15",
+   "sha256": "4d3170093391b2edd9a54b2b2984486bd6309caa96ffa6bf163e2e41cc57e21f",
+   "txt": "docs/sources/court-locations/ontario-ca/2014-welland-102-east-main-street.txt",
+   "name": {
+    "text": "Welland Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "102 East Main Street",
+     "line": 8
+    },
+    {
+     "text": "Welland , Ontario L3B 3W6",
+     "line": 9
+    }
+   ],
+   "city": "Welland",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "905-735-0010",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "905-735-0010",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "905-735-0010",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "905-732-1327",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "905-735-0010",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "905-735-0010",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "905-735-4326",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "905-735-0010",
+     "line": 29
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "4034-wikwemikong-2338-wikwemikong-way-wikwemikong-recreation-and-cultural-centre",
+   "url": "https://www.ontario.ca/locations/courts/4034-wikwemikong-2338-wikwemikong-way-wikwemikong-recreation-and-cultural-centre/",
+   "retrieved": "2026-11-15",
+   "sha256": "19cc1be5d2429b863504b2483c7d377fbfe1c16777dc999d08e37957f0b03bc7",
+   "txt": "docs/sources/court-locations/ontario-ca/4034-wikwemikong-2338-wikwemikong-way-wikwemikong-recreation-and-cultural-centre.txt",
+   "name": {
+    "text": "Wikwemikong Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "2338 Wikwemikong Way Wikwemikong Recreation and Cultural Centre",
+     "line": 8
+    },
+    {
+     "text": "Wikwemikong , Ontario P0P 2J0",
+     "line": 9
+    }
+   ],
+   "city": "Wikwemikong",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "705-282-2461",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "705-282-2461",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "705-282-2461",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "7020-windsor-200-chatham-st-e",
+   "url": "https://www.ontario.ca/locations/courts/7020-windsor-200-chatham-st-e/",
+   "retrieved": "2026-11-15",
+   "sha256": "2ea325f3a92198273f3171704b80f696eb8f88a31bff01edf79e36af6d95e9e7",
+   "txt": "docs/sources/court-locations/ontario-ca/7020-windsor-200-chatham-st-e.txt",
+   "name": {
+    "text": "Windsor Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "200 Chatham St. E.",
+     "line": 8
+    },
+    {
+     "text": "Windsor , Ontario N9A 2W3",
+     "line": 9
+    }
+   ],
+   "city": "Windsor",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "519-973-6600",
+     "line": 19
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "519-973-6600",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "519-253-1104",
+     "line": 21
+    },
+    {
+     "type": "Family",
+     "phone": "519-973-6670",
+     "line": 23
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "519-253-2897",
+     "line": 24
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "7021-windsor-245-windsor-ave",
+   "url": "https://www.ontario.ca/locations/courts/7021-windsor-245-windsor-ave/",
+   "retrieved": "2026-11-15",
+   "sha256": "d744bb971095672fe63b67a627b3ee18e668d74423e44e245dc825155d745f0e",
+   "txt": "docs/sources/court-locations/ontario-ca/7021-windsor-245-windsor-ave.txt",
+   "name": {
+    "text": "Windsor Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "245 Windsor Ave.",
+     "line": 8
+    },
+    {
+     "text": "Windsor , Ontario N9A 1J2",
+     "line": 9
+    }
+   ],
+   "city": "Windsor",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "519-973-6620",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "519-973-6620",
+     "line": 20
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "519-253-1104",
+     "line": 21
+    },
+    {
+     "type": "Enforcement",
+     "phone": "519-973-6620",
+     "line": 24
+    },
+    {
+     "type": "Family",
+     "phone": "519-973-6620",
+     "line": 25
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "519-253-2897",
+     "line": 26
+    },
+    {
+     "type": "Small claims",
+     "phone": "519-973-6620",
+     "line": 28
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "7023-woodstock-415-hunter-st",
+   "url": "https://www.ontario.ca/locations/courts/7023-woodstock-415-hunter-st/",
+   "retrieved": "2026-11-15",
+   "sha256": "ddb7766d7f28f6d731daa9aad4da95b5a471480aafee0fbc6dc2935563471e66",
+   "txt": "docs/sources/court-locations/ontario-ca/7023-woodstock-415-hunter-st.txt",
+   "name": {
+    "text": "Woodstock (Oxford County) Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "415 Hunter St.",
+     "line": 8
+    },
+    {
+     "text": "Woodstock , Ontario N4S 4G6",
+     "line": 9
+    }
+   ],
+   "city": "Woodstock",
+   "services": [
+    {
+     "type": "Civil",
+     "phone": "519-539-6187",
+     "line": 19
+    },
+    {
+     "type": "Criminal",
+     "phone": "519-539-6187",
+     "line": 20
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "519-539-6187",
+     "line": 21
+    },
+    {
+     "type": "Crown Attorney's Office",
+     "phone": "519-537-2611",
+     "line": 22
+    },
+    {
+     "type": "Enforcement",
+     "phone": "519-539-6187",
+     "line": 25
+    },
+    {
+     "type": "Family",
+     "phone": "519-539-6187",
+     "line": 26
+    },
+    {
+     "type": "Victim/Witness Assistance Program",
+     "phone": "519-421-3903",
+     "line": 27
+    },
+    {
+     "type": "Small claims",
+     "phone": "519-539-6187",
+     "line": 30
+    }
+   ],
+   "courtNamed": null
+  },
+  {
+   "slug": "5041-wunnumin-lake-gym",
+   "url": "https://www.ontario.ca/locations/courts/5041-wunnumin-lake-gym/",
+   "retrieved": "2026-11-15",
+   "sha256": "28e3494157c7d1c7eaccff95d41aaad076cdfac607e6c213593f3fe10d06ea32",
+   "txt": "docs/sources/court-locations/ontario-ca/5041-wunnumin-lake-gym.txt",
+   "name": {
+    "text": "Wunnumin Lake Courthouse",
+    "line": 7
+   },
+   "address": [
+    {
+     "text": "Gym",
+     "line": 8
+    },
+    {
+     "text": "Wunnumin Lake , Ontario",
+     "line": 9
+    }
+   ],
+   "city": "Wunnumin Lake",
+   "services": [
+    {
+     "type": "Criminal",
+     "phone": "807-468-2842",
+     "line": 18
+    },
+    {
+     "type": "Criminal youth",
+     "phone": "807-468-2842",
+     "line": 19
+    },
+    {
+     "type": "Family",
+     "phone": "807-468-2842",
+     "line": 20
+    }
+   ],
+   "courtNamed": null
+  }
+ ],
+ "ocjFamilyOffices": {
+  "list": "docs/sources/court-locations/ocj-courthouse-email-addresses.txt",
+  "offices": [
+   {
+    "office": "Milton",
+    "city": "Milton",
+    "listLine": 53,
+    "match": "only family courthouse in the city",
+    "slug": "2009-milton-491-steeles-ave-e",
+    "address": [
+     "491 Steeles Ave E.",
+     "Milton , Ontario L9T 1Y7"
+    ],
+    "candidates": [
+     "2009-milton-491-steeles-ave-e"
+    ]
+   },
+   {
+    "office": "Thunder Bay",
+    "city": "Thunder Bay",
+    "listLine": 75,
+    "match": "only family courthouse in the city",
+    "slug": "5037-thunder-bay-125-brodie-street-north",
+    "address": [
+     "125 Brodie Street North",
+     "Thunder Bay , Ontario P7C 0A3"
+    ],
+    "candidates": [
+     "5037-thunder-bay-125-brodie-street-north"
+    ]
+   },
+   {
+    "office": "311 Jarvis Family",
+    "city": "Toronto",
+    "listLine": 101,
+    "match": "street",
+    "slug": "6000-toronto-311-jarvis-st",
+    "address": [
+     "311 Jarvis St.",
+     "Toronto , Ontario M5B 2C4"
+    ],
+    "candidates": [
+     "6000-toronto-311-jarvis-st"
+    ]
+   },
+   {
+    "office": "47 Sheppard Family",
+    "city": "Toronto",
+    "listLine": 103,
+    "match": "street",
+    "slug": "6004-toronto-47-sheppard-ave-east",
+    "address": [
+     "47 Sheppard Ave. East",
+     "Toronto , Ontario M2N 5N1"
+    ],
+    "candidates": [
+     "6004-toronto-47-sheppard-ave-east"
+    ]
+   }
+  ]
+ }
+}

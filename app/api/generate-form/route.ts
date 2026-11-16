@@ -2,6 +2,7 @@ import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { NextResponse } from "next/server";
 import { FORM_COMPLETION_PAUSED, FORM_COMPLETION_PAUSED_MESSAGE } from "../../../src/lib/content-library/phaseScope";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+import { UnprintableText, printableValues, unprintableMessage } from "../../../src/lib/case-system/forms/printableText";
 import { createClient } from "@supabase/supabase-js";
 
 import { getCanonicalFormLookup } from "../../../src/lib/case-system/formsSelectedCase";
@@ -12,6 +13,7 @@ import {
   type AuthenticatedOwnedCase,
 } from "../../../src/lib/supabase/serverAuth";
 import { caseFileOfMaster, heldWordsOf, otherPartyOfMaster } from "../../../src/lib/case-system/caseFile/caseFileOfMaster";
+import { safeError } from "@/src/lib/logging/safeLog";
 
 type CourtPath = "family" | "small-claims" | "civil";
 
@@ -1314,7 +1316,10 @@ async function postGuidance(req: Request) {
     }
 
     const inspection = inspectPdf(pdfDoc);
-    const values = getCaseValues(ownedCase?.master_result || {}, data.courtType);
+    // pdf-lib draws every value in its standard Helvetica (WinAnsi): French prints; a character it cannot write
+    // (Chinese, for example) stops the download with the official-form download's message, rather than a blank box or
+    // a raw encoding error (printableText.ts printableValues, 16 Nov 2026).
+    const values = printableValues(getCaseValues(ownedCase?.master_result || {}, data.courtType), "pages");
     const missingCoreValues = summarizeMissingValues(values);
     const overlayFields = await loadOverlayFields(pdfPath);
 
@@ -1329,7 +1334,7 @@ async function postGuidance(req: Request) {
         acroFilledCount = acroResult.filledCount;
         acroDiagnostics = acroResult.diagnostics;
       } catch (error) {
-        console.warn("AcroForm fill failed, trying overlay fallback:", error);
+        console.warn("AcroForm fill failed, trying overlay fallback:", safeError(error));
       }
     }
 
@@ -1402,7 +1407,12 @@ async function postGuidance(req: Request) {
       },
     });
   } catch (error) {
-    console.error("generate-form route error:", error);
+    // Logged by name only: the characters are the person's own words.
+    if (error instanceof UnprintableText) {
+      console.error("generate-form route error:", safeError(error));
+      return NextResponse.json({ error: unprintableMessage(error.characters) }, { status: 422 });
+    }
+    console.error("generate-form route error:", safeError(error));
 
     const message =
       error instanceof Error ? error.message : "Failed to generate form.";

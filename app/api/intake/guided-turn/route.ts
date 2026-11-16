@@ -14,6 +14,7 @@ import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
 import { situationAnswers, situationFromRaw } from "@/src/lib/case-system/situation/situation";
 import { heldFromRequest } from "@/src/lib/case-system/intake/asker";
+import { errorFrames } from "@/src/lib/logging/safeLog";
 
 /**
  * Session 11 -- the first piece of the intake foundation (Sessions 3-10)
@@ -375,7 +376,8 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
       // carry the person's words) or anything secret.
       console.error("Guided intake turn route failed.", {
         errorName: error instanceof Error ? error.name : "unknown",
-        at: error instanceof Error ? (error.stack ?? "").split("\n").slice(1, 4).map((line) => line.trim()) : [],
+        // Frames only: the stack's first lines repeat the message, and run past line 1 when it holds a line break.
+        at: errorFrames(error),
       });
       return errorResponse("CourtSimplified could not process this intake turn right now.", 500);
     }

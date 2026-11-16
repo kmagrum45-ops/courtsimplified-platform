@@ -52,6 +52,7 @@ import { createClient } from "@supabase/supabase-js";
 
 import { scrubErrorMessage } from "../monitoring/serverErrorLog";
 import { tokenCounts } from "../security/aiPrices";
+import { safeError, errorName } from "../logging/safeLog";
 
 /**
  * Must match the CHECK constraint in
@@ -526,7 +527,7 @@ function appendToFile(row: AiCallLogRow): void {
   } catch (error) {
     console.error("[aiCallLog] file sink failed", {
       call_type: row.call_type,
-      error: error instanceof Error ? error.message : String(error),
+      ...safeError(error),
     });
   }
 }
@@ -553,9 +554,9 @@ type InsertClient = {
 async function reportWriteFailure(
   client: InsertClient | null,
   row: AiCallLogRow,
-  reason: string,
+  whatFailed: string,
 ): Promise<void> {
-  console.error(`${WRITE_FAILED_PREFIX}: ai_call_log row not recorded (${reason})`, {
+  console.error(`${WRITE_FAILED_PREFIX}: ai_call_log row not recorded (${whatFailed})`, {
     call_type: row.call_type,
   });
   if (!client) return;
@@ -564,7 +565,7 @@ async function reportWriteFailure(
       route: null,
       method: null,
       kind: "ai-call-log:write-failed",
-      message: scrubErrorMessage(`ai_call_log write failed for ${row.call_type}: ${reason}`),
+      message: scrubErrorMessage(`ai_call_log write failed for ${row.call_type}: ${whatFailed}`),
       digest: null,
       environment: process.env.VERCEL_ENV || process.env.NODE_ENV || null,
     });
@@ -641,14 +642,14 @@ async function insertRow(row: AiCallLogRow): Promise<void> {
       await reportWriteFailure(
         client,
         row,
-        `code ${outcome.error.code ?? "unknown"}: ${(outcome.error.message ?? "").slice(0, 200)}`,
+        `code ${outcome.error.code ?? "unknown"}`,
       );
     }
   } catch (error) {
     await reportWriteFailure(
       client,
       row,
-      `threw ${error instanceof Error ? `${error.name}: ${error.message.slice(0, 200)}` : "UnknownError"}`,
+      `threw ${errorName(error)}`,
     );
   } finally {
     if (timer) clearTimeout(timer);

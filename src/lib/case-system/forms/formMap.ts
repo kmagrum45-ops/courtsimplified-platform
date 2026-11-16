@@ -16,6 +16,7 @@
  */
 import type { CaseFile } from "../caseFile/caseFile";
 import type { Party } from "../parties/parties";
+import { fitValue } from "./textFit";
 
 /** The one place each missing thing is added, as the screens link to it. */
 export type AddPlace = "parties" | "amount" | "story";
@@ -57,6 +58,12 @@ export type BlankBox = {
   why: string;
   /** No wording the site may write is held for this box: listed for the legal review chat (rule 6). */
   needsWording?: true;
+  /**
+   * The fact the case record would have to hold for this box to be filled, in words ("the court office the claim was
+   * issued at"). The record does not hold it today, so the box is blank; these are the requests to the case record's
+   * owners (neededFacts in forms/maps/index.ts). Never filled from anywhere else meanwhile.
+   */
+  needsFact?: string;
 };
 
 export type BoxEntry = FillBox | BlankBox;
@@ -71,7 +78,23 @@ export type FormMapDefinition = {
   pdf: { file: string; url: string; sha256: string; fetched: string };
   /** The official PDF's own box names, each mapped. A name the PDF uses twice is one entry. */
   boxes: Record<string, BoxEntry>;
+  /**
+   * The person's words that did not fit the form's boxes, for pages attached after the official form (attachedPages.ts).
+   * The form's "additional pages attached" tick reads the same function, so the tick and the pages always agree.
+   */
+  attachments?: (ctx: FormContext) => AttachedSection[];
 };
+
+/**
+ * One run of attached pages: headed with the official form's own words (its number and title, then the box's printed
+ * heading with "(continued)"), holding only the person's words. No wording of the site's own.
+ */
+export type AttachedSection = { title: string; heading: string; text: string };
+
+/** The sections that have words to attach (none when nothing overflowed). */
+export function attachedSections(map: FormMapDefinition, ctx: FormContext): AttachedSection[] {
+  return (map.attachments?.(ctx) ?? []).filter((section) => section.text.trim().length > 0);
+}
 
 export type BoxResult =
   | { box: string; state: "filled"; fact: string; value: BoxValue }
@@ -88,7 +111,14 @@ export function fillForm(map: FormMapDefinition, ctx: FormContext): BoxResult[] 
     const notUsed = entry.blankWhen?.(ctx);
     if (notUsed) return { box, state: "blank", why: notUsed, needsWording: false };
     const value = entry.read(ctx);
-    if (present(value)) return { box, state: "filled", fact: entry.fact, value: typeof value === "string" ? value.trim() : value };
+    if (present(value) && typeof value === "string") {
+      // Only what fits the official box at a readable size goes in it (textFit.ts): a value that would be cut off or
+      // drawn too small is left out, and the box says so, with the whole value to write by hand.
+      const fit = fitValue(map.pdf.file, box, value.trim());
+      if (fit && !fit.fits) return { box, state: "blank", why: `Too long for this box on the official form: it would be cut off or printed too small to read. Write it by hand: "${value.trim()}"`, needsWording: false };
+      return { box, state: "filled", fact: entry.fact, value: fit?.fits ? fit.value : value.trim() };
+    }
+    if (present(value)) return { box, state: "filled", fact: entry.fact, value };
     return { box, state: entry.optional ? "not-given" : "missing", fact: entry.fact, what: entry.missing.what, addAt: entry.missing.addAt };
   });
 }

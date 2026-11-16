@@ -10,26 +10,27 @@
  * Pure. States no law: a box the site has no wording for is left blank and listed (needsWording).
  */
 import { formatRecordedAmount } from "../../format/recordedAmount";
-import type { FormMapDefinition, FormContext } from "../formMap";
+import type { AttachedSection, FormMapDefinition, FormContext } from "../formMap";
 import { partyBoxes } from "../partyBoxes";
+import { splitToBoxes } from "../textFit";
 
-/** How much of the reasons the first box takes; the rest goes in the continued box on page 3, then on added pages. */
-export const REASONS_FIRST_BOX = 3_400;
-export const REASONS_CONTINUED_BOX = 1_200;
+const PDF_FILE = "docs/sources/forms/scr-7a-aug22-en-fil.pdf";
 
-/** The reasons split at a paragraph or sentence end, so no line is cut in the middle. */
+/**
+ * The reasons over the page 2 box and the page 3 continued box, as many whole sentences as each holds at a readable size
+ * (textFit.ts, measured: until 15 Nov 2026 a fixed 3,400 and 1,200 characters, which lost the last lines below the box),
+ * then the rest, for added pages.
+ */
 export function splitReasons(text: string): [string, string, string] {
-  const take = (rest: string, budget: number): [string, string] => {
-    if (rest.length <= budget) return [rest, ""];
-    const window = rest.slice(0, budget);
-    const cut = Math.max(window.lastIndexOf("\n"), window.lastIndexOf(". ") + 1);
-    const at = cut > budget * 0.5 ? cut : budget;
-    return [rest.slice(0, at).trimEnd(), rest.slice(at).trimStart()];
-  };
-  const [first, afterFirst] = take(text.trim(), REASONS_FIRST_BOX);
-  const [second, rest] = take(afterFirst, REASONS_CONTINUED_BOX);
+  const [first, second, rest] = splitToBoxes(PDF_FILE, ["Reasons for claim and details", "Reasons for claim and details_continued"], text);
   return [first, second, rest];
 }
+
+/**
+ * The reasons that did not fit either box, for the attached pages: headed with the official form's own words (page 1's
+ * "Form 7A" and "Plaintiff's Claim"; page 2's "REASONS FOR CLAIM AND DETAILS"), "(continued)".
+ */
+const reasonsAttached = (ctx: FormContext): AttachedSection[] => [{ title: "Form 7A, Plaintiff's Claim", heading: "REASONS FOR CLAIM AND DETAILS (continued)", text: splitReasons(ctx.reasons)[2] }];
 
 const plaintiff = (ctx: FormContext) => ctx.plaintiffs[0];
 const defendant = (ctx: FormContext) => ctx.defendants[0];
@@ -41,7 +42,7 @@ export const FORM_7A: FormMapDefinition = {
   number: "7A",
   title: "Plaintiff's Claim",
   pdf: {
-    file: "docs/sources/forms/scr-7a-aug22-en-fil.pdf",
+    file: PDF_FILE,
     url: "https://ontariocourtforms.on.ca/static/media/uploads/courtforms/scc/07a/scr-7a-aug22-en-fil.pdf",
     sha256: "8a10d53ae1fbc4e4d4b2022e0e6aea9f3ae3c24c9d9b1d4ee0e8ac1fed970e78",
     fetched: "2026-11-14",
@@ -75,7 +76,8 @@ export const FORM_7A: FormMapDefinition = {
     // ---- Pages 2 and 3: the reasons, in the person's own words
     "Reasons for claim and details": { kind: "fill", fact: "story (the person's own words)", read: (ctx) => splitReasons(ctx.reasons)[0], missing: { what: "what happened, in your own words", addAt: "story" } },
     "Reasons for claim and details_continued": { kind: "fill", fact: "story, continued", read: (ctx) => splitReasons(ctx.reasons)[1], missing: { what: "", addAt: "story" }, optional: true },
-    "Additional pages attached because more room was needed": { kind: "fill", fact: "story longer than both boxes", read: (ctx) => splitReasons(ctx.reasons)[2].length > 0, missing: { what: "", addAt: "story" } },
+    // Ticked exactly when pages are attached: the same sections the download attaches (officialPdf.ts filledFormPdf).
+    "Additional pages attached because more room was needed": { kind: "fill", fact: "story longer than both boxes (the attached pages)", read: (ctx) => reasonsAttached(ctx).some((section) => section.text.trim().length > 0), missing: { what: "", addAt: "story" } },
 
     // ---- Page 3: how much, interest, dates and signatures
     "Principal amount claimed": { kind: "fill", fact: "amount", read: (ctx) => (ctx.amount === null ? null : formatRecordedAmount(String(ctx.amount)).replace(/^\$/, "")), missing: { what: "the amount you are claiming", addAt: "amount" } },
@@ -90,4 +92,5 @@ export const FORM_7A: FormMapDefinition = {
     "Year issued (yy)": { kind: "blank", why: "For the court office." },
     "Signature of clerk": { kind: "blank", why: "For the court office." },
   },
+  attachments: reasonsAttached,
 };

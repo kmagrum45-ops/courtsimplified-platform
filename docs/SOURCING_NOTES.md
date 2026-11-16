@@ -2214,3 +2214,110 @@ with pdf.js returns each value. Used by `src/lib/case-system/forms/officialPdf.t
   substitute font spaces letters out, which is the renderer, not the file.
 - Form 7A has room for one plaintiff and one defendant; the rest go on Form 1A ("Additional plaintiff(s) / defendant(s)
   listed on attached Form 1A"), three to a copy.
+
+**The forms after 7A (2026-11-15, Lane B).** Small Claims 9A and 8A, Family 8, 10, 13 and 13.1 downloaded from the
+`static/media/uploads/courtforms/...` URLs the repository already records (plain `curl`, 200, `application/pdf`); all
+are AcroForm, none XFA, all read and fill with the same pdf.js route. Box counts (unique names): 9A 66, 8A 97, Family 8
+159, 10 86, 13 344, 13.1 327. What is not what it looks like:
+- **Family Form 8 has no `-fil` file**: `family/08/flr-8-jun25-en-fil.pdf` answers 404. The plain `flr-8-jun25-en.pdf`
+  has 159 fillable boxes anyway. Do not conclude from the missing `-fil` name that a form is not fillable.
+- **Family Form 13 is not encrypted** (no `/Encrypt`), unlike every other official form here, and it has **24 radio
+  buttons** (its Yes/No pairs on page 6), the only ones in these forms. `pdfBoxes` reports `radio`; `fillOfficialPdf`
+  refuses a value for one until a map needs it.
+- **Family Form 10 ships with text in a box**: "Facts that form the legal basis for my position in paragraph 2" reads
+  back "1. " from the blank official PDF (its own numbering start). A read-back test must expect it.
+- **Family Form 13's "Applicant" box is a text box** where a tick belongs (its "Respondent" box beside it is a check
+  box). Form 13.1 has two proper check boxes for the same choice.
+- **Family Form 8's child rows skip a number**: the "Now Living With" boxes are numbered 1, 2, 3, 4, 6, 7 (child 5's
+  is "6"). Form 8A has "Name of  director 5" with two spaces. Copy box names from the PDF, never retype them.
+- 9A's plaintiff and defendant "also known as" boxes have their own names, so (unlike 7A) both can be filled.
+- `test:parties-never-to-ai`'s import walk did not follow a bare `import "x";` (no `from`): a planted one in a form map
+  went unseen. Fixed the same day; the walk follows it.
+
+**Text that does not fit a box (2026-11-15, Lane B).** pdf.js 6.3 cuts text off silently when it fills a box; found by
+reading its own drawing (`page.getOperatorList({ annotationMode: AnnotationMode.ENABLE_STORAGE })`: per box a
+`beginAnnotation` with its rect, `setFont` with the size used, `setTextMatrix`/`moveText` for each line, `showText` with
+each glyph's width), now `scripts/verification/pdfDrawnText.ts`, the judge in `verifyFormTextFit.ts`:
+- **A box with a fixed font size cannot shrink** (most of Form 9A and Form 1A: 10pt Arial; Family 10's applicant boxes:
+  12pt, one line, 200pt wide). pdf.js has no way to set a size from outside: `annotationStorage` takes only `value`
+  (and `rotation`, flags), and the saved field keeps its own `/DA`. An ordinary address does not fit Family 10's box: the
+  postal code was lost below it.
+- **A box sized to fit (font size 0) shrinks without limit**: two parties' names joined in one Family box drew at 1pt.
+- **In a box of several lines, pdf.js's `_splitLine` skips the first glyph of each new line when it measures** (it sets
+  `i = lastSpacePos + 1` and the loop's `i++` passes over it), so a wrapped line can run one letter past the box (the
+  "t" of "not" was cut on Form 7A); and its auto size checks `lines * fontSize` against the height, not the line height
+  (1.35 x), so the last lines fell below the box.
+- Layout to copy when predicting: 2pt padding left and right, 1pt above and below; a multi-line box holds
+  `round((height - 2) / (1.35 * size))` lines (at least one), each an equal share of the height, from the top; a fitted
+  multi-line box starts from 12pt. Glyph widths are Helvetica's for both Helv and Arial boxes (pdf-lib's standard-font
+  metrics give the same numbers).
+- The way round it (`src/lib/case-system/forms/textFit.ts`): give pdf.js text already broken into lines that fit at the
+  size it will use, so it never breaks a line; leave a value that cannot fit at a readable size (6pt; 8pt for several
+  lines) out of the box, with the whole value on screen to write by hand. Box sizes: `npm run forms:geometry`.
+- Rendering to look: the test renderer's substitute font spaces letters out and looks wider than the real one, so a
+  render that seems to clip at the right edge must be confirmed with the operator list before it is called a fault.
+
+**Attached pages, and the sources saved for the wording list (2026-11-15, Lane B, second round).**
+- **Adding pages to an official form:** pdf-lib still cannot open the encrypted official PDFs, but pdf.js 6.3 can
+  assemble one: `doc.extractPages([{ document: null }, { document: otherPdfBytes }])` returns a new PDF of the open
+  document's pages followed by the other's.
+  - **Trap:** assembled from the open document with values set in `annotationStorage`, every box came out EMPTY. Fill
+    and `saveDocument()` first, then open the saved bytes and assemble: the values are kept
+    (`officialPdf.ts filledFormPdf`).
+  - The result is written fresh, without the official file's owner-password protection.
+- **The tick on Form 7A's "ADDITIONAL PAGES ARE ATTACHED"** draws ZapfDingbats character 110 ("■", the form's own
+  mark). The test renderer has no ZapfDingbats and shows an outline: confirm a tick from the operator list, not by eye.
+- **Interest Act (Canada), Justice Laws `FullText.html`:** the page carries the Act **and its "AMENDMENTS NOT IN
+  FORCE"**, which include two complete replacement texts of s. 4 (1996, c. 17; 2001, c. 4). A search for "4 (1)"
+  finds those first. The section in force is the one under the marginal note "When per annum rate not stipulated", in
+  the body of the Act (line 59 of the saved `.txt`).
+- **ontario.ca/locations/courts/** (the Ministry's court directory) is served as plain HTML: an A to Z index of every
+  courthouse address, linking 144 courthouse pages (`/locations/courts/<id>-<city>-<street>`). No single official page
+  pairs the Ontario Court of Justice's courthouses with their addresses.
+- **The 144 courthouse pages (saved 15 Nov 2026, `scripts/sources/fetchCourthousePages.ts`) do NOT say which court runs
+  a service.** Each lists types of court ("Family Telephone: …", "Small claims …", "Civil …"), never "Ontario Court of
+  Justice family" or "Superior Court of Justice family". Only 3 mention the Ontario Court of Justice: 10 Armoury Street
+  in its own name, and Red Lake and Sioux Lookout giving Dryden's mailing address. None mentions the Superior Court.
+  The round-3 note that "only a courthouse's own page names its court" came from checking one page, the exception;
+  it was wrong.
+  - A page URL needs its **trailing slash**. Without it the server answers 302 with a bot-check script (perfdrive),
+    not the page.
+  - One request every 3 seconds met no bot check across all 144.
+  - Every page has the same layout: the name on `.txt` line 7, the address on the lines up to "Get directions". But
+    **311 Jarvis St. has no "Types of court and contacts" section at all**, so "is this a courthouse page" is told by
+    the title ("… | Courts | ontario.ca"), not by that section.
+  - The pages write apostrophes as `&#x27;` and the city line as "Milton , Ontario" (a space before the comma, from the
+    markup). `pageText.ts` now decodes numeric character codes; the space is kept as on the page.
+- **Never import a fetch script to reuse a helper.** Importing `fetchFormSources.ts` for `pageText` ran its `main()`,
+  which fetched the saved sources again and overwrote them (15 Nov 2026). The interest-rate page came back with a new
+  sha256, because the page changes between fetches. `git checkout` restored them. `pageText` now lives in its own
+  module, and each fetch script runs only when it is the script started.
+- **The court forms' boxes do not all share one font map** (15 Nov 2026). Many boxes carry their own Helvetica with no
+  `/Encoding`, so é, è, ç and € cannot be encoded in them, and pdf.js then saves no drawing for the box and sets
+  `NeedAppearances`. Fixed (fifth round) by `fontMaps.ts`; counts and design: `docs/forms/facts-needed.md`, "Printing
+  French in the official boxes". To see a box's font, MuPDF (npm `mupdf`, AGPL, outside the project) reads the decrypted
+  objects; pdf.js does not expose them.
+- **What the court's PDFs allow, learned building that fix (15 Nov 2026):**
+  - Every widget, font and the page tree sit inside **encrypted object streams**. pdf-lib cannot read them at all,
+    even with `ignoreEncryption` (it cannot find the pages). So the site cannot find fonts at run time; they are listed
+    once, at build time, in `fontMaps.json`.
+  - **An appended update keeps the protection.** A font object holds no strings or streams, so it needs no
+    encrypting; a cross-reference stream is never encrypted (PDF standard). The last cross-reference section's
+    dictionary (each file is linearized: `startxref` points near the start) is plain text and gives `/Root`,
+    `/Encrypt`, `/ID`, `/Info` and `/Size` to repeat.
+  - **pdf.js `extractPages` with one document keeps the protection** (it re-encrypts with the same key); with two it
+    writes an unprotected file. And it **splits box names at a full stop**: Family 13's "Value or Amount (0.00) 2"
+    becomes "00) 2". Both ruled out a "decrypt, edit with pdf-lib, refill" route.
+  - **No two pdf.js fills of a protected PDF are byte-identical**: each string it writes is AES-encrypted with a random
+    starting block (`crypto.getRandomValues`). A byte-for-byte check must seed that and stop the clock
+    (`verifyFormCharacters.ts` `repeatable`).
+  - pdf.js picks a single-line auto-size box's font size from its height only; a value too wide runs past the edge in
+    every viewer (MuPDF showed "œuvr|"). `textFit` is what prevents it, so character checks must fill values the way
+    the site does (`fitValue`).
+- The Ministry's interest-rate page (https://www.ontario.ca/page/prejudgment-and-postjudgment-interest-rates) is plain
+  HTML with both tables in the page.
+  - **A web search summary of it gave rates that are not the page's:** the saved page's 2026 prejudgment row differs
+    from what the search tool said. Read the saved page; never a summary.
+- `test:canlii` failed three checks on Windows for every file: its walker built paths with "\" and its declarations use
+  "/". Fixed in the suite (paths always "/"); the CanLII guard itself was unchanged. Proved by removing
+  `refuseCanliiContent` from the new fetch script: the check then fails and names it.
