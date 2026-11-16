@@ -53,6 +53,14 @@ export class UnprintableText extends Error {
   }
 }
 
+/**
+ * What the person is told when the exhibit book is refused for these characters (app/api/workspace/exhibit-book).
+ * Decided by the product owner, 16 Nov 2026: a plain product message, not legal wording.
+ */
+export function exhibitBookUnprintableMessage(characters: readonly string[]): string {
+  return `The exhibit book could not be made, because the site cannot yet print these characters in a PDF: ${characters.join(" ")}. This is a limit of the site, not a problem with what you wrote. For now, you can use a version of the name or title without them.`;
+}
+
 /** What the person is told when the download is refused for these characters (shown by the download route). */
 export function unprintableMessage(characters: readonly string[]): string {
   return `The form could not be made, because the site cannot yet print these characters in a PDF: ${characters.join(" ")}. This is a limit of the site. You could write them by hand on the printed form.`;

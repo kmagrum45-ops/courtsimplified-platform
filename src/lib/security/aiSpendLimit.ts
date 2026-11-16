@@ -120,6 +120,8 @@ export function callCostUsd(response: unknown, env: Env = processEnv(), requeste
 
 /** What the client throws instead of calling a model the table cannot price. */
 export class AiModelNotPriced extends Error {
+  /** Written by the site from a model name and counts: kept in the error log (safeLog.ts isSiteWritten). */
+  readonly siteWritten = true;
   constructor(message: string) {
     super(message);
     this.name = "AiModelNotPriced";

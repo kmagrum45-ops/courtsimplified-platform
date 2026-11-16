@@ -221,3 +221,17 @@ Not a fact to collect, but it decides whether facts already collected print corr
   gets them, that must be solved first.
 - Characters no font here covers (Chinese, for example) are still refused, in the boxes and the attached pages, with
   the same message.
+
+## Civil forms: untested at the PDF level (recorded 16 Nov 2026)
+
+Not a fact to collect: a gap in what has been tested.
+
+- **No Civil court PDF is saved** under `docs/sources/forms/` (only Small Claims 1A, 7A, 8A, 9A and Family 8, 10, 13,
+  13.1), and no Civil form has a map or a form screen. So **Civil forms are untested at the PDF level**: nothing has
+  checked that a Civil form's boxes fill, print French, or keep the court's protection.
+- What is tested for Civil: the older form filler's values (`/api/generate-form` `getCaseValues` with a Civil case)
+  go through the printing check, keep French and refuse Chinese (`verifyPrintableEverywhere.ts` check 5), and the
+  exhibit book is built for a Civil case (checks 7 and 8).
+- To close it: save the Civil form PDFs a Civil screen will offer (with their source URL and date, as for the others),
+  then run them through the same checks (`verifyFormCharacters.ts`, `buildFontMaps.ts` if a box font has no character
+  map).

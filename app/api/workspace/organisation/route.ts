@@ -61,6 +61,7 @@ import { DEADLINE_EVENTS, caseDatesFrom, markStoryDates } from "@/src/lib/case-s
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { officialUrl, sourceName } from "@/src/lib/case-system/stage-map/citations";
 import { readCasePosition, storyHintsForDates } from "@/src/lib/case-system/casePosition";
+import { safeError } from "@/src/lib/logging/safeLog";
 
 /** The intake the person wrote (master_result.intakeData), for their own words. */
 function intakeDataOf(master: unknown): unknown {
@@ -206,7 +207,7 @@ async function getOrganisation(req: NextRequest) {
       .order("uploaded_at", { ascending: true });
 
     if (documentError) {
-      console.error("workspace organisation read error:", documentError.message);
+      console.error("workspace organisation read error:", safeError(documentError));
       return refuse(500, "CourtSimplified could not load this case.");
     }
 
@@ -464,7 +465,7 @@ async function getOrganisation(req: NextRequest) {
         .eq("case_id", caseId);
 
       if (error) {
-        console.error("workspace communications read error:", error.message);
+        console.error("workspace communications read error:", safeError(error));
         return refuse(500, "CourtSimplified could not load the communication log.");
       }
 
@@ -533,7 +534,7 @@ async function getOrganisation(req: NextRequest) {
       "Use documents, timeline, communications or exhibits.",
     );
   } catch (error) {
-    console.error("workspace organisation error:", error);
+    console.error("workspace organisation error:", safeError(error));
     return refuse(500, "CourtSimplified could not load this case.");
   }
 }

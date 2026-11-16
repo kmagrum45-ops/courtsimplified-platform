@@ -45,6 +45,8 @@ import {
   type ExhibitBookDocument,
 } from "@/src/lib/case-workspace/exhibitBook";
 import type { DatePrecision } from "@/src/lib/case-system/dates";
+import { UnprintableText, exhibitBookUnprintableMessage } from "@/src/lib/case-system/forms/printableText";
+import { safeError } from "@/src/lib/logging/safeLog";
 
 export const runtime = "nodejs";
 
@@ -122,7 +124,7 @@ async function getGuidance(req: NextRequest) {
       .not("exhibit_number", "is", null);
 
     if (error) {
-      console.error("exhibit book read error:", error.message);
+      console.error("exhibit book read error:", safeError(error));
       return refuse(500, "CourtSimplified could not load this case's exhibits.");
     }
 
@@ -226,7 +228,9 @@ async function getGuidance(req: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("exhibit book error:", error);
+    // The error's name only: its message can carry the person's names, titles or file names (16 Nov 2026).
+    console.error("exhibit book error:", safeError(error));
+    if (error instanceof UnprintableText) return refuse(422, exhibitBookUnprintableMessage(error.characters));
     return refuse(500, "CourtSimplified could not build the exhibit book.");
   }
 }
@@ -260,7 +264,7 @@ async function postGuidance(req: NextRequest) {
       .is("deleted_at", null);
 
     if (error) {
-      console.error("exhibit numbering read error:", error.message);
+      console.error("exhibit numbering read error:", safeError(error));
       return refuse(500, "CourtSimplified could not load this case's documents.");
     }
 
@@ -328,7 +332,7 @@ async function postGuidance(req: NextRequest) {
         .is("deleted_at", null);
 
       if (updateError) {
-        console.error(`exhibit numbering write error for ${entry.documentId}:`, updateError.message);
+        console.error(`exhibit numbering write error for ${entry.documentId}:`, safeError(updateError));
         return refuse(
           500,
           "CourtSimplified could not finish numbering these documents.",
@@ -345,7 +349,7 @@ async function postGuidance(req: NextRequest) {
       mode,
     });
   } catch (error) {
-    console.error("exhibit numbering error:", error);
+    console.error("exhibit numbering error:", safeError(error));
     return refuse(500, "CourtSimplified could not number these documents.");
   }
 }

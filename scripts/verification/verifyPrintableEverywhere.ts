@@ -19,6 +19,10 @@
  *   6. generate-form's pdf-lib path on an unprotected court form (Family 13): the French values draw (appearances are
  *      built without error), where before the gate a Chinese value threw inside updateFieldAppearances, was swallowed,
  *      and the form was saved with no drawing for its boxes.
+ *   7. The exhibit book (Small Claims, Civil, Family): French names, titles and file names print and read back.
+ *   8. The exhibit book refuses a character no font here covers, naming them all at once, with the owner's message
+ *      (decided 16 Nov 2026), instead of a raw encoding error midway through.
+ *   9. The exhibit-book route answers that refusal with that message.
  *
  * No network, no model. Env: NEXT_PUBLIC_SUPABASE_URL / ANON_KEY placeholders only (the route module reads them).
  */
@@ -26,19 +30,26 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import { PDFDocument, PDFTextField } from "pdf-lib";
-import { UnprintableText, printableValues, unprintableMessage } from "../../src/lib/case-system/forms/printableText";
+import { UnprintableText, exhibitBookUnprintableMessage, printableValues, unprintableMessage } from "../../src/lib/case-system/forms/printableText";
+import { buildExhibitBook, type ExhibitBookDocument } from "../../src/lib/case-workspace/exhibitBook";
+
+/** Every piece of text pdf.js reads on the PDF's pages, joined. */
+async function pdfText(bytes: Uint8Array): Promise<string> {
+  const lib = await import("pdfjs-dist/legacy/build/pdf.mjs");
+  const task = lib.getDocument({ data: bytes.slice(), disableFontFace: true, verbosity: lib.VerbosityLevel.ERRORS });
+  const doc = await task.promise;
+  const out: string[] = [];
+  for (let page = 1; page <= doc.numPages; page++) for (const item of (await (await doc.getPage(page)).getTextContent()).items) if ("str" in item) out.push(item.str);
+  await task.destroy();
+  return out.join(" ");
+}
 
 const ROOT = process.cwd();
 const WRITES_TEXT = /\.drawText\(|\.setText\(|annotationStorage\.setValue\(/;
 const CALLS_GATE = /\bprintableValues\(|\bunprintableCharacters\(/;
 
 /** Files that write into a PDF without the gate, each with why. Delete an entry when the file is fixed. */
-const DECLARED: Record<string, string> = {
-  "src/lib/case-workspace/exhibitBook.ts":
-    "Exhibit book cover and index (court name, party names, document titles in pdf-lib Helvetica). French prints; a " +
-    "Chinese name fails the whole book with the route's generic error. The refusal message says \"The form could not " +
-    "be made\", which is wrong for an exhibit book, and new wording is the legal review chat's (docs/forms/wording-needed.md).",
-};
+const DECLARED: Record<string, string> = {};
 
 function sourceFiles(dir: string): string[] {
   const out: string[] = [];
@@ -114,6 +125,36 @@ async function check(name: string, run: () => void | Promise<void>) {
     doc.getForm().updateFieldAppearances();
     const reread = await PDFDocument.load(await doc.save({ useObjectStreams: false, addDefaultPage: false, updateFieldAppearances: false }));
     assert.ok(reread.getForm().getFields().filter((field): field is PDFTextField => field instanceof PDFTextField).every((field) => field.getText() === value));
+  });
+
+  // The exhibit book has no court branch (exhibitBook.ts); it is built once per court so a future branch is covered.
+  const bookDocument = (n: number, userLabel: string | null, originalName: string): ExhibitBookDocument => ({ id: `d${n}`, exhibitNumber: n, exhibitSuffix: null, userLabel, originalName, userType: null, userDate: "2026-03-14", mime: "application/msword" });
+  for (const court of ["Small Claims", "Civil", "Family"]) {
+    await check(`7. exhibit book (${court}): French names and titles print and read back; a narrow no-break space prints as a space`, async () => {
+      const book = await buildExhibitBook(
+        { title: `Gagné c. Saint-Jérôme (${court})`, courtFileNumber: "SC-26-0001", courtName: null, plaintiff: "François-Xavier Gagné", defendant: "Élève Inc." },
+        [bookDocument(1, "Facture de l’œuvre, 1 200 €", "facture.docx"), bookDocument(2, null, "reçu-Jérôme.docx")],
+        { preparedOn: "2026-11-16" },
+      );
+      const text = await pdfText(book.bytes);
+      for (const expected of ["François-Xavier Gagné", "Élève Inc.", `Gagné c. Saint-Jérôme (${court})`, "Facture de l’œuvre, 1 200 €", "reçu-Jérôme.docx"]) {
+        assert.ok(text.includes(expected), `not printed: ${expected}`);
+      }
+    });
+    await check(`8. exhibit book (${court}): a character no font here covers is refused, all at once, with the exhibit-book message`, async () => {
+      let error: unknown;
+      try {
+        await buildExhibitBook({ title: "王 v. 北", courtFileNumber: null, courtName: null, plaintiff: "Gagné", defendant: null }, [bookDocument(1, "收据", "x.docx")], { preparedOn: "2026-11-16" });
+      } catch (caught) { error = caught; }
+      assert.ok(error instanceof UnprintableText, `not refused with UnprintableText: ${error instanceof Error ? error.name : String(error)}`);
+      assert.deepEqual(error.characters, ["王", "北", "收", "据"]);
+      assert.equal(exhibitBookUnprintableMessage(error.characters), "The exhibit book could not be made, because the site cannot yet print these characters in a PDF: 王 北 收 据. This is a limit of the site, not a problem with what you wrote. For now, you can use a version of the name or title without them.");
+    });
+  }
+
+  await check("9. the exhibit-book route answers that refusal with the exhibit-book message (422)", () => {
+    const route = readFileSync(path.join(ROOT, "app/api/workspace/exhibit-book/route.ts"), "utf8");
+    assert.match(route, /error instanceof UnprintableText\) return refuse\(422, exhibitBookUnprintableMessage\(error\.characters\)\)/);
   });
 
   console.log(failures ? `\n${failures} check(s) failed` : "\nAll checks passed");

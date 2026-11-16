@@ -38,6 +38,7 @@ import { createClient } from "@supabase/supabase-js";
 
 import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 import { DOCUMENT_BUCKET } from "@/src/lib/case-workspace/storagePaths";
+import { safeError } from "@/src/lib/logging/safeLog";
 
 export const runtime = "nodejs";
 
@@ -123,7 +124,7 @@ async function getGuidance(req: NextRequest) {
         .eq("user_id", user.id);
 
       if (error) {
-        console.error(`export read error on ${entry.table}:`, error.message);
+        console.error(`export read error on ${entry.table}:`, safeError(error));
         return NextResponse.json(
           {
             success: false,
@@ -187,7 +188,7 @@ async function getGuidance(req: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("export error:", error);
+    console.error("export error:", safeError(error));
     return NextResponse.json(
       { success: false, error: "CourtSimplified could not put your export together." },
       { status: 500 },

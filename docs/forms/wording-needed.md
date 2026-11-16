@@ -202,15 +202,18 @@ published). So the box stays blank with the whole address to write by hand. That
      or the form's own instructions) say whether, and how, a party may continue a Form 10 box on an attached page?
      Until it is answered from a source, the site does not attach a page for it.
 
-## 10. The exhibit book: a message when a name or title cannot be printed (added 16 Nov 2026)
+## 10. The exhibit book: a message when a name or title cannot be printed (decided 16 Nov 2026)
 
-**Where.** The exhibit book (`src/lib/case-workspace/exhibitBook.ts`, `POST /api/workspace/exhibit-book`) prints the
-court name, the parties' names and each document's title in pdf-lib's Helvetica. French prints. A character outside it
-(Chinese, for example) stops the book, and the person sees the route's general error, which does not say why.
+**Status: decided by the product owner: a plain product message, not legal wording.** Built.
 
-**Why it is not fixed yet.** The forms' refusal message begins "The form could not be made", which is wrong for an
-exhibit book. The site does not write new wording itself.
+**Where.** The exhibit book (`src/lib/case-workspace/exhibitBook.ts`, `GET /api/workspace/exhibit-book`) prints the
+parties' names, the case title and each document's title in pdf-lib's Helvetica. French prints. A character outside it
+(Chinese, for example) now stops the book before anything is drawn, through the same check as the forms
+(`printableText.ts` `printableValues`), and the person is told (`exhibitBookUnprintableMessage`):
 
-**Wording needed:** a version of the message for the exhibit book. It must name the characters, say this is a limit of
-the site, and not blame the person. Once it is worded, the book goes through the same check as the forms
-(`printableText.ts` `printableValues`), and its entry in `verifyPrintableEverywhere.ts` DECLARED is deleted.
+> The exhibit book could not be made, because the site cannot yet print these characters in a PDF: [characters]. This
+> is a limit of the site, not a problem with what you wrote. For now, you can use a version of the name or title
+> without them.
+
+The person sees it in the exhibit book panel, where the book's index is built: the preview goes through the same check,
+and "Build the book" stays unavailable until the index loads. Tested in `verifyPrintableEverywhere.ts` (checks 7-9).

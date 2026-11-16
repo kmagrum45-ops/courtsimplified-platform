@@ -38,6 +38,7 @@ import { getAuthenticatedUser, getAuthenticatedOwnedCase } from "@/src/lib/supab
 import { extractDocumentText } from "@/src/lib/case-workspace/extractText";
 import { scanForPersonalData } from "@/src/lib/case-workspace/personalDataScan";
 import { DOCUMENT_BUCKET, isUuid } from "@/src/lib/case-workspace/storagePaths";
+import { safeError } from "@/src/lib/logging/safeLog";
 
 export const runtime = "nodejs";
 
@@ -192,7 +193,7 @@ export async function POST(req: NextRequest) {
       .maybeSingle();
 
     if (readError) {
-      console.error("workspace extract read error:", readError.message);
+      console.error("workspace extract read error:", safeError(readError));
       return refuse(500, "CourtSimplified could not read this document.");
     }
 
@@ -293,7 +294,7 @@ export async function POST(req: NextRequest) {
         .eq("id", documentId)
         .eq("user_id", user.id);
 
-      console.error("workspace extract download error:", downloadError?.message);
+      console.error("workspace extract download error:", safeError(downloadError));
       return refuse(500, "CourtSimplified could not open the stored file.");
     }
 
@@ -403,7 +404,7 @@ export async function POST(req: NextRequest) {
         .eq("id", documentId)
         .eq("user_id", user.id);
 
-      console.error("workspace extract save error:", textError.message);
+      console.error("workspace extract save error:", safeError(textError));
       return refuse(500, "CourtSimplified could not save the document text.");
     }
 
@@ -458,7 +459,7 @@ export async function POST(req: NextRequest) {
       personalData: scan.findings,
     });
   } catch (error) {
-    console.error("workspace extract error:", error);
+    console.error("workspace extract error:", safeError(error));
     return refuse(500, "CourtSimplified could not read this document.");
   }
 }
