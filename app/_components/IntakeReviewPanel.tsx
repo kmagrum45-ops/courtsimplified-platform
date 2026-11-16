@@ -342,6 +342,18 @@ export default function IntakeReviewPanel() {
     }
     return null;
   };
+  /**
+   * The words of a question's answer as the record reads them now, the question's own answer included: words built
+   * from amounts follow the amount held (caseFile.ts wordsFollowHeldAmount; Chrome milestone test of #550, row 17: "What
+   * outcome ... Answered:" kept $5,000 / $450 / $18.45 after the amount was changed to $5,100).
+   */
+  const recordWords = (id: string): string | null => {
+    for (const fact of slotsOfQuestion(id)) {
+      const slot = caseFileNow[fact];
+      if (slot.state === "answered") return heldWords(caseFileNow, fact, slot);
+    }
+    return null;
+  };
   /** The held line: the answer, where it came from, and "Change" (ChangeAnswer, the one write path). */
   const heldLine = (fact: SlotFact | undefined, slot: Slot, ariaLabel: string, name?: string) => {
     const atStart = !slot.changed && slot.source?.kind === "answer" && slot.source.question.startsWith("situation:");
@@ -536,7 +548,7 @@ export default function IntakeReviewPanel() {
           {/* Answered, it keeps its place (owner, earlier rule) and says so with the answer in words, never
               counted as still to answer (owner's Chrome check, 31 Oct). A typed answer is shown here as words, not
               only in its box. */}
-          {answered ? (() => { const given = bank ? initialAnswersOf(fresh)[question.id] : fieldValue(question.id); const words = caseFileWords(question.id) ?? (Array.isArray(given) ? given.map(value => reviewQuestionField(checkpoint.courtPath, question.id, checkpoint)?.options.find(option => option.value === value)?.label ?? String(value)).join(", ") : typeof given === "string" ? given : ""); return <p data-testid="intake-question-answered" className="text-sm text-[#2f7d67]">{words ? `Answered: ${withFullStop(words)}` : "Answered."} You can change it here.</p>; })() : null}
+          {answered ? (() => { const given = bank ? initialAnswersOf(fresh)[question.id] : fieldValue(question.id); const words = recordWords(question.id) ?? (Array.isArray(given) ? given.map(value => reviewQuestionField(checkpoint.courtPath, question.id, checkpoint)?.options.find(option => option.value === value)?.label ?? String(value)).join(", ") : typeof given === "string" ? given : ""); return <p data-testid="intake-question-answered" className="text-sm text-[#2f7d67]">{words ? `Answered: ${withFullStop(words)}` : "Answered."} You can change it here.</p>; })() : null}
           {staleInitial[question.id] ? <p data-testid="intake-answer-stale" className="text-[#7a4b12]">Answered for an earlier version of your story: &ldquo;{staleInitial[question.id]}&rdquo;. <button type="button" data-testid="intake-keep-answer" disabled={busy} onClick={() => answer(question.id, staleInitial[question.id])} className="underline">Keep this answer</button> or choose again.</p> : null}
           {bank?.answerType === "choice" && Array.isArray(bank.choices) && <div className="mt-1 flex flex-wrap gap-2">{bank.choices.map(choice => <button key={choice} type="button" disabled={busy} aria-pressed={initialAnswersOf(fresh)[question.id] === choice} onClick={() => answer(question.id, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice}</button>)}{suggested && !answered && bank.choices.includes(suggested) && !offerChoices[offerKeyOfQuestion(question.id)] ? reviewOffer(offerKeyOfQuestion(question.id), question.id, { testId: "intake-use-suggestion", disabled: busy, onUse: () => answer(question.id, suggested), what: suggested, className: "rounded border px-3 py-1" }) : null}</div>}
           {bank?.answerType === "yes-no" && <div className="mt-1 flex flex-wrap gap-2">{["Yes", "No"].map(choice => <button key={choice} type="button" disabled={busy} aria-pressed={initialAnswersOf(fresh)[question.id] === choice} onClick={() => answer(question.id, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice}</button>)}</div>}

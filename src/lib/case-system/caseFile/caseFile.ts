@@ -526,9 +526,13 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   }
   // 12. Words built from amounts follow the amount held now (Chrome check of #550, 1.7): read, never saved.
   const heldAmount = file.amount.state === "answered" ? (typeof file.amount.value === "number" ? file.amount.value : parseRecordedAmount(String(file.amount.value ?? ""))) : null;
-  if (heldAmount !== null && file.wants.state === "answered" && typeof file.wants.value === "string") {
-    const words = wordsFollowHeldAmount(file.wants.value, heldAmount);
-    if (words !== file.wants.value) file.wants = { ...file.wants, value: words };
+  // What they want. Never a defendant's own outcome: the amount held for them is the claim against them, and their own
+  // claim's amount ("I want my $2,000 back") is not a copy of it (16 Nov 2026).
+  for (const fact of ["wants"] as const) {
+    const slot = file[fact];
+    if (heldAmount === null || slot.state !== "answered" || typeof slot.value !== "string") continue;
+    const words = wordsFollowHeldAmount(slot.value, heldAmount);
+    if (words !== slot.value) file[fact] = { ...slot, value: words };
   }
   // 13. Family's urgent question asks about a safety worry in its own words (guidedFields.ts, asked whole only while
   // safety is not held), so its answer or "not sure" is the safety answer until safety has one of its own (site owner,

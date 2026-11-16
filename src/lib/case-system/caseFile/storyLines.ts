@@ -13,11 +13,11 @@
 import { sentences } from "../sentences";
 import { DANGER_WORDS } from "../intake/dangerWords";
 import { claimAmountFromStory, moneyMentions } from "../claimAmount";
-import { acknowledgedIn, againstThemIn, complaintIn, evidenceIn, injuryIn, lastPaymentIn, lostPayIn, otherSideIn, otherSideSaysIn, propertyIn, witnessIn, type StoryFact } from "./storyFacts";
+import { acknowledgedIn, againstThemIn, complaintIn, costsIn, evidenceIn, injuryIn, lastPaymentIn, lostPayIn, otherSideIn, otherSideSaysIn, propertyIn, witnessIn, type StoryFact } from "./storyFacts";
 import { otherPartyFromStory, otherPartyNameFromStory } from "../../../../app/builder/_components/storyAnswers";
 import { marriedWhereIn, type CaseFile } from "./caseFile";
 
-export type StoryLine = { fact: "otherParty" | "marriedWhere" | "amountAgainst" | "amount" | "safety" | "injury" | "property" | "complaint" | "witness" | "lostPay" | "evidence" | "lastPayment" | "acknowledged" | "otherSideSays"; label: string; value: string; quote: string };
+export type StoryLine = { fact: "otherParty" | "marriedWhere" | "amountAgainst" | "amount" | "safety" | "injury" | "property" | "complaint" | "witness" | "lostPay" | "costs" | "evidence" | "lastPayment" | "acknowledged" | "otherSideSays"; label: string; value: string; quote: string };
 
 /**
  * Each fact the story gives, in plain words, with the sentence it came from as its quote
@@ -26,6 +26,8 @@ export type StoryLine = { fact: "otherParty" | "marriedWhere" | "amountAgainst" 
  */
 const FACT_LINES: [StoryLine["fact"], string, (story: string) => StoryFact | null][] = [
   ["lostPay", "Lost pay", lostPayIn],
+  // What they paid out, beside lost pay, never inside it (Chrome milestone test of #550, row 22).
+  ["costs", "Costs you paid", costsIn],
   ["injury", "Injury", injuryIn],
   ["property", "Property", propertyIn],
   ["complaint", "Complaint", complaintIn],

@@ -267,3 +267,16 @@ export function partiesByRole(list: readonly Party[], personSues: boolean): { pl
   const other = list.filter((party) => party.side === "other");
   return personSues ? { plaintiffs: yours, defendants: other } : { plaintiffs: other, defendants: yours };
 }
+
+/**
+ * THE NAMES EVERY SCREEN SHOWS FOR THE PARTIES, from the parties record (site owner, 16 Nov 2026; Chrome milestone test
+ * of #550, row 21: the case snapshot's "Parties recorded" and the case file page's "Other side" named only Circle K, while
+ * the record held Circle K and Test Manager). The person's own name, and each other party its own name, in order; the
+ * case's other-party answer only when the record names none. One function: the case snapshot, the case file page and
+ * "What we have so far" all read it.
+ */
+export function partyNames(list: readonly Party[], fallback: { you?: string; other?: string } = {}): { you: string; others: string[] } {
+  const you = list.find((party) => party.you);
+  const others = list.filter((party) => party.side === "other").map(partyName).filter(Boolean);
+  return { you: (you ? partyName(you) : "") || (fallback.you ?? "").trim(), others: others.length ? others : fallback.other?.trim() ? [fallback.other.trim()] : [] };
+}

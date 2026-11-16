@@ -11,7 +11,7 @@
 import Link from "next/link";
 import { formatForCourt } from "@/src/lib/case-system/dates";
 import { SLOT_FACTS, claimKindOf, conferenceKind, courtDateIsConference, isUnsureAnswer, slotText, type CaseFile, type SlotFact } from "@/src/lib/case-system/caseFile/caseFile";
-import { partyName } from "../../../src/lib/case-system/parties/parties";
+import { partyNames } from "../../../src/lib/case-system/parties/parties";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { inWords, optionWords } from "@/src/lib/case-system/copy/rawKeys";
 import { storyLines } from "@/src/lib/case-system/caseFile/storyLines";
@@ -56,7 +56,7 @@ function shownValue(fact: SlotFact, file: CaseFile): string {
   const slot = file[fact];
   // The other side, from the parties record: each party its own name, never two merged into one (rule 2).
   if (fact === "otherParty" && file.parties.recorded) {
-    const names = file.parties.list.filter((party) => party.side === "other").map(partyName).filter(Boolean);
+    const names = partyNames(file.parties.list).others;
     if (names.length) return names.join("; ");
   }
   // What is filed, by name, where the person said (case 16: "the filed application and answer").

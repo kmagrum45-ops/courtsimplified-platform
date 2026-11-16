@@ -16,6 +16,7 @@
  */
 
 import { useEffect, useState } from "react";
+import { partyNames } from "@/src/lib/case-system/parties/parties";
 import { recordedDateAnswers } from "@/src/lib/case-system/caseRecord";
 import { DecisionAttribution, DecisionCaution } from "@/app/cases/_components/CourtDecisionPanel";
 import { DeadlineStandingNote } from "@/app/cases/_components/CaseWorkspace";
@@ -85,6 +86,7 @@ export default function CaseFileSection() {
   // The amount and the other party, read from the case file (the one reader "What we have so far" uses): shown when
   // recorded, nothing when not (Chrome check of #545 at 7bce410, 1.6c: no amount line here after three changes).
   const file = caseFileOfMaster(caseRecord.master_result, courtPath);
+  const names = partyNames(file.parties.recorded ? file.parties.list : [], { you: record.yourName, other: file.otherParty.state === "answered" && !file.otherParty.removed ? slotText(file.otherParty, formatForCourt) : "" });
   const fileWords = (fact: "amount" | "otherParty") => (file[fact].state === "answered" && !file[fact].removed ? slotText(file[fact], formatForCourt) : "");
   // The chosen step, or the one the confirmed stage points to (Phase 1).
   const step = stepId ? findStage(stepId) : undefined;
@@ -217,9 +219,11 @@ export default function CaseFileSection() {
         <FileSection title="What happened, in your words">
           {/* Names from the one case record (Step 2A, 2026-10-12): civil keeps
               them in civilInput, so reading intakeData alone left them blank. */}
-          {record.yourName || fileWords("otherParty") ? (
-            <p className="mb-2">
-              {[record.yourName && `You: ${record.yourName}`, fileWords("otherParty") && `Other side: ${fileWords("otherParty")}`].filter(Boolean).join(" · ")}
+          {/* The parties from the one function (parties.ts partyNames): each party its own name (Chrome milestone test of
+              #550, row 21: "Other side" named only the first defendant). */}
+          {names.you || names.others.length ? (
+            <p className="mb-2" data-testid="case-file-parties">
+              {[names.you && `You: ${names.you}`, names.others.length && `Other side: ${names.others.join("; ")}`].filter(Boolean).join(" · ")}
             </p>
           ) : null}
           {fileWords("amount") ? <p className="mb-2" data-testid="case-file-amount">Amount: {fileWords("amount")}</p> : null}

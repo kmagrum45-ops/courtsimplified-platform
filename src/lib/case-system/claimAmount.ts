@@ -37,7 +37,9 @@ const MONEY = /\$\s?\d[\d,]*(?:\.\d{2})?|\b\d{1,3}(?:,\d{3})+(?:\.\d{2})?\b|\b\d
 const KINDS: [Kind, RegExp][] = [
   // A claim the other side makes against the person ("serves him with a claim for $3,200",
   // "is suing me for $6,000") is never the person's own amount (messy pack case 19).
-  ["against", /\b(?:serve[sd]? (?:me|him|her|them|us) with (?:a|their|his|her) claim|su(?:e|es|ed|ing) (?:me|him|her|us)\b|claim(?:s|ed)? against (?:me|him|her|us)\b)/i],
+  // Also what they say the person owes ("says I owe $4,200", "I disagree that I owe $4,200", "wants me to pay $4,200"):
+  // the claim against them, never their own amount (Chrome milestone test of #550, S6).
+  ["against", /\b(?:serve[sd]? (?:me|him|her|them|us) with (?:a|their|his|her) claim|su(?:e|es|ed|ing) (?:me|him|her|us)\b|claim(?:s|ed)? against (?:me|him|her|us)\b|(?:says?|said|claims?|claimed|alleges?|alleged|insists?) (?:that )?(?:i|we) owe\b|(?:disagree|dispute|deny|denied) (?:that )?(?:i|we) owe\b|wants? (?:me|us) to pay\b)/i],
   ["owed", /\b(?:invoiced?|billed|still owe[sd]?|owe[sd]?|owing|is owed|are owed|outstanding|unpaid|balance|remaining|left to pay|still due|never paid (?:me|us)|(?:didn'?t|did not|won'?t|will not|refuses? to|refused to) pay (?:me|us)(?: back)?)\b/i],
   // "I think about $75,000" after "I want to sue …" is the amount they put on the claim (Charter re-test).
   ["claim", /\b(?:claim(?:ing|ed)?|su(?:e|ing) (?:\w+ )?for|(?:want(?:s|ed)?|get|recover) [^.]{0,30}?\bback|money back|lost|total|i think (?:it'?s |it is )?(?:about|around|roughly))\b/i],

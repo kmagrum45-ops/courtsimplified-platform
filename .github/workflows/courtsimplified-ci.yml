@@ -128,6 +128,8 @@ jobs:
         run: npm run test:offers-one-source
       - name: Nothing Chrome found asked twice in the milestone test of #550 is asked again (11 findings, each through its real function)
         run: npm run test:milestone-ask-once
+      - name: No stale or missing copy of lost pay, an amount in words, the parties or the claim against the person
+        run: npm run test:stale-copies
       - name: The four drafts read the parties and facts from the case record (Chrome forms test, rows 5, 11-13)
         run: npm run test:drafts-from-record
       - name: Names, addresses, phone numbers and emails are never sent to the model (build check, and a fake party in all three courts)

@@ -24,7 +24,7 @@ import { reviewEntries } from "../../src/lib/case-system/intakeReview";
 import { PARTY_FORM_FIELDS } from "../../src/lib/case-system/caseFile/oldParties";
 import { separatedFromStory } from "../../src/lib/case-system/family/statusTriage";
 import { suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";
-import { buildMissingPrompt } from "../../src/lib/case-system/intake/smallClaimsStillUseful";
+import { buildMissingPrompt } from "../../app/builder/_components/SmallClaimsIntake";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import type { CaseRecord } from "../../src/lib/case-system/caseRecord";
 

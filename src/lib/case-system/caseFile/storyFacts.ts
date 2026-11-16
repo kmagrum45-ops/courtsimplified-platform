@@ -45,7 +45,7 @@ export function bystanderSentence(sentence: string): boolean {
 
 /** The other side, as the story names it: a business, the person behind it, or who they are to the person. */
 /** A sentence about the claim against the person: they were served, or sued. */
-const AGAINST_THEM = /\bserv(?:e|es|ed|ing)\s+(?:me|him|her|them|us)\b|\b(?:i|he|she|we|they) (?:was|were|got|have been|has been) served\b|\bsu(?:ed|ing|es) (?:me|him|her|us|them)\b|\bclaim against (?:me|him|her|us|them)\b/i;
+const AGAINST_THEM = /\bserv(?:e|es|ed|ing)\s+(?:me|him|her|them|us)\b|\b(?:i|he|she|we|they) (?:was|were|got|have been|has been) served\b|\bsu(?:ed|ing|es) (?:me|him|her|us|them)\b|\bclaim against (?:me|him|her|us|them)\b|\b(?:says?|said|claims?|claimed|alleges?|alleged|insists?) (?:that )?(?:i|we) owe\b|\b(?:disagree|dispute|deny|denied) (?:that )?(?:i|we) owe\b|\bwants? (?:me|us) to pay\b/i;
 
 /**
  * The story's sentences about the claim against the person, joined; empty when there are none. What
@@ -106,6 +106,33 @@ const RELATION_OWES = new RegExp(`\\b(?:my|our)\\s+${RELATION}${RELATION_NAME}\\
 
 // ---- losses ----------------------------------------------------------------------------------
 
+/** Words that make an amount money spent on something, not pay: "paid", "spent", "bought", "cost" before it; "for/on <thing>" after. */
+const SPENT_BEFORE = /\b(?:paid|pay|spent|spend|spending|bought|buy|buying|cost|costs|costing|charged)\b(?:\s+\w+){0,3}\s*(?:for\s+)?$/i;
+const SPENT_AFTER = /^\s*(?:for|on)\s+(?!(?:my\s+|the\s+)?(?:lost|missed)\s+(?:wages|pay|income|work)\b|(?:my\s+|the\s+)?(?:wages|pay|income|work)\b)/i;
+/** Whether the amount at `at` in `text` is money spent on something (a cost), never pay lost. */
+function spentAt(text: string, at: number, length: number): boolean {
+  return SPENT_BEFORE.test(text.slice(Math.max(0, at - 40), at)) || SPENT_AFTER.test(text.slice(at + length, at + length + 40));
+}
+
+/**
+ * Money the person paid out because of what happened, each as said ("Medicine $18.45"): what they paid or spent, and on
+ * what. Shown beside lost pay, never inside it (Chrome milestone test of #550, row 22).
+ */
+export function costsIn(story: string): StoryFact | null {
+  const parts: string[] = [];
+  const quotes: string[] = [];
+  for (const sentence of sentences(story)) {
+    for (const match of sentence.matchAll(/\b(?:paid|spent|spend|bought|buy)\s+(\$\s?\d[\d,]*(?:\.\d{2})?)\s+(?:for|on)\s+(?:a\s+|an\s+|the\s+|my\s+)?([a-z][a-z' -]{1,40}?)(?=[,.;]|\s+and\b|$)|\b(?:paid|spent|bought|buy|had to buy)\s+(?:a\s+|an\s+|the\s+|my\s+)?([a-z][a-z' -]{1,40}?)\s+for\s+(\$\s?\d[\d,]*(?:\.\d{2})?)/gi)) {
+      const amount = (match[1] ?? match[4]).replace(/^\$\s+/, "$");
+      const thing = (match[2] ?? match[3]).trim();
+      if (/\b(?:wages|pay|income|work|rent|deposit|loan|invoice|contractor)\b/i.test(thing)) continue;
+      parts.push(`${firstUpper(thing)} ${amount}`);
+      if (!quotes.includes(sentence.trim())) quotes.push(sentence.trim());
+    }
+  }
+  return parts.length ? { value: parts.join("; "), quote: quotes.join(" ") } : null;
+}
+
 /** Pay lost: the amount and the time off, as the story gives them ("$2,640 (2 weeks of work)"). */
 export function lostPayIn(story: string): StoryFact | null {
   const sentence = found(story, /\b(?:missed|lost|losing|off)\b[^.]*\b(?:work|pay|wages|income|shifts?)\b/i);
@@ -115,10 +142,15 @@ export function lostPayIn(story: string): StoryFact | null {
   // of #550, S1 showed "Lost pay $150 (3 days of work)" for "$150 per day; $450 total".
   // An amount said for the loss itself ("$450 in lost wages") is the loss; the next amount in the sentence ("and $18.45
   // for medicine") is something else (Chrome forms test on #550, row 6: "Lost pay $18.45").
-  const named = /(\$\s?\d[\d,]*(?:\.\d{2})?)\s+(?:in|for|of)\s+(?:lost|missed)\s+(?:wages|pay|income|work)\b/i.exec(sentence)?.[1];
+  // "lost $450 in wages", "$450 in wages I lost", "$450 in lost wages": the loss in the person's words, wherever it sits.
+  const named = /(\$\s?\d[\d,]*(?:\.\d{2})?)\s+(?:in|for|of)\s+(?:lost|missed)\s+(?:wages|pay|income|work)\b/i.exec(sentence)?.[1]
+    ?? /\blost\s+(\$\s?\d[\d,]*(?:\.\d{2})?)\s+(?:in|of)\s+(?:wages|pay|income)\b/i.exec(sentence)?.[1]
+    ?? /(\$\s?\d[\d,]*(?:\.\d{2})?)\s+(?:in|of)\s+(?:wages|pay|income)\b/i.exec(sentence)?.[1];
   if (named) return { value: [named.replace(/^\$\s+/, "$"), period ? `(${period})` : null].filter(Boolean).join(" "), quote: sentence };
   const from = sentence.slice(Math.max(0, sentence.search(/\b(?:missed|lost|losing|off)\b/i)));
-  const amounts = [...from.matchAll(/\$\s?\d[\d,]*(?:\.\d{2})?(\s*(?:per|a|an|\/)\s*(?:day|hour|week|shift|month)\b)?/gi)];
+  // An amount spent on something ("paid $18.45 for medicine", "buy medicine for $18.45") is a cost, never pay (Chrome
+  // milestone test of #550, row 22: "Lost pay $18.45 (3 days of work)" for "$450" lost and "$18.45 for medicine").
+  const amounts = [...from.matchAll(/\$\s?\d[\d,]*(?:\.\d{2})?(\s*(?:per|a|an|\/)\s*(?:day|hour|week|shift|month)\b)?/gi)].filter((match) => !spentAt(from, match.index ?? 0, match[0].length));
   const total = amounts.find((match) => !match[1]);
   const rate = amounts.find((match) => match[1]);
   const amount = total ? total[0] : rate ? `${rate[0].replace(/\s*\/\s*/, " per ").replace(/^\$\s/, "$").replace(/\s+/g, " ").trim()}` : undefined;
@@ -251,9 +283,9 @@ export function publicBodyIn(story: string): StoryFact | null {
   return side && PUBLIC.test(side.value) ? side : null;
 }
 
-/** What the losses are made up of: lost pay, damaged property and the injury, each as said. */
+/** What the losses are made up of: lost pay, the costs paid out, damaged property and the injury, each as said. */
 export function lossesIn(story: string): StoryFact | null {
-  const parts = [["Lost pay", lostPayIn(story)], ["Property", propertyIn(story)], ["Injury", injuryIn(story)]] as const;
+  const parts = [["Lost pay", lostPayIn(story)], ["Costs you paid", costsIn(story)], ["Property", propertyIn(story)], ["Injury", injuryIn(story)]] as const;
   const said = parts.filter(([, fact]) => fact);
   if (!said.length) return null;
   return { value: said.map(([label, fact]) => `${label}: ${fact!.value}`).join("; "), quote: [...new Set(said.map(([, fact]) => fact!.quote))].join(" ") };

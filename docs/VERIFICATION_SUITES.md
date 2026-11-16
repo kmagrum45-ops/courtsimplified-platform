@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-298 documented, 26 without a header.
+299 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -255,6 +255,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:stage-map` | **Does the stage map hold up?**<br>A stage map is a list of assertions about Ontario procedure, written by someone who could be wrong or could be working from memory. Three failures matter, and each has its own check group: |
 | `npm run test:stage-resolution` | **The runtime says "we don't know" when it doesn't, and shows only published text.**<br>Part 0 traced ten realistic stories through the old runtime. Eight got the same answer. The proximate cause was `text.includes("defendant")`; the more dangerous half was `\|\| "starting-case"` — a default, which is a confident answer given without evidence, an |
 | `npm run test:stage-sequence` | **test:stage-sequence -- every step leads to the next by a rule**<br>(stage-map/stageSequence.ts, site owner 2026-10-12: "every step and every procedure is governed by the last"). |
+| `npm run test:stale-copies` | **NO STALE OR MISSING COPY OF LOST PAY, AN AMOUNT IN WORDS, THE PARTIES OR THE CLAIM AGAINST THE PERSON (site owner,**<br>16 Nov 2026; Chrome milestone test of #550, rows 17, 21 and 22, and "anything else wrong": S6). |
 | `npm run test:statement-of-claim-text` | **The Form 7A step's claim sentence reads as a sentence.**<br>What it checks: StatementOfClaimSurface, rendered for a confirmed claim type, says 'Claims described as “<description>” generally involve …' — the description quoted, with a space on each side of it. |
 | `npm run test:status-triage` | **The family status triage records facts and concludes nothing.**<br>COSTS NOTHING. Pure function calls. |
 | `npm run test:step-forms-and-text` | **THE NEXT-STEP CARD SHOWS ONLY THE TEXT AND FORMS THAT FIT THE RECORDED ANSWERS: THE SMALL-CLAIMS-SIZED LEAVE RULE ONLY**<br>FOR $50,000 OR LESS, EVERY FORM THE STEP TEXT NAMES IN ITS FORMS LIST (OR LISTED FOR REVIEW), AND NO DIVORCE APPLICATION FOR SOMEONE NEVER MARRIED (Chrome check of production c38e69fd, 8 Nov 2026, B4). |

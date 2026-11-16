@@ -47,6 +47,7 @@ import { useOfferChoices } from "@/app/_components/offerChoiceSave";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
 import { answerWords } from "../../../src/lib/case-system/caseFile/unsureAnswer";
 import { mayAskWords } from "../../../src/lib/case-system/caseFile/factStatus";
+import { partyNames } from "../../../src/lib/case-system/parties/parties";
 
 type Props = {
   analysis: AnalysisResult;
@@ -156,7 +157,10 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   const amount = answerWords(changedAmount !== undefined ? changedAmount ?? "" : textField(intake, "amountClaimed"));
   // "I do not know yet" is never shown as what the person wants (the one reader, unsureAnswer.ts answerWords).
   const outcome = changedWants !== undefined ? answerWords(changedWants) : answerWords(intake?.goal) || answerWords(textField(intake, "legalRemedy"));
-  const parties = [intake?.yourName.trim(), changedOther !== undefined ? changedOther ?? "" : intake?.otherParty.trim()].filter(Boolean).join(" and ");
+  // From the parties record, each party its own name (parties.ts partyNames; Chrome milestone test of #550, row 21: the
+  // second defendant was missing here); the form's copies only for a case with no record.
+  const named = partyNames(caseFile?.parties.recorded ? caseFile.parties.list : [], { you: intake?.yourName, other: changedOther !== undefined ? changedOther ?? "" : intake?.otherParty });
+  const parties = [named.you, ...named.others].filter(Boolean).join("; ");
   const rawIssueSignals = Array.from(new Set([...(analysis.detectedIssues || []), ...(analysis.legalIssues || []), ...(analysis.detectedClaimTypes || []), ...listField(intake, "issueLabels")].filter(Boolean)));
   // "unknown" is the engines' unclassified domain, not an issue. Dropping it
   // here keeps it out of the list; when it was the only signal the card falls
