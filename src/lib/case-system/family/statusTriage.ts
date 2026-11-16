@@ -610,11 +610,13 @@ export function buildTriageOutcome(record: FamilyStatusRecord): TriageOutcome {
       record.marriedToOtherParty === "unsure" ? `Not sure. ${MARRIED_UNSURE_NOTE}` : YES_NO_TEXT[record.marriedToOtherParty] ?? "not-yet",
       false,
     ),
-    fact(
+    // A divorce is for married people only (marriedOnly.ts): after No or "I'm not sure" there is no divorce line at all,
+    // never "Asking a court for a divorce: Not asked" (Chrome milestone test of #550, rows 40 and 44).
+    ...(record.marriedToOtherParty === "no" || record.marriedToOtherParty === "unsure" ? [] : [fact(
       "Asking a court for a divorce",
       YES_NO_TEXT[record.divorceSought] ?? "not-yet",
       pruned.has("divorce-sought"),
-    ),
+    )]),
     fact(
       "Lived together",
       record.cohabitationStart

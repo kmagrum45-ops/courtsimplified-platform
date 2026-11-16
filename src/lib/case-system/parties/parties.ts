@@ -280,3 +280,20 @@ export function partyNames(list: readonly Party[], fallback: { you?: string; oth
   const others = list.filter((party) => party.side === "other").map(partyName).filter(Boolean);
   return { you: (you ? partyName(you) : "") || (fallback.you ?? "").trim(), others: others.length ? others : fallback.other?.trim() ? [fallback.other.trim()] : [] };
 }
+
+/**
+ * THE WORDS EACH SIDE IS CALLED BY IN A COURT: the one function (site owner, 16 Nov 2026; Chrome milestone test of #550,
+ * row 42: the Family Parties step said "Plaintiff 1 (you)", "Defendant 1", "Add another defendant" while the overview of
+ * the same case said "Applicant"). Family: the applicant and the respondent; Small Claims and Civil: the plaintiff and
+ * the defendant. The Parties step, the drafts, the start answers, the exhibit book and every form read it.
+ */
+export function sideWordsOf(court: string | null | undefined): { starts: string; responds: string } {
+  return court === "family" ? { starts: "Applicant", responds: "Respondent" } : { starts: "Plaintiff", responds: "Defendant" };
+}
+
+/** The word for a party's side: the person's own side is the side that starts the case when the person starts it. */
+export function partySideWord(court: string | null | undefined, party: Pick<Party, "side">, personStarts: boolean): string {
+  const words = sideWordsOf(court);
+  const theirsStarts = party.side === "other" ? !personStarts : personStarts;
+  return theirsStarts ? words.starts : words.responds;
+}

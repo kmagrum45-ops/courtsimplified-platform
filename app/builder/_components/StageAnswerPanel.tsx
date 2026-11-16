@@ -869,7 +869,7 @@ export function NextStepCard({
           {answer.sources.length > 4 ? " — all sources are in the full answer below." : ""}
         </p>
       ) : null}
-      <WhatComesNext stepId={stepId} responding={responding} story={userWords} city={city} />
+      <WhatComesNext stepId={stepId} responding={responding} story={userWords} city={city} notMarried={notMarried} />
       {limitNotesFor(court as PracticalCourt, userWords).map((line) => (
         <p key={line.cite.pinpoint} data-testid="next-step-limit" className="mt-3 rounded-xl border border-[#f0c88a] bg-[#fffaf2] px-3 py-2 text-sm leading-6 text-[#7a4b12]">
           {line.say}{" "}

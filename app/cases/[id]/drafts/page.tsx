@@ -16,6 +16,8 @@
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { partyNames } from "@/src/lib/case-system/parties/parties";
+import { caseFileOfMaster } from "@/src/lib/case-system/caseFile/caseFileOfMaster";
 
 import TidyWordingReview from "../../../builder/_components/TidyWordingReview";
 import ScopePreviewNotice from "../../../builder/_components/ScopePreviewNotice";
@@ -337,7 +339,8 @@ export default function CaseDraftsSection() {
               title={respondingTitle.replace(/^Draft /, "")}
               description="Your response to the case, laid out from your answers, to compare with the official form."
               onClick={() => {
-                const draft = respondingDocumentDraft(courtPath, master.intakeData as RespondingDocumentIntake, now());
+                const held = caseFileOfMaster(master, courtPath);
+                const draft = respondingDocumentDraft(courtPath, master.intakeData as RespondingDocumentIntake, now(), held.parties.recorded ? partyNames(held.parties.list) : undefined);
                 if (draft) void create(draft);
               }}
             />

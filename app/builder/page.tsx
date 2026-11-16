@@ -1,6 +1,7 @@
 "use client";
 
 import { OPEN_WHOLE_FORM_EVENT } from "./_components/openWholeForm";
+import { partyNames } from "../../src/lib/case-system/parties/parties";
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
 import { caseFileOf, claimKindOf, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
@@ -1810,7 +1811,7 @@ function BuilderPageContent() {
       setSaveError("Save the selected case before creating a working draft.");
       return;
     }
-    const draft = respondingDocumentDraft(courtPath, caseData as RespondingDocumentIntake, new Date());
+    const draft = respondingDocumentDraft(courtPath, caseData as RespondingDocumentIntake, new Date(), builderCaseFile?.parties.recorded ? partyNames(builderCaseFile.parties.list) : undefined);
     if (draft) void saveDraftAndOpen(caseId, draft);
   }
 

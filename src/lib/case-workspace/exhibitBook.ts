@@ -71,6 +71,8 @@ export type ExhibitBookCase = {
   courtName: string | null;
   plaintiff: string | null;
   defendant: string | null;
+  /** The court's words for each side (parties.ts sideWordsOf): Family's applicant and respondent. */
+  sideWords?: { starts: string; responds: string };
 };
 
 export type ExhibitIndexEntry = {
@@ -220,7 +222,7 @@ export async function buildExhibitBook(
       maxWidth: PAGE_WIDTH - MARGIN * 2,
     });
     y -= 6;
-    cover.drawText("Plaintiff", { x: PAGE_WIDTH - MARGIN - 60, y: y + 15, size: 10, font: regular });
+    cover.drawText(caseDetails.sideWords?.starts ?? "Plaintiff", { x: PAGE_WIDTH - MARGIN - 60, y: y + 15, size: 10, font: regular });
     y -= 14;
     cover.drawText("- and -", { x: MARGIN, y, size: 10, font: regular });
     y -= 20;
@@ -231,7 +233,7 @@ export async function buildExhibitBook(
       font: regular,
       maxWidth: PAGE_WIDTH - MARGIN * 2,
     });
-    cover.drawText("Defendant", { x: PAGE_WIDTH - MARGIN - 62, y: y + 15, size: 10, font: regular });
+    cover.drawText(caseDetails.sideWords?.responds ?? "Defendant", { x: PAGE_WIDTH - MARGIN - 62, y: y + 15, size: 10, font: regular });
     y -= 40;
   }
 

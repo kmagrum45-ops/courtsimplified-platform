@@ -1,4 +1,6 @@
 import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
+import { partyNames, sideWordsOf } from "@/src/lib/case-system/parties/parties";
+import { caseFileOfMaster } from "@/src/lib/case-system/caseFile/caseFileOfMaster";
 /**
  * Builds the exhibit book, and applies a numbering the user has confirmed.
  *
@@ -150,7 +152,10 @@ async function getGuidance(req: NextRequest) {
     const record = readCaseRecord(ownedCase.master_result, ownedCase.court_path);
     const side = record.side?.value ?? null;
     const you = record.yourName || null;
-    const them = record.otherParty || null;
+    // Every other party, each its own name (parties.ts partyNames; Chrome milestone test of #550, row 21).
+    const held = caseFileOfMaster(ownedCase.master_result, ownedCase.court_path);
+    const others = held.parties.recorded ? partyNames(held.parties.list).others : [];
+    const them = (others.length ? others.join("; ") : record.otherParty) || null;
 
     const caseDetails = {
       title: master.persistedRecord?.title ?? "Untitled case",
@@ -162,6 +167,7 @@ async function getGuidance(req: NextRequest) {
       courtName: null,
       plaintiff: side === "starting" ? you : side === "responding" ? them : null,
       defendant: side === "starting" ? them : side === "responding" ? you : null,
+      sideWords: sideWordsOf(ownedCase.court_path),
     };
 
     const documents: ExhibitBookDocument[] = rows.map((row) => ({

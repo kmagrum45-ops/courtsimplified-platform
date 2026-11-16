@@ -37,7 +37,7 @@ import { serveModelStandIns, type Court } from "./harness/thisCommitServer";
 import { factsAskedTwice, factsOfAsk, heldViolations, recordAsks, repeatViolations, type Asked } from "./harness/askOnce";
 import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { chooseOffers } from "./harness/offers";
-import { MARRIED_ONLY_SENTENCES } from "../../src/lib/case-system/family/marriedOnly";
+import { MARRIED_ONLY_SCREEN_TEXT } from "../../src/lib/case-system/family/marriedOnly";
 import { expectThisRunsServer } from "./harness/siteAccess";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
@@ -493,11 +493,18 @@ for (const story of STORIES) {
       await readLabels(page, story, id, known, found, seen);
       if (story.parties) await checkFilledForms(page, id, seen);
       if (married) {
-        await page.goto(`/cases/${id}`);
-        await expect(page.getByRole("heading", { name: "Your next step" })).toBeVisible({ timeout: 120_000 }).catch(() => {});
-        const text = await page.locator("body").innerText(); // the whole page (it has two <main>)
-        const shown = MARRIED_ONLY_SENTENCES.filter((sentence) => text.includes(sentence));
-        expect(shown, `no married-only sentence on the case page after married "${married}"`).toEqual([]);
+        // Every married-only text (marriedOnly.ts MARRIED_ONLY_SCREEN_TEXT: the sentences, the folded fees part, the divorce
+        // line, the Divorce Act in the law list, the divorce and equalization steps), on the next-step page and the case
+        // page, folded parts included (textContent reads inside a closed <details>; Chrome milestone test of #550, rows 40
+        // and 44: each was in a folded part).
+        for (const [where, address] of [["next step", `/builder?path=${story.court}&intake=${id}`], ["case page", `/cases/${id}`]] as const) {
+          await page.goto(address);
+          await expect(page.getByRole("heading", { name: "Your next step" }).or(page.getByTestId("completed-case-overview")).first()).toBeVisible({ timeout: 120_000 }).catch(() => {});
+          await page.waitForTimeout(4_000);
+          const text = (await page.locator("body").textContent()) ?? ""; // the whole page (it has two <main>), folded parts too
+          const shown = MARRIED_ONLY_SCREEN_TEXT.filter((sentence) => text.includes(sentence));
+          expect(shown, `no married-only text on the ${where} after married "${married}"`).toEqual([]);
+        }
       }
       reached = reached === "next step" ? "all pages" : reached;
       const situation = situationOf(story);

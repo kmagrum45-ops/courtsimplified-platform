@@ -48,6 +48,7 @@ import { ADD_IT_LATER, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCo
 import { answerWords } from "../../../src/lib/case-system/caseFile/unsureAnswer";
 import { mayAskWords } from "../../../src/lib/case-system/caseFile/factStatus";
 import { partyNames } from "../../../src/lib/case-system/parties/parties";
+import { hidesMarriedOnly, isMarriedOnlyLaw } from "../../../src/lib/case-system/family/marriedOnly";
 
 type Props = {
   analysis: AnalysisResult;
@@ -363,7 +364,9 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // CLAIM_TYPES entries yet), same as courtPoints.
   const commonDefences: SourcedListItem[] = claimTypeContent ? claimTypeContent.commonDefences : [];
   // The rules that matter most first, named once; their words stay under "What we looked into" (lawBehind.ts).
-  const lawBehind = lawBehindThis(analysis.research?.findings ?? [], analysis.appliedLaw ?? []);
+  // Never a married person's provision for someone not married or not sure (marriedOnly.ts isMarriedOnlyLaw).
+  const lawAll = lawBehindThis(analysis.research?.findings ?? [], analysis.appliedLaw ?? []);
+  const lawBehind = hidesMarriedOnly(caseFile) ? { lines: lawAll.lines.filter((line) => !isMarriedOnlyLaw(line.name)), quoted: lawAll.quoted.filter((item) => !isMarriedOnlyLaw(item.citation || item.label)) } : lawAll;
   // 2026-09-28. Labelled rows instead of one run-on paragraph that ended with
   // the whole story pasted in. Values are still the user's own words, shown
   // as entered -- nothing is corrected or restated -- and the story sits

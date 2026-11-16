@@ -20,7 +20,7 @@ import { writeParties } from "./caseWrite";
 import { UseSuggestion } from "./UseSuggestion";
 import { bringsTheCase, caseFileOf, storyOfFile } from "../../src/lib/case-system/caseFile/caseFile";
 import {
-  detailStatus, detailsToAsk, partyName, partyOfOffer, storyPartyOffers,
+  detailStatus, detailsToAsk, partyName, partyOfOffer, partySideWord, sideWordsOf, storyPartyOffers,
   type Party, type PartiesRecord, type PartyDetail, type PartyKind, type PartyOffer,
 } from "../../src/lib/case-system/parties/parties";
 import { OFFER_CHOICES } from "../../src/lib/case-system/copy/suggestionCopy";
@@ -65,9 +65,16 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
   const [showOptional, setShowOptional] = useState<Record<string, boolean>>({});
   if (!recovery || !file) return null;
 
-  const record = startingRecord(file.parties.list, savedDeclined);
+  // Family: every party is a person (a parent, a spouse): never asked "A person or a company?" (Chrome milestone test of
+  // #550, row 42 note). Read as a person here, and saved as one with the first detail given.
+  const familyCourt = (view?.checkpoint.courtPath ?? file.area) === "family";
+  const asPerson = (party: Party): Party => (familyCourt && !party.kind ? { ...party, kind: "person" } : party);
+  const record = (() => { const held = startingRecord(file.parties.list, savedDeclined); return { ...held, list: held.list.map(asPerson) }; })();
   const personSues = bringsTheCase(file) || !file.side.value;
-  const sideWord = (party: Party) => (party.side === "other" ? (personSues ? "Defendant" : "Plaintiff") : personSues ? "Plaintiff" : "Defendant");
+  // The court's own words for each side (parties.ts sideWordsOf): Family's applicant and respondent (row 42).
+  const court = view?.checkpoint.courtPath ?? file.area;
+  const sideWord = (party: Party) => partySideWord(court, party, personSues);
+  const words = sideWordsOf(court);
   const save = (next: PartiesRecord) => { try { writeParties(recovery, next); setError(""); } catch (problem) { setError((problem as Error).message); } };
   const update = (id: string, change: (party: Party) => Party) => save({ ...record, list: record.list.map((party) => (party.id === id ? change(party) : party)) });
   const give = (id: string, detail: PartyDetail, value: string) => update(id, (party) => ({ ...party, details: { ...party.details, [detail]: value.trim() }, unsure: party.unsure.filter((item) => item !== detail) }));
@@ -166,13 +173,13 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
         <div data-testid="parties-story-others" className="space-y-2">
           <p className="text-sm font-semibold">Your story also names:</p>
           {unheldOffers.filter((offer) => offer.detail === "companyName" || offer.detail === "fullName").map((offer) => (
-            <UseSuggestion key={offer.key} offer={{ key: offer.key, fact: null, recordedBy: "screen" }} testId="parties-offer-yes" noTestId="parties-offer-no" unsureTestId="parties-offer-unsure" what={`Another ${personSues ? "defendant" : "plaintiff"}: ${offer.value}`} note={`From your story: "${offer.quote}"`} onUse={() => acceptOffer(offer)} onNo={() => declineOffer(offer)} onUnsure={() => declineOffer(offer)} />
+            <UseSuggestion key={offer.key} offer={{ key: offer.key, fact: null, recordedBy: "screen" }} testId="parties-offer-yes" noTestId="parties-offer-no" unsureTestId="parties-offer-unsure" what={`Another ${(personSues ? words.responds : words.starts).toLowerCase()}: ${offer.value}`} note={`From your story: "${offer.quote}"`} onUse={() => acceptOffer(offer)} onNo={() => declineOffer(offer)} onUnsure={() => declineOffer(offer)} />
           ))}
         </div>
       ) : null}
       <div className="flex flex-wrap gap-2">
-        <button type="button" data-testid="parties-add-other" className="rounded-xl border border-[#2f7d67] px-4 py-2 text-sm font-semibold text-[#2f7d67]" onClick={() => save({ ...record, list: [...record.list, { id: newId(), side: "other", details: {}, unsure: [] }] })}>Add another {personSues ? "defendant" : "plaintiff"}</button>
-        <button type="button" data-testid="parties-add-yours" className="rounded-xl border border-[#d8e6df] px-4 py-2 text-sm font-semibold text-[#16302b]" onClick={() => save({ ...record, list: [...record.list, { id: newId(), side: "yours", details: {}, unsure: [] }] })}>Add another {personSues ? "plaintiff" : "defendant"} on your side</button>
+        <button type="button" data-testid="parties-add-other" className="rounded-xl border border-[#2f7d67] px-4 py-2 text-sm font-semibold text-[#2f7d67]" onClick={() => save({ ...record, list: [...record.list, { id: newId(), side: "other", details: {}, unsure: [] }] })}>Add another {(personSues ? words.responds : words.starts).toLowerCase()}</button>
+        <button type="button" data-testid="parties-add-yours" className="rounded-xl border border-[#d8e6df] px-4 py-2 text-sm font-semibold text-[#16302b]" onClick={() => save({ ...record, list: [...record.list, { id: newId(), side: "yours", details: {}, unsure: [] }] })}>Add another {(personSues ? words.starts : words.responds).toLowerCase()} on your side</button>
       </div>
       {error ? <p role="alert" className="text-sm text-[#8a4b12]">{error}</p> : null}
     </section>

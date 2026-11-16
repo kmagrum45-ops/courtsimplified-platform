@@ -96,3 +96,33 @@ export function withoutMarriedOnlyAnswer<T extends object>(result: T | null, not
 export function leavesOutMarriedOnly(options: readonly { value: string }[], notMarried: NotMarried | boolean, chosen: readonly string[] = []): boolean {
   return withoutMarriedOnly(options, notMarried, chosen).length < options.length;
 }
+
+/**
+ * A provision only married people's cases rest on, by its citation: the Divorce Act (a divorce and corollary relief
+ * between spouses, s. 8 (1) above), and Parts I and II of the Family Law Act (ss. 4 to 28: net family property and the
+ * matrimonial home, "spouse" as s. 1 (1) defines it, above). Part III (support, s. 29 on) is never one: it reaches two
+ * persons not married who have cohabited. Left out of "The law behind this" for someone not married or not sure
+ * (Chrome milestone test of #550, rows 40 and 44: the Divorce Act, s. 7.3, listed after "No").
+ */
+export function isMarriedOnlyLaw(citation: string): boolean {
+  if (/\bDivorce Act\b/i.test(citation)) return true;
+  const fla = /\bFamily Law Act\b[^;]*?\bs(?:s|ections?)?\.?\s*(\d+)/i.exec(citation);
+  if (!fla) return false;
+  const section = Number(fla[1]);
+  return section >= 4 && section <= 28;
+}
+
+/**
+ * Words that show married-only content on a screen, for the browser checks (ask-once-pages.spec.ts): each sentence above,
+ * the folded fees part's heading (nextStepPractical.ts FEES_IF_CLAIMED_LABEL, asserted equal by test:not-married-everywhere),
+ * the triage's divorce line, the Divorce Act as a law-list line, and the two married-only steps' "what can happen next"
+ * words. Not r. 13 (1)'s quote: it is about a claim for support too (listed for the wording review, 16 Nov 2026).
+ */
+export const MARRIED_ONLY_SCREEN_TEXT: readonly string[] = [
+  ...MARRIED_ONLY_SENTENCES,
+  "Only if the case also asks for a divorce, or claims property or the matrimonial home",
+  "Asking a court for a divorce",
+  "Divorce Act, R.S.C. 1985",
+  "Either spouse may start a divorce case",
+  "A claim to equalize net family property has its own time limit",
+];

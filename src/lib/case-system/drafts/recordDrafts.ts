@@ -12,6 +12,7 @@
  * Every line is the person's own words or a plain label. No model, no law stated, nothing judged (CLAUDE.md s. 3).
  */
 import { dayOfSlot, slotText, type SlotFact } from "../caseFile/caseFile";
+import { sideWordsOf } from "../parties/parties";
 import { formatForCourt } from "../dates";
 import { formatRecordedAmount } from "../format/recordedAmount";
 import { partyName, type Party } from "../parties/parties";
@@ -29,7 +30,9 @@ const shell = (title: string, kind: CaseDraft["kind"], sections: DraftSection[],
 
 /** The words each side is called by in this court. */
 function sideWords(ctx: FormContext): { plaintiff: string; defendant: string } {
-  return ctx.file.area === "family" ? { plaintiff: "Applicant", defendant: "Respondent" } : { plaintiff: "Plaintiff", defendant: "Defendant" };
+  // The one function (parties.ts sideWordsOf).
+  const words = sideWordsOf(ctx.file.area);
+  return { plaintiff: words.starts, defendant: words.responds };
 }
 
 /** One party, as a few lines: the name, the address, and the phone and email if given. */

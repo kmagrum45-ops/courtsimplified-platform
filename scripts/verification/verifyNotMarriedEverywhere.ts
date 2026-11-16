@@ -91,6 +91,50 @@ async function main() {
     assert.ok(/withoutDivorceApplication\(practicalFor\(/.test(card), "NextStepPractical.tsx does not apply the not-married view");
   });
 
+  // ---- Chrome's milestone test of #550 (16 Nov 2026), rows 40 and 44: after No and after "I'm not sure" ----------------
+  const S7 = "Synthetic: Jordan and I lived together and separated in June 2026. We were never married. Our son is 4 and lives with me. I want a parenting schedule.";
+  const { stagesForPathway } = await import("../../src/lib/case-system/stage-map/stageMap");
+  const { buildTriageOutcome, emptyStatusRecord } = await import("../../src/lib/case-system/family/statusTriage");
+  const { movesForWords } = await import("../../app/_components/WhatComesNext");
+  const { isMarriedOnlyLaw, MARRIED_ONLY_FAMILY_STEPS, MARRIED_ONLY_SCREEN_TEXT } = await import("../../src/lib/case-system/family/marriedOnly");
+  const { FEES_IF_CLAIMED_LABEL } = await import("../../src/lib/content-library/nextStepPractical");
+
+  check("6. \"What it costs\": no folded part \"Only if the case also asks for a divorce, or claims property or the matrimonial home\" when not married", () => {
+    const folded = stagesForPathway("family").map((stage) => stage.id).filter((id) => practicalFor(id, "family", "Ottawa", false, S7)?.feesIfClaimed);
+    assert.ok(folded.length > 0, "setup: no Family step folds its fees for a parenting story");
+    assert.ok(MARRIED_ONLY_SCREEN_TEXT.includes(FEES_IF_CLAIMED_LABEL), "the browser checks' list does not hold the folded part's heading as the card shows it");
+    for (const id of folded) assert.equal(withoutDivorceApplication(practicalFor(id, "family", "Ottawa", false, S7), true)?.feesIfClaimed ?? null, null, `${id}: the folded part "${FEES_IF_CLAIMED_LABEL}" is shown`);
+    assert.ok(withoutDivorceApplication(practicalFor(folded[0], "family", "Ottawa", false, S7), false)?.feesIfClaimed, "a married person lost the folded part");
+  });
+
+  check("7. \"What is recorded\": no \"Asking a court for a divorce\" line after No or \"I'm not sure\"; kept after Yes", () => {
+    for (const married of ["no", "unsure"] as const) {
+      const lines = buildTriageOutcome({ ...emptyStatusRecord(), marriedToOtherParty: married }).recorded.map((line) => line.label);
+      assert.ok(!lines.includes("Asking a court for a divorce"), `after ${married}: the divorce line is shown`);
+    }
+    assert.ok(buildTriageOutcome({ ...emptyStatusRecord(), marriedToOtherParty: "yes" }).recorded.some((line) => line.label === "Asking a court for a divorce"), "after Yes the divorce line is gone");
+  });
+
+  check("8. \"What can happen next\": no married-only step (a divorce, an equalization claim) when not married; shown when married", () => {
+    for (const stage of stagesForPathway("family")) {
+      const { lead, others } = movesForWords(stage.id, false, S7, "Ottawa", true);
+      const married = [...lead, ...others].filter((move) => MARRIED_ONLY_FAMILY_STEPS.has(move.to));
+      assert.equal(married.length, 0, `${stage.id}: lists ${married.map((move) => move.to).join(", ")}`);
+    }
+    const from = "family:before-filing:deciding-where-to-start";
+    const { lead, others } = movesForWords(from, false, S7, "Ottawa", false);
+    assert.ok([...lead, ...others].some((move) => MARRIED_ONLY_FAMILY_STEPS.has(move.to)), "a married person lost the divorce step");
+    assert.ok(/notMarried=\{notMarried\}/.test(readFileSync("app/builder/_components/StageAnswerPanel.tsx", "utf8").match(/<WhatComesNext[^>]*>/)?.[0] ?? ""), "the next-step panel does not pass notMarried to What can happen next");
+  });
+
+  check("9. \"The law behind this\": the Divorce Act and Family Law Act Parts I and II are left out when not married; Part III kept", () => {
+    assert.ok(isMarriedOnlyLaw("Divorce Act, R.S.C. 1985, c. 3 (2nd Supp.), s. 7.3"));
+    assert.ok(isMarriedOnlyLaw("Family Law Act, R.S.O. 1990, c. F.3, s. 5 (1)") && isMarriedOnlyLaw("Family Law Act, R.S.O. 1990, c. F.3, s. 24"));
+    assert.ok(!isMarriedOnlyLaw("Family Law Act, R.S.O. 1990, c. F.3, s. 33 (1)") && !isMarriedOnlyLaw("Children's Law Reform Act, R.S.O. 1990, c. C.12, s. 24"));
+    const overview = readFileSync("app/builder/_components/IntelligenceOverviewPanel.tsx", "utf8");
+    assert.ok(/hidesMarriedOnly\(caseFile\) \? \{ lines: lawAll\.lines\.filter\(\(line\) => !isMarriedOnlyLaw\(line\.name\)\)/.test(overview), "the overview's law list is not filtered");
+  });
+
   if (failed) { console.log(`\n${failed} check(s) failed`); process.exit(1); }
   console.log("\nAll checks passed");
 }

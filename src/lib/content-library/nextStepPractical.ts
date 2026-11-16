@@ -2687,7 +2687,10 @@ export function withoutDivorceApplication(view: PracticalView | null, notMarried
     leadForms: family ? view.leadForms.filter((lead) => !isDivorceApplication({ court: "family", number: lead.number })) : view.leadForms,
     fees: noDivorceFee(view.fees),
     feeNotes: noDivorceNote(view.feeNotes),
-    feesIfClaimed: view.feesIfClaimed ? { ...view.feesIfClaimed, fees: noDivorceFee(view.feesIfClaimed.fees), notes: noDivorceNote(view.feesIfClaimed.notes) } : null,
+    // The fees "Only if the case also asks for a divorce, or claims property or the matrimonial home" (FEES_IF_CLAIMED_LABEL):
+    // each a married person's claim only (family/marriedOnly.ts), so the whole folded part is left out (Chrome milestone
+    // test of #550, rows 40 and 44).
+    feesIfClaimed: family ? null : view.feesIfClaimed ? { ...view.feesIfClaimed, fees: noDivorceFee(view.feesIfClaimed.fees), notes: noDivorceNote(view.feesIfClaimed.notes) } : null,
   };
 }
 
