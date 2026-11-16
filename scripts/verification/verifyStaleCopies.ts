@@ -72,6 +72,9 @@ const wants = typeof changed.wants.value === "string" ? changed.wants.value : ""
 check("(b) after the amount is changed to $5,100, the record's \"what you want\" names $5,100.00 and none of the old amounts", wants.includes("$5,100.00") && !/\$5,000|\$450|\$18\.45/.test(wants), wants);
 const panel = read("app/_components/IntakeReviewPanel.tsx");
 check("(b) the review's \"Answered:\" line reads the record (recordWords), the question's own answer included", /const words = recordWords\(question\.id\) \?\?/.test(panel) && /const recordWords = \(id: string\)/.test(panel));
+// Only what the person wants follows the amount: a date or any other answer keeps the person's own words (the full local
+// run of 3774a858: "Answered: 2026-05-12" became "May 12, 2026").
+check("(b) only the \"what you want\" answer is reworded from the record; every other answer keeps the words given", /const recordWords = \(id: string\)[\s\S]*?if \(fact !== "wants"\) continue;[\s\S]*?\n  \};/.test(panel));
 
 // (c)
 const list: Party[] = [

@@ -14,7 +14,7 @@
  *
  * No model is involved, and nothing here is sent to one (rule 3). States no law.
  */
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { afterPointer } from "./afterPointer";
 import { useIntakeRecovery } from "./IntakeRecovery";
 import { writeParties } from "./caseWrite";
@@ -39,10 +39,10 @@ const OPTIONAL: PartyDetail[] = ["secondName", "phone", "email", "repName", "rep
 const newId = () => `p-${Math.random().toString(36).slice(2, 10)}`;
 
 /** The record to edit: the saved one, or what an older case holds (the person always first). */
-function startingRecord(list: readonly Party[], declined: readonly string[]): PartiesRecord {
+function startingRecord(list: readonly Party[], declined: readonly string[], placeholderId?: string): PartiesRecord {
   const parties = list.map((party) => ({ ...party, details: { ...party.details }, unsure: [...party.unsure] }));
   if (!parties.some((party) => party.you)) parties.unshift({ id: "you", you: true, side: "yours", details: {}, unsure: [] });
-  if (!parties.some((party) => party.side === "other")) parties.push({ id: newId(), side: "other", details: {}, unsure: [] });
+  if (!parties.some((party) => party.side === "other")) parties.push({ id: placeholderId ?? newId(), side: "other", details: {}, unsure: [] });
   return { version: 1, list: parties, declined: [...declined] };
 }
 
@@ -62,6 +62,9 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
     return Array.isArray(saved?.declined) ? saved!.declined : [];
   }, [view]);
   const [drafts, setDrafts] = useState<Record<string, string>>({});
+  // The empty other party shown before any is saved keeps one id while this step is on screen: a new id on every draw
+  // remade its entry each time (a box typed in lost its words) and a change to it could find no party.
+  const placeholder = useRef(newId());
   const [error, setError] = useState("");
   const [showOptional, setShowOptional] = useState<Record<string, boolean>>({});
   if (!recovery || !file) return null;
@@ -70,8 +73,9 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
   // #550, row 42 note). Read as a person here, and saved as one with the first detail given.
   const familyCourt = (view?.checkpoint.courtPath ?? file.area) === "family";
   const asPerson = (party: Party): Party => (familyCourt && !party.kind ? { ...party, kind: "person" } : party);
-  const recordOf = (list: readonly Party[], declined: readonly string[]): PartiesRecord => { const held = startingRecord(list, declined); return { ...held, list: held.list.map(asPerson) }; };
-  const record = recordOf(file.parties.list, savedDeclined);
+  const recordOf = (list: readonly Party[], declined: readonly string[], placeholderId?: string): PartiesRecord => { const held = startingRecord(list, declined, placeholderId); return { ...held, list: held.list.map(asPerson) }; };
+  const placeholderId = placeholder.current;
+  const record = recordOf(file.parties.list, savedDeclined, placeholderId);
   // Every change is made to the record as it is NOW, never to the copy this screen was drawn with: a box saved when the
   // focus left it and the button that took the focus each change the record, and the second built on the old copy undid
   // the first (Chrome milestone test of #550, row 12: the first click after typing "did nothing"; full local run of
@@ -80,7 +84,7 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
     const checkpoint = recovery.getReview()?.checkpoint;
     if (!checkpoint) return record;
     const saved = (checkpoint.sections as Record<string, Record<string, unknown>> | undefined)?.caseFile?.parties as { declined?: string[] } | undefined;
-    return recordOf(caseFileOf(checkpoint, recovery.getSavedMaster() ?? undefined).parties.list, Array.isArray(saved?.declined) ? saved!.declined : []);
+    return recordOf(caseFileOf(checkpoint, recovery.getSavedMaster() ?? undefined).parties.list, Array.isArray(saved?.declined) ? saved!.declined : [], placeholderId);
   };
   const personSues = bringsTheCase(file) || !file.side.value;
   // The court's own words for each side (parties.ts sideWordsOf): Family's applicant and respondent (row 42).

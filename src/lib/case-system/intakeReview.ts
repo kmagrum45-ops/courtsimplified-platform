@@ -808,7 +808,7 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
   // The amount from the one offer reader (caseFile/storyOffers.ts): what the story reading showed, when the story
   // writes it or its parts, else the story's own reader, a quote included (Chrome milestone test of #550, S1 and S4: the
   // reading showed $5,468.45 and a $1,500 quote, the review offered nothing). Someone responding: the story only.
-  const amount = offeredAmount(story, responding ? [] : readingFactsOf(checkpoint.sections, whole));
+  const amount = offeredAmount(story, responding ? [] : readingFactsOf(checkpoint.sections, whole), { oneClick: true });
   if (amount) out["sc-amount-claimed"] = amount.value;
   const goal = goalFromStory(story);
   if (goal) out["sc-remedy-sought"] = goal.value;

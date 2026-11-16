@@ -49,6 +49,10 @@ check("S1: the review offers the reading's total, $5,468.45 (the sum of the amou
 check("S1: the stated amount is the same one", statedInStory(S1, S1_READING).amount === "5468.45", statedInStory(S1, S1_READING).amount);
 check("S4: the review offers the quote, $1,500", suggestInitialAnswers(checkpoint(S4, S4_READING))["sc-amount-claimed"] === "$1,500", suggestInitialAnswers(checkpoint(S4, S4_READING))["sc-amount-claimed"]);
 check("S4: with no saved reading the story's own quote is offered, the same $1,500", suggestInitialAnswers(checkpoint(S4, []))["sc-amount-claimed"] === "$1,500");
+// #471 re-test: an amount already paid is never offered in one click in the review (the full local run of 3774a858:
+// "I paid a contractor $9,000" was offered as "Yes: $9,000"); the chat and the form still offer what the story states.
+const PAID = "Synthetic story: I paid a contractor $9,000 on May 12, 2026 to fix my roof and he never came back.";
+check("#471: the review never offers an amount already paid in one click", suggestInitialAnswers(checkpoint(PAID, []))["sc-amount-claimed"] === undefined, suggestInitialAnswers(checkpoint(PAID, []))["sc-amount-claimed"]);
 check("S5: the review offers $3,000", suggestInitialAnswers(checkpoint(S5, S5_READING))["sc-amount-claimed"] === "$3,000");
 const empty: PartiesRecord = { version: 1, list: [{ id: "you", you: true, side: "yours", details: {}, unsure: [] }, { id: "o1", side: "other", details: {}, unsure: [] }], declined: [] };
 const alex = storyPartyOffers(S5, empty, offeredOtherParty(S5, S5_READING));

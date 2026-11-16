@@ -17,6 +17,7 @@
  */
 import { useState } from "react";
 import { WorkingButton } from "./Working";
+import { useIntakeRecovery } from "./IntakeRecovery";
 import { fillForm, type AddPlace, type BoxResult, type FormContext, type FormMapDefinition } from "../../src/lib/case-system/forms/formMap";
 import { FILE_DOWNLOAD_FAILED, saveFile } from "../../src/lib/case-workspace/fileFetch";
 
@@ -34,6 +35,7 @@ export const filledButtonLabel = (map: Pick<FormMapDefinition, "number">) => `Do
 
 /** Download one filled form. Shared by every place that offers one. */
 export function useFilledFormDownload(caseId: string | null) {
+  const recovery = useIntakeRecovery();
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState("");
   async function download(form: string, copy: number, fileName: string) {
@@ -43,6 +45,10 @@ export function useFilledFormDownload(caseId: string | null) {
       const { supabase } = await import("../../src/lib/supabase/client");
       const token = (await supabase.auth.getSession()).data.session?.access_token;
       if (!token) { setError("Sign in to download the filled form."); return; }
+      // What was just typed is saved first: the form is filled from the saved case, and a save waits a moment after the
+      // last change (IntakeRecovery begin -> flush). A detail typed and Download pressed straight away is in the form
+      // (full local run of 3774a858: the parties typed a moment before were missing from the PDF, every box empty).
+      await recovery?.begin();
       const response = await fetch("/api/cases/forms/filled", { method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }, body: JSON.stringify({ caseId, form, copy }) });
       if (!response.ok) { setError(((await response.json().catch(() => null)) as { error?: string } | null)?.error ?? FILE_DOWNLOAD_FAILED); return; }
       saveFile(await response.blob(), fileName);

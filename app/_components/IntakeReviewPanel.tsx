@@ -346,10 +346,12 @@ export default function IntakeReviewPanel() {
   /**
    * The words of a question's answer as the record reads them now, the question's own answer included: words built
    * from amounts follow the amount held (caseFile.ts wordsFollowHeldAmount; Chrome milestone test of #550, row 17: "What
-   * outcome ... Answered:" kept $5,000 / $450 / $18.45 after the amount was changed to $5,100).
+   * outcome ... Answered:" kept $5,000 / $450 / $18.45 after the amount was changed to $5,100). Only what the person
+   * wants is built from amounts; every other answer keeps the words the person gave ("2026-05-12" stays as typed).
    */
   const recordWords = (id: string): string | null => {
     for (const fact of slotsOfQuestion(id)) {
+      if (fact !== "wants") continue;
       const slot = caseFileNow[fact];
       if (slot.state === "answered") return heldWords(caseFileNow, fact, slot);
     }

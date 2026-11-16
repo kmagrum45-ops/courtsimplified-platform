@@ -65,7 +65,7 @@ const AMOUNT_LABELS = [
 const shown = (amount: number) => `$${(amount / 100).toLocaleString("en-CA", { minimumFractionDigits: amount % 100 ? 2 : 0, maximumFractionDigits: 2 })}`;
 
 /** The amount to offer: the story reading's, when the story writes it (or its parts), else the story's own reader's. */
-export function offeredAmount(story: string, reading: readonly ReadingFact[]): StoryOffer | null {
+export function offeredAmount(story: string, reading: readonly ReadingFact[], options: { oneClick?: boolean } = {}): StoryOffer | null {
   for (const label of AMOUNT_LABELS) {
     for (const fact of reading) {
       if (!label.test(fact.label)) continue;
@@ -75,7 +75,9 @@ export function offeredAmount(story: string, reading: readonly ReadingFact[]): S
       if (amount > 0 && inTheStory(amount, story)) return { value: shown(amount), quote: `${fact.label}: ${fact.value}`, from: "reading" };
     }
   }
-  const own = amountOfferFromStory(story);
+  // The review's one-click suggestion keeps the strict reader: never an amount already paid (#471 re-test); the chat and
+  // the forms offer what the story states (amountOfferFromStory).
+  const own = amountOfferFromStory(story, options);
   return own ? { value: own.value, quote: own.quote, from: "story" } : null;
 }
 

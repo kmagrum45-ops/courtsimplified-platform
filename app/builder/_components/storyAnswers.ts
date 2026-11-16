@@ -184,10 +184,12 @@ function onlyDollarAmount(story: string): string | undefined {
  * story's only dollar amount (site owner, 12 Nov: "offer when it is the only amount"). The one story reader
  * (intakeReview.ts statedInStory) and the civil chat's amount question both read it here, so they offer the same.
  */
-export function amountOfferFromStory(story: string): StoryAnswer | null {
+export function amountOfferFromStory(story: string, options: { oneClick?: boolean } = {}): StoryAnswer | null {
   const strict = amountFromStory(story);
   if (strict) return strict;
-  const digits = QUOTED_AMOUNT.exec(story)?.[1]?.replace(/,/g, "") ?? onlyDollarAmount(story);
+  // One click (the review's suggestion): a quote or an estimate, never the story's only amount, which may be one already
+  // paid (#471 re-test: "I paid a contractor $9,000" is never offered in one click).
+  const digits = QUOTED_AMOUNT.exec(story)?.[1]?.replace(/,/g, "") ?? (options.oneClick ? undefined : onlyDollarAmount(story));
   if (!digits) return null;
   const value = Number(digits);
   const shown = `$${value.toLocaleString("en-CA", { minimumFractionDigits: /\./.test(digits) ? 2 : 0, maximumFractionDigits: 2 })}`;

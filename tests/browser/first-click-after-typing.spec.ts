@@ -17,7 +17,7 @@
  *
  * Stand-ins: the model calls (serveModelStandIns).
  */
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { deleteHarnessUser } from "./harness/realTestSession";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
@@ -27,6 +27,13 @@ import { saveCaseStory } from "./harness/intakeReview";
 import { CONFIRMED_CASE_STORY } from "./harness/confirmedCase";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
+
+/**
+ * The button in the middle of the window, as a person sees the button they press. Playwright scrolls a button only just
+ * into view; at the window's bottom edge, holding the mouse down scrolls the page (Chrome's drag-autoscroll), and the
+ * release missed the button for that reason alone (browser diagnostic of 16 Nov). Without moving the focus from the box.
+ */
+const inView = (button: Locator) => button.evaluate((element) => element.scrollIntoView({ block: "center", behavior: "instant" }));
 
 async function toReview(page: Page, court: "small-claims" | "civil" | "family") {
   if (court === "small-claims") {
@@ -66,6 +73,7 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       await expect(first).toBeVisible({ timeout: 30_000 });
       await first.fill("Testfirst");
       // Held down as a person holds a mouse button (a tenth of a second and more): the redraw had time to move the button.
+      await inView(step.getByTestId("parties-add-other"));
       await step.getByTestId("parties-add-other").click({ delay: 150 });
       await expect(others, "the first click on \"Add another\" after typing added a party").toHaveCount(before + 1, { timeout: 5_000 });
       await expect(you.locator("[data-testid=parties-detail-held][data-detail=firstName]"), "and the typed name was saved").toContainText("Testfirst", { timeout: 15_000 });
@@ -75,6 +83,7 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       if (court !== "family") {
         await you.getByTestId("parties-input-lastName").fill("Testlast");
         const person = others.last().getByTestId("parties-kind-person");
+        await inView(person);
         await person.click({ delay: 150 });
         await expect(person, "the first click on \"A person\" after typing set the kind").toHaveCount(0, { timeout: 5_000 });
         await expect(you.locator("[data-testid=parties-detail-held][data-detail=lastName]")).toContainText("Testlast", { timeout: 15_000 });

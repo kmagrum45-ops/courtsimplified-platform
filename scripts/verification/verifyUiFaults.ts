@@ -113,6 +113,14 @@ check(`(b) every parties write is made to the record as it is now (${wholeWrites
 const partiesStep = read("app/_components/PartiesStep.tsx");
 const fromDrawnCopy = [...partiesStep.matchAll(/save\(\{ \.\.\.record/g)].length;
 check("(b) and no change in the Parties step is built from the drawn copy (save({ ...record ...))", fromDrawnCopy === 0 && /save\(\(current\) =>/.test(partiesStep), `${fromDrawnCopy} found`);
+// The filled form is made from the saved case: what was just typed is saved before the download is asked for (full local
+// run of 3774a858: the parties typed a moment before were missing from the PDF, every box empty).
+const filledForm = read("app/_components/FilledForm.tsx");
+check("(b) the filled-form download saves what was just typed first", /await recovery\?\.begin\(\);[\s\S]*?fetch\("\/api\/cases\/forms\/filled"/.test(filledForm));
+// The empty other party shown before any is saved keeps one id while the step is on screen, in the drawn record and the
+// latest one: a new id on every draw remade its entry each time (the browser diagnostic of 16 Nov saw it removed and added
+// on every redraw) and a change to it could find no party.
+check("(b) the Parties step's placeholder keeps one id while shown, in the drawn and the latest record", /const placeholder = useRef\(newId\(\)\);/.test(partiesStep) && /recordOf\(file\.parties\.list, savedDeclined, placeholderId\)/.test(partiesStep) && /parties\.list, Array\.isArray\(saved\?\.declined\) \? saved!\.declined : \[\], placeholderId\)/.test(partiesStep) && /id: placeholderId \?\? newId\(\)/.test(partiesStep));
 
 // (c)
 const notice = read("app/_components/FirstUseAcknowledgement.tsx");
