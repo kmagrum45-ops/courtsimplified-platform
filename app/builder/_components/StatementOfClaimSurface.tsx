@@ -196,6 +196,22 @@ export default function StatementOfClaimSurface({
     );
   }
 
+  // The parties and the filled Form 7A, shown whatever the kind of claim: a kind with no checklist must never hide the
+  // download (Chrome, 16 Nov 2026, row 24: injury, contractor and loan claims reached no filled Form 7A).
+  const partiesAndForm = (
+    <>
+      {/* --- The parties: the one shared asker (PartiesStep), read from the case record (rule 1) --- */}
+      <div className="mt-8">
+        <PartiesStep heading="Names and addresses" />
+      </div>
+
+      {/* --- The official Form 7A, every box filled from the record or said to be missing (rules 4, 5) --- */}
+      <div className="mt-8">
+        <FilledForm7A ctx={formCtx} caseId={recovery?.getCaseId() ?? null} addHref={(place) => (place === "parties" ? "#parties" : place === "amount" ? "?change=amount" : "#story")} />
+      </div>
+    </>
+  );
+
   if (!kindId || !claimType) {
     return (
       <section
@@ -216,6 +232,7 @@ export default function StatementOfClaimSurface({
             what a claim of that kind generally involves.
           </p>
         )}
+        {partiesAndForm}
       </section>
     );
   }
@@ -371,15 +388,7 @@ export default function StatementOfClaimSurface({
         </div>
       ) : null}
 
-      {/* --- The parties: the one shared asker (PartiesStep), read from the case record (rule 1) --- */}
-      <div className="mt-8">
-        <PartiesStep heading="Names and addresses" />
-      </div>
-
-      {/* --- The official Form 7A, every box filled from the record or said to be missing (rules 4, 5) --- */}
-      <div className="mt-8">
-        <FilledForm7A ctx={formCtx} caseId={recovery?.getCaseId() ?? null} addHref={(place) => (place === "parties" ? "#parties" : place === "amount" ? "?change=amount" : "#story")} />
-      </div>
+      {partiesAndForm}
 
       {/* --- Guided self-completion (drafting is off; see CLAIM_DRAFTING_ENABLED) --- */}
       {!CLAIM_DRAFTING_ENABLED ? (

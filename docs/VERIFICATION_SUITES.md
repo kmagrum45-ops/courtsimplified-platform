@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-295 documented, 26 without a header.
+296 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -115,6 +115,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:family-story-reading` | **Family story reading: a denied mention is not a mention.**<br>What it checks: existingFamilyOrder (which hides the "where to start a new case" rules behind "You told us there is already a court order") fires on a story that says there IS an order, and not on one that says there never was — "never married, never a court o |
 | `npm run test:family-triage-dates` | **THE FAMILY CARD TAKES THE LIVED-TOGETHER DATES FROM THE STORY, ACCEPTS A YEAR OR A MONTH, MOVES ON WHEN A QUESTION IS**<br>SET ASIDE, AND "WHAT TO CONFIRM NEXT" READS THE RECORDED MUNICIPALITY (Chrome check of production c38e69fd, B3). |
 | `npm run test:feedback-address-shown` | **"SEND FEEDBACK" SHOWS THE CONTACT ADDRESS AS TEXT BESIDE THE LINK (Chrome check of #547 at 0e0f7e9, G5: a person with no**<br>mail program on the computer gets nothing from a mailto link; the address must be there to copy). |
+| `npm run test:filled-form-reachable` | **THE FILLED OFFICIAL FORM IS REACHABLE WHEREVER ITS FORM IS (site owner, 16 Nov 2026; Chrome milestone test of #550,**<br>row 24: "No filled Form 7A anywhere" for injury, contractor and loan claims). |
 | `npm run test:finder-handoff` | **THE COURT-PATH FINDER'S HAND-OFF BELONGS TO ONE INTAKE (finderHandoff.ts; the story left at "Before you start",**<br>found 9 Nov 2026 from the intake-reset flake, CI job 129360927580). |
 | `npm run test:fixed-regimes` | **Checks the routing rules fixed by law (src/lib/case-system/intelligence/**<br>fixedRegimes.ts, CLAUDE.md s. 2a): a construction lien goes to the Superior Court whatever the amount, and a claimed amount over $50,000 leaves Small Claims -- decided in code, winning over the keyword pass and the model. |
 | `npm run test:fixture-guards` | **Asserts that runFixtures.ts cannot write a .actual.md from a run that**<br>threw, timed out, or silently degraded. |

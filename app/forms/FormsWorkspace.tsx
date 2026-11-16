@@ -44,6 +44,13 @@ import { UseSuggestion } from "../_components/UseSuggestion";
 import { useOfferChoices } from "../_components/offerChoiceSave";
 import { openCaseFromAddress } from "@/src/lib/case-system/openCase";
 import { officialFormCount, oneRowPerForm } from "@/src/lib/content-library/forms/formCount";
+import FilledForm from "../_components/FilledForm";
+import FilledForm7A from "../_components/FilledForm7A";
+import { filledFormFor } from "@/src/lib/case-system/forms/maps";
+import { formContextOf } from "@/src/lib/case-system/forms/formContext";
+import { readCheckpoint } from "@/src/lib/case-system/intakeCheckpoint";
+import { bringsTheCase } from "@/src/lib/case-system/caseFile/caseFile";
+import { builderHref } from "../cases/_components/CaseHomeContext";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -425,6 +432,17 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
   const [stageSupport, setStageSupport] = useState<
     { supported: true } | { supported: false; reason: string; stage: string } | null
   >(null);
+  // The case record, as the filled forms read it (the same reader as the filled-form route): the filled official
+  // form is offered on its card, for the side that files it (Chrome, 16 Nov 2026, row 24).
+  const filledCtx = useMemo(() => {
+    if (!caseId || !masterResult || (path !== "small-claims" && path !== "family" && path !== "civil")) return null;
+    const master = masterResult as unknown as Record<string, unknown>;
+    return formContextOf(readCheckpoint(master.intakeCheckpoint, path, caseId), master);
+  }, [caseId, masterResult, path]);
+  const filledHref = (place: "parties" | "amount" | "story") => {
+    const review = builderHref({ id: caseId, court_path: path }, { openReview: true });
+    return place === "parties" ? `${review}#parties` : place === "amount" ? `${review}&change=amount` : `${review}#story`;
+  };
 
 
   useEffect(() => {
@@ -1382,6 +1400,22 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                           Version {official.date || "not stated"}, checked {OFFICIAL_FORMS_FETCHED_AT} on ontariocourtforms.on.ca
                         </span>
                       </div>
+                    );
+                  })()}
+
+                  {(() => {
+                    // The official form with its boxes filled from this case, for the side that files it (FilledForm.tsx).
+                    const map = filledCtx ? filledFormFor(form.court_type, cleanSpaces(form.form_number), bringsTheCase(filledCtx.file) || !filledCtx.file.side.value) : null;
+                    if (!map || !filledCtx) return null;
+                    return (
+                      <details className="mt-5" data-testid="forms-tab-filled" data-form={map.id} open>
+                        <summary className="cursor-pointer text-sm font-semibold text-[#2f7d67]">Form {map.number} filled from your case</summary>
+                        <div className="mt-3">
+                          {map.id === "small-claims/7A"
+                            ? <FilledForm7A ctx={filledCtx} caseId={caseId} addHref={filledHref} />
+                            : <FilledForm map={map} ctx={filledCtx} caseId={caseId} addHref={filledHref} />}
+                        </div>
+                      </details>
                     );
                   })()}
 

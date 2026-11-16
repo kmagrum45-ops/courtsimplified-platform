@@ -122,6 +122,8 @@ jobs:
         run: npm run test:no-names-to-model
       - name: Every box of every form the site fills is mapped and fills from the case record (Small Claims 7A, 1A, 9A, 8A; Family 8, 10, 13, 13.1)
         run: npm run test:form-maps
+      - name: The filled official form is reachable wherever its form is (every kind of claim, the 7A section and the Forms tab)
+        run: npm run test:filled-form-reachable
       - name: The four drafts read the parties and facts from the case record (Chrome forms test, rows 5, 11-13)
         run: npm run test:drafts-from-record
       - name: Names, addresses, phone numbers and emails are never sent to the model (build check, and a fake party in all three courts)
