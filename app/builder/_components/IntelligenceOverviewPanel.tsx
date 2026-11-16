@@ -46,6 +46,7 @@ import { UseSuggestion } from "@/app/_components/UseSuggestion";
 import { useOfferChoices } from "@/app/_components/offerChoiceSave";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
 import { answerWords } from "../../../src/lib/case-system/caseFile/unsureAnswer";
+import { mayAskWords } from "../../../src/lib/case-system/caseFile/factStatus";
 
 type Props = {
   analysis: AnalysisResult;
@@ -252,7 +253,9 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // 2026-10-06: a mother who answered "Nothing filed yet" was asked "Has
   // anything already been filed?" on every page).
   // One rule, in answeredQuestions.ts (26 Oct re-test, case 16: a case already going was asked about court dates).
-  const stillToConfirm = withoutStageAnswered(candidateQuestions, caseStage, stageWords);
+  // The one function (factStatus.ts mayAskWords): a question whose fact the record holds, answered or "not sure", is never
+  // asked here (Chrome milestone test of #550, row 39: "Were you married, is a divorce proceeding underway..." after No).
+  const stillToConfirm = withoutStageAnswered(candidateQuestions, caseStage, stageWords).filter((question) => mayAskWords(caseFile, question, { responding: respondingFromRecord(caseFile ?? undefined) }));
   const confirmQuestion = askDefenceQuestion
     ? defenceQuestion
     : stillToConfirm[0] || GENERIC_CONFIRM_QUESTION;

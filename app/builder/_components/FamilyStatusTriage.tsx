@@ -46,6 +46,7 @@ import {
   buildTriageOutcome,
   emptyStatusRecord,
   livedTogetherFromStory,
+  separatedFromStory,
   partialDateWords,
   readPartialDate,
   selectNextTriageQuestion,
@@ -267,8 +268,21 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
     }
 
     if (current.kind === "date-range") {
+      // When living together ended, from the story ("separated in June 2026"), offered once beside the "Ended" box when the
+      // box is empty (Chrome milestone test of #550, row 41). Yes puts it in the box; nothing is recorded unasked.
+      const ended = !dateEnd.trim() ? separatedFromStory(story) : null;
       return (
         <div className="mt-4 space-y-3">
+          {ended ? (
+            <UseSuggestion
+              offer={offerForQuestion("triage:cohabitation-end", "cohabitation-dates")}
+              testId="triage-cohabitation-end-yes"
+              what={`Ended: ${partialDateWords(ended.end)}`}
+              note={`From your story: "${ended.quote}"`}
+              onUse={() => setDateEnd(partialDateWords(ended.end))}
+              className="mt-2 rounded-full bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
+            />
+          ) : null}
           <div className="grid gap-3 sm:grid-cols-2">
             <label className="text-sm">
               <span className="font-semibold text-[#10231f]">Started</span>

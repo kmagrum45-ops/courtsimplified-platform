@@ -125,6 +125,14 @@ function suggest(
       : { value: false, reason: "Your case says you are the one starting it.", firm: true };
   }
 
+  // "Have you confirmed this is an eligible Ontario Small Claims Court matter?" -- the person chose Small Claims Court for
+  // this case at the start and confirmed it (Chrome milestone test of #550, row 25: asked again on the Forms tab). Kept
+  // with the case, not asked again; an amount on record over the Small Claims limit is never answered for them.
+  if (last === "eligibilityConfirmed" && /smallClaims/.test(fieldPath) && record.courtPath === "small-claims") {
+    const amount = Number((record.amount ?? "").replace(/[^\d.]/g, ""));
+    if (!(amount > 50_000)) return { value: true, reason: "You chose Small Claims Court for this case.", firm: true };
+  }
+
   // "Is this a divorce application?" -- from the family questions' own answers.
   if (last === "isDivorceApplication") {
     const family = asRecord(asRecord(master.familyStatus).record);

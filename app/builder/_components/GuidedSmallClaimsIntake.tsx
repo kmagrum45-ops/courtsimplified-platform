@@ -1,6 +1,8 @@
 "use client";
 
 import { createPortal } from "react-dom";
+import { readingFactsOf } from "../../../src/lib/case-system/caseFile/storyOffers";
+import { storyOf } from "../../../src/lib/case-system/intakeStory";
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { isDateQuestionId } from "../../../src/lib/case-system/casePosition";
 import { intakeGuidanceHeaders, useIntakeReviewView, useIntakeState, useStory, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
@@ -789,6 +791,9 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           // Read from the case record as it is when the turn is sent, never from the render that started it: an
           // answer saved since (the kind just used on the suggestion card) is held (A2, Chrome check of #542).
           caseFile: heldForEngine(caseFileOf(recovery?.getReview().checkpoint ?? reviewView?.checkpoint ?? null, recovery?.getSavedMaster() ?? undefined)),
+          // The story reading the person was shown (home.understood), for the one offer reader (caseFile/storyOffers.ts):
+          // what it showed is offered, when the story writes it (Chrome milestone test of #550, S1 and S4).
+          reading: (() => { const checkpoint = recovery?.getReview().checkpoint ?? reviewView?.checkpoint ?? null; return checkpoint ? readingFactsOf(checkpoint.sections as Record<string, unknown>, storyOf(checkpoint.sections)) : []; })(),
           newStoryText,
           answeredQuestionId,
           confirmedAnswers,

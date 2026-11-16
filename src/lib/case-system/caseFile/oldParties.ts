@@ -60,3 +60,15 @@ export function partiesFromOldShapes(old: OldPartyShapes): Party[] {
   return list;
 }
 
+
+/**
+ * The Small Claims form's own party-detail boxes: the Parties step is the one place these are asked (parties.ts), and an
+ * older case's values in them are read into it here. No other screen shows them as boxes to fill (Chrome milestone test
+ * of #550, row 19: after a change the review showed empty "Your name", "Your address", "Your postal code", "Your phone",
+ * "Your email", "Other party phone", "Other party email" and "Other party address for service" while the Parties step held
+ * them). The other party's name is not here: it is a case fact of its own (caseFile.ts otherParty).
+ */
+export const PARTY_FORM_FIELDS: ReadonlySet<string> = new Set([
+  "yourName", "yourAddress", "addressDetails", "yourCity", "yourProvince", "yourPostalCode", "yourPhone", "yourEmail",
+  "defendantAddress", "otherPartyAddress", "otherPartyPhone", "otherPartyEmail",
+]);

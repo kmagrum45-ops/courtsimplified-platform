@@ -67,6 +67,10 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   "sc-orient-role": ["side"],
   "sc-orient-dispute-category": ["claimKind"],
   "sc-orient-when-happened": ["whenHappened"],
+  // The injury's date is when it happened, for an injury claim: the deadline engine already treats them as one moment
+  // (casePosition.ts copies it to case-date-act-or-omission). Chrome milestone test of #550, row 9: asked again after the
+  // date was confirmed.
+  "sc-date-injury": ["whenHappened"],
   "sc-amount-claimed": ["amount"],
   "sc-claim-filed": ["filed"],
   "sc-defendant-served": ["claimServed"],
@@ -152,6 +156,11 @@ const ASKS_FOR: [RegExp, CaseFact][] = [
   // A claim of the person's own against the one suing them: the person's outcome (5b: "A claim of your own against them"
   // was offered after "I only want to defend the claim").
   [/\bclaim of your own\b|\bcounter-?claim\b|\bdefendant'?s claim\b/i, "outcome"],
+  // Whether they were married to each other, in the words the home page's reading and the case page's "What to confirm
+  // next" use (Chrome milestone test of #550, rows 39 and 45: "Are you and your partner legally married?" on the home page,
+  // the triage's own question, and "Were you married, is a divorce proceeding underway..." after "No"). Never "married
+  // where" (marriedWhere) or "when did you marry".
+  [/(?<!\b(?:where|when|how) )\b(?:are|were) you(?: and (?:your|the) [a-z ]+?)? (?:legally |ever )?married\b(?! (?:in|where|at)\b)/i, "married"],
 ];
 
 /** Read only for a person being sued: the same words asked of a person suing name another fact (or none). */

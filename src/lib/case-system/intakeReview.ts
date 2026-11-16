@@ -9,11 +9,13 @@ import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocation
 import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../../app/builder/_components/guidedFields";
 import { goalFromStory, kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
 import { offeredAmount, readingFactsOf, type ReadingFact } from "./caseFile/storyOffers";
+import { PARTY_FORM_FIELDS } from "./caseFile/oldParties";
+import { mayShowQuestion } from "./caseFile/factStatus";
 import type { Stated } from "./caseFile/factStatus";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 import { askOf } from "./intake/asker";
-import { alreadyAsked, CASE_FILE_SECTION, CHANGE_QUESTION, caseFileOf, fromCasePosition, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, repeatsAnswer, sameAnswer, NEWEST_TYPED_FACTS, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
+import { CASE_FILE_SECTION, CHANGE_QUESTION, caseFileOf, fromCasePosition, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, repeatsAnswer, sameAnswer, NEWEST_TYPED_FACTS, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
 import { LENT_MONEY, LOAN_WORDS } from "./intake/claimKind";
 import { servedDateAt } from "./servedWords";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
@@ -129,6 +131,8 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   const responding = sideOf(situationOf(sections)) === "responding" || /defendant|responding/i.test(String(source.yourRole ?? ""));
   const add = (area: string, key: string, value: unknown, nested?: string) => {
     // Civil keeps the location as city and province in its form input too: a second copy of the one location, not a second answer.
+    // The Small Claims form's party boxes are the Parties step's, asked there once (oldParties.ts PARTY_FORM_FIELDS).
+    if (area === "small-claims" && PARTY_FORM_FIELDS.has(key)) return;
     if (UI.has(key) || (area !== STORY_SECTION && STORY_INPUT_KEYS.has(key)) || (area === "civil" && (key === "city" || key === "province")) || !(typeof value === "string" || typeof value === "number" || typeof value === "boolean" || (Array.isArray(value) && value.every(v => typeof v === "string")))) return;
     const definition = fields.find(field => field.key === key);
     const question = QUESTION_BANK.find(item => item.capturesField === key);
@@ -522,7 +526,8 @@ export function remainingEssentialQuestions(stored: Checkpoint, master?: unknown
   const file = caseFileOf(stored, master);
   // Small Claims: the question engine itself asks the case file (the one asker, intake/asker.ts; founder, 1 Nov).
   if (stored.courtPath === "small-claims") return remainingBeforeCaseFile(stored, false, file);
-  return remainingBeforeCaseFile(stored, false).filter(question => !alreadyAsked(file, question.id));
+  // The one function (factStatus.ts): shown only while its fact is still to ask or to offer (the same rule alreadyAsked held).
+  return remainingBeforeCaseFile(stored, false).filter(question => mayShowQuestion(file, question.id));
 }
 
 /** Empty as a review box shows it: nothing typed, or an empty list. */

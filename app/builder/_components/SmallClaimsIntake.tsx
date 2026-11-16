@@ -17,7 +17,7 @@ import { IntakeRequest } from "../../_components/intakeRequest";
 import TidyWordingReview from "./TidyWordingReview";
 
 import SignInForSafetyCheck from "./SignInForSafetyCheck";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 
 import type {
   AnalysisResult,
@@ -58,6 +58,11 @@ import {
 } from "../../../src/lib/case-system/intake/questionBank";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { analysisClaimType, caseFileOf, claimKindOf, kindForAnalysis } from "../../../src/lib/case-system/caseFile/caseFile";
+import { buildMissingPrompt } from "../../../src/lib/case-system/intake/smallClaimsStillUseful";
+
+/** No store (no case open): the banner reads an empty record. */
+const noStore = () => () => {};
+const noReview = () => null;
 import { formAnalysisInput } from "../../../src/lib/case-system/caseFile/chatTurnFacts";
 import PartiesStep from "../../_components/PartiesStep";
 import { AskedField, useBoxesFollow, useHeldFill } from "../../_components/AskedField";
@@ -425,27 +430,6 @@ function isDefendantRole(role: string | undefined): boolean {
   return /defendant|responding/i.test(role ?? "");
 }
 
-function buildMissingPrompt(input: SmallClaimsIntelligenceInput): string {
-  const missing: string[] = [];
-
-  if (!hasText(input.yourName)) missing.push("your legal name");
-  if (!hasText(input.otherParty)) missing.push("the other party’s name");
-  if (!hasText(input.defendantAddress)) missing.push("the other party’s address for service");
-  if (!hasText(input.facts)) missing.push("the case story");
-  // Dates and evidence already in the story count (page review, 2026-10-06:
-  // "important dates" was asked for after "the papers came on September 25").
-  const storyHasDate = dateSpans(input.facts).length > 0;
-  if (!hasText(input.timeline) && !storyHasDate) missing.push("important dates");
-  if (!hasText(input.evidence)) missing.push("what evidence you have");
-  if (!hasText(input.amountClaimed)) missing.push(isDefendantRole(input.yourRole) ? "the amount the claim asks for" : "the amount claimed, if money is requested");
-  if (!hasText(input.damagesBreakdown) && !isDefendantRole(input.yourRole)) missing.push("how the amount was calculated");
-
-  if (!missing.length) {
-    return "You have given enough to see your next steps. You can add more later.";
-  }
-
-  return `Still useful to add: ${missing.join(", ")}.`;
-}
 
 function buildCaseDirection(input: SmallClaimsIntelligenceInput, kindWords: string | null): string {
   const issues = inferIssuesFromStory(input);
@@ -734,7 +718,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   const heldKind = recovery ? claimKindOf(caseFileOf(recovery.getReview().checkpoint)) : null;
   const heldKindWords = heldKind?.state === "answered" ? heldKind.words : null;
   const inferredDirection = useMemo(() => buildCaseDirection(input, heldKindWords), [input, heldKindWords]);
-  const missingPrompt = useMemo(() => buildMissingPrompt(input), [input]);
+  // The record as it is now: the banner follows the Parties step and every answer as they are saved.
+  const reviewNow = useSyncExternalStore(recovery?.subscribe ?? noStore, recovery?.getReview ?? noReview, noReview);
+  const missingPrompt = useMemo(() => buildMissingPrompt(input, reviewNow ? caseFileOf(reviewNow.checkpoint, recovery?.getSavedMaster() ?? undefined) : caseFileOf(null)), [input, reviewNow, recovery]);
   const inferredIssues = useMemo(() => inferIssuesFromStory(input), [input]);
   const inferredDisputeCategory = useMemo(() => {
     if (inferredIssues.includes("defamation-reputation")) return "defamation";

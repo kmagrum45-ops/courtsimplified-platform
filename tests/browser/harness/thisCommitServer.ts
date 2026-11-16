@@ -95,11 +95,11 @@ export async function serveFromThisCommit(page: Page, court: Court, rows: Rows) 
  * person has answered), so what the reading does with the situation answers (which questions it drops) is the site's
  * own code (Chrome check of #550, 5b-5d).
  */
-async function serveHomeReading(page: Page, court: Court, questions: readonly string[]) {
+async function serveHomeReading(page: Page, court: Court, questions: readonly string[], facts: readonly { label: string; value: string }[] = []) {
   await page.route("**/api/case/understand", async (route) => {
     const body = route.request().postDataJSON() as { story: string; answers?: { question: string; answer: string }[]; situation?: { side?: string } };
     const asked = body.answers?.length ? [] : questions;
-    const reason = async () => JSON.stringify({ summary: "Synthetic reading.", facts: [], matters: [{ title: "Your matter", court }], mainCourt: court, side: body.situation?.side ?? "unclear", stage: "", questions: asked.map((question) => ({ question, why: "Synthetic." })), asksForPrediction: false, step: null, points: [] });
+    const reason = async () => JSON.stringify({ summary: "Synthetic reading.", facts, matters: [{ title: "Your matter", court }], mainCourt: court, side: body.situation?.side ?? "unclear", stage: "", questions: asked.map((question) => ({ question, why: "Synthetic." })), asksForPrediction: false, step: null, points: [] });
     const result = await understandCase({ story: body.story, ...(body.answers ? { answers: body.answers } : {}), ...(body.situation ? { situation: body.situation } : {}) } as never, { reason, intakeOnly: true, check: { answer: async () => ({ status: "unavailable", statements: [], notConfirmed: [], declinedToJudge: false, missingLaw: [] }) } as never });
     if (result.status !== "understood") return route.fulfill({ json: { ok: true, skipped: "unavailable" } });
     return route.fulfill({ json: { ok: true, understanding: result.understanding, answer: checkedAnswerView(result.answer) } });
@@ -116,9 +116,10 @@ async function serveHomeReading(page: Page, court: Court, questions: readonly st
  * (default: none), and "No, not that one" gets "no match" back -- for the "Not quite" test.
  * `homeQuestions`: the home page's story reading asks these (serveHomeReading); without them it is off.
  */
-export async function serveModelStandIns(page: Page, court: Court, ownerId: string = OWNER, standIns: { suggestKind?: { claimTypeId: string; claimTypeName: string; quote: string }; propose?: Record<string, string>; homeQuestions?: readonly string[] } = {}) {
+export async function serveModelStandIns(page: Page, court: Court, ownerId: string = OWNER, standIns: { suggestKind?: { claimTypeId: string; claimTypeName: string; quote: string }; propose?: Record<string, string>; homeQuestions?: readonly string[]; homeFacts?: readonly { label: string; value: string }[] } = {}) {
   await page.route("**/api/case/read", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
-  if (standIns.homeQuestions?.length) await serveHomeReading(page, court, standIns.homeQuestions);
+  // homeFacts: the facts the reading shows ("AMOUNT SOUGHT $5,468.45"), as the model gives them (Chrome milestone test of #550).
+  if (standIns.homeQuestions?.length) await serveHomeReading(page, court, standIns.homeQuestions, standIns.homeFacts ?? []);
   else await page.route("**/api/case/understand", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
   await page.route("**/api/classify-court-path", (route) => route.fulfill({ json: { primaryPath: court, confidence: 0.95 } }));
   await page.route("**/api/assistant/law", (route) => route.fulfill({ json: { findings: [] } }));

@@ -15,7 +15,7 @@
  *
  * Pure, no React, no network. Imports no value from caseFile.ts (which uses this): only its types.
  */
-import { factsOfQuestion } from "./factsOfQuestion";
+import { factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
 import type { CaseFile, Slot, SlotFact } from "./caseFile";
 
 export type FactStatus = "known" | "offer" | "ask" | "settled";
@@ -76,4 +76,28 @@ export function stillNeeded(file: CaseFile | null | undefined, facts: readonly S
  */
 export function chatMayAsk(file: CaseFile | null | undefined, questionId: string): boolean {
   return mayShowQuestion(file, questionId);
+}
+
+/**
+ * Facts that one court's intake asks itself, with its own question: a question in other words about them (the home page's
+ * reading, the AI's "What to confirm next") is never asked beside it, so the fact has ONE asker (site owner, 16 Nov 2026;
+ * Chrome milestone test of #550, row 45: "Are you and your partner legally married?" on the home page and "Were you and
+ * the other person married to each other?" in the Family triage).
+ */
+export const ASKED_BY_THE_INTAKE: Readonly<Partial<Record<SlotFact, readonly string[]>>> = {
+  married: ["family"],
+};
+
+/**
+ * Whether a question known only by its words (the AI's questions: the home page's reading, the case page's "What to confirm
+ * next") may be asked: never when the fact it asks is known or settled, nor when the court's own intake asks that fact.
+ * A question whose words name no fact is the screen's own: it may be asked.
+ */
+export function mayAskWords(file: CaseFile | null | undefined, words: string, options: { court?: string | null; responding?: boolean } = {}): boolean {
+  const fact = factOfAskedText(words, { responding: options.responding });
+  if (!fact) return true;
+  if (options.court && ASKED_BY_THE_INTAKE[fact as SlotFact]?.includes(options.court)) return false;
+  if (!file || !(fact in file)) return true;
+  const status = factStatus(file, fact as SlotFact);
+  return status === "ask" || status === "offer";
 }

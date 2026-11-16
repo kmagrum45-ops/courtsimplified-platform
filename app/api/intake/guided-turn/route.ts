@@ -106,6 +106,15 @@ const COURT_AREA_CONTENT: Record<
   "small-claims": { questionBank: QUESTION_BANK, claimTypes: CLAIM_TYPES },
 };
 
+/** The story reading's facts sent back by the page: at most 20 label/value pairs of plain text, else none. */
+function readingFromRequest(value: unknown): { label: string; value: string }[] {
+  if (!Array.isArray(value)) return [];
+  return value.slice(0, 20).flatMap((item) => {
+    const fact = item && typeof item === "object" ? (item as Record<string, unknown>) : {};
+    return typeof fact.label === "string" && typeof fact.value === "string" && fact.label.length <= 120 && fact.value.length <= 400 ? [{ label: fact.label, value: fact.value }] : [];
+  });
+}
+
 type GuidedTurnRequestBody = {
   facts: IntakeFacts;
   answeredIds: string[];
@@ -118,6 +127,8 @@ type GuidedTurnRequestBody = {
   situation?: Record<string, unknown>;
   /** THE ONE ASKER (founder, 1 Nov): the case file's slots (asker.ts heldForEngine). The engine never asks, nor proposes, a question whose fact it holds. */
   caseFile?: Record<string, unknown>;
+  /** The story reading the person was shown (home.understood facts), for the one offer reader only; never sent to a model. */
+  reading?: unknown;
   newStoryText?: string;
   /** Defaults to "small-claims" when omitted -- every caller today omits it. */
   courtArea?: SupportedCourtArea;
@@ -351,7 +362,7 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
           apiKey,
           questionBank,
           courtArea,
-          { intakeOnly: true, held: heldFromRequest(body.caseFile) },
+          { intakeOnly: true, held: heldFromRequest(body.caseFile), reading: readingFromRequest(body.reading) },
           body.repropose,
         );
         return NextResponse.json({ ok: true, result: { ...withSituation(confirmedResult), evidenceGuidance: undefined, claimGuidance: undefined }, authenticated });
@@ -366,7 +377,7 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
         claimTypes,
         courtArea,
         body.answeredQuestionId,
-        { intakeOnly: true, held: heldFromRequest(body.caseFile) },
+        { intakeOnly: true, held: heldFromRequest(body.caseFile), reading: readingFromRequest(body.reading) },
         body.earlier,
       );
 

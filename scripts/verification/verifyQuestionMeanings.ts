@@ -46,6 +46,9 @@ const SAME_MOMENT: Record<string, { fact: string; why: string }> = {
   "sc-date-defence-filed": { fact: "defenceFiledDate", why: "the day a defence was filed" },
   "case-date-own-defence-delivered": { fact: "defenceFiledDate", why: "the person's own defence delivered (caseFile.ts SAME_MOMENT)" },
   "case-date-act-or-omission": { fact: "whenHappened", why: "fills it only when nothing else holds it (STEP_DATE_NEVER_REPLACES)" },
+  // The injury's day is when it happened for an injury claim (casePosition.ts copies it to case-date-act-or-omission);
+  // fills it only when nothing else holds it, the same guard (Chrome milestone test of #550, row 9, 16 Nov 2026).
+  "sc-date-injury": { fact: "whenHappened", why: "the injury's day, the same moment as when it happened (STEP_DATE_NEVER_REPLACES)" },
   "case-date-trial-date": { fact: "courtDate", why: "fills it only when nothing else holds it (STEP_DATE_NEVER_REPLACES)" },
 };
 const NEVER_REPLACES = (caseFileModule as { STEP_DATE_NEVER_REPLACES?: ReadonlySet<string> }).STEP_DATE_NEVER_REPLACES ?? new Set<string>();

@@ -52,6 +52,7 @@
     "test:analysis-input-from-record": "node --import tsx scripts/verification/verifyAnalysisInputFromRecord.ts",
     "test:filled-form-reachable": "node --import tsx scripts/verification/verifyFilledFormReachable.ts",
     "test:offers-one-source": "node --import tsx scripts/verification/verifyOffersOneSource.ts",
+    "test:milestone-ask-once": "node --import tsx scripts/verification/verifyMilestoneAskOnce.ts",
     "test:form-maps": "node --import tsx scripts/verification/verifyFormMaps.ts && node --import tsx scripts/verification/verifyFormMapsMore.ts && node --import tsx scripts/verification/verifyFormTextFit.ts && node --import tsx scripts/verification/verifyAttachedPages.ts && node --import tsx scripts/verification/verifyFormCharacters.ts && node --import tsx scripts/verification/verifyMinistryCourthouses.ts && node --import tsx scripts/verification/verifyPrintableEverywhere.ts",
     "forms:font-maps": "node --import tsx scripts/forms/buildFontMaps.ts",
     "forms:geometry": "node --import tsx scripts/forms/buildBoxGeometry.ts",

@@ -40,6 +40,7 @@
  */
 
 import { runSafetyPass, type SafetyClassification } from "./safetyPass";
+import type { ReadingFact } from "../caseFile/storyOffers";
 import { extractIntakeFactsWithConfidence } from "./extractIntakeFacts";
 import type { ClaimTypeMatch } from "./claimTypeMatcher";
 import { classifyClaimTypeWithAi, type ClaimTypeAiSuggestion } from "./claimTypeAiClassifier";
@@ -269,6 +270,8 @@ export type OrchestrateIntakeTurnOverrides = {
   intakeOnly?: boolean;
   /** THE ONE ASKER: the case file (caseFileOf); every question the turn picks or proposes goes through it (selectQuestions held, asker.ts). */
   held?: CaseFile | null;
+  /** The story reading the person was shown (home.understood), for the one offer reader (caseFile/storyOffers.ts). Never sent to a model. */
+  reading?: readonly ReadingFact[];
   runSafety?: typeof runSafetyPass;
   extractFacts?: typeof extractIntakeFactsWithConfidence;
   classifyClaimType?: typeof classifyClaimTypeWithAi;
@@ -491,7 +494,7 @@ export async function orchestrateIntakeTurn(
       }
     }
     // What the story states and the AI did not propose (a quote as the amount, a full date): offered once too.
-    storyProposals = withStatedProposals(newStoryText, upcoming, storyProposals);
+    storyProposals = withStatedProposals(newStoryText, upcoming, storyProposals, overrides.reading ?? []);
   }
 
   return finishTurn({
@@ -694,7 +697,7 @@ export async function applyConfirmedStoryAnswers(
   apiKey: string,
   questionBank: readonly IntakeQuestion[] = QUESTION_BANK,
   courtArea: CourtArea = "small-claims",
-  overrides: Pick<OrchestrateIntakeTurnOverrides, "extractFacts" | "composeVoice" | "proposeAnswers" | "intakeOnly" | "held"> = {},
+  overrides: Pick<OrchestrateIntakeTurnOverrides, "extractFacts" | "composeVoice" | "proposeAnswers" | "intakeOnly" | "held" | "reading"> = {},
   /**
    * 2026-09-28. One more read of the opening story, for questions the
    * confirmations just made applicable. The story review battery: a dog-bite
@@ -760,7 +763,7 @@ export async function applyConfirmedStoryAnswers(
         storyProposals = [];
       }
     }
-    storyProposals = withStatedProposals(repropose.story, upcoming, storyProposals);
+    storyProposals = withStatedProposals(repropose.story, upcoming, storyProposals, overrides.reading ?? []);
   }
 
   return finishTurn({

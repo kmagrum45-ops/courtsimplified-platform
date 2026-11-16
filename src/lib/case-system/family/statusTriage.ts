@@ -645,3 +645,16 @@ export function buildTriageOutcome(record: FamilyStatusRecord): TriageOutcome {
     topics: surfacedTopics(record),
   };
 }
+
+const SEPARATED = new RegExp(`\\b(?:separated|split up|broke up|moved out|stopped living together)(?: in| on| since)? (${STORY_DATE})`, "i");
+
+/**
+ * When living together ended, from the story's own words ("we separated in June 2026"), to OFFER in the lived-together
+ * question's "Ended" box when the story gives no start (Chrome milestone test of #550, row 41: the box was empty with no
+ * offer after "separated in June 2026"). Only offered: Yes puts it in the box; it is never recorded unasked.
+ */
+export function separatedFromStory(story: string): { end: string; quote: string } | null {
+  const match = SEPARATED.exec(story);
+  const end = match ? readPartialDate(match[1]) : null;
+  return match && end ? { end, quote: match[0] } : null;
+}

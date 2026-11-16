@@ -10,6 +10,7 @@
  * Pure: no model, no network.
  */
 import { statedInStory } from "../intakeReview";
+import type { ReadingFact } from "../caseFile/storyOffers";
 import { formatForCourt, isRealIsoDate } from "../dates";
 import { factsOfQuestion } from "../caseFile/factsOfQuestion";
 import { sentences } from "../sentences";
@@ -47,8 +48,9 @@ function shown(fact: (typeof STATED_FACTS)[number], value: string): string {
  * The AI's proposals, plus an offer for each question the story states the fact of and the AI did not propose.
  * `questions`: the questions due now, in order. Never more than one offer per question.
  */
-export function withStatedProposals<P extends StatedOffer>(story: string, questions: readonly IntakeQuestion[], proposals: readonly P[]): (P | StatedOffer)[] {
-  const stated = statedInStory(story);
+export function withStatedProposals<P extends StatedOffer>(story: string, questions: readonly IntakeQuestion[], proposals: readonly P[], reading: readonly ReadingFact[] = []): (P | StatedOffer)[] {
+  // The one offer reader (caseFile/storyOffers.ts): the story reading's amount, when the story writes it, else the story's.
+  const stated = statedInStory(story, reading);
   const proposed = new Set(proposals.map((proposal) => proposal.questionId));
   const added: StatedOffer[] = [];
   for (const question of questions) {

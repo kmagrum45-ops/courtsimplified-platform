@@ -4,9 +4,10 @@ import { STORY_SECTION } from "../../src/lib/case-system/intakeStory";
 import { frontDoorStory } from "../../src/lib/case-system/personWords";
 import { courtOfPapers, filedFromSituation, sideOf, situationAnswers, situationFromRaw, situationSection, SITUATION_FIELD, SITUATION_SECTION, withKnownCourt } from "../../src/lib/case-system/situation/situation";
 import { writeIntakeSession } from "../../src/lib/case-system/intakeCheckpoint";
-import { useIntakeState, useIntakeRef, useStory, useCaseLocation, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, useSituation, IntakeRecoveryBoundary } from "./IntakeRecovery";
+import { useIntakeState, useIntakeRef, useStory, useCaseLocation, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, useSituation, useIntakeReviewView, IntakeRecoveryBoundary } from "./IntakeRecovery";
+import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { IntakeRequest } from "./intakeRequest";
 import { understandingInputError } from "../../src/lib/case-system/understanding/understandInput";
@@ -158,6 +159,9 @@ function HomeLocationGateContent() {
   // The one tribunal rule (fixedRegimes.ts exclusiveTribunalFor), checked in Continue before the AI reading (C1).
   const tribunalFirst = useTribunalFirst(facts.trim());
   const [situation] = useSituation();
+  // The case record as it is now, for the reading card's one-function checks (CaseUnderstandingCard file).
+  const reviewView = useIntakeReviewView();
+  const homeFile = useMemo(() => (reviewView ? caseFileOf(reviewView.checkpoint) : null), [reviewView]);
   const [userId, setUserId] = useState<string | null>(null);
   const [hydrated, setHydrated] = useState(false);
   const [checking, setChecking] = useState(false);
@@ -540,6 +544,7 @@ function HomeLocationGateContent() {
             <div ref={suggestionRef} tabIndex={-1}>
               <CaseUnderstandingCard
                 result={understood}
+                file={homeFile}
                 chosenPath={path}
                 story={facts}
                 city={city}

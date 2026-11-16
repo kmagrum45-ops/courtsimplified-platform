@@ -6,10 +6,6 @@
       "reason": "Form boxes ask through the asker (askOf), not the one function yet; slice 4."
     },
     {
-      "file": "app/_components/CaseUnderstandingCard.tsx",
-      "reason": "The home reading shows AI-written \"What we still need to know\" questions, filtered only for side, filed and served; slice 5."
-    },
-    {
       "file": "app/_components/IntakeRecovery.tsx",
       "reason": "Holds the review and confirm flow state that asks for confirmation; slice 3."
     },
@@ -40,14 +36,6 @@
     {
       "file": "app/builder/_components/FamilyStatusTriage.tsx",
       "reason": "The Family situation questions have their own list and record; slice 5."
-    },
-    {
-      "file": "app/builder/_components/IntelligenceOverviewPanel.tsx",
-      "reason": "The overview shows \"What to confirm next\" from the engine's own list; slice 5."
-    },
-    {
-      "file": "app/builder/_components/SmallClaimsIntake.tsx",
-      "reason": "The whole form's \"Still useful to add\" banner uses its own list over the form copy; slice 4."
     },
     {
       "file": "app/builder/_components/SourcedQuestions.tsx",
@@ -92,10 +80,6 @@
     {
       "file": "src/lib/case-system/intake/depth/selectDepthQuestions.ts",
       "reason": "Depth questions: every authored question is asked, with no case-file check; slice 5."
-    },
-    {
-      "file": "src/lib/case-system/intakeReview.ts",
-      "reason": "Review entries and suggestions read each section's copy (reviewEntries, suggestInitialAnswers); slice 3."
     },
     {
       "file": "src/lib/case-system/intelligence/answeredQuestions.ts",

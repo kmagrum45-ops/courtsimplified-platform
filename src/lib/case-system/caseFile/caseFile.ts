@@ -35,7 +35,7 @@ import type { Checkpoint } from "../intakeCheckpoint";
 import { freshSections } from "../storyBasis";
 import { isTypedUnsure, isUnsureAnswer } from "./unsureAnswer";
 import { storyOfMaster } from "../intakeStory";
-import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation, SERVED_DATE_QUESTION } from "../situation/situation";
+import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation, SERVED_DATE_QUESTION, JUST_SERVED } from "../situation/situation";
 import { isKindOfClaim, kindFromStory, storyQuoteFor, wordsInStory } from "../intake/claimKind";
 import { CLAIM_TYPES } from "../intake/claimTypes";
 import { kindForSide } from "../intake/roleView";
@@ -292,6 +292,9 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   if (situation.where === "going" || situation.where === "served") give(file, "filed", true, "situation:where");
   if (situation.papers) give(file, "papers", situation.papers === "not-sure" ? "not-sure" : firstPageOf(situation.papers)?.title ?? situation.papers, "situation:papers");
   if (situation.receivedOn) give(file, "servedDate", situation.receivedOn === "unknown" ? "unknown" : situation.receivedOn, "situation:received");
+  // "Nothing else yet. I was just served": no defence is filed yet (Chrome milestone test of #550, row 37: the review then
+  // asked "Have you filed a Defence (Form 9A) with the court yet?").
+  if (situation.where === "served" && situation.stage === JUST_SERVED) give(file, "defenceFiled", false, "situation:stage");
 
   // 2. Each area's own form (civil, Family, the Small Claims form).
   // The answers given to the story reading's questions on the home page (HomeLocationGate,

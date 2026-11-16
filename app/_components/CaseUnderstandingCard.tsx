@@ -12,6 +12,8 @@ import LegalAdviceDeflection from "./LegalAdviceDeflection";
 import TribunalNotice from "./TribunalNotice";
 import { WorkingButton } from "./Working";
 import { UseSuggestion } from "./UseSuggestion";
+import { factStatus, mayAskWords } from "@/src/lib/case-system/caseFile/factStatus";
+import type { CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
 
 /** Initial intake: factual reading, category clarification and questions only. */
 
@@ -42,6 +44,7 @@ export default function CaseUnderstandingCard({
   onDraftChange,
   onContinue,
   openingPath = null,
+  file = null,
 }: {
   result: UnderstandResponse;
   /** The person's own words, for the step panel's dates and service. */
@@ -54,6 +57,12 @@ export default function CaseUnderstandingCard({
   onContinue: (path: CourtPath, answers: { question: string; answer: string }[]) => void;
   /** The court whose intake is opening after a Continue (HomeLocationGate): that button says so, both wait. */
   openingPath?: CourtPath | null;
+  /**
+   * The case record (caseFile.ts), for the one function (factStatus.ts): a question whose fact is known or settled, or
+   * one the court's own intake asks, is not asked here; a court already chosen is not offered again (Chrome milestone
+   * test of #550, rows 6 and 45).
+   */
+  file?: CaseFile | null;
 }) {
   const { understanding } = result;
   const [replies, setReplies] = useIntakeState<Record<number, string>>("home-card", "replies", {});
@@ -76,6 +85,11 @@ export default function CaseUnderstandingCard({
     .map((item, index) => ({ question: item.question, answer: (replies[index] ?? "").trim() }))
     .filter((item) => item.answer);
   const suggested = asPath(understanding.mainCourt);
+  // The questions this card may ask, by their place in the reading (replies are kept by that place).
+  const asks = understanding.questions.map((item) => mayAskWords(file, item.question, { court: chosenPath }));
+  // The court the person already chose (the start's answer): the reading's same court is not offered again.
+  const heldCourt = file && factStatus(file, "court") === "known" && typeof file.court.value === "string" ? file.court.value : null;
+  const courtChosen = Boolean(suggested && heldCourt === suggested);
   const tribunal = understanding.matters.find((matter) => matter.court === "tribunal");
   // 2026-10-17 live bug (Case 1, a landlord-held deposit): see
   // betterDestinationKnown's own comment in betterDestination.ts.
@@ -134,11 +148,11 @@ export default function CaseUnderstandingCard({
         </section>
       ) : null}
 
-      {understanding.questions.length > 0 && (
+      {asks.some(Boolean) && (
         <section data-testid="case-understanding-questions">
           <h3 className="font-bold text-[#10231f]">What we still need to know</h3>
           <ol className="mt-2 space-y-3">
-            {understanding.questions.map((item, index) => (
+            {understanding.questions.map((item, index) => !asks[index] ? null : (
               <li key={`${index}-${item.question.slice(0, 20)}`} className="rounded-2xl border border-[#d8e6df] bg-white p-3">
                 <label className="block text-sm">
                   <span className="font-semibold text-[#16302b]">{item.question}</span>
@@ -191,7 +205,20 @@ export default function CaseUnderstandingCard({
           {COURT_LABEL[understanding.mainCourt]}. This is a suggestion, not a decision about your case; you choose where to continue.
         </p>
         <div className="mt-3 flex flex-wrap gap-3">
-          {suggested && isPathwayAvailable(suggested) && (
+          {/* The court chosen at the start: continue there, never asked again. */}
+          {courtChosen && suggested && isPathwayAvailable(suggested) ? (
+            <WorkingButton
+              disabled={updating || openingPath !== null}
+              working={openingPath === suggested}
+              workingLabel="Opening your intake…"
+              data-testid="case-understanding-continue-suggested"
+              onClick={() => onContinue(suggested, answered)}
+              className="rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
+            >
+              Continue with {PATH_LABEL[suggested]}
+            </WorkingButton>
+          ) : null}
+          {!courtChosen && suggested && isPathwayAvailable(suggested) && (
             // The one control every suggestion is offered with (owner, 31 Oct).
             <UseSuggestion
               // Where to continue: the person still chooses a court to go on, so "not sure" settles no fact; the offer is not made again.

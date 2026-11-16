@@ -46,7 +46,10 @@ type Side = "bringing" | "responding";
 type Stated = { amount?: string; when?: string; otherParty?: string };
 /** `home`: the home page's story reading asks these questions (Chrome check of #550, 5b-5d), answered with these words. */
 /** `parties`: the story gives the parties' details; the Parties step is answered from its offers (Chrome forms test, #550). */
-type Story = { name: string; court: Court; side: Side; text: string; served?: string; stated: Stated; amountLater?: true; home?: { question: string; answer: string }[]; parties?: true; marriedUnsure?: true };
+/** `reading`: the facts the home page's story reading shows, as the model gives them (Chrome milestone test of #550). */
+/** `married`: the Family triage's "Were you married?" answered No or "I'm not sure"; then no married-only sentence anywhere. */
+/** `situation`: the start's own answers, when they are not the plain ones (S6: just served with a Form 7A). */
+type Story = { name: string; court: Court; side: Side; text: string; served?: string; stated: Stated; amountLater?: true; home?: { question: string; answer: string }[]; parties?: true; marriedUnsure?: true; married?: "no" | "unsure"; reading?: { label: string; value: string }[]; situation?: SituationAnswers };
 const S = (name: string, court: Court, side: Side, text: string, stated: Stated, served?: string): Story => ({ name, court, side, text: `Synthetic: ${text}`, stated, served });
 
 export const STORIES: Story[] = [
@@ -109,6 +112,27 @@ export const STORIES: Story[] = [
   // Chrome's forms test on #550 (14 Nov): the person's own details and two defendants, typed in the story; the Parties step
   // offers each once; no party detail is asked again on any page afterwards.
   { ...S("sc-forms-chrome", "small-claims", "bringing", "On October 4, 2026 I slipped on a wet floor at the Circle K on Sample Road in Ottawa and fell. I want to claim $5,000 for pain and suffering, $450 in lost wages and $18.45 for medicine. My name is Test Plaintiff, 12 Example Street, Ottawa ON K1A 0A1, phone 613-555-0100, email test.plaintiff@example.com. I am suing Circle K Convenience Stores Ltd., 100 Sample Road, Ottawa ON K1B 0B1, and also the store manager, Test Manager, at the same address.", { amount: "5468.45", when: "October 4, 2026", otherParty: "Circle K Convenience Stores Ltd." }), parties: true },
+  // Chrome's milestone test of #550 (16 Nov 2026), its stories S1 to S8 as Chrome ran them from the home page: the
+  // reading shows what Chrome saw it show, and each page afterwards (the review, the Parties step, the next step, the case
+  // page, the Forms tab) must ask nothing the person or the reading already gave.
+  { ...S("milestone-s1-injury", "small-claims", "bringing", "On October 4, 2026 I slipped on a wet floor inside the Circle K on Sample Road in Ottawa and fell. I hurt my back, missed 3 days of work at $150 a day, $450 in all, and paid $18.45 for medicine. I want $5,000 for pain and suffering too.", { amount: "5468.45", when: "October 4, 2026" }),
+    home: [{ question: "Did you see a doctor after the fall?", answer: "Yes, at the hospital the same day." }],
+    reading: [{ label: "Amount sought", value: "$5,468.45 total, including $5,000 for pain and suffering" }, { label: "Lost wages", value: "3 days at $150 per day, totalling $450" }, { label: "Medicine", value: "$18.45" }] },
+  { ...S("milestone-s4-tree", "small-claims", "bringing", "On October 4, 2026 my neighbour cut down a tree on my side of the property line. I want the tree replaced and I got a quote for $1500 to do the work.", { amount: "1500", when: "October 4, 2026" }),
+    home: [{ question: "Did you give permission to cut the tree?", answer: "No." }],
+    reading: [{ label: "Replacement quote", value: "$1,500" }] },
+  { ...S("milestone-s5-loan", "small-claims", "bringing", "In March 2026 I lent my friend Alex $3,000. He promised to pay me back by June 1, 2026 and has paid nothing.", { amount: "3000", when: "March 2026", otherParty: "Alex" }),
+    home: [{ question: "Is there anything in writing about the loan?", answer: "Text messages." }],
+    reading: [{ label: "Other party", value: "Your friend Alex" }, { label: "Amount", value: "$3,000" }], parties: true },
+  { ...S("milestone-s6-sued", "small-claims", "responding", "A contractor redid my kitchen. They have sued me for $4,200. I agree I hired the contractor. I disagree that I owe $4,200: I already paid $2,000 and the work was bad.", { amount: "4200" }, "October 20, 2026"),
+    home: [{ question: "What do you dispute about the claim?", answer: "The work was bad and I already paid $2,000." }],
+    situation: { where: "served", stage: "just-served", papers: "small-claims/7A", receivedOn: "2026-10-20", court: "small-claims" } },
+  { ...S("milestone-s7a-family-not-married", "family", "bringing", "Jordan Testpartner and I lived together and separated in June 2026. We were never married. Our son is 4 and lives with me. I want a parenting schedule.", { otherParty: "Jordan Testpartner" }),
+    home: [{ question: "Are you and your partner legally married?", answer: "" }, { question: "Does your son see his other parent now?", answer: "Every second weekend." }], married: "no" },
+  { ...S("milestone-s7b-family-unsure", "family", "bringing", "Robin Testpartner and I separated in May 2026. Our daughter is 7 and lives with me. I want child support and a parenting schedule.", { otherParty: "Robin Testpartner" }),
+    home: [{ question: "Are you and your partner legally married?", answer: "" }, { question: "Does your daughter see her other parent now?", answer: "Sometimes." }], married: "unsure" },
+  { ...S("milestone-s8-civil", "civil", "bringing", "I sold $85,000 of equipment to Testgoods Ltd. in Ottawa. Payment was due September 30, 2026 and nothing has been paid.", { amount: "85000", otherParty: "Testgoods Ltd." }),
+    home: [{ question: "Is there a written contract?", answer: "Yes, an invoice and a purchase order." }] },
 ];
 
 export type Violation = { story: string; court: Court; side: Side; kind: "asked-twice" | "stated-cold" | "typed-reconfirm" | "missing-label"; fact: string; screen: string; detail: string };
@@ -126,6 +150,7 @@ const TYPED_NOT_SURE = "I do not know yet";
 const OFFER_SURFACES = new Set(["sc-proposal", "story-proposal-row", "guided-form-from-story", "claim-kind", "parties-offer"]);
 
 function situationOf(story: Story): SituationAnswers {
+  if (story.situation) return story.situation;
   if (story.side === "bringing") return { ...STARTING_NOTHING_FILED, court: story.court };
   return { where: "served", papers: "not-sure", receivedOn: story.served ?? "unknown", court: story.court };
 }
@@ -152,6 +177,9 @@ async function giveStory(page: Page, story: Story) {
     await page.getByRole("button", { name: `Continue to ${{ "small-claims": "Small Claims", family: "Family", civil: "Civil" }[story.court]} intake` }).click();
     const questions = page.getByTestId("case-understanding-questions");
     if (await visible(questions, 120_000)) {
+      // Family: whether they were married is the triage's one question (factStatus.ts ASKED_BY_THE_INTAKE), never asked on
+      // the home page beside it (Chrome milestone test of #550, row 45).
+      if (story.court === "family") await expect(questions.getByLabel("Are you and your partner legally married?", { exact: true }), "married is asked once, by the triage").toHaveCount(0);
       for (const { question, answer } of story.home) {
         const box = questions.getByLabel(question, { exact: true });
         if (await box.isVisible().catch(() => false)) await box.fill(answer);
@@ -159,6 +187,9 @@ async function giveStory(page: Page, story: Story) {
       await page.getByTestId("case-understanding-update").click().catch(() => {});
       await expect(questions).toHaveCount(0, { timeout: 120_000 }).catch(() => {});
     }
+    // The court was chosen at the start (situationOf: every story's start names its court): the reading's same court is
+    // not asked again with Yes / No / I'm not sure (Chrome milestone test of #550, row 6, every story).
+    await expect(page.getByTestId("case-understanding").getByRole("button", { name: /^(No, that.s not right|I.m not sure)$/ }), "the court chosen at the start is not asked again").toHaveCount(0);
     await page.getByTestId("case-understanding-continue-suggested").click();
     await page.waitForURL(/\/builder\?.*intake=/, { timeout: 90_000 });
   } else if (story.court === "small-claims") {
@@ -262,7 +293,7 @@ async function guidedForm(page: Page, story: Story, typed: Map<string, string>) 
 }
 
 /** The Family triage's "Were you married?" answered "I'm not sure" when it is on the page (decision A); true once answered. */
-async function triageMarriedUnsure(page: Page, seen: string[], wait: number): Promise<boolean> {
+async function triageMarriedUnsure(page: Page, seen: string[], wait: number, answer: "unsure" | "no" = "unsure"): Promise<boolean> {
   const married = page.locator("[data-testid=triage-question][data-question=married-to-other-party]");
   if (!(await visible(married, wait))) return false;
   // The answer must reach the saved intake record (the case page reads it). A person who leaves is held until it is
@@ -273,13 +304,13 @@ async function triageMarriedUnsure(page: Page, seen: string[], wait: number): Pr
     if (request.method() !== "PATCH" || !request.url().includes("/rest/v1/cases") || !response.ok()) return false;
     try {
       const body = JSON.parse(request.postData() ?? "{}") as { master_result?: { intakeCheckpoint?: { sections?: { builder?: { triageState?: { record?: { marriedToOtherParty?: string } } } } } } };
-      return body.master_result?.intakeCheckpoint?.sections?.builder?.triageState?.record?.marriedToOtherParty === "unsure";
+      return body.master_result?.intakeCheckpoint?.sections?.builder?.triageState?.record?.marriedToOtherParty === answer;
     } catch { return false; }
   }, { timeout: 60_000 });
-  await married.getByTestId("triage-answer-unsure").click();
+  await married.getByTestId(`triage-answer-${answer}`).click();
   await expect(married).toHaveCount(0, { timeout: 30_000 });
   await saved.catch(() => { throw new Error("the married \"I'm not sure\" answer never reached the saved intake record"); });
-  seen.push("triage: married answered I'm not sure, saved");
+  seen.push(`triage: married answered ${answer}, saved`);
   return true;
 }
 
@@ -385,9 +416,17 @@ const MISSING_WORDS = /not yet been clearly entered|not answered yet|has not yet
 async function readLabels(page: Page, story: Story, id: string, known: Set<string>, found: Violation[], seen: string[]) {
   const pages: [string, string][] = [["case page", `/cases/${id}`], ["case file", `/cases/${id}/case-file`]];
   if (story.court === "small-claims" && story.side === "bringing") pages.push(["draft", `/cases/${id}/drafts`]);
+  // The Forms tab (Chrome milestone test of #550, row 25: "Have you confirmed this is an eligible Ontario Small Claims
+  // Court matter?" asked after Small Claims was chosen at the start).
+  pages.push(["forms", `/cases/${id}/forms`]);
   for (const [screen, address] of pages) {
     await page.goto(address).catch(() => {});
     await page.waitForTimeout(6_000);
+    if (screen === "forms" && story.court === "small-claims") {
+      // The court was chosen at the start: the eligibility question is kept from the case, never an open select.
+      const open = page.locator("label", { hasText: "eligible Ontario Small Claims Court matter" }).locator("select");
+      if (await open.count()) found.push({ story: story.name, court: story.court, side: story.side, kind: "asked-twice", fact: "court", screen: "forms", detail: "Have you confirmed this is an eligible Ontario Small Claims Court matter? Select an answer" });
+    }
     if (screen === "draft") {
       // The draft is made when the person starts it from the Drafts tab.
       const start = page.getByRole("button", { name: /Plaintiff.s Claim \(Form 7A\)/ }).or(page.getByRole("link", { name: /Plaintiff.s Claim \(Form 7A\)/ })).first();
@@ -421,21 +460,22 @@ for (const story of STORIES) {
     let reached = "start";
     try {
       await autoAnswerSituation(page, situationOf(story));
-      await serveModelStandIns(page, story.court, userId, story.home ? { homeQuestions: story.home.map((item) => item.question) } : {});
+      await serveModelStandIns(page, story.court, userId, story.home ? { homeQuestions: story.home.map((item) => item.question), homeFacts: story.reading ?? [] } : {});
       const events: Asked[] = await recordAsks(page);
       await giveStory(page, story);
       reached = "story";
       const id = new URL(page.url()).searchParams.get("intake") ?? "";
-      let triaged = story.marriedUnsure ? await triageMarriedUnsure(page, seen, 20_000) : false;
+      const married = story.married ?? (story.marriedUnsure ? "unsure" : undefined);
+      let triaged = married ? await triageMarriedUnsure(page, seen, 20_000, married) : false;
       if (story.court === "small-claims") await smallClaimsChat(page, story, typed);
       else await guidedForm(page, story, typed);
-      if (story.marriedUnsure && !triaged) triaged = await triageMarriedUnsure(page, seen, 30_000);
+      if (married && !triaged) triaged = await triageMarriedUnsure(page, seen, 30_000, married);
       reached = "questions";
       const nextStep = await reviewAndNextStep(page, story, typed, found, seen);
       // The page asks "Were you married?" only once the questions are finished (the review's Continue: familyQuestionsDone,
       // page.tsx), so it is looked for after the review too.
-      if (story.marriedUnsure && !triaged) triaged = await triageMarriedUnsure(page, seen, 60_000);
-      if (story.marriedUnsure) expect(triaged, "the triage asked whether married, and took \"I'm not sure\"").toBe(true);
+      if (married && !triaged) triaged = await triageMarriedUnsure(page, seen, 60_000, married);
+      if (married) expect(triaged, `the triage asked whether married, and took "${married}"`).toBe(true);
       if (nextStep) reached = "next step";
       if (story.amountLater && story.stated.amount) {
         await page.goto(`/builder?path=${story.court}&intake=${id}&change=amount`);
@@ -452,12 +492,12 @@ for (const story of STORIES) {
       const known = new Set<string>([...Object.keys(story.stated).filter((fact) => fact !== "when").concat(story.stated.when && /\d{1,2}, \d{4}/.test(story.stated.when) ? ["whenHappened"] : []), ...typed.keys()]);
       await readLabels(page, story, id, known, found, seen);
       if (story.parties) await checkFilledForms(page, id, seen);
-      if (story.marriedUnsure) {
+      if (married) {
         await page.goto(`/cases/${id}`);
         await expect(page.getByRole("heading", { name: "Your next step" })).toBeVisible({ timeout: 120_000 }).catch(() => {});
         const text = await page.locator("body").innerText(); // the whole page (it has two <main>)
         const shown = MARRIED_ONLY_SENTENCES.filter((sentence) => text.includes(sentence));
-        expect(shown, "no married-only sentence on the case page after married \"I'm not sure\"").toEqual([]);
+        expect(shown, `no married-only sentence on the case page after married "${married}"`).toEqual([]);
       }
       reached = reached === "next step" ? "all pages" : reached;
       const situation = situationOf(story);

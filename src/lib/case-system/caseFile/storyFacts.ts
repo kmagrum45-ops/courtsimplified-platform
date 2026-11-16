@@ -198,7 +198,7 @@ export function witnessIn(story: string): StoryFact | null {
 /** "I have …" naming things they hold, never "I have to respond" or "We have a case going". */
 const HAVE = /\b(?:I have|I've got|I kept|I still have|we have|I took|I saved|I've kept)\b\s+(?!to\b|no\b|not\b|been\b|a (?:case|lawyer|court)\b|an? (?:hearing|appointment)\b)(.+)$/i;
 /** A kind of record a person can show. */
-const EVIDENCE_WORDS = /\b(?:photos?|pictures?|screenshots?|texts?|text messages?|messages?|emails?|e-mails?|receipts?|invoices?|contracts?|agreements?|notes?|letters?|records?|reports?|videos?|recordings?|statements?|documents?|papers?|certificates?|bills?|estimates?|quotes?|cheques?|checks?|bank statements?|transcripts?|logs?|warranty|ticket|footage|proof|copies|copy)\b/i;
+const EVIDENCE_WORDS = /\b(?:photos?|pictures?|screenshots?|texts?|text messages?|messages?|emails?|e-mails?|receipts?|invoices?|contracts?|agreements?|notes?|letters?|records?|reports?|videos?|recordings?|statements?|documents?|papers?|certificates?|bills?|estimates?|quotes?|cheques?|checks?|bank statements?|transcripts?|logs?|warranty|ticket|footage|proof|copies|copy|x-rays?|xrays?|scans?|prescriptions?)\b/i;
 /** Children, a partner or an arrangement had, never a record: "we have two kids", "joint custody". */
 const PEOPLE_OR_ARRANGEMENT = /^\s*(?:(?:two|three|four|\d+|a|one|our|my) )?(?:kids?|children|child|sons?|daughters?|baby|custody|joint custody|shared custody|parenting)\b/i;
 /** The evidence they say they have, each item in plain words ("The clinic note; photos of the wrist"). */
