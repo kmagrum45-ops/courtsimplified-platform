@@ -205,6 +205,14 @@ const ask = (surface: string, id: string, text = id): Asked => ({ kind: "ask", s
   let parses = true;
   try { new Function(scan); } catch { parses = false; }
   check("the recorder script parses, and its chat answer goes through chatQuestionAnswered", parses && scan.includes("chatQuestionAnswered({ pressedAnswer: chatPressed.has(chatKey)"));
+  // An empty box is a question only once steadily empty ON THE SAME SCREEN (site owner, 16 Nov 2026: on #550's CI the
+  // scans from the screen being left counted on the new one; watcher-steady-by-screen.spec.ts shows it in the browser).
+  // One counter, keyed by screen and box, and every emptiness test of a box in the surfaces goes through it.
+  check("steadyEmpty counts empty scans by screen as well as by box", /const steadyEmpty = \(box, empty\) => \{ const key = screen\(\) \+ "\|" \+ box;/.test(scan));
+  check("no other counter of empty scans in the recorder (one place owns it)", (scan.match(/emptyScans\.set\(/g) ?? []).length === 1 && (scan.match(/Scans\s*=\s*new Map/g) ?? []).length === 1);
+  const surfacesText = scan.slice(scan.indexOf("const surfaces = ["), scan.indexOf("\n  ];", scan.indexOf("const surfaces = [")));
+  const emptinessTests = surfacesText.split("\n").filter((line) => /!\s*[\w.]*\.value\b|\.value(?:\.trim\(\))?\s*===\s*""/.test(line));
+  check("every emptiness test of a box in the recorder's surfaces goes through steadyEmpty", emptinessTests.length > 0 && emptinessTests.every((line) => line.includes("steadyEmpty(")), emptinessTests.filter((line) => !line.includes("steadyEmpty(")).join(" | "));
   // The run-4 sequence: the chat shows "What kind of case is it?", the person opens the whole form (no
   // answer recorded), the review asks it: one question, not a repeat. Pressed and answered, the review asking again is one.
   const kindAsk = (surface: string, id: string, at: number): Asked => ({ kind: "ask", surface, id, screen: "/builder", text: "What kind of case is it?", at });

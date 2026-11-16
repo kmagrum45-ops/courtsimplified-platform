@@ -127,9 +127,12 @@ const SCAN = `(() => {
   const formsQuestions = () => [...document.querySelectorAll("p")].filter((p) => words(p).startsWith("Answer these and we will show the official forms")).flatMap((p) => [...p.parentElement.querySelectorAll("label.block, [data-testid=forms-suggested-from-case]")]);
   // The civil and Family forms' text boxes: a label holding a heading and a textarea with no test id (the Small Claims form's own carry theirs and are read by key above), outside the review and the other asking places.
   const formLabels = () => [...document.querySelectorAll("label")].filter((l) => l.querySelector(":scope > textarea:not([data-testid])") && l.querySelector(":scope > span.font-semibold") && !l.closest("[data-testid=intake-review], [data-testid=sourced-questions], [data-testid=case-understanding], [data-testid=case-partner-transcript]"));
-  // A form field asks when it stays empty for three scans (a field the page is still filling is not a question yet).
+  // A form field asks when it stays empty for three scans ON THIS SCREEN (a field the page is still filling is not a
+  // question yet). Counted by screen as well as by box (site owner, 16 Nov 2026): the address changes before the page
+  // hides the screen it leaves (pushStep), so scans from the screen left must not count on the new one
+  // (watcher-steady-by-screen.spec.ts; #550 CI, carry Small Claims form signed-in).
   const emptyScans = new Map();
-  const steadyEmpty = (key, empty) => { if (!empty) { emptyScans.delete(key); return false; } const n = (emptyScans.get(key) || 0) + 1; emptyScans.set(key, n); return n >= 3; };
+  const steadyEmpty = (box, empty) => { const key = screen() + "|" + box; if (!empty) { emptyScans.delete(key); return false; } const n = (emptyScans.get(key) || 0) + 1; emptyScans.set(key, n); return n >= 3; };
   const surfaces = [
     ["situation", "[data-testid=situation-questions]", (el) => [el.getAttribute("data-question")]],
     ["chat", "[data-testid=guided-form-question]", (el) => [el.getAttribute("data-key")]],

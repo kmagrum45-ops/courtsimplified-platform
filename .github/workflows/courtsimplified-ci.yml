@@ -933,6 +933,7 @@ jobs:
               tests/browser/offer-choices.spec.ts
           - shard: 2
             specs: >-
+              tests/browser/watcher-steady-by-screen.spec.ts
               tests/browser/intake-reset.spec.ts
               tests/browser/case-understanding-continuity.spec.ts
               tests/browser/story-single-source.spec.ts
