@@ -29,6 +29,7 @@ import { useParams, usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import GetHelp from "../../_components/GetHelp";
+import NoticeGate from "../../_components/NoticeGate";
 import LegalInformationNotice from "../../_components/LegalInformationNotice";
 import { userIsResponding } from "../../builder/_components/respondingSide";
 import { positionSavesSettled } from "../../builder/_components/positionSave";
@@ -63,7 +64,17 @@ const SECTIONS = [
 const asRecord = (value: unknown): Record<string, unknown> =>
   value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
 
+/**
+ * The "Before you start" notice first, when this person has no recorded acceptance (an older saved case, a new device):
+ * every section here can start work (the next-step answer, the law explanation, the case review, decision help, the
+ * timeline's event reading, form generation, the wording tidy-up), so nothing of the case is drawn before it is accepted
+ * (site owner, 16 Nov 2026; NoticeGate.tsx).
+ */
 export default function CaseLayout({ children }: { children: React.ReactNode }) {
+  return <NoticeGate><CaseLayoutBody>{children}</CaseLayoutBody></NoticeGate>;
+}
+
+function CaseLayoutBody({ children }: { children: React.ReactNode }) {
   const params = useParams();
   const pathname = usePathname();
   const router = useRouter();

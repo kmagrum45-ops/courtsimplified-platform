@@ -893,82 +893,83 @@ jobs:
         include:
           - shard: 1
             specs: >-
-              tests/browser/intake-reliability.spec.ts
-              tests/browser/family-civil-intake-reliability.spec.ts
               tests/browser/intake-recovery.spec.ts
               tests/browser/intake-review.spec.ts
               tests/browser/intake-guidance-gate.spec.ts
               tests/browser/guest-guidance.spec.ts
-              tests/browser/intake-review-polish.spec.ts
-              tests/browser/guest-sign-in-carry.spec.ts
               tests/browser/header-account.spec.ts
               tests/browser/chat-follow-up.spec.ts
-              tests/browser/courthouses-phone.spec.ts
-              tests/browser/case-page-next-step.spec.ts
               tests/browser/form-view-not-sure.spec.ts
               tests/browser/chat-typed-answer-change.spec.ts
-              tests/browser/overview-when-matches-case-page.spec.ts
               tests/browser/held-fill-continue.spec.ts
               tests/browser/next-step-click-never-dropped.spec.ts
-              tests/browser/form-box-follows-record.spec.ts
-              tests/browser/form-box-two-tabs.spec.ts
               tests/browser/next-step-opens-overview.spec.ts
               tests/browser/open-writes-nothing.spec.ts
-              tests/browser/case-gate-shows-case-file.spec.ts
               tests/browser/deadlines-one-place.spec.ts
-              tests/browser/no-finish-line-while-working.spec.ts
               tests/browser/pick-everything-asked.spec.ts
-              tests/browser/chrome-545-round.spec.ts
-              tests/browser/feedback-link.spec.ts
-              tests/browser/finder-story-leak.spec.ts
               tests/browser/claim-kind-one-value.spec.ts
               tests/browser/chrome-31oct-review.spec.ts
               tests/browser/change-answer.spec.ts
+              tests/browser/not-sure-never-asked.spec.ts
+              tests/browser/watcher-steady-by-screen.spec.ts
+              tests/browser/intake-reset.spec.ts
+              tests/browser/case-understanding-continuity.spec.ts
+              tests/browser/story-change-every-flow.spec.ts
+              tests/browser/retest-471.spec.ts
+              tests/browser/stage-rule.spec.ts
+              tests/browser/review-buttons-say-why.spec.ts
+              tests/browser/review-save-retry.spec.ts
+              tests/browser/whole-form-after-confirm.spec.ts
+              tests/browser/waiting-line-ends.spec.ts
+              tests/browser/saved-step-shows-at-once.spec.ts
+              tests/browser/restart-button-real-click.spec.ts
+              tests/browser/understood-other-party.spec.ts
+              tests/browser/worked-out-date-not-an-answer.spec.ts
+              tests/browser/tribunal-first.spec.ts
+              tests/browser/review-typed-goal-kept.spec.ts
+              tests/browser/never-ask-twice-reading.spec.ts
+              tests/browser/story-fact-chat.spec.ts
+              tests/browser/sc-asker.spec.ts
+              tests/browser/notice-on-case-pages.spec.ts
+          - shard: 2
+            specs: >-
+              tests/browser/intake-reliability.spec.ts
+              tests/browser/family-civil-intake-reliability.spec.ts
+              tests/browser/intake-review-polish.spec.ts
+              tests/browser/guest-sign-in-carry.spec.ts
+              tests/browser/courthouses-phone.spec.ts
+              tests/browser/case-page-next-step.spec.ts
+              tests/browser/overview-when-matches-case-page.spec.ts
+              tests/browser/form-box-follows-record.spec.ts
+              tests/browser/form-box-two-tabs.spec.ts
+              tests/browser/case-gate-shows-case-file.spec.ts
+              tests/browser/no-finish-line-while-working.spec.ts
+              tests/browser/chrome-545-round.spec.ts
+              tests/browser/feedback-link.spec.ts
+              tests/browser/finder-story-leak.spec.ts
               tests/browser/phone-width.spec.ts
               tests/browser/offer-never-without-buttons.spec.ts
               tests/browser/notice-before-work.spec.ts
               tests/browser/address-opens-chosen-case.spec.ts
-              tests/browser/not-sure-never-asked.spec.ts
               tests/browser/removal-stays-removed.spec.ts
               tests/browser/offer-choices.spec.ts
-          - shard: 2
-            specs: >-
-              tests/browser/watcher-steady-by-screen.spec.ts
-              tests/browser/intake-reset.spec.ts
-              tests/browser/case-understanding-continuity.spec.ts
               tests/browser/story-single-source.spec.ts
-              tests/browser/story-change-every-flow.spec.ts
               tests/browser/retest-470.spec.ts
-              tests/browser/retest-471.spec.ts
-              tests/browser/stage-rule.spec.ts
               tests/browser/tick-helper.spec.ts
               tests/browser/items-8-12.spec.ts
               tests/browser/retest-29oct-flow.spec.ts
               tests/browser/restart-asked-once.spec.ts
               tests/browser/restart-keeps-answers.spec.ts
-              tests/browser/review-buttons-say-why.spec.ts
-              tests/browser/review-save-retry.spec.ts
-              tests/browser/whole-form-after-confirm.spec.ts
               tests/browser/update-screen-case-file.spec.ts
-              tests/browser/waiting-line-ends.spec.ts
-              tests/browser/saved-step-shows-at-once.spec.ts
               tests/browser/restart-keeps-other-party.spec.ts
-              tests/browser/restart-button-real-click.spec.ts
-              tests/browser/understood-other-party.spec.ts
-              tests/browser/worked-out-date-not-an-answer.spec.ts
-              tests/browser/tribunal-first.spec.ts
               tests/browser/review-answered-kept.spec.ts
-              tests/browser/review-typed-goal-kept.spec.ts
               tests/browser/suggestions-offered.spec.ts
-              tests/browser/never-ask-twice-reading.spec.ts
               tests/browser/story-box-guidance.spec.ts
               tests/browser/home-notice.spec.ts
               tests/browser/review-answer-clears-unknown.spec.ts
               tests/browser/not-sure-goal-review.spec.ts
               tests/browser/review-newest-answer.spec.ts
-              tests/browser/story-fact-chat.spec.ts
               tests/browser/stage-not-sure.spec.ts
-              tests/browser/sc-asker.spec.ts
               tests/browser/review-save-on-leave.spec.ts
               tests/browser/review-writer.spec.ts
 

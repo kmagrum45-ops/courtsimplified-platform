@@ -96,6 +96,11 @@ const gate = ci.jobs?.["browser-regression"];
 const needs = [gate?.needs].flat();
 const gateRun = (gate?.steps ?? []).map((step: { run?: string }) => step.run ?? "").join("\n");
 check("the job named browser-regression waits for the shards and passes only when they all passed", needs.includes("browser-regression-shard") && gate?.if === "always()" && /test "\$\{\{ needs\.browser-regression-shard\.result \}\}" = "success"/.test(gateRun));
+// The shards keep the old job's guards (a rebalance that rewrote the lists dropped the env block once, 16 Nov 2026):
+// AI calls counted in the test server's own memory, the staging database read first, and production refused.
+const env = shardJob?.env ?? {};
+const stepNames = (shardJob?.steps ?? []).map((step: { name?: string }) => step.name ?? "");
+check("the shards keep their guards: AI_RATE_LIMITS local, the staging database first, production refused", env.AI_RATE_LIMITS === "local" && /secrets\.STAGING_SUPABASE_URL \|\|/.test(String(env.NEXT_PUBLIC_SUPABASE_URL ?? "")) && /secrets\.STAGING_SUPABASE_SERVICE_ROLE_KEY \|\|/.test(String(env.SUPABASE_SERVICE_ROLE_KEY ?? "")) && stepNames.includes("Refuse a production database"));
 check("each shard keeps its failures apart (artifact names carry the shard)", JSON.stringify(shardJob?.steps ?? []).split("upload-artifact").length - 1 === (JSON.stringify(shardJob?.steps ?? []).match(/-\$\{\{ matrix\.shard \}\}/g) ?? []).length);
 
 // 5. Self-tests.

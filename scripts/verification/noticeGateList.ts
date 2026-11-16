@@ -54,14 +54,10 @@ export const BUILT_ADDRESSES: Record<string, { routes: string[]; why: string }> 
   "src/lib/canlii/canliiServer.ts": { routes: ["https://api.canlii.org/"], why: "Server side only: CanLII's metadata API (canliiCore.ts), never from the browser." },
 };
 
-/** Pages that can send a work request and do not show the notice, each with why. */
-// Declared so a NEW page that sends work fails test:notice-gate; each of these is a known gap waiting on the site owner.
-export const PAGES_WITHOUT_NOTICE: Record<string, string> = {
-  "app/cases/[id]/page.tsx": "No notice on this page: the law explanation, case strategy (off on the live site), case review and next-step answer can be sent from it without the notice on a browser where it was never accepted (a case opened on a new device or after site data was cleared). It cannot pass without showing the notice here; reported to the site owner 15 Nov 2026, their decision.",
-  "app/cases/[id]/case-file/page.tsx": "No notice on this page: the next-step answer and the court decision help can be sent from it without the notice on a browser where it was never accepted (a case opened on a new device or after site data was cleared). It cannot pass without showing the notice here; reported to the site owner 15 Nov 2026, their decision.",
-  "app/cases/[id]/documents/page.tsx": "No notice on this page: the court decision help can be sent from it without the notice on a browser where it was never accepted (a case opened on a new device or after site data was cleared). It cannot pass without showing the notice here; reported to the site owner 15 Nov 2026, their decision.",
-  "app/cases/[id]/drafts/page.tsx": "No notice on this page: the wording tidy-up can be sent from it without the notice on a browser where it was never accepted (a case opened on a new device or after site data was cleared). It cannot pass without showing the notice here; reported to the site owner 15 Nov 2026, their decision.",
-  "app/cases/[id]/forms/page.tsx": "No notice on this page: the next-step answer and form generation can be sent from it without the notice on a browser where it was never accepted (a case opened on a new device or after site data was cleared). It cannot pass without showing the notice here; reported to the site owner 15 Nov 2026, their decision.",
-  "app/cases/[id]/timeline/page.tsx": "No notice on this page: the timeline's event reading, the next-step answer and the court decision help can be sent from it without the notice on a browser where it was never accepted (a case opened on a new device or after site data was cleared). It cannot pass without showing the notice here; reported to the site owner 15 Nov 2026, their decision.",
-  "app/forms/page.tsx": "No notice on this page: form generation (the public forms page, reached without a case) can be sent from it without the notice on a browser where it was never accepted (a case opened on a new device or after site data was cleared). It cannot pass without showing the notice here; reported to the site owner 15 Nov 2026, their decision.",
-};
+/**
+ * Pages that can send a work request and do not show the notice: each with why, and the site owner's review. Empty
+ * since 16 Nov 2026: the six case pages (through their layout) and the public forms page go through NoticeGate. A new
+ * entry fails test:notice-gate until it names the site owner's review; a new page that sends work fails until it goes
+ * through the notice or is listed here.
+ */
+export const PAGES_WITHOUT_NOTICE: Record<string, { reason: string; reviewed: string }> = {};

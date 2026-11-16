@@ -10,8 +10,10 @@
  *   2. A fetch whose address is not written out (a variable, a template) is declared in BUILT_ADDRESSES with what it
  *      calls, so a work request cannot hide behind a variable.
  *   3. Every API route that calls a model (its import closure reaches the OpenAI client) is a work route.
- *   4. Every page (app/** /page.tsx) whose import closure reaches a work sender either goes through the notice
- *      (NOTICE_PAGES: each gate checked in its source below) or is declared in PAGES_WITHOUT_NOTICE with why. A page that
+ *   4. Every page (app/** /page.tsx) whose import closure, or a layout drawn around it, reaches a work sender either goes
+ *      through the notice (NOTICE_PAGES, each gate checked in its source below; or the page or a layout around it draws
+ *      everything inside NoticeGate, 16 Nov 2026) or is declared in PAGES_WITHOUT_NOTICE with why and the site owner's
+ *      review (the list is empty). A page that
  *      newly reaches a work sender fails until it is one or the other, and a declared page that no longer reaches one
  *      fails too, so the list stays the code's list.
  *   5. The gates themselves: the builder page returns only the notice until it is accepted, and nothing drawn outside
@@ -77,13 +79,35 @@ check(`every API route the browser calls that reaches the model is a work route 
 // ---- 4. Every page that reaches a work sender goes through the notice, or is declared without it ------------------
 const senderFiles = new Set(WORK_SENDERS.map((sender) => path.join(ROOT, sender.file)));
 const pages = files("app", (f) => /[\\/]page\.tsx$/.test(f));
-const reaching = pages.filter((page) => importClosure([rel(page)]).some((file: string) => senderFiles.has(path.resolve(file)))).map(rel);
+/** The layouts drawn around a page: layout.tsx in its own folder and every folder above it, up to app/. */
+const layoutsOf = (page: string): string[] => {
+  const out: string[] = [];
+  for (let dir = path.dirname(page); ; dir = path.dirname(dir)) {
+    const layout = path.join(dir, "layout.tsx");
+    try { readFileSync(layout); out.push(layout); } catch { /* none here */ }
+    if (path.resolve(dir) === path.join(ROOT, "app")) break;
+  }
+  return out;
+};
+const reachesSender = (file: string) => importClosure([rel(file)]).some((found: string) => senderFiles.has(path.resolve(found)));
+// A page reaches a sender through its own imports or a layout drawn around it (a layout's closure counts too).
+const reaching = pages.filter((page) => reachesSender(page) || layoutsOf(page).some(reachesSender)).map(rel);
+/** A file whose default export draws everything inside NoticeGate (the one gate, app/_components/NoticeGate.tsx). */
+const drawsInsideGate = (file: string) => {
+  const text = readFileSync(file, "utf8");
+  return /import NoticeGate from "[./]*(?:\.\.\/)*_components\/NoticeGate"|import NoticeGate from "\.\/NoticeGate"/.test(text) && /export default function \w+\([^)]*\)[^{]*\{\s*(?:\/\/[^\n]*\n\s*)*return \(?\s*<NoticeGate>/.test(text);
+};
 const NOTICE_PAGES = ["app/page.tsx", "app/builder/page.tsx"];
-const undeclared = reaching.filter((page) => !NOTICE_PAGES.includes(page) && !(page in PAGES_WITHOUT_NOTICE));
-check("every page that can send a work request goes through the notice or is declared without it", undeclared.length === 0, undeclared.join(", "));
-const stale = Object.keys(PAGES_WITHOUT_NOTICE).filter((page) => !reaching.includes(page));
-check("every page declared without the notice still sends a work request (the list stays the code's list)", stale.length === 0, stale.join(", "));
-console.log(`      pages without the notice that can send work: ${Object.keys(PAGES_WITHOUT_NOTICE).length}`);
+const gated = (page: string) => NOTICE_PAGES.includes(page) || drawsInsideGate(path.join(ROOT, page)) || layoutsOf(path.join(ROOT, page)).some(drawsInsideGate);
+const undeclared = reaching.filter((page) => !gated(page) && !(page in PAGES_WITHOUT_NOTICE));
+check("every page that can send a work request (through its own imports or a layout around it) goes through the notice or is declared without it", undeclared.length === 0, undeclared.join(", "));
+const stale = Object.keys(PAGES_WITHOUT_NOTICE).filter((page) => !reaching.includes(page) || gated(page));
+check("every page declared without the notice still sends a work request and still has no notice (the list stays the code's list)", stale.length === 0, stale.join(", "));
+const unreviewed = Object.entries(PAGES_WITHOUT_NOTICE).filter(([, entry]) => !/site owner/i.test(entry.reviewed ?? "")).map(([page]) => page);
+check("every page declared without the notice names the site owner's review (no unreviewed entry)", unreviewed.length === 0, unreviewed.join(", "));
+console.log(`      pages that can send work: ${reaching.length}; through the notice: ${reaching.filter(gated).length}; declared without it: ${Object.keys(PAGES_WITHOUT_NOTICE).length}`);
+const gateSource = readFileSync(path.join(ROOT, "app/_components/NoticeGate.tsx"), "utf8");
+check("NoticeGate draws its page only once the notice is accepted (outstanding === false), and only the notice before", /if \(outstanding !== false\) \{\s*return \(/.test(gateSource) && /<FirstUseAcknowledgement onStatus=\{setOutstanding\} \/>/.test(gateSource) && /return <>\{children\}<\/>;/.test(gateSource));
 
 // ---- 5. The gates ----------------------------------------------------------------------------------------------
 const builder = readFileSync(path.join(ROOT, "app/builder/page.tsx"), "utf8");

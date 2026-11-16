@@ -7,7 +7,8 @@
  *
  * What it checks, in all three courts, with the real save path (a real local or staging account; realTestSession.ts
  * refuses production) and the model stand-ins, every network request watched:
- *   1. a confirmed case, the notice not given on this browser, the case page's "Show my next step" pressed: while the
+ *   1. a confirmed case, the notice not given on this browser, the case page's "Show my next step" started (its own
+ *      address opened: the case page itself shows the notice first since 16 Nov, notice-on-case-pages.spec.ts): while the
  *      notice shows, NO work request is sent (any analysis, AI or next-step route: WORK below); once it is accepted the
  *      next step is worked out (the press is kept, not lost);
  *      While it waits, the button says "Finish the step shown below first" and so does the waiting line, never
@@ -24,16 +25,13 @@ import { expect, test, type Page, type Request } from "@playwright/test";
 import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { deleteHarnessUser } from "./harness/realTestSession";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
-import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns } from "./harness/thisCommitServer";
-import { recordInitialUnknowns, saveCaseStory, tickIfAsked } from "./harness/intakeReview";
+import { confirmedCase } from "./harness/confirmedCase";
 import { ACKNOWLEDGEMENT_KEY } from "../../src/lib/content-library/acknowledgement";
 import { WORK_ROUTE } from "../../scripts/verification/noticeGateList";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
 
-const STORY = "Synthetic: I paid a contractor $5,000 in March 2026 to repair my roof and the work was never done.";
-const LABEL = { "small-claims": "Small Claims", civil: "Civil", family: "Family" } as const;
 
 /** Every work request from now on, as "METHOD path". */
 function watchWork(page: Page): string[] {
@@ -50,35 +48,6 @@ async function accept(page: Page) {
   await page.getByTestId("acknowledgement-continue").click();
 }
 
-async function confirmedCase(page: Page, court: keyof typeof LABEL): Promise<string> {
-  if (court === "small-claims") {
-    await openBuilder(page, court, { city: "Ottawa" });
-    await page.getByRole("button", { name: "Fill in the form yourself" }).click();
-    await page.getByLabel("Case story", { exact: true }).fill(STORY);
-    await saveCaseStory(page);
-    await page.getByTestId("sc-intake-amountClaimed").fill("$5,000");
-    await page.getByTestId("sc-intake-amountClaimed").blur();
-  } else {
-    await openBuilder(page, court, { city: "Ottawa", story: STORY });
-    await page.getByTestId("guided-form-show-form").click();
-  }
-  await expect(page.getByTestId("intake-save-status")).toContainText(/saved/i, { timeout: 60_000 });
-  const caseId = new URL(page.url()).searchParams.get("intake") ?? "";
-  const panel = page.getByTestId("intake-review");
-  if (await panel.getAttribute("data-phase") === "collecting") await page.getByTestId("intake-start-review").filter({ visible: true }).first().click();
-  await expect(panel).toHaveAttribute("data-phase", "reviewing");
-  const kind = page.locator('[data-question="sc-orient-dispute-category"]').getByRole("button").first();
-  if (await kind.count()) await kind.click();
-  const filed = page.locator('[data-question="sc-claim-filed"]');
-  if (await filed.count()) await filed.getByRole("button", { name: "No", exact: true }).click();
-  await recordInitialUnknowns(page);
-  await tickIfAsked(page);
-  await page.getByTestId("intake-confirm").click();
-  await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
-  await expect(page.getByTestId("intake-save-status")).toContainText(/saved/i, { timeout: 60_000 });
-  return caseId;
-}
-
 for (const court of ["small-claims", "civil", "family"] as const) {
   test(`from the case page, no work starts before the notice is accepted; then the next step is worked out -- ${court}`, async ({ page }) => {
     test.setTimeout(600_000);
@@ -87,10 +56,16 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       await autoAnswerSituation(page, STARTING_NOTHING_FILED);
       await serveModelStandIns(page, court, userId);
       const caseId = await confirmedCase(page, court);
+      // The case page now shows the notice itself when no acceptance is recorded (notice-on-case-pages.spec.ts), so its
+      // "Show my next step" is reached with the notice accepted. The press it sends -- its own address, the builder
+      // with ?step=results&next=start -- is opened here with the acceptance cleared (a link kept from before, a new
+      // device): the same start the button makes, with the notice not given.
       await page.goto(`/cases/${caseId}`);
+      const start = await page.getByTestId("case-show-next-step").getAttribute("href");
+      expect(start, "the case page's Show my next step names its address").toMatch(/\/builder\?.*next=start/);
       await forgetNotice(page);
       const work = watchWork(page);
-      await page.getByTestId("case-show-next-step").click();
+      await page.goto(start!);
       await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
       await expect(page.getByTestId("acknowledgement-checkbox"), "the notice is shown").toBeVisible({ timeout: 60_000 });
       await expect(page.getByTestId("intake-continue-guidance"), "the button says what the person must do").toHaveText("Finish the step shown below first", { timeout: 30_000 });
