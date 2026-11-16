@@ -67,9 +67,9 @@ check("(5) the review shows none of the form's party boxes (the Parties step hol
 check("(5) the review still shows the form's other boxes (the amount)", changed.some((entry) => entry.field === "amountClaimed"));
 
 // (8)
-const served = caseFileOf(checkpoint("small-claims", { situation: { record: { where: "served", stage: "just-served", papers: "small-claims/7A", receivedOn: "2026-10-20", court: "small-claims" } } }));
+const served = caseFileOf(checkpoint("small-claims", { situation: { record: { where: "served", stage: "just-served", papers: "small-claims-7A", receivedOn: "2026-10-20", court: "small-claims" } } }));
 check("(8) \"Nothing else yet. I was just served\": no Defence filed is held, the question is not shown", factStatus(served, "defenceFiled") === "known" && served.defenceFiled.value === false && !mayShowQuestion(served, "sc-defence-filed") && !mayShowQuestion(served, "sc-defendant-defence-filed"));
-const servedOther = caseFileOf(checkpoint("small-claims", { situation: { record: { where: "served", papers: "small-claims/7A", court: "small-claims" } } }));
+const servedOther = caseFileOf(checkpoint("small-claims", { situation: { record: { where: "served", papers: "small-claims-7A", court: "small-claims" } } }));
 check("(8) self-test: served with no stage given, it is still asked", mayShowQuestion(servedOther, "sc-defence-filed"));
 
 // (9)

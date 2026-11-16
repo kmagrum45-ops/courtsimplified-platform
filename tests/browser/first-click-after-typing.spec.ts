@@ -65,15 +65,17 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       const first = you.getByTestId("parties-input-firstName");
       await expect(first).toBeVisible({ timeout: 30_000 });
       await first.fill("Testfirst");
-      await step.getByTestId("parties-add-other").click();
+      // Held down as a person holds a mouse button (a tenth of a second and more): the redraw had time to move the button.
+      await step.getByTestId("parties-add-other").click({ delay: 150 });
       await expect(others, "the first click on \"Add another\" after typing added a party").toHaveCount(before + 1, { timeout: 5_000 });
       await expect(you.locator("[data-testid=parties-detail-held][data-detail=firstName]"), "and the typed name was saved").toContainText("Testfirst", { timeout: 15_000 });
 
-      // 2. Small Claims: type the last name, then click "A person" on the new party, once.
-      if (court === "small-claims") {
+      // 2. Small Claims and Civil: type the last name, then click "A person" on the new party, once. (Family never asks
+      //    whether a party is a person: every party there is one.)
+      if (court !== "family") {
         await you.getByTestId("parties-input-lastName").fill("Testlast");
         const person = others.last().getByTestId("parties-kind-person");
-        await person.click();
+        await person.click({ delay: 150 });
         await expect(person, "the first click on \"A person\" after typing set the kind").toHaveCount(0, { timeout: 5_000 });
         await expect(you.locator("[data-testid=parties-detail-held][data-detail=lastName]")).toContainText("Testlast", { timeout: 15_000 });
       }

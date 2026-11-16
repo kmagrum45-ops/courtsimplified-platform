@@ -126,7 +126,7 @@ export const STORIES: Story[] = [
     reading: [{ label: "Other party", value: "Your friend Alex" }, { label: "Amount", value: "$3,000" }], parties: true },
   { ...S("sc-milestone-s6-sued", "small-claims", "responding", "A contractor redid my kitchen. They have sued me for $4,200. I agree I hired the contractor. I disagree that I owe $4,200: I already paid $2,000 and the work was bad.", { amount: "4200" }, "October 20, 2026"),
     home: [{ question: "What do you dispute about the claim?", answer: "The work was bad and I already paid $2,000." }],
-    situation: { where: "served", stage: "just-served", papers: "small-claims/7A", receivedOn: "2026-10-20", court: "small-claims" } },
+    situation: { where: "served", stage: "just-served", papers: "small-claims-7A", receivedOn: "2026-10-20", court: "small-claims" } },
   { ...S("family-milestone-s7a-not-married", "family", "bringing", "Jordan Testpartner and I lived together and separated in June 2026. We were never married. Our son is 4 and lives with me. I want a parenting schedule.", { otherParty: "Jordan Testpartner" }),
     home: [{ question: "Are you and your partner legally married?", answer: "" }, { question: "Does your son see his other parent now?", answer: "Every second weekend." }], married: "no" },
   { ...S("family-milestone-s7b-unsure", "family", "bringing", "Robin Testpartner and I separated in May 2026. Our daughter is 7 and lives with me. I want child support and a parenting schedule.", { otherParty: "Robin Testpartner" }),

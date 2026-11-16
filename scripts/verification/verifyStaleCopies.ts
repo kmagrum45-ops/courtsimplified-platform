@@ -94,7 +94,7 @@ check("(c) the case review's file holds no party name or address from the record
 
 // (d)
 const S6 = "Synthetic: I agree I hired the contractor. I disagree that I owe $4,200: I already paid $2,000 and the work was bad.";
-const sued = caseFileOf(checkpoint("small-claims", { story: { text: S6 }, situation: { record: { where: "served", stage: "just-served", papers: "small-claims/7A", court: "small-claims" } } }));
+const sued = caseFileOf(checkpoint("small-claims", { story: { text: S6 }, situation: { record: { where: "served", stage: "just-served", papers: "small-claims-7A", court: "small-claims" } } }));
 const s6 = storyLines(S6, sued, true);
 check("(d) S6: the claim against them ($4,200) is in \"What we have so far\"", s6.some((line) => line.fact === "amountAgainst" && /\$4,200/.test(line.value)), JSON.stringify(s6.map((line) => [line.fact, line.value])));
 check("(d) S6: and who it is with", s6.some((line) => line.fact === "otherParty" && /contractor/i.test(line.value)));

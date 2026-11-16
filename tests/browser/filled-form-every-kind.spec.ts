@@ -77,8 +77,9 @@ async function fillParty(page: Page, article: Locator, party: PartyIn) {
   for (const [detail, value] of [["street", party.street], ["city", party.city], ["province", party.province], ["postalCode", party.postal], ["phone", party.phone], ["email", party.email]] as const) await type(article, detail, value);
 }
 
-async function fillParties(page: Page, kind: Kind) {
-  const step = page.getByTestId("parties-step").first();
+async function fillParties(page: Page, kind: Kind, section: Locator) {
+  // The 7A section's own Parties step (the form's, elsewhere on the page, is folded away).
+  const step = section.getByTestId("parties-step");
   await expect(step).toBeVisible({ timeout: 60_000 });
   // Any "Your story also names" offer is declined: the parties typed here are the record.
   for (let i = 0; i < 10; i++) {
@@ -151,12 +152,15 @@ for (const kind of KINDS) {
       await tickIfAsked(page);
       await page.getByTestId("intake-confirm").click();
       await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
+      // The next step, as the person reaches it: the Form 7A section is drawn on the step's overview.
+      await page.getByTestId("intake-continue-guidance").click();
+      await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 240_000 });
 
       // The 7A section: the Parties step and the filled form, whatever the kind of claim.
       const section = page.getByTestId("statement-of-claim-surface");
       await expect(section, "the Form 7A section is shown").toBeVisible({ timeout: 120_000 });
       await expect(section.getByTestId("statement-of-claim-kind"), "the kind recorded is the one chosen").toContainText(kind.kind);
-      await fillParties(page, kind);
+      await fillParties(page, kind, section);
       await expect(page.getByTestId("intake-save-status")).toContainText(/saved/i, { timeout: 60_000 });
       const sectionButton = section.getByTestId("filled-form-7a").getByTestId("filled-form-download");
       await expect(sectionButton, "the 7A section offers the filled form").toHaveText("Download filled Form 7A (PDF)");
