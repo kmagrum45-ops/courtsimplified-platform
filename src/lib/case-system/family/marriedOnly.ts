@@ -126,3 +126,18 @@ export const MARRIED_ONLY_SCREEN_TEXT: readonly string[] = [
   "Either spouse may start a divorce case",
   "A claim to equalize net family property has its own time limit",
 ];
+
+/**
+ * The analysis as someone not married or not sure reads it: its applied law and its research's provisions without the
+ * married-only ones (isMarriedOnlyLaw). The overview reads the analysis through it once, so "The law behind this" and
+ * every other part agree (Chrome milestone test of #550, rows 40 and 44).
+ */
+export function withoutMarriedOnlyLaw<A extends { appliedLaw?: { citation?: string; label: string }[]; research?: { findings: { provisions: { citation?: string; label: string }[] }[] } }>(analysis: A, notMarried: boolean): A {
+  if (!notMarried) return analysis;
+  const keep = (item: { citation?: string; label: string }) => !isMarriedOnlyLaw(item.citation || item.label);
+  return {
+    ...analysis,
+    ...(analysis.appliedLaw ? { appliedLaw: analysis.appliedLaw.filter(keep) } : {}),
+    ...(analysis.research ? { research: { ...analysis.research, findings: analysis.research.findings.map((finding) => ({ ...finding, provisions: finding.provisions.filter(keep) })) } } : {}),
+  };
+}

@@ -96,7 +96,7 @@ async function main() {
   const { stagesForPathway } = await import("../../src/lib/case-system/stage-map/stageMap");
   const { buildTriageOutcome, emptyStatusRecord } = await import("../../src/lib/case-system/family/statusTriage");
   const { movesForWords } = await import("../../app/_components/WhatComesNext");
-  const { isMarriedOnlyLaw, MARRIED_ONLY_FAMILY_STEPS, MARRIED_ONLY_SCREEN_TEXT } = await import("../../src/lib/case-system/family/marriedOnly");
+  const { isMarriedOnlyLaw, withoutMarriedOnlyLaw, MARRIED_ONLY_FAMILY_STEPS, MARRIED_ONLY_SCREEN_TEXT } = await import("../../src/lib/case-system/family/marriedOnly");
   const { FEES_IF_CLAIMED_LABEL } = await import("../../src/lib/content-library/nextStepPractical");
   const { lawBehindThis } = await import("../../src/lib/case-system/retrieval/lawBehind");
 
@@ -133,10 +133,11 @@ async function main() {
     assert.ok(isMarriedOnlyLaw("Family Law Act, R.S.O. 1990, c. F.3, s. 5 (1)") && isMarriedOnlyLaw("Family Law Act, R.S.O. 1990, c. F.3, s. 24"));
     assert.ok(!isMarriedOnlyLaw("Family Law Act, R.S.O. 1990, c. F.3, s. 33 (1)") && !isMarriedOnlyLaw("Children's Law Reform Act, R.S.O. 1990, c. C.12, s. 24"));
     const overview = readFileSync("app/builder/_components/IntelligenceOverviewPanel.tsx", "utf8");
-    assert.ok(/lawBehindThis\(analysis\.research\?\.findings \?\? \[\], analysis\.appliedLaw \?\? \[\], hidesMarriedOnly\(caseFile\) \? isMarriedOnlyLaw : undefined\)/.test(overview), "the overview's law list is not filtered");
+    assert.ok(/const analysis = withoutMarriedOnlyLaw\(analysisGiven, hidesMarriedOnly\(caseFile\)\);/.test(overview), "the overview does not read the analysis without the married-only law");
     const provision = (id: string, citation: string) => ({ id, citation, label: citation, sourceUrl: "https://www.ontario.ca/laws", kind: "statute" }) as never;
-    const left = lawBehindThis([], [provision("a", "Divorce Act, R.S.C. 1985, c. 3 (2nd Supp.), s. 7.3"), provision("b", "Family Law Act, R.S.O. 1990, c. F.3, s. 33 (1)")], isMarriedOnlyLaw).quoted.map((item) => item.id);
-    assert.deepEqual(left, ["b"], "lawBehindThis keeps a married-only provision when told to leave it out");
+    const read = withoutMarriedOnlyLaw({ appliedLaw: [provision("a", "Divorce Act, R.S.C. 1985, c. 3 (2nd Supp.), s. 7.3"), provision("b", "Family Law Act, R.S.O. 1990, c. F.3, s. 33 (1)")] }, true);
+    assert.deepEqual(lawBehindThis([], read.appliedLaw).quoted.map((item: { id: string }) => item.id), ["b"], "\"The law behind this\" keeps a married-only provision for someone not married");
+    assert.equal(withoutMarriedOnlyLaw({ appliedLaw: [provision("a", "Divorce Act, R.S.C. 1985, c. 3 (2nd Supp.), s. 7.3")] }, false).appliedLaw?.length, 1, "a married person lost the provision");
   });
 
   if (failed) { console.log(`\n${failed} check(s) failed`); process.exit(1); }

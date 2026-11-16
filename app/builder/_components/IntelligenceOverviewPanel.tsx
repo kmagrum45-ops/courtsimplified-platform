@@ -48,7 +48,7 @@ import { ADD_IT_LATER, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCo
 import { answerWords } from "../../../src/lib/case-system/caseFile/unsureAnswer";
 import { mayAskWords } from "../../../src/lib/case-system/caseFile/factStatus";
 import { partyNames } from "../../../src/lib/case-system/parties/parties";
-import { hidesMarriedOnly, isMarriedOnlyLaw } from "../../../src/lib/case-system/family/marriedOnly";
+import { hidesMarriedOnly, withoutMarriedOnlyLaw } from "../../../src/lib/case-system/family/marriedOnly";
 
 type Props = {
   analysis: AnalysisResult;
@@ -131,7 +131,9 @@ function SourcedList({ items }: { items: SourcedListItem[] }) {
 
 const GENERIC_CONFIRM_QUESTION = "What important fact should be confirmed next?";
 
-export default function IntelligenceOverviewPanel({ analysis, intake, confirmedStage = null, caseId = null, claimKind = null, caseFile = null, stageWords = null, roleWords = null, recordedMunicipality = null }: Props) {
+export default function IntelligenceOverviewPanel({ analysis: analysisGiven, intake, confirmedStage = null, caseId = null, claimKind = null, caseFile = null, stageWords = null, roleWords = null, recordedMunicipality = null }: Props) {
+  // The analysis as this person reads it: no married-only provision for someone not married or not sure (marriedOnly.ts).
+  const analysis = withoutMarriedOnlyLaw(analysisGiven, hidesMarriedOnly(caseFile));
   // A kind picked from the list here, shown at once: it is written to the case file (the saved position's kind of claim,
   // read first by caseFileOf), which the page reads the next time it loads the case.
   const [pickedHere, setPickedHere] = useState<string | null>(null);
@@ -365,7 +367,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   const commonDefences: SourcedListItem[] = claimTypeContent ? claimTypeContent.commonDefences : [];
   // The rules that matter most first, named once; their words stay under "What we looked into" (lawBehind.ts).
   // Never a married person's provision for someone not married or not sure (marriedOnly.ts isMarriedOnlyLaw).
-  const lawBehind = lawBehindThis(analysis.research?.findings ?? [], analysis.appliedLaw ?? [], hidesMarriedOnly(caseFile) ? isMarriedOnlyLaw : undefined);
+  const lawBehind = lawBehindThis(analysis.research?.findings ?? [], analysis.appliedLaw ?? []);
   // 2026-09-28. Labelled rows instead of one run-on paragraph that ended with
   // the whole story pasted in. Values are still the user's own words, shown
   // as entered -- nothing is corrected or restated -- and the story sits

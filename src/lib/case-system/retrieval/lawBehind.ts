@@ -17,10 +17,8 @@ export type LawLine = { id: string; name: string; sourceUrl: string; kind?: Appl
 
 const MAX_LINES = 8;
 
-/** `leaveOut`: a provision the person's case does not rest on, by its citation (family/marriedOnly.ts isMarriedOnlyLaw). */
-export function lawBehindThis(findings: readonly ResearchFindingView[] = [], appliedLaw: readonly AppliedLawItem[] = [], leaveOut?: (citation: string) => boolean): { lines: LawLine[]; quoted: AppliedLawItem[] } {
-  const keep = (item: AppliedLawItem) => !leaveOut?.(item.citation || item.label);
-  const answered = findings.map((finding) => ({ ...finding, provisions: finding.provisions.filter(keep) })).filter((finding) => finding.status === "answered" && finding.provisions.length > 0);
+export function lawBehindThis(findings: readonly ResearchFindingView[] = [], appliedLaw: readonly AppliedLawItem[] = []): { lines: LawLine[]; quoted: AppliedLawItem[] } {
+  const answered = findings.filter((finding) => finding.status === "answered" && finding.provisions.length > 0);
   const lines: LawLine[] = [];
   const add = (provision: AppliedLawItem, answers: string) => {
     if (lines.length >= MAX_LINES || lines.some((line) => line.id === provision.id)) return;
@@ -30,5 +28,5 @@ export function lawBehindThis(findings: readonly ResearchFindingView[] = [], app
   for (const finding of answered) add(finding.provisions[0], finding.question);
   for (const finding of answered) for (const provision of finding.provisions.slice(1)) add(provision, finding.question);
   const shown = new Set(answered.flatMap((finding) => finding.provisions.map((provision) => provision.id)));
-  return { lines, quoted: appliedLaw.filter((item) => keep(item) && !shown.has(item.id)) };
+  return { lines, quoted: appliedLaw.filter((item) => !shown.has(item.id)) };
 }
