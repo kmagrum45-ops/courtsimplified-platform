@@ -16,9 +16,9 @@ import type { GuidedChoice, GuidedField, GuidedValues } from "./GuidedFormChat";
 import { SERVED_LINE, storyHintsForDates } from "../../../src/lib/case-system/casePosition";
 import { STORY_LABEL } from "../../../src/lib/case-system/copy/storyGuidance";
 import { factStatus } from "../../../src/lib/case-system/caseFile/factStatus";
+import { offeredAmount } from "../../../src/lib/case-system/caseFile/storyOffers";
 import type { CaseFile, SlotFact } from "../../../src/lib/case-system/caseFile/caseFile";
 import {
-  amountOfferFromStory,
   childrenFromStory,
   courtDateFromStory,
   civilIssuesFromStory,
@@ -251,7 +251,8 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
     {
       key: "amountClaimed",
       label: "Amount",
-      fromStory: (values) => amountOfferFromStory(storyOf(values)),
+      // The one offer reader (caseFile/storyOffers.ts); this form holds the story only, not the saved reading.
+      fromStory: (values) => offeredAmount(storyOf(values), []),
       question: "How much money is involved, if any?",
       why: "The amount decides which court and which procedure your case uses.",
       kind: "text",

@@ -24,6 +24,7 @@ import {
   type Party, type PartiesRecord, type PartyDetail, type PartyKind, type PartyOffer,
 } from "../../src/lib/case-system/parties/parties";
 import { OFFER_CHOICES } from "../../src/lib/case-system/copy/suggestionCopy";
+import { offeredOtherParty, readingFactsOf } from "../../src/lib/case-system/caseFile/storyOffers";
 
 const LABELS: Record<PartyDetail, string> = {
   companyName: "Company's full legal name", firstName: "First name", secondName: "Second name", lastName: "Last name", fullName: "Name",
@@ -73,14 +74,17 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
   const unsure = (id: string, detail: PartyDetail) => update(id, (party) => ({ ...party, unsure: [...new Set([...party.unsure, detail])] }));
   const setKind = (id: string, kind: PartyKind) => update(id, (party) => ({ ...party, kind }));
 
-  const offers = storyPartyOffers(storyOfFile(file), record);
+  // The other party's name: the answer the case holds (not from this step), else the story reading's (storyOffers.ts).
+  const heldOther = file.otherParty.state === "answered" && typeof file.otherParty.value === "string" && file.otherParty.source?.kind === "answer" && file.otherParty.source.question !== "parties" ? file.otherParty.value.trim() : "";
+  const named = heldOther ? { value: heldOther, quote: heldOther } : offeredOtherParty(storyOfFile(file), readingFactsOf(view?.checkpoint.sections as Record<string, unknown> | undefined, storyOfFile(file)));
+  const offers = storyPartyOffers(storyOfFile(file), record, named);
   const acceptOffer = (offer: PartyOffer) => {
     const held = partyOfOffer(record, offer);
     if (held) return update(held.id, (party) => ({ ...party, ...(offer.kind && !party.kind ? { kind: offer.kind } : {}), details: { ...party.details, [offer.detail]: offer.value } }));
     // A party the story names that is not held yet: added as its own entry, with this detail.
     const blankOther = record.list.find((party) => party.side === "other" && !partyName(party) && !Object.keys(party.details).length);
     const added: Party = { id: blankOther?.id ?? newId(), side: "other", ...(offer.kind ? { kind: offer.kind } : {}), details: { [offer.detail]: offer.value }, unsure: [] };
-    if (offer.detail !== "fullName" && offer.detail !== "companyName" && offer.partyName) added.details[offer.kind === "company" ? "companyName" : "fullName"] = offer.partyName;
+    if (offer.detail !== "fullName" && offer.detail !== "companyName" && offer.detail !== "firstName" && offer.partyName) added.details[offer.kind === "company" ? "companyName" : "fullName"] = offer.partyName;
     save({ ...record, list: blankOther ? record.list.map((party) => (party.id === blankOther.id ? added : party)) : [...record.list, added] });
   };
   const declineOffer = (offer: PartyOffer) => save({ ...record, declined: [...new Set([...record.declined, offer.key])] });

@@ -7,7 +7,8 @@ import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
 import { freshSections } from "./storyBasis";
 import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
 import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../../app/builder/_components/guidedFields";
-import { amountFromStory, amountOfferFromStory, goalFromStory, kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
+import { goalFromStory, kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
+import { offeredAmount, readingFactsOf, type ReadingFact } from "./caseFile/storyOffers";
 import type { Stated } from "./caseFile/factStatus";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
@@ -799,8 +800,10 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
   const file = caseFileOf(checkpoint);
   const named = claimKindOf({ ...emptyCaseFile(), claimKind: { state: "answered", value: category ?? "", confirmed: true } }).claimTypeId;
   if (category && !file.claimKind.removed && !(named && file.claimKindRemoved?.includes(named))) out["sc-orient-dispute-category"] = category;
-  // The amount and the outcome, read as the form already reads them (storyAnswers.ts).
-  const amount = amountFromStory(story);
+  // The amount from the one offer reader (caseFile/storyOffers.ts): what the story reading showed, when the story
+  // writes it or its parts, else the story's own reader, a quote included (Chrome milestone test of #550, S1 and S4: the
+  // reading showed $5,468.45 and a $1,500 quote, the review offered nothing). Someone responding: the story only.
+  const amount = offeredAmount(story, responding ? [] : readingFactsOf(checkpoint.sections, whole));
   if (amount) out["sc-amount-claimed"] = amount.value;
   const goal = goalFromStory(story);
   if (goal) out["sc-remedy-sought"] = goal.value;
@@ -813,13 +816,14 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
  * names: offered once, never kept as a fact by itself, claimAmount.ts still skips it) and what the person wants.
  * Each is only ever OFFERED (Yes / No, that's not right / I'm not sure); none is an answer until the person says Yes.
  */
-export function statedInStory(story: string): Stated {
+export function statedInStory(story: string, reading: readonly ReadingFact[] = []): Stated {
   const out: Stated = {};
   if (!story.trim()) return out;
   const date = whenItHappened(story);
   // A month and year ("In March 2026") is stated as well as a full date (page test, 12 Nov: it was read, then dropped).
   if (date && (isRealIsoDate(date) || MONTH_AND_YEAR.test(date))) out.whenHappened = date;
-  const amount = amountOfferFromStory(story)?.value;
+  // The one offer reader (caseFile/storyOffers.ts): the story reading's amount when the story writes it, else the story's.
+  const amount = offeredAmount(story, reading)?.value;
   if (amount) out.amount = amount.replace(/[$,\s]/g, "");
   const goal = goalFromStory(story);
   if (goal) out.wants = goal.value;

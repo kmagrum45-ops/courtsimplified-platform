@@ -80,7 +80,9 @@ check("a later change of the name wins (newest answer wins)", slotText(changed.o
 // 3. The home page writes it only when the reading is accepted, through the one writer.
 const gate = fs.readFileSync("app/_components/HomeLocationGate.tsx", "utf8");
 check("the home page writes the reading's other party through writeAnswer(recovery, \"home\", \"otherParty\", ...)", /writeAnswer\(recovery, "home", "otherParty", /.test(gate));
-check("only when the reading was accepted (the card's own buttons)", /otherPartyFromUnderstanding\(/.test(gate) && /accepted/.test(gate));
+// Read through the one offer reader (caseFile/storyOffers.ts offeredOtherParty, which calls otherPartyFromUnderstanding),
+// and only on the accepted branch: the read sits behind `accepted ?` (16 Nov 2026; stricter than "both words appear").
+check("only when the reading was accepted (the card's own buttons)", /accepted \? offeredOtherParty\(/.test(gate));
 
 // 4. Shown on the review, never a confirmed fact of its own.
 const guidedRoute = checkpoint({ builder: { step: "guided" }, guided: { facts: { amount: "4500" } }, home: { otherParty: "Alex Testwood" } }) as never;

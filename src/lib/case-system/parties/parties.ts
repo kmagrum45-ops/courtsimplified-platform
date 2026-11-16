@@ -234,10 +234,20 @@ function nameHeld(party: Party, detail: PartyDetail): boolean {
  * The party details the story gives that are still to offer: each once, never one the person turned down, never one
  * the record already holds (given or "I'm not sure").
  */
-export function storyPartyOffers(story: string, record: PartiesRecord): PartyOffer[] {
+export function storyPartyOffers(story: string, record: PartiesRecord, named?: { value: string; quote: string } | null): PartyOffer[] {
   const declined = new Set(record.declined);
   const seen = new Set<string>();
-  return allStoryOffers(story).filter((offer) => {
+  const fromStory = allStoryOffers(story);
+  // The other party's name the case already holds, or the story reading showed (caseFile/storyOffers.ts), offered for the
+  // first other party when the story's own sentences name none: "Alex" was the case title and the reading's other party,
+  // and Defendant 1's first name was an empty box (Chrome milestone test of #550, S5). A one-word name is a first name.
+  const name = named?.value.trim();
+  if (name && !fromStory.some((offer) => offer.party === "other:1" && (offer.detail === "fullName" || offer.detail === "companyName"))) {
+    const kind: PartyKind = isCompanyName(name) ? "company" : "person";
+    const detail: PartyDetail = kind === "company" ? "companyName" : name.includes(" ") ? "fullName" : "firstName";
+    fromStory.push(...offersOf("other:1", [{ detail, value: name, quote: named!.quote }], name, kind));
+  }
+  return fromStory.filter((offer) => {
     if (declined.has(offer.key) || seen.has(offer.key)) return false;
     seen.add(offer.key);
     const party = partyOfOffer(record, offer);

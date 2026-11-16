@@ -19,6 +19,9 @@ import { MONTH_FULL_NAMES_PATTERN, WEEKDAY_NAMES_PATTERN } from "../dates";
 
 const OTHER_SIDE_LABEL = /\b(?:other (?:party|side|person|parent)|opposing (?:party|side)|defendant|respondent|borrower|debtor|landlord|tenant|employer|contractor|seller|buyer|who (?:you(?:'re| are) (?:suing|claiming against)|owes you))\b/i;
 const NAME = /\b([A-Z][a-z'’-]+(?:\s+[A-Z][a-z'’-]+)+(?:\s+(?:Inc|Ltd|Corp|LLC|Co|Limited)\.?)?)/g;
+const ONE_WORD_NAME = /\b([A-Z][a-z'’-]+)\b/g;
+/** A one-word name standing alone in the story: never part of a longer capitalised name ("Circle" of "Circle K"). */
+const wholeWord = (name: string) => new RegExp(`(?<![A-Za-z'’-])(?<![A-Z][A-Za-z'’.-]*\\s)${name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![A-Za-z'’-])(?!\\s+[A-Z0-9])`);
 const NOT_A_NAME_WORD = /^(?:The|This|That|In|On|At|By|My|Our|Your|He|She|They|We|I|It|And|But|Synthetic|Small|Claims|Superior|Court|Ontario|Canada|Justice|Family|Civil)$/;
 /** A month or a weekday, from the one place that lists them (dates.ts): never part of a name. */
 const DATE_WORD = new RegExp(`^(?:${MONTH_FULL_NAMES_PATTERN}|${WEEKDAY_NAMES_PATTERN})$`, "i");
@@ -31,13 +34,18 @@ export function otherPartyFromUnderstanding(facts: readonly { label: string; val
   const lines = sentences(story);
   for (const fact of facts) {
     if (typeof fact?.label !== "string" || typeof fact?.value !== "string" || !OTHER_SIDE_LABEL.test(fact.label)) continue;
-    for (const match of fact.value.matchAll(NAME)) {
+    // A name of two or more words first, then a name of one word ("Your friend Alex": Chrome milestone test of #550, S5).
+    for (const match of [...fact.value.matchAll(NAME), ...fact.value.matchAll(ONE_WORD_NAME)]) {
       const name = match[1].trim();
       if (name.split(/\s+/).some((word) => NOT_A_NAME_WORD.test(word) || DATE_WORD.test(word))) continue;
-      const naming = lines.filter((line) => line.includes(name));
+      // A one-word name only as a whole word of the story.
+      const naming = lines.filter((line) => (name.includes(" ") ? line.includes(name) : wholeWord(name).test(line)));
       if (!naming.length) continue;
       if (naming.every((line) => bystanderSentence(line) || WITNESS_AFTER(name).test(line))) continue;
-      if (naming.some((line) => RELATION_WORD.test(line)) && !(otherSideIn(story)?.value ?? "").includes(name)) continue;
+      // A friend or relative only when the story ties them to what is owed: the other side's own sentence names them
+      // ("I lent my friend Alex $3,000": otherSideIn reads "Your friend" from that sentence, its quote names Alex).
+      const owing = otherSideIn(story);
+      if (naming.some((line) => RELATION_WORD.test(line)) && !`${owing?.value ?? ""} ${owing?.quote ?? ""}`.includes(name)) continue;
       return name;
     }
   }

@@ -34,7 +34,7 @@ import {
 } from "../../src/lib/content-library/crossForumNotes";
 import { WorkingButton } from "./Working";
 import { writeAnswer } from "./caseWrite";
-import { otherPartyFromUnderstanding } from "../../src/lib/case-system/caseFile/understoodOtherParty";
+import { offeredOtherParty } from "../../src/lib/case-system/caseFile/storyOffers";
 import StoryGuidance from "./StoryGuidance";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 import FirstUseAcknowledgement from "./FirstUseAcknowledgement";
@@ -266,7 +266,7 @@ function HomeLocationGateContent() {
     // in every draft; personWords.ts). An answer already in the story (Back, then
     // Continue again) is not appended twice.
     const story = frontDoorStory(facts, answers);
-    const acceptedOtherParty = accepted ? otherPartyFromUnderstanding(storedUnderstood?.understanding?.facts, facts) : null;
+    const acceptedOtherParty = accepted ? offeredOtherParty(facts, storedUnderstood?.understanding?.facts ?? [])?.value ?? null : null;
     try {
       if (recovery && chosenPath === path) {
         // Same flow, same single copy: the builder reads the story and location written here.
