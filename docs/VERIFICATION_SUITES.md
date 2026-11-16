@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-300 documented, 26 without a header.
+301 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -286,6 +286,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:triage-no-leftover-text` | **EVERY FAMILY SITUATION QUESTION NAMES ONLY THE BOXES IT SHOWS (Chrome re-check of #545 at dc909096, 10 Nov 2026: the**<br>question "Which municipality does the other person live in, if you know?" still said "'Where you live' is filled in from the location you gave on Home", though since #545 it shows only the other person's box). |
 | `npm run test:tribunal-first` | **THE LANDLORD AND TENANT BOARD NOTICE COMES FIRST, BEFORE ANY FOLLOW-UP QUESTION, FOR EVERY PERSON AND EVERY COURT**<br>(C1, site owner 9 Nov 2026). |
 | `npm run test:typecheck-live` | **The project's typecheck can actually fail.**<br>WHAT THIS CATCHES: a typecheck that reports success while checking nothing. |
+| `npm run test:ui-faults` | **THE MILESTONE TEST'S SCREEN FAULTS STAY FIXED (site owner, 16 Nov 2026; Chrome milestone test of #550, rows 4, 11, 12**<br>and "anything else wrong": S8's period and its dashboard title). |
 | `npm run test:understood-other-party` | **THE OTHER PARTY THE ACCEPTED STORY READING NAMES GOES ON THE RECORD, NEVER A WITNESS (Chrome check of production**<br>c38e69fd, 8 Nov 2026, B1). |
 | `npm run test:unsure-never-saved` | **"I DO NOT KNOW YET" IS NEVER SAVED AS THE ANSWER, AND "NOT SURE" WHERE THE CASE IS STAYS NOT SURE**<br>(founder's Chrome check of #541 at 354e36fb, 2 Nov, steps 1 and 2; every court). |
 | `npm run test:upcoming-deadline` | **Checks the in-app deadline reminder on "My cases"**<br>(src/lib/case-workspace/upcomingDeadline.ts, master plan 6D). |

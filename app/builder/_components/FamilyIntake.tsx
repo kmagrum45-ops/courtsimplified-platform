@@ -1,7 +1,7 @@
 "use client";
 
 import { useOpenWholeForm } from "./openWholeForm";
-import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeReviewView, useIntakeState, useStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
+import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeReviewView, useIntakeState, useStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation, useContinueNeeds } from "../../_components/IntakeRecovery";
 import { notMarriedOf, withoutMarriedOnly } from "../../../src/lib/case-system/family/marriedOnly";
 import { MARRIED_UNSURE_NOTE } from "../../../src/lib/case-system/copy/askCopy";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
@@ -392,6 +392,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
    * can stand as their confirmation of the stage.
    */
   const recovery = useIntakeRecovery();
+  // The one continue rule (intakeReview.ts continueNeeds): this route's continue is held while the review still needs something.
+  const continueHeld = useContinueNeeds();
   const beforeIntakeAI = useBeforeIntakeAI();
   // The whole form's boxes follow the newest saved answer (rule 3; Chrome check of #544, step 14).
   useBoxesFollow("family", null);
@@ -1371,7 +1373,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           type="button"
           data-testid="family-intake-continue"
           onClick={handleAnalyze}
-          disabled={isAnalyzing || storyChanged}
+          disabled={isAnalyzing || storyChanged || continueHeld.length > 0}
           className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isAnalyzing ? "Reading what you told us..." : sourced.state === "loading" ? "Continue without them" : "Continue to your next steps"}

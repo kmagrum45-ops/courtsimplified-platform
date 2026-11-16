@@ -15,6 +15,7 @@
  * No model is involved, and nothing here is sent to one (rule 3). States no law.
  */
 import { useMemo, useState, useSyncExternalStore } from "react";
+import { afterPointer } from "./afterPointer";
 import { useIntakeRecovery } from "./IntakeRecovery";
 import { writeParties } from "./caseWrite";
 import { UseSuggestion } from "./UseSuggestion";
@@ -123,7 +124,7 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
         <span className="font-semibold">{LABELS[detail]}</span>{optional ? <span className="text-[#4d675f]"> (if you have it)</span> : null}
         <span className="mt-1 flex flex-wrap gap-2">
           <input type={detail.toLowerCase().includes("email") ? "email" : "text"} aria-label={`${sideWord(party)}${party.you ? " (you)" : ""}: ${LABELS[detail]}`} data-testid={`parties-input-${detail}`} className="min-w-0 flex-[1_1_14rem] rounded border p-2" value={drafts[key] ?? ""} onChange={(event) => setDrafts((current) => ({ ...current, [key]: event.target.value }))}
-            onBlur={() => { const typed = (drafts[key] ?? "").trim(); if (typed) { give(party.id, detail, typed); setDrafts((current) => { const next = { ...current }; delete next[key]; return next; }); } }}
+            onBlur={() => afterPointer(() => (() => { const typed = (drafts[key] ?? "").trim(); if (typed) { give(party.id, detail, typed); setDrafts((current) => { const next = { ...current }; delete next[key]; return next; }); } })())}
             onKeyDown={(event) => { if (event.key === "Enter") (event.target as HTMLInputElement).blur(); }} />
           {optional ? null : <button type="button" data-testid="parties-detail-not-sure" className="rounded border px-3 py-1" onClick={() => unsure(party.id, detail)}>{OFFER_CHOICES.unsure}</button>}
         </span>

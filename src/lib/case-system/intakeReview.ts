@@ -4,7 +4,7 @@ import { canonicalJson } from "./canonicalJson";
 import { sideOf, situationAnswers, situationOf, stageWords } from "./situation/situation";
 import { countable, dayWrittenBefore, findDates, formatForCourt, findDayMonthWithoutYear, isRealIsoDate, MONTH_WORDS_EN } from "./dates";
 import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
-import { freshSections } from "./storyBasis";
+import { freshSections, storyAnswersOutdated } from "./storyBasis";
 import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
 import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../../app/builder/_components/guidedFields";
 import { goalFromStory, kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
@@ -908,3 +908,25 @@ export function savedCaseChangedAfterConfirm(master: unknown, court?: string | n
   const checkpoint = readCheckpoint(object(record.intakeCheckpoint), area, caseId);
   return Boolean(checkpoint && changedAfterConfirm(object(record.workflowStatus), checkpoint));
 }
+
+/**
+ * WHAT IS STILL NEEDED BEFORE THE PERSON CAN CONTINUE: the one rule for every continue button (site owner, 16 Nov 2026;
+ * Chrome milestone test of #550, row 11: the review said "Still needed before you can continue: ... What outcome are
+ * you a..." while a "Continue" on the same page was not marked disabled). The review's own Continue and its "Still
+ * needed" line, the questions-one-at-a-time route's "Continue to your next steps" and the whole form's read it. While the
+ * review is open (phase "reviewing"); before it, nothing holds a button here.
+ */
+export function continueNeeds(checkpoint: Checkpoint, workflow: ObjectValue, master?: unknown): string[] {
+  if (reviewPhase(workflow, checkpoint) !== "reviewing") return [];
+  const remaining = remainingEssentialQuestions(checkpoint, master);
+  const offersLeft = undecidedStoryOffers(checkpoint, master);
+  return [
+    !canReview(checkpoint) && "your city and a description of what happened",
+    remaining.length > 0 && `an answer, or "I do not know yet", for: ${remaining.map(question => question.label).join("; ")}`,
+    storyAnswersOutdated(checkpoint) && "the answers marked as given for an earlier version of your story answered again, or the questions started again from your story",
+    offersLeft > 0 && "a choice (Yes, No or I'm not sure) on each suggestion taken from the story",
+  ].filter(Boolean) as string[];
+}
+
+/** The "Still needed" line every continue button shows beside itself (the review's own included). */
+export const continueNeedsLine = (needs: readonly string[]): string => `Still needed before you can continue: ${needs.join("; ")}.`;

@@ -36,7 +36,10 @@ export function otherPartyFromUnderstanding(facts: readonly { label: string; val
     if (typeof fact?.label !== "string" || typeof fact?.value !== "string" || !OTHER_SIDE_LABEL.test(fact.label)) continue;
     // A name of two or more words first, then a name of one word ("Your friend Alex": Chrome milestone test of #550, S5).
     for (const match of [...fact.value.matchAll(NAME), ...fact.value.matchAll(ONE_WORD_NAME)]) {
-      const name = match[1].trim();
+      // A company's own period stays ("Testgoods Ltd.", "Acme Inc.", "Northern Corp."): the name pattern reads "Ltd" as a
+      // word and stopped before it (Chrome milestone test of #550, S8: "Testgoods Ltd" everywhere).
+      const written = match[1].trim();
+      const name = /\b(?:Ltd|Inc|Corp|Co|LLC|Limited)$/.test(written) && fact.value[(match.index ?? 0) + match[0].length] === "." ? `${written}.` : written;
       if (name.split(/\s+/).some((word) => NOT_A_NAME_WORD.test(word) || DATE_WORD.test(word))) continue;
       // A one-word name only as a whole word of the story.
       const naming = lines.filter((line) => (name.includes(" ") ? line.includes(name) : wholeWord(name).test(line)));

@@ -1,6 +1,7 @@
 "use client";
 
 import IntakeReviewPanel from "./IntakeReviewPanel";
+import { continueNeeds } from "../../src/lib/case-system/intakeReview";
 import { startSignIn } from "./startSignIn";
 import { markReviewNeeded } from "./reviewNeeded";
 import { blockedMessage, flushOpenEdits } from "./openEdits";
@@ -74,6 +75,16 @@ type Recovery = {
 };
 const Context = createContext<Recovery | null>(null);
 export const useIntakeRecovery = () => useContext(Context);
+
+/**
+ * What is still needed before continuing, from the one rule (intakeReview.ts continueNeeds): every continue button reads
+ * it, so none is pressable while the review says something is still needed (Chrome milestone test of #550, row 11).
+ */
+export function useContinueNeeds(): string[] {
+  const recovery = useIntakeRecovery();
+  const view = useIntakeReviewView();
+  return view && recovery ? continueNeeds(view.checkpoint, view.workflowStatus, recovery.getSavedMaster() ?? undefined) : [];
+}
 
 export function useIntakeReviewView() {
   const recovery = useIntakeRecovery();

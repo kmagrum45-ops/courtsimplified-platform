@@ -132,6 +132,8 @@ jobs:
         run: npm run test:stale-copies
       - name: Each court's own words for the parties from one function; Family never asks "A person or a company?"
         run: npm run test:parties-words-per-court
+      - name: The milestone screen faults stay fixed (one continue rule, first click after typing, notice wording, company periods, placeholder title)
+        run: npm run test:ui-faults
       - name: The four drafts read the parties and facts from the case record (Chrome forms test, rows 5, 11-13)
         run: npm run test:drafts-from-record
       - name: Names, addresses, phone numbers and emails are never sent to the model (build check, and a fake party in all three courts)

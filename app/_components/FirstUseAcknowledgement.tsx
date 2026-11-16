@@ -34,6 +34,10 @@ import { loadNoticeStatus, setNoticeOutstanding } from "./noticeStatus";
 /** Sent when the notice is given, so a "Show my next step" waiting on it carries on. */
 export const NOTICE_GIVEN_EVENT = "courtsimplified:notice-given";
 
+/** Where the agreement is kept, in words (acknowledgement.ts keeps it in this browser, under the account when signed in). */
+export const ACKNOWLEDGEMENT_RECORDED_GUEST = "Your agreement is recorded on this device with the date and time.";
+export const ACKNOWLEDGEMENT_RECORDED_SIGNED_IN = "Your agreement is recorded on this device for your account, with the date and time.";
+
 export default function FirstUseAcknowledgement({
   onAcknowledged,
   onStatus,
@@ -132,8 +136,11 @@ export default function FirstUseAcknowledgement({
         Continue
       </button>
 
-      <p className="mt-3 text-xs leading-5 text-[#6b8078]">
-        Your agreement is recorded on this device with the date and time.
+      {/* Where the agreement is kept (acknowledgement.ts: this browser, under the account's id when signed in). Signed in, it
+          says so: "with your account" alone would be untrue, nothing is saved with the account itself (Chrome milestone test
+          of #550, row 4). New words, listed for the wording review. */}
+      <p data-testid="acknowledgement-recorded" className="mt-3 text-xs leading-5 text-[#6b8078]">
+        {userId ? ACKNOWLEDGEMENT_RECORDED_SIGNED_IN : ACKNOWLEDGEMENT_RECORDED_GUEST}
       </p>
     </section>
   );

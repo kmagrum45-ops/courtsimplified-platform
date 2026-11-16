@@ -48,7 +48,10 @@ const READ: [string, string, string, string][] = [
   ["cousin", "My cousin Dana Testfield borrowed $800 from me in February 2026 and never returned it.", "Other party", "Dana Testfield"],
 ];
 for (const [name, story, label, value] of READ) {
-  const expected = /([A-Z][a-z'’-]+(?:\s+[A-Z][a-z'’-]+)+(?:\s+(?:Inc|Ltd)\.?)?)/.exec(value)![1];
+  const named = /([A-Z][a-z'’-]+(?:\s+[A-Z][a-z'’-]+)+(?:\s+(?:Inc|Ltd)\.?)?)/.exec(value)![1];
+  // A company's own period is part of its name ("Northern Testroofing Inc."): expected with it whenever the reading writes
+  // it (Chrome milestone test of #550, S8: "Testgoods Ltd." lost its period; this line expected it gone, 16 Nov 2026).
+  const expected = /\b(?:Inc|Ltd)$/.test(named) && value.includes(`${named}.`) ? `${named}.` : named;
   check(`read: ${name}`, otherPartyFromUnderstanding(reading(label, value), story) === expected, String(otherPartyFromUnderstanding(reading(label, value), story)));
 }
 // No name in the story: nothing read (the questions ask once).

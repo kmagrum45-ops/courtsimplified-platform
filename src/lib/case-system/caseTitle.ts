@@ -20,6 +20,9 @@ export function isGeneratedTitle(title: string | null | undefined): boolean {
   return (
     !value ||
     /^(new|untitled) courtsimplified case$/i.test(value) ||
+    // The placeholder a case row is created with (intakeCheckpoint.ts createCheckpointCase), never a title of the person's:
+    // the dashboard said "Unfinished intake" while the review was open (Chrome milestone test of #550, S8).
+    /^unfinished intake$/i.test(value) ||
     /^current case status:/i.test(value) ||
     /\bcase story\b/i.test(value) ||
     // Made from who the case is with (below), so made again from the case file each time: a stored "Small Claims case"
