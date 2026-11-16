@@ -4,9 +4,10 @@
  *
  * What it checks:
  *   (a) one continue rule: the review's Continue and its "Still needed" line read intakeReview.ts continueNeeds, and every
- *       route's "Continue to your next steps" (the Small Claims chat and form, Civil, Family, the guided form) is held by
- *       it (a new continue button that is not, fails); continueNeeds holds a button while the review still needs something
- *       and never before the review opens;
+ *       route's "Continue to your next steps" (the Small Claims chat and form, Civil, Family, the guided form) says the
+ *       same line beside itself when pressed (ReviewNeededNotice) and stays pressable (pressing it is what says why, L26);
+ *       a new continue button with no notice beside it, or greyed out by the review's needs, fails; continueNeeds names
+ *       what is still needed while the review is open, and nothing before it opens;
  *   (b) every save on blur in app/ goes through app/_components/afterPointer.ts, so the click that took the focus is never
  *       lost to the redraw (a new onBlur that does not, fails); the browser side is first-click-after-typing.spec.ts;
  *   (c) the "Before you start" notice says where the agreement is kept, for a guest and for a signed-in person;
@@ -49,9 +50,19 @@ check("(a) continueNeeds holds the buttons while the review is open and still ne
 check("(a) and never before the review opens (the route's continue is what opens it)", continueNeeds(open, { intakeCompleted: false, intakeReview: { version: 1 } }).length === 0);
 const panel = read("app/_components/IntakeReviewPanel.tsx");
 check("(a) the review's Continue and its \"Still needed\" line read the one rule", /const needs = continueNeeds\(checkpoint, workflowStatus/.test(panel) && /disabled=\{busy \|\| needs\.length > 0\}/.test(panel) && /\{continueNeedsLine\(needs\)\}/.test(panel));
-check("(a) the notice beside every route's continue says the same line while held", /const needs = useContinueNeeds\(\);/.test(read("app/_components/ReviewNeededNotice.tsx")) && /\{continueNeedsLine\(needs\)\}/.test(read("app/_components/ReviewNeededNotice.tsx")));
-// Every button whose words are "Continue to your next steps" is held by continueHeld (its own disabled, the same element).
+const reviewNotice = read("app/_components/ReviewNeededNotice.tsx");
+check("(a) the notice beside every route's continue says the one rule's line, inside the notice a press brings", /const needs = useContinueNeeds\(\);/.test(reviewNotice) && /data-testid="review-needed-beside-button"[\s\S]*\{continueNeedsLine\(needs\)\}[\s\S]*<\/p>/.test(reviewNotice));
+// Every button whose words are "Continue to your next steps" has the notice beside it (its own file renders
+// ReviewNeededNotice or, for the guided form, every route that shows the guided form does) and is never greyed out by the
+// review's needs: the press is what says why (L26; the full local run of 3774a858 caught 7 tests broken by greying out).
 const unheld: string[] = [];
+const rendersNotice = (file: string) => /<ReviewNeededNotice from=/.test(read(file));
+function noticeBeside(file: string): boolean {
+  if (rendersNotice(file)) return true;
+  const name = path.basename(file, ".tsx");
+  const users = tsx.filter((other) => other !== file && new RegExp(`<${name}\\b`).test(read(other)));
+  return users.length > 0 && users.every(rendersNotice);
+}
 let continueButtons = 0;
 /** Each <button ...>words</button>: its attributes (read to the ">" outside braces, so "=>" is not the end) and its words. */
 function buttons(text: string): { attributes: string; words: string }[] {
@@ -74,11 +85,13 @@ for (const file of tsx) {
   for (const button of buttons(read(file))) {
     if (!/Continue to your next steps|doneLabel\}/.test(button.words)) continue;
     continueButtons++;
-    // Held by the rule, or always held (a bare "disabled": a placeholder button that never continues).
-    if (!/disabled=\{[^\n]*continueHeld\.length > 0/.test(button.attributes) && !/\sdisabled(?=\s|$)/.test(button.attributes)) unheld.push(`${file}: ${button.attributes.replace(/\s+/g, " ").slice(0, 80)}`);
+    // A bare "disabled" is a placeholder button that never continues.
+    if (/\sdisabled(?=\s|$)/.test(button.attributes)) continue;
+    if (!noticeBeside(file)) unheld.push(`${file}: no notice beside it`);
+    if (/disabled=\{[^\n]*(?:continueHeld|useContinueNeeds|continueNeeds)/.test(button.attributes)) unheld.push(`${file}: greyed out by the review's needs`);
   }
 }
-check(`(a) every route's "Continue to your next steps" is held by the one rule (${continueButtons} found)`, continueButtons >= 6 && unheld.length === 0, unheld.join("\n      "));
+check(`(a) every route's "Continue to your next steps" says the one rule beside itself when pressed (${continueButtons} found)`, continueButtons >= 6 && unheld.length === 0, unheld.join("\n      "));
 
 // (b)
 const blurs: string[] = [];
@@ -92,6 +105,14 @@ for (const file of tsx) {
 check(`(b) every save on blur waits for the click that took the focus (afterPointer; ${blurCount} found)`, blurCount > 0 && blurs.length === 0, blurs.join("\n      "));
 const helper = read("app/_components/afterPointer.ts");
 check("(b) the helper runs the waiting saves at the click itself, before the clicked button's handler (capture)", /addEventListener\("click", runWaiting, true\)/.test(helper) && /addEventListener\("pointerdown", \(\) => \{ pressed = true; \}, true\)/.test(helper));
+// A save that waits for the click and the clicked button's own change both write the parties record: each is made to the
+// record as it is when it runs, never to the copy the screen was drawn with, or the second undoes the first (full local
+// run of 3774a858: "A person" and "Add another" lost to the name typed just before). Every whole-record write in app/.
+const wholeWrites = tsx.flatMap((file) => [...read(file).matchAll(/writeParties\(recovery, ([^;\n]{0,80})/g)].map((match) => ({ file, arg: match[1] })));
+check(`(b) every parties write is made to the record as it is now (${wholeWrites.length} found)`, wholeWrites.length > 0 && wholeWrites.every((write) => /^change\(latest\(\)\)/.test(write.arg)), JSON.stringify(wholeWrites));
+const partiesStep = read("app/_components/PartiesStep.tsx");
+const fromDrawnCopy = [...partiesStep.matchAll(/save\(\{ \.\.\.record/g)].length;
+check("(b) and no change in the Parties step is built from the drawn copy (save({ ...record ...))", fromDrawnCopy === 0 && /save\(\(current\) =>/.test(partiesStep), `${fromDrawnCopy} found`);
 
 // (c)
 const notice = read("app/_components/FirstUseAcknowledgement.tsx");

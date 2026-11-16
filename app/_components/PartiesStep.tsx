@@ -70,14 +70,25 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
   // #550, row 42 note). Read as a person here, and saved as one with the first detail given.
   const familyCourt = (view?.checkpoint.courtPath ?? file.area) === "family";
   const asPerson = (party: Party): Party => (familyCourt && !party.kind ? { ...party, kind: "person" } : party);
-  const record = (() => { const held = startingRecord(file.parties.list, savedDeclined); return { ...held, list: held.list.map(asPerson) }; })();
+  const recordOf = (list: readonly Party[], declined: readonly string[]): PartiesRecord => { const held = startingRecord(list, declined); return { ...held, list: held.list.map(asPerson) }; };
+  const record = recordOf(file.parties.list, savedDeclined);
+  // Every change is made to the record as it is NOW, never to the copy this screen was drawn with: a box saved when the
+  // focus left it and the button that took the focus each change the record, and the second built on the old copy undid
+  // the first (Chrome milestone test of #550, row 12: the first click after typing "did nothing"; full local run of
+  // 3774a858: "A person" and "Add another" lost to the name typed just before).
+  const latest = (): PartiesRecord => {
+    const checkpoint = recovery.getReview()?.checkpoint;
+    if (!checkpoint) return record;
+    const saved = (checkpoint.sections as Record<string, Record<string, unknown>> | undefined)?.caseFile?.parties as { declined?: string[] } | undefined;
+    return recordOf(caseFileOf(checkpoint, recovery.getSavedMaster() ?? undefined).parties.list, Array.isArray(saved?.declined) ? saved!.declined : []);
+  };
   const personSues = bringsTheCase(file) || !file.side.value;
   // The court's own words for each side (parties.ts sideWordsOf): Family's applicant and respondent (row 42).
   const court = view?.checkpoint.courtPath ?? file.area;
   const sideWord = (party: Party) => partySideWord(court, party, personSues);
   const words = sideWordsOf(court);
-  const save = (next: PartiesRecord) => { try { writeParties(recovery, next); setError(""); } catch (problem) { setError((problem as Error).message); } };
-  const update = (id: string, change: (party: Party) => Party) => save({ ...record, list: record.list.map((party) => (party.id === id ? change(party) : party)) });
+  const save = (change: (current: PartiesRecord) => PartiesRecord) => { try { writeParties(recovery, change(latest())); setError(""); } catch (problem) { setError((problem as Error).message); } };
+  const update = (id: string, change: (party: Party) => Party) => save((current) => ({ ...current, list: current.list.map((party) => (party.id === id ? change(party) : party)) }));
   const give = (id: string, detail: PartyDetail, value: string) => update(id, (party) => ({ ...party, details: { ...party.details, [detail]: value.trim() }, unsure: party.unsure.filter((item) => item !== detail) }));
   const unsure = (id: string, detail: PartyDetail) => update(id, (party) => ({ ...party, unsure: [...new Set([...party.unsure, detail])] }));
   const setKind = (id: string, kind: PartyKind) => update(id, (party) => ({ ...party, kind }));
@@ -87,15 +98,16 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
   const named = heldOther ? { value: heldOther, quote: heldOther } : offeredOtherParty(storyOfFile(file), readingFactsOf(view?.checkpoint.sections as Record<string, unknown> | undefined, storyOfFile(file)));
   const offers = storyPartyOffers(storyOfFile(file), record, named);
   const acceptOffer = (offer: PartyOffer) => {
+    const record = latest();
     const held = partyOfOffer(record, offer);
     if (held) return update(held.id, (party) => ({ ...party, ...(offer.kind && !party.kind ? { kind: offer.kind } : {}), details: { ...party.details, [offer.detail]: offer.value } }));
     // A party the story names that is not held yet: added as its own entry, with this detail.
     const blankOther = record.list.find((party) => party.side === "other" && !partyName(party) && !Object.keys(party.details).length);
     const added: Party = { id: blankOther?.id ?? newId(), side: "other", ...(offer.kind ? { kind: offer.kind } : {}), details: { [offer.detail]: offer.value }, unsure: [] };
     if (offer.detail !== "fullName" && offer.detail !== "companyName" && offer.detail !== "firstName" && offer.partyName) added.details[offer.kind === "company" ? "companyName" : "fullName"] = offer.partyName;
-    save({ ...record, list: blankOther ? record.list.map((party) => (party.id === blankOther.id ? added : party)) : [...record.list, added] });
+    save((current) => ({ ...current, list: blankOther ? current.list.map((party) => (party.id === blankOther.id ? added : party)) : [...current.list, added] }));
   };
-  const declineOffer = (offer: PartyOffer) => save({ ...record, declined: [...new Set([...record.declined, offer.key])] });
+  const declineOffer = (offer: PartyOffer) => save((current) => ({ ...current, declined: [...new Set([...current.declined, offer.key])] }));
   const unsureOffer = (offer: PartyOffer) => {
     const held = partyOfOffer(record, offer);
     if (held) unsure(held.id, offer.detail);
@@ -157,7 +169,7 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
             {split ? (
               <UseSuggestion offer={{ key: `name-split:${party.id}`, fact: null, recordedBy: "screen" }} testId="parties-name-split-yes" noTestId="parties-name-split-no" unsureTestId="parties-name-split-unsure" what={`First name: ${split.firstName} · Last name: ${split.lastName}`} note={`From the name you gave: "${party.details.fullName}"`}
                 onUse={() => update(party.id, (held) => ({ ...held, details: { ...held.details, firstName: split.firstName, lastName: split.lastName } }))}
-                onNo={() => save({ ...record, declined: [...new Set([...record.declined, `name-split:${party.id}`])] })}
+                onNo={() => save((current) => ({ ...current, declined: [...new Set([...current.declined, `name-split:${party.id}`])] }))}
                 onUnsure={() => update(party.id, (held) => ({ ...held, unsure: [...new Set([...held.unsure, "firstName" as const, "lastName" as const])] }))} />
             ) : null}
             {(party.kind === "company" ? (["companyName"] as PartyDetail[]) : party.kind === "person" ? (["firstName", "lastName"] as PartyDetail[]) : []).map((detail) => (asked.includes(detail) || detailStatus(party, detail) !== "ask" ? box(party, detail) : null))}
@@ -166,7 +178,7 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
             {OPTIONAL.filter((detail) => !(party.you && (detail === "phone" || detail === "email"))).some((detail) => detailStatus(party, detail) === "known") || showOptional[party.id]
               ? OPTIONAL.filter((detail) => !(party.you && (detail === "phone" || detail === "email")) && !(party.kind === "company" && detail === "secondName")).map((detail) => box(party, detail, true))
               : <button type="button" data-testid="parties-optional-open" className="text-sm text-[#2f7d67] underline" onClick={() => setShowOptional((current) => ({ ...current, [party.id]: true }))}>Add {party.you ? "a second name or a representative" : "a phone number, email or representative"} (if you have them)</button>}
-            {!party.you ? <button type="button" data-testid="parties-remove" className="text-sm text-[#8a4b12] underline" onClick={() => save({ ...record, list: record.list.filter((other) => other.id !== party.id) })}>Remove this {sideWord(party).toLowerCase()}</button> : null}
+            {!party.you ? <button type="button" data-testid="parties-remove" className="text-sm text-[#8a4b12] underline" onClick={() => save((current) => ({ ...current, list: current.list.filter((other) => other.id !== party.id) }))}>Remove this {sideWord(party).toLowerCase()}</button> : null}
           </article>
         );
       })}
@@ -179,8 +191,8 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
         </div>
       ) : null}
       <div className="flex flex-wrap gap-2">
-        <button type="button" data-testid="parties-add-other" className="rounded-xl border border-[#2f7d67] px-4 py-2 text-sm font-semibold text-[#2f7d67]" onClick={() => save({ ...record, list: [...record.list, { id: newId(), side: "other", details: {}, unsure: [] }] })}>Add another {(personSues ? words.responds : words.starts).toLowerCase()}</button>
-        <button type="button" data-testid="parties-add-yours" className="rounded-xl border border-[#d8e6df] px-4 py-2 text-sm font-semibold text-[#16302b]" onClick={() => save({ ...record, list: [...record.list, { id: newId(), side: "yours", details: {}, unsure: [] }] })}>Add another {(personSues ? words.starts : words.responds).toLowerCase()} on your side</button>
+        <button type="button" data-testid="parties-add-other" className="rounded-xl border border-[#2f7d67] px-4 py-2 text-sm font-semibold text-[#2f7d67]" onClick={() => save((current) => ({ ...current, list: [...current.list, { id: newId(), side: "other", details: {}, unsure: [] }] }))}>Add another {(personSues ? words.responds : words.starts).toLowerCase()}</button>
+        <button type="button" data-testid="parties-add-yours" className="rounded-xl border border-[#d8e6df] px-4 py-2 text-sm font-semibold text-[#16302b]" onClick={() => save((current) => ({ ...current, list: [...current.list, { id: newId(), side: "yours", details: {}, unsure: [] }] }))}>Add another {(personSues ? words.starts : words.responds).toLowerCase()} on your side</button>
       </div>
       {error ? <p role="alert" className="text-sm text-[#8a4b12]">{error}</p> : null}
     </section>

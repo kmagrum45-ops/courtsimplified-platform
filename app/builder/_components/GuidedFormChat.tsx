@@ -1,6 +1,6 @@
 "use client";
 
-import { useIntakeRecovery, useIntakeReviewView, useIntakeState, useContinueNeeds } from "../../_components/IntakeRecovery";
+import { useIntakeRecovery, useIntakeReviewView, useIntakeState } from "../../_components/IntakeRecovery";
 import TribunalNotice, { COURT_LABELS, useTribunalFirst } from "../../_components/TribunalNotice";
 import { answerNow, askedAndReplied, caseFileOf, type SlotFact } from "../../../src/lib/case-system/caseFile/caseFile";
 import { chatMayAsk } from "../../../src/lib/case-system/caseFile/factStatus";
@@ -220,7 +220,6 @@ export default function GuidedFormChat({
   const reviewView = useIntakeReviewView();
   const recovery = useIntakeRecovery();
   // The one continue rule (intakeReview.ts continueNeeds): this route's continue is held while the review still needs something.
-  const continueHeld = useContinueNeeds();
   const checkpoint = reviewView?.checkpoint ?? null;
   const savedMaster = recovery?.getSavedMaster() ?? undefined;
   // The saved case's own case file (its saved position too), as the review and the case page read it.
@@ -570,7 +569,7 @@ export default function GuidedFormChat({
             type="button"
             data-testid="guided-form-done"
             onClick={onDone}
-            disabled={busy || continueHeld.length > 0}
+            disabled={busy}
             className="mt-3 rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:opacity-60"
           >
             {busy ? "Reading what you told us..." : doneLabel}

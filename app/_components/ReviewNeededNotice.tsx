@@ -21,19 +21,10 @@ export default function ReviewNeededNotice({ from }: { from: string }) {
   const asked = useSyncExternalStore(subscribeReviewNeeded, reviewNeededAsked, () => null);
   const view = useIntakeReviewView();
   const recovery = useIntakeRecovery();
-  // While the review is open and still needs something, the button beside this is held by the same rule as the review's
-  // own Continue (intakeReview.ts continueNeeds), and says the same thing (Chrome milestone test of #550, row 11).
+  // What the review still needs, from the same rule as the review's own Continue (intakeReview.ts continueNeeds): said
+  // beside this button when it is pressed, so every Continue says the same thing (Chrome milestone test of #550, row 11).
+  // The button itself stays pressable: pressing it is what brings this notice (L26).
   const needs = useContinueNeeds();
-  if (needs.length) {
-    return (
-      <p data-testid="continue-needs-beside-button" className="mt-3 text-sm font-semibold text-[#8a4b12]">
-        {continueNeedsLine(needs)}{" "}
-        <button type="button" onClick={() => document.querySelector<HTMLElement>('[data-testid="intake-review"]')?.scrollIntoView({ block: "start" })} className="underline">
-          Go to your initial case information
-        </button>
-      </p>
-    );
-  }
   if (!asked || !view || asked.from !== from || asked.revision !== inputRevision(view.checkpoint) || reviewPhase(view.workflowStatus, view.checkpoint) === "user-confirmed") return null;
   return (
     <p data-testid="review-needed-beside-button" role="alert" className="mt-3 text-sm font-semibold text-[#a63b3b]">
@@ -44,6 +35,7 @@ export default function ReviewNeededNotice({ from }: { from: string }) {
       <button type="button" onClick={() => document.querySelector<HTMLElement>('[data-testid="intake-review"]')?.scrollIntoView({ block: "start" })} className="underline">
         Go to your initial case information
       </button>
+      {needs.length ? <span data-testid="continue-needs-beside-button" className="mt-1 block">{continueNeedsLine(needs)}</span> : null}
     </p>
   );
 }

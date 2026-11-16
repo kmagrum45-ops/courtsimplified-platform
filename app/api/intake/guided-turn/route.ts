@@ -228,6 +228,7 @@ function isGuidedTurnRequestBody(value: unknown): value is GuidedTurnRequestBody
     "earlier",
     "situation",
     "caseFile",
+    "reading",
   ]);
   if (Object.keys(value).some((key) => !allowedKeys.has(key))) return false;
 
@@ -236,6 +237,8 @@ function isGuidedTurnRequestBody(value: unknown): value is GuidedTurnRequestBody
   if (value.situation !== undefined && !(isRecord(value.situation) && JSON.stringify(value.situation).length <= 2_000)) return false;
   // The case file (asker.ts heldForEngine: its slots, no story words), read slot by slot by heldFromRequest.
   if (value.caseFile !== undefined && !(isRecord(value.caseFile) && JSON.stringify(value.caseFile).length <= 20_000)) return false;
+  // The story reading (readingFromRequest keeps at most 20 plain label/value pairs; anything else in it is dropped).
+  if (value.reading !== undefined && !(Array.isArray(value.reading) && JSON.stringify(value.reading).length <= 20_000)) return false;
   if (
     value.newStoryText !== undefined &&
     !(typeof value.newStoryText === "string" && value.newStoryText.length <= MAX_STORY_TEXT_LENGTH)

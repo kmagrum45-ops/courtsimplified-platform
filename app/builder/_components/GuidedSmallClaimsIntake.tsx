@@ -5,7 +5,7 @@ import { readingFactsOf } from "../../../src/lib/case-system/caseFile/storyOffer
 import { storyOf } from "../../../src/lib/case-system/intakeStory";
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { isDateQuestionId } from "../../../src/lib/case-system/casePosition";
-import { intakeGuidanceHeaders, useIntakeReviewView, useIntakeState, useStory, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, useSituation, useContinueNeeds } from "../../_components/IntakeRecovery";
+import { intakeGuidanceHeaders, useIntakeReviewView, useIntakeState, useStory, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
 import TribunalNotice, { useTribunalFirst } from "../../_components/TribunalNotice";
 import { writeAnswer } from "../../_components/caseWrite";
 import { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
@@ -613,7 +613,6 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   const pressedContinue = () => { if (reviewView && !intakeConfirmed) markReviewNeeded("guided", inputRevision(reviewView.checkpoint)); };
   const recovery = useIntakeRecovery();
   // The one continue rule (intakeReview.ts continueNeeds): this route's continue is held while the review still needs something.
-  const continueHeld = useContinueNeeds();
   // The story is a fact of the case file (founder, 1 Nov): once given (here, on the home page, or in the saved
   // case) the chat never draws its story box again; with no question on screen it waits for the next one.
   const storyHeld = reviewView ? caseFileOf(reviewView.checkpoint, recovery?.getSavedMaster() ?? undefined).story.state === "answered" : false;
@@ -1863,8 +1862,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
               type="button"
               data-testid="guided-continue-next-steps"
               onClick={() => { pressedContinue(); finishDepthPhase(depthStateMap); }}
-              disabled={continueHeld.length > 0}
-              className="mt-3 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
+              className="mt-3 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
             >
               Continue to your next steps
             </button>
@@ -1909,8 +1907,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             type="button"
             data-testid="guided-continue-sourced"
             onClick={() => { pressedContinue(); releaseHeld(); }}
-            disabled={continueHeld.length > 0}
-            className="mt-3 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
+            className="mt-3 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
           >
             {sourced.state === "loading" ? "Skip and continue" : "Continue to your next steps"}
           </button>

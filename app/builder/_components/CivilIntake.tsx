@@ -1,7 +1,7 @@
 "use client";
 
 import { useOpenWholeForm } from "./openWholeForm";
-import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation, useContinueNeeds } from "../../_components/IntakeRecovery";
+import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
 import { caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
 import { formAnalysisInput } from "../../../src/lib/case-system/caseFile/chatTurnFacts";
@@ -587,7 +587,6 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
    */
   const recovery = useIntakeRecovery();
   // The one continue rule (intakeReview.ts continueNeeds): this route's continue is held while the review still needs something.
-  const continueHeld = useContinueNeeds();
   const beforeIntakeAI = useBeforeIntakeAI();
   // The whole form's boxes follow the newest saved answer (rule 3; Chrome check of #544, step 14).
   useBoxesFollow("civil", "input");
@@ -1369,7 +1368,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           type="button"
           data-testid="civil-intake-continue"
           onClick={handleAnalyze}
-          disabled={isAnalyzing || storyChanged || continueHeld.length > 0}
+          disabled={isAnalyzing || storyChanged}
           className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isAnalyzing ? "Reading what you told us..." : sourced.state === "loading" ? "Continue without them" : "Continue to your next steps"}

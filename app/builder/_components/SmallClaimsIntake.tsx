@@ -3,7 +3,7 @@
 import { offerForQuestion } from "../../../src/lib/case-system/caseFile/offerChoice";
 import { dateAnswerCheck, dateSpans } from "../../../src/lib/case-system/dates";
 import { SMALL_CLAIMS_FILED_OPTIONS } from "./guidedFields";
-import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation, useContinueNeeds } from "../../_components/IntakeRecovery";
+import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
 import TribunalNotice, { useTribunalFirst } from "../../_components/TribunalNotice";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
 import { panelAnswerFacts } from "../../../src/lib/case-system/intakeReview";
@@ -649,7 +649,6 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   const prepareCaseGuidance = usePrepareCaseGuidance();
   const recovery = useIntakeRecovery();
   // The one continue rule (intakeReview.ts continueNeeds): this route's continue is held while the review still needs something.
-  const continueHeld = useContinueNeeds();
   const validateIntakeResponse = useValidateIntakeResponse();
   const [storedInput, setInput] = useInputWithStory<SmallClaimsIntelligenceInput>("small-claims", () => {
     // What the case already holds, under anything newly read from a story
@@ -1699,7 +1698,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           type="button"
           data-testid="sc-intake-analyze"
           onClick={handleAnalyze}
-          disabled={isAnalyzing || safetyHalted || storyChanged || continueHeld.length > 0}
+          disabled={isAnalyzing || safetyHalted || storyChanged}
           className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isAnalyzing ? "Reading what you told us..." : "Continue to your next steps"}
