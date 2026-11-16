@@ -891,7 +891,7 @@ jobs:
   # PRs, promoting it to a required check alongside typecheck-and-build is a
   # one-line change to the repo's ruleset.
   # Two shards (site owner, 16 Nov 2026): one job of 417 tests ran past its 70-minute limit on #550 (358 done, none
-  # failed, then cancelled). Each shard has its own list, balanced by each spec's measured CI time (about 38 minutes of
+  # failed, then cancelled). Each shard has its own list, balanced by each spec's measured CI time (about 45 minutes of
   # tests each), because Playwright's --shard splits by test count in file-name order (48 and 28 minutes here) and
   # ignores the order given. Every spec is in exactly one shard: npm run test:browser-shards fails on a spec in neither
   # or in both. The job named browser-regression below passes only when both shards pass.
@@ -905,6 +905,7 @@ jobs:
         include:
           - shard: 1
             specs: >-
+              tests/browser/first-click-after-typing.spec.ts
               tests/browser/intake-recovery.spec.ts
               tests/browser/intake-review.spec.ts
               tests/browser/intake-guidance-gate.spec.ts
@@ -945,6 +946,7 @@ jobs:
               tests/browser/notice-on-case-pages.spec.ts
           - shard: 2
             specs: >-
+              tests/browser/filled-form-every-kind.spec.ts
               tests/browser/intake-reliability.spec.ts
               tests/browser/family-civil-intake-reliability.spec.ts
               tests/browser/intake-review-polish.spec.ts

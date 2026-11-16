@@ -115,23 +115,23 @@ export const STORIES: Story[] = [
   // Chrome's milestone test of #550 (16 Nov 2026), its stories S1 to S8 as Chrome ran them from the home page: the
   // reading shows what Chrome saw it show, and each page afterwards (the review, the Parties step, the next step, the case
   // page, the Forms tab) must ask nothing the person or the reading already gave.
-  { ...S("milestone-s1-injury", "small-claims", "bringing", "On October 4, 2026 I slipped on a wet floor inside the Circle K on Sample Road in Ottawa and fell. I hurt my back, missed 3 days of work at $150 a day, $450 in all, and paid $18.45 for medicine. I want $5,000 for pain and suffering too.", { amount: "5468.45", when: "October 4, 2026" }),
+  { ...S("sc-milestone-s1-injury", "small-claims", "bringing", "On October 4, 2026 I slipped on a wet floor inside the Circle K on Sample Road in Ottawa and fell. I hurt my back, missed 3 days of work at $150 a day, $450 in all, and paid $18.45 for medicine. I want $5,000 for pain and suffering too.", { amount: "5468.45", when: "October 4, 2026" }),
     home: [{ question: "Did you see a doctor after the fall?", answer: "Yes, at the hospital the same day." }],
     reading: [{ label: "Amount sought", value: "$5,468.45 total, including $5,000 for pain and suffering" }, { label: "Lost wages", value: "3 days at $150 per day, totalling $450" }, { label: "Medicine", value: "$18.45" }] },
-  { ...S("milestone-s4-tree", "small-claims", "bringing", "On October 4, 2026 my neighbour cut down a tree on my side of the property line. I want the tree replaced and I got a quote for $1500 to do the work.", { amount: "1500", when: "October 4, 2026" }),
+  { ...S("sc-milestone-s4-tree", "small-claims", "bringing", "On October 4, 2026 my neighbour cut down a tree on my side of the property line. I want the tree replaced and I got a quote for $1500 to do the work.", { amount: "1500", when: "October 4, 2026" }),
     home: [{ question: "Did you give permission to cut the tree?", answer: "No." }],
     reading: [{ label: "Replacement quote", value: "$1,500" }] },
-  { ...S("milestone-s5-loan", "small-claims", "bringing", "In March 2026 I lent my friend Alex $3,000. He promised to pay me back by June 1, 2026 and has paid nothing.", { amount: "3000", when: "March 2026", otherParty: "Alex" }),
+  { ...S("sc-milestone-s5-loan", "small-claims", "bringing", "In March 2026 I lent my friend Alex $3,000. He promised to pay me back by June 1, 2026 and has paid nothing.", { amount: "3000", when: "March 2026", otherParty: "Alex" }),
     home: [{ question: "Is there anything in writing about the loan?", answer: "Text messages." }],
     reading: [{ label: "Other party", value: "Your friend Alex" }, { label: "Amount", value: "$3,000" }], parties: true },
-  { ...S("milestone-s6-sued", "small-claims", "responding", "A contractor redid my kitchen. They have sued me for $4,200. I agree I hired the contractor. I disagree that I owe $4,200: I already paid $2,000 and the work was bad.", { amount: "4200" }, "October 20, 2026"),
+  { ...S("sc-milestone-s6-sued", "small-claims", "responding", "A contractor redid my kitchen. They have sued me for $4,200. I agree I hired the contractor. I disagree that I owe $4,200: I already paid $2,000 and the work was bad.", { amount: "4200" }, "October 20, 2026"),
     home: [{ question: "What do you dispute about the claim?", answer: "The work was bad and I already paid $2,000." }],
     situation: { where: "served", stage: "just-served", papers: "small-claims/7A", receivedOn: "2026-10-20", court: "small-claims" } },
-  { ...S("milestone-s7a-family-not-married", "family", "bringing", "Jordan Testpartner and I lived together and separated in June 2026. We were never married. Our son is 4 and lives with me. I want a parenting schedule.", { otherParty: "Jordan Testpartner" }),
+  { ...S("family-milestone-s7a-not-married", "family", "bringing", "Jordan Testpartner and I lived together and separated in June 2026. We were never married. Our son is 4 and lives with me. I want a parenting schedule.", { otherParty: "Jordan Testpartner" }),
     home: [{ question: "Are you and your partner legally married?", answer: "" }, { question: "Does your son see his other parent now?", answer: "Every second weekend." }], married: "no" },
-  { ...S("milestone-s7b-family-unsure", "family", "bringing", "Robin Testpartner and I separated in May 2026. Our daughter is 7 and lives with me. I want child support and a parenting schedule.", { otherParty: "Robin Testpartner" }),
+  { ...S("family-milestone-s7b-unsure", "family", "bringing", "Robin Testpartner and I separated in May 2026. Our daughter is 7 and lives with me. I want child support and a parenting schedule.", { otherParty: "Robin Testpartner" }),
     home: [{ question: "Are you and your partner legally married?", answer: "" }, { question: "Does your daughter see her other parent now?", answer: "Sometimes." }], married: "unsure" },
-  { ...S("milestone-s8-civil", "civil", "bringing", "I sold $85,000 of equipment to Testgoods Ltd. in Ottawa. Payment was due September 30, 2026 and nothing has been paid.", { amount: "85000", otherParty: "Testgoods Ltd." }),
+  { ...S("civil-milestone-s8", "civil", "bringing", "I sold $85,000 of equipment to Testgoods Ltd. in Ottawa. Payment was due September 30, 2026 and nothing has been paid.", { amount: "85000", otherParty: "Testgoods Ltd." }),
     home: [{ question: "Is there a written contract?", answer: "Yes, an invoice and a purchase order." }] },
 ];
 
