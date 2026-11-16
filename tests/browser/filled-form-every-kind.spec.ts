@@ -12,7 +12,9 @@
  * typed into the Parties step as a person would; then "Download filled Form 7A (PDF)" on the 7A section AND on the case's
  * Forms tab each downloads the court's own PDF, and its boxes read back hold the names, the addresses, the amount, both
  * defendants (the second on Form 1A, its own download), the French names with their accents (the contractor story), and
- * for the 350-word story the "additional pages attached" tick, matching the pages actually attached.
+ * the "additional pages attached" tick, matching the pages actually attached: none for the 350-word story, which fits
+ * the form's two reasons boxes (they hold about 2,100 words; pages start near 2,400 words, more than the 8,000
+ * characters a story is read at, so test:attached-pages checks the attached pages on the PDF itself; site owner, 16 Nov).
  *
  * What failure it catches: a kind of claim, or a page, from which the filled official form cannot be downloaded, or a
  * download that loses a name, an accent, the amount, a defendant or the attached pages.
@@ -42,7 +44,7 @@ const CIRCLE_K: PartyIn = { kind: "company", company: "Circle K Convenience Stor
 const MANAGER: PartyIn = { kind: "person", first: "Test", last: "Manager", street: "100 Sample Road", city: "Ottawa", province: "ON", postal: "K1B 0B1" };
 
 const KINDS: Kind[] = [
-  { name: "injury (350-word story, attached pages)", kind: /personal injury/i, story: LONG_STORY, amount: "$5,468.45", you: YOU, others: [CIRCLE_K, MANAGER], expectAttached: true },
+  { name: "injury (350-word story, fits the form)", kind: /personal injury/i, story: LONG_STORY, amount: "$5,468.45", you: YOU, others: [CIRCLE_K, MANAGER], expectAttached: false },
   { name: "contractor (French names)", kind: /Work or a service/i, story: "Synthetic: I paid a contractor a $1,200 deposit in March 2026 to renovate my kitchen and the work was never started.", amount: "$1,200",
     you: { kind: "person", first: "Gagné", last: "Élève", street: "8 rue de l'Église", city: "Gatineau", province: "QC", postal: "J8X 1A1", phone: "819-555-0100", email: "gagne.eleve@example.com" },
     others: [{ kind: "company", company: "Saint-Jérôme Rénovations Ltée", street: "8 rue de l'Église", city: "Gatineau", province: "QC", postal: "J8X 1A1" }], expectAttached: false },
@@ -166,7 +168,9 @@ for (const kind of KINDS) {
       await expect(sectionButton, "the 7A section offers the filled form").toHaveText("Download filled Form 7A (PDF)");
       const fromSection = await downloadBoxes(page, sectionButton);
       checkBoxes(kind, fromSection.boxes, "7A section");
-      if (kind.expectAttached) expect(fromSection.pages, "pages are attached after the form's own pages").toBeGreaterThan(Math.max(...(await pdfBoxes(fromSection.bytes)).filter((box) => box.name.startsWith("Signature")).map((box) => box.page)));
+      // Pages after the form's own (its last signature page) exactly when the tick says so, never one without the other.
+      const lastFormPage = Math.max(...(await pdfBoxes(fromSection.bytes)).filter((box) => box.name.startsWith("Signature")).map((box) => box.page));
+      expect(fromSection.pages > lastFormPage, "pages are attached after the form's own pages exactly when the tick is set").toBe(kind.expectAttached);
       if (kind.others.length > 1) {
         const [download] = await Promise.all([page.waitForEvent("download", { timeout: 120_000 }), section.getByTestId("filled-form-1a-download").first().click()]);
         const form1A = new Map((await pdfBoxes(new Uint8Array(readFileSync((await download.path())!)))).filter((box) => box.value).map((box) => [box.name, box.value] as const));
