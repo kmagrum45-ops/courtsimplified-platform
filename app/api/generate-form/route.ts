@@ -2,6 +2,7 @@ import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { NextResponse } from "next/server";
 import { FORM_COMPLETION_PAUSED, FORM_COMPLETION_PAUSED_MESSAGE } from "../../../src/lib/content-library/phaseScope";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+import { UnprintableText, printableValues, unprintableMessage } from "../../../src/lib/case-system/forms/printableText";
 import { createClient } from "@supabase/supabase-js";
 
 import { getCanonicalFormLookup } from "../../../src/lib/case-system/formsSelectedCase";
@@ -1314,7 +1315,10 @@ async function postGuidance(req: Request) {
     }
 
     const inspection = inspectPdf(pdfDoc);
-    const values = getCaseValues(ownedCase?.master_result || {}, data.courtType);
+    // pdf-lib draws every value in its standard Helvetica (WinAnsi): French prints; a character it cannot write
+    // (Chinese, for example) stops the download with the official-form download's message, rather than a blank box or
+    // a raw encoding error (printableText.ts printableValues, 16 Nov 2026).
+    const values = printableValues(getCaseValues(ownedCase?.master_result || {}, data.courtType), "pages");
     const missingCoreValues = summarizeMissingValues(values);
     const overlayFields = await loadOverlayFields(pdfPath);
 
@@ -1402,6 +1406,11 @@ async function postGuidance(req: Request) {
       },
     });
   } catch (error) {
+    // Logged by name only: the characters are the person's own words.
+    if (error instanceof UnprintableText) {
+      console.error("generate-form route error: UnprintableText");
+      return NextResponse.json({ error: unprintableMessage(error.characters) }, { status: 422 });
+    }
     console.error("generate-form route error:", error);
 
     const message =

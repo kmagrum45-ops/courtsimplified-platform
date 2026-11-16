@@ -201,3 +201,16 @@ published). So the box stays blank with the whole address to write by hand. That
    - **Question for the legal chat:** does any saved source (the Family Law Rules, `docs/sources/corpus/family-law-rules.txt`,
      or the form's own instructions) say whether, and how, a party may continue a Form 10 box on an attached page?
      Until it is answered from a source, the site does not attach a page for it.
+
+## 10. The exhibit book: a message when a name or title cannot be printed (added 16 Nov 2026)
+
+**Where.** The exhibit book (`src/lib/case-workspace/exhibitBook.ts`, `POST /api/workspace/exhibit-book`) prints the
+court name, the parties' names and each document's title in pdf-lib's Helvetica. French prints. A character outside it
+(Chinese, for example) stops the book, and the person sees the route's general error, which does not say why.
+
+**Why it is not fixed yet.** The forms' refusal message begins "The form could not be made", which is wrong for an
+exhibit book. The site does not write new wording itself.
+
+**Wording needed:** a version of the message for the exhibit book. It must name the characters, say this is a limit of
+the site, and not blame the person. Once it is worded, the book goes through the same check as the forms
+(`printableText.ts` `printableValues`), and its entry in `verifyPrintableEverywhere.ts` DECLARED is deleted.

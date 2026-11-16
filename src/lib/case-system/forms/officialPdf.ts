@@ -13,7 +13,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { attachedSections, fillForm, pdfValues, type BoxValue, type FormContext, type FormMapDefinition } from "./formMap";
 import { attachedPagesPdf } from "./attachedPages";
-import { UnprintableText, forPrinting, unprintableCharacters } from "./printableText";
+import { printableValues } from "./printableText";
 import { leftBoxesToViewers, withCharacterMaps } from "./fontMaps";
 
 type PdfJs = typeof import("pdfjs-dist/legacy/build/pdf.mjs");
@@ -103,9 +103,7 @@ export async function fillReadable(pdfFile: string, values: Readonly<Record<stri
 export async function filledFormPdf(map: FormMapDefinition, ctx: FormContext): Promise<Uint8Array> {
   // Every kind of space prints as a space; a character none of the form's fonts covers (Chinese, for example) stops the
   // download, naming it, rather than leaving the box to each viewer to draw or garble (printableText.ts, 15 Nov 2026).
-  const values = Object.fromEntries(Object.entries(pdfValues(fillForm(map, ctx))).map(([box, value]) => [box, typeof value === "string" ? forPrinting(value) : value]));
-  const unprintable = unprintableCharacters(Object.values(values).filter((value): value is string => typeof value === "string"), "boxes");
-  if (unprintable.length) throw new UnprintableText(unprintable);
+  const values = printableValues(pdfValues(fillForm(map, ctx)), "boxes");
   const filled = await fillReadable(map.pdf.file, values);
   const pages = await attachedPagesPdf(attachedSections(map, ctx));
   if (!pages) return filled;

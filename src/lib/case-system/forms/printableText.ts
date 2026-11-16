@@ -33,6 +33,18 @@ export function unprintableCharacters(texts: readonly string[], where: "pages" |
   return out;
 }
 
+/**
+ * These values as they are printed (every string through forPrinting; anything else as it is), or UnprintableText when
+ * some string has a character that cannot be printed `where`. The one gate every form download passes its values
+ * through (officialPdf.ts filledFormPdf, app/api/generate-form; verifyPrintableEverywhere.ts holds any new place to it).
+ */
+export function printableValues<T extends object>(values: T, where: "pages" | "boxes"): T {
+  const printed = Object.fromEntries(Object.entries(values).map(([key, value]) => [key, typeof value === "string" ? forPrinting(value) : value])) as T;
+  const unprintable = unprintableCharacters(Object.values(printed).filter((value): value is string => typeof value === "string"), where);
+  if (unprintable.length) throw new UnprintableText(unprintable);
+  return printed;
+}
+
 /** The download cannot be made: these characters cannot be printed. Never logged with its characters (the route logs the name). */
 export class UnprintableText extends Error {
   constructor(readonly characters: string[]) {
