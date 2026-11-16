@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-293 documented, 26 without a header.
+294 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -38,6 +38,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:assistant-context` | **Owned-context and canonical engine contracts, plus actual anonymous HTTP**<br>refusals. Full guidance is no longer available through anonymous fallback. Core factories isolate offline behavior; staging walkthroughs cover real auth. |
 | `npm run test:assistant-law` | **"The law on your question" in the Court Assistant**<br>(src/lib/case-system/retrieval/researchQuestion.ts, /api/assistant/law). |
 | `npm run test:box-follows-other-tab` | **A FORM BOX FOLLOWS ANOTHER TAB'S NEWER SAVE OF THE SAME BOX; ITS OWN UNSAVED WORDS ARE NEVER OVERWRITTEN**<br>(fact-two-tabs.spec.ts, 10 Nov 2026; owner's rule: after a reload the form shows the saved answer). |
+| `npm run test:browser-shards` | **EVERY BROWSER-REGRESSION SPEC RUNS IN EXACTLY ONE SHARD (site owner, 16 Nov 2026).**<br>The browser-regression job of courtsimplified-ci.yml runs as two shards (browser-regression-shard, matrix shard 1 and 2), each with its own list of spec files, balanced by measured CI time. The single job of 417 tests ran past its 70-minute limit on #550. Two  |
 | `npm run test:canlii` | **Court decisions from CanLII: the rules CanLII's Terms of Use (2026) set for**<br>this feature hold in code (docs/SOURCING_NOTES.md, "CanLII"). |
 | `npm run test:carry` | **THE END-TO-END CARRY TEST: ONE STORY, CARRIED FROM INTAKE THROUGH EVERY QUESTION AND STEP**<br>(site owner, 30 Oct: "a fact given once is known everywhere, never asked again, never refilled after the person removed it, never shown on the wrong case"). |
 | `npm run test:carry-baseline` | **THE CARRY BASELINE MAY ONLY SHRINK (site owner, 30 Oct: the end-to-end carry test "asserts zero").**<br>The end-to-end carry test (tests/browser/carry-end-to-end.spec.ts) fails any violation not listed in tests/browser/harness/carryBaseline.json. This suite checks, without a browser: - every baseline entry names a kind (asked-twice, returned-after-removal, wrong |
