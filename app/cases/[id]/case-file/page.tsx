@@ -86,8 +86,8 @@ export default function CaseFileSection() {
   // The amount and the other party, read from the case file (the one reader "What we have so far" uses): shown when
   // recorded, nothing when not (Chrome check of #545 at 7bce410, 1.6c: no amount line here after three changes).
   const file = caseFileOfMaster(caseRecord.master_result, courtPath);
-  const names = partyNames(file.parties.recorded ? file.parties.list : [], { you: record.yourName, other: file.otherParty.state === "answered" && !file.otherParty.removed ? slotText(file.otherParty, formatForCourt) : "" });
   const fileWords = (fact: "amount" | "otherParty") => (file[fact].state === "answered" && !file[fact].removed ? slotText(file[fact], formatForCourt) : "");
+  const names = partyNames(file.parties.recorded ? file.parties.list : [], { you: record.yourName, other: fileWords("otherParty") });
   // The chosen step, or the one the confirmed stage points to (Phase 1).
   const step = stepId ? findStage(stepId) : undefined;
 

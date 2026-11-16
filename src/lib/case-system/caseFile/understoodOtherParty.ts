@@ -13,7 +13,7 @@
  *   - a friend or relative only when the story ties them to what is owed (storyFacts.ts otherSideIn, F14).
  * Otherwise nothing is taken, and the questions ask for the name once, as before.
  */
-import { sentences } from "../sentences";
+import { endsWithCompanyAbbreviation, sentences } from "../sentences";
 import { bystanderSentence, otherSideIn } from "./storyFacts";
 import { MONTH_FULL_NAMES_PATTERN, WEEKDAY_NAMES_PATTERN } from "../dates";
 
@@ -39,7 +39,7 @@ export function otherPartyFromUnderstanding(facts: readonly { label: string; val
       // A company's own period stays ("Testgoods Ltd.", "Acme Inc.", "Northern Corp."): the name pattern reads "Ltd" as a
       // word and stopped before it (Chrome milestone test of #550, S8: "Testgoods Ltd" everywhere).
       const written = match[1].trim();
-      const name = /\b(?:Ltd|Inc|Corp|Co|LLC|Limited)$/.test(written) && fact.value[(match.index ?? 0) + match[0].length] === "." ? `${written}.` : written;
+      const name = fact.value[(match.index ?? 0) + match[0].length] === "." && endsWithCompanyAbbreviation(`${written}.`) ? `${written}.` : written;
       if (name.split(/\s+/).some((word) => NOT_A_NAME_WORD.test(word) || DATE_WORD.test(word))) continue;
       // A one-word name only as a whole word of the story.
       const naming = lines.filter((line) => (name.includes(" ") ? line.includes(name) : wholeWord(name).test(line)));

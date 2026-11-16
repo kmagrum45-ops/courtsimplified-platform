@@ -292,9 +292,6 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   if (situation.where === "going" || situation.where === "served") give(file, "filed", true, "situation:where");
   if (situation.papers) give(file, "papers", situation.papers === "not-sure" ? "not-sure" : firstPageOf(situation.papers)?.title ?? situation.papers, "situation:papers");
   if (situation.receivedOn) give(file, "servedDate", situation.receivedOn === "unknown" ? "unknown" : situation.receivedOn, "situation:received");
-  // "Nothing else yet. I was just served": no defence is filed yet (Chrome milestone test of #550, row 37: the review then
-  // asked "Have you filed a Defence (Form 9A) with the court yet?").
-  if (situation.where === "served" && situation.stage === JUST_SERVED) give(file, "defenceFiled", false, "situation:stage");
 
   // 2. Each area's own form (civil, Family, the Small Claims form).
   // The answers given to the story reading's questions on the home page (HomeLocationGate,
@@ -534,6 +531,10 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
     const words = wordsFollowHeldAmount(slot.value, heldAmount);
     if (words !== slot.value) file[fact] = { ...slot, value: words };
   }
+  // 13a. "Nothing else yet. I was just served": no defence is filed yet, when nothing the person said holds it (Chrome
+  // milestone test of #550, row 37: the review asked "Have you filed a Defence (Form 9A) with the court yet?"). Read
+  // last, so an answer of their own, an older case's typed "No" included, is kept as given (test:old-shape-cases).
+  if (situation.where === "served" && situation.stage === JUST_SERVED && file.defenceFiled.state === "not-asked") give(file, "defenceFiled", false, "situation:stage");
   // 13. Family's urgent question asks about a safety worry in its own words (guidedFields.ts, asked whole only while
   // safety is not held), so its answer or "not sure" is the safety answer until safety has one of its own (site owner,
   // 14 Nov 2026, 5c: never asked again; carry: the review's "Safety or urgent concerns" box asked after it). Read only.

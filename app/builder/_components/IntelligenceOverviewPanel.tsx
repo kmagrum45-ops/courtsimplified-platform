@@ -365,8 +365,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   const commonDefences: SourcedListItem[] = claimTypeContent ? claimTypeContent.commonDefences : [];
   // The rules that matter most first, named once; their words stay under "What we looked into" (lawBehind.ts).
   // Never a married person's provision for someone not married or not sure (marriedOnly.ts isMarriedOnlyLaw).
-  const lawAll = lawBehindThis(analysis.research?.findings ?? [], analysis.appliedLaw ?? []);
-  const lawBehind = hidesMarriedOnly(caseFile) ? { lines: lawAll.lines.filter((line) => !isMarriedOnlyLaw(line.name)), quoted: lawAll.quoted.filter((item) => !isMarriedOnlyLaw(item.citation || item.label)) } : lawAll;
+  const lawBehind = lawBehindThis(analysis.research?.findings ?? [], analysis.appliedLaw ?? [], hidesMarriedOnly(caseFile) ? isMarriedOnlyLaw : undefined);
   // 2026-09-28. Labelled rows instead of one run-on paragraph that ended with
   // the whole story pasted in. Values are still the user's own words, shown
   // as entered -- nothing is corrected or restated -- and the story sits

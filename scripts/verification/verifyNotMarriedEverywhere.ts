@@ -98,6 +98,7 @@ async function main() {
   const { movesForWords } = await import("../../app/_components/WhatComesNext");
   const { isMarriedOnlyLaw, MARRIED_ONLY_FAMILY_STEPS, MARRIED_ONLY_SCREEN_TEXT } = await import("../../src/lib/case-system/family/marriedOnly");
   const { FEES_IF_CLAIMED_LABEL } = await import("../../src/lib/content-library/nextStepPractical");
+  const { lawBehindThis } = await import("../../src/lib/case-system/retrieval/lawBehind");
 
   check("6. \"What it costs\": no folded part \"Only if the case also asks for a divorce, or claims property or the matrimonial home\" when not married", () => {
     const folded = stagesForPathway("family").map((stage) => stage.id).filter((id) => practicalFor(id, "family", "Ottawa", false, S7)?.feesIfClaimed);
@@ -132,7 +133,10 @@ async function main() {
     assert.ok(isMarriedOnlyLaw("Family Law Act, R.S.O. 1990, c. F.3, s. 5 (1)") && isMarriedOnlyLaw("Family Law Act, R.S.O. 1990, c. F.3, s. 24"));
     assert.ok(!isMarriedOnlyLaw("Family Law Act, R.S.O. 1990, c. F.3, s. 33 (1)") && !isMarriedOnlyLaw("Children's Law Reform Act, R.S.O. 1990, c. C.12, s. 24"));
     const overview = readFileSync("app/builder/_components/IntelligenceOverviewPanel.tsx", "utf8");
-    assert.ok(/hidesMarriedOnly\(caseFile\) \? \{ lines: lawAll\.lines\.filter\(\(line\) => !isMarriedOnlyLaw\(line\.name\)\)/.test(overview), "the overview's law list is not filtered");
+    assert.ok(/lawBehindThis\(analysis\.research\?\.findings \?\? \[\], analysis\.appliedLaw \?\? \[\], hidesMarriedOnly\(caseFile\) \? isMarriedOnlyLaw : undefined\)/.test(overview), "the overview's law list is not filtered");
+    const provision = (id: string, citation: string) => ({ id, citation, label: citation, sourceUrl: "https://www.ontario.ca/laws", kind: "statute" }) as never;
+    const left = lawBehindThis([], [provision("a", "Divorce Act, R.S.C. 1985, c. 3 (2nd Supp.), s. 7.3"), provision("b", "Family Law Act, R.S.O. 1990, c. F.3, s. 33 (1)")], isMarriedOnlyLaw).quoted.map((item) => item.id);
+    assert.deepEqual(left, ["b"], "lawBehindThis keeps a married-only provision when told to leave it out");
   });
 
   if (failed) { console.log(`\n${failed} check(s) failed`); process.exit(1); }
