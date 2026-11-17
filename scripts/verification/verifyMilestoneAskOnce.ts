@@ -23,7 +23,7 @@ import { factStatus, mayAskWords, mayShowQuestion } from "../../src/lib/case-sys
 import { reviewEntries } from "../../src/lib/case-system/intakeReview";
 import { PARTY_FORM_FIELDS } from "../../src/lib/case-system/caseFile/oldParties";
 import { separatedFromStory } from "../../src/lib/case-system/family/statusTriage";
-import { suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";
+import { answerOnOfferChoice, suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";
 import { buildMissingPrompt } from "../../app/builder/_components/SmallClaimsIntake";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import type { CaseRecord } from "../../src/lib/case-system/caseRecord";
@@ -118,6 +118,20 @@ const no = held({ initialAnswers: { "sc-defendant-counterclaim": "No" } });
 check("(12) \"No\" in the review: the Forms tab keeps No from the case", no?.value === false && no.firm === true, JSON.stringify(no));
 const yes = held({ initialAnswers: { "sc-defendant-counterclaim": "She owes me $500 for the TV she broke" } });
 check("(12) a claim back in their own words stays a suggestion they confirm, never kept for them", yes?.value === true && !yes.firm, JSON.stringify(yes));
+// The offer is made once, then recorded (site owner, 17 Nov): "No, that's not right" to an offered Yes saves No, "I'm not
+// sure" saves the question's own Not sure, so the Forms tab never asks it again as an open question. An offer whose No
+// says nothing about the answer (a choice among several) saves nothing and opens the list, as before.
+const YES_NO = DEFENDANTS_CLAIM[0].choices;
+check("(12) the Forms offer answered No: No is saved (never asked again)", answerOnOfferChoice(YES_NO, true, "no") === false, String(answerOnOfferChoice(YES_NO, true, "no")));
+check("(12) the Forms offer answered I'm not sure: Not sure is saved", answerOnOfferChoice(YES_NO, true, "unsure") === "not-sure", String(answerOnOfferChoice(YES_NO, true, "unsure")));
+check("(12) self-test: No to one choice among several saves nothing", answerOnOfferChoice([{ value: "a" }, { value: "b" }, { value: "c" }], "a", "no") === undefined && answerOnOfferChoice([{ value: true }, { value: false }], true, "unsure") === undefined);
+// The home page's reading card asks it too ("a claim of your own"), held under "home:outcome" (story pack
+// sc-served-kitchen-home, 17 Nov): a No in a sentence is still No, and a No that still claims money back is not.
+const fromHome = (answer: string) => suggestApplicability(DEFENDANTS_CLAIM, beingSued, { intakeCheckpoint: { ...answeredInReview({}).intakeCheckpoint, sections: { ...answeredInReview({}).intakeCheckpoint.sections, home: { understoodAnswers: [{ question: "Do you want to make a claim of your own against the contractor?", answer }] } } } })[0];
+const homeNo = fromHome("No. I only want to defend the claim. I am not seeking money from the contractor.");
+check("(12) \"No. I only want to defend the claim...\" on the home page: the Forms tab keeps No from the case", homeNo?.value === false && homeNo.firm === true, JSON.stringify(homeNo));
+const homeNoBut = fromHome("No, but he owes me $500 for the damage he did.");
+check("(12) self-test: a No that still claims money back is not kept as No", !(homeNoBut?.value === false && homeNoBut.firm), JSON.stringify(homeNoBut));
 const notAsked = held({ initialAnswers: {} });
 check("(12) self-test: never asked in the review, nothing is kept for them", !notAsked?.firm, JSON.stringify(notAsked));
 

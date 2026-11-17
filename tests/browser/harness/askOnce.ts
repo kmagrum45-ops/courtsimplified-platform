@@ -124,7 +124,11 @@ const SCAN = `(() => {
   const words = (el) => (el ? el.innerText || el.textContent || "" : "").replace(/\\s+/g, " ").trim();
   const headed = (selector, heading) => [...document.querySelectorAll(selector)].filter((h) => words(h) === heading).map((h) => h.parentElement).filter(Boolean);
   // The Forms page's questions: the section that says "Answer these and we will show the official forms".
-  const formsQuestions = () => [...document.querySelectorAll("p")].filter((p) => words(p).startsWith("Answer these and we will show the official forms")).flatMap((p) => [...p.parentElement.querySelectorAll("label.block, [data-testid=forms-suggested-from-case]")]);
+  // The Forms tab: its open questions ("forms") and its offers from the case ("forms-offer", one control each), apart, so the
+  // ask-once page test can tell an offer from a question (site owner, 17 Nov: a fact is offered once).
+  const formsBlock = (selector) => [...document.querySelectorAll("p")].filter((p) => words(p).startsWith("Answer these and we will show the official forms")).flatMap((p) => [...p.parentElement.querySelectorAll(selector)]);
+  const formsQuestions = () => formsBlock("label.block");
+  const formsOffers = () => formsBlock("[data-testid=forms-suggested-from-case]");
   // The civil and Family forms' text boxes: a label holding a heading and a textarea with no test id (the Small Claims form's own carry theirs and are read by key above), outside the review and the other asking places.
   const formLabels = () => [...document.querySelectorAll("label")].filter((l) => l.querySelector(":scope > textarea:not([data-testid])") && l.querySelector(":scope > span.font-semibold") && !l.closest("[data-testid=intake-review], [data-testid=sourced-questions], [data-testid=case-understanding], [data-testid=case-partner-transcript]"));
   // A form field asks when it stays empty for three scans ON THIS SCREEN (a field the page is still filling is not a
@@ -180,7 +184,8 @@ const SCAN = `(() => {
     ["home-reading", "[data-testid=case-understanding-questions] li", (el) => [words(el.querySelector("label > span"))]],
     ["law", "[data-testid=sourced-question-current]", (el) => [words(el.querySelector("label"))]],
     ["confirm-next", () => headed("section > h2", "What to confirm next"), (el) => [words(el.querySelector("p.font-semibold"))]],
-    ["forms", formsQuestions, (el) => [el.matches("label") ? words(el.childNodes[0]) || words(el) : words(el.querySelector("p.font-semibold"))]],
+    ["forms", formsQuestions, (el) => [words(el.childNodes[0]) || words(el)]],
+    ["forms-offer", formsOffers, (el) => [words(el.querySelector("p.font-semibold"))]],
     ["service-method", "select[data-testid^=stage-answer-service-method-]", (el) => ["serviceMethod:" + el.getAttribute("data-testid").slice("stage-answer-service-method-".length)]],
     ["form-field", "input[data-testid^=sc-intake-], textarea[data-testid^=sc-intake-], select[data-testid^=sc-intake-]", (el) => { const key = el.getAttribute("data-testid").slice("sc-intake-".length); return steadyEmpty("sc:" + key, el.type !== "file" && el.value === "") ? ["sc:" + key] : []; }],
     ["form-field", formLabels, (el) => { const label = words(el.querySelector(":scope > span.font-semibold")); return steadyEmpty("label:" + label, el.querySelector(":scope > textarea:not([data-testid])").value === "") ? ["label:" + label] : []; }],
@@ -327,7 +332,7 @@ const FORM_FIELD_FACTS: Record<string, readonly string[]> = {
 };
 
 /** The surfaces whose question is its own words (no id): their fact comes from the words (chatQuestionFacts.ts). */
-const WORDED = new Set(["chat-reply", "home-reading", "law", "confirm-next", "forms"]);
+const WORDED = new Set(["chat-reply", "home-reading", "law", "confirm-next", "forms", "forms-offer"]);
 
 /** The facts a recorded question asks for, on any surface. A question whose words name no fact asks for a fact of its own. */
 export function factsOfAsk(item: Pick<Asked, "surface" | "id" | "text">): string[] {
@@ -553,6 +558,19 @@ export function heldViolations(events: readonly Asked[]): Violation[] {
 }
 
 /** The repeats of factsAskedTwice, one violation per question asked again. */
+/**
+ * THE ASK-ONCE PAGE TEST'S OFFER RULE (site owner, 17 Nov 2026): a fact is offered ONCE, on the first page that needs it,
+ * then recorded so it is never offered or asked again. A violation on an offer surface is excused when no offer of the
+ * same fact came before it; a SECOND offer is asked again, and a cold question is never excused. Used by
+ * tests/browser/ask-once-pages.spec.ts only; every other test keeps the stricter rule above (any re-ask counts).
+ */
+export function firstOfferExcused(violation: Violation, events: readonly Asked[], offerSurfaces: ReadonlySet<string>): boolean {
+  if (!offerSurfaces.has(violation.surface)) return false;
+  const ask = events.find((item) => item.kind === "ask" && item.surface === violation.surface && item.id === violation.id && item.screen === violation.screen);
+  if (!ask) return false;
+  return !events.some((item) => item !== ask && item.kind === "ask" && item.at < ask.at && offerSurfaces.has(item.surface) && factsOfAsk(item).includes(violation.fact));
+}
+
 export function repeatViolations(repeats: readonly Repeat[]): Violation[] {
   return repeats.flatMap((repeat) => repeat.asks.map((ask) => ({ rule: "twice" as const, fact: repeat.fact, surface: ask.surface, id: ask.id, screen: ask.screen, text: ask.text, detail: `given at ${repeat.given.surface}:${repeat.given.id}@${repeat.given.screen} "${repeat.given.text.slice(0, 80)}"`, diag: diagnosticOf(ask) })));
 }

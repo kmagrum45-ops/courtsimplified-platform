@@ -182,10 +182,12 @@ function suggest(
     // owner, 17 Nov; full local run of 4d1ae680): "I do not know yet" is kept as this question's own "Not sure", "No" as
     // No; a claim back in their words stays a suggestion they confirm, below.
     const own = caseFileOfMaster(master, "small-claims").outcome;
-    // Asked in the review or in the Small Claims chat (its own answers: source "sc-defendant-counterclaim").
-    if (own.source?.kind === "answer" && /^(?:review:)?sc-defendant-counterclaim$/.test(own.source.question)) {
+    // Their own answer to it, wherever it was asked (the review, the Small Claims chat, the home page's reading card: each
+    // asks this one fact, factsOfQuestion.ts).
+    if (own.source?.kind === "answer") {
       if (own.state === "unsure") return { value: "not-sure", reason: "You answered \"I do not know yet\" when asked whether anyone owes you money.", firm: true };
-      if (own.state === "answered" && typeof own.value === "string" && /^\s*no\b[.!]?\s*$/i.test(own.value)) return { value: false, reason: "You answered \"No\" when asked whether anyone owes you money.", firm: true };
+      // A No, in a word or a sentence ("No. I only want to defend the claim."), unless the same words still claim money back.
+      if (own.state === "answered" && typeof own.value === "string" && /^\s*no\b/i.test(own.value) && !CLAIM_BACK.some((pattern) => pattern.test(own.value as string))) return { value: false, reason: "You answered \"No\" when asked whether anyone owes you money.", firm: true };
       // "Yes" kept too, with Change (site owner, 17 Nov: their own answer is never offered again).
       if (own.state === "answered" && typeof own.value === "string" && /^\s*yes\b[.!]?\s*$/i.test(own.value)) return { value: true, reason: "You answered \"Yes\" when asked whether the plaintiff or someone else owes you money.", firm: true };
     }
@@ -243,6 +245,18 @@ function suggest(
     return { value: false, reason: "You described suing someone, which is an action, not an application." };
   }
   return null;
+}
+
+/**
+ * What a Forms-tab offer's "No, that's not right" or "I'm not sure" saves, so the question is never asked again (site
+ * owner, 17 Nov: a fact is offered once, then recorded). No to an offered Yes on a yes/no question is No; "I'm not sure"
+ * is the question's own "Not sure" choice. Anything else (No to one choice among several) says nothing: undefined, and
+ * the screen opens the list as before.
+ */
+export function answerOnOfferChoice(choices: ReadonlyArray<{ value: unknown }>, offered: unknown, choice: "no" | "unsure"): boolean | string | undefined {
+  const has = (value: unknown) => choices.some((item) => item.value === value);
+  if (choice === "unsure") return has("not-sure") ? "not-sure" : undefined;
+  return offered === true && has(false) ? false : undefined;
 }
 
 export function suggestApplicability(

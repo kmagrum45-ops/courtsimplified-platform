@@ -41,6 +41,7 @@ import { situationLine, situationOfCase, stageFromSituation } from "@/src/lib/ca
 import { FILE_OPEN_FAILED, openAfterCheck, saveFile } from "@/src/lib/case-workspace/fileFetch";
 import { WorkingButton } from "../_components/Working";
 import { UseSuggestion } from "../_components/UseSuggestion";
+import { answerOnOfferChoice } from "../../src/lib/case-system/forms/applicabilitySuggestions";
 import { useOfferChoices } from "../_components/offerChoiceSave";
 import { openCaseFromAddress } from "@/src/lib/case-system/openCase";
 import { officialFormCount, oneRowPerForm } from "@/src/lib/content-library/forms/formCount";
@@ -1017,6 +1018,10 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                             what={pendingChoice.label}
                             working={applicabilitySaving}
                             onUse={() => void saveApplicability({ [group]: { [field]: pending.value } }, { [question.field_path]: pending.reason })}
+                            // Offered once, then recorded (site owner, 17 Nov): No to an offered Yes saves No, "I'm not sure" saves
+                            // the question's own Not sure, so it is never asked again (applicabilitySuggestions.ts answerOnOfferChoice).
+                            onNo={() => { const value = answerOnOfferChoice(question.choices, pending.value, "no"); if (value !== undefined) void saveApplicability({ [group]: { [field]: value } }, { [question.field_path]: "You answered this when it was offered." }); }}
+                            onUnsure={() => { const value = answerOnOfferChoice(question.choices, pending.value, "unsure"); if (value !== undefined) void saveApplicability({ [group]: { [field]: value } }, { [question.field_path]: "You answered this when it was offered." }); }}
                             className="rounded-xl bg-[#2f7d67] px-4 py-2 text-left text-sm font-semibold text-white disabled:opacity-70"
                             // Where the suggestion came from is drawn by the one control, so never without its buttons (PR #550 CI).
                             ask={<span className="mb-2 block font-normal text-[#2f7d67]">From your case: {pending.reason} Not saved yet.</span>}

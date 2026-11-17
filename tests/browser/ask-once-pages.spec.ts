@@ -34,7 +34,7 @@ import { deleteHarnessUser } from "./harness/realTestSession";
 import { autoAnswerSituation, answerSituation, situationAnswersFor, STARTING_NOTHING_FILED, type SituationAnswers } from "./harness/situation";
 import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns, type Court } from "./harness/thisCommitServer";
-import { factsAskedTwice, factsOfAsk, heldViolations, recordAsks, repeatViolations, type Asked } from "./harness/askOnce";
+import { factsAskedTwice, factsOfAsk, firstOfferExcused, heldViolations, recordAsks, repeatViolations, type Asked } from "./harness/askOnce";
 import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { chooseOffers } from "./harness/offers";
 import { MARRIED_ONLY_SCREEN_TEXT } from "../../src/lib/case-system/family/marriedOnly";
@@ -147,7 +147,9 @@ const expectedFor = (item: Violation) => EXPECTED.some((entry) => keyOf(entry) =
 const REPORT = Boolean(process.env.ASK_ONCE_REPORT);
 const TYPED_NOT_SURE = "I do not know yet";
 /** Surfaces that offer a value from the story for one confirmation (allowed once), not a cold ask. */
-const OFFER_SURFACES = new Set(["sc-proposal", "story-proposal-row", "guided-form-from-story", "claim-kind", "parties-offer"]);
+// The Forms tab offer (forms-offer) too: a fact is offered once, then never offered or asked again (site owner, 17 Nov;
+// a SECOND offer of a fact counts as asked again, the first does not: askOnce.ts firstOfferExcused).
+const OFFER_SURFACES = new Set(["sc-proposal", "story-proposal-row", "guided-form-from-story", "claim-kind", "parties-offer", "forms-offer"]);
 
 function situationOf(story: Story): SituationAnswers {
   if (story.situation) return story.situation;
@@ -515,7 +517,7 @@ for (const story of STORIES) {
       }
       reached = reached === "next step" ? "all pages" : reached;
       const situation = situationOf(story);
-      for (const violation of [...repeatViolations(factsAskedTwice(events, situation)), ...heldViolations(events)]) {
+      for (const violation of [...repeatViolations(factsAskedTwice(events, situation)), ...heldViolations(events)].filter((item) => !firstOfferExcused(item, events, OFFER_SURFACES))) {
         found.push({ story: story.name, court: story.court, side: story.side, kind: "asked-twice", fact: violation.fact, screen: `${violation.surface}@${violation.screen}`, detail: violation.text.slice(0, 120) });
       }
       const stated = new Set(known);
