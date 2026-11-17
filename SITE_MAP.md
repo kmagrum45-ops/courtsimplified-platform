@@ -957,7 +957,7 @@ The case file: one slot per fact, and nextQuestion, the one rule for asking.
 The case file of a saved case (its checkpoint and saved position), for readers that have only master_result.
 
 - Reads (2): **src/lib/case-system/caseFile/caseFile.ts**, src/lib/case-system/intakeCheckpoint.ts
-- Read by (14): app/_components/IntakeRecovery.tsx, app/_components/offerChoiceSave.ts, app/api/generate-form/route.ts, app/api/workspace/exhibit-book/route.ts, app/builder/_components/StatementOfClaimSurface.tsx, app/builder/page.tsx, app/cases/[id]/case-file/page.tsx, app/cases/[id]/drafts/page.tsx, app/cases/[id]/forms/page.tsx, app/cases/_components/CaseHomeContext.tsx, src/lib/case-system/caseFile/factSave.ts, **src/lib/case-system/caseRecord.ts**, src/lib/case-system/caseReview/caseReview.ts, src/lib/case-system/parties/partiesHeld.ts
+- Read by (15): app/_components/IntakeRecovery.tsx, app/_components/offerChoiceSave.ts, app/api/generate-form/route.ts, app/api/workspace/exhibit-book/route.ts, app/builder/_components/StatementOfClaimSurface.tsx, app/builder/page.tsx, app/cases/[id]/case-file/page.tsx, app/cases/[id]/drafts/page.tsx, app/cases/[id]/forms/page.tsx, app/cases/_components/CaseHomeContext.tsx, src/lib/case-system/caseFile/factSave.ts, **src/lib/case-system/caseRecord.ts**, src/lib/case-system/caseReview/caseReview.ts, src/lib/case-system/forms/applicabilitySuggestions.ts, src/lib/case-system/parties/partiesHeld.ts
 - Checked by (7): scripts/verification/verifyCaseFile.ts, scripts/verification/verifyChangePath.ts, scripts/verification/verifyClaimKindOneValue.ts, scripts/verification/verifyDeadlineDateKeepsWhen.ts, scripts/verification/verifyFactCoexistence.ts, scripts/verification/verifyQuestionMeanings.ts, scripts/verification/verifyWantsFollowAmount.ts
 
 ### src/lib/case-system/caseFile/factsOfQuestion.ts
@@ -1021,7 +1021,7 @@ The one place a filled official form is offered: its download, its button words,
 Each fact the story gives, in plain words with its sentence: the other side, losses, injury, evidence, last payment.
 
 - Reads (2): **src/lib/case-system/dates.ts**, **src/lib/case-system/sentences.ts**
-- Read by (3): **src/lib/case-system/caseFile/storyLines.ts**, src/lib/case-system/caseFile/understoodOtherParty.ts, **src/lib/case-system/intakeReview.ts**
+- Read by (5): **app/builder/_components/guidedFields.ts**, **src/lib/case-system/caseFile/storyLines.ts**, src/lib/case-system/caseFile/understoodOtherParty.ts, **src/lib/case-system/intakeReview.ts**, src/lib/security/requestNames.ts
 - Checked by (5): scripts/verification/verifyStaleCopies.ts, scripts/verification/verifyStoryFacts.ts, scripts/verification/verifyStoryOtherParty.ts, scripts/verification/verifyStoryOtherPartyRelations.ts, scripts/verification/verifyUiFaults.ts
 
 ### src/lib/case-system/copy/caseWords.ts
@@ -1108,9 +1108,9 @@ The story readers: side, filed papers, children, dates, goal, other party.
 
 The civil and Family questions and their choices.
 
-- Reads (7): app/builder/_components/GuidedFormChat.tsx, **app/builder/_components/storyAnswers.ts**, **src/lib/case-system/caseFile/caseFile.ts**, src/lib/case-system/caseFile/factStatus.ts, **src/lib/case-system/caseFile/storyOffers.ts**, **src/lib/case-system/casePosition.ts**, src/lib/case-system/copy/storyGuidance.ts
+- Reads (8): app/builder/_components/GuidedFormChat.tsx, **app/builder/_components/storyAnswers.ts**, **src/lib/case-system/caseFile/caseFile.ts**, src/lib/case-system/caseFile/factStatus.ts, **src/lib/case-system/caseFile/storyFacts.ts**, **src/lib/case-system/caseFile/storyOffers.ts**, **src/lib/case-system/casePosition.ts**, src/lib/case-system/copy/storyGuidance.ts
 - Read by (9): app/_components/ChangeAnswer.tsx, app/_components/IntakeReviewPanel.tsx, app/builder/_components/CivilIntake.tsx, app/builder/_components/FamilyIntake.tsx, app/builder/_components/GuidedFormChat.tsx, app/builder/_components/SmallClaimsIntake.tsx, **src/lib/case-system/copy/rawKeys.ts**, **src/lib/case-system/intakeReview.ts**, src/lib/case-system/siteQuestions.ts
-- Checked by (14): scripts/verification/verifyAnswerCoverage.ts, scripts/verification/verifyCaseFile.ts, scripts/verification/verifyCaseWords.ts, scripts/verification/verifyChrome29OctFlow.ts, scripts/verification/verifyDateEntryPoints.ts, scripts/verification/verifyFactStatus.ts, scripts/verification/verifyFormsFromCaseFile.ts, scripts/verification/verifyGuidedFormChat.ts, scripts/verification/verifyHomeAnswersHeld.ts, scripts/verification/verifyMarriedOnlyTopics.ts, scripts/verification/verifyOwnAnswers.ts, scripts/verification/verifyRawKeys.ts, scripts/verification/verifySiteTextNeverFacts.ts, scripts/verification/verifyStoryAnswers.ts
+- Checked by (15): scripts/verification/verifyAnswerCoverage.ts, scripts/verification/verifyCaseFile.ts, scripts/verification/verifyCaseWords.ts, scripts/verification/verifyChrome29OctFlow.ts, scripts/verification/verifyDateEntryPoints.ts, scripts/verification/verifyFactStatus.ts, scripts/verification/verifyFormsFromCaseFile.ts, scripts/verification/verifyGuidedFormChat.ts, scripts/verification/verifyHomeAnswersHeld.ts, scripts/verification/verifyMarriedOnlyTopics.ts, scripts/verification/verifyOwnAnswers.ts, scripts/verification/verifyRawKeys.ts, scripts/verification/verifySiteTextNeverFacts.ts, scripts/verification/verifyStoryAnswers.ts, scripts/verification/verifyUiFaults.ts
 
 ### src/lib/case-system/claimAmount.ts
 
