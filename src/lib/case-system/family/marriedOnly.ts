@@ -87,9 +87,12 @@ export function withoutMarriedOnlySentences(text: string, notMarried: boolean): 
 
 /** A step answer as a person not married reads it: each section without the married-only sentences. */
 export function withoutMarriedOnlyAnswer<T extends object>(result: T | null, notMarried: boolean): T | null {
-  const answer = result && "answer" in result ? (result as { answer?: { sections?: { heading: string; text: string }[] } | null }).answer : null;
+  const answer = result && "answer" in result ? (result as { answer?: { sections?: { heading: string; text: string }[]; sources?: { name: string; pinpoint?: string }[] } | null }).answer : null;
   if (!notMarried || !answer?.sections) return result;
-  return { ...result, answer: { ...answer, sections: answer.sections.map((section) => ({ ...section, text: withoutMarriedOnlySentences(section.text, true) })) } } as T;
+  // Its Sources too: none that only married people's cases rest on (isMarriedOnlyLaw; full local run of 17 Nov, the case
+  // page's full answer listed the Divorce Act after "No" and "not sure").
+  const sources = answer.sources?.filter((source) => !isMarriedOnlyLaw(`${source.name}${source.pinpoint ? `, ${source.pinpoint}` : ""}`));
+  return { ...result, answer: { ...answer, sections: answer.sections.map((section) => ({ ...section, text: withoutMarriedOnlySentences(section.text, true) })), ...(sources ? { sources } : {}) } } as T;
 }
 
 /** Whether any option was left out (so a story-only reading can offer "Show all topics"). */

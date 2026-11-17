@@ -346,13 +346,15 @@ export default function IntakeReviewPanel() {
   /**
    * The words of a question's answer as the record reads them now, the question's own answer included: words built
    * from amounts follow the amount held (caseFile.ts wordsFollowHeldAmount; Chrome milestone test of #550, row 17: "What
-   * outcome ... Answered:" kept $5,000 / $450 / $18.45 after the amount was changed to $5,100). Only what the person
-   * wants is built from amounts; every other answer keeps the words the person gave ("2026-05-12" stays as typed).
+   * outcome ... Answered:" kept $5,000 / $450 / $18.45 after the amount was changed to $5,100). What the person wants is
+   * built from amounts, so it always reads the record; any other answer reads it when the record holds something other
+   * than the answer's own words (the amount changed to $2,650 in the review's box shows $2,650: full local run of
+   * 4d1ae680), and otherwise keeps the words the person gave ("2026-05-12" stays as typed: full local run of 3774a858).
    */
-  const recordWords = (id: string): string | null => {
+  const recordWords = (id: string, given?: unknown): string | null => {
     for (const fact of slotsOfQuestion(id)) {
-      if (fact !== "wants") continue;
       const slot = caseFileNow[fact];
+      if (fact !== "wants" && typeof given === "string" && String(slot.value ?? "").trim() === given.trim()) continue;
       if (slot.state === "answered") return heldWords(caseFileNow, fact, slot);
     }
     return null;
@@ -547,7 +549,7 @@ export default function IntakeReviewPanel() {
           {/* Answered, it keeps its place (owner, earlier rule) and says so with the answer in words, never
               counted as still to answer (owner's Chrome check, 31 Oct). A typed answer is shown here as words, not
               only in its box. */}
-          {answered ? (() => { const given = bank ? initialAnswersOf(fresh)[question.id] : fieldValue(question.id); const words = recordWords(question.id) ?? (Array.isArray(given) ? given.map(value => reviewQuestionField(checkpoint.courtPath, question.id, checkpoint)?.options.find(option => option.value === value)?.label ?? String(value)).join(", ") : typeof given === "string" ? given : ""); return <p data-testid="intake-question-answered" className="text-sm text-[#2f7d67]">{words ? `Answered: ${withFullStop(words)}` : "Answered."} You can change it here.</p>; })() : null}
+          {answered ? (() => { const given = bank ? initialAnswersOf(fresh)[question.id] : fieldValue(question.id); const words = recordWords(question.id, given) ?? (Array.isArray(given) ? given.map(value => reviewQuestionField(checkpoint.courtPath, question.id, checkpoint)?.options.find(option => option.value === value)?.label ?? String(value)).join(", ") : typeof given === "string" ? given : ""); return <p data-testid="intake-question-answered" className="text-sm text-[#2f7d67]">{words ? `Answered: ${withFullStop(words)}` : "Answered."} You can change it here.</p>; })() : null}
           {staleInitial[question.id] ? <p data-testid="intake-answer-stale" className="text-[#7a4b12]">Answered for an earlier version of your story: &ldquo;{staleInitial[question.id]}&rdquo;. <button type="button" data-testid="intake-keep-answer" disabled={busy} onClick={() => answer(question.id, staleInitial[question.id])} className="underline">Keep this answer</button> or choose again.</p> : null}
           {bank?.answerType === "choice" && Array.isArray(bank.choices) && <div className="mt-1 flex flex-wrap gap-2">{bank.choices.map(choice => <button key={choice} type="button" disabled={busy} aria-pressed={initialAnswersOf(fresh)[question.id] === choice} onClick={() => answer(question.id, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice}</button>)}{suggested && !answered && bank.choices.includes(suggested) && !offerChoices[offerKeyOfQuestion(question.id)] ? reviewOffer(offerKeyOfQuestion(question.id), question.id, { testId: "intake-use-suggestion", disabled: busy, onUse: () => answer(question.id, suggested), what: suggested, className: "rounded border px-3 py-1" }) : null}</div>}
           {bank?.answerType === "yes-no" && <div className="mt-1 flex flex-wrap gap-2">{["Yes", "No"].map(choice => <button key={choice} type="button" disabled={busy} aria-pressed={initialAnswersOf(fresh)[question.id] === choice} onClick={() => answer(question.id, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice}</button>)}</div>}

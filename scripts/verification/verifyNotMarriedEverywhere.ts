@@ -32,7 +32,7 @@ import { readFileSync } from "node:fs";
 import published from "../../src/lib/content-library/published/stageAnswers.published.json";
 import { practicalFor, withoutDivorceApplication } from "../../src/lib/content-library/nextStepPractical";
 
-type Married = { MARRIED_ONLY_SENTENCES?: readonly string[]; withoutMarriedOnlySentences?: (text: string, notMarried: boolean) => string };
+type Married = { MARRIED_ONLY_SENTENCES?: readonly string[]; withoutMarriedOnlySentences?: (text: string, notMarried: boolean) => string; withoutMarriedOnlyAnswer?: (result: object | null, notMarried: boolean) => object | null };
 
 const blocks = (published as { blocks: Record<string, unknown>[] }).blocks;
 const allText = JSON.stringify(published);
@@ -138,6 +138,28 @@ async function main() {
     const read = withoutMarriedOnlyLaw({ appliedLaw: [provision("a", "Divorce Act, R.S.C. 1985, c. 3 (2nd Supp.), s. 7.3"), provision("b", "Family Law Act, R.S.O. 1990, c. F.3, s. 33 (1)")] }, true);
     assert.deepEqual(lawBehindThis([], read.appliedLaw).quoted.map((item: { id: string }) => item.id), ["b"], "\"The law behind this\" keeps a married-only provision for someone not married");
     assert.equal(withoutMarriedOnlyLaw({ appliedLaw: [provision("a", "Divorce Act, R.S.C. 1985, c. 3 (2nd Supp.), s. 7.3")] }, false).appliedLaw?.length, 1, "a married person lost the provision");
+  });
+
+  check("10. the Family triage's \"What the statutes say about which court\": no Divorce Act statement after married No or not sure; kept after Yes", () => {
+    // Full local run of 4d1ae680 (ask-once family-married-unsure, s7a): "Divorce Act, R.S.C. 1985" in the folded which-court
+    // statements on the next step; also the 29 Oct known problem G2-triage.
+    const divorce = (married: "yes" | "no" | "unsure") => buildTriageOutcome({ ...emptyStatusRecord(), marriedToOtherParty: married } as never).courtInformation.filter((statement) => /divorce/i.test(statement.text + JSON.stringify(statement.citations))).length;
+    assert.equal(divorce("no"), 0, "a Divorce Act statement after married No");
+    assert.equal(divorce("unsure"), 0, "a Divorce Act statement after married not sure");
+    assert.ok(divorce("yes") > 0, "a married person lost the Divorce Act statement");
+  });
+
+  check("11. the step's full answer lists no married-only source after No or not sure (Divorce Act, FLA Parts I and II); Part III kept; all kept when married", () => {
+    // Full local run of 17 Nov (ask-once family-married-unsure, s7a, s7b): "Divorce Act, R.S.C. 1985" in the case page's
+    // "The full answer for this step, with every rule and source", Sources.
+    const answer = { sections: [{ heading: "What to do", text: "File your application." }], sources: [
+      { name: "Divorce Act, R.S.C. 1985, c. 3 (2nd Supp.)", pinpoint: "s. 3 (1)", url: "https://laws-lois.justice.gc.ca" },
+      { name: "Family Law Act, R.S.O. 1990, c. F.3", pinpoint: "s. 5 (1)", url: "https://www.ontario.ca/laws" },
+      { name: "Family Law Act, R.S.O. 1990, c. F.3", pinpoint: "s. 33 (1)", url: "https://www.ontario.ca/laws" },
+    ] };
+    const kept = (notMarried: boolean) => (married.withoutMarriedOnlyAnswer!({ answer }, notMarried) as { answer: typeof answer }).answer.sources.map((source) => source.pinpoint);
+    assert.deepEqual(kept(true), ["s. 33 (1)"], "a married-only source listed for someone not married or not sure");
+    assert.deepEqual(kept(false), ["s. 3 (1)", "s. 5 (1)", "s. 33 (1)"], "a married person lost a source");
   });
 
   if (failed) { console.log(`\n${failed} check(s) failed`); process.exit(1); }

@@ -14,7 +14,7 @@
  *
  * Pure. States no law. No model (the reading was made earlier, and is only read here).
  */
-import { amountOfferFromStory } from "../../../../app/builder/_components/storyAnswers";
+import { amountOfferFromStory, oneClickQuote } from "../../../../app/builder/_components/storyAnswers";
 import { otherPartyFromUnderstanding } from "./understoodOtherParty";
 
 export type ReadingFact = { label: string; value: string };
@@ -72,6 +72,8 @@ export function offeredAmount(story: string, reading: readonly ReadingFact[], op
       const found = AMOUNT_IN.exec(fact.value);
       if (!found) continue;
       const amount = cents(found[1]);
+      // One click: a quote or estimate only when it is the story's only amount (storyAnswers.ts oneClickQuote).
+      if (options.oneClick && label === AMOUNT_LABELS[1] && !oneClickQuote(story, amount / 100)) continue;
       if (amount > 0 && inTheStory(amount, story)) return { value: shown(amount), quote: `${fact.label}: ${fact.value}`, from: "reading" };
     }
   }

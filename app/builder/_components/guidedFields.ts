@@ -33,6 +33,7 @@ import {
   otherPartyNameFromStory,
   servedDateFromStory,
 } from "./storyAnswers";
+import { businessOtherSideIn } from "../../../src/lib/case-system/caseFile/storyFacts";
 
 const storyOf = (values: GuidedValues) => (typeof values.facts === "string" ? values.facts : "");
 
@@ -285,7 +286,8 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
     {
       key: "otherParty",
       label: "The other side",
-      fromStory: (values) => otherPartyFromStory(storyOf(values)),
+      // The chat's own stricter reader, then a business the story names (storyFacts.ts businessOtherSideIn).
+      fromStory: (values) => otherPartyFromStory(storyOf(values)) ?? businessOtherSideIn(storyOf(values)),
       question: "Who is the other side (a person or a business)? You can leave the name for later.",
       why: "It goes on your forms. Nothing else depends on it.",
       kind: "text",

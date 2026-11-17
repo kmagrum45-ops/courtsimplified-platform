@@ -18,6 +18,7 @@
 import { sentences as sharedSentences } from "../sentences";
 import type { CaseRecord } from "../caseRecord";
 import { caseStepFor } from "../caseStep";
+import { caseFileOfMaster } from "../caseFile/caseFileOfMaster";
 
 /**
  * `firm`: the answer is something the person themselves entered or chose --
@@ -176,7 +177,16 @@ function suggest(
       // without their confirmation (CLAUDE.md section 4; review 2026-10-13).
       return { value: true, reason: "Your step is considering a defendant's claim." };
     }
-    const asked = claimBackInOwnWords(master, record.story);
+    // Their own answer to the review's "Do you believe the plaintiff, or someone else, owes you money...?" is this
+    // question's fact (factsOfQuestion.ts: one fact, "outcome"), read through the one reader and never asked again (site
+    // owner, 17 Nov; full local run of 4d1ae680): "I do not know yet" is kept as this question's own "Not sure", "No" as
+    // No; a claim back in their words stays a suggestion they confirm, below.
+    const own = caseFileOfMaster(master, "small-claims").outcome;
+    if (own.source?.kind === "answer" && own.source.question === "review:sc-defendant-counterclaim") {
+      if (own.state === "unsure") return { value: "not-sure", reason: "You answered \"I do not know yet\" when asked whether anyone owes you money.", firm: true };
+      if (own.state === "answered" && typeof own.value === "string" && /^\s*no\b[.!]?\s*$/i.test(own.value)) return { value: false, reason: "You answered \"No\" when asked whether anyone owes you money.", firm: true };
+    }
+    const asked = claimBackInOwnWords(master, [record.story, own.state === "answered" && typeof own.value === "string" ? own.value : ""].join(" "));
     if (asked) return { value: true, reason: `You wrote: “${asked}”` };
   }
 

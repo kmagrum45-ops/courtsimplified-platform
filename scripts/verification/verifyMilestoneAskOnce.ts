@@ -91,5 +91,24 @@ check("(11) the Forms tab keeps \"eligible Ontario Small Claims Court matter\" f
 const over = suggestApplicability([{ field_path: "formApplicability.smallClaims.eligibilityConfirmed", choices: [{ value: true }, { value: false }, { value: "not-sure" }] }], { ...record, amount: "$85,000" } as CaseRecord, {});
 check("(11) self-test: an amount over the Small Claims limit is never answered for them", over.length === 0, JSON.stringify(over));
 
+// (12) The Forms tab's "Are you making a Defendant's Claim?" keeps the person's own answer to the review's counterclaim
+// question (one fact, factsOfQuestion.ts), never asks it again (site owner, 17 Nov; full local run of 4d1ae680: asked again
+// on 7 served Small Claims stories): "I do not know yet" (typed or ticked) is the question's own "Not sure", "No" is No,
+// both kept; a claim back in their words stays a suggestion they confirm.
+const DEFENDANTS_CLAIM = [{ field_path: "formApplicability.smallClaims.isMakingDefendantsClaim", choices: [{ value: true }, { value: false }, { value: "not-sure" }] }];
+const beingSued = { ...record, side: { value: "responding" }, story: "Synthetic: I was served with a Plaintiff's Claim. My former roommate says I owe her $3,200." } as unknown as CaseRecord;
+const answeredInReview = (builder: Record<string, unknown>) => ({ intakeCheckpoint: { version: 1, flowId: "00000000-0000-4000-8000-000000000001", courtPath: "small-claims", revision: "00000000-0000-4000-8000-000000000002", sections: { story: { text: beingSued.story }, situation: { record: { where: "served", stage: "just-served", papers: "small-claims-7A", court: "small-claims" } }, builder: { step: "guided", ...builder } } } });
+const held = (builder: Record<string, unknown>) => suggestApplicability(DEFENDANTS_CLAIM, beingSued, answeredInReview(builder))[0];
+for (const [name, builder] of [["typed \"I do not know yet\"", { initialAnswers: { "sc-defendant-counterclaim": "I do not know yet" } }], ["ticked \"I do not know yet\"", { initialAnswers: {}, initialUnknowns: ["sc-defendant-counterclaim"] }]] as const) {
+  const kept = held(builder);
+  check(`(12) ${name} in the review: the Forms tab keeps "Not sure" from the case, never asks again`, kept?.value === "not-sure" && kept.firm === true, JSON.stringify(kept));
+}
+const no = held({ initialAnswers: { "sc-defendant-counterclaim": "No" } });
+check("(12) \"No\" in the review: the Forms tab keeps No from the case", no?.value === false && no.firm === true, JSON.stringify(no));
+const yes = held({ initialAnswers: { "sc-defendant-counterclaim": "She owes me $500 for the TV she broke" } });
+check("(12) a claim back in their own words stays a suggestion they confirm, never kept for them", yes?.value === true && !yes.firm, JSON.stringify(yes));
+const notAsked = held({ initialAnswers: {} });
+check("(12) self-test: never asked in the review, nothing is kept for them", !notAsked?.firm, JSON.stringify(notAsked));
+
 console.log(failed ? `\n${failed} check(s) FAILED.` : "\nAll milestone ask-once checks passed.");
 process.exit(failed ? 1 : 0);

@@ -32,6 +32,7 @@
  */
 import { MONTH_WORDS_EN } from "../dates";
 import { MARRIED_UNSURE_NOTE } from "../copy/askCopy";
+import { isMarriedOnlyLaw } from "./marriedOnly";
 
 /**
  * Every source cited below is vendored under docs/sources/ and checked by
@@ -641,7 +642,11 @@ export function buildTriageOutcome(record: FamilyStatusRecord): TriageOutcome {
   return {
     complete: selectNextTriageQuestion(record) === null,
     recorded,
-    courtInformation: courtInformation(),
+    // After "Were you married?" No or not sure, no statement that rests only on married-only law (the Divorce Act's
+    // "court": marriedOnly.ts isMarriedOnlyLaw; 29 Oct known problem G2-triage, full local run of 4d1ae680).
+    courtInformation: record.marriedToOtherParty === "no" || record.marriedToOtherParty === "unsure"
+      ? courtInformation().filter((statement) => !statement.citations.every((citation) => isMarriedOnlyLaw(citation.label)))
+      : courtInformation(),
     municipalities: municipalityRows(record),
     municipalitiesCitation: FAMILY_COURT_MUNICIPALITIES_CITATION,
     topics: surfacedTopics(record),

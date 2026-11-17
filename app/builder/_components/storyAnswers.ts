@@ -179,6 +179,17 @@ function onlyDollarAmount(story: string): string | undefined {
 }
 
 /**
+ * A quote or estimate the review may offer in one click: only when it is the story's only amount ("I got a quote for
+ * $1500", Chrome S4). Never the story's only amount when it is not a quote, which may be one already paid (#471 re-test:
+ * "I paid a contractor $9,000"), and never one quote among other amounts, which may be for something else (story pack
+ * m01-kitchen: "someone else who quoted $6,300 to finish", the claim $10,700 or more).
+ */
+export function oneClickQuote(story: string, amount: number): boolean {
+  const only = onlyDollarAmount(story);
+  return only !== undefined && Number(only) === amount;
+}
+
+/**
  * The amount a story states, to OFFER (Yes / No, that's not right / I'm not sure), never to fill in: the one-click
  * reader's (amountFromStory, which #471 keeps strict), else a quote or an estimate ("a quote for 1500"), else the
  * story's only dollar amount (site owner, 12 Nov: "offer when it is the only amount"). The one story reader
@@ -187,9 +198,9 @@ function onlyDollarAmount(story: string): string | undefined {
 export function amountOfferFromStory(story: string, options: { oneClick?: boolean } = {}): StoryAnswer | null {
   const strict = amountFromStory(story);
   if (strict) return strict;
-  // One click (the review's suggestion): a quote or an estimate, never the story's only amount, which may be one already
-  // paid (#471 re-test: "I paid a contractor $9,000" is never offered in one click).
-  const digits = QUOTED_AMOUNT.exec(story)?.[1]?.replace(/,/g, "") ?? (options.oneClick ? undefined : onlyDollarAmount(story));
+  // One click (the review's suggestion): only a quote or an estimate that is the story's only amount (oneClickQuote).
+  const quoted = QUOTED_AMOUNT.exec(story)?.[1]?.replace(/,/g, "");
+  const digits = options.oneClick ? (quoted && oneClickQuote(story, Number(quoted)) ? quoted : undefined) : quoted ?? onlyDollarAmount(story);
   if (!digits) return null;
   const value = Number(digits);
   const shown = `$${value.toLocaleString("en-CA", { minimumFractionDigits: /\./.test(digits) ? 2 : 0, maximumFractionDigits: 2 })}`;

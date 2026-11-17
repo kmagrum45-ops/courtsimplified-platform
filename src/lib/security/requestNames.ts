@@ -11,13 +11,14 @@
 import { knownNameLabels, type NameLabel } from "../case-system/privacy/nameLabels";
 import { otherPartyFromStory, otherPartyNameFromStory } from "../../../app/builder/_components/storyAnswers";
 import { withNameLabelsFor } from "../case-system/privacy/modelNameContext";
+import { businessOtherSideIn } from "../case-system/caseFile/storyFacts";
 import { partyName, readParties } from "../case-system/parties/parties";
 import { CASE_FILE_SECTION } from "../case-system/caseFile/caseFile";
 import { getAuthenticatedOwnedCase, getAuthenticatedUser } from "../supabase/serverAuth";
 
 /** A name the story readers pick out as the other party ("my ex, Sarah Jones,"), or none. */
 export function storyNames(story: string): string[] {
-  const said = story.trim() ? (otherPartyNameFromStory(story) ?? otherPartyFromStory(story))?.value : undefined;
+  const said = story.trim() ? (otherPartyNameFromStory(story) ?? otherPartyFromStory(story) ?? businessOtherSideIn(story))?.value : undefined;
   return said ? [said] : [];
 }
 

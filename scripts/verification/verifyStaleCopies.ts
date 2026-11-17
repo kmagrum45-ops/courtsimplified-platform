@@ -71,10 +71,12 @@ const changed = caseFileOf(checkpoint("small-claims", {
 const wants = typeof changed.wants.value === "string" ? changed.wants.value : "";
 check("(b) after the amount is changed to $5,100, the record's \"what you want\" names $5,100.00 and none of the old amounts", wants.includes("$5,100.00") && !/\$5,000|\$450|\$18\.45/.test(wants), wants);
 const panel = read("app/_components/IntakeReviewPanel.tsx");
-check("(b) the review's \"Answered:\" line reads the record (recordWords), the question's own answer included", /const words = recordWords\(question\.id\) \?\?/.test(panel) && /const recordWords = \(id: string\)/.test(panel));
-// Only what the person wants follows the amount: a date or any other answer keeps the person's own words (the full local
-// run of 3774a858: "Answered: 2026-05-12" became "May 12, 2026").
-check("(b) only the \"what you want\" answer is reworded from the record; every other answer keeps the words given", /const recordWords = \(id: string\)[\s\S]*?if \(fact !== "wants"\) continue;[\s\S]*?\n  \};/.test(panel));
+check("(b) the review's \"Answered:\" line reads the record (recordWords), the question's own answer included", /const words = recordWords\(question\.id, given\) \?\?/.test(panel) && /const recordWords = \(id: string, given\?: unknown\)/.test(panel));
+// What the person wants follows the amount always; any other answer reads the record when the record holds something
+// other than the answer's own words (the amount changed to $2,650 shows $2,650: full local run of 4d1ae680,
+// review-newest-answer), and keeps the person's own words otherwise (the full local run of 3774a858: "Answered:
+// 2026-05-12" became "May 12, 2026").
+check("(b) \"what you want\" and an answer the record holds differently read the record; one it holds as given keeps the words given", /const recordWords = \(id: string, given\?: unknown\)[\s\S]*?if \(fact !== "wants" && typeof given === "string" && String\(slot\.value \?\? ""\)\.trim\(\) === given\.trim\(\)\) continue;[\s\S]*?\n  \};/.test(panel) && /const words = recordWords\(question\.id, given\) \?\?/.test(panel));
 
 // (c)
 const list: Party[] = [

@@ -387,9 +387,16 @@ async function filledForm(page: Page, caseId: string, form: string, copy = 1): P
  * Chrome's forms test: the official Form 7A and Form 1A, filled on the server from the case record, hold the parties the
  * person gave in the Parties step, each its own entry (rules 2 and 4), and the amount (rule 8).
  */
-async function checkFilledForms(page: Page, caseId: string, seen: string[]) {
+async function checkFilledForms(page: Page, caseId: string, seen: string[], story: Story) {
   const form7A = await filledForm(page, caseId, "small-claims/7A");
   seen.push(`form 7A: ${JSON.stringify(Object.fromEntries([...form7A].filter(([, value]) => value && value !== "Off")))}`.slice(0, 2000));
+  // Chrome milestone S5 gives only the other party and the amount ("I lent my friend Alex $3,000"): Defendant No. 1 is
+  // Alex and the amount 3,000.00 (site owner, 17 Nov). Every other check is Chrome forms story, unchanged.
+  if (story.name === "sc-milestone-s5-loan") {
+    expect(form7A.get("Defendant's first name"), "Form 7A: Defendant No. 1 is Alex").toBe("Alex");
+    expect(form7A.get("Principal amount claimed"), "Form 7A: the amount the case holds").toBe("3,000.00");
+    return;
+  }
   expect(form7A.get("Plaintiff's last name or the company's name"), "Form 7A: the plaintiff's last name").toBe("Plaintiff");
   expect(form7A.get("First name of the Plaintiff"), "Form 7A: the plaintiff's first name").toBe("Test");
   expect(form7A.get("Plaintiff's address (street number, apartment, unit number)")).toBe("12 Example Street");
@@ -491,7 +498,7 @@ for (const story of STORIES) {
       }
       const known = new Set<string>([...Object.keys(story.stated).filter((fact) => fact !== "when").concat(story.stated.when && /\d{1,2}, \d{4}/.test(story.stated.when) ? ["whenHappened"] : []), ...typed.keys()]);
       await readLabels(page, story, id, known, found, seen);
-      if (story.parties) await checkFilledForms(page, id, seen);
+      if (story.parties) await checkFilledForms(page, id, seen, story);
       if (married) {
         // Every married-only text (marriedOnly.ts MARRIED_ONLY_SCREEN_TEXT: the sentences, the folded fees part, the divorce
         // line, the Divorce Act in the law list, the divorce and equalization steps), on the next-step page and the case

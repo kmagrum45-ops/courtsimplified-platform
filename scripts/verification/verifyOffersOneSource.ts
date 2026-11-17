@@ -53,6 +53,14 @@ check("S4: with no saved reading the story's own quote is offered, the same $1,5
 // "I paid a contractor $9,000" was offered as "Yes: $9,000"); the chat and the form still offer what the story states.
 const PAID = "Synthetic story: I paid a contractor $9,000 on May 12, 2026 to fix my roof and he never came back.";
 check("#471: the review never offers an amount already paid in one click", suggestInitialAnswers(checkpoint(PAID, []))["sc-amount-claimed"] === undefined, suggestInitialAnswers(checkpoint(PAID, []))["sc-amount-claimed"]);
+// A quote is offered in one click only when it is the story's only amount (S4); one among others may be for something else
+// (the full local run of 4d1ae680, story pack m01-kitchen: "someone else who quoted $6,300 to finish" was offered as the
+// claim, which the story puts at $10,700 or more). From the story's own reader and from a reading that names it.
+const M01 = "Synthetic: I hired a renovation company in March 2026 to redo my kitchen for $24,000. I paid $18,000. They stopped coming in June 2026. I had to hire someone else who quoted $6,300 to finish. I also paid $2,000 for tile. I want my money back for what was not done but I'm not sure if it is $10,700 or more.";
+for (const reading of [[], [{ label: "Quote to finish", value: "$6,300" }]] as ReadingFact[][]) {
+  const offered = suggestInitialAnswers(checkpoint(M01, reading))["sc-amount-claimed"];
+  check(`m01: one quote among several amounts is never offered in one click (${reading.length ? "a reading names it" : "no reading"})`, offered !== "$6,300", String(offered));
+}
 check("S5: the review offers $3,000", suggestInitialAnswers(checkpoint(S5, S5_READING))["sc-amount-claimed"] === "$3,000");
 const empty: PartiesRecord = { version: 1, list: [{ id: "you", you: true, side: "yours", details: {}, unsure: [] }, { id: "o1", side: "other", details: {}, unsure: [] }], declined: [] };
 const alex = storyPartyOffers(S5, empty, offeredOtherParty(S5, S5_READING));

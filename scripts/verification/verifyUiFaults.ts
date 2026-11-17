@@ -21,6 +21,8 @@ import path from "node:path";
 import { continueNeeds } from "../../src/lib/case-system/intakeReview";
 import { otherPartyFromUnderstanding } from "../../src/lib/case-system/caseFile/understoodOtherParty";
 import { otherSideIn } from "../../src/lib/case-system/caseFile/storyFacts";
+import { civilGuidedFields } from "../../app/builder/_components/guidedFields";
+import { storyNames } from "../../src/lib/security/requestNames";
 import { storyPartyOffers } from "../../src/lib/case-system/parties/parties";
 import { isGeneratedTitle, caseTitleFromIntake } from "../../src/lib/case-system/caseTitle";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
@@ -104,7 +106,48 @@ for (const file of tsx) {
 }
 check(`(b) every save on blur waits for the click that took the focus (afterPointer; ${blurCount} found)`, blurCount > 0 && blurs.length === 0, blurs.join("\n      "));
 const helper = read("app/_components/afterPointer.ts");
-check("(b) the helper runs the waiting saves at the click itself, before the clicked button's handler (capture)", /addEventListener\("click", runWaiting, true\)/.test(helper) && /addEventListener\("pointerdown", \(\) => \{ pressed = true; \}, true\)/.test(helper));
+check("(b) the helper runs the waiting saves at the click itself, before the clicked button's handler (capture)", /addEventListener\("click", onClick, true\)/.test(helper) && /addEventListener\("pointerdown", \(\) => \{ pressed = true; \}, true\)/.test(helper));
+// The helper run for real, on a stand-in window. A tick box or radio button has already changed when its click is
+// delivered; a save run then redraws the page from the record before the box's own change handler, puts the box back and
+// the change is lost (full local run of 4d1ae680: 15 story-pack and 2 carry ticks "did not change its state", the
+// Defendant's Claim and "Were you married?" answers lost and asked again). So for those the waiting save runs after the
+// click; for a button it still runs first, so "Continue" right after typing confirms what was typed.
+const standInChecks = (async () => {
+  const listeners: Record<string, ((event: { target: unknown }) => void)[]> = {};
+  const standIn = { addEventListener: (type: string, listener: (event: { target: unknown }) => void) => { (listeners[type] ??= []).push(listener); } };
+  (globalThis as { window?: unknown }).window = standIn;
+  const { afterPointer } = await import("../../app/_components/afterPointer");
+  const fire = (type: string, target: unknown = null) => { for (const listener of listeners[type] ?? []) listener({ target }); };
+  const pressThenClick = async (target: unknown) => {
+    const ran: string[] = [];
+    fire("pointerdown", target);
+    afterPointer(() => ran.push("save"));
+    fire("pointerup", target);
+    fire("click", target);
+    ran.push("clicked element's handler");
+    await new Promise((resolve) => setTimeout(resolve, 10));
+    return ran.join(" -> ");
+  };
+  for (const type of ["checkbox", "radio"]) {
+    const order = await pressThenClick({ tagName: "INPUT", type });
+    check(`(b) a ${type} pressed right after typing: the waiting save runs after the ${type}'s own change, never before it`, order === "clicked element's handler -> save", order);
+  }
+  const buttonOrder = await pressThenClick({ tagName: "BUTTON", type: "button" });
+  check("(b) a button pressed right after typing: the waiting save runs first (Continue confirms what was typed)", buttonOrder === "save -> clicked element's handler", buttonOrder);
+  // The save runs, and the page is redrawn, at the release itself, not a task later: Chrome delivered no click for a
+  // Continue pressed straight from a box while the page waited unredrawn through the press (full local run of 4d1ae680,
+  // story pack root cause 3; it confirmed once the save ran during the press).
+  {
+    const ran: string[] = [];
+    const button = { tagName: "BUTTON", type: "button" };
+    fire("pointerdown", button);
+    afterPointer(() => ran.push("save"));
+    fire("pointerup", button);
+    check("(b) a button pressed right after typing: the waiting save has run by the release, before any click", ran.join() === "save", ran.join() || "not yet");
+    fire("click", button);
+  }
+  delete (globalThis as { window?: unknown }).window;
+})();
 // A save that waits for the click and the clicked button's own change both write the parties record: each is made to the
 // record as it is when it runs, never to the copy the screen was drawn with, or the second undoes the first (full local
 // run of 3774a858: "A person" and "Add another" lost to the name typed just before). Every whole-record write in app/.
@@ -132,10 +175,20 @@ const S8 = "Synthetic: I sold $85,000 of equipment to Testgoods Ltd. in Ottawa. 
 check("(d) the story reading's other party keeps \"Ltd.\"", otherPartyFromUnderstanding([{ label: "Other party", value: "Testgoods Ltd., the buyer" }], S8) === "Testgoods Ltd.");
 check("(d) the story's own reader keeps \"Ltd.\"", otherSideIn(S8)?.value === "Testgoods Ltd.", otherSideIn(S8)?.value);
 check("(d) the Parties step's offer keeps \"Inc.\"", storyPartyOffers("Synthetic: I am suing Northern Testroofing Inc., 1 Main St, Ottawa ON K1A 0A1.", { version: 1, list: [], declined: [] }).some((offer) => offer.value === "Northern Testroofing Inc."));
+// The Civil chat's "Who is the other side" and the names kept from the model read the business the story names too (full
+// local run of 4d1ae680, ask-once civil-milestone-s8: the chat asked cold, its own reader found no one in "I sold ... to
+// Testgoods Ltd."), and never a role word the stricter chat reader turns down ("can i sue my landlord?").
+const civilOther = civilGuidedFields({ issues: [], documents: [] }).find((field) => field.key === "otherParty");
+const civilOffer = (story: string) => civilOther?.fromStory?.({ facts: story })?.value ?? null;
+check("(d) S8: the Civil chat offers \"Testgoods Ltd.\" from the story, never asks cold", civilOffer(S8) === "Testgoods Ltd.", String(civilOffer(S8)));
+check("(d) and still offers nothing for a question or a bystander (\"can i sue my landlord?\", \"the city sued my neighbour\")", civilOffer("can i sue my landlord?") === null && civilOffer("the city sued my neighbour") === null, `${civilOffer("can i sue my landlord?")} / ${civilOffer("the city sued my neighbour")}`);
+check("(d) S8: the company is among the names kept from the model (requestNames storyNames)", storyNames(S8).includes("Testgoods Ltd."), JSON.stringify(storyNames(S8)));
 check("(d) no period is added where none was written", otherPartyFromUnderstanding([{ label: "Other party", value: "Testgoods Ltd" }], "Synthetic: I sold equipment to Testgoods Ltd and it never paid.") === "Testgoods Ltd");
 
 // (e)
 check("(e) \"Unfinished intake\" is a placeholder, never the title shown", isGeneratedTitle("Unfinished intake") && caseTitleFromIntake("Testgoods Ltd.", "civil") === "Your case with Testgoods Ltd.");
 
-console.log(failed ? `\n${failed} check(s) FAILED.` : "\nAll screen-fault checks passed.");
-process.exit(failed ? 1 : 0);
+void standInChecks.then(() => {
+  console.log(failed ? `\n${failed} check(s) FAILED.` : "\nAll screen-fault checks passed.");
+  process.exit(failed ? 1 : 0);
+});

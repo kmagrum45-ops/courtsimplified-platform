@@ -58,6 +58,17 @@ export function againstThemIn(story: string): string {
 }
 
 export function otherSideIn(story: string): StoryFact | null {
+  const business = businessOtherSideIn(story);
+  if (business) return business;
+  return roleOtherSideIn(story);
+}
+
+/**
+ * The business the story names ("Testgoods Ltd.", "a company called Brightline"), with the person behind it: the part of
+ * otherSideIn that is a proper name, never a role word. The Civil chat and the names kept from the model read it after
+ * their own stricter reader (full local run of 4d1ae680: "I sold ... to Testgoods Ltd." was asked cold).
+ */
+export function businessOtherSideIn(story: string): StoryFact | null {
   for (const sentence of sentences(story)) {
     const org = ORG.exec(sentence)?.[1] ?? CALLED_ORG.exec(sentence)?.[1] ?? null;
     if (!org) continue;
@@ -70,6 +81,11 @@ export function otherSideIn(story: string): StoryFact | null {
     const extra = [person && !NOT_A_NAME.test(person) && !clean.includes(person) ? person : null, officers ? `${officers}${badges ? `, badges ${badges}` : ""}` : badges ? `badges ${badges}` : null].filter(Boolean);
     return { value: extra.length ? `${clean} (${extra.join("; ")})` : clean, quote: sentence.trim() };
   }
+  return null;
+}
+
+/** Who the other side is to the person ("Your landlord (Peter Jones)"), or a friend or relative tied to what is owed. */
+function roleOtherSideIn(story: string): StoryFact | null {
   // A sentence where that person only saw, heard, remembers or can confirm something names a witness, never the other
   // side: not read (Chrome check of #544, 6 Nov, F2: "My neighbour remembers their teal-orange van." gave "The other
   // party: Your neighbour"). Unclear is left unset, never guessed (site owner, 6 Nov).
