@@ -182,7 +182,8 @@ function suggest(
     // owner, 17 Nov; full local run of 4d1ae680): "I do not know yet" is kept as this question's own "Not sure", "No" as
     // No; a claim back in their words stays a suggestion they confirm, below.
     const own = caseFileOfMaster(master, "small-claims").outcome;
-    if (own.source?.kind === "answer" && own.source.question === "review:sc-defendant-counterclaim") {
+    // Asked in the review or in the Small Claims chat (its own answers: source "sc-defendant-counterclaim").
+    if (own.source?.kind === "answer" && /^(?:review:)?sc-defendant-counterclaim$/.test(own.source.question)) {
       if (own.state === "unsure") return { value: "not-sure", reason: "You answered \"I do not know yet\" when asked whether anyone owes you money.", firm: true };
       if (own.state === "answered" && typeof own.value === "string" && /^\s*no\b[.!]?\s*$/i.test(own.value)) return { value: false, reason: "You answered \"No\" when asked whether anyone owes you money.", firm: true };
     }

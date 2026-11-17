@@ -103,6 +103,13 @@ for (const [name, builder] of [["typed \"I do not know yet\"", { initialAnswers:
   const kept = held(builder);
   check(`(12) ${name} in the review: the Forms tab keeps "Not sure" from the case, never asks again`, kept?.value === "not-sure" && kept.firm === true, JSON.stringify(kept));
 }
+// The Small Claims chat asks it too, saved as its own answer (guided.earlierAnswers; source "sc-defendant-counterclaim"):
+// the full local run of 17 Nov answered it there with "No". Both kept from the case, never asked again on the Forms tab.
+const inChat = (answerText: string) => suggestApplicability(DEFENDANTS_CLAIM, beingSued, { intakeCheckpoint: { ...answeredInReview({}).intakeCheckpoint, sections: { ...answeredInReview({}).intakeCheckpoint.sections, guided: { earlierAnswers: [{ questionId: "sc-defendant-counterclaim", answerText }] } } } })[0];
+const chatNo = inChat("No");
+check("(12) \"No\" in the Small Claims chat: the Forms tab keeps No from the case", chatNo?.value === false && chatNo.firm === true, JSON.stringify(chatNo));
+const chatUnsure = inChat("I do not know yet");
+check("(12) \"I do not know yet\" in the Small Claims chat: the Forms tab keeps \"Not sure\" from the case", chatUnsure?.value === "not-sure" && chatUnsure.firm === true, JSON.stringify(chatUnsure));
 const no = held({ initialAnswers: { "sc-defendant-counterclaim": "No" } });
 check("(12) \"No\" in the review: the Forms tab keeps No from the case", no?.value === false && no.firm === true, JSON.stringify(no));
 const yes = held({ initialAnswers: { "sc-defendant-counterclaim": "She owes me $500 for the TV she broke" } });
