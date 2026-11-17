@@ -862,6 +862,9 @@ jobs:
       - name: The deployed analysis routes ship the retrieval index and corpus
         run: npm run test:retrieval-bundled
 
+      - name: Every file a route opens at run time ships with it (pdf.js's worker, the official form PDFs, the retrieval index)
+        run: npm run test:runtime-files-shipped
+
       - name: AI Case Partner context verification
         run: npm run test:assistant-context
 

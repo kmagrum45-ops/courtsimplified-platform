@@ -15,11 +15,13 @@ import { attachedSections, fillForm, pdfValues, type BoxValue, type FormContext,
 import { attachedPagesPdf } from "./attachedPages";
 import { printableValues } from "./printableText";
 import { leftBoxesToViewers, withCharacterMaps } from "./fontMaps";
+import { pdfjsServer } from "../../pdf/pdfjsServer";
 
 type PdfJs = typeof import("pdfjs-dist/legacy/build/pdf.mjs");
 
-async function pdfjs(): Promise<PdfJs> {
-  return (await import("pdfjs-dist/legacy/build/pdf.mjs")) as PdfJs;
+/** pdf.js with its worker shipped (pdf/pdfjsServer.ts: the worker was missing on Vercel, 17 Nov 2026). */
+function pdfjs(): Promise<PdfJs> {
+  return pdfjsServer();
 }
 
 /** The official PDF saved under docs/sources/forms/, as bytes. */
@@ -84,10 +86,37 @@ export async function fillOfficialPdf(bytes: Uint8Array, values: Readonly<Record
  * is byte for byte what it was before.
  */
 export async function fillReadable(pdfFile: string, values: Readonly<Record<string, BoxValue>>): Promise<Uint8Array> {
-  const official = officialPdfBytes(pdfFile);
-  const filled = await fillOfficialPdf(official, values);
+  const official = await step("open-pdf", async () => officialPdfBytes(pdfFile));
+  await step("load-pdfjs", pdfjs);
+  const filled = await step("fill", () => fillOfficialPdf(official, values));
   if (!leftBoxesToViewers(official, filled)) return filled;
-  return fillOfficialPdf(withCharacterMaps(pdfFile, official), values);
+  const mapped = await step("font-map", async () => withCharacterMaps(pdfFile, official));
+  return step("fill", () => fillOfficialPdf(mapped, values));
+}
+
+/**
+ * The step of making a filled form that failed, as a fixed code: never a value from the case. The route logs it with the
+ * error's name, so the next failure says where it happened (site owner, 17 Nov 2026; the 500 on the preview logged only
+ * "Error").
+ */
+export const FILL_STAGES = ["values", "open-pdf", "load-pdfjs", "fill", "font-map", "attach-pages", "assemble"] as const;
+export type FillStage = (typeof FILL_STAGES)[number];
+const STAGE = Symbol("fill stage");
+
+/** The stage an error from filledFormPdf failed at, or "unknown". */
+export function fillStageOf(error: unknown): FillStage | "unknown" {
+  const stage = error && typeof error === "object" ? (error as { [STAGE]?: FillStage })[STAGE] : undefined;
+  return stage ?? "unknown";
+}
+
+/** Runs one step; an error leaves it tagged with the step (the first, innermost tag stays) and is thrown unchanged. */
+async function step<T>(stage: FillStage, run: () => Promise<T>): Promise<T> {
+  try {
+    return await run();
+  } catch (error) {
+    if (error && typeof error === "object" && !(STAGE in error)) Object.defineProperty(error, STAGE, { value: stage });
+    throw error;
+  }
 }
 
 /**
@@ -103,16 +132,18 @@ export async function fillReadable(pdfFile: string, values: Readonly<Record<stri
 export async function filledFormPdf(map: FormMapDefinition, ctx: FormContext): Promise<Uint8Array> {
   // Every kind of space prints as a space; a character none of the form's fonts covers (Chinese, for example) stops the
   // download, naming it, rather than leaving the box to each viewer to draw or garble (printableText.ts, 15 Nov 2026).
-  const values = printableValues(pdfValues(fillForm(map, ctx)), "boxes");
+  const values = await step("values", async () => printableValues(pdfValues(fillForm(map, ctx)), "boxes"));
   const filled = await fillReadable(map.pdf.file, values);
-  const pages = await attachedPagesPdf(attachedSections(map, ctx));
+  const pages = await step("attach-pages", () => attachedPagesPdf(attachedSections(map, ctx)));
   if (!pages) return filled;
-  const doc = await open(filled);
-  try {
-    const assembled = await doc.extractPages([{ document: null }, { document: pages }]);
-    if (!assembled) throw new Error("the attached pages could not be added");
-    return assembled;
-  } finally {
-    await doc.close();
-  }
+  return step("assemble", async () => {
+    const doc = await open(filled);
+    try {
+      const assembled = await doc.extractPages([{ document: null }, { document: pages }]);
+      if (!assembled) throw new Error("the attached pages could not be added");
+      return assembled;
+    } finally {
+      await doc.close();
+    }
+  });
 }

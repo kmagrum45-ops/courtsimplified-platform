@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-301 documented, 26 without a header.
+303 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -116,6 +116,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:family-triage-dates` | **THE FAMILY CARD TAKES THE LIVED-TOGETHER DATES FROM THE STORY, ACCEPTS A YEAR OR A MONTH, MOVES ON WHEN A QUESTION IS**<br>SET ASIDE, AND "WHAT TO CONFIRM NEXT" READS THE RECORDED MUNICIPALITY (Chrome check of production c38e69fd, B3). |
 | `npm run test:feedback-address-shown` | **"SEND FEEDBACK" SHOWS THE CONTACT ADDRESS AS TEXT BESIDE THE LINK (Chrome check of #547 at 0e0f7e9, G5: a person with no**<br>mail program on the computer gets nothing from a mailto link; the address must be there to copy). |
 | `npm run test:filled-form-reachable` | **THE FILLED OFFICIAL FORM IS REACHABLE WHEREVER ITS FORM IS (site owner, 16 Nov 2026; Chrome milestone test of #550,**<br>row 24: "No filled Form 7A anywhere" for injury, contractor and loan claims). |
+| `npm run test:filled-form-stages` | **A filled-form failure says which step failed, as a fixed code, and never a value from the case.**<br>WHAT IT CATCHES. On PR #550's preview (17 Nov 2026) every filled form answered 500 and the log held only the error's name, "Error", so the cause (pdf.js's worker not shipped) had to be found by rebuilding and reading traces. Now officialPdf.ts tags the error w |
 | `npm run test:finder-handoff` | **THE COURT-PATH FINDER'S HAND-OFF BELONGS TO ONE INTAKE (finderHandoff.ts; the story left at "Before you start",**<br>found 9 Nov 2026 from the intake-reset flake, CI job 129360927580). |
 | `npm run test:fixed-regimes` | **Checks the routing rules fixed by law (src/lib/case-system/intelligence/**<br>fixedRegimes.ts, CLAUDE.md s. 2a): a construction lien goes to the Superior Court whatever the amount, and a claimed amount over $50,000 leaves Small Claims -- decided in code, winning over the keyword pass and the model. |
 | `npm run test:fixture-guards` | **Asserts that runFixtures.ts cannot write a .actual.md from a run that**<br>threw, timed out, or silently degraded. |
@@ -228,6 +229,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:rls-matrix` | **Every RLS scenario, attacked for real: two litigants, an anonymous visitor and the**<br>service role against a database built from supabase/migrations/, on every table. |
 | `npm run test:rls-matrix-catches` | **The RLS suite fails on every kind of hole it exists to find. Proved by planting each**<br>one and watching it go red. |
 | `npm run test:rules-corpus` | **The vendored corpus is complete, current, and actually on disk.**<br>COSTS NOTHING. Reads the vendored files. No network — `rules:check` is the one that goes out, and it is a monthly job rather than a test. |
+| `npm run test:runtime-files-shipped` | **Every file a route opens at run time ships with that route on Vercel.**<br>WHAT IT CATCHES. Vercel runs each route with only the files Next.js traced for it (route.js.nft.json), plus what next.config.ts adds in outputFileTracingIncludes. A file opened by a name the tracer cannot follow is not shipped, and on Vercel the route fails wh |
 | `npm run test:safety-coverage` | **Every court path that accepts a free-text narrative runs the safety pass**<br>before extraction. |
 | `npm run test:safety-footer` | **THE SAFETY NOTICE, AS THE SITE OWNER SET IT ON 2026-10-29 (verbatim): "always one**<br>small-print line in the footer, 'If you feel you are in immediate danger, call 911', with a link to the other support lines. No open box and no 'available without an AI safety check' wording for anyone. The fuller support information shows only when what the p |
 | `npm run test:safety-regression` | **Permanent regression suite for safetyPass.ts -- the 11 cases from**<br>Sessions 4 and 5 plus three from the 2026-09-28 story review, wired into CI (npm run test:safety-regression), same pattern as test:intake-coverage. |
