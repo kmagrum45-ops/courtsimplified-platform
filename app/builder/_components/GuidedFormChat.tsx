@@ -462,7 +462,7 @@ export default function GuidedFormChat({
               ask={<span data-testid="guided-form-partial-from-story" className="mt-1 mb-2 block text-sm text-[#4d675f]">From what you told us: &ldquo;{cutAtWord(partial.quote, 200)}&rdquo; You can use what that says, then add the rest.</span>} />
           ) : null}
           <p className="mt-1 text-sm text-[#4d675f]">Why we ask: {current.why}</p>
-          {current.story ? <StoryGuidance id="guided-form-story-guidance" /> : null}
+          {current.story ? <StoryGuidance id="guided-form-story-guidance" length={String(boxValue ?? "").length} /> : null}
           {current.kind === "choice" ? (
             <div className="mt-3 grid gap-2">
               {(current.options ?? []).map((option) => (

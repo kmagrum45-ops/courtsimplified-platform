@@ -120,7 +120,7 @@ export default function NotSureCourtGuide() {
 
           <label className="mt-4 block">
             What happened
-            <StoryGuidance id="finder-story-guidance" className="mt-1" />
+            <StoryGuidance id="finder-story-guidance" className="mt-1" length={facts.length} />
             <textarea
               aria-label="Guide what happened" id="finder-facts" aria-invalid={attempted && missing.includes("facts")} aria-describedby={attempted && missing.includes("facts") ? "finder-story-guidance finder-errors" : "finder-story-guidance"}
               value={facts}

@@ -29,3 +29,23 @@ export const STORY_GUIDANCE =
  * `npm run test:story-guidance` checks no story box's name repeats them.
  */
 export const STORY_LABEL = "Your story";
+
+/**
+ * THE LENGTH THE SITE READS (site owner, 17 Nov). Every story box keeps the whole story in the case, however long; some
+ * steps read only this many characters of it, and the Small Claims questions one at a time cannot go on past it (the
+ * guided-turn route refuses a longer story: MAX_STORY_TEXT_LENGTH, the same number). So it is never cut off silently:
+ * past it, every story box shows storyLengthNote while the person types (StoryGuidance.tsx), and the Small Claims chat
+ * says it in place of sending a turn the route would refuse. `npm run test:story-guidance` (6) checks both.
+ */
+export const STORY_READ_LIMIT = 8_000;
+
+/** The story is longer than the site reads. */
+export function storyTooLong(text: string): boolean {
+  return text.length > STORY_READ_LIMIT;
+}
+
+/** What the person is told past the limit: the length, the limit, and that the whole story stays saved. */
+export function storyLengthNote(length: number): string {
+  const count = (value: number) => value.toLocaleString("en-CA");
+  return `Your story is ${count(length)} characters. All of it is saved in your case, but some steps read only the first ${count(STORY_READ_LIMIT)} characters, and the questions asked one at a time cannot go on past that. Please shorten it to ${count(STORY_READ_LIMIT)} characters or fewer.`;
+}

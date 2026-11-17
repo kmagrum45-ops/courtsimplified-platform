@@ -52,7 +52,7 @@ import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { WorkingButton, WorkingNote } from "@/app/_components/Working";
 import { UseSuggestion } from "@/app/_components/UseSuggestion";
 import StoryGuidance from "@/app/_components/StoryGuidance";
-import { STORY_LABEL } from "@/src/lib/case-system/copy/storyGuidance";
+import { STORY_LABEL, storyLengthNote, storyTooLong } from "@/src/lib/case-system/copy/storyGuidance";
 
 type IntakeFacts = Record<string, string | number | boolean>;
 
@@ -765,6 +765,13 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       setError("This answer is longer than the 1,000-character limit. Your full text is still here; please review it before retrying.");
       return;
     }
+    // A story longer than the route reads is refused there with a generic error, and every later turn with it: said here
+    // instead, with the length and the limit; the whole story stays saved (copy/storyGuidance.ts, site owner 17 Nov).
+    const storySent = [answeredQuestionId ? "" : newStoryText ?? "", repropose?.story ?? "", earlier?.story ?? ""].reduce((longest, text) => (text.length > longest.length ? text : longest), "");
+    if (storyTooLong(storySent)) {
+      setError(storyLengthNote(storySent.length));
+      return;
+    }
     setLoading(true);
     setError(""); setSignInNeeded(false); setReviewNeeded(false);
 
@@ -994,6 +1001,11 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       if (!requestBody) {
         setPendingSuggestion(null);
         setError("Your story is needed before this suggestion can be checked. Add it above, then try again.");
+        return;
+      }
+      // The claim-kind check refuses a story past what the site reads, with a generic error: said here instead.
+      if (storyTooLong(requestBody.storyText)) {
+        setError(storyLengthNote(requestBody.storyText.length));
         return;
       }
       const {
@@ -1802,7 +1814,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         <div className="mt-4">
         {/* Before any question, this box takes the story: it shows the one story guidance
             (copy/storyGuidance.ts) instead of a placeholder of its own (owner, 30 Oct). */}
-        {!(depthActive || currentQuestion) ? <StoryGuidance id="guided-story-guidance" className="mb-2" /> : null}
+        {!(depthActive || currentQuestion) ? <StoryGuidance id="guided-story-guidance" className="mb-2" length={inputText.length} /> : null}
         <div className="flex gap-2">
           <textarea
             // Keyed to the question actually on screen, the same fix already

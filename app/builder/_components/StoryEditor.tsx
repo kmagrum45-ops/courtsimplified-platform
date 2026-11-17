@@ -70,7 +70,7 @@ export default function StoryEditor({
       ) : (
         <>
           {/* The one story guidance (copy/storyGuidance.ts), visible while typing. */}
-          <StoryGuidance id={`${ids.draft}-guidance`} className="mt-3" />
+          <StoryGuidance id={`${ids.draft}-guidance`} className="mt-3" length={shown.length} />
           <textarea
             aria-label={label}
             aria-describedby={`${ids.draft}-guidance`}
