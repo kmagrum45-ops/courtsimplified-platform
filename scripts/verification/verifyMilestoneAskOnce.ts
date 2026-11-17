@@ -108,6 +108,10 @@ for (const [name, builder] of [["typed \"I do not know yet\"", { initialAnswers:
 const inChat = (answerText: string) => suggestApplicability(DEFENDANTS_CLAIM, beingSued, { intakeCheckpoint: { ...answeredInReview({}).intakeCheckpoint, sections: { ...answeredInReview({}).intakeCheckpoint.sections, guided: { earlierAnswers: [{ questionId: "sc-defendant-counterclaim", answerText }] } } } })[0];
 const chatNo = inChat("No");
 check("(12) \"No\" in the Small Claims chat: the Forms tab keeps No from the case", chatNo?.value === false && chatNo.firm === true, JSON.stringify(chatNo));
+// "Yes" (the story suggestion accepted in the chat, as every being-sued story of the full local run of 17 Nov did): kept
+// as Yes with Change, never offered again (site owner, 17 Nov: their own answer wins over a second offer, 31 Oct rule).
+const chatYes = inChat("Yes");
+check("(12) \"Yes\" in the Small Claims chat: the Forms tab keeps Yes from the case (Change to undo), never asks or offers again", chatYes?.value === true && chatYes.firm === true, JSON.stringify(chatYes));
 const chatUnsure = inChat("I do not know yet");
 check("(12) \"I do not know yet\" in the Small Claims chat: the Forms tab keeps \"Not sure\" from the case", chatUnsure?.value === "not-sure" && chatUnsure.firm === true, JSON.stringify(chatUnsure));
 const no = held({ initialAnswers: { "sc-defendant-counterclaim": "No" } });

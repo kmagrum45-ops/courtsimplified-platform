@@ -186,6 +186,8 @@ function suggest(
     if (own.source?.kind === "answer" && /^(?:review:)?sc-defendant-counterclaim$/.test(own.source.question)) {
       if (own.state === "unsure") return { value: "not-sure", reason: "You answered \"I do not know yet\" when asked whether anyone owes you money.", firm: true };
       if (own.state === "answered" && typeof own.value === "string" && /^\s*no\b[.!]?\s*$/i.test(own.value)) return { value: false, reason: "You answered \"No\" when asked whether anyone owes you money.", firm: true };
+      // "Yes" kept too, with Change (site owner, 17 Nov: their own answer is never offered again).
+      if (own.state === "answered" && typeof own.value === "string" && /^\s*yes\b[.!]?\s*$/i.test(own.value)) return { value: true, reason: "You answered \"Yes\" when asked whether the plaintiff or someone else owes you money.", firm: true };
     }
     const asked = claimBackInOwnWords(master, [record.story, own.state === "answered" && typeof own.value === "string" ? own.value : ""].join(" "));
     if (asked) return { value: true, reason: `You wrote: “${asked}”` };
