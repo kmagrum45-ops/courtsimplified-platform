@@ -178,8 +178,9 @@ export const WRAPPERS: Record<string, { wrapper: string; module: string; calls: 
 export function functionBody(text: string, name: string): string | null {
   const start = text.search(new RegExp(`export function ${name}\\(`));
   if (start < 0) return null;
-  const end = text.indexOf("\n}\n", start);
-  return end < 0 ? null : text.slice(start, end + 2);
+  // Either line ending: a Windows checkout (core.autocrlf) has "\r\n", and the body was then never found (18 Nov).
+  const close = /\r?\n\}\r?\n/.exec(text.slice(start));
+  return close ? text.slice(start, start + close.index + close[0].length - 1) : null;
 }
 export function wrapperProblems(caller: string, files: Record<string, string>): string[] {
   const declared = WRAPPERS[caller];
