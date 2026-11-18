@@ -2,104 +2,48 @@
   "_about": "Askers that do not use the one function (src/lib/case-system/caseFile/factStatus.ts) yet, each with its reason and the slice that moves it. test:askers-fact-status: may only shrink, stale entries fail, empty at slice 6 (site owner, 11 Nov 2026).",
   "entries": [
     {
-      "file": "app/_components/AskedField.tsx",
-      "reason": "Form boxes ask through the asker (askOf), not the one function yet; slice 4."
-    },
-    {
       "file": "app/_components/IntakeRecovery.tsx",
-      "reason": "Holds the review and confirm flow state that asks for confirmation; slice 3."
-    },
-    {
-      "file": "app/_components/IntakeReviewPanel.tsx",
-      "reason": "The review asks to confirm every value, typed or not (confirm-all); slice 3 makes it a summary."
-    },
-    {
-      "file": "app/_components/NotAnsweredYet.tsx",
-      "reason": "Shows \"Not answered yet\" from the slot state it is given, not from stillNeeded; slice 3."
-    },
-    {
-      "file": "app/_components/ReviewNeededNotice.tsx",
-      "reason": "Says the initial information needs confirming whenever the review is not confirmed; slice 3."
-    },
-    {
-      "file": "app/api/generate-form/route.ts",
-      "reason": "The filled PDF reads the amount from intakeData and lists missing values on its own; slice 4."
+      "reason": "Asks nothing itself: matched only by a code comment (\"needs confirming\"). Its continue rule is continueNeeds (intakeReview.ts, on the one function). Proposed guard rule (needs the site owner's yes): markers count in code, not comments."
     },
     {
       "file": "app/builder/_components/civilAnalysis.ts",
-      "reason": "Civil analysis text says what is not yet entered from the form copy; slice 4."
+      "reason": "Supplies the analysis's AI-written questions; it shows nothing. The one screen that shows them (IntelligenceOverviewPanel.tsx) filters each through mayAskWords. Proposed guard rule (needs the site owner's yes): a producer is on the one function when every screen showing its questions filters them through it (asserted by the guard)."
     },
     {
       "file": "app/builder/_components/familyAnalysis.ts",
-      "reason": "Family analysis text says what is not yet entered from the form copy; slice 4."
+      "reason": "Supplies the analysis's AI-written questions and missing-information lines; it shows nothing. IntelligenceOverviewPanel.tsx filters the questions through mayAskWords. Same proposed producer rule as civilAnalysis.ts."
     },
     {
       "file": "app/builder/_components/FamilyStatusTriage.tsx",
-      "reason": "The Family situation questions have their own list and record; slice 5."
-    },
-    {
-      "file": "app/builder/_components/SourcedQuestions.tsx",
-      "reason": "Law follow-up questions written by the AI, de-duplicated word for word only; slice 5."
-    },
-    {
-      "file": "app/builder/_components/StageAnswerPanel.tsx",
-      "reason": "Step-page date boxes: which dates from the stage map, filled from the case file, not through stillNeeded; slice 4."
-    },
-    {
-      "file": "app/builder/page.tsx",
-      "reason": "Seeds the chat and form from copies and shows the builder's own still-needed lines; slices 2 to 4."
-    },
-    {
-      "file": "app/cases/_components/CaseFilePanel.tsx",
-      "reason": "Shows \"Not answered yet\" from slot states read directly; slice 3."
-    },
-    {
-      "file": "app/cases/[id]/page.tsx",
-      "reason": "The case page passes its own date answers to the step page; slice 4."
-    },
-    {
-      "file": "src/lib/case-system/claimDraftEngine.ts",
-      "reason": "The Form 7A draft reads its own copy (extra.amountClaimed) and says \"not yet been clearly entered\"; slice 4."
+      "reason": "Picks its next question through statusTriage.ts selectNextTriageQuestion(record, deferred, file), which asks the one function (mayShowQuestion) for each question since 17 Nov (Chrome milestone pass 2, finding 7); listed because the page itself imports nothing from factStatus.ts. Proposed guard rule: a screen whose questions come only from an asker on the one function is on it."
     },
     {
       "file": "src/lib/case-system/copy/askCopy.ts",
-      "reason": "Question wording; the decision of when to show it is the caller's; moves with its callers, slice 2."
-    },
-    {
-      "file": "src/lib/case-system/family/statusTriage.ts",
-      "reason": "The Family situation questions' own sequence; slice 5."
+      "reason": "Wording only (string constants, no logic): \"Not answered yet: add it when you know\" and the like; every caller decides when to show it, through the one function. Proposed guard rule (needs the site owner's yes): a file of string constants only is not an asker."
     },
     {
       "file": "src/lib/case-system/guided-assistant/conversationIntelligenceEngine.ts",
-      "reason": "The assistant chat's own regexes for what was asked; slice 5."
-    },
-    {
-      "file": "src/lib/case-system/guided-assistant/guidedAssistantOrchestrator.ts",
-      "reason": "The assistant chat's evidence still-needed list runs with no case file; slice 5."
+      "reason": "Every question goes through chatQuestionToAsk (caseFile.ts), which calls chatMayAsk, the one function's chat gate; its own repeat filters only remove more. Listed because it imports the wrapper, not factStatus.ts. Proposed guard rule (needs the site owner's yes): a wrapper asserted to call the one function counts."
     },
     {
       "file": "src/lib/case-system/intake/depth/selectDepthQuestions.ts",
-      "reason": "Depth questions: every authored question is asked, with no case-file check; slice 5."
+      "reason": "Depth questions: every authored question for a claim's elements is asked, by the site owner's Session 48 decision (word matching once marked elements as given that the person never gave). Moving it needs each element mapped to a case-file fact: a decision for the site owner, not made here."
     },
     {
       "file": "src/lib/case-system/intelligence/answeredQuestions.ts",
-      "reason": "The overview's own regex filters for questions already answered; slice 5."
+      "reason": "Helper filters over AI-written questions (filing, stage, municipality words), run before the screen's own mayAskWords (IntelligenceOverviewPanel.tsx). Same proposed producer rule."
     },
     {
       "file": "src/lib/case-system/intelligence/smallClaimsIntelligenceEngine.ts",
-      "reason": "Builds \"What to confirm next\" from intakeData (buildContactMissingInfo); slice 5."
+      "reason": "Server analysis (no case file in the request): writes \"What to confirm next\" lines from the intake input. The questions among them are shown only through IntelligenceOverviewPanel.tsx's mayAskWords; the contact lines are not shown as questions. Same proposed producer rule; or the analysis route could read the case (a database read, not added without the site owner's yes)."
     },
     {
       "file": "src/lib/case-system/retrieval/sourcedQuestions.ts",
-      "reason": "Writes the law follow-up questions with the AI and checks them only against earlier wording; slice 5."
-    },
-    {
-      "file": "src/lib/case-system/statementOfClaimDraftEngine.ts",
-      "reason": "The Form 7A section lists what is missing on its own; slice 4."
+      "reason": "Server: the AI writes the law questions (no case file in the request). The one screen that shows them, SourcedQuestions.tsx, filters each through mayAskWords since 17 Nov. Same proposed producer rule."
     },
     {
       "file": "src/lib/case-system/understanding/understandCase.ts",
-      "reason": "The home reading's AI questions, filtered only for side, filed and served; slice 5."
+      "reason": "Server: the home page's AI reading questions (only a summary of the start's answers in the request). The one screen that shows them, CaseUnderstandingCard.tsx, filters each through mayAskWords; Chrome milestone pass 2's finding 4 is fixed there (factsOfQuestion.ts patterns). Same proposed producer rule."
     }
   ]
 }

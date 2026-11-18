@@ -193,6 +193,13 @@ function suggest(
     }
     const asked = claimBackInOwnWords(master, [record.story, own.state === "answered" && typeof own.value === "string" ? own.value : ""].join(" "));
     if (asked) return { value: true, reason: `You wrote: “${asked}”` };
+    // Any other answer they gave to it (Chrome milestone pass 2, finding 5, S6: "A claim of your own against them" answered
+    // Yes in the chat kept the AI's sentence, "The contractor's work was bad... I already paid $2,000.", and the Forms tab
+    // then asked cold): offered once, quoting their answer, never asked as if it had not been answered. Their choice is
+    // then recorded (answerOnOfferChoice), so it is not offered again.
+    if (own.source?.kind === "answer" && own.state === "answered" && typeof own.value === "string" && own.value.trim()) {
+      return { value: true, reason: `You answered “${own.value.trim()}” when asked whether the plaintiff or someone else owes you money.` };
+    }
   }
 
   // The step the person picked settles some of these outright.

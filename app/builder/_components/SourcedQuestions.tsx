@@ -2,6 +2,8 @@
 
 import { useIntakeReviewView, useIntakeState, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, intakeGuidanceHeaders } from "../../_components/IntakeRecovery";
 import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
+import { mayAskWords } from "../../../src/lib/case-system/caseFile/factStatus";
+import { caseFileOf, respondsToTheCase } from "../../../src/lib/case-system/caseFile/caseFile";
 
 import { useCallback, useEffect, useRef, type ReactNode } from "react";
 import { IntakeRequest } from "../../_components/intakeRequest";
@@ -127,8 +129,14 @@ export function useSourcedQuestions(courtPath: "small-claims" | "civil" | "famil
         if (!response.ok || !data.ok) throw new Error("Questions did not finish.");
         // A question already answered on an earlier visit, word for word, is not asked again.
         const already = new Set(earlierRef.current.map((item) => item.question.trim().toLowerCase()));
+        // And through the one function: a question whose fact the case file holds (known or settled) is not asked again,
+        // whatever its words (caseFile/factStatus.ts mayAskWords; Chrome milestone pass 2: the AI's own questions were
+        // checked only against earlier questions word for word).
+        const review = recovery?.getReview?.();
+        const file = review ? caseFileOf(review.checkpoint, recovery?.getSavedMaster() ?? undefined) : null;
         const list = (Array.isArray(data.questions) ? data.questions : [])
           .filter((item) => !already.has(item.question.trim().toLowerCase()))
+          .filter((item) => mayAskWords(file, item.question, { court: courtPath, responding: file ? respondsToTheCase(file) : false }))
           .slice(0, 5);
         setQuestions(list);
         setAnswers({});

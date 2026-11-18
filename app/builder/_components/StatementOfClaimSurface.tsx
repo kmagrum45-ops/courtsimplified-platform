@@ -166,8 +166,9 @@ export default function StatementOfClaimSurface({
       { claimTypeId: claimType.id, claimTypeName: claimType.name },
       // cannot-provide elements travel INTO the document, not just this screen.
       gate.cannotProvide.map((item) => ({ elementId: item.elementId, name: item.name })),
+      caseFile,
     );
-  }, [gate, claimType, mappedInput, party.yourName, party.yourAddress, party.otherParty, party.defendantAddress]);
+  }, [gate, claimType, mappedInput, party.yourName, party.yourAddress, party.otherParty, party.defendantAddress, caseFile]);
 
   function applyStateMap(next: ElementStateMap) {
     setStateMap(next);

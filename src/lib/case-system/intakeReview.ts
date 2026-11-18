@@ -15,7 +15,7 @@ import type { Stated } from "./caseFile/factStatus";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 import { askOf } from "./intake/asker";
-import { CASE_FILE_SECTION, CHANGE_QUESTION, caseFileOf, fromCasePosition, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, repeatsAnswer, sameAnswer, NEWEST_TYPED_FACTS, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
+import { CASE_FILE_SECTION, CHANGE_QUESTION, answeredInIntake, caseFileOf, fromCasePosition, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, repeatsAnswer, sameAnswer, NEWEST_TYPED_FACTS, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
 import { LENT_MONEY, LOAN_WORDS } from "./intake/claimKind";
 import { servedDateAt } from "./servedWords";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
@@ -52,6 +52,13 @@ const BOX_FROM_STORY: Record<string, (story: string) => { value: string; quote: 
   damagesBreakdown: lossesIn,
   timeline: timelineIn,
 };
+/** Family boxes the home page's reading or the chat may have asked in other words: the questions that ask what the box asks. */
+const ANSWERED_ELSEWHERE: Record<string, RegExp> = {
+  currentLivingSituation: /\bwhere (?:does|do|is) (?:your|the) (?:child|children|kids?|son|daughter)\b[^?]*\b(?:live|living|stay)|\b(?:child|children|kids?|son|daughter)\b[^?]*\b(?:live|lives|living) with\b|\bliving (?:arrangements?|situation)\b|\b(?:parenting|living) arrangements? (?:do you have )?(?:now|currently)\b|\bwhat parenting arrangements?\b|\b(?:child|children|kids?|son|daughter) (?:usually |normally |currently )?(?:live|lives|living) in\b|\bdoes (?:your|the) (?:child|children|kids?|son|daughter) (?:usually |normally |currently )?live\b/i,
+};
+// The real AI's other words for these (Chrome pass 2, S7a reading r3 and S7b readings r2, r3): "In what city or town and
+// province does your child usually live?", "What town or city ... does your child usually live in?", "What parenting
+// arrangement do you currently have...?" were answered on the home page and the box stayed empty.
 const FAMILY_FIELDS = () => familyGuidedFields({ issues: FAMILY_ISSUE_OPTIONS, filed: FAMILY_FILED_OPTIONS });
 const CIVIL_FIELDS = () => civilGuidedFields({ issues: CIVIL_ISSUE_OPTIONS, documents: CIVIL_DOCUMENT_OPTIONS });
 /** The form's own wording for fields no question defines (Family: ten boxes were labelled from their code names, re-test 2026-10-18). */
@@ -190,9 +197,20 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   // An empty civil box the story answers: its words offered in one click, never filled for them (s. 4).
   const story = storyOf(sections);
   if (story.trim()) for (const entry of entries) {
-    const read = entry.section === "civil" && (!entry.nested || entry.nested === "input") ? BOX_FROM_STORY[entry.field] : undefined;
+    // Family's Timeline box too (Chrome milestone pass 2, finding 9: empty after "separated in June 2026").
+    const fromStoryBox = (entry.section === "civil" && (!entry.nested || entry.nested === "input")) || (entry.section === "family" && !entry.nested && entry.field === "timeline");
+    const read = fromStoryBox ? BOX_FROM_STORY[entry.field] : undefined;
     const offer = read && typeof entry.value === "string" && !entry.value.trim() ? read(story) : null;
     if (offer) entry.fromStory = offer;
+  }
+  // An empty Family box the person already answered in other words, on the home page or in the chat: their answer offered
+  // in one click (Chrome milestone pass 2, finding 9, S7: "Where does your child normally live...?" answered "With me in
+  // Ottawa since birth", then an empty "Current living situation").
+  for (const entry of entries) {
+    const asks = entry.section === "family" && !entry.nested ? ANSWERED_ELSEWHERE[entry.field] : undefined;
+    if (!asks || entry.fromStory || typeof entry.value !== "string" || entry.value.trim()) continue;
+    const given = answeredInIntake(sections).filter((item) => asks.test(item.question));
+    if (given.length) entry.fromStory = { value: given.map((item) => item.answer).join("\n"), quote: given.map((item) => `You answered “${item.answer}” to “${item.question}”`).join(" ") };
   }
   return entries;
 }
@@ -926,6 +944,17 @@ export function continueNeeds(checkpoint: Checkpoint, workflow: ObjectValue, mas
     storyAnswersOutdated(checkpoint) && "the answers marked as given for an earlier version of your story answered again, or the questions started again from your story",
     offersLeft > 0 && "a choice (Yes, No or I'm not sure) on each suggestion taken from the story",
   ].filter(Boolean) as string[];
+}
+
+/**
+ * What a continue button says beside itself when pressed before the review is done (ReviewNeededNotice.tsx): the review
+ * still has a suggestion from the story to decide (an offer: the one function's "offer", counted by undecidedStoryOffers),
+ * or only the summary to look over. Decided here, with the rule it reads.
+ */
+export function reviewNeededWords(checkpoint: Checkpoint, master?: unknown): string {
+  return undecidedStoryOffers(checkpoint, master) > 0
+    ? "Your initial case information at the top of this page needs confirming before your next steps can be shown."
+    : "Your next steps come after the summary of your initial case information at the top of this page: look it over and press Continue there.";
 }
 
 /** The "Still needed" line every continue button shows beside itself (the review's own included). */

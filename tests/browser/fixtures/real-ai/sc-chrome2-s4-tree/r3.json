@@ -1,0 +1,124 @@
+{
+  "story": "sc-chrome2-s4-tree",
+  "reading": "r3",
+  "recorded": "2026-11-18",
+  "note": "Real model outputs for a made-up story (AI_FIXTURES=record).",
+  "entries": [
+    {
+      "step": "story-reading",
+      "input": "eef1ffaf3a267142",
+      "said": "{\"sent\":\"My neighbour cut down my maple tree on Oct 4, 2026 without asking. I want the tree replaced and I got a quote for $1500 to do the work and supply the tree.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\",\"chosen\":null}",
+      "output": "{\n  \"summary\": \"You say your neighbour cut down your maple tree on October 4, 2026, without your permission. You want the tree replaced and have a $1,500 quote to supply and plant a replacement. You are bringing the claim, and nothing has been filed with a court yet.\",\n  \"facts\": [\n    {\n      \"label\": \"Other party\",\n      \"value\": \"Your neighbour\"\n    },\n    {\n      \"label\": \"Incident\",\n      \"value\": \"Neighbour cut down your maple tree without asking\"\n    },\n    {\n      \"label\": \"Date\",\n      \"value\": \"October 4, 2026\"\n    },\n    {\n      \"label\": \"Desired outcome\",\n      \"value\": \"Replacement of the tree\"\n    },\n    {\n      \"label\": \"Replacement quote\",\n      \"value\": \"$1,500 for the tree and replacement work\"\n    },\n    {\n      \"label\": \"Your role\",\n      \"value\": \"Person bringing the claim\"\n    },\n    {\n      \"label\": \"Court status\",\n      \"value\": \"Nothing filed\"\n    },\n    {\n      \"label\": \"Property location\",\n      \"value\": \"Not given\"\n    },\n    {\n      \"label\": \"Tree location relative to property boundary\",\n      \"value\": \"Not given\"\n    }\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Claim against neighbour for cutting down a maple tree\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You have obtained a replacement quote but have not started a court case.\",\n  \"questions\": [\n    {\n      \"question\": \"Is the property in Ontario?\",\n      \"why\": \"The location determines which jurisdiction applies.\"\n    },\n    {\n      \"question\": \"Do you want $1,500 to cover replacement, or an order requiring your neighbour to replace the tree?\",\n      \"why\": \"The remedy you want affects which court can hear the claim.\"\n    },\n    {\n      \"question\": \"Was the tree's trunk entirely on your property, entirely on your neighbour's property, or across the boundary?\",\n      \"why\": \"The trunk's location affects ownership of the tree.\"\n    },\n    {\n      \"question\": \"Do you own the property where the tree stood?\",\n      \"why\": \"Your relationship to the property affects who can claim for the loss.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
+    },
+    {
+      "step": "story-reading",
+      "input": "d61452fecf888578",
+      "said": "{\"sent\":\"My neighbour cut down my maple tree on Oct 4, 2026 without asking. I want the tree replaced and I got a quote for $1500 to do the work and supply the tree.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\\n\\nQ: Is the property in Ontario?\\nA: I do not know yet\\n\\nQ: Do you want $1,500 to cover replacement, or an order requiring your neighbour to replace the tree?\\nA: The $1,500 so I can arrange the replacement myself.\\n\\nQ: Was the tree's trunk entirely on your property, entirely on your neighbour's property, or across the boundary?\\nA: Entirely on my pr",
+      "output": "{\n  \"summary\": \"You say your neighbour cut down your maple tree without asking on October 4, 2026, and that its trunk was entirely on your property. You want $1,500 to arrange replacement yourself, based on a quote covering the tree and the work. You have not started a court case, and you have not confirmed whether the property is in Ontario or whether you own it.\",\n  \"facts\": [\n    {\n      \"label\": \"Other party\",\n      \"value\": \"Your neighbour\"\n    },\n    {\n      \"label\": \"Incident\",\n      \"value\": \"Neighbour cut down your maple tree without your permission\"\n    },\n    {\n      \"label\": \"Incident date\",\n      \"value\": \"October 4, 2026\"\n    },\n    {\n      \"label\": \"Tree location\",\n      \"value\": \"You say the trunk was entirely on your property\"\n    },\n    {\n      \"label\": \"Amount sought\",\n      \"value\": \"$1,500 for you to arrange replacement\"\n    },\n    {\n      \"label\": \"Replacement quote\",\n      \"value\": \"$1,500 for the tree and replacement work\"\n    },\n    {\n      \"label\": \"Your role\",\n      \"value\": \"Person bringing the claim\"\n    },\n    {\n      \"label\": \"Court filing\",\n      \"value\": \"Nothing filed\"\n    },\n    {\n      \"label\": \"Property location\",\n      \"value\": \"Not given; you do not yet know whether it is in Ontario\"\n    },\n    {\n      \"label\": \"Property ownership\",\n      \"value\": \"Not confirmed\"\n    }\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Claim against your neighbour for the cost of replacing the tree\",\n      \"court\": \"unclear\",\n      \"forum\": \"Not yet determined because the property's location is unknown\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You are considering a claim for $1,500, and nothing has been filed with a court.\",\n  \"questions\": [\n    {\n      \"question\": \"What town or city, province or state, and country is the property in?\",\n      \"why\": \"The property's location determines which jurisdiction applies.\"\n    },\n    {\n      \"question\": \"What is your connection to the property—for example, do you rent it, live with the owner, or believe you own it?\",\n      \"why\": \"Your interest in the property matters to who can claim compensation for the tree.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
+    },
+    {
+      "step": "safety",
+      "input": "3cc2ece99925681c",
+      "said": "{\"said\":\"My neighbour cut down my maple tree on Oct 4, 2026 without asking. I want the tree replaced and I got a quote for $1500 to do the work and supply the tree.\\n\\nI do not know yet\\n\\nThe $1,500 so I can arrange the replacement myself.\\n\\nEntirely on my property.\"}",
+      "output": {
+        "classification": "clear",
+        "requestsLegalAdvice": false
+      }
+    },
+    {
+      "step": "fact-reading",
+      "input": "3cc2ece99925681c",
+      "said": "{\"said\":\"My neighbour cut down my maple tree on Oct 4, 2026 without asking. I want the tree replaced and I got a quote for $1500 to do the work and supply the tree.\\n\\nI do not know yet\\n\\nThe $1,500 so I can arrange the replacement myself.\\n\\nEntirely on my property.\"}",
+      "output": {
+        "facts": {
+          "role": "plaintiff",
+          "disputeCategory": "property-damage"
+        },
+        "directFields": [
+          "role",
+          "disputeCategory"
+        ]
+      }
+    },
+    {
+      "step": "claim-kind",
+      "input": "90082aba4b394a41",
+      "said": "{\"said\":\"My neighbour cut down my maple tree on Oct 4, 2026 without asking. I want the tree replaced and I got a quote for $1500 to do the work and supply the tree.\\n\\nI do not know yet\\n\\nThe $1,500 so I can arrange the replacement myself.\\n\\nEntirely on my property.\",\"exclude\":[],\"responding\":false}",
+      "output": {
+        "claimTypeId": "sc-claim-vandalism-known-person",
+        "claimTypeName": "Vandalism where you know who did it",
+        "quote": "My neighbour cut down my maple tree on Oct 4, 2026 without asking"
+      }
+    },
+    {
+      "step": "story-suggestions",
+      "input": "58a152780a7cb76b",
+      "said": "{\"story\":\"My neighbour cut down my maple tree on Oct 4, 2026 without asking. I want the tree replaced and I got a quote for $1500 to do the work and supply the tree.\\n\\nI do not know yet\\n\\nThe $1,500 so I can arrange the replacement myself.\\n\\nEntirely on my property.\",\"questions\":[\"sc-orient-when-happened\",\"sc-orient-dispute-category\",\"sc-amount-claimed\",\"sc-remedy-sought\"],\"quoteFrom\":null}",
+      "output": [
+        {
+          "questionId": "sc-orient-when-happened",
+          "questionText": "Roughly when did the situation that led to this claim happen?",
+          "answer": "Oct 4, 2026",
+          "storyQuote": "on Oct 4, 2026",
+          "dateQuestion": true
+        },
+        {
+          "questionId": "sc-orient-dispute-category",
+          "questionText": "What kind of dispute is this?",
+          "answer": "Property damage",
+          "storyQuote": "My neighbour cut down my maple tree",
+          "choices": [
+            "Unpaid money owed to you",
+            "A contract or agreement dispute",
+            "Property damage",
+            "A loan or debt",
+            "Work or a service you paid for (e.g. a contractor)",
+            "A deposit that wasn't returned",
+            "A consumer purchase problem",
+            "A vehicle-related dispute",
+            "Something said about you (defamation)",
+            "A personal injury (a fall, an animal bite, or similar)",
+            "Something else"
+          ]
+        },
+        {
+          "questionId": "sc-amount-claimed",
+          "questionText": "What is the total dollar amount you are claiming?",
+          "answer": "$1,500",
+          "storyQuote": "The $1,500 so I can arrange the replacement myself."
+        },
+        {
+          "questionId": "sc-remedy-sought",
+          "questionText": "What outcome are you asking the court to order?",
+          "answer": "$1,500 so I can arrange the tree replacement myself.",
+          "storyQuote": "The $1,500 so I can arrange the replacement myself."
+        }
+      ]
+    },
+    {
+      "step": "claim-kind-confirm",
+      "input": "2863aea5556b7671",
+      "said": "{\"action\":\"confirm\",\"said\":\"My neighbour cut down my maple tree on Oct 4, 2026 without asking. I want the tree replaced and I got a quote for $1500 to do the work and supply the tree.\\n\\nI do not know yet\\n\\nThe $1,500 so I can arrange the replacement myself.\\n\\nEntirely on my property.\",\"claimTypeId\":\"sc-claim-vandalism-known-person\",\"prior\":[]}",
+      "output": {
+        "outcome": "confirmed",
+        "claimType": {
+          "claimTypeId": "sc-claim-vandalism-known-person",
+          "claimTypeName": "Vandalism where you know who did it"
+        }
+      }
+    },
+    {
+      "step": "fact-reading",
+      "input": "595237d2033fb11f",
+      "said": "{\"said\":\"Q: Roughly when did the situation that led to this claim happen?\\nA: Oct 4, 2026\\n\\nQ: What is the total dollar amount you are claiming?\\nA: $1,500.00\\n\\nQ: What outcome are you asking the court to order?\\nA: $1,500 so I can arrange the tree replacement myself.\"}",
+      "output": {
+        "facts": {
+          "role": "plaintiff"
+        },
+        "directFields": [
+          "role"
+        ]
+      }
+    }
+  ]
+}

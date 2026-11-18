@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { continueNeedsLine, inputRevision, reviewPhase, undecidedStoryOffers } from "../../src/lib/case-system/intakeReview";
+import { continueNeedsLine, inputRevision, reviewNeededWords, reviewPhase } from "../../src/lib/case-system/intakeReview";
 import { useContinueNeeds, useIntakeRecovery, useIntakeReviewView } from "./IntakeRecovery";
 import { scrollAndFocus } from "./scrollFocus";
 import { reviewNeededAsked, subscribeReviewNeeded } from "./reviewNeeded";
@@ -29,9 +29,7 @@ export default function ReviewNeededNotice({ from }: { from: string }) {
   return (
     <p data-testid="review-needed-beside-button" role="alert" className="mt-3 text-sm font-semibold text-[#a63b3b]">
       {/* Nothing left to decide: the review is a summary, so this points to it and asks for no confirmation (site owner, 12 Nov). */}
-      {undecidedStoryOffers(view.checkpoint, recovery?.getSavedMaster() ?? undefined) > 0
-        ? "Your initial case information at the top of this page needs confirming before your next steps can be shown."
-        : "Your next steps come after the summary of your initial case information at the top of this page: look it over and press Continue there."}{" "}
+      {reviewNeededWords(view.checkpoint, recovery?.getSavedMaster() ?? undefined)}{" "}
       <button type="button" onClick={() => document.querySelector<HTMLElement>('[data-testid="intake-review"]')?.scrollIntoView({ block: "start" })} className="underline">
         Go to your initial case information
       </button>

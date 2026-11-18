@@ -16,6 +16,9 @@
  */
 import { amountOfferFromStory, oneClickQuote } from "../../../../app/builder/_components/storyAnswers";
 import { otherPartyFromUnderstanding } from "./understoodOtherParty";
+import { factOfAskedText } from "./factsOfQuestion";
+import { factStatus } from "./factStatus";
+import type { CaseFile } from "./caseFile";
 
 export type ReadingFact = { label: string; value: string };
 export type StoryOffer = { value: string; quote: string; from: "reading" | "story" };
@@ -87,4 +90,28 @@ export function offeredAmount(story: string, reading: readonly ReadingFact[], op
 export function offeredOtherParty(story: string, reading: readonly ReadingFact[]): StoryOffer | null {
   const name = otherPartyFromUnderstanding(reading, story);
   return name ? { value: name, quote: reading.find((fact) => fact.value.includes(name))?.value ?? name, from: "reading" } : null;
+}
+
+/**
+ * What the story already gives for a question known only by its words (the home page's reading card), to offer with it,
+ * never asked with an empty box: the amount and the other party, from this one place. Null when the question asks
+ * neither, or the case already holds the fact (known or settled: mayAskWords does not show it), or the story gives none.
+ * Chrome's stories on the real AI: S2 reading r3 asked "How much money are you seeking in total, including the deposit?"
+ * after "kept my $1,200 deposit"; S8 reading r2 asked "Is Testgoods Ltd. the buyer who owes the money, or the seller who
+ * supplied the goods?" after "The company is Testgoods Ltd.", each with an empty box.
+ */
+export function offerForAskedWords(file: CaseFile | null | undefined, words: string, story: string, reading: readonly ReadingFact[], options: { responding?: boolean } = {}): (StoryOffer & { fact: "amount" | "otherParty" }) | null {
+  // The side: the case file's, else the role the reading showed ("Your role: Defendant").
+  const responding = options.responding ?? ((file?.side.state === "answered" && file.side.value === "responding") || reading.some((item) => /\brole\b/i.test(item.label) && /\b(?:defend\w*|respond\w*|being sued|sued)\b/i.test(item.value)));
+  const fact = factOfAskedText(words, { responding });
+  if (fact !== "amount" && fact !== "otherParty") return null;
+  // Show less rather than invent (real reading S6 r1, 18 Nov 2026): a person defending was offered the $4,200 claimed
+  // against them for "If you want money from the contractor, how much are you seeking?". Their own amount is not in the
+  // story's amount, so nothing is offered.
+  if (fact === "amount" && responding) return null;
+  if (file && factStatus(file, fact) !== "ask" && factStatus(file, fact) !== "offer") return null;
+  const offer = fact === "amount" ? offeredAmount(story, reading) : offeredOtherParty(story, reading);
+  // A question that already names the party ("Is Testgoods Ltd. the buyer ...?") asks something else about it.
+  if (offer && fact === "otherParty" && words.toLowerCase().includes(offer.value.toLowerCase().replace(/\.$/, ""))) return null;
+  return offer ? { ...offer, fact } : null;
 }

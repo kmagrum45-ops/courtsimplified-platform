@@ -309,6 +309,10 @@ export function lossesIn(story: string): StoryFact | null {
 
 /** The story's dated sentences, in the order told: the person's own timeline. */
 export function timelineIn(story: string): StoryFact | null {
-  const dated = sentences(story).map((sentence) => sentence.trim()).filter((sentence) => dateMentionsIn(sentence).length > 0 && !/\?\s*$/.test(sentence));
+  // A month and year is a line of a timeline too ("delivered in August 2026", "separated in June 2026"): it has no day to
+  // count a deadline from, so dateMentionsIn leaves it out, but it is when something happened (Chrome milestone pass 2,
+  // findings 9 and 11: the review's Timeline stayed empty for S7 and S8).
+  const monthYear = new RegExp(`\\b(?:${MONTH_FULL_NAMES_PATTERN})\\.?,?\\s+\\d{4}\\b`, "i");
+  const dated = sentences(story).map((sentence) => sentence.trim()).filter((sentence) => (dateMentionsIn(sentence).length > 0 || monthYear.test(sentence)) && !/\?\s*$/.test(sentence));
   return dated.length ? { value: dated.join("\n"), quote: dated.join(" ") } : null;
 }

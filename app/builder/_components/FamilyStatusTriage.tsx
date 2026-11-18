@@ -1,5 +1,5 @@
 "use client";
-import { useIntakeReviewView, useSituation } from "../../_components/IntakeRecovery";
+import { useIntakeRecovery, useIntakeReviewView, useSituation } from "../../_components/IntakeRecovery";
 import { offerForQuestion } from "../../../src/lib/case-system/caseFile/offerChoice";
 import { sideOf } from "../../../src/lib/case-system/situation/situation";
 import { personWordsOnly } from "../../../src/lib/case-system/personWords";
@@ -136,7 +136,10 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
   const { record: ownRecord, dismissed } = state;
   // The case file is the one gate (caseFile.ts): whether there are children, or a marriage,
   // given anywhere else (the form, the questions one at a time) is not asked here again.
-  const fromFile = review ? withCaseFileAnswers(ownRecord, caseFileOf(review.checkpoint)) : ownRecord;
+  // With the saved case too (getSavedMaster), so an answer kept only on the saved row counts (finding 7).
+  const recovery = useIntakeRecovery();
+  const file = review ? caseFileOf(review.checkpoint, recovery?.getSavedMaster() ?? undefined) : null;
+  const fromFile = file ? withCaseFileAnswers(ownRecord, file) : ownRecord;
   // The lived-together dates the story gives are used, never asked again (B3); "Change" asks them with the story's words
   // in the boxes. Read over the record like the case file's answers, never copied into it.
   const [changingDates, setChangingDates] = useState(false);
@@ -147,7 +150,8 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
   const record = storyDates ? { ...fromHome, cohabitationStart: storyDates.start, cohabitationEnd: storyDates.end } : fromHome;
   // Questions set aside on this page with "I'd rather not answer yet": the next one is asked (statusTriage.ts).
   const [deferred, setDeferred] = useState<ReadonlySet<TriageQuestionId>>(new Set());
-  const question = selectNextTriageQuestion(record, deferred);
+  // Each question through the one function: one whose fact is known or settled anywhere is not asked here again.
+  const question = selectNextTriageQuestion(record, deferred, file);
   const outcome = buildTriageOutcome(record);
   // Someone who already has a family court order (a motion to change, support
   // not being paid) is not choosing where to START a case; the start-a-case
@@ -317,6 +321,20 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
             >
               Record these dates
             </button>
+            {/* When it ended is known (typed, or the story's separation) and when it started is not: "I'm not sure" for the
+                start records the end alone, and the start is never asked again (site owner, 17 Nov; Chrome milestone
+                pass 2, finding 6: "separated in June 2026", then "Did you live together? ... from when" with a required
+                start). */}
+            {readPartialDate(dateEnd) && !readPartialDate(dateStart) ? (
+              <button
+                type="button"
+                data-testid="triage-cohabitation-start-unsure"
+                onClick={() => { update({ cohabitationStart: "not-yet", cohabitationEnd: readPartialDate(dateEnd) }); setChangingDates(false); }}
+                className={chip}
+              >
+                {OFFER_CHOICES.unsure} when it started
+              </button>
+            ) : null}
             <button
               type="button"
               data-testid="triage-answer-not-yet"
@@ -414,7 +432,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
   return (
     <section
       data-testid="family-status-triage"
-      data-complete={outcome.complete ? "true" : "false"}
+      data-complete={question === null ? "true" : "false"}
       className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm"
     >
       <div className="flex flex-wrap items-start justify-between gap-3">

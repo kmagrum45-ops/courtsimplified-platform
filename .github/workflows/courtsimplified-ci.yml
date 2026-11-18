@@ -128,6 +128,12 @@ jobs:
         run: npm run test:offers-one-source
       - name: Nothing Chrome found asked twice in the milestone test of #550 is asked again (11 findings, each through its real function)
         run: npm run test:milestone-ask-once
+
+      - name: Chrome's milestone pass 2 findings stay fixed at the shared piece that owns each (court, parties, defence, triage, Forms, amount, timeline)
+        run: npm run test:chrome-pass-2
+
+      - name: Every question the site asks by id asks for a fact of the case
+        run: npm run test:every-question-has-fact
       - name: No stale or missing copy of lost pay, an amount in words, the parties or the claim against the person
         run: npm run test:stale-copies
       - name: Each court's own words for the parties from one function; Family never asks "A person or a company?"

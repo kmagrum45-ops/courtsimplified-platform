@@ -1,0 +1,182 @@
+{
+  "story": "sc-chrome2-s6-sued",
+  "reading": "r1",
+  "recorded": "2026-11-18",
+  "note": "Real model outputs for a made-up story (AI_FIXTURES=record).",
+  "entries": [
+    {
+      "step": "story-reading",
+      "input": "eb1db1efa1b40e84",
+      "said": "{\"sent\":\"I was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.\\n\\nI am responding to this case: the other side started it.\\n\\nI was served on 2026-10-20.\\n\\nA court case has already been started.\",\"chosen\":null}",
+      "output": "{\n  \"summary\": \"You are defending a Small Claims Court case brought by a contractor who says you owe $4,200 for a kitchen job. You say you already paid $2,000 and the work was bad. You were served with the claim on October 20, 2026.\",\n  \"facts\": [\n    {\n      \"label\": \"Your role\",\n      \"value\": \"Defendant\"\n    },\n    {\n      \"label\": \"Other party\",\n      \"value\": \"Contractor who worked on your kitchen\"\n    },\n    {\n      \"label\": \"Court\",\n      \"value\": \"Small Claims Court\"\n    },\n    {\n      \"label\": \"Amount claimed\",\n      \"value\": \"$4,200\"\n    },\n    {\n      \"label\": \"Amount already paid\",\n      \"value\": \"$2,000\"\n    },\n    {\n      \"label\": \"Complaint about the work\",\n      \"value\": \"You say the work was bad\"\n    },\n    {\n      \"label\": \"Date served\",\n      \"value\": \"October 20, 2026\"\n    },\n    {\n      \"label\": \"Method of service\",\n      \"value\": \"Not given\"\n    }\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Contractor's claim for payment for kitchen work\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"responding\",\n  \"stage\": \"The contractor has started a Small Claims Court case, and you have been served with the claim.\",\n  \"questions\": [\n    {\n      \"question\": \"How were the claim papers served on you: handed to you, mailed, left at your home, emailed, or another way?\",\n      \"why\": \"The method affects when service legally took effect.\"\n    },\n    {\n      \"question\": \"Has anything happened in the case since you received the claim, including any response from you or any further court papers?\",\n      \"why\": \"This establishes the current status of the case.\"\n    },\n    {\n      \"question\": \"What total price did you and the contractor agree on for the kitchen work?\",\n      \"why\": \"This helps clarify the disputed balance and how your $2,000 payment fits into it.\"\n    },\n    {\n      \"question\": \"What specifically was wrong with the kitchen work?\",\n      \"why\": \"The particular defects are central to your dispute about payment.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
+    },
+    {
+      "step": "story-reading",
+      "input": "8bb9ba3641062b64",
+      "said": "{\"sent\":\"I was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.\\n\\nI am responding to this case: the other side started it.\\n\\nI was served on 2026-10-20.\\n\\nA court case has already been started.\\n\\nQ: How were the claim papers served on you: handed to you, mailed, left at your home, emailed, or another way?\\nA: Handed to me at my door.\\n\\nQ: What total price did you and the contractor agree on for the kitchen work?\\nA: We agreed $6,200 for cabinets and countertop.\\n\\nQ: What specifically was wrong ",
+      "output": "{\n  \"summary\": \"You are defending a Small Claims Court claim brought by a contractor who says you owe $4,200 for kitchen work. You agreed to pay $6,200 for cabinets and a countertop and have already paid $2,000. You say the cabinets are crooked and the countertop is cracked. The claim papers were handed to you at your door on October 20, 2026.\",\n  \"facts\": [\n    {\n      \"label\": \"Your role\",\n      \"value\": \"Defendant\"\n    },\n    {\n      \"label\": \"Other party\",\n      \"value\": \"Contractor who performed kitchen work\"\n    },\n    {\n      \"label\": \"Court\",\n      \"value\": \"Small Claims Court\"\n    },\n    {\n      \"label\": \"Amount claimed\",\n      \"value\": \"$4,200\"\n    },\n    {\n      \"label\": \"Agreed price\",\n      \"value\": \"$6,200 for cabinets and a countertop\"\n    },\n    {\n      \"label\": \"Amount already paid\",\n      \"value\": \"$2,000\"\n    },\n    {\n      \"label\": \"Reported defects\",\n      \"value\": \"Crooked cabinets and a cracked countertop\"\n    },\n    {\n      \"label\": \"Service\",\n      \"value\": \"Handed to you at your door on October 20, 2026\"\n    },\n    {\n      \"label\": \"Work completion date\",\n      \"value\": \"Not given\"\n    }\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Contractor’s claim for unpaid kitchen work\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"responding\",\n  \"stage\": \"The contractor has started a Small Claims Court case, and you have been personally served with the claim.\",\n  \"questions\": [\n    {\n      \"question\": \"Has anything else happened in the court case since you received the claim?\",\n      \"why\": \"This identifies the current status of the existing case.\"\n    },\n    {\n      \"question\": \"When did the contractor finish or stop working on the kitchen?\",\n      \"why\": \"This establishes the timing of the work and dispute.\"\n    },\n    {\n      \"question\": \"Are you only disputing the unpaid $4,200, or do you also want the contractor to pay you money?\",\n      \"why\": \"This clarifies the scope of your dispute and the outcome you want.\"\n    },\n    {\n      \"question\": \"If you want money from the contractor, how much are you seeking?\",\n      \"why\": \"The amount helps identify the scope and court category of your own claim.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
+    },
+    {
+      "step": "safety",
+      "input": "c755169ac337a025",
+      "said": "{\"said\":\"I was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.\\n\\nHanded to me at my door.\\n\\nWe agreed $6,200 for cabinets and countertop.\\n\\nThe cabinets are crooked and the countertop is cracked.\"}",
+      "output": {
+        "classification": "clear",
+        "requestsLegalAdvice": false
+      }
+    },
+    {
+      "step": "fact-reading",
+      "input": "c755169ac337a025",
+      "said": "{\"said\":\"I was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.\\n\\nHanded to me at my door.\\n\\nWe agreed $6,200 for cabinets and countertop.\\n\\nThe cabinets are crooked and the countertop is cracked.\"}",
+      "output": {
+        "facts": {
+          "role": "defendant",
+          "disputeCategory": "work-or-services",
+          "claimServed": true
+        },
+        "directFields": [
+          "role",
+          "disputeCategory",
+          "claimServed"
+        ]
+      }
+    },
+    {
+      "step": "claim-kind",
+      "input": "426a3ff1ed14fad0",
+      "said": "{\"said\":\"I was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.\\n\\nHanded to me at my door.\\n\\nWe agreed $6,200 for cabinets and countertop.\\n\\nThe cabinets are crooked and the countertop is cracked.\",\"exclude\":[],\"responding\":true}",
+      "output": {
+        "claimTypeId": "sc-claim-homeowner-wont-pay-contractor",
+        "claimTypeName": "A homeowner will not pay the contractor",
+        "quote": "A contractor says I owe $4,200 for a kitchen job"
+      }
+    },
+    {
+      "step": "story-suggestions",
+      "input": "94e33ae179c1578b",
+      "said": "{\"story\":\"I was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.\\n\\nHanded to me at my door.\\n\\nWe agreed $6,200 for cabinets and countertop.\\n\\nThe cabinets are crooked and the countertop is cracked.\",\"questions\":[\"sc-orient-when-happened\",\"sc-orient-dispute-category\",\"sc-defendant-response-facts\",\"sc-defendant-outcome\",\"sc-defendant-counterclaim\",\"sc-date-claim-issued\"],\"quoteFrom\":null}",
+      "output": [
+        {
+          "questionId": "sc-orient-dispute-category",
+          "questionText": "What kind of dispute is this?",
+          "answer": "Work or a service you paid for (e.g. a contractor)",
+          "storyQuote": "I already paid $2,000 and the work was bad.",
+          "choices": [
+            "Unpaid money owed to you",
+            "A contract or agreement dispute",
+            "Property damage",
+            "A loan or debt",
+            "Work or a service you paid for (e.g. a contractor)",
+            "A deposit that wasn't returned",
+            "A consumer purchase problem",
+            "A vehicle-related dispute",
+            "Something said about you (defamation)",
+            "A personal injury (a fall, an animal bite, or similar)",
+            "Something else"
+          ]
+        },
+        {
+          "questionId": "sc-defendant-response-facts",
+          "questionText": "In your own words, which facts in the Plaintiff's Claim do you agree with, and which facts do you disagree with?",
+          "answer": "We agreed on $6,200 for cabinets and countertop. I already paid $2,000. The cabinets are crooked and the countertop is cracked.",
+          "storyQuote": "I already paid $2,000 and the work was bad.\n\nHanded to me at my door.\n\nWe agreed $6,200 for cabinets and countertop.\n\nThe cabinets are crooked and the countertop is cracked."
+        }
+      ]
+    },
+    {
+      "step": "claim-kind-confirm",
+      "input": "93d319752e373998",
+      "said": "{\"action\":\"confirm\",\"said\":\"I was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.\\n\\nHanded to me at my door.\\n\\nWe agreed $6,200 for cabinets and countertop.\\n\\nThe cabinets are crooked and the countertop is cracked.\",\"claimTypeId\":\"sc-claim-homeowner-wont-pay-contractor\",\"prior\":[]}",
+      "output": {
+        "outcome": "confirmed",
+        "claimType": {
+          "claimTypeId": "sc-claim-homeowner-wont-pay-contractor",
+          "claimTypeName": "Being sued by a contractor over work you dispute"
+        }
+      }
+    },
+    {
+      "step": "fact-reading",
+      "input": "e85bdc23f667cab7",
+      "said": "{\"said\":\"Q: In your own words, which facts in the Plaintiff's Claim do you agree with, and which facts do you disagree with?\\nA: We agreed on $6,200 for cabinets and countertop. I already paid $2,000. The cabinets are crooked and the countertop is cracked.\"}",
+      "output": {
+        "facts": {
+          "role": "defendant",
+          "disputeCategory": "work-or-services"
+        },
+        "directFields": [
+          "disputeCategory"
+        ]
+      }
+    },
+    {
+      "step": "story-suggestions",
+      "input": "563613160a2bee0a",
+      "said": "{\"story\":\"I was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.\\n\\nHanded to me at my door.\\n\\nWe agreed $6,200 for cabinets and countertop.\\n\\nThe cabinets are crooked and the countertop is cracked.\",\"questions\":[\"sc-orient-when-happened\",\"sc-defendant-outcome\",\"sc-defendant-counterclaim\",\"sc-date-claim-issued\"],\"quoteFrom\":null}",
+      "output": [
+        {
+          "questionId": "sc-defendant-counterclaim",
+          "questionText": "Do you believe the plaintiff, or someone else, owes you money or is responsible for part of what happened? (If you have already started your own claim about it, say so.)",
+          "answer": "The contractor's work was bad. The cabinets are crooked and the countertop is cracked.",
+          "storyQuote": "The cabinets are crooked and the countertop is cracked."
+        }
+      ]
+    },
+    {
+      "step": "fact-reading",
+      "input": "aaa7908070042d13",
+      "said": "{\"said\":\"Q: Do you believe the plaintiff, or someone else, owes you money or is responsible for part of what happened? (If you have already started your own claim about it, say so.)\\nA: The contractor's work was bad. The cabinets are crooked and the countertop is cracked.\"}",
+      "output": {
+        "facts": {
+          "disputeCategory": "work-or-services"
+        },
+        "directFields": [
+          "disputeCategory"
+        ]
+      }
+    },
+    {
+      "step": "safety",
+      "input": "ffe0a499f25c5eb0",
+      "said": "{\"said\":\"August 2026\"}",
+      "output": {
+        "classification": "clear",
+        "requestsLegalAdvice": false
+      }
+    },
+    {
+      "step": "story-suggestions",
+      "input": "090afdb207a5987c",
+      "said": "{\"story\":\"The person's story:\\nI was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.\\n\\nHanded to me at my door.\\n\\nWe agreed $6,200 for cabinets and countertop.\\n\\nThe cabinets are crooked and the countertop is cracked.\\n\\nQ: Roughly when did the situation that led to this claim happen?\\nA: August 2026\",\"questions\":[\"sc-date-claim-issued\"],\"quoteFrom\":\"I was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad",
+      "output": []
+    },
+    {
+      "step": "fact-reading",
+      "input": "ffe0a499f25c5eb0",
+      "said": "{\"said\":\"August 2026\"}",
+      "output": {
+        "facts": {},
+        "directFields": []
+      }
+    },
+    {
+      "step": "safety",
+      "input": "6c65715e97a760f7",
+      "said": "{\"said\":\"October 15, 2026\"}",
+      "output": {
+        "classification": "clear",
+        "requestsLegalAdvice": false
+      }
+    },
+    {
+      "step": "fact-reading",
+      "input": "6c65715e97a760f7",
+      "said": "{\"said\":\"October 15, 2026\"}",
+      "output": {
+        "facts": {},
+        "directFields": []
+      }
+    }
+  ]
+}

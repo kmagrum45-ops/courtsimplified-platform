@@ -19,7 +19,8 @@ import { afterPointer } from "./afterPointer";
 import { useIntakeRecovery } from "./IntakeRecovery";
 import { writeParties } from "./caseWrite";
 import { UseSuggestion } from "./UseSuggestion";
-import { bringsTheCase, caseFileOf, storyOfFile } from "../../src/lib/case-system/caseFile/caseFile";
+import { answeredInIntake, bringsTheCase, caseFileOf, storyOfFile } from "../../src/lib/case-system/caseFile/caseFile";
+import { locationOf } from "../../src/lib/case-system/intakeStory";
 import {
   detailStatus, detailsToAsk, partyName, partyOfOffer, partySideWord, sideWordsOf, storyPartyOffers,
   type Party, type PartiesRecord, type PartyDetail, type PartyKind, type PartyOffer,
@@ -100,7 +101,9 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
   // The other party's name: the answer the case holds (not from this step), else the story reading's (storyOffers.ts).
   const heldOther = file.otherParty.state === "answered" && typeof file.otherParty.value === "string" && file.otherParty.source?.kind === "answer" && file.otherParty.source.question !== "parties" ? file.otherParty.value.trim() : "";
   const named = heldOther ? { value: heldOther, quote: heldOther } : offeredOtherParty(storyOfFile(file), readingFactsOf(view?.checkpoint.sections as Record<string, unknown> | undefined, storyOfFile(file)));
-  const offers = storyPartyOffers(storyOfFile(file), record, named);
+  // What the person gave outside the story too: the city at the start, and an address typed as an answer (findings 2, 3).
+  const sections = view?.checkpoint.sections as Record<string, unknown> | undefined;
+  const offers = storyPartyOffers(storyOfFile(file), record, named, { location: locationOf((sections ?? {}) as never), answered: answeredInIntake(sections) });
   const acceptOffer = (offer: PartyOffer) => {
     const record = latest();
     const held = partyOfOffer(record, offer);
@@ -161,7 +164,7 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
           <article key={party.id} data-testid="parties-party" data-party={party.you ? "you" : party.side} data-party-id={party.id} className="space-y-2 rounded-lg border border-[#e3ece7] p-3">
             <h3 className="font-semibold">{sideWord(party)} {number}{party.you ? " (you)" : ""}{partyName(party) ? `: ${partyName(party)}` : ""}</h3>
             {own.map((offer) => (
-              <UseSuggestion key={offer.key} offer={{ key: offer.key, fact: null, recordedBy: "screen" }} testId="parties-offer-yes" noTestId="parties-offer-no" unsureTestId="parties-offer-unsure" what={`${LABELS[offer.detail]}: ${offer.value}`} note={`From your story: "${offer.quote}"`} onUse={() => acceptOffer(offer)} onNo={() => declineOffer(offer)} onUnsure={() => unsureOffer(offer)} />
+              <UseSuggestion key={offer.key} offer={{ key: offer.key, fact: null, recordedBy: "screen" }} testId="parties-offer-yes" noTestId="parties-offer-no" unsureTestId="parties-offer-unsure" what={`${LABELS[offer.detail]}: ${offer.value}`} note={offer.from && offer.from !== "story" ? offer.quote : `From your story: "${offer.quote}"`} onUse={() => acceptOffer(offer)} onNo={() => declineOffer(offer)} onUnsure={() => unsureOffer(offer)} />
             ))}
             {!party.kind ? (
               <div role="group" aria-label={`Is ${partyName(party) || "this party"} a person or a company?`} className="flex flex-wrap gap-2 text-sm" data-testid="parties-kind">
@@ -190,7 +193,7 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
         <div data-testid="parties-story-others" className="space-y-2">
           <p className="text-sm font-semibold">Your story also names:</p>
           {unheldOffers.filter((offer) => offer.detail === "companyName" || offer.detail === "fullName").map((offer) => (
-            <UseSuggestion key={offer.key} offer={{ key: offer.key, fact: null, recordedBy: "screen" }} testId="parties-offer-yes" noTestId="parties-offer-no" unsureTestId="parties-offer-unsure" what={`Another ${(personSues ? words.responds : words.starts).toLowerCase()}: ${offer.value}`} note={`From your story: "${offer.quote}"`} onUse={() => acceptOffer(offer)} onNo={() => declineOffer(offer)} onUnsure={() => declineOffer(offer)} />
+            <UseSuggestion key={offer.key} offer={{ key: offer.key, fact: null, recordedBy: "screen" }} testId="parties-offer-yes" noTestId="parties-offer-no" unsureTestId="parties-offer-unsure" what={`Another ${(personSues ? words.responds : words.starts).toLowerCase()}: ${offer.value}`} note={offer.from && offer.from !== "story" ? offer.quote : `From your story: "${offer.quote}"`} onUse={() => acceptOffer(offer)} onNo={() => declineOffer(offer)} onUnsure={() => declineOffer(offer)} />
           ))}
         </div>
       ) : null}

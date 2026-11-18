@@ -15,7 +15,12 @@ export type CaseFact =
   | "situation" | "side" | "court" | "stage" | "filed" | "defenceFiled" | "claimServed" | "papers"
   | "servedDate" | "serviceMethod" | "amount" | "otherParty" | "children" | "married" | "claimKind"
   | "wants" | "whenHappened" | "evidence" | "story" | "urgent" | "courtFileNumber" | "courtDate"
-  | "conferenceDate" | "claimIssuedDate" | "defenceFiledDate" | "marriedWhere" | "outcome" | "filedDocuments" | "safety";
+  | "conferenceDate" | "claimIssuedDate" | "defenceFiledDate" | "marriedWhere" | "outcome" | "filedDocuments" | "safety"
+  // Every question asked by id has a fact (site owner, 17 Nov 2026; test:every-question-has-fact). These are asked in one
+  // place each and are not case-file slots: the one function reads slots, so they are never decided by it yet.
+  | "publication" | "twentyDaysPassed" | "notedInDefault" | "responseFacts" | "admission" | "completionDate" | "noticeToContractor"
+  | "timeline" | "livingSituation" | "livingHistory" | "property" | "adoption" | "missingEvidence" | "yourName"
+  | "divorceSought" | "cohabitation" | "municipality" | "otherPartyMunicipality";
 
 const FACTS: Record<string, readonly CaseFact[]> = {
   // The situation questions (situation.ts).
@@ -125,6 +130,29 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   "chat:amount": ["amount"],
   "chat:served-date": ["servedDate"],
   "chat:proof": ["evidence"],
+  // Questions asked in one place each, by id (test:every-question-has-fact; Chrome milestone pass 2).
+  "sc-defamation-publication-details": ["publication"],
+  "sc-defence-time-elapsed": ["twentyDaysPassed"],
+  "sc-defendant-noted-in-default": ["notedInDefault"],
+  "sc-defendant-response-facts": ["responseFacts"],
+  "sc-defendant-response-evidence": ["evidence"],
+  "sc-defendant-admission-payment": ["admission"],
+  "sc-contractor-completion-date": ["completionDate"],
+  "sc-contractor-notice-before-replacement": ["noticeToContractor"],
+  "sc-safety-check": ["safety"],
+  // The Family form's own boxes (the Small Claims form's "timeline" box asks when it happened: asker.ts FORM_FIELD_FACTS).
+  timeline: ["timeline"],
+  currentLivingSituation: ["livingSituation"],
+  pastLivingHistory: ["livingHistory"],
+  propertyHomeDetails: ["property"],
+  adoptionDetails: ["adoption"],
+  missingEvidence: ["missingEvidence"],
+  yourName: ["yourName"],
+  // The Family triage's own questions.
+  "divorce-sought": ["divorceSought"],
+  "cohabitation-dates": ["cohabitation"],
+  municipalities: ["municipality"],
+  "other-party-municipality": ["otherPartyMunicipality"],
 };
 
 /** The facts a question asks for: its listed facts, or a fact of its own (its id). */
@@ -144,6 +172,11 @@ const ASKS_FOR: [RegExp, CaseFact][] = [
   [/\bhow much (?:money )?(?:\w+\s+){0,4}?(?:owe[sd]?|owing|claim\w*|asking for|seeking|su(?:e|ing) for|in dispute)\b|\bwhat (?:is the )?amount (?:\w+\s+){0,3}?(?:claim\w*|owed|owing|in dispute|you are (?:asking|seeking))\b/i, "amount"],
   [/\bwhen were you served\b|\bwhat (?:date|day) were you served\b/i, "servedDate"],
   [/\b(?:have|has) (?:you|the defendant|they|he|she) (?:already )?filed (?:a |an |your |their |his |her )?defen[cs]e\b/i, "defenceFiled"],
+  // The same question in the home reading's other words (Chrome milestone pass 2, finding 4, S6: "Have you responded to the
+  // claim or received any further court papers since October 20?" and "Have you submitted a defence or received any
+  // further court papers since you were served?" after "Nothing else yet. I was just served").
+  [/\b(?:have|has) (?:you|the defendant|they|he|she) (?:already )?(?:submitted|served|sent|delivered|filed or served) (?:a |an |your |their |his |her )?defen[cs]e\b|\b(?:have|has) (?:you|the defendant) (?:already )?(?:responded|replied) to (?:the|this|their|that) (?:plaintiff'?s )?claim\b/i, "defenceFiled"],
+  [/\b(?:received|been served with|gotten|got) any (?:further|more|other|new) (?:court )?(?:papers|documents)\b|\banything (?:else )?(?:happened|changed) since you were served\b/i, "stage"],
   [/\b(?:have you|has anyone|has anything been) (?:already )?(?:started|filed)\b|\bstarted a court case\b/i, "filed"],
   [/\bwho (?:is|are) the (?:other party|other side|defendants?|respondents?)\b(?!'s|s')|\bwho (?:exactly )?(?:are you|do you want to|will you|would you like to) su(?:e|ing)\b|\bwho (?:exactly )?(?:do|would) you (?:name|sue)\b/i, "otherParty"],
   // The other side named by their part in the story, in the words the home page's questions use for it (Chrome check of
@@ -153,6 +186,10 @@ const ASKS_FOR: [RegExp, CaseFact][] = [
   // A worry about safety, asked on its own (Chrome check of #550, 5c: "Is anything urgent ... a safety worry" after
   // "No safety concerns"). Only a question about the person's or the child's safety, never "what safety rules".
   [/\b(?:any|immediate|current|ongoing) (?:immediate )?safety (?:concerns?|worr(?:y|ies)|issues?|risks?)\b|\b(?:are|do) you (?:feel )?(?:safe|unsafe)\b|\bworried about (?:your|the child'?s|your child'?s|your children'?s) safety\b/i, "safety"],
+  // The same worry in the real AI's other words (Chrome pass 2, S7a reading r2: "Are there any concerns about violence,
+  // your child's safety, or your child being taken away without agreement?", answered "No safety concerns", then the
+  // urgent question named a safety worry again).
+  [/\bconcerns? about [^?]{0,40}?\b(?:violence|safety|abuse)\b|\b(?:family|domestic|intimate partner) violence\b|\bat risk of (?:harm|being harmed)\b|\b(?:your|the) (?:child'?s|children'?s) safety\b/i, "safety"],
   // A claim of the person's own against the one suing them: the person's outcome (5b: "A claim of your own against them"
   // was offered after "I only want to defend the claim").
   [/\bclaim of your own\b|\bcounter-?claim\b|\bdefendant'?s claim\b/i, "outcome"],
@@ -168,8 +205,16 @@ const ASKS_FOR_RESPONDING: [RegExp, CaseFact][] = [
   [/\b(?:do|does) you (?:believe|think) (?:that )?(?:the )?[\w' ]{1,40}? owes? you (?:any )?money\b/i, "outcome"],
 ];
 
+/**
+ * A question that names the person themself as one of its answers ("you personally, a business you operate, or a
+ * corporation?") asks about their own side, never the other party (real reading S8 r2, 18 Nov 2026: "Who was the seller
+ * under the agreement" read as the other party, and the buyer's name was offered as the seller).
+ */
+const ABOUT_YOUR_OWN_SIDE = /\byou personally\b|\b(?:a|the) business you (?:operate|own|run)\b|\byourself\b/i;
+
 export function factOfAskedText(question: string, options: { responding?: boolean } = {}): CaseFact | null {
-  return ASKS_FOR.find(([asks]) => asks.test(question))?.[1] ?? (options.responding ? ASKS_FOR_RESPONDING.find(([asks]) => asks.test(question))?.[1] : undefined) ?? null;
+  const fact = ASKS_FOR.find(([asks]) => asks.test(question))?.[1] ?? (options.responding ? ASKS_FOR_RESPONDING.find(([asks]) => asks.test(question))?.[1] : undefined) ?? null;
+  return fact === "otherParty" && ABOUT_YOUR_OWN_SIDE.test(question) ? null : fact;
 }
 
 /**

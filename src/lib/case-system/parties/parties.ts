@@ -131,8 +131,10 @@ export type PartyOffer = {
   kind?: PartyKind;
   detail: PartyDetail;
   value: string;
-  /** The story's own words the value comes from. */
+  /** The story's own words the value comes from (or, `from` not "story", the words to show where it came from). */
   quote: string;
+  /** Where it came from: the story (default), the start's city, or an answer the person typed (findings 2, 3). */
+  from?: "story" | "start" | "answer";
 };
 
 const STREET = String.raw`\d+[A-Za-z]?(?:-\d+)?\s+(?:[A-Z][\p{L}'.-]*\s+){0,4}(?:Street|St\.?|Road|Rd\.?|Avenue|Ave\.?|Boulevard|Blvd\.?|Drive|Dr\.?|Lane|Ln\.?|Way|Court|Ct\.?|Crescent|Cres\.?|Place|Pl\.?|Terrace|Parkway|Highway|Hwy\.?)`;
@@ -216,11 +218,71 @@ function allStoryOffers(story: string): PartyOffer[] {
   return offers;
 }
 
+
+/**
+ * What the person gave outside the story that a party detail is (Chrome milestone pass 2, findings 2 and 3): the city and
+ * province they gave at the start (S1 to S5, S7: "Ottawa", Ontario, then empty boxes on the Parties step), and an address
+ * they typed as the answer to a question about the other side (S1: "100 Sample Road, Ottawa ON K1B 0B1", the store's
+ * address, then empty Defendant 1 address boxes). Each is offered once, like a story detail, never filled in for them.
+ */
+export type GivenElsewhere = {
+  /** The city given at the start (intakeStory.ts locationOf). */
+  location?: { city: string; province?: string } | null;
+  /** The questions the person answered in the intake (the home page's reading, the chat), with their words. */
+  answered?: readonly { question: string; answer: string }[];
+};
+
+/** A question about the other side (the store, the business, the landlord...), not about the person themself. */
+const ABOUT_OTHER_SIDE = /\b(?:store|shop|business|company|operator|owner|landlord|tenant|contractor|neighbou?r|employer|seller|buyer|defendant|other (?:party|side|person)|they|their|them)\b/i;
+const ABOUT_YOU = /\b(?:your (?:own |home |mailing )?address|where do you live|you live)\b/i;
+
+/**
+ * A question naming a business the story names as the place it happened ("at a Circle K": a name after "a", so a business,
+ * not a street or a person) asks about that business, the other side (real readings S1 r1-r3, 18 Nov 2026: "What is the
+ * street address of the Circle K where you fell?").
+ */
+function namesStoryBusiness(question: string, story: string): boolean {
+  for (const match of story.matchAll(/\bat an? ((?:[A-Z][\w'&.-]*)(?: [A-Z][\w'&.-]*){0,3})/g)) {
+    if (question.includes(match[1])) return true;
+  }
+  return false;
+}
+
+function elsewhereOffers(record: PartiesRecord, given: GivenElsewhere, namedOther?: string, story = ""): PartyOffer[] {
+  const offers: PartyOffer[] = [];
+  const city = given.location?.city?.trim();
+  if (city) {
+    const quote = `The city you gave at the start: ${city}`;
+    offers.push(...offersOf("you", [
+      { detail: "city", value: city, quote },
+      ...(!given.location?.province || /^(?:ontario|on)$/i.test(given.location.province.trim()) ? [{ detail: "province" as const, value: "ON", quote: `${quote}, Ontario` }] : []),
+    ]).map((offer) => ({ ...offer, from: "start" as const })));
+  }
+  const firstOther = record.list.find((party) => party.side === "other");
+  for (const { question, answer } of given.answered ?? []) {
+    const address = addressIn(answer);
+    if (!address) continue;
+    const quoted = addressDetails({ ...address, quote: `You answered “${answer.trim()}” to “${question.trim()}”` });
+    if (ABOUT_YOU.test(question)) offers.push(...offersOf("you", quoted).map((offer) => ({ ...offer, from: "answer" as const })));
+    else if ((ABOUT_OTHER_SIDE.test(question) || namesStoryBusiness(question, story)) && record.list.filter((party) => party.side === "other").length <= 1) {
+      // For the one other party: by its held name, else the name the case or reading gives, else unnamed (S1, all three
+      // real readings: Defendant 1 had no name yet, so the store's address was never offered).
+      const name = (firstOther && partyName(firstOther)) || namedOther;
+      const kind = firstOther && partyName(firstOther) ? firstOther.kind : name && isCompanyName(name) ? "company" as const : undefined;
+      offers.push(...offersOf("other:1", quoted, name, kind).map((offer) => ({ ...offer, from: "answer" as const })));
+    }
+  }
+  return offers;
+}
+
 const sameName = (a: string, b: string) => a.replace(/[.,]/g, "").trim().toLowerCase() === b.replace(/[.,]/g, "").trim().toLowerCase();
 
 /** The party an offer is for, among those held: the person, or the other party with the story's name. */
 export function partyOfOffer(record: Pick<PartiesRecord, "list">, offer: PartyOffer): Party | undefined {
   if (offer.party === "you") return record.list.find((party) => party.you);
+  // An unnamed offer for the first other party (an address typed as an answer) is for the one other party held.
+  const others = record.list.filter((party) => party.side === "other");
+  if (offer.party === "other:1" && !offer.partyName) return others.length === 1 ? others[0] : undefined;
   return record.list.find((party) => party.side === "other" && offer.partyName && (sameName(partyName(party), offer.partyName) || sameName(clean(party.details.fullName), offer.partyName) || sameName(clean(party.details.companyName), offer.partyName)));
 }
 
@@ -234,10 +296,12 @@ function nameHeld(party: Party, detail: PartyDetail): boolean {
  * The party details the story gives that are still to offer: each once, never one the person turned down, never one
  * the record already holds (given or "I'm not sure").
  */
-export function storyPartyOffers(story: string, record: PartiesRecord, named?: { value: string; quote: string } | null): PartyOffer[] {
+export function storyPartyOffers(story: string, record: PartiesRecord, named?: { value: string; quote: string } | null, given: GivenElsewhere = {}): PartyOffer[] {
   const declined = new Set(record.declined);
   const seen = new Set<string>();
-  const fromStory = allStoryOffers(story);
+  // The story first; then what the person gave elsewhere, for a detail the story does not give (findings 2 and 3).
+  const told = allStoryOffers(story);
+  const fromStory = [...told, ...elsewhereOffers(record, given, named?.value.trim() || undefined, story).filter((offer) => !told.some((item) => item.party === offer.party && item.detail === offer.detail))];
   // The other party's name the case already holds, or the story reading showed (caseFile/storyOffers.ts), offered for the
   // first other party when the story's own sentences name none: "Alex" was the case title and the reading's other party,
   // and Defendant 1's first name was an empty box (Chrome milestone test of #550, S5). A one-word name is a first name.

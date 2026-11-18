@@ -329,7 +329,7 @@ export default function CaseDraftsSection() {
               description="The document that starts your case, laid out from your answers, to compare with the official form."
               onClick={() => {
                 // Small Claims: from the case record (rule 7); civil and Family still from the saved intake.
-                const draft = courtPath === "small-claims" ? claimDraftOfRecord(recordCtx, recordGiven(timeline ?? [])) : startingDocumentDraft(courtPath, master.intakeData as StartingDocumentIntake, now());
+                const draft = courtPath === "small-claims" ? claimDraftOfRecord(recordCtx, recordGiven(timeline ?? [])) : startingDocumentDraft(courtPath, master.intakeData as StartingDocumentIntake, now(), caseFileOfMaster(master, courtPath));
                 if (draft) void create(draft);
               }}
             />

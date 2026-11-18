@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
 
 import type { CheckedAnswerView } from "@/src/lib/case-system/intelligence/intelligenceTypes";
 import type { CaseUnderstanding, UnderstoodCourt } from "@/src/lib/case-system/understanding/understandCase";
-import { betterDestinationKnown } from "@/src/lib/case-system/understanding/betterDestination";
+import { betterDestinationKnown, courtQuestionShown } from "@/src/lib/case-system/understanding/betterDestination";
 import { isPathwayAvailable } from "@/src/lib/content-library/phaseScope";
 import LegalAdviceDeflection from "./LegalAdviceDeflection";
 import TribunalNotice from "./TribunalNotice";
@@ -14,6 +14,7 @@ import { WorkingButton } from "./Working";
 import { UseSuggestion } from "./UseSuggestion";
 import { factStatus, mayAskWords } from "@/src/lib/case-system/caseFile/factStatus";
 import type { CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
+import { offerForAskedWords } from "@/src/lib/case-system/caseFile/storyOffers";
 
 /** Initial intake: factual reading, category clarification and questions only. */
 
@@ -44,6 +45,7 @@ export default function CaseUnderstandingCard({
   onDraftChange,
   onContinue,
   openingPath = null,
+  story = "",
   file = null,
 }: {
   result: UnderstandResponse;
@@ -87,9 +89,20 @@ export default function CaseUnderstandingCard({
   const suggested = asPath(understanding.mainCourt);
   // The questions this card may ask, by their place in the reading (replies are kept by that place).
   const asks = understanding.questions.map((item) => mayAskWords(file, item.question, { court: chosenPath }));
+  // What the story already gives for a question: offered with it, never asked with an empty box (storyOffers.ts).
+  const offered = understanding.questions.map((item) => offerForAskedWords(file, item.question, story ?? "", understanding.facts ?? []));
+  const reply = (index: number, value: string) => {
+    const next = { ...replies, [index]: value };
+    setReplies(next);
+    onDraftChange?.(understanding.questions.map((question, at) => ({ question: question.question, answer: next[at] ?? "" })).filter((item) => item.answer.trim()));
+  };
   // The court the person already chose (the start's answer): the reading's same court is not offered again.
   const heldCourt = file && factStatus(file, "court") === "known" && typeof file.court.value === "string" ? file.court.value : null;
   const courtChosen = Boolean(suggested && heldCourt === suggested);
+  // The court is the person's answer once chosen (here, or the court card they picked: chosenPath): not asked again
+  // unless the reading points somewhere else (betterDestination.ts courtQuestionShown; Chrome milestone pass 2, finding 1).
+  const askCourt = courtQuestionShown(understanding.mainCourt, heldCourt ?? chosenPath, suggested ? isPathwayAvailable(suggested) : null);
+  const continueHere = courtChosen || (!askCourt && suggested === chosenPath);
   const tribunal = understanding.matters.find((matter) => matter.court === "tribunal");
   // 2026-10-17 live bug (Case 1, a landlord-held deposit): see
   // betterDestinationKnown's own comment in betterDestination.ts.
@@ -161,15 +174,23 @@ export default function CaseUnderstandingCard({
                     disabled={updating}
                     aria-label={item.question}
                     value={replies[index] ?? ""}
-                    onChange={(event) => {
-                      const next = { ...replies, [index]: event.target.value };
-                      setReplies(next);
-                      onDraftChange?.(understanding.questions.map((question, at) => ({ question: question.question, answer: next[at] ?? "" })).filter((item) => item.answer.trim()));
-                    }}
+                    onChange={(event) => reply(index, event.target.value)}
                     className="mt-2 w-full rounded-xl border border-[#d8e6df] px-3 py-2"
                     placeholder="Your answer (optional)"
                   />
                 </label>
+                {offered[index] && !(replies[index] ?? "").trim() ? (
+                  <span className="mt-2 block" data-testid="case-understanding-offer">
+                    <UseSuggestion
+                      offer={{ key: `home-question:${offered[index]!.fact}`, fact: offered[index]!.fact }}
+                      testId={`case-understanding-offer-${index}`}
+                      what={offered[index]!.value}
+                      note={<>From your story: &ldquo;{offered[index]!.quote}&rdquo;</>}
+                      disabled={updating}
+                      onUse={() => reply(index, offered[index]!.value)}
+                    />
+                  </span>
+                ) : null}
               </li>
             ))}
           </ol>
@@ -200,13 +221,15 @@ export default function CaseUnderstandingCard({
       <p className="text-sm">After the initial questions, you will review and confirm your information before receiving case-specific procedural guidance.</p>
 
       <section>
-        <p className="text-sm text-[#24463d]">
-          <span className="font-semibold text-[#16302b]">Where this seems to belong: </span>
-          {COURT_LABEL[understanding.mainCourt]}. This is a suggestion, not a decision about your case; you choose where to continue.
-        </p>
+        {askCourt ? (
+          <p className="text-sm text-[#24463d]" data-testid="case-understanding-court-question">
+            <span className="font-semibold text-[#16302b]">Where this seems to belong: </span>
+            {COURT_LABEL[understanding.mainCourt]}. This is a suggestion, not a decision about your case; you choose where to continue.
+          </p>
+        ) : null}
         <div className="mt-3 flex flex-wrap gap-3">
           {/* The court chosen at the start: continue there, never asked again. */}
-          {courtChosen && suggested && isPathwayAvailable(suggested) ? (
+          {continueHere && suggested && isPathwayAvailable(suggested) ? (
             <WorkingButton
               disabled={updating || openingPath !== null}
               working={openingPath === suggested}
@@ -218,7 +241,7 @@ export default function CaseUnderstandingCard({
               Continue with {PATH_LABEL[suggested]}
             </WorkingButton>
           ) : null}
-          {!courtChosen && suggested && isPathwayAvailable(suggested) && (
+          {!continueHere && askCourt && suggested && isPathwayAvailable(suggested) && (
             // The one control every suggestion is offered with (owner, 31 Oct).
             <UseSuggestion
               // Where to continue: the person still chooses a court to go on, so "not sure" settles no fact; the offer is not made again.

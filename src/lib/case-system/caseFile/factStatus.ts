@@ -101,3 +101,4 @@ export function mayAskWords(file: CaseFile | null | undefined, words: string, op
   const status = factStatus(file, fact as SlotFact);
   return status === "ask" || status === "offer";
 }
+

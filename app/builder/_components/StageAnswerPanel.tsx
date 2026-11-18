@@ -1,5 +1,7 @@
 "use client";
 
+import { questionStatus } from "../../../src/lib/case-system/caseFile/factStatus";
+import type { CaseFile } from "../../../src/lib/case-system/caseFile/caseFile";
 import { parseRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
 import { isRealIsoDate, yearChoicesAround } from "../../../src/lib/case-system/dates";
 import { sentences as splitSentences } from "../../../src/lib/case-system/sentences";
@@ -1368,6 +1370,7 @@ export default function StageAnswerPanel({
   motionToChange = null,
   suggestedStepId = null,
   laterDates = [],
+  file = null,
   stepNotSure = false,
   onSaved,
 }: {
@@ -1427,6 +1430,8 @@ export default function StageAnswerPanel({
    * (askCopy.ts NOT_ANSWERED_YET) with "Add it", which the person may open; never a second question.
    */
   laterDates?: readonly string[];
+  /** The case file: a date question whose fact it holds as settled ("not sure") is folded too (caseFile/factStatus.ts). */
+  file?: CaseFile | null;
   /**
    * The person said they are not sure where the case is (the case file holds "stage" not sure; the start's
    * "I am not sure" for a case already going): "Where is your case?" is never asked again, nor a step suggested
@@ -1940,7 +1945,7 @@ export default function StageAnswerPanel({
           </p>
           <div className="mt-3 space-y-4">
             {result.dateQuestions!.map((question) => {
-              if (laterDates.includes(question.id) && !dateAnswers[question.id] && !openedLater[question.id]) {
+              if ((laterDates.includes(question.id) || questionStatus(file, question.id) === "settled") && !dateAnswers[question.id] && !openedLater[question.id]) {
                 return (
                   <p key={question.id} data-testid="stage-answer-date-later" className="text-sm text-[#16302b]">
                     <span className="font-semibold">{shortLabel(dateQuestionTextFor(question, serving(question.id)))}:</span> <span data-testid="not-answered-yet">{NOT_ANSWERED_YET}.</span>{" "}

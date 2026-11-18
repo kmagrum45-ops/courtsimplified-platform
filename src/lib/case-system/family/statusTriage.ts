@@ -30,6 +30,8 @@
  * conclusion into the user's experience without ever stating it, which is worse
  * than stating it, because it cannot be argued with.
  */
+import { mayShowQuestion } from "../caseFile/factStatus";
+import type { CaseFile } from "../caseFile/caseFile";
 import { MONTH_WORDS_EN } from "../dates";
 import { MARRIED_UNSURE_NOTE } from "../copy/askCopy";
 import { isMarriedOnlyLaw } from "./marriedOnly";
@@ -214,7 +216,7 @@ const QUESTIONS: Record<TriageQuestionId, TriageQuestion> = {
  * Municipality is last because it is routing rather than existence, and it is
  * only meaningful once there is something to route.
  */
-export function selectNextTriageQuestion(record: FamilyStatusRecord, deferred: ReadonlySet<TriageQuestionId> = new Set()): TriageQuestion | null {
+export function selectNextTriageQuestion(record: FamilyStatusRecord, deferred: ReadonlySet<TriageQuestionId> = new Set(), file: CaseFile | null = null): TriageQuestion | null {
   // `deferred`: questions the person set aside on this page ("I'd rather not answer yet"). Their answer stays "not-yet",
   // the same as never asked, so without this the same question came straight back and the button seemed to do nothing
   // (found reading the code, 8 Nov; reproduced by verifyFamilyTriageDates.ts). The next question is asked instead.
@@ -230,7 +232,10 @@ export function selectNextTriageQuestion(record: FamilyStatusRecord, deferred: R
   if (record.caseInvolvesChildren === "not-yet") due.push("case-involves-children");
   if (record.userMunicipality === null) due.push("municipalities");
   else if (record.otherPartyMunicipality === null) due.push("other-party-municipality");
-  const next = due.find((id) => !deferred.has(id));
+  // `file`: the case file, read by the one function (caseFile/factStatus.ts mayShowQuestion), so a fact known or settled anywhere else is not asked
+  // here again (Chrome milestone pass 2, finding 7: "Do you and the other person have a child together?" after the case
+  // was recorded as involving the 6-year-old).
+  const next = due.find((id) => !deferred.has(id) && (!file || mayShowQuestion(file, id)));
   return next ? QUESTIONS[next] : null;
 }
 

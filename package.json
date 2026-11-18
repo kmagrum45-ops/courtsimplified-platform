@@ -203,6 +203,8 @@
     "test:retrieval-bundled": "node --import tsx scripts/verification/verifyRetrievalBundled.ts",
     "test:runtime-files-shipped": "node --import tsx scripts/verification/verifyRuntimeFilesShipped.ts",
     "test:filled-form-stages": "node --import tsx scripts/verification/verifyFilledFormStages.ts",
+    "test:chrome-pass-2": "node --import tsx scripts/verification/verifyChromePass2.ts",
+    "test:every-question-has-fact": "node --import tsx scripts/verification/verifyEveryQuestionHasFact.ts",
     "test:catalogue-verified": "node --import tsx scripts/verification/verifyCatalogueVerification.ts",
     "test:no-model-text-to-users": "node --import tsx scripts/verification/verifyNoModelTextToUsers.ts",
     "test:no-model-warnings": "node --import tsx scripts/verification/verifyNoModelWarnings.ts",

@@ -40,7 +40,7 @@ import { isKindOfClaim, kindFromStory, storyQuoteFor, wordsInStory } from "../in
 import { CLAIM_TYPES } from "../intake/claimTypes";
 import { kindForSide } from "../intake/roleView";
 import { chatQuestionOf, chatSentencesFor, factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
-import { parseRecordedAmount } from "../format/recordedAmount";
+import { amountWithCostsNote, parseRecordedAmount } from "../format/recordedAmount";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
 import { chatMayAsk, slotStatus } from "./factStatus";
@@ -65,7 +65,8 @@ export type SlotSource = { kind: "answer"; question: string } | { kind: "story";
  * `declined`: the person said the story's value was not right ("No, that's not right"): not known, asked once
  * (factStatus.ts, site owner 11 Nov 2026).
  */
-export type Slot = { state: SlotState; value?: string | number | boolean | string[]; source?: SlotSource; confirmed: boolean; changed?: true; removed?: true; declined?: true };
+/** `note`: words kept beside an amount ("plus my costs"), never dropped (format/recordedAmount.ts amountWithCostsNote). */
+export type Slot = { state: SlotState; value?: string | number | boolean | string[]; source?: SlotSource; confirmed: boolean; changed?: true; removed?: true; declined?: true; note?: string };
 /** `answers`: every answer given to a named question (its id and words), for the step page's dates. */
 export type CaseFile = Record<SlotFact, Slot> & {
   answers?: Record<string, string>;
@@ -211,8 +212,10 @@ export function give(file: CaseFile, fact: string, value: unknown, question: str
     if (slot.state === "not-asked") file[fact] = { state: "unsure", value, source: { kind: "answer", question }, confirmed: true };
     return;
   }
-  const kept = fact === "amount" ? (typeof value === "number" ? value : parseRecordedAmount(String(value)) ?? String(value)) : (value as Slot["value"]);
-  file[fact] = { state: "answered", value: kept, source: { kind: "answer", question }, confirmed: true };
+  // An amount is its sum: "$2,400 plus my costs" is 2400, with "plus my costs" kept as its note (finding 10).
+  const withNote = fact === "amount" && typeof value === "string" && parseRecordedAmount(value) === null ? amountWithCostsNote(value) : null;
+  const kept = fact === "amount" ? (typeof value === "number" ? value : parseRecordedAmount(String(value)) ?? withNote?.amount ?? String(value)) : (value as Slot["value"]);
+  file[fact] = { state: "answered", value: kept, source: { kind: "answer", question }, confirmed: true, ...(withNote ? { note: withNote.note } : {}) };
 }
 
 /** Marks a fact unsure ("not sure", a skip), unless it was answered. */
@@ -1128,6 +1131,26 @@ export function claimKindOf(file: CaseFile, listWords: (codes: string[]) => stri
   return { state: slot.state, claimTypeId, words, source, askedBy: question || null, quote, proposal };
 }
 
+/**
+ * Every question the person answered in the intake, with their own words: the home page's reading (home.understoodAnswers)
+ * and the Small Claims chat (guided.earlierAnswers, worded from the question bank). For details given there that another
+ * step asks for (the Parties step: an address typed as an answer; Chrome milestone pass 2, finding 3).
+ */
+export function answeredInIntake(sections: Record<string, unknown> | undefined): { question: string; answer: string }[] {
+  const out: { question: string; answer: string }[] = [];
+  const all = object(sections);
+  for (const item of Array.isArray(object(all.home).understoodAnswers) ? (object(all.home).understoodAnswers as unknown[]) : []) {
+    const { question, answer } = object(item);
+    if (typeof question === "string" && typeof answer === "string" && answer.trim()) out.push({ question, answer: answer.trim() });
+  }
+  for (const item of Array.isArray(object(all.guided).earlierAnswers) ? (object(all.guided).earlierAnswers as unknown[]) : []) {
+    const { questionId, answerText } = object(item);
+    const question = typeof questionId === "string" ? QUESTION_BANK.find((entry) => entry.id === questionId)?.text : undefined;
+    if (question && typeof answerText === "string" && answerText.trim()) out.push({ question, answer: answerText.trim() });
+  }
+  return out;
+}
+
 /** The story the case file holds: the checkpoint's, else (an older saved case) the story it saved. */
 export function storyOfFile(file: CaseFile): string {
   return file.storyText?.trim() ? file.storyText : file.savedStory ?? "";
@@ -1267,7 +1290,7 @@ export function slotText(slot: Slot, formatDay: (iso: string) => string): string
   const value = slot.value;
   if (typeof value === "boolean") return value ? "Yes" : "No";
   // An amount as a court form writes it: "$2,500.00" (#477 re-test: "twenty five hundred").
-  if (typeof value === "number") return `$${value.toLocaleString("en-CA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  if (typeof value === "number") return `$${value.toLocaleString("en-CA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}${slot.note ? ` ${slot.note}` : ""}`;
   if (Array.isArray(value)) return value.join(", ");
   if (typeof value === "string" && isRealIsoDate(value)) return formatDay(value);
   return typeof value === "string" ? value : "";
@@ -1299,7 +1322,7 @@ export function unsureDateQuestions(file: CaseFile): string[] {
     conferenceDate: DATE_QUESTIONS_OF.conferenceDate ?? [],
     courtDate: DATE_QUESTIONS_OF.courtDate ?? [],
   };
-  return [...new Set([...Object.entries(ids).flatMap(([fact, list]) => (file[fact as SlotFact].state === "unsure" ? [...list] : [])), ...(file.unsureDates ?? [])])];
+  return [...new Set([...Object.entries(ids).flatMap(([fact, list]) => (file[fact as SlotFact].state === "unsure" && slotStatus(file[fact as SlotFact]) === "settled" ? [...list] : [])), ...(file.unsureDates ?? [])])];
 }
 
 /**

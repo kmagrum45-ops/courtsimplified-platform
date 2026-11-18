@@ -20,6 +20,7 @@ import ChangeAnswer, { CHANGED_AT_THE_START, changeChoices } from "./ChangeAnswe
 import { useIntakeRecovery, useIntakeReviewView } from "./IntakeRecovery";
 import { caseFileOf, isUnsureAnswer, slotsOfQuestion, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "../../src/lib/case-system/copy/askCopy";
+import { stillNeeded } from "../../src/lib/case-system/caseFile/factStatus";
 
 /** The review's quiet line for a fact: its name (when given), the words, and the control to add it. */
 export default function NotAnsweredYet({ fact, court, name, startOpen = false, control }: { fact?: SlotFact; court: string | null | undefined; name?: string; startOpen?: boolean; control?: ReactNode }) {
@@ -49,7 +50,10 @@ export function NotAnsweredYetField({ field, facts, value, label, children }: { 
   const file = view?.checkpoint ? caseFileOf(view.checkpoint, recovery?.getSavedMaster() ?? undefined) : null;
   // A box whose own words are a "not sure" is never shown as if they were the answer, whatever its fact: "Damages / loss /
   // impact breakdown = I do not know yet" stands for no fact (item 4, 6 Nov; Chrome check of #543, step 5b).
-  const folded = !opened && (isUnsureAnswer(value) || (file !== null && own.length > 0 && own.some((fact) => file[fact].state === "unsure") && !own.some((fact) => file[fact].state === "answered") && blank(value)));
+  // Folded only when the one function says the fact is settled ("I'm not sure" confirmed) and none of the box's facts is known:
+  // an unconfirmed "not sure" is still to ask, so its box stays open (caseFile/factStatus.ts stillNeeded).
+  const needed = file ? stillNeeded(file, own) : [];
+  const folded = !opened && (isUnsureAnswer(value) || (file !== null && own.length > 0 && needed.some((item) => item.addWhenYouKnow) && needed.length === own.length && !needed.some((item) => item.status === "offer") && blank(value)));
   if (folded) {
     return (
       <div className="block" data-testid="not-answered-yet" data-fact={own[0]} data-field={field}>

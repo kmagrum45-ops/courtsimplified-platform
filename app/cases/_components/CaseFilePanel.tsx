@@ -12,6 +12,7 @@ import Link from "next/link";
 import { formatForCourt } from "@/src/lib/case-system/dates";
 import { SLOT_FACTS, claimKindOf, conferenceKind, courtDateIsConference, isUnsureAnswer, slotText, type CaseFile, type SlotFact } from "@/src/lib/case-system/caseFile/caseFile";
 import { partyNames } from "../../../src/lib/case-system/parties/parties";
+import { factStatus } from "@/src/lib/case-system/caseFile/factStatus";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { inWords, optionWords } from "@/src/lib/case-system/copy/rawKeys";
 import { storyLines } from "@/src/lib/case-system/caseFile/storyLines";
@@ -82,7 +83,11 @@ export default function CaseFilePanel({ file, changeHref, situationHref, stepHre
   // A fact answered "not sure" that the story gives is listed once, in the story's words (from your story).
   const toldInStory = new Set<string>(fromStory.map((line) => (line.fact === "amountAgainst" ? "amount" : line.fact)));
   // The story is shown as the story, not as a line of its own (it is a fact so nothing asks it again).
-  const lines = SLOT_FACTS.filter((fact) => fact !== "story" && file[fact].state !== "not-asked" && shownValue(fact, file) && !(fact === "courtDate" && sameDay) && !(file[fact].state === "unsure" && toldInStory.has(fact)));
+  // Which facts are listed, and which say "Not answered yet", from the one function (caseFile/factStatus.ts): known or offered
+  // from the story is listed with its value; settled ("I'm not sure" confirmed) is the quiet line; one still to ask is not
+  // listed (an unconfirmed "not sure" was shown as settled: Chrome milestone pass 2, S1 case page).
+  const status = (fact: SlotFact) => factStatus(file, fact);
+  const lines = SLOT_FACTS.filter((fact) => fact !== "story" && status(fact) !== "ask" && shownValue(fact, file) && !(fact === "courtDate" && sameDay) && !(status(fact) === "settled" && toldInStory.has(fact)));
   if (!lines.length && !fromStory.length && !deadlines.length) return null;
   return (
     <section aria-labelledby="case-file-heading" data-testid="case-file" className="rounded-3xl border border-[#d8e6df] bg-white p-5">
@@ -101,7 +106,7 @@ export default function CaseFilePanel({ file, changeHref, situationHref, stepHre
             <div key={fact} className="contents" data-testid="case-file-line" data-fact={fact} data-state={slot.state} data-question={fact} data-source={question}>
               <dt className="font-semibold text-[#10231f]">{(fact === "conferenceDate" ? conferenceKind(slot) : null) ?? LABEL[fact]}</dt>
               <dd>
-                {slot.state === "unsure" && !roughTime(slot.value) ? (
+                {status(fact) === "settled" && slot.state === "unsure" && !roughTime(slot.value) ? (
                   // Said "not sure": never asked again (site owner, 31 Oct). The quiet line, and "Add it": a day on
                   // the step page below (folded there too), a start answer at the top, anything else in the review.
                   <>

@@ -1,6 +1,7 @@
 import { internalWordingIn } from "../copy/rawKeys";
 import { answeredInStory, caseFileOfChat } from "./answeredInStory";
 import { chatQuestionToAsk, type CaseFile, type ChatTurn } from "../caseFile/caseFile";
+import { mayShowQuestion } from "../caseFile/factStatus";
 import {
   buildConversationIntelligence,
   CasePartnerCourtContext,
@@ -878,6 +879,8 @@ function buildEvidenceAnswer(args: {
   investigation: ReturnType<typeof buildCaseInvestigation>;
   recorded?: string[];
   turns?: readonly ChatTurn[];
+  /** The saved case file (the caller's): what it holds is not asked again (caseFile/factStatus.ts). */
+  caseFile?: CaseFile | null;
 }): string {
   // What the person already said they have, in their own words (#469 re-test: the
   // reply asked what proof they had when the story listed it).
@@ -891,10 +894,12 @@ function buildEvidenceAnswer(args: {
     ...(args.intelligence.caseMemoryPatch.evidenceToRequest || []),
   ]);
 
-  // Once something is recorded, "what proof do you already have" is not asked again.
-  const stillNeeded = (recorded.length ? evidenceNeeds.filter((need) => !/^what proof do you already have/i.test(clean(need))) : evidenceNeeds)
+  // Once something is recorded, or the case file holds the evidence answer (known, or "not sure": the one function),
+  // "what proof do you already have" is not asked again.
+  const evidenceHeld = Boolean(args.caseFile) && !mayShowQuestion(args.caseFile, "chat:proof");
+  const stillNeeded = (recorded.length || evidenceHeld ? evidenceNeeds.filter((need) => !/^what proof do you already have/i.test(clean(need))) : evidenceNeeds)
     // A question in the list asked earlier in this conversation and replied to is not asked again (askedAndReplied).
-    .filter((need) => !clean(need).endsWith("?") || chatQuestionToAsk(null, clean(need), args.turns) === clean(need));
+    .filter((need) => !clean(need).endsWith("?") || chatQuestionToAsk(args.caseFile ?? null, clean(need), args.turns) === clean(need));
 
   if (stillNeeded.length === 0) {
     return opening || assistantText("assistant:evidence:none");

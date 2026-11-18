@@ -1,5 +1,6 @@
 "use client";
 
+import { factStatus } from "../../src/lib/case-system/caseFile/factStatus";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { afterPointer } from "./afterPointer";
 import { usePathname } from "next/navigation";
@@ -325,7 +326,8 @@ export default function IntakeReviewPanel() {
   const court = checkpoint.courtPath;
   // Facts with no box of their own here (the Small Claims kind of claim), held, changed, or asked for from the case page.
   const covered = new Set(entries.flatMap(entry => slotsOfQuestion(entry.field)));
-  const extraFacts = SLOT_FACTS.filter(fact => !covered.has(fact) && changeChoices(fact, court) && caseFile[fact].state !== "unsure" && (fact === changeFact || caseFile[fact].changed || (fact === "claimKind" && caseFile[fact].state === "answered")));
+  // A fact settled as "not sure" (the one function, factStatus.ts) is never offered for a change here; an unconfirmed one is.
+  const extraFacts = SLOT_FACTS.filter(fact => !covered.has(fact) && changeChoices(fact, court) && !(factStatus(caseFile, fact) === "settled" && caseFile[fact].state === "unsure") && (fact === changeFact || caseFile[fact].changed || (fact === "claimKind" && caseFile[fact].state === "answered")));
   /** A held answer in words, as every screen shows it (the kind of claim through claimKindOf). */
   const heldWords = (file: CaseFile, fact: SlotFact | undefined, slot: Slot) => fact === "claimKind" && slot.state === "answered" ? claimKindOf(file, inWords).words ?? slotText(slot, formatForCourt) : Array.isArray(slot.value) ? inWords(slot.value) : slotText(slot, formatForCourt);
   /**

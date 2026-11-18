@@ -1,5 +1,6 @@
 "use client";
 
+import { factStatus } from "../../src/lib/case-system/caseFile/factStatus";
 import { OPEN_WHOLE_FORM_EVENT } from "./_components/openWholeForm";
 import { partyNames } from "../../src/lib/case-system/parties/parties";
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
@@ -1800,7 +1801,7 @@ function BuilderPageContent() {
       setSaveError("Save the selected case before creating a working draft.");
       return;
     }
-    const draft = startingDocumentDraft(court, caseData, new Date());
+    const draft = startingDocumentDraft(court, caseData, new Date(), builderCaseFile);
     if (draft) void saveDraftAndOpen(caseId, draft);
   }
 
@@ -2533,8 +2534,9 @@ function BuilderPageContent() {
                 // A day the person said they do not know is never asked again: folded here as "Not answered yet:
                 // add it when you know", with "Add it" (site owner, 31 Oct; caseFile.ts unsureDateQuestions).
                 laterDates={unsureDateQuestions(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult))}
+                file={caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult)}
                 // "Not sure" where the case is (the start's "I am not sure"): never asked again; the quiet line with "Add it" (founder, 1 Nov).
-                stepNotSure={caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult).stage.state === "unsure"}
+                stepNotSure={factStatus(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult), "stage") === "settled"}
                 initialDateAnswers={savedPosition.dateAnswers}
                 initialService={savedPosition.service}
                 onSaved={(saved) => {

@@ -34,6 +34,7 @@ import { deleteHarnessUser } from "./harness/realTestSession";
 import { autoAnswerSituation, answerSituation, situationAnswersFor, STARTING_NOTHING_FILED, type SituationAnswers } from "./harness/situation";
 import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns, type Court } from "./harness/thisCommitServer";
+import { realAiReadings } from "./harness/aiFixtures";
 import { factsAskedTwice, factsOfAsk, firstOfferExcused, heldViolations, recordAsks, repeatViolations, type Asked } from "./harness/askOnce";
 import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { chooseOffers } from "./harness/offers";
@@ -49,8 +50,78 @@ type Stated = { amount?: string; when?: string; otherParty?: string };
 /** `reading`: the facts the home page's story reading shows, as the model gives them (Chrome milestone test of #550). */
 /** `married`: the Family triage's "Were you married?" answered No or "I'm not sure"; then no married-only sentence anywhere. */
 /** `situation`: the start's own answers, when they are not the plain ones (S6: just served with a Form 7A). */
-type Story = { name: string; court: Court; side: Side; text: string; served?: string; stated: Stated; amountLater?: true; home?: { question: string; answer: string }[]; parties?: true; marriedUnsure?: true; married?: "no" | "unsure"; reading?: { label: string; value: string }[]; situation?: SituationAnswers };
+/** `realAi`: the AI steps answer with the real model's recorded outputs (harness/aiFixtures.ts; Chrome's milestone pass 2). */
+/** `answers`: what the person answers a question matching `match` (Chrome's own answers, before the plain ones). */
+/** `city`: the city given at the start (default Kingston). */
+type Story = { name: string; court: Court; side: Side; text: string; served?: string; stated: Stated; amountLater?: true; home?: { question: string; answer: string }[]; parties?: true; marriedUnsure?: true; married?: "no" | "unsure"; reading?: { label: string; value: string }[]; situation?: SituationAnswers; realAi?: true; answers?: { match: RegExp; value: string; fact?: string }[]; city?: string };
 const S = (name: string, court: Court, side: Side, text: string, stated: Stated, served?: string): Story => ({ name, court, side, text: `Synthetic: ${text}`, stated, served });
+
+const CHROME = (name: string, court: Court, side: Side, text: string, stated: Stated, more: Partial<Story> = {}): Story => ({ name, court, side, text, stated, realAi: true, city: "Ottawa", ...more });
+const SAFETY_NONE = { match: /safety|urgent|danger|afraid/i, value: "No safety concerns." };
+export const CHROME_PASS_2: Story[] = [
+  CHROME("sc-chrome2-s1-fall", "small-claims", "bringing", "On Oct 4, 2026 at about 6:40 pm I slipped on a wet floor near the milk fridge at a Circle K in Ottawa. There was no wet-floor sign. I fell on my right hip. A shopper, Sam Patel, saw it. The manager wrote notes. I went to the hospital that night; X-rays showed a bad bruise, no break. I missed 3 days of work (Oct 5 to 7) at $150 a day and bought Tylenol and an ice pack for $18.45. I want to claim $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine.", { amount: "5468.45", when: "October 4, 2026" }, { answers: [
+    { match: /address|where (is|was) the store|location of the store/i, value: "100 Sample Road, Ottawa ON K1B 0B1" },
+    { match: /who (runs|operates|owns)|operator|company|business name|\bwho\b|other (party|side)/i, value: "Circle K Convenience Stores Ltd.", fact: "otherParty" },
+    { match: /water|spill|how long|caused/i, value: "I don't know where the water came from." },
+    { match: /still|recover|injur|doctor|treatment|hurt/i, value: "My hip is still sore when I walk for a long time." },
+  ] }),
+  CHROME("sc-chrome2-s2-deposit", "small-claims", "bringing", "My contractor left the work unfinished and kept my $1,200 deposit.", { amount: "1200" }, { answers: [
+    { match: /where (was|is|were) the work|work (was )?done|property/i, value: "Ottawa, Ontario" },
+    { match: /where (is|are) the contractor|contractor.*(located|based|live)/i, value: "Gatineau, Quebec" },
+    { match: /when|date/i, value: "September 2026" },
+    { match: /what (do you want|are you asking)|outcome|order/i, value: "Return of my $1,200 deposit" },
+    { match: /how much|amount|other (costs|money)/i, value: "Only the $1,200 deposit.", fact: "amount" },
+  ] }),
+  CHROME("sc-chrome2-s3-fence", "small-claims", "bringing", "Pat Testfield lives next door to me at 47 Maple Crescent in Ottawa. In July 2026 Pat hired a crew to put up a new wooden fence between our yards without talking to me first. The crew took down my old chain-link fence, which was on my side of the line, and threw it away. They also dug up part of my garden bed along the fence and drove a small machine over my lawn, which left deep ruts. When I asked Pat about it, Pat said the old fence was ugly and that the new fence was a favour to me. I had a surveyor confirm in August 2026 that the old fence stood on my land. I got two quotes to replace my chain-link fence and repair the lawn and garden. The lower quote is $2,400. I sent Pat a letter on September 1, 2026 asking for payment by September 30, 2026, and Pat has not paid or answered. I want $2,400 plus my costs.", { amount: "2400", when: "July 2026", otherParty: "Pat Testfield" }, { answers: [
+    { match: /name|who/i, value: "Pat Testfield", fact: "otherParty" },
+    { match: /address/i, value: "47 Maple Crescent, Ottawa ON K1A 0A2" },
+  ] }),
+  CHROME("sc-chrome2-s4-tree", "small-claims", "bringing", "My neighbour cut down my maple tree on Oct 4, 2026 without asking. I want the tree replaced and I got a quote for $1500 to do the work and supply the tree.", { amount: "1500", when: "October 4, 2026" }, { answers: [
+    { match: /trunk|property line|whose (side|property)|where (was|is) the tree/i, value: "Entirely on my property." },
+    { match: /what (do you want|are you asking)|outcome|order/i, value: "The $1,500 so I can arrange the replacement myself." },
+    { match: /name|who/i, value: "Test Neighbour", fact: "otherParty" },
+  ] }),
+  CHROME("sc-chrome2-s5-loan", "small-claims", "bringing", "On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.", { amount: "3000", when: "June 1, 2026" }, { answers: [
+    { match: /what (do you want|are you asking)|outcome|order/i, value: "I want Alex to pay me back the $3,000." },
+    { match: /last name|full name/i, value: "I'm not sure" },
+  ] }),
+  CHROME("sc-chrome2-s6-sued", "small-claims", "responding", "I was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.", { amount: "4200" }, {
+    served: "October 20, 2026",
+    situation: { where: "served", stage: "just-served", papers: "small-claims-7A", receivedOn: "2026-10-20", court: "small-claims" },
+    answers: [
+      { match: /further court papers|responded|since you were served|anything (else )?happened/i, value: "Nothing else yet. I was just served" },
+      { match: /how (were|was) (you|it) served|served on you/i, value: "Handed to me at my door." },
+      { match: /agreed|price|contract/i, value: "We agreed $6,200 for cabinets and countertop." },
+      { match: /wrong|bad|problem|defect/i, value: "The cabinets are crooked and the countertop is cracked." },
+      { match: /issued/i, value: "October 15, 2026" },
+      { match: /when (was|did) the work|when/i, value: "August 2026" },
+      { match: /filed a defence|defence/i, value: "No" },
+      { match: /plaintiff|contractor.*name|who (is suing|sued)/i, value: "Test Kitchens Inc.", fact: "otherParty" },
+      { match: /facts|disagree|dispute/i, value: "I agree I hired the contractor. I disagree that I owe $4,200: I already paid $2,000 and the work was bad." },
+      { match: /outcome|what (do you want|are you asking)/i, value: "Only responding to the claim" },
+    ] }),
+  CHROME("family-chrome2-s7a-no", "family", "bringing", "My partner and I separated in June 2026. We have a 6-year-old. I want a parenting schedule.", {}, { married: "no", answers: [
+    { match: /other (parent|person).s name|their name|name of the other/i, value: "" },
+    { match: /lived together|live together/i, value: "From 2018 to June 2026." },
+    { match: /urgent/i, value: "No" },
+    SAFETY_NONE,
+    { match: /agree/i, value: "The other parent does not agree." },
+    { match: /time with|see the|schedule|arrangement/i, value: "Every second weekend with the other parent." },
+    { match: /live|lives|home|where (is|does) the child/i, value: "With me in Ottawa since birth." },
+  ] }),
+  CHROME("family-chrome2-s7b-unsure", "family", "bringing", "My partner and I separated in June 2026. We have a 6-year-old. I want a parenting schedule.", {}, { married: "unsure", answers: [
+    { match: /other (parent|person).s name|their name|name of the other/i, value: "" },
+    { match: /urgent/i, value: "I do not know yet" },
+    SAFETY_NONE,
+    { match: /agree/i, value: "The other parent does not agree." },
+    { match: /time with|see the|schedule|arrangement/i, value: "Every second weekend with the other parent." },
+    { match: /live|lives|home|where (is|does) the child/i, value: "With me in Ottawa since birth." },
+  ] }),
+  CHROME("civil-chrome2-s8-goods", "civil", "bringing", "A company owes me $85,000 for goods I delivered in August 2026 and has not paid. The company is Testgoods Ltd.", { amount: "85000", otherParty: "Testgoods Ltd." }, { answers: [
+    { match: /urgent/i, value: "No" },
+    { match: /order|what (do you want|are you asking)|outcome/i, value: "Payment of the $85,000." },
+  ] }),
+];
 
 export const STORIES: Story[] = [
   S("sc-loan-friend", "small-claims", "bringing", "In March 2026 I lent my friend Alex Testwood $4,500 for a car repair. He promised to pay me back by June 1, 2026.", { amount: "4500", when: "March 2026", otherParty: "Alex Testwood" }),
@@ -133,6 +204,10 @@ export const STORIES: Story[] = [
     home: [{ question: "Are you and your partner legally married?", answer: "" }, { question: "Does your daughter see her other parent now?", answer: "Sometimes." }], married: "unsure" },
   { ...S("civil-milestone-s8", "civil", "bringing", "I sold $85,000 of equipment to Testgoods Ltd. in Ottawa. Payment was due September 30, 2026 and nothing has been paid.", { amount: "85000", otherParty: "Testgoods Ltd." }),
     home: [{ question: "Is there a written contract?", answer: "Yes, an invoice and a purchase order." }] },
+  // Chrome's milestone pass 2 on bbcade40 (17 Nov 2026): its stories word for word (S3 is not: the site owner did not
+  // have its text and asked for one with "I want $2,400 plus my costs"), with Chrome's own answers, and every AI step
+  // answered by the real model's recorded output (harness/aiFixtures.ts, tests/browser/fixtures/real-ai/).
+  ...CHROME_PASS_2,
 ];
 
 export type Violation = { story: string; court: Court; side: Side; kind: "asked-twice" | "stated-cold" | "typed-reconfirm" | "missing-label"; fact: string; screen: string; detail: string };
@@ -158,7 +233,20 @@ function situationOf(story: Story): SituationAnswers {
 }
 
 /** The answer a person gives to a question, from what their story states; otherwise a plain value or "not sure". */
-function answerFor(story: Story, text: string): { value: string; fact: string | null } {
+function answerFor(story: Story, shown: string): { value: string; fact: string | null } {
+  // Chrome answered the question, not its "Why we ask" line (S1 reading r1: "address" in the why of "how long had the
+  // floor been wet?" had the store's address typed as the answer). Chrome's stories only: the others' records stand.
+  const text = story.realAi ? shown.split(/Why we ask/i)[0] : shown;
+  const own = story.answers?.find((item) => item.match.test(text));
+  if (own) return { value: own.value || TYPED_NOT_SURE, fact: own.fact ?? null };
+  // Chrome's stories: only what Chrome gave and the story states; anything else "I do not know yet", never a made-up
+  // value (a made-up date answered S8's "When was payment due?" with "March 3, 2026" and changed what the AI read next).
+  if (story.realAi) {
+    if (/how much|amount|dollar/i.test(text) && story.stated.amount) return { value: story.stated.amount, fact: "amount" };
+    if (/\bwho\b|other (party|side)/i.test(text) && story.stated.otherParty) return { value: story.stated.otherParty, fact: "otherParty" };
+    if (/bringing this claim|responding to a claim/i.test(text)) return { value: story.side === "bringing" ? "Bringing the claim (plaintiff)" : "Responding to a claim (defendant)", fact: "side" };
+    return { value: TYPED_NOT_SURE, fact: null };
+  }
   if (/add the year/i.test(text)) return { value: "October 6, 2026", fact: null };
   if (/how much|amount|dollar/i.test(text)) return story.amountLater ? { value: TYPED_NOT_SURE, fact: null } : { value: story.stated.amount ?? "1000", fact: "amount" };
   if (/\bwho\b|name of the (other|person|business)|other (party|side)|other person.s name|their name/i.test(text)) return { value: story.stated.otherParty ?? "Testperson Holdings", fact: "otherParty" };
@@ -168,13 +256,83 @@ function answerFor(story: Story, text: string): { value: string; fact: string | 
   return { value: TYPED_NOT_SURE, fact: null };
 }
 
+/**
+ * Chrome's milestone pass 2 findings, read from what the run saw on the real AI's recorded readings (the story's `seen`
+ * notes). Each is a property: it fails only on the fault Chrome found, whatever the AI asked.
+ */
+function chromePass2Problems(story: Story, seen: readonly string[]): string[] {
+  const problems: string[] = [];
+  const note = (prefix: string) => seen.filter((line) => line.startsWith(prefix)).map((line) => line.slice(prefix.length));
+  // F1: the court chosen at the start, the reading agreeing or unclear: never asked again.
+  if (note("court-question: ").includes("shown")) problems.push("F1 the reading card asked where the case belongs after the court was chosen");
+  // F4 (served): no question whether a defence was filed or anything happened since, once "just served" is given.
+  for (const asked of note("home: ")) if (story.situation?.stage === "just-served" && /responded to the claim|submitted a defen[cs]e|further court papers/i.test(asked)) problems.push(`F4 asked again: ${asked.slice(0, 140)}`);
+  // F2: the city given at the start offered for the person's own (bringing a Small Claims case: the Parties step on the review).
+  const parties = note("parties-step: ").join(" ");
+  if (story.court === "small-claims" && story.side === "bringing" && parties && /City or town/.test(parties) && !/City or town: Ottawa/.test(parties)) problems.push("F2 the city given at the start (Ottawa) was not offered on the Parties step");
+  // F3: an address typed as an answer about the other side offered for them.
+  const typedAddress = note("home: ").find((line) => /=> \d+ [A-Z][\w ]+ (?:Road|Street|Crescent|Avenue)/.test(line));
+  if (typedAddress && parties && !/Street address[^:]*: \d+ /.test(parties)) problems.push(`F3 the address typed as an answer was not offered: ${typedAddress.slice(0, 140)}`);
+  // F8: "No safety concerns" given, then the urgent question still names a safety worry.
+  const safetyGiven = note("home: ").some((line) => /safety/i.test(line) && /=> No safety concerns/i.test(line));
+  for (const urgent of note("urgent: ")) if (safetyGiven && /safety/i.test(urgent)) problems.push(`F8 asked about safety again: ${urgent.slice(0, 140)}`);
+  // F9/F11: the review's Timeline (and Family's living situation) offered from what was given, never an empty box.
+  const offers = note("review-offer: ").join(" | ");
+  const reviewText = seen.find((line) => line.startsWith("review phase=")) ?? "";
+  if (story.court !== "small-claims" && /Timeline/.test(reviewText) && /(?:\b(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{4})/.test(story.text) && !/Timeline/.test(offers)) problems.push("F9/F11 the review's Timeline was empty though the story gives a month and year");
+  if (story.court === "family" && /Current living situation/.test(reviewText) && note("home: ").some((line) => /\blive\b/i.test(line) && !/=> I do not know yet/.test(line)) && !/Current living situation/.test(offers)) problems.push("F9 the review's Current living situation was empty though it was answered");
+  // F6: when living together ended is known (the story's separation), its start may be "I'm not sure".
+  for (const line of note("triage: cohabitation-dates ")) if (/ended-offered=true/.test(line) && /start-unsure=false/.test(line)) problems.push("F6 when living together started was required after the story gave when it ended");
+  // F7: "a child together" asked cold after the story said "We have a 6-year-old".
+  if (note("triage: ").includes("child-together asked cold") && /\bwe have (?:a|an|one|two|\d+)\b/i.test(story.text)) problems.push("F7 \"Do you and the other person have a child together?\" asked cold after \"We have a 6-year-old\"");
+  // F10: a confirmed amount is never "Missing" on Form 7A.
+  const principal = note("form-7A-principal: ")[0];
+  if (principal !== undefined && story.stated.amount && !/\d/.test(principal)) problems.push(`F10 Form 7A's principal amount was "${principal}"`);
+  return problems;
+}
+
+/**
+ * The Family triage's other questions, answered as Chrome answered them (milestone pass 2, S7), each noted as it looked:
+ * whether it was asked cold or offered from the story, and, for when living together started, whether "I'm not sure" was
+ * there once when it ended was known (findings 6 and 7).
+ */
+async function answerTriageAsChrome(page: Page, story: Story, seen: string[]) {
+  for (let round = 0; round < 8; round += 1) {
+    const question = page.locator("[data-testid=triage-question]").first();
+    if (!(await visible(question, 8_000))) break;
+    const id = (await question.getAttribute("data-question")) ?? "";
+    const offered = await page.getByTestId("triage-story-suggestion").isVisible().catch(() => false);
+    if (id === "cohabitation-dates") {
+      const ended = page.getByTestId("triage-cohabitation-end-yes");
+      const endOffered = await ended.isVisible().catch(() => false);
+      if (endOffered) await ended.click();
+      const startUnsure = await visible(page.getByTestId("triage-cohabitation-start-unsure"), 3_000);
+      seen.push(`triage: cohabitation-dates ended-offered=${endOffered} start-unsure=${startUnsure}`);
+      // Chrome (case A) gave both: lived together 2018 to June 2026.
+      await page.getByTestId("triage-cohabitation-start").fill("2018");
+      if (!endOffered) await page.getByTestId("triage-cohabitation-end").fill("June 2026");
+      await page.getByTestId("triage-dates-record").click();
+    } else if (id === "child-together" || id === "case-involves-children") {
+      seen.push(`triage: ${id} ${offered ? "offered from the story" : "asked cold"}`);
+      if (offered) await page.getByTestId("triage-story-suggestion-yes").click();
+      else await question.getByTestId("triage-answer-yes").click();
+    } else {
+      seen.push(`triage: ${id} (set aside)`);
+      await question.getByTestId("triage-answer-not-yet").first().click().catch(() => {});
+    }
+    await page.waitForTimeout(800);
+  }
+}
+
+/** What the home page's reading asked and what was answered (Chrome's answers), kept in the record for the report. */
+const homeAnswers: string[] = [];
 async function giveStory(page: Page, story: Story) {
-  if (story.home) {
+  if (story.home || story.realAi) {
     // The home page, as Chrome used it: the start screen first (answered by the page's handler), the story, then the
     // reading's questions answered in their boxes and "Update with my answers", then the suggested court.
     await page.goto(`/?path=${story.court}`);
     await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
-    await page.getByLabel("City or municipality").fill("Kingston");
+    await page.getByLabel("City or municipality").fill(story.city ?? "Kingston");
     await page.getByLabel(STORY_LABEL, { exact: true }).fill(story.text);
     await page.getByRole("button", { name: `Continue to ${{ "small-claims": "Small Claims", family: "Family", civil: "Civil" }[story.court]} intake` }).click();
     const questions = page.getByTestId("case-understanding-questions");
@@ -182,9 +340,16 @@ async function giveStory(page: Page, story: Story) {
       // Family: whether they were married is the triage's one question (factStatus.ts ASKED_BY_THE_INTAKE), never asked on
       // the home page beside it (Chrome milestone test of #550, row 45).
       if (story.court === "family") await expect(questions.getByLabel("Are you and your partner legally married?", { exact: true }), "married is asked once, by the triage").toHaveCount(0);
-      for (const { question, answer } of story.home) {
+      for (const { question, answer } of story.home ?? []) {
         const box = questions.getByLabel(question, { exact: true });
         if (await box.isVisible().catch(() => false)) await box.fill(answer);
+      }
+      // The real reading's own questions, answered as Chrome answered them (answerFor: the story's answers first).
+      if (story.realAi) for (const box of await questions.getByRole("textbox").all()) {
+        const label = (await box.evaluate((node) => (node as HTMLTextAreaElement).labels?.[0]?.textContent ?? node.getAttribute("aria-label") ?? "")) ?? "";
+        const { value } = answerFor(story, label);
+        if (!(await box.inputValue()).trim()) await box.fill(value);
+        homeAnswers.push(`home: ${label.replace(/\s+/g, " ").trim()} => ${value}`);
       }
       await page.getByTestId("case-understanding-update").click().catch(() => {});
       await expect(questions).toHaveCount(0, { timeout: 120_000 }).catch(() => {});
@@ -192,17 +357,19 @@ async function giveStory(page: Page, story: Story) {
     // The court was chosen at the start (situationOf: every story's start names its court): the reading's same court is
     // not asked again with Yes / No / I'm not sure (Chrome milestone test of #550, row 6, every story).
     await expect(page.getByTestId("case-understanding").getByRole("button", { name: /^(No, that.s not right|I.m not sure)$/ }), "the court chosen at the start is not asked again").toHaveCount(0);
-    await page.getByTestId("case-understanding-continue-suggested").click();
+    // The reading's court is the chosen one ("Continue with ..."), or, when the reading is not clear, the chosen court's own button.
+    if (story.realAi) homeAnswers.push(`court-question: ${(await page.getByTestId("case-understanding-court-question").isVisible().catch(() => false)) ? "shown" : "hidden"}`);
+    await page.getByTestId("case-understanding-continue-suggested").or(page.getByTestId("case-understanding-continue-chosen")).first().click();
     await page.waitForURL(/\/builder\?.*intake=/, { timeout: 90_000 });
   } else if (story.court === "small-claims") {
     await page.goto("/?path=small-claims");
     await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
-    await page.getByLabel("City or municipality").fill("Kingston");
+    await page.getByLabel("City or municipality").fill(story.city ?? "Kingston");
     await page.getByLabel(STORY_LABEL, { exact: true }).fill(story.text);
     await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
     await page.waitForURL(/\/builder\?.*intake=/, { timeout: 90_000 });
   } else {
-    await openBuilder(page, story.court, { city: "Kingston", story: story.text, situation: situationOf(story) });
+    await openBuilder(page, story.court, { city: story.city ?? "Kingston", story: story.text, situation: situationOf(story) });
     await page.waitForURL(/\/builder\?.*intake=/, { timeout: 60_000 }).catch(() => {});
   }
   // The first-use notice and the situation questions, whenever they come.
@@ -235,6 +402,8 @@ async function smallClaimsChat(page: Page, story: Story, typed: Map<string, stri
     await expect(finished.or(proposals).or(suggestion).or(question).first()).toBeVisible({ timeout: 90_000 });
     await page.waitForTimeout(800);
     if (await finished.isVisible().catch(() => false)) break;
+    // The chat is over once the review has opened (it is on the page while collecting too: only its open phases count).
+    if (/^(?:reviewing|user-confirmed)$/.test((await page.getByTestId("intake-review").getAttribute("data-phase").catch(() => null)) ?? "")) break;
     if (await proposals.isVisible().catch(() => false)) {
       // Each offer answered Yes: the story's values are the person's (an offer never asked cold afterward).
       await chooseOffers(proposals, "yes");
@@ -280,6 +449,7 @@ async function guidedForm(page: Page, story: Story, typed: Map<string, string>) 
     }
     if ((await box.count()) && (await box.first().inputValue()).trim()) { await question.getByTestId("guided-form-next").click(); continue; }
     const label = (await question.innerText()).replace(/\s+/g, " ");
+    if (story.realAi && key === "urgent") homeAnswers.push(`urgent: ${label}`);
     const { value, fact } = answerFor(story, label);
     if ((await box.count()) && !(value === TYPED_NOT_SURE && notSure.has(key))) {
       if (value === TYPED_NOT_SURE) notSure.add(key);
@@ -340,6 +510,23 @@ async function reviewAndNextStep(page: Page, story: Story, typed: Map<string, st
     }
   }
   if (phase === "reviewing" && story.parties) await answerParties(page, seen);
+  // Chrome's milestone pass 2: what the review and the Parties step offer, read before anything is answered.
+  if (phase === "reviewing" && story.realAi) {
+    for (const entry of await panel.locator("[data-testid=intake-entry]").all()) {
+      const offered = entry.getByTestId("intake-entry-from-story");
+      if (await offered.isVisible().catch(() => false)) seen.push(`review-offer: ${((await entry.innerText()).replace(/\s+/g, " ")).slice(0, 300)}`);
+    }
+    const parties = page.getByTestId("parties-step").first();
+    if (await parties.isVisible().catch(() => false)) seen.push(`parties-step: ${(await parties.innerText()).replace(/\s+/g, " ").slice(0, 3000)}`);
+  }
+  // Chrome answered every offer on the review Yes (milestone pass 2): the real-AI stories do the same.
+  if (phase === "reviewing" && story.realAi) for (let round = 0; round < 20; round += 1) {
+    const offer = panel.locator("[data-testid=review-offer-choices]").filter({ has: page.locator("button:not([aria-pressed=true])") }).first();
+    const yes = offer.getByRole("button").first();
+    if (!(await yes.isVisible().catch(() => false)) || !/^Yes/.test((await yes.innerText()).trim())) break;
+    await yes.click();
+    await page.waitForTimeout(500);
+  }
   if (phase === "reviewing" && confirmShown) {
     await recordInitialUnknowns(page).catch(() => {});
     await tickIfAsked(page);
@@ -458,10 +645,18 @@ async function readLabels(page: Page, story: Story, id: string, known: Set<strin
   }
 }
 
-for (const story of STORIES) {
-  test(`ask once on every page -- ${story.name}`, async ({ page }) => {
+// A story read by the real AI runs once per recorded reading (harness/aiFixtures.ts): the model does not read the same
+// story the same way every time, so each distinct reading must give a flow that asks nothing twice (site owner, 17 Nov).
+// Named "sc-" so CI's Small Claims ask-once part runs it (its grep is "ask once on every page -- sc-"); it covers every court.
+test("ask once on every page -- sc-chrome2-readings-recorded (every court)", () => {
+  const missing = STORIES.filter((story) => story.realAi && realAiReadings(story.name).length === 0).map((story) => story.name);
+  expect(missing, "record them with AI_FIXTURES=record").toEqual([]);
+});
+for (const story of STORIES) for (const reading of story.realAi ? realAiReadings(story.name) : [null]) {
+  test(`ask once on every page -- ${story.name}${reading ? ` (reading ${reading})` : ""}`, async ({ page }) => {
     test.setTimeout(900_000);
     const found: Violation[] = [];
+    const chrome2: string[] = [];
     const typed = new Map<string, string>();
     const seen: string[] = [];
     const userId = await authenticateRealTestUser(page, { realCases: true });
@@ -469,10 +664,11 @@ for (const story of STORIES) {
     let reached = "start";
     try {
       await autoAnswerSituation(page, situationOf(story));
-      await serveModelStandIns(page, story.court, userId, story.home ? { homeQuestions: story.home.map((item) => item.question), homeFacts: story.reading ?? [] } : {});
+      await serveModelStandIns(page, story.court, userId, story.realAi && reading ? { realAi: `${story.name}/${reading}` } : story.home ? { homeQuestions: story.home.map((item) => item.question), homeFacts: story.reading ?? [] } : {});
       const events: Asked[] = await recordAsks(page);
       await giveStory(page, story);
       reached = "story";
+      seen.push(...homeAnswers.splice(0));
       const id = new URL(page.url()).searchParams.get("intake") ?? "";
       const married = story.married ?? (story.marriedUnsure ? "unsure" : undefined);
       let triaged = married ? await triageMarriedUnsure(page, seen, 20_000, married) : false;
@@ -485,6 +681,7 @@ for (const story of STORIES) {
       // page.tsx), so it is looked for after the review too.
       if (married && !triaged) triaged = await triageMarriedUnsure(page, seen, 60_000, married);
       if (married) expect(triaged, `the triage asked whether married, and took "${married}"`).toBe(true);
+      if (story.realAi && story.court === "family") await answerTriageAsChrome(page, story, seen);
       if (nextStep) reached = "next step";
       if (story.amountLater && story.stated.amount) {
         await page.goto(`/builder?path=${story.court}&intake=${id}&change=amount`);
@@ -516,6 +713,12 @@ for (const story of STORIES) {
         }
       }
       reached = reached === "next step" ? "all pages" : reached;
+      if (story.realAi && story.court === "small-claims" && story.side === "bringing") {
+        const form7A = await filledForm(page, id, "small-claims/7A").catch(() => null);
+        seen.push(`form-7A-principal: ${form7A ? String(form7A.get("Principal amount claimed") ?? "") : "not downloaded"}`);
+      }
+      seen.push(...homeAnswers.splice(0));
+      chrome2.push(...chromePass2Problems(story, seen));
       const situation = situationOf(story);
       for (const violation of [...repeatViolations(factsAskedTwice(events, situation)), ...heldViolations(events)].filter((item) => !firstOfferExcused(item, events, OFFER_SURFACES))) {
         found.push({ story: story.name, court: story.court, side: story.side, kind: "asked-twice", fact: violation.fact, screen: `${violation.surface}@${violation.screen}`, detail: violation.text.slice(0, 120) });
@@ -524,7 +727,7 @@ for (const story of STORIES) {
       for (const fact of typed.keys()) if (!Object.keys(story.stated).includes(fact === "whenHappened" ? "when" : fact)) stated.delete(fact);
       const coldSeen = new Set<string>();
       // An offer from the story ("From what you told us") is the one allowed confirmation, on any surface.
-      for (const ask of events.filter((item) => item.kind === "ask" && item.surface !== "situation" && !OFFER_SURFACES.has(item.surface) && !/From what you told us|from your story/i.test(item.text))) {
+      for (const ask of events.filter((item) => item.kind === "ask" && item.surface !== "situation" && !OFFER_SURFACES.has(item.surface) && !/From what you told us|from your story|No, that.s not right/i.test(item.text))) {
         for (const fact of factsOfAsk(ask)) {
           const key = `${fact}|${ask.surface}|${ask.id}`;
           if (stated.has(fact) && !coldSeen.has(key)) {
@@ -535,17 +738,18 @@ for (const story of STORIES) {
       }
     } finally {
       fs.mkdirSync(RECORDS, { recursive: true });
-      fs.writeFileSync(path.join(RECORDS, `${story.name}.json`), JSON.stringify({ story: story.name, court: story.court, side: story.side, reached, violations: found, seen }, null, 2));
+      fs.writeFileSync(path.join(RECORDS, `${story.name}${reading ? `.${reading}` : ""}.json`), JSON.stringify({ story: story.name, reading, court: story.court, side: story.side, reached, violations: found, seen }, null, 2));
       await deleteHarnessUser(userId).catch(() => {});
     }
     const known = found.filter((item) => expectedFor(item));
     const unexpected = found.filter((item) => !expectedFor(item));
     const fixed = EXPECTED.filter((entry) => entry.story === story.name && !found.some((item) => keyOf(item) === keyOf(entry)));
-    console.log(`ASK ONCE ${story.name}: reached ${reached}; ${found.length} violation(s), ${known.length} on the expected list, ${unexpected.length} not`);
+    console.log(`ASK ONCE ${story.name}${reading ? ` (${reading})` : ""}: reached ${reached}; ${found.length} violation(s), ${known.length} on the expected list, ${unexpected.length} not`);
     for (const entry of fixed) console.log(`ASK ONCE FIXED ${keyOf(entry)}: no longer seen; delete its entry`);
     if (!REPORT) {
       expect(reached, "the story reached every page (a page not reached is not a zero)").toBe("all pages");
       expect(unexpected, unexpected.map((item) => `${item.kind} ${item.fact} @ ${item.screen}: ${item.detail}`).join("\n")).toEqual([]);
+      expect(chrome2, "Chrome's milestone pass 2 findings, on the real AI's recorded readings").toEqual([]);
     }
   });
 }

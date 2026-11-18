@@ -19,8 +19,16 @@ import { applyPositionPatch, readCasePosition } from "../../../src/lib/case-syst
 import { createStageAnswerPost } from "../../../app/api/case/stage-answer/route";
 import { createGuidedAssistantPost } from "../../../app/api/guided-assistant/route";
 import { createGuidedTurnPost } from "../../../app/api/intake/guided-turn/route";
-import { orchestrateIntakeTurn } from "../../../src/lib/case-system/intake/orchestrateIntakeTurn";
-import { understandCase } from "../../../src/lib/case-system/understanding/understandCase";
+import { applyConfirmedStoryAnswers, orchestrateIntakeTurn } from "../../../src/lib/case-system/intake/orchestrateIntakeTurn";
+import { reasonWithModel, understandCase } from "../../../src/lib/case-system/understanding/understandCase";
+import { classifyCourtPath } from "../../../src/lib/case-system/intelligence/courtPathClassifier";
+import { runSafetyPass } from "../../../src/lib/case-system/intake/safetyPass";
+import { extractIntakeFactsWithConfidence } from "../../../src/lib/case-system/intake/extractIntakeFacts";
+import { classifyClaimTypeWithAi } from "../../../src/lib/case-system/intake/claimTypeAiClassifier";
+import { proposeAnswersFromStory } from "../../../src/lib/case-system/intake/storyAnswerProposals";
+import { realStep } from "./aiFixtures";
+import { createClassifyClaimTypePost } from "../../../app/api/intake/classify-claim-type/route";
+import { resolveClaimTypeSuggestion } from "../../../src/lib/case-system/intake/claimTypeSuggestionResolution";
 import { checkedAnswerView } from "../../../src/lib/case-system/retrieval/checkedAnswer";
 import { sideInAnswer } from "../../../app/builder/_components/stageFromAnswers";
 import { candidatesFromMasterResult, resolveCandidates } from "../../../src/lib/case-system/events/caseEventCandidates";
@@ -95,11 +103,12 @@ export async function serveFromThisCommit(page: Page, court: Court, rows: Rows) 
  * person has answered), so what the reading does with the situation answers (which questions it drops) is the site's
  * own code (Chrome check of #550, 5b-5d).
  */
-async function serveHomeReading(page: Page, court: Court, questions: readonly string[], facts: readonly { label: string; value: string }[] = []) {
+async function serveHomeReading(page: Page, court: Court, questions: readonly string[], facts: readonly { label: string; value: string }[] = [], realAi?: string) {
   await page.route("**/api/case/understand", async (route) => {
     const body = route.request().postDataJSON() as { story: string; answers?: { question: string; answer: string }[]; situation?: { side?: string } };
     const asked = body.answers?.length ? [] : questions;
-    const reason = async () => JSON.stringify({ summary: "Synthetic reading.", facts, matters: [{ title: "Your matter", court }], mainCourt: court, side: body.situation?.side ?? "unclear", stage: "", questions: asked.map((question) => ({ question, why: "Synthetic." })), asksForPrediction: false, step: null, points: [] });
+    // A real-AI fixture: the model's own reading of what understandCase sends it (aiFixtures.ts).
+    const reason = realAi ? (sent: string, chosen?: unknown) => realStep(realAi, "story-reading", { sent, chosen: chosen ?? null }, () => reasonWithModel(sent, (chosen ?? null) as never, undefined, undefined, true)) : async () => JSON.stringify({ summary: "Synthetic reading.", facts, matters: [{ title: "Your matter", court }], mainCourt: court, side: body.situation?.side ?? "unclear", stage: "", questions: asked.map((question) => ({ question, why: "Synthetic." })), asksForPrediction: false, step: null, points: [] });
     const result = await understandCase({ story: body.story, ...(body.answers ? { answers: body.answers } : {}), ...(body.situation ? { situation: body.situation } : {}) } as never, { reason, intakeOnly: true, check: { answer: async () => ({ status: "unavailable", statements: [], notConfirmed: [], declinedToJudge: false, missingLaw: [] }) } as never });
     if (result.status !== "understood") return route.fulfill({ json: { ok: true, skipped: "unavailable" } });
     return route.fulfill({ json: { ok: true, understanding: result.understanding, answer: checkedAnswerView(result.answer) } });
@@ -116,12 +125,21 @@ async function serveHomeReading(page: Page, court: Court, questions: readonly st
  * (default: none), and "No, not that one" gets "no match" back -- for the "Not quite" test.
  * `homeQuestions`: the home page's story reading asks these (serveHomeReading); without them it is off.
  */
-export async function serveModelStandIns(page: Page, court: Court, ownerId: string = OWNER, standIns: { suggestKind?: { claimTypeId: string; claimTypeName: string; quote: string }; propose?: Record<string, string>; homeQuestions?: readonly string[]; homeFacts?: readonly { label: string; value: string }[] } = {}) {
+export async function serveModelStandIns(page: Page, court: Court, ownerId: string = OWNER, standIns: { suggestKind?: { claimTypeId: string; claimTypeName: string; quote: string }; propose?: Record<string, string>; homeQuestions?: readonly string[]; homeFacts?: readonly { label: string; value: string }[]; realAi?: string } = {}) {
+  // `realAi`: the story's real-AI fixture (aiFixtures.ts): every model step below answers with the real model's recorded output.
+  const real = standIns.realAi;
+  const key = () => process.env.OPENAI_API_KEY ?? "";
   await page.route("**/api/case/read", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
   // homeFacts: the facts the reading shows ("AMOUNT SOUGHT $5,468.45"), as the model gives them (Chrome milestone test of #550).
-  if (standIns.homeQuestions?.length) await serveHomeReading(page, court, standIns.homeQuestions, standIns.homeFacts ?? []);
+  if (real) await serveHomeReading(page, court, [], [], real);
+  else if (standIns.homeQuestions?.length) await serveHomeReading(page, court, standIns.homeQuestions, standIns.homeFacts ?? []);
   else await page.route("**/api/case/understand", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
-  await page.route("**/api/classify-court-path", (route) => route.fulfill({ json: { primaryPath: court, confidence: 0.95 } }));
+  await page.route("**/api/classify-court-path", async (route) => {
+    if (!real) return route.fulfill({ json: { primaryPath: court, confidence: 0.95 } });
+    const body = route.request().postDataJSON() as { story?: string; declaredCourtPath?: string | null };
+    const input = { story: String(body.story ?? "").slice(0, 4_000).trim(), declaredCourtPath: body.declaredCourtPath ?? null };
+    return route.fulfill({ json: await realStep(real, "court-suggestion", input, () => classifyCourtPath(input)) });
+  });
   await page.route("**/api/assistant/law", (route) => route.fulfill({ json: { findings: [] } }));
   await page.route("**/api/intake/guided-turn", (route) => {
     // The route requires a key to be configured; no model is called (every step is replaced).
@@ -129,7 +147,14 @@ export async function serveModelStandIns(page: Page, court: Court, ownerId: stri
     const post = createGuidedTurnPost({
       authenticate: (async () => ({ id: ownerId })) as never,
       hasExternalAiKey: () => true,
-      orchestrate: ((facts, answeredIds, text, _key, bank, types, area, questionId, options, earlier) => orchestrateIntakeTurn(facts, answeredIds, text, "no-model", bank, types, area, questionId, {
+      orchestrate: ((facts, answeredIds, text, _key, bank, types, area, questionId, options, earlier) => orchestrateIntakeTurn(facts, answeredIds, text, real ? key() || "no-model" : "no-model", bank, types, area, questionId, real ? {
+        ...options,
+        // The real model's steps, recorded once (aiFixtures.ts); keyed by what each is sent.
+        runSafety: (said) => realStep(real, "safety", { said }, () => runSafetyPass(said, key())),
+        extractFacts: (said) => realStep(real, "fact-reading", { said }, () => extractIntakeFactsWithConfidence(said, key())),
+        classifyClaimType: (said, kinds, _apiKey, exclude = [], responding = false) => realStep(real, "claim-kind", { said, exclude, responding }, () => classifyClaimTypeWithAi(said, kinds, key(), exclude, responding)),
+        proposeAnswers: (story, questions, _apiKey, more = {}) => realStep(real, "story-suggestions", { story, questions: questions.map((question) => question.id), quoteFrom: more.quoteFrom ?? null }, () => proposeAnswersFromStory(story, questions, key(), more)),
+      } : {
         ...options,
         runSafety: async () => ({ classification: "clear" as const, reason: "test", requestsLegalAdvice: false }),
         // Only the side, by the site's own plain reading of an answer ("... (defendant)").
@@ -139,9 +164,33 @@ export async function serveModelStandIns(page: Page, court: Court, ownerId: stri
         // counterclaim offered to a defendant, quoting the story's first sentence.
         proposeAnswers: async (story, questions) => questions.filter((question) => question.id === "sc-defendant-counterclaim" || standIns.propose?.[question.id]).map((question) => ({ questionId: question.id, questionText: question.text, answer: standIns.propose?.[question.id] ?? "Yes", storyQuote: story.split(/(?<=[.!?])\s+/)[0] ?? story })),
       }, earlier)) as typeof orchestrateIntakeTurn,
+      // Confirming the story's suggestions reads the confirmed answers (and may offer once more from the story): the same
+      // recorded steps (18 Nov 2026: without this, recording read them with the real model unsaved, and the replay failed
+      // that read silently, 16 times in the round-2 replay, so the chat asked again what the answers had given).
+      ...(real ? {
+        applyConfirmed: ((facts, answeredIds, confirmed, _key, bank, area, overrides = {}, repropose) => applyConfirmedStoryAnswers(facts, answeredIds, confirmed, key() || "no-model", bank, area, {
+          ...overrides,
+          extractFacts: (said) => realStep(real, "fact-reading", { said }, () => extractIntakeFactsWithConfidence(said, key())),
+          proposeAnswers: (story, questions, _apiKey, more = {}) => realStep(real, "story-suggestions", { story, questions: questions.map((question) => question.id), quoteFrom: more.quoteFrom ?? null }, () => proposeAnswersFromStory(story, questions, key(), more)),
+        }, repropose)) as typeof applyConfirmedStoryAnswers,
+      } : {}),
     });
     return viaHandler(route, post, page);
   });
-  await page.route("**/api/intake/classify-claim-type", (route) => (standIns.suggestKind ? route.fulfill({ json: { ok: true, result: { outcome: "no-match" } } }) : route.fulfill({ status: 503, json: { ok: false } })));
+  await page.route("**/api/intake/classify-claim-type", (route) => (real ? (() => {
+    // The route's own handler; only its classifier answers from the fixture (the route requires a key to be configured).
+    process.env.OPENAI_API_KEY ||= "no-model-in-tests";
+    const post = createClassifyClaimTypePost({
+      authenticate: (async () => ({ id: ownerId })) as never,
+      hasExternalAiKey: () => true,
+      resolve: ((...args: Parameters<typeof resolveClaimTypeSuggestion>) => {
+        const [action, said, , , , claimTypeId, prior] = args;
+        const sent = [...args] as unknown[];
+        sent[4] = key();
+        return realStep(real, "claim-kind-confirm", { action, said, claimTypeId: claimTypeId ?? null, prior: prior ?? [] }, () => (resolveClaimTypeSuggestion as (...all: unknown[]) => Promise<unknown>)(...sent));
+      }) as unknown as typeof resolveClaimTypeSuggestion,
+    });
+    return viaHandler(route, post, page);
+  })() : standIns.suggestKind ? route.fulfill({ json: { ok: true, result: { outcome: "no-match" } } }) : route.fulfill({ status: 503, json: { ok: false } })));
   await page.route("**/api/intake/depth-turn", (route) => route.fulfill({ status: 503, json: { ok: false } }));
 }
