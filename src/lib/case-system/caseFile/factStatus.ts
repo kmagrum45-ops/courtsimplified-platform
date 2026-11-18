@@ -102,3 +102,12 @@ export function mayAskWords(file: CaseFile | null | undefined, words: string, op
   return status === "ask" || status === "offer";
 }
 
+
+/**
+ * Settled because the person said "I'm not sure" (confirmed), not because they cleared it: the one test a box uses to fold
+ * into "Not answered yet". A cleared box ("removed", settled too) stays an empty box (18 Nov 2026: form-box-follows-record).
+ */
+export function settledNotSure(file: CaseFile | null | undefined, fact: SlotFact): boolean {
+  const slot = file?.[fact];
+  return Boolean(slot && !slot.removed && slot.state === "unsure" && factStatus(file, fact) === "settled");
+}

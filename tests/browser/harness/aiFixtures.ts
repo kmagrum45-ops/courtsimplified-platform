@@ -50,6 +50,9 @@ function load(key: string): Fixture {
   return JSON.parse(fs.readFileSync(file(key), "utf8")) as Fixture;
 }
 
+/** Every step a replay asked for that was never recorded, in this test process (the page test asserts none). */
+export const replayMisses: string[] = [];
+
 /** The output of one AI step: the saved one when this reading has it, else (recording) the real model's, saved. */
 export async function realStep<T>(key: string, step: string, input: unknown, real: () => Promise<T>): Promise<T> {
   const hash = hashOf(input);
@@ -59,6 +62,8 @@ export async function realStep<T>(key: string, step: string, input: unknown, rea
     // Said here too: the site catches a failed AI step and goes on without it, so the error alone would be silent.
     const message = `real-AI fixture ${key}: step "${step}" was never recorded for this input (${hash}); record with AI_FIXTURES=record`;
     console.error(`${message}\n  input: ${JSON.stringify(input).slice(0, 600)}`);
+    // And kept, so the page test fails on it: a step the site swallows is never a silent pass (site owner, 18 Nov 2026).
+    replayMisses.push(`${key} ${step} ${hash}`);
     throw new Error(message);
   }
   if (!process.env.OPENAI_API_KEY) throw new Error("AI_FIXTURES=record needs OPENAI_API_KEY in the test process");

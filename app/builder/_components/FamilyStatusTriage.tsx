@@ -119,6 +119,7 @@ function Citations({ items }: { items: { label: string; sourceUrl: string }[] })
 
 /** The person's story says a family court order already exists. */
 import { existingFamilyOrder, existingFamilyOrderQuote, respondingInFamilyStory } from "../../../src/lib/case-system/familyStoryReading";
+import { IS_THIS_RIGHT_AFTER, IS_THIS_RIGHT_BEFORE, WHY_ASKED_HIDE, WHY_ASKED_SHOW } from "../../../src/lib/case-system/copy/askCopy";
 export { existingFamilyOrder, respondingInFamilyStory };
 
 
@@ -231,7 +232,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
               onUnsure={current.id === "divorce-sought" || current.id === "married-to-other-party" ? () => record("unsure") : undefined}
               className="mt-2 rounded-full bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
               frame={{ testId: "triage-story-suggestion", className: "mt-4 rounded-xl border border-[#2f7d67] bg-white p-3" }}
-              ask={<span className="block text-sm text-[#10231f]">Is this right: <strong>{suggestion.say}</strong>?</span>}
+              ask={<span className="block text-sm text-[#10231f]">{IS_THIS_RIGHT_BEFORE}<strong>{suggestion.say}</strong>{IS_THIS_RIGHT_AFTER}</span>}
             />
         ) : null}
         <div className="mt-4 flex flex-wrap gap-3">
@@ -463,7 +464,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
             onClick={() => setShowWhy((current) => !current)}
             className="mt-2 text-sm font-semibold text-[#2f7d67] underline"
           >
-            {showWhy ? "Hide why this is asked" : "Why is this asked?"}
+            {showWhy ? WHY_ASKED_HIDE : WHY_ASKED_SHOW}
           </button>
           {showWhy ? <p className="mt-2 text-sm text-[#4f685f]">{question.whyAsked}</p> : null}
           {storyQuoteFor(question.id, story) ? (

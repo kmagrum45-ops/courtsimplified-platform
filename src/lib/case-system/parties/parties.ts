@@ -19,6 +19,7 @@
  * Pure: no React, no network, no model. States no law.
  */
 import { sentences } from "../sentences";
+import { partyDetailFits } from "../caseFile/factTypes";
 
 export const PARTY_DETAILS = [
   "companyName", "firstName", "secondName", "lastName", "fullName", "alsoKnownAs",
@@ -313,6 +314,8 @@ export function storyPartyOffers(story: string, record: PartiesRecord, named?: {
   }
   return fromStory.filter((offer) => {
     if (declined.has(offer.key) || seen.has(offer.key)) return false;
+    // Only a value of the detail's type: a place is never offered as a name (factTypes.ts; decision 1, 18 Nov 2026).
+    if (!partyDetailFits(offer.detail, offer.value)) return false;
     seen.add(offer.key);
     const party = partyOfOffer(record, offer);
     if (!party) return true;

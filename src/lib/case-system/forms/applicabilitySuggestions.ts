@@ -177,29 +177,28 @@ function suggest(
       // without their confirmation (CLAUDE.md section 4; review 2026-10-13).
       return { value: true, reason: "Your step is considering a defendant's claim." };
     }
-    // Their own answer to the review's "Do you believe the plaintiff, or someone else, owes you money...?" is this
-    // question's fact (factsOfQuestion.ts: one fact, "outcome"), read through the one reader and never asked again (site
-    // owner, 17 Nov; full local run of 4d1ae680): "I do not know yet" is kept as this question's own "Not sure", "No" as
-    // No; a claim back in their words stays a suggestion they confirm, below.
-    const own = caseFileOfMaster(master, "small-claims").outcome;
-    // Their own answer to it, wherever it was asked (the review, the Small Claims chat, the home page's reading card: each
-    // asks this one fact, factsOfQuestion.ts).
+    // Their own yes or no to "Do you believe the plaintiff, or someone else, owes you money...?" is this question's fact,
+    // defendantsClaim (factsOfQuestion.ts; decision 1, 18 Nov 2026: a yes/no fact, which a sentence never fills), read
+    // through the one reader and never asked again, wherever it was asked (the review, the Small Claims chat, the home
+    // page's reading card).
+    const file = caseFileOfMaster(master, "small-claims");
+    const own = file.defendantsClaim;
+    // Their words, as they gave them (outcome: the same answer, kept in their words; factsOfQuestion.ts).
+    const outcome = file.outcome;
+    const outcomeWords = outcome.source?.kind === "answer" && outcome.state === "answered" && typeof outcome.value === "string" ? outcome.value : "";
     if (own.source?.kind === "answer") {
       if (own.state === "unsure") return { value: "not-sure", reason: "You answered \"I do not know yet\" when asked whether anyone owes you money.", firm: true };
-      // A No, in a word or a sentence ("No. I only want to defend the claim."), unless the same words still claim money back.
-      if (own.state === "answered" && typeof own.value === "string" && /^\s*no\b/i.test(own.value) && !CLAIM_BACK.some((pattern) => pattern.test(own.value as string))) return { value: false, reason: "You answered \"No\" when asked whether anyone owes you money.", firm: true };
-      // "Yes" kept too, with Change (site owner, 17 Nov: their own answer is never offered again).
-      if (own.state === "answered" && typeof own.value === "string" && /^\s*yes\b[.!]?\s*$/i.test(own.value)) return { value: true, reason: "You answered \"Yes\" when asked whether the plaintiff or someone else owes you money.", firm: true };
+      if (own.state === "answered" && (own.value === true || (typeof own.value === "string" && /^\s*yes\b/i.test(own.value)))) return { value: true, reason: "You answered \"Yes\" when asked whether the plaintiff or someone else owes you money.", firm: true };
+      // A No, unless their own words still claim money back ("No, but she owes me $500"): then it is offered, below.
+      if (own.state === "answered" && (own.value === false || (typeof own.value === "string" && /^\s*no\b/i.test(own.value))) && !CLAIM_BACK.some((pattern) => pattern.test(`${outcomeWords} ${own.note ?? ""}`))) return { value: false, reason: "You answered \"No\" when asked whether anyone owes you money.", firm: true };
     }
-    const asked = claimBackInOwnWords(master, [record.story, own.state === "answered" && typeof own.value === "string" ? own.value : ""].join(" "));
+    // Their outcome in their own words (outcome: "Are you only responding ... or asking for an outcome of your own?"): a No
+    // in a word or a sentence ("No. I only want to defend the claim."), unless the same words still claim money back.
+    if (/^\s*no\b/i.test(outcomeWords) && !CLAIM_BACK.some((pattern) => pattern.test(outcomeWords))) return { value: false, reason: "You answered \"No\" when asked whether anyone owes you money.", firm: true };
+    // A claim back in their own words (the story, or their outcome): offered, quoting them, for them to confirm. A
+    // sentence is never taken as their Yes (decision 1; Chrome milestone pass 2, finding 5).
+    const asked = claimBackInOwnWords(master, [record.story, outcomeWords, own.note ?? ""].join(" "));
     if (asked) return { value: true, reason: `You wrote: “${asked}”` };
-    // Any other answer they gave to it (Chrome milestone pass 2, finding 5, S6: "A claim of your own against them" answered
-    // Yes in the chat kept the AI's sentence, "The contractor's work was bad... I already paid $2,000.", and the Forms tab
-    // then asked cold): offered once, quoting their answer, never asked as if it had not been answered. Their choice is
-    // then recorded (answerOnOfferChoice), so it is not offered again.
-    if (own.source?.kind === "answer" && own.state === "answered" && typeof own.value === "string" && own.value.trim()) {
-      return { value: true, reason: `You answered “${own.value.trim()}” when asked whether the plaintiff or someone else owes you money.` };
-    }
   }
 
   // The step the person picked settles some of these outright.

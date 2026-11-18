@@ -34,7 +34,7 @@ import { deleteHarnessUser } from "./harness/realTestSession";
 import { autoAnswerSituation, answerSituation, situationAnswersFor, STARTING_NOTHING_FILED, type SituationAnswers } from "./harness/situation";
 import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns, type Court } from "./harness/thisCommitServer";
-import { realAiReadings } from "./harness/aiFixtures";
+import { realAiReadings, replayMisses } from "./harness/aiFixtures";
 import { factsAskedTwice, factsOfAsk, firstOfferExcused, heldViolations, recordAsks, repeatViolations, type Asked } from "./harness/askOnce";
 import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { chooseOffers } from "./harness/offers";
@@ -96,6 +96,9 @@ export const CHROME_PASS_2: Story[] = [
       { match: /issued/i, value: "October 15, 2026" },
       { match: /when (was|did) the work|when/i, value: "August 2026" },
       { match: /filed a defence|defence/i, value: "No" },
+      // "Do you believe the plaintiff, or someone else, owes you money...?" is a yes or no (decision 1, 18 Nov 2026); Chrome
+      // said yes to it (accepted the story's claim back). Before the plaintiff's name, which the same words would match.
+      { match: /owes? you (?:any )?money|claim of your own|counter-?claim|defendant.s claim/i, value: "Yes" },
       { match: /plaintiff|contractor.*name|who (is suing|sued)/i, value: "Test Kitchens Inc.", fact: "otherParty" },
       { match: /facts|disagree|dispute/i, value: "I agree I hired the contractor. I disagree that I owe $4,200: I already paid $2,000 and the work was bad." },
       { match: /outcome|what (do you want|are you asking)/i, value: "Only responding to the claim" },
@@ -276,10 +279,12 @@ function chromePass2Problems(story: Story, seen: readonly string[]): string[] {
   // F8: "No safety concerns" given, then the urgent question still names a safety worry.
   const safetyGiven = note("home: ").some((line) => /safety/i.test(line) && /=> No safety concerns/i.test(line));
   for (const urgent of note("urgent: ")) if (safetyGiven && /safety/i.test(urgent)) problems.push(`F8 asked about safety again: ${urgent.slice(0, 140)}`);
-  // F9/F11: the review's Timeline (and Family's living situation) offered from what was given, never an empty box.
+  // F9/F11: the review's Timeline (and Family's living situation) offered from what was given, never an empty box. Read on
+  // the real AI's readings, where the review's offers are recorded (answerReview: review-offer); for a stand-in story no
+  // offer is recorded, so an empty list says nothing about the box (18 Nov: the full run flagged 10 stand-in stories).
   const offers = note("review-offer: ").join(" | ");
   const reviewText = seen.find((line) => line.startsWith("review phase=")) ?? "";
-  if (story.court !== "small-claims" && /Timeline/.test(reviewText) && /(?:\b(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{4})/.test(story.text) && !/Timeline/.test(offers)) problems.push("F9/F11 the review's Timeline was empty though the story gives a month and year");
+  if (story.realAi && story.court !== "small-claims" && /Timeline/.test(reviewText) && /(?:\b(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{4})/.test(story.text) && !/Timeline/.test(offers)) problems.push("F9/F11 the review's Timeline was empty though the story gives a month and year");
   if (story.court === "family" && /Current living situation/.test(reviewText) && note("home: ").some((line) => /\blive\b/i.test(line) && !/=> I do not know yet/.test(line)) && !/Current living situation/.test(offers)) problems.push("F9 the review's Current living situation was empty though it was answered");
   // F6: when living together ended is known (the story's separation), its start may be "I'm not sure".
   for (const line of note("triage: cohabitation-dates ")) if (/ended-offered=true/.test(line) && /start-unsure=false/.test(line)) problems.push("F6 when living together started was required after the story gave when it ended");
@@ -657,6 +662,7 @@ for (const story of STORIES) for (const reading of story.realAi ? realAiReadings
     test.setTimeout(900_000);
     const found: Violation[] = [];
     const chrome2: string[] = [];
+    replayMisses.length = 0;
     const typed = new Map<string, string>();
     const seen: string[] = [];
     const userId = await authenticateRealTestUser(page, { realCases: true });
@@ -750,6 +756,8 @@ for (const story of STORIES) for (const reading of story.realAi ? realAiReadings
       expect(reached, "the story reached every page (a page not reached is not a zero)").toBe("all pages");
       expect(unexpected, unexpected.map((item) => `${item.kind} ${item.fact} @ ${item.screen}: ${item.detail}`).join("\n")).toEqual([]);
       expect(chrome2, "Chrome's milestone pass 2 findings, on the real AI's recorded readings").toEqual([]);
+      // Every AI step replayed as recorded: the site swallows a failed step, so a miss would otherwise pass silently.
+      if (story.realAi) expect(replayMisses, "every AI step of this reading was recorded").toEqual([]);
     }
   });
 }

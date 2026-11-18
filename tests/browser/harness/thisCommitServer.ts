@@ -144,36 +144,36 @@ export async function serveModelStandIns(page: Page, court: Court, ownerId: stri
   await page.route("**/api/intake/guided-turn", (route) => {
     // The route requires a key to be configured; no model is called (every step is replaced).
     process.env.OPENAI_API_KEY ||= "no-model-in-tests";
+    // Every AI step of the chat, once: the real model's, recorded (aiFixtures.ts; keyed by what each is sent), or a plain
+    // stand-in. The same steps serve the chat's turns AND the reading of the suggestions the person accepts (applyConfirmed):
+    // before 18 Nov the second had none, so it called the model with no key and failed silently in every ordinary run
+    // (site owner, 18 Nov 2026, item 4: "do not leave the ordinary browser tests failing silently").
+    const steps: Required<Pick<NonNullable<Parameters<typeof orchestrateIntakeTurn>[8]>, "runSafety" | "extractFacts" | "classifyClaimType" | "proposeAnswers">> = real ? {
+      runSafety: (said) => realStep(real, "safety", { said }, () => runSafetyPass(said, key())),
+      extractFacts: (said) => realStep(real, "fact-reading", { said }, () => extractIntakeFactsWithConfidence(said, key())),
+      classifyClaimType: (said, kinds, _apiKey, exclude = [], responding = false) => realStep(real, "claim-kind", { said, exclude, responding }, () => classifyClaimTypeWithAi(said, kinds, key(), exclude, responding)),
+      proposeAnswers: (story, questions, _apiKey, more = {}) => realStep(real, "story-suggestions", { story, questions: questions.map((question) => question.id), quoteFrom: more.quoteFrom ?? null }, () => proposeAnswersFromStory(story, questions, key(), more)),
+    } : {
+      runSafety: async () => ({ classification: "clear" as const, reason: "test", requestsLegalAdvice: false }),
+      // Only the side, by the site's own plain reading of an answer ("... (defendant)").
+      extractFacts: async (text) => { const side = sideInAnswer(text); return side ? { facts: { role: side }, directFields: ["role"] } : { facts: {}, directFields: [] }; },
+      classifyClaimType: async () => standIns.suggestKind ?? null,
+      // One plain proposal, so the "Here's what I understood" card is exercised: a
+      // counterclaim offered to a defendant, quoting the story's first sentence.
+      proposeAnswers: async (story, questions) => questions.filter((question) => question.id === "sc-defendant-counterclaim" || standIns.propose?.[question.id]).map((question) => ({ questionId: question.id, questionText: question.text, answer: standIns.propose?.[question.id] ?? "Yes", storyQuote: story.split(/(?<=[.!?])\s+/)[0] ?? story })),
+    };
     const post = createGuidedTurnPost({
       authenticate: (async () => ({ id: ownerId })) as never,
       hasExternalAiKey: () => true,
-      orchestrate: ((facts, answeredIds, text, _key, bank, types, area, questionId, options, earlier) => orchestrateIntakeTurn(facts, answeredIds, text, real ? key() || "no-model" : "no-model", bank, types, area, questionId, real ? {
-        ...options,
-        // The real model's steps, recorded once (aiFixtures.ts); keyed by what each is sent.
-        runSafety: (said) => realStep(real, "safety", { said }, () => runSafetyPass(said, key())),
-        extractFacts: (said) => realStep(real, "fact-reading", { said }, () => extractIntakeFactsWithConfidence(said, key())),
-        classifyClaimType: (said, kinds, _apiKey, exclude = [], responding = false) => realStep(real, "claim-kind", { said, exclude, responding }, () => classifyClaimTypeWithAi(said, kinds, key(), exclude, responding)),
-        proposeAnswers: (story, questions, _apiKey, more = {}) => realStep(real, "story-suggestions", { story, questions: questions.map((question) => question.id), quoteFrom: more.quoteFrom ?? null }, () => proposeAnswersFromStory(story, questions, key(), more)),
-      } : {
-        ...options,
-        runSafety: async () => ({ classification: "clear" as const, reason: "test", requestsLegalAdvice: false }),
-        // Only the side, by the site's own plain reading of an answer ("... (defendant)").
-        extractFacts: async (text) => { const side = sideInAnswer(text); return side ? { facts: { role: side }, directFields: ["role"] } : { facts: {}, directFields: [] }; },
-        classifyClaimType: async () => standIns.suggestKind ?? null,
-        // One plain proposal, so the "Here's what I understood" card is exercised: a
-        // counterclaim offered to a defendant, quoting the story's first sentence.
-        proposeAnswers: async (story, questions) => questions.filter((question) => question.id === "sc-defendant-counterclaim" || standIns.propose?.[question.id]).map((question) => ({ questionId: question.id, questionText: question.text, answer: standIns.propose?.[question.id] ?? "Yes", storyQuote: story.split(/(?<=[.!?])\s+/)[0] ?? story })),
-      }, earlier)) as typeof orchestrateIntakeTurn,
+      orchestrate: ((facts, answeredIds, text, _key, bank, types, area, questionId, options, earlier) => orchestrateIntakeTurn(facts, answeredIds, text, real ? key() || "no-model" : "no-model", bank, types, area, questionId, { ...options, ...steps }, earlier)) as typeof orchestrateIntakeTurn,
       // Confirming the story's suggestions reads the confirmed answers (and may offer once more from the story): the same
-      // recorded steps (18 Nov 2026: without this, recording read them with the real model unsaved, and the replay failed
-      // that read silently, 16 times in the round-2 replay, so the chat asked again what the answers had given).
-      ...(real ? {
-        applyConfirmed: ((facts, answeredIds, confirmed, _key, bank, area, overrides = {}, repropose) => applyConfirmedStoryAnswers(facts, answeredIds, confirmed, key() || "no-model", bank, area, {
-          ...overrides,
-          extractFacts: (said) => realStep(real, "fact-reading", { said }, () => extractIntakeFactsWithConfidence(said, key())),
-          proposeAnswers: (story, questions, _apiKey, more = {}) => realStep(real, "story-suggestions", { story, questions: questions.map((question) => question.id), quoteFrom: more.quoteFrom ?? null }, () => proposeAnswersFromStory(story, questions, key(), more)),
-        }, repropose)) as typeof applyConfirmedStoryAnswers,
-      } : {}),
+      // steps (18 Nov 2026: without them, recording read them with the real model unsaved, the replay failed that read
+      // silently, 16 times in the round-2 replay, and every ordinary run failed it silently too).
+      applyConfirmed: ((facts, answeredIds, confirmed, _key, bank, area, overrides = {}, repropose) => applyConfirmedStoryAnswers(facts, answeredIds, confirmed, real ? key() || "no-model" : "no-model", bank, area, {
+        ...overrides,
+        extractFacts: steps.extractFacts,
+        proposeAnswers: steps.proposeAnswers,
+      }, repropose)) as typeof applyConfirmedStoryAnswers,
     });
     return viaHandler(route, post, page);
   });

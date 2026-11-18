@@ -15,7 +15,8 @@ import { DANGER_WORDS } from "../intake/dangerWords";
 import { claimAmountFromStory, moneyMentions } from "../claimAmount";
 import { acknowledgedIn, againstThemIn, complaintIn, costsIn, evidenceIn, injuryIn, lastPaymentIn, lostPayIn, otherSideIn, otherSideSaysIn, propertyIn, witnessIn, type StoryFact } from "./storyFacts";
 import { otherPartyFromStory, otherPartyNameFromStory } from "../../../../app/builder/_components/storyAnswers";
-import { marriedWhereIn, type CaseFile } from "./caseFile";
+import { marriedWhereIn, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile";
+import { factStatus } from "./factStatus";
 
 export type StoryLine = { fact: "otherParty" | "marriedWhere" | "amountAgainst" | "amount" | "safety" | "injury" | "property" | "complaint" | "witness" | "lostPay" | "costs" | "evidence" | "lastPayment" | "acknowledged" | "otherSideSays"; label: string; value: string; quote: string };
 
@@ -81,4 +82,17 @@ export function storyLines(story: string, file: CaseFile, responding: boolean): 
   const safety = sentences(story).filter((sentence) => DANGER_WORDS.test(sentence) || /\b(?:called|phoned) (?:the )?police\b|\bpolice (?:came|were called)\b/i.test(sentence)).map((sentence) => sentence.trim());
   if (safety.length) lines.push({ fact: "safety", label: "Safety", value: safety.join(" "), quote: safety.join(" ") });
   return lines;
+}
+
+/**
+ * The case file's facts "What we have so far" lists (CaseFilePanel.tsx), from the one function (factStatus.ts): known or
+ * offered from the story is listed with its value; settled ("I'm not sure" confirmed) is the quiet line; one still to ask
+ * is not listed (an unconfirmed "not sure" was shown as settled: Chrome milestone pass 2, S1 case page). A fact the story
+ * tells (`toldInStory`) and settled "not sure" is listed once, in the story's words, never also as "Not sure yet".
+ * `shown`: whether the panel has words for the fact's value; `sameDay`: the conference is the next court date, listed once
+ * (caseFile.ts courtDateIsConference). Pure: test:story-facts runs it.
+ */
+export function listedSlotFacts(file: CaseFile, toldInStory: ReadonlySet<string>, shown: (fact: SlotFact) => boolean, sameDay: boolean): SlotFact[] {
+  const status = (fact: SlotFact) => factStatus(file, fact);
+  return SLOT_FACTS.filter((fact) => fact !== "story" && status(fact) !== "ask" && shown(fact) && !(fact === "courtDate" && sameDay) && !(status(fact) === "settled" && toldInStory.has(fact)));
 }

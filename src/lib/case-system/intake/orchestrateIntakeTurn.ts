@@ -42,6 +42,7 @@
 import { runSafetyPass, type SafetyClassification } from "./safetyPass";
 import type { ReadingFact } from "../caseFile/storyOffers";
 import { extractIntakeFactsWithConfidence } from "./extractIntakeFacts";
+import { suggestionFits } from "../caseFile/factTypes";
 import type { ClaimTypeMatch } from "./claimTypeMatcher";
 import { classifyClaimTypeWithAi, type ClaimTypeAiSuggestion } from "./claimTypeAiClassifier";
 import { CLAIM_TYPES, type ClaimType } from "./claimTypes";
@@ -628,9 +629,12 @@ async function finishTurn({
     evidenceGuidance,
     claimGuidance,
     possibleCorrections,
-    storyProposals,
     requestsLegalAdvice,
   } = base;
+  // A story suggestion is offered only when it fits its question's fact (factTypes.ts; decision 1, 18 Nov 2026): a
+  // sentence is never offered as a yes or no (real readings S6 r2, r3: "The contractor's work was bad..." offered for
+  // "Do you believe the plaintiff ... owes you money?"), never words as an amount.
+  const storyProposals = base.storyProposals.filter((proposal) => suggestionFits(proposal.questionId, proposal.answer));
   const remainingIds = selectQuestions(facts, answeredIds, questionBank, courtArea, "initial", { held });
   const nextQuestion = remainingIds.length > 0 ? questionBank.find((q) => q.id === remainingIds[0]) : undefined;
 

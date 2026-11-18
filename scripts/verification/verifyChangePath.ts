@@ -145,6 +145,8 @@ const FACTS: FactCase[] = [
   { fact: "conferenceDate", court: "family", sections: { family: { upcomingCourtDate: "Case conference on November 16, 2026" } }, value: "December 1, 2026", shows: (f) => caseFileModule.dayOfSlot(f.conferenceDate) === "2026-12-01" },
   { fact: "servedDate", court: "family", sections: { family: { servedDate: "October 1, 2026" } }, value: "October 2, 2026", shows: (f) => caseFileModule.dayOfSlot(f.servedDate) === "2026-10-02" },
   { fact: "outcome", court: "small-claims", sections: { "small-claims": { input: { defendantOutcomeText: "dismissed" } } }, value: "settled", shows: (f) => valueOf(f, "outcome") === "settled" },
+  // Whether they claim money back (decision 1, 18 Nov 2026): a yes/no fact of its own.
+  { fact: "defendantsClaim", court: "small-claims", sections: { guided: { earlierAnswers: [{ questionId: "sc-defendant-counterclaim", answerText: "Yes" }] } }, value: "No", shows: (f) => valueOf(f, "defendantsClaim") === "No" },
   { fact: "urgent", court: "civil", sections: { civil: { input: { urgent: "Hearing next week" } } }, value: "Nothing urgent now", shows: (f) => valueOf(f, "urgent") === "Nothing urgent now" },
   { fact: "safety", court: "family", sections: { family: { safetyConcerns: "No safety concerns." } }, value: "A safety plan is in place", shows: (f) => valueOf(f, "safety") === "A safety plan is in place" },
 ];
@@ -159,7 +161,7 @@ for (const item of FACTS) {
   const gone = caseFileOf(goneCp, master(goneCp));
   const goneFromMaster = caseFileOfMaster(master(goneCp), item.court);
   check(`2. ${item.court} ${item.fact}: removed beats every older source`, gone[item.fact].state === "not-asked" && gone[item.fact].value === undefined && goneFromMaster[item.fact].state === "not-asked", JSON.stringify(gone[item.fact]));
-  check(`2. ${item.court} ${item.fact}: removed is not asked again by itself`, caseFileModule.nextQuestion(gone, [{ otherParty: "otherParty", amount: "amountClaimed", wants: "goal", claimKind: "issues", children: "childrenInfo", married: "married-to-other-party", marriedWhere: "placeOfMarriage", filed: "sc-claim-filed", defenceFiled: "sc-defence-filed", whenHappened: "sc-orient-when-happened", courtDate: "case-date-trial-date", conferenceDate: "case-date-case-conference-date", servedDate: "servedDate", outcome: "defendantOutcomeText", urgent: "urgent" }[item.fact as string] ?? item.fact]) === null);
+  check(`2. ${item.court} ${item.fact}: removed is not asked again by itself`, caseFileModule.nextQuestion(gone, [{ otherParty: "otherParty", amount: "amountClaimed", wants: "goal", claimKind: "issues", children: "childrenInfo", married: "married-to-other-party", marriedWhere: "placeOfMarriage", filed: "sc-claim-filed", defenceFiled: "sc-defence-filed", whenHappened: "sc-orient-when-happened", courtDate: "case-date-trial-date", conferenceDate: "case-date-case-conference-date", servedDate: "servedDate", outcome: "defendantOutcomeText", defendantsClaim: "sc-defendant-counterclaim", urgent: "urgent" }[item.fact as string] ?? item.fact]) === null);
   // No step-page date comes back from an older answer once the day is removed.
   const days = withCaseFileDates({}, gone, (words) => caseFileModule.dayOfSlot({ state: "answered", value: words, confirmed: true }));
   if (["whenHappened", "courtDate", "conferenceDate", "servedDate"].includes(item.fact)) check(`2. ${item.court} ${item.fact}: removed, no step-page date is filled from an older answer`, !Object.keys(days).some((id) => caseFileModule.slotsOfQuestion(id).includes(item.fact)), JSON.stringify(days));

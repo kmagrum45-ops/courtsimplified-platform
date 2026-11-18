@@ -261,7 +261,7 @@ const ask = (surface: string, id: string, text = id): Asked => ({ kind: "ask", s
   const formsOffer: Asked = { ...ask("forms-offer", DEFENDANTS_CLAIM), screen: "/cases/:id/forms" };
   const once = [chatAsk, chatAnswer, formsOffer];
   const onceViolations = repeatViolations(factsAskedTwice(once, false));
-  check("offer rule: the gate itself still finds the Forms offer after the chat answer (outcome given, then offered)", onceViolations.some((v) => v.surface === "forms-offer" && v.fact === "outcome"), JSON.stringify(onceViolations));
+  check("offer rule: the gate itself still finds the Forms offer after the chat answer (outcome given, then offered)", onceViolations.some((v) => v.surface === "forms-offer" && v.fact === "defendantsClaim"), JSON.stringify(onceViolations));
   check("offer rule: the FIRST offer of the fact (the Forms tab, after it was asked and answered in the chat) is not asked again", onceViolations.filter((v) => !firstOfferExcused(v, once, OFFERS)).length === 0, JSON.stringify(onceViolations));
   const proposal: Asked = { ...ask("sc-proposal", "sc-defendant-counterclaim"), at: chatAsk.at - 0.5 };
   const twice = [proposal, chatAsk, chatAnswer, formsOffer];

@@ -29,6 +29,7 @@
  */
 import { CASE_FILE_SECTION, SLOT_FACTS, emptyCaseFile, give, type SlotFact } from "./caseFile";
 import type { CaseFact } from "./factsOfQuestion";
+import { fitsFactType } from "./factTypes";
 import { readCheckpoint, type IntakeCourt } from "../intakeCheckpoint";
 import { caseTitleFromIntake } from "../caseTitle";
 
@@ -142,7 +143,11 @@ export function readFactWrites(body: unknown): { ok: true; writes: FactWrite[] }
  */
 function normalised(write: FactWrite): { state: FactState; value?: FactValue } | null {
   if (write.state !== "answered") return { state: write.state };
-  if (!isSlot(write.fact)) return { state: "answered", value: write.value };
+  // Every fact keeps only a value of its type (factTypes.ts; decision 1, 18 Nov 2026); a slot through give, below.
+  if (!isSlot(write.fact)) {
+    const fits = fitsFactType(write.fact, write.value);
+    return fits.ok ? { state: "answered", value: fits.value } : null;
+  }
   const file = emptyCaseFile();
   give(file, write.fact, write.value, write.question ?? "fact");
   const slot = file[write.fact];

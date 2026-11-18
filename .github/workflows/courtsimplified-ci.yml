@@ -134,6 +134,9 @@ jobs:
 
       - name: Every question the site asks by id asks for a fact of the case
         run: npm run test:every-question-has-fact
+
+      - name: Every fact has a type, and the one writer keeps only a value of that type
+        run: npm run test:fact-types
       - name: No stale or missing copy of lost pay, an amount in words, the parties or the claim against the person
         run: npm run test:stale-copies
       - name: Each court's own words for the parties from one function; Family never asks "A person or a company?"

@@ -20,11 +20,12 @@ import { amountWithCostsNote } from "../../src/lib/case-system/format/recordedAm
 import { FORM_7A } from "../../src/lib/case-system/forms/maps/form7A";
 import { fillForm, pdfValues } from "../../src/lib/case-system/forms/formMap";
 import { formContextOf } from "../../src/lib/case-system/forms/formContext";
-import { factStatus, mayAskWords } from "../../src/lib/case-system/caseFile/factStatus";
+import { factStatus, mayAskWords, settledNotSure } from "../../src/lib/case-system/caseFile/factStatus";
 import { storySuggestionFor } from "../../src/lib/case-system/family/triageStoryQuote";
 import { emptyStatusRecord, selectNextTriageQuestion } from "../../src/lib/case-system/family/statusTriage";
 import { factOfAskedText } from "../../src/lib/case-system/caseFile/factsOfQuestion";
 import { offerForAskedWords } from "../../src/lib/case-system/caseFile/storyOffers";
+import { foldsAsNotAnswered } from "../../app/_components/NotAnsweredYet";
 
 let failed = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -125,8 +126,14 @@ section("Finding 5", () => {
   const sued = { courtPath: "small-claims", side: { value: "responding" }, story: "I was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.", position: {}, claimKind: null } as unknown as CaseRecord;
   const chatAnswer = "The contractor's work was bad: the cabinets are crooked and the countertop is cracked. I already paid $2,000.";
   const servedMaster = { intakeCheckpoint: { version: 1, flowId: "00000000-0000-4000-8000-0000000000f5", courtPath: "small-claims", revision: "00000000-0000-4000-8000-0000000000f6", sections: { story: { text: sued.story }, situation: { record: { where: "served", stage: "just-served", papers: "small-claims-7A", court: "small-claims" } }, builder: { step: "guided" }, guided: { earlierAnswers: [{ questionId: "sc-defendant-counterclaim", answerText: chatAnswer }] } } } };
+  // Decision 1 (site owner, 18 Nov 2026, option c): a yes/no fact takes only a yes or no; the story's sentence is never
+  // offered for it in the chat (test:fact-types), and a sentence is never taken as their Yes on the Forms tab. Their Yes
+  // or No is kept, so the Forms tab never asks it again.
   const offeredClaim = suggestApplicability(DEFENDANTS_CLAIM, sued, servedMaster)[0];
-  check("F5 their chat answer to \"a claim of your own\" is offered on the Forms tab (once), never asked cold", offeredClaim?.value === true && !offeredClaim.firm && offeredClaim.reason.includes("cabinets are crooked"), JSON.stringify(offeredClaim));
+  check("F5 a sentence answer to \"a claim of your own\" is never taken as their Yes on the Forms tab", !offeredClaim || !(offeredClaim.reason ?? "").includes("cabinets are crooked"), JSON.stringify(offeredClaim));
+  const saidYes = { intakeCheckpoint: { ...servedMaster.intakeCheckpoint, sections: { ...servedMaster.intakeCheckpoint.sections, guided: { earlierAnswers: [{ questionId: "sc-defendant-counterclaim", answerText: "Yes" }] } } } };
+  const keptYes = suggestApplicability(DEFENDANTS_CLAIM, sued, saidYes)[0];
+  check("F5 their Yes to \"a claim of your own\" is kept on the Forms tab, never asked cold", keptYes?.value === true && keptYes.firm === true, JSON.stringify(keptYes));
   const noAnswer = suggestApplicability(DEFENDANTS_CLAIM, sued, { intakeCheckpoint: { ...servedMaster.intakeCheckpoint, sections: { ...servedMaster.intakeCheckpoint.sections, guided: {} } } })[0];
   check("F5 self-test: never answered, nothing is offered from it", !noAnswer || !noAnswer.reason.includes("when asked whether the plaintiff"), JSON.stringify(noAnswer));
 });
@@ -193,8 +200,13 @@ section("Home reading offers (real readings S2 r3, S8 r2, S6 r1)", () => {
   // their own claim, and was offered the $4,200 claimed against them.
   const S6 = "A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.";
   const defending = [{ label: "Your role", value: "Defendant" }, { label: "Amount claimed", value: "$4,200" }];
-  check("S6 self-test: without the role, the same reading offers $4,200 (so the two checks above test the role)", offerForAskedWords(null, "If you want money from the contractor, how much are you seeking?", S6, [{ label: "Amount claimed", value: "$4,200" }])?.value === "$4,200");
-  check("S6 r1: a defendant is not offered the amount claimed against them as what they seek", offerForAskedWords(null, "If you want money from the contractor, how much are you seeking?", S6, defending) === null);
+  // The role decides an amount question asked plainly: without it, the reading's $4,200 is offered; with it, nothing.
+  check("S6 self-test: without the role, a plain amount question offers $4,200 (so the role check below tests the role)", offerForAskedWords(null, "How much money are you seeking?", S6, [{ label: "Amount claimed", value: "$4,200" }])?.value === "$4,200");
+  check("S6: a defendant is not offered the amount claimed against them for a plain amount question", offerForAskedWords(null, "How much money are you seeking?", S6, defending) === null);
+  // "If you want money from ..." is never the claim's amount, for anyone (factOfAskedText; replay round 2, S6 r1 asked it on
+  // the home page after the start gave $4,200).
+  check("S6 r1: \"If you want money from the contractor, how much are you seeking?\" offers nothing", offerForAskedWords(null, "If you want money from the contractor, how much are you seeking?", S6, defending) === null && offerForAskedWords(null, "If you want money from the contractor, how much are you seeking?", S6, [{ label: "Amount claimed", value: "$4,200" }]) === null);
+  check("S6 r1: and is not asking the claim's amount (so it is not a repeat of the start's $4,200)", factOfAskedText("If you want money from the contractor, how much are you seeking?") === null && factOfAskedText("How much money are you seeking?") === "amount");
   check("S6 r1: nor for the compound outcome question", offerForAskedWords(null, "Are you only disputing the unpaid $4,200, or do you also want the contractor to pay you money?", S6, defending) === null);
   check("S6 self-test: the person bringing the claim is still offered their amount", offerForAskedWords(null, "How much money are you seeking in total, including the deposit?", S2, [{ label: "Your role", value: "Plaintiff" }])?.value === "$1,200");
   check("self-test: a question about something else offers nothing", offerForAskedWords(null, "When did the contractor stop working?", S2, []) === null);
@@ -212,6 +224,20 @@ section("Finding 8", () => {
     "Are there any immediate safety concerns for you or your child?",
   ]) check(`F8 "${question.slice(0, 60)}..." asks the safety fact`, factOfAskedText(question) === "safety", String(factOfAskedText(question)));
   check("F8 self-test: a question about safety rules is not the safety fact", factOfAskedText("What safety rules did the store have to follow?") !== "safety");
+});
+
+section("A cleared box stays a box (form-box-follows-record, 18 Nov)", () => {
+  // Moving the form's quiet line onto the one function (stillNeeded) folded a box the person CLEARED ("removed", which the
+  // one function counts as settled) into "Not answered yet", so the box was gone (browser run, all three courts).
+  const base = caseFileOf({ version: 1, flowId: "fold", courtPath: "small-claims", revision: "fold", sections: {} } as never);
+  const cleared = { ...base, amount: { state: "not-asked" as const, confirmed: true, removed: true as const } };
+  const notSure = { ...base, amount: { state: "unsure" as const, confirmed: true } };
+  check("a cleared box is not folded into \"Not answered yet\"", !foldsAsNotAnswered(cleared, ["amount"], ""));
+  check("self-test: a confirmed \"I'm not sure\" with an empty box folds", foldsAsNotAnswered(notSure, ["amount"], ""));
+  check("self-test: an unconfirmed \"not sure\" is still to ask: not folded", !foldsAsNotAnswered({ ...base, amount: { state: "unsure" as const, confirmed: false } }, ["amount"], ""));
+  // Everywhere a box folds on "settled": the two boxes that do (found by searching "=== \"settled\"" with a fold).
+  check("the one test: settled by \"not sure\", never by clearing", !settledNotSure(cleared, "amount") && settledNotSure(notSure, "amount"));
+  check("both folding boxes use it (NotAnsweredYet, AskedField)", /settledNotSure\(file, item\.fact\)/.test(source("app/_components/NotAnsweredYet.tsx")) && /settledNotSure\(file, decision\.fact\)/.test(source("app/_components/AskedField.tsx")));
 });
 
 console.log(failed ? `\n${failed} check(s) FAILED.` : "\nAll Chrome pass 2 checks passed.");

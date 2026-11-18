@@ -20,6 +20,7 @@ import { fieldRow } from "../../src/lib/case-system/caseFile/fieldFacts";
 import type { FactId } from "../../src/lib/case-system/caseFile/factRecord";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { readParties, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
+import { PARTY_DETAIL_TYPES, partyDetailFits } from "../../src/lib/case-system/caseFile/factTypes";
 import { offerChoiceParts, OFFER_CHOICES_FIELD, type OfferChoice, type OfferTarget } from "../../src/lib/case-system/caseFile/offerChoice";
 
 /** The parts of the intake recovery the writer uses (IntakeRecovery's value, or a stand-in in the checks). */
@@ -93,6 +94,16 @@ export function writeFormBox(recovery: CaseWriteRecovery, section: string, field
 export function writeParties(recovery: CaseWriteRecovery, record: PartiesRecord): void {
   const checked = readParties(JSON.parse(JSON.stringify(record)));
   if (!checked) throw new Error("The parties could not be saved: the record is not well formed.");
+  // A detail written now keeps only a value of its type: a place is never a name (factTypes.ts; decision 1, 18 Nov 2026).
+  // Only what changed is checked, so a record saved before the rule is still read and saved as it was.
+  const before = readParties(recovery.read(CASE_FILE_SECTION, "parties"));
+  for (const party of checked.list) {
+    const was = before?.list.find((item) => item.id === party.id);
+    for (const [detail, value] of Object.entries(party.details)) {
+      if (typeof value !== "string" || !value.trim() || (was?.details as Record<string, unknown> | undefined)?.[detail] === value) continue;
+      if (!partyDetailFits(detail, value)) throw new Error(PARTY_DETAIL_TYPES[detail as keyof typeof PARTY_DETAIL_TYPES] === "name" ? `“${value.trim()}” cannot be a name here: it is a place or a question. Type the name, or leave it empty.` : `“${value.trim()}” does not fit this box.`);
+    }
+  }
   recovery.put(CASE_FILE_SECTION, "parties", checked, true, true, true);
 }
 

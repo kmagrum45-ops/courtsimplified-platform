@@ -53,7 +53,8 @@ export const QUESTION_WORDS: readonly (readonly [RegExp, readonly string[]])[] =
   // The home page's questions Chrome saw asked again (check of #550, 13 Nov): what has happened in the case since
   // the person was served (the start screen's stage), a claim of their own (the outcome), safety, and who bought.
   [/\b(?:has|have) anything(?: else)? happened\b[^?]*\b(?:case|court|claim|since)\b/i, ["stage"]],
-  [/\bclaim of your own\b|\bcounter-?claim\b/i, ["outcome"]],
+  // Whether they claim money back: the yes/no fact defendantsClaim (decision 1, 18 Nov 2026), as the site maps it.
+  [/\bclaim of your own\b|\bcounter-?claim\b/i, ["defendantsClaim"]],
   [/\bsafety (?:concerns?|worry|worries)\b/i, ["safety"]],
   [/\bwho bought\b|\bwho did you sell\b/i, ["otherParty"]],
 ];

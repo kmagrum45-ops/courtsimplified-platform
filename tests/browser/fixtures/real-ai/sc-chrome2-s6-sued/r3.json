@@ -202,6 +202,36 @@
           "disputeCategory"
         ]
       }
+    },
+    {
+      "step": "story-suggestions",
+      "input": "e959ad5237032a98",
+      "said": "{\"story\":\"The person's story:\\nI was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.\\n\\nHanded to me at my door.\\n\\nWe agreed $6,200 for cabinets and countertop.\\n\\nThe cabinets are crooked and the countertop is cracked.\\n\\nQ: Roughly when did the situation that led to this claim happen?\\nA: August 2026\\n\\nQ: Are you only responding to the Plaintiff's Claim, or are you asking the court for an outcome of your own? Describe it in your own words.\\nA: Test Kitchens Inc.\",\"questions\":[\"sc-defendant-count",
+      "output": []
+    },
+    {
+      "step": "story-suggestions",
+      "input": "a48d100c403c385e",
+      "said": "{\"story\":\"The person's story:\\nI was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.\\n\\nHanded to me at my door.\\n\\nWe agreed $6,200 for cabinets and countertop.\\n\\nThe cabinets are crooked and the countertop is cracked.\\n\\nQ: Roughly when did the situation that led to this claim happen?\\nA: August 2026\\n\\nQ: Are you only responding to the Plaintiff's Claim, or are you asking the court for an outcome of your own? Describe it in your own words.\\nA: Test Kitchens Inc.\\n\\nQ: Do you believe the plaintif",
+      "output": []
+    },
+    {
+      "step": "safety",
+      "input": "7872416b353d453f",
+      "said": "{\"said\":\"Yes\"}",
+      "output": {
+        "classification": "clear",
+        "requestsLegalAdvice": false
+      }
+    },
+    {
+      "step": "fact-reading",
+      "input": "7872416b353d453f",
+      "said": "{\"said\":\"Yes\"}",
+      "output": {
+        "facts": {},
+        "directFields": []
+      }
     }
   ]
 }

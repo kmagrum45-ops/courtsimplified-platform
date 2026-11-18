@@ -26,3 +26,9 @@ export const ADD_IT_LATER = "Add it";
  * (site owner, 14 Nov 2026, decision A: the owner's own words).
  */
 export const MARRIED_UNSURE_NOTE = "You can add this when you know.";
+/** The control that shows why a question is asked, and hides it again (the Family triage). */
+export const WHY_ASKED_SHOW = "Why is this asked?";
+export const WHY_ASKED_HIDE = "Hide why this is asked";
+/** The words around a story's value offered for a question: "Is this right: <value>?" (the Family triage). */
+export const IS_THIS_RIGHT_BEFORE = "Is this right: ";
+export const IS_THIS_RIGHT_AFTER = "?";

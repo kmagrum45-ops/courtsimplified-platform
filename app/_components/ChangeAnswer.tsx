@@ -52,6 +52,7 @@ export const FACT_LABEL: Record<SlotFact, string> = {
   conferenceDate: "Conference date",
   defenceFiled: "Defence or answer filed",
   outcome: "Outcome you want",
+  defendantsClaim: "A claim of your own against them",
   urgent: "Anything urgent",
   safety: "Safety concerns",
   courtDate: "Next court date",

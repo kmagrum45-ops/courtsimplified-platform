@@ -1,5 +1,6 @@
 /** Review provenance on workflowStatus; intakeCompleted remains the completion flag. */
 import { sentences as sharedSentences } from "./sentences";
+import { suggestionFits } from "./caseFile/factTypes";
 import { canonicalJson } from "./canonicalJson";
 import { sideOf, situationAnswers, situationOf, stageWords } from "./situation/situation";
 import { countable, dayWrittenBefore, findDates, formatForCourt, findDayMonthWithoutYear, isRealIsoDate, MONTH_WORDS_EN } from "./dates";
@@ -830,7 +831,8 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
   if (amount) out["sc-amount-claimed"] = amount.value;
   const goal = goalFromStory(story);
   if (goal) out["sc-remedy-sought"] = goal.value;
-  return out;
+  // Each only when it fits its question's fact (factTypes.ts; decision 1, 18 Nov 2026).
+  return Object.fromEntries(Object.entries(out).filter(([questionId, value]) => suggestionFits(questionId, value)));
 }
 
 /**

@@ -12,7 +12,7 @@
  * still caught. Pure.
  */
 export type CaseFact =
-  | "situation" | "side" | "court" | "stage" | "filed" | "defenceFiled" | "claimServed" | "papers"
+  | "situation" | "side" | "court" | "stage" | "filed" | "defenceFiled" | "defendantsClaim" | "claimServed" | "papers"
   | "servedDate" | "serviceMethod" | "amount" | "otherParty" | "children" | "married" | "claimKind"
   | "wants" | "whenHappened" | "evidence" | "story" | "urgent" | "courtFileNumber" | "courtDate"
   | "conferenceDate" | "claimIssuedDate" | "defenceFiledDate" | "marriedWhere" | "outcome" | "filedDocuments" | "safety"
@@ -50,12 +50,14 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   urgent: ["urgent"],
   amountClaimed: ["amount"],
   courtFileNumber: ["courtFileNumber"],
-  defendantOutcomeText: ["outcome"],
-  // The person being sued says whether they want anything of their own in the same words as their outcome, so a claim
-  // of their own is the outcome (Chrome check of #550, 5b: offered again after "I only want to defend the claim").
-  "sc-defendant-outcome": ["outcome"],
-  "sc-defendant-counterclaim": ["outcome"],
-  counterclaimIntentText: ["outcome"],
+  // The person being sued says whether they want anything of their own in the same words as their outcome, so the two
+  // questions ask the same two facts (Chrome check of #550, 5b: offered again after "I only want to defend the claim"):
+  // their outcome in their words, and whether they claim money back, a yes/no fact a sentence never fills (decision 1,
+  // 18 Nov 2026; factTypes.ts). Either answered, neither question is asked again.
+  defendantOutcomeText: ["outcome", "defendantsClaim"],
+  "sc-defendant-outcome": ["outcome", "defendantsClaim"],
+  "sc-defendant-counterclaim": ["defendantsClaim", "outcome"],
+  counterclaimIntentText: ["defendantsClaim", "outcome"],
   // Family's safety box, and the home page's safety question (5c).
   safetyConcerns: ["safety"],
   remedySought: ["wants"],
@@ -192,7 +194,7 @@ const ASKS_FOR: [RegExp, CaseFact][] = [
   [/\bconcerns? about [^?]{0,40}?\b(?:violence|safety|abuse)\b|\b(?:family|domestic|intimate partner) violence\b|\bat risk of (?:harm|being harmed)\b|\b(?:your|the) (?:child'?s|children'?s) safety\b/i, "safety"],
   // A claim of the person's own against the one suing them: the person's outcome (5b: "A claim of your own against them"
   // was offered after "I only want to defend the claim").
-  [/\bclaim of your own\b|\bcounter-?claim\b|\bdefendant'?s claim\b/i, "outcome"],
+  [/\bclaim of your own\b|\bcounter-?claim\b|\bdefendant'?s claim\b/i, "defendantsClaim"],
   // Whether they were married to each other, in the words the home page's reading and the case page's "What to confirm
   // next" use (Chrome milestone test of #550, rows 39 and 45: "Are you and your partner legally married?" on the home page,
   // the triage's own question, and "Were you married, is a divorce proceeding underway..." after "No"). Never "married
@@ -202,7 +204,7 @@ const ASKS_FOR: [RegExp, CaseFact][] = [
 
 /** Read only for a person being sued: the same words asked of a person suing name another fact (or none). */
 const ASKS_FOR_RESPONDING: [RegExp, CaseFact][] = [
-  [/\b(?:do|does) you (?:believe|think) (?:that )?(?:the )?[\w' ]{1,40}? owes? you (?:any )?money\b/i, "outcome"],
+  [/\b(?:do|does) you (?:believe|think) (?:that )?(?:the )?[\w' ]{1,40}? owes? you (?:any )?money\b/i, "defendantsClaim"],
 ];
 
 /**
@@ -212,9 +214,15 @@ const ASKS_FOR_RESPONDING: [RegExp, CaseFact][] = [
  */
 const ABOUT_YOUR_OWN_SIDE = /\byou personally\b|\b(?:a|the) business you (?:operate|own|run)\b|\byourself\b/i;
 
+const IF_YOU_WANT_MONEY = /\bif you (?:also )?want (?:any )?(?:money|to be paid|compensation)\b/i;
+
 export function factOfAskedText(question: string, options: { responding?: boolean } = {}): CaseFact | null {
   const fact = ASKS_FOR.find(([asks]) => asks.test(question))?.[1] ?? (options.responding ? ASKS_FOR_RESPONDING.find(([asks]) => asks.test(question))?.[1] : undefined) ?? null;
-  return fact === "otherParty" && ABOUT_YOUR_OWN_SIDE.test(question) ? null : fact;
+  if (fact === "otherParty" && ABOUT_YOUR_OWN_SIDE.test(question)) return null;
+  // "If you want money from the contractor, how much are you seeking?" asks the amount of a claim of the person's own,
+  // not the claim's amount (real reading S6 r1, 18 Nov 2026: a defendant was asked it after the start gave $4,200).
+  if (fact === "amount" && IF_YOU_WANT_MONEY.test(question)) return null;
+  return fact;
 }
 
 /**

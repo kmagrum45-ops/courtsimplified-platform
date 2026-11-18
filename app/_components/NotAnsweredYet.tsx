@@ -18,9 +18,9 @@
 import { useState, type ReactNode } from "react";
 import ChangeAnswer, { CHANGED_AT_THE_START, changeChoices } from "./ChangeAnswer";
 import { useIntakeRecovery, useIntakeReviewView } from "./IntakeRecovery";
-import { caseFileOf, isUnsureAnswer, slotsOfQuestion, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, isUnsureAnswer, slotsOfQuestion, type CaseFile, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "../../src/lib/case-system/copy/askCopy";
-import { stillNeeded } from "../../src/lib/case-system/caseFile/factStatus";
+import { settledNotSure, stillNeeded } from "../../src/lib/case-system/caseFile/factStatus";
 
 /** The review's quiet line for a fact: its name (when given), the words, and the control to add it. */
 export default function NotAnsweredYet({ fact, court, name, startOpen = false, control }: { fact?: SlotFact; court: string | null | undefined; name?: string; startOpen?: boolean; control?: ReactNode }) {
@@ -40,6 +40,19 @@ const blank = (value: unknown) => value === undefined || value === null || (type
  * sure and the box holds nothing (or "I don't know"); otherwise the box itself. `facts`: the facts the
  * box asks for, where its key names none (a timeline box asks when it happened).
  */
+/**
+ * Whether a box folds into "Not answered yet": its own words are a "not sure", or the one function says every one of its
+ * facts is settled by a confirmed "I'm not sure" (caseFile/factStatus.ts stillNeeded), none known or offered, and the box is
+ * empty. A box the person cleared ("removed", settled too) stays an empty box (18 Nov 2026: form-box-follows-record, "a
+ * cleared box stays empty", folded after the move to stillNeeded). Pure: test:chrome-pass-2 runs it.
+ */
+export function foldsAsNotAnswered(file: CaseFile | null, own: readonly SlotFact[], value: unknown): boolean {
+  if (isUnsureAnswer(value)) return true;
+  if (!file || own.length === 0) return false;
+  const needed = stillNeeded(file, own);
+  return needed.some((item) => item.addWhenYouKnow && settledNotSure(file, item.fact)) && needed.length === own.length && !needed.some((item) => item.status === "offer") && blank(value);
+}
+
 export function NotAnsweredYetField({ field, facts, value, label, children }: { field: string; facts?: SlotFact[]; value: unknown; label: ReactNode; children: ReactNode }) {
   const view = useIntakeReviewView();
   const recovery = useIntakeRecovery();
@@ -52,8 +65,7 @@ export function NotAnsweredYetField({ field, facts, value, label, children }: { 
   // impact breakdown = I do not know yet" stands for no fact (item 4, 6 Nov; Chrome check of #543, step 5b).
   // Folded only when the one function says the fact is settled ("I'm not sure" confirmed) and none of the box's facts is known:
   // an unconfirmed "not sure" is still to ask, so its box stays open (caseFile/factStatus.ts stillNeeded).
-  const needed = file ? stillNeeded(file, own) : [];
-  const folded = !opened && (isUnsureAnswer(value) || (file !== null && own.length > 0 && needed.some((item) => item.addWhenYouKnow) && needed.length === own.length && !needed.some((item) => item.status === "offer") && blank(value)));
+  const folded = !opened && foldsAsNotAnswered(file, own, value);
   if (folded) {
     return (
       <div className="block" data-testid="not-answered-yet" data-fact={own[0]} data-field={field}>

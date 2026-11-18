@@ -64,7 +64,8 @@ async function main() {
   ] as const) {
     await check(`2. "${question}": the outcome is held; neither the outcome nor the counterclaim question is asked again`, () => {
       const file = caseFileOf(checkpoint("small-claims", { ...SERVED, ...home(question, answer) }));
-      assert.equal(factOfAskedText(question, { responding: true }), "outcome", "the word reader does not know this question");
+      // Whether they claim money back: the yes/no fact defendantsClaim, asked with the outcome (decision 1, 18 Nov 2026).
+      assert.equal(factOfAskedText(question, { responding: true }), "defendantsClaim", "the word reader does not know this question");
       for (const id of ["sc-defendant-outcome", "sc-defendant-counterclaim"]) assert.ok(!["ask", "offer"].includes(questionStatus(file, id)), `${id} may still be asked: ${questionStatus(file, id)}`);
     });
   }

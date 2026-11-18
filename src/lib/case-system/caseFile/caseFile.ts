@@ -40,18 +40,19 @@ import { isKindOfClaim, kindFromStory, storyQuoteFor, wordsInStory } from "../in
 import { CLAIM_TYPES } from "../intake/claimTypes";
 import { kindForSide } from "../intake/roleView";
 import { chatQuestionOf, chatSentencesFor, factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
-import { amountWithCostsNote, parseRecordedAmount } from "../format/recordedAmount";
+import { parseRecordedAmount } from "../format/recordedAmount";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
 import { chatMayAsk, slotStatus } from "./factStatus";
 import { partyName, readParties, type PartiesHeld } from "../parties/parties";
 import { partiesFromOldShapes } from "./oldParties";
+import { fitsFactType } from "./factTypes";
 
 /** The case file's slots, in the order "What we have so far" shows them. */
 export const SLOT_FACTS = [
   "side", "court", "stage", "filed", "papers", "servedDate", "amount", "otherParty", "children",
   "married", "marriedWhere", "claimKind", "wants", "whenHappened", "conferenceDate", "defenceFiled",
-  "outcome", "urgent", "courtDate", "safety",
+  "outcome", "defendantsClaim", "urgent", "courtDate", "safety",
   // The story, held once it is given (founder, 1 Nov: no screen asks for it again; its words are `storyText`).
   "story",
 ] as const;
@@ -65,7 +66,10 @@ export type SlotSource = { kind: "answer"; question: string } | { kind: "story";
  * `declined`: the person said the story's value was not right ("No, that's not right"): not known, asked once
  * (factStatus.ts, site owner 11 Nov 2026).
  */
-/** `note`: words kept beside an amount ("plus my costs"), never dropped (format/recordedAmount.ts amountWithCostsNote). */
+/**
+ * `note`: words kept beside a value, never dropped: beside an amount ("plus my costs"; format/recordedAmount.ts
+ * amountWithCostsNote), or a person's whole answer beside the Yes or No it opens with (factTypes.ts).
+ */
 export type Slot = { state: SlotState; value?: string | number | boolean | string[]; source?: SlotSource; confirmed: boolean; changed?: true; removed?: true; declined?: true; note?: string };
 /** `answers`: every answer given to a named question (its id and words), for the step page's dates. */
 export type CaseFile = Record<SlotFact, Slot> & {
@@ -208,14 +212,17 @@ export function give(file: CaseFile, fact: string, value: unknown, question: str
   }
   // A rough time ("last summer", "June 2026") is kept as given, but is not the day itself:
   // the fact stays unsure, never asked again; the step page shows it folded (item 12; site owner, 31 Oct).
+  // Only a value of the fact's type is kept (factTypes.ts; decision 1, 18 Nov 2026): a sentence is never a yes or no,
+  // words are never an amount, a place is never a name. What does not fit is not kept: the fact stays to ask, and the
+  // person's words stay in the answer they gave.
+  const fits = fitsFactType(fact, value);
+  if (!fits.ok) return;
   if (DATED.has(fact) && typeof value === "string" && !isRealIsoDate(value) && !readFullDay(value)) {
     if (slot.state === "not-asked") file[fact] = { state: "unsure", value, source: { kind: "answer", question }, confirmed: true };
     return;
   }
   // An amount is its sum: "$2,400 plus my costs" is 2400, with "plus my costs" kept as its note (finding 10).
-  const withNote = fact === "amount" && typeof value === "string" && parseRecordedAmount(value) === null ? amountWithCostsNote(value) : null;
-  const kept = fact === "amount" ? (typeof value === "number" ? value : parseRecordedAmount(String(value)) ?? withNote?.amount ?? String(value)) : (value as Slot["value"]);
-  file[fact] = { state: "answered", value: kept, source: { kind: "answer", question }, confirmed: true, ...(withNote ? { note: withNote.note } : {}) };
+  file[fact] = { state: "answered", value: fits.value, source: { kind: "answer", question }, confirmed: true, ...(fits.note ? { note: fits.note } : {}) };
 }
 
 /** Marks a fact unsure ("not sure", a skip), unless it was answered. */

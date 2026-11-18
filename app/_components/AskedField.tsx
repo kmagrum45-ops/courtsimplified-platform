@@ -21,7 +21,7 @@ import { writeFollow } from "./caseWrite";
 import { caseFileOf, changesOf, isUnsureAnswer } from "../../src/lib/case-system/caseFile/caseFile";
 import { askOf, filledToFollow, formFill, seenNow } from "../../src/lib/case-system/intake/asker";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "../../src/lib/case-system/copy/askCopy";
-import { factStatus } from "../../src/lib/case-system/caseFile/factStatus";
+import { settledNotSure } from "../../src/lib/case-system/caseFile/factStatus";
 import { boxesToFollow } from "../../src/lib/case-system/caseFile/boxFollow";
 import { formatForCourt } from "../../src/lib/case-system/dates";
 
@@ -41,8 +41,9 @@ export function AskedField({ field, value, label, children }: { field: string; v
   const [opened, setOpened] = useState(false);
   const decision = askOf(file, field);
   // A box whose own words are a "not sure" is never shown as if they were the answer, whatever its fact (item 4, 6 Nov).
-  // Folded when the one function says the box's fact is settled ("I'm not sure" confirmed): caseFile/factStatus.ts.
-  const folded = !opened && (isUnsureAnswer(value) || (!decision.ask && "fact" in decision && file !== null && factStatus(file, decision.fact) === "settled" && blank(value)));
+  // Folded when the one function says the box's fact is settled by a confirmed "I'm not sure" (caseFile/factStatus.ts
+  // settledNotSure); a box the person cleared stays an empty box.
+  const folded = !opened && (isUnsureAnswer(value) || (!decision.ask && "fact" in decision && settledNotSure(file, decision.fact) && blank(value)));
   if (folded) {
     return (
       <div className="block" data-testid="not-answered-yet" data-fact={"fact" in decision ? decision.fact : undefined} data-field={field}>

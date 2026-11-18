@@ -18,6 +18,7 @@ import { amountOfferFromStory, oneClickQuote } from "../../../../app/builder/_co
 import { otherPartyFromUnderstanding } from "./understoodOtherParty";
 import { factOfAskedText } from "./factsOfQuestion";
 import { factStatus } from "./factStatus";
+import { fitsFactType } from "./factTypes";
 import type { CaseFile } from "./caseFile";
 
 export type ReadingFact = { label: string; value: string };
@@ -89,7 +90,8 @@ export function offeredAmount(story: string, reading: readonly ReadingFact[], op
 /** The other party's name to offer: the reading's, when the story writes it and it is not a witness (understoodOtherParty.ts). */
 export function offeredOtherParty(story: string, reading: readonly ReadingFact[]): StoryOffer | null {
   const name = otherPartyFromUnderstanding(reading, story);
-  return name ? { value: name, quote: reading.find((fact) => fact.value.includes(name))?.value ?? name, from: "reading" } : null;
+  // Only a name: never a place (factTypes.ts; decision 1, 18 Nov 2026).
+  return name && fitsFactType("otherParty", name).ok ? { value: name, quote: reading.find((fact) => fact.value.includes(name))?.value ?? name, from: "reading" } : null;
 }
 
 /**
