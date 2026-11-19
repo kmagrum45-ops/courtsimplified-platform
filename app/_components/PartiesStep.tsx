@@ -24,6 +24,7 @@ import { locationOf } from "../../src/lib/case-system/intakeStory";
 import {
   detailStatus, detailsToAsk, partyName, partyOfOffer, partySideWord, sideWordsOf, storyPartyOffers,
   type Party, type PartiesRecord, type PartyDetail, type PartyKind, type PartyOffer,
+  isCompanyName,
 } from "../../src/lib/case-system/parties/parties";
 import { OFFER_CHOICES } from "../../src/lib/case-system/copy/suggestionCopy";
 import { offeredOtherParty, readingFactsOf } from "../../src/lib/case-system/caseFile/storyOffers";
@@ -50,6 +51,8 @@ function startingRecord(list: readonly Party[], declined: readonly string[], pla
 /** The name given whole, split at its last space, as an offer from the person's own words ("Test Plaintiff"). */
 function nameSplit(party: Party, declined: readonly string[]): { firstName: string; lastName: string } | null {
   if (declined.includes(`name-split:${party.id}`) || party.kind !== "person" || party.details.firstName || party.details.lastName || !party.details.fullName) return null;
+  // A company's name is never split into a first and last name (site owner, 19 Nov 2026; Chrome pass 3 on #550, S2).
+  if (isCompanyName(party.details.fullName)) return null;
   const parts = party.details.fullName.trim().split(/\s+/);
   return parts.length >= 2 ? { firstName: parts.slice(0, -1).join(" "), lastName: parts[parts.length - 1] } : null;
 }
@@ -74,6 +77,15 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
   // leaves the entry, after the pointer is released (afterPointer), so a button below never moves under a click.
   const [inEntry, setInEntry] = useState<string | null>(null);
   const [typedHere, setTypedHere] = useState<Record<string, true>>({});
+  const step = useRef<HTMLElement | null>(null);
+  // The focus left this party's entry (read once it has moved: after the click, or after Tab): its typed boxes fold into
+  // their kept lines. Focus dropped to nothing (an element taken away) counts as left.
+  const leftEntry = (id: string) => {
+    const entry = Array.from(step.current?.querySelectorAll<HTMLElement>("[data-party-id]") ?? []).find((element) => element.dataset.partyId === id);
+    if (entry && entry.contains(document.activeElement)) return;
+    setInEntry((current) => (current === id ? null : current));
+    setTypedHere((current) => Object.fromEntries(Object.entries(current).filter(([key]) => !key.startsWith(`${id}:`))));
+  };
   if (!recovery || !file) return null;
 
   // Family: every party is a person (a parent, a spouse): never asked "A person or a company?" (Chrome milestone test of
@@ -175,7 +187,7 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
   };
 
   return (
-    <section data-testid="parties-step" id="parties" className="space-y-4 rounded-xl border border-[#d8e6df] bg-white p-4">
+    <section ref={step} data-testid="parties-step" id="parties" className="space-y-4 rounded-xl border border-[#d8e6df] bg-white p-4">
       <h2 className="text-lg font-semibold text-[#16302b]">{heading}</h2>
       <p className="text-sm text-[#4d675f]">Each person or company is its own entry. Your details are kept in your case and written into the forms when you download them.</p>
       {record.list.map((party) => {
@@ -186,7 +198,7 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
         return (
           <article key={party.id} data-testid="parties-party" data-party={party.you ? "you" : party.side} data-party-id={party.id} className="space-y-2 rounded-lg border border-[#e3ece7] p-3"
             onFocus={() => setInEntry(party.id)}
-            onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) afterPointer(() => { setInEntry((current) => (current === party.id ? null : current)); setTypedHere((current) => Object.fromEntries(Object.entries(current).filter(([key]) => !key.startsWith(`${party.id}:`)))); }); }}>
+            onBlur={() => afterPointer(() => window.setTimeout(() => leftEntry(party.id), 0))}>
             <h3 className="font-semibold">{sideWord(party)} {number}{party.you ? " (you)" : ""}{partyName(party) ? `: ${partyName(party)}` : ""}</h3>
             {own.map((offer) => (
               <UseSuggestion key={offer.key} offer={{ key: offer.key, fact: null, recordedBy: "screen" }} testId="parties-offer-yes" noTestId="parties-offer-no" unsureTestId="parties-offer-unsure" what={`${LABELS[offer.detail]}: ${offer.value}`} note={offer.from && offer.from !== "story" ? offer.quote : `From your story: "${offer.quote}"`} onUse={() => acceptOffer(offer)} onNo={() => declineOffer(offer)} onUnsure={() => unsureOffer(offer)} />

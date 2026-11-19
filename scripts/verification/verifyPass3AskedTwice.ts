@@ -17,6 +17,9 @@
 import { oneQuestionPerFact, remainingEssentialQuestions, reviewQuestionList } from "../../src/lib/case-system/intakeReview";
 import { slotsOfQuestion } from "../../src/lib/case-system/caseFile/caseFile";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
+import { readFileSync } from "node:fs";
+import { offeredOtherParty } from "../../src/lib/case-system/caseFile/storyOffers";
+import { storyPartyOffers } from "../../src/lib/case-system/parties/parties";
 
 let failed = 0;
 const check = (name: string, ok: boolean, detail = "") => { console.log(`${ok ? "PASS" : "FAIL"}  ${name}${ok || !detail ? "" : `\n      ${detail}`}`); if (!ok) failed++; };
@@ -39,6 +42,20 @@ check("4a. S1: the questions still needed before Continue ask no fact twice", do
 check("4a. S1: the review's list asks no fact twice", doubled(listed).length === 0, doubled(listed).join("; "));
 check("4a. S1: the injury date is not required beside the event date (the same fact)", !remaining.includes("sc-date-injury") && remaining.includes("sc-orient-when-happened"), JSON.stringify(remaining));
 check("planted: two questions of one fact keep only the first", JSON.stringify(oneQuestionPerFact([{ id: "sc-orient-when-happened" }, { id: "sc-date-injury" }, { id: "sc-amount-claimed" }]).map((q) => q.id)) === JSON.stringify(["sc-orient-when-happened", "sc-amount-claimed"]));
+
+// 6a-6c, S2 (French names), with Chrome's inputs.
+const S2_STORY = "I hired Saint-Jérôme Rénovations Ltée. My contractor left the work unfinished and kept my $1,200 deposit.";
+const S2_ANSWERED = [{ question: "Where do you live?", answer: "Gatineau, Quebec. 8 rue de l'Église, Gatineau QC J8X 1A1" }, { question: "Where is the contractor based?", answer: "Saint-Jérôme Rénovations Ltée, 8 rue de l'Église, Gatineau QC J8X 1A1" }];
+const named = offeredOtherParty(S2_STORY, [{ label: "Other party", value: "Saint-Jérôme Rénovations Ltée" }] as never);
+check("6a. S2: the company the reading names is offered whole, never \"Lt\"", named?.value === "Saint-Jérôme Rénovations Ltée", JSON.stringify(named));
+const suing = storyPartyOffers("I am suing Saint-Jérôme Rénovations Ltée for my $1,200 deposit.", { list: [], declined: [] } as never, null, {});
+check("6a. a company named in \"I am suing ...\" ends at its suffix, as a company, never a person's name", suing.some((offer) => offer.detail === "companyName" && offer.value === "Saint-Jérôme Rénovations Ltée") && !suing.some((offer) => offer.detail === "fullName" || offer.detail === "firstName"), JSON.stringify(suing.map((offer) => [offer.detail, offer.value])));
+const s2 = storyPartyOffers(S2_STORY, { list: [{ id: "o1", side: "other", details: {}, unsure: [] }], declined: [] } as never, named, { location: { city: "Gatineau", province: "Ontario" }, answered: S2_ANSWERED });
+const of = (party: string, detail: string) => s2.filter((offer) => offer.party === party && offer.detail === detail).map((offer) => offer.value);
+check("6b. S2: the province answered (Quebec) is offered, never ON over it, and once", JSON.stringify(of("you", "province")) === JSON.stringify(["QC"]), JSON.stringify(of("you", "province")));
+check("6c. S2: the defendant's address typed as an answer is carried (street, city, province, postal code)", of("other:1", "street")[0] === "8 rue de l'Église" && of("other:1", "city")[0] === "Gatineau" && of("other:1", "province")[0] === "QC" && of("other:1", "postalCode")[0] === "J8X 1A1", JSON.stringify(s2.map((offer) => [offer.party, offer.detail, offer.value])));
+const parties = readFileSync("app/_components/PartiesStep.tsx", "utf8");
+check("6a. build check: a company's name is never split into first and last (PartiesStep nameSplit)", /if \(isCompanyName\(party\.details\.fullName\)\) return null;/.test(parties));
 
 console.log(failed ? `\n${failed} check(s) failed` : "\nAll pass-3 asked-twice checks passed");
 process.exitCode = failed ? 1 : 0;

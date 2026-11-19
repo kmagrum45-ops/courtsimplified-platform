@@ -138,8 +138,12 @@ export type PartyOffer = {
   from?: "story" | "start" | "answer";
 };
 
-const STREET = String.raw`\d+[A-Za-z]?(?:-\d+)?\s+(?:[A-Z][\p{L}'.-]*\s+){0,4}(?:Street|St\.?|Road|Rd\.?|Avenue|Ave\.?|Boulevard|Blvd\.?|Drive|Dr\.?|Lane|Ln\.?|Way|Court|Ct\.?|Crescent|Cres\.?|Place|Pl\.?|Terrace|Parkway|Highway|Hwy\.?)`;
-const ADDRESS_RE = new RegExp(String.raw`(${STREET})(?:\s*,\s*(?:(?:Unit|Apt\.?|Suite)\s*\w+)\s*)?\s*,\s*([A-Z][\p{L}'.-]*(?:\s+[A-Z][\p{L}'.-]*){0,3})\s*,?\s+(ON|Ont\.?|Ontario)\b\.?\s*,?\s*([A-Z]\d[A-Z]\s?\d[A-Z]\d)?`, "u");
+// An English street ("100 Sample Road") or a French one, the street word first ("8 rue de l'Église"; Chrome pass 3 on
+// #550, S2, 19 Nov 2026: the defendant's Gatineau address, typed as an answer, was not carried to the Parties step).
+const STREET = String.raw`\d+[A-Za-z]?(?:-\d+)?\s+(?:(?:[A-Z][\p{L}'.-]*\s+){0,4}(?:Street|St\.?|Road|Rd\.?|Avenue|Ave\.?|Boulevard|Blvd\.?|Drive|Dr\.?|Lane|Ln\.?|Way|Court|Ct\.?|Crescent|Cres\.?|Place|Pl\.?|Terrace|Parkway|Highway|Hwy\.?)|(?:[Rr]ue|[Cc]hemin|[Cc]h\.|[Bb]oulevard|[Bb]oul\.|[Aa]venue|[Aa]v\.|[Rr]oute|[Rr]ang|[Mm]ontée|[Cc]ôte|[Pp]lace|[Pp]romenade)\s+(?:(?:de|du|des|de la|de l'|de l’|la|le|les|l'|l’|d'|d’)\s*)?[\p{L}'’.-]+(?:\s+[\p{Lu}][\p{L}'’.-]*){0,3})`;
+/** Every province and territory as an address writes it; the province is kept as written (Ontario as ON). */
+const PROVINCE = String.raw`ON|Ont\.?|Ontario|QC|Qc|Que\.?|Québec|Quebec|AB|Alta\.?|Alberta|BC|B\.C\.|British Columbia|MB|Man\.?|Manitoba|NB|New Brunswick|NL|Newfoundland and Labrador|NS|Nova Scotia|PE|PEI|Prince Edward Island|SK|Sask\.?|Saskatchewan|NT|Northwest Territories|NU|Nunavut|YT|Yukon`;
+const ADDRESS_RE = new RegExp(String.raw`(${STREET})(?:\s*,\s*(?:(?:Unit|Apt\.?|Suite|app\.?|bureau)\s*\w+)\s*)?\s*,\s*([\p{Lu}][\p{L}'.-]*(?:\s+[\p{Lu}][\p{L}'.-]*){0,3})\s*,?\s+(${PROVINCE})(?![\p{L}])\.?\s*,?\s*([A-Z]\d[A-Z]\s?\d[A-Z]\d)?`, "u");
 const PHONE_RE = /(?:\+?1[\s.-]?)?\(?\b\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\b/;
 const EMAIL_RE = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/;
 const YOU_NAME_RE = /\b[Mm]y (?:full |legal )?name is ([A-Z][\p{L}'-]+(?:\s+[A-Z][\p{L}'-]+){0,3})/u;
@@ -153,14 +157,33 @@ export function storySentences(story: string): string[] {
 }
 
 type Address = { street: string; city: string; province: string; postalCode?: string; quote: string };
+/** A province as an address writes it, as its two-letter code (the form's province box): "Quebec", "Qc", "Que." are QC. */
+function provinceCode(written: string): string {
+  const word = written.trim().replace(/\.$/, "").toLowerCase();
+  const codes: [RegExp, string][] = [[/^(?:on|ont|ontario)$/, "ON"], [/^(?:qc|que|québec|quebec)$/, "QC"], [/^(?:ab|alta|alberta)$/, "AB"], [/^(?:bc|b\.c|british columbia)$/, "BC"], [/^(?:mb|man|manitoba)$/, "MB"], [/^(?:nb|new brunswick)$/, "NB"], [/^(?:nl|newfoundland and labrador)$/, "NL"], [/^(?:ns|nova scotia)$/, "NS"], [/^(?:pe|pei|prince edward island)$/, "PE"], [/^(?:sk|sask|saskatchewan)$/, "SK"], [/^(?:nt|northwest territories)$/, "NT"], [/^(?:nu|nunavut)$/, "NU"], [/^(?:yt|yukon)$/, "YT"]];
+  return codes.find(([pattern]) => pattern.test(word))?.[1] ?? written.trim();
+}
+
 function addressIn(text: string): Address | null {
   const match = ADDRESS_RE.exec(text);
   if (!match) return null;
-  return { street: match[1].trim(), city: match[2].trim(), province: /^Ont/i.test(match[3]) ? "ON" : match[3], ...(match[4] ? { postalCode: match[4].toUpperCase().replace(/^(\w{3})(\w{3})$/, "$1 $2") } : {}), quote: match[0].trim() };
+  return { street: match[1].trim(), city: match[2].trim(), province: provinceCode(match[3]), ...(match[4] ? { postalCode: match[4].toUpperCase().replace(/^(\w{3})(\w{3})$/, "$1 $2") } : {}), quote: match[0].trim() };
 }
 
 const isYouSentence = (sentence: string) => YOU_NAME_RE.test(sentence);
 const isSuingSentence = (sentence: string) => SUING_RE.test(sentence);
+
+/**
+ * Where a name read from "I am suing <name> ..." ends: just after a company's suffix ("Saint-Jérôme Rénovations Ltée"),
+ * else before the sentence goes on ("... for my $1,200 deposit", "... because ..."). Read past them, "Saint-Jérôme
+ * Rénovations Ltée for my $1" was offered as a person's name (19 Nov 2026).
+ */
+function nameEnd(name: string | undefined): string | undefined {
+  if (!name) return name;
+  const company = /^(.*?\s(?:Ltd|Ltée|Ltee|Limited|Inc|Incorporated|Corp|Corporation|Co|LLC|LLP)\.?)(?=\s|$)/u.exec(name);
+  if (company) return company[1].trim();
+  return name.split(/\s+(?:for|because|over|about|after|since|who|which|to|from|on|in)\s/)[0].trim();
+}
 
 function offersOf(party: string, details: { detail: PartyDetail; value: string; quote: string }[], name?: string, kind?: PartyKind): PartyOffer[] {
   return details.map(({ detail, value, quote }) => ({ key: `${party === "you" ? "you" : `other:${(name ?? "").toLowerCase()}`}:${detail}:${value.toLowerCase()}`, party, ...(name ? { partyName: name } : {}), ...(kind ? { kind } : {}), detail, value, quote }));
@@ -199,7 +222,7 @@ function allStoryOffers(story: string): PartyOffer[] {
     for (const rawChunk of suing[1].split(/,?\s+and also\s+|,\s+and\s+(?=the\s|[A-Z])|;\s*/)) {
       // "the store manager, Test Manager, at the same address": the role words before the name are not the name.
       const chunk = rawChunk.replace(/^(?:the\s+)?(?:[a-z]+\s+){0,3}[a-z]+,\s*/, "").replace(/[.]$/, (end) => (/\b(?:Ltd|Inc|Corp|Co)$/.test(rawChunk.slice(0, -1)) ? end : ""));
-      const name = /^([A-Z][^,]*?)(?=,|\s+at\s+the\s+same\s+address|\s*$)/.exec(chunk)?.[1]?.trim();
+      const name = nameEnd(/^([A-Z][^,]*?)(?=,|\s+at\s+the\s+same\s+address|\s*$)/.exec(chunk)?.[1]?.trim());
       if (!name) continue;
       others += 1;
       const kind: PartyKind = isCompanyName(name) ? "company" : "person";
@@ -254,9 +277,14 @@ function elsewhereOffers(record: PartiesRecord, given: GivenElsewhere, namedOthe
   const city = given.location?.city?.trim();
   if (city) {
     const quote = `The city you gave at the start: ${city}`;
+    // Never a value over one the person gave (site owner, 19 Nov 2026; Chrome pass 3 on #550, S2: "Province: ON" offered
+    // after "Gatineau, Quebec"): an answer naming this city with another province gives the province instead.
+    const cityWithProvince = new RegExp(String.raw`${city.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\s*,?\s+(${PROVINCE})(?![\p{L}])`, "u");
+    const answeredProvince = (given.answered ?? []).map((item) => ({ item, match: cityWithProvince.exec(item.answer) })).find(({ match }) => match && !/^(?:ON|Ont\.?|Ontario)$/i.test(match[1]));
     offers.push(...offersOf("you", [
       { detail: "city", value: city, quote },
-      ...(!given.location?.province || /^(?:ontario|on)$/i.test(given.location.province.trim()) ? [{ detail: "province" as const, value: "ON", quote: `${quote}, Ontario` }] : []),
+      ...(answeredProvince ? [{ detail: "province" as const, value: provinceCode(answeredProvince.match![1]), quote: `You answered “${answeredProvince.item.answer.trim()}”` }]
+        : !given.location?.province || /^(?:ontario|on)$/i.test(given.location.province.trim()) ? [{ detail: "province" as const, value: "ON", quote: `${quote}, Ontario` }] : []),
     ]).map((offer) => ({ ...offer, from: "start" as const })));
   }
   const firstOther = record.list.find((party) => party.side === "other");
