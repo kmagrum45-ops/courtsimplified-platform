@@ -100,3 +100,14 @@ export function formAnalysisInput<T extends Facts>(input: T, checkpoint: Checkpo
   }
   return out as T;
 }
+
+/**
+ * The checkpoint with this turn's answer among the earlier answers, as the store will hold it once it takes it: the case
+ * file read from it knows what was just answered (Chrome pass 3 on #550, S6). Unchanged when the turn answered nothing.
+ */
+export function withThisAnswer<T extends { sections: Record<string, unknown> } | null>(checkpoint: T, questionId: string | null | undefined, answerText: string | null | undefined): T {
+  if (!checkpoint || !questionId || !answerText) return checkpoint;
+  const guided = (checkpoint.sections.guided ?? {}) as { earlierAnswers?: { questionId: string; answerText: string }[] };
+  const earlier = Array.isArray(guided.earlierAnswers) ? guided.earlierAnswers.filter((item) => item.questionId !== questionId) : [];
+  return { ...checkpoint, sections: { ...checkpoint.sections, guided: { ...guided, earlierAnswers: [...earlier, { questionId, answerText }] } } };
+}

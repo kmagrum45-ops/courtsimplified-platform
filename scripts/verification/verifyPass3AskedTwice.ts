@@ -20,6 +20,9 @@ import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { readFileSync } from "node:fs";
 import { offeredOtherParty } from "../../src/lib/case-system/caseFile/storyOffers";
 import { storyPartyOffers } from "../../src/lib/case-system/parties/parties";
+import { withThisAnswer } from "../../src/lib/case-system/caseFile/chatTurnFacts";
+import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
+import { mayShowQuestion } from "../../src/lib/case-system/caseFile/factStatus";
 
 let failed = 0;
 const check = (name: string, ok: boolean, detail = "") => { console.log(`${ok ? "PASS" : "FAIL"}  ${name}${ok || !detail ? "" : `\n      ${detail}`}`); if (!ok) failed++; };
@@ -43,6 +46,13 @@ check("4a. S1: the review's list asks no fact twice", doubled(listed).length ===
 check("4a. S1: the injury date is not required beside the event date (the same fact)", !remaining.includes("sc-date-injury") && remaining.includes("sc-orient-when-happened"), JSON.stringify(remaining));
 check("planted: two questions of one fact keep only the first", JSON.stringify(oneQuestionPerFact([{ id: "sc-orient-when-happened" }, { id: "sc-date-injury" }, { id: "sc-amount-claimed" }]).map((q) => q.id)) === JSON.stringify(["sc-orient-when-happened", "sc-amount-claimed"]));
 
+// 4d, S6: "a claim of my own" answered, then the story suggestion "Do you believe the plaintiff ... owes you money?" was
+// offered in the same turn: the case file the filter read did not hold the answer yet. Read with this turn's answer, it is not.
+const S6 = { version: 1, flowId: "pass3-s6", courtPath: "small-claims", revision: "r1", sections: { story: { text: "I was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job." }, situation: { record: { where: "served", papers: "small-claims-7A", receivedOn: "2026-10-20", court: "small-claims", stage: "just-served" } }, guided: { started: true, facts: { role: "defendant" }, earlierAnswers: [] } } } as unknown as Checkpoint;
+const s6Now = caseFileOf(withThisAnswer(S6, "sc-defendant-outcome", "Yes, a claim of my own against them too."));
+check("4d. S6: after \"a claim of my own\", the counterclaim question is not offered or asked in the same turn", !mayShowQuestion(s6Now, "sc-defendant-counterclaim") && mayShowQuestion(caseFileOf(S6), "sc-defendant-counterclaim"));
+const chat = readFileSync("app/builder/_components/GuidedSmallClaimsIntake.tsx", "utf8");
+check("4d. build check: the chat filters this turn's offers with this turn's answer in the case file", chat.includes("const fileNow = caseFileOf(withThisAnswer(recovery?.getReview().checkpoint ?? null, answeredQuestionId, newStoryText)"));
 // 6a-6c, S2 (French names), with Chrome's inputs.
 const S2_STORY = "I hired Saint-Jérôme Rénovations Ltée. My contractor left the work unfinished and kept my $1,200 deposit.";
 const S2_ANSWERED = [{ question: "Where do you live?", answer: "Gatineau, Quebec. 8 rue de l'Église, Gatineau QC J8X 1A1" }, { question: "Where is the contractor based?", answer: "Saint-Jérôme Rénovations Ltée, 8 rue de l'Église, Gatineau QC J8X 1A1" }];

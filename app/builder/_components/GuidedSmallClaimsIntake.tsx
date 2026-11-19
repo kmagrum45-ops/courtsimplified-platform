@@ -44,7 +44,7 @@ import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
 import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
 import { storyQuoteFor } from "@/src/lib/case-system/intake/claimKind";
 import { answerNow, askedAndReplied, caseFileOf, CASE_FILE_SECTION, claimKindOf, withTurnedDown, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
-import { turnFactsToSave } from "@/src/lib/case-system/caseFile/chatTurnFacts";
+import { turnFactsToSave, withThisAnswer } from "@/src/lib/case-system/caseFile/chatTurnFacts";
 import { heldForEngine } from "@/src/lib/case-system/intake/asker";
 import { mayShowQuestion } from "@/src/lib/case-system/caseFile/factStatus";
 import { claimKindAiContext, classifyClaimTypeBody } from "@/src/lib/case-system/caseFile/aiCaseContext";
@@ -841,7 +841,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         setClaimGuidance(result.claimGuidance);
       }
       // Never a kind the person turned down ("Not quite") or removed: the case file keeps which (rule 6, 31 Oct).
-      const fileNow = caseFileOf(recovery?.getReview().checkpoint ?? null, recovery?.getSavedMaster() ?? undefined);
+      // With this turn's own answer in it: the store has not taken it yet (setEarlierAnswers above), so the case file read
+      // from the store did not hold it, and an offer of the same fact passed the filter below (Chrome pass 3 on #550, S6:
+      // "a claim of my own", then "Do you believe the plaintiff ... owes you money?", whose answer replaced the first).
+      const fileNow = caseFileOf(withThisAnswer(recovery?.getReview().checkpoint ?? null, answeredQuestionId, newStoryText), recovery?.getSavedMaster() ?? undefined);
       const turnedDownKinds = fileNow.claimKindRemoved ?? [];
       // Nor any kind while the person's own kind is held (confirmed, given, or "not sure"): "Start the questions again"
       // keeps it and offers again only the old story's suggestions (site owner, 6 Nov; Chrome check of #543, step 3).

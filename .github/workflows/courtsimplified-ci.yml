@@ -605,6 +605,9 @@ jobs:
       - name: No two facts declare the same meaning
         run: npm run test:fact-meanings
 
+      - name: Chrome pass 3 on #550 -- nothing asked twice (S1 injury date, S6 claim of your own), S2 names and addresses
+        run: npm run test:pass3-asked-twice
+
       - name: "Where the case is, who the person is in it, what is filed: words, never codes"
         run: npm run test:case-words
 

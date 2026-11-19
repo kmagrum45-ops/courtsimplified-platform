@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-310 documented, 26 without a header.
+311 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -207,6 +207,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:parties-never-to-ai` | **NAMES, ADDRESSES, PHONE NUMBERS AND EMAILS ARE NEVER SENT TO OPENAI (site owner, 14 Nov 2026, rule 3). They are put**<br>into a form only at render time, on the server, from the case record (POST /api/cases/forms/filled). |
 | `npm run test:parties-record` | **THE PARTIES ARE ONE RECORD, READ ONE WAY (site owner, 14 Nov 2026, rules 1 and 2; Chrome forms test on #550: Form 7A**<br>said "Plaintiff name not entered" and "Defendant name not entered", the site never asked the person's name, address, phone or email or the defendant's address, details typed in the story became numbered facts, and a second defendant was merged into the first:  |
 | `npm run test:parties-words-per-court` | **EACH COURT'S OWN WORDS FOR THE PARTIES, FROM ONE FUNCTION; FAMILY NEVER ASKS "A PERSON OR A COMPANY?" (site owner,**<br>16 Nov 2026; Chrome milestone test of #550, row 42 and its note). |
+| `npm run test:pass3-asked-twice` | **CHROME PASS 3 ON #550 (19 Nov 2026): THE "ASKED TWICE" FINDINGS, WITH CHROME'S OWN INPUTS.**<br>4a  S1: the review would not continue until "If this involves an injury, what date did it happen?" was answered, though the story says "On Oct 4, 2026" and "Roughly when did the situation ... happen?" was offered with it on the same page. Both are the one fact |
 | `npm run test:pending-position-saves` | **A SAVE OF THE STEP OR DATES STILL ON ITS WAY SURVIVES A FULL PAGE LOAD (28 Oct, #488 at real speed).**<br>Checks, as properties (pendingPositionSaves.ts, positionSave.ts): - a save is written down before it is sent, and crossed off once the case holds it; - one that finished, even as failed or refused, is crossed off; only one cut off by the page going stays; - re |
 | `npm run test:phase-scope` | **No user reaches an empty screen: a pathway is open only when it has real**<br>content, and a closed one says so at every door. |
 | `npm run test:plain-explanations` | **Plain-language explanations of provisions are shown only when an**<br>independent second model call and code have both found nothing wrong with them (src/lib/case-system/retrieval/explainProvision.ts). |
