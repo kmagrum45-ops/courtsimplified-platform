@@ -910,7 +910,11 @@ export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, 
   if (action === "confirm" && reviewPhase(workflow, checkpoint) === "user-confirmed") return workflow;
   if (action === "confirm" && reviewPhase(workflow, checkpoint) !== "reviewing") throw new Error("Review the current information before confirming it.");
   if (action === "confirm" && remainingEssentialQuestions(checkpoint, master).length) throw new Error("Answer the remaining initial questions, or explicitly mark what you do not know, before confirming.");
-  return { ...workflow, intakeCompleted: action === "confirm", intakeReview: { version: 1, reviewedRevision: expectedInputRevision, ...marker, ...(action === "confirm" ? { confirmedRevision: expectedInputRevision, confirmedAt: now, confirmedFacts: confirmedFactMarks(checkpoint) } : {}) } };
+  // A confirm that closes a change keeps that it did (changeConfirmed): the one press that saves a changed answer also
+  // confirms it (e9131832), so the review was never left open to say so (Chrome pass 3 on #550, CA-1, second pass in a
+  // row: "You changed an answer. Here is what we have now." never appeared). The confirmed panel says it from this.
+  const changeConfirmed = action === "confirm" && object(workflow.intakeReview).changedAfterConfirm === true ? { changeConfirmed: true } : {};
+  return { ...workflow, intakeCompleted: action === "confirm", intakeReview: { version: 1, reviewedRevision: expectedInputRevision, ...marker, ...changeConfirmed, ...(action === "confirm" ? { confirmedRevision: expectedInputRevision, confirmedAt: now, confirmedFacts: confirmedFactMarks(checkpoint) } : {}) } };
 }
 
 /**
@@ -928,6 +932,14 @@ export function reconcileReview(workflow: ObjectValue, previous: Checkpoint, nex
 }
 
 /** An answer was changed after Confirm and it is not confirmed again yet: the review says so (reconcileReview). */
+/**
+ * An answer was changed and the change is now confirmed (transitionReview changeConfirmed): the confirmed review says
+ * "You changed an answer. Here is what we have now." above what it holds, after a reload too, until the next change.
+ */
+export function changeJustConfirmed(workflow: ObjectValue, checkpoint: Checkpoint): boolean {
+  return object(workflow.intakeReview).changeConfirmed === true && reviewPhase(workflow, checkpoint) === "user-confirmed";
+}
+
 export function changedAfterConfirm(workflow: ObjectValue, checkpoint: Checkpoint): boolean {
   return object(workflow.intakeReview).changedAfterConfirm === true && reviewPhase(workflow, checkpoint) !== "user-confirmed";
 }

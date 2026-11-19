@@ -14,7 +14,7 @@
  *
  * Run: npm run test:pass3-asked-twice
  */
-import { oneQuestionPerFact, remainingEssentialQuestions, reviewQuestionList } from "../../src/lib/case-system/intakeReview";
+import { changeJustConfirmed, changedAfterConfirm, inputRevision, oneQuestionPerFact, reconcileReview, remainingEssentialQuestions, reviewQuestionList, transitionReview } from "../../src/lib/case-system/intakeReview";
 import { slotsOfQuestion } from "../../src/lib/case-system/caseFile/caseFile";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { readFileSync } from "node:fs";
@@ -69,3 +69,27 @@ check("6a. build check: a company's name is never split into first and last (Par
 
 console.log(failed ? `\n${failed} check(s) failed` : "\nAll pass-3 asked-twice checks passed");
 process.exitCode = failed ? 1 : 0;
+
+// CA-1 (item 5): "You changed an answer. Here is what we have now." after a change, though the press that saved the
+// change also confirmed it (e9131832): not after a first confirm, said after a confirmed change, gone after the next change.
+{
+  const base = { version: 1, flowId: "pass3-ca", courtPath: "small-claims", revision: "r1", sections: { story: { text: "I lent my friend Alex $3,000 on June 1, 2026 and he has not paid me back.", location: { province: "Ontario", city: "Ottawa" } }, guided: { started: true, facts: { role: "plaintiff" }, earlierAnswers: [{ questionId: "sc-amount-claimed", answerText: "$3,000" }] }, builder: { step: "guided" } } } as unknown as Checkpoint;
+  const ids = remainingEssentialQuestions(base).map((question) => question.id);
+  const cp1 = { ...base, sections: { ...base.sections, builder: { step: "guided", initialUnknowns: ids } } } as unknown as Checkpoint;
+  let workflow: Record<string, unknown> = {};
+  workflow = transitionReview(workflow, cp1, "review", inputRevision(cp1), "2026-11-19T00:00:00Z");
+  workflow = transitionReview(workflow, cp1, "confirm", inputRevision(cp1), "2026-11-19T00:00:00Z");
+  const first = changeJustConfirmed(workflow, cp1);
+  const cp2 = { ...cp1, revision: "r2", sections: { ...cp1.sections, guided: { ...(cp1.sections.guided as object), earlierAnswers: [{ questionId: "sc-amount-claimed", answerText: "$2,500" }] } } } as unknown as Checkpoint;
+  workflow = reconcileReview(workflow, cp1, cp2, true);
+  const pending = changedAfterConfirm(workflow, cp2) && !changeJustConfirmed(workflow, cp2);
+  workflow = transitionReview(workflow, cp2, "confirm", inputRevision(cp2), "2026-11-19T00:01:00Z");
+  const said = changeJustConfirmed(workflow, cp2);
+  const cp3 = { ...cp2, revision: "r3", sections: { ...cp2.sections, guided: { ...(cp2.sections.guided as object), earlierAnswers: [{ questionId: "sc-amount-claimed", answerText: "$2,000" }] } } } as unknown as Checkpoint;
+  const gone = !changeJustConfirmed(reconcileReview(workflow, cp2, cp3, true), cp3);
+  check("5 (CA-1). a changed answer, confirmed by the same press, is said: \"You changed an answer. Here is what we have now.\"", !first && pending && said && gone, JSON.stringify({ first, pending, said, gone }));
+  const panel = readFileSync("app/_components/IntakeReviewPanel.tsx", "utf8");
+  check("5 (CA-1). build check: the confirmed review shows it from the saved record", panel.includes("changeJustConfirmed(workflowStatus, checkpoint) ? <p data-testid=\"intake-change-confirmed\"") && panel.includes("You changed an answer. Here is what we have now.</p>"));
+  console.log(failed ? `\n${failed} check(s) failed` : "\nAll item 5 checks passed");
+  process.exitCode = failed ? 1 : 0;
+}
