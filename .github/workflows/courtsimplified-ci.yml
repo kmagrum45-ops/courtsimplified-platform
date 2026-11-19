@@ -593,6 +593,9 @@ jobs:
       - name: The story pack's parts run exactly the whole pack, each test once
         run: npm run test:story-pack-shards
 
+      - name: Every ask-once story runs in exactly one shard (none in neither, none in both)
+        run: npm run test:ask-once-shards
+
       - name: "Where the case is, who the person is in it, what is filed: words, never codes"
         run: npm run test:case-words
 

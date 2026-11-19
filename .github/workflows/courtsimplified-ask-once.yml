@@ -19,18 +19,45 @@ on:
 permissions:
   contents: read
 
+# Five shards (site owner, 18 Nov 2026): the two jobs of one court each were cancelled at their 60-minute limit on
+# #550 (eb3cc085, no failure), once the real-AI readings were added (about 170 minutes of tests in all). The limit
+# stays 60 minutes. Each shard has its own list of stories, balanced by each story's measured CI time (the eb3cc085
+# and 17 Nov runs; a reading not reached there counted at its story's measured rate): about 34 minutes of tests plus
+# about 4 of setup each. A story's readings all run in its shard. npm run test:ask-once-shards fails on a story in no
+# shard or in two, and checks Playwright's own list for each shard's grep. The job named ask-once below passes only
+# when every shard passed.
 jobs:
-  ask-once:
+  ask-once-shard:
+    name: ask-once (${{ matrix.shard }})
     runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
         include:
-          - part: small-claims
-            grep: "ask once on every page -- sc-"
-          - part: civil-and-family
-            grep: "ask once on every page -- (civil|family)-"
+          - shard: 1
+            stories: >-
+              civil-chrome2-s8-goods family-married-2015 family-served-divorce sc-chrome2-s3-fence sc-laptop
+              sc-loan-friend sc-milestone-s5-loan sc-roofer sc-served-furniture sc-served-roommate
+          - shard: 2
+            stories: >-
+              civil-goods-home civil-served-guarantee civil-tree-fell family-chrome2-s7a-no
+              family-milestone-s7a-not-married family-served-motion sc-chrome2-readings-recorded sc-deposit-venue
+              sc-forms-chrome sc-served-plumber sc-slip-and-fall sc-wages
+          - shard: 3
+            stories: >-
+              civil-fired civil-loan-partner family-chrome2-s7b-unsure family-married-unsure family-moved-away
+              family-served-form8 sc-car-backed sc-iou sc-loan-sister sc-served-cousin sc-served-kitchen-home sc-tree-cut
+          - shard: 4
+            stories: >-
+              civil-builder civil-milestone-s8 family-milestone-s7b-unsure family-never-married family-sell-house
+              sc-chrome2-s2-deposit sc-chrome2-s4-tree sc-contractor-bathroom sc-invoice sc-milestone-s1-injury
+              sc-milestone-s4-tree sc-served-truck
+          - shard: 5
+            stories: >-
+              civil-served-dismissal family-not-married-home family-support-unpaid sc-chrome2-s1-fall
+              sc-chrome2-s5-loan sc-chrome2-s6-sued sc-deposit-landlord sc-mechanic sc-milestone-s6-sued
+              sc-served-kitchen sc-slip-and-fall-changed
     env:
       NODE_OPTIONS: --max-old-space-size=8192
       NEXT_TELEMETRY_DISABLED: 1
@@ -46,20 +73,34 @@ jobs:
         with:
           version: 2.109.0
       - run: npx playwright install --with-deps chromium
-      - name: Ask once on every page, on a local stack (${{ matrix.part }})
+      - name: Ask once on every page, on a local stack (shard ${{ matrix.shard }})
         env:
           CARRY_SPEC: tests/browser/ask-once-pages.spec.ts
-          CARRY_GREP: ${{ matrix.grep }}
           CARRY_PORT: "3100"
           CARRY_OUT: ${{ github.workspace }}/ask-once-out
-        run: bash scripts/browser/carryLocal.sh
+        run: |
+          export CARRY_GREP="$(node scripts/browser/askOnceGrep.mjs ${{ matrix.stories }})"
+          echo "grep: $CARRY_GREP"
+          bash scripts/browser/carryLocal.sh
       - name: Keep the records
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ask-once-records-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.part }}
+          name: ask-once-records-${{ github.run_id }}-${{ github.run_attempt }}-shard${{ matrix.shard }}
           path: |
             ask-once-records/**
             ask-once-out/*.log
           retention-days: 14
           if-no-files-found: ignore
+
+  # The one check named ask-once: it passes only when every shard passed (a cancelled or failed shard fails it).
+  ask-once:
+    name: ask-once
+    needs: ask-once-shard
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Every shard passed
+        run: |
+          echo "shards: ${{ needs.ask-once-shard.result }}"
+          test "${{ needs.ask-once-shard.result }}" = "success"
