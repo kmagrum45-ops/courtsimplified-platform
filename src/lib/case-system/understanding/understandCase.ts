@@ -44,7 +44,7 @@ import type { RetrievalCourt } from "../retrieval/storyRetrieval";
 import { exclusiveTribunalFor, fixedRegimeFor, lienStepFor, tribunalNoticeView, type ExclusiveTribunal, type FixedRegimeId, type TribunalNoticeView } from "../intelligence/fixedRegimes";
 export { tribunalNoticeView, type TribunalNoticeView } from "../intelligence/fixedRegimes";
 import { isMapOwnedInstruction, isMapOwnedProcedure } from "../procedureOwnership";
-import { homeQuestionsFor } from "../questions/factQuestions";
+import { homeQuestionsFor } from "../caseFile/factQuestions";
 import { ALL_STAGES, findStage, isSpecialStage, pathwayOf, type StagePathway } from "../stage-map/stageMap";
 
 // ------------------------------------------------------------------ types

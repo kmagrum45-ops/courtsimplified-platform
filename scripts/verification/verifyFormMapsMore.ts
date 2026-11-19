@@ -280,11 +280,14 @@ async function main() {
   await check("7. 9A as the defendant, with every site question and the follow-up block in the saved story: none of the site's text reaches the reasons", () => {
     const questions = siteQuestions();
     assert.ok(questions.length > 20, `only ${questions.length} site questions found`);
-    const story = [DEFENCE_STORY, ...questions.map((question, index) => `${question} My answer ${index + 1}.`), sourcedAnswerListText([{ question: questions[0], answer: "My follow-up answer." }, { question: questions[1], answer: "My second follow-up answer." }])].join("\n\n");
+    const story = [DEFENCE_STORY, ...questions.map((question, index) => `${question} My answer ${index + 1}.`), sourcedAnswerListText([{ question: questions[0], answer: "I kept every receipt for the deposit." }, { question: questions[1], answer: "We signed a written contract in June." }, { question: questions[2], answer: "$450 only" }])].join("\n\n");
     const record = { ...DEFENCE, sections: { ...DEFENCE.sections, story: { text: story } } } as Checkpoint;
     const values = pdfValues(fillForm(FORM_9A, formContextOf(record)));
     const text = REASONS.map((box) => String(values[box] ?? "")).join(" ");
-    assert.ok(text.includes("I hired Example Renovations Inc.") && text.includes("My answer 1.") && text.includes("My follow-up answer."), `the person's own words are missing: ${text.slice(0, 120)}`);
+    assert.ok(text.includes("I hired Example Renovations Inc.") && text.includes("My answer 1.") && text.includes("I kept every receipt for the deposit."), `the person's own words are missing: ${text.slice(0, 120)}`);
+    // Changed 19 Nov 2026 (site owner: follow-up answers reach a document only as the person's own full sentences): the
+    // answers here are full sentences, and a fragment answer ("$450 only") never reaches the reasons.
+    assert.ok(!text.includes("$450 only"), `a fragment answer reached the reasons: ${text.slice(0, 120)}`);
     const found = questions.filter((question) => text.includes(question));
     assert.deepEqual(found.slice(0, 5).map((question) => `${question} <<< ${text.slice(Math.max(0, text.indexOf(question) - 60), text.indexOf(question) + question.length + 30)}`), [], `${found.length} site question(s) in the reasons`);
     assert.ok(!/Answers to follow-up questions|(^|\s)Q:\s/.test(text), "the site's follow-up block is in the reasons");

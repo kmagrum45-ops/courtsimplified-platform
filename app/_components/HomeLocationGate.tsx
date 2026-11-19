@@ -278,7 +278,7 @@ function HomeLocationGateContent() {
         recovery.put(STORY_SECTION, "text", story, true, true);
         recovery.put(STORY_SECTION, "location", { province: "Ontario", city: city.trim() }, true, true);
         // The answers are held as answers (the case file reads them), not glued onto the story (frontDoorStory).
-        if (answers.length) recovery.put("home", "understoodAnswers", answers, true, true);
+        if (answers.length) writeAnswer(recovery, "home", "understoodAnswers", answers, { external: true });
         // The other party the accepted reading named, on the record through the one writer, so it is never asked again
         // and every screen reads it from there (Chrome check of production c38e69fd, B1; never a witness).
         if (acceptedOtherParty) writeAnswer(recovery, "home", "otherParty", acceptedOtherParty);

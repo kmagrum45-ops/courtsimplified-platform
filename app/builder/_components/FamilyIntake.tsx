@@ -22,6 +22,7 @@ import { IntakeRequest } from "../../_components/intakeRequest";
 import { buildFamilyAnalysis } from "./familyAnalysis";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { writeAnswer } from "../../_components/caseWrite";
 import {
   AnalysisResult,
   StoredCaseData,
@@ -324,7 +325,10 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   const [otherParty, setOtherParty] = useIntakeState("family", "otherParty", () => saved?.otherParty || String(initialValues.otherParty || ""));
   const [childrenInfo, setChildrenInfo] = useIntakeState("family", "childrenInfo", () => saved?.childrenInfo ?? "");
   // Married to the other person: asked once, early, here (guidedFields.ts "married"); the triage reads the case file.
-  const [married, setMarried] = useIntakeState<string>("family", "married", "");
+  const recoveryForMarried = useIntakeRecovery();
+  // Read from the case, saved through the one writer (caseWrite.ts writeAnswer), which records the married fact.
+  const [married, setMarriedShown] = useState<string>(() => String(recoveryForMarried?.read("family", "married") ?? ""));
+  const setMarried = (value: string) => { setMarriedShown(value); if (recoveryForMarried) writeAnswer(recoveryForMarried, "family", "married", value); };
   const [currentLivingSituation, setCurrentLivingSituation] = useIntakeState("family", "currentLivingSituation", () => saved?.currentLivingSituation ?? "");
   const [pastLivingHistory, setPastLivingHistory] = useIntakeState("family", "pastLivingHistory", () => saved?.pastLivingHistory ?? "");
   // The one copy of the story (intakeStory.ts). A story read from a saved case fills an empty one once.

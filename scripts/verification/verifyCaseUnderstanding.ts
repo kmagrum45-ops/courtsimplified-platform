@@ -44,7 +44,7 @@ import {
   askedSide,
 } from "../../src/lib/case-system/understanding/understandCase";
 import { isMapOwnedProcedure } from "../../src/lib/case-system/procedureOwnership";
-import { homeQuestionsFor } from "../../src/lib/case-system/questions/factQuestions";
+import { homeQuestionsFor } from "../../src/lib/case-system/caseFile/factQuestions";
 /** The site's fixed home questions for a Small Claims case being started (questions/factQuestions.ts). */
 const SITE_SC_STARTING = homeQuestionsFor("small-claims", "starting").map((item) => item.question);
 

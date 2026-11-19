@@ -33,7 +33,7 @@ import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
 import { factOfAskedText } from "../../src/lib/case-system/caseFile/factsOfQuestion";
 import { chatMayAsk, questionStatus } from "../../src/lib/case-system/caseFile/factStatus";
 import { askedWhatHappenedSoFar, understandCase } from "../../src/lib/case-system/understanding/understandCase";
-import { homeQuestionsFor } from "../../src/lib/case-system/questions/factQuestions";
+import { homeQuestionsFor } from "../../src/lib/case-system/caseFile/factQuestions";
 import { familyGuidedFields } from "../../app/builder/_components/guidedFields";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 

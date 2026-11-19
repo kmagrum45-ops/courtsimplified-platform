@@ -21,7 +21,7 @@ const FOLLOW_UP_HEADING = /^Answers to follow-up questions about the law that ap
  * know where the water came from"): it may stand in the story as its own sentence. A bare fragment -- an address, a
  * name, "No", "No safety concerns", "Only the $1,200 deposit", "Gatineau, Quebec." -- never does: glued onto the story
  * it printed in the Form 7A reasons box (Chrome pass 3 on #550, 19 Nov 2026: "...$18.45 for medicine. 100 Sample Road,
- * Ottawa ON K1B 0B1 Circle K Convenience Stores Ltd."). The fragment is still held: home.understoodAnswers, read into
+ * Ottawa ON K1B 0B1 Circle K Convenience Stores Ltd."). The fragment is still held as the home page's answer, read into
  * the case file (caseFile.ts homeAnswerFacts) and the Parties step (answeredInIntake).
  */
 const SENTENCE_SUBJECT = /^(?:I|I'm|I’m|I've|I’ve|I'd|I’d|I'll|I’ll|We|We're|We’re|We've|We’ve|My|Our|He|She|They|They're|They’re|It|It's|It’s|There|The|This|That|These|Those|His|Her|Their|Nobody|No one|Someone|Nothing|Everything)\b/i;
@@ -45,7 +45,7 @@ export function frontDoorStory(story: string, answers: readonly { question: stri
 
 /**
  * A story saved before 19 Nov 2026 holds the home page's answers glued on as paragraphs of their own. Taken out: ONLY a
- * paragraph after the first that is exactly one of this case's recorded answers (home.understoodAnswers) and not a full
+ * paragraph after the first that is exactly one of this case's recorded answers (the home page's answers) and not a full
  * sentence of the person's own. Nothing else is touched, so no word the person wrote in their story is ever removed.
  */
 export function withoutGluedAnswers(story: string, answers: readonly string[]): string {

@@ -67,7 +67,10 @@ for (const file of ["app/builder/page.tsx", "app/cases/[id]/page.tsx", "app/case
   check(`B1. ${file} reads "never married" through neverMarried, never its own copy`, /(?:neverMarried|hidesMarriedOnly)\(/.test(read(file)) && !/married\.value === false/.test(read(file)));
 }
 const hideHelper = read("src/lib/case-system/family/marriedOnly.ts").replace(/\r\n/g, "\n").split("export function hidesMarriedOnly")[1]?.split("\n}")[0] ?? "";
-check("B1. the helper that hides married-only content reads never married through neverMarried", /neverMarried\(file!?\)/.test(hideHelper), hideHelper.slice(0, 200));
+// Changed 19 Nov 2026 (site owner: married-only content is hidden until the person says married; Chrome pass 3 on #550,
+// S7): the helper's one reader is now "said married" (saidMarried), not "never married"; the same property, one reader.
+const saidHelper = read("src/lib/case-system/family/marriedOnly.ts").replace(/\r\n/g, "\n").split("export function saidMarried")[1]?.split("\n}")[0] ?? "";
+check("B1. the helper that hides married-only content reads the married answer through its one reader (saidMarried), which reads only the case file's married fact", /return !saidMarried\(file\);/.test(hideHelper) && /file\.married\.state === "answered" && file\.married\.value === true/.test(saidHelper) && !/triage|marriedToOtherParty|family\.married/.test(saidHelper), `${hideHelper.slice(0, 120)} | ${saidHelper.slice(0, 160)}`);
 
 // ---- B2 ----
 const settled = { ...emptyStatusRecord(), marriedToOtherParty: "no" as const, cohabitationStart: "2018", cohabitationEnd: "2025", haveChildTogether: "yes" as const, caseInvolvesChildren: "yes" as const };

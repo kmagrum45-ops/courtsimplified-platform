@@ -84,7 +84,7 @@ check("1b. the writer: a full-sentence answer stays, as its own paragraph", () =
 
 check("2. the home page holds the answers as answers when it leaves (home.understoodAnswers)", () => {
   const source = readFileSync("app/_components/HomeLocationGate.tsx", "utf8");
-  assert.ok(/recovery\.put\("home", "understoodAnswers", answers/.test(source), "the same-flow path does not put home.understoodAnswers");
+  assert.ok(source.includes('writeAnswer(recovery, "home", "understoodAnswers", answers'), "the same-flow path does not save home.understoodAnswers through the one writer");
   assert.ok(/understoodAnswers: answers/.test(source), "the new-case path does not carry home.understoodAnswers");
 });
 

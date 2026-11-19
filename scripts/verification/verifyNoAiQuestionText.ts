@@ -37,9 +37,9 @@ type Q = { id?: string; question: string };
 
 /** The site's fixed words, read from the catalogue file if it exists (before the change it does not). */
 async function siteWords(): Promise<Set<string>> {
-  const file = path.join("src", "lib", "case-system", "questions", "factQuestions.ts");
+  const file = path.join("src", "lib", "case-system", "caseFile", "factQuestions.ts");
   if (!existsSync(file)) return new Set();
-  const module = await import("../../src/lib/case-system/questions/factQuestions");
+  const module = await import("../../src/lib/case-system/caseFile/factQuestions");
   return module.allHomeQuestionWords();
 }
 
@@ -94,12 +94,12 @@ async function main() {
   const card = readFileSync("app/_components/CaseUnderstandingCard.tsx", "utf8");
   check("3b. the home card asks only a site question, by id", /isSiteQuestion\(item\) && mayShowQuestion\(file, item\.id!\)/.test(card) && !/mayAskWords/.test(card));
   if (words.size) {
-    const { GUIDED_WORDS } = await import("../../src/lib/case-system/questions/factQuestions");
+    const { GUIDED_WORDS } = await import("../../src/lib/case-system/caseFile/factQuestions");
     const { civilGuidedFields, familyGuidedFields } = await import("../../app/builder/_components/guidedFields");
     const fields = [...civilGuidedFields({ issues: [], filed: [] } as never).map((field) => [`civil:${field.key}`, field.question]), ...familyGuidedFields({ issues: [], filed: [] }).map((field) => [`family:${field.key}`, field.question])];
     const wrong = Object.entries(GUIDED_WORDS).filter(([key, text]) => fields.find(([fieldKey]) => fieldKey === key)?.[1] !== text).map(([key]) => key);
     check("3c. the fixed Civil and Family words are the questions' own words", wrong.length === 0, wrong.join(", "));
-  } else check("3c. the fixed Civil and Family words are the questions' own words", false, "questions/factQuestions.ts does not exist");
+  } else check("3c. the fixed Civil and Family words are the questions' own words", false, "caseFile/factQuestions.ts does not exist");
   const caseFile = readFileSync("src/lib/case-system/caseFile/caseFile.ts", "utf8");
   check("3d. the case file reads a home answer by its id", /for \(const fact of slotsOf\(id\)\) give\(file, fact, answer\.trim\(\), `home:\$\{id\}`\)/.test(caseFile));
 

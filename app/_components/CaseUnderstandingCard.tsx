@@ -14,7 +14,7 @@ import { WorkingButton } from "./Working";
 import { UseSuggestion } from "./UseSuggestion";
 import { factStatus, mayShowQuestion } from "@/src/lib/case-system/caseFile/factStatus";
 import { factsOfQuestion } from "@/src/lib/case-system/caseFile/factsOfQuestion";
-import { allHomeQuestionWords } from "@/src/lib/case-system/questions/factQuestions";
+import { allHomeQuestionWords } from "@/src/lib/case-system/caseFile/factQuestions";
 
 /** A question of the site's own: it has an id and its words are the fixed words (never the model's). */
 const SITE_WORDS = allHomeQuestionWords();
