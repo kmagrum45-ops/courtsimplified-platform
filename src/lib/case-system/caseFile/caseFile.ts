@@ -44,7 +44,7 @@ import { parseRecordedAmount } from "../format/recordedAmount";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
 import { chatMayAsk, slotStatus } from "./factStatus";
-import { partyName, readParties, type PartiesHeld } from "../parties/parties";
+import { partyName, partyNames, readParties, type PartiesHeld } from "../parties/parties";
 import { partiesFromOldShapes } from "./oldParties";
 import { fitsFactType } from "./factTypes";
 
@@ -1286,6 +1286,19 @@ export function withAnsweredInReview(section: Record<string, unknown> | undefine
 /** The slots a review box or question holds (its facts that are slots). */
 export function slotsOfQuestion(questionId: string, surface?: string): SlotFact[] {
   return slotsOf(questionId, surface);
+}
+
+/**
+ * THE OTHER SIDE IN WORDS, ON EVERY SCREEN THAT NAMES IT: each party on the other side from the Parties record, by its
+ * own name ("Circle K Convenience Stores Ltd.; Test Manager"), else null (the otherParty slot's own words then). The
+ * otherParty slot holds only the first (caseFileOf), so a screen reading the slot named one defendant of two (Chrome pass
+ * 2 on #550, C.4: the review's "The other party" showed only Circle K while the Parties step listed both). The one
+ * function for the names is parties.ts partyNames, as on the case page; the review reads it through here.
+ */
+export function otherSideWords(file: CaseFile): string | null {
+  if (!file.parties.recorded || file.otherParty.removed) return null;
+  const others = partyNames(file.parties.list).others;
+  return others.length ? others.join("; ") : null;
 }
 
 /** A slot's value in plain words, as the person gave it: a day as the court writes it, Yes or No, a list joined. */

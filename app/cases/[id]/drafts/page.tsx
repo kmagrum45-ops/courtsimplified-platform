@@ -45,6 +45,8 @@ import type { StoredCaseData } from "../../../builder/_components/builderTypes";
 import { caseRouteWrite } from "../../../builder/_components/positionSave";
 import { authHeaders, formatDate, useCaseHome } from "../../_components/CaseHomeContext";
 import { WorkingButton } from "@/app/_components/Working";
+import { FACT_LABEL } from "@/app/_components/ChangeAnswer";
+import { draftChanges, madeFromOf, type DraftChange } from "@/src/lib/case-system/drafts/draftFreshness";
 
 type SaveState = "idle" | "saving" | "saved" | "failed";
 
@@ -173,7 +175,10 @@ export default function CaseDraftsSection() {
     }
   }
 
-  async function create(draft: CaseDraft) {
+  async function create(fresh: CaseDraft) {
+    // Made from the case: it keeps what the case said, so a later change is said on it (draftFreshness.ts; Chrome pass 2
+    // on #550, C.5). A blank or imported draft is not made from the case.
+    const draft = fresh.kind === "blank" || fresh.kind === "imported" ? fresh : { ...fresh, madeFrom: madeFromOf(caseFileOfMaster(master, courtPath)) };
     if (await persist(draft)) {
       setDrafts((current) => [draft, ...current.filter((existing) => existing.id !== draft.id)]);
       setOpenId(draft.id);
@@ -233,6 +238,7 @@ export default function CaseDraftsSection() {
     return (
       <DraftEditor
         draft={open}
+        changes={draftChanges(open.madeFrom, caseFileOfMaster(master, courtPath))}
         saveState={saveState}
         savedAt={savedAt}
         message={message}
@@ -371,6 +377,7 @@ export default function CaseDraftsSection() {
                       Updated {formatDate(draft.updatedAt)} · {checked} of {draft.sections.length} part
                       {draft.sections.length === 1 ? "" : "s"} checked by you
                     </p>
+                    <DraftOutOfDate compact changes={draftChanges(draft.madeFrom, caseFileOfMaster(master, courtPath))} />
                   </button>
                 </li>
               );
@@ -406,8 +413,32 @@ function StartOption({
   );
 }
 
+/**
+ * "Your case has changed since this draft was made" (Chrome pass 2 on #550, C.5): each fact the draft was made with that
+ * the case now says differently, with both. The draft is the person's own and is never rewritten here.
+ */
+function DraftOutOfDate({ changes, compact = false }: { changes: DraftChange[]; compact?: boolean }) {
+  if (!changes.length) return null;
+  if (compact) return <p data-testid="draft-out-of-date" className="mt-2 text-xs font-semibold text-[#8a4b12]">Your case has changed since this draft was made.</p>;
+  return (
+    <div data-testid="draft-out-of-date" role="status" className="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950">
+      <p className="font-semibold">Your case has changed since this draft was made.</p>
+      <ul className="mt-2 list-disc pl-5">
+        {changes.map((change) => (
+          <li key={change.fact} data-testid="draft-out-of-date-fact" data-fact={change.fact}>
+            {FACT_LABEL[change.fact] ?? change.fact}: {change.fact === "story" ? "changed" : change.now ? <>now &ldquo;{change.now}&rdquo;</> : "now removed or not known"}
+            {change.then ? <>; this draft was made with &ldquo;{change.then}&rdquo;</> : null}
+          </li>
+        ))}
+      </ul>
+      <p className="mt-2">This draft is yours and is not changed. Start a new one from your case to use what it says now, or edit this one.</p>
+    </div>
+  );
+}
+
 function DraftEditor({
   draft,
+  changes,
   saveState,
   savedAt,
   message,
@@ -417,6 +448,7 @@ function DraftEditor({
   onRetry,
 }: {
   draft: CaseDraft;
+  changes: DraftChange[];
   saveState: SaveState;
   savedAt: string;
   message: string;
@@ -445,6 +477,8 @@ function DraftEditor({
           {saveState === "saving" ? "Saving…" : saveState === "saved" ? `Saved to your case${savedAt ? ` at ${savedAt}` : ""}` : saveState === "failed" ? "" : "Changes save automatically"}
         </p>
       </div>
+
+      <DraftOutOfDate changes={changes} />
 
       {saveState === "failed" ? (
         <p role="alert" className="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950">

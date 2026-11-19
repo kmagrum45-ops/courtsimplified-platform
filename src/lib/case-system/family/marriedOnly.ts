@@ -135,12 +135,20 @@ export const MARRIED_ONLY_SCREEN_TEXT: readonly string[] = [
  * married-only ones (isMarriedOnlyLaw). The overview reads the analysis through it once, so "The law behind this" and
  * every other part agree (Chrome milestone test of #550, rows 40 and 44).
  */
-export function withoutMarriedOnlyLaw<A extends { appliedLaw?: { citation?: string; label: string }[]; research?: { findings: { provisions: { citation?: string; label: string }[] }[] } }>(analysis: A, notMarried: boolean): A {
+export function withoutMarriedOnlyLaw<A extends { appliedLaw?: { citation?: string; label: string }[]; research?: { findings: { question?: string; provisions: { citation?: string; label: string }[] }[] } }>(analysis: A, notMarried: boolean): A {
   if (!notMarried) return analysis;
   const keep = (item: { citation?: string; label: string }) => !isMarriedOnlyLaw(item.citation || item.label);
+  // A research question is the model's own words: one that names married-only law, or whose every provision is one,
+  // goes with them (Chrome pass 2 on #550, 7.7 and 7.9: "Should the parenting application proceed under the Children's
+  // Law Reform Act or the Divorce Act…" after No and "not sure").
+  const keepFinding = (finding: { question?: string; provisions: { citation?: string; label: string }[] }) =>
+    !MARRIED_ONLY_QUESTION.test(finding.question ?? "") && !(finding.provisions.length > 0 && finding.provisions.every((item) => !keep(item)));
   return {
     ...analysis,
     ...(analysis.appliedLaw ? { appliedLaw: analysis.appliedLaw.filter(keep) } : {}),
-    ...(analysis.research ? { research: { ...analysis.research, findings: analysis.research.findings.map((finding) => ({ ...finding, provisions: finding.provisions.filter(keep) })) } } : {}),
+    ...(analysis.research ? { research: { ...analysis.research, findings: analysis.research.findings.filter(keepFinding).map((finding) => ({ ...finding, provisions: finding.provisions.filter(keep) })) } } : {}),
   };
 }
+
+/** A research question that names law only married people's cases rest on (isMarriedOnlyLaw's, in words). */
+export const MARRIED_ONLY_QUESTION = /\bDivorce Act\b|\bdivorce\b|\bmatrimonial home\b|\bequali[sz]ation\b|\bnet family property\b|\bPart (?:I|II) of the Family Law Act\b/i;

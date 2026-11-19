@@ -12,7 +12,7 @@ import { loadNoticeStatus, noticeOutstandingNow, useNoticeOutstanding } from "./
 import { familyTimelineValues, withServedDate } from "../builder/_components/guidedFields";
 import { withFullStop } from "../builder/_components/GuidedFormChat";
 import { dateAnswerCheck, formatForCourt, isDateQuestion } from "../../src/lib/case-system/dates";
-import { CASE_FILE_SECTION, caseFileOf, claimKindOf, withAnsweredInReview, slotsOfQuestion, slotText, SLOT_FACTS, type CaseFile, type Slot, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import { CASE_FILE_SECTION, caseFileOf, claimKindOf, otherSideWords, withAnsweredInReview, slotsOfQuestion, slotText, SLOT_FACTS, type CaseFile, type Slot, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import ChangeAnswer, { changeChoices, FACT_LABEL } from "./ChangeAnswer";
 import NotAnsweredYet from "./NotAnsweredYet";
 import { ADD_IT_LATER } from "../../src/lib/case-system/copy/askCopy";
@@ -329,7 +329,7 @@ export default function IntakeReviewPanel() {
   // A fact settled as "not sure" (the one function, factStatus.ts) is never offered for a change here; an unconfirmed one is.
   const extraFacts = SLOT_FACTS.filter(fact => !covered.has(fact) && changeChoices(fact, court) && !(factStatus(caseFile, fact) === "settled" && caseFile[fact].state === "unsure") && (fact === changeFact || caseFile[fact].changed || (fact === "claimKind" && caseFile[fact].state === "answered")));
   /** A held answer in words, as every screen shows it (the kind of claim through claimKindOf). */
-  const heldWords = (file: CaseFile, fact: SlotFact | undefined, slot: Slot) => fact === "claimKind" && slot.state === "answered" ? claimKindOf(file, inWords).words ?? slotText(slot, formatForCourt) : Array.isArray(slot.value) ? inWords(slot.value) : slotText(slot, formatForCourt);
+  const heldWords = (file: CaseFile, fact: SlotFact | undefined, slot: Slot) => fact === "otherParty" && slot.state === "answered" && otherSideWords(file) ? otherSideWords(file)! : fact === "claimKind" && slot.state === "answered" ? claimKindOf(file, inWords).words ?? slotText(slot, formatForCourt) : Array.isArray(slot.value) ? inWords(slot.value) : slotText(slot, formatForCourt);
   /**
    * An answered question's answer as the case file holds it, when another answer to the same fact now holds it (the
    * form's own box changed after the review's answer): the review never shows the older answer as current (carry

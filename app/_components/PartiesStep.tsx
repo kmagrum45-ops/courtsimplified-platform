@@ -68,6 +68,12 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
   const placeholder = useRef(newId());
   const [error, setError] = useState("");
   const [showOptional, setShowOptional] = useState<Record<string, boolean>>({});
+  // A box typed in stays a box while the focus is still in its party's entry, showing what was saved: it became one line
+  // the moment it was left, so the boxes below moved up under the next click and typing landed in the wrong box (Chrome
+  // pass 2 on #550, 1.9: "City or town: 100 Sample Road", Province "Ottawa"). It folds into the kept line when the focus
+  // leaves the entry, after the pointer is released (afterPointer), so a button below never moves under a click.
+  const [inEntry, setInEntry] = useState<string | null>(null);
+  const [typedHere, setTypedHere] = useState<Record<string, true>>({});
   if (!recovery || !file) return null;
 
   // Family: every party is a person (a parent, a spouse): never asked "A person or a company?" (Chrome milestone test of
@@ -129,7 +135,8 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
     // The story gives this detail: it is offered (Yes / No / Not sure), not asked as an empty box beside the offer.
     if (status === "ask" && offersFor(party).some((offer) => offer.detail === detail || ((detail === "firstName" || detail === "lastName" || detail === "companyName") && (offer.detail === "fullName" || offer.detail === "companyName")))) return null;
     if (status === "ask" && (detail === "firstName" || detail === "lastName") && nameSplit(party, record.declined)) return null;
-    if (status === "known") {
+    const typing = status === "known" && inEntry === party.id && Boolean(typedHere[key]);
+    if (status === "known" && !typing) {
       return (
         <p key={key} data-testid="parties-detail-held" data-detail={detail} className="text-sm">
           <span className="font-semibold">{LABELS[detail]}:</span> {party.details[detail]}{" "}
@@ -139,13 +146,29 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
     }
     if (status === "settled") return <p key={key} data-testid="parties-detail-unsure" data-detail={detail} className="text-sm"><span className="font-semibold">{LABELS[detail]}:</span> Not sure yet <span className="text-[#4d675f]">(not asked again)</span></p>;
     return (
-      <label key={key} className="block text-sm" data-testid="parties-detail-ask" data-detail={detail}>
+      <label key={key} className="block text-sm" data-testid={typing ? "parties-detail-typing" : "parties-detail-ask"} data-detail={detail}>
         <span className="font-semibold">{LABELS[detail]}</span>{optional ? <span className="text-[#4d675f]"> (if you have it)</span> : null}
         <span className="mt-1 flex flex-wrap gap-2">
-          <input type={detail.toLowerCase().includes("email") ? "email" : "text"} aria-label={`${sideWord(party)}${party.you ? " (you)" : ""}: ${LABELS[detail]}`} data-testid={`parties-input-${detail}`} className="min-w-0 flex-[1_1_14rem] rounded border p-2" value={drafts[key] ?? ""} onChange={(event) => setDrafts((current) => ({ ...current, [key]: event.target.value }))}
-            onBlur={() => afterPointer(() => (() => { const typed = (drafts[key] ?? "").trim(); if (typed) { give(party.id, detail, typed); setDrafts((current) => { const next = { ...current }; delete next[key]; return next; }); } })())}
+          <input type={detail.toLowerCase().includes("email") ? "email" : "text"} aria-label={`${sideWord(party)}${party.you ? " (you)" : ""}: ${LABELS[detail]}`} data-testid={`parties-input-${detail}`} className="min-w-0 flex-[1_1_14rem] rounded border p-2" value={drafts[key] ?? (typing ? party.details[detail] ?? "" : "")} onChange={(event) => { const value = event.target.value; setDrafts((current) => ({ ...current, [key]: value })); setTypedHere((current) => (current[key] ? current : { ...current, [key]: true })); }}
+            onBlur={() => afterPointer(() => (() => {
+              const draft = drafts[key];
+              if (draft === undefined) return;
+              const typed = draft.trim();
+              const held = typing ? (party.details[detail] ?? "").trim() : "";
+              // Typed: saved. Emptied while it still shows the saved words: taken away, as "Change" does. Unchanged: nothing.
+              if (typed && typed !== held) give(party.id, detail, typed);
+              else if (!typed && held) update(party.id, (current) => { const details = { ...current.details }; delete details[detail]; return { ...current, details }; });
+              setDrafts((current) => { const next = { ...current }; delete next[key]; return next; });
+            })())}
             onKeyDown={(event) => { if (event.key === "Enter") (event.target as HTMLInputElement).blur(); }} />
-          {optional ? null : <button type="button" data-testid="parties-detail-not-sure" className="rounded border px-3 py-1" onClick={() => unsure(party.id, detail)}>{OFFER_CHOICES.unsure}</button>}
+          {/* Kept while the box is typed in: Tab from a box lands on this button, and the box's save then turned it into a
+              typed box; taking the button away there dropped the focus to nothing, so the entry never heard it was left and
+              stayed open (local run of the Parties spec, 18 Nov). Pressed after typing, the typed words are taken back out. */}
+          {optional ? null : <button type="button" data-testid="parties-detail-not-sure" className="rounded border px-3 py-1" onClick={() => {
+            if (!typing) return unsure(party.id, detail);
+            setDrafts((current) => { const next = { ...current }; delete next[key]; return next; });
+            update(party.id, (held) => { const details = { ...held.details }; delete details[detail]; return { ...held, details, unsure: [...new Set([...held.unsure, detail])] }; });
+          }}>{OFFER_CHOICES.unsure}</button>}
         </span>
       </label>
     );
@@ -161,7 +184,9 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
         const own = offersFor(party);
         const number = record.list.filter((other) => other.side === party.side).indexOf(party) + 1;
         return (
-          <article key={party.id} data-testid="parties-party" data-party={party.you ? "you" : party.side} data-party-id={party.id} className="space-y-2 rounded-lg border border-[#e3ece7] p-3">
+          <article key={party.id} data-testid="parties-party" data-party={party.you ? "you" : party.side} data-party-id={party.id} className="space-y-2 rounded-lg border border-[#e3ece7] p-3"
+            onFocus={() => setInEntry(party.id)}
+            onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) afterPointer(() => { setInEntry((current) => (current === party.id ? null : current)); setTypedHere((current) => Object.fromEntries(Object.entries(current).filter(([key]) => !key.startsWith(`${party.id}:`)))); }); }}>
             <h3 className="font-semibold">{sideWord(party)} {number}{party.you ? " (you)" : ""}{partyName(party) ? `: ${partyName(party)}` : ""}</h3>
             {own.map((offer) => (
               <UseSuggestion key={offer.key} offer={{ key: offer.key, fact: null, recordedBy: "screen" }} testId="parties-offer-yes" noTestId="parties-offer-no" unsureTestId="parties-offer-unsure" what={`${LABELS[offer.detail]}: ${offer.value}`} note={offer.from && offer.from !== "story" ? offer.quote : `From your story: "${offer.quote}"`} onUse={() => acceptOffer(offer)} onNo={() => declineOffer(offer)} onUnsure={() => unsureOffer(offer)} />

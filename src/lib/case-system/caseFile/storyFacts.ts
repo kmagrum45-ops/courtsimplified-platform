@@ -159,11 +159,20 @@ export function lostPayIn(story: string): StoryFact | null {
   // An amount said for the loss itself ("$450 in lost wages") is the loss; the next amount in the sentence ("and $18.45
   // for medicine") is something else (Chrome forms test on #550, row 6: "Lost pay $18.45").
   // "lost $450 in wages", "$450 in wages I lost", "$450 in lost wages": the loss in the person's words, wherever it sits.
-  const named = /(\$\s?\d[\d,]*(?:\.\d{2})?)\s+(?:in|for|of)\s+(?:lost|missed)\s+(?:wages|pay|income|work)\b/i.exec(sentence)?.[1]
-    ?? /\blost\s+(\$\s?\d[\d,]*(?:\.\d{2})?)\s+(?:in|of)\s+(?:wages|pay|income)\b/i.exec(sentence)?.[1]
-    ?? /(\$\s?\d[\d,]*(?:\.\d{2})?)\s+(?:in|of)\s+(?:wages|pay|income)\b/i.exec(sentence)?.[1];
-  if (named) return { value: [named.replace(/^\$\s+/, "$"), period ? `(${period})` : null].filter(Boolean).join(" "), quote: sentence };
-  const from = sentence.slice(Math.max(0, sentence.search(/\b(?:missed|lost|losing|off)\b/i)));
+  // Looked for in the whole story, not only the sentence about the time off: Chrome pass 2 on #550 (S1, 17 Nov) had the
+  // time off in one sentence and "I want to claim … $450 lost wages" in the next, and showed "Lost pay $18.45".
+  const namedIn = (text: string) => /(\$\s?\d[\d,]*(?:\.\d{2})?)\s+(?:(?:in|for|of)\s+)?(?:lost|missed)\s+(?:wages|pay|income|work)\b/i.exec(text)?.[1]
+    ?? /\blost\s+(\$\s?\d[\d,]*(?:\.\d{2})?)\s+(?:in|of)\s+(?:wages|pay|income)\b/i.exec(text)?.[1]
+    ?? /\b(?:lost|missed)\s+(?:wages|pay|income)\s+(?:of|totall?ing|totaling|was|were)\s+(\$\s?\d[\d,]*(?:\.\d{2})?)/i.exec(text)?.[1]
+    ?? /(\$\s?\d[\d,]*(?:\.\d{2})?)\s+(?:in|of)\s+(?:wages|pay|income)\b/i.exec(text)?.[1];
+  const namedSentence = namedIn(sentence) ? sentence : sentences(story).map((each) => each.trim()).find((each) => namedIn(each));
+  const named = namedSentence ? namedIn(namedSentence) : undefined;
+  if (named) return { value: [named.replace(/^\$\s+/, "$"), period ? `(${period})` : null].filter(Boolean).join(" "), quote: namedSentence === sentence ? sentence : `${sentence} ${namedSentence}` };
+  // What follows "and bought / paid / spent" is a cost, never pay ("at $150 a day and bought Tylenol and an ice pack for
+  // $18.45": Chrome pass 2 on #550, S1).
+  const lost = sentence.slice(Math.max(0, sentence.search(/\b(?:missed|lost|losing|off)\b/i)));
+  const spentClause = lost.search(/\b(?:and|then|also)\s+(?:I\s+)?(?:had to\s+)?(?:bought|buy|paid|pay for|spent|purchased)\b/i);
+  const from = spentClause > 0 ? lost.slice(0, spentClause) : lost;
   // An amount spent on something ("paid $18.45 for medicine", "buy medicine for $18.45") is a cost, never pay (Chrome
   // milestone test of #550, row 22: "Lost pay $18.45 (3 days of work)" for "$450" lost and "$18.45 for medicine").
   const amounts = [...from.matchAll(/\$\s?\d[\d,]*(?:\.\d{2})?(\s*(?:per|a|an|\/)\s*(?:day|hour|week|shift|month)\b)?/gi)].filter((match) => !spentAt(from, match.index ?? 0, match[0].length));

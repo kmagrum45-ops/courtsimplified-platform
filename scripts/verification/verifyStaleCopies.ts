@@ -12,8 +12,13 @@
  *       case snapshot ("Parties recorded"), the case file page ("Other side") and "What we have so far"; the person's own
  *       name from the Parties record in the case record (exhibit book, child support); the case review told only yes or
  *       no (partiesHeld.ts);
+ *       The review's "The other party" names every defendant too (caseFile.ts otherSideWords; Chrome pass 2, C.4);
  *   (d) S6, being sued: "I disagree that I owe $4,200" is the claim against them, and the story's other party titles the
- *       case.
+ *       case;
+ *   (e) a draft made from the case keeps what the case said (drafts/draftFreshness.ts madeFrom), and the drafts page says
+ *       what changed since: the amount changed after a Form 7A draft was made (Chrome pass 2, C.5); where the case is
+ *       never makes a draft out of date; an older draft reads unchanged.
+ *   Lost pay also reads Chrome pass 2's S1 word for word (the $450 in the sentence after the time off).
  *
  * What failure it catches: a screen that shows a copy of a fact the record has since changed, or only part of it.
  */
@@ -21,7 +26,9 @@ import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { costsIn, lossesIn, lostPayIn } from "../../src/lib/case-system/caseFile/storyFacts";
 import { storyLines } from "../../src/lib/case-system/caseFile/storyLines";
-import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, otherSideWords } from "../../src/lib/case-system/caseFile/caseFile";
+import { draftChanges, madeFromOf } from "../../src/lib/case-system/drafts/draftFreshness";
+import { readCaseDrafts, validateDraft } from "../../src/lib/case-system/drafts/caseDrafts";
 import { partyNames, type Party } from "../../src/lib/case-system/parties/parties";
 import { partiesHeldOfMaster } from "../../src/lib/case-system/parties/partiesHeld";
 import { deterministicFindings, caseFileFromMasterResult } from "../../src/lib/case-system/caseReview/caseReview";
@@ -48,6 +55,15 @@ for (const story of WAYS) {
   check(`(a) lost pay is $450, never the medicine: "${story.slice(11, 70)}..."`, pay.startsWith("$450") && !pay.includes("18.45"), pay);
   check(`(a) the medicine is its own line: "${story.slice(11, 50)}..."`, costsIn(story)?.value === "Medicine $18.45", costsIn(story)?.value);
 }
+// Chrome pass 2 on #550 (17 Nov), S1 word for word: the time off in one sentence (with the rate, then "and bought …
+// for $18.45"), the $450 in the next ("$450 lost wages", no "in"). The case page showed "Lost pay $18.45 (3 days of work)".
+const S1_PASS2 = "On Oct 4, 2026 at about 6:40 pm I slipped on a wet floor near the milk fridge at a Circle K in Ottawa. There was no wet-floor sign. I fell on my right hip. A shopper, Sam Patel, saw it. The manager wrote notes. I went to the hospital that night; X-rays showed a bad bruise, no break. I missed 3 days of work (Oct 5 to 7) at $150 a day and bought Tylenol and an ice pack for $18.45. I want to claim $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine.";
+check("(a) Chrome pass 2 S1: lost pay is $450 (3 days of work)", lostPayIn(S1_PASS2)?.value === "$450 (3 days of work)", lostPayIn(S1_PASS2)?.value);
+check("(a) Chrome pass 2 S1: what was bought is its own line", costsIn(S1_PASS2)?.value === "Tylenol and an ice pack $18.45", costsIn(S1_PASS2)?.value);
+check("(a) Chrome pass 2 S1: the case page's line and the losses breakdown say $450", storyLines(S1_PASS2, caseFileOf(null), false).some((line) => line.fact === "lostPay" && line.value.startsWith("$450")) && /Lost pay: \$450/.test(lossesIn(S1_PASS2)?.value ?? ""), lossesIn(S1_PASS2)?.value);
+// A rate alone stays a rate (never multiplied out), and money paid after the time off is never pay.
+check("(a) a rate alone is shown as said", lostPayIn("Synthetic: I missed 3 days of work at $150 a day.")?.value === "$150 a day (3 days of work)", lostPayIn("Synthetic: I missed 3 days of work at $150 a day.")?.value);
+check("(a) a taxi paid after the time off is not pay", !(lostPayIn("Synthetic: I missed 3 days of work and paid $60 for a taxi.")?.value ?? "").includes("$60"), lostPayIn("Synthetic: I missed 3 days of work and paid $60 for a taxi.")?.value);
 const lines = storyLines(WAYS[0], caseFileOf(null), false);
 check("(a) \"What we have so far\" shows Lost pay $450 and Costs you paid: Medicine $18.45", lines.some((line) => line.fact === "lostPay" && line.value.startsWith("$450")) && lines.some((line) => line.fact === "costs" && line.value === "Medicine $18.45"), JSON.stringify(lines.map((line) => [line.fact, line.value])));
 check("(a) the losses breakdown reads the same two", /Lost pay: \$450/.test(lossesIn(WAYS[0])?.value ?? "") && /Costs you paid: Medicine \$18\.45/.test(lossesIn(WAYS[0])?.value ?? ""), lossesIn(WAYS[0])?.value);
@@ -90,6 +106,14 @@ check("(c) an older case with no record: the form's copies", JSON.stringify(part
 check("(c) the case snapshot's \"Parties recorded\" reads partyNames", /partyNames\(caseFile\?\.parties\.recorded/.test(read("app/builder/_components/IntelligenceOverviewPanel.tsx")));
 check("(c) the case file page's \"Other side\" reads partyNames, every other party", /partyNames\(file\.parties\.recorded/.test(read("app/cases/[id]/case-file/page.tsx")) && /names\.others\.join\("; "\)/.test(read("app/cases/[id]/case-file/page.tsx")));
 check("(c) \"What we have so far\" reads partyNames", /partyNames\(file\.parties\.list\)/.test(read("app/cases/_components/CaseFilePanel.tsx")));
+// Chrome pass 2 on #550 (C.4): after the amount was changed, the review's "The other party" showed only Circle K while
+// the Parties step listed both defendants. The review's held line reads otherSideWords, which reads partyNames.
+{
+  const both = caseFileOf(checkpoint("small-claims", { situation: { record: { where: "starting", filed: "nothing", court: "small-claims" } }, caseFile: { parties: { version: 1, declined: [], list } } }), null);
+  check("(c) C.4: the other side in words is every defendant (otherSideWords)", otherSideWords(both) === "Circle K Convenience Stores Ltd.; Test Manager", otherSideWords(both) ?? "");
+  check("(c) C.4: otherSideWords reads partyNames", /export function otherSideWords[\s\S]*?partyNames\(file\.parties\.list\)\.others/.test(read("src/lib/case-system/caseFile/caseFile.ts")));
+  check("(c) C.4: the review's held line names the other side through otherSideWords", /const heldWords = \(file: CaseFile, fact: SlotFact \| undefined, slot: Slot\) => fact === "otherParty" && slot\.state === "answered" && otherSideWords\(file\)/.test(panel));
+}
 check("(c) the case record's name for the person is the Parties record's (exhibit book, child support)", (read("src/lib/case-system/caseRecord.ts").match(/partyNames\(/g) ?? []).length === 2);
 const master = { intakeData: { courtPath: "small-claims", extra: { yourRole: "Plaintiff / claimant" } }, intakeCheckpoint: checkpoint("small-claims", { situation: { record: { where: "starting", filed: "nothing", court: "small-claims" } }, caseFile: { parties: { version: 1, declined: [], list: [list[0], { ...list[1], details: { ...list[1].details, street: "100 Sample Road" } }] } } }) };
 check("(c) the case review is told yes or no only: names and the address held", JSON.stringify(partiesHeldOfMaster(master, "small-claims")) === JSON.stringify({ you: true, other: true, otherAddress: true }));
@@ -104,6 +128,32 @@ const s6 = storyLines(S6, sued, true);
 check("(d) S6: the claim against them ($4,200) is in \"What we have so far\"", s6.some((line) => line.fact === "amountAgainst" && /\$4,200/.test(line.value)), JSON.stringify(s6.map((line) => [line.fact, line.value])));
 check("(d) S6: and who it is with", s6.some((line) => line.fact === "otherParty" && /contractor/i.test(line.value)));
 check("(d) S6: the case title falls back to the story's other party (CaseHomeContext caseTitle)", /storyLines\(file\.storyText/.test(read("app/cases/_components/CaseHomeContext.tsx")));
+
+// (e) Chrome pass 2 on #550, C.5: the Form 7A draft made before the amount was changed still said "$5,468.45", with no
+// notice. A draft made from the case keeps what the case said (madeFrom); the drafts page says what changed since.
+{
+  const answered = (value: unknown) => ({ state: "answered", value, source: { kind: "answer", question: "test" }, confirmed: true }) as never;
+  const before = caseFileOf(checkpoint("small-claims", { situation: { record: { where: "starting", filed: "nothing", court: "small-claims" } }, caseFile: { parties: { version: 1, declined: [], list } } }), null);
+  before.amount = answered(5468.45);
+  before.outcome = answered("Payment of $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine.");
+  const made = madeFromOf(before);
+  check("(e) a draft keeps the amount, the outcome and both defendants as the case said them", made.amount === "$5,468.45" && /\$5,000 for pain/.test(made.outcome ?? "") && made.otherParty === "Circle K Convenience Stores Ltd.; Test Manager", JSON.stringify(made));
+  check("(e) unchanged, the draft is not out of date", draftChanges(made, before).length === 0, JSON.stringify(draftChanges(made, before)));
+  const after = { ...before, amount: answered(5100), outcome: answered("Payment of $5,100.00."), stage: answered("defence-filed") } as typeof before;
+  const changes = draftChanges(made, after);
+  check("(e) after the amount is changed, the draft is out of date, with both amounts and both outcomes", changes.some((c) => c.fact === "amount" && c.then === "$5,468.45" && c.now === "$5,100.00") && changes.some((c) => c.fact === "outcome" && c.now === "Payment of $5,100.00."), JSON.stringify(changes));
+  check("(e) where the case is (its stage) never makes a draft out of date", !changes.some((c) => c.fact === "stage"), JSON.stringify(changes));
+  const removed = { ...before, amount: { ...(answered(5468.45) as object), removed: true } } as typeof before;
+  check("(e) an amount removed since reads as now removed", draftChanges(made, removed).some((c) => c.fact === "amount" && c.now === ""), JSON.stringify(draftChanges(made, removed)));
+  check("(e) a draft saved before (no madeFrom) is never called out of date", draftChanges(undefined, after).length === 0);
+  const saved = validateDraft({ id: "draft_test1", title: "Form 7A", kind: "starting-document", sections: [{ id: "part_1", heading: "", text: "", reviewed: false }], madeFrom: { ...made, notAFact: "x" } }, new Date());
+  check("(e) the drafts route keeps madeFrom (known facts only)", saved.ok && saved.draft.madeFrom?.amount === "$5,468.45" && !("notAFact" in (saved.draft.madeFrom ?? {})), JSON.stringify(saved));
+  const oldDraft = readCaseDrafts({ drafts: [{ id: "draft_old1", title: "Old", kind: "your-story", createdAt: "2026-10-01T00:00:00Z", updatedAt: "2026-10-01T00:00:00Z", sections: [{ id: "part_1", heading: "", text: "x" }] }] });
+  check("(e) an older saved draft still reads, unchanged and with no madeFrom", oldDraft.length === 1 && oldDraft[0].madeFrom === undefined && oldDraft[0].sections[0].text === "x");
+  const page = read("app/cases/[id]/drafts/page.tsx");
+  check("(e) the drafts page records madeFrom on every draft made from the case (not a blank or imported one)", /const draft = fresh\.kind === "blank" \|\| fresh\.kind === "imported" \? fresh : \{ \.\.\.fresh, madeFrom: madeFromOf\(caseFileOfMaster\(master, courtPath\)\) \};/.test(page));
+  check("(e) the open draft and its card say when the case changed since", /<DraftOutOfDate changes=\{changes\} \/>/.test(page) && /changes=\{draftChanges\(open\.madeFrom, caseFileOfMaster\(master, courtPath\)\)\}/.test(page) && /<DraftOutOfDate compact changes=\{draftChanges\(draft\.madeFrom/.test(page));
+}
 
 console.log(failed ? `\n${failed} check(s) FAILED.` : "\nAll stale-copy checks passed.");
 process.exit(failed ? 1 : 0);

@@ -138,6 +138,16 @@ async function main() {
     const read = withoutMarriedOnlyLaw({ appliedLaw: [provision("a", "Divorce Act, R.S.C. 1985, c. 3 (2nd Supp.), s. 7.3"), provision("b", "Family Law Act, R.S.O. 1990, c. F.3, s. 33 (1)")] }, true);
     assert.deepEqual(lawBehindThis([], read.appliedLaw).quoted.map((item: { id: string }) => item.id), ["b"], "\"The law behind this\" keeps a married-only provision for someone not married");
     assert.equal(withoutMarriedOnlyLaw({ appliedLaw: [provision("a", "Divorce Act, R.S.C. 1985, c. 3 (2nd Supp.), s. 7.3")] }, false).appliedLaw?.length, 1, "a married person lost the provision");
+    // Chrome pass 2 on #550 (7.7, 7.9): the research step's own question named the Divorce Act after No and "not sure".
+    const finding = (question: string, ...citations: string[]) => ({ question, status: "answered", provisions: citations.map((citation, index) => ({ ...(provision(`p${index}`, citation) as object), quote: "" })) }) as never;
+    const research = { findings: [
+      finding("Should the parenting application proceed under the Children's Law Reform Act or the Divorce Act, given the parents were not married?", "Children's Law Reform Act, R.S.O. 1990, c. C.12, s. 24"),
+      finding("Who decides where the child lives?", "Divorce Act, R.S.C. 1985, c. 3 (2nd Supp.), s. 16.1"),
+      finding("What must a parenting order consider?", "Children's Law Reform Act, R.S.O. 1990, c. C.12, s. 24"),
+    ] };
+    const questions = (married: boolean) => (withoutMarriedOnlyLaw({ research } as never, married) as { research: { findings: { question: string }[] } }).research.findings.map((item) => item.question);
+    assert.deepEqual(questions(true), ["What must a parenting order consider?"], "a research question naming the Divorce Act, or resting only on it, is shown to someone not married");
+    assert.equal(questions(false).length, 3, "a married person lost a research question");
   });
 
   check("10. the Family triage's \"What the statutes say about which court\": no Divorce Act statement after married No or not sure; kept after Yes", () => {
