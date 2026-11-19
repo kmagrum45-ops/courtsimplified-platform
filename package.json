@@ -396,7 +396,8 @@
     "test:browser-shards": "node --import tsx scripts/verification/verifyBrowserShards.ts",
     "test:ask-once-shards": "node --import tsx scripts/verification/verifyAskOnceShards.ts",
     "test:story-own-sentences": "node --import tsx scripts/verification/verifyStoryOwnSentences.ts",
-    "test:no-ai-question-text": "node --import tsx scripts/verification/verifyNoAiQuestionText.ts"
+    "test:no-ai-question-text": "node --import tsx scripts/verification/verifyNoAiQuestionText.ts",
+    "test:fact-meanings": "node --import tsx scripts/verification/verifyFactMeanings.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",
