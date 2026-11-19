@@ -596,6 +596,15 @@ jobs:
       - name: Every ask-once story runs in exactly one shard (none in neither, none in both)
         run: npm run test:ask-once-shards
 
+      - name: The story is the person's own sentences; follow-up answers are never glued onto it
+        run: npm run test:story-own-sentences
+
+      - name: No question the AI writes reaches the person; the same story asks the same questions
+        run: npm run test:no-ai-question-text
+
+      - name: No two facts declare the same meaning
+        run: npm run test:fact-meanings
+
       - name: "Where the case is, who the person is in it, what is filed: words, never codes"
         run: npm run test:case-words
 
