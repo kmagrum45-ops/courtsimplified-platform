@@ -970,6 +970,7 @@ jobs:
               tests/browser/notice-on-case-pages.spec.ts
           - shard: 2
             specs: >-
+              tests/browser/parties-boxes-stay.spec.ts
               tests/browser/filled-form-every-kind.spec.ts
               tests/browser/intake-reliability.spec.ts
               tests/browser/family-civil-intake-reliability.spec.ts
