@@ -35,6 +35,7 @@ import type { Checkpoint } from "../intakeCheckpoint";
 import { freshSections } from "../storyBasis";
 import { isTypedUnsure, isUnsureAnswer } from "./unsureAnswer";
 import { storyOfMaster } from "../intakeStory";
+import { withoutGluedAnswers } from "../personWords";
 import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation, SERVED_DATE_QUESTION, JUST_SERVED } from "../situation/situation";
 import { isKindOfClaim, kindFromStory, storyQuoteFor, wordsInStory } from "../intake/claimKind";
 import { CLAIM_TYPES } from "../intake/claimTypes";
@@ -482,7 +483,10 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   if (startAnswers?.roleWords) file.sideWords = startAnswers.roleWords;
   const listed = [...fromStart, ...forms.flatMap(([values]) => [values.documents, values.filedDocuments]).flatMap((value) => strings(value))].filter((item) => item !== "nothing" && item !== "not-sure");
   if (listed.length) file.documents = [...new Set(listed)];
-  file.storyText = String(object(sections.story).text ?? "");
+  // The person's story sentences only: a home-page answer glued on before 19 Nov 2026 is not part of it (personWords.ts
+  // withoutGluedAnswers; Chrome pass 3 on #550: the answers printed in the Form 7A reasons box). The answer itself is
+  // still held, from home.understoodAnswers.
+  file.storyText = withoutGluedAnswers(String(object(sections.story).text ?? ""), answeredInIntake(sections).map((item) => item.answer));
   file.area = checkpoint?.courtPath ?? court ?? undefined;
   if (!file.storyText.trim() && master) file.savedStory = storyOfMaster(master) ?? undefined;
   // The story is a fact: held once given, here or in the saved case (founder, 1 Nov: the Small Claims chat

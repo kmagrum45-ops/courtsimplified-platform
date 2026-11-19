@@ -277,6 +277,8 @@ function HomeLocationGateContent() {
         // Written to the store directly (and announced) so the flush below includes it.
         recovery.put(STORY_SECTION, "text", story, true, true);
         recovery.put(STORY_SECTION, "location", { province: "Ontario", city: city.trim() }, true, true);
+        // The answers are held as answers (the case file reads them), not glued onto the story (frontDoorStory).
+        if (answers.length) recovery.put("home", "understoodAnswers", answers, true, true);
         // The other party the accepted reading named, on the record through the one writer, so it is never asked again
         // and every screen reads it from there (Chrome check of production c38e69fd, B1; never a witness).
         if (acceptedOtherParty) writeAnswer(recovery, "home", "otherParty", acceptedOtherParty);
@@ -290,7 +292,7 @@ function HomeLocationGateContent() {
         const carried = withKnownCourt({ ...situation, court: chosenPath, courtFrom: courtOfPapers(situation) === chosenPath ? "papers" : "asked" }, chosenPath);
         const next = { version: 2 as const, ownerId: recovery?.ownerId ?? userId, caseId: null, serverRevision: null,
           checkpoint: { version: 1 as const, flowId, courtPath: chosenPath, revision: crypto.randomUUID(),
-            sections: { [STORY_SECTION]: { text: story, location: { province: "Ontario", city: city.trim() } }, ...situationSection(carried), ...(acceptedOtherParty ? { home: { otherParty: acceptedOtherParty } } : {}) } } };
+            sections: { [STORY_SECTION]: { text: story, location: { province: "Ontario", city: city.trim() } }, ...situationSection(carried), ...(acceptedOtherParty || answers.length ? { home: { ...(acceptedOtherParty ? { otherParty: acceptedOtherParty } : {}), ...(answers.length ? { understoodAnswers: answers } : {}) } } : {}) } } };
         if (!writeIntakeSession(sessionStorage, next)) throw new Error("Your text could not be retained. Please copy it before leaving and retry.");
         router.push(`/builder?path=${chosenPath}&intake=${flowId}`);
       }

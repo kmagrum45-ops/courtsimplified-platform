@@ -394,7 +394,8 @@
     "test:late-repeat-state": "node --import tsx scripts/verification/verifyLateRepeatState.ts",
     "test:tests-in-ci": "node --import tsx scripts/verification/verifyTestsInCi.ts",
     "test:browser-shards": "node --import tsx scripts/verification/verifyBrowserShards.ts",
-    "test:ask-once-shards": "node --import tsx scripts/verification/verifyAskOnceShards.ts"
+    "test:ask-once-shards": "node --import tsx scripts/verification/verifyAskOnceShards.ts",
+    "test:story-own-sentences": "node --import tsx scripts/verification/verifyStoryOwnSentences.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",
