@@ -81,6 +81,9 @@ async function main() {
     const urgent = familyGuidedFields({ issues: [], filed: [] }).find((field) => field.key === "urgent")!;
     const asked = fields.guidedQuestion!(urgent, file);
     assert.ok(!/safety/i.test(asked), `still asks about safety: ${asked}`);
+    // Chrome pass 3 on #550, S7 (19 Nov 2026): "someone about to move away with a child" is the same safety fact (the
+    // safety question asks about a child being taken away): not asked again either.
+    assert.ok(!/move away|taken away|with a child/i.test(asked), `still asks the safety fact in other words: ${asked}`);
     assert.ok(/urgent/i.test(asked) && /deadline/i.test(asked), `the rest of the question is lost: ${asked}`);
     const fresh = caseFileOf(checkpoint("family", {}));
     assert.equal(fields.guidedQuestion!(urgent, fresh), urgent.question, "with nothing held, the question is asked whole");

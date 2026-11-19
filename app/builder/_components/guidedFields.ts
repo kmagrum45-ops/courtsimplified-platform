@@ -207,8 +207,10 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       key: "urgent",
       label: "Anything urgent",
       question: "Is anything urgent, like a deadline this week, a safety worry, or someone about to move away with a child?",
-      // Safety already answered (the home page's question, or the safety box): asked without it (5c).
-      askedWhenHeld: { fact: "safety", question: "Is anything urgent, like a deadline this week, or someone about to move away with a child?" },
+      // Safety already answered (the home page's question, or the safety box): asked without it (5c), and without "someone
+      // about to move away with a child", which is the same safety fact (the safety question asks about a child being taken
+      // away; Chrome pass 3 on #550, S7: asked after "No safety concerns").
+      askedWhenHeld: { fact: "safety", question: "Is anything urgent, like a deadline this week?" },
       why: "Urgent situations can have a faster route, and we show those first.",
       kind: "longtext",
     },
