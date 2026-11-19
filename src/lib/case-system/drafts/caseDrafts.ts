@@ -64,6 +64,11 @@ export type CaseDraft = {
   sections: DraftSection[];
   /** The case's facts in words when the draft was made from it (draftFreshness.ts); absent on a blank or older draft. */
   madeFrom?: MadeFrom;
+  /**
+   * The person changed its words (site owner, 19 Nov 2026): false while it is as made from the case, so it is shown
+   * rebuilt from the case as it is now; true (or absent, on an older draft) keeps their words and says the case changed.
+   */
+  edited?: boolean;
 };
 
 const KINDS = Object.keys(DRAFT_KIND_LABELS) as DraftKind[];
@@ -117,7 +122,7 @@ export function validateDraft(raw: unknown, now: Date): DraftValidation {
     : now.toISOString();
 
   const madeFrom = readMadeFrom(input.madeFrom);
-  return { ok: true, draft: { id, title, kind, createdAt, updatedAt: now.toISOString(), sections, ...(madeFrom ? { madeFrom } : {}) } };
+  return { ok: true, draft: { id, title, kind, createdAt, updatedAt: now.toISOString(), sections, ...(madeFrom ? { madeFrom } : {}), ...(typeof input.edited === "boolean" ? { edited: input.edited } : {}) } };
 }
 
 /** Reads the stored drafts, dropping any that no longer validate. Newest first. */

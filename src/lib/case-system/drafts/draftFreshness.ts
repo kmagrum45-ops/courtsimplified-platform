@@ -80,3 +80,15 @@ export function readMadeFrom(raw: unknown): MadeFrom | undefined {
   }
   return Object.keys(made).length ? made : undefined;
 }
+
+/**
+ * A draft as shown (site owner, 19 Nov 2026; Chrome pass 3 on #550, CA-4: a Form 7A draft made before the amount changed
+ * still said $5,468.45, with no notice): one the person has not changed (edited === false) is built from the case as it is
+ * now, by `fresh` (the same builder that made it); one they changed, or an older draft that does not say, keeps their words
+ * and is said to be out of date (draftChanges). Pure: shown, never saved by being shown.
+ */
+export function draftToShow<D extends { sections: unknown[]; madeFrom?: MadeFrom; edited?: boolean }>(draft: D, file: CaseFile, fresh: (draft: D) => { sections: D["sections"] } | null): D {
+  if (draft.edited !== false || !draftChanges(draft.madeFrom, file).length) return draft;
+  const made = fresh(draft);
+  return made ? { ...draft, sections: made.sections, madeFrom: madeFromOf(file) } : draft;
+}

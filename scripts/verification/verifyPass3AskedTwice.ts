@@ -21,6 +21,8 @@ import { readFileSync } from "node:fs";
 import { offeredOtherParty } from "../../src/lib/case-system/caseFile/storyOffers";
 import { storyPartyOffers } from "../../src/lib/case-system/parties/parties";
 import { withThisAnswer } from "../../src/lib/case-system/caseFile/chatTurnFacts";
+import { draftChanges, draftToShow, madeFromOf } from "../../src/lib/case-system/drafts/draftFreshness";
+import { validateDraft } from "../../src/lib/case-system/drafts/caseDrafts";
 import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
 import { mayShowQuestion } from "../../src/lib/case-system/caseFile/factStatus";
 
@@ -91,5 +93,29 @@ process.exitCode = failed ? 1 : 0;
   const panel = readFileSync("app/_components/IntakeReviewPanel.tsx", "utf8");
   check("5 (CA-1). build check: the confirmed review shows it from the saved record", panel.includes("changeJustConfirmed(workflowStatus, checkpoint) ? <p data-testid=\"intake-change-confirmed\"") && panel.includes("You changed an answer. Here is what we have now.</p>"));
   console.log(failed ? `\n${failed} check(s) failed` : "\nAll item 5 checks passed");
+  process.exitCode = failed ? 1 : 0;
+}
+
+// CA-4 (item 5): a draft made before a change. Not changed by the person: shown from the case as it is now. Changed by
+// them (or an older draft that does not say): their words, and "Your case changed after this draft was made" with an
+// update button. Every draft kind made from the case (the page builds each with the same builder).
+{
+  const caseWith = (amount: string) => caseFileOf({ version: 1, flowId: "pass3-ca4", courtPath: "small-claims", revision: amount, sections: { story: { text: "I slipped on a wet floor at a store on Oct 4, 2026." }, guided: { started: true, facts: { role: "plaintiff" }, earlierAnswers: [{ questionId: "sc-amount-claimed", answerText: amount }] } } } as unknown as Checkpoint);
+  const before = caseWith("$5,468.45");
+  const after = caseWith("$5,100");
+  const made = { sections: [{ heading: "Amount", text: "$5,468.45" }], madeFrom: madeFromOf(before) };
+  const fresh = () => ({ sections: [{ heading: "Amount", text: "$5,100.00" }] });
+  const untouched = draftToShow({ ...made, edited: false }, after, fresh);
+  const edited = draftToShow({ ...made, edited: true }, after, fresh);
+  const older = draftToShow({ ...made }, after, fresh);
+  check("5 (CA-4). a draft the person has not changed is shown from the case as it is now ($5,100), with nothing out of date", JSON.stringify(untouched.sections) === JSON.stringify(fresh().sections) && draftChanges(untouched.madeFrom, after).length === 0, JSON.stringify(untouched));
+  check("5 (CA-4). a draft the person changed keeps their words and says what changed (amount)", JSON.stringify(edited.sections) === JSON.stringify(made.sections) && draftChanges(edited.madeFrom, after).some((change) => change.fact === "amount"), JSON.stringify(draftChanges(edited.madeFrom, after)));
+  check("5 (CA-4). an older draft that does not say whether it was changed keeps its words (never rewritten)", JSON.stringify(older.sections) === JSON.stringify(made.sections));
+  const kept = validateDraft({ id: "d1", title: "T", kind: "chronology", createdAt: "2026-11-19T00:00:00Z", sections: [{ id: "s1", heading: "H", text: "x", reviewed: false }], edited: false }, new Date());
+  check("5 (CA-4). a saved draft keeps whether the person changed it", kept.ok && (kept as { draft: { edited?: boolean } }).draft.edited === false);
+  const page = readFileSync("app/cases/[id]/drafts/page.tsx", "utf8");
+  check("5 (CA-4). build check: an edit marks the draft changed, a draft made from the case starts unchanged, the page shows draftToShow, and the notice has the update button",
+    page.includes("const next: CaseDraft = { ...edit, edited: true };") && page.includes("madeFrom: madeFromOf(caseFileOfMaster(master, courtPath)), edited: false }") && page.includes("draft={shownDraft(open)}") && page.includes("Your case changed after this draft was made.") && page.includes("data-testid=\"draft-update-from-case\""));
+  console.log(failed ? `\n${failed} check(s) failed` : "\nAll CA-4 checks passed");
   process.exitCode = failed ? 1 : 0;
 }
