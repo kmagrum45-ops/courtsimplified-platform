@@ -102,10 +102,11 @@ export function offeredOtherParty(story: string, reading: readonly ReadingFact[]
  * after "kept my $1,200 deposit"; S8 reading r2 asked "Is Testgoods Ltd. the buyer who owes the money, or the seller who
  * supplied the goods?" after "The company is Testgoods Ltd.", each with an empty box.
  */
-export function offerForAskedWords(file: CaseFile | null | undefined, words: string, story: string, reading: readonly ReadingFact[], options: { responding?: boolean } = {}): (StoryOffer & { fact: "amount" | "otherParty" }) | null {
+export function offerForAskedWords(file: CaseFile | null | undefined, words: string, story: string, reading: readonly ReadingFact[], options: { responding?: boolean; fact?: string | null } = {}): (StoryOffer & { fact: "amount" | "otherParty" }) | null {
   // The side: the case file's, else the role the reading showed ("Your role: Defendant").
   const responding = options.responding ?? ((file?.side.state === "answered" && file.side.value === "responding") || reading.some((item) => /\brole\b/i.test(item.label) && /\b(?:defend\w*|respond\w*|being sued|sued)\b/i.test(item.value)));
-  const fact = factOfAskedText(words, { responding });
+  // A site question known by its id gives its fact exactly (questions/factQuestions.ts); words are read only for an old one.
+  const fact = options.fact !== undefined ? options.fact : factOfAskedText(words, { responding });
   if (fact !== "amount" && fact !== "otherParty") return null;
   // Show less rather than invent (real reading S6 r1, 18 Nov 2026): a person defending was offered the $4,200 claimed
   // against them for "If you want money from the contractor, how much are you seeking?". Their own amount is not in the

@@ -312,8 +312,14 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // had answered it, declaration included).
   const homeAnswers = object(sections.home).understoodAnswers;
   for (const item of Array.isArray(homeAnswers) ? homeAnswers : []) {
-    const { question, answer } = object(item);
+    const { id, question, answer } = object(item);
     if (typeof question !== "string" || typeof answer !== "string" || !answer.trim()) continue;
+    // A site question (questions/factQuestions.ts) by its id: its facts exactly. Only an answer saved before 19 Nov 2026,
+    // to a question the model wrote, is read by its words.
+    if (typeof id === "string" && id) {
+      for (const fact of slotsOf(id)) give(file, fact, answer.trim(), `home:${id}`);
+      continue;
+    }
     const fact = factOfAskedText(question, { responding: respondsToTheCase(file) });
     if (fact) give(file, fact, answer.trim(), `home:${fact}`);
   }

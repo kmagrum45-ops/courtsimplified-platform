@@ -44,6 +44,7 @@ import type { RetrievalCourt } from "../retrieval/storyRetrieval";
 import { exclusiveTribunalFor, fixedRegimeFor, lienStepFor, tribunalNoticeView, type ExclusiveTribunal, type FixedRegimeId, type TribunalNoticeView } from "../intelligence/fixedRegimes";
 export { tribunalNoticeView, type TribunalNoticeView } from "../intelligence/fixedRegimes";
 import { isMapOwnedInstruction, isMapOwnedProcedure } from "../procedureOwnership";
+import { homeQuestionsFor } from "../questions/factQuestions";
 import { ALL_STAGES, findStage, isSpecialStage, pathwayOf, type StagePathway } from "../stage-map/stageMap";
 
 // ------------------------------------------------------------------ types
@@ -58,7 +59,8 @@ export type UnderstoodMatter = {
   forum?: string;
 };
 
-export type UnderstoodQuestion = { question: string; why?: string };
+/** A question the site asks, in its own fixed words, by its id (questions/factQuestions.ts); never written by the model. */
+export type UnderstoodQuestion = { id?: string; question: string; why?: string };
 
 export type CaseUnderstanding = {
   /** The person's own facts, restated plainly in the second person. No law. */
@@ -239,6 +241,11 @@ export function withoutLaw(text: string): string {
 
 export type ParsedUnderstanding = { understanding: CaseUnderstanding; points: { text: string; cites: string[] }[] };
 
+/** The model's questions, dropped: none reaches a screen (site owner, 19 Nov 2026). Kept as a call so the reason is in one place. */
+function modelQuestionsNeverShown(_questions: UnderstoodQuestion[]): UnderstoodQuestion[] {
+  return [];
+}
+
 export function parseUnderstanding(raw: string): ParsedUnderstanding | null {
   let parsed: unknown;
   try {
@@ -302,7 +309,8 @@ export function parseUnderstanding(raw: string): ParsedUnderstanding | null {
       mainCourt: allMatters[0].court,
       side,
       stage: withoutLaw(str(record.stage, 400)),
-      questions,
+      // The model's own questions are read (to screen them) but never kept: the site asks its fixed ones (factQuestions.ts).
+      questions: modelQuestionsNeverShown(questions),
       asksForPrediction: record.asksForPrediction === true,
       step,
       regime: null,
@@ -499,7 +507,11 @@ export async function understandCase(input: UnderstandInput, deps: UnderstandDep
     const parsed = raw ? parseUnderstanding(raw) : null;
     if (!parsed) return { status: "unavailable" };
     const { points } = parsed;
-    const understanding = { ...withSituation(withFixedRegime(parsed.understanding, story), input.situation), tribunal };
+    const situated = withSituation(withFixedRegime(parsed.understanding, story), input.situation);
+    // The questions are the site's own, by court and side, in fixed words (factQuestions.ts): the model's are never shown
+    // (site owner, 19 Nov 2026). Not under a tribunal notice (a former tenancy keeps them: a boundary, not a redirect), nor
+    // for a court outside the three.
+    const understanding = { ...situated, questions: tribunal && !tribunal.ended ? [] : homeQuestionsFor(input.chosenCourt ?? situated.mainCourt, situated.side), tribunal };
     if (deps.intakeOnly) return { status: "understood", understanding: { ...understanding, stage: "", step: null }, answer: NO_CHECKED_ANSWER, drafted: [] };
 
     // The reasoning step's points become the draft the checker works on. The

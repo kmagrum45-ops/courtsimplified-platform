@@ -32,7 +32,8 @@ import assert from "node:assert/strict";
 import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
 import { factOfAskedText } from "../../src/lib/case-system/caseFile/factsOfQuestion";
 import { chatMayAsk, questionStatus } from "../../src/lib/case-system/caseFile/factStatus";
-import { understandCase } from "../../src/lib/case-system/understanding/understandCase";
+import { askedWhatHappenedSoFar, understandCase } from "../../src/lib/case-system/understanding/understandCase";
+import { homeQuestionsFor } from "../../src/lib/case-system/questions/factQuestions";
 import { familyGuidedFields } from "../../app/builder/_components/guidedFields";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 
@@ -54,7 +55,10 @@ async function main() {
     const result = await understandCase({ story: "A contractor sued me for $4,200.", situation: { side: "responding", servedOn: "2026-10-20", filed: true, stageGiven: true } } as never, { reason, intakeOnly: true, check: { answer: async () => ({ status: "unavailable", statements: [], notConfirmed: [], declinedToJudge: false, missingLaw: [] }) } as never });
     assert.equal(result.status, "understood");
     const questions = result.status === "understood" ? result.understanding.questions.map((item) => item.question) : [];
-    assert.deepEqual(questions, ["What was the agreed price for the work?"], `still asked: ${questions.join(" | ")}`);
+    // Changed 19 Nov 2026 (site owner: no question the AI writes reaches the person): was "exactly the model's other
+    // question". Now: none of the ways of asking what has happened is asked, and every question is the site's fixed one.
+    assert.ok(!questions.some((question) => asked.includes(question) || askedWhatHappenedSoFar(question)), `still asked: ${questions.join(" | ")}`);
+    assert.deepEqual(questions, homeQuestionsFor("small-claims", "responding").map((item) => item.question), `not the site's fixed questions: ${questions.join(" | ")}`);
   });
 
   for (const [question, answer] of [

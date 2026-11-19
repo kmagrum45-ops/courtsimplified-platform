@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-307 documented, 26 without a header.
+309 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -173,6 +173,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:next-step` | **"Your next step" comes first: the step, its deadline counted from the**<br>person's dates (or the period and what it runs from), what to do and the forms, with the full answer folded underneath. Master plan Phase 2 (docs/MASTER_PLAN.md). |
 | `npm run test:next-step-opens-overview` | **THE CASE PAGE'S "SHOW MY NEXT STEP" AND "UPDATE MY NEXT STEPS" OPEN THE OVERVIEW, NOT THE LAST ROUTE USED (Chrome**<br>check of #544, 6 Nov 2026, F6). |
 | `npm run test:next-step-practical` | **The next-step card's form, fee, filing and service lines are the law's own**<br>words, for every step (content-library/nextStepPractical.ts, master plan Phase 2, 2026-10-08). |
+| `npm run test:no-ai-question-text` | **NO QUESTION THE AI WRITES REACHES THE PERSON; THE SAME STORY ASKS THE SAME QUESTIONS, WORDED IDENTICALLY (site owner,**<br>19 Nov 2026). |
 | `npm run test:no-conflict-markers` | **No committed file holds a merge-conflict marker (founder, 1 Nov).**<br>What it checks: every file git tracks (or the files of a given commit, with `--ref <commit>`) is read, and a line that is exactly a conflict marker fails: `<<<<<<< ...`, `>>>>>>> ...`, or `=======` alone when it sits between the other two. Long rules made of " |
 | `npm run test:no-filenames` | **No file name reaches a model. Asserted three ways, because one way is not**<br>enough for a property this easy to reintroduce. |
 | `npm run test:no-model-prose` | **No model-written prose reaches a document, an export, or a court form.**<br>COSTS NOTHING. Calls the real engine with a real input, with external cognition disabled, and inspects what comes out. No network, no AI. |
@@ -278,6 +279,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:story-invariants` | **THIRTY-TWO STORIES, ALL THREE COURTS, BOTH SIDES: THE SAME FOUR PROMISES HOLD FOR EVERY ONE (audit of the three families,**<br>11 Nov 2026: Chrome kept finding the same kinds of mistake in new places, so they are checked across a wide story set). |
 | `npm run test:story-other-party` | **THE STORY READER NEVER TAKES A WITNESS OR BYSTANDER AS THE OTHER PARTY (Chrome check of #544, 6 Nov 2026, F2).**<br>Chrome, Small Claims: the story was "I hired a deck builder in March 2026 to build a deck at my home. They never finished it and kept the money I paid. My neighbour remembers their teal-orange van." The case page's "What we have so far" showed "The other party |
 | `npm run test:story-other-party-relations` | **THE STORY READER READS A FRIEND OR RELATIVE AS THE OTHER PARTY ONLY WHEN THE STORY TIES THEM TO WHAT IS OWED, AND**<br>NEVER A WITNESS (Chrome check of #544 on 9b960f7, 8 Nov 2026, F14). |
+| `npm run test:story-own-sentences` | **THE STORY IS THE PERSON'S OWN STORY SENTENCES; FOLLOW-UP ANSWERS ARE NEVER GLUED ONTO IT (Chrome pass 3 on #550,**<br>19 Nov 2026, the worst finding). |
 | `npm run test:story-pack` | **Runs the story pack (tests/browser/story-pack.spec.ts) and prints its findings,**<br>grouped by what failed. Exits non-zero when there are any, so it can gate a PR. |
 | `npm run test:story-pack-records` | **EACH STORY-PACK RUN KEEPS ITS OWN RECORDS (site owner, 2026-10-27).**<br>Checks, as properties: - two runs with different run ids write to different folders, and neither touches the other; - the folder is outside test-results/, which Playwright empties at the start of every run; - the story pack writes its ask-once, claim-kind and  |
 | `npm run test:story-pack-shards` | **THE STORY PACK'S PARTS RUN EXACTLY THE WHOLE PACK, EACH TEST ONCE (site owner, 2026-10-29).**<br>CI shares the story pack across machines (courtsimplified-story-pack.yml: a matrix of parts, each `--fully-parallel --shard=<part>/<parts>`). Checks, as properties: - the parts the workflow lists are 1..N, and every part runs `--shard=<part>/N` with that N; -  |

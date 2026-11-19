@@ -12,7 +12,13 @@ import LegalAdviceDeflection from "./LegalAdviceDeflection";
 import TribunalNotice from "./TribunalNotice";
 import { WorkingButton } from "./Working";
 import { UseSuggestion } from "./UseSuggestion";
-import { factStatus, mayAskWords } from "@/src/lib/case-system/caseFile/factStatus";
+import { factStatus, mayShowQuestion } from "@/src/lib/case-system/caseFile/factStatus";
+import { factsOfQuestion } from "@/src/lib/case-system/caseFile/factsOfQuestion";
+import { allHomeQuestionWords } from "@/src/lib/case-system/questions/factQuestions";
+
+/** A question of the site's own: it has an id and its words are the fixed words (never the model's). */
+const SITE_WORDS = allHomeQuestionWords();
+const isSiteQuestion = (item: { id?: string; question: string }) => Boolean(item.id) && SITE_WORDS.has(item.question);
 import type { CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
 import { offerForAskedWords } from "@/src/lib/case-system/caseFile/storyOffers";
 
@@ -84,17 +90,20 @@ export default function CaseUnderstandingCard({
     previousResult.current = result;
   }, [result, setReplies]);
   const answered = understanding.questions
-    .map((item, index) => ({ question: item.question, answer: (replies[index] ?? "").trim() }))
+    .map((item, index) => ({ ...(item.id ? { id: item.id } : {}), question: item.question, answer: (replies[index] ?? "").trim() }))
     .filter((item) => item.answer);
   const suggested = asPath(understanding.mainCourt);
-  // The questions this card may ask, by their place in the reading (replies are kept by that place).
-  const asks = understanding.questions.map((item) => mayAskWords(file, item.question, { court: chosenPath }));
-  // What the story already gives for a question: offered with it, never asked with an empty box (storyOffers.ts).
-  const offered = understanding.questions.map((item) => offerForAskedWords(file, item.question, story ?? "", understanding.facts ?? []));
+  // The questions this card may ask, by their place in the reading (replies are kept by that place): ONLY the site's own,
+  // by id and in its fixed words (questions/factQuestions.ts), and only while the one function lets that id be asked. A
+  // reading saved before 19 Nov 2026 with the model's own questions shows none of them (site owner: no AI-written
+  // question text reaches the person).
+  const asks = understanding.questions.map((item) => isSiteQuestion(item) && mayShowQuestion(file, item.id!));
+  // What the story already gives for a question: offered with it, never asked with an empty box (storyOffers.ts), by fact.
+  const offered = understanding.questions.map((item) => isSiteQuestion(item) ? offerForAskedWords(file, item.question, story ?? "", understanding.facts ?? [], { fact: factsOfQuestion(item.id!)[0] ?? null }) : null);
   const reply = (index: number, value: string) => {
     const next = { ...replies, [index]: value };
     setReplies(next);
-    onDraftChange?.(understanding.questions.map((question, at) => ({ question: question.question, answer: next[at] ?? "" })).filter((item) => item.answer.trim()));
+    onDraftChange?.(understanding.questions.map((question, at) => ({ ...(question.id ? { id: question.id } : {}), question: question.question, answer: next[at] ?? "" })).filter((item) => item.answer.trim()));
   };
   // The court the person already chose (the start's answer): the reading's same court is not offered again.
   const heldCourt = file && factStatus(file, "court") === "known" && typeof file.court.value === "string" ? file.court.value : null;
