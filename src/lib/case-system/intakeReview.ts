@@ -544,9 +544,25 @@ export function remainingEssentialQuestions(stored: Checkpoint, master?: unknown
   // Those the person said they do not know are notAnsweredYet's quiet lines instead.
   const file = caseFileOf(stored, master);
   // Small Claims: the question engine itself asks the case file (the one asker, intake/asker.ts; founder, 1 Nov).
-  if (stored.courtPath === "small-claims") return remainingBeforeCaseFile(stored, false, file);
+  if (stored.courtPath === "small-claims") return oneQuestionPerFact(remainingBeforeCaseFile(stored, false, file));
   // The one function (factStatus.ts): shown only while its fact is still to ask or to offer (the same rule alreadyAsked held).
-  return remainingBeforeCaseFile(stored, false).filter(question => mayShowQuestion(file, question.id));
+  return oneQuestionPerFact(remainingBeforeCaseFile(stored, false).filter(question => mayShowQuestion(file, question.id)));
+}
+
+/**
+ * ONE QUESTION PER FACT ON A PAGE (Chrome pass 3 on #550, S1, 19 Nov 2026): the review listed "Roughly when did the
+ * situation that led to this claim happen?" (offered with the story's Oct 4, 2026) AND "If this involves an injury, what
+ * date did it happen?" (sc-date-injury, no offer), both the one fact whenHappened, and the second blocked Continue. A
+ * question whose facts an earlier question on the list already asks is left out; the first (with its offer) stays.
+ */
+export function oneQuestionPerFact<T extends { id: string }>(questions: readonly T[]): T[] {
+  const asked = new Set<string>();
+  return questions.filter((question) => {
+    const facts = slotsOfQuestion(question.id);
+    if (facts.length && facts.every((fact) => asked.has(fact))) return false;
+    for (const fact of facts) asked.add(fact);
+    return true;
+  });
 }
 
 /** Empty as a review box shows it: nothing typed, or an empty list. */
