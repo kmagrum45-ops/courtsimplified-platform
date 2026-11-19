@@ -323,6 +323,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   const city = location.city;
   const [otherParty, setOtherParty] = useIntakeState("family", "otherParty", () => saved?.otherParty || String(initialValues.otherParty || ""));
   const [childrenInfo, setChildrenInfo] = useIntakeState("family", "childrenInfo", () => saved?.childrenInfo ?? "");
+  // Married to the other person: asked once, early, here (guidedFields.ts "married"); the triage reads the case file.
+  const [married, setMarried] = useIntakeState<string>("family", "married", "");
   const [currentLivingSituation, setCurrentLivingSituation] = useIntakeState("family", "currentLivingSituation", () => saved?.currentLivingSituation ?? "");
   const [pastLivingHistory, setPastLivingHistory] = useIntakeState("family", "pastLivingHistory", () => saved?.pastLivingHistory ?? "");
   // The one copy of the story (intakeStory.ts). A story read from a saved case fills an empty one once.
@@ -847,6 +849,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   const guidedValues: GuidedValues = {
     facts,
     yourRole,
+    married,
     issues,
     filedDocuments,
     childrenInfo,
@@ -867,6 +870,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
       case "yourRole": personSet.current.add("yourRole"); setYourRole(one === "applicant" || one === "respondent" ? one : "not-sure"); break;
       case "issues": setIssues(list.filter((item): item is FamilyIssue => issueOptions.some((option) => option.value === item))); break;
       case "filedDocuments": personDocuments.current = new Set(list); setFiledDocuments(list.filter((item): item is FiledDocument => filedOptions.some((option) => option.value === item))); break;
+      case "married": setMarried(one === "yes" || one === "no" || one === "unsure" ? one : ""); break;
       case "childrenInfo": setChildrenInfo(one); break;
       case "servedDate": setTimeline((current) => familyTimelineAnswer(key, one, current) ?? current); break;
       case "upcomingCourtDate": setUpcomingCourtDate(one); break;

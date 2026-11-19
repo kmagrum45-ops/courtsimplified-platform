@@ -206,6 +206,9 @@ const QUESTIONS: Record<TriageQuestionId, TriageQuestion> = {
   },
 };
 
+/** The married question, in its own words: also asked early by the Family questions (guidedFields.ts). */
+export const MARRIED_TRIAGE_QUESTION = QUESTIONS["married-to-other-party"];
+
 /**
  * The next question, or null when the triage has what it needs.
  *

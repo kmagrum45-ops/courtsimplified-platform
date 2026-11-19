@@ -335,6 +335,8 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
       // "I'm not sure" given at the start, and the step page asked "Where is your case?" again (founder's Chrome
       // check of #541, 2 Nov, step 2, Small Claims). Every court.
       if (key === "caseStage" && situation.where) continue;
+      // Family's "married" is a yes / no / not sure, read with the triage's answer below (one fact, never the word "yes").
+      if (area === "family" && key === "married") continue;
       // The Small Claims form starts with "Nothing filed yet" ticked: only an answer the person changed counts.
       if (area === "small-claims" && key === "filedDocuments" && strings(value).join() === "nothing") continue;
       // Words the one asker's fill put in a Small Claims box (asker.ts; "small-claims".filledWords) are a copy of an
@@ -406,6 +408,8 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   const triage = object(object(builder.triageState).record);
   const yesNo = (value: unknown) => (value === "yes" ? true : value === "no" ? false : value === "unsure" ? "not-sure" : undefined);
   if (yesNo(triage.marriedToOtherParty) !== undefined) give(file, "married", yesNo(triage.marriedToOtherParty), "married-to-other-party");
+  // The same question asked early by the Family questions (guidedFields.ts "married"; Chrome pass 3, S7): one answer, one fact.
+  else if (yesNo(object(sections.family).married) !== undefined) give(file, "married", yesNo(object(sections.family).married), "family:married");
   // Where they married, carried from the story's own sentence once the person says they were
   // married (item 12, case 14: a marriage abroad is a fact to carry, never assumed Ontario).
   if (file.married.state === "answered" && file.married.value === true && file.marriedWhere.state === "not-asked") {

@@ -79,6 +79,7 @@ export const FIELD_ROWS: readonly FieldRow[] = [
   answer("family", "upcomingCourtDate"),
   answer("family", "urgent"),
   answer("family", "yourRole"),
+  answer("family", "married"),
   answer("family", "evidence"),
   answer("family", "servedDate"),
   // Each with its fact since 17 Nov 2026 (factsOfQuestion.ts; test:every-question-has-fact).

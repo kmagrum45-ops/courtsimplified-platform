@@ -15,6 +15,7 @@
 import type { GuidedChoice, GuidedField, GuidedValues } from "./GuidedFormChat";
 import { SERVED_LINE, storyHintsForDates } from "../../../src/lib/case-system/casePosition";
 import { STORY_LABEL } from "../../../src/lib/case-system/copy/storyGuidance";
+import { MARRIED_TRIAGE_QUESTION } from "../../../src/lib/case-system/family/statusTriage";
 import { factStatus } from "../../../src/lib/case-system/caseFile/factStatus";
 import { offeredAmount } from "../../../src/lib/case-system/caseFile/storyOffers";
 import type { CaseFile, SlotFact } from "../../../src/lib/case-system/caseFile/caseFile";
@@ -111,6 +112,21 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       options: [
         { value: "applicant", label: "I'm starting it (or I want to)" },
         { value: "respondent", label: "The other person started it and I was served" },
+      ],
+    },
+    {
+      // Asked once, here, early, by the Family questions themselves (Chrome pass 3 on #550, S7: never asked, so "No" could
+      // not be given and the divorce and property content showed). The triage's own words; the triage does not ask it again
+      // once the case file holds the answer (statusTriage.ts selectNextTriageQuestion, mayShowQuestion).
+      key: "married",
+      label: "Married to the other person",
+      question: MARRIED_TRIAGE_QUESTION.prompt,
+      why: MARRIED_TRIAGE_QUESTION.whyAsked,
+      kind: "choice",
+      options: [
+        { value: "yes", label: "Yes" },
+        { value: "no", label: "No" },
+        { value: "unsure", label: "I'm not sure" },
       ],
     },
     {
