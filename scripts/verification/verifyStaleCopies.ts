@@ -151,8 +151,10 @@ check("(d) S6: the case title falls back to the story's other party (CaseHomeCon
   const oldDraft = readCaseDrafts({ drafts: [{ id: "draft_old1", title: "Old", kind: "your-story", createdAt: "2026-10-01T00:00:00Z", updatedAt: "2026-10-01T00:00:00Z", sections: [{ id: "part_1", heading: "", text: "x" }] }] });
   check("(e) an older saved draft still reads, unchanged and with no madeFrom", oldDraft.length === 1 && oldDraft[0].madeFrom === undefined && oldDraft[0].sections[0].text === "x");
   const page = read("app/cases/[id]/drafts/page.tsx");
-  check("(e) the drafts page records madeFrom on every draft made from the case (not a blank or imported one)", /const draft = fresh\.kind === "blank" \|\| fresh\.kind === "imported" \? fresh : \{ \.\.\.fresh, madeFrom: madeFromOf\(caseFileOfMaster\(master, courtPath\)\) \};/.test(page));
-  check("(e) the open draft and its card say when the case changed since", /<DraftOutOfDate changes=\{changes\} \/>/.test(page) && /changes=\{draftChanges\(open\.madeFrom, caseFileOfMaster\(master, courtPath\)\)\}/.test(page) && /<DraftOutOfDate compact changes=\{draftChanges\(draft\.madeFrom/.test(page));
+  // Updated 19 Nov 2026 with the code (Chrome pass 3, CA-4): the same properties, read from the page as it is now (a draft
+  // made from the case also starts unchanged; the open draft and its card read the draft as shown).
+  check("(e) the drafts page records madeFrom on every draft made from the case (not a blank or imported one)", /const draft = fresh\.kind === "blank" \|\| fresh\.kind === "imported" \? fresh : \{ \.\.\.fresh, madeFrom: madeFromOf\(caseFileOfMaster\(master, courtPath\)\), edited: false \};/.test(page));
+  check("(e) the open draft and its card say when the case changed since", /<DraftOutOfDate changes=\{changes\} onUpdate=\{onUpdate\} \/>/.test(page) && /changes=\{draftChanges\(shownDraft\(open\)\.madeFrom, fileNow\)\}/.test(page) && /<DraftOutOfDate compact changes=\{draftChanges\(shownDraft\(draft\)\.madeFrom, fileNow\)\}/.test(page) && /const fileNow = caseFileOfMaster\(master, courtPath\);/.test(page));
 }
 
 console.log(failed ? `\n${failed} check(s) FAILED.` : "\nAll stale-copy checks passed.");
