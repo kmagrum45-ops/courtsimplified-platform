@@ -37,6 +37,7 @@ import { formSummaryFor } from "../../src/lib/content-library/forms/formSummarie
 import { OFFICIAL_FORMS_FETCHED_AT, officialFormFor } from "../../src/lib/content-library/forms/officialFormLink";
 import { assertApprovedUserContent } from "../../src/lib/content-library/outputGuard";
 import { formKey, formsStageNote, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
+import { MARRIED_ONLY_FAMILY_FORMS } from "../../src/lib/content-library/nextStepPractical";
 import { situationLine, situationOfCase, stageFromSituation } from "@/src/lib/case-system/situation/situation";
 import { FILE_OPEN_FAILED, openAfterCheck, saveFile } from "@/src/lib/case-workspace/fileFetch";
 import { WorkingButton } from "../_components/Working";
@@ -368,9 +369,11 @@ type FormsWorkspaceProps = {
    * The rest follow; nothing is removed.
    */
   leadForms?: { number: string; label: string }[];
+  /** A Family case not recorded as married: the married-only forms are left out of the list (nextStepPractical.ts MARRIED_ONLY_FAMILY_FORMS). */
+  hideMarriedOnly?: boolean;
 };
 
-function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedded = false, leadForms = [] }: FormsWorkspaceProps) {
+function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedded = false, leadForms = [], hideMarriedOnly = false }: FormsWorkspaceProps) {
   const searchParams = useSearchParams();
 
   // The case and court come from the address alone (openCase.ts, rule 1).
@@ -659,10 +662,12 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
     const kept = enrichedForms.filter(({ form, status }) => {
       const searchMatch = !q || getSearchText(form).includes(q);
       const statusMatch = statusFilter === "all" || status === statusFilter;
-      return searchMatch && statusMatch;
+      // Married-only Family forms (Form 8A, 13B, 13C, 25A, 36, 36A, 36B) until the person says they were married (Chrome pass 3 on #550, S7).
+      const marriedOnly = hideMarriedOnly && form.court_type === "family" && MARRIED_ONLY_FAMILY_FORMS.has(cleanSpaces(form.form_number));
+      return searchMatch && statusMatch && !marriedOnly;
     });
     return leadFormsFirst(kept, ({ form }) => cleanSpaces(form.form_number), leadForms.map((lead) => lead.number));
-  }, [enrichedForms, search, statusFilter, leadForms]);
+  }, [enrichedForms, search, statusFilter, leadForms, hideMarriedOnly]);
   // Each leading form's own label: the step's forms "For your step", the claim
   // form after a notice "After the notice" (legal review 2026-10-14).
   const leadLabels = useMemo(() => new Map(leadForms.map((lead) => [formKey(lead.number), lead.label])), [leadForms]);

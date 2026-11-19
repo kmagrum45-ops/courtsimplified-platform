@@ -932,6 +932,7 @@ function AnswerView({
   userWords = "",
   underCard = false,
   servedWhen = [],
+  notMarried = false,
 }: {
   answer: RenderedAnswer;
   court: string;
@@ -940,6 +941,8 @@ function AnswerView({
   underCard?: boolean;
   /** Service-timing sentences of the step's deadlines, each with its subrule, shown under "Your deadline" where the sentence appears. */
   servedWhen?: PlainLine[];
+  /** Married-only forms left out of the forms the answer names until they say married (marriedOnly.ts hidesMarriedOnly). */
+  notMarried?: boolean;
 }) {
   const cardLead = underCard ? cardLeadOf(answer) : "";
   return (
@@ -980,7 +983,7 @@ function AnswerView({
           </div>
         );
       })}
-      <FormsNamedHere texts={answer.sections.map((section) => section.text)} court={court} userWords={userWords} />
+      <FormsNamedHere texts={answer.sections.map((section) => section.text)} court={court} userWords={userWords} notMarried={notMarried} />
       {answer.sources.length > 0 && (
         <div>
           <p className="text-sm font-semibold text-[#16302b]">Sources</p>
@@ -2250,10 +2253,11 @@ export default function StageAnswerPanel({
             userWords={userWords}
             underCard={cardShowsLead(result.nextStep, userWords, city)}
             servedWhen={servedWhenOf(result.nextStep)}
+            notMarried={notMarried}
           />
         </details>
       ) : result?.outcome === "rendered" ? (
-        <AnswerView answer={result.answer} court={courtPath} userWords={userWords} />
+        <AnswerView answer={result.answer} court={courtPath} userWords={userWords} notMarried={notMarried} />
       ) : null}
 
       {result?.outcome === "needs-a-fact" && (
@@ -2275,7 +2279,7 @@ export default function StageAnswerPanel({
           >
             Show the steps for that place
           </button>
-          {result.answer && <AnswerView answer={result.answer} court={courtPath} userWords={userWords} />}
+          {result.answer && <AnswerView answer={result.answer} court={courtPath} userWords={userWords} notMarried={notMarried} />}
         </div>
       )}
 

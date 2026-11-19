@@ -2665,8 +2665,16 @@ export function isMunicipalNoticeStep(noticeStepId: string, story = "", city = "
 
 /** The Application (Divorce): the one form the "never married" rule leaves out (B4; Chrome check of #545, 3.5). */
 export function isDivorceApplication(form: { court: PracticalCourt; number: string }): boolean {
-  return form.court === "family" && form.number === "8A";
+  return form.court === "family" && MARRIED_ONLY_FAMILY_FORMS.has(form.number);
 }
+
+/**
+ * The Family forms for married spouses only, by their official titles (officialFormLinks.json): 8A Application (Divorce),
+ * 13B Net Family Property Statement, 13C Comparison of Net Family Property Statements, 25A Divorce Order, 36 Affidavit
+ * for Divorce, 36A Certificate of Clerk (Divorce), 36B Certificate of Divorce. Hidden wherever isDivorceApplication is
+ * read until the person says they were married (Chrome pass 3 on #550, S7; the content table: N11, N12, N13, F1-F7, F9).
+ */
+export const MARRIED_ONLY_FAMILY_FORMS: ReadonlySet<string> = new Set(["8A", "13B", "13C", "25A", "36", "36A", "36B"]);
 
 /**
  * A step's practical view without the Application (Divorce), for someone who recorded they were never married: every

@@ -108,7 +108,7 @@ export default function CaseFormsSection() {
       ) : null}
       {/* The step's forms (and the claim form after a notice) lead the
           catalogue; the rest follow, all still listed. */}
-      <FormsWorkspace caseId={caseRecord.id} courtPath={caseRecord.court_path} embedded leadForms={practical?.leadForms ?? []} />
+      <FormsWorkspace caseId={caseRecord.id} courtPath={caseRecord.court_path} embedded leadForms={practical?.leadForms ?? []} hideMarriedOnly={notMarried} />
     </div>
   );
 }

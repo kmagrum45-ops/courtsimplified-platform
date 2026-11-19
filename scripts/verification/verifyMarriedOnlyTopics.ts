@@ -58,7 +58,9 @@ async function main() {
   const married = changeFor(fileMarried(true), NEVER);
   check("2a. Change: answered married -> every topic offered (whatever the story says)", MARRIED_ONLY.every((id) => married.includes(id)), married.join(", "));
   const unknown = changeFor(fileMarried(null), "We separated last year.");
-  check("2b. Change: nothing known -> every topic offered", MARRIED_ONLY.every((id) => unknown.includes(id)), unknown.join(", "));
+  // Changed 19 Nov 2026 (site owner: "until the fact is yes, hide ALL married-only content everywhere"; Chrome pass 3 on
+  // #550, S7): was "nothing known -> every topic offered". Now nothing known hides the married-only topics, and only them.
+  check("2b. Change: nothing known -> the married-only topics are hidden until they say married; the others are offered", MARRIED_ONLY.every((id) => !unknown.includes(id)) && ["parenting-time", "spousal-support"].every((id) => unknown.includes(id)), unknown.join(", "));
   check("2c. Change: the other topics are offered to everyone (parenting time, spousal support)", ["parenting-time", "spousal-support"].every((id) => answeredNo.includes(id)));
 
   // 3. The intake's boxes and the step choices read the same rule.

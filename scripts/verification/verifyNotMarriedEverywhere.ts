@@ -28,6 +28,8 @@
  * Run: npm run test:not-married-everywhere
  */
 import assert from "node:assert/strict";
+import { hidesMarriedOnly } from "../../src/lib/case-system/family/marriedOnly";
+import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
 import { readFileSync } from "node:fs";
 import published from "../../src/lib/content-library/published/stageAnswers.published.json";
 import { practicalFor, withoutDivorceApplication } from "../../src/lib/content-library/nextStepPractical";
@@ -172,8 +174,31 @@ async function main() {
     assert.deepEqual(kept(false), ["s. 3 (1)", "s. 5 (1)", "s. 33 (1)"], "a married person lost a source");
   });
 
+  check("12. hidden until they say married: every answer but Yes hides married-only content -- not asked, not sure, No, no case (Chrome pass 3 on #550, S7)", () => {
+    const withMarried = (record: Record<string, unknown> | null) => caseFileOf({ version: 1, flowId: "m", courtPath: "family", revision: "r", sections: { story: { text: "We separated last year. We have a 6-year-old." }, ...(record ? { builder: { triageState: { record } } } : {}) } } as never);
+    assert.equal(hidesMarriedOnly(null), true, "no case: married-only content shown");
+    assert.equal(hidesMarriedOnly(withMarried(null)), true, "married not asked yet: married-only content shown");
+    assert.equal(hidesMarriedOnly(withMarried({ marriedToOtherParty: "unsure" })), true, "not sure: married-only content shown");
+    assert.equal(hidesMarriedOnly(withMarried({ marriedToOtherParty: "no" })), true, "No: married-only content shown");
+    assert.equal(hidesMarriedOnly(withMarried({ marriedToOtherParty: "yes" })), false, "Yes: married-only content hidden from a married person");
+  });
+
+  check("13. every married-only Family form is left out until married: 8A, 13B, 13C, 25A, 36, 36A, 36B (card, the full answer's forms, the Forms tab catalogue); other courts' same numbers kept", () => {
+    const practical = readFileSync("src/lib/content-library/nextStepPractical.ts", "utf8");
+    const isDivorceApplication = (form: { court: string; number: string }) => form.court === "family" && /MARRIED_ONLY_FAMILY_FORMS: ReadonlySet<string> = new Set\(\[([^\]]*)\]\)/.exec(practical)?.[1].replace(/[" ]/g, "").split(",").includes(form.number);
+    for (const number of ["8A", "13B", "13C", "25A", "36", "36A", "36B"]) assert.ok(isDivorceApplication({ court: "family", number }), `Family Form ${number} is not treated as married-only`);
+    assert.ok(!isDivorceApplication({ court: "small-claims", number: "8A" }) && !isDivorceApplication({ court: "civil", number: "25A" }), "another court's form is hidden");
+    assert.ok(/MARRIED_ONLY_FAMILY_FORMS\.has\(form\.number\)/.test(practical), "isDivorceApplication does not read the set");
+    const workspace = readFileSync("app/forms/FormsWorkspace.tsx", "utf8");
+    assert.ok(/hideMarriedOnly && form\.court_type === "family" && MARRIED_ONLY_FAMILY_FORMS\.has/.test(workspace), "the Forms tab catalogue lists married-only forms");
+    assert.ok(/hideMarriedOnly=\{notMarried\}/.test(readFileSync("app/cases/[id]/forms/page.tsx", "utf8")), "the case's Forms tab does not pass the married rule to the catalogue");
+    const panel = readFileSync("app/builder/_components/StageAnswerPanel.tsx", "utf8");
+    assert.ok(/<FormsNamedHere texts=\{answer\.sections\.map\(\(section\) => section\.text\)\} court=\{court\} userWords=\{userWords\} notMarried=\{notMarried\} \/>/.test(panel), "the full answer's form list ignores the married rule");
+  });
+
   if (failed) { console.log(`\n${failed} check(s) failed`); process.exit(1); }
   console.log("\nAll checks passed");
 }
+
 
 void main();

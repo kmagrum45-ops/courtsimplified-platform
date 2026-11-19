@@ -37,23 +37,31 @@ export const MARRIED_ONLY_FAMILY_STEPS: ReadonlySet<string> = new Set([
  * sure" whether they were married: the married-only topics stay hidden too, with MARRIED_UNSURE_NOTE; site owner, 14 Nov
  * 2026, decision A), or not at all.
  */
-export type NotMarried = "answered" | "story" | "unsure" | null;
+export type NotMarried = "answered" | "story" | "unsure" | "not-asked" | null;
+
+/** The person said they were married to the other person (Yes): the only case married-only content is shown. */
+export function saidMarried(file: CaseFile | null | undefined): boolean {
+  return Boolean(file && file.married.state === "answered" && file.married.value === true);
+}
 
 export function notMarriedOf(file: CaseFile | null | undefined, story?: string | null): NotMarried {
   if (file && neverMarried(file)) return "answered";
   if (file && file.married.state === "unsure") return "unsure";
   // Answered Yes: married, whatever the story says.
-  if (file && file.married.state === "answered" && file.married.value === true) return null;
+  if (saidMarried(file)) return null;
   const words = story ?? (typeof file?.story.value === "string" ? file.story.value : undefined);
-  return storyAnswerFor("married-to-other-party", words) === "no" ? "story" : null;
+  // Not answered yet: hidden until they say married (site owner, 19 Nov 2026; Chrome pass 3 on #550, S7).
+  return storyAnswerFor("married-to-other-party", words) === "no" ? "story" : "not-asked";
 }
 
 /**
- * Whether married-only content is hidden for this case: the person answered they were not married, or that they are not
- * sure (decision A). The one test every screen hides married-only issues, steps, sentences and forms by.
+ * Whether married-only content is hidden for this case: everything but a Yes to "married" hides it -- No, "I'm not sure"
+ * (decision A), not asked yet, or no case at all (site owner, 19 Nov 2026: "until the fact is yes, hide ALL married-only
+ * content everywhere"; Chrome pass 3 on #550, S7: never asked, so divorce, Form 8A and the matrimonial home showed).
+ * The one test every screen hides married-only issues, steps, sentences and forms by.
  */
 export function hidesMarriedOnly(file: CaseFile | null | undefined): boolean {
-  return Boolean(file) && (neverMarried(file!) || file!.married.state === "unsure");
+  return !saidMarried(file);
 }
 
 /** The options shown to someone not married: the married-only ones left out, except one already chosen. */
