@@ -12,14 +12,14 @@
     },
     {
       "step": "story-reading",
-      "input": "341bfecbae3a8d1e",
-      "said": "{\"sent\":\"My contractor left the work unfinished and kept my $1,200 deposit.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\\n\\nQ: Was the work being done in Ontario?\\nA: I do not know yet\\n\\nQ: Are you seeking only the $1,200 deposit back, or a larger total amount?\\nA: Only the $1,200 deposit.\\n\\nQ: When did the contractor stop working?\\nA: September 2026\\n\\nQ: What work did the contractor agree to do, and what was left unfinished?\\nA: I do not know yet\",\"chosen\":null}",
-      "output": "{\n  \"summary\": \"Your contractor left the work unfinished and kept your $1,200 deposit. The contractor stopped working in September 2026, and you want only the deposit back. You are bringing the case, but nothing has been filed with a court yet.\",\n  \"facts\": [\n    {\n      \"label\": \"Other party\",\n      \"value\": \"Your contractor\"\n    },\n    {\n      \"label\": \"Your role\",\n      \"value\": \"Person bringing the claim\"\n    },\n    {\n      \"label\": \"Amount sought\",\n      \"value\": \"$1,200 deposit only\"\n    },\n    {\n      \"label\": \"Complaint\",\n      \"value\": \"The contractor left the work unfinished and kept the deposit\"\n    },\n    {\n      \"label\": \"Work stopped\",\n      \"value\": \"September 2026\"\n    },\n    {\n      \"label\": \"Agreed work and unfinished work\",\n      \"value\": \"Not given\"\n    },\n    {\n      \"label\": \"Location of work\",\n      \"value\": \"Not given\"\n    },\n    {\n      \"label\": \"Court filing\",\n      \"value\": \"Nothing filed\"\n    }\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Claim for return of a contractor deposit\",\n      \"court\": \"unclear\",\n      \"forum\": \"Jurisdiction is not yet established; potentially the Small Claims Court if the dispute belongs in Ontario\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You have not started a court case.\",\n  \"questions\": [\n    {\n      \"question\": \"Where is the contractor based?\",\n      \"why\": \"The contractor’s location helps determine whether the dispute belongs in Ontario.\"\n    },\n    {\n      \"question\": \"Where do you live?\",\n      \"why\": \"Your location helps identify the dispute’s connection to Ontario.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
+      "input": "c292ebad61b0e298",
+      "said": "{\"sent\":\"My contractor left the work unfinished and kept my $1,200 deposit.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\\n\\nQ: Roughly when did the situation that led to this claim happen?\\nA: September 2026\\n\\nQ: What outcome are you asking the court to order?\\nA: Return of my $1,200 deposit\",\"chosen\":null}",
+      "output": "{\n  \"summary\": \"Your contractor left the work unfinished and kept your $1,200 deposit. The situation arose in September 2026, and you want your deposit returned. You are bringing the claim, but nothing has been filed with a court yet.\",\n  \"facts\": [\n    {\"label\": \"Other party\", \"value\": \"Your contractor\"},\n    {\"label\": \"Dispute\", \"value\": \"Unfinished work and a deposit not returned\"},\n    {\"label\": \"Amount sought\", \"value\": \"$1,200\"},\n    {\"label\": \"Outcome requested\", \"value\": \"Return of the deposit\"},\n    {\"label\": \"Your role\", \"value\": \"Person bringing the claim\"},\n    {\"label\": \"When the situation arose\", \"value\": \"September 2026\"},\n    {\"label\": \"Court filing\", \"value\": \"Nothing filed\"},\n    {\"label\": \"Location of the work\", \"value\": \"Not given\"},\n    {\"label\": \"Contract terms\", \"value\": \"Not given\"}\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Claim against a contractor for return of a deposit\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You have not started a court case.\",\n  \"questions\": [\n    {\n      \"question\": \"Where was the work supposed to be done?\",\n      \"why\": \"This helps confirm whether the dispute belongs in Ontario.\"\n    },\n    {\n      \"question\": \"What work did the contractor agree to do for the $1,200 deposit?\",\n      \"why\": \"This identifies what the payment covered.\"\n    },\n    {\n      \"question\": \"How much of the agreed work did the contractor complete?\",\n      \"why\": \"This clarifies the dispute over returning the full deposit.\"\n    },\n    {\n      \"question\": \"What did your agreement say about cancellation or returning the deposit?\",\n      \"why\": \"Those terms may affect your entitlement to a refund.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
     },
     {
       "step": "safety",
-      "input": "316423db6383b962",
-      "said": "{\"said\":\"My contractor left the work unfinished and kept my $1,200 deposit.\\n\\nI do not know yet\\n\\nOnly the $1,200 deposit.\\n\\nSeptember 2026\"}",
+      "input": "4a3d23f7f6137bc7",
+      "said": "{\"said\":\"My contractor left the work unfinished and kept my $1,200 deposit.\"}",
       "output": {
         "classification": "clear",
         "requestsLegalAdvice": false
@@ -27,8 +27,8 @@
     },
     {
       "step": "fact-reading",
-      "input": "316423db6383b962",
-      "said": "{\"said\":\"My contractor left the work unfinished and kept my $1,200 deposit.\\n\\nI do not know yet\\n\\nOnly the $1,200 deposit.\\n\\nSeptember 2026\"}",
+      "input": "4a3d23f7f6137bc7",
+      "said": "{\"said\":\"My contractor left the work unfinished and kept my $1,200 deposit.\"}",
       "output": {
         "facts": {
           "role": "plaintiff",
@@ -41,30 +41,23 @@
     },
     {
       "step": "claim-kind",
-      "input": "6d26509097c3ef42",
-      "said": "{\"said\":\"My contractor left the work unfinished and kept my $1,200 deposit.\\n\\nI do not know yet\\n\\nOnly the $1,200 deposit.\\n\\nSeptember 2026\",\"exclude\":[],\"responding\":false}",
+      "input": "50a523dbd68cca9c",
+      "said": "{\"said\":\"My contractor left the work unfinished and kept my $1,200 deposit.\",\"exclude\":[],\"responding\":false}",
       "output": {
         "claimTypeId": "sc-claim-contractor-poor-or-incomplete-work",
         "claimTypeName": "A contractor did poor or unfinished work",
-        "quote": "My contractor left the work unfinished and kept my $1,200 deposit"
+        "quote": "My contractor left the work unfinished"
       }
     },
     {
       "step": "story-suggestions",
-      "input": "d2093e411cfeb423",
-      "said": "{\"story\":\"My contractor left the work unfinished and kept my $1,200 deposit.\\n\\nI do not know yet\\n\\nOnly the $1,200 deposit.\\n\\nSeptember 2026\",\"questions\":[\"sc-orient-when-happened\",\"sc-orient-dispute-category\",\"sc-amount-claimed\",\"sc-remedy-sought\"],\"quoteFrom\":null}",
+      "input": "82c3553af8731cfd",
+      "said": "{\"story\":\"My contractor left the work unfinished and kept my $1,200 deposit.\",\"questions\":[\"sc-orient-dispute-category\",\"sc-amount-claimed\"],\"quoteFrom\":null}",
       "output": [
-        {
-          "questionId": "sc-orient-when-happened",
-          "questionText": "Roughly when did the situation that led to this claim happen?",
-          "answer": "September 2026",
-          "storyQuote": "September 2026",
-          "dateQuestion": true
-        },
         {
           "questionId": "sc-orient-dispute-category",
           "questionText": "What kind of dispute is this?",
-          "answer": "A deposit that wasn't returned",
+          "answer": "Work or a service you paid for (e.g. a contractor)",
           "storyQuote": "My contractor left the work unfinished and kept my $1,200 deposit.",
           "choices": [
             "Unpaid money owed to you",
@@ -79,19 +72,13 @@
             "A personal injury (a fall, an animal bite, or similar)",
             "Something else"
           ]
-        },
-        {
-          "questionId": "sc-amount-claimed",
-          "questionText": "What is the total dollar amount you are claiming?",
-          "answer": "$1,200",
-          "storyQuote": "Only the $1,200 deposit."
         }
       ]
     },
     {
       "step": "claim-kind-confirm",
-      "input": "18852b26cee32496",
-      "said": "{\"action\":\"confirm\",\"said\":\"My contractor left the work unfinished and kept my $1,200 deposit.\\n\\nI do not know yet\\n\\nOnly the $1,200 deposit.\\n\\nSeptember 2026\",\"claimTypeId\":\"sc-claim-contractor-poor-or-incomplete-work\",\"prior\":[]}",
+      "input": "9dbf89a5ddc3c65b",
+      "said": "{\"action\":\"confirm\",\"said\":\"My contractor left the work unfinished and kept my $1,200 deposit.\",\"claimTypeId\":\"sc-claim-contractor-poor-or-incomplete-work\",\"prior\":[]}",
       "output": {
         "outcome": "confirmed",
         "claimType": {
@@ -102,48 +89,16 @@
     },
     {
       "step": "fact-reading",
-      "input": "98110efa2aaf73a5",
-      "said": "{\"said\":\"Q: Roughly when did the situation that led to this claim happen?\\nA: September 2026\\n\\nQ: What is the total dollar amount you are claiming?\\nA: $1,200.00\"}",
+      "input": "ccf5c9dc31b76bc8",
+      "said": "{\"said\":\"Q: What is the total dollar amount you are claiming?\\nA: $1,200.00\"}",
       "output": {
         "facts": {
           "role": "plaintiff"
         },
-        "directFields": []
-      }
-    },
-    {
-      "step": "story-suggestions",
-      "input": "a81151ab347b33a9",
-      "said": "{\"story\":\"My contractor left the work unfinished and kept my $1,200 deposit.\\n\\nI do not know yet\\n\\nOnly the $1,200 deposit.\\n\\nSeptember 2026\",\"questions\":[\"sc-remedy-sought\"],\"quoteFrom\":null}",
-      "output": [
-        {
-          "questionId": "sc-remedy-sought",
-          "questionText": "What outcome are you asking the court to order?",
-          "answer": "Return my $1,200 deposit.",
-          "storyQuote": "Only the $1,200 deposit."
-        }
-      ]
-    },
-    {
-      "step": "fact-reading",
-      "input": "8c2ca145043a45e7",
-      "said": "{\"said\":\"Q: What outcome are you asking the court to order?\\nA: Return my $1,200 deposit.\"}",
-      "output": {
-        "facts": {
-          "role": "plaintiff",
-          "disputeCategory": "deposit-refund"
-        },
         "directFields": [
-          "role",
-          "disputeCategory"
+          "role"
         ]
       }
-    },
-    {
-      "step": "story-reading",
-      "input": "20d581894b4f5f71",
-      "said": "{\"sent\":\"My contractor left the work unfinished and kept my $1,200 deposit.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\\n\\nQ: What is the total dollar amount you are claiming?\\nA: Only the $1,200 deposit.\\n\\nQ: Roughly when did the situation that led to this claim happen?\\nA: September 2026\\n\\nQ: What outcome are you asking the court to order?\\nA: Return of my $1,200 deposit\",\"chosen\":null}",
-      "output": "{\n  \"summary\": \"Your contractor left the work unfinished and kept your $1,200 deposit after a situation in September 2026. You want to bring a claim for return of that deposit only, and nothing has been filed with a court yet.\",\n  \"facts\": [\n    {\"label\": \"Your role\", \"value\": \"Person bringing the claim\"},\n    {\"label\": \"Other party\", \"value\": \"Your contractor\"},\n    {\"label\": \"Dispute\", \"value\": \"Unfinished work and deposit not returned\"},\n    {\"label\": \"Amount claimed\", \"value\": \"$1,200\"},\n    {\"label\": \"When\", \"value\": \"September 2026\"},\n    {\"label\": \"Outcome sought\", \"value\": \"Return of the deposit\"},\n    {\"label\": \"Court filing\", \"value\": \"Nothing filed\"},\n    {\"label\": \"Location of work\", \"value\": \"Not given\"}\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Claim against contractor for return of deposit\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You have not started a court claim.\",\n  \"questions\": [\n    {\n      \"question\": \"Where was the work supposed to be done?\",\n      \"why\": \"This helps confirm whether the dispute belongs in Ontario.\"\n    },\n    {\n      \"question\": \"What work did the contractor complete before stopping?\",\n      \"why\": \"This clarifies what part of the agreed work remains unfinished.\"\n    },\n    {\n      \"question\": \"What did you and the contractor agree about when the deposit would be refundable?\",\n      \"why\": \"This clarifies the basis of your request for its return.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
     }
   ]
 }

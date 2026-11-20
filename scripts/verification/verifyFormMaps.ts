@@ -76,7 +76,9 @@ const EXPECTED_7A: Record<string, string | boolean> = {
   "Defendant's last name or company's name": "Circle K Convenience Stores Ltd.", "Defendant's first name": "", "Defendant's second name": "",
   "Defendant's address (street number, apartment, unit number)": "100 Sample Road", "Defendant's City/Town": "Ottawa", "Defendant's province": "ON", "Defendant's phone number": "613-555-0199", "Defendant's postal code": "K1B 0B1", "Defendant's email address": "store@example.com",
   "Defendant's representative's name": "Dana Counsel", "Defendant's representative's Law Society of Ontario number": "L54321", "Defendant's representative's address (street number, apartment, unit number)": "9 Counsel Court", "Defendant's representative's City/Town": "Toronto", "Defendant's representative's province": "ON", "Defendant's representative's phone number": "416-555-0123", "Defendant's representative's postal code": "M5V 1A1", "Defendant's representative's email address": "dana@example.com",
-  "Reasons for claim and details": "On October 4, 2026 I slipped on a wet floor at the Circle K on Sample Road in Ottawa and fell. I want to claim $5,000 for pain and suffering, $450 in lost wages and $18.45 for medicine. A bruised hip and a sore back.",
+  // The story field only: an answer glued onto an old story ("A bruised hip and a sore back.") is an answer, never the
+  // reasons (site owner, 19 Nov 2026; Chrome pass 3 on #550: glued answers printed in the Reasons box).
+  "Reasons for claim and details": "On October 4, 2026 I slipped on a wet floor at the Circle K on Sample Road in Ottawa and fell. I want to claim $5,000 for pain and suffering, $450 in lost wages and $18.45 for medicine.",
   "Reasons for claim and details_continued": "", "Additional pages attached because more room was needed": false,
   "Principal amount claimed": "5,468.45",
   "Start date for accruing prejudgement interest": "", "the Courts of Justice Act": false, "an agreement at the rate of": false, "Percentage": "",

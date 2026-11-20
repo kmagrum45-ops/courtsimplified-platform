@@ -97,7 +97,7 @@ const EXPECTED_9A: Record<string, BoxValue> = {
   "Last name or name of company for defendant": "Defendant", "First name of defendant": "Test", "Second name of defendant": "Avery", "Defendant also known as": "T. A. Defendant",
   "Defendant's address (street number, apartment, unit)": "7 Sample Crescent", "Defendant's city/town": "Kingston", "Defendant's province": "ON", "Defendant's phone number": "613-555-0142", "Defendant's postal code": "K7L 1A1", "Defendant's email address": "test.defendant@example.com",
   "Name(s) of defendant(s)": "Test Avery Defendant; Second Defendant Ltd.",
-  "Reasons for disputing the claim and details": "I hired Example Renovations Inc. in June 2026 to redo my kitchen. They left in August 2026 with the cabinets unfinished and the sink not connected. I paid $2,000 up front and I do not agree that I owe the $3,200 they claim. An e-transfer on June 3, 2026.",
+  "Reasons for disputing the claim and details": "I hired Example Renovations Inc. in June 2026 to redo my kitchen. They left in August 2026 with the cabinets unfinished and the sink not connected. I paid $2,000 up front and I do not agree that I owe the $3,200 they claim.",
 };
 /** Form 1A for the defence (one copy): entry 1 the plaintiffs' second party, entry 2 the person's co-defendant; entry 3 empty. */
 const EXPECTED_1A_DEFENCE: Record<string, BoxValue> = {
@@ -284,10 +284,10 @@ async function main() {
     const record = { ...DEFENCE, sections: { ...DEFENCE.sections, story: { text: story } } } as Checkpoint;
     const values = pdfValues(fillForm(FORM_9A, formContextOf(record)));
     const text = REASONS.map((box) => String(values[box] ?? "")).join(" ");
-    assert.ok(text.includes("I hired Example Renovations Inc.") && text.includes("My answer 1.") && text.includes("I kept every receipt for the deposit."), `the person's own words are missing: ${text.slice(0, 120)}`);
-    // Changed 19 Nov 2026 (site owner: follow-up answers reach a document only as the person's own full sentences): the
-    // answers here are full sentences, and a fragment answer ("$450 only") never reaches the reasons.
-    assert.ok(!text.includes("$450 only"), `a fragment answer reached the reasons: ${text.slice(0, 120)}`);
+    assert.ok(text.includes("I hired Example Renovations Inc."), `the person's story is missing: ${text.slice(0, 120)}`);
+    // Changed 19 Nov 2026, second time (site owner, rule 0: the story field only; "not sure" and answers are never story
+    // sentences): no answer reaches the reasons, a full sentence or a fragment, from the glued lines or the follow-up block.
+    for (const answer of ["My answer 1.", "I kept every receipt for the deposit.", "We signed a written contract in June.", "$450 only"]) assert.ok(!text.includes(answer), `an answer reached the reasons: ${answer}`);
     const found = questions.filter((question) => text.includes(question));
     assert.deepEqual(found.slice(0, 5).map((question) => `${question} <<< ${text.slice(Math.max(0, text.indexOf(question) - 60), text.indexOf(question) + question.length + 30)}`), [], `${found.length} site question(s) in the reasons`);
     assert.ok(!/Answers to follow-up questions|(^|\s)Q:\s/.test(text), "the site's follow-up block is in the reasons");

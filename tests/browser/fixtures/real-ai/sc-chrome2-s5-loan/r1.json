@@ -11,112 +11,6 @@
       "output": "{\n  \"summary\": \"You lent your friend Alex $3,000 for a car repair on June 1, 2026, and he texted you an IOU. He has not paid you back. You want to bring a case, but nothing has been filed with a court yet.\",\n  \"facts\": [\n    {\"label\": \"Your role\", \"value\": \"Proposed plaintiff\"},\n    {\"label\": \"Other party\", \"value\": \"Alex, your friend and the borrower\"},\n    {\"label\": \"Loan amount\", \"value\": \"$3,000\"},\n    {\"label\": \"Loan date\", \"value\": \"June 1, 2026\"},\n    {\"label\": \"Loan purpose\", \"value\": \"Car repair\"},\n    {\"label\": \"Written acknowledgment\", \"value\": \"Alex texted you an IOU\"},\n    {\"label\": \"Repayment status\", \"value\": \"Not repaid\"},\n    {\"label\": \"Court filing\", \"value\": \"Nothing filed\"},\n    {\"label\": \"Repayment terms\", \"value\": \"Not given\"},\n    {\"label\": \"Location\", \"value\": \"Not given\"}\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Claim for repayment of a $3,000 personal loan\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You are considering a claim for repayment, and no court case has been started.\",\n  \"questions\": [\n    {\n      \"question\": \"Where do you and Alex live?\",\n      \"why\": \"This helps identify whether the dispute belongs in Ontario.\"\n    },\n    {\n      \"question\": \"What did you and Alex agree about when the loan would be repaid?\",\n      \"why\": \"The repayment terms determine whether payment is overdue.\"\n    },\n    {\n      \"question\": \"What exactly does Alex's IOU text say?\",\n      \"why\": \"Its wording may clarify the amount owed and the repayment agreement.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
     },
     {
-      "step": "story-reading",
-      "input": "9169cc17f673fef2",
-      "said": "{\"sent\":\"On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\\n\\nQ: Where do you and Alex live?\\nA: I do not know yet\\n\\nQ: What did you and Alex agree about when the loan would be repaid?\\nA: I do not know yet\\n\\nQ: What exactly does Alex's IOU text say?\\nA: I do not know yet\",\"chosen\":null}",
-      "output": "{\n  \"summary\": \"You lent your friend Alex $3,000 on June 1, 2026, for a car repair, and he texted you an IOU. He has not repaid you. You intend to bring a case, but nothing has been filed with a court.\",\n  \"facts\": [\n    {\n      \"label\": \"Other party\",\n      \"value\": \"Alex, your friend and the borrower\"\n    },\n    {\n      \"label\": \"Amount lent\",\n      \"value\": \"$3,000\"\n    },\n    {\n      \"label\": \"Loan date\",\n      \"value\": \"June 1, 2026\"\n    },\n    {\n      \"label\": \"Loan purpose\",\n      \"value\": \"Car repair\"\n    },\n    {\n      \"label\": \"Written acknowledgment\",\n      \"value\": \"Alex texted an IOU; its exact wording is not known\"\n    },\n    {\n      \"label\": \"Repayment\",\n      \"value\": \"Alex has not paid you back\"\n    },\n    {\n      \"label\": \"Agreed repayment terms\",\n      \"value\": \"Not given\"\n    },\n    {\n      \"label\": \"Your and Alex's locations\",\n      \"value\": \"Not given\"\n    },\n    {\n      \"label\": \"Court filing\",\n      \"value\": \"Nothing has been filed\"\n    }\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Unpaid personal loan\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court, if Ontario is the appropriate jurisdiction\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You intend to bring a claim for the unpaid loan, but no court case has been started.\",\n  \"questions\": [],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
-    },
-    {
-      "step": "safety",
-      "input": "45cf462c1af36cfc",
-      "said": "{\"said\":\"On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.\\n\\nI do not know yet\"}",
-      "output": {
-        "classification": "clear",
-        "requestsLegalAdvice": false
-      }
-    },
-    {
-      "step": "fact-reading",
-      "input": "45cf462c1af36cfc",
-      "said": "{\"said\":\"On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.\\n\\nI do not know yet\"}",
-      "output": {
-        "facts": {
-          "role": "plaintiff",
-          "disputeCategory": "loan-or-debt"
-        },
-        "directFields": [
-          "disputeCategory"
-        ]
-      }
-    },
-    {
-      "step": "claim-kind",
-      "input": "20eb195f6519fa51",
-      "said": "{\"said\":\"On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.\\n\\nI do not know yet\",\"exclude\":[],\"responding\":false}",
-      "output": {
-        "claimTypeId": "sc-claim-personal-loan-between-individuals",
-        "claimTypeName": "Personal loan between individuals -- borrower hasn't repaid",
-        "quote": "I lent my friend Alex $3,000 for a car repair"
-      }
-    },
-    {
-      "step": "story-suggestions",
-      "input": "777b689a5ab54f39",
-      "said": "{\"story\":\"On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.\\n\\nI do not know yet\",\"questions\":[\"sc-orient-when-happened\",\"sc-orient-dispute-category\",\"sc-amount-claimed\",\"sc-remedy-sought\"],\"quoteFrom\":null}",
-      "output": [
-        {
-          "questionId": "sc-orient-when-happened",
-          "questionText": "Roughly when did the situation that led to this claim happen?",
-          "answer": "June 1, 2026",
-          "storyQuote": "On June 1, 2026 I lent my friend Alex $3,000 for a car repair.",
-          "dateQuestion": true
-        },
-        {
-          "questionId": "sc-orient-dispute-category",
-          "questionText": "What kind of dispute is this?",
-          "answer": "A loan or debt",
-          "storyQuote": "I lent my friend Alex $3,000 for a car repair.",
-          "choices": [
-            "Unpaid money owed to you",
-            "A contract or agreement dispute",
-            "Property damage",
-            "A loan or debt",
-            "Work or a service you paid for (e.g. a contractor)",
-            "A deposit that wasn't returned",
-            "A consumer purchase problem",
-            "A vehicle-related dispute",
-            "Something said about you (defamation)",
-            "A personal injury (a fall, an animal bite, or similar)",
-            "Something else"
-          ]
-        }
-      ]
-    },
-    {
-      "step": "claim-kind-confirm",
-      "input": "aa3f67dab53a439b",
-      "said": "{\"action\":\"confirm\",\"said\":\"On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.\\n\\nI do not know yet\",\"claimTypeId\":\"sc-claim-personal-loan-between-individuals\",\"prior\":[]}",
-      "output": {
-        "outcome": "confirmed",
-        "claimType": {
-          "claimTypeId": "sc-claim-personal-loan-between-individuals",
-          "claimTypeName": "Personal loan between individuals -- borrower hasn't repaid"
-        }
-      }
-    },
-    {
-      "step": "safety",
-      "input": "03896d4e22dbbc36",
-      "said": "{\"said\":\"I want Alex to pay me back the $3,000.\"}",
-      "output": {
-        "classification": "clear",
-        "requestsLegalAdvice": false
-      }
-    },
-    {
-      "step": "fact-reading",
-      "input": "03896d4e22dbbc36",
-      "said": "{\"said\":\"I want Alex to pay me back the $3,000.\"}",
-      "output": {
-        "facts": {
-          "role": "plaintiff"
-        },
-        "directFields": [
-          "role"
-        ]
-      }
-    },
-    {
       "step": "fact-reading",
       "input": "a2c53c2e60a91e55",
       "said": "{\"said\":\"Q: Roughly when did the situation that led to this claim happen?\\nA: June 1, 2026\\n\\nQ: What is the total dollar amount you are claiming?\\nA: $3,000.00\"}",
@@ -130,37 +24,15 @@
       }
     },
     {
-      "step": "story-suggestions",
-      "input": "78a4dcdef39f204d",
-      "said": "{\"story\":\"On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.\\n\\nI do not know yet\",\"questions\":[\"sc-remedy-sought\"],\"quoteFrom\":null}",
-      "output": [
-        {
-          "questionId": "sc-remedy-sought",
-          "questionText": "What outcome are you asking the court to order?",
-          "answer": "I do not know yet",
-          "storyQuote": "I do not know yet"
-        }
-      ]
-    },
-    {
-      "step": "fact-reading",
-      "input": "05e2ca90ee3c403a",
-      "said": "{\"said\":\"Q: What outcome are you asking the court to order?\\nA: I do not know yet\"}",
-      "output": {
-        "facts": {},
-        "directFields": []
-      }
-    },
-    {
       "step": "story-reading",
-      "input": "6416aaa1914631d6",
-      "said": "{\"sent\":\"On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\\n\\nQ: What is the total dollar amount you are claiming?\\nA: 3000\\n\\nQ: Roughly when did the situation that led to this claim happen?\\nA: I do not know yet\\n\\nQ: What outcome are you asking the court to order?\\nA: I want Alex to pay me back the $3,000.\",\"chosen\":null}",
-      "output": "{\n  \"summary\": \"You lent your friend Alex $3,000 for a car repair on June 1, 2026, and he texted you an IOU. He has not repaid you, and you want him to pay back the $3,000. You are bringing the claim, but nothing has been filed with a court yet.\",\n  \"facts\": [\n    {\"label\": \"Your role\", \"value\": \"Person bringing the claim\"},\n    {\"label\": \"Other party\", \"value\": \"Your friend Alex, the borrower\"},\n    {\"label\": \"Loan amount\", \"value\": \"$3,000\"},\n    {\"label\": \"Loan date\", \"value\": \"June 1, 2026\"},\n    {\"label\": \"Loan purpose\", \"value\": \"Car repair\"},\n    {\"label\": \"Acknowledgment\", \"value\": \"Alex texted you an IOU\"},\n    {\"label\": \"Repayment\", \"value\": \"Nothing repaid\"},\n    {\"label\": \"Outcome sought\", \"value\": \"Repayment of $3,000\"},\n    {\"label\": \"Court filing\", \"value\": \"Nothing filed\"},\n    {\"label\": \"Agreed repayment date\", \"value\": \"Not given\"}\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Claim for repayment of a personal loan\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You have not started a court case.\",\n  \"questions\": [\n    {\n      \"question\": \"What did you and Alex agree about when he would repay the loan?\",\n      \"why\": \"This helps establish when repayment was due.\"\n    },\n    {\n      \"question\": \"What exactly does Alex’s IOU text say?\",\n      \"why\": \"Its wording helps clarify the debt and any repayment terms.\"\n    },\n    {\n      \"question\": \"Where do you and Alex live?\",\n      \"why\": \"This helps identify whether an Ontario court is the appropriate location for the claim.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
+      "input": "9cf661aaf914d3ea",
+      "said": "{\"sent\":\"On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\\n\\nQ: What outcome are you asking the court to order?\\nA: I want Alex to pay me back the $3,000.\",\"chosen\":null}",
+      "output": "{\n  \"summary\": \"You lent your friend Alex $3,000 on June 1, 2026, for a car repair, and he texted you an IOU. He has not repaid you, and you want the court to order him to repay the $3,000. You are bringing the claim, but nothing has been filed with a court.\",\n  \"facts\": [\n    {\"label\": \"Other party\", \"value\": \"Your friend Alex\"},\n    {\"label\": \"Your role\", \"value\": \"Person bringing the claim\"},\n    {\"label\": \"Loan amount\", \"value\": \"$3,000\"},\n    {\"label\": \"Loan date\", \"value\": \"June 1, 2026\"},\n    {\"label\": \"Loan purpose\", \"value\": \"Car repair\"},\n    {\"label\": \"Acknowledgment\", \"value\": \"Alex texted you an IOU\"},\n    {\"label\": \"Repayment\", \"value\": \"Alex has not repaid the loan\"},\n    {\"label\": \"Outcome sought\", \"value\": \"Repayment of $3,000\"},\n    {\"label\": \"Court filing\", \"value\": \"Nothing filed\"},\n    {\"label\": \"Location and repayment terms\", \"value\": \"Not given\"}\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Claim for repayment of a personal loan\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You have not started a court claim.\",\n  \"questions\": [\n    {\n      \"question\": \"Where do you and Alex live, and where was the loan made?\",\n      \"why\": \"This helps identify whether the dispute belongs in Ontario.\"\n    },\n    {\n      \"question\": \"What exactly did Alex's IOU text say?\",\n      \"why\": \"Its wording helps clarify what Alex agreed to repay and on what terms.\"\n    },\n    {\n      \"question\": \"Apart from the IOU text, what did you and Alex agree about when repayment was due?\",\n      \"why\": \"This clarifies whether an agreed repayment date has passed.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
     },
     {
       "step": "safety",
-      "input": "67fc73e288a4eb5f",
-      "said": "{\"said\":\"On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.\\n\\nI do not know yet\\n\\nI want Alex to pay me back the $3,000.\"}",
+      "input": "ab6eed14e2fc973d",
+      "said": "{\"said\":\"On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.\"}",
       "output": {
         "classification": "clear",
         "requestsLegalAdvice": false
@@ -168,23 +40,22 @@
     },
     {
       "step": "fact-reading",
-      "input": "67fc73e288a4eb5f",
-      "said": "{\"said\":\"On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.\\n\\nI do not know yet\\n\\nI want Alex to pay me back the $3,000.\"}",
+      "input": "ab6eed14e2fc973d",
+      "said": "{\"said\":\"On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.\"}",
       "output": {
         "facts": {
           "role": "plaintiff",
           "disputeCategory": "loan-or-debt"
         },
         "directFields": [
-          "role",
           "disputeCategory"
         ]
       }
     },
     {
       "step": "claim-kind",
-      "input": "d99204dba3182d14",
-      "said": "{\"said\":\"On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.\\n\\nI do not know yet\\n\\nI want Alex to pay me back the $3,000.\",\"exclude\":[],\"responding\":false}",
+      "input": "6db9e06281474fda",
+      "said": "{\"said\":\"On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.\",\"exclude\":[],\"responding\":false}",
       "output": {
         "claimTypeId": "sc-claim-personal-loan-between-individuals",
         "claimTypeName": "Personal loan between individuals -- borrower hasn't repaid",
@@ -193,14 +64,21 @@
     },
     {
       "step": "story-suggestions",
-      "input": "f72406c896a71b92",
-      "said": "{\"story\":\"On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.\\n\\nI do not know yet\\n\\nI want Alex to pay me back the $3,000.\",\"questions\":[\"sc-orient-dispute-category\"],\"quoteFrom\":null}",
+      "input": "e9380d1d6bff55f6",
+      "said": "{\"story\":\"On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.\",\"questions\":[\"sc-orient-when-happened\",\"sc-orient-dispute-category\",\"sc-amount-claimed\"],\"quoteFrom\":null}",
       "output": [
+        {
+          "questionId": "sc-orient-when-happened",
+          "questionText": "Roughly when did the situation that led to this claim happen?",
+          "answer": "June 1, 2026",
+          "storyQuote": "On June 1, 2026 I lent my friend Alex $3,000 for a car repair.",
+          "dateQuestion": true
+        },
         {
           "questionId": "sc-orient-dispute-category",
           "questionText": "What kind of dispute is this?",
           "answer": "A loan or debt",
-          "storyQuote": "I lent my friend Alex $3,000 for a car repair.",
+          "storyQuote": "I lent my friend Alex $3,000",
           "choices": [
             "Unpaid money owed to you",
             "A contract or agreement dispute",
@@ -219,8 +97,8 @@
     },
     {
       "step": "claim-kind-confirm",
-      "input": "fc070c4ceecea1f2",
-      "said": "{\"action\":\"confirm\",\"said\":\"On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.\\n\\nI do not know yet\\n\\nI want Alex to pay me back the $3,000.\",\"claimTypeId\":\"sc-claim-personal-loan-between-individuals\",\"prior\":[]}",
+      "input": "c1248156a1b276a9",
+      "said": "{\"action\":\"confirm\",\"said\":\"On June 1, 2026 I lent my friend Alex $3,000 for a car repair. He texted me an IOU. He has not paid me back.\",\"claimTypeId\":\"sc-claim-personal-loan-between-individuals\",\"prior\":[]}",
       "output": {
         "outcome": "confirmed",
         "claimType": {

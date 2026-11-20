@@ -12,9 +12,91 @@
     },
     {
       "step": "story-reading",
-      "input": "90c39ba0ffac89a1",
-      "said": "{\"sent\":\"My contractor left the work unfinished and kept my $1,200 deposit.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\\n\\nQ: What is the total dollar amount you are claiming?\\nA: Only the $1,200 deposit\\n\\nQ: Roughly when did the situation that led to this claim happen?\\nA: I do not know yet\\n\\nQ: What outcome are you asking the court to order?\\nA: Return of my $1,200 deposit.\",\"chosen\":null}",
-      "output": "{\n  \"summary\": \"You say your contractor left the work unfinished and kept your $1,200 deposit. You want to bring a claim for the return of that deposit only. Nothing has been filed with a court yet, and you have not identified when this happened.\",\n  \"facts\": [\n    {\"label\": \"Your role\", \"value\": \"Person bringing the claim\"},\n    {\"label\": \"Other party\", \"value\": \"Your contractor\"},\n    {\"label\": \"Dispute\", \"value\": \"Work left unfinished and deposit retained\"},\n    {\"label\": \"Amount claimed\", \"value\": \"$1,200\"},\n    {\"label\": \"Outcome sought\", \"value\": \"Return of the deposit\"},\n    {\"label\": \"Court filing\", \"value\": \"Nothing filed\"},\n    {\"label\": \"Timing\", \"value\": \"Not given\"},\n    {\"label\": \"Location of work\", \"value\": \"Not given\"}\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Claim against contractor for return of deposit\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You have not started a court case.\",\n  \"questions\": [\n    {\n      \"question\": \"Where was the work supposed to be done?\",\n      \"why\": \"The location helps identify whether Ontario is the appropriate place for the claim.\"\n    },\n    {\n      \"question\": \"What did you and the contractor agree about when the deposit would be refundable?\",\n      \"why\": \"That agreement helps clarify the dispute over keeping the deposit.\"\n    },\n    {\n      \"question\": \"Why did the contractor stop the work?\",\n      \"why\": \"The reason the work stopped helps clarify the basis of your claim.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
+      "input": "8bfd41a384c92cc5",
+      "said": "{\"sent\":\"My contractor left the work unfinished and kept my $1,200 deposit.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\\n\\nQ: Roughly when did the situation that led to this claim happen?\\nA: I do not know yet\\n\\nQ: What outcome are you asking the court to order?\\nA: Return of my $1,200 deposit.\",\"chosen\":null}",
+      "output": "{\n  \"summary\": \"You say your contractor left the work unfinished and kept your $1,200 deposit. You want to bring a claim for the return of that deposit, and nothing has been filed with a court yet.\",\n  \"facts\": [\n    {\"label\": \"Your role\", \"value\": \"Prospective plaintiff\"},\n    {\"label\": \"Other party\", \"value\": \"Your contractor\"},\n    {\"label\": \"Dispute\", \"value\": \"Work left unfinished and deposit retained\"},\n    {\"label\": \"Amount sought\", \"value\": \"$1,200\"},\n    {\"label\": \"Requested outcome\", \"value\": \"Return of the deposit\"},\n    {\"label\": \"Court filing\", \"value\": \"Nothing filed\"},\n    {\"label\": \"Timing\", \"value\": \"Not yet known\"},\n    {\"label\": \"Location of work\", \"value\": \"Not given\"}\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Claim against contractor for return of deposit\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You are considering a claim against your contractor, and no court case has been started.\",\n  \"questions\": [\n    {\n      \"question\": \"In which province was the work to be done?\",\n      \"why\": \"This helps identify whether the dispute belongs in Ontario.\"\n    },\n    {\n      \"question\": \"What work did the contractor agree to do for the $1,200 deposit?\",\n      \"why\": \"This identifies what the payment covered.\"\n    },\n    {\n      \"question\": \"What work, if any, did the contractor complete?\",\n      \"why\": \"This clarifies the basis for requesting the full deposit back.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
+    },
+    {
+      "step": "safety",
+      "input": "4a3d23f7f6137bc7",
+      "said": "{\"said\":\"My contractor left the work unfinished and kept my $1,200 deposit.\"}",
+      "output": {
+        "classification": "clear",
+        "requestsLegalAdvice": false
+      }
+    },
+    {
+      "step": "fact-reading",
+      "input": "4a3d23f7f6137bc7",
+      "said": "{\"said\":\"My contractor left the work unfinished and kept my $1,200 deposit.\"}",
+      "output": {
+        "facts": {
+          "role": "plaintiff",
+          "disputeCategory": "work-or-services"
+        },
+        "directFields": [
+          "disputeCategory"
+        ]
+      }
+    },
+    {
+      "step": "claim-kind",
+      "input": "50a523dbd68cca9c",
+      "said": "{\"said\":\"My contractor left the work unfinished and kept my $1,200 deposit.\",\"exclude\":[],\"responding\":false}",
+      "output": {
+        "claimTypeId": "sc-claim-contractor-poor-or-incomplete-work",
+        "claimTypeName": "A contractor did poor or unfinished work",
+        "quote": "My contractor left the work unfinished"
+      }
+    },
+    {
+      "step": "story-suggestions",
+      "input": "82c3553af8731cfd",
+      "said": "{\"story\":\"My contractor left the work unfinished and kept my $1,200 deposit.\",\"questions\":[\"sc-orient-dispute-category\",\"sc-amount-claimed\"],\"quoteFrom\":null}",
+      "output": [
+        {
+          "questionId": "sc-orient-dispute-category",
+          "questionText": "What kind of dispute is this?",
+          "answer": "Work or a service you paid for (e.g. a contractor)",
+          "storyQuote": "My contractor left the work unfinished and kept my $1,200 deposit.",
+          "choices": [
+            "Unpaid money owed to you",
+            "A contract or agreement dispute",
+            "Property damage",
+            "A loan or debt",
+            "Work or a service you paid for (e.g. a contractor)",
+            "A deposit that wasn't returned",
+            "A consumer purchase problem",
+            "A vehicle-related dispute",
+            "Something said about you (defamation)",
+            "A personal injury (a fall, an animal bite, or similar)",
+            "Something else"
+          ]
+        }
+      ]
+    },
+    {
+      "step": "claim-kind-confirm",
+      "input": "9dbf89a5ddc3c65b",
+      "said": "{\"action\":\"confirm\",\"said\":\"My contractor left the work unfinished and kept my $1,200 deposit.\",\"claimTypeId\":\"sc-claim-contractor-poor-or-incomplete-work\",\"prior\":[]}",
+      "output": {
+        "outcome": "confirmed",
+        "claimType": {
+          "claimTypeId": "sc-claim-contractor-poor-or-incomplete-work",
+          "claimTypeName": "A contractor did poor or unfinished work"
+        }
+      }
+    },
+    {
+      "step": "fact-reading",
+      "input": "ccf5c9dc31b76bc8",
+      "said": "{\"said\":\"Q: What is the total dollar amount you are claiming?\\nA: $1,200.00\"}",
+      "output": {
+        "facts": {
+          "role": "plaintiff"
+        },
+        "directFields": []
+      }
     }
   ]
 }

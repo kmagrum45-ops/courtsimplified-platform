@@ -21,7 +21,8 @@
  * It FAILS when: something is found that is not on the list (a NEW decider, reader, label or copied question: put it in
  * the one place instead); an entry is not found as often as it says (it moved or was deleted: lower or delete the entry);
  * the list allows anything origin/main's list does not (it may only shrink); an entry is malformed (a "second" with no
- * one place or no reason). Planted self-tests show each failure is caught.
+ * one place or no reason); a second copy names a place that does not exist ("<file>" or "<file> <export>", checked on
+ * disk). Every run prints the second copies left against the sweep's 59. Planted self-tests show each failure is caught.
  *
  * What it misses (say so): a decider or reader not named or shaped as above (e.g. narrativePrefill.ts reads several
  * facts from an object, not a `story` parameter); a label built from pieces. Each miss found becomes a pattern here.
@@ -95,6 +96,24 @@ export function scan(files: Record<string, string>): Found[] {
 
 export const keyOf = (item: { kind: string; file: string; name: string }) => `${item.kind} ${item.file} ${item.name}`;
 
+/**
+ * A second copy names the one place it moves to as "<file>" or "<file> <exported name>", and that place exists: the file
+ * is in app/ or src/, and the name is exported from it (site owner, 20 Nov 2026: CI fails when an entry names a target that
+ * does not exist). A target "not built yet" is not a place; name the file and export that will hold it.
+ */
+export function targetMissing(entry: Entry, files: Record<string, string>): string | null {
+  if (entry.status !== "second") return null;
+  const parts = /^(\S+\.tsx?)(?: (\w+))?$/.exec(entry.moveTo ?? "");
+  if (!parts) return `"${entry.moveTo}" is not "<file>" or "<file> <exported name>"`;
+  const code = files[parts[1]];
+  if (code === undefined) return `${parts[1]} does not exist`;
+  if (parts[2] && !new RegExp(`export (?:async )?(?:function|const|type|interface|class) ${parts[2]}\\b`).test(code)) return `${parts[1]} exports no ${parts[2]}`;
+  return null;
+}
+
+/** The second copies the sweep of 19 Nov 2026 found; every report prints "59 -> N" against it (site owner, 20 Nov 2026). */
+export const SWEEP_SECONDS = 59;
+
 export function judge(found: Found[], list: Entry[], base: Entry[]) {
   const listed = new Map(list.map((entry) => [keyOf(entry), entry]));
   const baseOf = new Map(base.map((entry) => [keyOf(entry), entry]));
@@ -134,6 +153,10 @@ function main() {
   check("nothing new decides, reads, labels or words a fact beside the one place", verdict.unlisted.length === 0, verdict.unlisted.map((item) => `${keyOf(item)} (x${item.count}): move it into the one place instead`).join("\n      "));
   check("every entry is still found as often as it says (delete or lower a moved one)", verdict.stale.length === 0, verdict.stale.map((entry) => `${keyOf(entry)} lists ${entry.count}`).join("\n      "));
   check(`the list allows nothing ${from} does not: it may only shrink`, verdict.grown.length === 0, verdict.grown.map(keyOf).join("\n      "));
+  const missing = list.flatMap((entry) => { const why = targetMissing(entry, files); return why ? [`${keyOf(entry)}: ${why}`] : []; });
+  check("every second copy moves to a place that exists (its file, and the export it names)", missing.length === 0, missing.join("\n      "));
+  const split = (["decider", "story-reader", "source-label", "question-text"] as Kind[]).map((kind) => `${kind} ${seconds.filter((entry) => entry.kind === kind).length}`).join(", ");
+  console.log(`Second copies: ${SWEEP_SECONDS} -> ${seconds.length} (${split}).`);
   check("every second copy names the one place it moves to and why it has not moved yet; no entry twice", verdict.malformed.length === 0 && verdict.duplicates.length === 0, [...verdict.malformed, ...verdict.duplicates].map(keyOf).join("\n      "));
 
   // Planted: each kind of new second place is caught, and a grown list fails.
@@ -148,6 +171,11 @@ function main() {
   check("self-test: the planted ones fail as new", judge([...found, ...planted], list, base).unlisted.length === 4);
   const added: Entry = { kind: "decider", file: "app/__planted__/Second.tsx", name: "mayAskAgain", count: 1, status: "second", moveTo: "factStatus.ts", why: "a planted entry, added to the list to allow a new second decider" };
   check("self-test: adding an entry to the list fails as growth", judge([...found, ...planted], [...list, added], list).grown.length === 1);
+  check("self-test: a second copy whose target does not exist fails (no file, no such export, not a place); a real one passes",
+    targetMissing({ ...added, moveTo: "src/lib/case-system/caseFile/notThere.ts" }, files) !== null
+      && targetMissing({ ...added, moveTo: "src/lib/case-system/caseFile/factStatus.ts noSuchExport" }, files) !== null
+      && targetMissing({ ...added, moveTo: "one place (not built yet)" }, files) !== null
+      && targetMissing({ ...added, moveTo: "src/lib/case-system/caseFile/factStatus.ts factStatus" }, files) === null);
   check("self-test: a second copy with no reason fails as malformed", judge(found, [...list, { ...added, why: "" }], [...list, { ...added, why: "" }]).malformed.length === 1);
 
   if (failures) { console.log(`\n${failures} check(s) failed.`); process.exit(1); }

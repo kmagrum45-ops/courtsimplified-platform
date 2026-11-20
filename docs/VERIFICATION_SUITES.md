@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-311 documented, 26 without a header.
+313 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -144,6 +144,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:help-at-limits` | **Where the site says it cannot do something, it points to a person who can**<br>(master plan finish line: "a case the site cannot fully handle says so and points to help"). |
 | `npm run test:historical-law` | **test:historical-law -- the "law as it read on a past date" shelf**<br>(scripts/retrieval/historicalSources.ts, 2026-10-09). |
 | `npm run test:home-answers-held` | **AN ANSWER GIVEN TO THE HOME PAGE'S QUESTIONS IS NEVER ASKED AGAIN (Chrome check of #550, 5b, 5c, 5d; site owner,**<br>14 Nov 2026: "a fact already given or marked 'I'm not sure' is never asked again, and every page reads the record"). |
+| `npm run test:home-asks-unstated` | **A FIXED HOME QUESTION IS ASKED ONLY WHEN NEITHER THE CASE RECORD NOR THE STORY GIVES ITS ANSWER (site owner, 19 Nov 2026,**<br>Chrome pass 3 re-recording on #550). |
 | `npm run test:in-flight-edit-kept` | **AN ANSWER CHANGED AGAIN WHILE ITS PREVIOUS SAVE IS STILL ON THE WAY IS KEPT, NOT TREATED AS ANOTHER TAB'S OLDER VIEW**<br>(read-only investigation, 9 Nov 2026: the carry test's occasional "typed 9350 in Change, pressed Confirm, every screen shows $9,100", 4 runs in 16 on a1ca8efe and on 7bce4102). |
 | `npm run test:intake-guidance-gate` | **Phase 4: the same confirmation/revision policy governs HTTP and presentation.**<br>Synthetic owned cases exercise collecting, review, legacy, forged proofs, cross-case/court/account refusal, late responses and stale generated guidance. Actual unauthenticated endpoints are called too: no network, AI or real data. |
 | `npm run test:intake-requests` | **Synthetic request failures only. No network, credentials, or case writes.**<br>Synthetic request failures only. No network, credentials, or case writes. |
@@ -197,6 +198,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:official-forms` | **The official-forms watch reads the Ontario Court Forms pages correctly, and**<br>the recorded official list covers every live form the regulations name. |
 | `npm run test:old-shape-cases` | **A CASE SAVED BEFORE A CHANGE STILL OPENS AND READS THE SAME AFTER IT (site owner, 13 Nov 2026: "no change may alter or**<br>lose a saved case; a new reader accepts old data; a migration is additive only"). |
 | `npm run test:one-deadline-source` | **THE CASE PAGE AND THE CASE FILE PAGE SHOW THE SAME DEADLINES, FROM ONE SOURCE (Chrome check of #544, 6 Nov 2026, F4).**<br>Chrome, Small Claims: the case page's next step said "Based on the date you gave us, the last day for this is Friday 3 March 2028" and "Saved to your case"; the case file page said "Deadlines worked out from your dates: None yet". The next-step card counts the |
+| `npm run test:one-decider` | **RULE 0: ONE PLACE DECIDES, READS, LABELS AND WRITES EACH FACT; NOTHING OLD SITS BESIDE THE NEW (site owner, 19 Nov 2026).**<br>"When the new way of deciding a question, reading a fact, labelling a source or writing an answer is in, the old one is deleted in the same change. No fallback, no second copy." The sweep of 19 Nov 2026 (the PR's report, part 1) found the places below. This su |
 | `npm run test:one-writer` | **ONE WRITER: EVERY SAVE POINT OF CASE DATA IS ON A LIST THAT ONLY SHRINKS (case core G0, "the rails";**<br>docs CASE_CORE_DESIGN.md §10; founder's Phase 1 approval, 31 Oct: "a permanent check that fails on a new save point bypassing the writer"). |
 | `npm run test:open-case` | **ONE CASE ID DECIDES WHICH CASE IS OPEN: the address, and nothing else**<br>(npm run test:open-case). |
 | `npm run test:openai-cost` | **OpenAI spending stays under control.**<br>WHAT IT CATCHES (2026-10-08: October's spend reached about $396 against a $100 budget, $205.76 of it prompt-cache WRITES that were almost never read back): - a call to a GPT-5.6+ model going out without prompt_cache_options, so the whole prompt is written to t |

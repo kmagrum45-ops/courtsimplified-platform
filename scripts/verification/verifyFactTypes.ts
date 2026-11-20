@@ -10,8 +10,6 @@
  * Fails when: a fact or a party detail has no type; a mismatched value is kept or offered; the Forms tab takes a sentence
  * as the person's Yes to a Defendant's Claim; a question in the bank asks a fact of another type.
  */
-import { readFileSync } from "node:fs";
-import path from "node:path";
 import { FACT_IDS, applyFactWrites } from "../../src/lib/case-system/caseFile/factRecord";
 import { FACT_TYPES, PARTY_DETAIL_TYPES, factTypeOf, fitsFactType, partyDetailFits, suggestionFits } from "../../src/lib/case-system/caseFile/factTypes";
 import { PARTY_DETAILS, storyPartyOffers, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
@@ -54,14 +52,17 @@ part("The question bank asks each fact in its type", () => {
 });
 
 part("Yes/no facts (decision 1: S6)", () => {
-  // The real AI's story suggestions for S6 reading r2 and r3, from the recorded fixtures.
-  const suggested: string[] = [];
-  for (const reading of ["r2", "r3"]) {
-    const file = path.join("tests", "browser", "fixtures", "real-ai", "sc-chrome2-s6-sued", `${reading}.json`);
-    const fixture = JSON.parse(readFileSync(file, "utf8")) as { entries: { step: string; output: unknown }[] };
-    for (const entry of fixture.entries) if (entry.step === "story-suggestions" && Array.isArray(entry.output)) for (const proposal of entry.output as { questionId: string; answer: string }[]) if (proposal.questionId === "sc-defendant-counterclaim") suggested.push(proposal.answer);
-  }
-  check("the recorded S6 readings hold the counterclaim suggestions (so the checks below test them)", suggested.length >= 2, JSON.stringify(suggested));
+  /*
+   * The real AI's counterclaim suggestions for S6, exactly as recorded on 18 Nov 2026 (sc-chrome2-s6-sued r2, step
+   * story-suggestions 5ea03abf70778368; r3, 8aff5e7d2bfc018f). Kept here as fixed cases: since the story sent is the
+   * story field only (19 Nov 2026), the replay no longer sends that input, and the unused steps were removed from the
+   * fixtures (rule 0: a recording keeps only what its replay uses). The answers are the model's own words, unchanged.
+   */
+  const suggested: string[] = [
+    "The contractor's work was bad. The cabinets are crooked and the countertop is cracked.",
+    "Yes. The contractor's work was bad. The cabinets are crooked and the countertop is cracked.",
+  ];
+  check("the recorded S6 counterclaim suggestions are held (so the checks below test them)", suggested.length >= 2, JSON.stringify(suggested));
   for (const answer of suggested) check(`S6: the story suggestion "${answer.slice(0, 50)}..." is never offered for the yes/no question`, !suggestionFits("sc-defendant-counterclaim", answer));
   check("the counterclaim question asks the yes/no fact defendantsClaim (and keeps their words as the outcome)", factsOfQuestion("sc-defendant-counterclaim")[0] === "defendantsClaim" && factsOfQuestion("sc-defendant-counterclaim").includes("outcome"), JSON.stringify(factsOfQuestion("sc-defendant-counterclaim")));
   check("self-test: a bare \"Yes\" suggestion is offered", suggestionFits("sc-defendant-counterclaim", "Yes"));

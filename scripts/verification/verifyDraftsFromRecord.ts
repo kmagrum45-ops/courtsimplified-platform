@@ -93,7 +93,10 @@ check("4. 'Your story': who is involved, the date and what the person wants, fro
   for (const name of ["Test Plaintiff", "Circle K Convenience Stores Ltd.", "Test Manager"]) assert.ok(who.includes(name), `${name} missing: ${who}`);
   assert.ok(part(drafts.story, /When/).includes("October 4, 2026"), `when: ${part(drafts.story, /When/)}`);
   assert.ok(/\$5,000.*\$450.*\$18\.45/.test(part(drafts.story, /What you want/)), `wants: ${part(drafts.story, /What you want/)}`);
-  assert.ok(part(drafts.story, /What happened/).includes("A bruised hip and a sore back."), "the person's answer is lost");
+  // The story field only (site owner, 19 Nov 2026): the person's story is there, and no answer glued onto an old story.
+  const happened = part(drafts.story, /What happened/);
+  assert.ok(happened.includes("I slipped on a wet floor at the Circle K"), `the person's story is lost: ${happened}`);
+  for (const answer of ["A bruised hip and a sore back.", "Water leaking from under the milk fridge."]) assert.ok(!happened.includes(answer), `an answer glued onto the story reads as the story: ${answer}`);
 });
 check("5. the affidavit outline says who the person is and what happened, in their words", () => {
   assert.ok(/Test Plaintiff/.test(part(drafts.affidavit, /About you/)) && /12 Example Street/.test(part(drafts.affidavit, /About you/)), `about you: ${part(drafts.affidavit, /About you/)}`);

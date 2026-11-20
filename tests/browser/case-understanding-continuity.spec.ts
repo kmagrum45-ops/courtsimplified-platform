@@ -137,10 +137,11 @@ test("the date suggestion reads the story; a new round keeps each answer under i
 
   await expect(page.getByTestId("stage-answer-dates")).toHaveCount(0);
 
-  // Round 1 asks the amount, then when; round 2 asks when, then what is wanted: another set, in another order.
+  // Round 1 asks the amount, then when; only the amount is answered. Round 2 asks when (now first, in the amount's
+  // place), then what is wanted.
   const box = (id: string) => card.getByTestId(`case-understanding-answer-${id}`);
+  await expect(box(WHEN.id)).toBeVisible();
   await box(AMOUNT.id).fill(AMOUNT_ANSWER);
-  await box(WHEN.id).fill(WHEN_ANSWER);
   await mockUnderstand(page, ROUND_2);
   await page.getByTestId("case-understanding-update").click();
   await expect(box(REMEDY.id)).toBeVisible();
@@ -149,12 +150,17 @@ test("the date suggestion reads the story; a new round keeps each answer under i
    * Each box is named by its question's id, never its place (site owner, 19 Nov 2026). Kept by place, round 1's first
    * answer (the amount) would sit under round 2's first question (when), and the chat would type into the wrong box
    * (Chrome pass 3 re-recording: the harness typed into "Review: City"). The bug of 16 Oct 2026 stays fixed: no answer
-   * shows under another question.
+   * shows under another question. And a question is asked only while the record has no answer for it (site owner,
+   * 19 Nov 2026, rule (a)): the amount, answered, is not asked again (factQuestions.ts homeAsks).
    */
-  await expect(box(WHEN.id), "the when answer stays under the when question").toHaveValue(WHEN_ANSWER);
+  await expect(box(AMOUNT.id), "an answered question is not asked again").toHaveCount(0);
+  await expect(box(WHEN.id), "the amount answer does not move into the question now in its place").toHaveValue("");
   await expect(box(REMEDY.id), "a new question starts empty").toHaveValue("");
-  await expect(box(AMOUNT.id), "a question no longer asked has no box").toHaveCount(0);
   for (const other of await card.locator("[data-fact-question] input").all()) await expect(other).not.toHaveValue(AMOUNT_ANSWER);
+  // A typed answer stays under its own question while the person is still on the card.
+  await box(WHEN.id).fill(WHEN_ANSWER);
+  await box(REMEDY.id).fill("Pay my vet bills");
+  await expect(box(WHEN.id), "the when answer stays under the when question").toHaveValue(WHEN_ANSWER);
   await openConfirmedStage(page, "My neighbour's dog bit me. This happened on September 13, 2026.", "before-filing:deciding-whether-to-sue");
   const knownDate = page.getByTestId("stage-answer-known-case-date-act-or-omission");
   await expect(knownDate).toBeVisible({ timeout: 60_000 });

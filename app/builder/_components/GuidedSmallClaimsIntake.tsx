@@ -1831,6 +1831,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             // answer box carried the prior question's typed text at least
             // twice (the $5,000-split question, then "do you still have pain").
             key={depthActive ? depthQuestions[depthIndex]?.id : currentQuestion?.id}
+            // Named by the question on screen, the same id its message carries (data-question-id above), so an answer
+            // is typed into this question's box, never another box by its place on the page (site owner, 19 Nov 2026).
+            data-testid={depthActive || currentQuestion ? "guided-answer" : undefined}
+            data-question-id={depthActive ? depthQuestions[depthIndex]?.id : currentQuestion?.id}
             value={inputText}
             disabled={loading}
             onChange={(event) => setInputText(event.target.value)}

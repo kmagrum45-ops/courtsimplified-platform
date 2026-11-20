@@ -322,7 +322,9 @@ function chromePass2Problems(story: Story, seen: readonly string[]): string[] {
   for (const asked of note("home: ")) if (story.situation?.stage === "just-served" && /responded to the claim|submitted a defen[cs]e|further court papers/i.test(asked)) problems.push(`F4 asked again: ${asked.slice(0, 140)}`);
   // F2: the city given at the start offered for the person's own (bringing a Small Claims case: the Parties step on the review).
   const parties = note("parties-step: ").join(" ");
-  if (story.court === "small-claims" && story.side === "bringing" && parties && /City or town/.test(parties) && !/City or town: Ottawa/.test(parties)) problems.push("F2 the city given at the start (Ottawa) was not offered on the Parties step");
+  // The story's own start city (S2 of pass 3 starts in Gatineau), never one city pinned for every story.
+  const startCity = story.city ?? "Kingston";
+  if (story.court === "small-claims" && story.side === "bringing" && parties && /City or town/.test(parties) && !parties.includes(`City or town: ${startCity}`)) problems.push(`F2 the city given at the start (${startCity}) was not offered on the Parties step`);
   // F3: an address typed as an answer about the other side offered for them.
   const typedAddress = note("home: ").find((line) => /=> \d+ [A-Z][\w ]+ (?:Road|Street|Crescent|Avenue)/.test(line));
   if (typedAddress && parties && !/Street address[^:]*: \d+ /.test(parties)) problems.push(`F3 the address typed as an answer was not offered: ${typedAddress.slice(0, 140)}`);
@@ -507,8 +509,24 @@ async function smallClaimsChat(page: Page, story: Story, typed: Map<string, stri
     const { value, fact } = answerFor(story, text);
     if (fact && value !== TYPED_NOT_SURE) typed.set(fact, value);
     const before = await page.locator("[data-testid=guided-message]").count();
-    await page.locator("textarea").last().fill(value);
-    await page.getByRole("button", { name: "Send", exact: true }).click();
+    /*
+     * The answer goes into the box named by the shown question's id, never "the last box on the page" (site owner,
+     * 19 Nov 2026: S4 reading r2 typed "Test Neighbour" into "Review: City" once the review had opened). A shown
+     * question with no box of its own means the chat has ended: nothing is typed, and the page checks below decide.
+     */
+    const askedId = await question.getAttribute("data-question-id");
+    expect(askedId, `the chat's question carries its id: ${text.slice(0, 120)}`).toBeTruthy();
+    const box = page.locator(`[data-testid=guided-answer][data-question-id="${askedId}"]`);
+    if (!(await visible(box, 10_000))) {
+      // No box for the shown question: only an ended chat may show none (finished, or the review open). Anything else
+      // is a chat that stopped asking with a question on screen, and nothing is typed anywhere else.
+      const phase = (await page.getByTestId("intake-review").getAttribute("data-phase").catch(() => null)) ?? "";
+      const ended = (await finished.isVisible().catch(() => false)) || /^(?:reviewing|user-confirmed)$/.test(phase);
+      expect(ended, `the chat shows "${text.slice(0, 120)}" with no answer box of its own, and has not ended`).toBe(true);
+      break;
+    }
+    await box.fill(value);
+    await box.locator("xpath=..").getByRole("button", { name: "Send", exact: true }).click();
     await expect.poll(() => page.locator("[data-testid=guided-message]").count(), { timeout: 90_000 }).toBeGreaterThan(before + 1).catch(() => {});
   }
 }

@@ -20,8 +20,8 @@ const FOLLOW_UP_HEADING = /^Answers to follow-up questions about the law that ap
  * The home page's story: the story field the person wrote, and nothing else (site owner, 19 Nov 2026: "replace the
  * full-sentence rule with a check that the text came from a person-written story field"). No answer joins it -- not a
  * fragment, not a full sentence, never "I do not know yet" (Chrome pass 3 on #550: S1's address and company printed in
- * the Form 7A reasons box; S4's "I do not know yet" read as a sentence and glued on). The answers are held as answers
- * (home.understoodAnswers), read into the case file and the Parties step.
+ * the Form 7A reasons box; S4's "I do not know yet" read as a sentence and glued on). The answers are held as answers,
+ * read through the case file (caseFileOf) into the review and the Parties step.
  */
 export function frontDoorStory(story: string): string {
   return story.trim();
