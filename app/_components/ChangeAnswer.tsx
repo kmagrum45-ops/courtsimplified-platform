@@ -73,15 +73,19 @@ type Choices =
 export function changeChoices(
   fact: SlotFact,
   court: string | null | undefined,
-  /** The case as held (Family: someone not married is not offered married-only topics, marriedOnly.ts), the topics chosen, and "Show all topics". */
-  context: { file?: CaseFile | null; story?: string; chosen?: readonly string[]; showAll?: boolean } = {},
+  /**
+   * The case as held (Family: someone not married is not offered married-only topics, marriedOnly.ts), the topics ticked
+   * now, the topics the case already holds (`saved`: shown while being changed, ticked or not, so one unticked can be
+   * ticked back), and "Show all topics".
+   */
+  context: { file?: CaseFile | null; story?: string; chosen?: readonly string[]; saved?: readonly string[]; showAll?: boolean } = {},
 ): Choices | null {
   if (CHANGED_AT_THE_START.has(fact)) return null;
   // The story is changed with its own story box (StoryEditor, storyBasis.ts), never as a one-line answer.
   if (fact === "story") return null;
   if (fact === "claimKind") {
     if (court === "civil") return { kind: "multi", options: CIVIL_ISSUE_OPTIONS };
-    if (court === "family") return { kind: "multi", options: context.showAll ? FAMILY_ISSUE_OPTIONS : withoutMarriedOnly(FAMILY_ISSUE_OPTIONS, notMarriedOf(context.file, context.story), context.chosen) };
+    if (court === "family") return { kind: "multi", options: context.showAll ? FAMILY_ISSUE_OPTIONS : withoutMarriedOnly(FAMILY_ISSUE_OPTIONS, notMarriedOf(context.file, context.story), [...new Set([...(context.chosen ?? []), ...(context.saved ?? [])])]) };
     const choices = QUESTION_BANK.find((question) => question.id === "sc-orient-dispute-category")?.choices ?? [];
     return { kind: "choice", options: choices.map((choice) => ({ value: choice, label: choice })) };
   }
@@ -99,7 +103,8 @@ export default function ChangeAnswer({ fact, court, startOpen = false, current, 
   useEffect(() => { if (startOpen) box.current?.scrollIntoView({ block: "center" }); }, [startOpen]);
   const [showAll, setShowAll] = useState(false);
   const file = recovery ? caseFileOf(recovery.getReview().checkpoint) : null;
-  const choices = changeChoices(fact, court, { file, chosen: picks, showAll });
+  const saved = Array.isArray(current) ? current.filter((item): item is string => typeof item === "string") : [];
+  const choices = changeChoices(fact, court, { file, chosen: picks, saved, showAll });
   // Hidden from the story's words alone: never for good ("Show all topics"; CLAUDE.md s. 4).
   const hiddenByStory = fact === "claimKind" && court === "family" && !showAll && notMarriedOf(file) === "story" && (choices?.kind === "multi" && choices.options.length < FAMILY_ISSUE_OPTIONS.length);
   const label = FACT_LABEL[fact];

@@ -44,6 +44,7 @@ import { UNSURE_SHOWN_SKIP, unsureShownAsAnswer } from "./harness/unsureShown";
 import { CHARTER_STORIES, FORMS_STORIES, MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, type Route } from "./storyPackMore";
 import { appendRecord } from "./harness/packRecords";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { homeQuestionsFor } from "../../src/lib/case-system/caseFile/factQuestions";
 import { chooseOffers } from "./harness/offers";
 import { tickIfAsked } from "./harness/intakeReview";
 
@@ -1505,12 +1506,10 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["family", "family-sp
     await autoAnswerSituation(page, situationForStory(story));
     const account = await fakeAccount(page);
     await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
-    const QUESTIONS = ["Who exactly do you want to name in the claim?", "What records do you have?"];
-    let round = 0;
+    // The site's own home questions, by id (factQuestions.ts): a model-written question never reaches the card (19 Nov 2026).
+    const QUESTIONS = homeQuestionsFor(court, "starting").map((item) => ({ id: item.id, question: item.question, why: "Synthetic." }));
     await page.route("**/api/case/understand", async (route) => {
-      const question = QUESTIONS[Math.min(round, QUESTIONS.length - 1)];
-      round += 1;
-      await route.fulfill({ json: { ok: true, understanding: { summary: "Synthetic summary of your story.", facts: [], matters: [], mainCourt: court, side: "starting", stage: "Deciding whether to start a case", step: null, questions: [{ question, why: "Synthetic." }], asksForPrediction: false, regime: null }, answer: { status: "answered", statements: [], notConfirmed: [], declinedToJudge: false } } });
+      await route.fulfill({ json: { ok: true, understanding: { summary: "Synthetic summary of your story.", facts: [], matters: [], mainCourt: court, side: "starting", stage: "Deciding whether to start a case", step: null, questions: QUESTIONS, asksForPrediction: false, regime: null }, answer: { status: "answered", statements: [], notConfirmed: [], declinedToJudge: false } } });
     });
     for (const host of ["**/auth/v1/**", "**/rest/v1/**"]) await page.route(host, async (route) => { await new Promise((done) => setTimeout(done, 1_500)); await route.fallback(); });
     for (const api of [`**/api/${court}/analyze`, "**/api/intake/sourced-questions", "**/api/intake/guided-turn"]) await page.route(api, async (route) => { await new Promise((done) => setTimeout(done, 20_000)); await route.fallback(); });
@@ -1522,10 +1521,18 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["family", "family-sp
     await page.getByRole("button", { name: `Continue to ${PATH_WORDS[court]} intake` }).click();
     const card = page.getByTestId("case-understanding");
     await expect(card).toBeVisible({ timeout: 120_000 });
-    for (const [question, answer] of [[QUESTIONS[0], "Synthetic Organization Ltd. I don't know the names."], [QUESTIONS[1], "The receipt just says investigation."]]) {
-      await page.getByLabel(question).fill(answer);
+    // Rounds of "Update with my answers": each round answers the first question the card still asks (one the story
+    // does not state), in words of its own type, until none is left.
+    const answerOf = (id: string) => /amount/i.test(id) ? "$1,000" : /when/i.test(id) ? "March 2026" : /urgent/i.test(id) ? "No" : "The receipt just says investigation.";
+    const shown = card.locator("[data-fact-question]");
+    await expect(shown.first(), "the card asks at least one question, so there is a round to update").toBeVisible({ timeout: 60_000 });
+    for (let rounds = 0; rounds < QUESTIONS.length && await shown.count(); rounds++) {
+      const id = (await shown.first().getAttribute("data-fact-question"))!;
+      await card.getByTestId(`case-understanding-answer-${id}`).fill(answerOf(id));
       await page.getByTestId("case-understanding-update").click();
-      await expect(page.getByTestId("case-understanding-update")).not.toHaveText(/Updating/, { timeout: 120_000 });
+      // The update finishes: nothing is left saying "Updating…" (after the last round the button goes with the questions).
+      await expect(page.getByTestId("case-understanding-update").filter({ hasText: /Updating/ })).toHaveCount(0, { timeout: 120_000 });
+      await expect(card.getByTestId(`case-understanding-answer-${id}`), "an answered question is not asked again").toHaveCount(0);
     }
     await page.getByTestId("case-understanding-continue-suggested").click();
     await page.waitForURL(/\/builder\?/, { timeout: 120_000 });

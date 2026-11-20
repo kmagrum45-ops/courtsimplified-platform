@@ -991,4 +991,5 @@ export function reviewNeededWords(checkpoint: Checkpoint, master?: unknown): str
 }
 
 /** The "Still needed" line every continue button shows beside itself (the review's own included). */
-export const continueNeedsLine = (needs: readonly string[]): string => `Still needed before you can continue: ${needs.join("; ")}.`;
+// A need may end with its question's own full stop ("...in your own words."): the line ends with one, never "words..".
+export const continueNeedsLine = (needs: readonly string[]): string => `Still needed before you can continue: ${needs.join("; ").replace(/[.\s]+$/, "")}.`;

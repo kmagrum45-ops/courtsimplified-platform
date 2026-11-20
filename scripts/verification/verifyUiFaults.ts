@@ -18,7 +18,8 @@
  */
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
-import { continueNeeds } from "../../src/lib/case-system/intakeReview";
+import { continueNeeds, continueNeedsLine } from "../../src/lib/case-system/intakeReview";
+import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { otherPartyFromUnderstanding } from "../../src/lib/case-system/caseFile/understoodOtherParty";
 import { otherSideIn } from "../../src/lib/case-system/caseFile/storyFacts";
 import { civilGuidedFields } from "../../app/builder/_components/guidedFields";
@@ -52,6 +53,10 @@ check("(a) continueNeeds holds the buttons while the review is open and still ne
 check("(a) and never before the review opens (the route's continue is what opens it)", continueNeeds(open, { intakeCompleted: false, intakeReview: { version: 1 } }).length === 0);
 const panel = read("app/_components/IntakeReviewPanel.tsx");
 check("(a) the review's Continue and its \"Still needed\" line read the one rule", /const needs = continueNeeds\(checkpoint, workflowStatus/.test(panel) && /disabled=\{busy \|\| needs\.length > 0\}/.test(panel) && /\{continueNeedsLine\(needs\)\}/.test(panel));
+// A need that ends with its own full stop (a question such as sc-defendant-outcome's "...in your own words.") never
+// reads "words.." in the line (story pack, CI of #550 on 20 Nov 2026: four review stories). Every fixed question is tried.
+const doubled = QUESTION_BANK.map((question) => continueNeedsLine([`an answer, or "I do not know yet", for: ${question.text}`])).filter((line) => /[A-Za-z0-9)][.]{2}(?![.])/.test(line)); // the story pack's own pattern (story-pack.spec.ts DOUBLE_STOP)
+check("(a) the \"Still needed\" line never doubles a full stop, for any fixed question", doubled.length === 0 && continueNeedsLine(["a", "b."]) === "Still needed before you can continue: a; b.", doubled.slice(0, 3).join(" | "));
 const reviewNotice = read("app/_components/ReviewNeededNotice.tsx");
 check("(a) the notice beside every route's continue says the one rule's line, inside the notice a press brings", /const needs = useContinueNeeds\(\);/.test(reviewNotice) && /data-testid="review-needed-beside-button"[\s\S]*\{continueNeedsLine\(needs\)\}[\s\S]*<\/p>/.test(reviewNotice));
 // Every button whose words are "Continue to your next steps" has the notice beside it (its own file renders

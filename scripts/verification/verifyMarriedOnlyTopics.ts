@@ -54,6 +54,11 @@ async function main() {
   check("1b. Change: the story says never married (no answer) -> no married-only topic offered", MARRIED_ONLY.every((id) => !storyNo.includes(id)), storyNo.join(", "));
   const kept = changeFor(fileMarried(false), "", ["divorce"]);
   check("1c. Change: a married-only topic already chosen stays shown", kept.includes("divorce") && !kept.includes("property-division"), kept.join(", "));
+  // A married-only topic the case already holds stays shown while it is being changed, ticked or not: unticked, it would
+  // vanish and could not be ticked back (change-answer.spec.ts, Family, 20 Nov 2026, after married-only content was hidden
+  // until "married" is Yes).
+  const unticked = offered((changeChoices as (...args: unknown[]) => unknown)("claimKind", "family", { file: fileMarried(null), story: "", chosen: [], saved: ["property-division"] }));
+  check("1d. Change: a married-only topic the case holds stays shown after it is unticked (it can be ticked back)", unticked.includes("property-division") && !unticked.includes("divorce"), unticked.join(", "));
   // 2. Married, or nothing known.
   const married = changeFor(fileMarried(true), NEVER);
   check("2a. Change: answered married -> every topic offered (whatever the story says)", MARRIED_ONLY.every((id) => married.includes(id)), married.join(", "));
