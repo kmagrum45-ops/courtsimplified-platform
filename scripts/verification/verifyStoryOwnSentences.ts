@@ -15,14 +15,14 @@
  * sentence.
  *
  * What it asserts, with no browser, model or database, in all three courts:
- *   1. the writer: Chrome's S1, S2 and S7 answers (fragments) leave the story exactly as typed; a full-sentence answer
- *      ("I don't know where the water came from.") stays, as its own paragraph;
+ *   1. the writer: the story is the story field only: Chrome's S1, S2, S4 and S7 answers leave it exactly as typed, a
+ *      full-sentence answer and "I do not know yet" included (19 Nov 2026: the full-sentence rule is replaced);
  *   2. the home page holds the answers as answers when it leaves (HomeLocationGate.tsx puts home.understoodAnswers);
  *   3. a case saved the old way (fragments glued on): the case file's story, and the Form 7A reasons, hold the story
  *      only (Small Claims, Civil, Family), and the answers are still held (answeredInIntake);
  *   4. never the person's own words: a last paragraph that is NOT one of the case's recorded answers stays, and so
- *      does the first paragraph even when it equals an answer;
- *   5. the follow-up answers about the law: a fragment answer never reaches a draft; a full sentence does;
+ *      does the first paragraph even when it equals an answer; a glued recorded answer, any answer, reads out;
+ *   5. the follow-up answers about the law: no answer reaches a draft;
  *   6. build check: the story section's text is written in one place on the home page, through frontDoorStory.
  *
  * WHAT FAILURE THIS CATCHES: an answer fragment (an address, a name, "No", an amount) in a stored story, a 7A reasons
@@ -32,7 +32,9 @@
  */
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { frontDoorStory, personWordsOnly } from "../../src/lib/case-system/personWords";
+import { frontDoorStory as storyWriter, personWordsOnly } from "../../src/lib/case-system/personWords";
+/** The one writer, called as a caller holding answers would: whatever it is handed, only the story field is written. */
+const frontDoorStory = storyWriter as (story: string, answers?: readonly unknown[]) => string;
 import { answeredInIntake, caseFileOf, storyOfFile } from "../../src/lib/case-system/caseFile/caseFile";
 import { formContextOf } from "../../src/lib/case-system/forms/formContext";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
@@ -42,8 +44,8 @@ function check(name: string, run: () => void) {
   try { run(); console.log(`PASS  ${name}`); } catch (error) { failed++; console.log(`FAIL  ${name}\n      ${(error as Error).message.split("\n").join("\n      ")}`); }
 }
 
-// Chrome's stories and answers, pass 3 (made-up details only).
-const S1 = "On Oct 4, 2026 at about 6:40 pm I slipped on a wet floor near the milk fridge at a Circle K in Ottawa. I missed 3 days of work (Oct 5 to 7) at $150 a day and bought Tylenol and an ice pack for $18.45. I want to claim $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine.";
+// Chrome's stories and answers, pass 3 (made-up details only; the story texts exactly as typed, site owner 19 Nov 2026).
+const S1 = "On Oct 4, 2026 at about 6:40 pm I slipped on a wet floor near the milk fridge at a Circle K in Ottawa. There was no wet-floor sign. I fell on my right hip. A shopper, Sam Patel, saw it. The manager wrote notes. I went to the hospital that night; X-rays showed a bad bruise, no break. I missed 3 days of work (Oct 5 to 7) at $150 a day and bought Tylenol and an ice pack for $18.45. I want to claim $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine.";
 const S1_ANSWERS = [
   { question: "What is the street address of the Circle K where you fell?", answer: "100 Sample Road, Ottawa ON K1B 0B1" },
   { question: "Which company operates the store?", answer: "Circle K Convenience Stores Ltd." },
@@ -78,8 +80,21 @@ check("1. the writer: S1, S2 and S7's fragment answers leave the story exactly a
   assert.equal(frontDoorStory(S2, S2_ANSWERS), S2);
   assert.equal(frontDoorStory(S7, S7_ANSWERS), S7);
 });
-check("1b. the writer: a full-sentence answer stays, as its own paragraph", () => {
-  assert.equal(frontDoorStory(S1, [...S1_ANSWERS, { question: "What made the floor wet?", answer: SENTENCE }]), `${S1}\n\n${SENTENCE}`);
+// Changed 19 Nov 2026 (site owner: "replace the full-sentence rule with a check that the text came from a person-written
+// story field"): no answer joins the story, a full sentence included; the answers are held as answers (check 2).
+check("1b. the writer: no answer joins the story, a full sentence included", () => {
+  assert.equal(frontDoorStory(S1, [...S1_ANSWERS, { question: "What made the floor wet?", answer: SENTENCE }]), S1);
+});
+// Chrome pass 3, S4 (19 Nov 2026): "I do not know yet", typed into the home page's "when" question, was read as a full
+// sentence and joined the story ("...supply the tree. I do not know yet The $1,500 so I can arrange...").
+const S4 = "My neighbour cut down my maple tree on my side of the fence without asking. I paid a nursery to supply the tree.";
+const S4_ANSWERS = [
+  { question: "Roughly when did the situation that led to this claim happen?", answer: "I do not know yet" },
+  { question: "What outcome are you asking the court to order?", answer: "The $1,500 so I can arrange the replacement myself." },
+];
+check("1c. the writer: S4's \"I do not know yet\" and its other answers never join the story", () => {
+  assert.equal(frontDoorStory(S4, S4_ANSWERS), S4);
+  for (const unsure of ["I do not know yet", "I don't know", "Not sure", "I'm not sure"]) assert.equal(frontDoorStory(S4, [{ question: "Q", answer: unsure }]), S4);
 });
 
 check("2. the home page holds the answers as answers when it leaves (home.understoodAnswers)", () => {
@@ -107,22 +122,33 @@ check("4. never the person's own words: a paragraph that is not a recorded answe
   assert.ok(storyOfFile(caseFileOf(checkpoint)).includes(own), "a paragraph the person wrote was removed");
   const first = { ...checkpoint, sections: { story: { text: `${own}\n\nMore of my story.` }, home: { understoodAnswers: [{ question: "Q", answer: own }] } } } as unknown as Checkpoint;
   assert.ok(storyOfFile(caseFileOf(first)).startsWith(own), "the first paragraph was removed");
-  const sentence = { ...checkpoint, sections: { story: { text: `${S1}\n\n${SENTENCE}` }, home: { understoodAnswers: [{ question: "Q", answer: SENTENCE }] } } } as unknown as Checkpoint;
-  assert.ok(storyOfFile(caseFileOf(sentence)).includes(SENTENCE), "a full sentence of the person's own was removed");
+});
+// Changed 19 Nov 2026 (the same rule): a case saved while full-sentence answers were glued on (19 Nov, before this
+// change) reads as its story only; the answer is still held as an answer. "I do not know yet" (S4) too.
+check("4b. a case saved with a full-sentence answer, or \"I do not know yet\", glued on reads as the story only", () => {
+  for (const answer of [SENTENCE, "I do not know yet"]) {
+    const saved = oldCheckpoint("small-claims", S1, [{ question: "Q", answer }]);
+    assert.equal(storyOfFile(caseFileOf(saved)).trim(), S1, `"${answer}" still reads as part of the story`);
+    assert.ok(answeredInIntake(saved.sections as Record<string, unknown>).map((item) => item.answer).includes(answer), `the answer "${answer}" is no longer held`);
+  }
 });
 
-check("5. the follow-up answers about the law: a fragment never reaches a draft; a full sentence does", () => {
+// Changed 19 Nov 2026 (the same rule): the follow-up answers are answers, not the story field; none reaches a draft.
+check("5. the follow-up answers about the law: no answer reaches a draft, a full sentence included", () => {
   const text = `${S1}\n\nAnswers to follow-up questions about the law that applies:\nQ: Was there a sign?\nA: No\nQ: How much?\nA: Only the $1,200 deposit\nQ: Did the defendant agree in writing?\nA: Yes, we signed a contract.`;
   const words = personWordsOnly(text);
   assert.ok(!/\bNo\b\s*$/m.test(words) && !words.includes("Only the $1,200 deposit"), `a fragment answer reached the draft text:\n${words}`);
-  assert.ok(words.includes("Yes, we signed a contract."), "a full-sentence answer was lost");
+  assert.ok(!words.includes("Yes, we signed a contract."), `a full-sentence answer reached the draft text:\n${words}`);
+  assert.ok(words.startsWith(S1), "the story was lost");
 });
 
 check("6. build check: the home page writes the story's text in one place, through frontDoorStory", () => {
   const source = readFileSync("app/_components/HomeLocationGate.tsx", "utf8");
   const writes = source.match(/put\(STORY_SECTION, "text", ([^,]+),/g) ?? [];
   assert.equal(writes.length, 1, `story text written ${writes.length} times`);
-  assert.ok(/const story = frontDoorStory\(facts, answers\)/.test(source) && /put\(STORY_SECTION, "text", story,/.test(source), "the written story is not frontDoorStory's");
+  assert.ok(/const story = frontDoorStory\(facts\)/.test(source) && /put\(STORY_SECTION, "text", story,/.test(source), "the written story is not frontDoorStory's");
+  // The full-sentence rule is gone, not kept beside the new one (rule 0, 19 Nov 2026).
+  assert.ok(!/isOwnSentence/.test(readFileSync("src/lib/case-system/personWords.ts", "utf8")), "personWords.ts still has the full-sentence rule (isOwnSentence)");
 });
 
 console.log(failed ? `\n${failed} check(s) failed` : "\nAll story-own-sentences checks passed");

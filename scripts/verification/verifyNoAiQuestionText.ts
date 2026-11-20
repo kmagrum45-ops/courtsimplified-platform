@@ -92,7 +92,7 @@ async function main() {
   const sourced = readFileSync("app/builder/_components/SourcedQuestions.tsx", "utf8");
   check("3a. the law follow-up questions (the model's words) are off", /export const AI_WRITTEN_QUESTIONS = false;/.test(sourced) && /if \(!AI_WRITTEN_QUESTIONS\) return;/.test(sourced) && /questions: AI_WRITTEN_QUESTIONS \? questions : \[\]/.test(sourced));
   const card = readFileSync("app/_components/CaseUnderstandingCard.tsx", "utf8");
-  check("3b. the home card asks only a site question, by id", /isSiteQuestion\(item\) && mayShowQuestion\(file, item\.id!\)/.test(card) && !/mayAskWords/.test(card));
+  check("3b. the home card asks only a site question, by id", /isSiteQuestion\(item\) && homeAsks\(file, item\.id!, story/.test(card) && !/mayAskWords/.test(card));
   if (words.size) {
     const { GUIDED_WORDS } = await import("../../src/lib/case-system/caseFile/factQuestions");
     const { civilGuidedFields, familyGuidedFields } = await import("../../app/builder/_components/guidedFields");

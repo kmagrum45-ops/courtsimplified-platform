@@ -30,6 +30,7 @@ import { guidanceIsCurrent } from "../../src/lib/case-system/intakeReview";
 
 import { grantSiteAccess } from "./harness/siteAccess";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { homeQuestionsFor } from "../../src/lib/case-system/caseFile/factQuestions";
 
 type UnderstandBody = {
   ok: true;
@@ -40,7 +41,7 @@ type UnderstandBody = {
     mainCourt: "small-claims";
     side: "starting";
     stage: string;
-    questions: { question: string; why?: string }[];
+    questions: { id?: string; question: string; why?: string }[];
     asksForPrediction: false;
     step: string;
     regime: null;
@@ -53,7 +54,7 @@ type UnderstandBody = {
   };
 };
 
-function understandResponse(question: string): UnderstandBody {
+function understandResponse(questions: { id: string; question: string; why?: string }[]): UnderstandBody {
   return {
     ok: true,
     understanding: {
@@ -66,7 +67,7 @@ function understandResponse(question: string): UnderstandBody {
       // A real stage-map step, so StageAnswerPanel renders its real date
       // question (case-date-act-or-omission) instead of nothing.
       step: "before-filing:deciding-whether-to-sue",
-      questions: [{ question, why: "This changes who is responsible." }],
+      questions,
       asksForPrediction: false,
       regime: null,
     },
@@ -74,13 +75,16 @@ function understandResponse(question: string): UnderstandBody {
   };
 }
 
-const ROUND_1_QUESTION = "Has your neighbour claimed your dog provoked theirs?";
-const ROUND_2_QUESTION = "What injuries did you suffer, beyond the vet bills?";
-const ROUND_1_ANSWER = "No, they have never said that.";
+// The site's own questions, by id and in their fixed words (factQuestions.ts; no model-written question reaches the card).
+const [AMOUNT, WHEN, REMEDY] = homeQuestionsFor("small-claims", "starting");
+const ROUND_1 = [AMOUNT, WHEN];
+const ROUND_2 = [WHEN, REMEDY];
+const AMOUNT_ANSWER = "$2,400";
+const WHEN_ANSWER = "Last spring";
 
-async function mockUnderstand(page: Page, question: string) {
+async function mockUnderstand(page: Page, questions: { id: string; question: string; why?: string }[]) {
   await page.route("**/api/case/understand", async (route) => {
-    await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(understandResponse(question)) });
+    await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(understandResponse(questions)) });
   });
 }
 
@@ -107,13 +111,13 @@ async function openConfirmedStage(page: Page, story: string, stepId: string) {
   await page.goto(`/cases/${row.id}`, { timeout: 120_000 });
 }
 
-test("the date suggestion reads the story, and a new round of questions starts with empty boxes", async ({ page }) => {
+test("the date suggestion reads the story; a new round keeps each answer under its own question, by id, and a new question starts empty", async ({ page }) => {
   // A local dev server compiles both the home page and stage-answer route on
   // first use. CI serves a prebuilt app, but the same assertions run locally.
   test.setTimeout(180_000);
   page.setDefaultNavigationTimeout(120_000);
   await grantSiteAccess(page);
-  await mockUnderstand(page, ROUND_1_QUESTION);
+  await mockUnderstand(page, ROUND_1);
 
   await page.goto("/?path=small-claims", { waitUntil: "domcontentloaded" });
   await page.getByLabel("City or municipality").fill("Ottawa");
@@ -124,7 +128,8 @@ test("the date suggestion reads the story, and a new round of questions starts w
   // per-question cue-word matching too.
   await page
     .getByLabel(STORY_LABEL, { exact: true })
-    .fill("My neighbour's dog bit me and I had to pay vet bills. This happened on September 13, 2026.");
+    // No date, amount or "I want" in it, so the card asks each site question it is given (factQuestions.ts homeAsks).
+    .fill("My neighbour's dog bit me and I had to pay vet bills.");
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
 
   const card = page.getByTestId("case-understanding");
@@ -132,22 +137,24 @@ test("the date suggestion reads the story, and a new round of questions starts w
 
   await expect(page.getByTestId("stage-answer-dates")).toHaveCount(0);
 
-  // Answer round 1's question, then trigger round 2 with a DIFFERENT question.
-  await page.getByLabel(ROUND_1_QUESTION).fill(ROUND_1_ANSWER);
-  await mockUnderstand(page, ROUND_2_QUESTION);
+  // Round 1 asks the amount, then when; round 2 asks when, then what is wanted: another set, in another order.
+  const box = (id: string) => card.getByTestId(`case-understanding-answer-${id}`);
+  await box(AMOUNT.id).fill(AMOUNT_ANSWER);
+  await box(WHEN.id).fill(WHEN_ANSWER);
+  await mockUnderstand(page, ROUND_2);
   await page.getByTestId("case-understanding-update").click();
-
-  const round2Box = page.getByLabel(ROUND_2_QUESTION);
-  await expect(round2Box).toBeVisible();
+  await expect(box(REMEDY.id)).toBeVisible();
 
   /*
-   * BUG (fixed 2026-10-16): `replies` was keyed by array index and never
-   * reset between rounds, so round 1's answer ("No, they have never said
-   * that.") reappeared under round 2's unrelated question. An empty box here
-   * is the regression test; the old behaviour would show ROUND_1_ANSWER.
+   * Each box is named by its question's id, never its place (site owner, 19 Nov 2026). Kept by place, round 1's first
+   * answer (the amount) would sit under round 2's first question (when), and the chat would type into the wrong box
+   * (Chrome pass 3 re-recording: the harness typed into "Review: City"). The bug of 16 Oct 2026 stays fixed: no answer
+   * shows under another question.
    */
-  await expect(round2Box).toHaveValue("");
-  await expect(page.getByText(ROUND_1_ANSWER)).toHaveCount(0);
+  await expect(box(WHEN.id), "the when answer stays under the when question").toHaveValue(WHEN_ANSWER);
+  await expect(box(REMEDY.id), "a new question starts empty").toHaveValue("");
+  await expect(box(AMOUNT.id), "a question no longer asked has no box").toHaveCount(0);
+  for (const other of await card.locator("[data-fact-question] input").all()) await expect(other).not.toHaveValue(AMOUNT_ANSWER);
   await openConfirmedStage(page, "My neighbour's dog bit me. This happened on September 13, 2026.", "before-filing:deciding-whether-to-sue");
   const knownDate = page.getByTestId("stage-answer-known-case-date-act-or-omission");
   await expect(knownDate).toBeVisible({ timeout: 60_000 });

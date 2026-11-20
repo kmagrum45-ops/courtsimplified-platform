@@ -11,7 +11,7 @@
 import { readFileSync } from "node:fs";
 import { courtQuestionShown } from "../../src/lib/case-system/understanding/betterDestination";
 import { timelineIn } from "../../src/lib/case-system/caseFile/storyFacts";
-import { reviewEntries } from "../../src/lib/case-system/intakeReview";
+import { reviewEntries, statedInStory } from "../../src/lib/case-system/intakeReview";
 import { suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";
 import type { CaseRecord } from "../../src/lib/case-system/caseRecord";
 import { partyOfOffer, storyPartyOffers, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
@@ -24,7 +24,7 @@ import { factStatus, mayAskWords, settledNotSure } from "../../src/lib/case-syst
 import { storySuggestionFor } from "../../src/lib/case-system/family/triageStoryQuote";
 import { emptyStatusRecord, selectNextTriageQuestion } from "../../src/lib/case-system/family/statusTriage";
 import { factOfAskedText } from "../../src/lib/case-system/caseFile/factsOfQuestion";
-import { offerForAskedWords } from "../../src/lib/case-system/caseFile/storyOffers";
+import { homeAsks } from "../../src/lib/case-system/caseFile/factQuestions";
 import { foldsAsNotAnswered } from "../../app/_components/NotAnsweredYet";
 
 let failed = 0;
@@ -178,40 +178,17 @@ section("Findings 9 and 11", () => {
   }
 });
 
-section("Home reading offers (real readings S2 r3, S8 r2, S6 r1)", () => {
-  // The real AI asked on the home page for what the story already gives, with an empty box: S2 reading r3 "How much money
-  // are you seeking in total, including the deposit?" after "kept my $1,200 deposit"; S8 reading r2 "Is Testgoods Ltd. the
-  // buyer who owes the money...?" after "The company is Testgoods Ltd.". Each is offered from the story (one offer place).
+// The home reading's offers (S2 r3, S8 r2, S6 r1) were removed on 19 Nov 2026 with the home card's offer: the home page
+// asks only a fixed question whose answer neither the record nor the story gives (factQuestions.ts homeAsks;
+// test:home-asks-unstated), and offers nothing; a stated value is offered once by the intake. What still applies here is
+// how an AI-worded question is read for the other screens that filter them (factOfAskedText, mayAskWords).
+section("Home reading: no offer on the home page; the words still read as before elsewhere", () => {
   const S2 = "My contractor left the work unfinished and kept my $1,200 deposit.";
-  const S8 = "A company owes me $85,000 for goods I delivered in August 2026 and has not paid. The company is Testgoods Ltd.";
-  const amount = offerForAskedWords(null, "How much money are you seeking in total, including the deposit?", S2, []);
-  check("S2 r3: the amount question on the home page offers the story's $1,200", amount?.fact === "amount" && amount.value === "$1,200", JSON.stringify(amount));
-  const other = offerForAskedWords(null, "What is the full legal name of the company that owes you?", S8, [{ label: "Proposed defendant", value: "Testgoods Ltd." }]);
-  check("S8: a question asking the other side's name offers the story's Testgoods Ltd.", other?.fact === "otherParty" && other.value === "Testgoods Ltd.", JSON.stringify(other));
-  // Round 2 replay (18 Nov): the offer itself was wrong in two readings. Show less rather than invent.
-  // S8 r2: "Who was the seller ... you personally, a business you operate, or a corporation?" asks the person's own side;
-  // offering Testgoods Ltd. (the buyer) answered it wrongly.
+  check("S2: the home page does not ask the amount the story gives", !homeAsks(null, "sc-amount-claimed", S2));
+  check("S2: the intake's story reader still states it, to offer once", statedInStory(S2).amount === "1200", JSON.stringify(statedInStory(S2)));
   const seller = "Who was the seller under the agreement: you personally, a business you operate, or a corporation?";
   check("S8 r2: a question about the person's own side is not the other party", factOfAskedText(seller) !== "otherParty", String(factOfAskedText(seller)));
-  check("S8 r2: and offers no other-party name", offerForAskedWords(null, seller, S8, [{ label: "Proposed defendant", value: "Testgoods Ltd." }]) === null);
-  // Round 1 S8: "Is Testgoods Ltd. the buyer ...?" names the company already; its answer is a role, not the name.
-  check("S8: a question that already names the other party does not offer that name as the answer", offerForAskedWords(null, "Is Testgoods Ltd. the buyer who owes the money, or the seller who supplied the goods?", S8, [{ label: "Proposed defendant", value: "Testgoods Ltd." }]) === null);
-  // S6 r1: the person is defending a $4,200 claim; "If you want money from the contractor, how much are you seeking?" asks
-  // their own claim, and was offered the $4,200 claimed against them.
-  const S6 = "A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.";
-  const defending = [{ label: "Your role", value: "Defendant" }, { label: "Amount claimed", value: "$4,200" }];
-  // The role decides an amount question asked plainly: without it, the reading's $4,200 is offered; with it, nothing.
-  check("S6 self-test: without the role, a plain amount question offers $4,200 (so the role check below tests the role)", offerForAskedWords(null, "How much money are you seeking?", S6, [{ label: "Amount claimed", value: "$4,200" }])?.value === "$4,200");
-  check("S6: a defendant is not offered the amount claimed against them for a plain amount question", offerForAskedWords(null, "How much money are you seeking?", S6, defending) === null);
-  // "If you want money from ..." is never the claim's amount, for anyone (factOfAskedText; replay round 2, S6 r1 asked it on
-  // the home page after the start gave $4,200).
-  check("S6 r1: \"If you want money from the contractor, how much are you seeking?\" offers nothing", offerForAskedWords(null, "If you want money from the contractor, how much are you seeking?", S6, defending) === null && offerForAskedWords(null, "If you want money from the contractor, how much are you seeking?", S6, [{ label: "Amount claimed", value: "$4,200" }]) === null);
-  check("S6 r1: and is not asking the claim's amount (so it is not a repeat of the start's $4,200)", factOfAskedText("If you want money from the contractor, how much are you seeking?") === null && factOfAskedText("How much money are you seeking?") === "amount");
-  check("S6 r1: nor for the compound outcome question", offerForAskedWords(null, "Are you only disputing the unpaid $4,200, or do you also want the contractor to pay you money?", S6, defending) === null);
-  check("S6 self-test: the person bringing the claim is still offered their amount", offerForAskedWords(null, "How much money are you seeking in total, including the deposit?", S2, [{ label: "Your role", value: "Plaintiff" }])?.value === "$1,200");
-  check("self-test: a question about something else offers nothing", offerForAskedWords(null, "When did the contractor stop working?", S2, []) === null);
-  const card = source("app/_components/CaseUnderstandingCard.tsx");
-  check("the reading card offers it with the one three-choice control, from the one offer place", /offerForAskedWords\(file, item\.question/.test(card) && /<UseSuggestion[\s\S]{0,200}key: `home-question:/.test(card));
+  check("S6 r1: \"If you want money from the contractor, how much are you seeking?\" is not asking the claim's amount", factOfAskedText("If you want money from the contractor, how much are you seeking?") === null && factOfAskedText("How much money are you seeking?") === "amount");
 });
 
 section("Finding 8", () => {

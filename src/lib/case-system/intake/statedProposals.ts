@@ -9,7 +9,7 @@
  *
  * Pure: no model, no network.
  */
-import { statedInStory } from "../intakeReview";
+import { STORY_STATED_FACTS as STATED_FACTS, statedInStory } from "../intakeReview";
 import type { ReadingFact } from "../caseFile/storyOffers";
 import { formatForCourt, isRealIsoDate } from "../dates";
 import { factsOfQuestion } from "../caseFile/factsOfQuestion";
@@ -18,9 +18,6 @@ import { formatRecordedAmount } from "../format/recordedAmount";
 import type { IntakeQuestion } from "./questionBank";
 /** An offer as the chat card shows it (the AI's proposals have this shape too, plus their choices). */
 export type StatedOffer = { questionId: string; questionText: string; answer: string; storyQuote: string; dateQuestion?: boolean };
-
-/** The fact a question asks for that the story reader can state. */
-const STATED_FACTS = ["amount", "whenHappened", "wants"] as const;
 
 /** The sentence of the story a value was read from (its digits or its date's words), for the offer's quote. */
 function quoteFor(story: string, fact: (typeof STATED_FACTS)[number], value: string): string {

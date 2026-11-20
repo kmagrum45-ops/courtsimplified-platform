@@ -180,6 +180,9 @@ export function applyFactWrites(master: Record<string, unknown>, court: IntakeCo
     const held = stored[write.fact];
     const kept = normalised(write);
     if (!kept) return { ok: false, reject: `no-value:${write.fact}` };
+    // "Not sure" never overwrites an answer, forced or not; only "removed" removes one (site owner, 19 Nov 2026; Chrome
+    // pass 3 re-recording: "I do not know yet" settled the date S1's story gave). The answer stands, unchanged.
+    if (held?.state === "answered" && kept.state === "unsure") { saved.push({ fact: write.fact, seq: held.seq, at: held.at }); continue; }
     if (held && !write.force && (write.seenSeq ?? 0) < held.seq) {
       // The same answer the record already holds (a resend after a timeout, two saves racing): already saved, so it is
       // neither a conflict nor numbered again (found on the real save path, 5 Nov: "Not saved yet" for an identical answer).

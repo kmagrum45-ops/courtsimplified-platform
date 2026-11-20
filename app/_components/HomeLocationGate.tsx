@@ -264,12 +264,9 @@ function HomeLocationGateContent() {
 
   async function goToIntake(chosenPath: BuilderDraftCourtPath, answers: { question: string; answer: string }[] = [], accepted = false) {
     requestRef.current.cancel();
-    // Answers given to the front door's questions travel with the story, so
-    // the intake does not ask them again: the person's answers only, never the
-    // site's question (Chrome check of #550: the questions became numbered facts
-    // in every draft; personWords.ts). An answer already in the story (Back, then
-    // Continue again) is not appended twice.
-    const story = frontDoorStory(facts, answers);
+    // The story is the story field only (personWords.ts frontDoorStory; 19 Nov 2026). The answers to the front door's
+    // questions are held as answers (home.understoodAnswers below), so the intake does not ask them again.
+    const story = frontDoorStory(facts);
     const acceptedOtherParty = accepted ? offeredOtherParty(facts, storedUnderstood?.understanding?.facts ?? [])?.value ?? null : null;
     try {
       if (recovery && chosenPath === path) {

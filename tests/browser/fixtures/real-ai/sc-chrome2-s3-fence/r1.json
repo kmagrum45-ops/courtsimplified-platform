@@ -119,6 +119,38 @@
           "role"
         ]
       }
+    },
+    {
+      "step": "story-reading",
+      "input": "6bfe8543ae4adab4",
+      "said": "{\"sent\":\"Pat Testfield lives next door to me at 47 Maple Crescent in Ottawa. In July 2026 Pat hired a crew to put up a new wooden fence between our yards without talking to me first. The crew took down my old chain-link fence, which was on my side of the line, and threw it away. They also dug up part of my garden bed along the fence and drove a small machine over my lawn, which left deep ruts. When I asked Pat about it, Pat said the old fence was ugly and that the new fence was a favour to me. I had a surveyor confirm in August 2026 that the old fence stood on my land. I got two quotes to repl",
+      "output": "{\n  \"summary\": \"You say your neighbour, Pat Testfield, hired a crew in July 2026 that removed and discarded your chain-link fence, dug up part of your garden and left deep ruts in your lawn while installing a new wooden fence. A surveyor confirmed in August 2026 that your old fence stood on your land, and your lower repair and replacement quote is $2,400. Pat has not answered or paid following your September 1 payment request, and you want to bring a claim for $2,400 plus costs; nothing has been filed yet.\",\n  \"facts\": [\n    {\n      \"label\": \"Location\",\n      \"value\": \"Ottawa, Ontario\"\n    },\n    {\n      \"label\": \"Other party\",\n      \"value\": \"Pat Testfield, your next-door neighbour at 47 Maple Crescent\"\n    },\n    {\n      \"label\": \"Your role\",\n      \"value\": \"Person bringing the claim\"\n    },\n    {\n      \"label\": \"Incident\",\n      \"value\": \"In July 2026, Pat's crew removed your chain-link fence and damaged your garden and lawn while installing a wooden fence.\"\n    },\n    {\n      \"label\": \"Pat's explanation\",\n      \"value\": \"Pat said the old fence was ugly and the new fence was a favour to you.\"\n    },\n    {\n      \"label\": \"Boundary confirmation\",\n      \"value\": \"A surveyor confirmed in August 2026 that the old fence stood on your land.\"\n    },\n    {\n      \"label\": \"Amount sought\",\n      \"value\": \"$2,400 plus costs, based on the lower of two repair and replacement quotes\"\n    },\n    {\n      \"label\": \"Payment request\",\n      \"value\": \"Letter sent September 1, 2026 requesting payment by September 30, 2026\"\n    },\n    {\n      \"label\": \"Neighbour's response\",\n      \"value\": \"No answer or payment\"\n    },\n    {\n      \"label\": \"Court filing\",\n      \"value\": \"Nothing filed\"\n    }\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Claim against your neighbour for removal of your fence and damage to your garden and lawn\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You have requested payment from your neighbour, but no court case has been started.\",\n  \"questions\": [\n    {\n      \"question\": \"Do you know the name of the company or people Pat hired to do the work?\",\n      \"why\": \"Their identity helps clarify who was involved in causing the damage.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
+    },
+    {
+      "step": "story-suggestions",
+      "input": "6fbcfac7d9134cb0",
+      "said": "{\"story\":\"Pat Testfield lives next door to me at 47 Maple Crescent in Ottawa. In July 2026 Pat hired a crew to put up a new wooden fence between our yards without talking to me first. The crew took down my old chain-link fence, which was on my side of the line, and threw it away. They also dug up part of my garden bed along the fence and drove a small machine over my lawn, which left deep ruts. When I asked Pat about it, Pat said the old fence was ugly and that the new fence was a favour to me. I had a surveyor confirm in August 2026 that the old fence stood on my land. I got two quotes to rep",
+      "output": [
+        {
+          "questionId": "sc-orient-dispute-category",
+          "questionText": "What kind of dispute is this?",
+          "answer": "Property damage",
+          "storyQuote": "They also dug up part of my garden bed along the fence and drove a small machine over my lawn, which left deep ruts.",
+          "choices": [
+            "Unpaid money owed to you",
+            "A contract or agreement dispute",
+            "Property damage",
+            "A loan or debt",
+            "Work or a service you paid for (e.g. a contractor)",
+            "A deposit that wasn't returned",
+            "A consumer purchase problem",
+            "A vehicle-related dispute",
+            "Something said about you (defamation)",
+            "A personal injury (a fall, an animal bite, or similar)",
+            "Something else"
+          ]
+        }
+      ]
     }
   ]
 }

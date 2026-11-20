@@ -856,7 +856,10 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
  * when it happened (a full day only), the amount (the claim amount reader's, else a quote or an estimate the story
  * names: offered once, never kept as a fact by itself, claimAmount.ts still skips it) and what the person wants.
  * Each is only ever OFFERED (Yes / No, that's not right / I'm not sure); none is an answer until the person says Yes.
+ * STORY_STATED_FACTS is the one list of the facts it can state (the home page's questions, the chat's offers and
+ * test:home-asks-unstated all read it).
  */
+export const STORY_STATED_FACTS = ["whenHappened", "amount", "wants"] as const satisfies readonly SlotFact[];
 export function statedInStory(story: string, reading: readonly ReadingFact[] = []): Stated {
   const out: Stated = {};
   if (!story.trim()) return out;

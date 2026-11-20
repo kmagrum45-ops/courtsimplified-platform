@@ -68,7 +68,12 @@ export function codeOf(text: string): string {
   return text.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:"'`\\])\/\/.*$/gm, "$1").replace(/\{\s*\}/g, "{}");
 }
 const IMPORTS_ONE_FUNCTION = /import\s+(?!type\b)[^;]*?from ["'][^"']*caseFile\/factStatus["']/;
-const FILTERS = /\b(?:mayAskWords|mayShowQuestion|stillNeeded)\(/;
+// homeAsks (caseFile/factQuestions.ts) is the home page's one decision, itself made by factStatus: accepted as a filter
+// only while that holds (checked here, 19 Nov 2026).
+const FACT_QUESTIONS = readFileSync("src/lib/case-system/caseFile/factQuestions.ts", "utf8");
+const HOME_ASKS_ON_FACT_STATUS = /import \{ factStatus \} from "\.\/factStatus"/.test(FACT_QUESTIONS)
+  && /factStatus\(file, fact as SlotFact, stated\) === "ask"/.test((FACT_QUESTIONS.split("export function homeAsks")[1] ?? "").split("\n}")[0]);
+const FILTERS = HOME_ASKS_ON_FACT_STATUS ? /\b(?:mayAskWords|mayShowQuestion|stillNeeded|homeAsks)\(/ : /\b(?:mayAskWords|mayShowQuestion|stillNeeded)\(/;
 const rendersAQuestion = (text: string) => MARKERS.some((marker) => marker.test(codeOf(text)));
 
 // ---- Rule a: producers, every importer enumerated with its role ----------------------------------------------------

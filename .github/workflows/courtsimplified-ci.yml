@@ -602,6 +602,12 @@ jobs:
       - name: No question the AI writes reaches the person; the same story asks the same questions
         run: npm run test:no-ai-question-text
 
+      - name: A fixed home question is asked only when neither the record nor the story gives its answer
+        run: npm run test:home-asks-unstated
+
+      - name: One place decides, reads, labels and words each fact (rule 0; the list only shrinks)
+        run: npm run test:one-decider
+
       - name: No two facts declare the same meaning
         run: npm run test:fact-meanings
 

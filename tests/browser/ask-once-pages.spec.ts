@@ -126,6 +126,55 @@ export const CHROME_PASS_2: Story[] = [
   ] }),
 ];
 
+/**
+ * Chrome's pass 3 on #550 (19 Nov 2026, comment 7013013873): the same story texts as pass 2 (site owner, 19 Nov: both
+ * checked letter for letter against the saved pass 2 cases), answered as Chrome answered them in pass 3 (its "Stand-ins
+ * used"). A box Chrome left blank is answered "I do not know yet" (the page test's not-sure), and Chrome's typed "I don't
+ * know" is typed as it was. Each must reach every page asking nothing twice, and pass Chrome's pass 3 findings
+ * (chromePass3Problems).
+ */
+export const CHROME_PASS_3: Story[] = [
+  CHROME("sc-chrome3-s1-fall", "small-claims", "bringing", CHROME_PASS_2[0].text, { amount: "5468.45", when: "October 4, 2026" }, { answers: [
+    { match: /what date|date did it happen|injur(?:y|ed) (?:date|happen)/i, value: "2026-10-04" },
+    { match: /address|where (is|was) the store|location of the store/i, value: "100 Sample Road, Ottawa ON K1B 0B1" },
+    { match: /who (runs|operates|owns)|operator|company|business name|\bwho\b|other (party|side)/i, value: "Circle K Convenience Stores Ltd.", fact: "otherParty" },
+    { match: /water|spill|how long|caused|wet/i, value: "" },
+    { match: /still|recover|symptom|doctor|treatment|hurt/i, value: "" },
+  ] }),
+  CHROME("sc-chrome3-s2-deposit", "small-claims", "bringing", CHROME_PASS_2[1].text, { amount: "1200" }, { city: "Gatineau", answers: [
+    { match: /where (is|are) the contractor|contractor.*(located|based|live)|business (is )?based/i, value: "Saint-Jérôme Rénovations Ltée, 8 rue de l'Église, Gatineau QC J8X 1A1" },
+    { match: /where (do|did) you live|your (own )?(city|address)/i, value: "Gatineau, Quebec. 8 rue de l'Église, Gatineau QC J8X 1A1" },
+    { match: /where (was|is|were) the work|work (was )?done|property/i, value: "8 rue de l'Église, Gatineau QC J8X 1A1" },
+    { match: /how much|amount|other (costs|money)|beyond the deposit/i, value: "Only the $1,200 deposit", fact: "amount" },
+    { match: /what (do you want|are you asking)|outcome|order|remedy/i, value: "Return of my $1,200 deposit." },
+    { match: /when|date/i, value: "I do not know yet" },
+  ] }),
+  CHROME("sc-chrome3-s6-sued", "small-claims", "responding", CHROME_PASS_2[5].text, { amount: "4200" }, {
+    served: "October 20, 2026",
+    situation: { where: "served", stage: "just-served", papers: "small-claims-7A", receivedOn: "2026-10-20", court: "small-claims" },
+    answers: [
+      { match: /further court papers|responded|since you were served|anything (else )?happened/i, value: "Nothing else yet. I was just served" },
+      { match: /how (were|was) (you|it) served|served on you/i, value: "Handed to me at my door." },
+      { match: /agreed|price|contract/i, value: "We agreed $6,200 for cabinets and countertop." },
+      { match: /wrong|bad|problem|defect/i, value: "The cabinets are crooked and the countertop is cracked." },
+      { match: /issued|when (was|did) the work|when|date/i, value: "I don't know" },
+      { match: /filed a defence|defence/i, value: "No" },
+      // Chrome pass 3, S6-1: the second question, after the first was answered.
+      { match: /owes? you (?:any )?money|responsible for part/i, value: "Yes, the plaintiff. I have not started my own claim yet." },
+      { match: /outcome of your own|only responding|claim of your own|counter-?claim|defendant.s claim/i, value: "Yes, a claim of my own against them too." },
+      { match: /plaintiff|contractor.*name|who (is suing|sued)/i, value: "" },
+      { match: /facts|disagree|dispute/i, value: "I agree I hired the contractor. I disagree that I owe $4,200: I already paid $2,000 and the work was bad." },
+    ] }),
+  CHROME("family-chrome3-s7-no", "family", "bringing", CHROME_PASS_2[6].text, {}, { married: "no", answers: [
+    { match: /existing (court )?order|written agreement/i, value: "No" },
+    { match: /urgent/i, value: "No" },
+    { match: /safety|violence|danger|afraid/i, value: "No safety concerns" },
+    { match: /other (parent|person).s name|their name|name of the other/i, value: "" },
+    { match: /time with|see the|schedule|arrangement/i, value: "" },
+    { match: /live|lives|home|where (is|does) the child/i, value: "" },
+  ] }),
+];
+
 export const STORIES: Story[] = [
   S("sc-loan-friend", "small-claims", "bringing", "In March 2026 I lent my friend Alex Testwood $4,500 for a car repair. He promised to pay me back by June 1, 2026.", { amount: "4500", when: "March 2026", otherParty: "Alex Testwood" }),
   S("sc-loan-sister", "small-claims", "bringing", "I loaned my sister $2,000 in May 2026 to fix her roof. She has not repaid any of it.", { amount: "2000", when: "May 2026" }),
@@ -211,6 +260,7 @@ export const STORIES: Story[] = [
   // have its text and asked for one with "I want $2,400 plus my costs"), with Chrome's own answers, and every AI step
   // answered by the real model's recorded output (harness/aiFixtures.ts, tests/browser/fixtures/real-ai/).
   ...CHROME_PASS_2,
+  ...CHROME_PASS_3,
 ];
 
 export type Violation = { story: string; court: Court; side: Side; kind: "asked-twice" | "stated-cold" | "typed-reconfirm" | "missing-label"; fact: string; screen: string; detail: string };
@@ -293,6 +343,37 @@ function chromePass2Problems(story: Story, seen: readonly string[]): string[] {
   // F10: a confirmed amount is never "Missing" on Form 7A.
   const principal = note("form-7A-principal: ")[0];
   if (principal !== undefined && story.stated.amount && !/\d/.test(principal)) problems.push(`F10 Form 7A's principal amount was "${principal}"`);
+  return problems;
+}
+
+/**
+ * Chrome's pass 3 findings on #550 (19 Nov 2026), read from what the run saw on the real AI's recorded readings. Each is
+ * a property (it fails only on the fault Chrome found, whatever the AI asked), on every real-AI story it applies to:
+ *   S1-12/S2-7 the Form 7A reasons box holds no answer the person gave as a fragment (an address, a name, "No", an
+ *              amount): the story's own sentences only; a full-sentence answer may stand;
+ *   S1-14      the case page's lost pay is never the medicine amount $18.45 (S1's story: $450 lost wages);
+ *   S2-4       a company's name is never split into a first name ("First name: Lt");
+ *   S2-5/S2-6  an answered Quebec address: the Parties step never offers Province ON, and offers the street typed;
+ *   S7-3       "No safety concerns" given: the urgent question asks nothing about safety or a child moved away.
+ */
+function chromePass3Problems(story: Story, seen: readonly string[]): string[] {
+  if (!story.realAi) return [];
+  const problems: string[] = [];
+  const note = (prefix: string) => seen.filter((line) => line.startsWith(prefix)).map((line) => line.slice(prefix.length));
+  const answers = note("home: ").map((line) => line.split(" => ").slice(1).join(" => ").trim()).filter(Boolean);
+  const sentence = (text: string) => text.split(/\s+/).length >= 4 && /\b(?:I|we|my|our|he|she|they|it|the)\b/i.test(text) && /\b(?:am|is|are|was|were|have|has|had|do|did|don't|know|want|paid|owe|agreed|hired|left|kept)\b/i.test(text);
+  for (const reasons of note("form-7A-reasons: ")) {
+    for (const answer of answers) if (answer !== "I do not know yet" && !sentence(answer) && !story.text.includes(answer) && reasons.includes(answer)) problems.push(`S1-12 the Form 7A reasons hold the answer "${answer}"`);
+  }
+  if (/\$18\.45/.test(story.text) && /\$450 lost wages/.test(story.text)) for (const line of note("lost-pay: ")) if (/\$18\.45/.test(line.split(/Costs you paid/)[0])) problems.push(`S1-14 lost pay shows the medicine amount: ${line.slice(0, 140)}`);
+  const parties = note("parties-step: ").join(" ");
+  if (/First name: (?:Lt|Ltée|Inc|Ltd)\b/.test(parties)) problems.push("S2-4 a company's name was split into a first name");
+  const quebec = answers.find((answer) => /\b(?:Quebec|Québec|QC)\b/.test(answer));
+  if (quebec && parties && /Province: ON\b/.test(parties)) problems.push(`S2-5 Province ON offered after the answer "${quebec}"`);
+  const street = answers.map((answer) => /\b\d+ rue [^,]+/.exec(answer)?.[0]).find(Boolean);
+  if (street && parties && /Defendant/.test(parties) && /Street address/.test(parties) && !parties.includes(street)) problems.push(`S2-6 the address typed as an answer ("${street}") was not offered on the Parties step`);
+  const safetyGiven = note("home: ").some((line) => /=> No safety concerns/i.test(line));
+  for (const urgent of note("urgent: ")) if (safetyGiven && /safety|move away|taken away|with a child/i.test(urgent)) problems.push(`S7-3 the urgent question asks the safety fact again: ${urgent.slice(0, 140)}`);
   return problems;
 }
 
@@ -634,6 +715,8 @@ async function readLabels(page: Page, story: Story, id: string, known: Set<strin
       if (await visible(start, 10_000)) { await start.click(); await page.waitForTimeout(8_000); }
     }
     seen.push(`${screen}: ${(await page.locator("body").innerText().catch(() => "")).replace(/\s+/g, " ").slice(0, 2500)}`);
+    // Chrome pass 3, S1-14: the case page's "Lost pay" row, read whole (it can sit past the note's first 2500 characters).
+    if (story.realAi && screen === "case page") for (const line of ((await page.locator("body").innerText().catch(() => "")).match(/Lost pay[^\n]*(?:\n[^\n]*)?/g) ?? [])) seen.push(`lost-pay: ${line.replace(/\s+/g, " ")}`);
     for (const fact of known) {
       const quiet = page.locator(`[data-testid=not-answered-yet][data-fact=${fact}]`);
       if (await quiet.first().isVisible().catch(() => false)) found.push({ story: story.name, court: story.court, side: story.side, kind: "missing-label", fact, screen, detail: (await quiet.first().innerText()).slice(0, 120) });
@@ -722,9 +805,11 @@ for (const story of STORIES) for (const reading of story.realAi ? realAiReadings
       if (story.realAi && story.court === "small-claims" && story.side === "bringing") {
         const form7A = await filledForm(page, id, "small-claims/7A").catch(() => null);
         seen.push(`form-7A-principal: ${form7A ? String(form7A.get("Principal amount claimed") ?? "") : "not downloaded"}`);
+        // Chrome pass 3, S1-12 and S2-7: the reasons box, whole (both of its fields).
+        if (form7A) seen.push(`form-7A-reasons: ${`${form7A.get("Reasons for claim and details") ?? ""} ${form7A.get("Reasons for claim and details_continued") ?? ""}`.replace(/\s+/g, " ").trim()}`);
       }
       seen.push(...homeAnswers.splice(0));
-      chrome2.push(...chromePass2Problems(story, seen));
+      chrome2.push(...chromePass2Problems(story, seen), ...chromePass3Problems(story, seen));
       const situation = situationOf(story);
       for (const violation of [...repeatViolations(factsAskedTwice(events, situation)), ...heldViolations(events)].filter((item) => !firstOfferExcused(item, events, OFFER_SURFACES))) {
         found.push({ story: story.name, court: story.court, side: story.side, kind: "asked-twice", fact: violation.fact, screen: `${violation.surface}@${violation.screen}`, detail: violation.text.slice(0, 120) });
@@ -755,7 +840,7 @@ for (const story of STORIES) for (const reading of story.realAi ? realAiReadings
     if (!REPORT) {
       expect(reached, "the story reached every page (a page not reached is not a zero)").toBe("all pages");
       expect(unexpected, unexpected.map((item) => `${item.kind} ${item.fact} @ ${item.screen}: ${item.detail}`).join("\n")).toEqual([]);
-      expect(chrome2, "Chrome's milestone pass 2 findings, on the real AI's recorded readings").toEqual([]);
+      expect(chrome2, "Chrome's pass 2 and pass 3 findings, on the real AI's recorded readings").toEqual([]);
       // Every AI step replayed as recorded: the site swallows a failed step, so a miss would otherwise pass silently.
       if (story.realAi) expect(replayMisses, "every AI step of this reading was recorded").toEqual([]);
     }

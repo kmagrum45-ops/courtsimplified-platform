@@ -30,6 +30,9 @@
  *
  * Every run also plants a new save point, an added entry and a stale entry in memory and shows each fails.
  *
+ * And the writer itself, for each fact state (19 Nov 2026): "not sure" never overwrites an answer, a typed answer beats
+ * "not sure", only "removed" removes one (factStates below).
+ *
  * What it misses (say so, do not trust it beyond this): writes to other case tables (case_events,
  * workspace_*, case_chat_messages); a table name or hook passed in a variable; a save made through a
  * wrapper with another name. Each miss found becomes a pattern here and a planted self-test.
@@ -203,7 +206,51 @@ function selfTest(allowed: OneWriterEntry[], found: SavePoint[]) {
   check("self-test: an entry that matches nothing fails as stale", judgeOneWriter(found, [...allowed, ghost], [...allowed, ghost]).stale.some((entry) => entry.file === ghost.file));
 }
 
-function main() {
+/**
+ * The one writer and each fact state (site owner, 19 Nov 2026): "not sure" never overwrites a value; a typed answer beats
+ * "not sure"; only "removed" removes an answer. Every held state against every written state, through applyFactWrites
+ * itself, with and without force, and "I don't know" sent as an answer (the writer reads it as "not sure").
+ */
+async function factStates() {
+  const { applyFactWrites } = await import("../../src/lib/case-system/caseFile/factRecord");
+  const { CASE_FILE_SECTION } = await import("../../src/lib/case-system/caseFile/caseFile");
+  const CASE = "00000000-0000-4000-8000-000000000019";
+  const start = { intakeCheckpoint: { version: 1, flowId: CASE, courtPath: "small-claims", revision: "00000000-0000-4000-8000-000000000020", sections: { [CASE_FILE_SECTION]: {} } } };
+  type Write = Parameters<typeof applyFactWrites>[3][number];
+  const sends: Record<string, Omit<Write, "fact" | "seenSeq">> = {
+    answered: { state: "answered", value: "1500", source: "person", question: "q" },
+    unsure: { state: "unsure", source: "person", question: "q" },
+    typedUnsure: { state: "answered", value: "I do not know yet", source: "person", question: "q" },
+    removed: { state: "removed", source: "person", question: "q" },
+  };
+  const held = (state: "none" | "answered" | "unsure" | "removed") => {
+    if (state === "none") return { master: start as Record<string, unknown>, seq: 0 };
+    const value = state === "answered" ? { state, value: "1200", source: "person" as const, question: "q" } : { state, source: "person" as const, question: "q" };
+    const result = applyFactWrites(start, "small-claims", CASE, [{ fact: "amount", ...value }], new Date("2026-11-19T12:00:00Z"));
+    if (!result.ok) throw new Error(`setup ${state}: ${result.reject}`);
+    return { master: result.master, seq: result.saved[0].seq };
+  };
+  const expected: Record<string, Record<string, string>> = {
+    none: { answered: "answered:1500", unsure: "unsure", typedUnsure: "unsure", removed: "removed" },
+    answered: { answered: "answered:1500", unsure: "answered:1200", typedUnsure: "answered:1200", removed: "removed" },
+    unsure: { answered: "answered:1500", unsure: "unsure", typedUnsure: "unsure", removed: "removed" },
+    removed: { answered: "answered:1500", unsure: "unsure", typedUnsure: "unsure", removed: "removed" },
+  };
+  for (const state of ["none", "answered", "unsure", "removed"] as const) {
+    for (const [name, send] of Object.entries(sends)) {
+      for (const force of [false, true]) {
+        const before = held(state);
+        const result = applyFactWrites(before.master, "small-claims", CASE, [{ fact: "amount", ...send, seenSeq: before.seq, ...(force ? { force: true as const } : {}) } as Write], new Date("2026-11-19T12:01:00Z"));
+        const record = result.ok ? result.facts.amount : undefined;
+        const got = record ? (record.state === "answered" ? `answered:${record.value}` : record.state) : "none";
+        check(`fact states: held ${state}, written ${name}${force ? " (force)" : ""} -> ${expected[state][name]}`, got === expected[state][name], `got ${got}`);
+      }
+    }
+  }
+}
+
+async function main() {
+  await factStates();
   const allowed = JSON.parse(readFileSync(path.join(ROOT, ALLOWED_PATH), "utf8")) as OneWriterEntry[];
   const found = scanSavePoints();
   const { list: base, from } = baseList();
@@ -226,4 +273,4 @@ function main() {
   console.log("\nAll one-writer checks passed.");
 }
 
-if (process.argv[1] && /verifyOneWriter/.test(process.argv[1])) main();
+if (process.argv[1] && /verifyOneWriter/.test(process.argv[1])) void main();

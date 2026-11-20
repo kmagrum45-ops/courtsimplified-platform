@@ -238,6 +238,112 @@
         "facts": {},
         "directFields": []
       }
+    },
+    {
+      "step": "story-reading",
+      "input": "3c2f2d5129a5caf2",
+      "said": "{\"sent\":\"I was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.\\n\\nI am responding to this case: the other side started it.\\n\\nI was served on 2026-10-20.\\n\\nA court case has already been started.\\n\\nQ: Do you believe the plaintiff, or someone else, owes you money or is responsible for part of what happened? (If you have already started your own claim about it, say so.)\\nA: Yes\\n\\nQ: Roughly when did the situation that led to this claim happen?\\nA: August 2026\",\"chosen\":null}",
+      "output": "{\n  \"summary\": \"You are defending a Small Claims Court case brought by a contractor who says you owe $4,200 for a kitchen job. You already paid $2,000 and say the work was bad. The dispute arose in August 2026, and you were served with the claim on October 20, 2026. You also believe the contractor or someone else owes you money or is responsible for part of what happened.\",\n  \"facts\": [\n    {\"label\": \"Your role\", \"value\": \"Defendant\"},\n    {\"label\": \"Plaintiff\", \"value\": \"Contractor who worked on your kitchen\"},\n    {\"label\": \"Court\", \"value\": \"Small Claims Court\"},\n    {\"label\": \"Amount claimed\", \"value\": \"$4,200\"},\n    {\"label\": \"Amount already paid\", \"value\": \"$2,000\"},\n    {\"label\": \"Complaint about the work\", \"value\": \"You say the work was bad\"},\n    {\"label\": \"When the dispute arose\", \"value\": \"August 2026\"},\n    {\"label\": \"Date served\", \"value\": \"October 20, 2026\"},\n    {\"label\": \"Method of service\", \"value\": \"Not given\"},\n    {\"label\": \"Related claim\", \"value\": \"You believe the contractor or someone else owes you money or shares responsibility; details not given\"}\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Contractor’s claim for unpaid kitchen work\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"responding\",\n  \"stage\": \"The contractor has started a Small Claims Court case, and you have been served with the claim.\",\n  \"questions\": [\n    {\n      \"question\": \"How were the claim papers given to you: handed to you, mailed, left at your home, emailed, or another way?\",\n      \"why\": \"This clarifies the circumstances of service.\"\n    },\n    {\n      \"question\": \"Has anything else happened in the court case since you received the claim?\",\n      \"why\": \"This establishes the current status of the case.\"\n    },\n    {\n      \"question\": \"What work and total price did you agree to, and what was wrong with the work?\",\n      \"why\": \"The agreement and the problems with the work are central to the payment dispute.\"\n    },\n    {\n      \"question\": \"Who do you believe owes you money or shares responsibility, and what amount or loss are you referring to?\",\n      \"why\": \"This clarifies whether your related dispute concerns the contractor or another person.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
+    },
+    {
+      "step": "safety",
+      "input": "7cf29331d073d427",
+      "said": "{\"said\":\"I was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.\"}",
+      "output": {
+        "classification": "clear",
+        "requestsLegalAdvice": false
+      }
+    },
+    {
+      "step": "fact-reading",
+      "input": "7cf29331d073d427",
+      "said": "{\"said\":\"I was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.\"}",
+      "output": {
+        "facts": {
+          "role": "defendant",
+          "disputeCategory": "work-or-services",
+          "claimServed": true
+        },
+        "directFields": [
+          "role",
+          "disputeCategory",
+          "claimServed"
+        ]
+      }
+    },
+    {
+      "step": "claim-kind",
+      "input": "b554f847f7d4966d",
+      "said": "{\"said\":\"I was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.\",\"exclude\":[],\"responding\":true}",
+      "output": {
+        "claimTypeId": "sc-claim-homeowner-wont-pay-contractor",
+        "claimTypeName": "A homeowner will not pay the contractor",
+        "quote": "A contractor says I owe $4,200 for a kitchen job"
+      }
+    },
+    {
+      "step": "story-suggestions",
+      "input": "e66efb732357276a",
+      "said": "{\"story\":\"I was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.\",\"questions\":[\"sc-orient-dispute-category\",\"sc-defendant-response-facts\",\"sc-date-claim-issued\"],\"quoteFrom\":null}",
+      "output": [
+        {
+          "questionId": "sc-orient-dispute-category",
+          "questionText": "What kind of dispute is this?",
+          "answer": "Work or a service you paid for (e.g. a contractor)",
+          "storyQuote": "I already paid $2,000 and the work was bad.",
+          "choices": [
+            "Unpaid money owed to you",
+            "A contract or agreement dispute",
+            "Property damage",
+            "A loan or debt",
+            "Work or a service you paid for (e.g. a contractor)",
+            "A deposit that wasn't returned",
+            "A consumer purchase problem",
+            "A vehicle-related dispute",
+            "Something said about you (defamation)",
+            "A personal injury (a fall, an animal bite, or similar)",
+            "Something else"
+          ]
+        },
+        {
+          "questionId": "sc-defendant-response-facts",
+          "questionText": "In your own words, which facts in the Plaintiff's Claim do you agree with, and which facts do you disagree with?",
+          "answer": "The contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.",
+          "storyQuote": "A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad."
+        }
+      ]
+    },
+    {
+      "step": "claim-kind-confirm",
+      "input": "b162ff9b6682abfe",
+      "said": "{\"action\":\"confirm\",\"said\":\"I was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.\",\"claimTypeId\":\"sc-claim-homeowner-wont-pay-contractor\",\"prior\":[]}",
+      "output": {
+        "outcome": "confirmed",
+        "claimType": {
+          "claimTypeId": "sc-claim-homeowner-wont-pay-contractor",
+          "claimTypeName": "Being sued by a contractor over work you dispute"
+        }
+      }
+    },
+    {
+      "step": "fact-reading",
+      "input": "03fb09441bc8285e",
+      "said": "{\"said\":\"Q: In your own words, which facts in the Plaintiff's Claim do you agree with, and which facts do you disagree with?\\nA: The contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.\"}",
+      "output": {
+        "facts": {
+          "role": "defendant",
+          "disputeCategory": "work-or-services"
+        },
+        "directFields": [
+          "disputeCategory"
+        ]
+      }
+    },
+    {
+      "step": "story-suggestions",
+      "input": "46c7e0d6dca50613",
+      "said": "{\"story\":\"I was served with a Small Claims claim on Oct 20, 2026. A contractor says I owe $4,200 for a kitchen job. I already paid $2,000 and the work was bad.\",\"questions\":[\"sc-date-claim-issued\"],\"quoteFrom\":null}",
+      "output": []
     }
   ]
 }

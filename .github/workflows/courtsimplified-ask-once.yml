@@ -19,10 +19,10 @@ on:
 permissions:
   contents: read
 
-# Five shards (site owner, 18 Nov 2026): the two jobs of one court each were cancelled at their 60-minute limit on
+# Six shards (site owner, 18 Nov 2026; a sixth on 19 Nov for Chrome pass 3's four stories, 12 readings): the two jobs of one court each were cancelled at their 60-minute limit on
 # #550 (eb3cc085, no failure), once the real-AI readings were added (about 170 minutes of tests in all). The limit
 # stays 60 minutes. Each shard has its own list of stories, balanced by each story's measured CI time (the eb3cc085
-# and 17 Nov runs; a reading not reached there counted at its story's measured rate): about 34 minutes of tests plus
+# and 17 Nov runs; a reading not reached there counted at its story's measured rate): about 36 minutes of tests (a pass 3 story counted at its pass 2 twin's time) plus
 # about 4 of setup each. A story's readings all run in its shard. npm run test:ask-once-shards fails on a story in no
 # shard or in two, and checks Playwright's own list for each shard's grep. The job named ask-once below passes only
 # when every shard passed.
@@ -37,27 +37,30 @@ jobs:
         include:
           - shard: 1
             stories: >-
-              civil-chrome2-s8-goods family-married-2015 family-served-divorce sc-chrome2-s3-fence sc-laptop
-              sc-loan-friend sc-milestone-s5-loan sc-roofer sc-served-furniture sc-served-roommate
+              civil-fired civil-goods-home civil-served-guarantee family-sell-house sc-car-backed
+              sc-chrome2-readings-recorded sc-chrome2-s2-deposit sc-chrome2-s6-sued sc-chrome3-s1-fall
+              sc-served-plumber sc-tree-cut
           - shard: 2
             stories: >-
-              civil-goods-home civil-served-guarantee civil-tree-fell family-chrome2-s7a-no
-              family-milestone-s7a-not-married family-served-motion sc-chrome2-readings-recorded sc-deposit-venue
-              sc-forms-chrome sc-served-plumber sc-slip-and-fall sc-wages
+              civil-chrome2-s8-goods civil-milestone-s8 civil-served-dismissal family-served-motion
+              sc-chrome2-s4-tree sc-milestone-s1-injury sc-roofer sc-served-kitchen sc-slip-and-fall-changed
           - shard: 3
             stories: >-
-              civil-fired civil-loan-partner family-chrome2-s7b-unsure family-married-unsure family-moved-away
-              family-served-form8 sc-car-backed sc-iou sc-loan-sister sc-served-cousin sc-served-kitchen-home sc-tree-cut
+              civil-tree-fell family-chrome2-s7b-unsure family-support-unpaid sc-chrome2-s1-fall sc-iou
+              sc-loan-sister sc-mechanic sc-milestone-s5-loan sc-served-truck sc-slip-and-fall
           - shard: 4
             stories: >-
-              civil-builder civil-milestone-s8 family-milestone-s7b-unsure family-never-married family-sell-house
-              sc-chrome2-s2-deposit sc-chrome2-s4-tree sc-contractor-bathroom sc-invoice sc-milestone-s1-injury
-              sc-milestone-s4-tree sc-served-truck
+              family-chrome2-s7a-no family-never-married family-served-divorce sc-chrome2-s3-fence
+              sc-deposit-landlord sc-forms-chrome sc-loan-friend sc-milestone-s4-tree sc-served-furniture sc-wages
           - shard: 5
             stories: >-
-              civil-served-dismissal family-not-married-home family-support-unpaid sc-chrome2-s1-fall
-              sc-chrome2-s5-loan sc-chrome2-s6-sued sc-deposit-landlord sc-mechanic sc-milestone-s6-sued
-              sc-served-kitchen sc-slip-and-fall-changed
+              civil-builder civil-loan-partner family-chrome3-s7-no family-married-2015 family-moved-away
+              sc-chrome3-s6-sued sc-deposit-venue sc-invoice sc-served-kitchen-home sc-served-roommate
+          - shard: 6
+            stories: >-
+              family-married-unsure family-milestone-s7a-not-married family-milestone-s7b-unsure
+              family-not-married-home family-served-form8 sc-chrome2-s5-loan sc-chrome3-s2-deposit
+              sc-contractor-bathroom sc-laptop sc-milestone-s6-sued sc-served-cousin
     env:
       NODE_OPTIONS: --max-old-space-size=8192
       NEXT_TELEMETRY_DISABLED: 1

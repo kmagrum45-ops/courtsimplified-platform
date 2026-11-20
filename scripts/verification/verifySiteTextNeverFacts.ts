@@ -12,11 +12,12 @@
  * option labels never do, in any court.
  *
  * What it asserts, with no browser, model or database:
- *   1. the home page's story (frontDoorStory, the one writer) holds the person's answers and none of the questions;
+ *   1. the home page's story (frontDoorStory, the one writer) is the story field only: no question, no answer (site
+ *      owner, 19 Nov 2026: only text from a person-written story field is the story; the answers are held as answers);
  *   2. a case saved the old way (questions in the story) reads, through the one reader (personWordsOnly), as the
  *      person's words only: userStory, every starting and responding draft in Small Claims, Family and Civil, and the
- *      Family "From your story" order quote carry no question text, and keep every answer;
- *   3. the follow-up answers about the law: their questions never reach a draft either;
+ *      Family "From your story" order quote carry no question text, and no answer glued on with one (19 Nov 2026);
+ *   3. the follow-up answers about the law: neither their questions nor their answers reach a draft (19 Nov 2026);
  *   4. build check: HomeLocationGate.tsx builds the story through frontDoorStory and never joins a question into it;
  *   5. the old-case reader removes ONLY text that exactly matches a site question (the fixed list, siteQuestions.ts,
  *      or a question the case itself recorded as asked), never the person's own words (site owner, 14 Nov 2026, item
@@ -88,17 +89,18 @@ async function main() {
     assert.ok(questions.some((q) => /parenting/.test(q)), "no Family question");
   });
 
-  check("1. the home page's story holds the person's answers and none of the questions", () => {
+  // Changed 19 Nov 2026 (site owner: the story is the person-written story field only): no answer either.
+  check("1. the home page's story holds none of the questions and none of the answers", () => {
     assert.equal(typeof words.frontDoorStory, "function", "frontDoorStory (personWords.ts) does not exist");
     const story = words.frontDoorStory!(STORY, questions.map((question) => ({ question, answer: ANSWER })));
     noQuestion("the stored story", story);
-    assert.ok(story.startsWith(STORY) && story.includes(ANSWER), "the person's story and answers are kept");
+    assert.equal(story, STORY, "the story is not the story field alone");
   });
 
-  check("2a. an old case's story reads as the person's words only (userStory), answers kept", () => {
+  check("2a. an old case's story reads as the person's words only (userStory), no answer glued on with a question", () => {
     const story = userStory({ facts: oldStory });
     noQuestion("userStory", story);
-    assert.ok(story.includes(STORY) && story.includes(ANSWER));
+    assert.ok(story.includes(STORY) && !story.includes(ANSWER), "an answer glued on with its question reads as the story");
   });
 
   for (const court of ["small-claims", "family", "civil"] as const) {
@@ -107,7 +109,7 @@ async function main() {
       for (const draft of [startingDocumentDraft(court, intake, new Date("2026-11-13T12:00:00Z")), respondingDocumentDraft(court, intake, new Date("2026-11-13T12:00:00Z"))]) {
         if (!draft) continue;
         noQuestion(`${court} ${draft.title}`, draft.sections.map((section) => section.text).join("\n"));
-        assert.ok(draft.sections.some((section) => section.text.includes(ANSWER)), `${court} ${draft.title} lost the person's answers`);
+        assert.ok(!draft.sections.some((section) => section.text.includes(ANSWER)), `${court} ${draft.title} holds an answer glued on with its question`);
       }
     });
   }
@@ -124,9 +126,10 @@ async function main() {
     assert.ok(userStory({ facts: story }).includes(OWN), "userStory lost the person's words");
   });
 
-  check("5b. old case: a joined site question is the only text taken out", () => {
+  // Changed 19 Nov 2026: the joined line is the site's question and an answer, neither from the story field; both go.
+  check("5b. old case: a joined site question and its answer are the only text taken out", () => {
     const question = fixed[0];
-    assert.equal(words.personWordsOnly!(`${STORY}\n\n${question} ${ANSWER}\n\n${OWN}`), `${STORY}\n\n${ANSWER}\n\n${OWN}`);
+    assert.equal(words.personWordsOnly!(`${STORY}\n\n${question} ${ANSWER}\n\n${OWN}`), `${STORY}\n\n${OWN}`);
   });
 
   check("5c. old case: a question on neither list is left in, never guessed at", () => {
@@ -140,14 +143,14 @@ async function main() {
     assert.ok(!/QUESTION_THEN_ANSWER/.test(module), "personWords.ts still cuts at a question mark");
   });
 
-  check("3. the follow-up answers about the law: their questions never reach a draft", () => {
+  check("3. the follow-up answers about the law: their questions and answers never reach a draft", () => {
     const followUp = sourcedAnswerListText([{ question: "Did the defendant agree in writing to pay for the deck?", answer: "Yes, we signed a contract." }]);
     const facts = `${STORY}\n\n${followUp}`;
     const draft = startingDocumentDraft("small-claims", { facts, timeline: "" } as never, new Date("2026-11-13T12:00:00Z"))!;
     const text = draft.sections.map((section) => section.text).join("\n");
     assert.ok(!text.includes("Did the defendant agree in writing"), "the follow-up question is in the draft");
     assert.ok(!/Answers to follow-up questions/.test(text), "the site's heading is in the draft");
-    assert.ok(text.includes("Yes, we signed a contract."), "the person's answer was lost");
+    assert.ok(!text.includes("Yes, we signed a contract."), "a follow-up answer is in the draft");
   });
 
   check("4. build check: the home page builds the story through frontDoorStory and joins no question into it", () => {

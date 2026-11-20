@@ -53,11 +53,20 @@ function load(key: string): Fixture {
 /** Every step a replay asked for that was never recorded, in this test process (the page test asserts none). */
 export const replayMisses: string[] = [];
 
+/**
+ * AI_FIXTURES_USED=<file>: each step a run uses is written there ("<story>/<reading> <step> <hash>"), so that after a
+ * whole replay scripts/browser/pruneAiFixtures.mjs removes every recorded step nothing uses any more: a re-recorded
+ * reading keeps only what it replays, never old steps beside new ones (site owner, 19 Nov 2026, rule 0).
+ */
+const used = (key: string, step: string, hash: string) => {
+  if (process.env.AI_FIXTURES_USED) fs.appendFileSync(process.env.AI_FIXTURES_USED, `${key} ${step} ${hash}\n`);
+};
+
 /** The output of one AI step: the saved one when this reading has it, else (recording) the real model's, saved. */
 export async function realStep<T>(key: string, step: string, input: unknown, real: () => Promise<T>): Promise<T> {
   const hash = hashOf(input);
   const saved = load(key).entries.find((entry) => entry.step === step && entry.input === hash);
-  if (saved) return saved.output as T;
+  if (saved) { used(key, step, hash); return saved.output as T; }
   if (!RECORDING) {
     // Said here too: the site catches a failed AI step and goes on without it, so the error alone would be silent.
     const message = `real-AI fixture ${key}: step "${step}" was never recorded for this input (${hash}); record with AI_FIXTURES=record`;
@@ -72,5 +81,6 @@ export async function realStep<T>(key: string, step: string, input: unknown, rea
   fresh.entries.push({ step, input: hash, said: JSON.stringify(input).slice(0, 600), output: output as unknown });
   fs.mkdirSync(path.dirname(file(key)), { recursive: true });
   fs.writeFileSync(file(key), `${JSON.stringify(fresh, null, 2)}\n`);
+  used(key, step, hash);
   return output;
 }

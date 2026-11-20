@@ -140,6 +140,12 @@
           "disputeCategory"
         ]
       }
+    },
+    {
+      "step": "story-reading",
+      "input": "20d581894b4f5f71",
+      "said": "{\"sent\":\"My contractor left the work unfinished and kept my $1,200 deposit.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\\n\\nQ: What is the total dollar amount you are claiming?\\nA: Only the $1,200 deposit.\\n\\nQ: Roughly when did the situation that led to this claim happen?\\nA: September 2026\\n\\nQ: What outcome are you asking the court to order?\\nA: Return of my $1,200 deposit\",\"chosen\":null}",
+      "output": "{\n  \"summary\": \"Your contractor left the work unfinished and kept your $1,200 deposit. This happened in September 2026, and you want the deposit returned. You are bringing the claim, but nothing has been filed with a court.\",\n  \"facts\": [\n    {\"label\": \"Other party\", \"value\": \"Your contractor\"},\n    {\"label\": \"Dispute\", \"value\": \"Unfinished work and a retained deposit\"},\n    {\"label\": \"Amount claimed\", \"value\": \"$1,200\"},\n    {\"label\": \"When it happened\", \"value\": \"September 2026\"},\n    {\"label\": \"Outcome sought\", \"value\": \"Return of the $1,200 deposit\"},\n    {\"label\": \"Your role\", \"value\": \"Person bringing the claim\"},\n    {\"label\": \"Court filing\", \"value\": \"Nothing filed\"},\n    {\"label\": \"Location of the work\", \"value\": \"Not given\"}\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Claim against a contractor for return of a deposit\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You have not started a court case.\",\n  \"questions\": [\n    {\n      \"question\": \"Where was the contractor supposed to do the work?\",\n      \"why\": \"This helps confirm whether the dispute belongs in Ontario.\"\n    },\n    {\n      \"question\": \"What did you and the contractor agree about the work and when the deposit would be refundable?\",\n      \"why\": \"The agreement helps clarify the basis of your request for a refund.\"\n    },\n    {\n      \"question\": \"What work did the contractor complete before stopping?\",\n      \"why\": \"This clarifies what you received in exchange for the deposit.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
     }
   ]
 }

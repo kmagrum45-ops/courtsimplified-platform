@@ -2,8 +2,6 @@
 
 import { useIntakeState } from "./IntakeRecovery";
 
-import { useEffect, useRef } from "react";
-
 import type { CheckedAnswerView } from "@/src/lib/case-system/intelligence/intelligenceTypes";
 import type { CaseUnderstanding, UnderstoodCourt } from "@/src/lib/case-system/understanding/understandCase";
 import { betterDestinationKnown, courtQuestionShown } from "@/src/lib/case-system/understanding/betterDestination";
@@ -12,15 +10,13 @@ import LegalAdviceDeflection from "./LegalAdviceDeflection";
 import TribunalNotice from "./TribunalNotice";
 import { WorkingButton } from "./Working";
 import { UseSuggestion } from "./UseSuggestion";
-import { factStatus, mayShowQuestion } from "@/src/lib/case-system/caseFile/factStatus";
-import { factsOfQuestion } from "@/src/lib/case-system/caseFile/factsOfQuestion";
-import { allHomeQuestionWords } from "@/src/lib/case-system/caseFile/factQuestions";
+import { factStatus } from "@/src/lib/case-system/caseFile/factStatus";
+import { allHomeQuestionWords, homeAsks } from "@/src/lib/case-system/caseFile/factQuestions";
 
 /** A question of the site's own: it has an id and its words are the fixed words (never the model's). */
 const SITE_WORDS = allHomeQuestionWords();
 const isSiteQuestion = (item: { id?: string; question: string }) => Boolean(item.id) && SITE_WORDS.has(item.question);
 import type { CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
-import { offerForAskedWords } from "@/src/lib/case-system/caseFile/storyOffers";
 
 /** Initial intake: factual reading, category clarification and questions only. */
 
@@ -73,37 +69,30 @@ export default function CaseUnderstandingCard({
   file?: CaseFile | null;
 }) {
   const { understanding } = result;
-  const [replies, setReplies] = useIntakeState<Record<number, string>>("home-card", "replies", {});
+  const [replies, setReplies] = useIntakeState<Record<string, string>>("home-card", "replies", {});
   /*
-   * Each "Update with my answers" round replaces `result` with a fresh read
-   * (a new set of questions, in a new order, often a different length). Without
-   * this, `replies` -- keyed by array position -- kept last round's text and
-   * it silently reappeared under whatever new question now sat at that same
-   * index: a user's answer to "what extra care did the dog need" showed up
-   * under an unrelated later question. Found 2026-10-16 from the site owner's
-   * own live test. Clearing on every new `result` keeps each box starting
-   * blank for its own question, every round.
+   * `replies` is kept by each question's id (site owner, 19 Nov 2026). Each "Update with my answers" round replaces
+   * `result` with a fresh read, its questions in another set or order: an answer stays under its own question and a new
+   * question starts empty. Until then it was kept by place in the list and cleared on every round, because an answer
+   * kept by place showed up under another question (site owner's live test, 16 Oct 2026; case-understanding-continuity).
    */
-  const previousResult = useRef(result);
-  useEffect(() => {
-    if (previousResult.current !== result) setReplies({});
-    previousResult.current = result;
-  }, [result, setReplies]);
   const answered = understanding.questions
-    .map((item, index) => ({ ...(item.id ? { id: item.id } : {}), question: item.question, answer: (replies[index] ?? "").trim() }))
+    .map((item) => ({ ...(item.id ? { id: item.id } : {}), question: item.question, answer: (item.id ? replies[item.id] ?? "" : "").trim() }))
     .filter((item) => item.answer);
   const suggested = asPath(understanding.mainCourt);
   // The questions this card may ask, by their place in the reading (replies are kept by that place): ONLY the site's own,
   // by id and in its fixed words (questions/factQuestions.ts), and only while the one function lets that id be asked. A
   // reading saved before 19 Nov 2026 with the model's own questions shows none of them (site owner: no AI-written
   // question text reaches the person).
-  const asks = understanding.questions.map((item) => isSiteQuestion(item) && mayShowQuestion(file, item.id!));
-  // What the story already gives for a question: offered with it, never asked with an empty box (storyOffers.ts), by fact.
-  const offered = understanding.questions.map((item) => isSiteQuestion(item) ? offerForAskedWords(file, item.question, story ?? "", understanding.facts ?? [], { fact: factsOfQuestion(item.id!)[0] ?? null }) : null);
-  const reply = (index: number, value: string) => {
-    const next = { ...replies, [index]: value };
+  // The one decision (factQuestions.ts homeAsks): a question whose facts the record holds, or the story states, is not
+  // asked here, and nothing is offered here: the intake offers a stated value once (site owner, 19 Nov 2026).
+  const asks = understanding.questions.map((item) => isSiteQuestion(item) && homeAsks(file, item.id!, story ?? ""));
+  // Each box is kept by its question's id, never its place, so a new reading with other questions can never put an
+  // answer under another question (site owner, 19 Nov 2026).
+  const reply = (id: string, value: string) => {
+    const next = { ...replies, [id]: value };
     setReplies(next);
-    onDraftChange?.(understanding.questions.map((question, at) => ({ ...(question.id ? { id: question.id } : {}), question: question.question, answer: next[at] ?? "" })).filter((item) => item.answer.trim()));
+    onDraftChange?.(understanding.questions.map((question) => ({ ...(question.id ? { id: question.id } : {}), question: question.question, answer: question.id ? next[question.id] ?? "" : "" })).filter((item) => item.answer.trim()));
   };
   // The court the person already chose (the start's answer): the reading's same court is not offered again.
   const heldCourt = file && factStatus(file, "court") === "known" && typeof file.court.value === "string" ? file.court.value : null;
@@ -175,31 +164,20 @@ export default function CaseUnderstandingCard({
           <h3 className="font-bold text-[#10231f]">What we still need to know</h3>
           <ol className="mt-2 space-y-3">
             {understanding.questions.map((item, index) => !asks[index] ? null : (
-              <li key={`${index}-${item.question.slice(0, 20)}`} className="rounded-2xl border border-[#d8e6df] bg-white p-3">
+              <li key={item.id} data-fact-question={item.id} className="rounded-2xl border border-[#d8e6df] bg-white p-3">
                 <label className="block text-sm">
                   <span className="font-semibold text-[#16302b]">{item.question}</span>
                   {item.why ? <span className="mt-1 block text-xs text-[#4d675f]">Why we ask: {item.why}</span> : null}
                   <input
                     disabled={updating}
                     aria-label={item.question}
-                    value={replies[index] ?? ""}
-                    onChange={(event) => reply(index, event.target.value)}
+                    data-testid={`case-understanding-answer-${item.id}`}
+                    value={replies[item.id!] ?? ""}
+                    onChange={(event) => reply(item.id!, event.target.value)}
                     className="mt-2 w-full rounded-xl border border-[#d8e6df] px-3 py-2"
                     placeholder="Your answer (optional)"
                   />
                 </label>
-                {offered[index] && !(replies[index] ?? "").trim() ? (
-                  <span className="mt-2 block" data-testid="case-understanding-offer">
-                    <UseSuggestion
-                      offer={{ key: `home-question:${offered[index]!.fact}`, fact: offered[index]!.fact }}
-                      testId={`case-understanding-offer-${index}`}
-                      what={offered[index]!.value}
-                      note={<>From your story: &ldquo;{offered[index]!.quote}&rdquo;</>}
-                      disabled={updating}
-                      onUse={() => reply(index, offered[index]!.value)}
-                    />
-                  </span>
-                ) : null}
               </li>
             ))}
           </ol>

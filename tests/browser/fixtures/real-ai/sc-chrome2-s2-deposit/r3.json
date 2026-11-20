@@ -138,6 +138,12 @@
           "disputeCategory"
         ]
       }
+    },
+    {
+      "step": "story-reading",
+      "input": "20d581894b4f5f71",
+      "said": "{\"sent\":\"My contractor left the work unfinished and kept my $1,200 deposit.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\\n\\nQ: What is the total dollar amount you are claiming?\\nA: Only the $1,200 deposit.\\n\\nQ: Roughly when did the situation that led to this claim happen?\\nA: September 2026\\n\\nQ: What outcome are you asking the court to order?\\nA: Return of my $1,200 deposit\",\"chosen\":null}",
+      "output": "{\n  \"summary\": \"Your contractor left the work unfinished and kept your $1,200 deposit after a situation in September 2026. You want to bring a claim for return of that deposit only, and nothing has been filed with a court yet.\",\n  \"facts\": [\n    {\"label\": \"Your role\", \"value\": \"Person bringing the claim\"},\n    {\"label\": \"Other party\", \"value\": \"Your contractor\"},\n    {\"label\": \"Dispute\", \"value\": \"Unfinished work and deposit not returned\"},\n    {\"label\": \"Amount claimed\", \"value\": \"$1,200\"},\n    {\"label\": \"When\", \"value\": \"September 2026\"},\n    {\"label\": \"Outcome sought\", \"value\": \"Return of the deposit\"},\n    {\"label\": \"Court filing\", \"value\": \"Nothing filed\"},\n    {\"label\": \"Location of work\", \"value\": \"Not given\"}\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Claim against contractor for return of deposit\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You have not started a court claim.\",\n  \"questions\": [\n    {\n      \"question\": \"Where was the work supposed to be done?\",\n      \"why\": \"This helps confirm whether the dispute belongs in Ontario.\"\n    },\n    {\n      \"question\": \"What work did the contractor complete before stopping?\",\n      \"why\": \"This clarifies what part of the agreed work remains unfinished.\"\n    },\n    {\n      \"question\": \"What did you and the contractor agree about when the deposit would be refundable?\",\n      \"why\": \"This clarifies the basis of your request for its return.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
     }
   ]
 }
