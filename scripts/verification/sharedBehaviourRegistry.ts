@@ -49,6 +49,8 @@ export const BEHAVIOURS: Behaviour[] = [
       { file: "app/builder/_components/childSupportPrefill.ts", contains: "\\b(?:lives?|living|stays?|staying|resides?|residing)\\b[^.!?]{0,40}\\bwith\\b", why: "a 40-character window between \"lives\" and \"with\"; matches, never quotes or cuts text" },
       { file: "app/builder/_components/storyAnswers.ts", contains: "const ONLY_WHEN = ", why: "ONLY_WHEN: tells a phrase that is only a time apart from a fact; a match window, not a sentence end" },
       { file: "src/lib/case-workspace/fileValidation.ts", contains: "name.lastIndexOf(\".\")", why: "a file name's extension, not a sentence" },
+      { file: "src/lib/case-system/parties/parties.ts", contains: "const COMPANY = ", why: "COMPANY: whether a party's name is a company's (\"Ltd.\", \"Inc.\"); reads a name, never a sentence end (the story is split by sentences.ts)" },
+      { file: "src/lib/case-system/parties/parties.ts", contains: "const chunk = rawChunk.replace(", why: "keeps the full stop of a company's \"Ltd.\" or \"Inc.\" at the end of a name read from the story; never a sentence end" },
     ],
   },
   {

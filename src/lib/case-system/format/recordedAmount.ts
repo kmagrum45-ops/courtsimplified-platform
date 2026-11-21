@@ -124,3 +124,19 @@ export function formatRecordedAmount(raw: unknown): string {
   const value = parseRecordedAmount(trimmed);
   return value === null ? trimmed : FORMATTER.format(value);
 }
+
+/**
+ * A plain sum followed only by costs or interest ("$2,400 plus my costs", "1500 and interest"): the sum, and those words
+ * kept apart as a note (site owner, 17 Nov 2026; Chrome milestone pass 2, finding 10, S3: "$2,400 plus my costs" was kept
+ * as the amount with its words, and Form 7A said the amount was missing). The words are never dropped: the note travels
+ * with the sum (caseFile.ts slotText shows both). Anything else around the number keeps the whole text as typed:
+ * "about $10,000 plus costs" (the sum is not plain), "10000 CAD plus interest" (nor this).
+ */
+export function amountWithCostsNote(raw: unknown): { amount: number; note: string } | null {
+  if (typeof raw !== "string") return null;
+  const text = stripTrailingPeriod(raw.trim());
+  const match = /^(.*?)\s*,?\s+(plus|and|\+)\s+((?:(?:my|the|all|court|legal|filing|any)\s+)*(?:costs?|interest|fees?|expenses)(?:\s+(?:and|&)\s+(?:(?:my|the|all|court|legal|filing|any)\s+)*(?:costs?|interest|fees?|expenses))*)$/i.exec(text);
+  if (!match) return null;
+  const amount = parseRecordedAmount(match[1]);
+  return amount === null ? null : { amount, note: `${match[2].toLowerCase() === "+" ? "plus" : match[2].toLowerCase()} ${match[3]}` };
+}

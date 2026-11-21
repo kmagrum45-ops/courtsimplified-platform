@@ -20,6 +20,7 @@
  */
 
 import { userStory } from "../userStory";
+import { sideWordsOf } from "../parties/parties";
 import { newId, type CaseDraft, type DraftSection } from "./caseDrafts";
 
 export type RespondingDocumentIntake = {
@@ -32,10 +33,10 @@ export type RespondingDocumentIntake = {
   extra?: Record<string, unknown>;
 };
 
-const RESPONDING_DOCUMENT: Record<string, { title: string; responseHeading: string; side: string; other: string }> = {
-  "small-claims": { title: "Draft Defence (Form 9A)", responseHeading: "What you dispute in the claim, and why", side: "Defendant", other: "Plaintiff" },
-  civil: { title: "Draft Statement of Defence (Form 18A)", responseHeading: "What you admit, deny, or do not know about the claim", side: "Defendant", other: "Plaintiff" },
-  family: { title: "Draft Answer (Form 10)", responseHeading: "What you agree with and disagree with in the application", side: "Respondent", other: "Applicant" },
+const RESPONDING_DOCUMENT: Record<string, { title: string; responseHeading: string }> = {
+  "small-claims": { title: "Draft Defence (Form 9A)", responseHeading: "What you dispute in the claim, and why" },
+  civil: { title: "Draft Statement of Defence (Form 18A)", responseHeading: "What you admit, deny, or do not know about the claim" },
+  family: { title: "Draft Answer (Form 10)", responseHeading: "What you agree with and disagree with in the application" },
 };
 
 export function respondingDocumentTitle(courtPath: string | null | undefined): string | null {
@@ -55,9 +56,12 @@ export function respondingDocumentDraft(
   courtPath: string | null | undefined,
   intake: RespondingDocumentIntake,
   now: Date,
+  /** The parties from the Parties record (parties.ts partyNames); the form's copies only for a case with none. */
+  names?: { you: string; others: string[] },
 ): CaseDraft | null {
   const spec = courtPath ? RESPONDING_DOCUMENT[courtPath] : undefined;
   if (!spec) return null;
+  const words = sideWordsOf(courtPath);
   const extra = (intake.extra ?? {}) as Record<string, unknown>;
   const response = text(extra.defenceResponse);
   const stamp = now.toISOString();
@@ -68,7 +72,8 @@ export function respondingDocumentDraft(
     createdAt: stamp,
     updatedAt: stamp,
     sections: [
-      part("Parties", [`${spec.side} (you): ${text(intake.yourName) || "Not entered"}`, `${spec.other}: ${text(intake.otherParty) || "Not entered"}`]),
+      // The court's own words for each side and every party its own name (parties.ts sideWordsOf, partyNames; 16 Nov 2026).
+      part("Parties", [`${words.responds} (you): ${names?.you || text(intake.yourName) || "Not entered"}`, ...((names?.others.length ? names.others : [text(intake.otherParty)]).map((name) => `${words.starts}: ${name || "Not entered"}`))]),
       part(spec.responseHeading, [response || "Not entered yet. Go through the other side's document paragraph by paragraph and note each point you agree with, disagree with, or do not know about."]),
       part("Your account of what happened", [userStory(intake) || "Not entered yet."]),
       part("Dates", [text(intake.timeline) || "No dates entered yet."]),

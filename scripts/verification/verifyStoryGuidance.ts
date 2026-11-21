@@ -273,6 +273,34 @@ check("7. the boxes named for the story take their name from the shared STORY_LA
   return problems;
 })());
 
+// 6. A STORY OVER THE LENGTH THE SITE READS IS NEVER CUT OFF SILENTLY (site owner, 17 Nov). Every story box keeps the whole
+// story in the case; some steps read only the first STORY_READ_LIMIT characters, and the Small Claims chat's turn refuses a
+// longer one (guided-turn MAX_STORY_TEXT_LENGTH). So the person is told while typing: the shared guidance shows the
+// length note past the limit, every story box gives it the story's length, and the Small Claims chat says so in place of
+// sending a turn the route would refuse (before: a generic error, every later answer refused).
+check("6a. the read limit is one constant, the same number the Small Claims turn route refuses above", (() => {
+  const limit = /export const STORY_READ_LIMIT\s*=\s*([\d_]+)/.exec(constantSource)?.[1]?.replace(/_/g, "");
+  const route = /const MAX_STORY_TEXT_LENGTH\s*=\s*([\d_]+)/.exec(read("app/api/intake/guided-turn/route.ts"))?.[1]?.replace(/_/g, "");
+  return limit && limit === route ? [] : [`STORY_READ_LIMIT ${limit ?? "missing"} vs guided-turn ${route}`];
+})());
+check("6b. every <StoryGuidance> is given the story's length (so the note can show past the limit)", appFiles.flatMap((file) => {
+  if (file === "app/_components/StoryGuidance.tsx") return [];
+  return [...read(file).matchAll(/<StoryGuidance\b[^>]*>/g)].filter((match) => !/\blength=\{/.test(match[0])).map((match) => `${file}: ${match[0].slice(0, 90)}`);
+}));
+check("6c. the guidance shows the length note past the limit, and never at or under it", (() => {
+  const component = read("app/_components/StoryGuidance.tsx");
+  return /length > STORY_READ_LIMIT/.test(component) && /storyLengthNote\(length\)/.test(component) && /data-testid="story-length-note"/.test(component) ? [] : ["StoryGuidance.tsx does not show storyLengthNote(length) only when length > STORY_READ_LIMIT"];
+})());
+check("6d. the note says the length, the limit, and that the whole story stays in the case", (() => {
+  const source = constantSource;
+  const fn = /export function storyLengthNote\(length: number\): string \{([\s\S]*?)\n\}/.exec(source)?.[1] ?? "";
+  return fn && /STORY_READ_LIMIT/.test(fn) && /length/.test(fn) && /saved|kept/i.test(fn) ? [] : ["copy/storyGuidance.ts storyLengthNote(length) missing, or does not say the length, the limit and that it is kept"];
+})());
+check("6e. the Small Claims chat checks the story's length before a turn, and says so instead of a generic error", (() => {
+  const chat = read("app/builder/_components/GuidedSmallClaimsIntake.tsx");
+  return /storyTooLong\(/.test(chat) && /setError\(storyLengthNote\(/.test(chat) ? [] : ["GuidedSmallClaimsIntake.tsx sends a turn with a story the route refuses (no storyTooLong check, no storyLengthNote error)"];
+})());
+
 console.log(`\n${boxes.length} story boxes found: ${boxes.map((box) => `${box.file}:${box.line}`).join(", ")}`);
 if (failures) {
   console.log(`\n${failures} check(s) failed.`);

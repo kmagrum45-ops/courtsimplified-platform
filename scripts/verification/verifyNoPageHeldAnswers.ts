@@ -117,6 +117,7 @@ function scan(text: string, file: string): string[] {
  */
 const KNOWN: Record<string, string> = {
   "app/_components/AskedField.tsx:seen": "(b) this visit only: the form boxes that held words while the page was open (asker.ts seenNow), so a box cleared to type a new value is never filled under the person's keys; the boxes filled from the case file are saved (\"small-claims\".filledFromCaseFile)",
+  "app/_components/IntakeReviewPanel.tsx:heldForNotice": "(b) page state, no answer: one yes/no saying the press of \"Show my next step\" is held until the \"Before you start\" notice is accepted (holdForNotice), so the button says to finish that step first; it holds no item the person answered",
   "app/builder/_components/IntelligenceOverviewPanel.tsx:pickedHere": "(c) the kind picked on the overview, shown at once after savePositionQueued saved it to the case position; read through caseFileOf on the next load",
   "app/builder/_components/SourcedQuestions.tsx:askedFor": "(c) mirrors the saved sourced.askedFor (useIntakeState), written back to the checkpoint every render",
   "app/builder/_components/StageAnswerPanel.tsx:chosenHere": "(b) wording only: names the step the person chose on this visit as theirs, not as a suggestion; the step itself is saved to the case position",

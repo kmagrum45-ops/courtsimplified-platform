@@ -20,6 +20,7 @@
  */
 
 import { readFileSync } from "node:fs";
+import { OFFER_CHOICES } from "../../src/lib/case-system/copy/suggestionCopy";
 import path from "node:path";
 
 import type { GuidedField } from "../../app/builder/_components/GuidedFormChat";
@@ -138,7 +139,9 @@ console.log("\n6. What the story already says is offered for one click, not aske
   }
   const chat = read("app/builder/_components/GuidedFormChat.tsx");
   check("the chat shows the story's words and asks 'Is that right?'", /From what you told us: &ldquo;/.test(chat) && /Is that right\?/.test(chat));
-  check("'No' asks the question plainly instead", /setNotFromStory/.test(chat) && /No, let me answer/.test(chat));
+  // The button's words are the site owner's (11 Nov 2026: "No, that's not right"; it was "No, let me answer"). Since 14 Nov
+  // they come from the one shared copy, through the one offer control (UseSuggestion.tsx, OFFER_CHOICES; 2.4 and 8.3).
+  check("'No' asks the question plainly instead", /onNo=\{\(\) => setNotFromStory\(/.test(chat) && /<UseSuggestion\b/.test(chat) && OFFER_CHOICES.no === "No, that's not right");
 }
 
 console.log("\n7. Small Claims 'Here's what I understood' states answers once (2026-10-13)");

@@ -48,7 +48,10 @@ const READ: [string, string, string, string][] = [
   ["cousin", "My cousin Dana Testfield borrowed $800 from me in February 2026 and never returned it.", "Other party", "Dana Testfield"],
 ];
 for (const [name, story, label, value] of READ) {
-  const expected = /([A-Z][a-z'’-]+(?:\s+[A-Z][a-z'’-]+)+(?:\s+(?:Inc|Ltd)\.?)?)/.exec(value)![1];
+  const named = /([A-Z][a-z'’-]+(?:\s+[A-Z][a-z'’-]+)+(?:\s+(?:Inc|Ltd)\.?)?)/.exec(value)![1];
+  // A company's own period is part of its name ("Northern Testroofing Inc."): expected with it whenever the reading writes
+  // it (Chrome milestone test of #550, S8: "Testgoods Ltd." lost its period; this line expected it gone, 16 Nov 2026).
+  const expected = /\b(?:Inc|Ltd)$/.test(named) && value.includes(`${named}.`) ? `${named}.` : named;
   check(`read: ${name}`, otherPartyFromUnderstanding(reading(label, value), story) === expected, String(otherPartyFromUnderstanding(reading(label, value), story)));
 }
 // No name in the story: nothing read (the questions ask once).
@@ -80,7 +83,9 @@ check("a later change of the name wins (newest answer wins)", slotText(changed.o
 // 3. The home page writes it only when the reading is accepted, through the one writer.
 const gate = fs.readFileSync("app/_components/HomeLocationGate.tsx", "utf8");
 check("the home page writes the reading's other party through writeAnswer(recovery, \"home\", \"otherParty\", ...)", /writeAnswer\(recovery, "home", "otherParty", /.test(gate));
-check("only when the reading was accepted (the card's own buttons)", /otherPartyFromUnderstanding\(/.test(gate) && /accepted/.test(gate));
+// Read through the one offer reader (caseFile/storyOffers.ts offeredOtherParty, which calls otherPartyFromUnderstanding),
+// and only on the accepted branch: the read sits behind `accepted ?` (16 Nov 2026; stricter than "both words appear").
+check("only when the reading was accepted (the card's own buttons)", /accepted \? offeredOtherParty\(/.test(gate));
 
 // 4. Shown on the review, never a confirmed fact of its own.
 const guidedRoute = checkpoint({ builder: { step: "guided" }, guided: { facts: { amount: "4500" } }, home: { otherParty: "Alex Testwood" } }) as never;

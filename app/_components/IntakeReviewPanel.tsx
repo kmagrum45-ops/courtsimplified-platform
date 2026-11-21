@@ -1,16 +1,18 @@
 "use client";
 
+import { factStatus } from "../../src/lib/case-system/caseFile/factStatus";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { afterPointer } from "./afterPointer";
 import { usePathname } from "next/navigation";
 import MunicipalNoticeFirst from "../builder/_components/MunicipalNoticeFirst";
 import { municipalNoticeFirst } from "../../src/lib/content-library/municipalNoticeFirst";
 import { useIntakeRecovery } from "./IntakeRecovery";
 import { writeAnswer } from "./caseWrite";
-import { NOTICE_GIVEN_EVENT } from "./FirstUseAcknowledgement";
+import { loadNoticeStatus, noticeOutstandingNow, useNoticeOutstanding } from "./noticeStatus";
 import { familyTimelineValues, withServedDate } from "../builder/_components/guidedFields";
 import { withFullStop } from "../builder/_components/GuidedFormChat";
 import { dateAnswerCheck, formatForCourt, isDateQuestion } from "../../src/lib/case-system/dates";
-import { CASE_FILE_SECTION, caseFileOf, claimKindOf, withAnsweredInReview, slotsOfQuestion, slotText, SLOT_FACTS, type CaseFile, type Slot, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import { CASE_FILE_SECTION, caseFileOf, claimKindOf, otherSideWords, withAnsweredInReview, slotsOfQuestion, slotText, SLOT_FACTS, type CaseFile, type Slot, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import ChangeAnswer, { changeChoices, FACT_LABEL } from "./ChangeAnswer";
 import NotAnsweredYet from "./NotAnsweredYet";
 import { ADD_IT_LATER } from "../../src/lib/case-system/copy/askCopy";
@@ -22,7 +24,7 @@ import StoryEditor from "../builder/_components/StoryEditor";
 import { freshSections, staleAnswerKeys, storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
 import StoryChangedNotice from "./StoryChangedNotice";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
-import { canReview, changedAfterConfirm, initialAnswersOf, reviewQuestionField, inputRevision, notAnsweredYet, remainingEssentialQuestions, reviewBoxState, reviewEntries, reviewPhase, withHeldOtherParty, reviewQuestionList, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
+import { changeJustConfirmed, continueNeeds, continueNeedsLine, canReview, reviewEntries, withHeldOtherParty, shownReviewEntries, undecidedStoryOffers, boxOfferUndecided, questionOfferUndecided, offerKeyOfEntry, offerKeyOfQuestion, reviewOfferChoicesOf, type ReviewOfferChoice, changedAfterConfirm, initialAnswersOf, reviewQuestionField, inputRevision, notAnsweredYet, remainingEssentialQuestions, reviewBoxState, reviewPhase, reviewQuestionList, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
 import { askOf } from "../../src/lib/case-system/intake/asker";
 import NextStepStatus, { nextStepPressed, useNextStepReading } from "./NextStepStatus";
 import { WorkingNote } from "./Working";
@@ -31,6 +33,7 @@ import SignInForSafetyCheck from "../builder/_components/SignInForSafetyCheck";
 import { supabase } from "../../src/lib/supabase/client";
 import { earlierAnswerWords } from "../../src/lib/case-system/earlierAnswerWords";
 import { savedStepOf } from "../../src/lib/case-system/savedStep";
+import PartiesStep from "./PartiesStep";
 
 /** What an answer with no line of its own is, in words. */
 const HIDDEN_ANSWER_NAMES: Record<string, string> = {
@@ -81,7 +84,6 @@ export default function IntakeReviewPanel() {
   const view = useSyncExternalStore(recovery?.subscribe ?? (() => () => {}), recovery?.getReview ?? (() => null), () => null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const [acceptedRevision, setAcceptedRevision] = useState<string | null>(null);
   // Opening a confirmed intake to look at it is not a change (re-test 2026-10-18).
   const [viewing, setViewing] = useState(false);
   const [dates, setDates] = useState<Record<string, string>>({});
@@ -97,21 +99,41 @@ export default function IntakeReviewPanel() {
   // first opened Small Claims' chooser with no next step and no word why (case 11).
   // The line ends with the work it waited for: a start queued until its route was on the page ran later, and the line
   // stayed after the next step appeared (Chrome check of #544, 6 Nov, F6). A failed start ends it too (its error shows).
+  // The line is never shown again once the work it waited for has begun: `waiting` is cleared by this effect, which runs
+  // after the frame in which the work ended, so that frame painted the line (browser-regression run 43490561082,
+  // family: seen at 13.1 s; no-finish-line-while-working.spec.ts, frame by frame).
   const workSeen = useRef(false);
+  const [workBegan, setWorkBegan] = useState(false);
   useEffect(() => {
-    if (!waiting) { workSeen.current = false; return; }
-    if (working) workSeen.current = true;
+    if (!waiting) { workSeen.current = false; setWorkBegan(false); return; }
+    if (working) { workSeen.current = true; setWorkBegan(true); }
     else if (workSeen.current) {
       workSeen.current = false;
       setWaiting(false);
     }
   }, [waiting, working]);
+  // A start waits for the "Before you start" notice (site owner, 15 Nov 2026): while it is not accepted (or not known yet:
+  // it was still loading when the case page's start arrived, so the start was taken as begun and the button said
+  // "Working out your next step" while the builder held the work), nothing is started and the button and the line say
+  // "Finish the step shown below first". Once it is accepted (noticeStatus.ts), the start runs, once.
+  const noticeWaits = useNoticeOutstanding();
+  const [heldForNotice, setHeldForNotice] = useState(false);
+  const holdForNotice = (): boolean => {
+    const now = noticeOutstandingNow();
+    if (now === false) return false;
+    if (now === null) void loadNoticeStatus();
+    showWaitingStep();
+    setWaiting(true);
+    setHeldForNotice(true);
+    return true;
+  };
   useEffect(() => {
-    if (!waiting || !recovery) return;
-    const given = () => { setWaiting(false); nextStepPressed(); recovery.continueToGuidance(); };
-    window.addEventListener(NOTICE_GIVEN_EVENT, given);
-    return () => window.removeEventListener(NOTICE_GIVEN_EVENT, given);
-  }, [waiting, recovery]);
+    if (!heldForNotice || noticeWaits !== false || !recovery) return;
+    setHeldForNotice(false);
+    setWaiting(false);
+    nextStepPressed();
+    recovery.continueToGuidance();
+  }, [heldForNotice, noticeWaits, recovery]);
   // The day of service is saved into a Timeline line, which trims it: typed key by key,
   // "October 12" lost its spaces (re-test 2026-10-18). It is kept as typed here and
   // saved, trimmed, when the person leaves the field.
@@ -134,6 +156,9 @@ export default function IntakeReviewPanel() {
     return asked && (SLOT_FACTS as readonly string[]).includes(asked) ? asked as SlotFact : null;
   });
   useEffect(() => { if (changeFact) setViewing(true); }, [changeFact]);
+  // ?change=parties (or the other party): the case page's "Change" for the parties opens the Parties step (rule 1).
+  const [partiesAsked] = useState(() => typeof window !== "undefined" && ["parties", "otherParty"].includes(new URLSearchParams(window.location.search).get("change") ?? ""));
+  useEffect(() => { if (!partiesAsked) return; setViewing(true); window.setTimeout(() => document.getElementById("parties")?.scrollIntoView({ behavior: "auto", block: "start" }), 80); }, [partiesAsked]);
   // ?next=start: the case page's "Show my next step" or "Update my next steps" (layout.tsx), pressed there once.
   // Started here once the intake is confirmed, as this page's own button does, and taken out of the address so a
   // reload does not start it again (founder's Chrome check of #543, 5 Nov: the link only opened this page).
@@ -163,7 +188,7 @@ export default function IntakeReviewPanel() {
     url.searchParams.delete("next");
     window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}`);
     if (openSavedStep(recovery)) return;
-    if (showWaitingStep()) { setWaiting(true); return; }
+    if (holdForNotice()) return;
     nextStepPressed();
     setWaiting(!recovery.continueToGuidance());
   }, [startAsked, recovery, view, pathname, startPhase, startOutdated, busy, working]);
@@ -176,7 +201,7 @@ export default function IntakeReviewPanel() {
     pressNext.current = () => {
       if (!recovery) return;
       if (openSavedStep(recovery)) return;
-      if (showWaitingStep()) { setWaiting(true); return; }
+      if (holdForNotice()) return;
       nextStepPressed();
       setWaiting(!recovery.continueToGuidance());
       void supabase.auth.getSession().then(({ data }) => setSignInNeeded(!data.session)).catch(() => undefined);
@@ -227,7 +252,7 @@ export default function IntakeReviewPanel() {
   const savedMaster = recovery.getSavedMaster();
   const caseFileNow = caseFileOf(checkpoint, savedMaster ?? undefined);
   // The Small Claims questions route also shows the other party the record holds (B1; shown only, never confirmed by itself).
-  const entries = withHeldOtherParty(reviewEntries(checkpoint), checkpoint, caseFileNow).filter(entry => entry.essential || !empty(entry.value));
+  const entries = shownReviewEntries(withHeldOtherParty(reviewEntries(checkpoint), checkpoint, caseFileNow));
   // Still to answer: only what nobody has answered or said "not sure" to (the case file's one gate).
   const remaining = remainingEssentialQuestions(checkpoint, savedMaster ?? undefined);
   // Said "I don't know" or "not sure" anywhere (site owner, 31 Oct): a quiet line, never asked again here.
@@ -249,6 +274,30 @@ export default function IntakeReviewPanel() {
   /** "I do not know yet" for a review question, ticked or taken back (the review's own record, builder.initialUnknowns). */
   const setUnknown = (id: string, unknown: boolean) => { const current = Array.isArray(recovery.read("builder", "initialUnknowns")) ? recovery.read("builder", "initialUnknowns") as string[] : []; writeAnswer(recovery, "builder", "initialUnknowns", unknown ? [...current.filter(item => item !== id), id] : current.filter(item => item !== id), { fromReview: true }); };  const unknownBox = (id: string) => <label className="mt-1 block"><input type="checkbox" data-testid="intake-unknown" checked={unknowns.includes(id)} disabled={busy} onChange={event => setUnknown(id, event.target.checked)} /> I do not know yet</label>;
   const suggestions = suggestInitialAnswers(checkpoint);
+  /*
+   * THREE CHOICES ON EACH STORY OFFER, NO TICK (site owner, 12 Nov 2026). "Use the suggestion" is Yes; beside it
+   * "No, that's not right" (answer it plainly) and "I'm not sure" (add it when you know; a question is marked
+   * "I do not know yet", as its own box does). Shown by the same rule that counts them (intakeReview.ts), so
+   * Continue never waits on a choice that is not on the page.
+   */
+  const offerChoices = reviewOfferChoicesOf(checkpoint);
+  const chooseOffer = (key: string, choice: ReviewOfferChoice, questionId?: string) => {
+    const current = recovery.read("builder", "reviewOfferChoices");
+    writeAnswer(recovery, "builder", "reviewOfferChoices", { ...(current && typeof current === "object" && !Array.isArray(current) ? current as Record<string, unknown> : {}), [key]: choice }, { fromReview: true });
+    if (choice === "unsure" && questionId) setUnknown(questionId, true);
+  };
+  // The review's offers are made with the one three-choice control (UseSuggestion.tsx; Chrome check of #550, 8.3: the first
+  // button read "Use the suggestion"). Its No and Not sure are this panel's own choices; shown on their own only where no
+  // offer control is on the line.
+  const offeredHere = new Set<string>();
+  const reviewOffer = (key: string, questionId: string | undefined, props: Omit<Parameters<typeof UseSuggestion>[0], "offer" | "onNo" | "onUnsure" | "noTestId" | "unsureTestId">) => {
+    offeredHere.add(key);
+    return <span className="mt-1 block" data-testid="review-offer-choices" data-offer={key}><UseSuggestion {...props} offer={{ key, fact: null, recordedBy: "screen" }} noTestId="review-offer-no" unsureTestId="review-offer-unsure" onNo={() => chooseOffer(key, "no", questionId)} onUnsure={() => chooseOffer(key, "unsure", questionId)} /></span>;
+  };
+  const otherChoices = (key: string, questionId?: string) => offeredHere.has(key) ? null : <span className="mt-1 flex flex-wrap gap-2" data-testid="review-offer-choices" data-offer={key}>
+    <button type="button" data-testid="review-offer-no" disabled={busy} onClick={() => chooseOffer(key, "no", questionId)} className="rounded border px-3 py-1">No, that&apos;s not right</button>
+    <button type="button" data-testid="review-offer-unsure" disabled={busy} onClick={() => chooseOffer(key, "unsure", questionId)} className="rounded border px-3 py-1">I&apos;m not sure</button>
+  </span>;
   const story = storyOf(checkpoint.sections);
   const city = locationOf(checkpoint.sections)?.city ?? "";
   const legacy = workflowStatus.intakeCompleted === true && !workflowStatus.intakeReview;
@@ -277,9 +326,10 @@ export default function IntakeReviewPanel() {
   const court = checkpoint.courtPath;
   // Facts with no box of their own here (the Small Claims kind of claim), held, changed, or asked for from the case page.
   const covered = new Set(entries.flatMap(entry => slotsOfQuestion(entry.field)));
-  const extraFacts = SLOT_FACTS.filter(fact => !covered.has(fact) && changeChoices(fact, court) && caseFile[fact].state !== "unsure" && (fact === changeFact || caseFile[fact].changed || (fact === "claimKind" && caseFile[fact].state === "answered")));
+  // A fact settled as "not sure" (the one function, factStatus.ts) is never offered for a change here; an unconfirmed one is.
+  const extraFacts = SLOT_FACTS.filter(fact => !covered.has(fact) && changeChoices(fact, court) && !(factStatus(caseFile, fact) === "settled" && caseFile[fact].state === "unsure") && (fact === changeFact || caseFile[fact].changed || (fact === "claimKind" && caseFile[fact].state === "answered")));
   /** A held answer in words, as every screen shows it (the kind of claim through claimKindOf). */
-  const heldWords = (file: CaseFile, fact: SlotFact | undefined, slot: Slot) => fact === "claimKind" && slot.state === "answered" ? claimKindOf(file, inWords).words ?? slotText(slot, formatForCourt) : Array.isArray(slot.value) ? inWords(slot.value) : slotText(slot, formatForCourt);
+  const heldWords = (file: CaseFile, fact: SlotFact | undefined, slot: Slot) => fact === "otherParty" && slot.state === "answered" && otherSideWords(file) ? otherSideWords(file)! : fact === "claimKind" && slot.state === "answered" ? claimKindOf(file, inWords).words ?? slotText(slot, formatForCourt) : Array.isArray(slot.value) ? inWords(slot.value) : slotText(slot, formatForCourt);
   /**
    * An answered question's answer as the case file holds it, when another answer to the same fact now holds it (the
    * form's own box changed after the review's answer): the review never shows the older answer as current (carry
@@ -295,19 +345,35 @@ export default function IntakeReviewPanel() {
     }
     return null;
   };
+  /**
+   * The words of a question's answer as the record reads them now, the question's own answer included: words built
+   * from amounts follow the amount held (caseFile.ts wordsFollowHeldAmount; Chrome milestone test of #550, row 17: "What
+   * outcome ... Answered:" kept $5,000 / $450 / $18.45 after the amount was changed to $5,100). What the person wants is
+   * built from amounts, so it always reads the record; any other answer reads it when the record holds something other
+   * than the answer's own words (the amount changed to $2,650 in the review's box shows $2,650: full local run of
+   * 4d1ae680), and otherwise keeps the words the person gave ("2026-05-12" stays as typed: full local run of 3774a858).
+   */
+  const recordWords = (id: string, given?: unknown): string | null => {
+    for (const fact of slotsOfQuestion(id)) {
+      const slot = caseFileNow[fact];
+      if (fact !== "wants" && typeof given === "string" && String(slot.value ?? "").trim() === given.trim()) continue;
+      if (slot.state === "answered") return heldWords(caseFileNow, fact, slot);
+    }
+    return null;
+  };
   /** The held line: the answer, where it came from, and "Change" (ChangeAnswer, the one write path). */
   const heldLine = (fact: SlotFact | undefined, slot: Slot, ariaLabel: string, name?: string) => {
     const atStart = !slot.changed && slot.source?.kind === "answer" && slot.source.question.startsWith("situation:");
     return <p className="mt-1" data-testid="intake-entry-held" data-fact={fact} data-removed={slot.removed ? "true" : undefined} aria-label={ariaLabel}>
       {name ? <span className="font-semibold">{name}: </span> : null}{slot.removed ? "Removed" : heldWords(caseFile, fact, slot)}{" "}
       <span className="text-[#4d675f]">({slot.removed ? "you removed this answer; it is not asked again" : `your answer ${atStart ? "at the start; change it at the top of the page" : slot.changed ? "as you changed it; it is not asked again" : "already given; it is not asked again"}`})</span>
-      {fact && !atStart ? <ChangeAnswer key={`${fact}:${String(slot.value)}:${slot.removed ? "removed" : ""}`} fact={fact} court={court} startOpen={fact === changeFact} current={slot.value} /> : null}
+      {fact === "otherParty" && caseFile.parties.recorded ? <a data-testid="change-parties" href="#parties" className="ml-1 font-semibold text-[#2f7d67] underline">Change</a> : fact && !atStart ? <ChangeAnswer key={`${fact}:${String(slot.value)}:${slot.removed ? "removed" : ""}`} fact={fact} court={court} startOpen={fact === changeFact} current={slot.value} /> : null}
     </p>;
   };
   async function act(action: "review" | "collect" | "confirm") {
     if (!recovery || busy) return;
     setBusy(true); setError("");
-    try { await recovery.transition(action, revision); setAcceptedRevision(null); setViewing(false); }
+    try { await recovery.transition(action, revision); setViewing(false); }
     catch (failure) { setError(failure instanceof Error ? failure.message : "Your review could not be saved. Please retry."); }
     finally { setBusy(false); }
   }
@@ -402,28 +468,29 @@ export default function IntakeReviewPanel() {
       writeAnswer(recovery, "small-claims", "input", { ...input, yourRole: value.includes("defendant") ? "defendant" : "plaintiff" }, { external: true, fromReview: true });
     }
   }
-  const needs = [
-    !canReview(checkpoint) && "your city and a description of what happened",
-    remaining.length > 0 && `an answer, or "I do not know yet", for: ${remaining.map(question => question.label).join("; ")}`,
-    questionsOutdated && "the answers marked as given for an earlier version of your story answered again, or the questions started again from your story",
-    acceptedRevision !== revision && "a tick in \"I have reviewed this information\"",
-  ].filter(Boolean) as string[];
+  // THE REVIEW IS A SUMMARY (site owner, 11 and 12 Nov 2026): a value the person typed or confirmed is known and never asks
+  // for confirmation, and there is no tick. Only an offer from the story not yet decided waits, for its own choice.
+  const offersLeft = phase === "reviewing" ? undecidedStoryOffers(checkpoint, savedMaster ?? undefined) : 0;
+  // The one rule for every continue button (intakeReview.ts continueNeeds): this Continue, its line, and the routes' own.
+  const needs = continueNeeds(checkpoint, workflowStatus, savedMaster ?? undefined);
   // scroll-mt-28: a scroll to the panel stops below the 77px sticky header, not under it (L46).
   return <section className="mx-auto my-4 max-w-6xl scroll-mt-28 rounded-2xl border border-[#d8e6df] bg-white p-6" data-testid="intake-review" data-phase={phase}>
-    <h2 className="text-xl font-bold">{phase === "user-confirmed" ? "Initial intake confirmed" : phase === "reviewing" ? "Review your initial case information" : "Your initial case information"}</h2>
-    {startBlocked === "confirm" && phase !== "user-confirmed" ? <p data-testid="next-start-blocked" role="alert" className="mt-3 text-sm font-semibold text-[#8a4b12]">Your next step was not shown yet: an answer changed after you confirmed, so your initial information needs confirming again first. Review it below and confirm, then choose &quot;Show my next step&quot;.</p> : null}
+    <h2 className="text-xl font-bold">{phase === "user-confirmed" ? "Initial intake confirmed" : phase === "reviewing" ? (offersLeft > 0 ? "Review your initial case information" : "Here is what we have") : "Your initial case information"}</h2>
+    {startBlocked === "confirm" && phase !== "user-confirmed" ? <p data-testid="next-start-blocked" role="alert" className="mt-3 text-sm font-semibold text-[#8a4b12]">Your next step was not shown yet: an answer changed since you last continued. Look over the summary below and press Continue, then choose &quot;Show my next step&quot;.</p> : null}
     {startBlocked === "story" && questionsOutdated ? <p data-testid="next-start-blocked" role="alert" className="mt-3 text-sm font-semibold text-[#8a4b12]">Your next step was not shown yet: your story has changed since the questions read it. Start the questions again first, so your next step comes from what you have now.</p> : null}
     {checkpoint.courtPath !== "family" && municipalNoticeFirst(story, { city }) && <aside aria-label="Urgent procedural warning" className="my-4"><h3 className="font-bold">Urgent procedural warning — check this while completing intake</h3><MunicipalNoticeFirst story={story} city={city} /></aside>}
     {legacy && <p>This case was completed before explicit review was introduced. There is no recorded confirmation under the new review process.</p>}
     <p>Initial questions establish your situation, side, what has happened, relevant dates and what you want. Evidence details and additional research are optional later work.</p>
-    <p>You can stop initial questioning and review once your city and situation are recorded. Details you do not know can stay unknown; confirmation does not supply missing facts.</p>
+    <p>You can stop initial questioning and review once your city and situation are recorded. Details you do not know can stay unknown; {phase === "reviewing" ? "continuing" : "confirmation"} does not supply missing facts.</p>
     {showEntries && <>
       <p>{phase === "user-confirmed" ? "This is what you confirmed. Changing anything here means confirming again." : "Edit the information below, or return to the intake controls to change choices. Empty answers remain unknown."}</p>
       <div className="mt-4 grid gap-4 md:grid-cols-2">
         {entries.map(entry => { const changed = changedFact(entry.field); const held = changed ? changed[1] : heldSlot(entry); const notYet = changed || held ? undefined : notYetFact(entry); const heldFact = changed ? changed[0] : held ? slotsOfQuestion(entry.field).find(fact => caseFile[fact] === held) : undefined; return <div key={`${entry.section}:${entry.nested ?? ""}:${entry.field}`} data-testid="intake-entry" data-field={entry.field} data-empty={empty(entry.value) && !entry.fromStart && !held && !notYet ? "true" : "false"} className="block text-sm">
           {entry.label}{!entry.essential && " (optional later detail)"}
           {entry.hint && empty(entry.value) && <span className="block text-[#4d675f]">{entry.hint}</span>}
-          {entry.fromStory && empty(entry.value) && !notYet ? <UseSuggestion testId="intake-entry-from-story" disabled={busy} onUse={() => edit(entry, entry.fromStory!.value)} what={entry.fromStory.value.length > 160 ? `${entry.fromStory.value.slice(0, 157)}…` : entry.fromStory.value} className="mt-1 block rounded border px-3 py-1 text-left text-sm" /> : null}
+          {offerChoices[offerKeyOfEntry(entry)] === "unsure" && empty(entry.value) && !notYet ? <span data-testid="review-offer-unsure-note" className="block text-[#4d675f]">Marked not sure. You can add it when you know.</span> : null}
+          {entry.fromStory && empty(entry.value) && !notYet && !offerChoices[offerKeyOfEntry(entry)] ? reviewOffer(offerKeyOfEntry(entry), undefined, { testId: "intake-entry-from-story", disabled: busy, onUse: () => edit(entry, entry.fromStory!.value), what: entry.fromStory.value.length > 160 ? `${entry.fromStory.value.slice(0, 157)}…` : entry.fromStory.value, className: "rounded border px-3 py-1 text-left text-sm" }) : null}
+          {boxOfferUndecided(entry, caseFile, offerChoices) ? otherChoices(offerKeyOfEntry(entry)) : null}
           {staleKeys.has(`${entry.section}.${entry.nested ? `${entry.nested}.` : ""}${entry.field}`) && <span data-testid="intake-answer-stale" className="block text-[#7a4b12]">Answered for an earlier version of your story. Answer it again, or start the questions again.</span>}
           {/* The story: a draft saved with "Save story", as in the form (#470 re-test: typing here
               changed the story at once and set every answer aside). */}
@@ -438,7 +505,7 @@ export default function IntakeReviewPanel() {
                   /* Every box whose question asks for a date asks for its year, as in the questions (#470 re-test: Family's "October 6" was kept; step 1 reviewer: civil's "When and how you were served" was not checked here). */
                   const key = `entry:${entry.section}:${entry.field}`;
                   const draft = dateDrafts[key];
-                  return <>{fieldNotes[key] ? <p data-testid="intake-entry-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[key]}</p> : null}<input type="text" aria-label={`Review: ${entry.label}`} className="mt-1 block w-full rounded border p-2" placeholder="For example: October 12, 2026" value={draft ?? String(entry.value)} disabled={busy} onChange={event => setDateDrafts(current => ({ ...current, [key]: event.target.value }))} onBlur={() => { if (draft === undefined) return; const typed = draft.trim(); const servedDate = entry.section === "family" && entry.field === "servedDate"; const more = typed ? dateAnswerCheck(entry.question ?? entry.label, typed, { dateQuestion: servedDate, oneDate: servedDate }) : null; setFieldNotes(current => ({ ...current, [key]: more ?? "" })); if (more) return; edit(entry, typed); setDateDrafts(current => { const next = { ...current }; delete next[key]; return next; }); }} onKeyDown={event => { if (event.key === "Enter") (event.target as HTMLInputElement).blur(); }} /></>;
+                  return <>{fieldNotes[key] ? <p data-testid="intake-entry-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[key]}</p> : null}<input type="text" aria-label={`Review: ${entry.label}`} className="mt-1 block w-full rounded border p-2" placeholder="For example: October 12, 2026" value={draft ?? String(entry.value)} disabled={busy} onChange={event => setDateDrafts(current => ({ ...current, [key]: event.target.value }))} onBlur={() => afterPointer(() => (() => { if (draft === undefined) return; const typed = draft.trim(); const servedDate = entry.section === "family" && entry.field === "servedDate"; const more = typed ? dateAnswerCheck(entry.question ?? entry.label, typed, { dateQuestion: servedDate, oneDate: servedDate }) : null; setFieldNotes(current => ({ ...current, [key]: more ?? "" })); if (more) return; edit(entry, typed); setDateDrafts(current => { const next = { ...current }; delete next[key]; return next; }); })())} onKeyDown={event => { if (event.key === "Enter") (event.target as HTMLInputElement).blur(); }} /></>;
                 })()
                 : (() => {
                   /* Typed here, saved when the person leaves the box (as the questions' own boxes are): a saved answer to a fact
@@ -447,7 +514,7 @@ export default function IntakeReviewPanel() {
                   const key = `entry:${entry.section}:${entry.field}`;
                   const draft = dateDrafts[key];
                   const save = () => { if (draft === undefined) return; if (typeof entry.value === "number") { if (draft.trim() && Number.isFinite(Number(draft))) edit(entry, Number(draft)); } else if (draft.trim() || String(entry.value).trim()) edit(entry, draft); setDateDrafts(current => { const next = { ...current }; delete next[key]; return next; }); };
-                  return <textarea aria-label={`Review: ${entry.label}`} className="mt-1 block min-h-20 w-full rounded border p-2" value={draft ?? String(entry.value)} disabled={busy} onChange={event => setDateDrafts(current => ({ ...current, [key]: event.target.value }))} onBlur={save} />;
+                  return <textarea aria-label={`Review: ${entry.label}`} className="mt-1 block min-h-20 w-full rounded border p-2" value={draft ?? String(entry.value)} disabled={busy} onChange={event => setDateDrafts(current => ({ ...current, [key]: event.target.value }))} onBlur={() => afterPointer(save)} />;
                 })()}
         </div>; })}
       </div>
@@ -484,12 +551,12 @@ export default function IntakeReviewPanel() {
           {/* Answered, it keeps its place (owner, earlier rule) and says so with the answer in words, never
               counted as still to answer (owner's Chrome check, 31 Oct). A typed answer is shown here as words, not
               only in its box. */}
-          {answered ? (() => { const given = bank ? initialAnswersOf(fresh)[question.id] : fieldValue(question.id); const words = caseFileWords(question.id) ?? (Array.isArray(given) ? given.map(value => reviewQuestionField(checkpoint.courtPath, question.id, checkpoint)?.options.find(option => option.value === value)?.label ?? String(value)).join(", ") : typeof given === "string" ? given : ""); return <p data-testid="intake-question-answered" className="text-sm text-[#2f7d67]">{words ? `Answered: ${withFullStop(words)}` : "Answered."} You can change it here.</p>; })() : null}
+          {answered ? (() => { const given = bank ? initialAnswersOf(fresh)[question.id] : fieldValue(question.id); const words = recordWords(question.id, given) ?? (Array.isArray(given) ? given.map(value => reviewQuestionField(checkpoint.courtPath, question.id, checkpoint)?.options.find(option => option.value === value)?.label ?? String(value)).join(", ") : typeof given === "string" ? given : ""); return <p data-testid="intake-question-answered" className="text-sm text-[#2f7d67]">{words ? `Answered: ${withFullStop(words)}` : "Answered."} You can change it here.</p>; })() : null}
           {staleInitial[question.id] ? <p data-testid="intake-answer-stale" className="text-[#7a4b12]">Answered for an earlier version of your story: &ldquo;{staleInitial[question.id]}&rdquo;. <button type="button" data-testid="intake-keep-answer" disabled={busy} onClick={() => answer(question.id, staleInitial[question.id])} className="underline">Keep this answer</button> or choose again.</p> : null}
-          {bank?.answerType === "choice" && Array.isArray(bank.choices) && <div className="mt-1 flex flex-wrap gap-2">{bank.choices.map(choice => <button key={choice} type="button" disabled={busy} aria-pressed={initialAnswersOf(fresh)[question.id] === choice} onClick={() => answer(question.id, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice}</button>)}{suggested && !answered && bank.choices.includes(suggested) ? <UseSuggestion testId="intake-use-suggestion" disabled={busy} onUse={() => answer(question.id, suggested)} what={suggested} className="rounded border px-3 py-1" /> : null}</div>}
+          {bank?.answerType === "choice" && Array.isArray(bank.choices) && <div className="mt-1 flex flex-wrap gap-2">{bank.choices.map(choice => <button key={choice} type="button" disabled={busy} aria-pressed={initialAnswersOf(fresh)[question.id] === choice} onClick={() => answer(question.id, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice}</button>)}{suggested && !answered && bank.choices.includes(suggested) && !offerChoices[offerKeyOfQuestion(question.id)] ? reviewOffer(offerKeyOfQuestion(question.id), question.id, { testId: "intake-use-suggestion", disabled: busy, onUse: () => answer(question.id, suggested), what: suggested, className: "rounded border px-3 py-1" }) : null}</div>}
           {bank?.answerType === "yes-no" && <div className="mt-1 flex flex-wrap gap-2">{["Yes", "No"].map(choice => <button key={choice} type="button" disabled={busy} aria-pressed={initialAnswersOf(fresh)[question.id] === choice} onClick={() => answer(question.id, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice}</button>)}</div>}
           {/* Typed answers save when the person leaves the box (Enter too): a value typed but never "used" counted for nothing (re-test round 7). */}
-          {bank && ["date", "amount", "short-text"].includes(bank.answerType) && <div className="mt-1 flex flex-wrap items-center gap-2"><input type="text" placeholder={bank.answerType === "date" ? "For example: August 2026, or 2026-08-15" : bank.answerType === "amount" ? "For example: $8,500" : "Your answer"} aria-label={`Answer: ${question.label}`} value={dates[question.id] ?? (answered ? caseFileWords(question.id) ?? String(initialAnswersOf(fresh)[question.id] ?? "") : "")} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => { const typed = dates[question.id]; if (typed === undefined) return; if (!typed.trim()) { if (answered) answer(question.id, ""); return; } const more = dateAnswerCheck(question.label, typed.trim(), { dateQuestion: bank.answerType === "date", oneDate: isDateQuestionId(question.id) }); setFieldNotes(current => ({ ...current, [question.id]: more ?? "" })); if (!more) answer(question.id, typed.trim()); }} onKeyDown={event => { if (event.key === "Enter") (event.target as HTMLInputElement).blur(); }} className="rounded border px-2 py-1" />{/* A suggestion is a button, never a filled-looking box that was not saved (re-test round 7). */}{suggested && !answered && <UseSuggestion testId="intake-use-suggestion" disabled={busy} onUse={() => answer(question.id, suggested)} what={suggested} className="rounded border px-3 py-1" />}</div>}
+          {bank && ["date", "amount", "short-text"].includes(bank.answerType) && <div className="mt-1 flex flex-wrap items-center gap-2"><input type="text" placeholder={bank.answerType === "date" ? "For example: August 2026, or 2026-08-15" : bank.answerType === "amount" ? "For example: $8,500" : "Your answer"} aria-label={`Answer: ${question.label}`} value={dates[question.id] ?? (answered ? caseFileWords(question.id) ?? String(initialAnswersOf(fresh)[question.id] ?? "") : "")} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => afterPointer(() => (() => { const typed = dates[question.id]; if (typed === undefined) return; if (!typed.trim()) { if (answered) answer(question.id, ""); return; } const more = dateAnswerCheck(question.label, typed.trim(), { dateQuestion: bank.answerType === "date", oneDate: isDateQuestionId(question.id) }); setFieldNotes(current => ({ ...current, [question.id]: more ?? "" })); if (!more) answer(question.id, typed.trim()); })())} onKeyDown={event => { if (event.key === "Enter") (event.target as HTMLInputElement).blur(); }} className="rounded border px-2 py-1" />{/* A suggestion is a button, never a filled-looking box that was not saved (re-test round 7). */}{suggested && !answered && !offerChoices[offerKeyOfQuestion(question.id)] && reviewOffer(offerKeyOfQuestion(question.id), question.id, { testId: "intake-use-suggestion", disabled: busy, onUse: () => answer(question.id, suggested), what: suggested, className: "rounded border px-3 py-1" })}</div>}
           {bank && fieldNotes[question.id] ? <p data-testid="intake-field-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[question.id]}</p> : null}
           {/* Civil and Family: the form's own field, answerable here (#469 re-test). */}
           {!bank && (() => {
@@ -506,38 +573,39 @@ export default function IntakeReviewPanel() {
               // showed ticked while unsaved, so the first click unticked it and the question stayed "remaining").
               const ticked = picks[question.id] ?? (answered && Array.isArray(held) ? held as string[] : []);
               const suggestedLabels = !answered && field.suggested?.length ? options.filter(option => field.suggested!.includes(option.value)).map(option => option.label) : [];
-              return <div className="mt-1" role="group" aria-label={question.label}>{options.map(option => <label key={option.value} className="mr-3 block"><input type="checkbox" data-testid="intake-field-pick" value={option.value} checked={ticked.includes(option.value)} disabled={busy} onChange={() => setPicks(current => ({ ...current, [question.id]: ticked.includes(option.value) ? ticked.filter(value => value !== option.value) : [...ticked, option.value] }))} /> {option.label}{!answered && field.suggested?.includes(option.value) ? <span data-testid="intake-field-pick-suggested" className="text-[#4f685f]"> (suggested)</span> : null}</label>)}{!answered && field.suggestedQuote ? <p data-testid="intake-field-pick-quote" className="mt-1 text-sm text-[#4f685f]">Suggested from your story: &ldquo;{field.suggestedQuote}&rdquo;</p> : null}{suggestedLabels.length ? <UseSuggestion testId="intake-field-use-suggestion" disabled={busy} onUse={() => answerField(question.id, field.suggested!)} what={suggestedLabels.join(", ")} className="mt-2 mr-2 rounded border px-3 py-1" /> : null}<button type="button" data-testid="intake-field-save" disabled={busy || ticked.length === 0} onClick={() => answerField(question.id, ticked)} className="mt-2 rounded border px-3 py-1 disabled:opacity-50">Save these</button></div>;
+              return <div className="mt-1" role="group" aria-label={question.label}>{options.map(option => <label key={option.value} className="mr-3 block"><input type="checkbox" data-testid="intake-field-pick" value={option.value} checked={ticked.includes(option.value)} disabled={busy} onChange={() => setPicks(current => ({ ...current, [question.id]: ticked.includes(option.value) ? ticked.filter(value => value !== option.value) : [...ticked, option.value] }))} /> {option.label}{!answered && field.suggested?.includes(option.value) ? <span data-testid="intake-field-pick-suggested" className="text-[#4f685f]"> (suggested)</span> : null}</label>)}{!answered && field.suggestedQuote ? <p data-testid="intake-field-pick-quote" className="mt-1 text-sm text-[#4f685f]">Suggested from your story: &ldquo;{field.suggestedQuote}&rdquo;</p> : null}{suggestedLabels.length && !offerChoices[offerKeyOfQuestion(question.id)] ? reviewOffer(offerKeyOfQuestion(question.id), question.id, { testId: "intake-field-use-suggestion", disabled: busy, onUse: () => answerField(question.id, field.suggested!), what: suggestedLabels.join(", "), className: "rounded border px-3 py-1" }) : null}<button type="button" data-testid="intake-field-save" disabled={busy || ticked.length === 0} onClick={() => answerField(question.id, ticked)} className="mt-2 rounded border px-3 py-1 disabled:opacity-50">Save these</button></div>;
             }
-            return <div className="mt-1"><div className="flex flex-wrap items-center gap-2">{field.fromStory && !answered ? <UseSuggestion testId="intake-field-from-story" disabled={busy} onUse={() => answerField(question.id, field.fromStory!)} what={field.fromStory} className="rounded border px-3 py-1" /> : null}<input type="text" aria-label={`Answer: ${question.label}`} placeholder="Your answer" value={dates[question.id] ?? (answered ? caseFileWords(question.id) ?? (typeof fieldValue(question.id) === "string" ? fieldValue(question.id) as string : "") : "")} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => typedField(question.id, (typed) => field.needsMore?.(typed) ?? dateAnswerCheck(field.question, typed))} onKeyDown={event => { if (event.key === "Enter") typedField(question.id, (typed) => field.needsMore?.(typed) ?? dateAnswerCheck(field.question, typed)); }} className="min-w-[16rem] flex-1 rounded border px-3 py-1" /></div>{fieldNotes[question.id] ? <p data-testid="intake-field-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[question.id]}</p> : null}</div>;
+            return <div className="mt-1"><div className="flex flex-wrap items-center gap-2">{field.fromStory && !answered && !offerChoices[offerKeyOfQuestion(question.id)] ? reviewOffer(offerKeyOfQuestion(question.id), question.id, { testId: "intake-field-from-story", disabled: busy, onUse: () => answerField(question.id, field.fromStory!), what: field.fromStory, className: "rounded border px-3 py-1" }) : null}<input type="text" aria-label={`Answer: ${question.label}`} placeholder="Your answer" value={dates[question.id] ?? (answered ? caseFileWords(question.id) ?? (typeof fieldValue(question.id) === "string" ? fieldValue(question.id) as string : "") : "")} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => afterPointer(() => (() => typedField(question.id, (typed) => field.needsMore?.(typed) ?? dateAnswerCheck(field.question, typed)))())} onKeyDown={event => { if (event.key === "Enter") typedField(question.id, (typed) => field.needsMore?.(typed) ?? dateAnswerCheck(field.question, typed)); }} className="min-w-[16rem] flex-1 rounded border px-3 py-1" /></div>{fieldNotes[question.id] ? <p data-testid="intake-field-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[question.id]}</p> : null}</div>;
           })()}
+          {questionOfferUndecided(question, suggestions, offerChoices) ? otherChoices(offerKeyOfQuestion(question.id), question.id) : null}
           </>}
           {!quiet || quiet.markedHere ? unknownBox(question.id) : null}
         </div>;
       })}</fieldset>}
+      {/* The parties: the one place party details are asked (site owner, 14 Nov 2026, rule 1); "Change" on the other party opens it. */}
+      {phase === "reviewing" || partiesAsked ? <div className="mt-5"><PartiesStep /></div> : null}
       {phase === "reviewing" ? <>
-        {/* A late edit clears the tick (it covered the answers as they were); say so beside the
-            button rather than leave it greyed out with no word why (site owner, 27 Oct). */}
-        {/* Confirmed, then an answer changed (rule 6, 31 Oct): said in the owner's words until confirmed again, after a reload too. */}
-        {changedAfterConfirm(workflowStatus, checkpoint) && acceptedRevision !== revision ? <p data-testid="intake-confirm-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer, so please review and confirm again.</p>
-        : acceptedRevision !== null && acceptedRevision !== revision ? <p data-testid="intake-tick-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer. Please tick to confirm again.</p> : null}
-        <label className="mt-5 block"><input data-testid="intake-review-acknowledgement" type="checkbox" checked={acceptedRevision === revision} disabled={busy} onChange={event => setAcceptedRevision(event.target.checked ? revision : null)} /> I have reviewed this information, including anything that is missing or uncertain.</label>
-        <button data-testid="intake-confirm" type="button" disabled={busy || needs.length > 0} onClick={() => void act("confirm")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">{busy ? "Saving…" : "Confirm my initial information"}</button>{" "}
+        {/* An answer changed after Continue (rule 6, 31 Oct; site owner, 12 Nov: in the summary's words, after a reload too). */}
+        {changedAfterConfirm(workflowStatus, checkpoint) ? <p data-testid="intake-confirm-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer. Here is what we have now.</p> : null}
+        <button data-testid="intake-confirm" type="button" disabled={busy || needs.length > 0} onClick={() => void act("confirm")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">{busy ? "Saving…" : "Continue"}</button>{" "}
         <button type="button" disabled={busy} onClick={() => void act("collect")}>Return to intake controls</button>
-        {needs.length > 0 && <p data-testid="intake-confirm-needs" className="mt-2 text-sm text-[#4d675f]">Still needed before you can confirm: {needs.join("; ")}.</p>}
+        {needs.length > 0 && <p data-testid="intake-confirm-needs" className="mt-2 text-sm text-[#4d675f]">{continueNeedsLine(needs)}</p>}
         <StoryChangedNotice where="button" />
       </> : <button data-testid="intake-close-review" type="button" className="mt-4 rounded border px-4 py-2" onClick={() => setViewing(false)}>Close</button>}
     </>}
     {/* Not reviewing yet (reloaded before the change was saved, or back at the questions): still said, from the saved record. */}
     {phase === "collecting" && changedAfterConfirm(workflowStatus, checkpoint) ? <p data-testid="intake-confirm-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer, so please review and confirm again.</p> : null}
     {phase === "collecting" && <button data-testid="intake-start-review" type="button" disabled={busy || !canReview(checkpoint)} onClick={() => void act("review")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Stop initial questions and review</button>}
-    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={questionsOutdated || working || nextQueued} onClick={() => { if (busy) { setNextQueued(true); return; } pressNext.current(); }} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">{working ? "Working out your next step…" : busy || nextQueued ? "Saving…" : "Show my next step"}</button>{" "}<button data-testid="intake-view-review" type="button" disabled={viewQueued} onClick={() => { if (busy) { setViewQueued(true); return; } setViewing(true); }}>{viewQueued ? "Saving…" : "Review or correct initial information"}</button>
+    {/* A change, confirmed by the same press that saved it: said here, from the saved record (Chrome pass 3 on #550, CA-1). */}
+    {phase === "user-confirmed" && changeJustConfirmed(workflowStatus, checkpoint) ? <p data-testid="intake-change-confirmed" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer. Here is what we have now.</p> : null}
+    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={questionsOutdated || working || nextQueued} onClick={() => { if (busy) { setNextQueued(true); return; } pressNext.current(); }} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">{heldForNotice ? "Finish the step shown below first" : working ? "Working out your next step…" : busy || nextQueued ? "Saving…" : "Show my next step"}</button>{" "}<button data-testid="intake-view-review" type="button" disabled={viewQueued} onClick={() => { if (busy) { setViewQueued(true); return; } setViewing(true); }}>{viewQueued ? "Saving…" : "Review or correct initial information"}</button>
       {/* A guest: the next step needs an account (the safety check runs first). Said here, under the button pressed,
           not only at the foot of the form (Chrome check of #542, 3 Nov, B1: the button seemed to do nothing). */}
       {signInNeeded ? <SignInForSafetyCheck testId="intake-continue-sign-in" area={court === "family" ? "Family" : court === "civil" ? "Civil" : "Small Claims"} /> : null}
       <NextStepStatus />
       <StoryChangedNotice where="button" /></>}
     {/* Not while the next step is being worked out: its progress line says so (Chrome check of #544 on 9b960f7, F13). */}
-    {waiting && !working && phase === "user-confirmed" && <p data-testid="intake-continue-waiting" role="status" className="mt-2 text-sm">Finish the step shown below first; your next step will then appear.</p>}
+    {waiting && !working && !workBegan && phase === "user-confirmed" && <p data-testid="intake-continue-waiting" role="status" className="mt-2 text-sm">Finish the step shown below first; your next step will then appear.</p>}
     {error && <p role="alert">{error}</p>}
     <WorkingNote working={busy}>Saving your review…</WorkingNote>
   </section>;

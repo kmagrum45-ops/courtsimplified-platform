@@ -34,13 +34,15 @@ import { serveModelStandIns } from "./harness/thisCommitServer";
 import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { deleteHarnessUser } from "./harness/realTestSession";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
-import { recordInitialUnknowns } from "./harness/intakeReview";
+import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
 type Court = "family" | "civil" | "small-claims";
 const CONFIRM_AGAIN = "You changed an answer, so please review and confirm again.";
+// The summary's words when an answer changed after Continue (site owner, 12 Nov 2026: "New words"); the case page keeps CONFIRM_AGAIN.
+const CHANGED_NOTE = "You changed an answer. Here is what we have now.";
 const panelOf = (page: Page) => page.getByTestId("intake-review");
 const reviewKindLine = (page: Page) => panelOf(page).locator('[data-testid="intake-entry-held"][data-fact="claimKind"]');
 const savedNow = async (page: Page) => { await expect(page.getByTestId("intake-save-status")).toContainText(/saved/i, { timeout: 60_000 }).catch(() => {}); await page.waitForTimeout(1_500); };
@@ -105,6 +107,10 @@ for (const court of ["civil", "family"] as const) {
           const group = (await question.getByTestId("guided-form-from-story").getAttribute("data-group")) ?? key;
           await yes.click();
           for (const item of group.split(" ")) accepted.add(item);
+        } else if (await question.getByTestId("guided-form-from-story-no").isVisible().catch(() => false)) {
+          // Any other story offer (since 12 Nov the story's only amount is offered): "No, that's not right", so the
+          // question is asked once with its Skip, which the next pass presses, as before.
+          await question.getByTestId("guided-form-from-story-no").click();
         } else await question.getByTestId("guided-form-skip").click();
         await page.waitForTimeout(400);
       }
@@ -190,7 +196,7 @@ for (const [court, atOnce] of [["small-claims", false], ["small-claims", true], 
       if (court === "small-claims") await question.getByRole("button", { name: new RegExp(`^${kind.first.value}`) }).click();
       else { await question.locator(`input[data-testid=intake-field-pick][value="${kind.first.value}"]`).check(); await question.getByTestId("intake-field-save").click(); }
       await recordInitialUnknowns(page);
-      await page.getByTestId("intake-review-acknowledgement").check();
+      await tickIfAsked(page);
       await page.getByTestId("intake-confirm").click();
       await expect(panelOf(page)).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
       await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
@@ -201,12 +207,12 @@ for (const [court, atOnce] of [["small-claims", false], ["small-claims", true], 
       await openReview(page);
       await changeKind(page, court, kind.first.value, kind.then.value);
       await expect(reviewKindLine(page), "the review shows the new kind").toContainText(kind.then.words, { timeout: 30_000 });
-      await expect(page.getByTestId("intake-confirm-again"), "the review says why").toHaveText(CONFIRM_AGAIN);
+      await expect(page.getByTestId("intake-confirm-again"), "the review says why").toHaveText(CHANGED_NOTE);
       if (!atOnce) await savedNow(page);
       await page.reload();
       await expect(panelOf(page)).toBeVisible({ timeout: 60_000 });
       await openReview(page);
-      await expect(page.getByTestId("intake-confirm-again"), "reloaded, the review still says why").toHaveText(CONFIRM_AGAIN, { timeout: 30_000 });
+      await expect(page.getByTestId("intake-confirm-again"), "reloaded, the review still says why").toHaveText(CHANGED_NOTE, { timeout: 30_000 });
 
       // The case page, before confirming again: the message and the new kind, never the old one.
       await savedNow(page);

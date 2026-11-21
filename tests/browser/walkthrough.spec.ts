@@ -35,6 +35,7 @@ import { confirmInitialInformation } from "./harness/intakeReview";
 import { GUEST_INTAKE_SESSION_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
 import { HELD_BACK_PERSONAS } from "./walkthrough/heldBackPersonas";
 import { PERSONAS, type Persona } from "./walkthrough/personas";
+import { chooseOffers } from "./harness/offers";
 
 const OUT = path.resolve(process.cwd(), "walkthrough-output");
 // Worker-scoped options belong at file scope; real sessions must not enter traces.
@@ -358,7 +359,7 @@ async function guidedSmallClaims(page: Page, persona: Persona, steps: Step[]) {
       if (!seen.has("proposals")) await capture(page, persona, steps, "story-proposals", "What the AI took from the story, offered for confirmation.");
       seen.add("proposals");
       // Offered, never pre-ticked (owner, 31 Oct): the persona uses each suggestion, then continues.
-      for (const use of await proposals.getByTestId("story-proposal-use").all()) await use.click();
+      await chooseOffers(proposals, "yes");
       await proposals.getByTestId("story-proposals-continue").click();
       continue;
     }

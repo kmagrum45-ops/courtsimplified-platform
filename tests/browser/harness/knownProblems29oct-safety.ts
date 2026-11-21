@@ -51,8 +51,8 @@ export const KNOWN_PROBLEMS_29OCT_SAFETY: KnownProblem[] = [
   {
     id: "G2-divorce-for-never-married",
     reason:
-      "A person who said they were never married is shown divorce material on the which-court step: the Divorce Act's \"court\" statement in the triage, and Form 8A (Application (Divorce)) as a form for their step.",
+      "A person who said they were never married is shown divorce material on the which-court step: Form 8A (Application (Divorce)) as a form for their step when the story alone says so (the step leaves it out for a recorded No: nextStepPractical.ts notMarried). The triage's Divorce Act statement was fixed on 16 Nov (statusTriage.ts buildTriageOutcome; test:not-married-everywhere 10).",
     test: SUITE,
-    checks: ["G2-form-8A", "G2-triage"],
+    checks: ["G2-form-8A"],
   },
 ];

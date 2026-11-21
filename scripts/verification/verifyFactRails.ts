@@ -151,8 +151,19 @@ async function main() {
   check("option A: a fact record wins over a later change-record entry for the same fact (seqs never compared)", removedOverChange.otherParty.removed === true && removedOverChange.otherParty.value === undefined, JSON.stringify(removedOverChange.otherParty));
   const answeredOverChange = caseFileOf(cp({ facts: { amount: rec("answered", 1, 5000) }, changes: { amount: change("answered", 99, "7000") } }));
   check("option A: a fact record's answer wins over a change-record answer and the form's copy", answeredOverChange.amount.value === 5000, JSON.stringify(answeredOverChange.amount));
+  // A typed answer beats "not sure" for the same fact; only "removed" takes an answer away (site owner, 15 Nov 2026).
   const unsure = caseFileOf(cp({ facts: { amount: rec("unsure", 2) } }));
-  check("option A: an unsure record makes the fact unsure over the form's answer", unsure.amount.state === "unsure" && unsure.amount.value === undefined, JSON.stringify(unsure.amount));
+  check("option A: an unsure record never takes away the form's typed answer", unsure.amount.state === "answered" && unsure.amount.value === 9000, JSON.stringify(unsure.amount));
+  const unsureOverChange = caseFileOf(cp({ facts: { otherParty: rec("unsure", 2) }, changes: { otherParty: change("answered", 3, "Changed Ltd.") } }));
+  check("option A: an unsure record never takes away a typed change", unsureOverChange.otherParty.state === "answered" && unsureOverChange.otherParty.value === "Changed Ltd.", JSON.stringify(unsureOverChange.otherParty));
+  const unsureChange = caseFileOf(cp({ changes: { amount: change("unsure", 3) } }));
+  check("option A: an unsure change never takes away the form's typed answer", unsureChange.amount.state === "answered" && unsureChange.amount.value === 9000, JSON.stringify(unsureChange.amount));
+  const unsureNothingTyped = caseFileOf(cp({ facts: { amount: rec("unsure", 2) } }, { otherParty: "Old Name Ltd." }));
+  check("option A: an unsure record with nothing typed makes the fact unsure", unsureNothingTyped.amount.state === "unsure" && unsureNothingTyped.amount.value === undefined, JSON.stringify(unsureNothingTyped.amount));
+  const removedTyped = caseFileOf(cp({ facts: { amount: rec("removed", 2) } }));
+  check("option A: a removed record does take away the form's typed answer", removedTyped.amount.removed === true && removedTyped.amount.value === undefined && removedTyped.amount.state === "not-asked", JSON.stringify(removedTyped.amount));
+  const removedChange = caseFileOf(cp({ changes: { amount: change("removed", 3) } }));
+  check("option A: a removed change does take away the form's typed answer", removedChange.amount.removed === true && removedChange.amount.value === undefined, JSON.stringify(removedChange.amount));
   const noRecord = caseFileOf(cp({ changes: { otherParty: change("answered", 3, "Changed Ltd.") } }));
   const noRecordAtAll = caseFileOf(cp({}));
   check("option A: no fact record -> today's order (the change record over the form's copy; else the form's copy)", noRecord.otherParty.value === "Changed Ltd." && noRecordAtAll.otherParty.value === "Old Name Ltd." && noRecordAtAll.amount.value === 9000);

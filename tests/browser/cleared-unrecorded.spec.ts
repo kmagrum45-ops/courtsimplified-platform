@@ -18,6 +18,7 @@ import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { serveFromThisCommit } from "./harness/thisCommitServer";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { chooseOffers } from "./harness/offers";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -36,7 +37,7 @@ async function guidedChatUntilAmount(page: Page) {
     await expect(finished.or(proposals).or(message).first()).toBeVisible({ timeout: 60_000 });
     await page.waitForTimeout(600);
     if (await finished.isVisible().catch(() => false)) break;
-    if (await proposals.isVisible().catch(() => false)) { await proposals.getByTestId("story-proposals-continue").click(); await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 }); continue; }
+    if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await proposals.getByTestId("story-proposals-continue").click(); await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 }); continue; }
     const text = (await message.innerText()).replace(/\s+/g, " ");
     if (text === last) break;
     last = text;
@@ -75,7 +76,7 @@ test("Small Claims review: the amount from the review's question, cleared in its
   if ((await panel.getAttribute("data-phase")) === "collecting") await page.getByTestId("intake-start-review").click();
   await expect(panel).toHaveAttribute("data-phase", "reviewing", { timeout: 60_000 });
   const question = panel.locator(`[data-testid=intake-initial-question][data-question="${QUESTION}"]`);
-  await question.getByRole("button", { name: "Use the suggestion: $2,400" }).click();
+  await question.getByRole("button", { name: "Yes: $2,400" }).click();
   await expect(question.getByTestId("intake-question-answered")).toContainText("$2,400", { timeout: 20_000 });
 
   // The summary box draws the review's answer; the person clears it and leaves the box.

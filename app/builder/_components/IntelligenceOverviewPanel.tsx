@@ -38,13 +38,17 @@ import { userStory } from "@/src/lib/case-system/userStory";
 import { kindsOfClaim } from "@/src/lib/case-system/intake/claimKind";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { savePositionQueued } from "./positionSave";
-import { claimKindAnswer, recordWords, claimKindLine, claimKindOf, CLAIM_KIND_QUESTION, isUnsureAnswer, slotText, type CaseFile, type ClaimKindHeld } from "@/src/lib/case-system/caseFile/caseFile";
+import { claimKindAnswer, respondingFromRecord, recordWords, claimKindLine, claimKindOf, CLAIM_KIND_QUESTION, isUnsureAnswer, slotText, type CaseFile, type ClaimKindHeld } from "@/src/lib/case-system/caseFile/caseFile";
 import { formatForCourt } from "@/src/lib/case-system/dates";
 import { inWords } from "@/src/lib/case-system/copy/rawKeys";
 import { WorkingButton } from "@/app/_components/Working";
 import { UseSuggestion } from "@/app/_components/UseSuggestion";
+import { useOfferChoices } from "@/app/_components/offerChoiceSave";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
 import { answerWords } from "../../../src/lib/case-system/caseFile/unsureAnswer";
+import { mayAskWords } from "../../../src/lib/case-system/caseFile/factStatus";
+import { partyNames } from "../../../src/lib/case-system/parties/parties";
+import { hidesMarriedOnly, withoutMarriedOnlyLaw } from "../../../src/lib/case-system/family/marriedOnly";
 
 type Props = {
   analysis: AnalysisResult;
@@ -127,10 +131,15 @@ function SourcedList({ items }: { items: SourcedListItem[] }) {
 
 const GENERIC_CONFIRM_QUESTION = "What important fact should be confirmed next?";
 
-export default function IntelligenceOverviewPanel({ analysis, intake, confirmedStage = null, caseId = null, claimKind = null, caseFile = null, stageWords = null, roleWords = null, recordedMunicipality = null }: Props) {
+export default function IntelligenceOverviewPanel({ analysis: analysisGiven, intake, confirmedStage = null, caseId = null, claimKind = null, caseFile = null, stageWords = null, roleWords = null, recordedMunicipality = null }: Props) {
+  // The analysis as this person reads it: no married-only provision for someone not married or not sure (marriedOnly.ts).
+  const analysis = withoutMarriedOnlyLaw(analysisGiven, hidesMarriedOnly(caseFile));
   // A kind picked from the list here, shown at once: it is written to the case file (the saved position's kind of claim,
   // read first by caseFileOf), which the page reads the next time it loads the case.
   const [pickedHere, setPickedHere] = useState<string | null>(null);
+  // The person's No on the proposed kind (the one offer handler, offerChoice.ts): the proposal is set aside and the kind
+  // is asked once, plainly, with the chooser (site owner, 14 Nov 2026, decision 2).
+  const offers = useOfferChoices();
   const caseStage = (confirmedStage || analysis.caseStage) as typeof analysis.caseStage;
   const role = textField(intake, "yourRole");
   // Only selections that record an actual filing. The Small Claims intake
@@ -151,7 +160,10 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   const amount = answerWords(changedAmount !== undefined ? changedAmount ?? "" : textField(intake, "amountClaimed"));
   // "I do not know yet" is never shown as what the person wants (the one reader, unsureAnswer.ts answerWords).
   const outcome = changedWants !== undefined ? answerWords(changedWants) : answerWords(intake?.goal) || answerWords(textField(intake, "legalRemedy"));
-  const parties = [intake?.yourName.trim(), changedOther !== undefined ? changedOther ?? "" : intake?.otherParty.trim()].filter(Boolean).join(" and ");
+  // From the parties record, each party its own name (parties.ts partyNames; Chrome milestone test of #550, row 21: the
+  // second defendant was missing here); the form's copies only for a case with no record.
+  const named = partyNames(caseFile?.parties.recorded ? caseFile.parties.list : [], { you: intake?.yourName, other: changedOther !== undefined ? changedOther ?? "" : intake?.otherParty });
+  const parties = [named.you, ...named.others].filter(Boolean).join("; ");
   const rawIssueSignals = Array.from(new Set([...(analysis.detectedIssues || []), ...(analysis.legalIssues || []), ...(analysis.detectedClaimTypes || []), ...listField(intake, "issueLabels")].filter(Boolean)));
   // "unknown" is the engines' unclassified domain, not an issue. Dropping it
   // here keeps it out of the list; when it was the only signal the card falls
@@ -182,10 +194,13 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   const kind = analysis.courtPath !== "small-claims" ? (areaKind?.held ? areaKind : null)
     : pickedName ? { label: "Kind of claim you chose", words: pickedName, claimTypeId: pickedHere, quote: null, held: true }
     : pickedHere === "not-sure" ? null
-    : claimKind ? claimKindLine(claimKind) : null;
+    : claimKind ? declinedProposal(claimKindLine(claimKind), offers.choiceOf) : null;
   const askKind = analysis.courtPath === "small-claims" && !kind;
   const kindId = kind?.claimTypeId ?? null;
-  const claimTypeContent = kindId && facts ? buildClaimTypeOverviewContent(facts, undefined, kindId) : null;
+  // The person's side, from the record, chooses the view (roleView.ts): a person being sued never sees what is written
+  // for the person suing (Chrome check of #550, S5).
+  const responding = respondingFromRecord(caseFile, role);
+  const claimTypeContent = kindId && facts ? buildClaimTypeOverviewContent(facts, undefined, kindId, responding) : null;
   const hasDefamationSignal = issueSignals.some((item) => /defamation|reputation/i.test(item));
   const hasAdoptionSignal = issueSignals.some((item) => /adoption/i.test(item));
   // Files only (2026-09-30). The typed evidence answer was listed here too and
@@ -212,8 +227,9 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // already answered can surface here.
   const filingFacts = filingFactsFromDocuments(documents);
   const defenceQuestion = "Has the defendant filed a Defence?";
+  // Asked of the person suing only: for someone being sued, "the defendant" is themselves (role audit, 11 Nov).
   const askDefenceQuestion =
-    hasClaimAndService && !isQuestionAlreadyAnswered(defenceQuestion, filingFacts);
+    hasClaimAndService && !/defendant|responding/i.test(role) && !isQuestionAlreadyAnswered(defenceQuestion, filingFacts);
   /*
    * "What to confirm next" used to display a MODEL-WRITTEN QUESTION about this
    * user's matter, on the main builder screen, with no guard.
@@ -244,7 +260,9 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // 2026-10-06: a mother who answered "Nothing filed yet" was asked "Has
   // anything already been filed?" on every page).
   // One rule, in answeredQuestions.ts (26 Oct re-test, case 16: a case already going was asked about court dates).
-  const stillToConfirm = withoutStageAnswered(candidateQuestions, caseStage, stageWords);
+  // The one function (factStatus.ts mayAskWords): a question whose fact the record holds, answered or "not sure", is never
+  // asked here (Chrome milestone test of #550, row 39: "Were you married, is a divorce proceeding underway..." after No).
+  const stillToConfirm = withoutStageAnswered(candidateQuestions, caseStage, stageWords).filter((question) => mayAskWords(caseFile, question, { responding: respondingFromRecord(caseFile ?? undefined) }));
   const confirmQuestion = askDefenceQuestion
     ? defenceQuestion
     : stillToConfirm[0] || GENERIC_CONFIRM_QUESTION;
@@ -348,6 +366,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // CLAIM_TYPES entries yet), same as courtPoints.
   const commonDefences: SourcedListItem[] = claimTypeContent ? claimTypeContent.commonDefences : [];
   // The rules that matter most first, named once; their words stay under "What we looked into" (lawBehind.ts).
+  // Never a married person's provision for someone not married or not sure (marriedOnly.ts isMarriedOnlyLaw).
   const lawBehind = lawBehindThis(analysis.research?.findings ?? [], analysis.appliedLaw ?? []);
   // 2026-09-28. Labelled rows instead of one run-on paragraph that ended with
   // the whole story pasted in. Values are still the user's own words, shown
@@ -386,7 +405,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
                   <dd data-testid="claim-kind" data-claim-type={kind.claimTypeId ?? "your-answer"} data-claim-kind-held={kind.held ? "yes" : "no"}>
                     {kind.words}
                     {kind.quote ? <span data-testid="claim-kind-quote" className="block text-xs text-[#4d675f]">From your story: &ldquo;{kind.quote}&rdquo;</span> : null}
-                    {!kind.held && kind.claimTypeId ? <ClaimKindOffer caseId={caseId} claimTypeId={kind.claimTypeId} words={kind.words} onChosen={setPickedHere} /> : null}
+                    {!kind.held && kind.claimTypeId ? <ClaimKindOffer caseId={caseId} claimTypeId={kind.claimTypeId} words={kind.words} onChosen={setPickedHere} onUnsure={() => setPickedHere("not-sure")} /> : null}
                   </dd>
                 </>
               ) : index === 0 && askKind ? (
@@ -562,7 +581,12 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
  * A kind of claim the site proposes (the story match) is only a proposal until the person uses it
  * (owner, 31 Oct): offered with the one control, saved to the case file as their choice on that click.
  */
-function ClaimKindOffer({ caseId, claimTypeId, words, onChosen }: { caseId: string | null; claimTypeId: string; words: string; onChosen: (value: string) => void }) {
+/** A proposed kind (not held) the person said No to: no kind line, so the chooser asks it once. */
+function declinedProposal<T extends { held?: boolean; claimTypeId?: string | null }>(line: T | null, choiceOf: (key: string) => string | null): T | null {
+  return line && !line.held && line.claimTypeId && choiceOf(`claim-kind:${line.claimTypeId}`) === "no" ? null : line;
+}
+
+function ClaimKindOffer({ caseId, claimTypeId, words, onChosen, onUnsure }: { caseId: string | null; claimTypeId: string; words: string; onChosen: (value: string) => void; onUnsure: () => void }) {
   const [saving, setSaving] = useState(false);
   const [failed, setFailed] = useState(false);
   const use = async () => {
@@ -576,7 +600,7 @@ function ClaimKindOffer({ caseId, claimTypeId, words, onChosen }: { caseId: stri
   };
   return (
     <span className="mt-2 block">
-      <UseSuggestion testId="claim-kind-use-suggestion" what={words} working={saving} onUse={() => void use()} />
+      <UseSuggestion offer={{ key: `claim-kind:${claimTypeId}`, fact: "claimKind" }} testId="claim-kind-use-suggestion" what={words} working={saving} onUse={() => void use()} onUnsure={onUnsure} />
       {failed ? <span className="mt-1 block text-sm text-[#8a4b12]">That could not be saved just now. Please try again.</span> : null}
     </span>
   );

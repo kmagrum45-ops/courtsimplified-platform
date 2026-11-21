@@ -124,12 +124,19 @@ const SCAN = `(() => {
   const words = (el) => (el ? el.innerText || el.textContent || "" : "").replace(/\\s+/g, " ").trim();
   const headed = (selector, heading) => [...document.querySelectorAll(selector)].filter((h) => words(h) === heading).map((h) => h.parentElement).filter(Boolean);
   // The Forms page's questions: the section that says "Answer these and we will show the official forms".
-  const formsQuestions = () => [...document.querySelectorAll("p")].filter((p) => words(p).startsWith("Answer these and we will show the official forms")).flatMap((p) => [...p.parentElement.querySelectorAll("label.block, [data-testid=forms-suggested-from-case]")]);
+  // The Forms tab: its open questions ("forms") and its offers from the case ("forms-offer", one control each), apart, so the
+  // ask-once page test can tell an offer from a question (site owner, 17 Nov: a fact is offered once).
+  const formsBlock = (selector) => [...document.querySelectorAll("p")].filter((p) => words(p).startsWith("Answer these and we will show the official forms")).flatMap((p) => [...p.parentElement.querySelectorAll(selector)]);
+  const formsQuestions = () => formsBlock("label.block");
+  const formsOffers = () => formsBlock("[data-testid=forms-suggested-from-case]");
   // The civil and Family forms' text boxes: a label holding a heading and a textarea with no test id (the Small Claims form's own carry theirs and are read by key above), outside the review and the other asking places.
   const formLabels = () => [...document.querySelectorAll("label")].filter((l) => l.querySelector(":scope > textarea:not([data-testid])") && l.querySelector(":scope > span.font-semibold") && !l.closest("[data-testid=intake-review], [data-testid=sourced-questions], [data-testid=case-understanding], [data-testid=case-partner-transcript]"));
-  // A form field asks when it stays empty for three scans (a field the page is still filling is not a question yet).
+  // A form field asks when it stays empty for three scans ON THIS SCREEN (a field the page is still filling is not a
+  // question yet). Counted by screen as well as by box (site owner, 16 Nov 2026): the address changes before the page
+  // hides the screen it leaves (pushStep), so scans from the screen left must not count on the new one
+  // (watcher-steady-by-screen.spec.ts; #550 CI, carry Small Claims form signed-in).
   const emptyScans = new Map();
-  const steadyEmpty = (key, empty) => { if (!empty) { emptyScans.delete(key); return false; } const n = (emptyScans.get(key) || 0) + 1; emptyScans.set(key, n); return n >= 3; };
+  const steadyEmpty = (box, empty) => { const key = screen() + "|" + box; if (!empty) { emptyScans.delete(key); return false; } const n = (emptyScans.get(key) || 0) + 1; emptyScans.set(key, n); return n >= 3; };
   const surfaces = [
     ["situation", "[data-testid=situation-questions]", (el) => [el.getAttribute("data-question")]],
     ["chat", "[data-testid=guided-form-question]", (el) => [el.getAttribute("data-key")]],
@@ -149,6 +156,11 @@ const SCAN = `(() => {
     ["end", "[data-testid=case-file-line][data-state=unsure] [data-testid=case-file-answer-now]", (el) => [el.closest("[data-testid=case-file-line]").getAttribute("data-question")]],
     ["claim-kind", "[data-testid=claim-kind-chooser]", () => ["claim-kind-suggestion"]],
     ["sc-form", "[data-testid=sc-intake-documents][data-empty=true]", () => ["filedDocuments"]],
+    // The Parties step (site owner, 14 Nov 2026, rule 1): an empty box asks for that party's detail, the person-or-company
+    // question for its kind; a story offer asks once (its own id, by what it offers). Each party by its id in the record.
+    ["parties", "[data-testid=parties-detail-ask]", (el) => ["party:" + ((el.closest("[data-party-id]") || el).getAttribute("data-party-id") || "") + ":" + el.getAttribute("data-detail")]],
+    ["parties", "[data-testid=parties-kind]", (el) => ["party:" + ((el.closest("[data-party-id]") || el).getAttribute("data-party-id") || "") + ":kind"]],
+    ["parties-offer", "[data-testid=parties-step] [data-offer-choices]", (el) => ["party-offer:" + words(el.querySelector("[data-testid$=-what]"))]],
     // "Things that may have happened in your case" (EventCandidateSurface): each candidate quotes the
     // person's own sentence. A date box left empty while that very sentence gives the date asks for
     // it again (Chrome 29 Oct, finding 1: "March 2026" in the story, "When, in your words" asked).
@@ -172,7 +184,8 @@ const SCAN = `(() => {
     ["home-reading", "[data-testid=case-understanding-questions] li", (el) => [words(el.querySelector("label > span"))]],
     ["law", "[data-testid=sourced-question-current]", (el) => [words(el.querySelector("label"))]],
     ["confirm-next", () => headed("section > h2", "What to confirm next"), (el) => [words(el.querySelector("p.font-semibold"))]],
-    ["forms", formsQuestions, (el) => [el.matches("label") ? words(el.childNodes[0]) || words(el) : words(el.querySelector("p.font-semibold"))]],
+    ["forms", formsQuestions, (el) => [words(el.childNodes[0]) || words(el)]],
+    ["forms-offer", formsOffers, (el) => [words(el.querySelector("p.font-semibold"))]],
     ["service-method", "select[data-testid^=stage-answer-service-method-]", (el) => ["serviceMethod:" + el.getAttribute("data-testid").slice("stage-answer-service-method-".length)]],
     ["form-field", "input[data-testid^=sc-intake-], textarea[data-testid^=sc-intake-], select[data-testid^=sc-intake-]", (el) => { const key = el.getAttribute("data-testid").slice("sc-intake-".length); return steadyEmpty("sc:" + key, el.type !== "file" && el.value === "") ? ["sc:" + key] : []; }],
     ["form-field", formLabels, (el) => { const label = words(el.querySelector(":scope > span.font-semibold")); return steadyEmpty("label:" + label, el.querySelector(":scope > textarea:not([data-testid])").value === "") ? ["label:" + label] : []; }],
@@ -185,13 +198,13 @@ const SCAN = `(() => {
     const id = target ? target.getAttribute("data-testid") : "";
     if (id === "guided-form-skip" && chatKey) skipped.add("chat|" + chatKey);
     // An answer control of the chat's question, pressed: that question is answered (chatQuestionAnswered).
-    if (chatKey && (id === "guided-form-next" || id === "guided-form-from-story-yes" || id.startsWith("guided-option-"))) chatPressed.add(chatKey);
+    if (chatKey && (id === "guided-form-next" || id === "guided-form-from-story-yes" || id === "guided-form-from-story-unsure" || id.startsWith("guided-option-"))) chatPressed.add(chatKey);
     if (id === "triage-answer-not-yet" && triageKey) skipped.add("triage|" + triageKey);
     // The proposal card: read the ticks at the click itself. The scan runs every 200 ms, and an
     // untick followed at once by "continue" could otherwise leave the card's last-scanned ticks,
     // recording an unticked row as confirmed (m04-tenant, CI 29 Oct: a false "asked twice").
     const card = event.target instanceof Element ? event.target.closest("[data-testid=story-proposals]") : null;
-    if (card) window.__askOnceRows = [...card.querySelectorAll("[data-testid=story-proposal-row]")].filter((row) => { const tick = row.querySelector("input[type=checkbox]"); return !tick || tick.checked; }).map((row) => row.getAttribute("data-question-id"));
+    if (card) window.__askOnceRows = [...card.querySelectorAll("[data-testid=story-proposal-row]")].filter((row) => Boolean(row.querySelector("[data-testid=story-proposal-yes][aria-pressed=true], [data-testid=story-proposal-unsure][aria-pressed=true]"))).map((row) => row.getAttribute("data-question-id"));
     // The story given (founder's Chrome re-test of #536, 1 Nov): sent from the home page's story box, or from
     // the Small Claims chat's (its "Send" with the story box holding words, or "Send my story" under the saved story).
     const button = event.target instanceof Element ? event.target.closest("button") : null;
@@ -273,7 +286,7 @@ const SCAN = `(() => {
     // Proposals: the rows confirmed when the card goes.
     window.__askOnceRows = window.__askOnceRows || [];
     const rows = [...document.querySelectorAll("[data-testid=story-proposal-row]")].filter(visible);
-    if (rows.length) window.__askOnceRows = rows.filter((row) => { const tick = row.querySelector("input[type=checkbox]"); return !tick || tick.checked; }).map((row) => row.getAttribute("data-question-id"));
+    if (rows.length) window.__askOnceRows = rows.filter((row) => Boolean(row.querySelector("[data-testid=story-proposal-yes][aria-pressed=true], [data-testid=story-proposal-unsure][aria-pressed=true]"))).map((row) => row.getAttribute("data-question-id"));
     else if (window.__askOnceRows.length) { for (const id of window.__askOnceRows) answer("sc-proposal", id); window.__askOnceRows = []; }
     // Step page dates: a date saved.
     for (const el of document.querySelectorAll("[data-testid^=stage-answer-known-]")) answer("date", el.getAttribute("data-testid").slice("stage-answer-known-".length));
@@ -319,7 +332,7 @@ const FORM_FIELD_FACTS: Record<string, readonly string[]> = {
 };
 
 /** The surfaces whose question is its own words (no id): their fact comes from the words (chatQuestionFacts.ts). */
-const WORDED = new Set(["chat-reply", "home-reading", "law", "confirm-next", "forms"]);
+const WORDED = new Set(["chat-reply", "home-reading", "law", "confirm-next", "forms", "forms-offer"]);
 
 /** The facts a recorded question asks for, on any surface. A question whose words name no fact asks for a fact of its own. */
 export function factsOfAsk(item: Pick<Asked, "surface" | "id" | "text">): string[] {
@@ -339,7 +352,10 @@ export function factsOfAsk(item: Pick<Asked, "surface" | "id" | "text">): string
   }
   // A Small Claims depth question carries its own depth id: its fact is read from its words.
   if (item.surface === "sc-chat" && item.id.startsWith("depth-")) { const facts = factsOfWords(item.text); return facts.length ? facts : [item.id]; }
-  return factsOfQuestion(item.id, item.surface);
+  // A question that asks about safety in its words asks that too (Family's "Is anything urgent, like ..., a safety
+  // worry, ...?": Chrome check of #550, 5c), whatever its own field asks for.
+  const own = factsOfQuestion(item.id, item.surface);
+  return /\bsafety (?:concerns?|worry|worries)\b/i.test(item.text ?? "") && !own.includes("safety") ? [...own, "safety"] : own;
 }
 
 /** What the saved case holds at a moment: each slot the person answered (confirmed), answered or unsure. Story guesses (confirmed false) are not held. */
@@ -542,6 +558,19 @@ export function heldViolations(events: readonly Asked[]): Violation[] {
 }
 
 /** The repeats of factsAskedTwice, one violation per question asked again. */
+/**
+ * THE ASK-ONCE PAGE TEST'S OFFER RULE (site owner, 17 Nov 2026): a fact is offered ONCE, on the first page that needs it,
+ * then recorded so it is never offered or asked again. A violation on an offer surface is excused when no offer of the
+ * same fact came before it; a SECOND offer is asked again, and a cold question is never excused. Used by
+ * tests/browser/ask-once-pages.spec.ts only; every other test keeps the stricter rule above (any re-ask counts).
+ */
+export function firstOfferExcused(violation: Violation, events: readonly Asked[], offerSurfaces: ReadonlySet<string>): boolean {
+  if (!offerSurfaces.has(violation.surface)) return false;
+  const ask = events.find((item) => item.kind === "ask" && item.surface === violation.surface && item.id === violation.id && item.screen === violation.screen);
+  if (!ask) return false;
+  return !events.some((item) => item !== ask && item.kind === "ask" && item.at < ask.at && offerSurfaces.has(item.surface) && factsOfAsk(item).includes(violation.fact));
+}
+
 export function repeatViolations(repeats: readonly Repeat[]): Violation[] {
   return repeats.flatMap((repeat) => repeat.asks.map((ask) => ({ rule: "twice" as const, fact: repeat.fact, surface: ask.surface, id: ask.id, screen: ask.screen, text: ask.text, detail: `given at ${repeat.given.surface}:${repeat.given.id}@${repeat.given.screen} "${repeat.given.text.slice(0, 80)}"`, diag: diagnosticOf(ask) })));
 }

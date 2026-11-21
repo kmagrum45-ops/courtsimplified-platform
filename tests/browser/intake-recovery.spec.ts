@@ -17,8 +17,19 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await openBuilder(page, court, { story: court === "small-claims" ? undefined : STORY });
     if (court === "small-claims") await page.getByRole("button", { name: "Fill in the form yourself" }).click();
     else await page.getByTestId("guided-form-show-form").click();
-    const name = page.getByLabel(court === "small-claims" ? "Your full legal name or business name" : "Your name", { exact: true });
-    await name.fill("Synthetic unfinished name");
+    // Small Claims asks the person's name in the Parties step (site owner, 14 Nov 2026, rule 1): a person, then the first
+    // name, saved when the box is left; once saved it is shown as the held line, not a box. Civil and Family: their box.
+    const NAME = "Synthetic unfinished name";
+    const you = page.locator('[data-testid="parties-party"][data-party="you"]');
+    const nameShown = async () => {
+      if (court === "small-claims") await expect(you.getByTestId("parties-detail-held").filter({ hasText: NAME }), "the name is shown after the reload").toBeVisible({ timeout: 60_000 });
+      else await expect(page.getByLabel("Your name", { exact: true })).toHaveValue(NAME, { timeout: 60_000 });
+    };
+    if (court === "small-claims") {
+      await you.getByTestId("parties-kind-person").click();
+      await you.getByTestId("parties-input-firstName").fill(NAME);
+      await you.getByTestId("parties-input-firstName").blur();
+    } else await page.getByLabel("Your name", { exact: true }).fill(NAME);
     if (court === "small-claims") {
       await page.getByLabel("Case story", { exact: true }).fill(STORY);
       await saveCaseStory(page);
@@ -29,11 +40,11 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     // A refresh after analysis returned but before its canonical save must recover intake.
     await page.evaluate(() => { const url = new URL(location.href); url.searchParams.set("step", "results"); history.replaceState(null, "", url); });
     await page.reload();
-    await expect(name).toHaveValue("Synthetic unfinished name", { timeout: 60_000 });
+    await nameShown();
     await expect(story).toHaveValue(STORY);
     await page.goto("/about");
     await page.goto(address);
-    await expect(name).toHaveValue("Synthetic unfinished name");
+    await nameShown();
     account.fail(true, 401);
     await story.fill(`${STORY} New unsent text after a failed save.`);
     await saveCaseStory(page);
@@ -65,7 +76,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await expect(page.getByTestId("intake-save-status")).toContainText("saved to your account");
     await page.evaluate(() => sessionStorage.clear());
     await page.goto(`/builder?path=${court}&caseId=${savedId}`);
-    await expect(name).toHaveValue("Synthetic unfinished name", { timeout: 60_000 });
+    await nameShown();
     await expect(story).toHaveValue(`${STORY} New unsent text after a failed save.`);
     // Historical completion does not establish explicit confirmation.
     (saved.master_result as Record<string, unknown>).lifecycleStage = "intake-completed";

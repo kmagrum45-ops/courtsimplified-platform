@@ -2,7 +2,7 @@
  * POST /api/cases/facts: the one server route that saves facts into the case's fact record
  * (case core G0, "the rails"; CASE_CORE_DESIGN.md §12).
  *
- * In:  { caseId, facts: [{ fact, state, value?, source?, question?, seenSeq?, force? }] }
+ * In:  { caseId, facts: [{ fact, state, value?, source?, question?, seenSeq?, force? }], offers?: [{ key, choice: "no" | "unsure" }] }
  * Out: { saved: [{ fact, seq, at }], conflicts: [{ fact, stored, sent }], facts } or { error }
  *
  * The browser never sends a seq or an ordering time (a write naming either is refused,
@@ -23,6 +23,7 @@ import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
 import { readFactWrites } from "../../../../src/lib/case-system/caseFile/factRecord";
+import { readOfferChoices } from "../../../../src/lib/case-system/caseFile/offerChoice";
 import { intakeCourtOfRow, saveFactWrites } from "../../../../src/lib/case-system/caseFile/factSave";
 import type { CaseRecordClient } from "../../../../src/lib/case-system/updateCaseRecord";
 import { UUID_PATTERN } from "../../../../src/lib/case-system/events/caseEventRequest";
@@ -52,7 +53,12 @@ export async function POST(request: Request) {
 
   const caseId = typeof body.caseId === "string" ? body.caseId : "";
   if (!UUID_PATTERN.test(caseId)) return NextResponse.json({ error: "A valid selected case is required." }, { status: 400 });
-  const read = readFactWrites(body);
+  // The person's choices on offers (No / I'm not sure), kept beside the facts (offerChoice.ts; site owner, 14 Nov 2026).
+  const offers = readOfferChoices(body);
+  if (!offers.ok) return NextResponse.json({ error: offers.error }, { status: 400 });
+  // A "No" on an offer saves the choice alone: an empty facts list only beside at least one offer choice.
+  const offersOnly = offers.offers.length > 0 && Array.isArray(body.facts) && body.facts.length === 0;
+  const read: ReturnType<typeof readFactWrites> = offersOnly ? { ok: true, writes: [] } : readFactWrites(body);
   if (!read.ok) return NextResponse.json({ error: read.error }, { status: 400 });
 
   const user = await getAuthenticatedUser(request);
@@ -65,7 +71,7 @@ export async function POST(request: Request) {
   const supabase = authenticatedClient(request);
   if (!supabase) return NextResponse.json({ error: "Authentication is required." }, { status: 401 });
 
-  const outcome = await saveFactWrites(supabase as unknown as CaseRecordClient, { caseId, userId: user.id, court }, read.writes);
+  const outcome = await saveFactWrites(supabase as unknown as CaseRecordClient, { caseId, userId: user.id, court }, read.writes, undefined, offers.offers);
   if (outcome.ok) return NextResponse.json({ saved: outcome.saved, conflicts: outcome.conflicts, facts: outcome.facts });
   if (outcome.reason === "no-intake-checkpoint") return NextResponse.json({ error: NO_INTAKE }, { status: 409 });
   if (outcome.reason === "rejected") return NextResponse.json({ error: outcome.error }, { status: 400 });

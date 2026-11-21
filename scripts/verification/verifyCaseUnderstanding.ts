@@ -44,6 +44,9 @@ import {
   askedSide,
 } from "../../src/lib/case-system/understanding/understandCase";
 import { isMapOwnedProcedure } from "../../src/lib/case-system/procedureOwnership";
+import { homeQuestionsFor } from "../../src/lib/case-system/caseFile/factQuestions";
+/** The site's fixed home questions for a Small Claims case being started (questions/factQuestions.ts). */
+const SITE_SC_STARTING = homeQuestionsFor("small-claims", "starting").map((item) => item.question);
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -104,7 +107,9 @@ async function main() {
   check("the restated facts keep the person's own facts", /noted in default/.test(u.summary) && /slander/.test(u.summary), u.summary);
   check("a sentence of law in the restated facts is removed (it is shown unchecked)", !/r\. 11\.03|must now prove/.test(u.summary), u.summary);
   check("a fact that states law is removed", !u.facts.some((fact) => /\br\.\s*\d|must/i.test(fact.value)));
-  check("a question is kept; a 'why' that states a rule is removed", u.questions.length === 2 && !u.questions[1].why && Boolean(u.questions[0].why), JSON.stringify(u.questions));
+  // Changed 19 Nov 2026 (site owner: no question the AI writes reaches the person; questions/factQuestions.ts): was "a
+  // question is kept; a 'why' that states a rule is removed". Now none of the model's questions is kept, its "why" with it.
+  check("no question the model wrote is kept, nor its 'why'", u.questions.length === 0, JSON.stringify(u.questions));
   check("a question that cites a form or an Act is not shown (it is never checked against the official text)", !u.questions.some((q) => /Form 11A/.test(q.question)));
   check("the court and side come from the reasoning", u.mainCourt === "small-claims" && u.side === "starting");
   check("withoutLaw keeps plain facts", withoutLaw("You were served on September 30. She never responded.") === "You were served on September 30. She never responded.");
@@ -270,7 +275,8 @@ async function main() {
     { reason: async () => JSON.stringify(withFiled), check: { index, embed: noSearch, thorough: false, check: async () => JSON.stringify({ results: [{ n: 1, verdict: "unsupported", passage: "", quote: "", topic: "x" }] }) } },
   );
   const settledQuestions = settled.status === "understood" ? settled.understanding.questions.map((item) => item.question) : [];
-  check("with \"nothing filed yet\" given, the reading does not ask whether a claim is started; it keeps its other questions", settled.status === "understood" && !settledQuestions.some((q) => /already started/.test(q)) && settledQuestions.some((q) => /agree to do/.test(q)), JSON.stringify(settledQuestions));
+  // Changed 19 Nov 2026: "it keeps its other questions" (the model's) is now "its questions are the site's fixed ones".
+  check("with \"nothing filed yet\" given, the reading does not ask whether a claim is started; its questions are the site's fixed ones", settled.status === "understood" && !settledQuestions.some((q) => /already started/.test(q)) && JSON.stringify(settledQuestions) === JSON.stringify(SITE_SC_STARTING), JSON.stringify(settledQuestions));
 
   // 26 Oct re-test, cases 19 and 20, in Chrome's words: the same answer settles the reading's other
   // ways of asking or stating it, its rows included, and the model is told the answer.
@@ -286,7 +292,8 @@ async function main() {
   );
   const readQuestions = read.status === "understood" ? read.understanding.questions.map((item) => item.question) : [];
   const readRows = read.status === "understood" ? read.understanding.facts.map((fact) => fact.label) : [];
-  check("'No, nothing yet': the reading does not ask which court issued the claim, and keeps its other questions", !readQuestions.some((q) => /which court/i.test(q)) && readQuestions.some((q) => /pay the \$450/.test(q)), JSON.stringify(readQuestions));
+  // Changed 19 Nov 2026: "and keeps its other questions" (the model's) is now "its questions are the site's fixed ones".
+  check("'No, nothing yet': the reading does not ask which court issued the claim; its questions are the site's fixed ones", !readQuestions.some((q) => /which court/i.test(q)) && JSON.stringify(readQuestions) === JSON.stringify(SITE_SC_STARTING), JSON.stringify(readQuestions));
   check("'No, nothing yet': no row says a court case exists or is started; the other rows stay", !readRows.some((label) => /court case|already started/i.test(label)) && readRows.includes("Amount paid") && readRows.includes("What happened"), JSON.stringify(readRows));
   check("the model is told the person's own answer", /Nothing has been filed with a court yet\./.test(toldModel));
   // The fresh reviewer's other phrasings (26 Oct), and questions that must stay.
@@ -300,7 +307,8 @@ async function main() {
     { story: SLANDER, chosenCourt: "small-claims", situation: { side: "starting" } },
     { reason: async () => JSON.stringify(otherWays), check: { index, embed: noSearch, thorough: false, check: async () => JSON.stringify({ results: [{ n: 1, verdict: "unsupported", passage: "", quote: "", topic: "x" }] }) } },
   );
-  check("without that answer, the reading's rows and questions about it stay", notAnswered.status === "understood" && notAnswered.understanding.facts.length === otherWays.facts.length && notAnswered.understanding.questions.length === otherWays.questions.length);
+  // Changed 19 Nov 2026: the model's questions never stay; the rows still do, and the questions are the site's fixed ones.
+  check("without that answer, the reading's rows about it stay; its questions are the site's fixed ones", notAnswered.status === "understood" && notAnswered.understanding.facts.length === otherWays.facts.length && JSON.stringify(notAnswered.understanding.questions.map((item) => item.question)) === JSON.stringify(SITE_SC_STARTING));
 
   console.log(failures ? `\n${failures} failed` : "\nAll passed");
   process.exitCode = failures ? 1 : 0;

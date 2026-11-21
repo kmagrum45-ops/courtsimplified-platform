@@ -56,6 +56,7 @@ import {
   isUuid,
 } from "@/src/lib/case-workspace/storagePaths";
 import { DOCUMENT_TYPE_IDS } from "@/src/lib/case-workspace/documentTypes";
+import { safeError } from "@/src/lib/logging/safeLog";
 
 export const runtime = "nodejs";
 
@@ -116,7 +117,7 @@ export async function POST(req: NextRequest) {
     if (error) {
       console.error(
         `workspace register: ORPHANED OBJECT left in ${DOCUMENT_BUCKET} after ${why}:`,
-        error.message,
+        safeError(error),
       );
     }
   };
@@ -231,7 +232,7 @@ export async function POST(req: NextRequest) {
        * unreachable and unlistable, so it goes.
        */
       await removeOrphan("a failed row insert");
-      console.error("workspace register insert error:", insertError?.message);
+      console.error("workspace register insert error:", safeError(insertError));
       return refuse(500, "CourtSimplified could not save this document.");
     }
 
@@ -257,7 +258,7 @@ export async function POST(req: NextRequest) {
     });
   } catch (error) {
     await removeOrphan("an unexpected error");
-    console.error("workspace register error:", error);
+    console.error("workspace register error:", safeError(error));
     return refuse(500, "CourtSimplified could not save this document.");
   }
 }
@@ -296,13 +297,13 @@ export async function GET(req: NextRequest) {
       .order("uploaded_at", { ascending: true });
 
     if (error) {
-      console.error("workspace list error:", error.message);
+      console.error("workspace list error:", safeError(error));
       return refuse(500, "CourtSimplified could not load this case's documents.");
     }
 
     return NextResponse.json({ success: true, documents: data || [] });
   } catch (error) {
-    console.error("workspace list error:", error);
+    console.error("workspace list error:", safeError(error));
     return refuse(500, "CourtSimplified could not load this case's documents.");
   }
 }
@@ -447,7 +448,7 @@ export async function PATCH(req: NextRequest) {
         .eq("user_id", user.id)
         .is("deleted_at", null);
       if (decisionError) {
-        console.error("workspace patch decision error:", decisionError.code ?? "", decisionError.message);
+        console.error("workspace patch decision error:", safeError(decisionError));
         return refuse(
           503,
           "The decision's details cannot be saved yet.",
@@ -489,7 +490,7 @@ export async function PATCH(req: NextRequest) {
       .maybeSingle();
 
     if (error) {
-      console.error("workspace patch error:", error.message);
+      console.error("workspace patch error:", safeError(error));
       // 23514 is a CHECK violation: "court-decision" before migration
       // 20261007090000 adds it to the type catalogue.
       if (error.code === "23514" && update.user_type === COURT_DECISION_TYPE) {
@@ -506,7 +507,7 @@ export async function PATCH(req: NextRequest) {
 
     return NextResponse.json({ success: true, document: data });
   } catch (error) {
-    console.error("workspace patch error:", error);
+    console.error("workspace patch error:", safeError(error));
     return refuse(500, "CourtSimplified could not save this change.");
   }
 }
@@ -531,7 +532,7 @@ export async function DELETE(req: NextRequest) {
       .maybeSingle();
 
     if (readError) {
-      console.error("workspace delete read error:", readError.message);
+      console.error("workspace delete read error:", safeError(readError));
       return refuse(500, "CourtSimplified could not delete this document.");
     }
 
@@ -561,7 +562,7 @@ export async function DELETE(req: NextRequest) {
        */
       console.error(
         `workspace delete: object NOT removed for document ${documentId}:`,
-        removeError.message,
+        safeError(removeError),
       );
       return refuse(
         500,
@@ -583,7 +584,7 @@ export async function DELETE(req: NextRequest) {
       .eq("user_id", user.id);
 
     if (deleteError) {
-      console.error("workspace delete row error:", deleteError.message);
+      console.error("workspace delete row error:", safeError(deleteError));
       return refuse(
         500,
         "CourtSimplified could not finish deleting this document.",
@@ -601,7 +602,7 @@ export async function DELETE(req: NextRequest) {
       removed: ["the file itself", "any extracted text", "the document record"],
     });
   } catch (error) {
-    console.error("workspace delete error:", error);
+    console.error("workspace delete error:", safeError(error));
     return refuse(500, "CourtSimplified could not delete this document.");
   }
 }

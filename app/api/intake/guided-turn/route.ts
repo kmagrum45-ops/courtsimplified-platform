@@ -14,6 +14,7 @@ import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
 import { situationAnswers, situationFromRaw } from "@/src/lib/case-system/situation/situation";
 import { heldFromRequest } from "@/src/lib/case-system/intake/asker";
+import { errorFrames } from "@/src/lib/logging/safeLog";
 
 /**
  * Session 11 -- the first piece of the intake foundation (Sessions 3-10)
@@ -105,6 +106,15 @@ const COURT_AREA_CONTENT: Record<
   "small-claims": { questionBank: QUESTION_BANK, claimTypes: CLAIM_TYPES },
 };
 
+/** The story reading's facts sent back by the page: at most 20 label/value pairs of plain text, else none. */
+function readingFromRequest(value: unknown): { label: string; value: string }[] {
+  if (!Array.isArray(value)) return [];
+  return value.slice(0, 20).flatMap((item) => {
+    const fact = item && typeof item === "object" ? (item as Record<string, unknown>) : {};
+    return typeof fact.label === "string" && typeof fact.value === "string" && fact.label.length <= 120 && fact.value.length <= 400 ? [{ label: fact.label, value: fact.value }] : [];
+  });
+}
+
 type GuidedTurnRequestBody = {
   facts: IntakeFacts;
   answeredIds: string[];
@@ -117,6 +127,8 @@ type GuidedTurnRequestBody = {
   situation?: Record<string, unknown>;
   /** THE ONE ASKER (founder, 1 Nov): the case file's slots (asker.ts heldForEngine). The engine never asks, nor proposes, a question whose fact it holds. */
   caseFile?: Record<string, unknown>;
+  /** The story reading the person was shown (home.understood facts), for the one offer reader only; never sent to a model. */
+  reading?: unknown;
   newStoryText?: string;
   /** Defaults to "small-claims" when omitted -- every caller today omits it. */
   courtArea?: SupportedCourtArea;
@@ -169,7 +181,7 @@ function isEarlierConversation(value: unknown): value is EarlierConversation {
     value.answers.every(
       (item) =>
         isRecord(item) &&
-        Object.keys(item).every((key) => key === "questionId" || key === "answerText") &&
+        confirmedKeysOk(item) &&
         typeof item.questionId === "string" &&
         item.questionId.length <= MAX_ANSWERED_ID_LENGTH &&
         typeof item.answerText === "string" &&
@@ -178,6 +190,15 @@ function isEarlierConversation(value: unknown): value is EarlierConversation {
   );
 }
 
+/**
+ * A confirmed answer's keys: its question and words, and optionally where it came from ("story-offer": a story value
+ * the person said Yes to; "not-sure": they chose I'm not sure), so it is never read as typed (site owner, 11 Nov 2026).
+ */
+function confirmedKeysOk(item: Record<string, unknown>): boolean {
+  return Object.keys(item).every((key) => key === "questionId" || key === "answerText" || (key === "source" && CONFIRMED_SOURCES.has(item.source as string)));
+}
+const CONFIRMED_SOURCES = new Set(["story-offer", "not-sure"]);
+
 function isConfirmedAnswers(value: unknown): value is ConfirmedStoryAnswer[] {
   return (
     Array.isArray(value) &&
@@ -185,7 +206,7 @@ function isConfirmedAnswers(value: unknown): value is ConfirmedStoryAnswer[] {
     value.every(
       (item) =>
         isRecord(item) &&
-        Object.keys(item).every((key) => key === "questionId" || key === "answerText") &&
+        confirmedKeysOk(item) &&
         typeof item.questionId === "string" &&
         item.questionId.length <= MAX_ANSWERED_ID_LENGTH &&
         typeof item.answerText === "string" &&
@@ -207,6 +228,7 @@ function isGuidedTurnRequestBody(value: unknown): value is GuidedTurnRequestBody
     "earlier",
     "situation",
     "caseFile",
+    "reading",
   ]);
   if (Object.keys(value).some((key) => !allowedKeys.has(key))) return false;
 
@@ -215,6 +237,8 @@ function isGuidedTurnRequestBody(value: unknown): value is GuidedTurnRequestBody
   if (value.situation !== undefined && !(isRecord(value.situation) && JSON.stringify(value.situation).length <= 2_000)) return false;
   // The case file (asker.ts heldForEngine: its slots, no story words), read slot by slot by heldFromRequest.
   if (value.caseFile !== undefined && !(isRecord(value.caseFile) && JSON.stringify(value.caseFile).length <= 20_000)) return false;
+  // The story reading (readingFromRequest keeps at most 20 plain label/value pairs; anything else in it is dropped).
+  if (value.reading !== undefined && !(Array.isArray(value.reading) && JSON.stringify(value.reading).length <= 20_000)) return false;
   if (
     value.newStoryText !== undefined &&
     !(typeof value.newStoryText === "string" && value.newStoryText.length <= MAX_STORY_TEXT_LENGTH)
@@ -341,7 +365,7 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
           apiKey,
           questionBank,
           courtArea,
-          { intakeOnly: true, held: heldFromRequest(body.caseFile) },
+          { intakeOnly: true, held: heldFromRequest(body.caseFile), reading: readingFromRequest(body.reading) },
           body.repropose,
         );
         return NextResponse.json({ ok: true, result: { ...withSituation(confirmedResult), evidenceGuidance: undefined, claimGuidance: undefined }, authenticated });
@@ -356,7 +380,7 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
         claimTypes,
         courtArea,
         body.answeredQuestionId,
-        { intakeOnly: true, held: heldFromRequest(body.caseFile) },
+        { intakeOnly: true, held: heldFromRequest(body.caseFile), reading: readingFromRequest(body.reading) },
         body.earlier,
       );
 
@@ -366,7 +390,8 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
       // carry the person's words) or anything secret.
       console.error("Guided intake turn route failed.", {
         errorName: error instanceof Error ? error.name : "unknown",
-        at: error instanceof Error ? (error.stack ?? "").split("\n").slice(1, 4).map((line) => line.trim()) : [],
+        // Frames only: the stack's first lines repeat the message, and run past line 1 when it holds a line break.
+        at: errorFrames(error),
       });
       return errorResponse("CourtSimplified could not process this intake turn right now.", 500);
     }

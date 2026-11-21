@@ -139,6 +139,8 @@ export default function TidyWordingReview({ fields }: { fields: TidyableField[] 
                 <div className="mt-3 flex flex-wrap gap-2">
                   {/* The one control every suggestion is offered with (owner, 31 Oct). */}
                   <UseSuggestion
+                    // A wording fix is no case-file fact: a choice keeps this fix from being offered again.
+                    offer={{ key: `tidy:${suggestion.key}`, fact: null }}
                     testId="tidy-wording-use"
                     onUse={() => resolve(suggestion.key, true)}
                     className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"

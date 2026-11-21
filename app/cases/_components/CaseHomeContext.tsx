@@ -5,7 +5,9 @@ import { createContext, useContext } from "react";
 
 import type { CasePosition } from "@/src/lib/case-system/casePosition";
 import { caseTitleFromIntake, isGeneratedTitle } from "@/src/lib/case-system/caseTitle";
-import { otherPartyOfMaster } from "@/src/lib/case-system/caseFile/caseFileOfMaster";
+import { caseFileOfMaster, otherPartyOfMaster } from "@/src/lib/case-system/caseFile/caseFileOfMaster";
+import { storyLines } from "@/src/lib/case-system/caseFile/storyLines";
+import { respondingFromRecord } from "@/src/lib/case-system/caseFile/caseFile";
 
 /** The case row the case page loads once and every section reads. */
 export type CaseRecord = {
@@ -74,7 +76,13 @@ export function caseTitle(record: CaseRecord): string {
   if (!loaded && typeof master.caseTitle === "string" && master.caseTitle.trim()) return master.caseTitle.trim();
   // Who the case is with, from the case file (the "The other party" line), else the saved copy of the answers: after a
   // restart the copy had no name while the case file did, and the heading went back to "Small Claims case" (F15).
-  return caseTitleFromIntake(otherPartyOfMaster(record.master_result, record.court_path), record.court_path);
+  const held = otherPartyOfMaster(record.master_result, record.court_path);
+  if (held) return caseTitleFromIntake(held, record.court_path);
+  // None held: the other party the story names, the same line "What we have so far" shows (storyLines.ts; Chrome
+  // milestone test of #550, S6: "Small Claims case" when the story said who was suing). Never a witness.
+  const file = caseFileOfMaster(record.master_result, record.court_path);
+  const told = storyLines(file.storyText ?? "", file, respondingFromRecord(file)).find((line) => line.fact === "otherParty")?.value ?? "";
+  return caseTitleFromIntake(told.replace(/^The /, "the "), record.court_path);
 }
 
 /**

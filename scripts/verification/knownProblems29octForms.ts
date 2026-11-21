@@ -14,7 +14,6 @@
 export type KnownProblem = { id: string; test: string; reason: string };
 
 export const KNOWN_PROBLEMS_29OCT_FORMS: KnownProblem[] = [
-  { id: "A1a", test: "A1a small-claims chat: the Plaintiff's Claim facts hold none of the site's questions", reason: "The chat's follow-up questions and answers are added to the saved story (guidedIntakeToSmallClaimsInput.ts facts), and the claim draft numbers every sentence of it as a fact (claimDraftEngine.ts buildNumberedFacts)." },
   { id: "A1b", test: "A1b responding and family drafts do not paste the whole story in", reason: "respondingDocumentDraft.ts and startingDocumentDraft.ts (civil, family) put userStory() into the facts section whole." },
   { id: "A1c", test: "A1c generate-form facts hold none of the site's questions or record labels", reason: "getCaseValues (app/api/generate-form/route.ts) deep-searches the whole saved case for a key named facts and finds intakeData.facts: the story plus Q/A lines (Small Claims) or the labelled record (Family)." },
   { id: "A2a", test: "A2a small-claims Plaintiff's Claim holds no analysis notes", reason: "claimDraftEngine.ts writes analysis.detectedIssues ('This claim appears to involve: contract, debt.') and analysis.damagesIssues ('Amount was captured...') into the draft." },

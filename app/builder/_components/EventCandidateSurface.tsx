@@ -393,6 +393,8 @@ export default function EventCandidateSurface({
                   {draft.suggestedType && !draft.eventType ? (
                     <span data-testid="event-candidate-suggested" className="mt-2 block">
                       <UseSuggestion
+                        // The kind of step is the Timeline's own answer, no case-file fact: a choice keeps the offer from coming back.
+                        offer={{ key: `event-kind:${candidate.fingerprint}`, fact: null }}
                         testId="event-candidate-use-suggestion"
                         what={CASE_EVENT_TYPES.find((definition) => definition.type === draft.suggestedType)?.label ?? draft.suggestedType}
                         note={draft.suggestedBasis}

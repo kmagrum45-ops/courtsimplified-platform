@@ -98,6 +98,14 @@ const checkpoint = (courtPath: Checkpoint["courtPath"], sections: Record<string,
   const placed = withCaseFileDates(withSituationDates({}, "family", situationOf(checkpoint("family", { situation: { record: { where: "served", papers: "family-8", receivedOn: "2026-10-12", court: "family", courtFrom: "papers" } } }).sections)), served, fullDayIn);
   check("Family served: the application's service day is the step page's answer (placed by the papers picked)", placed["case-date-served-with-application"] === "2026-10-12", JSON.stringify(placed));
   check("one served day is never copied into another paper's served-date question", !("case-date-served-with-motion-to-change" in placed) && !("sc-date-defendants-claim-served" in placed) && !("sc-date-claim-served" in placed), JSON.stringify(placed));
+  // Served, papers not named ("not sure"): the situation places the day on no question, yet the case file holds it, so the
+  // court's own served-date question reads it; never asked again (ask-once story sc-served-kitchen-home, 14 Nov: the case
+  // page asked "How were the papers served?" with the date, the header already saying "served October 20, 2026").
+  for (const [court, id] of [["small-claims", "sc-date-claim-served"], ["civil", "sc-date-claim-served"], ["family", "case-date-served-with-application"]] as const) {
+    const sections = { situation: { record: { where: "served", papers: "not-sure", receivedOn: "2026-10-20", court } } };
+    const notNamed = withCaseFileDates(withSituationDates({}, court, situationOf(checkpoint(court, sections).sections)), caseFileOf(checkpoint(court, sections)), fullDayIn);
+    check(`${court} served, papers not named: the day held is the served-date question's answer`, notNamed[id] === "2026-10-20", JSON.stringify(notNamed));
+  }
 }
 
 // 6. The independent reviewer's findings (2026-10-24), each held as a property.

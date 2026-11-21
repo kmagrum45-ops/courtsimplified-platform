@@ -1,19 +1,18 @@
 /**
- * FAILING FIRST: TWO TABS, ONE FACT EACH -- A PER-FACT CONFLICT, NEVER A SILENT LOSS (case core G0; §12).
+ * TWO TABS, ONE FACT EACH -- A PER-FACT CONFLICT, NEVER A SILENT LOSS (case core G0; §12).
  *
- * EXPECTED TO FAIL TODAY. The server's half of the rule is built and passes (test:fact-rails: a write made
- * against an older view of a fact is a conflict for that fact only; the others save; "Save" makes it the
- * newest). No screen uses it yet, so the page half fails: there is no "Not saved yet" in any intake screen
- * (grep finds the words only in forms/FormsWorkspace.tsx:988, an unrelated prefill), and the tab saves its
- * whole checkpoint against one revision (intakeCheckpoint.ts:97 "intake-conflict"), so a second tab's
- * edit is refused or overwrites as a whole, never per fact.
+ * Written failing first (G0); both halves are now built: the server (test:fact-rails: a write made against an
+ * older view of a fact is a conflict for that fact only; the others save) and the page
+ * (app/_components/NotSavedYet.tsx: "Not saved yet: <fact>", this tab's answer and the newer saved one beside it,
+ * and "Save mine" to make this tab's the newest). Selectors updated 10 Nov 2026 to that markup
+ * (data-testid="not-saved-yet-<fact>", button "Save mine"); every check keeps its meaning. Not in CI.
  *
  * Steps (design §12), on the Small Claims whole form, signed in through the real save path:
  *   1. the same case open in two tabs;
  *   2. the amount changed in tab 1 (6000) and saved;
  *   3. the amount changed differently in tab 2 (7000), and the other party (another fact) too, and saved;
  *   4. tab 2 shows "Not saved yet" with tab 1's value (6000) beside it, and tab 2's other party is saved;
- *   5. "Save" in tab 2; both tabs reloaded show 7000, and so does the case page.
+ *   5. "Save mine" in tab 2; both tabs reloaded show 7000, and so does the case page.
  *
  * THE REAL SAVE PATH: a real staging user and session (authenticateRealTestUser, refuses production).
  * Stand-ins, the only ones: the routes that would call a model (serveModelStandIns) and the situation
@@ -33,7 +32,11 @@ const amountBox = (page: Page) => page.getByTestId("sc-intake-amountClaimed");
 async function typeAmount(page: Page, amount: string) {
   await expect(amountBox(page)).toBeVisible({ timeout: 60_000 });
   await amountBox(page).fill(amount);
+  // Wait for this tab's save to reach the server, so the two tabs' saves land in the order the steps say
+  // (without it, tab 2's save could land first and the conflict would be tab 1's).
+  const answered = page.waitForResponse((response) => response.url().includes("/api/cases/facts") && response.request().method() === "POST", { timeout: 60_000 });
   await amountBox(page).blur();
+  await answered;
   await savedNow(page);
 }
 const openForm = async (page: Page, caseId: string) => {
@@ -65,14 +68,17 @@ test("two tabs (small-claims): the amount changed in both tabs is a conflict for
     // 4. Tab 2: "Not saved yet" with tab 1's value beside it; its other fact saved.
     const notSaved = tab2.getByText(/Not saved yet/).first();
     await expect(notSaved, "tab 2 shows its amount as not saved yet").toBeVisible({ timeout: 30_000 });
-    const holder = tab2.locator("[data-fact=amount]").filter({ hasText: /Not saved yet/ });
+    const holder = tab2.getByTestId("not-saved-yet-amount");
+    await expect(holder, "the not-saved-yet notice is for the amount").toContainText(/Not saved yet/);
     await expect(holder, "tab 1's saved value is shown beside it").toContainText(/6,?000/);
+    await expect(holder, "tab 2's own entry is shown too").toContainText(/7,?000/);
+    await expect(tab2.locator('[data-testid^="not-saved-yet-"]').filter({ hasText: /Not saved yet/ }), "only the amount is not saved yet").toHaveCount(1);
     await openForm(page, caseId);
     await expect(page.getByTestId("sc-intake-otherParty"), "tab 2's other fact (the other party) is saved").toHaveValue("Beta Movers Ltd.");
     await expect(amountBox(page), "tab 2's conflicting amount was not applied").toHaveValue(/6,?000/);
 
-    // 5. "Save" in tab 2 makes it the newest save.
-    await holder.getByRole("button", { name: /^Save$/ }).click();
+    // 5. "Save mine" in tab 2 makes it the newest save.
+    await holder.getByRole("button", { name: /^Save mine$/ }).click();
     await savedNow(tab2);
     await openForm(page, caseId);
     await openForm(tab2, caseId);

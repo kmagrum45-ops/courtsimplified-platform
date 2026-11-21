@@ -153,7 +153,12 @@ check("a story with no such words offers nothing", storyAnswerFor("married-to-ot
   const triage = readFileSync(path.resolve(process.cwd(), "app/builder/_components/FamilyStatusTriage.tsx"), "utf8");
   check(
     "the triage says the suggestion plainly and records it on one click",
-    /storySuggestionFor\(current\.id, story\)/.test(triage) && /data-testid="triage-story-suggestion"[\s\S]{0,500}Is this right: <strong>\{suggestion\.say\}<\/strong>\?[\s\S]{0,400}<UseSuggestion[\s\S]{0,200}onUse=\{\(\) => record\(suggestion\.value\)\}/.test(triage),
+    // The box and the question are drawn by the one control (its frame and ask), so they never show without its buttons (PR #550 CI).
+    // The words "Is this right: <value>?" are the shared wording (askCopy.ts), so the screen renders no question text of its
+    // own (test:askers-fact-status rule e; site owner, 18 Nov 2026): the same words, checked where they now live.
+    /storySuggestionFor\(current\.id, story\)/.test(triage) && /<UseSuggestion[\s\S]{0,200}onUse=\{\(\) => record\(suggestion\.value\)\}[\s\S]{0,600}frame=\{\{ testId: "triage-story-suggestion"[\s\S]{0,300}ask=\{[^\n]*\{IS_THIS_RIGHT_BEFORE\}<strong>\{suggestion\.say\}<\/strong>\{IS_THIS_RIGHT_AFTER\}/.test(triage)
+      && /export const IS_THIS_RIGHT_BEFORE = "Is this right: ";/.test(readFileSync(path.resolve(process.cwd(), "src/lib/case-system/copy/askCopy.ts"), "utf8"))
+      && /export const IS_THIS_RIGHT_AFTER = "\?";/.test(readFileSync(path.resolve(process.cwd(), "src/lib/case-system/copy/askCopy.ts"), "utf8")),
   );
 }
 

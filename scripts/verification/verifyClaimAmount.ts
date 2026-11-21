@@ -52,6 +52,12 @@ const CASES: [string, string, string | null][] = [
   ["a refund plus a replacement, wanted together: the total", "Marcus had his laptop repaired by Circuit Doctors Inc. in July 2026 for $450. He wants a refund of $450 plus the $1,200 he paid to replace it.", "$1,650"],
   ["two prices joined by 'and' are not added", "I hired them for $8,000 and paid $2,000.", null],
   ["'plus' outside what they want is not added", "The bill was $450 plus $60 in tax and I paid it.", null],
+  // Claimed as a list, each amount with what it is for (Chrome's forms test on #550, 14 Nov 2026; rule 8: $5,000 / $450 /
+  // $18.45 / $5,468.45 the same everywhere): the total, offered with their words. Only after "claim" or "asking for", and
+  // only when every amount in the list says what it is for; a list of prices or payments is not added.
+  ["amounts claimed as a list, each for something: the total", "On October 4, 2026 I slipped on a wet floor at the Circle K on Sample Road in Ottawa and fell. I want to claim $5,000 for pain and suffering, $450 in lost wages and $18.45 for medicine.", "$5,468.45"],
+  ["two amounts claimed, each for something: the total", "The mover broke my table. I am claiming $1,200 for the table and $300 for the delivery.", "$1,500"],
+  ["a list of prices, not claimed, is not added", "I paid $1,200 for the table and $300 for the delivery.", null],
 ];
 for (const [name, story, want] of CASES) {
   const got = claimAmountFromStory(story);

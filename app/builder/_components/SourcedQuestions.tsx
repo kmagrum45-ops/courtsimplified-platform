@@ -2,6 +2,8 @@
 
 import { useIntakeReviewView, useIntakeState, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, intakeGuidanceHeaders } from "../../_components/IntakeRecovery";
 import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
+import { mayAskWords } from "../../../src/lib/case-system/caseFile/factStatus";
+import { caseFileOf, respondsToTheCase } from "../../../src/lib/case-system/caseFile/caseFile";
 
 import { useCallback, useEffect, useRef, type ReactNode } from "react";
 import { IntakeRequest } from "../../_components/intakeRequest";
@@ -59,6 +61,13 @@ export { readSourcedAnswers, sourcedAnswerListText, withSourcedAnswerList, MAX_K
  * it again, and they stay in `answeredList()` so they are saved again and
  * reach the analysis. Before, they were lost after the analysis ran.
  */
+/**
+ * OFF, AND IT STAYS OFF (site owner, 19 Nov 2026): no question the AI writes reaches the person. A question is tied to a
+ * fact by its id and asked in the site's own fixed words (questions/factQuestions.ts); these were tied by their wording,
+ * so a fact asked in other words was asked again (Chrome pass 3 on #550). test:no-ai-question-text fails if this is true.
+ */
+export const AI_WRITTEN_QUESTIONS = false;
+
 export function useSourcedQuestions(courtPath: "small-claims" | "civil" | "family", earlier: readonly SourcedAnswer[] = []) {
   const recovery = useIntakeRecovery();
   const beforeIntakeAI = useBeforeIntakeAI();
@@ -79,6 +88,7 @@ export function useSourcedQuestions(courtPath: "small-claims" | "civil" | "famil
 
   const start = useCallback(
     async (story: string, side?: string) => {
+      if (!AI_WRITTEN_QUESTIONS) return;
       const view = recovery?.getReview();
       if (!view || reviewPhase(view.workflowStatus, view.checkpoint) !== "user-confirmed") return;
       const text = story.trim();
@@ -127,8 +137,14 @@ export function useSourcedQuestions(courtPath: "small-claims" | "civil" | "famil
         if (!response.ok || !data.ok) throw new Error("Questions did not finish.");
         // A question already answered on an earlier visit, word for word, is not asked again.
         const already = new Set(earlierRef.current.map((item) => item.question.trim().toLowerCase()));
+        // And through the one function: a question whose fact the case file holds (known or settled) is not asked again,
+        // whatever its words (caseFile/factStatus.ts mayAskWords; Chrome milestone pass 2: the AI's own questions were
+        // checked only against earlier questions word for word).
+        const review = recovery?.getReview?.();
+        const file = review ? caseFileOf(review.checkpoint, recovery?.getSavedMaster() ?? undefined) : null;
         const list = (Array.isArray(data.questions) ? data.questions : [])
           .filter((item) => !already.has(item.question.trim().toLowerCase()))
+          .filter((item) => mayAskWords(file, item.question, { court: courtPath, responding: file ? respondsToTheCase(file) : false }))
           .slice(0, 5);
         setQuestions(list);
         setAnswers({});
@@ -157,7 +173,8 @@ export function useSourcedQuestions(courtPath: "small-claims" | "civil" | "famil
     return [...earlierRef.current.filter((item) => !replaced.has(item.question.trim().toLowerCase())), ...now].slice(-MAX_KEPT_ANSWERS);
   }, [questions, answers]);
 
-  return { state, questions, answers, setAnswer, start, answeredList };
+  // Off: no question, and "none" so every intake goes straight on (a case saved with questions shows none of them).
+  return { state: AI_WRITTEN_QUESTIONS ? state : ("none" as SourcedQuestionsState), questions: AI_WRITTEN_QUESTIONS ? questions : [], answers, setAnswer, start, answeredList };
 }
 
 /**

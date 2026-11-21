@@ -34,7 +34,8 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { storyLines } from "../../src/lib/case-system/caseFile/storyLines";
+import { listedSlotFacts, storyLines } from "../../src/lib/case-system/caseFile/storyLines";
+import { factStatus } from "../../src/lib/case-system/caseFile/factStatus";
 import { caseFileOf, courtDateIsConference, DISPUTE_CATEGORY_WORDS, saysNoDateYet, slotText } from "../../src/lib/case-system/caseFile/caseFile";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { evidenceIn, otherSideIn } from "../../src/lib/case-system/caseFile/storyFacts";
@@ -201,8 +202,17 @@ for (const [story, want] of [
   const unsureFile = { ...caseFileOf({ version: 1, flowId: "00000000-0000-4000-8000-000000000027", courtPath: "civil", revision: "00000000-0000-4000-8000-000000000027", sections: { story: { text: "Synthetic." } } } as never), otherParty: { state: "unsure", confirmed: true } } as ReturnType<typeof caseFileOf>;
   const said = storyLines("On June 3, 2025 I was stopped by two officers of the TEST Capital Region Police Service, badges 4471 and 5520.", unsureFile, false).find((line) => line.fact === "otherParty");
   check("'not sure' to the other party: the story's words are still shown", /4471 and 5520/.test(said?.value ?? ""), JSON.stringify(said));
+  // The approved pattern (site owner, 18 Nov 2026), now in the one function the panel calls, and a check that runs it.
   const panel = fs.readFileSync(path.join(ROOT, "app/cases/_components/CaseFilePanel.tsx"), "utf8");
-  check("and the fact is listed once, not also as 'Not sure yet'", /state === "unsure" && toldInStory\.has\(fact\)/.test(panel));
+  const lines = fs.readFileSync(path.join(ROOT, "src/lib/case-system/caseFile/storyLines.ts"), "utf8");
+  check("and the fact is listed once, not also as 'Not sure yet'", /status\(fact\) === "settled" && toldInStory\.has\(fact\)/.test(lines) && /listedSlotFacts\(file, toldInStory,/.test(panel));
+  const told = new Set(["otherParty"]);
+  const shown = () => true;
+  const confirmed = { ...unsureFile, otherParty: { state: "unsure", confirmed: true } } as typeof unsureFile;
+  const unconfirmed = { ...unsureFile, otherParty: { state: "unsure", confirmed: false } } as typeof unsureFile;
+  check("a confirmed 'not sure' the story tells is left out of the list (listed once, in the story's words)", !listedSlotFacts(confirmed, told, shown, false).includes("otherParty"));
+  check("self-test: a confirmed 'not sure' the story does not tell is listed (the quiet line)", listedSlotFacts(confirmed, new Set(), shown, false).includes("otherParty"));
+  check("an unconfirmed 'not sure' is still to ask: not listed as settled", factStatus(unconfirmed, "otherParty") === "ask" && !listedSlotFacts(unconfirmed, new Set(), shown, false).includes("otherParty"));
 }
 check("Small Claims papers read as words", !/plaintiffs-claim|affidavit-service/.test(inWords(["plaintiffs-claim", "affidavit-service"])), inWords(["plaintiffs-claim", "affidavit-service"]));
 {
@@ -213,6 +223,20 @@ check("Small Claims papers read as words", !/plaintiffs-claim|affidavit-service/
 }
 check("case 20: the kind of dispute answered in the chat is held in its words", chatKind.claimKind.state === "answered" && chatKind.claimKind.value === "Unpaid money owed to you", JSON.stringify(chatKind.claimKind));
 for (const [read, story, want] of FILED) check(`papers filed, from the story: "${story}" -> ${want || "nothing offered"}`, filed(read, story) === want, filed(read, story));
+
+// Chrome check of #550, S1: "Lost pay $150 (3 days of work)" where the story gave $150 a day and a total of $450. A rate
+// is never shown as the loss, and a total the person gave is never replaced by the rate.
+{
+  const lostPay = (story: string) => storyLines(story, caseFileOf(null), false).find((line) => line.fact === "lostPay")?.value ?? "";
+  const withTotal = lostPay("I missed 3 days of work, October 5 to 7, 2026, at $150 per day; $450 total.");
+  check("lost pay: a total the person gave is the amount, never the daily rate", /\$450/.test(withTotal) && !/^\$150\b/.test(withTotal), withTotal);
+  const rateOnly = lostPay("I missed 3 days of work at $150 a day.");
+  check("lost pay: a daily rate alone is said as a rate, never as the loss", /\$150 (?:a|per) day/.test(rateOnly), rateOnly);
+  // Chrome forms test on #550, row 6: "Lost pay $18.45 (from your story)" for "$450 in lost wages and $18.45 for medicine":
+  // the amount said for the lost pay is the one before "in lost wages", never the next amount in the sentence.
+  const listed = lostPay("I want to claim $5,000 for pain and suffering, $450 in lost wages and $18.45 for medicine.");
+  check("lost pay: \"$450 in lost wages\" is $450, never the next amount ($18.45 for medicine)", /^\$450\b/.test(listed), listed);
+}
 
 console.log(failures ? `\n${failures} failure(s)` : "\nall passed");
 process.exitCode = failures ? 1 : 0;

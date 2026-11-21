@@ -27,6 +27,7 @@
  */
 import { readFileSync } from "node:fs";
 import path from "node:path";
+import { firstOfferExcused } from "../../tests/browser/harness/askOnce";
 import { ASK_ONCE_SCAN, chatQuestionAnswered, chatReplyReader, diagnosticOf, withPageHeld, factsAskedTwice, factsOfAsk, heldFacts, heldInRows, heldViolations, repeatViolations, withHeldFacts, type Asked } from "../../tests/browser/harness/askOnce";
 import { KNOWN_REPEATS, knownRepeatFor, splitKnown, type KnownRepeat, type Violation } from "../../tests/browser/harness/knownRepeats";
 import { QUESTION_WORDS, factsOfWords, questionSentences } from "../../tests/browser/harness/chatQuestionFacts";
@@ -205,6 +206,14 @@ const ask = (surface: string, id: string, text = id): Asked => ({ kind: "ask", s
   let parses = true;
   try { new Function(scan); } catch { parses = false; }
   check("the recorder script parses, and its chat answer goes through chatQuestionAnswered", parses && scan.includes("chatQuestionAnswered({ pressedAnswer: chatPressed.has(chatKey)"));
+  // An empty box is a question only once steadily empty ON THE SAME SCREEN (site owner, 16 Nov 2026: on #550's CI the
+  // scans from the screen being left counted on the new one; watcher-steady-by-screen.spec.ts shows it in the browser).
+  // One counter, keyed by screen and box, and every emptiness test of a box in the surfaces goes through it.
+  check("steadyEmpty counts empty scans by screen as well as by box", /const steadyEmpty = \(box, empty\) => \{ const key = screen\(\) \+ "\|" \+ box;/.test(scan));
+  check("no other counter of empty scans in the recorder (one place owns it)", (scan.match(/emptyScans\.set\(/g) ?? []).length === 1 && (scan.match(/Scans\s*=\s*new Map/g) ?? []).length === 1);
+  const surfacesText = scan.slice(scan.indexOf("const surfaces = ["), scan.indexOf("\n  ];", scan.indexOf("const surfaces = [")));
+  const emptinessTests = surfacesText.split("\n").filter((line) => /!\s*[\w.]*\.value\b|\.value(?:\.trim\(\))?\s*===\s*""/.test(line));
+  check("every emptiness test of a box in the recorder's surfaces goes through steadyEmpty", emptinessTests.length > 0 && emptinessTests.every((line) => line.includes("steadyEmpty(")), emptinessTests.filter((line) => !line.includes("steadyEmpty(")).join(" | "));
   // The run-4 sequence: the chat shows "What kind of case is it?", the person opens the whole form (no
   // answer recorded), the review asks it: one question, not a repeat. Pressed and answered, the review asking again is one.
   const kindAsk = (surface: string, id: string, at: number): Asked => ({ kind: "ask", surface, id, screen: "/builder", text: "What kind of case is it?", at });
@@ -239,6 +248,28 @@ const ask = (surface: string, id: string, text = id): Asked => ({ kind: "ask", s
   const again = repeatViolations(factsAskedTwice([given, box(3)], false));
   check("the story sent on the home page, then the chat's story box: asked twice (fact story)", again.length === 1 && again[0].fact === "story", JSON.stringify(again));
   check("the chat's story box before any story was given: not a repeat", factsAskedTwice([box(1), { kind: "answer", surface: "sc-story", id: "story", screen: "/builder?step=guided", text: "", at: 2 }], false).length === 0);
+}
+
+// THE ASK-ONCE PAGE TEST'S OFFER RULE (site owner, 17 Nov): a fact is offered ONCE, on the first page that needs it; a
+// SECOND offer of the same fact is asked again, the first is not; a cold question is never excused. The Forms tab's
+// offer ("Are you making a Defendant's Claim?", from "She owes me $500" typed in the chat) is its own surface.
+{
+  const OFFERS = new Set(["sc-proposal", "forms-offer"]);
+  const DEFENDANTS_CLAIM = "Are you making a Defendant's Claim in this Ontario Small Claims Court matter?";
+  const chatAsk = ask("sc-chat", "sc-defendant-counterclaim");
+  const chatAnswer: Asked = { ...chatAsk, kind: "answer", text: "She owes me $500", at: ++at };
+  const formsOffer: Asked = { ...ask("forms-offer", DEFENDANTS_CLAIM), screen: "/cases/:id/forms" };
+  const once = [chatAsk, chatAnswer, formsOffer];
+  const onceViolations = repeatViolations(factsAskedTwice(once, false));
+  check("offer rule: the gate itself still finds the Forms offer after the chat answer (outcome given, then offered)", onceViolations.some((v) => v.surface === "forms-offer" && v.fact === "defendantsClaim"), JSON.stringify(onceViolations));
+  check("offer rule: the FIRST offer of the fact (the Forms tab, after it was asked and answered in the chat) is not asked again", onceViolations.filter((v) => !firstOfferExcused(v, once, OFFERS)).length === 0, JSON.stringify(onceViolations));
+  const proposal: Asked = { ...ask("sc-proposal", "sc-defendant-counterclaim"), at: chatAsk.at - 0.5 };
+  const twice = [proposal, chatAsk, chatAnswer, formsOffer];
+  const twiceViolations = repeatViolations(factsAskedTwice(twice, false)).filter((v) => v.surface === "forms-offer");
+  check("offer rule: a SECOND offer of the same fact (the story's suggestion in the chat, then the Forms tab) is asked again", twiceViolations.length > 0 && twiceViolations.every((v) => !firstOfferExcused(v, twice, OFFERS)), JSON.stringify(twiceViolations));
+  const cold: Asked = { ...ask("forms", DEFENDANTS_CLAIM), screen: "/cases/:id/forms" };
+  const coldViolations = repeatViolations(factsAskedTwice([chatAsk, chatAnswer, cold], false));
+  check("offer rule: a cold question of a fact already answered is never excused", coldViolations.length > 0 && coldViolations.every((v) => !firstOfferExcused(v, [chatAsk, chatAnswer, cold], OFFERS)), JSON.stringify(coldViolations));
 }
 
 if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }

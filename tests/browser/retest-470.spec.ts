@@ -25,6 +25,7 @@ import { runFamilyIntakeCanonicalIntegration } from "../../src/lib/case-system/o
 import { runCivilIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
 import { applyPositionPatch, readCasePosition } from "../../src/lib/case-system/casePosition";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -101,7 +102,7 @@ async function confirmAndContinue(page: Page) {
   const panel = page.getByTestId("intake-review");
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
   // The form ends with "Continue to your next steps"; questions stopped early, "Show my next step".
@@ -221,7 +222,7 @@ for (const [name, story, offered, never] of [
     await grantSiteAccess(page);
     await fakeAccount(page);
     const amount = await smallClaimsReview(page, story);
-    await expect(amount.getByRole("button", { name: `Use the suggestion: ${offered}` })).toBeVisible();
+    await expect(amount.getByRole("button", { name: `Yes: ${offered}` })).toBeVisible();
     for (const wrong of never) {
       await expect(amount.getByRole("button", { name: new RegExp(wrong.replace(/[$,]/g, "\$&")) })).toHaveCount(0);
       expect(await reviewValues(page), `no box in the review holds ${wrong}`).not.toContain(wrong);
@@ -235,7 +236,7 @@ test("Small Claims: a price and a payment with nothing said to be owed: no amoun
   await fakeAccount(page);
   const amount = await smallClaimsReview(page, "Synthetic story: I hired Test Renovations Ltd. to build a deck for $8,000. I paid $2,000 and they never finished.");
   await expect(amount, "the amount is asked").toBeVisible();
-  await expect(amount.getByRole("button", { name: /^Use the suggestion/ })).toHaveCount(0);
+  await expect(amount.getByRole("button", { name: /^Yes: / })).toHaveCount(0);
   expect(await reviewValues(page)).not.toMatch(/\$\d/);
 });
 

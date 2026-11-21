@@ -49,6 +49,8 @@ type ChatMessage = {
   id?: string;
   /** The law has been saved with the case. */
   lawSaved?: boolean;
+  /** A ready-made question the person pressed (a chip), not words they typed (site owner, 11 Nov 2026). */
+  source?: "chip";
 };
 
 type CourtAssistantChatProps = {
@@ -183,7 +185,6 @@ const quickActions = [
   "What is the most important thing I should clarify next?",
   "What evidence am I missing?",
   "What legal issues should be reviewed?",
-  "What would a judge likely be concerned about?",
   "What should I fix before generating documents?",
 ];
 
@@ -943,7 +944,7 @@ function CourtAssistantChatInner({
     systemWarnings,
   ]);
 
-  async function sendMessage(customMessage?: string) {
+  async function sendMessage(customMessage?: string, source?: "chip") {
     const trimmed = clean(customMessage ?? input);
 
     if (!trimmed || loading) {
@@ -953,6 +954,7 @@ function CourtAssistantChatInner({
     const userMessage: ChatMessage = {
       role: "user",
       content: trimmed,
+      ...(source ? { source } : {}),
     };
 
     const nextMessages = [...messages, userMessage];
@@ -1438,7 +1440,7 @@ function CourtAssistantChatInner({
               <button
                 key={action}
                 type="button"
-                onClick={() => sendMessage(action)}
+                onClick={() => sendMessage(action, "chip")}
                 disabled={loading}
                 className="rounded-full border border-[#b8d8cc] bg-[#f4fbf8] px-4 py-2 text-sm font-medium text-[#2f7d67] hover:bg-[#e8f6f1] disabled:cursor-not-allowed disabled:opacity-50"
               >

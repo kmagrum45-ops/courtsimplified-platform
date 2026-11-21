@@ -1,0 +1,71 @@
+/**
+ * WHAT THE STORY STATES, OFFERED ONCE (site owner, 11 Nov 2026: "A value stated in the story is proposed once for
+ * confirmation and never asked cold afterward"; "a quote or estimate in a story may be offered once as the amount").
+ *
+ * The chat's story offers came only from the AI's proposals. When the AI proposed nothing for a question whose fact the
+ * story states (the tree story's "a quote for 1500"; a date written in full), the chat asked it cold. The one story
+ * reader (intakeReview.ts statedInStory) now adds an offer for each such question the AI left out, quoting the
+ * sentence it read the value from. Each is still only an offer: Yes / No, that's not right / I'm not sure.
+ *
+ * Pure: no model, no network.
+ */
+import { STORY_STATED_FACTS as STATED_FACTS, statedInStory } from "../intakeReview";
+import type { ReadingFact } from "../caseFile/storyOffers";
+import { formatForCourt, isRealIsoDate } from "../dates";
+import { factsOfQuestion } from "../caseFile/factsOfQuestion";
+import { sentences } from "../sentences";
+import { formatRecordedAmount } from "../format/recordedAmount";
+import type { IntakeQuestion } from "./questionBank";
+/** An offer as the chat card shows it (the AI's proposals have this shape too, plus their choices). */
+export type StatedOffer = { questionId: string; questionText: string; answer: string; storyQuote: string; dateQuestion?: boolean };
+
+/** The sentence of the story a value was read from (its digits or its date's words), for the offer's quote. */
+function quoteFor(story: string, fact: (typeof STATED_FACTS)[number], value: string): string {
+  const all = sentences(story);
+  const digits = value.replace(/\.00$/, "");
+  const found = fact === "amount"
+    ? all.find((sentence) => sentence.replace(/[$,]/g, "").includes(digits))
+    : fact === "whenHappened"
+      ? (isRealIsoDate(value)
+        ? all.find((sentence) => sentence.includes(String(Number(value.slice(8, 10)))) && sentence.includes(value.slice(0, 4)))
+        : all.find((sentence) => sentence.toLowerCase().includes(value.toLowerCase())))
+      : all.find((sentence) => sentence.toLowerCase().includes(value.toLowerCase().slice(0, 20)));
+  return (found ?? all[0] ?? story).trim().slice(0, 300);
+}
+
+/** How the offer shows the value: a day as the court writes it, an amount in dollars, the words as written. */
+function shown(fact: (typeof STATED_FACTS)[number], value: string): string {
+  // A month and year ("March 2026") is shown as the story wrote it; a full date as the court writes it.
+  if (fact === "whenHappened") return isRealIsoDate(value) ? formatForCourt(value) : value;
+  if (fact === "amount") return formatRecordedAmount(value);
+  return value;
+}
+
+/**
+ * The AI's proposals, plus an offer for each question the story states the fact of and the AI did not propose.
+ * `questions`: the questions due now, in order. Never more than one offer per question.
+ */
+export function withStatedProposals<P extends StatedOffer>(story: string, questions: readonly IntakeQuestion[], proposals: readonly P[], reading: readonly ReadingFact[] = []): (P | StatedOffer)[] {
+  // The one offer reader (caseFile/storyOffers.ts): the story reading's amount, when the story writes it, else the story's.
+  const stated = statedInStory(story, reading);
+  const proposed = new Set(proposals.map((proposal) => proposal.questionId));
+  const added: StatedOffer[] = [];
+  for (const question of questions) {
+    if (proposed.has(question.id)) continue;
+    const fact = STATED_FACTS.find((candidate) => factsOfQuestion(question.id).includes(candidate) && stated[candidate]);
+    if (!fact) continue;
+    const value = stated[fact] as string;
+    added.push({
+      questionId: question.id,
+      questionText: question.text,
+      answer: shown(fact, value),
+      storyQuote: quoteFor(story, fact, value),
+      ...(fact === "whenHappened" ? { dateQuestion: true } : {}),
+    });
+    proposed.add(question.id);
+  }
+  // Every amount offer, the AI's own included, as the rest of the site shows an amount ("$1,500.00"; Chrome check of
+  // #550, 2.6: the AI's "$1500" reached the chat, the review and the draft as written). Not a plain sum: as written.
+  const asShown = <O extends StatedOffer>(offer: O): O => (factsOfQuestion(offer.questionId).includes("amount") ? { ...offer, answer: formatRecordedAmount(offer.answer) || offer.answer } : offer);
+  return [...proposals.map(asShown), ...added];
+}

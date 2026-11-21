@@ -19,6 +19,9 @@ import { answerChanges, UnmappedField } from "../../src/lib/case-system/caseFile
 import { fieldRow } from "../../src/lib/case-system/caseFile/fieldFacts";
 import type { FactId } from "../../src/lib/case-system/caseFile/factRecord";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
+import { readParties, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
+import { PARTY_DETAIL_TYPES, partyDetailFits } from "../../src/lib/case-system/caseFile/factTypes";
+import { offerChoiceParts, OFFER_CHOICES_FIELD, type OfferChoice, type OfferTarget } from "../../src/lib/case-system/caseFile/offerChoice";
 
 /** The parts of the intake recovery the writer uses (IntakeRecovery's value, or a stand-in in the checks). */
 export type CaseWriteRecovery = {
@@ -80,4 +83,38 @@ export function choosePending(recovery: CaseWriteRecovery, fact: SlotFact, keepM
 export function writeFormBox(recovery: CaseWriteRecovery, section: string, field: string, value: unknown): void {
   const saved = recovery.read(section, "input");
   writeAnswer(recovery, section, "input", { ...(saved && typeof saved === "object" ? (saved as Record<string, unknown>) : {}), [field]: value });
+}
+
+/**
+ * The parties (site owner, 14 Nov 2026, rule 1): the whole record, saved into the case record's own section
+ * (CASE_FILE_SECTION.parties), where caseFileOf reads it. The one place parties are written: the Parties step
+ * (PartiesStep.tsx) calls this and nothing else. Checked before it is saved (parties.ts readParties): a record that is
+ * not well formed is refused, never half-saved.
+ */
+export function writeParties(recovery: CaseWriteRecovery, record: PartiesRecord): void {
+  const checked = readParties(JSON.parse(JSON.stringify(record)));
+  if (!checked) throw new Error("The parties could not be saved: the record is not well formed.");
+  // A detail written now keeps only a value of its type: a place is never a name (factTypes.ts; decision 1, 18 Nov 2026).
+  // Only what changed is checked, so a record saved before the rule is still read and saved as it was.
+  const before = readParties(recovery.read(CASE_FILE_SECTION, "parties"));
+  for (const party of checked.list) {
+    const was = before?.list.find((item) => item.id === party.id);
+    for (const [detail, value] of Object.entries(party.details)) {
+      if (typeof value !== "string" || !value.trim() || (was?.details as Record<string, unknown> | undefined)?.[detail] === value) continue;
+      if (!partyDetailFits(detail, value)) throw new Error(PARTY_DETAIL_TYPES[detail as keyof typeof PARTY_DETAIL_TYPES] === "name" ? `“${value.trim()}” cannot be a name here: it is a place or a question. Type the name, or leave it empty.` : `“${value.trim()}” does not fit this box.`);
+    }
+  }
+  recovery.put(CASE_FILE_SECTION, "parties", checked, true, true, true);
+}
+
+/**
+ * The person's No or I'm not sure on an offer (site owner, 14 Nov 2026; offerChoice.ts): kept under the offer's key, and
+ * for "I'm not sure" on an offer for a fact, that fact settled "not sure" in the change record (sent to the server like
+ * every edit). The one place an offer's choice is written for a screen with the intake's save (offerChoiceSave.ts).
+ */
+export function writeOfferChoice(recovery: CaseWriteRecovery, target: OfferTarget, choice: OfferChoice): void {
+  const seen = target.fact ? seenSeqOf({ [CASE_FILE_SECTION]: { facts: recovery.read(CASE_FILE_SECTION, "facts") } }, target.fact) : undefined;
+  const parts = offerChoiceParts({ offerChoices: recovery.read(CASE_FILE_SECTION, OFFER_CHOICES_FIELD), changes: recovery.read(CASE_FILE_SECTION, "changes") }, target, choice, new Date(), seen, caseFileOf(recovery.getReview().checkpoint, recovery.getSavedMaster() ?? undefined));
+  recovery.put(CASE_FILE_SECTION, OFFER_CHOICES_FIELD, parts.offerChoices, true, true, true);
+  if (parts.changes) recovery.put(CASE_FILE_SECTION, "changes", parts.changes, true, true, true);
 }

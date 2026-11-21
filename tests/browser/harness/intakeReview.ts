@@ -1,11 +1,27 @@
 /** Explicitly record unknown initial answers through the UI, then confirm the current summary. */
-import { expect, type Page } from "@playwright/test";
+import { expect, type Locator, type Page } from "@playwright/test";
+import { factsOfQuestion } from "../../../src/lib/case-system/caseFile/factsOfQuestion";
+/** The review question each box belongs to (its data-question), or null where none is marked. */
+const questionIds = (boxes: Locator) => boxes.evaluateAll((nodes) => nodes.map((node) => node.closest("[data-question]")?.getAttribute("data-question") ?? null));
 export async function recordInitialUnknowns(page: Page) {
   const unknowns = page.locator('input[data-testid="intake-unknown"]:not(:checked)');
+  const ticked = page.locator('input[data-testid="intake-unknown"]:checked');
   while (await unknowns.count()) {
     const count = await unknowns.count();
+    const before = await ticked.count();
+    const idsBefore = await questionIds(unknowns);
+    const tickedId = idsBefore[0];
     await unknowns.first().check();
-    await expect(unknowns).toHaveCount(count - 1);
+    // One tick settles exactly the ticked box: one more box is ticked, never another ticked for the person (site owner's
+    // ticked-box rule). The unticked list shrinks by that one; any other box that leaves must ask the same fact as the
+    // ticked one (never ask twice; e.g. Small Claims' outcome and counterclaim both ask "outcome", 057db2c3). Any other
+    // box leaving fails, as before (PR #550 CI, stage-rule: 2 unticked became 0 after one tick).
+    await expect.poll(() => ticked.count(), { message: "one tick ticks exactly one box" }).toBe(before + 1);
+    await expect.poll(() => unknowns.count(), { message: "the ticked box leaves the unticked list" }).toBeLessThanOrEqual(count - 1);
+    const left = [...idsBefore.slice(1)];
+    for (const id of await questionIds(unknowns)) { const at = left.indexOf(id); if (at >= 0) left.splice(at, 1); }
+    const sameFact = (id: string | null) => Boolean(id && tickedId && factsOfQuestion(id).some((fact) => factsOfQuestion(tickedId).includes(fact)));
+    expect(left.filter((id) => !sameFact(id)), `after ticking ${tickedId}, only a question asking the same fact may leave`).toEqual([]);
   }
 }
 export async function confirmInitialInformation(page: Page) {
@@ -13,7 +29,7 @@ export async function confirmInitialInformation(page: Page) {
   if (await page.getByTestId("intake-review").getAttribute("data-phase") === "collecting") await page.getByTestId("intake-start-review").click();
   await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing");
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "user-confirmed");
 }
@@ -26,4 +42,22 @@ export async function confirmInitialInformation(page: Page) {
 export async function saveCaseStory(page: Page) {
   const save = page.locator('[data-testid$="story-save"]:visible').first();
   if ((await save.count()) && (await save.isEnabled())) await save.click();
+}
+
+/**
+ * The review's tick, only when the review asks for it (site owner, 11 Nov 2026): it asks only while an offer from the
+ * story is undecided; a value the person typed never asks for confirmation. Specs that ticked it every time tick it
+ * here instead, so nothing they check changes.
+ */
+export async function tickIfAsked(page: Page) {
+  // Since 12 Nov there is no tick: each story offer still undecided in the review has its own choices (site owner, "three
+  // choices, no tick"). "No, that's not right" leaves the suggestion unused and the box empty, as the tick did.
+  const offers = page.getByTestId("intake-review").getByTestId("review-offer-no");
+  for (let i = 0; i < 20 && (await offers.count()); i++) {
+    const left = await offers.count();
+    await offers.first().click();
+    for (let wait = 0; wait < 80 && (await offers.count()) >= left; wait++) await page.waitForTimeout(250);
+  }
+  const tick = page.getByTestId("intake-review-acknowledgement");
+  if (await tick.waitFor({ state: "visible", timeout: 3_000 }).then(() => true, () => false)) await tick.check();
 }

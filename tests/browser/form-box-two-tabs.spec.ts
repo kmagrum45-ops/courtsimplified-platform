@@ -12,7 +12,7 @@
  * stand-ins and two tabs of one signed-in browser:
  *   1. tab A: the answer changed on the review; tab A's whole form box follows it;
  *   2. tab B: the same answer changed again, to a newer value;
- *   3. tab A, never reloaded: a different box ("Your name") typed and saved;
+ *   3. tab A, never reloaded: a different box ("Your name"; Small Claims: "Settlement efforts") typed and saved;
  *   4. tab B's value is still the saved one: on a fresh load the case page, the review and the whole form show it,
  *      and never tab A's older value.
  *
@@ -24,7 +24,7 @@ import { deleteHarnessUser } from "./harness/realTestSession";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns } from "./harness/thisCommitServer";
-import { recordInitialUnknowns, saveCaseStory } from "./harness/intakeReview";
+import { recordInitialUnknowns, saveCaseStory, tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
 
@@ -40,8 +40,17 @@ function box(page: Page, court: Court) {
   if (court === "small-claims") return page.getByTestId("sc-intake-amountClaimed");
   return page.locator("label").filter({ has: page.locator("span.font-semibold", { hasText: /^Other party$/ }) }).locator("input, textarea").first();
 }
+/** Small Claims' box sits in the closed "Optional details for specific case types" section: opened as a person would. */
+async function openNameBox(page: Page, court: Court) {
+  if (court !== "small-claims") return;
+  const section = page.locator("details").filter({ hasText: "Optional details for specific case types" });
+  if ((await section.getAttribute("open")) === null) await section.locator("summary").click();
+  await expect(nameBox(page, court), "the other box is shown").toBeVisible();
+}
 function nameBox(page: Page, court: Court) {
-  if (court === "small-claims") return page.getByTestId("sc-intake-yourName");
+  // Small Claims: the person's name is asked in the Parties step now (site owner, 14 Nov 2026, rule 1), so tab A types
+  // another box of the whole form, saved the same way (writeFormBox).
+  if (court === "small-claims") return page.getByTestId("sc-intake-settlementEfforts");
   return page.locator("label").filter({ has: page.locator("span.font-semibold", { hasText: /^Your name$/ }) }).locator("input, textarea").first();
 }
 async function openForm(page: Page, court: Court, caseId: string) {
@@ -96,7 +105,7 @@ for (const court of Object.keys(CASES) as Court[]) {
       const filed = page.locator('[data-question="sc-claim-filed"]');
       if (await filed.count()) await filed.getByRole("button", { name: "No", exact: true }).click();
       await recordInitialUnknowns(page);
-      await page.getByTestId("intake-review-acknowledgement").check();
+      await tickIfAsked(page);
       await page.getByTestId("intake-confirm").click();
       await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
 
@@ -114,6 +123,7 @@ for (const court of Object.keys(CASES) as Court[]) {
       // 3. Tab A, never reloaded: something else typed and saved.
       await page.bringToFront();
       console.log(`[${court}] tab A box before its save: ${await box(page, court).inputValue()}`);
+      await openNameBox(page, court);
       await nameBox(page, court).fill("Synthetic Testperson");
       await nameBox(page, court).blur();
       await page.waitForTimeout(6_000);

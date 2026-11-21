@@ -21,7 +21,7 @@ import { grantSiteAccess } from "./harness/siteAccess";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { serveFromThisCommit } from "./harness/thisCommitServer";
 import { openBuilder } from "./harness/builderGate";
-import { recordInitialUnknowns } from "./harness/intakeReview";
+import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -51,11 +51,12 @@ test("the overview's When is the case page's date, never the story's sentence --
   if (await panel.getAttribute("data-phase") === "collecting") await page.getByTestId("intake-start-review").click();
   await expect(panel).toHaveAttribute("data-phase", "reviewing");
   // The Timeline filled from the story's suggestion, as Chrome did.
-  const timeline = page.getByTestId("intake-entry-from-story").filter({ hasText: SENTENCE }).first();
+  // The three-choice control (site owner, 14 Nov): the sentence is shown above Yes, not on it; its Yes keeps the old test id.
+  const timeline = panel.getByTestId("review-offer-choices").filter({ hasText: SENTENCE }).getByTestId("intake-entry-from-story").first();
   await expect(timeline, "the review offers the story's dated sentence for the Timeline").toBeVisible({ timeout: 30_000 });
   await timeline.click();
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
   await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();

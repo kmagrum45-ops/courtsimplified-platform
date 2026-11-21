@@ -27,7 +27,7 @@ import {
   type KnownFactField,
   type QuestionPhase,
 } from "./questionBank";
-import { mayAsk } from "./asker";
+import { mayShowQuestion } from "../caseFile/factStatus";
 import type { CaseFile } from "../caseFile/caseFile";
 
 export type IntakeFacts = Partial<Record<KnownFactField, string | number | boolean>>;
@@ -112,7 +112,7 @@ export function selectQuestions(
     .filter((question) => purpose === "all" || initialQuestion(question))
     .filter((question) => !answered.has(question.id))
     .filter((question) => questionApplies(question, facts))
-    .filter((question) => mayAsk(options.held, question.id))
+    .filter((question) => mayShowQuestion(options.held, question.id))
     .sort((a, b) => PHASE_ORDER[a.phase] - PHASE_ORDER[b.phase]) // stable: preserves bank order within a phase
     .map((question) => question.id);
 }

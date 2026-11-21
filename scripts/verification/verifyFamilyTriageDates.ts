@@ -26,6 +26,7 @@
 import fs from "node:fs";
 import { emptyStatusRecord, livedTogetherFromStory, partialDateWords, readPartialDate, selectNextTriageQuestion } from "../../src/lib/case-system/family/statusTriage";
 import { withoutMunicipalityAsked } from "../../src/lib/case-system/intelligence/answeredQuestions";
+import { emptyCaseFile } from "../../src/lib/case-system/caseFile/caseFile";
 
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
@@ -63,7 +64,20 @@ check("4. other questions are untouched", JSON.stringify(withoutMunicipalityAske
 // 5. The card and both pages use them.
 const card = fs.readFileSync("app/builder/_components/FamilyStatusTriage.tsx", "utf8");
 check("5. the lived-together boxes take text (a year or a month), not an exact day only", /type="text"\s+data-testid="triage-cohabitation-start"/.test(card) && /type="text"\s+data-testid="triage-cohabitation-end"/.test(card));
-check("5. the card uses the story's dates and the set-aside list", /livedTogetherFromStory\(story\)/.test(card) && /selectNextTriageQuestion\(record, deferred\)/.test(card));
+// The card passes the set-aside list, and (since 17 Nov) the case file, to the one selector (site owner, 18 Nov 2026: the
+// pattern approved, and a check that runs the selector with both, so the property is tested, not only a pinned line).
+check("5. the card uses the story's dates and the set-aside list", /livedTogetherFromStory\(story\)/.test(card) && /selectNextTriageQuestion\(record, deferred(?:, file)?\)/.test(card));
+{
+  const notMarried = { ...emptyStatusRecord(), marriedToOtherParty: "no" as const };
+  const first = selectNextTriageQuestion(notMarried)?.id;
+  check("5. self-test: with nothing set aside, the first question for someone not married is asked", first === "cohabitation-dates", String(first));
+  const afterSetAside = selectNextTriageQuestion(notMarried, new Set([first as never]))?.id;
+  check("5. a question set aside is not asked again: the next one is", afterSetAside === "child-together", String(afterSetAside));
+  const file = emptyCaseFile();
+  file.children = { state: "answered", value: "Yes", source: { kind: "answer", question: "case-involves-children" }, confirmed: true };
+  const withFile = selectNextTriageQuestion(notMarried, new Set([first as never]), file)?.id;
+  check("5. with the case file, a question whose fact it holds is not asked (a child together, once the children are known)", withFile !== "child-together", `${String(afterSetAside)} -> ${String(withFile)}`);
+}
 check("5. the builder and the case page pass the recorded municipality", /recordedMunicipality=\{courtPath === "family"/.test(fs.readFileSync("app/builder/page.tsx", "utf8")) && /recordedMunicipality=\{courtPath === "family"/.test(fs.readFileSync("app/cases/[id]/page.tsx", "utf8")));
 
 console.log(failures ? `\n${failures} check(s) failed.` : "\nThe Family card reads the story and the record, and moves on when a question is set aside.");

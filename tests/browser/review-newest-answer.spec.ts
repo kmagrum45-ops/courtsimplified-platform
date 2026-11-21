@@ -24,6 +24,8 @@ import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 import { serveFromThisCommit } from "./harness/thisCommitServer";
+import { chooseOffers } from "./harness/offers";
+import { tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -55,7 +57,7 @@ test("Small Claims review: the amount changed in its box is the answer the list 
   await fakeAccount(page);
   await smallClaimsReview(page);
   const question = page.locator(`[data-testid=intake-initial-question][data-question="${QUESTION}"]`);
-  await question.getByRole("button", { name: "Use the suggestion: $2,400" }).click();
+  await question.getByRole("button", { name: "Yes: $2,400" }).click();
   await expect(question.getByTestId("intake-question-answered"), "1. the suggestion used is the answer").toContainText("$2,400");
 
   const box = question.getByLabel("Answer: What is the total dollar amount you are claiming?", { exact: true });
@@ -86,7 +88,7 @@ async function guidedChat(page: Page) {
     await expect(finished.or(proposals).or(message).first()).toBeVisible({ timeout: 60_000 });
     await page.waitForTimeout(600);
     if (await finished.isVisible().catch(() => false)) break;
-    if (await proposals.isVisible().catch(() => false)) { await proposals.getByTestId("story-proposals-continue").click(); await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 }); continue; }
+    if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await proposals.getByTestId("story-proposals-continue").click(); await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 }); continue; }
     const text = (await message.innerText()).replace(/\s+/g, " ");
     if (text === last) break;
     last = text;
@@ -130,7 +132,7 @@ test("Small Claims guided route, signed in: the amount changed in the review is 
   // Answered in the chat or not: the question is in the review to change, or its answer is held.
   if (!(await question.count())) test.info().annotations.push({ type: "note", description: "the amount question is not listed in the review after the chat" });
   await expect(question, "the amount question is in the review (answered in the chat or to answer here)").toHaveCount(1, { timeout: 20_000 });
-  const use = question.getByRole("button", { name: "Use the suggestion: $2,400" });
+  const use = question.getByRole("button", { name: "Yes: $2,400" });
   if (await use.count()) await use.click();
   await box.fill("$2,650");
   await box.blur();
@@ -169,11 +171,11 @@ test("Small Claims guided route, signed in: confirmed and next step made with $2
   if ((await panel.getAttribute("data-phase")) === "collecting") await page.getByTestId("intake-start-review").click();
   await expect(panel).toHaveAttribute("data-phase", "reviewing", { timeout: 60_000 });
   const question = panel.locator(`[data-testid=intake-initial-question][data-question="${QUESTION}"]`);
-  await question.getByRole("button", { name: "Use the suggestion: $2,400" }).click();
+  await question.getByRole("button", { name: "Yes: $2,400" }).click();
   // Everything else "I do not know yet", then Confirm and the next step (the saved case now holds $2,400 everywhere it copies it).
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const left = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(left - 1, { timeout: 20_000 }); }
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
   await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();

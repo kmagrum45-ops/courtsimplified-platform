@@ -4,6 +4,7 @@ import { useOpenWholeForm } from "./openWholeForm";
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
 import { caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
+import { formAnalysisInput } from "../../../src/lib/case-system/caseFile/chatTurnFacts";
 import { NotAnsweredYetField } from "../../_components/NotAnsweredYet";
 import { useBoxesFollow } from "../../_components/AskedField";
 import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
@@ -585,6 +586,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
    * 2026-10-14). Only these can stand as their confirmation of the stage.
    */
   const recovery = useIntakeRecovery();
+  // The one continue rule (intakeReview.ts continueNeeds): this route's continue is held while the review still needs something.
   const beforeIntakeAI = useBeforeIntakeAI();
   // The whole form's boxes follow the newest saved answer (rule 3; Chrome check of #544, step 14).
   useBoxesFollow("civil", "input");
@@ -749,7 +751,11 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
       const {
         data: { session },
       } = await supabase.auth.getSession();
-      const { province: _province, city: _city, ...civilAnalysisInput } = input;
+      const { province: _province, city: _city, ...civilBoxes } = input;
+      // The form's boxes with the record's answers, the record winning (chatTurnFacts.ts formAnalysisInput, the one
+      // function every route builds its analysis input with; site owner, 14 Nov 2026).
+      const checkpointNow = recovery?.getReview().checkpoint ?? null;
+      const civilAnalysisInput = formAnalysisInput(civilBoxes, checkpointNow, caseFileOf(checkpointNow, recovery?.getSavedMaster() ?? undefined));
       signal.throwIfAborted();
       const response = await fetch("/api/civil/analyze", {
         signal,
@@ -1002,6 +1008,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
 
         {mode === "chat" ? (<>
           <GuidedFormChat
+            tribunalCourt="civil"
             fields={guidedFields}
             values={guidedValues}
             fromStart={[...(fromStart.role ? ["yourRole"] : []), ...(fromStart.documents ? ["documents"] : [])]}

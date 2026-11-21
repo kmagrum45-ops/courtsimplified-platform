@@ -131,9 +131,10 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     holdsCaseContent: true,
     storyData: "version-record",
     note:
-      "Court-path finder hand-off. Written with seven fields; only province, city and facts " +
-      "are ever read. Removed only when all three validate, so a payload failing that guard " +
-      "stays for the life of the tab.",
+      "Court-path finder hand-off: province, city, the story and \"has a case started\". The first new intake " +
+      "on the builder takes it (flowId); any other opening, a saved case, or the home page drops it at once, " +
+      "and a refresh of the same intake keeps it (finderHandoff.ts, 9 Nov 2026: a person who left at " +
+      "\"Before you start\" left their story for the next intake).",
   },
   {
     key: "courtsimplified-ai-case-partner-chat:route-transfer",

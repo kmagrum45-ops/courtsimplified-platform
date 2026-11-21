@@ -16,6 +16,7 @@
 
 import { userStory } from "../userStory";
 import { draftSmallClaimsPlaintiffClaim, type ClaimDraftInput } from "../claimDraftEngine";
+import type { CaseFile } from "../caseFile/caseFile";
 import { newId, type CaseDraft, type DraftSection } from "./caseDrafts";
 
 export type StartingDocumentIntake = ClaimDraftInput & {
@@ -43,13 +44,15 @@ export function startingDocumentDraft(
   courtPath: string | null | undefined,
   intake: StartingDocumentIntake,
   now: Date,
+  /** The case file: the draft takes its answers from the record (claimDraftEngine.ts heldWords). */
+  file?: CaseFile | null,
 ): CaseDraft | null {
   const spec = courtPath ? STARTING_DOCUMENT[courtPath] : undefined;
   if (!spec) return null;
   const stamp = now.toISOString();
 
   if (courtPath === "small-claims") {
-    const claim = draftSmallClaimsPlaintiffClaim(intake);
+    const claim = draftSmallClaimsPlaintiffClaim(intake, file);
     return {
       id: newId("draft"),
       title: spec.title,

@@ -10,10 +10,12 @@
  */
 import Link from "next/link";
 import { formatForCourt } from "@/src/lib/case-system/dates";
-import { SLOT_FACTS, claimKindOf, conferenceKind, courtDateIsConference, isUnsureAnswer, slotText, type CaseFile, type SlotFact } from "@/src/lib/case-system/caseFile/caseFile";
+import { claimKindOf, conferenceKind, courtDateIsConference, isUnsureAnswer, slotText, type CaseFile, type SlotFact } from "@/src/lib/case-system/caseFile/caseFile";
+import { partyNames } from "../../../src/lib/case-system/parties/parties";
+import { factStatus } from "@/src/lib/case-system/caseFile/factStatus";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { inWords, optionWords } from "@/src/lib/case-system/copy/rawKeys";
-import { storyLines } from "@/src/lib/case-system/caseFile/storyLines";
+import { listedSlotFacts, storyLines } from "@/src/lib/case-system/caseFile/storyLines";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
 import type { CountedDeadline } from "@/src/lib/case-system/caseFile/stepDeadlines";
 
@@ -39,7 +41,9 @@ const LABEL: Record<SlotFact, string> = {
   conferenceDate: "Conference date",
   defenceFiled: "Defence or answer filed",
   outcome: "Outcome you want",
+  defendantsClaim: "A claim of your own against them",
   urgent: "Anything urgent",
+  safety: "Safety concerns",
   courtDate: "Next court date",
 };
 
@@ -52,6 +56,11 @@ const BROAD: Record<string, string> = { "starting-case": "Starting a case", resp
 
 function shownValue(fact: SlotFact, file: CaseFile): string {
   const slot = file[fact];
+  // The other side, from the parties record: each party its own name, never two merged into one (rule 2).
+  if (fact === "otherParty" && file.parties.recorded) {
+    const names = partyNames(file.parties.list).others;
+    if (names.length) return names.join("; ");
+  }
   // What is filed, by name, where the person said (case 16: "the filed application and answer").
   if (fact === "filed" && slot.state === "answered" && slot.value === true && file.documents?.length) return `Yes: ${inWords(file.documents)}`;
   if (slot.state === "answered" && typeof slot.value === "string") {
@@ -69,13 +78,16 @@ function shownValue(fact: SlotFact, file: CaseFile): string {
 }
 
 export default function CaseFilePanel({ file, changeHref, situationHref, stepHref, deadlines = [] }: { file: CaseFile; changeHref: string; situationHref: string; stepHref: string; deadlines?: CountedDeadline[] }) {
-  // The conference is the next court date: one day is listed once (26 Oct re-test, case 16 showed it twice).
-  const sameDay = courtDateIsConference(file);
   const fromStory = storyLines(file.storyText ?? "", file, file.side.state === "answered" && file.side.value === "responding");
   // A fact answered "not sure" that the story gives is listed once, in the story's words (from your story).
   const toldInStory = new Set<string>(fromStory.map((line) => (line.fact === "amountAgainst" ? "amount" : line.fact)));
   // The story is shown as the story, not as a line of its own (it is a fact so nothing asks it again).
-  const lines = SLOT_FACTS.filter((fact) => fact !== "story" && file[fact].state !== "not-asked" && shownValue(fact, file) && !(fact === "courtDate" && sameDay) && !(file[fact].state === "unsure" && toldInStory.has(fact)));
+  // Which facts are listed, and which say "Not answered yet", from the one function (caseFile/factStatus.ts): known or offered
+  // from the story is listed with its value; settled ("I'm not sure" confirmed) is the quiet line; one still to ask is not
+  // listed (an unconfirmed "not sure" was shown as settled: Chrome milestone pass 2, S1 case page).
+  const status = (fact: SlotFact) => factStatus(file, fact);
+  // The conference is the next court date: one day is listed once (26 Oct re-test, case 16 showed it twice).
+  const lines = listedSlotFacts(file, toldInStory, (fact) => Boolean(shownValue(fact, file)), courtDateIsConference(file));
   if (!lines.length && !fromStory.length && !deadlines.length) return null;
   return (
     <section aria-labelledby="case-file-heading" data-testid="case-file" className="rounded-3xl border border-[#d8e6df] bg-white p-5">
@@ -94,7 +106,7 @@ export default function CaseFilePanel({ file, changeHref, situationHref, stepHre
             <div key={fact} className="contents" data-testid="case-file-line" data-fact={fact} data-state={slot.state} data-question={fact} data-source={question}>
               <dt className="font-semibold text-[#10231f]">{(fact === "conferenceDate" ? conferenceKind(slot) : null) ?? LABEL[fact]}</dt>
               <dd>
-                {slot.state === "unsure" && !roughTime(slot.value) ? (
+                {status(fact) === "settled" && slot.state === "unsure" && !roughTime(slot.value) ? (
                   // Said "not sure": never asked again (site owner, 31 Oct). The quiet line, and "Add it": a day on
                   // the step page below (folded there too), a start answer at the top, anything else in the review.
                   <>

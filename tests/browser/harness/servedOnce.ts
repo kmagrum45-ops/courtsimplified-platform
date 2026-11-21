@@ -7,6 +7,7 @@
  */
 import { expect, type Locator, type Page } from "@playwright/test";
 import { NOT_ANSWERED_YET } from "../../../src/lib/case-system/copy/askCopy";
+import { tickIfAsked } from "./intakeReview";
 
 const SERVED_IDS = ["sc-date-claim-served", "sc-date-defendants-claim-served", "case-date-served-with-application", "case-date-served-with-motion-to-change"];
 
@@ -45,7 +46,7 @@ export async function confirmAndShowNextStep(page: Page) {
   const panel = page.getByTestId("intake-review");
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
   await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();

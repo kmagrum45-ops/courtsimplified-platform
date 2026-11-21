@@ -18,7 +18,8 @@
  *      person never answered still takes the model's reading;
  *   4. the facts handed to the analysis at "Show my next step" (factsWithRecord) carry the record's amount too.
  *
- * What failure it catches: an answer the person changed going to the analysis or the depth questions at its old value.
+ * What failure it catches: an answer the person changed going to the analysis or the depth questions at its old value,
+ * or an answer given in the review missing from an analysis the chat started.
  *
  * Run: npm run test:chat-uses-record
  */
@@ -26,6 +27,7 @@ import assert from "node:assert/strict";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { caseFileOf, followAnswer, type CaseFile } from "../../src/lib/case-system/caseFile/caseFile";
 import { turnFactsToSave } from "../../src/lib/case-system/caseFile/chatTurnFacts";
+import { mapGuidedIntakeToSmallClaimsInput } from "../../app/builder/_components/guidedIntakeToSmallClaimsInput";
 
 type Facts = Record<string, unknown>;
 const STORY = "I hired a deck builder in March 2026 to build a deck at my home. They never finished it and kept the money I paid.";
@@ -62,7 +64,7 @@ function turn(cp: Checkpoint, after: Facts, answeredNow: string[]) {
 }
 
 async function main() {
-  const module = await import("../../src/lib/case-system/caseFile/chatTurnFacts") as { factsWithRecord?: (facts: Facts, held: CaseFile, answeredNow?: readonly string[]) => Facts };
+  const module = await import("../../src/lib/case-system/caseFile/chatTurnFacts") as { factsWithRecord?: (facts: Facts, held: CaseFile, answeredNow?: readonly string[]) => Facts; analysisFactsOf?: (facts: Facts, checkpoint: Checkpoint, held: CaseFile) => Facts };
   let failed = 0;
   const check = (name: string, run: () => void) => { try { run(); console.log(`PASS  ${name}`); } catch (error) { failed++; console.log(`FAIL  ${name}\n      ${(error as Error).message.split("\n")[0]}`); } };
 
@@ -101,6 +103,21 @@ async function main() {
     assert.equal(sent.amountClaimed, 8150, `the analysis got amountClaimed ${JSON.stringify(sent.amountClaimed)}`);
   });
 
+  check("5. the chat finishing on its own hands the analysis the amount given only in the review", () => {
+    assert.equal(typeof module.analysisFactsOf, "function", "analysisFactsOf (chatTurnFacts.ts) does not exist");
+    // The amount given in the review ("Use the suggestion"), kept with the review's answers; the chat's own facts have none.
+    const cp = checkpoint();
+    cp.sections.guided = { facts: { disputeCategory: KIND, otherParty: "Jordan Testwood" }, answeredIds: ["sc-orient-dispute-category"], earlierAnswers: [{ questionId: "sc-orient-dispute-category", answerText: KIND }] } as never;
+    (cp.sections as Record<string, unknown>).builder = { initialAnswers: { "sc-amount-claimed": "$6,000" } };
+    const chatFacts = { disputeCategory: KIND, otherParty: "Jordan Testwood" };
+    const sent = module.analysisFactsOf!(chatFacts, cp, caseFileOf(cp));
+    assert.equal(String(sent.amountClaimedText ?? "").replace(/\D/g, ""), "6000", `the analysis got amountClaimedText ${JSON.stringify(sent.amountClaimedText)}`);
+    const input = mapGuidedIntakeToSmallClaimsInput({ facts: sent, answeredIds: [] } as never, { province: "Ontario", city: "Kingston" } as never, STORY, null);
+    assert.equal(String(input.amountClaimed).replace(/\D/g, ""), "6000", `the analysis request's amountClaimed was ${JSON.stringify(input.amountClaimed)}`);
+    // The chat's own answer, when it has one, still stands over the review's older one unless the record holds another.
+    const own = module.analysisFactsOf!({ ...chatFacts, otherParty: "Jordan Testwood Ltd." }, cp, caseFileOf(cp));
+    assert.equal(own.otherParty, "Jordan Testwood Ltd.");
+  });
   if (failed) { console.log(`\n${failed} check(s) failed`); process.exit(1); }
   console.log("\nAll checks passed");
 }

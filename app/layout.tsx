@@ -140,6 +140,8 @@ export default function RootLayout({
                 >
                   Send feedback
                 </a>
+                {/* The address as text too, to copy when no mail program opens (Chrome check of #547, G5). */}
+                <span data-testid="send-feedback-address" className="select-all">{CONTACT_EMAIL}</span>
               </div>
             </div>
 

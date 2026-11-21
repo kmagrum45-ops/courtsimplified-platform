@@ -1,10 +1,13 @@
 "use client";
 
+import { factStatus } from "../../src/lib/case-system/caseFile/factStatus";
 import { OPEN_WHOLE_FORM_EVENT } from "./_components/openWholeForm";
+import { partyNames } from "../../src/lib/case-system/parties/parties";
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
-import { caseFileOf, claimKindOf, kindForAnalysis, neverMarried, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
-import { factsWithRecord } from "../../src/lib/case-system/caseFile/chatTurnFacts";
+import { caseFileOf, claimKindOf, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { hidesMarriedOnly } from "../../src/lib/case-system/family/marriedOnly";
+import { analysisFactsOf, formAnalysisInput } from "../../src/lib/case-system/caseFile/chatTurnFacts";
 import { withoutUnsureAnswers } from "../../src/lib/case-system/caseFile/unsureAnswer";
 import { researchCaseContext } from "../../src/lib/case-system/caseFile/aiCaseContext";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
@@ -123,6 +126,8 @@ import { caseTitleFromIntake, isGeneratedTitle } from "../../src/lib/case-system
 import { caseFileOfMaster, heldWordsOf } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
 import { userWordsOf } from "../../src/lib/content-library/forms/formsInText";
 import { type CaseDraft } from "../../src/lib/case-system/drafts/caseDrafts";
+import { claimDraftOfRecord } from "../../src/lib/case-system/drafts/recordDrafts";
+import { formContextOf } from "../../src/lib/case-system/forms/formContext";
 import { startingDocumentDraft } from "../../src/lib/case-system/drafts/startingDocumentDraft";
 import AiUseNotice from "../_components/AiUseNotice";
 import PathwayUnavailable from "../_components/PathwayUnavailable";
@@ -612,8 +617,10 @@ function BuilderPageContent() {
       // deleting it here made them ask it again (finding 1, the "not sure" path).
       if (temporaryGuide) {
         let started: unknown;
-        try { started = (JSON.parse(temporaryGuide) as { started?: unknown }).started; } catch { started = undefined; }
-        if (typeof started === "string") sessionStorage.setItem(COURT_PATH_FINDER_KEY, JSON.stringify({ started }));
+        let flowId: unknown;
+        try { ({ started, flowId } = JSON.parse(temporaryGuide) as { started?: unknown; flowId?: unknown }); } catch { started = undefined; }
+        // Still the intake's it was handed to (finderHandoff.ts), with no story left in it.
+        if (typeof started === "string") sessionStorage.setItem(COURT_PATH_FINDER_KEY, JSON.stringify({ started, ...(typeof flowId === "string" ? { flowId } : {}) }));
         else sessionStorage.removeItem(COURT_PATH_FINDER_KEY);
       }
 
@@ -1343,7 +1350,10 @@ function BuilderPageContent() {
       const fileNow = caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult);
       // The record's answers, not the chat's older copy (rule 3; chatTurnFacts.ts factsWithRecord): an amount changed on
       // the review while the chat was open goes to the analysis at its new value; a removed answer does not go.
-      const recordFacts = factsWithRecord((result.facts ?? {}) as Record<string, unknown>, caseFileOf(recovery?.getReview().checkpoint ?? reviewView?.checkpoint ?? null, recovery?.getSavedMaster() ?? existingMasterResult)) as GuidedIntakeCompletionResult["facts"];
+      // The review's answers too, whichever way the analysis started (the chat finishing on its own carried only its own
+      // facts, so an amount given in the review went out empty: run 43490561082; chatTurnFacts.ts analysisFactsOf).
+      const checkpointNow = recovery?.getReview().checkpoint ?? reviewView?.checkpoint ?? null;
+      const recordFacts = analysisFactsOf((result.facts ?? {}) as Record<string, unknown>, checkpointNow, caseFileOf(checkpointNow, recovery?.getSavedMaster() ?? existingMasterResult)) as GuidedIntakeCompletionResult["facts"];
       const heldNow = claimKindOf(fileNow);
       // The kind in words, told to the AI research, from the same case file through the shared builder
       // (aiCaseContext.ts, rule 8; site owner, 31 Oct): a dispute category has no catalogue id.
@@ -1441,7 +1451,18 @@ function BuilderPageContent() {
   ) {
     // Every court's answers enter the analysis input here: an answer that is only "I do not know yet" is kept
     // as not answered (the case file's "not sure"), never saved or shown as the answer (unsureAnswer.ts).
-    const payload = withoutUnsureAnswers(given);
+    const answered = withoutUnsureAnswers(given);
+    // The hand-off's answer boxes with the record's answers, the record winning, for every court (chatTurnFacts.ts
+    // formAnalysisInput, the one function every route builds its analysis input with; site owner, 14 Nov 2026).
+    const checkpointAtHandOff = recovery?.getReview().checkpoint ?? null;
+    const payload: StoredCaseData = {
+      ...answered,
+      ...formAnalysisInput(
+        { yourName: answered.yourName, otherParty: answered.otherParty, timeline: answered.timeline, evidence: answered.evidence, missingEvidence: answered.missingEvidence, goal: answered.goal, urgent: answered.urgent },
+        checkpointAtHandOff,
+        caseFileOf(checkpointAtHandOff, recovery?.getSavedMaster() ?? existingMasterResult),
+      ),
+    };
     const previousRevision = analysisInputRevision.current;
     const previousFacts = analysisFactsRevision.current;
     analysisInputRevision.current = recovery?.getReview().checkpoint.inputRevision ?? null;
@@ -1768,7 +1789,8 @@ function BuilderPageContent() {
       return;
     }
 
-    const draft = startingDocumentDraft("small-claims", caseData, new Date());
+    // From the case record (site owner, 14 Nov 2026, rule 7): the parties, the person's own words, the amount (recordDrafts.ts).
+    const draft = claimDraftOfRecord(formContextOf(reviewView?.checkpoint ?? null, existingMasterResult), { timeline: [], intake: caseData as unknown as Record<string, unknown>, now: new Date() });
     if (draft) void saveDraftAndOpen(caseId, draft);
   }
 
@@ -1779,7 +1801,7 @@ function BuilderPageContent() {
       setSaveError("Save the selected case before creating a working draft.");
       return;
     }
-    const draft = startingDocumentDraft(court, caseData, new Date());
+    const draft = startingDocumentDraft(court, caseData, new Date(), builderCaseFile);
     if (draft) void saveDraftAndOpen(caseId, draft);
   }
 
@@ -1790,7 +1812,7 @@ function BuilderPageContent() {
       setSaveError("Save the selected case before creating a working draft.");
       return;
     }
-    const draft = respondingDocumentDraft(courtPath, caseData as RespondingDocumentIntake, new Date());
+    const draft = respondingDocumentDraft(courtPath, caseData as RespondingDocumentIntake, new Date(), builderCaseFile?.parties.recorded ? partyNames(builderCaseFile.parties.list) : undefined);
     if (draft) void saveDraftAndOpen(caseId, draft);
   }
 
@@ -2503,7 +2525,7 @@ function BuilderPageContent() {
             {confirmedStage ? (
               <StageAnswerPanel
                 courtPath={courtPath}
-                notMarried={neverMarried(builderCaseFile)}
+                notMarried={hidesMarriedOnly(builderCaseFile)}
                 confirmedStage={confirmedStage}
                 responding={respondingSide}
                 sideFromRecord={sideOf(situation) !== null}
@@ -2512,8 +2534,9 @@ function BuilderPageContent() {
                 // A day the person said they do not know is never asked again: folded here as "Not answered yet:
                 // add it when you know", with "Add it" (site owner, 31 Oct; caseFile.ts unsureDateQuestions).
                 laterDates={unsureDateQuestions(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult))}
+                file={caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult)}
                 // "Not sure" where the case is (the start's "I am not sure"): never asked again; the quiet line with "Add it" (founder, 1 Nov).
-                stepNotSure={caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult).stage.state === "unsure"}
+                stepNotSure={factStatus(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult), "stage") === "settled"}
                 initialDateAnswers={savedPosition.dateAnswers}
                 initialService={savedPosition.service}
                 onSaved={(saved) => {
