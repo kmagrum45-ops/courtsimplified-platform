@@ -66,7 +66,7 @@ export function questionInConversation(question: string, earlier: readonly strin
     .join("\n")})`;
 }
 
-function isBody(value: unknown): value is Body {
+export function isBody(value: unknown): value is Body {
   if (!value || typeof value !== "object") return false;
   const body = value as Record<string, unknown>;
   if (Object.keys(body).some((key) => !["question", "story", "courtPath", "side", "caseId", "earlier"].includes(key))) return false;

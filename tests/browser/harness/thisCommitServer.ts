@@ -32,6 +32,13 @@ import { resolveClaimTypeSuggestion } from "../../../src/lib/case-system/intake/
 import { checkedAnswerView } from "../../../src/lib/case-system/retrieval/checkedAnswer";
 import { sideInAnswer } from "../../../app/builder/_components/stageFromAnswers";
 import { candidatesFromMasterResult, resolveCandidates } from "../../../src/lib/case-system/events/caseEventCandidates";
+import { isUnderstandingBody, understandingInputError } from "../../../src/lib/case-system/understanding/understandInput";
+import { isSmallClaimsInput } from "../../../app/api/small-claims/analyze/route";
+import { isCivilInput } from "../../../app/api/civil/analyze/route";
+import { isFamilyInput } from "../../../app/api/family/analyze/route";
+import { isBody as isAssistantLawBody } from "../../../app/api/assistant/law/route";
+import { isClassifyClaimTypeRequestBody } from "../../../app/api/intake/classify-claim-type/route";
+import { isDepthTurnRequestBody } from "../../../app/api/intake/depth-turn/route";
 
 export type Court = "small-claims" | "civil" | "family";
 type Rows = Map<string, Record<string, unknown>>;
@@ -58,8 +65,34 @@ async function viaHandler(route: Route, handler: (request: never) => Promise<Res
   return route.fulfill({ status: response.status, contentType: "application/json", body: await response.text() });
 }
 
+/**
+ * A STAND-IN ANSWERS ONLY WHAT THE ROUTE ITSELF ACCEPTS (hotfix, 21 Nov 2026). Chrome check of ad67c3f7, S6: "Update
+ * with my answers" never finished on the site, because the route turned down the answers the card sent (each carried
+ * its question's id), while every test passed: the stand-in answered the reading without running the route's check.
+ * Each stand-in here for a route with a request check now runs that check, the route's own exported function, first,
+ * and answers 400 as the route does when it refuses (test:understand-request, part 5).
+ */
+export const ROUTE_CHECKS = {
+  "case/understand": (body: unknown) => isUnderstandingBody(body) && !understandingInputError(body.story, body.city ?? "", body.answers ?? []),
+  "small-claims/analyze": (body: unknown) => isSmallClaimsInput((body as { input?: unknown } | null)?.input),
+  "civil/analyze": (body: unknown) => isCivilInput((body as { input?: unknown } | null)?.input),
+  "family/analyze": (body: unknown) => isFamilyInput((body as { input?: unknown } | null)?.input),
+  "assistant/law": (body: unknown) => isAssistantLawBody(body),
+  "intake/classify-claim-type": (body: unknown) => isClassifyClaimTypeRequestBody(body),
+  "intake/depth-turn": (body: unknown) => isDepthTurnRequestBody(body),
+} as const;
+export function refusedByRoute(route: Route, name: keyof typeof ROUTE_CHECKS): Promise<void> | null {
+  let body: unknown;
+  try { body = route.request().postDataJSON(); } catch { body = undefined; }
+  if (ROUTE_CHECKS[name](body)) return null;
+  console.log(`STAND-IN REFUSED /api/${name}: the route's own check turns this request down, as the site would`);
+  return route.fulfill({ status: 400, json: { ok: false, error: "A valid request body is required." } });
+}
+
 export async function serveFromThisCommit(page: Page, court: Court, rows: Rows) {
   await page.route(`**/api/${court}/analyze`, async (route) => {
+    const refused = refusedByRoute(route, `${court}/analyze`);
+    if (refused) return refused;
     const { input } = route.request().postDataJSON();
     const result = court === "family" ? await runFamilyIntakeCanonicalIntegration(input, { allowExternalCognition: false }) : court === "civil" ? await runCivilIntakeCanonicalIntegration(input, { allowExternalCognition: false }) : await analyzeSmallClaimsWithBrain(input, { allowExternalCognition: false });
     return route.fulfill({ json: { ok: true, result, authenticated: true, reasoningMode: "deterministic-fallback", analysisAvailable: true } });
@@ -105,6 +138,8 @@ export async function serveFromThisCommit(page: Page, court: Court, rows: Rows) 
  */
 async function serveHomeReading(page: Page, court: Court, questions: readonly string[], facts: readonly { label: string; value: string }[] = [], realAi?: string) {
   await page.route("**/api/case/understand", async (route) => {
+    const refused = refusedByRoute(route, "case/understand");
+    if (refused) return refused;
     const body = route.request().postDataJSON() as { story: string; answers?: { question: string; answer: string }[]; situation?: { side?: string } };
     const asked = body.answers?.length ? [] : questions;
     // A real-AI fixture: the model's own reading of what understandCase sends it (aiFixtures.ts).
@@ -133,14 +168,14 @@ export async function serveModelStandIns(page: Page, court: Court, ownerId: stri
   // homeFacts: the facts the reading shows ("AMOUNT SOUGHT $5,468.45"), as the model gives them (Chrome milestone test of #550).
   if (real) await serveHomeReading(page, court, [], [], real);
   else if (standIns.homeQuestions?.length) await serveHomeReading(page, court, standIns.homeQuestions, standIns.homeFacts ?? []);
-  else await page.route("**/api/case/understand", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
+  else await page.route("**/api/case/understand", (route) => refusedByRoute(route, "case/understand") ?? route.fulfill({ json: { ok: true, skipped: "off" } }));
   await page.route("**/api/classify-court-path", async (route) => {
     if (!real) return route.fulfill({ json: { primaryPath: court, confidence: 0.95 } });
     const body = route.request().postDataJSON() as { story?: string; declaredCourtPath?: string | null };
     const input = { story: String(body.story ?? "").slice(0, 4_000).trim(), declaredCourtPath: body.declaredCourtPath ?? null };
     return route.fulfill({ json: await realStep(real, "court-suggestion", input, () => classifyCourtPath(input)) });
   });
-  await page.route("**/api/assistant/law", (route) => route.fulfill({ json: { findings: [] } }));
+  await page.route("**/api/assistant/law", (route) => refusedByRoute(route, "assistant/law") ?? route.fulfill({ json: { findings: [] } }));
   await page.route("**/api/intake/guided-turn", (route) => {
     // The route requires a key to be configured; no model is called (every step is replaced).
     process.env.OPENAI_API_KEY ||= "no-model-in-tests";
@@ -177,7 +212,7 @@ export async function serveModelStandIns(page: Page, court: Court, ownerId: stri
     });
     return viaHandler(route, post, page);
   });
-  await page.route("**/api/intake/classify-claim-type", (route) => (real ? (() => {
+  await page.route("**/api/intake/classify-claim-type", (route) => refusedByRoute(route, "intake/classify-claim-type") ?? (real ? (() => {
     // The route's own handler; only its classifier answers from the fixture (the route requires a key to be configured).
     process.env.OPENAI_API_KEY ||= "no-model-in-tests";
     const post = createClassifyClaimTypePost({
@@ -192,5 +227,5 @@ export async function serveModelStandIns(page: Page, court: Court, ownerId: stri
     });
     return viaHandler(route, post, page);
   })() : standIns.suggestKind ? route.fulfill({ json: { ok: true, result: { outcome: "no-match" } } }) : route.fulfill({ status: 503, json: { ok: false } })));
-  await page.route("**/api/intake/depth-turn", (route) => route.fulfill({ status: 503, json: { ok: false } }));
+  await page.route("**/api/intake/depth-turn", (route) => refusedByRoute(route, "intake/depth-turn") ?? route.fulfill({ status: 503, json: { ok: false } }));
 }

@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-313 documented, 26 without a header.
+314 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -299,6 +299,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:tribunal-first` | **THE LANDLORD AND TENANT BOARD NOTICE COMES FIRST, BEFORE ANY FOLLOW-UP QUESTION, FOR EVERY PERSON AND EVERY COURT**<br>(C1, site owner 9 Nov 2026). |
 | `npm run test:typecheck-live` | **The project's typecheck can actually fail.**<br>WHAT THIS CATCHES: a typecheck that reports success while checking nothing. |
 | `npm run test:ui-faults` | **THE MILESTONE TEST'S SCREEN FAULTS STAY FIXED (site owner, 16 Nov 2026; Chrome milestone test of #550, rows 4, 11, 12**<br>and "anything else wrong": S8's period and its dashboard title). |
+| `npm run test:understand-request` | **EVERY REQUEST THE HOME PAGE'S "UPDATE WITH MY ANSWERS" CAN SEND PASSES THE ROUTE'S OWN CHECK (hotfix, 21 Nov 2026).**<br>Chrome check of ad67c3f7, S6: "Update with my answers" answered "Your update did not finish" on every click. The card sent each answer with its question's id; /api/case/understand turned down any answer with a key other than question and answer. No test saw it |
 | `npm run test:understood-other-party` | **THE OTHER PARTY THE ACCEPTED STORY READING NAMES GOES ON THE RECORD, NEVER A WITNESS (Chrome check of production**<br>c38e69fd, 8 Nov 2026, B1). |
 | `npm run test:unsure-never-saved` | **"I DO NOT KNOW YET" IS NEVER SAVED AS THE ANSWER, AND "NOT SURE" WHERE THE CASE IS STAYS NOT SURE**<br>(founder's Chrome check of #541 at 354e36fb, 2 Nov, steps 1 and 2; every court). |
 | `npm run test:upcoming-deadline` | **Checks the in-app deadline reminder on "My cases"**<br>(src/lib/case-workspace/upcomingDeadline.ts, master plan 6D). |

@@ -73,7 +73,7 @@ type DepthTurnRequestBody = {
   confirmedAnswers?: { questionId: string; answerText: string }[];
 };
 
-function isDepthTurnRequestBody(value: unknown): value is DepthTurnRequestBody {
+export function isDepthTurnRequestBody(value: unknown): value is DepthTurnRequestBody {
   if (!isRecord(value)) return false;
 
   const allowed = new Set([

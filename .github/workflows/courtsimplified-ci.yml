@@ -617,6 +617,9 @@ jobs:
       - name: "Where the case is, who the person is in it, what is filed: words, never codes"
         run: npm run test:case-words
 
+      - name: "Every request Update with my answers can send passes the route's own check; stand-ins run it too"
+        run: npm run test:understand-request
+
       - name: The court's own words, and none of the ruled-out wording, on every screen
         run: npm run test:court-terms
 

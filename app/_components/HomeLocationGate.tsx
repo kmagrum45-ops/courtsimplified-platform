@@ -2,7 +2,7 @@
 
 import { STORY_SECTION } from "../../src/lib/case-system/intakeStory";
 import { frontDoorStory } from "../../src/lib/case-system/personWords";
-import { courtOfPapers, filedFromSituation, sideOf, situationAnswers, situationFromRaw, situationSection, SITUATION_FIELD, SITUATION_SECTION, withKnownCourt } from "../../src/lib/case-system/situation/situation";
+import { courtOfPapers, situationFromRaw, situationSection, SITUATION_FIELD, SITUATION_SECTION, withKnownCourt } from "../../src/lib/case-system/situation/situation";
 import { writeIntakeSession } from "../../src/lib/case-system/intakeCheckpoint";
 import { useIntakeState, useIntakeRef, useStory, useCaseLocation, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, useSituation, useIntakeReviewView, IntakeRecoveryBoundary } from "./IntakeRecovery";
 import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
@@ -11,6 +11,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { IntakeRequest } from "./intakeRequest";
 import { understandingInputError } from "../../src/lib/case-system/understanding/understandInput";
+import { understandRequestBody } from "../../src/lib/case-system/understanding/understandRequest";
 import { supabase } from "../../src/lib/supabase/client";
 import {
   type BuilderDraftCourtPath,
@@ -319,14 +320,8 @@ function HomeLocationGateContent() {
         signal,
         method: "POST",
         headers: { "Content-Type": "application/json", ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}) },
-        body: JSON.stringify({
-          story: facts.trim(),
-          city: city.trim(),
-          chosenCourt: path,
-          ...(answers.length ? { answers } : {}),
-          // The person's situation answers (step 2): their side and the day served, never read from the story instead.
-          ...(sideOf(situation) ? { situation: { side: sideOf(situation) === "responding" ? "responding" : "starting", ...(situationAnswers(path, situation).servedOn ? { servedOn: situationAnswers(path, situation).servedOn } : {}), ...(filedFromSituation(situation) !== undefined ? { filed: filedFromSituation(situation) } : {}), ...(situation.stage ? { stageGiven: true } : {}) } } : {}),
-        }),
+        // Built in one place (understandRequest.ts), so test:understand-request checks what is sent against the route's own check.
+        body: JSON.stringify(understandRequestBody({ story: facts.trim(), city: city.trim(), chosenCourt: path, answers, situation })),
       });
       const result = (await response.json().catch(() => ({}))) as Partial<UnderstandResponse> & { ok?: boolean; skipped?: string };
       await validateIntakeResponse(signal);

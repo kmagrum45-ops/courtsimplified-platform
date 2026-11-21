@@ -12,6 +12,7 @@ import { WorkingButton } from "./Working";
 import { UseSuggestion } from "./UseSuggestion";
 import { factStatus } from "@/src/lib/case-system/caseFile/factStatus";
 import { allHomeQuestionWords, homeAsks } from "@/src/lib/case-system/caseFile/factQuestions";
+import { cardAnswers } from "@/src/lib/case-system/understanding/understandRequest";
 
 /** A question of the site's own: it has an id and its words are the fixed words (never the model's). */
 const SITE_WORDS = allHomeQuestionWords();
@@ -76,9 +77,8 @@ export default function CaseUnderstandingCard({
    * question starts empty. Until then it was kept by place in the list and cleared on every round, because an answer
    * kept by place showed up under another question (site owner's live test, 16 Oct 2026; case-understanding-continuity).
    */
-  const answered = understanding.questions
-    .map((item) => ({ ...(item.id ? { id: item.id } : {}), question: item.question, answer: (item.id ? replies[item.id] ?? "" : "").trim() }))
-    .filter((item) => item.answer);
+  // Built in one place (understandRequest.ts), so test:understand-request checks what is sent against the route.
+  const answered = cardAnswers(understanding.questions, replies);
   const suggested = asPath(understanding.mainCourt);
   // The questions this card may ask, by their place in the reading (replies are kept by that place): ONLY the site's own,
   // by id and in its fixed words (questions/factQuestions.ts), and only while the one function lets that id be asked. A
@@ -92,7 +92,7 @@ export default function CaseUnderstandingCard({
   const reply = (id: string, value: string) => {
     const next = { ...replies, [id]: value };
     setReplies(next);
-    onDraftChange?.(understanding.questions.map((question) => ({ ...(question.id ? { id: question.id } : {}), question: question.question, answer: question.id ? next[question.id] ?? "" : "" })).filter((item) => item.answer.trim()));
+    onDraftChange?.(cardAnswers(understanding.questions, next, { draft: true }));
   };
   // The court the person already chose (the start's answer): the reading's same court is not offered again.
   const heldCourt = file && factStatus(file, "court") === "known" && typeof file.court.value === "string" ? file.court.value : null;
