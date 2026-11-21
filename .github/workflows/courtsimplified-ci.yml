@@ -617,6 +617,9 @@ jobs:
       - name: "Where the case is, who the person is in it, what is filed: words, never codes"
         run: npm run test:case-words
 
+      - name: "Sign-up says to confirm the email when it must; one page signs people in; guests told about the account"
+        run: npm run test:signup-confirmation
+
       - name: "Every request Update with my answers can send passes the route's own check; stand-ins run it too"
         run: npm run test:understand-request
 
@@ -988,6 +991,7 @@ jobs:
               tests/browser/family-civil-intake-reliability.spec.ts
               tests/browser/intake-review-polish.spec.ts
               tests/browser/guest-sign-in-carry.spec.ts
+              tests/browser/signup-confirmation.spec.ts
               tests/browser/courthouses-phone.spec.ts
               tests/browser/case-page-next-step.spec.ts
               tests/browser/overview-when-matches-case-page.spec.ts

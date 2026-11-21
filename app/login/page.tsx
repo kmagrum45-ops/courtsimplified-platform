@@ -10,6 +10,7 @@ import { carryGuestIntake } from "../../src/lib/case-system/guestCarry";
 import { openCaseFromAddress } from "../../src/lib/case-system/openCase";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
 import { WorkingButton } from "../_components/Working";
+import { checkEmailMessage, confirmationRedirect, EMAIL_CONFIRMED, isUnconfirmedSignIn, RESEND_CONFIRMATION, resentMessage, signUpNext, UNCONFIRMED_SIGN_IN } from "../../src/lib/auth/signUpConfirmation";
 
 /**
  * Supabase Auth returns a specific error code for most signup failures, but
@@ -61,12 +62,23 @@ export default function LoginPage() {
   const [sendingLink, setSendingLink] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  // What a sign-up or sign-in said Supabase answered (signUpConfirmation.ts): the email to confirm, or a sign-in refused
+  // because it is not confirmed yet (with the link sent again on request).
+  const [checkEmail, setCheckEmail] = useState("");
+  const [unconfirmed, setUnconfirmed] = useState("");
+  const [resent, setResent] = useState("");
+  const [resending, setResending] = useState(false);
+  // The confirmation link lands here (?confirmed=1).
+  const [confirmed] = useState(() => typeof window !== "undefined" && new URLSearchParams(window.location.search).get("confirmed") === "1");
 
   async function handleSubmit() {
     try {
       setLoading(true);
       setError("");
       setSuccess("");
+      setCheckEmail("");
+      setUnconfirmed("");
+      setResent("");
 
       if (!email.trim() || !password.trim()) {
         setError("Email and password are required.");
@@ -77,6 +89,8 @@ export default function LoginPage() {
         const { data, error } = await supabase.auth.signUp({
           email: email.trim(),
           password,
+          // The confirmation link lands on this site's own address (the live site's, on the live site).
+          options: { emailRedirectTo: confirmationRedirect(window.location.origin) },
         });
 
         if (error) {
@@ -84,19 +98,11 @@ export default function LoginPage() {
           return;
         }
 
-        // NO CONFIRMATION EMAIL IS SENT. `mailer_autoconfirm` is true on the
-        // Supabase project (a deliberate, non-default setting -- see
-        // docs/ARCHITECTURE.md), so a new signup is confirmed immediately and
-        // Supabase returns a session.
-        //
-        // This used to say "Check your email for confirmation", which sent
-        // every new user to an inbox to wait for a message that was never
-        // going to arrive, while they were in fact already signed in.
-        //
-        // The session is read rather than assumed: if autoconfirm is ever
-        // turned off, `session` comes back null and the branch below tells the
-        // user the truth for that configuration instead.
-        if (data.session) {
+        // Read from what the sign-up returned, never from an assumption about the Supabase setting (site owner,
+        // 21 Nov 2026): a session means signed in now; none means a confirmation email was sent, and the person
+        // must click it before they can sign in. (Production requires it: CLAUDE.md s. 6. Until 21 Nov this said
+        // that the account could be signed in to straight away, and that sign-in then failed.)
+        if (signUpNext(data) === "signed-in") {
           // A new account starts with nothing from this browser, except the guest
           // intake this person chose to bring with them (guestCarry.ts).
           const carried = data.user ? carryGuestIntake(sessionStorage, afterSignIn(), data.user.id) : null;
@@ -106,7 +112,7 @@ export default function LoginPage() {
           return;
         }
 
-        setSuccess("Account created. You can sign in with those details now.");
+        setCheckEmail(checkEmailMessage(email.trim()));
         return;
       }
 
@@ -116,6 +122,8 @@ export default function LoginPage() {
       });
 
       if (error) {
+        // Refused because the email is not confirmed yet: said so, with the link sent again on request.
+        if (isUnconfirmedSignIn(error)) { setUnconfirmed(email.trim()); return; }
         setError("We could not sign you in with those details. Please try again.");
         return;
       }
@@ -144,6 +152,21 @@ export default function LoginPage() {
       setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function resendConfirmation() {
+    if (!unconfirmed) return;
+    try {
+      setResending(true);
+      setResent("");
+      const { error } = await supabase.auth.resend({ type: "signup", email: unconfirmed, options: { emailRedirectTo: confirmationRedirect(window.location.origin) } });
+      if (error) { setError(error.code === "over_email_send_rate_limit" ? "We're temporarily unable to send email — please try again in a few minutes." : "We could not send the link again. Please try again in a few minutes."); return; }
+      setResent(resentMessage(unconfirmed));
+    } catch {
+      setError("We could not send the link again. Please try again in a few minutes.");
+    } finally {
+      setResending(false);
     }
   }
 
@@ -258,6 +281,31 @@ export default function LoginPage() {
           {error ? (
             <div className="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-300">
               {error}
+            </div>
+          ) : null}
+
+          {confirmed && !checkEmail && !unconfirmed ? (
+            <div className="rounded-2xl border border-green-500/40 bg-green-500/10 px-4 py-3 text-sm text-green-300" data-testid="signup-confirmed">
+              {EMAIL_CONFIRMED}
+            </div>
+          ) : null}
+
+          {checkEmail ? (
+            <div className="rounded-2xl border border-green-500/40 bg-green-500/10 px-4 py-3 text-sm text-green-300" role="status" data-testid="signup-check-email">
+              {checkEmail}
+            </div>
+          ) : null}
+
+          {unconfirmed ? (
+            <div className="rounded-2xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-200" role="alert" data-testid="signin-unconfirmed">
+              <p>{UNCONFIRMED_SIGN_IN}</p>
+              {resent ? (
+                <p className="mt-2 text-green-300" data-testid="signin-resent">{resent}</p>
+              ) : (
+                <WorkingButton onClick={resendConfirmation} working={resending} workingLabel="Sending the link…" data-testid="signin-resend-confirmation" className="mt-2 font-semibold text-cyan-300 underline hover:text-cyan-200">
+                  {RESEND_CONFIRMATION}
+                </WorkingButton>
+              )}
             </div>
           ) : null}
 
