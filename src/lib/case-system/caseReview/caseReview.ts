@@ -29,6 +29,7 @@
  */
 
 import { userStory } from "../userStory";
+import { partiesHeldOfMaster, type PartiesHeld } from "../parties/partiesHeld";
 import { caseFileOfMaster, claimKindOfMaster } from "../caseFile/caseFileOfMaster";
 import { changedWords } from "../caseFile/caseFile";
 import { parseRecordedAmount } from "../format/recordedAmount";
@@ -42,6 +43,8 @@ export const CASE_REVIEW_RULES_SOURCE = {
 /** The confirmed facts a review reads. Every field is the user's own entry. */
 export type ConfirmedCaseFile = {
   courtPath: "small-claims" | "civil" | "family" | string;
+  /** Whether the Parties step holds the names and the other party's address: yes or no only (parties/partiesHeld.ts). */
+  partiesHeld?: PartiesHeld;
   /** "Plaintiff / claimant", "Defendant / responding party", or "". */
   role: string;
   /** The builder's recorded stage, e.g. "starting-case". */
@@ -112,7 +115,7 @@ export function deterministicFindings(file: ConfirmedCaseFile): CaseReviewFindin
     file.courtPath === "small-claims" && isPlaintiff(file) && notYetFiled(file);
 
   if (smallClaimsPlaintiffBeforeFiling) {
-    if (!file.yourName.trim()) {
+    if (!file.yourName.trim() && !file.partiesHeld?.you) {
       out.push({
         kind: "missing-your-name",
         text:
@@ -123,7 +126,7 @@ export function deterministicFindings(file: ConfirmedCaseFile): CaseReviewFindin
         aiLocated: false,
       });
     }
-    if (!file.otherParty.trim()) {
+    if (!file.otherParty.trim() && !file.partiesHeld?.other) {
       out.push({
         kind: "missing-other-party-name",
         text:
@@ -135,7 +138,7 @@ export function deterministicFindings(file: ConfirmedCaseFile): CaseReviewFindin
         aiLocated: false,
       });
     }
-    if (!file.otherPartyAddress.trim()) {
+    if (!file.otherPartyAddress.trim() && !file.partiesHeld?.otherAddress) {
       out.push({
         kind: "missing-other-party-address",
         text:
@@ -261,6 +264,7 @@ export function caseFileFromMasterResult(masterResult: unknown, courtPath: strin
     stage: str(intake.caseStage),
     // The person's own story, never the labelled record the civil and Family intakes save with names in it.
     story: userStory(intake as never),
+    partiesHeld: partiesHeldOfMaster(master, str(intake.courtPath) || courtPath),
     yourName: str(intake.yourName),
     otherParty: latest("otherParty", str(intake.otherParty)),
     otherPartyAddress: str(extra.defendantAddress),

@@ -19,6 +19,8 @@
  */
 import { sameAnswer, slotsOfQuestion, type CaseFile } from "./caseFile";
 import { canonicalJson } from "../canonicalJson";
+import type { Checkpoint } from "../intakeCheckpoint";
+import { panelAnswerFacts } from "../intakeReview";
 
 type Facts = Record<string, unknown>;
 
@@ -61,4 +63,51 @@ export function factsWithRecord<T extends Facts>(facts: T, held: CaseFile, answe
     out[key] = typeof now === "string" && typeof slot.value === "number" ? String(slot.value) : slot.value;
   }
   return out as T;
+}
+
+/**
+ * The facts an analysis started from the Small Claims chat is given: the review's answers under the chat's own facts,
+ * then each answer the person holds at the record's value (factsWithRecord). One reader for both ways an analysis
+ * starts: the review's Continue and the chat finishing on its own. Before, only Continue added the review's answers,
+ * so when the chat's last turn finished the intake, an amount given only in the review ("Use the suggestion") was
+ * missing and the analysis ran with no amount while the screen showed one (browser-regression run 43490561082
+ * attempt 2; test:chat-uses-record check 5).
+ */
+export function analysisFactsOf<T extends Facts>(facts: T, checkpoint: Checkpoint | null, held: CaseFile): T {
+  const review = checkpoint ? panelAnswerFacts(checkpoint) as Facts : {};
+  return factsWithRecord({ ...review, ...facts } as T, held);
+}
+
+/**
+ * A FORM'S ANALYSIS INPUT: THE RECORD PLUS THE FORM'S STATE, THE RECORD WINS (site owner, 14 Nov 2026, item 5 of the
+ * decisions on the batch report: the Small Claims form, Family, Civil and the hand-off, page.tsx handleComplete, build
+ * the analysis input with analysisFactsOf, one function, and a value held in the record but missing from the form's
+ * boxes is sent). The form's own keys only: the review's keys analysisFactsOf reads under them are not sent as fields of
+ * their own (each route checks its input). A box for a fact the person removed is sent empty. `FORM_COMPUTED` keys are
+ * left as the form has them: the story, and what the form works out in its own terms (the stage, the side, the issues and
+ * documents as labels), which the record holds in other terms.
+ */
+export const FORM_COMPUTED = ["facts", "caseStage", "yourRole", "role", "issues", "filedDocuments", "caseId", "caseContext", "uploadedFiles"] as const;
+export function formAnalysisInput<T extends Facts>(input: T, checkpoint: Checkpoint | null, held: CaseFile): T {
+  const computed = new Set<string>(FORM_COMPUTED);
+  const boxes = Object.fromEntries(Object.entries(input).filter(([key]) => !computed.has(key))) as Facts;
+  const recorded = analysisFactsOf(boxes, checkpoint, held) as Facts;
+  const out: Facts = { ...input };
+  for (const key of Object.keys(boxes)) {
+    if (key in recorded) out[key] = recorded[key];
+    else if (typeof input[key] === "string") out[key] = "";
+    else if (Array.isArray(input[key])) out[key] = [];
+  }
+  return out as T;
+}
+
+/**
+ * The checkpoint with this turn's answer among the earlier answers, as the store will hold it once it takes it: the case
+ * file read from it knows what was just answered (Chrome pass 3 on #550, S6). Unchanged when the turn answered nothing.
+ */
+export function withThisAnswer<T extends { sections: Record<string, unknown> } | null>(checkpoint: T, questionId: string | null | undefined, answerText: string | null | undefined): T {
+  if (!checkpoint || !questionId || !answerText) return checkpoint;
+  const guided = (checkpoint.sections.guided ?? {}) as { earlierAnswers?: { questionId: string; answerText: string }[] };
+  const earlier = Array.isArray(guided.earlierAnswers) ? guided.earlierAnswers.filter((item) => item.questionId !== questionId) : [];
+  return { ...checkpoint, sections: { ...checkpoint.sections, guided: { ...guided, earlierAnswers: [...earlier, { questionId, answerText }] } } };
 }

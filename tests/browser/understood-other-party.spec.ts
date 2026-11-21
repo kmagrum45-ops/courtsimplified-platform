@@ -20,7 +20,7 @@ import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { deleteHarnessUser, harnessAdmin } from "./harness/realTestSession";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { serveModelStandIns } from "./harness/thisCommitServer";
-import { recordInitialUnknowns } from "./harness/intakeReview";
+import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
@@ -37,7 +37,7 @@ async function confirmHere(page: Page) {
   await expect(panel).toHaveAttribute("data-phase", "reviewing", { timeout: 30_000 });
   // The kind is left "I do not know yet" here, and picked on the overview (Form 7A's checklist needs a kind of claim).
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
 }
@@ -106,7 +106,17 @@ for (const court of ["small-claims", "civil", "family"] as const) {
         await page.waitForTimeout(3_000);
         await page.reload();
         await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 60_000 });
-        await expect(page.getByLabel("The other party's name"), "the Form 7A name box reads the record").toHaveValue(name, { timeout: 30_000 });
+        // Form 7A is the official boxes filled from the record, with its Parties step "Names and addresses" (site owner,
+        // 14 Nov, rule 1). The record holds the name whole, from the accepted reading: the Parties step names the defendant
+        // with it, and offers the split for the person to say Yes to (never guessed); the boxes then show each part.
+        const formParties = page.getByTestId("parties-step").filter({ hasText: "Names and addresses" });
+        const defendant = formParties.locator('[data-testid="parties-party"][data-party="other"]').first();
+        await expect(defendant.locator("h3"), "the Form 7A screen names the other party from the record").toContainText(name, { timeout: 30_000 });
+        const person = defendant.getByTestId("parties-kind-person");
+        if (await person.isVisible().catch(() => false)) await person.click();
+        await defendant.getByTestId("parties-name-split-yes").click();
+        const filled = page.getByTestId("filled-form-7a").locator('[data-testid="form-box"][data-state="filled"] [data-testid="form-box-value"]');
+        for (const part of name.split(" ")) await expect(filled.filter({ hasText: new RegExp(`^${part}$`) }), `the Form 7A boxes read the record: ${part}`).toHaveCount(1, { timeout: 30_000 });
       }
       await expect(page.getByTestId("intake-save-status")).toContainText(/saved/i, { timeout: 60_000 });
       await page.goto(`/cases/${id}`);
@@ -116,14 +126,29 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       // The name changed in the review: the newest name shows everywhere.
       const newer = `${name.split(" ")[0]}a Testchanged`;
       await page.locator('[data-testid="case-file-line"][data-fact="otherParty"]').getByRole("link", { name: "Change" }).click();
-      const opened = page.getByTestId("intake-review").locator('[data-testid="change-answer"][data-fact="otherParty"][data-open="true"]');
-      await expect(opened).toBeVisible({ timeout: 60_000 });
-      await opened.getByTestId("change-answer-text").fill(newer);
-      await opened.getByTestId("change-answer-save").click();
+      if (court === "small-claims") {
+        // Small Claims: "Change" opens the Parties step, the one place party details are asked (site owner, 14 Nov,
+        // rule 1); the name is held as its first and last name (said Yes to above), each changed there.
+        const defendant = page.getByTestId("intake-review").locator('[data-testid="parties-party"][data-party="other"]').first();
+        await expect(defendant, "Change opens the Parties step with the other party").toBeVisible({ timeout: 60_000 });
+        const [first, last] = newer.split(" ");
+        for (const [detail, value] of [["firstName", first], ["lastName", last]] as const) {
+          await defendant.locator(`[data-testid="parties-detail-held"][data-detail="${detail}"]`).getByTestId("parties-detail-change").click();
+          const input = defendant.getByTestId(`parties-input-${detail}`);
+          await input.fill(value);
+          await input.blur();
+          await expect(defendant.locator(`[data-testid="parties-detail-held"][data-detail="${detail}"]`), `the new ${detail} is held`).toContainText(value, { timeout: 30_000 });
+        }
+      } else {
+        const opened = page.getByTestId("intake-review").locator('[data-testid="change-answer"][data-fact="otherParty"][data-open="true"]');
+        await expect(opened).toBeVisible({ timeout: 60_000 });
+        await opened.getByTestId("change-answer-text").fill(newer);
+        await opened.getByTestId("change-answer-save").click();
+      }
       await expect(page.getByTestId("intake-save-status")).toContainText(/saved/i, { timeout: 60_000 });
       await expect(page.getByTestId("intake-review"), "the review shows the newest name").toContainText(newer, { timeout: 30_000 });
       // The change reaches the server (its fact is numbered there) before the case page is opened.
-      await expect.poll(async () => { const row = await harnessAdmin().from("cases").select("master_result").eq("id", id).single(); return JSON.stringify(row.data?.master_result ?? {}).includes(newer); }, { timeout: 30_000, message: "the changed name was saved" }).toBe(true);
+      await expect.poll(async () => { const row = await harnessAdmin().from("cases").select("master_result").eq("id", id).single(); const saved = JSON.stringify(row.data?.master_result ?? {}); return court === "small-claims" ? newer.split(" ").every((part) => saved.includes(`"${part}"`)) : saved.includes(newer); }, { timeout: 30_000, message: "the changed name was saved" }).toBe(true);
       await page.goto(`/cases/${id}`);
       await expect(page.locator('[data-testid="case-file-line"][data-fact="otherParty"]'), "\"What we have so far\" shows the newest name").toContainText(newer, { timeout: 60_000 });
     } finally {

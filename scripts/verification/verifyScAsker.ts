@@ -163,6 +163,26 @@ async function main() {
   const body = { facts: {}, answeredIds: [], newStoryText: STORY, caseFile: asker ? asker.heldForEngine(heldChat) : { amount: heldChat.amount } };
   const response = await post(new Request("http://localhost/api/intake/guided-turn", { method: "POST", headers: { "content-type": "application/json", "x-forwarded-for": `sc-asker-${Date.now()}` }, body: JSON.stringify(body) }) as never);
   check("chat route: a turn with the case file is accepted", response.status === 200, `status ${response.status}`);
+  // The story reading rides with the turn (Chrome milestone test of #550, S1 and S4); a field the route does not know
+  // refused EVERY Small Claims chat turn with "A valid intake turn payload is required." (full local run of 3774a858:
+  // 29 browser tests, no terminal suite).
+  let handedReading: unknown = "not called";
+  const postReading = createGuidedTurnPost({
+    authenticate: (async () => ({ id: "11111111-1111-4111-8111-111111111111" })) as never,
+    hasExternalAiKey: () => true,
+    orchestrate: (async (...args: unknown[]) => { handedReading = (args[8] as { reading?: unknown } | undefined)?.reading ?? null; return { safetyClassification: "clear", halted: false, facts: {}, answeredIds: [], matchedClaimTypes: [], intakeComplete: true, possibleCorrections: [], storyProposals: [], requestsLegalAdvice: false }; }) as never,
+  } as never);
+  const readingBody = { ...body, reading: [{ label: "Total claimed", value: "$5,000" }] };
+  const readingResponse = await postReading(new Request("http://localhost/api/intake/guided-turn", { method: "POST", headers: { "content-type": "application/json", "x-forwarded-for": `sc-asker-reading-${Date.now()}` }, body: JSON.stringify(readingBody) }) as never);
+  check("chat route: a turn carrying the story reading is accepted", readingResponse.status === 200, `status ${readingResponse.status}`);
+  check("chat route: the story reading reaches the turn", JSON.stringify(handedReading) === JSON.stringify(readingBody.reading), JSON.stringify(handedReading));
+  // Every field the chat page sends is one the route accepts (the route refuses a body with a key it does not know).
+  const routeSource = read("app/api/intake/guided-turn/route.ts");
+  const allowed = new Set([...(routeSource.match(/const allowedKeys = new Set\(\[([\s\S]*?)\]\)/)?.[1] ?? "").matchAll(/"([A-Za-z]+)"/g)].map((match) => match[1]));
+  const pageBody = read("app/builder/_components/GuidedSmallClaimsIntake.tsx").match(/fetch\("\/api\/intake\/guided-turn"[\s\S]*?body: JSON\.stringify\(\{([\s\S]*?)\n\s{8}\}\),/)?.[1] ?? "";
+  const sent = [...pageBody.matchAll(/^\s{10}([A-Za-z]+)(?:,|:)/gm)].map((match) => match[1]);
+  const unknown = sent.filter((key) => !allowed.has(key));
+  check("chat route: every field the chat page sends is one the route accepts", sent.length >= 8 && unknown.length === 0, `sent ${sent.join(", ")}; not accepted: ${unknown.join(", ")}`);
   const handedFile = handed as CaseFile | null;
   check("chat route: the case file reaches the engine (the turn's held option)", Boolean(handedFile && typeof handedFile === "object" && (handedFile as CaseFile).amount?.state === "answered" && (handedFile as CaseFile).wants?.state === "unsure"), JSON.stringify(handed).slice(0, 200));
   if (asker) {
@@ -199,7 +219,11 @@ async function main() {
   for (const [label, fields] of required) {
     check(`risk (a): "${label}" is supplied by a form field`, fields.length > 0);
     for (const field of fields) {
-      check(`risk (a): "${label}" -- the Small Claims form has a box for ${field}`, form.includes(`sc-intake-${field}`));
+      // The parties' names and addresses are given in the Parties step (site owner, 14 Nov 2026, rule 1), which the form
+      // renders in place of its own name and address boxes; the draft reads them from the parties record
+      // (test:drafts-from-record). Only these three fields; every other field still needs its own box.
+      const PARTY_FIELDS = new Set(["yourName", "yourAddress", "defendantAddress"]);
+      check(`risk (a): "${label}" -- the Small Claims form has a box for ${field}`, form.includes(`sc-intake-${field}`) || (PARTY_FIELDS.has(field) && /<PartiesStep\b/.test(form)));
       if (!asker) continue;
       const own = asker.askedFacts(field);
       // Not held: askable, whatever else the file holds.

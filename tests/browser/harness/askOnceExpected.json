@@ -1,0 +1,4 @@
+{
+  "_about": "The ask-once page test (tests/browser/ask-once-pages.spec.ts): the violations the site still makes, one entry each, with its reason. Measured on #549 (b120b43a) on 11 Nov 2026, before any fix. A violation not listed fails the test. The list may only shrink (test:ask-once-expected compares it with origin/main), and it must be empty when slice 4 (the draft, the filled PDF and the form boxes) lands. Trimmed on 12 Nov 2026 after slices 0-3 to the four entries the page test still sees (35 of 35 stories reached every page); each belongs to slice 4.",
+  "entries": []
+}

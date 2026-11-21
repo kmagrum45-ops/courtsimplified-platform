@@ -33,3 +33,15 @@ export function betterDestinationKnown(mainCourt: UnderstoodCourt, chosenPath: s
   // (tribunal, outside-ontario): there is nothing to check availability of.
   return suggestedIsAvailable ?? true;
 }
+
+/**
+ * Whether the reading card asks where the case belongs ("Where this seems to belong: ... you choose where to continue",
+ * with its Yes / No / I'm not sure). The court is the person's own answer once chosen (the court card on My cases or the
+ * start, `chosen`; or the case file's court, known): it is never asked again (Chrome milestone pass 2, finding 1, every
+ * story: the sentence was drawn with no check). It is said only when the reading points somewhere else
+ * (betterDestinationKnown: another court or a tribunal), which is a different place, offered once beside the chosen one.
+ */
+export function courtQuestionShown(mainCourt: UnderstoodCourt, chosen: string | null, suggestedIsAvailable: boolean | null): boolean {
+  if (!chosen) return true;
+  return betterDestinationKnown(mainCourt, chosen, suggestedIsAvailable);
+}

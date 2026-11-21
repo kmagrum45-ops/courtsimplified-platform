@@ -266,7 +266,7 @@ async function directSave(
         // The situation's own date is read over the position, never written into it (situation.ts).
         return { ...stored, position: { ...applied.position, dateAnswers: withoutSituationDates(applied.position.dateAnswers, courtPath, situationOfCase(stored)) } };
       },
-      (changed) => positionFactWrites(patch, changed.position),
+      (changed) => positionFactWrites(patch, changed.position, changed),
       now,
       // The facts go to the server, which numbers them (design §12): never numbered here.
       { tries: 4, requestTimeoutMs: CASE_REQUEST_TIMEOUT_MS, sendFacts: (writes) => sendPositionFacts(caseId, writes) },

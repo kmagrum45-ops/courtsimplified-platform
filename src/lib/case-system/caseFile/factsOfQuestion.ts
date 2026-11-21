@@ -12,10 +12,15 @@
  * still caught. Pure.
  */
 export type CaseFact =
-  | "situation" | "side" | "court" | "stage" | "filed" | "defenceFiled" | "claimServed" | "papers"
+  | "situation" | "side" | "court" | "stage" | "filed" | "defenceFiled" | "defendantsClaim" | "claimServed" | "papers"
   | "servedDate" | "serviceMethod" | "amount" | "otherParty" | "children" | "married" | "claimKind"
   | "wants" | "whenHappened" | "evidence" | "story" | "urgent" | "courtFileNumber" | "courtDate"
-  | "conferenceDate" | "claimIssuedDate" | "defenceFiledDate" | "marriedWhere" | "outcome" | "filedDocuments";
+  | "conferenceDate" | "claimIssuedDate" | "defenceFiledDate" | "marriedWhere" | "outcome" | "filedDocuments" | "safety"
+  // Every question asked by id has a fact (site owner, 17 Nov 2026; test:every-question-has-fact). These are asked in one
+  // place each and are not case-file slots: the one function reads slots, so they are never decided by it yet.
+  | "publication" | "twentyDaysPassed" | "notedInDefault" | "responseFacts" | "admission" | "completionDate" | "noticeToContractor"
+  | "timeline" | "livingSituation" | "livingHistory" | "property" | "adoption" | "missingEvidence" | "yourName"
+  | "divorceSought" | "cohabitation" | "municipality" | "otherPartyMunicipality";
 
 const FACTS: Record<string, readonly CaseFact[]> = {
   // The situation questions (situation.ts).
@@ -45,7 +50,16 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   urgent: ["urgent"],
   amountClaimed: ["amount"],
   courtFileNumber: ["courtFileNumber"],
-  defendantOutcomeText: ["outcome"],
+  // The person being sued says whether they want anything of their own in the same words as their outcome, so the two
+  // questions ask the same two facts (Chrome check of #550, 5b: offered again after "I only want to defend the claim"):
+  // their outcome in their words, and whether they claim money back, a yes/no fact a sentence never fills (decision 1,
+  // 18 Nov 2026; factTypes.ts). Either answered, neither question is asked again.
+  defendantOutcomeText: ["outcome", "defendantsClaim"],
+  "sc-defendant-outcome": ["outcome", "defendantsClaim"],
+  "sc-defendant-counterclaim": ["defendantsClaim", "outcome"],
+  counterclaimIntentText: ["defendantsClaim", "outcome"],
+  // Family's safety box, and the home page's safety question (5c).
+  safetyConcerns: ["safety"],
   remedySought: ["wants"],
   placeOfMarriage: ["marriedWhere"],
   "case-date-case-conference-date": ["conferenceDate"],
@@ -53,12 +67,17 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   "case-date-family-settlement-conference-date": ["conferenceDate"],
   "case-date-trial-management-conference-date": ["conferenceDate"],
   "case-date-pre-trial-conference-date": ["conferenceDate"],
+  // The first day of trial fills "the next court date" only when nothing else holds it (caseFile.ts STEP_DATE_NEVER_REPLACES).
   "case-date-trial-date": ["courtDate"],
   caseStage: ["stage"],
   // Small Claims guided questions and the review's.
   "sc-orient-role": ["side"],
   "sc-orient-dispute-category": ["claimKind"],
   "sc-orient-when-happened": ["whenHappened"],
+  // The injury's date is when it happened, for an injury claim: the deadline engine already treats them as one moment
+  // (casePosition.ts copies it to case-date-act-or-omission). Chrome milestone test of #550, row 9: asked again after the
+  // date was confirmed.
+  "sc-date-injury": ["whenHappened"],
   "sc-amount-claimed": ["amount"],
   "sc-claim-filed": ["filed"],
   "sc-defendant-served": ["claimServed"],
@@ -69,16 +88,16 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   "sc-evidence-available": ["evidence"],
   "sc-remedy-sought": ["wants"],
   // The step page's date questions (casePosition.ts) for the same moments.
+  // The day served ("Day you got the papers") is the day the person got the papers that started their case: never a later
+  // service (a defendant's claim, a crossclaim, a third party claim), each kept as its own step-page date only (question-
+  // to-fact audit, 11 Nov: a later service replaced the first, and pre-filled the defence deadline's question).
   "sc-date-claim-served": ["servedDate"],
-  "sc-date-defendants-claim-served": ["servedDate"],
   "case-date-served-with-application": ["servedDate"],
   "case-date-served-with-motion-to-change": ["servedDate"],
   "sc-date-settlement-conference": ["conferenceDate"],
-  "case-date-served-with-crossclaim": ["servedDate"],
-  "case-date-served-with-third-party-claim": ["servedDate"],
   "sc-date-claim-issued": ["claimIssuedDate"],
+  // A defence FILED with the court; a defence served on the other side is another moment (its own step-page date only).
   "sc-date-defence-filed": ["defenceFiledDate"],
-  "case-date-defence-served": ["defenceFiledDate"],
   "case-date-own-defence-delivered": ["defenceFiledDate"],
   "case-date-act-or-omission": ["whenHappened"],
   // The Family triage.
@@ -113,6 +132,29 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   "chat:amount": ["amount"],
   "chat:served-date": ["servedDate"],
   "chat:proof": ["evidence"],
+  // Questions asked in one place each, by id (test:every-question-has-fact; Chrome milestone pass 2).
+  "sc-defamation-publication-details": ["publication"],
+  "sc-defence-time-elapsed": ["twentyDaysPassed"],
+  "sc-defendant-noted-in-default": ["notedInDefault"],
+  "sc-defendant-response-facts": ["responseFacts"],
+  "sc-defendant-response-evidence": ["evidence"],
+  "sc-defendant-admission-payment": ["admission"],
+  "sc-contractor-completion-date": ["completionDate"],
+  "sc-contractor-notice-before-replacement": ["noticeToContractor"],
+  "sc-safety-check": ["safety"],
+  // The Family form's own boxes (the Small Claims form's "timeline" box asks when it happened: asker.ts FORM_FIELD_FACTS).
+  timeline: ["timeline"],
+  currentLivingSituation: ["livingSituation"],
+  pastLivingHistory: ["livingHistory"],
+  propertyHomeDetails: ["property"],
+  adoptionDetails: ["adoption"],
+  missingEvidence: ["missingEvidence"],
+  yourName: ["yourName"],
+  // The Family triage's own questions.
+  "divorce-sought": ["divorceSought"],
+  "cohabitation-dates": ["cohabitation"],
+  municipalities: ["municipality"],
+  "other-party-municipality": ["otherPartyMunicipality"],
 };
 
 /** The facts a question asks for: its listed facts, or a fact of its own (its id). */
@@ -124,16 +166,63 @@ const FACTS: Record<string, readonly CaseFact[]> = {
  * "what outcome are you seeking?" again). Null when the words name none of these.
  */
 const ASKS_FOR: [RegExp, CaseFact][] = [
-  [/\bwhat (?:outcome|result|remedy|remedies)\b|\boutcome (?:are|do) you (?:seeking|want)\b|\bwhat (?:do|would) you (?:want|like)(?: (?:to happen|the court to (?:order|do)))?\b|\bwhat are you (?:asking|seeking)\b|\bwhat (?:would you like|do you want) the court\b/i, "wants"],
-  [/\bhow much\b|\bwhat (?:is the )?amount\b/i, "amount"],
-  [/\bwhen were you served\b|\bwhat (?:date|day) were you served\b|\bhow were (?:the papers|you) served\b/i, "servedDate"],
+  // Each pattern names only what the person wants, claims, was served on, filed or sues: never a question that asks
+  // something else in similar words (question-to-fact audit, 11 Nov: "What would you like to know?", "What outcome did the
+  // tribunal reach?", "How much time has passed?", "How were you served?", "Have you filed a Defence?" and "Who is the
+  // defendant's insurer?" each wrote a fact they do not ask about). test:question-meanings.
+  [/\bwhat (?:outcome|result|remedy|remedies) (?:are|do|would) you\b|\boutcome (?:are|do) you (?:seeking|want)\b|\bwhat (?:do|would) you (?:want|like) (?:to happen|the court to (?:order|do))\b|\bwhat are you (?:asking|seeking)\b|\bwhat (?:would you like|do you want) the court\b/i, "wants"],
+  [/\bhow much (?:money )?(?:\w+\s+){0,4}?(?:owe[sd]?|owing|claim\w*|asking for|seeking|su(?:e|ing) for|in dispute)\b|\bwhat (?:is the )?amount (?:\w+\s+){0,3}?(?:claim\w*|owed|owing|in dispute|you are (?:asking|seeking))\b/i, "amount"],
+  [/\bwhen were you served\b|\bwhat (?:date|day) were you served\b/i, "servedDate"],
+  [/\b(?:have|has) (?:you|the defendant|they|he|she) (?:already )?filed (?:a |an |your |their |his |her )?defen[cs]e\b/i, "defenceFiled"],
+  // The same question in the home reading's other words (Chrome milestone pass 2, finding 4, S6: "Have you responded to the
+  // claim or received any further court papers since October 20?" and "Have you submitted a defence or received any
+  // further court papers since you were served?" after "Nothing else yet. I was just served").
+  [/\b(?:have|has) (?:you|the defendant|they|he|she) (?:already )?(?:submitted|served|sent|delivered|filed or served) (?:a |an |your |their |his |her )?defen[cs]e\b|\b(?:have|has) (?:you|the defendant) (?:already )?(?:responded|replied) to (?:the|this|their|that) (?:plaintiff'?s )?claim\b/i, "defenceFiled"],
+  [/\b(?:received|been served with|gotten|got) any (?:further|more|other|new) (?:court )?(?:papers|documents)\b|\banything (?:else )?(?:happened|changed) since you were served\b/i, "stage"],
   [/\b(?:have you|has anyone|has anything been) (?:already )?(?:started|filed)\b|\bstarted a court case\b/i, "filed"],
-  [/\bwho (?:is|are) the (?:other party|other side|defendants?|respondents?)\b|\bwho (?:exactly )?(?:are you|do you want to|will you|would you like to) su(?:e|ing)\b|\bwho (?:exactly )?(?:do|would) you (?:name|sue)\b/i, "otherParty"],
+  [/\bwho (?:is|are) the (?:other party|other side|defendants?|respondents?)\b(?!'s|s')|\bwho (?:exactly )?(?:are you|do you want to|will you|would you like to) su(?:e|ing)\b|\bwho (?:exactly )?(?:do|would) you (?:name|sue)\b/i, "otherParty"],
+  // The other side named by their part in the story, in the words the home page's questions use for it (Chrome check of
+  // #550, 5d: "Who is the other side?" was asked after the home page's question about who bought the goods).
+  [/\bwho (?:bought|purchased|hired|owes|is suing)\b|\bwho did you (?:sell|lend|rent|pay|hire|buy)\b[^?]*\b(?:to|from)?\b|\bwho (?:is|was|are|were) the (?:buyers?|sellers?|purchasers?|landlords?|tenants?|contractors?|lenders?|borrowers?|employers?|customers?|clients?)\b(?!'s|s')|\bname of the (?:company|business|buyers?|sellers?|store|landlord|contractor|employer|person|customer|client)\b|\b(?:full|legal|exact) (?:legal )?name of (?:the )?(?:business|company|store|other)\b/i, "otherParty"],
   [/\bwhen did (?:this|it|the [a-z]+) happen\b|\bwhat (?:date|day) did (?:this|it) happen\b/i, "whenHappened"],
+  // A worry about safety, asked on its own (Chrome check of #550, 5c: "Is anything urgent ... a safety worry" after
+  // "No safety concerns"). Only a question about the person's or the child's safety, never "what safety rules".
+  [/\b(?:any|immediate|current|ongoing) (?:immediate )?safety (?:concerns?|worr(?:y|ies)|issues?|risks?)\b|\b(?:are|do) you (?:feel )?(?:safe|unsafe)\b|\bworried about (?:your|the child'?s|your child'?s|your children'?s) safety\b/i, "safety"],
+  // The same worry in the real AI's other words (Chrome pass 2, S7a reading r2: "Are there any concerns about violence,
+  // your child's safety, or your child being taken away without agreement?", answered "No safety concerns", then the
+  // urgent question named a safety worry again).
+  [/\bconcerns? about [^?]{0,40}?\b(?:violence|safety|abuse)\b|\b(?:family|domestic|intimate partner) violence\b|\bat risk of (?:harm|being harmed)\b|\b(?:your|the) (?:child'?s|children'?s) safety\b/i, "safety"],
+  // A claim of the person's own against the one suing them: the person's outcome (5b: "A claim of your own against them"
+  // was offered after "I only want to defend the claim").
+  [/\bclaim of your own\b|\bcounter-?claim\b|\bdefendant'?s claim\b/i, "defendantsClaim"],
+  // Whether they were married to each other, in the words the home page's reading and the case page's "What to confirm
+  // next" use (Chrome milestone test of #550, rows 39 and 45: "Are you and your partner legally married?" on the home page,
+  // the triage's own question, and "Were you married, is a divorce proceeding underway..." after "No"). Never "married
+  // where" (marriedWhere) or "when did you marry".
+  [/(?<!\b(?:where|when|how) )\b(?:are|were) you(?: and (?:your|the) [a-z ]+?)? (?:legally |ever )?married\b(?! (?:in|where|at)\b)/i, "married"],
 ];
 
-export function factOfAskedText(question: string): CaseFact | null {
-  return ASKS_FOR.find(([asks]) => asks.test(question))?.[1] ?? null;
+/** Read only for a person being sued: the same words asked of a person suing name another fact (or none). */
+const ASKS_FOR_RESPONDING: [RegExp, CaseFact][] = [
+  [/\b(?:do|does) you (?:believe|think) (?:that )?(?:the )?[\w' ]{1,40}? owes? you (?:any )?money\b/i, "defendantsClaim"],
+];
+
+/**
+ * A question that names the person themself as one of its answers ("you personally, a business you operate, or a
+ * corporation?") asks about their own side, never the other party (real reading S8 r2, 18 Nov 2026: "Who was the seller
+ * under the agreement" read as the other party, and the buyer's name was offered as the seller).
+ */
+const ABOUT_YOUR_OWN_SIDE = /\byou personally\b|\b(?:a|the) business you (?:operate|own|run)\b|\byourself\b/i;
+
+const IF_YOU_WANT_MONEY = /\bif you (?:also )?want (?:any )?(?:money|to be paid|compensation)\b/i;
+
+export function factOfAskedText(question: string, options: { responding?: boolean } = {}): CaseFact | null {
+  const fact = ASKS_FOR.find(([asks]) => asks.test(question))?.[1] ?? (options.responding ? ASKS_FOR_RESPONDING.find(([asks]) => asks.test(question))?.[1] : undefined) ?? null;
+  if (fact === "otherParty" && ABOUT_YOUR_OWN_SIDE.test(question)) return null;
+  // "If you want money from the contractor, how much are you seeking?" asks the amount of a claim of the person's own,
+  // not the claim's amount (real reading S6 r1, 18 Nov 2026: a defendant was asked it after the start gave $4,200).
+  if (fact === "amount" && IF_YOU_WANT_MONEY.test(question)) return null;
+  return fact;
 }
 
 /**

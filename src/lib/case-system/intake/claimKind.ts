@@ -31,6 +31,13 @@ import { matchClaimType } from "./claimTypeMatcher";
  */
 export const LOAN_WORDS = /\b(?:lent|lend(?:ing)?|loan(?:ed|s)?|borrow(?:ed|ing|s)?|i\s*o\s*u|promissory)\b/i;
 
+/**
+ * The person LENT the money (Chrome check of #547, G1): "I lent", "I loaned", "lent him", an IOU or a promissory note, or
+ * "borrowed ... from me". What the money was for (a repair, a roof, a renovation) never makes it a contractor dispute.
+ * Someone who borrowed money themselves to pay for work ("I took out a loan to pay a roofer") is not matched.
+ */
+export const LENT_MONEY = /\b(?:i|we)\s+(?:lent|loaned)\b|\b(?:lent|loaned)\s+(?:him|her|them|my|our)\b|\bi\s*o\s*u\b|\bpromissory\b|\bborrowed(?:\s+\S+){0,6}?\s+from\s+(?:me|us)\b/i;
+
 /** Whether the person's words describe a loan. */
 export function describesLoan(text: string): boolean {
   return LOAN_WORDS.test(text);

@@ -21,6 +21,7 @@
  */
 
 import { caseFileOfMaster, claimKindOfMaster, heldWordsOf, otherPartyOfMaster } from "./caseFile/caseFileOfMaster";
+import { partyNames } from "./parties/parties";
 import { changedWords, type ClaimKindHeld } from "./caseFile/caseFile";
 import { nameRecorded } from "./privacy/modelPayloadNames";
 import { readCasePosition, settledStage, suggestedDatesFromAnswers, type CasePosition } from "./casePosition";
@@ -167,7 +168,9 @@ export function readCaseRecord(masterResult: unknown, courtPathColumn?: string |
     // The kind of claim from the case file, as every screen reads it (site owner, 29 Oct).
     claimTypeId: claimKind.claimTypeId,
     claimKind,
-    yourName: text(intake.yourName) || text(extra.yourName) || text(civil.yourName),
+    // The parties record's name for the person (parties.ts partyNames, 16 Nov 2026); an older case's form copy only when
+    // the record holds none.
+    yourName: partyNames(changedFile.parties.recorded ? changedFile.parties.list : []).you || text(intake.yourName) || text(extra.yourName) || text(civil.yourName),
     // The case file's other party (a removal included); an older saved case's analysis copy only when it holds none (G1a).
     otherParty: otherPartyOfMaster(master, courtPath, changedFile),
     // Small Claims saves its court file number as extra.claimNumber (SmallClaimsIntake).
@@ -211,7 +214,7 @@ export function storedIntakeValues(masterResult: unknown): Record<string, string
   const latestOf = (fact: "amount" | "wants" | "urgent", copy: string) => { const held = heldWordsOf(file, fact); return held.held ? held.words : copy; };
   const out: Record<string, string | string[]> = {
     facts: userStory(intake),
-    yourName: pick(intake.yourName, extra.yourName, civil.yourName),
+    yourName: partyNames(file.parties.recorded ? file.parties.list : []).you || pick(intake.yourName, extra.yourName, civil.yourName),
     // Through the case file (G1a, 1 Nov): a removal or change wins; an older case's copy only when it holds none.
     otherParty: otherPartyOfMaster(master, file.area, file),
     yourRole: pick(extra.yourRole, civil.yourRole),

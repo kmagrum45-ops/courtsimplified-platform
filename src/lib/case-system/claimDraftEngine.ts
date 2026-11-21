@@ -1,4 +1,20 @@
 import { sentences as sharedSentences } from "./sentences";
+import { personWordsOnly } from "./personWords";
+import { formatRecordedAmount } from "./format/recordedAmount";
+import { factStatus, stillNeeded } from "./caseFile/factStatus";
+import { slotText, type CaseFile, type SlotFact } from "./caseFile/caseFile";
+import { formatForCourt } from "./dates";
+
+/**
+ * The case file's own answer for a fact, when the one function says it is known (caseFile/factStatus.ts): the draft is
+ * built from the record, never from a copy kept beside it (Chrome milestone pass 2: the draft kept "$5,468.45" after the
+ * amount was changed to $5,100). Null when not known: the copy the caller passed is used, as before.
+ */
+function heldWords(file: CaseFile | null | undefined, fact: SlotFact): string | null {
+  if (!file || factStatus(file, fact) !== "known") return null;
+  const words = slotText(file[fact], (iso) => formatForCourt(iso)).trim();
+  return words || null;
+}
 export type ClaimDraftInput = {
   courtPath?: string;
   caseStage?: string;
@@ -78,7 +94,8 @@ function getPlaintiffAddress(input: ClaimDraftInput) {
 }
 
 function buildNumberedFacts(input: ClaimDraftInput) {
-  const facts = splitIntoSentences(input.facts);
+  // The person's words only: the site's questions are never numbered as their facts (personWords.ts).
+  const facts = splitIntoSentences(personWordsOnly(input.facts ?? ""));
   const timeline = splitIntoSentences(input.timeline);
 
   const combined = cleanList([...timeline, ...facts]);
@@ -99,7 +116,8 @@ function buildDamagesSection(input: ClaimDraftInput) {
   const damages: string[] = [];
 
   if (amount) {
-    damages.push(`The Plaintiff claims ${amount}.`);
+    // As the rest of the site shows an amount ("$1,500.00"); words that are not a plain sum, as written.
+    damages.push(`The Plaintiff claims ${formatRecordedAmount(amount)}.`);
   } else {
     damages.push("The amount claimed has not yet been clearly entered.");
   }
@@ -142,8 +160,17 @@ function buildEvidenceSection(input: ClaimDraftInput) {
 }
 
 export function draftSmallClaimsPlaintiffClaim(
-  input: ClaimDraftInput
+  given: ClaimDraftInput,
+  file?: CaseFile | null,
 ): ClaimDraftResult {
+  // The record's answers over the copies passed in (the amount, the other party, the outcome).
+  const amountHeld = heldWords(file, "amount");
+  const input: ClaimDraftInput = {
+    ...given,
+    otherParty: heldWords(file, "otherParty") ?? given.otherParty,
+    goal: heldWords(file, "wants") ?? given.goal,
+    extra: amountHeld ? { ...given.extra, amountClaimed: amountHeld } : given.extra,
+  };
   const plaintiff = input.yourName || "Plaintiff name not entered";
   const defendant = input.otherParty || "Defendant name not entered";
   const plaintiffAddress = getPlaintiffAddress(input) || "Plaintiff address not entered";
@@ -174,8 +201,9 @@ export function draftSmallClaimsPlaintiffClaim(
   const missingInformation = cleanList([
     ...(input.analysis?.missingInformation || []),
     !input.yourName ? "Plaintiff name is missing." : "",
-    !input.otherParty ? "Defendant name is missing." : "",
-    !getAmountClaimed(input) ? "Amount claimed or damages breakdown is missing." : "",
+    // With the case file, what is missing is what the one function says is not known (stillNeeded).
+    (file ? stillNeeded(file, ["otherParty"]).length > 0 && !input.otherParty : !input.otherParty) ? "Defendant name is missing." : "",
+    (file ? stillNeeded(file, ["amount"]).length > 0 && !getAmountClaimed(input) : !getAmountClaimed(input)) ? "Amount claimed or damages breakdown is missing." : "",
     !input.facts ? "Facts explaining what happened are missing." : "",
     !input.timeline ? "Timeline is missing." : "",
   ]);

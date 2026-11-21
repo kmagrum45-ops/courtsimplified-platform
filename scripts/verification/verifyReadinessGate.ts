@@ -346,6 +346,23 @@ function main(): void {
     "a claim-type id in the gate would break claim type 50",
   );
 
+  // Asked twice (Chrome check of #550, S2-S4): "Choose what you are asking the court for" after the person answered
+  // what they want, or said "I'm not sure". A settled or known fact is never asked again: the case file's answer
+  // (factStatus "known" or "settled") is the remedy question's answer, so no blocker asks for it.
+  check(
+    "the person's answer to what they want, held in the case file, is not asked for again",
+    !evaluateReadinessGate({ ...baseInput({ confirmedRemedyId: null }), remedyHeld: true } as ReadinessGateInput).blockers.some((blocker) => blocker.kind === "no-remedy-confirmed"),
+  );
+  check(
+    "with no answer held and none chosen, the remedy is still asked (once)",
+    evaluateReadinessGate({ ...baseInput({ confirmedRemedyId: null }), remedyHeld: false } as ReadinessGateInput).blockers.some((blocker) => blocker.kind === "no-remedy-confirmed"),
+  );
+  const surface = readFileSync("app/builder/_components/StatementOfClaimSurface.tsx", "utf8");
+  check(
+    "the draft panel reads what the person wants from the one function (factStatus), not a choice of its own",
+    /factStatus\(caseFile, "wants"\)/.test(surface) && /remedyHeld/.test(surface),
+  );
+
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
   if (failures) process.exitCode = 1;
 }

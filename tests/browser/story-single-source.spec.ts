@@ -14,7 +14,7 @@
 import { expect, test, type Page } from "@playwright/test";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
-import { recordInitialUnknowns } from "./harness/intakeReview";
+import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
@@ -65,7 +65,7 @@ for (const court of ["small-claims", "family"] as const) {
       // The story changes on "Save story", not as it is typed (#470 re-test).
       await page.getByTestId("intake-review").getByTestId("review-story-save").click();
       await recordInitialUnknowns(page);
-      await page.getByTestId("intake-review-acknowledgement").check();
+      await tickIfAsked(page);
       await page.getByTestId("intake-confirm").click();
       await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
 
@@ -128,7 +128,7 @@ test("Back after a correction never shows the old story's reading as current", a
   // The story changes on "Save story", not as it is typed (#470 re-test).
   await page.getByTestId("intake-review").getByTestId("review-story-save").click();
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
 

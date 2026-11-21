@@ -28,7 +28,7 @@ const STORY_CUES: Record<string, RegExp> = {
     `\\b(?:never (?:got |been )?married|(?:were|was)n'?t married|not married|(?:got |were |are |we're )married|my (?:husband|wife|ex-?husband|ex-?wife)|common[- ]law)\\b|${EX_PARTNER}`,
     "i",
   ),
-  "child-together": /\b(?:our (?:son|daughter|kids?|child(?:ren)?|baby)|my (?:son|daughter)'?s? (?:father|mother|dad|mom)|(?:son|daughter|kids?|child(?:ren)?) (?:together|with (?:him|her)))\b/i,
+  "child-together": /\b(?:our (?:son|daughter|kids?|child(?:ren)?|baby)|my (?:son|daughter)'?s? (?:father|mother|dad|mom)|(?:son|daughter|kids?|child(?:ren)?) (?:together|with (?:him|her))|we have (?:a|an|one|two|three|four|\d+) (?:\d+[- ]?(?:year|yr|month)s?[- ]?olds?|sons?|daughters?|kids?|child(?:ren)?|baby|babies|boys?|girls?))\b/i,
   "case-involves-children": /\b(?:son|daughter|kids?|child(?:ren)?|baby|custody|parenting|child support)\b/i,
 };
 
@@ -59,10 +59,11 @@ const STORY_ANSWERS: Record<string, { yes?: RegExp; no?: RegExp }> = {
     yes: /\b(?:(?:she|he|(?:my )?(?:(?:ex|former)[- ]?)?(?:partner|spouse|wife|husband)) and i (?:were|got) married|(?:we|(?:him|her) and i|i and (?:him|her)|(?:my )?(?:husband|wife) and i) got married|i got married to (?:him|her)|(?:we were|we're|we are) married|married (?:him|her) in|my (?:husband|wife|ex-?husband|ex-?wife)\b)/i,
   },
   "child-together": {
-    yes: /\b(?:our (?:(?:two|three|four|2|3|4|little|youngest|oldest) )?(?:son|daughter|sons|daughters|kids?|child(?:ren)?|baby|boys|girls)|my (?:son|daughter)'?s? (?:father|mother|dad|mom))\b/i,
+    // "We have a 6-year-old" (Chrome milestone pass 2, finding 7, S7: the triage asked cold after it was confirmed).
+    yes: /\b(?:our (?:(?:two|three|four|2|3|4|little|youngest|oldest) )?(?:son|daughter|sons|daughters|kids?|child(?:ren)?|baby|boys|girls)|my (?:son|daughter)'?s? (?:father|mother|dad|mom)|we have (?:a|an|one|two|three|four|\d+) (?:\d+[- ]?(?:year|yr|month)s?[- ]?olds?|sons?|daughters?|kids?|child(?:ren)?|baby|babies|boys?|girls?))\b/i,
   },
   "case-involves-children": {
-    yes: /\b(?:son|daughter|sons|daughters|kids?|child(?:ren)?|baby|boys|girls|custody|parenting time|child support)\b/i,
+    yes: /\b(?:son|daughter|sons|daughters|kids?|child(?:ren)?|baby|boys|girls|custody|parenting time|child support|\d+[- ]?(?:year|yr)s?[- ]?olds?)\b/i,
   },
 };
 

@@ -37,7 +37,9 @@ const MONEY = /\$\s?\d[\d,]*(?:\.\d{2})?|\b\d{1,3}(?:,\d{3})+(?:\.\d{2})?\b|\b\d
 const KINDS: [Kind, RegExp][] = [
   // A claim the other side makes against the person ("serves him with a claim for $3,200",
   // "is suing me for $6,000") is never the person's own amount (messy pack case 19).
-  ["against", /\b(?:serve[sd]? (?:me|him|her|them|us) with (?:a|their|his|her) claim|su(?:e|es|ed|ing) (?:me|him|her|us)\b|claim(?:s|ed)? against (?:me|him|her|us)\b)/i],
+  // Also what they say the person owes ("says I owe $4,200", "I disagree that I owe $4,200", "wants me to pay $4,200"):
+  // the claim against them, never their own amount (Chrome milestone test of #550, S6).
+  ["against", /\b(?:serve[sd]? (?:me|him|her|them|us) with (?:a|their|his|her) claim|su(?:e|es|ed|ing) (?:me|him|her|us)\b|claim(?:s|ed)? against (?:me|him|her|us)\b|(?:says?|said|claims?|claimed|alleges?|alleged|insists?) (?:that )?(?:i|we) owe\b|(?:disagree|dispute|deny|denied) (?:that )?(?:i|we) owe\b|wants? (?:me|us) to pay\b)/i],
   ["owed", /\b(?:invoiced?|billed|still owe[sd]?|owe[sd]?|owing|is owed|are owed|outstanding|unpaid|balance|remaining|left to pay|still due|never paid (?:me|us)|(?:didn'?t|did not|won'?t|will not|refuses? to|refused to) pay (?:me|us)(?: back)?)\b/i],
   // "I think about $75,000" after "I want to sue …" is the amount they put on the claim (Charter re-test).
   ["claim", /\b(?:claim(?:ing|ed)?|su(?:e|ing) (?:\w+ )?for|(?:want(?:s|ed)?|get|recover) [^.]{0,30}?\bback|money back|lost|total|i think (?:it'?s |it is )?(?:about|around|roughly))\b/i],
@@ -111,6 +113,22 @@ export function claimAmountFromStory(story: string): ClaimAmount | null {
     if (!sum) continue;
     const total = Number(sum[1].replace(/,/g, "")) + Number(sum[2].replace(/,/g, ""));
     if (Number.isFinite(total) && total > 0) return { value: `$${total.toLocaleString("en-CA")}`, quote: sentence };
+  }
+  // What they claim as a list, each amount with what it is for ("I want to claim $5,000 for pain and suffering, $450 in
+  // lost wages and $18.45 for medicine"): the total, offered with their words (Chrome's forms test on #550, 14 Nov 2026;
+  // rule 8). Only after a claim verb, and only when every amount in the rest of the sentence says what it is for: a list
+  // of prices or payments ("I paid $1,200 for the table and $300 for the delivery") is not added.
+  for (const sentence of sentences(story)) {
+    const claimed = /\b(?:want(?:s|ed)? to claim|claim(?:s|ing)?|am claiming|asking for|seek(?:s|ing)?)\b(.*)$/i.exec(sentence);
+    if (!claimed) continue;
+    const rest = claimed[1];
+    const all = rest.match(/\$\s?\d/g) ?? [];
+    const items = [...rest.matchAll(/\$\s?(\d[\d,]*(?:\.\d{2})?)\s+(?:for|in)\s+[^$]+?(?=\s*,\s*(?:and\s+)?\$|\s+and\s+\$|\s*[.!]?\s*$)/gi)];
+    if (items.length < 2 || items.length !== all.length) continue;
+    const numbers = items.map((item) => item[1].replace(/,/g, ""));
+    const total = numbers.reduce((sum, value) => sum + Number(value), 0);
+    const cents = numbers.some((value) => /\./.test(value));
+    if (Number.isFinite(total) && total > 0) return { value: `$${total.toLocaleString("en-CA", { minimumFractionDigits: cents ? 2 : 0, maximumFractionDigits: 2 })}`, quote: sentence };
   }
   const mentions = moneyMentions(story);
   const distinct = (list: Mention[]) => [...new Set(list.map((mention) => mention.number))];

@@ -1,4 +1,6 @@
 import { firstWordedDate } from "../../../src/lib/case-system/dates";
+import { formatRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
+import { factsOfQuestion } from "../../../src/lib/case-system/caseFile/factsOfQuestion";
 /**
  * How the "Here's what I understood" card reads (2026-10-13).
  *
@@ -53,6 +55,16 @@ export const RESPONDING_CARD_LABELS: Record<string, string> = {
   "sc-date-claim-served": "The day the claim reached you",
 };
 
+/**
+ * A held answer in words, as the card and the chat's summary show it: an amount as the rest of the site shows one
+ * ("$1,500.00", formatRecordedAmount; Chrome check of #550, 2.6), words that are not a plain sum as written.
+ */
+export function answerWords(questionId: string, value: unknown): string {
+  if (Array.isArray(value)) return value.join(", ");
+  const words = String(value ?? "");
+  return factsOfQuestion(questionId).includes("amount") ? formatRecordedAmount(words) || words : words;
+}
+
 export function cardLabel(questionId: string, questionText: string, side: { responding?: boolean } = {}): string {
   return (side.responding ? RESPONDING_CARD_LABELS[questionId] : undefined) ?? CARD_LABELS[questionId] ?? questionText;
 }
@@ -102,6 +114,8 @@ export function confirmedDrafts<T extends Draft>(drafts: readonly T[], shownWith
     if (lead === undefined || lead < 0) return draft;
     const leader = drafts[lead];
     const edited = leader.answer.trim() !== (originals[lead] ?? "").trim();
-    return { ...draft, keep: leader.keep, answer: edited ? leader.answer : draft.answer };
+    // The choice made on the shown row (Yes / No / not sure) is the hidden row's too.
+    const choice = "choice" in leader ? { choice: (leader as { choice?: unknown }).choice } : {};
+    return { ...draft, keep: leader.keep, ...choice, answer: edited ? leader.answer : draft.answer } as T;
   });
 }

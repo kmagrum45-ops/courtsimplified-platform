@@ -1,8 +1,10 @@
 "use client";
 
+import { offerForQuestion } from "../../../src/lib/case-system/caseFile/offerChoice";
 import { dateAnswerCheck, dateSpans } from "../../../src/lib/case-system/dates";
 import { SMALL_CLAIMS_FILED_OPTIONS } from "./guidedFields";
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
+import TribunalNotice, { useTribunalFirst } from "../../_components/TribunalNotice";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
 import { panelAnswerFacts } from "../../../src/lib/case-system/intakeReview";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
@@ -15,7 +17,7 @@ import { IntakeRequest } from "../../_components/intakeRequest";
 import TidyWordingReview from "./TidyWordingReview";
 
 import SignInForSafetyCheck from "./SignInForSafetyCheck";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 
 import type {
   AnalysisResult,
@@ -56,6 +58,16 @@ import {
 } from "../../../src/lib/case-system/intake/questionBank";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { analysisClaimType, caseFileOf, claimKindOf, kindForAnalysis } from "../../../src/lib/case-system/caseFile/caseFile";
+import { storyOfFile, type CaseFile } from "../../../src/lib/case-system/caseFile/caseFile";
+import { factStatus } from "../../../src/lib/case-system/caseFile/factStatus";
+import { storyLines } from "../../../src/lib/case-system/caseFile/storyLines";
+import { detailStatus, partyName, type Party, type PartyDetail } from "../../../src/lib/case-system/parties/parties";
+
+/** No store (no case open): the banner reads an empty record. */
+const noStore = () => () => {};
+const noReview = () => null;
+import { formAnalysisInput } from "../../../src/lib/case-system/caseFile/chatTurnFacts";
+import PartiesStep from "../../_components/PartiesStep";
 import { AskedField, useBoxesFollow, useHeldFill } from "../../_components/AskedField";
 import { writeFormBox } from "../../_components/caseWrite";
 import { STORY_INPUT_KEYS } from "../../../src/lib/case-system/intakeStory";
@@ -421,20 +433,35 @@ function isDefendantRole(role: string | undefined): boolean {
   return /defendant|responding/i.test(role ?? "");
 }
 
-function buildMissingPrompt(input: SmallClaimsIntelligenceInput): string {
-  const missing: string[] = [];
 
-  if (!hasText(input.yourName)) missing.push("your legal name");
-  if (!hasText(input.otherParty)) missing.push("the other party’s name");
-  if (!hasText(input.defendantAddress)) missing.push("the other party’s address for service");
-  if (!hasText(input.facts)) missing.push("the case story");
+/**
+ * What is still useful to add, from the case record (site owner, 16 Nov 2026; Chrome milestone test of #550, row 15: the
+ * banner asked for "your legal name, the other party's address for service, what evidence you have, how the amount was
+ * calculated" when the Parties step held the names and addresses and the story gave the evidence and the breakdown). The
+ * names and addresses are the Parties step's (parties.ts detailStatus: given or "not sure" is never asked again), the
+ * other party and the amount the one function's (factStatus.ts), the evidence and the breakdown what the story states
+ * (storyFacts.ts) as well as the form's own boxes. No list of its own.
+ */
+export function buildMissingPrompt(input: SmallClaimsIntelligenceInput, file: CaseFile): string {
+  const missing: string[] = [];
+  const story = storyOfFile(file) || input.facts;
+  const you = file.parties.list.find((party) => party.you);
+  const other = file.parties.list.find((party) => party.side === "other");
+  const nameHeld = (party: Party | undefined) => Boolean(party && (partyName(party) || ["fullName", "firstName", "lastName", "companyName"].some((detail) => detailStatus(party, detail as PartyDetail) === "settled")));
+
+  if (!nameHeld(you) && !hasText(input.yourName)) missing.push("your legal name");
+  if (factStatus(file, "otherParty") === "ask" && !nameHeld(other) && !hasText(input.otherParty)) missing.push("the other party’s name");
+  if (!(other && detailStatus(other, "street") !== "ask") && !hasText(input.defendantAddress)) missing.push("the other party’s address for service");
+  if (!hasText(story)) missing.push("the case story");
   // Dates and evidence already in the story count (page review, 2026-10-06:
   // "important dates" was asked for after "the papers came on September 25").
-  const storyHasDate = dateSpans(input.facts).length > 0;
+  const storyHasDate = dateSpans(story).length > 0;
   if (!hasText(input.timeline) && !storyHasDate) missing.push("important dates");
-  if (!hasText(input.evidence)) missing.push("what evidence you have");
-  if (!hasText(input.amountClaimed)) missing.push(isDefendantRole(input.yourRole) ? "the amount the claim asks for" : "the amount claimed, if money is requested");
-  if (!hasText(input.damagesBreakdown) && !isDefendantRole(input.yourRole)) missing.push("how the amount was calculated");
+  // What the story states, read as "What we have so far" reads it (storyLines.ts), never a list of the banner's own.
+  const told = new Set(storyLines(story, file, isDefendantRole(input.yourRole)).map((line) => line.fact));
+  if (!hasText(input.evidence) && !told.has("evidence")) missing.push("what evidence you have");
+  if (factStatus(file, "amount") === "ask" && !hasText(input.amountClaimed)) missing.push(isDefendantRole(input.yourRole) ? "the amount the claim asks for" : "the amount claimed, if money is requested");
+  if (!hasText(input.damagesBreakdown) && !["lostPay", "costs", "property", "injury"].some((fact) => told.has(fact as never)) && !isDefendantRole(input.yourRole)) missing.push("how the amount was calculated");
 
   if (!missing.length) {
     return "You have given enough to see your next steps. You can add more later.";
@@ -621,6 +648,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   const beforeIntakeAI = useBeforeIntakeAI();
   const prepareCaseGuidance = usePrepareCaseGuidance();
   const recovery = useIntakeRecovery();
+  // The one continue rule (intakeReview.ts continueNeeds): this route's continue is held while the review still needs something.
   const validateIntakeResponse = useValidateIntakeResponse();
   const [storedInput, setInput] = useInputWithStory<SmallClaimsIntelligenceInput>("small-claims", () => {
     // What the case already holds, under anything newly read from a story
@@ -689,6 +717,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   // land on an empty "Case story" summary with no visible way to type into it
   // until they notice the "Edit case story" toggle.
 
+  // The one tribunal rule on the story (C1, site owner 9 Nov 2026). The form asks no follow-up question one at a time,
+  // so nothing is held back here: the notice is shown first, above the form.
+  const tribunalFirst = useTribunalFirst(input.facts ?? "");
+
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const analysisRequest = useRef(new IntakeRequest());
   const requestScope = input;
@@ -726,7 +758,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   const heldKind = recovery ? claimKindOf(caseFileOf(recovery.getReview().checkpoint)) : null;
   const heldKindWords = heldKind?.state === "answered" ? heldKind.words : null;
   const inferredDirection = useMemo(() => buildCaseDirection(input, heldKindWords), [input, heldKindWords]);
-  const missingPrompt = useMemo(() => buildMissingPrompt(input), [input]);
+  // The record as it is now: the banner follows the Parties step and every answer as they are saved.
+  const reviewNow = useSyncExternalStore(recovery?.subscribe ?? noStore, recovery?.getReview ?? noReview, noReview);
+  const missingPrompt = useMemo(() => buildMissingPrompt(input, reviewNow ? caseFileOf(reviewNow.checkpoint, recovery?.getSavedMaster() ?? undefined) : caseFileOf(null)), [input, reviewNow, recovery]);
   const inferredIssues = useMemo(() => inferIssuesFromStory(input), [input]);
   const inferredDisputeCategory = useMemo(() => {
     if (inferredIssues.includes("defamation-reputation")) return "defamation";
@@ -997,13 +1031,18 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       // Answers given in the review panel count here too, where the form left them empty
       // (re-test round 7: after "start the questions again" they were the only answers).
       const panel = recovery ? panelAnswerFacts(recovery.getReview().checkpoint) : {};
+      // The form's boxes with the record's answers, the record winning (chatTurnFacts.ts formAnalysisInput, the one
+      // function every route builds its analysis input with; site owner, 14 Nov 2026): an answer held in the case file
+      // and missing from a box is sent, never the box's older copy.
+      const checkpointNow = recovery?.getReview().checkpoint ?? null;
+      const boxes = formAnalysisInput(input, checkpointNow, caseFileOf(checkpointNow, recovery?.getSavedMaster() ?? undefined));
       const preparedInput: SmallClaimsIntelligenceInput = {
-        ...input,
-        amountClaimed: input.amountClaimed || String(panel.amountClaimedText ?? ""),
-        goal: input.goal || String(panel.remedySoughtText ?? ""),
+        ...boxes,
+        amountClaimed: boxes.amountClaimed || String(panel.amountClaimedText ?? ""),
+        goal: boxes.goal || String(panel.remedySoughtText ?? ""),
         // The situation answer is the side; an older answer in the review panel never replaces it (step 2 reviewer).
         yourRole: fromStart.role === "plaintiff" || fromStart.role === "defendant" ? fromStart.role : input.yourRole === "plaintiff" || input.yourRole === "defendant" ? input.yourRole : (panel.role === "plaintiff" || panel.role === "defendant" ? panel.role : input.yourRole),
-        timeline: input.timeline || String(panel.timelineText ?? ""),
+        timeline: boxes.timeline || String(panel.timelineText ?? ""),
         caseStage: stage,
         issues: inferIssuesFromStory(input),
         filedDocuments:
@@ -1087,6 +1126,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
 
   return (
     <section onChangeCapture={() => analysisRequest.current.cancel()} className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
+      {tribunalFirst.tribunal ? <TribunalNotice tribunal={tribunalFirst.tribunal} courtLabel="Small Claims" context="SmallClaimsIntake:tribunal-first" /> : null}
       <div className="rounded-3xl bg-[#f2fbf7] p-5">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#2f7d67]">
           Small Claims intake
@@ -1156,6 +1196,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
                 <li key={fact.field}>
                   {fact.field}:{" "}
                   <UseSuggestion
+                    offer={offerForQuestion(`sc-form:${fact.field}`, fact.field)}
                     testId="sc-form-use-suggestion"
                     what={value}
                     onUse={() => updateField(fact.field as keyof SmallClaimsIntelligenceInput, value as never)}
@@ -1230,18 +1271,6 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         </div>
 
         <div className="grid gap-5 md:grid-cols-2">
-          <label className="block">
-            <span className="font-semibold text-[#16302b]">
-              Your full legal name or business name
-            </span>
-            <input
-              data-testid="sc-intake-yourName" value={input.yourName}
-              onChange={(event) => updateField("yourName", event.target.value)}
-              className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
-              placeholder="Full legal name or business name"
-            />
-          </label>
-
           {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
           <AskedField field="otherParty" value={input.otherParty} label={"Other party name"}>
           <label className="block">
@@ -1312,7 +1341,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </AskedField>
 
           {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
-          <AskedField field="goal" value={input.goal} label={"What do you want the court to order?"}>
+          <AskedField field="goal" value={input.goal} label={isDefendantRole(input.yourRole) ? "What do you want to happen with the claim against you?" : "What do you want the court to order?"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               {/* A defendant does not ask the court for an order on the claim;
@@ -1373,39 +1402,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </h3>
 
           <div className="mt-4 grid gap-5 md:grid-cols-2">
-            <input
-              data-testid="sc-intake-yourAddress" value={input.yourAddress}
-              onChange={(event) => updateField("yourAddress", event.target.value)}
-              className="rounded-2xl border border-[#d8e6df] px-4 py-3"
-              placeholder="Your address"
-            />
-
-            <input
-              data-testid="sc-intake-yourPostalCode" value={input.yourPostalCode}
-              onChange={(event) =>
-                updateField("yourPostalCode", event.target.value)
-              }
-              className="rounded-2xl border border-[#d8e6df] px-4 py-3"
-              placeholder="Your postal code"
-            />
-
-            <input
-              data-testid="sc-intake-yourEmail" value={input.yourEmail}
-              onChange={(event) => updateField("yourEmail", event.target.value)}
-              className="rounded-2xl border border-[#d8e6df] px-4 py-3"
-              placeholder="Your email"
-            />
-
-            <AskedField field="defendantAddress" value={input.defendantAddress} label={"Other party address for service"}>
-            <textarea
-              data-testid="sc-intake-defendantAddress" value={input.defendantAddress}
-              onChange={(event) =>
-                updateField("defendantAddress", event.target.value)
-              }
-              className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3 md:col-span-2"
-              placeholder="Other party address for service, if known"
-            />
-            </AskedField>
+            {/* Names, addresses, phone and email: the one shared asker, read from the case record (site owner, 14 Nov 2026, rule 1). */}
+            <div className="md:col-span-2"><PartiesStep heading="The parties" /></div>
 
             {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
             <AskedField field="serviceDetails" value={input.serviceDetails} label={"Service details"}>
@@ -1679,7 +1677,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               ["timeline", "Important dates / timeline"],
               ["evidence", "Evidence you have"],
               ["missingEvidence", "Evidence still missing"],
-              ["goal", "What do you want the court to order?"],
+              ["goal", isDefendantRole(input.yourRole) ? "What do you want to happen with the claim against you?" : "What do you want the court to order?"],
               ["serviceDetails", "Service details"],
               ["agreementDetails", "Agreement or contract details"],
               ["paymentHistory", "Payment history"],

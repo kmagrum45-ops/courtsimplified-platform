@@ -16,11 +16,12 @@
  * Browser only, synthetic account (fakeAccount), this commit's own server calls (serveFromThisCommit); no staging.
  */
 import { expect, test, type Page } from "@playwright/test";
+import { chooseOffers } from "./harness/offers";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { serveFromThisCommit, serveModelStandIns } from "./harness/thisCommitServer";
-import { recordInitialUnknowns } from "./harness/intakeReview";
+import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 const STORY = "I hired Test Decks Ltd. in March 2026 to build a deck for $8,000. I paid $2,000 and $6,000 is still owed. I have the contract, text messages and a bank receipt.";
@@ -41,7 +42,7 @@ async function guidedThenReview(page: Page, changedAmount?: string) {
   const question = page.locator("[data-testid=guided-message][data-from=assistant]").last();
   const proposals = page.getByTestId("story-proposals");
   await expect(proposals.or(question).first()).toBeVisible({ timeout: 60_000 });
-  if (await proposals.isVisible().catch(() => false)) await proposals.getByRole("button").last().click();
+  if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await proposals.getByRole("button").last().click(); }
   await expect(page.locator("textarea").last()).toBeVisible({ timeout: 60_000 });
 
   // The review: the amount held from the story's suggestion, so the form's own box is empty.
@@ -52,7 +53,7 @@ async function guidedThenReview(page: Page, changedAmount?: string) {
   const kind = q("sc-orient-dispute-category").getByRole("button").first();
   if (await kind.count()) await kind.click();
   if (await q("sc-claim-filed").count()) await q("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
-  const use = q("sc-amount-claimed").getByRole("button", { name: /^Use the suggestion: .*$/ });
+  const use = q("sc-amount-claimed").getByRole("button", { name: /^Yes: .*$/ });
   if (await use.count()) await use.first().click();
   // The amount given by the story's suggestion, then changed by the person in the same question's box.
   if (changedAmount) {
@@ -64,7 +65,7 @@ async function guidedThenReview(page: Page, changedAmount?: string) {
     await page.waitForTimeout(2_000);
   }
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
 
@@ -205,7 +206,7 @@ test("a box the fill put an amount in follows the amount changed in the review -
   await reviewAmount.blur();
   await page.waitForTimeout(2_000);
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
 
@@ -214,4 +215,31 @@ test("a box the fill put an amount in follows the amount changed in the review -
   await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
   await expect(page.getByTestId("completed-case-overview"), "the next step loads").toBeVisible({ timeout: 120_000 });
   expect(digits(sent.at(-1)), `the form's analysis sends the newest amount: ${JSON.stringify(sent)}`).toBe("2400");
+});
+
+/*
+ * EVERY analysis request carries the held amount, not only the last one (browser-regression run 43490561082 attempt 2:
+ * {"sent":"","shown":"$6,000.00","filled":"$6,000.00"}). The check above reads the last request only, so it failed only
+ * when an empty-amount request happened to be the last one. A person must never have an analysis run with no amount while
+ * the screen shows one. Each request is listed with its time and whether it came before or after Continue.
+ */
+test("every analysis request in the flow carries the held amount -- small-claims (sc-deck-owed)", async ({ page }) => {
+  test.setTimeout(300_000);
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
+  const t0 = Date.now();
+  let continued = false;
+  const requests: { at: number; amount: string; afterContinue: boolean }[] = [];
+  page.on("request", (request) => {
+    if (request.method() === "POST" && request.url().includes("/api/small-claims/analyze")) requests.push({ at: Date.now() - t0, amount: String(request.postDataJSON()?.input?.amountClaimed ?? ""), afterContinue: continued });
+  });
+  await guidedThenReview(page);
+  continued = true;
+  const seen = await amountsSeen(page, requests.map((request) => request.amount));
+  await page.waitForTimeout(1_000);
+  console.log(`analysis requests: ${JSON.stringify(requests)}`);
+  expect(requests.length, `at least one analysis ran: ${JSON.stringify(requests)}`).toBeGreaterThan(0);
+  for (const request of requests) expect(digits(request.amount), `an analysis request carried the amount on screen: ${JSON.stringify({ request, seen })}`).toBe("6000");
 });

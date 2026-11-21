@@ -18,9 +18,10 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useIntakeRecovery, useIntakeReviewView, useIntakeState } from "./IntakeRecovery";
 import { useCaseField } from "./useCaseField";
 import { writeFollow } from "./caseWrite";
-import { caseFileOf, isUnsureAnswer } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, changesOf, isUnsureAnswer } from "../../src/lib/case-system/caseFile/caseFile";
 import { askOf, filledToFollow, formFill, seenNow } from "../../src/lib/case-system/intake/asker";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "../../src/lib/case-system/copy/askCopy";
+import { settledNotSure } from "../../src/lib/case-system/caseFile/factStatus";
 import { boxesToFollow } from "../../src/lib/case-system/caseFile/boxFollow";
 import { formatForCourt } from "../../src/lib/case-system/dates";
 
@@ -40,7 +41,9 @@ export function AskedField({ field, value, label, children }: { field: string; v
   const [opened, setOpened] = useState(false);
   const decision = askOf(file, field);
   // A box whose own words are a "not sure" is never shown as if they were the answer, whatever its fact (item 4, 6 Nov).
-  const folded = !opened && (isUnsureAnswer(value) || (!decision.ask && decision.held === "unsure" && blank(value)));
+  // Folded when the one function says the box's fact is settled by a confirmed "I'm not sure" (caseFile/factStatus.ts
+  // settledNotSure); a box the person cleared stays an empty box.
+  const folded = !opened && (isUnsureAnswer(value) || (!decision.ask && "fact" in decision && settledNotSure(file, decision.fact) && blank(value)));
   if (folded) {
     return (
       <div className="block" data-testid="not-answered-yet" data-fact={"fact" in decision ? decision.fact : undefined} data-field={field}>
@@ -65,7 +68,7 @@ export function useBoxesFollow(section: string, container: string | null) {
   const file = view?.checkpoint ? caseFileOf(view.checkpoint, recovery?.getSavedMaster() ?? undefined) : null;
   const own = view?.checkpoint.sections[section] as Record<string, unknown> | undefined;
   const values = (container ? own?.[container] : own) as Record<string, unknown> | undefined;
-  const plan = file && values && typeof values === "object" ? boxesToFollow(file, section, container, values, (iso) => formatForCourt(iso)) : {};
+  const plan = file && values && typeof values === "object" ? boxesToFollow(file, section, container, values, (iso) => formatForCourt(iso), new Set(), changesOf(view?.checkpoint.sections)) : {};
   const key = JSON.stringify(plan);
   useEffect(() => {
     if (!recovery || key === "{}") return;

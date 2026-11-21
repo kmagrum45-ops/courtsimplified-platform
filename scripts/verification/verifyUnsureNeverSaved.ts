@@ -71,7 +71,8 @@ const source = (file: string) => readFileSync(file, "utf8");
 // 1d. Every writer and screen named in the rule uses the one reader.
 {
   const uses: [string, RegExp][] = [
-    ["app/builder/page.tsx", /const payload = withoutUnsureAnswers\(given\)/],
+    // The hand-off's answers, then the record's over them (item 5, 14 Nov 2026: chatTurnFacts.ts formAnalysisInput).
+    ["app/builder/page.tsx", /const answered = withoutUnsureAnswers\(given\);[\s\S]{0,600}const payload: StoredCaseData = \{\s+\.\.\.answered,/],
     ["app/builder/_components/GuidedFormChat.tsx", /isTypedUnsure\(cleaned\)/],
     ["app/builder/_components/guidedIntakeToSmallClaimsInput.ts", /return answerWords\(value\)/],
     ["app/builder/_components/IntelligenceOverviewPanel.tsx", /answerWords\(intake\?\.goal\)/],

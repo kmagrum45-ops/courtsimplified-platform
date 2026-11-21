@@ -44,6 +44,13 @@ export type DepthSelectionInput = {
   /** Every piece of the user's own verbatim text the pipeline holds. */
   userTexts: string[];
   slotValues: SlotValues;
+  /**
+   * What the person already recorded for these elements (the saved case's elementStates). Each depth question is its own
+   * fact, the element's answer (test:askers-fact-status, rule f): one the person answered ("provided") or said they cannot
+   * provide is kept and never asked again (site owner, 18 Nov 2026: "each asked once"). Only the person's own answer to
+   * that element moves it; nothing is inferred from what they wrote elsewhere (Session 48, kept).
+   */
+  held?: ElementStateMap;
 };
 
 /**
@@ -139,9 +146,14 @@ export type DepthSelectionResult = {
 };
 
 export function selectDepthQuestions(input: DepthSelectionInput): DepthSelectionResult {
-  const stateMap = createElementStateMap(
+  const fresh = createElementStateMap(
     input.elements.map((element) => ({ id: element.id, name: element.name })),
   );
+  // The person's own recorded answers carry over (answered or cannot provide); every other element starts not-yet.
+  const stateMap: ElementStateMap = Object.fromEntries(Object.entries(fresh).map(([id, record]) => {
+    const held = input.held?.[id];
+    return [id, held && (held.state === "provided" || held.state === "cannot-provide") ? { ...record, ...held } : record];
+  }));
 
   const asked: SelectedDepthQuestion[] = [];
   const deferredToReadiness: DepthSelectionResult["deferredToReadiness"] = [];
@@ -149,6 +161,9 @@ export function selectDepthQuestions(input: DepthSelectionInput): DepthSelection
   const noQuestionNeeded: string[] = [];
 
   for (const element of input.elements) {
+    // Asked once: the person already answered this element, or said they cannot provide it.
+    if (stateMap[element.id]?.state !== "not-yet") continue;
+
     if (isNoQuestionNeeded(element.id)) {
       noQuestionNeeded.push(element.id);
       continue;

@@ -97,10 +97,15 @@ for (const item of CASES) {
   }
   // 5. Added later through the one change path: the value wins.
   // A day is added as a full day (ChangeAnswer asks for one), anything else in words.
-  const value = item.fact === "whenHappened" ? "October 6, 2026" : "Synthetic: added later";
+  // An amount as an amount: every fact keeps only a value of its type (factTypes.ts; decision 1, 18 Nov 2026).
+  const value = item.fact === "whenHappened" ? "October 6, 2026" : item.fact === "amount" ? "$5,000" : "Synthetic: added later";
   const added = checkpoint(item.court, { ...item.sections, [CASE_FILE_SECTION]: { changes: withChange(undefined, item.fact, { state: "answered", value }) } });
   const after = caseFileOf(added);
   check(`${item.name}: added through the change path, ${item.fact} is answered`, after[item.fact].state === "answered" && after[item.fact].changed === true, JSON.stringify(after[item.fact]));
+  if (item.fact === "amount") {
+    const words = caseFileOf(checkpoint(item.court, { ...item.sections, [CASE_FILE_SECTION]: { changes: withChange(undefined, item.fact, { state: "answered", value: "Synthetic: added later" }) } }));
+    check(`${item.name}: words added as the amount are not kept as the amount`, words.amount.state !== "answered", JSON.stringify(words.amount));
+  }
   if (notAnsweredYet) check(`${item.name}: once added, no quiet line remains for it`, !notAnsweredYet(added).some((line) => line.facts.includes(item.fact)));
 }
 

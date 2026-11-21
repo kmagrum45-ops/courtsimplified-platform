@@ -49,6 +49,7 @@ import {
   type AnalysisSuggestion,
 } from "@/src/lib/case-workspace/aiAnalysis";
 import { withAiCallContext, recordAiValidation } from "@/src/lib/audit/aiCallLog";
+import { safeError } from "@/src/lib/logging/safeLog";
 
 export const runtime = "nodejs";
 
@@ -203,7 +204,7 @@ async function postGuidance(req: NextRequest) {
         "Suggestions describe what a document is. They never say whether it helps your case.",
     });
   } catch (error) {
-    console.error("workspace analyse error:", error);
+    console.error("workspace analyse error:", safeError(error));
     return refuse(500, "CourtSimplified could not analyse this document.");
   }
   /* c8 ignore stop */

@@ -6,6 +6,7 @@ import {
   resolveBetaProcedureAuthority,
   type BetaProcedureAuthorityMetadata,
 } from "../../../../src/lib/case-system/authority-intelligence/betaProcedureAuthority";
+import { safeError } from "@/src/lib/logging/safeLog";
 
 type CourtPath = "small-claims" | "family" | "civil";
 
@@ -66,7 +67,7 @@ async function postGuidance(req: Request) {
       .eq("is_active", true);
 
     if (error) {
-      console.error("Procedures Supabase error:", error.message);
+      console.error("Procedures Supabase error:", safeError(error));
       return NextResponse.json(
         { error: "Failed to load procedure rules." },
         { status: 500 },

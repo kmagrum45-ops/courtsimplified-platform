@@ -16,6 +16,7 @@
  */
 import { expect, test } from "@playwright/test";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
+import { chooseOffers } from "./harness/offers";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { serveFromThisCommit, serveModelStandIns } from "./harness/thisCommitServer";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
@@ -57,6 +58,13 @@ test("Small Claims chat: after the story is sent and the kind suggestion used, t
   await card.getByTestId("claim-type-use-suggestion").click();
   await expect(card).toHaveCount(0, { timeout: 60_000 });
   await expect(page.locator("[data-testid=guided-message][data-from=assistant]").filter({ hasText: `Got it: ${KIND.claimTypeName}.` }), "the kind used is said back").toHaveCount(1, { timeout: 30_000 });
+  // The story's other values are offered with three choices, and the chat waits for one on each (site owner, 11 Nov
+  // 2026; harness/offers.ts). "No, that's not right" on each is what leaving the old card unticked did.
+  const offers = page.getByTestId("story-proposals");
+  if (await offers.isVisible({ timeout: 5_000 }).catch(() => false)) {
+    await chooseOffers(offers, "no");
+    await page.getByTestId("story-proposals-continue").click();
+  }
   await expect(page.locator("[data-testid=guided-message][data-question-id]").last().or(page.getByText("That's everything needed for now")).first(), "the chat goes on").toBeVisible({ timeout: 60_000 });
   await page.waitForTimeout(2_000);
   expect(await page.evaluate(() => (window as unknown as { __storyBoxSeen: number }).__storyBoxSeen), "the chat's story box never came back after the story was given").toBe(0);

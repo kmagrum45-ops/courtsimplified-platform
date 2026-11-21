@@ -29,6 +29,7 @@
  */
 import { CASE_FILE_SECTION, SLOT_FACTS, emptyCaseFile, give, type SlotFact } from "./caseFile";
 import type { CaseFact } from "./factsOfQuestion";
+import { fitsFactType } from "./factTypes";
 import { readCheckpoint, type IntakeCourt } from "../intakeCheckpoint";
 import { caseTitleFromIntake } from "../caseTitle";
 
@@ -40,6 +41,10 @@ import { caseTitleFromIntake } from "../caseTitle";
 export const FACT_IDS = [
   ...SLOT_FACTS,
   "situation", "story", "evidence", "serviceMethod", "courtFileNumber", "claimIssuedDate", "defenceFiledDate", "filedDocuments", "claimServed",
+  // Every question asked by id has a fact (17 Nov 2026; factsOfQuestion.ts, test:every-question-has-fact).
+  "publication", "twentyDaysPassed", "notedInDefault", "responseFacts", "admission", "completionDate", "noticeToContractor",
+  "timeline", "livingSituation", "livingHistory", "property", "adoption", "missingEvidence", "yourName",
+  "divorceSought", "cohabitation", "municipality", "otherPartyMunicipality",
 ] as const;
 export type FactId = (typeof FACT_IDS)[number];
 // FACT_IDS and factsOfQuestion's CaseFact are the same set: a fact added to one and not the other fails to compile.
@@ -138,7 +143,11 @@ export function readFactWrites(body: unknown): { ok: true; writes: FactWrite[] }
  */
 function normalised(write: FactWrite): { state: FactState; value?: FactValue } | null {
   if (write.state !== "answered") return { state: write.state };
-  if (!isSlot(write.fact)) return { state: "answered", value: write.value };
+  // Every fact keeps only a value of its type (factTypes.ts; decision 1, 18 Nov 2026); a slot through give, below.
+  if (!isSlot(write.fact)) {
+    const fits = fitsFactType(write.fact, write.value);
+    return fits.ok ? { state: "answered", value: fits.value } : null;
+  }
   const file = emptyCaseFile();
   give(file, write.fact, write.value, write.question ?? "fact");
   const slot = file[write.fact];
@@ -171,6 +180,9 @@ export function applyFactWrites(master: Record<string, unknown>, court: IntakeCo
     const held = stored[write.fact];
     const kept = normalised(write);
     if (!kept) return { ok: false, reject: `no-value:${write.fact}` };
+    // "Not sure" never overwrites an answer, forced or not; only "removed" removes one (site owner, 19 Nov 2026; Chrome
+    // pass 3 re-recording: "I do not know yet" settled the date S1's story gave). The answer stands, unchanged.
+    if (held?.state === "answered" && kept.state === "unsure") { saved.push({ fact: write.fact, seq: held.seq, at: held.at }); continue; }
     if (held && !write.force && (write.seenSeq ?? 0) < held.seq) {
       // The same answer the record already holds (a resend after a timeout, two saves racing): already saved, so it is
       // neither a conflict nor numbered again (found on the real save path, 5 Nov: "Not saved yet" for an identical answer).

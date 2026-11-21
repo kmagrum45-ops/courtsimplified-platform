@@ -13,9 +13,15 @@ import {
   type ElementStateMap,
 } from "@/src/lib/case-system/intake/depth/elementStateMap";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
-import { claimKindLine, claimKindOf, form7ADraftFields, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
-import { formatForCourt } from "@/src/lib/case-system/dates";
+import { askedQuestionsOf, claimKindLine, claimKindOf, form7ADraftFields, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
+import { addressLine, formContextOfFile } from "@/src/lib/case-system/forms/formContext";
+import { partyName } from "@/src/lib/case-system/parties/parties";
+import { useIntakeRecovery } from "../../_components/IntakeRecovery";
 import { heldWordsOf } from "@/src/lib/case-system/caseFile/caseFileOfMaster";
+import PartiesStep from "../../_components/PartiesStep";
+import FilledForm7A from "../../_components/FilledForm7A";
+import { formatForCourt } from "@/src/lib/case-system/dates";
+import { factStatus } from "@/src/lib/case-system/caseFile/factStatus";
 import {
   draftStatementOfClaimParticulars,
   type StatementOfClaimDraft,
@@ -91,12 +97,6 @@ export type StatementOfClaimSurfaceProps = {
   onStateMapChange?: (map: ElementStateMap) => void;
 };
 
-type PartyDetails = {
-  yourName: string;
-  yourAddress: string;
-  otherParty: string;
-  defendantAddress: string;
-};
 
 export default function StatementOfClaimSurface({
   caseFile,
@@ -108,18 +108,18 @@ export default function StatementOfClaimSurface({
   const [stateMap, setStateMap] = useState<ElementStateMap>(() => ({ ...((caseFile.elementStates ?? {}) as ElementStateMap), ...(elementStatesThisVisit ?? {}) }));
   const [confirmedRemedyId, setConfirmedRemedyId] = useState<string | null>(null);
   const [answerDrafts, setAnswerDrafts] = useState<Record<string, string>>({});
-  const [party, setParty] = useState<PartyDetails>({
-    yourName: "",
-    yourAddress: "",
-    otherParty: "",
-    defendantAddress: "",
-  });
   const [showDraft, setShowDraft] = useState(false);
-  // "The other party's name" reads the case record (B1): the name the person gave anywhere (the accepted story reading,
-  // the whole form, a change), the newest one, until they type their own here.
-  const [otherPartyTyped, setOtherPartyTyped] = useState(false);
-  const heldOtherParty = heldWordsOf(caseFile, "otherParty");
-  const otherPartyName = otherPartyTyped ? party.otherParty : heldOtherParty.held ? heldOtherParty.words : "";
+  // The parties, from the case record (site owner, 14 Nov 2026, rule 1): asked once, in the Parties step, read here.
+  const recovery = useIntakeRecovery();
+  const formCtx = useMemo(() => formContextOfFile(caseFile, askedQuestionsOf(recovery?.getReview().checkpoint)), [caseFile, recovery]);
+  const plaintiff = formCtx.plaintiffs[0];
+  const defendant = formCtx.defendants[0];
+  const party = {
+    yourName: plaintiff ? partyName(plaintiff) : "",
+    yourAddress: addressLine(plaintiff),
+    otherParty: defendant ? partyName(defendant) : "",
+    defendantAddress: addressLine(defendant),
+  };
 
   const kindLine = claimKindLine(claimKind);
   const kindId = kindLine?.claimTypeId ?? null;
@@ -128,15 +128,21 @@ export default function StatementOfClaimSurface({
     [kindId],
   );
 
+  // What the person wants, from the one function: answered, or "I'm not sure", it is never asked again here
+  // (Chrome check of #550, S2-S4: "Choose what you are asking the court for" after it was answered).
+  const wantsStatus = factStatus(caseFile, "wants");
+  const remedyHeld = wantsStatus === "known" || wantsStatus === "settled";
+  const heldWants = heldWordsOf(caseFile, "wants");
   const gate = useMemo(
     () =>
       evaluateReadinessGate({
         claimType,
         elementStateMap: stateMap,
         confirmedRemedyId,
+        remedyHeld,
         storyText: mappedInput.facts || "",
       }),
-    [claimType, stateMap, confirmedRemedyId, mappedInput.facts],
+    [claimType, stateMap, confirmedRemedyId, remedyHeld, mappedInput.facts],
   );
 
   /**
@@ -154,14 +160,15 @@ export default function StatementOfClaimSurface({
         ...mappedInput,
         yourName: party.yourName,
         yourAddress: party.yourAddress,
-        otherParty: otherPartyName,
+        otherParty: party.otherParty,
         defendantAddress: party.defendantAddress,
       },
       { claimTypeId: claimType.id, claimTypeName: claimType.name },
       // cannot-provide elements travel INTO the document, not just this screen.
       gate.cannotProvide.map((item) => ({ elementId: item.elementId, name: item.name })),
+      caseFile,
     );
-  }, [gate, claimType, mappedInput, party, otherPartyName]);
+  }, [gate, claimType, mappedInput, party.yourName, party.yourAddress, party.otherParty, party.defendantAddress, caseFile]);
 
   function applyStateMap(next: ElementStateMap) {
     setStateMap(next);
@@ -190,6 +197,22 @@ export default function StatementOfClaimSurface({
     );
   }
 
+  // The parties and the filled Form 7A, shown whatever the kind of claim: a kind with no checklist must never hide the
+  // download (Chrome, 16 Nov 2026, row 24: injury, contractor and loan claims reached no filled Form 7A).
+  const partiesAndForm = (
+    <>
+      {/* --- The parties: the one shared asker (PartiesStep), read from the case record (rule 1) --- */}
+      <div className="mt-8">
+        <PartiesStep heading="Names and addresses" />
+      </div>
+
+      {/* --- The official Form 7A, every box filled from the record or said to be missing (rules 4, 5) --- */}
+      <div className="mt-8">
+        <FilledForm7A ctx={formCtx} caseId={recovery?.getCaseId() ?? null} addHref={(place) => (place === "parties" ? "#parties" : place === "amount" ? "?change=amount" : "#story")} />
+      </div>
+    </>
+  );
+
   if (!kindId || !claimType) {
     return (
       <section
@@ -210,6 +233,7 @@ export default function StatementOfClaimSurface({
             what a claim of that kind generally involves.
           </p>
         )}
+        {partiesAndForm}
       </section>
     );
   }
@@ -244,6 +268,11 @@ export default function StatementOfClaimSurface({
         <h3 className="text-sm font-semibold uppercase tracking-wide text-[#2f7d67]">
           What are you asking the court for?
         </h3>
+        {remedyHeld ? (
+          <p data-testid="remedy-held" className="mt-3 text-sm text-[#10231f]">
+            {heldWants.held && heldWants.words ? heldWants.words : "Not answered yet: add it when you know."}
+          </p>
+        ) : (
         <div className="mt-3 space-y-2">
           {gate.remedyOptions.map((remedy) => (
             <label key={remedy.id} className="flex gap-3 rounded-2xl border border-[#d8e6df] p-3">
@@ -266,6 +295,7 @@ export default function StatementOfClaimSurface({
             </label>
           ))}
         </div>
+        )}
       </div>
 
       {/* --- Attestation for outstanding elements --- */}
@@ -280,7 +310,7 @@ export default function StatementOfClaimSurface({
             {gate.outstanding.map((element) => (
               <div key={element.elementId} className="rounded-2xl border border-[#d8e6df] p-4">
                 <p className="font-semibold text-[#10231f]">{outstandingHeading(element)}</p>
-                <p className="mt-1 text-sm text-[#4d675f]">{element.plainExplanation}</p>
+                {element.plainExplanation ? <p className="mt-1 text-sm text-[#4d675f]">{element.plainExplanation}</p> : null}
 
                 {element.thingsThatOftenHelp.length > 0 ? (
                   <div className="mt-3 text-sm text-[#4d675f]">
@@ -331,14 +361,14 @@ export default function StatementOfClaimSurface({
                   stop you reaching a draft, and it is not a judgment about your case.
                 </p>
 
-                <a
+                {element.sourceShown ? <a
                   href={publicSourceUrl(element.sourceUrl)}
                   target="_blank"
                   rel="noreferrer"
                   className="mt-2 inline-block text-xs font-semibold text-[#2f7d67] underline"
                 >
                   Read the source for this
-                </a>
+                </a> : null}
               </div>
             ))}
           </div>
@@ -359,39 +389,7 @@ export default function StatementOfClaimSurface({
         </div>
       ) : null}
 
-      {/* --- Party details the drafting engine needs --- */}
-      <div className="mt-8">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-[#2f7d67]">
-          Names and addresses
-        </h3>
-        <p className="mt-1 text-sm text-[#4d675f]">
-          The form asks for these. Leave anything you don&apos;t have yet blank and add it
-          later. Names are kept in your case file and are never sent to the AI.
-        </p>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          {(
-            [
-              ["yourName", "Your full legal name"],
-              ["yourAddress", "Your address"],
-              ["otherParty", "The other party's name"],
-              ["defendantAddress", "The other party's address"],
-            ] as [keyof PartyDetails, string][]
-          ).map(([field, label]) => (
-            <label key={field} className="block text-sm">
-              <span className="font-semibold text-[#10231f]">{label}</span>
-              <input
-                type="text"
-                value={field === "otherParty" ? otherPartyName : party[field]}
-                onChange={(event) => {
-                  if (field === "otherParty") setOtherPartyTyped(true);
-                  setParty((current) => ({ ...current, [field]: event.target.value }));
-                }}
-                className="mt-1 w-full rounded-xl border border-[#d8e6df] px-3 py-2"
-              />
-            </label>
-          ))}
-        </div>
-      </div>
+      {partiesAndForm}
 
       {/* --- Guided self-completion (drafting is off; see CLAIM_DRAFTING_ENABLED) --- */}
       {!CLAIM_DRAFTING_ENABLED ? (

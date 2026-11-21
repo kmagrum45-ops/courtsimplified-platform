@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePublishNextStepStatus } from "../../_components/NextStepStatus";
+import { USUAL_WAIT_MAX_MS } from "../../_components/usualWait";
 
 /**
  * How long the page waits for a case to be read before it stops waiting.
@@ -15,7 +16,9 @@ import { usePublishNextStepStatus } from "../../_components/NextStepStatus";
  * test:analysis-time-budget keeps these in order.
  */
 export const ANALYSIS_TIMEOUT_MS = 270_000;
-const SLOW_AFTER_MS = 45_000;
+// "This is taking longer than usual" only once the usual time the page states has passed (usualWait.ts; Chrome check of
+// #547, G4: it showed at about 50 s under "one to three minutes"). Stopping is offered from 45 s beside the status line.
+const SLOW_AFTER_MS = USUAL_WAIT_MAX_MS;
 
 /**
  * A way forward while the case is being read (re-test 2026-10-18: civil sat on

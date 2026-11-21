@@ -35,20 +35,25 @@ import type { Checkpoint } from "../intakeCheckpoint";
 import { freshSections } from "../storyBasis";
 import { isTypedUnsure, isUnsureAnswer } from "./unsureAnswer";
 import { storyOfMaster } from "../intakeStory";
-import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation } from "../situation/situation";
+import { withoutGluedAnswers } from "../personWords";
+import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation, SERVED_DATE_QUESTION, JUST_SERVED } from "../situation/situation";
 import { isKindOfClaim, kindFromStory, storyQuoteFor, wordsInStory } from "../intake/claimKind";
 import { CLAIM_TYPES } from "../intake/claimTypes";
+import { kindForSide } from "../intake/roleView";
 import { chatQuestionOf, chatSentencesFor, factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
 import { parseRecordedAmount } from "../format/recordedAmount";
-import type { StatementOfClaimDraftInput } from "../statementOfClaimDraftEngine";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
+import { chatMayAsk, slotStatus } from "./factStatus";
+import { partyName, partyNames, readParties, type PartiesHeld } from "../parties/parties";
+import { partiesFromOldShapes } from "./oldParties";
+import { fitsFactType } from "./factTypes";
 
 /** The case file's slots, in the order "What we have so far" shows them. */
 export const SLOT_FACTS = [
   "side", "court", "stage", "filed", "papers", "servedDate", "amount", "otherParty", "children",
   "married", "marriedWhere", "claimKind", "wants", "whenHappened", "conferenceDate", "defenceFiled",
-  "outcome", "urgent", "courtDate",
+  "outcome", "defendantsClaim", "urgent", "courtDate", "safety",
   // The story, held once it is given (founder, 1 Nov: no screen asks for it again; its words are `storyText`).
   "story",
 ] as const;
@@ -59,8 +64,14 @@ export type SlotSource = { kind: "answer"; question: string } | { kind: "story";
  * `changed`: the value is the person's latest change (the change record, `CASE_FILE_SECTION.changes`).
  * `removed`: the person removed the answer (their latest change): not held, never brought back by an
  * older source, and not asked again by itself (they add it back with "Change").
+ * `declined`: the person said the story's value was not right ("No, that's not right"): not known, asked once
+ * (factStatus.ts, site owner 11 Nov 2026).
  */
-export type Slot = { state: SlotState; value?: string | number | boolean | string[]; source?: SlotSource; confirmed: boolean; changed?: true; removed?: true };
+/**
+ * `note`: words kept beside a value, never dropped: beside an amount ("plus my costs"; format/recordedAmount.ts
+ * amountWithCostsNote), or a person's whole answer beside the Yes or No it opens with (factTypes.ts).
+ */
+export type Slot = { state: SlotState; value?: string | number | boolean | string[]; source?: SlotSource; confirmed: boolean; changed?: true; removed?: true; declined?: true; note?: string };
 /** `answers`: every answer given to a named question (its id and words), for the step page's dates. */
 export type CaseFile = Record<SlotFact, Slot> & {
   answers?: Record<string, string>;
@@ -106,6 +117,12 @@ export type CaseFile = Record<SlotFact, Slot> & {
    * reload, in a second tab and on every screen, never from a list held in the page (fault 1, 31 Oct).
    */
   answeredInReview?: string[];
+  /**
+   * The parties (site owner, 14 Nov 2026, rules 1 and 2): the person and every other party, each its own entry, from the
+   * case record (CASE_FILE_SECTION.parties, written by caseWrite.ts writeParties). An older case with no record: read from
+   * what it holds (`recorded: false`), never written back. Every page and form reads the parties here.
+   */
+  parties: PartiesHeld;
 };
 
 /** Where the case file keeps what it adds: the facts answered "not sure", and the questions answered in the review. */
@@ -122,7 +139,7 @@ const blank = (value: unknown) =>
   value === undefined || value === null || (typeof value === "string" && !value.trim()) || (Array.isArray(value) && value.length === 0);
 
 export function emptyCaseFile(): CaseFile {
-  return Object.fromEntries(SLOT_FACTS.map((fact) => [fact, { state: "not-asked", confirmed: false }])) as unknown as CaseFile;
+  return { ...Object.fromEntries(SLOT_FACTS.map((fact) => [fact, { state: "not-asked", confirmed: false }])), parties: { list: [], recorded: false } } as unknown as CaseFile;
 }
 
 /**
@@ -196,12 +213,17 @@ export function give(file: CaseFile, fact: string, value: unknown, question: str
   }
   // A rough time ("last summer", "June 2026") is kept as given, but is not the day itself:
   // the fact stays unsure, never asked again; the step page shows it folded (item 12; site owner, 31 Oct).
+  // Only a value of the fact's type is kept (factTypes.ts; decision 1, 18 Nov 2026): a sentence is never a yes or no,
+  // words are never an amount, a place is never a name. What does not fit is not kept: the fact stays to ask, and the
+  // person's words stay in the answer they gave.
+  const fits = fitsFactType(fact, value);
+  if (!fits.ok) return;
   if (DATED.has(fact) && typeof value === "string" && !isRealIsoDate(value) && !readFullDay(value)) {
     if (slot.state === "not-asked") file[fact] = { state: "unsure", value, source: { kind: "answer", question }, confirmed: true };
     return;
   }
-  const kept = fact === "amount" ? (typeof value === "number" ? value : parseRecordedAmount(String(value)) ?? String(value)) : (value as Slot["value"]);
-  file[fact] = { state: "answered", value: kept, source: { kind: "answer", question }, confirmed: true };
+  // An amount is its sum: "$2,400 plus my costs" is 2400, with "plus my costs" kept as its note (finding 10).
+  file[fact] = { state: "answered", value: fits.value, source: { kind: "answer", question }, confirmed: true, ...(fits.note ? { note: fits.note } : {}) };
 }
 
 /** Marks a fact unsure ("not sure", a skip), unless it was answered. */
@@ -237,6 +259,19 @@ const slotsOf = (questionId: string, surface?: string): SlotFact[] => factsOfQue
  * case's master result, which adds the saved position: the dates given on the step page,
  * the stage chosen there, and a kind of claim chosen.
  */
+/**
+ * The questions this case recorded as asked on the home page, by their words (the story reading's questions and the
+ * drafts of them): personWords.ts personWordsOnly removes exactly these, and the site's fixed list, from a story saved
+ * the old way (site owner, 14 Nov 2026, item B).
+ */
+export function askedQuestionsOf(checkpoint: Checkpoint | null | undefined): string[] {
+  const home = object(object(checkpoint?.sections).home);
+  return [home.understoodAnswers, home.draftAnswers].flatMap((list) => (Array.isArray(list) ? list : []))
+    .map((item) => object(item).question)
+    .filter((question): question is string => typeof question === "string" && question.trim().length > 0)
+    .map((question) => question.trim());
+}
+
 export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): CaseFile {
   const file = emptyCaseFile();
   const sections = checkpoint ? freshSections(checkpoint) : {};
@@ -277,9 +312,15 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // had answered it, declaration included).
   const homeAnswers = object(sections.home).understoodAnswers;
   for (const item of Array.isArray(homeAnswers) ? homeAnswers : []) {
-    const { question, answer } = object(item);
+    const { id, question, answer } = object(item);
     if (typeof question !== "string" || typeof answer !== "string" || !answer.trim()) continue;
-    const fact = factOfAskedText(question);
+    // A site question (questions/factQuestions.ts) by its id: its facts exactly. Only an answer saved before 19 Nov 2026,
+    // to a question the model wrote, is read by its words.
+    if (typeof id === "string" && id) {
+      for (const fact of slotsOf(id)) give(file, fact, answer.trim(), `home:${id}`);
+      continue;
+    }
+    const fact = factOfAskedText(question, { responding: respondsToTheCase(file) });
     if (fact) give(file, fact, answer.trim(), `home:${fact}`);
   }
   // The other party the story reading named, accepted by the person on the home page (understoodOtherParty.ts; B1).
@@ -300,6 +341,8 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
       // "I'm not sure" given at the start, and the step page asked "Where is your case?" again (founder's Chrome
       // check of #541, 2 Nov, step 2, Small Claims). Every court.
       if (key === "caseStage" && situation.where) continue;
+      // Family's "married" is a yes / no / not sure, read with the triage's answer below (one fact, never the word "yes").
+      if (area === "family" && key === "married") continue;
       // The Small Claims form starts with "Nothing filed yet" ticked: only an answer the person changed counts.
       if (area === "small-claims" && key === "filedDocuments" && strings(value).join() === "nothing") continue;
       // Words the one asker's fill put in a Small Claims box (asker.ts; "small-claims".filledWords) are a copy of an
@@ -371,6 +414,8 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   const triage = object(object(builder.triageState).record);
   const yesNo = (value: unknown) => (value === "yes" ? true : value === "no" ? false : value === "unsure" ? "not-sure" : undefined);
   if (yesNo(triage.marriedToOtherParty) !== undefined) give(file, "married", yesNo(triage.marriedToOtherParty), "married-to-other-party");
+  // The same question asked early by the Family questions (guidedFields.ts "married"; Chrome pass 3, S7): one answer, one fact.
+  else if (yesNo(object(sections.family).married) !== undefined) give(file, "married", yesNo(object(sections.family).married), "family:married");
   // Where they married, carried from the story's own sentence once the person says they were
   // married (item 12, case 14: a marriage abroad is a fact to carry, never assumed Ontario).
   if (file.married.state === "answered" && file.married.value === true && file.marriedWhere.state === "not-asked") {
@@ -388,7 +433,9 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // ("When it happened" stayed the person's "March 2026"; Chrome check of production c38e69fd, B2).
   const dates = object(position.dateAnswers);
   const keptFromStory = new Set(Array.isArray(position.datesFromStory) ? position.datesFromStory : []);
-  for (const [id, value] of Object.entries(dates)) if (!keptFromStory.has(id)) for (const fact of slotsOf(id)) give(file, fact, value, id);
+  // A day given there to work out a deadline never replaces "When it happened" given anywhere else (whenGivenElsewhere).
+  // Nor is the day a plaintiff served their own claim the day they got papers (servedDate), question-to-fact audit, 11 Nov.
+  for (const [id, value] of Object.entries(dates)) if (!keptFromStory.has(id)) for (const fact of slotsOf(id)) if (!(STEP_DATE_NEVER_REPLACES.has(fact) && givenElsewhere(fact, file[fact])) && !(fact === "servedDate" && bringsTheCase(file))) give(file, fact, value, id);
   // An older saved case (before 29 Oct) kept the kind in the analysis copy (intakeData.extra): read
   // here only, as a fallback: ticked, it is the person's; unticked, a proposal (claim type, rule 3).
   const extra = object(object(object(master).intakeData).extra);
@@ -428,7 +475,11 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   for (const [id, words] of Object.entries(object(builder.initialAnswers))) real(id, words);
   for (const answer of [...(Array.isArray(guided.earlierAnswers) ? guided.earlierAnswers : []), ...(Array.isArray(object(master).intakeAnswers) ? (object(master).intakeAnswers as unknown[]) : [])]) real(object(answer).questionId, object(answer).answerText);
   for (const [id, value] of Object.entries(dates)) real(id, value);
-  const saidUnsure = [...strings(builder.initialUnknowns), ...Object.entries(answers).filter(([, words]) => isUnsureAnswer(words)).map(([id]) => id)];
+  // A date offered from the story and answered "I'm not sure" (offerChoice.ts, key "date:<question id>"): that question
+  // only, never asked again (site owner, 14 Nov 2026, decision 2).
+  // (Read here, not through offerChoice.ts, which imports this module.)
+  const offerUnsureDates = Object.entries(object(object(sections[CASE_FILE_SECTION]).offerChoices)).filter(([key, choice]) => choice === "unsure" && key.startsWith("date:")).map(([key]) => key.slice("date:".length));
+  const saidUnsure = [...strings(builder.initialUnknowns), ...offerUnsureDates, ...Object.entries(answers).filter(([, words]) => isUnsureAnswer(words)).map(([id]) => id)];
   const unsureDates = saidUnsure.filter((id) => /-date-/.test(id) && !realAnswers.has(id) && !slotsOf(id).some((fact) => file[fact].state === "answered"));
   if (unsureDates.length) file.unsureDates = [...new Set(unsureDates)];
   file.answers = answers;
@@ -442,7 +493,10 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   if (startAnswers?.roleWords) file.sideWords = startAnswers.roleWords;
   const listed = [...fromStart, ...forms.flatMap(([values]) => [values.documents, values.filedDocuments]).flatMap((value) => strings(value))].filter((item) => item !== "nothing" && item !== "not-sure");
   if (listed.length) file.documents = [...new Set(listed)];
-  file.storyText = String(object(sections.story).text ?? "");
+  // The person's story sentences only: a home-page answer glued on before 19 Nov 2026 is not part of it (personWords.ts
+  // withoutGluedAnswers; Chrome pass 3 on #550: the answers printed in the Form 7A reasons box). The answer itself is
+  // still held, from home.understoodAnswers.
+  file.storyText = withoutGluedAnswers(String(object(sections.story).text ?? ""), answeredInIntake(sections).map((item) => item.answer));
   file.area = checkpoint?.courtPath ?? court ?? undefined;
   if (!file.storyText.trim() && master) file.savedStory = storyOfMaster(master) ?? undefined;
   // The story is a fact: held once given, here or in the saved case (founder, 1 Nov: the Small Claims chat
@@ -472,7 +526,65 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   applyPendingOverRecords(file, changesOf(sections), sections);
   // A suggestion waiting for an answer is never one the person turned down or removed.
   if (file.claimKindPending && file.claimKindRemoved?.includes(file.claimKindPending.claimTypeId)) delete file.claimKindPending;
+  // 11b. THE PARTIES, from the case record; an older case's from what it holds (read only). With a record, the other party
+  // is the first other party's own name: every screen that reads the other party reads the record (rule 1), and a second
+  // party is never merged into it (rule 2; Chrome forms test: "Circle K Convenience Stores Ltd. (Test Manager)").
+  const partiesRecord = readParties(object(sections[CASE_FILE_SECTION]).parties);
+  if (partiesRecord) {
+    file.parties = { list: partiesRecord.list, recorded: true };
+    const first = partiesRecord.list.find((party) => party.side === "other" && partyName(party));
+    if (first) file.otherParty = { state: "answered", value: partyName(first), source: { kind: "answer", question: "parties" }, confirmed: true };
+  } else {
+    const masterIntake = object(object(master).intakeData);
+    file.parties = {
+      recorded: false,
+      list: partiesFromOldShapes({
+        otherPartyName: file.otherParty.state === "answered" && typeof file.otherParty.value === "string" ? file.otherParty.value : undefined,
+        otherPartySettled: file.otherParty.removed === true || file.otherParty.state === "unsure",
+        boxes: [object(object(sections["small-claims"]).input), masterIntake, object(masterIntake.extra)],
+      }),
+    };
+  }
+  // 12. Words built from amounts follow the amount held now (Chrome check of #550, 1.7): read, never saved.
+  const heldAmount = file.amount.state === "answered" ? (typeof file.amount.value === "number" ? file.amount.value : parseRecordedAmount(String(file.amount.value ?? ""))) : null;
+  // What they want. Never a defendant's own outcome: the amount held for them is the claim against them, and their own
+  // claim's amount ("I want my $2,000 back") is not a copy of it (16 Nov 2026).
+  for (const fact of ["wants"] as const) {
+    const slot = file[fact];
+    if (heldAmount === null || slot.state !== "answered" || typeof slot.value !== "string") continue;
+    const words = wordsFollowHeldAmount(slot.value, heldAmount);
+    if (words !== slot.value) file[fact] = { ...slot, value: words };
+  }
+  // 13a. "Nothing else yet. I was just served": no defence is filed yet, when nothing the person said holds it (Chrome
+  // milestone test of #550, row 37: the review asked "Have you filed a Defence (Form 9A) with the court yet?"). Read
+  // last, so an answer of their own, an older case's typed "No" included, is kept as given (test:old-shape-cases).
+  if (situation.where === "served" && situation.stage === JUST_SERVED && file.defenceFiled.state === "not-asked") give(file, "defenceFiled", false, "situation:stage");
+  // 13. Family's urgent question asks about a safety worry in its own words (guidedFields.ts, asked whole only while
+  // safety is not held), so its answer or "not sure" is the safety answer until safety has one of its own (site owner,
+  // 14 Nov 2026, 5c: never asked again; carry: the review's "Safety or urgent concerns" box asked after it). Read only.
+  if (file.area === "family" && notAsked(file.safety) && !notAsked(file.urgent)) file.safety = { state: file.urgent.state, value: file.urgent.value, source: file.urgent.source, confirmed: file.urgent.confirmed };
   return file;
+}
+
+const MONEY_IN_WORDS = /\$\s?\d[\d,]*(?:\.\d{1,2})?/g;
+
+/**
+ * Words that name amounts, as the held amount has them now (site owner, 14 Nov 2026: "text built from amounts must be
+ * built from the record when it is shown"). Unchanged when an amount in them, or their sum, is the held amount. One
+ * amount that is not: replaced where it stands. A breakdown that no longer adds up: the words before it, then the held
+ * amount ("Payment of $5,000 for ..., $450 for ... and $18.45 for ..." after a change to $5,100: "Payment of
+ * $5,100.00."). Nothing saved is changed; this is how the case is read.
+ */
+export function wordsFollowHeldAmount(words: string, held: number): string {
+  const found = [...words.matchAll(MONEY_IN_WORDS)];
+  if (!found.length) return words;
+  const values = found.map((match) => parseRecordedAmount(match[0].replace(/\s/g, "")) ?? Number.NaN);
+  const same = (value: number) => Math.abs(value - held) < 0.005;
+  if (values.some(same) || same(values.reduce((sum, value) => sum + value, 0))) return words;
+  const shown = slotText({ state: "answered", value: held, confirmed: true }, (iso) => iso);
+  if (found.length === 1) return words.replace(found[0][0], shown);
+  const head = words.slice(0, found[0].index).trimEnd();
+  return `${head ? `${head} ` : ""}${shown}.`;
 }
 
 /** Unsent edits newer than the saved answer they were made against, applied after the fact record (G2(b)). */
@@ -482,7 +594,7 @@ function applyPendingOverRecords(file: CaseFile, changes: FactChanges, sections:
   for (const [fact, change] of ordered) {
     if (!(fact in records) || change.held || change.seen === undefined) continue;
     if (change.seen < seenSeqOf(sections, fact)) continue;
-    applyOne(file, fact, change.state === "answered" ? { state: "answered", value: change.value } : { state: "removed" }, change.place ?? CHANGE_QUESTION, !change.place);
+    applyOne(file, fact, change.state === "answered" ? { state: "answered", value: change.value } : { state: change.state }, change.place ?? CHANGE_QUESTION, !change.place);
   }
 }
 
@@ -493,6 +605,8 @@ export const CHANGE_QUESTION = "change";
 export type FactChange = (
   | { state: "answered"; value: string | number | boolean | string[]; at: string; seq: number }
   | { state: "removed"; at: string; seq: number }
+  // "I'm not sure" on an offer (offerChoice.ts; site owner, 14 Nov 2026): the fact settled, never asked again.
+  | { state: "unsure"; at: string; seq: number }
 ) & PendingMarks;
 /**
  * G2(b), (c): what the tab keeps beside an unsent edit. `seen` is the server's number for that fact as the tab saw
@@ -506,7 +620,7 @@ export type FactChange = (
  */
 export type PendingMarks = { seen?: number; held?: { state: string; value?: unknown; seq: number }; force?: true; place?: string };
 export type FactChanges = Partial<Record<SlotFact, FactChange>>;
-export type ChangeInput = { state: "answered"; value: string | number | boolean | string[] } | { state: "removed" };
+export type ChangeInput = { state: "answered"; value: string | number | boolean | string[] } | { state: "removed" } | { state: "unsure" };
 
 const changeable = (value: unknown): value is string | number | boolean | string[] =>
   typeof value === "string" || typeof value === "number" || typeof value === "boolean" || Array.isArray(value);
@@ -526,6 +640,7 @@ export function changesOf(sections: Record<string, unknown> | undefined): FactCh
       ...(typeof entry.place === "string" && entry.place && entry.place.length <= 200 ? { place: entry.place } : {}),
     };
     if (entry.state === "removed") out[fact] = { state: "removed", at, seq: entry.seq, ...marks };
+    else if (entry.state === "unsure") out[fact] = { state: "unsure", at, seq: entry.seq, ...marks };
     else if (entry.state === "answered" && !blank(entry.value) && changeable(entry.value)) out[fact] = { state: "answered", value: Array.isArray(entry.value) ? strings(entry.value) : entry.value, at, seq: entry.seq, ...marks };
   }
   return out;
@@ -579,15 +694,18 @@ export function sameAnswer(fact: SlotFact, heldValue: unknown, given: unknown): 
 /**
  * What a form box for `fact` must show to follow the newest saved answer (rule 3, site owner 6 Nov; Chrome check of
  * #544, step 14), or null to leave it as it is. `place`: the box's own place ("small-claims:amountClaimed"). Left as
- * it is: a fact never answered (no state), or one only read from the story; a box that is itself where the newest
- * answer came from (the person typing in it, sent or not); a box already saying the same answer; a "not sure" typed in
- * the box. Otherwise: the newest answer's words, or empty when it was removed or is "not sure".
+ * it is: a fact never answered (no state), or one only read from the story; a box whose own edit in this tab is not
+ * saved yet (`ownEditWaiting`: typed and on its way, or refused as "Not saved yet"); a box already saying the same
+ * answer; a "not sure" typed in the box. Otherwise: the newest answer's words, or empty when it was removed or is "not
+ * sure". The newest answer coming from this same box is no reason to leave it: another tab may have typed it there
+ * (fact-two-tabs.spec.ts, 10 Nov: tab 1 kept 6000 after tab 2's newer 7000 from the same box, its own stored copy
+ * shown on reload; test:box-follows-other-tab).
  */
-export function followWords(file: CaseFile, fact: SlotFact, place: string, boxValue: unknown, formatDay: (iso: string) => string): string | null {
+export function followWords(file: CaseFile, fact: SlotFact, place: string, boxValue: unknown, formatDay: (iso: string) => string, ownEditWaiting = false): string | null {
   if (START_FACTS.has(fact) || fact === "story") return null;
   const slot = file[fact];
   if (!slot.confirmed) return null;
-  if (slot.source?.kind === "answer" && slot.source.question === place) return null;
+  if (ownEditWaiting) return null;
   const now = boxValue === undefined || boxValue === null ? "" : String(boxValue);
   if (slot.removed || slot.state === "unsure") return now.trim() && !isUnsureAnswer(now) ? "" : null;
   if (slot.state !== "answered") return null;
@@ -747,6 +865,9 @@ export const FACT_RECORD_QUESTION = "fact-record";
 /** `changed`: false for an answer given at a place (G2 `place`), which is that place's own answer, not a change. */
 function applyOne(file: CaseFile, fact: SlotFact, change: { state: "removed" } | { state: "unsure" } | { state: "answered"; value: string | number | boolean | string[] }, question: string, changed = true) {
   const was = file[fact];
+  // A typed answer beats "not sure" for the same fact; only "removed" takes an answer away (site owner, 15 Nov 2026;
+  // offerChoice.ts answeredIn is the same rule at the write).
+  if (change.state === "unsure" && was.state === "answered" && was.source?.kind === "answer") return;
   if (change.state === "removed") {
     // A removed kind is never offered back as the story's or the classifier's proposal either.
     const kind = fact === "claimKind" ? heldKindId(was) ?? file.claimKindProposal?.claimTypeId ?? null : null;
@@ -815,6 +936,8 @@ function applyFactRecords(file: CaseFile, sections: Record<string, unknown>) {
     // That place's answer set aside since (a story change, "Start the questions again": the fresh sections hold nothing
     // there) is not brought back by its numbered copy. A box the person emptied records a removal instead (newer, no place).
     if (fromPlace && placeHolds(sections, question) === false) continue;
+    // A day the step page saved to work out a deadline never replaces "When it happened" the person gave elsewhere.
+    if (STEP_DATE_NEVER_REPLACES.has(fact) && fromCasePosition(question) && givenElsewhere(fact, file[fact])) continue;
     applyOne(file, fact, entry.state === "answered" ? { state: "answered", value: Array.isArray(value) ? strings(value) : value } : { state: entry.state as "removed" | "unsure" }, question, !fromPlace);
   }
   if (records.length) file.changedFacts = [...new Set([...(file.changedFacts ?? []), ...records.map(([fact]) => fact)])];
@@ -831,6 +954,47 @@ export const POSITION_PLACE = "position:";
 export function fromCasePosition(question: unknown): boolean {
   return typeof question === "string" && (question === CLAIM_KIND_QUESTION || question.startsWith(POSITION_PLACE));
 }
+/**
+ * Whether "When it happened" holds an answer given somewhere other than the step page: a day or a rough time ("March
+ * 2026"), from the review, the chat, a form, Change or the story. The step page's "Work out your dates" asks for a day only
+ * to count a deadline (`case-date-act-or-omission`); that day is kept in the saved position for the deadline, and fills
+ * "When it happened" only when nothing else does (Chrome re-check of #545 at dc909096, 10 Nov 2026: "March 2026" became
+ * "May 15, 2026", the day typed there). Each question writes only its own fact.
+ */
+/** The person is bringing the case (the plaintiff or applicant): papers they serve are not papers they got. */
+export function bringsTheCase(file: CaseFile): boolean {
+  return file.side.state === "answered" && file.side.value === "bringing";
+}
+
+/** The person is responding to a case someone else started (being sued): the view for their side (roleView.ts). */
+/** The person is the one being sued, from the record: the case file's side, else the role the intake holds. */
+export function respondingFromRecord(file: CaseFile | null | undefined, role?: unknown): boolean {
+  if (file?.side?.state === "answered") return respondsToTheCase(file);
+  return typeof role === "string" && /defendant|responding/i.test(role);
+}
+
+export function respondsToTheCase(file: CaseFile): boolean {
+  return file.side.state === "answered" && file.side.value === "responding";
+}
+
+export function whenGivenElsewhere(slot: Slot): boolean {
+  return givenElsewhere("whenHappened", slot);
+}
+
+/**
+ * Facts a step-page date may fill but never replace: the step page asks for a day to count a deadline, and the person's
+ * own answer elsewhere means something wider ("When it happened"; "the next court date", which a trial date must not
+ * replace: question-to-fact audit, 11 Nov). Each is kept from the review, the chat, a form, Change or the story.
+ */
+export const STEP_DATE_NEVER_REPLACES: ReadonlySet<SlotFact> = new Set<SlotFact>(["whenHappened", "courtDate"]);
+
+/** Whether `fact` holds an answer given somewhere other than the step page (a day, or a rough time kept as words). */
+export function givenElsewhere(fact: SlotFact, slot: Slot): boolean {
+  const held = slot.state === "answered" || (slot.state === "unsure" && !blank(slot.value));
+  const question = slot.source?.kind === "answer" ? slot.source.question : undefined;
+  return held && !(fromCasePosition(question) || (typeof question === "string" && (DATE_QUESTIONS_OF[fact] ?? []).includes(question)));
+}
+
 /** A kind the site suggested and the person ticked ("That's right"): theirs from then on. */
 export const CLAIM_KIND_TICKED = "claim-kind-suggestion";
 
@@ -886,7 +1050,52 @@ const DISPUTE_KIND: Record<string, string> = {
   [DISPUTE_CATEGORY_WORDS.defamation]: "sc-claim-defamation-libel-slander",
 };
 
+/**
+ * THE ANSWERS TO "WHAT KIND OF CASE IS THIS?" THAT LEAD TO NO KIND OF CLAIM, AND WHY (coverage audit, 11 Nov 2026).
+ *
+ * An answer that names exactly one kind in the catalogue brings that kind's checklist with it (caseFile.ts claimKindOf,
+ * DISPUTE_KIND). Every other answer is listed here with the reason it brings none, so a gap is said, never silent (CLAUDE.md
+ * s. 2a: "a step the map lacks shows as not covered yet"). The screens already say so ("your answer does not name one of
+ * them yet"). test:answer-coverage fails on an answer neither mapped nor listed, and on a listed one that has since gained
+ * a kind (delete its line then). Filling these needs sourced checklists or a reviewed mapping: REVIEW_CHAT_ADDITIONS.md.
+ */
+export type CoverageCourt = "small-claims" | "civil" | "family";
+
+const SEVERAL = "covers several kinds of claim in the catalogue; the person picks the kind, none is assumed";
+const AREA = "an area of law the person picks on the form, not a kind in the catalogue; the case file holds Small Claims kinds only (claimKindOf)";
+
+export const ANSWERS_WITH_NO_KIND: Record<CoverageCourt, Record<string, string>> = {
+  "small-claims": {
+    "unpaid-money": SEVERAL,
+    "contract-dispute": SEVERAL,
+    "property-damage": SEVERAL,
+    "loan-or-debt": `${SEVERAL} (a personal loan, a co-signed loan, a settlement agreement, unpaid services; Chrome check of #547, G2)`,
+    "work-or-services": SEVERAL,
+    "deposit-refund": SEVERAL,
+    "consumer-purchase": SEVERAL,
+    "vehicle-dispute": SEVERAL,
+    "personal-injury": SEVERAL,
+    other: "names no kind by design",
+  },
+  civil: Object.fromEntries(
+    ["contract", "negligence", "institutional-negligence", "professional-negligence", "human-rights", "disability-accommodation", "employment-human-rights",
+      "housing-human-rights", "education-human-rights", "charter", "government-public-authority", "police-conduct", "judicial-review", "tribunal-overlap",
+      "defamation", "privacy", "property", "debt", "employment", "fraud-misrepresentation", "intentional-tort", "injunction", "estate", "motion", "appeal",
+      "enforcement", "other"].map((value) => [value, AREA]),
+  ),
+  family: Object.fromEntries(
+    ["decision-making-responsibility", "parenting-time", "child-support", "spousal-support", "divorce", "property-division", "sale-of-home", "matrimonial-home",
+      "safety-concerns", "relocation", "disclosure", "enforcement", "adoption", "other"].map((value) => [value, AREA]),
+  ),
+};
+
 const kindName = (id: string) => CLAIM_TYPES.find((claimType) => claimType.id === id)?.name ?? null;
+/**
+ * The kind's name as this person reads it: for a person being sued, the name of the view their side is shown
+ * (roleView.ts kindForSide: the defendant-side kind, or the generic view for a person who has been served), never the
+ * name written for the person suing ("A homeowner will not pay the contractor"; site owner, 14 Nov 2026).
+ */
+const kindNameForSide = (file: CaseFile, id: string) => kindName(kindForSide(id, respondsToTheCase(file)).kindId ?? id) ?? kindName(id);
 
 /**
  * THE KIND OF CLAIM, AS THE CASE FILE HOLDS IT: every screen, card, checklist and AI prompt that
@@ -909,7 +1118,7 @@ export function claimKindOf(file: CaseFile, listWords: (codes: string[]) => stri
     const value = slot.value;
     if (typeof value === "string" && isKindOfClaim(value)) {
       claimTypeId = kindName(value) ? value : null;
-      words = kindName(value) ?? value;
+      words = kindNameForSide(file, value) ?? value;
     } else if (typeof value === "string" && value.trim()) {
       words = DISPUTE_CATEGORY_WORDS[value] ?? value.trim();
       claimTypeId = DISPUTE_KIND[value] ?? DISPUTE_KIND[words] ?? null;
@@ -927,7 +1136,7 @@ export function claimKindOf(file: CaseFile, listWords: (codes: string[]) => stri
   const removed = new Set(file.claimKindRemoved ?? []);
   if (slot.state === "not-asked" && (file.area === "small-claims" || file.area === undefined)) {
     const stored = file.claimKindProposal;
-    const name = stored ? kindName(stored.claimTypeId) : null;
+    const name = stored ? kindNameForSide(file, stored.claimTypeId) : null;
     if (stored && removed.has(stored.claimTypeId)) {
       // Turned down: nothing is proposed in its place from the same story.
     } else if (stored && name) {
@@ -937,10 +1146,30 @@ export function claimKindOf(file: CaseFile, listWords: (codes: string[]) => stri
       if (quote) proposal = { claimTypeId: stored.claimTypeId, words: name, quote };
     } else if (!stored && story.trim()) {
       const read = kindFromStory(story, CLAIM_TYPES);
-      if (read && !removed.has(read.claimType.id)) proposal = { claimTypeId: read.claimType.id, words: read.claimType.name, quote: read.quote };
+      if (read && !removed.has(read.claimType.id)) proposal = { claimTypeId: read.claimType.id, words: kindNameForSide(file, read.claimType.id) ?? read.claimType.name, quote: read.quote };
     }
   }
   return { state: slot.state, claimTypeId, words, source, askedBy: question || null, quote, proposal };
+}
+
+/**
+ * Every question the person answered in the intake, with their own words: the home page's reading (home.understoodAnswers)
+ * and the Small Claims chat (guided.earlierAnswers, worded from the question bank). For details given there that another
+ * step asks for (the Parties step: an address typed as an answer; Chrome milestone pass 2, finding 3).
+ */
+export function answeredInIntake(sections: Record<string, unknown> | undefined): { question: string; answer: string }[] {
+  const out: { question: string; answer: string }[] = [];
+  const all = object(sections);
+  for (const item of Array.isArray(object(all.home).understoodAnswers) ? (object(all.home).understoodAnswers as unknown[]) : []) {
+    const { question, answer } = object(item);
+    if (typeof question === "string" && typeof answer === "string" && answer.trim()) out.push({ question, answer: answer.trim() });
+  }
+  for (const item of Array.isArray(object(all.guided).earlierAnswers) ? (object(all.guided).earlierAnswers as unknown[]) : []) {
+    const { questionId, answerText } = object(item);
+    const question = typeof questionId === "string" ? QUESTION_BANK.find((entry) => entry.id === questionId)?.text : undefined;
+    if (question && typeof answerText === "string" && answerText.trim()) out.push({ question, answer: answerText.trim() });
+  }
+  return out;
 }
 
 /** The story the case file holds: the checkpoint's, else (an older saved case) the story it saved. */
@@ -955,7 +1184,14 @@ export function storyOfFile(file: CaseFile): string {
  * the person types them in the section, so an empty one stays empty and the draft says "[... to be
  * confirmed]".
  */
-export function form7ADraftFields(file: CaseFile, formatDay: (iso: string) => string): StatementOfClaimDraftInput {
+/**
+ * The fields the Form 7A draft engine reads, as plain words (the same shape as statementOfClaimDraftEngine.ts
+ * StatementOfClaimDraftInput). Declared here, not imported: the case file is read by routes that never call a model, and
+ * importing the engine reached the AI client through its own imports (test:no-names-to-model, 14 Nov 2026).
+ */
+export type Form7ADraftFields = { yourName: string; yourAddress: string; otherParty: string; defendantAddress: string; amountClaimed: string; facts: string; timeline: string; goal: string };
+
+export function form7ADraftFields(file: CaseFile, formatDay: (iso: string) => string): Form7ADraftFields {
   const said = (fact: "amount" | "wants") => (file[fact].state === "answered" ? slotText(file[fact], formatDay) : "");
   return { yourName: "", yourAddress: "", otherParty: "", defendantAddress: "", amountClaimed: said("amount"), facts: storyOfFile(file), timeline: "", goal: said("wants") };
 }
@@ -979,8 +1215,11 @@ export function alreadyAsked(file: CaseFile, questionId: string, surface?: strin
   return slotsOf(questionId, surface).some((fact) => !notAsked(file[fact]));
 }
 
-/** Not asked yet: no answer, no "not sure", and not removed by the person (a removed answer is not asked again by itself). */
-export const notAsked = (slot: Slot) => slot.state === "not-asked" && !slot.removed;
+/**
+ * May still be asked or offered, from the one function (factStatus.ts): not known (no answer of the person's), not
+ * settled ("not sure", a skip, removed). A story value not yet decided is an offer, so it may be shown.
+ */
+export const notAsked = (slot: Slot) => { const status = slotStatus(slot); return status === "ask" || status === "offer"; };
 
 /**
  * THE ONE GATE. Of a screen's questions, in its order, the first whose facts the file
@@ -1003,15 +1242,8 @@ export function askable(file: CaseFile, candidates: readonly string[], surface?:
   return candidates.filter((id) => nextQuestion(file, [id], { surface }) === id);
 }
 
-/**
- * THE GATE FOR EVERY CHAT (never ask twice, row 1, 29 Oct). A chat question is asked only when the
- * one gate lets it: a fact the file holds, answered or "not sure", is not asked by a chat, nor offered
- * as the story's suggestion (site owner, 31 Oct: a not-sure fact is asked nowhere again; screens show
- * it as "Not answered yet: add it when you know"). No file: nothing held.
- */
-export function chatMayAsk(file: CaseFile | null | undefined, questionId: string): boolean {
-  return !file || nextQuestion(file, [questionId]) === questionId;
-}
+/** THE GATE FOR EVERY CHAT: the one function's (factStatus.ts chatMayAsk), re-exported for its callers. */
+export { chatMayAsk };
 
 /**
  * What a chat asks for one of its question sentences: the sentence, when the gate lets its fact be
@@ -1070,6 +1302,19 @@ export function slotsOfQuestion(questionId: string, surface?: string): SlotFact[
   return slotsOf(questionId, surface);
 }
 
+/**
+ * THE OTHER SIDE IN WORDS, ON EVERY SCREEN THAT NAMES IT: each party on the other side from the Parties record, by its
+ * own name ("Circle K Convenience Stores Ltd.; Test Manager"), else null (the otherParty slot's own words then). The
+ * otherParty slot holds only the first (caseFileOf), so a screen reading the slot named one defendant of two (Chrome pass
+ * 2 on #550, C.4: the review's "The other party" showed only Circle K while the Parties step listed both). The one
+ * function for the names is parties.ts partyNames, as on the case page; the review reads it through here.
+ */
+export function otherSideWords(file: CaseFile): string | null {
+  if (!file.parties.recorded || file.otherParty.removed) return null;
+  const others = partyNames(file.parties.list).others;
+  return others.length ? others.join("; ") : null;
+}
+
 /** A slot's value in plain words, as the person gave it: a day as the court writes it, Yes or No, a list joined. */
 export function slotText(slot: Slot, formatDay: (iso: string) => string): string {
   // A rough time given ("July 2026", "last summer") is shown as given: the day is what is not known yet
@@ -1079,7 +1324,7 @@ export function slotText(slot: Slot, formatDay: (iso: string) => string): string
   const value = slot.value;
   if (typeof value === "boolean") return value ? "Yes" : "No";
   // An amount as a court form writes it: "$2,500.00" (#477 re-test: "twenty five hundred").
-  if (typeof value === "number") return `$${value.toLocaleString("en-CA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  if (typeof value === "number") return `$${value.toLocaleString("en-CA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}${slot.note ? ` ${slot.note}` : ""}`;
   if (Array.isArray(value)) return value.join(", ");
   if (typeof value === "string" && isRealIsoDate(value)) return formatDay(value);
   return typeof value === "string" ? value : "";
@@ -1106,12 +1351,12 @@ const SAME_MOMENT: readonly (readonly string[])[] = [
 /** The step page's date questions for each day the person said they do not know: never asked again, shown folded as "Not answered yet: add it when you know" with "Add it" (StageAnswerPanel laterDates; site owner, 31 Oct). */
 export function unsureDateQuestions(file: CaseFile): string[] {
   const ids: Record<string, readonly string[]> = {
-    servedDate: ["sc-date-claim-served", "sc-date-defendants-claim-served", "case-date-served-with-application", "case-date-served-with-motion-to-change"],
+    servedDate: ["sc-date-claim-served", "case-date-served-with-application", "case-date-served-with-motion-to-change"],
     whenHappened: DATE_QUESTIONS_OF.whenHappened ?? [],
     conferenceDate: DATE_QUESTIONS_OF.conferenceDate ?? [],
     courtDate: DATE_QUESTIONS_OF.courtDate ?? [],
   };
-  return [...new Set([...Object.entries(ids).flatMap(([fact, list]) => (file[fact as SlotFact].state === "unsure" ? [...list] : [])), ...(file.unsureDates ?? [])])];
+  return [...new Set([...Object.entries(ids).flatMap(([fact, list]) => (file[fact as SlotFact].state === "unsure" && slotStatus(file[fact as SlotFact]) === "settled" ? [...list] : [])), ...(file.unsureDates ?? [])])];
 }
 
 /**
@@ -1165,13 +1410,22 @@ export function slotDay(slot: Slot, readDay: (text: string) => string | null): s
 export function withCaseFileDates(answered: Record<string, string>, file: CaseFile, readDay: (text: string) => string | null): Record<string, string> {
   const out = { ...answered };
   for (const [fact, ids] of Object.entries(DATE_QUESTIONS_OF) as [SlotFact, readonly string[]][]) {
+    // "The next court date" answers the first day of trial only when its words name a trial (a motion hearing first
+    // pre-filled the trial question: question-to-fact audit, 11 Nov).
+    if (fact === "courtDate" && !(typeof file.courtDate.value === "string" && /\btrial\b/i.test(file.courtDate.value))) continue;
     const day = slotDay(file[fact], readDay);
     if (day) for (const id of fact === "conferenceDate" ? conferenceQuestions(file[fact], typeof file.court.value === "string" ? file.court.value : "") : ids) if (!out[id]) out[id] = day;
   }
   // The day served, given anywhere but the situation questions (whose day withSituationDates
   // places by the papers picked): only the court's own first served-date question (reviewer 2).
   const served = file.servedDate;
-  const servedDay = served.source?.kind === "answer" && !served.source.question.startsWith("situation:") ? slotDay(served, readDay) : null;
+  // A day from the situation questions is placed there by the papers picked; with the papers not named ("not sure") it is
+  // placed on no question, so the court's own served-date question reads it too, unless some served-date question already
+  // holds that day (ask-once story sc-served-kitchen-home, 14 Nov: the case page asked the served day the header showed).
+  const fromSituation = served.source?.kind === "answer" && served.source.question.startsWith("situation:");
+  const situationDay = fromSituation ? slotDay(served, readDay) : null;
+  const placedBySituation = situationDay !== null && Object.values(SERVED_DATE_QUESTION).some((id) => out[id] === situationDay);
+  const servedDay = served.source?.kind === "answer" && (!fromSituation || !placedBySituation) ? slotDay(served, readDay) : null;
   const court = typeof file.court.value === "string" ? file.court.value : "";
   const servedId = court === "family" ? "case-date-served-with-application" : court === "small-claims" || court === "civil" ? "sc-date-claim-served" : null;
   if (servedDay && servedId && !out[servedId]) out[servedId] = servedDay;

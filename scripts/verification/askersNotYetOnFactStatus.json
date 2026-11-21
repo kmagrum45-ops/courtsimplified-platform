@@ -1,0 +1,4 @@
+{
+  "_about": "Askers that do not use the one function (src/lib/case-system/caseFile/factStatus.ts) yet. EMPTY since 18 Nov 2026: every asker imports the one function or meets a rule proved by test:askers-fact-status (decision 3 on 2d0ebd53). A new entry fails the build.",
+  "entries": []
+}

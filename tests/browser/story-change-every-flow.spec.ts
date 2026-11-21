@@ -289,7 +289,7 @@ for (const court of COURTS) {
     await page.getByRole("button", { name: "Continue to your next steps", exact: true }).click();
     const notice = page.getByTestId("review-needed-beside-button");
     await expect(notice).toBeVisible();
-    await expect(notice).toContainText("needs confirming");
+    await expect(notice).toContainText("look it over and press Continue there");
     await notice.getByRole("button", { name: "Go to your initial case information" }).click();
     // Its heading, not partway down its fields (#465 re-test).
     await expect(page.getByTestId("intake-review").getByRole("heading", { level: 2 }).first()).toBeInViewport({ timeout: 10_000 });
@@ -317,7 +317,7 @@ for (const court of ["family", "civil"] as const) {
     await done.click();
     const notice = page.getByTestId("review-needed-beside-button");
     await expect(notice).toBeVisible();
-    await expect(notice).toContainText("needs confirming");
+    await expect(notice).toContainText("look it over and press Continue there");
     await notice.getByRole("button", { name: "Go to your initial case information" }).click();
     await expect(page.getByTestId("intake-review").getByRole("heading", { level: 2 }).first()).toBeInViewport({ timeout: 10_000 });
   });

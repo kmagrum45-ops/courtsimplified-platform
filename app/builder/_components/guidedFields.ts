@@ -15,8 +15,11 @@
 import type { GuidedChoice, GuidedField, GuidedValues } from "./GuidedFormChat";
 import { SERVED_LINE, storyHintsForDates } from "../../../src/lib/case-system/casePosition";
 import { STORY_LABEL } from "../../../src/lib/case-system/copy/storyGuidance";
+import { MARRIED_TRIAGE_QUESTION } from "../../../src/lib/case-system/family/statusTriage";
+import { factStatus } from "../../../src/lib/case-system/caseFile/factStatus";
+import { offeredAmount } from "../../../src/lib/case-system/caseFile/storyOffers";
+import type { CaseFile, SlotFact } from "../../../src/lib/case-system/caseFile/caseFile";
 import {
-  amountFromStory,
   childrenFromStory,
   courtDateFromStory,
   civilIssuesFromStory,
@@ -31,6 +34,7 @@ import {
   otherPartyNameFromStory,
   servedDateFromStory,
 } from "./storyAnswers";
+import { businessOtherSideIn } from "../../../src/lib/case-system/caseFile/storyFacts";
 
 const storyOf = (values: GuidedValues) => (typeof values.facts === "string" ? values.facts : "");
 
@@ -111,6 +115,21 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       ],
     },
     {
+      // Asked once, here, early, by the Family questions themselves (Chrome pass 3 on #550, S7: never asked, so "No" could
+      // not be given and the divorce and property content showed). The triage's own words; the triage does not ask it again
+      // once the case file holds the answer (statusTriage.ts selectNextTriageQuestion, mayShowQuestion).
+      key: "married",
+      label: "Married to the other person",
+      question: MARRIED_TRIAGE_QUESTION.prompt,
+      why: MARRIED_TRIAGE_QUESTION.whyAsked,
+      kind: "choice",
+      options: [
+        { value: "yes", label: "Yes" },
+        { value: "no", label: "No" },
+        { value: "unsure", label: "I'm not sure" },
+      ],
+    },
+    {
       key: "issues",
       label: "What the case is about",
       // The issues the story names, offered for one click (26 Oct re-test, case 14).
@@ -188,6 +207,10 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       key: "urgent",
       label: "Anything urgent",
       question: "Is anything urgent, like a deadline this week, a safety worry, or someone about to move away with a child?",
+      // Safety already answered (the home page's question, or the safety box): asked without it (5c), and without "someone
+      // about to move away with a child", which is the same safety fact (the safety question asks about a child being taken
+      // away; Chrome pass 3 on #550, S7: asked after "No safety concerns").
+      askedWhenHeld: { fact: "safety", question: "Is anything urgent, like a deadline this week?" },
       why: "Urgent situations can have a faster route, and we show those first.",
       kind: "longtext",
     },
@@ -247,7 +270,8 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
     {
       key: "amountClaimed",
       label: "Amount",
-      fromStory: (values) => amountFromStory(storyOf(values)),
+      // The one offer reader (caseFile/storyOffers.ts); this form holds the story only, not the saved reading.
+      fromStory: (values) => offeredAmount(storyOf(values), []),
       question: "How much money is involved, if any?",
       why: "The amount decides which court and which procedure your case uses.",
       kind: "text",
@@ -280,7 +304,8 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
     {
       key: "otherParty",
       label: "The other side",
-      fromStory: (values) => otherPartyFromStory(storyOf(values)),
+      // The chat's own stricter reader, then a business the story names (storyFacts.ts businessOtherSideIn).
+      fromStory: (values) => otherPartyFromStory(storyOf(values)) ?? businessOtherSideIn(storyOf(values)),
       question: "Who is the other side (a person or a business)? You can leave the name for later.",
       why: "It goes on your forms. Nothing else depends on it.",
       kind: "text",
@@ -302,6 +327,16 @@ export function isAnswered(field: GuidedField, value: GuidedValues[string]): boo
   if (Array.isArray(value)) return value.filter((item) => !(field.emptyValues ?? []).includes(item)).length > 0;
   const text = (value ?? "").trim();
   return text.length > 0 && !(field.emptyValues ?? []).includes(text);
+}
+
+/**
+ * The words a field is asked in, from the record: a question that asks about a fact the case already holds as well as
+ * something else is asked without that part (askedWhenHeld). Family's "Is anything urgent, like a deadline this week, a
+ * safety worry, ...?" after the person said "No safety concerns" (Chrome check of #550, 5c).
+ */
+export function guidedQuestion(field: Pick<GuidedField, "question" | "askedWhenHeld">, file: CaseFile | null | undefined): string {
+  const held = field.askedWhenHeld && file ? factStatus(file, field.askedWhenHeld.fact) : null;
+  return held === "known" || held === "settled" ? field.askedWhenHeld!.question : field.question;
 }
 
 /** The questions still to ask, in order: applicable, unanswered, not skipped. */

@@ -62,8 +62,15 @@ for (const [file, call] of [["app/builder/_components/StageAnswerPanel.tsx", "he
   check(`B1. ${file} passes the record's answer to the forms named in its step`, read(file).includes(call));
 }
 for (const file of ["app/builder/page.tsx", "app/cases/[id]/page.tsx", "app/cases/[id]/forms/page.tsx"]) {
-  check(`B1. ${file} reads "never married" through neverMarried, never its own copy`, /neverMarried\(/.test(read(file)) && !/married\.value === false/.test(read(file)));
+  // Through the one reader (neverMarried), or the one helper over it that also hides married-only content for "not sure"
+  // (marriedOnly.ts hidesMarriedOnly; site owner, 14 Nov 2026, decision A), checked below to call neverMarried itself.
+  check(`B1. ${file} reads "never married" through neverMarried, never its own copy`, /(?:neverMarried|hidesMarriedOnly)\(/.test(read(file)) && !/married\.value === false/.test(read(file)));
 }
+const hideHelper = read("src/lib/case-system/family/marriedOnly.ts").replace(/\r\n/g, "\n").split("export function hidesMarriedOnly")[1]?.split("\n}")[0] ?? "";
+// Changed 19 Nov 2026 (site owner: married-only content is hidden until the person says married; Chrome pass 3 on #550,
+// S7): the helper's one reader is now "said married" (saidMarried), not "never married"; the same property, one reader.
+const saidHelper = read("src/lib/case-system/family/marriedOnly.ts").replace(/\r\n/g, "\n").split("export function saidMarried")[1]?.split("\n}")[0] ?? "";
+check("B1. the helper that hides married-only content reads the married answer through its one reader (saidMarried), which reads only the case file's married fact", /return !saidMarried\(file\);/.test(hideHelper) && /file\.married\.state === "answered" && file\.married\.value === true/.test(saidHelper) && !/triage|marriedToOtherParty|family\.married/.test(saidHelper), `${hideHelper.slice(0, 120)} | ${saidHelper.slice(0, 160)}`);
 
 // ---- B2 ----
 const settled = { ...emptyStatusRecord(), marriedToOtherParty: "no" as const, cohabitationStart: "2018", cohabitationEnd: "2025", haveChildTogether: "yes" as const, caseInvolvesChildren: "yes" as const };

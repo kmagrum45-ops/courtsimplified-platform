@@ -18,6 +18,7 @@
 import { sentences as sharedSentences } from "../sentences";
 import type { CaseRecord } from "../caseRecord";
 import { caseStepFor } from "../caseStep";
+import { caseFileOfMaster } from "../caseFile/caseFileOfMaster";
 
 /**
  * `firm`: the answer is something the person themselves entered or chose --
@@ -125,6 +126,14 @@ function suggest(
       : { value: false, reason: "Your case says you are the one starting it.", firm: true };
   }
 
+  // "Have you confirmed this is an eligible Ontario Small Claims Court matter?" -- the person chose Small Claims Court for
+  // this case at the start and confirmed it (Chrome milestone test of #550, row 25: asked again on the Forms tab). Kept
+  // with the case, not asked again; an amount on record over the Small Claims limit is never answered for them.
+  if (last === "eligibilityConfirmed" && /smallClaims/.test(fieldPath) && record.courtPath === "small-claims") {
+    const amount = Number((record.amount ?? "").replace(/[^\d.]/g, ""));
+    if (!(amount > 50_000)) return { value: true, reason: "You chose Small Claims Court for this case.", firm: true };
+  }
+
   // "Is this a divorce application?" -- from the family questions' own answers.
   if (last === "isDivorceApplication") {
     const family = asRecord(asRecord(master.familyStatus).record);
@@ -168,7 +177,27 @@ function suggest(
       // without their confirmation (CLAUDE.md section 4; review 2026-10-13).
       return { value: true, reason: "Your step is considering a defendant's claim." };
     }
-    const asked = claimBackInOwnWords(master, record.story);
+    // Their own yes or no to "Do you believe the plaintiff, or someone else, owes you money...?" is this question's fact,
+    // defendantsClaim (factsOfQuestion.ts; decision 1, 18 Nov 2026: a yes/no fact, which a sentence never fills), read
+    // through the one reader and never asked again, wherever it was asked (the review, the Small Claims chat, the home
+    // page's reading card).
+    const file = caseFileOfMaster(master, "small-claims");
+    const own = file.defendantsClaim;
+    // Their words, as they gave them (outcome: the same answer, kept in their words; factsOfQuestion.ts).
+    const outcome = file.outcome;
+    const outcomeWords = outcome.source?.kind === "answer" && outcome.state === "answered" && typeof outcome.value === "string" ? outcome.value : "";
+    if (own.source?.kind === "answer") {
+      if (own.state === "unsure") return { value: "not-sure", reason: "You answered \"I do not know yet\" when asked whether anyone owes you money.", firm: true };
+      if (own.state === "answered" && (own.value === true || (typeof own.value === "string" && /^\s*yes\b/i.test(own.value)))) return { value: true, reason: "You answered \"Yes\" when asked whether the plaintiff or someone else owes you money.", firm: true };
+      // A No, unless their own words still claim money back ("No, but she owes me $500"): then it is offered, below.
+      if (own.state === "answered" && (own.value === false || (typeof own.value === "string" && /^\s*no\b/i.test(own.value))) && !CLAIM_BACK.some((pattern) => pattern.test(`${outcomeWords} ${own.note ?? ""}`))) return { value: false, reason: "You answered \"No\" when asked whether anyone owes you money.", firm: true };
+    }
+    // Their outcome in their own words (outcome: "Are you only responding ... or asking for an outcome of your own?"): a No
+    // in a word or a sentence ("No. I only want to defend the claim."), unless the same words still claim money back.
+    if (/^\s*no\b/i.test(outcomeWords) && !CLAIM_BACK.some((pattern) => pattern.test(outcomeWords))) return { value: false, reason: "You answered \"No\" when asked whether anyone owes you money.", firm: true };
+    // A claim back in their own words (the story, or their outcome): offered, quoting them, for them to confirm. A
+    // sentence is never taken as their Yes (decision 1; Chrome milestone pass 2, finding 5).
+    const asked = claimBackInOwnWords(master, [record.story, outcomeWords, own.note ?? ""].join(" "));
     if (asked) return { value: true, reason: `You wrote: “${asked}”` };
   }
 
@@ -222,6 +251,18 @@ function suggest(
     return { value: false, reason: "You described suing someone, which is an action, not an application." };
   }
   return null;
+}
+
+/**
+ * What a Forms-tab offer's "No, that's not right" or "I'm not sure" saves, so the question is never asked again (site
+ * owner, 17 Nov: a fact is offered once, then recorded). No to an offered Yes on a yes/no question is No; "I'm not sure"
+ * is the question's own "Not sure" choice. Anything else (No to one choice among several) says nothing: undefined, and
+ * the screen opens the list as before.
+ */
+export function answerOnOfferChoice(choices: ReadonlyArray<{ value: unknown }>, offered: unknown, choice: "no" | "unsure"): boolean | string | undefined {
+  const has = (value: unknown) => choices.some((item) => item.value === value);
+  if (choice === "unsure") return has("not-sure") ? "not-sure" : undefined;
+  return offered === true && has(false) ? false : undefined;
 }
 
 export function suggestApplicability(

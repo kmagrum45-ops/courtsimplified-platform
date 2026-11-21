@@ -65,7 +65,7 @@ type ClassifyClaimTypeRequestBody = {
   courtArea?: SupportedCourtArea;
 };
 
-function isClassifyClaimTypeRequestBody(value: unknown): value is ClassifyClaimTypeRequestBody {
+export function isClassifyClaimTypeRequestBody(value: unknown): value is ClassifyClaimTypeRequestBody {
   if (!isRecord(value)) return false;
   const allowedKeys = new Set(["storyText", "facts", "action", "claimTypeId", "priorRejectedIds", "courtArea"]);
   if (Object.keys(value).some((key) => !allowedKeys.has(key))) return false;

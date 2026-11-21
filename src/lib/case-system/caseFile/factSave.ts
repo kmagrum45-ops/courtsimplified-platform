@@ -12,8 +12,11 @@
 import { applyFactWrites, type FactConflict, type FactId, type FactRecords, type FactWrite, type FactWriteResult } from "./factRecord";
 import { updateMasterResult, type CaseRecordClient, type UpdateResult } from "../updateCaseRecord";
 import { factOfField } from "./fieldFacts";
-import { CLAIM_KIND_QUESTION, POSITION_PLACE } from "./caseFile";
-import type { IntakeCourt } from "../intakeCheckpoint";
+import { bringsTheCase, CLAIM_KIND_QUESTION, givenElsewhere, POSITION_PLACE, STEP_DATE_NEVER_REPLACES } from "./caseFile";
+import { caseFileOfMaster } from "./caseFileOfMaster";
+import { readCheckpoint, type IntakeCourt } from "../intakeCheckpoint";
+import { CASE_FILE_SECTION } from "./caseFile";
+import { OFFER_UNSURE_PLACE, sectionWithOfferChoices, type OfferChoice } from "./offerChoice";
 
 const NOTHING_TO_SAVE = "nothing-to-save";
 
@@ -26,12 +29,25 @@ export async function saveFactWrites(
   ids: { caseId: string; userId: string; court: IntakeCourt },
   writes: readonly FactWrite[],
   clock: () => Date = () => new Date(),
+  /** The person's choices on offers (offerChoice.ts), kept in the same save. */
+  offers: readonly { key: string; choice: OfferChoice }[] = [],
 ): Promise<FactSaveOutcome> {
   // The change runs once per attempt; the last attempt's result is the one written.
   let last: FactWriteResult | null = null;
   const saved = await updateMasterResult(client, { caseId: ids.caseId, userId: ids.userId, courtPath: ids.court }, (master) => {
-    last = applyFactWrites(master, ids.court, ids.caseId, writes, clock());
+    // An offer's "I'm not sure" never takes an answer away (site owner, 14 Nov 2026, decision B; offerChoice.ts
+    // answeredIn): dropped for a fact this row's case file holds answered, whoever sent it.
+    const held = writes.some((write) => write.state === "unsure" && write.question?.startsWith(`${OFFER_UNSURE_PLACE}:`)) ? caseFileOfMaster(master, ids.court) : null;
+    const kept = held ? writes.filter((write) => !(write.state === "unsure" && write.question?.startsWith(`${OFFER_UNSURE_PLACE}:`) && held[write.fact as keyof typeof held] && (held[write.fact as keyof typeof held] as { state?: string }).state === "answered")) : writes;
+    last = applyFactWrites(master, ids.court, ids.caseId, kept, clock());
     if (!last.ok) return { reject: last.reject };
+    if (offers.length) {
+      const checkpoint = readCheckpoint(last.master.intakeCheckpoint, ids.court, ids.caseId);
+      if (!checkpoint) return { reject: "no-intake-checkpoint" };
+      const next = { ...checkpoint, sections: { ...checkpoint.sections, [CASE_FILE_SECTION]: sectionWithOfferChoices(checkpoint.sections[CASE_FILE_SECTION], offers) } };
+      if (!readCheckpoint(next, ids.court, ids.caseId)) return { reject: "intake-too-large" };
+      return { ...last.master, intakeCheckpoint: next };
+    }
     // Nothing new written (every write a conflict, or an answer the record already holds): the row is left as it is.
     if (last.master === master) return { reject: NOTHING_TO_SAVE };
     return last.master;
@@ -65,7 +81,7 @@ export function intakeCourtOfRow(row: { court_path: string | null }): IntakeCour
  * recorded under the overview list's own question (CLAIM_KIND_QUESTION), so it reads as the kind the person chose; a date
  * under POSITION_PLACE and its question id. Either is the step page's own answer (caseFile.ts fromCasePosition).
  */
-export function positionFactWrites(patch: { claimKind?: unknown; dateAnswers?: unknown; datesFromStory?: unknown }, kept?: unknown): FactWrite[] {
+export function positionFactWrites(patch: { claimKind?: unknown; dateAnswers?: unknown; datesFromStory?: unknown }, kept?: unknown, master?: unknown): FactWrite[] {
   // Dates the step page kept from the story by itself count deadlines but are not the person's answer (B2).
   const fromStory = new Set(Array.isArray(patch.datesFromStory) ? patch.datesFromStory : []);
   // `kept`: the position as the save kept it; a value the save did not keep (a date the case file holds from another
@@ -81,9 +97,16 @@ export function positionFactWrites(patch: { claimKind?: unknown; dateAnswers?: u
   const kind = factOfField("position", "claimKind");
   if ("fact" in kind && typeof patch.claimKind === "string" && patch.claimKind.trim() && (!keptPosition || keptPosition.claimKind === patch.claimKind)) add(kind.fact, patch.claimKind, CLAIM_KIND_QUESTION);
   const dates = patch.dateAnswers && typeof patch.dateAnswers === "object" && !Array.isArray(patch.dateAnswers) ? (patch.dateAnswers as Record<string, unknown>) : {};
+  // "When it happened" as held without the step page (`master`: the saved case as the save changed it): a day given there to
+  // work out a deadline never replaces it (caseFile.ts whenGivenElsewhere; Chrome re-check of #545 at dc909096).
+  const held = master && typeof master === "object" ? caseFileOfMaster({ ...(master as Record<string, unknown>), position: undefined }) : null;
+  // A plaintiff's own service of their claim is not "Day you got the papers" (question-to-fact audit, 11 Nov).
+  const plaintiff = held ? bringsTheCase(held) : false;
   for (const [key, value] of Object.entries(dates)) {
     if (fromStory.has(key)) continue;
     const mapped = factOfField("position", "dateAnswers", key);
+    if ("fact" in mapped && held && STEP_DATE_NEVER_REPLACES.has(mapped.fact as never) && givenElsewhere(mapped.fact as never, held[mapped.fact as keyof typeof held] as never)) continue;
+    if ("fact" in mapped && mapped.fact === "servedDate" && plaintiff) continue;
     if ("fact" in mapped && typeof value === "string" && value.trim() && (!keptPosition || keptPosition.dateAnswers?.[key] === value)) add(mapped.fact, value, `${POSITION_PLACE}${key}`);
   }
   return writes;

@@ -2,6 +2,7 @@ import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { NextResponse } from "next/server";
 import { FORM_COMPLETION_PAUSED, FORM_COMPLETION_PAUSED_MESSAGE } from "../../../src/lib/content-library/phaseScope";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+import { UnprintableText, printableValues, unprintableMessage } from "../../../src/lib/case-system/forms/printableText";
 import { createClient } from "@supabase/supabase-js";
 
 import { getCanonicalFormLookup } from "../../../src/lib/case-system/formsSelectedCase";
@@ -12,6 +13,9 @@ import {
   type AuthenticatedOwnedCase,
 } from "../../../src/lib/supabase/serverAuth";
 import { caseFileOfMaster, heldWordsOf, otherPartyOfMaster } from "../../../src/lib/case-system/caseFile/caseFileOfMaster";
+import { stillNeeded } from "../../../src/lib/case-system/caseFile/factStatus";
+import type { CaseFile, SlotFact } from "../../../src/lib/case-system/caseFile/caseFile";
+import { safeError } from "@/src/lib/logging/safeLog";
 
 type CourtPath = "family" | "small-claims" | "civil";
 
@@ -596,6 +600,7 @@ export function getCaseValues(masterResult: unknown, courtType: CourtPath): Case
    */
   const file = caseFileOfMaster(masterResult, courtType);
   const heldOther = heldWordsOf(file, "otherParty");
+  const heldAmount = heldWordsOf(file, "amount");
   const defendantName = safe(
     heldOther.held
       ? heldOther.words
@@ -730,7 +735,10 @@ export function getCaseValues(masterResult: unknown, courtType: CourtPath): Case
         extra.fileNumber ||
         deepPick(allSources, ["claimNumber", "courtFileNumber", "fileNumber"]),
     ),
+    // The record's amount when it holds one (the person's answer, or "" once removed or "not sure"): never an older copy
+    // beside it (Chrome milestone pass 2: drafts and forms kept $5,468.45 after a change to $5,100).
     amountClaimed: safe(
+      heldAmount.held ? heldAmount.words :
       extra.amountClaimed ||
         extra.claimAmount ||
         extra.amount ||
@@ -1158,7 +1166,13 @@ async function savePdfSafely(pdfDoc: PDFDocument) {
   });
 }
 
-function summarizeMissingValues(values: CaseValues) {
+/**
+ * The values the form still lacks: a fact the case file holds is missing only when the one function says it is not known
+ * (caseFile/factStatus.ts stillNeeded); the boxes with no fact of their own (the court file number, the courthouse, the
+ * facts, the timeline, the evidence) when empty, as before.
+ */
+const MISSING_BY_FACT: Partial<Record<keyof CaseValues, SlotFact>> = { defendantName: "otherParty", amountClaimed: "amount", requestedResult: "wants" };
+function summarizeMissingValues(values: CaseValues, file?: CaseFile | null) {
   const importantKeys: (keyof CaseValues)[] = [
     "plaintiffName",
     "defendantName",
@@ -1172,7 +1186,7 @@ function summarizeMissingValues(values: CaseValues) {
   ];
 
   return importantKeys
-    .filter((key) => !safe(values[key]))
+    .filter((key) => !safe(values[key]) && (!file || !MISSING_BY_FACT[key] || stillNeeded(file, [MISSING_BY_FACT[key]!]).length > 0))
     .map((key) => String(key));
 }
 
@@ -1314,8 +1328,11 @@ async function postGuidance(req: Request) {
     }
 
     const inspection = inspectPdf(pdfDoc);
-    const values = getCaseValues(ownedCase?.master_result || {}, data.courtType);
-    const missingCoreValues = summarizeMissingValues(values);
+    // pdf-lib draws every value in its standard Helvetica (WinAnsi): French prints; a character it cannot write
+    // (Chinese, for example) stops the download with the official-form download's message, rather than a blank box or
+    // a raw encoding error (printableText.ts printableValues, 16 Nov 2026).
+    const values = printableValues(getCaseValues(ownedCase?.master_result || {}, data.courtType), "pages");
+    const missingCoreValues = summarizeMissingValues(values, caseFileOfMaster(ownedCase?.master_result || {}, data.courtType));
     const overlayFields = await loadOverlayFields(pdfPath);
 
     let acroFilledCount = 0;
@@ -1329,7 +1346,7 @@ async function postGuidance(req: Request) {
         acroFilledCount = acroResult.filledCount;
         acroDiagnostics = acroResult.diagnostics;
       } catch (error) {
-        console.warn("AcroForm fill failed, trying overlay fallback:", error);
+        console.warn("AcroForm fill failed, trying overlay fallback:", safeError(error));
       }
     }
 
@@ -1402,7 +1419,12 @@ async function postGuidance(req: Request) {
       },
     });
   } catch (error) {
-    console.error("generate-form route error:", error);
+    // Logged by name only: the characters are the person's own words.
+    if (error instanceof UnprintableText) {
+      console.error("generate-form route error:", safeError(error));
+      return NextResponse.json({ error: unprintableMessage(error.characters) }, { status: 422 });
+    }
+    console.error("generate-form route error:", safeError(error));
 
     const message =
       error instanceof Error ? error.message : "Failed to generate form.";

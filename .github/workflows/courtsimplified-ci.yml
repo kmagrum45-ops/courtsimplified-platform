@@ -68,11 +68,88 @@ jobs:
       - name: Routing rules fixed by law (construction liens, the $50,000 limit) win over the model
         run: npm run test:fixed-regimes
 
+      - name: The tribunal notice comes first, from one code rule, before any follow-up question (C1)
+        run: npm run test:tribunal-first
+
       - name: AI routes that need no sign-in are limited per visitor and by a daily ceiling
         run: npm run test:ai-rate-limit
 
       - name: Every OpenAI call goes through the one daily spending limit; a person, an address and the site each have a day's limit
         run: npm run test:ai-spend-limit
+
+      - name: The AI-limit banner names the limit and when help is back, and lasts only as long as that limit
+        run: npm run test:ai-limit-banner
+
+      - name: The AI call log keeps labels, token counts and times only, never the story, names or the AI's words
+        run: npm run test:ai-call-log-labels-only
+
+      - name: The AI call log is written to the database on Vercel, awaited, and a failed write is loud
+        run: npm run test:ai-call-log-sink
+
+      - name: Every OpenAI call site is logged, and no column can hold the narrative
+        run: npm run test:ai-call-logging
+
+      - name: The ask-once page test's expected-failure list may only shrink, and each entry has a reason
+        run: npm run test:ask-once-expected
+
+      - name: Every place that asks, offers or says a fact is missing uses the one function (factStatus.ts), or is listed as not moved yet (the list only shrinks)
+        run: npm run test:askers-fact-status
+
+      - name: The one function says whether a fact is known, offered, asked or settled; both gates use it; a quote is offered as the amount
+        run: npm run test:fact-status
+
+      - name: A case saved by main's code opens and reads the same (answers kept, nothing asked again, nothing rewritten)
+        run: npm run test:old-shape-cases
+      - name: The site's own questions never become the person's facts (drafts, "From your story" quotes, the stored story; every court)
+        run: npm run test:site-text-never-facts
+      - name: A person being sued is never shown what is written for the person suing (every kind mapped or hidden for a defendant)
+        run: npm run test:defendant-view
+      - name: An amount is shown the same way everywhere ($1,500.00, never the story's raw $1500)
+        run: npm run test:amount-format
+      - name: An answer given to the home page's questions is never asked again (case status, a claim of your own, safety, the other side)
+        run: npm run test:home-answers-held
+      - name: Words built from amounts follow the amount the case holds ("What you want" after the amount is changed)
+        run: npm run test:wants-follow-amount
+      - name: Not married - married-only topics hidden everywhere (step answers, fees), not only the topic list
+        run: npm run test:not-married-everywhere
+      - name: The parties are one record (each party its own entry, "not sure" never asked again, story details offered once)
+        run: npm run test:parties-record
+      - name: An offer's No and Not sure are recorded through the one handler (never offered or asked again)
+        run: npm run test:offer-choices
+      - name: Every route builds its analysis input from the record plus the form, the record wins (Small Claims, Family, Civil, hand-off)
+        run: npm run test:analysis-input-from-record
+      - name: No name reaches the model (every route and the AI client; a held name fills the form, "not sure" leaves it blank)
+        run: npm run test:no-names-to-model
+      - name: Every box of every form the site fills is mapped and fills from the case record (Small Claims 7A, 1A, 9A, 8A; Family 8, 10, 13, 13.1)
+        run: npm run test:form-maps
+      - name: The filled official form is reachable wherever its form is (every kind of claim, the 7A section and the Forms tab)
+        run: npm run test:filled-form-reachable
+      - name: Every offer of the amount and the other party reads the one offer reader (what the story reading showed)
+        run: npm run test:offers-one-source
+      - name: Nothing Chrome found asked twice in the milestone test of #550 is asked again (11 findings, each through its real function)
+        run: npm run test:milestone-ask-once
+
+      - name: Chrome's milestone pass 2 findings stay fixed at the shared piece that owns each (court, parties, defence, triage, Forms, amount, timeline)
+        run: npm run test:chrome-pass-2
+
+      - name: Every question the site asks by id asks for a fact of the case
+        run: npm run test:every-question-has-fact
+
+      - name: Every fact has a type, and the one writer keeps only a value of that type
+        run: npm run test:fact-types
+      - name: No stale or missing copy of lost pay, an amount in words, the parties or the claim against the person
+        run: npm run test:stale-copies
+      - name: Each court's own words for the parties from one function; Family never asks "A person or a company?"
+        run: npm run test:parties-words-per-court
+      - name: The milestone screen faults stay fixed (one continue rule, first click after typing, notice wording, company periods, placeholder title)
+        run: npm run test:ui-faults
+      - name: The four drafts read the parties and facts from the case record (Chrome forms test, rows 5, 11-13)
+        run: npm run test:drafts-from-record
+      - name: Names, addresses, phone numbers and emails are never sent to the model (build check, and a fake party in all three courts)
+        run: npm run test:parties-never-to-ai
+
+      - name: No chip or suggested question asks the assistant for a prediction or a grade (rule 3)
+        run: npm run test:no-prediction-chips
 
       - name: Each AI call is priced from its model and real tokens (price table); a model with no price is never called
         run: npm run test:ai-price-table
@@ -321,11 +398,51 @@ jobs:
       - name: An answer changed while its previous save is on the way is kept; another tab's save is still a conflict
         run: npm run test:in-flight-edit-kept
 
+      - name: A form box follows another tab's newer save of the same box; the person's own unsaved words stay
+        run: npm run test:box-follows-other-tab
+
       - name: Chrome check of #545 at 7bce410 -- one form rule, municipality once, story dates named, case file lines, saved title
         run: npm run test:chrome-545-round
 
+      - name: The court-path finder's story belongs to one intake; leaving "Before you start" leaves nothing in the tab
+        run: npm run test:finder-handoff
+
       - name: A date kept from the story never replaces the person's answer or their "not sure" (B2, 9 Nov)
         run: npm run test:story-date-never-replaces
+
+      - name: Each question writes only the fact it asks about (question-to-fact audit)
+        run: npm run test:question-meanings
+
+      - name: A person being sued is never shown wording written for the person suing (role audit)
+        run: npm run test:side-wording
+
+      - name: Every "what kind of case" answer leads to a kind of its own court, or its gap is declared (coverage audit)
+        run: npm run test:answer-coverage
+
+      - name: 32 stories, all three courts, both sides -- no plaintiff wording for a defendant, no cross-court link, no grading, the right day (no AI)
+        run: npm run test:story-invariants
+
+      - name: A day given on the step page to work out a deadline never replaces "When it happened" (Chrome re-check of #545)
+        run: npm run test:deadline-date-keeps-when
+      - name: No case is sent to another court's source (Chrome check of #545, item 4)
+        run: npm run test:sources-fit-court
+      - name: A story where the person lent money is a loan, whatever it was for (Chrome check of #547, G1)
+        run: npm run test:loan-stories-kind
+
+      - name: The day a person was served is never suggested as when the dispute happened (Chrome check of #547, G3)
+        run: npm run test:served-date-not-when
+
+      - name: No page says a wait is longer than usual before the usual time it states (Chrome check of #547, G4)
+        run: npm run test:usual-wait-agrees
+
+      - name: Send feedback shows the contact address as text beside the link (Chrome check of #547, G5)
+        run: npm run test:feedback-address-shown
+
+      - name: Married-only Family topics are not offered to someone who was not married (Chrome check of #545, item 7)
+        run: npm run test:married-only-topics
+
+      - name: Every Family situation question names only the boxes it shows (Chrome re-check of #545)
+        run: npm run test:triage-no-leftover-text
 
       - name: The case page and the case file page show the same deadlines, from one source (Chrome check of #544, F4)
         run: npm run test:one-deadline-source
@@ -439,6 +556,9 @@ jobs:
       - name: Every test file is run by CI, or listed with the reason it is not (scripts/verification/notInCi.json)
         run: npm run test:tests-in-ci
 
+      - name: Every browser-regression spec runs in exactly one shard (none in neither, none in both)
+        run: npm run test:browser-shards
+
       - name: Every Confirm saves what is typed in an open box first, through one path (Chrome check of #541)
         run: npm run test:confirm-flushes
 
@@ -473,8 +593,32 @@ jobs:
       - name: The story pack's parts run exactly the whole pack, each test once
         run: npm run test:story-pack-shards
 
+      - name: Every ask-once story runs in exactly one shard (none in neither, none in both)
+        run: npm run test:ask-once-shards
+
+      - name: The story is the person's own sentences; follow-up answers are never glued onto it
+        run: npm run test:story-own-sentences
+
+      - name: No question the AI writes reaches the person; the same story asks the same questions
+        run: npm run test:no-ai-question-text
+
+      - name: A fixed home question is asked only when neither the record nor the story gives its answer
+        run: npm run test:home-asks-unstated
+
+      - name: One place decides, reads, labels and words each fact (rule 0; the list only shrinks)
+        run: npm run test:one-decider
+
+      - name: No two facts declare the same meaning
+        run: npm run test:fact-meanings
+
+      - name: Chrome pass 3 on #550 -- nothing asked twice (S1 injury date, S6 claim of your own), S2 names and addresses
+        run: npm run test:pass3-asked-twice
+
       - name: "Where the case is, who the person is in it, what is filed: words, never codes"
         run: npm run test:case-words
+
+      - name: "Every request Update with my answers can send passes the route's own check; stand-ins run it too"
+        run: npm run test:understand-request
 
       - name: The court's own words, and none of the ruled-out wording, on every screen
         run: npm run test:court-terms
@@ -487,6 +631,9 @@ jobs:
 
       - name: Court decisions from CanLII follow CanLII's terms (attribution, isolation, no scraping, rate limit, works with no key)
         run: npm run test:canlii
+
+      - name: No page starts work before the "Before you start" notice (declared work senders, gated pages, the gates themselves)
+        run: npm run test:notice-gate
 
       - name: Checked answers show only statements the official text supports
         run: npm run test:checked-answer
@@ -748,6 +895,9 @@ jobs:
       - name: The deployed analysis routes ship the retrieval index and corpus
         run: npm run test:retrieval-bundled
 
+      - name: Every file a route opens at run time ships with it (pdf.js's worker, the official form PDFs, the retrieval index)
+        run: npm run test:runtime-files-shipped
+
       - name: AI Case Partner context verification
         run: npm run test:assistant-context
 
@@ -776,10 +926,103 @@ jobs:
   # comments, not by a local pass here. Once it has run clean on a few real
   # PRs, promoting it to a required check alongside typecheck-and-build is a
   # one-line change to the repo's ruleset.
-  browser-regression:
+  # Two shards (site owner, 16 Nov 2026): one job of 417 tests ran past its 70-minute limit on #550 (358 done, none
+  # failed, then cancelled). Each shard has its own list, balanced by each spec's measured CI time (about 45 minutes of
+  # tests each), because Playwright's --shard splits by test count in file-name order (48 and 28 minutes here) and
+  # ignores the order given. Every spec is in exactly one shard: npm run test:browser-shards fails on a spec in neither
+  # or in both. The job named browser-regression below passes only when both shards pass.
+  browser-regression-shard:
+    name: browser-regression (${{ matrix.shard }})
     runs-on: ubuntu-latest
-    # 70 (site owner, 6 Nov, second round): 22 more tests from the Chrome check of #544; not split.
-    timeout-minutes: 70
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - shard: 1
+            specs: >-
+              tests/browser/first-click-after-typing.spec.ts
+              tests/browser/intake-recovery.spec.ts
+              tests/browser/intake-review.spec.ts
+              tests/browser/intake-guidance-gate.spec.ts
+              tests/browser/guest-guidance.spec.ts
+              tests/browser/header-account.spec.ts
+              tests/browser/chat-follow-up.spec.ts
+              tests/browser/form-view-not-sure.spec.ts
+              tests/browser/chat-typed-answer-change.spec.ts
+              tests/browser/held-fill-continue.spec.ts
+              tests/browser/next-step-click-never-dropped.spec.ts
+              tests/browser/next-step-opens-overview.spec.ts
+              tests/browser/open-writes-nothing.spec.ts
+              tests/browser/deadlines-one-place.spec.ts
+              tests/browser/pick-everything-asked.spec.ts
+              tests/browser/claim-kind-one-value.spec.ts
+              tests/browser/chrome-31oct-review.spec.ts
+              tests/browser/change-answer.spec.ts
+              tests/browser/not-sure-never-asked.spec.ts
+              tests/browser/watcher-steady-by-screen.spec.ts
+              tests/browser/intake-reset.spec.ts
+              tests/browser/case-understanding-continuity.spec.ts
+              tests/browser/story-change-every-flow.spec.ts
+              tests/browser/retest-471.spec.ts
+              tests/browser/stage-rule.spec.ts
+              tests/browser/review-buttons-say-why.spec.ts
+              tests/browser/review-save-retry.spec.ts
+              tests/browser/whole-form-after-confirm.spec.ts
+              tests/browser/waiting-line-ends.spec.ts
+              tests/browser/saved-step-shows-at-once.spec.ts
+              tests/browser/restart-button-real-click.spec.ts
+              tests/browser/understood-other-party.spec.ts
+              tests/browser/worked-out-date-not-an-answer.spec.ts
+              tests/browser/tribunal-first.spec.ts
+              tests/browser/review-typed-goal-kept.spec.ts
+              tests/browser/never-ask-twice-reading.spec.ts
+              tests/browser/story-fact-chat.spec.ts
+              tests/browser/sc-asker.spec.ts
+              tests/browser/notice-on-case-pages.spec.ts
+          - shard: 2
+            specs: >-
+              tests/browser/parties-boxes-stay.spec.ts
+              tests/browser/filled-form-every-kind.spec.ts
+              tests/browser/intake-reliability.spec.ts
+              tests/browser/family-civil-intake-reliability.spec.ts
+              tests/browser/intake-review-polish.spec.ts
+              tests/browser/guest-sign-in-carry.spec.ts
+              tests/browser/courthouses-phone.spec.ts
+              tests/browser/case-page-next-step.spec.ts
+              tests/browser/overview-when-matches-case-page.spec.ts
+              tests/browser/form-box-follows-record.spec.ts
+              tests/browser/form-box-two-tabs.spec.ts
+              tests/browser/case-gate-shows-case-file.spec.ts
+              tests/browser/no-finish-line-while-working.spec.ts
+              tests/browser/chrome-545-round.spec.ts
+              tests/browser/feedback-link.spec.ts
+              tests/browser/finder-story-leak.spec.ts
+              tests/browser/phone-width.spec.ts
+              tests/browser/offer-never-without-buttons.spec.ts
+              tests/browser/notice-before-work.spec.ts
+              tests/browser/address-opens-chosen-case.spec.ts
+              tests/browser/removal-stays-removed.spec.ts
+              tests/browser/offer-choices.spec.ts
+              tests/browser/story-single-source.spec.ts
+              tests/browser/retest-470.spec.ts
+              tests/browser/tick-helper.spec.ts
+              tests/browser/items-8-12.spec.ts
+              tests/browser/retest-29oct-flow.spec.ts
+              tests/browser/restart-asked-once.spec.ts
+              tests/browser/restart-keeps-answers.spec.ts
+              tests/browser/update-screen-case-file.spec.ts
+              tests/browser/restart-keeps-other-party.spec.ts
+              tests/browser/review-answered-kept.spec.ts
+              tests/browser/suggestions-offered.spec.ts
+              tests/browser/story-box-guidance.spec.ts
+              tests/browser/home-notice.spec.ts
+              tests/browser/review-answer-clears-unknown.spec.ts
+              tests/browser/not-sure-goal-review.spec.ts
+              tests/browser/review-newest-answer.spec.ts
+              tests/browser/stage-not-sure.spec.ts
+              tests/browser/review-save-on-leave.spec.ts
+              tests/browser/review-writer.spec.ts
 
     env:
       NODE_OPTIONS: --max-old-space-size=8192
@@ -839,74 +1082,7 @@ jobs:
         env:
           PLAYWRIGHT_BASE_URL: http://localhost:3100
         run: >
-          npx playwright test
-          tests/browser/intake-reset.spec.ts
-          tests/browser/case-understanding-continuity.spec.ts
-          tests/browser/intake-reliability.spec.ts
-          tests/browser/family-civil-intake-reliability.spec.ts
-          tests/browser/intake-recovery.spec.ts
-          tests/browser/intake-review.spec.ts
-          tests/browser/intake-guidance-gate.spec.ts
-          tests/browser/story-single-source.spec.ts
-          tests/browser/guest-guidance.spec.ts
-          tests/browser/intake-review-polish.spec.ts
-          tests/browser/story-change-every-flow.spec.ts
-          tests/browser/guest-sign-in-carry.spec.ts
-          tests/browser/header-account.spec.ts
-          tests/browser/chat-follow-up.spec.ts
-          tests/browser/courthouses-phone.spec.ts
-          tests/browser/retest-470.spec.ts
-          tests/browser/retest-471.spec.ts
-          tests/browser/stage-rule.spec.ts
-          tests/browser/items-8-12.spec.ts
-          tests/browser/retest-29oct-flow.spec.ts
-          tests/browser/case-page-next-step.spec.ts
-          tests/browser/form-view-not-sure.spec.ts
-          tests/browser/chat-typed-answer-change.spec.ts
-          tests/browser/overview-when-matches-case-page.spec.ts
-          tests/browser/held-fill-continue.spec.ts
-          tests/browser/restart-asked-once.spec.ts
-          tests/browser/restart-keeps-answers.spec.ts
-          tests/browser/next-step-click-never-dropped.spec.ts
-          tests/browser/form-box-follows-record.spec.ts
-          tests/browser/form-box-two-tabs.spec.ts
-          tests/browser/review-buttons-say-why.spec.ts
-          tests/browser/next-step-opens-overview.spec.ts
-          tests/browser/review-save-retry.spec.ts
-          tests/browser/whole-form-after-confirm.spec.ts
-          tests/browser/update-screen-case-file.spec.ts
-          tests/browser/waiting-line-ends.spec.ts
-          tests/browser/open-writes-nothing.spec.ts
-          tests/browser/saved-step-shows-at-once.spec.ts
-          tests/browser/case-gate-shows-case-file.spec.ts
-          tests/browser/deadlines-one-place.spec.ts
-          tests/browser/no-finish-line-while-working.spec.ts
-          tests/browser/restart-keeps-other-party.spec.ts
-          tests/browser/restart-button-real-click.spec.ts
-          tests/browser/understood-other-party.spec.ts
-          tests/browser/worked-out-date-not-an-answer.spec.ts
-          tests/browser/pick-everything-asked.spec.ts
-          tests/browser/chrome-545-round.spec.ts
-          tests/browser/feedback-link.spec.ts
-          tests/browser/claim-kind-one-value.spec.ts
-          tests/browser/chrome-31oct-review.spec.ts
-          tests/browser/change-answer.spec.ts
-          tests/browser/review-answered-kept.spec.ts
-          tests/browser/review-typed-goal-kept.spec.ts
-          tests/browser/suggestions-offered.spec.ts
-          tests/browser/never-ask-twice-reading.spec.ts
-          tests/browser/story-box-guidance.spec.ts
-          tests/browser/address-opens-chosen-case.spec.ts
-          tests/browser/review-answer-clears-unknown.spec.ts
-          tests/browser/not-sure-never-asked.spec.ts
-          tests/browser/not-sure-goal-review.spec.ts
-          tests/browser/review-newest-answer.spec.ts
-          tests/browser/story-fact-chat.spec.ts
-          tests/browser/stage-not-sure.spec.ts
-          tests/browser/sc-asker.spec.ts
-          tests/browser/review-save-on-leave.spec.ts
-          tests/browser/removal-stays-removed.spec.ts
-          tests/browser/review-writer.spec.ts
+          npx playwright test ${{ matrix.specs }}
           --reporter=line --workers=1
 
       # The story-box spec saves a full-page screenshot of every story box at desktop and
@@ -916,7 +1092,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: story-box-screenshots
+          name: story-box-screenshots-${{ matrix.shard }}
           path: test-results/**/story-*.png
           retention-days: 14
           if-no-files-found: warn
@@ -928,7 +1104,19 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: browser-regression-failures
+          name: browser-regression-failures-${{ matrix.shard }}
           path: test-results/**/error-context.md
           retention-days: 7
           if-no-files-found: ignore
+
+  # The one check named browser-regression: it passes only when both shards passed (a cancelled or failed shard fails it).
+  browser-regression:
+    needs: browser-regression-shard
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Both shards passed
+        run: |
+          echo "shards: ${{ needs.browser-regression-shard.result }}"
+          test "${{ needs.browser-regression-shard.result }}" = "success"

@@ -170,6 +170,44 @@ export function amountFromStory(story: string): StoryAnswer | null {
   return claimAmountFromStory(story);
 }
 
+const QUOTED_AMOUNT = /\b(?:quote[sd]?|quoted|estimate[sd]?)\b(?:\s+(?:of|for|was|is|came to|at))*\s+\$?\s?(\d{1,3}(?:,\d{3})+(?:\.\d{2})?|\d+(?:\.\d{2})?)\b/i;
+
+/** The story's only dollar amount, when it gives exactly one (two different amounts: which one is unclear, so none). */
+function onlyDollarAmount(story: string): string | undefined {
+  const amounts = new Set([...story.matchAll(/\$\s?(\d[\d,]*(?:\.\d{2})?)/g)].map((match) => Number(match[1].replace(/,/g, ""))).filter((value) => Number.isFinite(value) && value > 0));
+  return amounts.size === 1 ? String([...amounts][0]) : undefined;
+}
+
+/**
+ * A quote or estimate the review may offer in one click: only when it is the story's only amount ("I got a quote for
+ * $1500", Chrome S4). Never the story's only amount when it is not a quote, which may be one already paid (#471 re-test:
+ * "I paid a contractor $9,000"), and never one quote among other amounts, which may be for something else (story pack
+ * m01-kitchen: "someone else who quoted $6,300 to finish", the claim $10,700 or more).
+ */
+export function oneClickQuote(story: string, amount: number): boolean {
+  const only = onlyDollarAmount(story);
+  return only !== undefined && Number(only) === amount;
+}
+
+/**
+ * The amount a story states, to OFFER (Yes / No, that's not right / I'm not sure), never to fill in: the one-click
+ * reader's (amountFromStory, which #471 keeps strict), else a quote or an estimate ("a quote for 1500"), else the
+ * story's only dollar amount (site owner, 12 Nov: "offer when it is the only amount"). The one story reader
+ * (intakeReview.ts statedInStory) and the civil chat's amount question both read it here, so they offer the same.
+ */
+export function amountOfferFromStory(story: string, options: { oneClick?: boolean } = {}): StoryAnswer | null {
+  const strict = amountFromStory(story);
+  if (strict) return strict;
+  // One click (the review's suggestion): only a quote or an estimate that is the story's only amount (oneClickQuote).
+  const quoted = QUOTED_AMOUNT.exec(story)?.[1]?.replace(/,/g, "");
+  const digits = options.oneClick ? (quoted && oneClickQuote(story, Number(quoted)) ? quoted : undefined) : quoted ?? onlyDollarAmount(story);
+  if (!digits) return null;
+  const value = Number(digits);
+  const shown = `$${value.toLocaleString("en-CA", { minimumFractionDigits: /\./.test(digits) ? 2 : 0, maximumFractionDigits: 2 })}`;
+  const quote = sentences(story).find((sentence) => sentence.replace(/[$,\s]/g, "").includes(digits.replace(/\.00$/, ""))) ?? story;
+  return { value: shown, quote: quote.trim() };
+}
+
 const TYPOS: [RegExp, string][] = [
   [/\bbuisness\b/gi, "business"],
   [/\bbusness\b/gi, "business"],
@@ -441,6 +479,11 @@ export function otherPartyNameFromStory(story: string): StoryAnswer | null {
   const patterns = [
     new RegExp(`\\b${relation}(?:'s name is|\\s+(?:is )?named|\\s+(?:is )?called)\\s+${person}\\b`),
     new RegExp(`\\b${relation},?\\s+${person}(?=\\s*(?:,|\\.|;|$))`),
+    // The relationship said with the name (page test, 12 Nov: the Family chat asked cold for a name the story gave):
+    // "I married Sam Testmarsh", "I was married to Pat Lee", "I have two kids with Chris Doe".
+    new RegExp(`\\b[Ii] (?:married|was married to|am married to|divorced|separated from|lived with|(?:have|had) (?:a child|a baby|a son|a daughter|(?:two|three|four|\\d) (?:kids|children|sons|daughters)|kids|children) with)\\s+${person}\\b`),
+    // "Jordan Testfield and I lived together": only at the start of a sentence (never "Yesterday Jordan Smith").
+    new RegExp(`(?:^|:\\s+)${person} and I (?:lived|were|have been|had been|got|separated|split|broke up|married|dated|met|had|have)\\b`),
   ];
   for (const sentence of sentences(story)) {
     for (const pattern of patterns) {

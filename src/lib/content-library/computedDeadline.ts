@@ -55,6 +55,7 @@ import { assertApprovedUserContent } from "./outputGuard";
 import { fillSlots } from "./stageAnswers";
 import { isInScope } from "../case-system/policy/a2iScope";
 import { limitPassedState, todayInOntario } from "./nextStepPractical";
+import { errorName } from "../logging/safeLog";
 
 export type ComputedDeadlineWorking = {
   text: string;
@@ -138,7 +139,7 @@ function guardedFill(
     // fillSlots throws rather than render a hole. A missing value here is our
     // bug, not the reader's, and they should see the period rather than a
     // half-sentence.
-    console.error(`[computedDeadline] could not fill ${id}: ${String(error)}`);
+    console.error(`[computedDeadline] could not fill ${id}: ${errorName(error)}`);
     return null;
   }
 }
@@ -204,7 +205,7 @@ export function computedDeadlinesFor(
       });
     } catch (error) {
       // A date that is not a real date reaches here. Log and show the period.
-      console.error(`[computedDeadline] ${deadline.id} from ${from}: ${String(error)}`);
+      console.error(`[computedDeadline] ${deadline.id}: ${errorName(error)}`);
       continue;
     }
 

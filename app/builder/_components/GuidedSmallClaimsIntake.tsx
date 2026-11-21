@@ -1,9 +1,12 @@
 "use client";
 
 import { createPortal } from "react-dom";
+import { readingFactsOf } from "../../../src/lib/case-system/caseFile/storyOffers";
+import { storyOf } from "../../../src/lib/case-system/intakeStory";
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { isDateQuestionId } from "../../../src/lib/case-system/casePosition";
 import { intakeGuidanceHeaders, useIntakeReviewView, useIntakeState, useStory, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
+import TribunalNotice, { useTribunalFirst } from "../../_components/TribunalNotice";
 import { writeAnswer } from "../../_components/caseWrite";
 import { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import { inputRevision, remainingEssentialQuestions, reviewPhase } from "../../../src/lib/case-system/intakeReview";
@@ -32,7 +35,7 @@ import { KNOWN_FACT_FIELDS, QUESTION_BANK } from "@/src/lib/case-system/intake/q
 import { factsOfQuestion } from "@/src/lib/case-system/caseFile/factsOfQuestion";
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
-import { cardLabel, confirmedDrafts, sameDayAs, respondingFromAnswers } from "./proposalCard";
+import { answerWords, cardLabel, confirmedDrafts, sameDayAs, respondingFromAnswers } from "./proposalCard";
 import { unansweredQuestionStart } from "./heldQuestion";
 import { SourcedQuestionsCard, sourcedAnswerListText, useSourcedQuestions, type SourcedAnswer } from "./SourcedQuestions";
 import MunicipalNoticeFirst from "./MunicipalNoticeFirst";
@@ -41,14 +44,15 @@ import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
 import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
 import { storyQuoteFor } from "@/src/lib/case-system/intake/claimKind";
 import { answerNow, askedAndReplied, caseFileOf, CASE_FILE_SECTION, claimKindOf, withTurnedDown, type CaseFile } from "@/src/lib/case-system/caseFile/caseFile";
-import { turnFactsToSave } from "@/src/lib/case-system/caseFile/chatTurnFacts";
+import { turnFactsToSave, withThisAnswer } from "@/src/lib/case-system/caseFile/chatTurnFacts";
 import { heldForEngine } from "@/src/lib/case-system/intake/asker";
+import { mayShowQuestion } from "@/src/lib/case-system/caseFile/factStatus";
 import { claimKindAiContext, classifyClaimTypeBody } from "@/src/lib/case-system/caseFile/aiCaseContext";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { WorkingButton, WorkingNote } from "@/app/_components/Working";
 import { UseSuggestion } from "@/app/_components/UseSuggestion";
 import StoryGuidance from "@/app/_components/StoryGuidance";
-import { STORY_LABEL } from "@/src/lib/case-system/copy/storyGuidance";
+import { STORY_LABEL, storyLengthNote, storyTooLong } from "@/src/lib/case-system/copy/storyGuidance";
 
 type IntakeFacts = Record<string, string | number | boolean>;
 
@@ -163,7 +167,12 @@ type GuidedTurnResult = {
 };
 
 /** One proposal as the user is reviewing it. */
-type ProposalDraft = StoryAnswerProposal & { keep: boolean; original: string };
+/**
+ * One offer as the person decides it (site owner, 11 Nov 2026): three explicit choices, no silent decision. `choice` is
+ * null until they choose; `keep` is true only for Yes (the value they keep, which they may edit).
+ */
+type OfferChoice = "yes" | "no" | "unsure";
+type ProposalDraft = StoryAnswerProposal & { keep: boolean; choice: OfferChoice | null; original: string };
 
 /**
  * What was confirmed, listed, so the conversation shows what was recorded
@@ -195,20 +204,52 @@ function confirmedRows(drafts: readonly ProposalDraft[], responding = false): Co
 }
 
 /**
+ * What the person chose on an offer card (site owner, 11 Nov 2026): Yes keeps the value, marked as from a story offer
+ * so it is never read as typed; I'm not sure records "not sure" (settled: never asked again, "add it when you know");
+ * No, that's not right declines it (the fact is unknown, asked once).
+ */
+function offerDecisions(drafts: readonly ProposalDraft[]): { kept: ConfirmedStoryAnswer[]; declined: string[] } {
+  const yes = drafts.filter((draft) => draft.keep && draft.answer.trim()).map((draft) => ({ questionId: draft.questionId, answerText: draft.answer.trim(), source: "story-offer" as const }));
+  const unsure = drafts.filter((draft) => draft.choice === "unsure").map((draft) => ({ questionId: draft.questionId, answerText: "I'm not sure", source: "not-sure" as const }));
+  return { kept: [...yes, ...unsure], declined: drafts.filter((draft) => draft.choice === "no").map((draft) => draft.questionId) };
+}
+
+/** The lines a note adds for the offers not kept: what will be asked, and what is not sure for now. */
+function otherOfferLines(drafts: readonly ProposalDraft[], responding = false): string[] {
+  const label = (draft: ProposalDraft) => cardLabel(draft.questionId, draft.questionText, { responding });
+  const no = drafts.filter((draft) => draft.choice === "no").map(label);
+  const unsure = drafts.filter((draft) => draft.choice === "unsure").map(label);
+  return [...(no.length ? [`Not right, so you'll be asked: ${no.join("; ")}`] : []), ...(unsure.length ? [`Not sure for now (add it when you know): ${unsure.join("; ")}`] : [])];
+}
+
+/** The neutral note a card's choices leave in the conversation: never the person's own bubble (11 Nov 2026). */
+function noteOf(drafts: readonly ProposalDraft[], from: string, responding: boolean, keptSummary: string): ChatMessage {
+  const rows = shownRows(drafts);
+  const kept = confirmedRows(rows, responding);
+  const otherLines = otherOfferLines(rows, responding);
+  const text = [...(kept.length ? [keptSummary] : []), ...otherLines].join("\n") || "None of those were used.";
+  return { from: "note", text, ...(kept.length ? { confirmed: kept, confirmedFrom: from } : {}), ...(otherLines.length ? { otherLines } : {}) };
+}
+
+/** Whether every offer on the card has a choice (Continue stays disabled until then). */
+const everyOfferChosen = (drafts: readonly ProposalDraft[]) => drafts.every((draft, index) => sameDayAs(drafts)[index] >= 0 || draft.choice !== null);
+
+/**
  * "Confirmed from my story:" and its rows, each with the answer the case holds NOW (rule 5, newest wins):
  * the person's latest change of the row's fact (caseFile.ts answerNow) over the words confirmed then
  * (founder's Chrome check of #536, 1 Nov: the screens that repeat an answer back kept the old one).
  */
 function summaryText(rows: readonly ConfirmedRow[], from: string, file: CaseFile | null): string {
-  return [`Confirmed from ${from}:`, ...rows.map((row) => {
+  return [`Confirmed from ${from === "my story" ? "the story" : "your answers"}:`, ...rows.map((row) => {
     const now = answerNow(file, row.questionId, row.answer);
-    const words = now.removed ? "you removed this answer" : Array.isArray(now.value) ? now.value.join(", ") : String(now.value ?? row.answer);
+    const words = now.removed ? "you removed this answer" : answerWords(row.questionId, now.value ?? row.answer);
     return `• ${row.label}: ${words}${now.changed && !now.removed ? " (as you changed it)" : ""}`;
   })].join("\n");
 }
 
 type ChatMessage = {
-  from: "user" | "assistant";
+  /** "note": a neutral line about what the person chose ("You confirmed: ..."), never shown as their own words. */
+  from: "user" | "assistant" | "note";
   text: string;
   /** Marks a message that carries a bank question, so the one-time intro fires once. */
   isQuestion?: boolean;
@@ -216,9 +257,11 @@ type ChatMessage = {
   questionId?: string;
   /** The opening story: shown from the one copy (useStory), never stored here a second time. */
   isStory?: boolean;
-  /** A "Confirmed from ..." message: its rows, shown as the case holds them now (summaryText). */
+  /** A "Confirmed from ..." note: its rows, shown as the case holds them now (summaryText). */
   confirmed?: ConfirmedRow[];
   confirmedFrom?: string;
+  /** The note's lines for offers not kept (asked once, or not sure for now). */
+  otherLines?: string[];
   /** Shown only: under a reply the person typed whose answer they later changed, the newest answer (null: removed). */
   changedTo?: string | null;
 };
@@ -569,6 +612,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   // Only a press: finishing the questions on its own shows nothing (#465 re-test).
   const pressedContinue = () => { if (reviewView && !intakeConfirmed) markReviewNeeded("guided", inputRevision(reviewView.checkpoint)); };
   const recovery = useIntakeRecovery();
+  // The one continue rule (intakeReview.ts continueNeeds): this route's continue is held while the review still needs something.
   // The story is a fact of the case file (founder, 1 Nov): once given (here, on the home page, or in the saved
   // case) the chat never draws its story box again; with no question on screen it waits for the next one.
   const storyHeld = reviewView ? caseFileOf(reviewView.checkpoint, recovery?.getSavedMaster() ?? undefined).story.state === "answered" : false;
@@ -614,7 +658,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   const echoFile = useMemo(() => (reviewView ? caseFileOf(reviewView.checkpoint, recovery?.getSavedMaster() ?? undefined) : null), [reviewView, recovery]);
   const shownMessages = useMemo(() => messages.map((message, index) => {
     if (message.isStory) return { ...message, text: story };
-    if (message.confirmed?.length) return { ...message, text: summaryText(message.confirmed, message.confirmedFrom ?? "my story", echoFile) };
+    // What the person chose on an offer card is a neutral note, never their own bubble (11 Nov 2026); conversations saved
+    // earlier kept it as theirs, so it is shown as a note here too.
+    if (message.confirmed?.length || message.otherLines?.length) return { ...message, from: "note" as const, text: [...(message.confirmed?.length ? [summaryText(message.confirmed, message.confirmedFrom ?? "my story", echoFile)] : []), ...(message.otherLines ?? [])].join("\n") };
+    if (message.from === "user" && message.text === "None of those were right.") return { ...message, from: "note" as const, text: "None of those were used." };
     // A reply the person typed stays in their words; when they later changed that answer (rule 5, newest wins), the
     // newest is said under it (item 5, 6 Nov; Chrome check of #543: the old outcome with $2,650 stayed on screen).
     if (message.from === "user") {
@@ -718,6 +765,13 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       setError("This answer is longer than the 1,000-character limit. Your full text is still here; please review it before retrying.");
       return;
     }
+    // A story longer than the route reads is refused there with a generic error, and every later turn with it: said here
+    // instead, with the length and the limit; the whole story stays saved (copy/storyGuidance.ts, site owner 17 Nov).
+    const storySent = [answeredQuestionId ? "" : newStoryText ?? "", repropose?.story ?? "", earlier?.story ?? ""].reduce((longest, text) => (text.length > longest.length ? text : longest), "");
+    if (storyTooLong(storySent)) {
+      setError(storyLengthNote(storySent.length));
+      return;
+    }
     setLoading(true);
     setError(""); setSignInNeeded(false); setReviewNeeded(false);
 
@@ -745,6 +799,9 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           // Read from the case record as it is when the turn is sent, never from the render that started it: an
           // answer saved since (the kind just used on the suggestion card) is held (A2, Chrome check of #542).
           caseFile: heldForEngine(caseFileOf(recovery?.getReview().checkpoint ?? reviewView?.checkpoint ?? null, recovery?.getSavedMaster() ?? undefined)),
+          // The story reading the person was shown (home.understood), for the one offer reader (caseFile/storyOffers.ts):
+          // what it showed is offered, when the story writes it (Chrome milestone test of #550, S1 and S4).
+          reading: (() => { const checkpoint = recovery?.getReview().checkpoint ?? reviewView?.checkpoint ?? null; return checkpoint ? readingFactsOf(checkpoint.sections as Record<string, unknown>, storyOf(checkpoint.sections)) : []; })(),
           newStoryText,
           answeredQuestionId,
           confirmedAnswers,
@@ -784,7 +841,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         setClaimGuidance(result.claimGuidance);
       }
       // Never a kind the person turned down ("Not quite") or removed: the case file keeps which (rule 6, 31 Oct).
-      const fileNow = caseFileOf(recovery?.getReview().checkpoint ?? null, recovery?.getSavedMaster() ?? undefined);
+      // With this turn's own answer in it: the store has not taken it yet (setEarlierAnswers above), so the case file read
+      // from the store did not hold it, and an offer of the same fact passed the filter below (Chrome pass 3 on #550, S6:
+      // "a claim of my own", then "Do you believe the plaintiff ... owes you money?", whose answer replaced the first).
+      const fileNow = caseFileOf(withThisAnswer(recovery?.getReview().checkpoint ?? null, answeredQuestionId, newStoryText), recovery?.getSavedMaster() ?? undefined);
       const turnedDownKinds = fileNow.claimKindRemoved ?? [];
       // Nor any kind while the person's own kind is held (confirmed, given, or "not sure"): "Start the questions again"
       // keeps it and offers again only the old story's suggestions (site owner, 6 Nov; Chrome check of #543, step 3).
@@ -834,10 +894,12 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
 
       // Answers the story already gives are shown for confirmation BEFORE any
       // question is asked. Nothing is applied until the user confirms; what
-      // they untick is simply asked as normal.
-      if (result.storyProposals && result.storyProposals.length > 0) {
+      // they say is not right is asked once; what they are not sure of is never asked again (11 Nov 2026).
+      // Never an offer for a fact the case already knows or has settled (factStatus.ts, 11 Nov 2026).
+      result.storyProposals = (result.storyProposals ?? []).filter((proposal) => mayShowQuestion(fileNow, proposal.questionId));
+      if (result.storyProposals.length > 0) {
         // Offered, never pre-ticked (owner, 31 Oct): a row is kept only when the person uses it.
-        setProposalDrafts(result.storyProposals.map((proposal) => ({ ...proposal, keep: false, original: proposal.answer })));
+        setProposalDrafts(result.storyProposals.map((proposal) => ({ ...proposal, keep: false, choice: null, original: proposal.answer })));
         setMessages((current) => [
           ...current,
           {
@@ -944,6 +1006,11 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         setError("Your story is needed before this suggestion can be checked. Add it above, then try again.");
         return;
       }
+      // The claim-kind check refuses a story past what the site reads, with a generic error: said here instead.
+      if (storyTooLong(requestBody.storyText)) {
+        setError(storyLengthNote(requestBody.storyText.length));
+        return;
+      }
       const {
         data: { session },
       } = await supabase.auth.getSession();
@@ -1038,8 +1105,16 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   // Only a story that was already saved when this opened; one being typed stays in the box.
   const [showSavedStory, setShowSavedStory] = useState(() => Boolean(story.trim()));
 
-  function handleStorySubmit() {
+  // The one tribunal rule on the story, before the first follow-up question (C1, site owner 9 Nov 2026): a matter it
+  // gives to a tribunal is said first, and the story is not sent (no question, no model call) until the person sets
+  // the notice aside.
+  const tribunalFirst = useTribunalFirst(story);
+  const [tribunalAsked, setTribunalAsked] = useState(false);
+
+  function handleStorySubmit(setAside = false) {
     if (loading || turnRequest.current.pending || !inputText.trim()) return;
+    if (!setAside && tribunalFirst.held) { setTribunalAsked(true); return; }
+    setTribunalAsked(false);
     setStarted(true);
     const story = inputText;
     setReadFrom(story);
@@ -1181,7 +1256,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       // newspapers). Confirming happens in handleConfirmDepthProposals.
       if (result.proposals && result.proposals.length > 0) {
         setProposalMode("depth");
-        setProposalDrafts(result.proposals.map((proposal) => ({ ...proposal, keep: false, original: proposal.answer })));
+        setProposalDrafts(result.proposals.map((proposal) => ({ ...proposal, choice: null, keep: false, original: proposal.answer })));
         setMessages((current) => [
           ...current,
           {
@@ -1362,24 +1437,16 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       setMessages((current) => [...current, { from: "assistant", text: dateNote }]);
       return;
     }
-    const confirmed: ConfirmedStoryAnswer[] = drafts
-      .filter((draft) => draft.keep && draft.answer.trim())
-      .map((draft) => ({ questionId: draft.questionId, answerText: draft.answer.trim() }));
-    const unticked = drafts.filter((draft) => !draft.keep).map((draft) => draft.questionId);
+    // No silent decisions: Continue waits for a choice on every offer (11 Nov 2026).
+    if (!everyOfferChosen(drafts)) return;
+    const { kept: confirmed, declined: unticked } = offerDecisions(drafts);
     if (unticked.length) setDeclinedIds((current) => [...current, ...unticked]);
     if (confirmed.length) setEarlierAnswers((current) => [...current, ...confirmed]);
     setProposalDrafts(null);
     setProposalMode("intake");
     setMessages((current) => [
       ...current,
-      {
-        from: "user",
-        text:
-          confirmed.length > 0
-            ? confirmedSummary(shownRows(drafts), "what I've told you", respondingFromAnswers([...earlierAnswers, ...drafts], facts))
-            : "None of those were right.",
-        ...(confirmed.length > 0 ? { confirmed: confirmedRows(shownRows(drafts), respondingFromAnswers([...earlierAnswers, ...drafts], facts)), confirmedFrom: "what I've told you" } : {}),
-      },
+      noteOf(drafts, "what I've told you", respondingFromAnswers([...earlierAnswers, ...drafts], facts), confirmedSummary(shownRows(drafts), "what I've told you", respondingFromAnswers([...earlierAnswers, ...drafts], facts))),
     ]);
     const confirmedIds = new Set(confirmed.map((item) => item.questionId));
     const remaining = depthQuestions.filter((question) => !confirmedIds.has(question.id));
@@ -1453,23 +1520,15 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       setMessages((current) => [...current, { from: "assistant", text: dateNote }]);
       return;
     }
-    const confirmed: ConfirmedStoryAnswer[] = drafts
-      .filter((draft) => draft.keep && draft.answer.trim())
-      .map((draft) => ({ questionId: draft.questionId, answerText: draft.answer.trim() }));
-    // What was unticked is not offered again, as in the claim-details card below: here it was
-    // not recorded, so "A claim of your own" came back after each answer (#471 re-test).
-    const unticked = drafts.filter((draft) => !draft.keep).map((draft) => draft.questionId);
+    // No silent decisions: Continue waits for a choice on every offer (11 Nov 2026). Yes keeps the value; I'm not sure
+    // records not sure (settled); No, that's not right declines it, so it is asked once and never offered again
+    // (#471 re-test: an offer not recorded as declined came back after each answer).
+    if (!everyOfferChosen(drafts)) return;
+    const { kept: confirmed, declined: unticked } = offerDecisions(drafts);
     if (unticked.length) setDeclinedIds((current) => [...new Set([...current, ...unticked])]);
     setMessages((current) => [
       ...current,
-      {
-        from: "user",
-        text:
-          confirmed.length > 0
-            ? confirmedSummary(shownRows(drafts), "my story", respondingFromAnswers([...earlierAnswers, ...drafts], facts))
-            : "None of those were right.",
-        ...(confirmed.length > 0 ? { confirmed: confirmedRows(shownRows(drafts), respondingFromAnswers([...earlierAnswers, ...drafts], facts)), confirmedFrom: "my story" } : {}),
-      },
+      noteOf(drafts, "my story", respondingFromAnswers([...earlierAnswers, ...drafts], facts), confirmedSummary(shownRows(drafts), "my story", respondingFromAnswers([...earlierAnswers, ...drafts], facts))),
     ]);
     const openingStory = story;
     const repropose =
@@ -1519,6 +1578,14 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           <LegalAdviceDeflection reason="legal-advice" />
         </div>
       ) : null}
+      {tribunalFirst.tribunal && ((tribunalAsked && tribunalFirst.held) || (started && tribunalFirst.tribunal.ended)) ? (
+        <TribunalNotice
+          tribunal={tribunalFirst.tribunal}
+          courtLabel="Small Claims"
+          context="GuidedSmallClaimsIntake:tribunal-first"
+          onContinue={tribunalAsked && tribunalFirst.held ? () => { tribunalFirst.setAside(); handleStorySubmit(true); } : undefined}
+        />
+      ) : null}
       <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4" style={{ minHeight: 220 }}>
         {readingOutdated ? (
           <div data-testid="guided-reading-outdated" className="text-sm text-[#5c4a14]">
@@ -1535,7 +1602,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             <p className="font-semibold text-[#16302b]">Your story</p>
             <p className="mt-1 whitespace-pre-wrap text-[#2b4640]">{story}</p>
             <div className="mt-3 flex flex-wrap gap-2">
-              <WorkingButton data-testid="guided-send-saved-story" working={loading} workingLabel="Reading your story…" onClick={handleStorySubmit} className="rounded-xl bg-[#2f7d67] px-4 py-2 font-semibold text-white disabled:opacity-50">Send my story</WorkingButton>
+              <WorkingButton data-testid="guided-send-saved-story" working={loading} workingLabel="Reading your story…" onClick={() => handleStorySubmit()} className="rounded-xl bg-[#2f7d67] px-4 py-2 font-semibold text-white disabled:opacity-50">Send my story</WorkingButton>
               <button type="button" onClick={() => setShowSavedStory(false)} className="rounded-xl border border-[#d8e6df] px-4 py-2 font-semibold text-[#2f7d67]">Edit my story</button>
             </div>
           </div>
@@ -1552,16 +1619,18 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
               data-testid="guided-message"
               data-from={message.from}
               data-question-id={message.questionId}
-              style={{ textAlign: message.from === "user" ? "right" : "left" }}
+              style={{ textAlign: message.from === "user" ? "right" : message.from === "note" ? "center" : "left" }}
             >
+              {/* A note says what the person chose on an offer card: a neutral line, never their own bubble. */}
               <div
                 className="inline-block rounded-2xl px-4 py-2 text-sm"
                 style={{
                   maxWidth: "85%",
                   whiteSpace: "pre-wrap",
-                  background: message.from === "user" ? "#16302b" : "#ffffff",
-                  color: message.from === "user" ? "#ffffff" : "#16302b",
-                  border: message.from === "user" ? "none" : "1px solid #d8e6df",
+                  textAlign: "left",
+                  background: message.from === "user" ? "#16302b" : message.from === "note" ? "#f4f8f6" : "#ffffff",
+                  color: message.from === "user" ? "#ffffff" : message.from === "note" ? "#4d675f" : "#16302b",
+                  border: message.from === "user" ? "none" : message.from === "note" ? "1px dashed #c9dbd2" : "1px solid #d8e6df",
                 }}
               >
                 {message.text}
@@ -1593,26 +1662,25 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           <div className="mt-3 space-y-3">
             {proposalDrafts.map((draft, index) => (sameDayAs(proposalDrafts)[index] >= 0 ? null : (
               <div key={draft.questionId} data-testid="story-proposal-row" data-question-id={draft.questionId} className="rounded-xl border border-[#d8e6df] p-3">
-                <label className="flex items-start gap-2">
-                  <input
-                    type="checkbox"
-                    disabled={loading}
-                    checked={draft.keep}
-                    onChange={(event) => updateProposalDraft(index, { keep: event.target.checked })}
-                    className="mt-1"
-                  />
-                  <span className="font-semibold">{cardLabel(draft.questionId, draft.questionText, { responding: respondingFromAnswers([...earlierAnswers, ...proposalDrafts], facts) })}</span>
-                </label>
-                {!draft.keep ? (
-                  // Offered, not ticked and not typed in: the one control uses it (owner, 31 Oct).
+                <p className="font-semibold">{cardLabel(draft.questionId, draft.questionText, { responding: respondingFromAnswers([...earlierAnswers, ...proposalDrafts], facts) })}</p>
+                {!draft.keep ? <p data-testid="story-proposal-value" className="mt-1">{draft.answer}</p> : null}
+                {/* Three explicit choices, no silent decision (site owner, 11 Nov 2026), from the one shared control
+                    (UseSuggestion.tsx); kept on the card until Continue. */}
+                <div className="mt-2">
                   <UseSuggestion
-                    testId="story-proposal-use"
-                    what={draft.answer}
+                    offer={{ key: `story-card:${draft.questionId}`, fact: null, recordedBy: "screen" }}
+                    testId="story-proposal-yes"
+                    noTestId="story-proposal-no"
+                    unsureTestId="story-proposal-unsure"
+                    pressed={draft.choice}
                     disabled={loading}
-                    onUse={() => updateProposalDraft(index, { keep: true })}
-                    className="mt-2 rounded-lg border border-[#2f7d67] bg-white px-3 py-2 text-left font-semibold text-[#2f7d67] disabled:opacity-50"
+                    onUse={() => updateProposalDraft(index, { choice: "yes", keep: true })}
+                    onNo={() => updateProposalDraft(index, { choice: "no", keep: false, answer: draft.original })}
+                    onUnsure={() => updateProposalDraft(index, { choice: "unsure", keep: false, answer: draft.original })}
+                    className="rounded-lg border border-[#2f7d67] bg-white px-3 py-2 text-left font-semibold text-[#2f7d67] disabled:opacity-50"
                   />
-                ) : draft.choices && draft.choices.length > 0 ? (
+                </div>
+                {!draft.keep ? null : draft.choices && draft.choices.length > 0 ? (
                   <select
                     value={draft.answer}
                     disabled={loading || !draft.keep}
@@ -1649,10 +1717,14 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             )))}
           </div>
           <WorkingNote working={loading}>Saving what you confirmed and finding the next question…</WorkingNote>
+          {!everyOfferChosen(proposalDrafts) ? (
+            <p data-testid="story-proposals-choose-each" className="mt-3 text-xs text-[#5a736a]">Choose an answer for each one to continue.</p>
+          ) : null}
           <WorkingButton
             data-testid="story-proposals-continue"
             working={loading}
             workingLabel="Working on it…"
+            disabled={!everyOfferChosen(proposalDrafts)}
             onClick={handleConfirmProposals}
             className="mt-4 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white disabled:opacity-50"
           >
@@ -1688,35 +1760,24 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           </p>
           <WorkingNote working={resolvingSuggestion}>Saving your answer about the kind of claim…</WorkingNote>
           <div className="mt-3 flex flex-wrap gap-2">
-            {/* The one control every suggestion is offered with (owner, 31 Oct). */}
+            {/* The one control every offer is made with, three choices (site owner, 14 Nov 2026; Chrome check of #550,
+                2.4). "I'm not sure" applies nothing to the kind and settles it through the one offer handler, so the kind is
+                never asked again (decision 2 on the batch report); "No" turns this kind down and the next is offered. */}
             <UseSuggestion
+              offer={{ key: `claim-kind:${pendingSuggestion.claimTypeId}`, fact: "claimKind" }}
               testId="claim-type-use-suggestion"
+              noTestId="claim-type-not-that-one"
+              unsureTestId="claim-type-not-sure"
               what={pendingSuggestion.claimTypeName}
               disabled={resolvingSuggestion}
               onUse={() => void resolveSuggestion("confirm")}
-              className="rounded-full bg-[#2f7d67] px-4 py-2 text-xs font-bold text-white disabled:opacity-60"
-            />
-            <button
-              type="button"
-              disabled={resolvingSuggestion}
-              onClick={() => void resolveSuggestion("reject")}
-              className="rounded-full border border-[#c9b26a] bg-white px-4 py-2 text-xs font-bold text-[#4a3b12] disabled:opacity-60"
-            >
-              No, not that one
-            </button>
-            {/* Now that the next question waits on this one, there has to be a
-                way past it that applies nothing (suggest, never decide). */}
-            <button
-              type="button"
-              disabled={resolvingSuggestion}
-              onClick={() => {
+              onNo={() => void resolveSuggestion("reject")}
+              onUnsure={() => {
                 setPendingSuggestion(null);
                 setRejectedSuggestionIds([]);
               }}
-              className="rounded-full px-4 py-2 text-xs font-semibold text-[#4a3b12] underline disabled:opacity-60"
-            >
-              Not sure, skip this
-            </button>
+              className="rounded-full bg-[#2f7d67] px-4 py-2 text-xs font-bold text-white disabled:opacity-60"
+            />
           </div>
         </div>
       ) : null}
@@ -1756,7 +1817,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         <div className="mt-4">
         {/* Before any question, this box takes the story: it shows the one story guidance
             (copy/storyGuidance.ts) instead of a placeholder of its own (owner, 30 Oct). */}
-        {!(depthActive || currentQuestion) ? <StoryGuidance id="guided-story-guidance" className="mb-2" /> : null}
+        {!(depthActive || currentQuestion) ? <StoryGuidance id="guided-story-guidance" className="mb-2" length={inputText.length} /> : null}
         <div className="flex gap-2">
           <textarea
             // Keyed to the question actually on screen, the same fix already
@@ -1770,6 +1831,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             // answer box carried the prior question's typed text at least
             // twice (the $5,000-split question, then "do you still have pain").
             key={depthActive ? depthQuestions[depthIndex]?.id : currentQuestion?.id}
+            // Named by the question on screen, the same id its message carries (data-question-id above), so an answer
+            // is typed into this question's box, never another box by its place on the page (site owner, 19 Nov 2026).
+            data-testid={depthActive || currentQuestion ? "guided-answer" : undefined}
+            data-question-id={depthActive ? depthQuestions[depthIndex]?.id : currentQuestion?.id}
             value={inputText}
             disabled={loading}
             onChange={(event) => setInputText(event.target.value)}
@@ -1814,6 +1879,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           {!halted && !loading ? (<>
             <button
               type="button"
+              data-testid="guided-continue-next-steps"
               onClick={() => { pressedContinue(); finishDepthPhase(depthStateMap); }}
               className="mt-3 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
             >
@@ -1858,6 +1924,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           />
           <button
             type="button"
+            data-testid="guided-continue-sourced"
             onClick={() => { pressedContinue(); releaseHeld(); }}
             className="mt-3 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
           >

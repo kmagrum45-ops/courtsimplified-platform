@@ -1,5 +1,5 @@
 import { officialFormFor } from "@/src/lib/content-library/forms/officialFormLink";
-import { CARD_TEXT, FEES_IF_CLAIMED_LABEL, SOURCE_SAVED_ON, practicalFor, type PlainLine, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
+import { CARD_TEXT, FEES_IF_CLAIMED_LABEL, SOURCE_SAVED_ON, practicalFor, withoutDivorceApplication, type PlainLine, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
 import { officialUrl, sourceName, type RuleCitation } from "@/src/lib/case-system/stage-map/citations";
 
 /**
@@ -75,7 +75,8 @@ export default function NextStepPractical({
   timeRanOut?: boolean;
 }) {
   if (court !== "small-claims" && court !== "civil" && court !== "family") return null;
-  const found = practicalFor(stepId, court as PracticalCourt, city, responding, story, noticeStepId, { deadline, serveBy, today, divisionalOnly, notMarried });
+  // The same not-married view the next-step panel shows (nextStepPractical.ts withoutDivorceApplication).
+  const found = withoutDivorceApplication(practicalFor(stepId, court as PracticalCourt, city, responding, story, noticeStepId, { deadline, serveBy, today, divisionalOnly, notMarried }), notMarried);
   if (!found) return null;
   // Form 18B, the notice of intent to defend, is delivered "within the time for delivering a
   // statement of defence" (r. 18.02 (1), as the step's own content quotes it): once that time

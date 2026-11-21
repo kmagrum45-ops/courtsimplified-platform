@@ -37,12 +37,22 @@ import { formSummaryFor } from "../../src/lib/content-library/forms/formSummarie
 import { OFFICIAL_FORMS_FETCHED_AT, officialFormFor } from "../../src/lib/content-library/forms/officialFormLink";
 import { assertApprovedUserContent } from "../../src/lib/content-library/outputGuard";
 import { formKey, formsStageNote, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
+import { MARRIED_ONLY_FAMILY_FORMS } from "../../src/lib/content-library/nextStepPractical";
 import { situationLine, situationOfCase, stageFromSituation } from "@/src/lib/case-system/situation/situation";
 import { FILE_OPEN_FAILED, openAfterCheck, saveFile } from "@/src/lib/case-workspace/fileFetch";
 import { WorkingButton } from "../_components/Working";
 import { UseSuggestion } from "../_components/UseSuggestion";
+import { answerOnOfferChoice } from "../../src/lib/case-system/forms/applicabilitySuggestions";
+import { useOfferChoices } from "../_components/offerChoiceSave";
 import { openCaseFromAddress } from "@/src/lib/case-system/openCase";
 import { officialFormCount, oneRowPerForm } from "@/src/lib/content-library/forms/formCount";
+import FilledForm from "../_components/FilledForm";
+import FilledForm7A from "../_components/FilledForm7A";
+import { filledFormFor } from "@/src/lib/case-system/forms/maps";
+import { formContextOf } from "@/src/lib/case-system/forms/formContext";
+import { readCheckpoint } from "@/src/lib/case-system/intakeCheckpoint";
+import { bringsTheCase } from "@/src/lib/case-system/caseFile/caseFile";
+import { builderHref } from "../cases/_components/CaseHomeContext";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -359,9 +369,11 @@ type FormsWorkspaceProps = {
    * The rest follow; nothing is removed.
    */
   leadForms?: { number: string; label: string }[];
+  /** A Family case not recorded as married: the married-only forms are left out of the list (nextStepPractical.ts MARRIED_ONLY_FAMILY_FORMS). */
+  hideMarriedOnly?: boolean;
 };
 
-function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedded = false, leadForms = [] }: FormsWorkspaceProps) {
+function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedded = false, leadForms = [], hideMarriedOnly = false }: FormsWorkspaceProps) {
   const searchParams = useSearchParams();
 
   // The case and court come from the address alone (openCase.ts, rule 1).
@@ -396,6 +408,8 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
   // Answers kept from what the person already entered, with why (Step 2B).
   const [keptFromCase, setKeptFromCase] = useState<Record<string, string>>({});
   const [changingKept, setChangingKept] = useState<Record<string, boolean>>({});
+  // Offers already answered are not made again: the question is asked with its list (PR #550 CI).
+  const offerChoices = useOfferChoices();
   const autoKeptKey = useRef("");
   const [verifiedRecommendations, setVerifiedRecommendations] = useState<
     VerifiedFormRecommendation[]
@@ -422,6 +436,17 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
   const [stageSupport, setStageSupport] = useState<
     { supported: true } | { supported: false; reason: string; stage: string } | null
   >(null);
+  // The case record, as the filled forms read it (the same reader as the filled-form route): the filled official
+  // form is offered on its card, for the side that files it (Chrome, 16 Nov 2026, row 24).
+  const filledCtx = useMemo(() => {
+    if (!caseId || !masterResult || (path !== "small-claims" && path !== "family" && path !== "civil")) return null;
+    const master = masterResult as unknown as Record<string, unknown>;
+    return formContextOf(readCheckpoint(master.intakeCheckpoint, path, caseId), master);
+  }, [caseId, masterResult, path]);
+  const filledHref = (place: "parties" | "amount" | "story") => {
+    const review = builderHref({ id: caseId, court_path: path }, { openReview: true });
+    return place === "parties" ? `${review}#parties` : place === "amount" ? `${review}&change=amount` : `${review}#story`;
+  };
 
 
   useEffect(() => {
@@ -637,10 +662,12 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
     const kept = enrichedForms.filter(({ form, status }) => {
       const searchMatch = !q || getSearchText(form).includes(q);
       const statusMatch = statusFilter === "all" || status === statusFilter;
-      return searchMatch && statusMatch;
+      // Married-only Family forms (Form 8A, 13B, 13C, 25A, 36, 36A, 36B) until the person says they were married (Chrome pass 3 on #550, S7).
+      const marriedOnly = hideMarriedOnly && form.court_type === "family" && MARRIED_ONLY_FAMILY_FORMS.has(cleanSpaces(form.form_number));
+      return searchMatch && statusMatch && !marriedOnly;
     });
     return leadFormsFirst(kept, ({ form }) => cleanSpaces(form.form_number), leadForms.map((lead) => lead.number));
-  }, [enrichedForms, search, statusFilter, leadForms]);
+  }, [enrichedForms, search, statusFilter, leadForms, hideMarriedOnly]);
   // Each leading form's own label: the step's forms "For your step", the claim
   // form after a notice "After the notice" (legal review 2026-10-14).
   const leadLabels = useMemo(() => new Map(leadForms.map((lead) => [formKey(lead.number), lead.label])), [leadForms]);
@@ -983,19 +1010,26 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                   const pendingChoice = pending
                     ? question.choices.find((choice) => JSON.stringify(choice.value) === JSON.stringify(pending.value))
                     : undefined;
-                  if (pending && pendingChoice && !changingKept[question.field_path]) {
+                  if (pending && pendingChoice && !changingKept[question.field_path] && !offerChoices.choiceOf(`forms:${question.field_path}`)) {
                     const [, group, field] = question.field_path.split(".");
                     return (
                       <div key={question.field_path} data-testid="forms-suggested-from-case" className="block rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4">
                         <p className="font-semibold">{question.question}</p>
-                        <p className="mt-1 font-normal text-[#2f7d67]">From your case: {pending.reason} Not saved yet.</p>
                         <div className="mt-2 flex flex-wrap gap-2">
                           <UseSuggestion
+                            // The forms page's own applicability answer, no case-file fact: a choice keeps the offer from coming back.
+                            offer={{ key: `forms:${question.field_path}`, fact: null }}
                             testId="forms-suggested-save"
                             what={pendingChoice.label}
                             working={applicabilitySaving}
                             onUse={() => void saveApplicability({ [group]: { [field]: pending.value } }, { [question.field_path]: pending.reason })}
+                            // Offered once, then recorded (site owner, 17 Nov): No to an offered Yes saves No, "I'm not sure" saves
+                            // the question's own Not sure, so it is never asked again (applicabilitySuggestions.ts answerOnOfferChoice).
+                            onNo={() => { const value = answerOnOfferChoice(question.choices, pending.value, "no"); if (value !== undefined) void saveApplicability({ [group]: { [field]: value } }, { [question.field_path]: "You answered this when it was offered." }); }}
+                            onUnsure={() => { const value = answerOnOfferChoice(question.choices, pending.value, "unsure"); if (value !== undefined) void saveApplicability({ [group]: { [field]: value } }, { [question.field_path]: "You answered this when it was offered." }); }}
                             className="rounded-xl bg-[#2f7d67] px-4 py-2 text-left text-sm font-semibold text-white disabled:opacity-70"
+                            // Where the suggestion came from is drawn by the one control, so never without its buttons (PR #550 CI).
+                            ask={<span className="mb-2 block font-normal text-[#2f7d67]">From your case: {pending.reason} Not saved yet.</span>}
                           />
                           <button type="button" onClick={() => setChangingKept((current) => ({ ...current, [question.field_path]: true }))} className="rounded-xl border border-[#d8e6df] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67]">
                             Change
@@ -1376,6 +1410,22 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                           Version {official.date || "not stated"}, checked {OFFICIAL_FORMS_FETCHED_AT} on ontariocourtforms.on.ca
                         </span>
                       </div>
+                    );
+                  })()}
+
+                  {(() => {
+                    // The official form with its boxes filled from this case, for the side that files it (FilledForm.tsx).
+                    const map = filledCtx ? filledFormFor(form.court_type, cleanSpaces(form.form_number), bringsTheCase(filledCtx.file) || !filledCtx.file.side.value) : null;
+                    if (!map || !filledCtx) return null;
+                    return (
+                      <details className="mt-5" data-testid="forms-tab-filled" data-form={map.id} open>
+                        <summary className="cursor-pointer text-sm font-semibold text-[#2f7d67]">Form {map.number} filled from your case</summary>
+                        <div className="mt-3">
+                          {map.id === "small-claims/7A"
+                            ? <FilledForm7A ctx={filledCtx} caseId={caseId} addHref={filledHref} />
+                            : <FilledForm map={map} ctx={filledCtx} caseId={caseId} addHref={filledHref} />}
+                        </div>
+                      </details>
                     );
                   })()}
 

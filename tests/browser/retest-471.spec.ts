@@ -26,6 +26,7 @@ import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { autoAnswerSituation } from "./harness/situation";
 import { expectServedNotAskedInReview, expectServedNotAskedOnNextStep, openServedAdd } from "./harness/servedOnce";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 20_000 });
 
@@ -104,13 +105,25 @@ for (const court of ["small-claims", "civil", "family"] as const) {
   test(`${court}: after the story changes, the side and "filed" given at the start are never set aside or asked again`, async ({ page }) => {
     test.setTimeout(240_000);
     await start(page, court);
+    const given = court === "small-claims" ? "You're suing in Small Claims Court · nothing filed yet" : court === "civil" ? "You're bringing a civil case · nothing filed yet" : "You're bringing a family case · nothing filed yet";
+    // Setup: the side and "nothing filed" were really given at the start, before the change and the check.
+    await expect(page.getByTestId("situation-line"), "setup: the side and the filed status were given at the start").toContainText(given);
     await changeStory(page);
     const sideId = court === "small-claims" ? "sc-orient-role" : "yourRole";
     const filedId = court === "small-claims" ? "sc-claim-filed" : court === "civil" ? "documents" : "filedDocuments";
     await expect(question(page, sideId), "the side is not asked again").toHaveCount(0);
     await expect(question(page, filedId), "\"filed\" is not asked again").toHaveCount(0);
-    await expect(page.getByTestId("intake-confirm-needs")).not.toContainText(/side|filed/i);
-    await expect(page.getByTestId("situation-line"), "the answers given at the start stand").toContainText(court === "small-claims" ? "You're suing in Small Claims Court · nothing filed yet" : court === "civil" ? "You're bringing a civil case · nothing filed yet" : "You're bringing a family case · nothing filed yet");
+    const needs = page.getByTestId("intake-confirm-needs");
+    if (court === "small-claims") {
+      // Not vacuous: the review is in the state described, with these (and only answers of this kind) still needed.
+      for (const item of ["Roughly when did the situation that led to this claim happen?", "What kind of dispute is this?", "What is the total dollar amount you are claiming?", "What outcome are you asking the court to order?"]) {
+        await expect(needs, `the review still needs: ${item}`).toContainText(item);
+      }
+    }
+    // Once the side and the filed status are answered, the "still needed" text never mentions side or filed (no line: no text).
+    const needsText = (await needs.count()) ? await needs.innerText() : "";
+    expect(needsText, "the 'still needed' text never mentions side or filed").not.toMatch(/side|filed/i);
+    await expect(page.getByTestId("situation-line"), "the answers given at the start stand").toContainText(given);
   });
 
   test(`${court}: "Close without saving" on the review's story box leaves the story shown`, async ({ page }) => {
@@ -129,7 +142,7 @@ for (const court of ["small-claims", "civil", "family"] as const) {
     const account = await start(page, court);
     const unknowns = panel(page).locator('input[data-testid="intake-unknown"]:not(:checked)');
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel(page)).toHaveAttribute("data-phase", "user-confirmed");
     await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
@@ -162,7 +175,7 @@ test(`Family: the review's "Day you were served" box asks for the year, and a ty
   await expect(panel(page).getByTestId("change-answer-needs-more")).toHaveCount(0);
   const unknowns = panel(page).locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel(page)).toHaveAttribute("data-phase", "user-confirmed");
   await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();

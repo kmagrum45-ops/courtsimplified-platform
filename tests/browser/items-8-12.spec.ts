@@ -26,6 +26,7 @@ import { autoAnswerSituation, STARTING_NOTHING_FILED, type SituationAnswers } fr
 import { confirmAndShowNextStep } from "./harness/servedOnce";
 import { openBuilder } from "./harness/builderGate";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "retain-on-failure", navigationTimeout: 120_000, actionTimeout: 20_000 });
 
@@ -205,7 +206,7 @@ for (const route of ["questions", "form"] as const) {
     const panel = page.getByTestId("intake-review");
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
     await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
