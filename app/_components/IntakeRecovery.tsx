@@ -31,6 +31,7 @@ import { courtOfSavedRow, SAVED_COURT_COLUMNS } from "../../src/lib/case-system/
 import { CASE_FILE_SECTION, caseFileOf, followAnswer } from "../../src/lib/case-system/caseFile/caseFile";
 import { storedFacts, withStoredFacts } from "../../src/lib/case-system/caseFile/serverFacts";
 import NotSavedYet from "./NotSavedYet";
+import { GUEST_ACCOUNT_NOTICE } from "../../src/lib/auth/signUpConfirmation";
 import { afterSend, pendingWrites, type SendResponse } from "../../src/lib/case-system/caseFile/pendingFacts";
 import { CASE_REQUEST_TIMEOUT_MS } from "../builder/_components/positionSave";
 
@@ -679,6 +680,10 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
       {conflict && recovery?.getCaseId() && <a className="underline" href={`/builder?path=${court}&caseId=${recovery.getCaseId()}`} target="_blank" rel="noopener noreferrer">Open the saved intake separately</a>}
       {!recovery && failed && <> · <a className="underline" href={`/builder?path=${court}`}>Start a new intake</a></>}
     </div>
+    {/* A person not signed in is told, before their story, what an account is for and that signing up sends an email to
+        confirm (site owner, 21 Nov 2026): every page that starts a case is in this frame (the home page's story step and
+        the builder, every court). Words only. */}
+    {recovery && !recovery.ownerId && !signedIn ? <p className="mx-auto max-w-6xl px-6 pb-2 text-sm text-[#4d675f]" data-testid="guest-account-notice">{GUEST_ACCOUNT_NOTICE}</p> : null}
     {recovery ? <NotSavedYet /> : null}
     {recovery ? <SituationGate court={court} ownerId={recovery.ownerId ?? null}><IntakeReviewPanel />{children}</SituationGate> : null}
   </Context.Provider>;

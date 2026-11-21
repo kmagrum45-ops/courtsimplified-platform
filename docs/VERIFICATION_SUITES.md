@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-314 documented, 26 without a header.
+315 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -253,6 +253,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:shared-behaviour` | **No shared behaviour is implemented a second time (the guard for the eight steps).**<br>What it checks: for each behaviour in sharedBehaviourRegistry.ts, every .ts/.tsx file in app/ and src/ other than the behaviour's one module is scanned, with comments removed, for the patterns that mean "this re-implements it". Any hit not on the behaviour's w |
 | `npm run test:side-change` | **WHEN THE SIDE CHANGES, THE OLD SIDE'S FACTS ARE SET ASIDE (sideChange.ts, #477 re-test case 19).**<br>Checks, as properties: - changing the side in the situation answers empties every answer about one side (the amount, filed, defence filed, what they want, the kind of claim) in every place an answer is kept, in all three areas, so the case file no longer holds |
 | `npm run test:side-wording` | **A PERSON BEING SUED IS NEVER SHOWN WORDING WRITTEN FOR THE PERSON SUING (role audit, 11 Nov 2026; Chrome's #547 report:**<br>the dispute list started "Unpaid money owed to you" for a defendant, and the served date was offered as when it happened). |
+| `npm run test:signup-confirmation` | **SIGN-UP AND SIGN-IN SAY WHAT HAPPENS NEXT, FROM WHAT SUPABASE AUTH RETURNED (site owner, 21 Nov 2026).**<br>Production requires email confirmation, but the login page assumed it did not: after a sign-up with no session it said "Account created. You can sign in with those details now.", and the sign-in that followed failed. A guest was also never told, before their s |
 | `npm run test:site-map` | **THE SITE MAP'S "WHO READS WHAT" PART, GENERATED FROM THE CODE (SITE_MAP.md).**<br>For each shared piece listed below, it reads every import in app/, src/ and scripts/ and writes, between the markers in SITE_MAP.md: what the piece reads (its imports inside the repo) and what reads it (the screens, routes and modules that import it, and the s |
 | `npm run test:site-text-never-facts` | **THE SITE'S OWN QUESTIONS NEVER BECOME THE PERSON'S FACTS (Chrome check of #550, 13 Nov 2026: the worst finding).**<br>Chrome saw the site's questions as numbered facts in every Form 7A draft ("10. What is the exact address of the Circle K where you fell?") and inside the Defence draft, and in a Family case the site quoted its own question "Are there any existing court orders  |
 | `npm run test:situation` | **The situation answers are read the same way everywhere, and never asked again (step 2, gate A).**<br>What it checks: each situation (starting with nothing filed, starting with something filed, served with each picked first page, a case going that they started, a case going they are responding to, papers they are not sure of), in each of Small Claims, civil an |
