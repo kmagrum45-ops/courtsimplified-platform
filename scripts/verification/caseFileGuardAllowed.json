@@ -43,13 +43,6 @@
     "reason": "Inventory row 88: city (+ story, \"started\") :: sessionStorage COURT_PATH_FINDER_KEY — NotSureCourtGuide.tsx:57, builder/page.tsx:599-615, IntakeRecovery.tsx:510-516"
   },
   {
-    "row": 97,
-    "fact": "side",
-    "pattern": "sd.roleFromStory",
-    "file": "app/_components/IntakeRecovery.tsx",
-    "reason": "Inventory row 97: side :: IntakeRecovery.tsx:564 (SideCrossCheck, familyRoleFromStory/civilRoleFromStory)"
-  },
-  {
     "row": 112,
     "fact": "story",
     "pattern": "sy.understoodAnswers",
@@ -1063,14 +1056,6 @@
     "scanFound": true
   },
   {
-    "row": 58,
-    "fact": "dates",
-    "pattern": "dt.storyDates",
-    "file": "app/builder/_components/guidedFields.ts",
-    "reason": "Found by the guard's scan beside inventory row 58 (the same store or reader, in a file the inventory did not name): dates :: app/builder/_components/storyAnswers.ts:474,649 (servedDateFromStory, courtDateFromStory)",
-    "scanFound": true
-  },
-  {
     "row": 71,
     "fact": "service manner",
     "pattern": "sv.serviceDetails",
@@ -1095,14 +1080,6 @@
     "scanFound": true
   },
   {
-    "row": 81,
-    "fact": "outcome / wants",
-    "pattern": "wo.goalFromStory",
-    "file": "app/builder/_components/guidedFields.ts",
-    "reason": "Found by the guard's scan beside inventory row 81 (the same store or reader, in a file the inventory did not name): outcome / wants :: storyAnswers.ts:187 (goalFromStory)",
-    "scanFound": true
-  },
-  {
     "row": 91,
     "fact": "side",
     "pattern": "sd.yourRole",
@@ -1111,35 +1088,11 @@
     "scanFound": true
   },
   {
-    "row": 97,
-    "fact": "side",
-    "pattern": "sd.roleFromStory",
-    "file": "app/builder/_components/guidedFields.ts",
-    "reason": "Found by the guard's scan beside inventory row 97 (the same store or reader, in a file the inventory did not name): side :: IntakeRecovery.tsx:564 (SideCrossCheck, familyRoleFromStory/civilRoleFromStory)",
-    "scanFound": true
-  },
-  {
-    "row": 105,
-    "fact": "other party",
-    "pattern": "op.otherSideIn",
-    "file": "app/builder/_components/guidedFields.ts",
-    "reason": "Found by the guard's scan beside inventory row 105 (the same store or reader, in a file the inventory did not name): other party :: storyAnswers.ts:402,434; storyFacts.ts:50 (otherSideIn)",
-    "scanFound": true
-  },
-  {
     "row": 109,
     "fact": "children",
     "pattern": "ch.childrenInfo",
     "file": "app/builder/_components/guidedFields.ts",
     "reason": "Found by the guard's scan beside inventory row 109 (the same store or reader, in a file the inventory did not name): children :: checkpoint family.childrenInfo (FamilyIntake.tsx:313); childSupportPrefill.ts:103 (from familyScope.recorded)",
-    "scanFound": true
-  },
-  {
-    "row": 110,
-    "fact": "children",
-    "pattern": "ch.childrenFromStory",
-    "file": "app/builder/_components/guidedFields.ts",
-    "reason": "Found by the guard's scan beside inventory row 110 (the same store or reader, in a file the inventory did not name): children :: storyAnswers.ts:226,299",
     "scanFound": true
   },
   {
@@ -3709,14 +3662,6 @@
     "reason": "Inventory row 56: dates (Family served) :: app/builder/_components/guidedFields.ts:66,72 (servedDateOf, withServedDate); intakeReview.ts:105-107"
   },
   {
-    "row": 61,
-    "fact": "dates",
-    "pattern": "dt.findDates",
-    "file": "src/lib/case-system/intakeReview.ts",
-    "reason": "Found by the guard's scan beside inventory row 61 (the same store or reader, in a file the inventory did not name): dates :: src/lib/case-system/guided-assistant/conversationIntelligenceEngine.ts, contradictions/contradictionDetectionEngine.ts (findDates)",
-    "scanFound": true
-  },
-  {
     "row": 73,
     "fact": "amount",
     "pattern": "am.amountClaimed",
@@ -3730,14 +3675,6 @@
     "pattern": "wo.legalRemedy",
     "file": "src/lib/case-system/intakeReview.ts",
     "reason": "Found by the guard's scan beside inventory row 79 (the same store or reader, in a file the inventory did not name): outcome / wants :: checkpoint *.input.goal, civil.input.legalRemedy, family.goal (FamilyIntake.tsx:328), guided remedySoughtText, home.understoodAnswers",
-    "scanFound": true
-  },
-  {
-    "row": 81,
-    "fact": "outcome / wants",
-    "pattern": "wo.goalFromStory",
-    "file": "src/lib/case-system/intakeReview.ts",
-    "reason": "Found by the guard's scan beside inventory row 81 (the same store or reader, in a file the inventory did not name): outcome / wants :: storyAnswers.ts:187 (goalFromStory)",
     "scanFound": true
   },
   {

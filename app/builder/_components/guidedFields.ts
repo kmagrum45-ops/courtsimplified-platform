@@ -17,26 +17,14 @@ import { SERVED_LINE, storyHintsForDates } from "../../../src/lib/case-system/ca
 import { STORY_LABEL } from "../../../src/lib/case-system/copy/storyGuidance";
 import { MARRIED_TRIAGE_QUESTION } from "../../../src/lib/case-system/family/statusTriage";
 import { factStatus } from "../../../src/lib/case-system/caseFile/factStatus";
-import { offeredAmount } from "../../../src/lib/case-system/caseFile/storyOffers";
 import type { CaseFile, SlotFact } from "../../../src/lib/case-system/caseFile/caseFile";
-import {
-  childrenFromStory,
-  courtDateFromStory,
-  civilIssuesFromStory,
-  familyIssuesFromStory,
-  childrenPartialFromStory,
-  civilFiledFromStory,
-  civilRoleFromStory,
-  familyFiledFromStory,
-  familyRoleFromStory,
-  goalFromStory,
-  otherPartyFromStory,
-  otherPartyNameFromStory,
-  servedDateFromStory,
-} from "./storyAnswers";
-import { businessOtherSideIn } from "../../../src/lib/case-system/caseFile/storyFacts";
+import { quotesOf, statedInStory, type StoryCourt, type StoryValue } from "../../../src/lib/case-system/intakeReview";
 
 const storyOf = (values: GuidedValues) => (typeof values.facts === "string" ? values.facts : "");
+/** What the story states (intakeReview.ts statedInStory): the one story reader, read by every field below. */
+const read = (values: GuidedValues, court?: StoryCourt) => quotesOf(statedInStory(storyOf(values), [], court));
+/** A list the reader gives (the kinds of claim, the papers filed), in the shape offeredFiled takes. */
+const listOf = (found: StoryValue | undefined) => (found && Array.isArray(found.value) ? { value: found.value, quote: found.quote } : null);
 
 /**
  * A filed-documents answer from the story, kept to the options this form
@@ -104,7 +92,7 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
     {
       key: "yourRole",
       label: "Your side",
-      fromStory: (values) => familyRoleFromStory(storyOf(values)),
+      fromStory: (values) => read(values, "family").side ?? null,
       question: "Are you starting a family case, or responding to one the other person started?",
       why: "Your side decides which forms and deadlines are yours, so we only show you your own.",
       kind: "choice",
@@ -133,7 +121,7 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       key: "issues",
       label: "What the case is about",
       // The issues the story names, offered for one click (26 Oct re-test, case 14).
-      fromStory: (values) => offeredFiled(familyIssuesFromStory(storyOf(values)), options.issues),
+      fromStory: (values) => offeredFiled(listOf(read(values, "family").claimKind), options.issues),
       question: "What is the case about? Pick everything that applies.",
       why: "Each issue has its own forms and steps, so this keeps what you see to the ones that fit.",
       kind: "multi",
@@ -143,7 +131,7 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       key: "filedDocuments",
       label: "What has been filed",
       // "i got served the papers last week" answers this (walkthrough FR, 2026-10-13).
-      fromStory: (values) => offeredFiled(familyFiledFromStory(storyOf(values)), options.filed),
+      fromStory: (values) => offeredFiled(listOf(read(values, "family").filedDocuments), options.filed),
       confirmAlone: true,
       question: "Has anything been filed with the court or given to you yet?",
       why: "This tells us where your case is, so the next step we show is the right one.",
@@ -154,9 +142,9 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
     {
       key: "childrenInfo",
       label: "The children",
-      fromStory: (values) => childrenFromStory(storyOf(values)),
+      fromStory: (values) => read(values, "family").children ?? null,
       // "our daugter": "One daughter." filled in, only the age and home asked (FR).
-      partialFromStory: (values) => childrenPartialFromStory(storyOf(values)),
+      partialFromStory: (values) => read(values, "family").childrenPartial ?? null,
       question: "Tell us about the children: how many, how old, and who they live with now.",
       why: "Parenting and child support depend on the children's ages and where they live.",
       kind: "longtext",
@@ -165,7 +153,7 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
     {
       key: "servedDate",
       label: "When you were served",
-      fromStory: (values) => servedDateFromStory(storyOf(values)),
+      fromStory: (values) => read(values).servedDate ?? null,
       // The year is asked for here, and an answer without one is asked to
       // add it, so the step page never asks "Which year was that?" (review
       // 2026-10-13). The why says only what the site does with the date: it
@@ -180,7 +168,7 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       key: "upcomingCourtDate",
       // The court's own words (Jason, 2026-10-24): "Next court date", never "Court date".
       label: "Next court date",
-      fromStory: (values) => courtDateFromStory(storyOf(values)),
+      fromStory: (values) => read(values, "family").courtDate ?? null,
       question: "Is there a court date coming up? If so, what is it and when?",
       why: "A date that's coming up can change what you need to do first.",
       kind: "text",
@@ -189,7 +177,7 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
     {
       key: "goal",
       label: "What you want",
-      fromStory: (values) => goalFromStory(storyOf(values)),
+      fromStory: (values) => read(values).wants ?? null,
       question: "What would you like to happen in the end?",
       why: "What you're asking for shapes what goes in your papers.",
       kind: "longtext",
@@ -198,7 +186,7 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       key: "otherParty",
       label: "The other person",
       // The question asks for a name: only a name the story gives is offered.
-      fromStory: (values) => otherPartyNameFromStory(storyOf(values)),
+      fromStory: (values) => read(values, "family").otherParty ?? null,
       question: "What is the other person's name? You can leave this for later.",
       why: "It goes on your forms. Nothing else depends on it.",
       kind: "text",
@@ -233,7 +221,7 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
     {
       key: "yourRole",
       label: "Your side",
-      fromStory: (values) => civilRoleFromStory(storyOf(values)),
+      fromStory: (values) => read(values, "civil").side ?? null,
       question: "Are you suing someone, or is someone suing you?",
       why: "Your side decides which forms and deadlines are yours, so we only show you your own.",
       kind: "choice",
@@ -249,7 +237,7 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
       key: "documents",
       label: "What has been filed",
       // "i got served a statement of claim", "i want to sue the city" (walkthrough SW, 2026-10-13).
-      fromStory: (values) => offeredFiled(civilFiledFromStory(storyOf(values)), options.documents),
+      fromStory: (values) => offeredFiled(listOf(read(values, "civil").filedDocuments), options.documents),
       confirmAlone: true,
       question: "Has anything been filed with the court or served yet?",
       why: "This tells us where your case is, so the next step we show is the right one.",
@@ -261,7 +249,7 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
       key: "issues",
       label: "What the case is about",
       // The kinds the story's words name, offered for the person to confirm (Charter re-test).
-      fromStory: (values) => civilIssuesFromStory(storyOf(values)),
+      fromStory: (values) => read(values, "civil").claimKind ?? null,
       question: "What kind of case is it? Pick everything that fits.",
       why: "Different kinds of cases have different rules and forms, so this keeps what you see to the ones that fit.",
       kind: "multi",
@@ -271,7 +259,7 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
       key: "amountClaimed",
       label: "Amount",
       // The one offer reader (caseFile/storyOffers.ts); this form holds the story only, not the saved reading.
-      fromStory: (values) => offeredAmount(storyOf(values), []),
+      fromStory: (values) => read(values, "civil").amount ?? null,
       question: "How much money is involved, if any?",
       why: "The amount decides which court and which procedure your case uses.",
       kind: "text",
@@ -279,7 +267,7 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
     {
       key: "serviceDetails",
       label: "When and how you were served",
-      fromStory: (values) => servedDateFromStory(storyOf(values)),
+      fromStory: (values) => read(values).servedDate ?? null,
       question: "When were you served with the papers, and how (in person, by mail, by email)?",
       why: "We use the date and the way you were served to count your deadline.",
       kind: "text",
@@ -296,7 +284,7 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
     {
       key: "legalRemedy",
       label: "What you want",
-      fromStory: (values) => goalFromStory(storyOf(values)),
+      fromStory: (values) => read(values).wants ?? null,
       question: "What would you like the court to order?",
       why: "What you're asking for shapes what goes in your papers.",
       kind: "longtext",
@@ -305,7 +293,7 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
       key: "otherParty",
       label: "The other side",
       // The chat's own stricter reader, then a business the story names (storyFacts.ts businessOtherSideIn).
-      fromStory: (values) => otherPartyFromStory(storyOf(values)) ?? businessOtherSideIn(storyOf(values)),
+      fromStory: (values) => read(values, "civil").otherParty ?? null,
       question: "Who is the other side (a person or a business)? You can leave the name for later.",
       why: "It goes on your forms. Nothing else depends on it.",
       kind: "text",

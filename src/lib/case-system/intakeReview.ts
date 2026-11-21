@@ -8,8 +8,9 @@ import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
 import { freshSections, storyAnswersOutdated } from "./storyBasis";
 import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
 import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../../app/builder/_components/guidedFields";
-import { goalFromStory, kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
-import { offeredAmount, readingFactsOf, type ReadingFact } from "./caseFile/storyOffers";
+import { kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
+import { readingFactsOf, type ReadingFact } from "./caseFile/storyOffers";
+import { readStoryFacts, type StoryCourt, type StoryReading, type StoryValue } from "./caseFile/storyReader";
 import { PARTY_FORM_FIELDS } from "./caseFile/oldParties";
 import { mayShowQuestion } from "./caseFile/factStatus";
 import type { Stated } from "./caseFile/factStatus";
@@ -18,7 +19,6 @@ import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQ
 import { askOf } from "./intake/asker";
 import { CASE_FILE_SECTION, CHANGE_QUESTION, answeredInIntake, caseFileOf, fromCasePosition, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, repeatsAnswer, sameAnswer, NEWEST_TYPED_FACTS, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
 import { LENT_MONEY, LOAN_WORDS } from "./intake/claimKind";
-import { servedDateAt } from "./servedWords";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
 
 type ObjectValue = Record<string, unknown>;
@@ -824,8 +824,10 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
   const story = responding ? againstThemIn(whole) : whole;
   if (!story.trim()) return {};
   const out: Record<string, string> = {};
-  const date = whenItHappened(story);
-  if (date) out["sc-orient-when-happened"] = date;
+  // The one story reader (statedInStory below) for the date, the amount and the outcome, with the review's strict
+  // one-click rule for the amount. Someone responding: the story only (no reading), as before.
+  const read = quotesOf(statedInStory(story, responding ? [] : readingFactsOf(checkpoint.sections, whole), undefined, { oneClick: true }));
+  if (read.whenHappened) out["sc-orient-when-happened"] = String(read.whenHappened.value);
   const side = SIDE_CUES.find(([cue]) => cue.test(story));
   if (side) out["sc-orient-role"] = side[1];
   // Someone billed for work they did and was not paid is owed money, whatever the work was
@@ -843,62 +845,66 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
   // The amount from the one offer reader (caseFile/storyOffers.ts): what the story reading showed, when the story
   // writes it or its parts, else the story's own reader, a quote included (Chrome milestone test of #550, S1 and S4: the
   // reading showed $5,468.45 and a $1,500 quote, the review offered nothing). Someone responding: the story only.
-  const amount = offeredAmount(story, responding ? [] : readingFactsOf(checkpoint.sections, whole), { oneClick: true });
-  if (amount) out["sc-amount-claimed"] = amount.value;
-  const goal = goalFromStory(story);
-  if (goal) out["sc-remedy-sought"] = goal.value;
+  if (read.amount) out["sc-amount-claimed"] = String(read.amount.value);
+  if (read.wants) out["sc-remedy-sought"] = String(read.wants.value);
   // Each only when it fits its question's fact (factTypes.ts; decision 1, 18 Nov 2026).
   return Object.fromEntries(Object.entries(out).filter(([questionId, value]) => suggestionFits(questionId, value)));
 }
 
 /**
- * THE ONE STORY READER for the facts a story can state (site owner, 11 Nov 2026; caseFile/factStatus.ts `stated`):
- * when it happened (a full day only), the amount (the claim amount reader's, else a quote or an estimate the story
- * names: offered once, never kept as a fact by itself, claimAmount.ts still skips it) and what the person wants.
- * Each is only ever OFFERED (Yes / No, that's not right / I'm not sure); none is an answer until the person says Yes.
- * STORY_STATED_FACTS is the one list of the facts it can state (the home page's questions, the chat's offers and
- * test:home-asks-unstated all read it).
+ * THE ONE STORY READER (site owner, 11 Nov 2026; made the one for every fact the story states, 21 Nov 2026, batch (a);
+ * rule 0: one reader per fact; caseFile/factStatus.ts `stated`).
+ *
+ * Until 21 Nov the home page read the story here for three facts only (the date, the amount, what the person wants), and
+ * without the story reading the person was shown, while the Civil and Family chat (guidedFields.ts) called eight readers
+ * of its own, field by field. So the home page asked what the intake then offered:
+ *   - S1 (Chrome check of ad67c3f7): its amount question while the reading showed $5,468.45, which the intake then
+ *     offered (the home page read the story without the reading);
+ *   - S7: "Tell us about the children: how many, how old, and who they live with now" right after "One child, age 6",
+ *     which the Family chat then offered (the home page had no children reader).
+ * Now every fact the story states is read here, once, and every place that asks whether the story states a fact reads
+ * this: the home page's questions (factQuestions.ts homeAsks), the Small Claims chat's offers (statedProposals.ts), the
+ * Civil and Family chat's offers (guidedFields.ts), the review's first suggestions (suggestInitialAnswers above), the
+ * role read at the start (IntakeRecovery.tsx). Each value is only ever OFFERED (Yes / No, that's not right / I'm not
+ * sure); none is an answer until the person says Yes.
+ *
+ * `reading`: the story reading the person was shown (storyOffers.ts readingFactsOf, or the home card's own), used only
+ * where the story writes its value. `court`: the readers that depend on the court (the person's role, the kind of claim,
+ * the papers filed, the other side). It returns each fact's value in words (`stated`); quotesOf gives each with the
+ * story's words it came from (the chat's offers). `oneClick`: the review's strict amount rule (#471: never an amount
+ * already paid); every other place offers what the story states, as before. STORY_STATED_FACTS is the one list of the
+ * facts it can state (the home page's questions, the chat's offers and test:home-asks-unstated all read it).
  */
-export const STORY_STATED_FACTS = ["whenHappened", "amount", "wants"] as const satisfies readonly SlotFact[];
-export function statedInStory(story: string, reading: readonly ReadingFact[] = []): Stated {
-  const out: Stated = {};
-  if (!story.trim()) return out;
-  const date = whenItHappened(story);
-  // A month and year ("In March 2026") is stated as well as a full date (page test, 12 Nov: it was read, then dropped).
-  if (date && (isRealIsoDate(date) || MONTH_AND_YEAR.test(date))) out.whenHappened = date;
-  // The one offer reader (caseFile/storyOffers.ts): the story reading's amount when the story writes it, else the story's.
-  const amount = offeredAmount(story, reading)?.value;
-  if (amount) out.amount = amount.replace(/[$,\s]/g, "");
-  const goal = goalFromStory(story);
-  if (goal) out.wants = goal.value;
-  return out;
+// The facts it states for any court (`stated`). With a court it also reads the role, the kind of claim, the papers filed
+// and the other side, given with their words through quotesOf (the chat offers them; no home question asks them).
+export const STORY_STATED_FACTS = ["whenHappened", "amount", "wants", "children", "servedDate", "courtDate"] as const satisfies readonly SlotFact[];
+export type { StoryCourt, StoryReading, StoryValue };
+
+export function statedInStory(story: string, reading: readonly ReadingFact[] = [], court?: StoryCourt, options: { oneClick?: boolean } = {}): Stated {
+  // The reading itself is done in the case file module (caseFile/storyReader.ts), called only from here.
+  const out = readStoryFacts({ story, reading, ...(court ? { court } : {}), ...(options.oneClick ? { oneClick: true } : {}) });
+  // Each fact's value in words (`stated`), with the story's words each came from kept beside them, not among its keys.
+  const values = statedValues(out);
+  Object.defineProperty(values, QUOTES, { value: out, enumerable: false });
+  return values;
 }
 
-const MONTH_AND_YEAR = new RegExp(`^(?:${MONTH_WORDS_EN.join("|")}) \\d{4}$`);
+const QUOTES = Symbol("storyQuotes");
+/** What the one reader found, with the story's words for each (the chat's offers quote them); {} for a plain object. */
+export function quotesOf(stated: Stated): StoryReading {
+  return ((stated as Record<symbol, unknown>)[QUOTES] as StoryReading | undefined) ?? {};
+}
 
-/** "payment was due July 10", "by July 10": a deadline, not when it happened. */
-const DEADLINE_BEFORE = /\b(?:due|deadline|payable|by|until|before|no later than|expires?|expiring)\s*(?:on\s*)?$/i;
-
-/**
- * When it happened, from the story: the first date that is not written as a
- * deadline (re-test round 7: "work finished June 10, payment due July 10" was
- * read as July 10), read by the shared reader (dates.ts). A full date is offered
- * as it is, a month and year ("August 2026") as it is. A day and month with no
- * year is not offered: its year would be a guess (it took another date's year
- * before), so the person types it and is asked for the year.
- */
-function whenItHappened(story: string): string | null {
-  const notDeadline = (index: number) => !DEADLINE_BEFORE.test(story.slice(Math.max(0, index - 30), index));
-  const mentions = [
-    ...findDates(story).filter((date) => (date.precision === "day" ? countable(date) : date.precision === "month" && !dayWrittenBefore(story, date))).map((date) => ({ index: story.indexOf(date.source), date })),
-    ...findDayMonthWithoutYear(story).filter((date) => !date.numeric).map((date) => ({ index: date.index, date: null })),
-  ].filter((mention) => mention.index >= 0).sort((a, b) => a.index - b.index);
-  // The day the person was served is its own fact, never when the dispute happened (servedWords.ts; Chrome check of #547, G3a).
-  const chosen = mentions.find((mention) => notDeadline(mention.index) && !servedDateAt(story, mention.index));
-  if (!chosen || !chosen.date) return null;
-  if (chosen.date.precision === "day") return chosen.date.iso;
-  const [year, month] = chosen.date.iso.split("-").map(Number);
-  return `${MONTH_WORDS_EN[month - 1]} ${year}`;
+/** Each stated fact's value in words, as the one function's `stated` (factStatus.ts). */
+function statedValues(read: StoryReading): Stated {
+  const out: Stated = {};
+  for (const fact of STORY_STATED_FACTS) {
+    const found = read[fact];
+    if (!found) continue;
+    const value = Array.isArray(found.value) ? found.value.join(", ") : found.value;
+    if (value.trim()) out[fact] = fact === "amount" ? value.replace(/[$,s]/g, "") : value;
+  }
+  return out;
 }
 
 export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, action: "review" | "collect" | "confirm", expectedInputRevision: string, now: string, master?: unknown): ObjectValue {

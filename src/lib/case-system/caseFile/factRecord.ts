@@ -27,7 +27,8 @@
  *
  * Pure: no React, no network. States no law.
  */
-import { CASE_FILE_SECTION, SLOT_FACTS, emptyCaseFile, give, type SlotFact } from "./caseFile";
+import { CASE_FILE_SECTION, emptyCaseFile, give } from "./caseFile";
+import { SLOT_FACTS, type SlotFact } from "./slotFacts";
 import type { CaseFact } from "./factsOfQuestion";
 import { fitsFactType } from "./factTypes";
 import { readCheckpoint, type IntakeCourt } from "../intakeCheckpoint";
