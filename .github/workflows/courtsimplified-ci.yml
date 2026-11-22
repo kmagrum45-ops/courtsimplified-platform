@@ -746,6 +746,9 @@ jobs:
       - name: The 2026-11-22 follow-up sentences use the rule's own word, each with its quote
         run: npm run test:wording-20261122
 
+      - name: The divorce stay and Form 38A forthwith leftovers use the rule's own word, each with its quote
+        run: npm run test:wording-leftovers-20261122
+
       - name: Stage-independent answers rest on quoted sources
         run: npm run test:generic-library
 

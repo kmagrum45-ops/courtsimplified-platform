@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-317 documented, 26 without a header.
+318 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -314,6 +314,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:whole-form-record` | **THE WHOLE FORM'S BOXES ARE FILLED FROM, AND SAVED TO, THE CASE RECORD (Chrome check of #544, 6 Nov 2026, F1 root cause).**<br>Chrome, Small Claims: the amount was changed five times across the chat, the review, the whole form and "Change". After "Update my next steps" the whole form showed an older amount, and after "Start the questions again from my story" the case showed $9,350, an |
 | `npm run test:wording-20261109` | **THE SEVEN SMALL CLAIMS WORDING CHANGES APPROVED BY THE FOUNDERS ON 2026-11-09 (Review and Decisions Log) ARE IN EVERY**<br>STAGE NAMED, AND IN NO OTHER. |
 | `npm run test:wording-20261122` | **THE OWNER'S 2026-11-22 FOLLOW-UP TO THE 2026-11-21 WORDING RULE IS ON THE SITE, WORD FOR WORD, EACH SENTENCE RESTING**<br>ON THE RULE WHOSE WORD IT NOW USES. |
+| `npm run test:wording-leftovers-20261122` | **TWO LEFTOVERS FROM #554 TAKE THE RULE'S OWN WORD (OWNER, 2026-11-22), WORD FOR WORD, EACH RESTING ON THE RULE THAT**<br>SAYS IT. |
 | `npm run test:working-states` | **EVERY CONTROL THAT WAITS ON SLOW WORK SAYS SO IN PLAIN WORDS (site owner, 28 Oct).**<br>Checks, across every page and component under app/ (the admin pages excepted), as properties: - every <button> held by a work state (disabled while loading, saving, busy, sending, …) sits in a file that says, in words, what that same state is doing: a WorkingB |
 | `npm run test:workspace-ai-flag` | **No document text and no file name can reach a model while document analysis is off —**<br>and it is off, and stays off. |
 | `npm run test:workspace-catalogue` | **The document-type catalogue in code and the CHECK constraint in the migration say**<br>the same thing, and no type label characterises anything legally. |
