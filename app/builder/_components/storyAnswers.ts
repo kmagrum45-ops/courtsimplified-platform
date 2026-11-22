@@ -467,30 +467,79 @@ const MONTH_NAMES = new RegExp(`^(?:${MONTH_FULL_NAMES_PATTERN}|${WEEKDAY_NAMES_
  * gf" is not an answer to it.
  */
 const NOT_A_NAME =
-  /^(?:I|Is|He|She|They|We|The|A|An|My|His|Her|It|Was|Has|Had|And|But|So|Then|Now|Divorce|Custody|Support|Court|Police|Lawyer|Judge|Mom|Dad|Ontario|Canada)\b/;
+  /^(?:I|Is|He|She|They|We|You|The|A|An|My|Our|Your|Their|His|Her|Its|It|Was|Has|Had|And|But|So|Or|Then|Now|When|After|Before|Since|Because|Who|Which|That|This|There|Last|Next|Not|Also|Just|Still|Never|Always|Divorce|Custody|Support|Court|Police|Lawyer|Judge|Mom|Mum|Dad|Ontario|Canada|Mr|Mrs|Ms|Miss|Mx|Dr)\b/;
+
+/*
+ * THE ONE NAME READER (site owner, 22 Nov 2026, batch (a3)). Every person's name the story gives, by the words around
+ * it, with no AI: the other side ("my spouse Test Partner and I", "separated from my wife Jane Doe", "my ex, Ms. Jane
+ * Doe,"), the person's own ("my name is ..."), and anyone else ("my son ...", "my landlord ...", "a roofer called ...",
+ * "Dr. ..."). Two callers: the Family offer of the other person's name (otherPartyNameFromStory, the other side only),
+ * and the label layer that hides every name before anything goes to OpenAI (security/requestNames.ts, all of them).
+ *
+ * Until 22 Nov the reader took a name after "my ex" / "my wife" only when a comma or the end of the sentence closed it,
+ * and a title as the name itself ("my ex Ms. Jane Doe" read "Ms"): Chrome's "My spouse Test Partner and I" was asked
+ * cold in the guest Family chat, and signed in it went to OpenAI as typed. A title is never a name: it is read past.
+ */
+const TITLE = "(?:(?:Mr|Mrs|Ms|Miss|Mx|Dr)\\.?\\s+)";
+const NAME_WORD = "\\p{Lu}\\p{Ll}+(?:[-'’]?\\p{Lu}?\\p{Ll}+)*";
+const PERSON = `${TITLE}?(${NAME_WORD}(?:\\s+${NAME_WORD}){0,2})`;
+const LEAD = "(?<![\\p{L}])";
+/** The other side of a Family case: a spouse or partner, past or present, or the other parent of the person's child. */
+const OTHER_SIDE =
+  "[Mm]y (?:ex(?:[- ]?(?:wife|husband|gf|bf|girlfriend|boyfriend|partner|spouse|fianc[eé]e?))?|wife|husband|partner|spouse|fianc[eé]e?|girlfriend|boyfriend|common[- ]law(?: (?:wife|husband|partner|spouse))?|(?:sons?|daughters?|kids?|child|children|baby|boy|girl)(?:'s|’s|')? (?:mom|mum|mother|dad|father))";
+/** Anyone else the person names by how they know them: hidden from the model, never offered as the other side. */
+const OTHER_PEOPLE =
+  "[Mm]y (?:(?:old|former|new|previous|current|late|step|younger|older|little|big)[- ]?)?(?:sons?|daughters?|child|kids?|baby|stepson|stepdaughter|mother|father|mom|mum|dad|brothers?|sisters?|grandmother|grandfather|grandma|grandpa|aunt|uncle|cousin|friend|roommate|landlord|landlady|boss|manager|supervisor|employer|neighbou?r|tenant|contractor|lawyer|doctor)";
+
+type NameRole = "other" | "you" | "person";
+const NAME_PATTERNS: { role: NameRole; pattern: RegExp }[] = [
+  { role: "other", pattern: new RegExp(`${LEAD}${OTHER_SIDE}(?:'s name is|,?\\s+(?:who is |is )?named|,?\\s+(?:is )?called)\\s+${PERSON}`, "u") },
+  // "my spouse Test Partner and I", "my ex, Ms. Jane Doe,", "separated from my wife Jane Doe", "my husband Mark."
+  { role: "other", pattern: new RegExp(`${LEAD}${OTHER_SIDE},?\\s+${PERSON}`, "u") },
+  // The relationship said with the name (page test, 12 Nov: the Family chat asked cold for a name the story gave):
+  // "I married Sam Testmarsh", "I was married to Pat Lee", "I have two kids with Chris Doe".
+  { role: "other", pattern: new RegExp(`${LEAD}[Ii] (?:married|was married to|am married to|divorced|separated from|lived with|(?:have|had) (?:a child|a baby|a son|a daughter|(?:two|three|four|\\d) (?:kids|children|sons|daughters)|kids|children) with)\\s+${PERSON}`, "u") },
+  // "Jordan Testfield and I lived together": only at the start of a sentence (never "Yesterday Jordan Smith").
+  { role: "other", pattern: new RegExp(`(?:^|:\\s+)${PERSON} and I (?:lived|were|have been|had been|got|separated|split|broke up|married|dated|met|had|have)\\b`, "u") },
+  { role: "you", pattern: new RegExp(`${LEAD}[Mm]y (?:full )?name is\\s+${PERSON}`, "u") },
+  { role: "person", pattern: new RegExp(`${LEAD}${OTHER_PEOPLE}(?:'s name is|,?\\s+(?:who is |is )?named|,?\\s+(?:is )?called)?,?\\s+${PERSON}`, "u") },
+  { role: "person", pattern: new RegExp(`${LEAD}(?:named|called)\\s+${PERSON}`, "u") },
+  // A title, anywhere: "Dr. Kenwyn Opie", "Ms. Locryn Tregear", "Mrs Morvoren Hocking".
+  { role: "person", pattern: new RegExp(`${LEAD}(?:Mr|Mrs|Ms|Miss|Mx|Dr)\\.?\\s+(${NAME_WORD}(?:\\s+${NAME_WORD}){0,2})`, "u") },
+];
+
+function isName(name: string): boolean {
+  return !NOT_A_NAME.test(name) && !MONTH_NAMES.test(name) && !Object.keys(CITIES).includes(name.toLowerCase());
+}
+
+/** A person the story names, how the story says they are related, and the sentence that says it. */
+export type StoryPerson = { name: string; role: NameRole; quote: string };
+
+/** Every name the story gives, each once, in the order the story gives them (a name the first time it is read). */
+export function peopleInStory(story: string): StoryPerson[] {
+  const out: StoryPerson[] = [];
+  for (const sentence of sentences(story)) {
+    for (const { role, pattern } of NAME_PATTERNS) {
+      const global = new RegExp(pattern.source, `${pattern.flags}g`);
+      for (const match of sentence.matchAll(global)) {
+        const name = match[1].trim();
+        if (!isName(name) || out.some((held) => held.name.toLowerCase() === name.toLowerCase())) continue;
+        out.push({ name, role, quote: sentence });
+      }
+    }
+  }
+  return out;
+}
 
 export function otherPartyNameFromStory(story: string): StoryAnswer | null {
-  // Only "my ex, Sarah Jones," / "my husband Mark." (a name set off and closed
-  // by a comma or the end) or "named / called / 's name is" (review,
-  // 2026-10-13: "my husband Is abusive" gave "Is"). The other parent of a
-  // child only: "my mom's dad" is not the other side.
-  const relation = "[Mm]y (?:ex(?:[- ]?(?:wife|husband|gf|bf|girlfriend|boyfriend|partner))?|wife|husband|partner|spouse|common[- ]law (?:wife|husband|partner)|(?:sons?|daughters?|kids?|child|children|baby|boy|girl)'?s? (?:mom|mother|dad|father))";
-  const person = "([A-Z][a-z'-]+(?: [A-Z][a-z'-]+){0,2})";
-  const patterns = [
-    new RegExp(`\\b${relation}(?:'s name is|\\s+(?:is )?named|\\s+(?:is )?called)\\s+${person}\\b`),
-    new RegExp(`\\b${relation},?\\s+${person}(?=\\s*(?:,|\\.|;|$))`),
-    // The relationship said with the name (page test, 12 Nov: the Family chat asked cold for a name the story gave):
-    // "I married Sam Testmarsh", "I was married to Pat Lee", "I have two kids with Chris Doe".
-    new RegExp(`\\b[Ii] (?:married|was married to|am married to|divorced|separated from|lived with|(?:have|had) (?:a child|a baby|a son|a daughter|(?:two|three|four|\\d) (?:kids|children|sons|daughters)|kids|children) with)\\s+${person}\\b`),
-    // "Jordan Testfield and I lived together": only at the start of a sentence (never "Yesterday Jordan Smith").
-    new RegExp(`(?:^|:\\s+)${person} and I (?:lived|were|have been|had been|got|separated|split|broke up|married|dated|met|had|have)\\b`),
-  ];
+  // The other side only ("my mom's dad" is not the other side), the first the story gives.
   for (const sentence of sentences(story)) {
-    for (const pattern of patterns) {
+    for (const { role, pattern } of NAME_PATTERNS) {
+      if (role !== "other") continue;
       const match = pattern.exec(sentence);
       if (!match) continue;
       const name = match[1].trim();
-      if (NOT_A_NAME.test(name) || MONTH_NAMES.test(name) || Object.keys(CITIES).includes(name.toLowerCase())) continue;
+      if (!isName(name)) continue;
       return { value: name, quote: sentence };
     }
   }
