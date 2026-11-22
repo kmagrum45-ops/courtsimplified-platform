@@ -2799,7 +2799,7 @@ const BEFORE_FILING: CaseStage[] = [
     userQuestion: "My claim against the government says an official acted in bad faith or abused their office. What does the court's permission (leave) to go ahead need?",
     title: "Claim against the Crown for misfeasance or bad faith: leave to proceed needed",
     description:
-      "The proceeding is against the Ontario Crown or a Crown officer or employee and includes a claim of misfeasance in public office or another tort based on bad faith. A statute says such a proceeding may go ahead only with the court's leave, and is on hold until leave is granted.",
+      "The proceeding is against the Ontario Crown or a Crown officer or employee and includes a claim of misfeasance in public office or another tort based on bad faith. A statute says such a proceeding may go ahead only with the court's leave, and is deemed to have been stayed (paused) until leave is granted.",
     cues: [
       "misfeasance in public office",
       "the Crown acted in bad faith",
@@ -4332,7 +4332,7 @@ const DEFENDANT: CaseStage[] = [
     deadlines: [
       appealDeadline(
         "deadline:civil:notice-of-appeal-30-days:judgment-being-enforced",
-        " Delivering a notice of appeal pauses the parts of the order that say to pay money, until the appeal is decided. This does not apply to support.",
+        " Delivering a notice of appeal stays (pauses) the parts of the order that say to pay money, until the appeal is decided. This does not apply to support.",
         [C.R_63_01_STAY],
       ),
     ],

@@ -743,6 +743,9 @@ jobs:
       - name: The approved legal changes of 2026-11-21 are on the site word for word, with their quotes
         run: npm run test:legal-changes-20261121
 
+      - name: The 2026-11-22 follow-up sentences use the rule's own word, each with its quote
+        run: npm run test:wording-20261122
+
       - name: Stage-independent answers rest on quoted sources
         run: npm run test:generic-library
 
