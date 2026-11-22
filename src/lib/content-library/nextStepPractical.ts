@@ -572,6 +572,15 @@ function scrCite(pinpoint: string, quote: string): RuleCitation {
  */
 /** Civil (Rules of Civil Procedure): "deliver" is "serve and file with proof of service" (r. 1.03 (1)); a motion to be made is filed. Met by filing; never mail-timed (that is Small Claims only). */
 const CIVIL_FILES: string[] = [
+  // Approved legal changes of 2026-11-21 (changes 118, 120, 121): each classified as its motion-scheduled twin is.
+  "deadline:civil:strike-motion-record-7-days",
+  "deadline:civil:strike-confirmation-5-days",
+  "deadline:civil:strike-responding-factum-4-days",
+  "deadline:civil:strike-responding-confirmation-4-days",
+  "deadline:civil:injunction-record-factum-7-days",
+  "deadline:civil:injunction-confirmation-5-days",
+  "deadline:civil:injunction-responding-factum-4-days",
+  "deadline:civil:injunction-responding-confirmation-4-days",
   "deadline:civil:associate-judge-appeal-record-7-days",
   "deadline:civil:associate-judge-appeal-respondent-4-days",
   "deadline:civil:basic-limitation",
@@ -700,6 +709,10 @@ const CIVIL_NOT_TIMED: Record<string, string> = {
   "deadline:civil:toronto-notice-10-days": "a notice given before suing, outside the court; nothing is filed with the court",
   "deadline:civil:defence:plaintiff-view": "binds the other side, not the person",
   "deadline:civil:simplified-set-down-180-days:defendant-view": "binds the other side, not the person",
+  // Changes 119 and 123 (2026-11-21): the time is stated in words (forthwith; the longer of two times), with no number.
+  "deadline:civil:amended-pleading-serve-forthwith": "the rule says forthwith and sets no fixed period, so no day is ever counted",
+  "deadline:civil:amended-pleading-respond": "the time is the longer of what was left to answer the original and 10 days, stated in words; no single day is counted",
+  "deadline:civil:cpl-order-serve-forthwith": "the rule says forthwith and sets no fixed period, so no day is ever counted",
 };
 
 /** Small Claims deadlines that time nothing, each with why. */
@@ -718,6 +731,8 @@ const SC_NOT_TIMED: Record<string, string> = {
   "deadline:trial-summons-10-days": "a summons is served personally (r. 8.01 (7)) and is not filed",
   "deadline:trial-summons-10-days:defendant": "a summons is served personally (r. 8.01 (7)) and is not filed",
   "deadline:set-aside-as-soon-as-possible": "the rule sets no fixed period, so no day is ever counted",
+  // Change 18 (2026-11-21): the approved paragraph states the 30 days in its words; the missed-trial step counts them.
+  "deadline:set-aside-judgment-after-missed-trial": "the 30 days are stated in the approved words, with no number to count; both:missed-trial counts them (deadline:set-aside-after-missed-trial)",
   "deadline:appeal-notice": "an appeal is started in the Divisional Court under the Rules of Civil Procedure (r. 61.04), not filed in the Small Claims court file these lines describe",
 };
 
@@ -798,6 +813,7 @@ export const PERSON_SERVE_OR_FILE: Record<string, { files: boolean; serves: bool
   "deadline:sc-amend-30-days-before-trial": { files: true, serves: true },
   "deadline:sc-strike-motion-serve-7-days": { files: false, serves: true },
   "deadline:sc-strike-motion-file-3-days": { files: true, serves: false },
+  "deadline:sc-strike-motion-response-2-days": { files: true, serves: true },
   "deadline:sc-dismissal-submission-20-days": { files: true, serves: false },
 };
 

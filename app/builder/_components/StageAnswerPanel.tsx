@@ -933,6 +933,7 @@ function AnswerView({
   underCard = false,
   servedWhen = [],
   notMarried = false,
+  amount = null,
 }: {
   answer: RenderedAnswer;
   court: string;
@@ -943,6 +944,8 @@ function AnswerView({
   servedWhen?: PlainLine[];
   /** Married-only forms left out of the forms the answer names until they say married (marriedOnly.ts hidesMarriedOnly). */
   notMarried?: boolean;
+  /** The amount the record holds: the leave sentences are left out above $50,000, as on the card (forThisPerson; change 23). */
+  amount?: number | null;
 }) {
   const cardLead = underCard ? cardLeadOf(answer) : "";
   return (
@@ -955,7 +958,8 @@ function AnswerView({
         </p>
       ) : null}
       {answer.sections.map((section) => {
-        const text = courtWords(withoutCardLead(section.heading, section.text, cardLead), court);
+        const own = withoutCardLead(section.heading, section.text, cardLead);
+        const text = courtWords(section.heading === "What to do next" ? withoutLeaveSentencesForAmount(own, amount) : own, court);
         return (
           <div key={section.heading}>
             <p className="text-sm font-semibold text-[#16302b]">{section.heading}</p>
@@ -1310,13 +1314,26 @@ export const LEAVE_SENTENCES = [
   /^A claim above it needs no such leave\.$/,
   /^You may ask for leave by motion without notice\b/,
   /^The court may grant it only if it is in the interest of justice\.$/,
+  // Change 23 (approved 2026-11-21): the civil before-filing step's four leave sentences ("What to do next", sentences 6 to
+  // 9 of the page), shown only when the amount claimed is $50,000 or less, or not yet known. Wording unchanged.
+  /^A case that is within the Small Claims Court's limits must not be started in the Superior Court of Justice unless the Superior Court gives leave\.$/,
+  /^The court may give that leave only if it is in the interest of justice\.$/,
+  /^You may ask for this leave without notice, unless the court orders otherwise\.$/,
+  /^Leave is not needed for a counterclaim, a crossclaim, or a third or later party claim, if the main case was started in the Superior Court\.$/,
 ];
 
+/** Each paragraph without the leave sentences, once the recorded amount is over $50,000 (Courts of Justice Act s. 23 (1.1)). */
+export function withoutLeaveSentencesForAmount(text: string, amount: number | null): string {
+  if (amount === null || amount <= 50_000) return text;
+  return text
+    .split(/\n\s*\n/)
+    .map((paragraph) => splitSentences(paragraph).filter((sentence) => !LEAVE_SENTENCES.some((pattern) => pattern.test(sentence.trim()))).join(" "))
+    .filter((paragraph) => paragraph.trim())
+    .join("\n\n");
+}
+
 export function forThisPerson(paragraph: string, { userWords, filingShown, amount = null }: { userWords: string; filingShown: boolean; amount?: number | null }): string {
-  let text = paragraph;
-  if (amount !== null && amount > 50_000) {
-    text = splitSentences(text).filter((sentence) => !LEAVE_SENTENCES.some((pattern) => pattern.test(sentence.trim()))).join(" ");
-  }
+  let text = withoutLeaveSentencesForAmount(paragraph, amount);
   if (!/\bmortgage/i.test(userWords)) {
     text = text.replace(/,? or Form 14B for a mortgage action/g, "").replace(/ \(Form 14A, or Form 14B for a mortgage action\)/g, " (Form 14A)");
   }
@@ -2254,10 +2271,11 @@ export default function StageAnswerPanel({
             underCard={cardShowsLead(result.nextStep, userWords, city)}
             servedWhen={servedWhenOf(result.nextStep)}
             notMarried={notMarried}
+            amount={parseRecordedAmount(recordedAmount)}
           />
         </details>
       ) : result?.outcome === "rendered" ? (
-        <AnswerView answer={result.answer} court={courtPath} userWords={userWords} notMarried={notMarried} />
+        <AnswerView answer={result.answer} court={courtPath} userWords={userWords} notMarried={notMarried} amount={parseRecordedAmount(recordedAmount)} />
       ) : null}
 
       {result?.outcome === "needs-a-fact" && (
@@ -2279,7 +2297,7 @@ export default function StageAnswerPanel({
           >
             Show the steps for that place
           </button>
-          {result.answer && <AnswerView answer={result.answer} court={courtPath} userWords={userWords} notMarried={notMarried} />}
+          {result.answer && <AnswerView answer={result.answer} court={courtPath} userWords={userWords} notMarried={notMarried} amount={parseRecordedAmount(recordedAmount)} />}
         </div>
       )}
 
