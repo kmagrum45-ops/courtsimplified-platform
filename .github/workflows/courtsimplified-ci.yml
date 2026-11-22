@@ -740,6 +740,9 @@ jobs:
       - name: The seven Small Claims wording changes of 2026-11-09 are in every stage named and no other
         run: npm run test:wording-20261109
 
+      - name: The approved legal changes of 2026-11-21 are on the site word for word, with their quotes
+        run: npm run test:legal-changes-20261121
+
       - name: Stage-independent answers rest on quoted sources
         run: npm run test:generic-library
 

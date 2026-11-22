@@ -227,6 +227,8 @@ export function renderDeadlineSection(
     consequence?: "bars-the-claim" | "changes-what-happens-next";
     actor?: "reader" | "other-party" | "court";
     qualifier?: string;
+    beforeLead?: string;
+    showsCounting?: true;
     threshold?: true;
   }>,
 ): string | null {
@@ -257,7 +259,9 @@ export function renderDeadlineSection(
       const qualifier = deadline.qualifier ? ` ${deadline.qualifier}` : "";
       if (deadline.direction === "before") {
         const event = deadline.countFrom.replace(/,?\s*counting backwards\.?$/i, "");
-        return `${deadline.what}. Do this at least ${period} before ${event}.${qualifier}`;
+        // A rule can set the period only for one way of doing the step (change 66, 2026-11-21: Family r. 14 (11.3) and
+        // (11.4)); `beforeLead` then names it, in place of "Do this".
+        return `${deadline.what}. ${deadline.beforeLead ?? "Do this"} at least ${period} before ${event}.${qualifier}`;
       }
 
       // A threshold is not a time to act in (2026-10-13 review: "You have 6
@@ -293,7 +297,9 @@ export function renderDeadlineSection(
       return `${deadline.what}. You have ${period} after ${deadline.countFrom}.${anniversary}${qualifier}`;
     })
     .join("\n\n")
-    .concat(weekendWarningFor(fixed));
+    // A deadline with no number gets its court's counting paragraph only where it asks for it (changes 119 and 123,
+    // approved 2026-11-21: "forthwith" and "the time left ... or 10 days" are stated in the words, not as a number).
+    .concat(weekendWarningFor([...fixed, ...deadlines.filter((deadline) => deadline.length.count === 0 && deadline.showsCounting)]));
 }
 
 /**

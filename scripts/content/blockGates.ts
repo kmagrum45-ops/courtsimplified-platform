@@ -30,8 +30,7 @@ import {
   type StageAnswer,
 } from "../../src/lib/content-library/stageAnswers";
 import type { GenericAnswer } from "../../src/lib/content-library/genericAnswers";
-import { readability, TARGET_GRADE } from "../../src/lib/content-library/readability";
-import { assessReadability } from "../../src/lib/content-library/readabilityExceptions";
+import { sentencesAboveTarget, type ReadingWarning } from "../../src/lib/content-library/readability";
 
 /** Statuses a user may be shown. `needs-human` and `draft` are never published. */
 export const PUBLISHABLE = ["verified-draft", "no-source", "approved"] as const;
@@ -975,7 +974,7 @@ function allGateFailures(answer: GateableAnswer, stage: CaseStage | null): strin
   }
 
   /*
-   * *** READING LEVEL, WITH THE TERM-OF-ART EXCEPTION ***
+   * *** READING LEVEL: A WARNING SINCE 2026-11-21 (site owner); the history below is why the exception existed ***
    *
    * `assessReadability` returns withinTarget for a block that meets grade 8, and also
    * for one that only misses it because of an allowlisted term of art — a named
@@ -992,10 +991,20 @@ function allGateFailures(answer: GateableAnswer, stage: CaseStage | null): strin
    * The grant is not silent. `readabilityExceptionFor` lets a caller retrieve the
    * exception and log it, and the drafting run prints it.
    */
-  const assessment = assessReadability(text, TARGET_GRADE);
-  if (!assessment.withinTarget) {
-    failures.push(assessment.reason);
-  }
-
+  // Since 2026-11-21 (site owner) the reading level is a WARNING, never a failure: see readingWarnings below and
+  // readability.ts sentencesAboveTarget. Legal wording is never changed to lower a score.
   return failures;
+}
+
+/**
+ * The sentences of a block above grade 8, by section, outside word-for-word rule quotes. A warning only: printed by
+ * test:published-library and test:stage-answers, never a failure (site owner, 2026-11-21).
+ */
+export function readingWarnings(answer: GateableAnswer): ReadingWarning[] {
+  return sentencesAboveTarget([
+    { section: "What is happening", text: answer.whatsHappening },
+    { section: "What to do next", text: answer.whatToDoNext },
+    { section: "Your deadline", text: answer.yourDeadline },
+    { section: "What happens after", text: answer.whatHappensAfter },
+  ]);
 }

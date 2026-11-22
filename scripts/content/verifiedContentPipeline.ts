@@ -463,7 +463,16 @@ export function modalMismatch(sentence: string, quote: string): boolean {
   return governingModal(quote, period) === "may";
 }
 
-export function predictsOutcome(sentence: string): string | null {
+/**
+ * A rule's own words that use a marker above but predict nothing about the case, each authorized by the site owner one
+ * at a time. Only the exact phrase is skipped; any other "likely" or "unlikely" in the same text is still refused.
+ *   - "not likely to be disputed": Family Law Rules r. 14 (19) (b), on hearsay in an affidavit on a contempt motion
+ *     (changes 83 and 85, approved 2026-11-21; owner's decision the same day). It is about evidence, not the outcome.
+ */
+export const RULE_PHRASES_NOT_PREDICTIONS: readonly string[] = ["not likely to be disputed"];
+
+export function predictsOutcome(given: string): string | null {
+  const sentence = RULE_PHRASES_NOT_PREDICTIONS.reduce((text, phrase) => text.split(phrase).join(""), given);
   for (const marker of OUTCOME_MARKERS) {
     const found = marker.exec(sentence);
     if (found) return found[0];
