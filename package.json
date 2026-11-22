@@ -43,6 +43,7 @@
     "test:askers-fact-status": "node --import tsx scripts/verification/verifyAskersUseFactStatus.ts",
     "test:fact-status": "node --import tsx scripts/verification/verifyFactStatus.ts",
     "test:old-shape-cases": "node --import tsx scripts/verification/verifyOldShapeCases.ts",
+    "test:one-story-reader": "node --import tsx scripts/verification/verifyOneStoryReader.ts",
     "test:site-text-never-facts": "node --import tsx scripts/verification/verifySiteTextNeverFacts.ts",
     "test:defendant-view": "node --import tsx scripts/verification/verifyDefendantView.ts",
     "test:amount-format": "node --import tsx scripts/verification/verifyAmountFormat.ts",

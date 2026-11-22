@@ -86,7 +86,7 @@ export default function CaseUnderstandingCard({
   // question text reaches the person).
   // The one decision (factQuestions.ts homeAsks): a question whose facts the record holds, or the story states, is not
   // asked here, and nothing is offered here: the intake offers a stated value once (site owner, 19 Nov 2026).
-  const asks = understanding.questions.map((item) => isSiteQuestion(item) && homeAsks(file, item.id!, story ?? ""));
+  const asks = understanding.questions.map((item) => isSiteQuestion(item) && homeAsks(file, item.id!, story ?? "", understanding.facts));
   // Each box is kept by its question's id, never its place, so a new reading with other questions can never put an
   // answer under another question (site owner, 19 Nov 2026).
   const reply = (id: string, value: string) => {

@@ -18,6 +18,7 @@
  */
 import { QUESTION_BANK } from "../intake/questionBank";
 import { statedInStory } from "../intakeReview";
+import type { ReadingFact } from "./storyOffers";
 import { civilGuidedFields, familyGuidedFields } from "../../../../app/builder/_components/guidedFields";
 import { factsOfQuestion } from "./factsOfQuestion";
 import { factStatus } from "./factStatus";
@@ -80,8 +81,10 @@ export function allHomeQuestionWords(): Set<string> {
  * on every reading. Chrome pass 3 re-recording: S2 was asked the amount after "kept my $1,200 deposit"; S1 and S4 were
  * asked when, after "On Oct 4, 2026", and "I do not know yet" settled the date the story gave.
  */
-export function homeAsks(file: CaseFile | null | undefined, questionId: string, story: string): boolean {
-  const stated = statedInStory(story ?? "");
+export function homeAsks(file: CaseFile | null | undefined, questionId: string, story: string, reading: readonly ReadingFact[] = []): boolean {
+  // The one story reader (storyReader.ts), with the reading the card shows: what it reads here is what the intake offers
+  // (S1, Chrome check of ad67c3f7: the total the reading showed; S7: the child the story names), so it is not asked here.
+  const stated = statedInStory(story ?? "", reading);
   return factsOfQuestion(questionId).every((fact) => factStatus(file, fact as SlotFact, stated) === "ask");
 }
 

@@ -49,15 +49,11 @@ import { partyName, partyNames, readParties, type PartiesHeld } from "../parties
 import { partiesFromOldShapes } from "./oldParties";
 import { fitsFactType } from "./factTypes";
 
-/** The case file's slots, in the order "What we have so far" shows them. */
-export const SLOT_FACTS = [
-  "side", "court", "stage", "filed", "papers", "servedDate", "amount", "otherParty", "children",
-  "married", "marriedWhere", "claimKind", "wants", "whenHappened", "conferenceDate", "defenceFiled",
-  "outcome", "defendantsClaim", "urgent", "courtDate", "safety",
-  // The story, held once it is given (founder, 1 Nov: no screen asks for it again; its words are `storyText`).
-  "story",
-] as const;
-export type SlotFact = (typeof SLOT_FACTS)[number];
+// The case file's slots live in their own file, which imports nothing, so a module that reads them as it loads never
+// meets this one half-loaded (21 Nov 2026: caseFile -> personWords -> siteQuestions -> guidedFields -> intakeReview ->
+// ... -> factRecord read SLOT_FACTS before this file had defined it).
+import { SLOT_FACTS, type SlotFact } from "./slotFacts";
+export { SLOT_FACTS, type SlotFact };
 export type SlotState = "not-asked" | "answered" | "unsure";
 export type SlotSource = { kind: "answer"; question: string } | { kind: "story"; quote: string };
 /**

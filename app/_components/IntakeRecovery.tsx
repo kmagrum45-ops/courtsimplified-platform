@@ -1,7 +1,7 @@
 "use client";
 
 import IntakeReviewPanel from "./IntakeReviewPanel";
-import { continueNeeds } from "../../src/lib/case-system/intakeReview";
+import { continueNeeds, quotesOf, statedInStory } from "../../src/lib/case-system/intakeReview";
 import { startSignIn } from "./startSignIn";
 import { markReviewNeeded } from "./reviewNeeded";
 import { blockedMessage, flushOpenEdits } from "./openEdits";
@@ -18,7 +18,6 @@ import { onSideChange } from "../../src/lib/case-system/sideChange";
 import { BASIS_SECTION, discardedFields, discardStale, onStoryChange, reaffirmAnswers, storyAnswersOutdated, STORY_TEXT_FIELD, tagAnswers } from "../../src/lib/case-system/storyBasis";
 import { migrateStory, storyOf, STORY_INPUT_KEYS, STORY_SECTION, type CaseLocation } from "../../src/lib/case-system/intakeStory";
 import { answerSituation, courtOfPapers, nextSituationQuestion, sideContradiction, situationFromRaw, situationSection, SITUATION_FIELD, SITUATION_SECTION, withKnownCourt, type Situation } from "../../src/lib/case-system/situation/situation";
-import { civilRoleFromStory, familyRoleFromStory } from "../builder/_components/storyAnswers";
 import SituationQuestions, { SITUATION_CHANGE_EVENT, SituationLine } from "./SituationQuestions";
 import SafetyNotice from "./SafetyNotice";
 import FirstUseAcknowledgement from "./FirstUseAcknowledgement";
@@ -768,7 +767,9 @@ function SituationGate({ court, ownerId, children }: { court: IntakeCourt; owner
 function SideCrossCheck({ court, situation, onChange }: { court: IntakeCourt; situation: Situation; onChange: () => void }) {
   const [story] = useStory();
   const [kept, setKept] = useIntakeState<string>(SITUATION_SECTION, "keptAgainst", "");
-  const reading = court === "family" ? familyRoleFromStory(story) : civilRoleFromStory(story);
+  // The one story reader (intakeReview.ts statedInStory): the role the story states, with its words.
+  const role = quotesOf(statedInStory(story, [], court)).side;
+  const reading = role && typeof role.value === "string" ? { value: role.value, quote: role.quote } : null;
   const storySide = reading ? (reading.value === "defendant" || reading.value === "respondent" ? "responding" : "bringing") : null;
   const contradiction = sideContradiction(situation, storySide);
   if (!contradiction || !reading || kept === reading.quote) return null;

@@ -656,8 +656,8 @@
     "file": "app/builder/_components/storyAnswers.ts",
     "name": "childrenFromStory",
     "count": 1,
-    "status": "one",
-    "facts": "children"
+    "status": "part",
+    "facts": "children (under intakeReview.ts statedInStory, the one story reader, 21 Nov 2026)"
   },
   {
     "kind": "story-reader",
@@ -672,60 +672,56 @@
     "file": "app/builder/_components/storyAnswers.ts",
     "name": "civilFiledFromStory",
     "count": 1,
-    "status": "one",
-    "facts": "filed (Civil)"
+    "status": "part",
+    "facts": "filed (Civil) (under intakeReview.ts statedInStory, the one story reader, 21 Nov 2026)"
   },
   {
     "kind": "story-reader",
     "file": "app/builder/_components/storyAnswers.ts",
     "name": "civilIssuesFromStory",
     "count": 1,
-    "status": "one",
-    "facts": "issues (Civil)"
+    "status": "part",
+    "facts": "issues (Civil) (under intakeReview.ts statedInStory, the one story reader, 21 Nov 2026)"
   },
   {
     "kind": "story-reader",
     "file": "app/builder/_components/storyAnswers.ts",
     "name": "civilRoleFromStory",
     "count": 1,
-    "status": "second",
-    "facts": "side (Civil)",
-    "moveTo": "src/lib/case-system/intakeReview.ts statedInStory",
-    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
+    "status": "part",
+    "facts": "side (Civil) (under intakeReview.ts statedInStory, the one story reader, 21 Nov 2026)"
   },
   {
     "kind": "story-reader",
     "file": "app/builder/_components/storyAnswers.ts",
     "name": "courtDateFromStory",
     "count": 1,
-    "status": "one",
-    "facts": "courtDate"
+    "status": "part",
+    "facts": "courtDate (under intakeReview.ts statedInStory, the one story reader, 21 Nov 2026)"
   },
   {
     "kind": "story-reader",
     "file": "app/builder/_components/storyAnswers.ts",
     "name": "familyFiledFromStory",
     "count": 1,
-    "status": "one",
-    "facts": "filed (Family)"
+    "status": "part",
+    "facts": "filed (Family) (under intakeReview.ts statedInStory, the one story reader, 21 Nov 2026)"
   },
   {
     "kind": "story-reader",
     "file": "app/builder/_components/storyAnswers.ts",
     "name": "familyIssuesFromStory",
     "count": 1,
-    "status": "one",
-    "facts": "issues (Family)"
+    "status": "part",
+    "facts": "issues (Family) (under intakeReview.ts statedInStory, the one story reader, 21 Nov 2026)"
   },
   {
     "kind": "story-reader",
     "file": "app/builder/_components/storyAnswers.ts",
     "name": "familyRoleFromStory",
     "count": 1,
-    "status": "second",
-    "facts": "side (Family)",
-    "moveTo": "src/lib/case-system/intakeReview.ts statedInStory",
-    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
+    "status": "part",
+    "facts": "side (Family) (under intakeReview.ts statedInStory, the one story reader, 21 Nov 2026)"
   },
   {
     "kind": "story-reader",
@@ -776,8 +772,8 @@
     "file": "app/builder/_components/storyAnswers.ts",
     "name": "servedDateFromStory",
     "count": 1,
-    "status": "one",
-    "facts": "servedDate"
+    "status": "part",
+    "facts": "servedDate (under intakeReview.ts statedInStory, the one story reader, 21 Nov 2026)"
   },
   {
     "kind": "story-reader",

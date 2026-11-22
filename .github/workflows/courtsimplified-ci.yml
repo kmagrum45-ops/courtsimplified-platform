@@ -100,6 +100,9 @@ jobs:
 
       - name: A case saved by main's code opens and reads the same (answers kept, nothing asked again, nothing rewritten)
         run: npm run test:old-shape-cases
+
+      - name: "One story reader: the home page never asks what the intake offers from the story (S1, S7)"
+        run: npm run test:one-story-reader
       - name: The site's own questions never become the person's facts (drafts, "From your story" quotes, the stored story; every court)
         run: npm run test:site-text-never-facts
       - name: A person being sued is never shown what is written for the person suing (every kind mapped or hidden for a defendant)

@@ -55,6 +55,10 @@ const ROWS: Record<string, { states: string; silent: string }> = {
   whenHappened: { states: "On October 4, 2026 my neighbour cut down my maple tree.", silent: "My neighbour cut down my maple tree." },
   amount: { states: "My contractor kept my $1,200 deposit.", silent: "My contractor left the job unfinished." },
   wants: { states: "My contractor left the job unfinished. I want my deposit back.", silent: "My contractor left the job unfinished." },
+  // Added with the one story reader (21 Nov 2026, batch (a)): the facts it now states for every court.
+  children: { states: "We separated in April 2026. We have a 6-year-old.", silent: "We separated in April 2026." },
+  servedDate: { states: "I was served with the claim on October 1, 2026.", silent: "I was served with the claim." },
+  courtDate: { states: "The case conference is on December 3, 2026.", silent: "There is a case conference coming up." },
 };
 
 // 1.

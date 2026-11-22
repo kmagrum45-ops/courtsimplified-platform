@@ -9,7 +9,14 @@
  *
  * Pure: no model, no network.
  */
-import { STORY_STATED_FACTS as STATED_FACTS, statedInStory } from "../intakeReview";
+import { statedInStory } from "../intakeReview";
+
+/**
+ * The facts this chat offers from the story when the AI did not (the one story reader, storyReader.ts, reads them). Its
+ * own three, as before the reader was one (21 Nov 2026): the Small Claims home questions ask no other fact the reader
+ * states, so the home page and this chat decide each the same way; offering more here would change what the chat shows.
+ */
+const STATED_FACTS = ["whenHappened", "amount", "wants"] as const;
 import type { ReadingFact } from "../caseFile/storyOffers";
 import { formatForCourt, isRealIsoDate } from "../dates";
 import { factsOfQuestion } from "../caseFile/factsOfQuestion";

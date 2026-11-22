@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-317 documented, 26 without a header.
+318 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -200,6 +200,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:old-shape-cases` | **A CASE SAVED BEFORE A CHANGE STILL OPENS AND READS THE SAME AFTER IT (site owner, 13 Nov 2026: "no change may alter or**<br>lose a saved case; a new reader accepts old data; a migration is additive only"). |
 | `npm run test:one-deadline-source` | **THE CASE PAGE AND THE CASE FILE PAGE SHOW THE SAME DEADLINES, FROM ONE SOURCE (Chrome check of #544, 6 Nov 2026, F4).**<br>Chrome, Small Claims: the case page's next step said "Based on the date you gave us, the last day for this is Friday 3 March 2028" and "Saved to your case"; the case file page said "Deadlines worked out from your dates: None yet". The next-step card counts the |
 | `npm run test:one-decider` | **RULE 0: ONE PLACE DECIDES, READS, LABELS AND WRITES EACH FACT; NOTHING OLD SITS BESIDE THE NEW (site owner, 19 Nov 2026).**<br>"When the new way of deciding a question, reading a fact, labelling a source or writing an answer is in, the old one is deleted in the same change. No fallback, no second copy." The sweep of 19 Nov 2026 (the PR's report, part 1) found the places below. This su |
+| `npm run test:one-story-reader` | **ONE STORY READER: THE HOME PAGE NEVER ASKS WHAT THE INTAKE OFFERS FROM THE STORY (site owner, 21 Nov 2026, batch (a)).**<br>Chrome check of ad67c3f7: S1's home page asked "What is the total dollar amount you are claiming?" while its reading showed $5,468.45, which the intake then offered; S7's asked "Tell us about the children: how many, how old, and who they live with now" right a |
 | `npm run test:one-writer` | **ONE WRITER: EVERY SAVE POINT OF CASE DATA IS ON A LIST THAT ONLY SHRINKS (case core G0, "the rails";**<br>docs CASE_CORE_DESIGN.md §10; founder's Phase 1 approval, 31 Oct: "a permanent check that fails on a new save point bypassing the writer"). |
 | `npm run test:open-case` | **ONE CASE ID DECIDES WHICH CASE IS OPEN: the address, and nothing else**<br>(npm run test:open-case). |
 | `npm run test:openai-cost` | **OpenAI spending stays under control.**<br>WHAT IT CATCHES (2026-10-08: October's spend reached about $396 against a $100 budget, $205.76 of it prompt-cache WRITES that were almost never read back): - a call to a GPT-5.6+ model going out without prompt_cache_options, so the whole prompt is written to t |

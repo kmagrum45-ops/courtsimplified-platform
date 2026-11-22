@@ -7,7 +7,12 @@
  * with the stand-ins for the AI, and each story's saved `cases` rows were read before its account was deleted. Each
  * fixture also holds what main's code read from that row (caseFileOf, reviewPhase, the review's answered questions).
  * They have none of the fields this branch adds (builder.reviewOfferChoices, an answer's source "story-offer" /
- * "not-sure", a chat message's source "chip"). Checks, for every saved case, through this branch's code:
+ * "not-sure", a chat message's source "chip").
+ * REFRESHED 22 Nov 2026 (site owner, before #552 merged): fixtures/oldShapeCases/main-a8afce0b.json.gz, 135 saved cases made
+ * the same way on main a8afce0b (after #550, #551 and #553) by eight page tests (ask-once-pages, carry-end-to-end, the "not
+ * sure" and offer tests, change-answer, review-answered-kept): every court, guest and signed-in runs, offers, "not sure",
+ * removed facts, saved parties lists. Made-up stories in test accounts only. It also holds main's reading of the parties.
+ * Checks, for every saved case in every fixture file, through this branch's code:
  *   1. it opens: the checkpoint reads as it did, and the case file, review entries, review questions, story offers
  *      and review phase are all read without an error;
  *   2. nothing is written back: the saved record is deep-frozen while it is read, and is byte-identical afterwards;
@@ -43,13 +48,17 @@ const check = (name: string, ok: boolean, detail = "") => {
   if (!ok) failures += 1;
 };
 
-const FIXTURE = path.join(__dirname, "fixtures", "oldShapeCases", "main-141fa246.json.gz");
+const DIR = path.join(__dirname, "fixtures", "oldShapeCases");
+/** The first capture (19 Nov, before #550 and #551): old-shape only. A later capture (refreshed 22 Nov 2026 on main a8afce0b,
+ * after #550, #551 and #553, by the same method) holds the shapes saved since, so the "no new field" setup check applies to
+ * the first only. */
+const OLD_SHAPE_FILE = "main-141fa246.json.gz";
 
 type OldFact = { state: string; value: unknown; sourceKind: string | null; confirmed: boolean; removed: boolean; wouldAsk: boolean };
 type Fixture = {
-  id: string; story: string; court: "small-claims" | "civil" | "family"; side: string;
+  id: string; file: string; story: string; court: "small-claims" | "civil" | "family"; side: string;
   master: Record<string, unknown>;
-  oldReading: { checkpointRead: boolean; phase: string | null; inputRevision: string | null; storyOutdated: boolean | null; answeredQuestions: string[]; facts: Record<string, OldFact> };
+  oldReading: { checkpointRead: boolean; phase: string | null; inputRevision: string | null; storyOutdated: boolean | null; answeredQuestions: string[]; facts: Record<string, OldFact>; parties?: { recorded: boolean; list: { side: string; you: boolean; name: string }[] } | null };
 };
 
 function deepFreeze<T>(value: T): T {
@@ -100,19 +109,31 @@ async function main() {
   const { storyAnswersOutdated } = await import("../../src/lib/case-system/storyBasis");
   const { partyName } = await import("../../src/lib/case-system/parties/parties");
 
-  const cases = (fs.existsSync(FIXTURE) ? JSON.parse(zlib.gunzipSync(fs.readFileSync(FIXTURE)).toString("utf8")).cases : []) as Fixture[];
-  check("setup: the old-shape fixtures exist", cases.length > 0, FIXTURE);
+  const files = fs.existsSync(DIR) ? fs.readdirSync(DIR).filter((name) => name.endsWith(".json.gz")).sort() : [];
+  const cases = files.flatMap((name) => (JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(DIR, name))).toString("utf8")).cases as Omit<Fixture, "file">[]).map((item) => ({ ...item, file: name }))) as Fixture[];
+  check("setup: the old-shape fixtures exist", cases.some((item) => item.file === OLD_SHAPE_FILE), DIR);
+  check("setup: a capture newer than the first is present (refreshed 22 Nov 2026)", cases.some((item) => item.file !== OLD_SHAPE_FILE));
   for (const story of ["sc-tree-cut", "sc-slip-and-fall", "sc-slip-and-fall-changed"]) {
     check(`setup: ${story} is among the saved cases`, cases.some((item) => item.story === story && item.oldReading.checkpointRead));
   }
-  check("setup: every court is represented", ["small-claims", "civil", "family"].every((court) => cases.some((item) => item.court === court)));
+  for (const name of files) check(`setup: every court is represented (${name})`, ["small-claims", "civil", "family"].every((court) => cases.some((item) => item.file === name && item.court === court)));
   const newKeys = /"reviewOfferChoices"|"source":"(story-offer|not-sure|chip)"|"parties":{"version"/;
-  check("setup: no fixture holds a field this branch adds (they are old-shape)", cases.every((item) => !newKeys.test(JSON.stringify(item.master))));
+  check("setup: no case in the first capture holds a field added since (they are old-shape)", cases.filter((item) => item.file === OLD_SHAPE_FILE).every((item) => !newKeys.test(JSON.stringify(item.master))));
+  // The refreshed capture holds the shapes saved since #550/#551: guest and signed-in runs, the review's offer choices,
+  // "not sure", removed facts, and confirmed and unconfirmed reviews.
+  const fresh = cases.filter((item) => item.file !== OLD_SHAPE_FILE);
+  const factsOf = (item: Fixture) => Object.values(item.oldReading.facts);
+  check("setup: the refreshed capture has guest-run cases", fresh.some((item) => /guest/i.test(item.story)));
+  check("setup: the refreshed capture has signed-in cases", fresh.some((item) => !/guest/i.test(item.story)));
+  check("setup: the refreshed capture has the review's offer choices", fresh.some((item) => /"reviewOfferChoices"/.test(JSON.stringify(item.master))));
+  check('setup: the refreshed capture has "not sure" answers', fresh.some((item) => factsOf(item).some((fact) => fact.state === "unsure" && fact.confirmed)));
+  check("setup: the refreshed capture has removed facts", fresh.some((item) => factsOf(item).some((fact) => fact.removed)));
+  check("setup: the refreshed capture has confirmed and unconfirmed reviews", fresh.some((item) => item.oldReading.phase === "user-confirmed") && fresh.some((item) => item.oldReading.phase !== "user-confirmed"));
 
   let factsHeld = 0;
   const storyValuesUnconfirmed: string[] = [];
   for (const item of cases) {
-    const label = item.id;
+    const label = item.file === OLD_SHAPE_FILE ? item.id : `[22 Nov] ${item.id}`;
     const before = JSON.stringify(item.master);
     const master = deepFreeze(structuredClone(item.master));
     let opened = true;
@@ -167,11 +188,20 @@ async function main() {
     // 7. The parties (14 Nov 2026, rule 1): an old case has no parties record; it opens, and its parties are read from what
     // it holds, nothing written back (check 2). The other party main held is one party with that same name, never merged.
     const parties = (file as { parties?: { list: { side: string; you?: true }[]; recorded: boolean } }).parties;
-    check(`7. ${label}: the parties are read (no record, read from what the case holds)`, Boolean(parties) && parties!.recorded === false, JSON.stringify(parties ?? null));
+    const mainParties = item.oldReading.parties;
+    if (mainParties) {
+      // A refreshed capture holds main's own reading of the parties: the same list (side, you, name) and the same record mark.
+      const now = parties ? { recorded: Boolean(parties.recorded), list: parties.list.map((party) => ({ side: party.side, you: Boolean(party.you), name: partyName(party as never) })) } : null;
+      check(`7. ${label}: the parties read as main read them`, same(now, mainParties), `main: ${JSON.stringify(mainParties)} | now: ${JSON.stringify(now)}`);
+    } else check(`7. ${label}: the parties are read (no record, read from what the case holds)`, Boolean(parties) && parties!.recorded === false, JSON.stringify(parties ?? null));
     const otherHeld = item.oldReading.facts.otherParty;
     if (parties && otherHeld && otherHeld.state === "answered" && typeof otherHeld.value === "string") {
       const others = parties.list.filter((party) => party.side === "other").map((party) => partyName(party as never));
-      check(`7. ${label}: the other party main held is one party with the same name`, others.length === 1 && others[0] === otherHeld.value, `main: ${otherHeld.value} | parties: ${JSON.stringify(others)}`);
+      // With no parties record the other party is read from the one fact: exactly one party, that name. With a record the
+      // person saved on the Parties step (22 Nov capture: sc-forms-chrome added "Test Manager" beside Circle K), the list
+      // is theirs and is compared whole with main's reading above; main's other party must still be on it.
+      if (!parties.recorded) check(`7. ${label}: the other party main held is one party with the same name`, others.length === 1 && others[0] === otherHeld.value, `main: ${otherHeld.value} | parties: ${JSON.stringify(others)}`);
+      else check(`7. ${label}: the other party main held is still on the saved parties list`, others.includes(otherHeld.value), `main: ${otherHeld.value} | parties: ${JSON.stringify(others)}`);
     }
   }
   // The allowance is that narrow: each of these must be refused.
