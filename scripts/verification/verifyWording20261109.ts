@@ -81,7 +81,11 @@ for (const change of CHANGES) {
     const old = blocks.filter((b) => all(b).includes(change.old));
     check("7. the old wording is in no stage", old.length === 0, old.map((b) => b.stageId).join(", "));
   } else {
-    const others = blocks.filter((b) => !change.stages.includes(b.stageId) && all(b).includes(change.now));
+    // A later approval that puts the same approved sentence in another stage is not a misplacement: change 10 of
+    // 2026-11-21 matches change 1's fee sentence in notice-deadline-missed, and change 14 adds change 5's holiday
+    // sentence to the defendant's served stage (verifyLegalChanges20261121.ts checks both).
+    const LATER_APPROVED: Record<number, string[]> = { 1: ["before-filing:notice-deadline-missed"], 5: ["defendant:served-defence-period-running"] };
+    const others = blocks.filter((b) => !change.stages.includes(b.stageId) && !(LATER_APPROVED[change.n] ?? []).includes(b.stageId) && all(b).includes(change.now));
     check(`${change.n}. the new wording is in no other stage`, others.length === 0, others.map((b) => b.stageId).join(", "));
   }
 }
@@ -106,9 +110,8 @@ for (const stage of ALL_STAGES) {
 
 // Change 4 and the reading gate (owner's decision, 2026-11-09): "delivery confirmation" (r. 8.03 (8)) is the one term
 // added to the term-of-art list. The exception stays narrow: a block that is hard to read for any other reason still fails.
-const service = blocks.find((b) => b.stageId === "plaintiff:service-attempted-failed");
-const serviceGate = assessReadability(answerText(service as never));
-check("8. service-attempted-failed passes the reading gate only through the listed term", serviceGate.withinTarget === true && serviceGate.exception?.term === "delivery confirmation", JSON.stringify({ grade: serviceGate.grade, exception: serviceGate.exception?.term ?? null }));
+// Since 2026-11-21 the reading level is a warning, never a failure (site owner), and change 20 of that day made this
+// block read above grade 8 even with the term replaced. What still holds: the term list stays exactly these two terms.
 check("8. the term list holds exactly \"settlement conference\" and \"delivery confirmation\"", JSON.stringify(TERMS_OF_ART.map((t) => t.term)) === JSON.stringify(["settlement conference", "delivery confirmation"]));
 const HARD = "Notwithstanding the aforementioned circumstances, the respondent's comprehensive documentation substantially demonstrates organizational irregularities necessitating extraordinary administrative reconsideration. ";
 check("9. a block too hard to read with no listed term still fails", assessReadability(HARD.repeat(3)).withinTarget === false && assessReadability(HARD.repeat(3)).exception === null);

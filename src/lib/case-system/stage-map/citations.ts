@@ -1206,3 +1206,111 @@ export const RCP_76_02_4_SAY_SO = civilRule(
   "r. 76.02 (4)",
   "The statement of claim (Form 14A, 14B or 14D) or notice of action (Form 14C) shall indicate that the action is being brought under this Rule.",
 );
+
+// ---- Rules-only pages: quotes added by the approved legal changes of 2026-11-21 (changes 103 to 114), word for word
+// from the saved Rules of the Small Claims Court. Where a page now shows a subrule in full, it has its own constant, so
+// the shorter quote other places rest on (stageSequence.ts) is unchanged.
+export const R_15_01_AFTER_JUDGMENT = scc(
+  "r. 15.01 (6)",
+  "A motion that is made after judgment has been signed shall be served on all parties, including those who have been noted in default.",
+);
+export const R_15_01_SUPPLEMENTARY = scc(
+  "r. 15.01 (5)",
+  "The moving party may serve a supplementary affidavit on every party who has filed a claim or defence and file it, with proof of service, at least two days before the hearing date.",
+);
+export const R_15_05_ADJOURNMENT = scc(
+  "r. 15.05",
+  "A motion shall not be adjourned at a party's request before the hearing date unless the written consent of all parties is filed when the request is made, unless the court orders otherwise.",
+);
+export const R_9_03_NO_DISPUTE_FULL = scc(
+  "r. 9.03 (2)",
+  "If the plaintiff does not dispute the proposal within the 20-day period referred to in subrule (3), (a) the defendant shall make payment in accordance with the proposal as if it were a court order; (b) the plaintiff may serve a notice of default of payment (Form 20L) on the defendant if the defendant fails to make payment in accordance with the proposal; and (c) the clerk shall sign judgment for the unpaid balance of the undisputed amount on the filing of an affidavit of default of payment (Form 20M) by the plaintiff swearing, (i) that the defendant failed to make payment in accordance with the proposal, (ii) to the amount paid by the defendant and the unpaid balance, and (iii) that 15 days have passed since the defendant was served with a notice of default of payment.",
+);
+export const R_9_03_NO_APPEARANCE = scc(
+  "r. 9.03 (6)",
+  "If the defendant does not appear at the hearing, the clerk may sign default judgment against the defendant for the part of the claim that has been admitted and shall serve a default judgment (Form 11B) on the defendant in accordance with subrule 8.01 (4).",
+);
+export const R_9_03_DEFAULT_ON_ORDER = scc(
+  "r. 9.03 (7)",
+  "Unless the referee or other person specifies otherwise in the order as to terms of payment, if the defendant fails to make payment in accordance with the order, the clerk shall sign judgment for the unpaid balance on the filing of an affidavit by the plaintiff swearing to the default and stating the amount paid and the unpaid balance.",
+);
+export const R_16_1_01_TMC_COSTS = scc(
+  "r. 16.1.01 (5)",
+  "The court may award costs against a person who attends a trial management conference if, in the opinion of the court, the person is so inadequately prepared as to frustrate the purposes of the conference.",
+);
+export const R_16_1_02_TMC_DISCUSS = scc(
+  "r. 16.1.02 (2)",
+  "At the trial management conference, the parties and their representatives shall openly and frankly discuss the issues involved in the action.",
+);
+export const R_14_01_1_WRITING = scc(
+  "r. 14.01.1 (1)",
+  "An offer to settle, an acceptance of an offer to settle and a notice of withdrawal of an offer to settle shall be in writing.",
+);
+export const R_14_03_DEEMED_WITHDRAWN = scc(
+  "r. 14.03 (2)",
+  "If an offer to settle specifies a date after which it is no longer available for acceptance, and has not been accepted on or before that date, the offer shall be deemed to have been withdrawn on the day after that date.",
+);
+export const R_14_07_SELF_REPRESENTED = scc(
+  "r. 14.07 (3)",
+  "If an amount is awarded under subrule (1) or (2) to a self- represented party, the court may, despite rule 19.05, also award the party an amount not exceeding $1,500 as compensation for inconvenience and expense.",
+);
+export const R_20_10_REQUEST_DOCUMENTS = scc(
+  "r. 20.10 (2)",
+  "The creditor's request shall be accompanied by, (a) an affidavit for enforcement request (Form 20P) setting out, (i) the date of the order and the amount awarded, (ii) the territorial division in which the order was made, (iii) the rate of postjudgment interest payable, (iv) the total amount of any payments received since the order was granted, and (v) the amount owing, including postjudgment interest; and (b) a certificate of judgment (Form 20A), if the order was made in another territorial jurisdiction.",
+);
+export const R_20_10_ORDER_IN_FORCE = scc(
+  "r. 20.10 (8)",
+  "While an order as to payment is in force, no step to enforce the judgment may be taken or continued against the debtor by a creditor named in the order, except issuing a writ of seizure and sale of land and filing it with the sheriff.",
+);
+export const R_20_11_REFUSES = scc(
+  "r. 20.11 (1)",
+  "If a person on whom a notice of examination has been served under rule 20.10 attends the examination but refuses to answer questions or to produce records or documents, the court may order the person to attend before it for a contempt hearing.",
+);
+export const R_20_11_FAILS_TO_ATTEND = scc(
+  "r. 20.11 (2)",
+  "If a person on whom a notice of examination has been served under rule 20.10 fails to attend the examination, the court may order the person to attend before it for a contempt hearing under subsection 30 (1) of the Courts of Justice Act.",
+);
+export const R_20_08_PAY_CLERK = scc(
+  "r. 20.08 (9)",
+  "A garnishee who admits owing a debt to the debtor shall pay it to the clerk in the manner prescribed by the notice of garnishment, and the amounts paid into court shall not exceed the portion of the debtor's wages that are subject to seizure or garnishment under section 7 of the Wages Act.",
+);
+export const R_20_08_HEARING = scc(
+  "r. 20.08 (15)",
+  "At the request of a creditor, debtor, garnishee, co-owner of the debt or any other interested person, the clerk shall schedule a garnishment hearing.",
+);
+export const R_20_02_PERIODIC_IN_FORCE = scc(
+  "r. 20.02 (2)",
+  "While an order for periodic payment is in force, no step to enforce the judgment may be taken or continued against the debtor by a creditor named in the order, except issuing a writ of seizure and sale of land and filing it with the sheriff.",
+);
+export const R_20_02_PERIODIC_TERMINATES = scc(
+  "r. 20.02 (4)",
+  "An order for periodic payment terminates on the day that is 15 days after the creditor serves the debtor with the notice of default of payment, unless a consent (Form 13B) in which the creditor waives the default is filed within the 15-day period.",
+);
+export const R_11_2_01_DISMISS_ON_CONSENT = scc(
+  "r. 11.2.01 (1)",
+  "The clerk shall, on the filing of a request for clerk's order on consent (Form 11.2A), make an order granting the relief sought, including costs, if the following conditions are satisfied: 1. The relief sought is, ... vi. dismissing an action. 2. The request is signed by all parties (including any party to be added, deleted or substituted) and states, i. that each party has received a copy of the request, and ii. that no party that would be affected by the order is under disability.",
+);
+export const R_12_01_AMEND_FULL = scc(
+  "r. 12.01 (1)",
+  "A plaintiff's or defendant's claim and a defence to a plaintiff's or defendant's claim may be amended by filing with the clerk an amended claim or defence that meets the following requirements: 1. It shall be marked \"Amended\". 2. Any additions shall be underlined, and any other changes identified. 3. A copy of any document on which the amended claim or defence is based shall be attached to it, or, if the document is not available, the amended claim or defence shall state the reason why the document is not attached.",
+);
+export const R_12_01_DOCUMENT_AGAIN = scc(
+  "r. 12.01 (1.1)",
+  "Paragraph 3 of subrule (1) applies even if a copy of the document was attached to a previously filed version of the claim or defence.",
+);
+export const R_12_01_ADDED_PARTY = scc(
+  "r. 12.01 (4)",
+  "A person added as a party shall be served with the claim as amended, except that if the person is added as a party at trial, the court may dispense with service of the claim.",
+);
+export const R_12_02_ORDERS_FULL = scc(
+  "r. 12.02 (2)",
+  "In connection with an order striking out or amending a document under subrule (1), the court may do one or more of the following: 1. In the case of a claim, order that the action be stayed or dismissed. 2. In the case of a defence, strike out the defence and grant judgment. 2.1 In the case of a motion, order that the motion be stayed or dismissed. 3. Impose such terms as are just.",
+);
+export const R_12_02_SUBMISSION_FULL = scc(
+  "r. 12.02 (4)",
+  "Unless the court orders otherwise, an order under subrule (3) shall be made on the basis of written submissions in accordance with the following procedures: 1. The court shall direct the clerk to send notice by mail to the plaintiff that the court is considering making the order. 2. The plaintiff may, within 20 days after receiving the notice, file with the court a written submission, no more than four pages in length, responding to the notice. 3. If the plaintiff does not file a written submission that complies with paragraph 2, the court may make the order without any further notice to the plaintiff or to any other party. 4. If the plaintiff files a written submission that complies with paragraph 2, the court may direct the clerk to send a copy of the submission by mail to any other party. 5. A party who receives a copy of the plaintiff's submission may, within 10 days after receiving the copy, file with the court a written submission, no more than four pages in length, responding to the plaintiff's submission, and shall send a copy of the responding submission by mail to the plaintiff, and, on the request of any other party, to that party.",
+);
+export const R_12_02_MAILED_RECEIVED = scc(
+  "r. 12.02 (6)",
+  "A document required under this rule to be sent by mail shall be mailed in the manner described in subrule 8.07 (1), and is deemed to have been received on the fifth day after it is mailed.",
+);

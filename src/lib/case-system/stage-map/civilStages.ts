@@ -1343,6 +1343,12 @@ const S_LIM_5_3_DEMAND = lim(
   "For the purposes of subclause (1) (a) (i), the day on which injury, loss or damage occurs in relation to a demand obligation is the first day on which there is a failure to perform the obligation, once a demand for the performance is made.",
 );
 
+// Change 22 (approved 2026-11-21): the demand-debt rule applies only to obligations created on or after January 1, 2004.
+const S_LIM_5_4_DEMAND_2004 = lim(
+  "s. 5 (4)",
+  "Subsection (3) applies in respect of every demand obligation created on or after January 1, 2004.",
+);
+
 const S_LIM_19_1_SCHEDULE = lim(
   "s. 19 (1)",
   "A limitation period set out in or under another Act that applies to a claim to which this Act applies is of no effect unless, (a) the provision establishing it is listed in the Schedule to this Act;",
@@ -1705,6 +1711,234 @@ const RCP_76_10_TRIAL_PLANNING = rcp(
   "The pre-trial conference judge or associate judge shall, ... (b) fix dates for the delivery of any witness affidavits, including any outstanding expert affidavits;",
 );
 
+// ---- Rules-only pages: quotes added by the approved legal changes of 2026-11-21 (changes 115 to 123), word for word.
+
+const S_CLPA_17_12_WAIVER_WHEN: RuleCitation = {
+  sourceId: "crown-liability-and-proceedings-act-2019",
+  pinpoint: "s. 17 (12)",
+  quote:
+    "The Crown may exercise its discretion under subsection (11) at any time before the hearing of a motion for leave under subsection (2), including before an intended proceeding is brought.",
+};
+
+const S_CLPA_17_13_WAIVER_EFFECT: RuleCitation = {
+  sourceId: "crown-liability-and-proceedings-act-2019",
+  pinpoint: "s. 17 (13)",
+  quote:
+    "If the Crown exercises its discretion under subsection (11) after a proceeding has been brought, (a) the stay of the proceeding is lifted once notice of the waiver is given to the claimant; and (b) the Crown shall give notice of the waiver in writing to the court.",
+};
+
+const S_CLPA_17_14_CROWN_CLAIMANT: RuleCitation = {
+  sourceId: "crown-liability-and-proceedings-act-2019",
+  pinpoint: "s. 17 (14)",
+  quote:
+    "This section does not apply if the claimant is the Crown.",
+};
+
+const RCP_37_10_MOTION_RECORD_FULL = rcp(
+  "r. 37.10 (1)",
+  "Where a motion is made on notice, the moving party shall, unless the court orders otherwise before or at the hearing of the motion, serve a motion record on every other party to the motion and file it, with proof of service, in the court office where the motion is to be heard, at least seven days before the hearing, and the court file shall not be placed before the judge or associate judge hearing the motion unless he or she requests it or a party requisitions it.",
+);
+
+const CJA_137_1_EXPRESSION = cja(
+  "s. 137.1 (2)",
+  "In this section, \"expression\" means any communication, regardless of whether it is made verbally or non-verbally, whether it is made publicly or privately, and whether or not it is directed at a person or entity.",
+);
+
+const CJA_137_1_NO_AMENDMENT = cja(
+  "s. 137.1 (6)",
+  "Unless a judge orders otherwise, the responding party shall not be permitted to amend his or her pleadings in the proceeding, (a) in order to prevent or avoid an order under this section dismissing the proceeding; or (b) if the proceeding is dismissed under this section, in order to continue the proceeding.",
+);
+
+const CJA_137_1_COSTS_NOT_DISMISSED = cja(
+  "s. 137.1 (8)",
+  "If a judge does not dismiss a proceeding under this section, the responding party is not entitled to costs on the motion, unless the judge determines that such an award is appropriate in the circumstances.",
+);
+
+const CJA_137_1_DAMAGES = cja(
+  "s. 137.1 (9)",
+  "If, in dismissing a proceeding under this section, the judge finds that the responding party brought the proceeding in bad faith or for an improper purpose, the judge may award the moving party such damages as the judge considers appropriate.",
+);
+
+const CJA_137_2_RULES_OF_COURT = cja(
+  "s. 137.2 (1)",
+  "A motion to dismiss a proceeding under section 137.1 shall be made in accordance with the rules of court, subject to the rules set out in this section, and may be made at any time after the proceeding has commenced.",
+);
+
+const CJA_137_2_SEVEN_HOURS = cja(
+  "s. 137.2 (4)",
+  "Subject to subsection (5), cross-examination on any documentary evidence filed by the parties shall not exceed a total of seven hours for all plaintiffs in the proceeding and seven hours for all defendants.",
+);
+
+const CJA_137_2_EXTEND = cja(
+  "s. 137.2 (5)",
+  "A judge may extend the time permitted for cross-examination on documentary evidence if it is necessary to do so in the interests of justice.",
+);
+
+const RCP_77_01_2_PARTIES = rcp(
+  "r. 77.01 (2), para. 1",
+  "Despite the application of case management under this Rule to a proceeding, the greater share of the responsibility for managing the proceeding and moving it expeditiously to a trial, hearing or other resolution remains with the parties.",
+);
+
+const RCP_77_02_1_APPLIES = rcp(
+  "r. 77.02 (1)",
+  "This Rule applies to actions and applications commenced in or transferred to one of the following counties on or after January 1, 2010 and assigned to case management by an order under these rules: 1. The City of Ottawa. 2. The City of Toronto. 3. The County of Essex.",
+);
+
+const RCP_77_04_1_POWERS = rcp(
+  "r. 77.04 (1)",
+  "A judge or associate judge may, (a) extend or abridge a time prescribed by an order or the rules; (b) adjourn a case conference; (c) set aside an order made by the registrar; (d) establish or amend a timetable; and (e) make orders, impose terms, give directions and award costs as necessary to carry out the purpose of this Rule.",
+);
+
+const RCP_77_04_2_APPEAR = rcp(
+  "r. 77.04 (2)",
+  "A judge or associate judge may, on his or her own initiative, require the parties to appear before him or her or to participate in a conference call to deal with any matter arising in connection with the case management of the proceeding, including a failure to comply with an order or the rules.",
+);
+
+const RCP_77_06_1_ONE_JUDGE = rcp(
+  "r. 77.06 (1)",
+  "The Chief Justice or Associate Chief Justice of the Superior Court of Justice, a regional senior judge, or a judge designated by any of them may direct that all steps in a proceeding that is assigned for case management under this Rule be heard and conducted by a particular judge.",
+);
+
+const RCP_77_06_2_NOT_TRIAL = rcp(
+  "r. 77.06 (2)",
+  "A judge who is directed under subrule (1) to hear all steps in a proceeding shall not preside at the trial of the action or the hearing of the application, except with the written consent of all parties.",
+);
+
+const RCP_77_07_1_MOTIONS = rcp(
+  "r. 77.07 (1)",
+  "A motion may be made only to a judge or associate judge.",
+);
+
+const RCP_77_07_2_SAME_JUDGE = rcp(
+  "r. 77.07 (2)",
+  "If a direction is made under subrule 77.06 (1) for all steps in a proceeding to be heard by a particular judge, then any motions in the proceeding shall be made to that judge.",
+);
+
+const RCP_77_08_CASE_CONFERENCE = rcp(
+  "r. 77.08",
+  "A judge or associate judge may at any time, on his or her own initiative or at a party's request, convene a case conference under rule 50.13.",
+);
+
+const RCP_21_01_2_NO_EVIDENCE = rcp(
+  "r. 21.01 (2)",
+  "No evidence is admissible on a motion, (a) under clause (1) (a), except with leave of a judge or on consent of the parties; (b) under clause (1) (b).",
+);
+
+const RCP_21_03_1_FACTUMS = rcp(
+  "r. 21.03 (1)",
+  "On a motion under rule 21.01, each party shall serve on every other party to the motion a factum that meets the requirements of rule 4.06.1.",
+);
+
+const RCP_21_03_2_MOVING_FACTUM = rcp(
+  "r. 21.03 (2)",
+  "The moving party's factum shall be served and filed with proof of service in the court office where the motion is to be heard at least seven days before the hearing.",
+);
+
+const RCP_21_03_3_RESPONDING_FACTUM = rcp(
+  "r. 21.03 (3)",
+  "The responding party's factum shall be served and filed with proof of service in the court office where the motion is to be heard at least four days before the hearing.",
+);
+
+const RCP_26_03_1_ON_FACE = rcp(
+  "r. 26.03 (1)",
+  "An amendment to a pleading shall be made on the face of the copy filed in the court office, except that where the amendment is so extensive as to make the amended pleading difficult or inconvenient to read the party shall file a fresh copy of the original pleading as amended, bearing the date of the original pleading and the title of the pleading preceded by the word \"amended\".",
+);
+
+const RCP_26_03_3_EACH_AMENDMENT = rcp(
+  "r. 26.03 (3)",
+  "Where a pleading has been amended more than once each subsequent amendment shall be underlined with an additional line for each occasion.",
+);
+
+const RCP_26_04_1_SERVE = rcp(
+  "r. 26.04 (1)",
+  "An amended pleading shall be served forthwith on every person who is, at the time of service, a party to the main action or to a counterclaim, crossclaim or third party claim in the main action, unless the court orders otherwise.",
+);
+
+const RCP_26_04_2_PROOF = rcp(
+  "r. 26.04 (2)",
+  "Proof of service of an amended pleading other than an originating process shall be filed forthwith after it is served.",
+);
+
+const RCP_26_04_3_ORIGINATING = rcp(
+  "r. 26.04 (3)",
+  "Where an amended pleading is an originating process, (a) it need not be served personally on a party who was served with the original pleading and responded to it; and (b) it shall be served personally or by an alternative to personal service under rule 16.03 on an opposite party who has not responded to the original pleading, whether or not the party has been noted in default.",
+);
+
+const RCP_26_06_AT_TRIAL = rcp(
+  "r. 26.06",
+  "Where a pleading is amended at the trial, and the amendment is made on the face of the record, an order need not be taken out and the pleading as amended need not be filed or served unless the court orders otherwise.",
+);
+
+const RCP_40_01_MOTION = rcp(
+  "r. 40.01",
+  "An interlocutory injunction or mandatory order under section 101 or 102 of the Courts of Justice Act may be obtained on motion to a judge by a party to a pending or intended proceeding.",
+);
+
+const RCP_40_02_1_TEN_DAYS = rcp(
+  "r. 40.02 (1)",
+  "An interlocutory injunction or mandatory order may be granted on motion without notice for a period not exceeding ten days.",
+);
+
+const RCP_40_02_2_EXTEND_ON_NOTICE = rcp(
+  "r. 40.02 (2)",
+  "Where an interlocutory injunction or mandatory order is granted on a motion without notice, a motion to extend the injunction or mandatory order may be made only on notice to every party affected by the order, unless the judge is satisfied that because a party has been evading service or because there are other exceptional circumstances, the injunction or mandatory order ought to be extended without notice to the party.",
+);
+
+const RCP_40_02_3_FURTHER_TEN_DAYS = rcp(
+  "r. 40.02 (3)",
+  "An extension may be granted on a motion without notice for a further period not exceeding ten days.",
+);
+
+const RCP_40_03_UNDERTAKING = rcp(
+  "r. 40.03",
+  "On a motion for an interlocutory injunction or mandatory order, the moving party shall, unless the court orders otherwise, undertake to abide by any order concerning damages that the court may make if it ultimately appears that the granting of the order has caused damage to the responding party for which the moving party ought to compensate the responding party.",
+);
+
+const RCP_40_04_1_FACTUMS = rcp(
+  "r. 40.04 (1)",
+  "On a motion under rule 40.01, each party shall serve on every other party to the motion a factum that meets the requirements of rule 4.06.1.",
+);
+
+const RCP_40_04_2_MOVING_FACTUM = rcp(
+  "r. 40.04 (2)",
+  "The moving party's factum shall be served and filed with proof of service in the court office where the motion is to be heard at least seven days before the hearing.",
+);
+
+const RCP_40_04_3_RESPONDING_FACTUM = rcp(
+  "r. 40.04 (3)",
+  "The responding party's factum shall be served and filed with proof of service in the court office where the motion is to be heard at least four days before the hearing.",
+);
+
+const CJA_103_2_REGISTER = cja(
+  "s. 103 (2)",
+  "Where a certificate of pending litigation is issued under subsection (1) it may be registered whether the land is registered under the Land Titles Act or the Registry Act.",
+);
+
+const CJA_103_3_NOT_APPLY = cja(
+  "s. 103 (3)",
+  "Subsections (1) and (2) do not apply to a proceeding for foreclosure or sale on a registered mortgage or to enforce a lien under the Construction Act.",
+);
+
+const CJA_103_5_DAMAGES_WHERE = cja(
+  "s. 103 (5)",
+  "The liability for damages under subsection (4) and the amount thereof may be determined in the proceeding in respect of which the certificate was registered or in a separate proceeding.",
+);
+
+const CJA_103_6_DISCHARGE = cja(
+  "s. 103 (6)",
+  "The court may make an order discharging a certificate, (a) where the party at whose instance it was issued, (i) claims a sum of money in place of or as an alternative to the interest in the land claimed, (ii) does not have a reasonable claim to the interest in the land claimed, or (iii) does not prosecute the proceeding with reasonable diligence; (b) where the interests of the party at whose instance it was issued can be adequately protected by another form of security; or (c) on any other ground that is considered just, and the court may, in making the order, impose such terms as to the giving of security or otherwise as the court considers just.",
+);
+
+const CJA_103_7_AFTER_DISCHARGE = cja(
+  "s. 103 (7)",
+  "Where a certificate is discharged, any person may deal with the land as fully as if the certificate had not been registered.",
+);
+
+const RCP_42_01_4_SERVE_ORDER = rcp(
+  "r. 42.01 (4)",
+  "A party who obtains an order under subrule (1) shall forthwith serve it, together with a copy of the notice of motion and all affidavits and other documents used at the hearing of the motion, on all parties against whom an interest in land is claimed in the proceeding.",
+);
+
 const RCP_26_05_RESPOND = rcp(
   "r. 26.05 (1)",
   "A party shall respond to an amended pleading within the time remaining for responding to the original pleading, or within ten days after service of the amended pleading, whichever is the longer period, unless the court orders otherwise.",
@@ -1759,7 +1993,7 @@ const LIMITATION_QUALIFIER =
   "This applies unless the Limitations Act, 2002 says otherwise. For example, a claim based on a sexual assault has no time limit. A claim is discovered on the earlier of two days. The first is the day you knew four things: you had a loss, an act or omission caused it, whose act or omission it was, and that a court case was a proper way to fix it. The second is the day a reasonable person in your place ought to have known those things. You are presumed to have known them on the day of the act or omission, unless you prove otherwise. Separately, no case can start more than 15 years after the act or omission, except in some cases the Act lists. Some other Acts, listed in a schedule to the Limitations Act, set shorter times. For example, a case for libel in an Ontario newspaper or broadcast must start within three months after you learned of the libel.";
 
 const LIMITATION_SUSPENSIONS =
-  " The two years do not run while the person with the claim is a minor and has no litigation guardian. They also do not run while a physical, mental or psychological condition keeps the person from starting a case, and they have no litigation guardian. A person is presumed able to start a case unless shown otherwise. If that condition ends with less than six months left, the time runs to six months after it ends. The 15 years also do not run while the other side wilfully hides from you that the loss happened, that an act or omission caused it, or that it was theirs. Nor do they run while the other side wilfully misleads you about whether a court case is a proper way to fix it. You must prove this. The two years and the 15 years also stop while the parties have agreed to have an independent third party resolve the claim or help resolve it. The other side may admit in writing, and sign, that they owe a fixed sum of money. The same goes for an admission that they must return personal property. It also goes for enforcing a charge on personal property, or relief from that. Then the act or omission is treated as happening on the day of that admission. This counts only if it was made before the time ran out. It must be made to you, your agent, or an official receiver or trustee under the Bankruptcy and Insolvency Act (Canada). For a fixed sum of money, a part payment by the other side or their agent works the same way as a written, signed admission. For a debt payable on demand, the loss happens on the first day it is not paid after a demand for payment.";
+  " The two years do not run while the person with the claim is a minor and has no litigation guardian. They also do not run while a physical, mental or psychological condition keeps the person from starting a case, and they have no litigation guardian. A person is presumed able to start a case unless shown otherwise. If that condition ends with less than six months left, the time runs to six months after it ends. The 15 years also do not run while the other side wilfully hides from you that the loss happened, that an act or omission caused it, or that it was theirs. Nor do they run while the other side wilfully misleads you about whether a court case is a proper way to fix it. You must prove this. The two years and the 15 years also stop while the parties have agreed to have an independent third party resolve the claim or help resolve it. The other side may admit in writing, and sign, that they owe a fixed sum of money. The same goes for an admission that they must return personal property. It also goes for enforcing a charge on personal property, or relief from that. Then the act or omission is treated as happening on the day of that admission. This counts only if it was made before the time ran out. It must be made to you, your agent, or an official receiver or trustee under the Bankruptcy and Insolvency Act (Canada). For a fixed sum of money, a part payment by the other side or their agent works the same way as a written, signed admission. For a debt payable on demand and made on or after January 1, 2004, the loss happens on the first day it is not paid after a demand for payment.";
 
 /*
  * Exported (2026-10-17 live bug, Case 4): the admission-restarts-the-clock
@@ -1809,6 +2043,7 @@ function basicLimitation(id: string, withSuspensions = false): StageDeadline {
             S_LIM_7_3_SIX_MONTHS,
             S_LIM_11_1_RESOLUTION,
             S_LIM_5_3_DEMAND,
+            S_LIM_5_4_DEMAND_2004,
             S_LIM_15_4_C_MISLEADS,
             S_LIM_15_5_BURDEN,
           ]
@@ -2008,7 +2243,7 @@ function setDownSixMonths(id: string, bothSides = false): StageDeadline {
     computation: C.R_RCP_3_01_HOLIDAY,
     consequence: "changes-what-happens-next",
     qualifier:
-      "This is not an automatic dismissal. It is a motion a defendant may bring. The registrar's own dismissal comes at five years. Once you set the action down, you cannot start or continue discovery or motions without leave. If your action is covered by mandatory mediation, one party must first file with the mediation co-ordinator the notice naming the mediator and date (Form 24.1A), or the mediator's report. If your action is under the simplified procedure, it is set down another way. That is by a notice of readiness for pre-trial conference (Form 76C), within 180 days after the first defence.",
+      "This is not an automatic dismissal. It is a motion a defendant may bring. The registrar's own dismissal comes at five years. Once you set the action down, you cannot start or continue discovery or motions without leave. If your action is covered by mandatory mediation, one party must first file with the mediation co-ordinator the notice naming the mediator and date (Form 24.1A), or the mediator's report. If your action is under the simplified procedure, it is set down another way. That is by a notice of readiness for pre-trial conference (Form 76C), within 180 days after the first statement of defence or notice of intent to defend is filed.",
     exceptions: [RCP_48_14_FIVE_YEARS, RCP_76_09_SET_DOWN, RCP_48_04_NO_MORE_DISCOVERY, RCP_24_1_09_NOTICE_BEFORE_SET_DOWN],
   };
 }
@@ -2034,7 +2269,7 @@ function juryNotice(id: string, afterCounterclaim = false): StageDeadline {
   };
 }
 
-function dismissalCosts(id: string): StageDeadline {
+function dismissalCosts(id: string, registrarRuleWording = false): StageDeadline {
   return {
     id,
     what: "If the action was dismissed for delay, you can ask the court to deal with the costs of the action. Do this by making a motion about the costs",
@@ -2046,7 +2281,7 @@ function dismissalCosts(id: string): StageDeadline {
     computation: C.RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier:
-      "Any party to the action can make this motion. The rule's own words cover any action \"dismissed for delay\". The registrar's five-year order is a dismissal for delay. The only doubt comes from rule 48.14 (9). That rule applies the dismissal rules to a registrar's order, but it names only rules 24.03 to 24.05. So the rules' text does not settle whether this rule, 24.05.1, reaches that order. Bringing the motion within the 30 days avoids the doubt. The time can be extended by filing a consent, or by the court.",
+      `Any party to the action can make this motion. The rule's own words cover any action "dismissed for delay". ${registrarRuleWording ? "The registrar's order under rule 48.14 (1) is a dismissal for delay." : "The registrar's five-year order is a dismissal for delay."} The only doubt comes from rule 48.14 (9). That rule applies the dismissal rules to a registrar's order, but it names only rules 24.03 to 24.05. So the rules' text does not settle whether this rule, 24.05.1, reaches that order. Bringing the motion within the 30 days avoids the doubt. The time can be extended by filing a consent, or by the court.`,
     exceptions: [RCP_48_14_EFFECT, RCP_48_14_FIVE_YEARS, RCP_3_02_CONSENT, RCP_3_02_EXTEND],
   };
 }
@@ -2564,7 +2799,7 @@ const BEFORE_FILING: CaseStage[] = [
     userQuestion: "My claim against the government says an official acted in bad faith or abused their office. What does the court's permission (leave) to go ahead need?",
     title: "Claim against the Crown for misfeasance or bad faith: leave to proceed needed",
     description:
-      "The proceeding is against the Ontario Crown or a Crown officer or employee and includes a claim of misfeasance in public office or another tort based on bad faith. A statute says such a proceeding may go ahead only with the court's leave, and is on hold until leave is granted.",
+      "The proceeding is against the Ontario Crown or a Crown officer or employee and includes a claim of misfeasance in public office or another tort based on bad faith. A statute says such a proceeding may go ahead only with the court's leave, and is deemed to have been stayed (paused) until leave is granted.",
     cues: [
       "misfeasance in public office",
       "the Crown acted in bad faith",
@@ -2596,9 +2831,15 @@ const BEFORE_FILING: CaseStage[] = [
       S_CLPA_17_9_GRANTED,
       S_CLPA_17_10_REFUSED,
       S_CLPA_17_11_WAIVER,
+      S_CLPA_17_12_WAIVER_WHEN,
+      S_CLPA_17_13_WAIVER_EFFECT,
+      S_CLPA_17_14_CROWN_CLAIMANT,
       S_CLPA_15_SERVICE,
       RCP_37_07_SEVEN_DAYS,
       RCP_37_08_FILE,
+      RCP_37_10_MOTION_RECORD_FULL,
+      RCP_37_10_1_CONFIRM,
+      RCP_37_10_1_ABANDONED,
     ],
     deadlines: [],
     requiresAffirmativeScope: true,
@@ -3316,7 +3557,7 @@ const PLAINTIFF: CaseStage[] = [
         computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "The rule fixes no number of days. The cut-off is the close of pleadings. After that, you need the court's leave. You can also discontinue at any time by filing the consent of all parties. If any party is under a disability, discontinuing by or against that party needs a judge's leave. A defendant who counterclaimed then has 30 days to choose to go on with the counterclaim. The discontinuance itself is not a defence to a later action on the same claim, unless the leave order or a filed consent says otherwise. But a later action can be put on hold until the costs of the discontinued one are paid.",
+          "The rule fixes no number of days. The cut-off is the close of pleadings. After that, you need the court's leave. You can also discontinue at any time by filing the consent of all parties. If any party is under a disability, discontinuing by or against that party needs a judge's leave. A defendant who counterclaimed then has 30 days to choose to go on with the counterclaim. The discontinuance itself is not a defence to a later action on the same claim, unless the leave order or a filed consent says otherwise. But a later action can be stayed (paused) until the costs of the discontinued one are paid.",
         exceptions: [RCP_25_05_CLOSE, RCP_23_01_DISABILITY, RCP_23_02_COUNTERCLAIM_ELECTION, RCP_23_04_NOT_A_DEFENCE, RCP_23_04_STAY],
       },
       discontinuanceCosts("deadline:civil:discontinuance-costs-30-days"),
@@ -3790,8 +4031,8 @@ const DEFENDANT: CaseStage[] = [
         computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "You do not need one if three things are true. First, the crossclaim asks only for contribution or indemnity under the Negligence Act. Second, you have delivered a defence in the main action. Third, you rely on the facts in that defence, with nothing different or surprising. Otherwise, if you do not deliver it in time, you can be noted in default on the crossclaim. You would then be treated as admitting its facts. The co-defendant could then get judgment against you at the trial or on a motion to a judge. The time can be extended by filing a consent, or by the court.",
-        exceptions: [RCP_28_05_NOT_REQUIRED, RCP_19_09_FULL, RCP_19_02_CONSEQUENCES, RCP_28_07_CROSSCLAIM_DEFAULT, RCP_3_02_CONSENT, RCP_3_02_EXTEND],
+          "You can still deliver it at any time before you are noted in default on the crossclaim. You do not need one if three things are true. First, the crossclaim asks only for contribution or indemnity under the Negligence Act. Second, you have delivered a defence in the main action. Third, you rely on the facts in that defence, with nothing different or surprising. Otherwise, if you do not deliver it in time, you can be noted in default on the crossclaim. You would then be treated as admitting its facts. The co-defendant could then get judgment against you at the trial or on a motion to a judge. The time can be extended by filing a consent, or by the court.",
+        exceptions: [RCP_28_05_NOT_REQUIRED, RCP_19_01_LATE_DEFENCE, RCP_19_09_FULL, RCP_19_02_CONSEQUENCES, RCP_28_07_CROSSCLAIM_DEFAULT, RCP_3_02_CONSENT, RCP_3_02_EXTEND],
       },
     ],
     requiresAffirmativeScope: true,
@@ -4054,7 +4295,7 @@ const DEFENDANT: CaseStage[] = [
           "If you do not, the counterclaim is treated as discontinued, without costs. This applies to a dismissal by the registrar as well as by the court. The time can be extended by filing a consent, or by the court.",
         exceptions: [RCP_48_14_EFFECT, RCP_3_02_CONSENT, RCP_3_02_EXTEND],
       },
-      dismissalCosts("deadline:civil:dismissal-costs-30-days"),
+      dismissalCosts("deadline:civil:dismissal-costs-30-days", true),
     ],
     requiresAffirmativeScope: true,
   },
@@ -4091,7 +4332,7 @@ const DEFENDANT: CaseStage[] = [
     deadlines: [
       appealDeadline(
         "deadline:civil:notice-of-appeal-30-days:judgment-being-enforced",
-        " Delivering a notice of appeal pauses the parts of the order that say to pay money, until the appeal is decided. This does not apply to support.",
+        " Delivering a notice of appeal stays (pauses) the parts of the order that say to pay money, until the appeal is decided. This does not apply to support.",
         [C.R_63_01_STAY],
       ),
     ],
@@ -4111,7 +4352,26 @@ const DEFENDANT: CaseStage[] = [
       { stage: "civil:both:motion-to-strike-or-dismiss", by: "whether the motion is under section 137.1 about expression on a matter of public interest, or under rule 21" },
       { stage: "civil:defendant:served-defence-period-running", by: "whether the defendant is considering the section 137.1 motion or only the time to defend" },
     ],
-    rules: [CJA_137_1_DISMISS, CJA_137_1_NO_DISMISSAL, CJA_137_1_NO_STEPS, CJA_137_1_COSTS, CJA_137_2_60_DAYS, CJA_137_2_DATE_FIRST],
+    rules: [
+      CJA_137_1_EXPRESSION,
+      CJA_137_1_DISMISS,
+      CJA_137_1_NO_DISMISSAL,
+      CJA_137_1_NO_STEPS,
+      CJA_137_1_NO_AMENDMENT,
+      CJA_137_1_COSTS,
+      CJA_137_1_COSTS_NOT_DISMISSED,
+      CJA_137_1_DAMAGES,
+      CJA_137_2_RULES_OF_COURT,
+      CJA_137_2_60_DAYS,
+      CJA_137_2_DATE_FIRST,
+      CJA_137_2_SEVEN_HOURS,
+      CJA_137_2_EXTEND,
+      RCP_37_07_SEVEN_DAYS,
+      RCP_37_08_FILE,
+      RCP_37_10_MOTION_RECORD_FULL,
+      RCP_37_10_1_CONFIRM,
+      RCP_37_10_1_ABANDONED,
+    ],
     deadlines: [],
     requiresAffirmativeScope: true,
   },
@@ -4148,7 +4408,7 @@ const BOTH: CaseStage[] = [
     deadlines: [
       {
         id: "deadline:civil:after-lawyer-removed-30-days",
-        what: "If you are an individual, do one of two things. Appoint a new lawyer by serving a notice (Form 15B). Or serve a notice of intention to act in person (Form 15C)",
+        what: "If you are not a corporation, not under disability and not acting in a representative role, do one of two things. Appoint a new lawyer by serving a notice (Form 15B). Or serve a notice of intention to act in person (Form 15C)",
         countFrom: "the day you were served with the order removing your lawyer",
         countFromEvent: "served-with-removal-order",
         length: { unit: "days", count: 30 },
@@ -4461,7 +4721,7 @@ const BOTH: CaseStage[] = [
         computation: C.RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "An offer can be made at any time. But if it is made less than seven days before the hearing, the rule 49.10 costs rules do not apply. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. The offer must also stay open, not withdrawn or expired, until the hearing starts. Rule 49 also applies, with needed changes, to motions, counterclaims, crossclaims and third party claims. For an offer on a motion, the hearing is the hearing of that motion. Several defendants may be said to be jointly, or jointly and severally, liable. They may also have rights of contribution or indemnity between them. If both are true, the rule 49.10 costs rules apply only if the offer meets the terms of rule 49.11. An offer can be withdrawn by written notice at any time before it is accepted. It ends when any time it gives for acceptance runs out. It cannot be accepted after the court decides the claim.",
+          "An offer can be made at any time. But if it is made less than seven days before the hearing, the rule 49.10 costs rules do not apply. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. The offer must also stay open, not withdrawn or expired, until the hearing starts. Rule 49 also applies, with needed changes, to motions, counterclaims, crossclaims and third party claims. Several defendants may be said to be jointly, or jointly and severally, liable. They may also have rights of contribution or indemnity between them. If both are true, the rule 49.10 costs rules apply only if the offer meets the terms of rule 49.11. An offer can be withdrawn by written notice at any time before it is accepted. It ends when any time it gives for acceptance runs out. It cannot be accepted after the court decides the claim.",
         exceptions: [RCP_49_01_1_APPLIES, RCP_49_11_JOINT, RCP_49_10_PLAINTIFF_OFFER, RCP_49_10_DEFENDANT_OFFER, RCP_49_04_WITHDRAW, RCP_49_04_EXPIRES, RCP_49_04_DISPOSED, C.RCP_1_03_HOLIDAY],
       },
     ],
@@ -4625,7 +4885,7 @@ const BOTH: CaseStage[] = [
         computation: C.RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. Your factum, if you have one, is due by the same day. On a motion for summary judgment, a factum is required. The court can order otherwise for the motion record. A document served after 4 p.m., or on a Saturday, Sunday or holiday, counts as served on the next day that is not a holiday. On a motion about refusals or undertakings, your refusals and undertakings chart (Form 37C) is due by the same day. You may propose that the motion be heard in writing, without the parties attending. If so, give at least 14 days notice. Serve your motion record, a draft order and a factum for a motion in writing with the notice of motion, and file them right away. In a simplified procedure action, you serve a motion form (Form 76B). The motion may be made with or without supporting material or a motion record.",
+          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. Your factum, if you have one, is due by the same day. On a motion for summary judgment, a factum is required. The court can order otherwise for the motion record. A document served after 4 p.m., or on a Saturday, Sunday or holiday, counts as served on the next day that is not a holiday. On a motion about refusals or undertakings, your refusals and undertakings chart (Form 37C) is due by the same day. You may propose that the motion be heard in writing, without the parties attending. If so, give at least 14 days notice. Serve your motion record, a draft order and a factum for a motion in writing with the notice of motion, and file them immediately. In a simplified procedure action, you serve a motion form (Form 76B). The motion may be made with or without supporting material or a motion record.",
         exceptions: [RCP_37_08_FILE, RCP_37_10_MOTION_RECORD, RCP_37_10_MOVING_FACTUM, RCP_20_03_FACTUMS, RCP_37_10_MOVING_CHART, RCP_37_12_1_IN_WRITING, RCP_37_12_1_IN_WRITING_MATERIAL, RCP_76_05_MOTION_FORM, RCP_76_05_MATERIALS, RCP_3_01_D_LATE_SERVICE, C.RCP_1_03_HOLIDAY],
       },
       {
@@ -4747,7 +5007,7 @@ const BOTH: CaseStage[] = [
         computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "File the notice, with proof of service, within five days after you serve it. A panel of the Divisional Court hears the leave motion in writing. The same leave process applies to a final order of a Superior Court judge that is only about costs. Within 30 days after filing the notice of motion, file your motion record, factum, any transcripts and any book of authorities, with proof of service. If leave is granted, deliver the notice of appeal, with your certificate respecting evidence (Form 61C), within seven days after leave is granted.",
+          "File the notice, with proof of service, within five days after you serve it. A panel of the Divisional Court hears the leave motion in writing. The same leave process applies to a final order of a Superior Court judge that is only about costs, if the appeal goes to the Divisional Court. Within 30 days after filing the notice of motion, file your motion record, factum, any transcripts and any book of authorities, with proof of service. If leave is granted, deliver the notice of appeal, with your certificate respecting evidence (Form 61C), within seven days after leave is granted.",
         exceptions: [RCP_62_02_LEAVE_FROM, RCP_62_02_NOTICE, RCP_62_02_IN_WRITING, RCP_62_02_PROCEDURES, RCP_61_03_1_RECORD_30_DAYS, RCP_62_02_AFTER_LEAVE],
       },
       {
@@ -4837,8 +5097,18 @@ const BOTH: CaseStage[] = [
         by: "whether the case was assigned to case management, or is in mandatory mediation",
       },
     ],
-    rules: [C.RCP_77_01_PURPOSE],
-    rulesLinkOnly: true,
+    rules: [
+      C.RCP_77_01_PURPOSE,
+      RCP_77_01_2_PARTIES,
+      RCP_77_02_1_APPLIES,
+      RCP_77_04_1_POWERS,
+      RCP_77_04_2_APPEAR,
+      RCP_77_06_1_ONE_JUDGE,
+      RCP_77_06_2_NOT_TRIAL,
+      RCP_77_07_1_MOTIONS,
+      RCP_77_07_2_SAME_JUDGE,
+      RCP_77_08_CASE_CONFERENCE,
+    ],
     deadlines: [],
     requiresAffirmativeScope: true,
   },
@@ -4971,7 +5241,7 @@ const BOTH: CaseStage[] = [
         computation: C.RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. In a simplified procedure action, each party files other things instead. These are the proposed trial management plan, the party's affidavit of documents and the documents it relies on, any expert affidavit, and any other material needed. Each party also delivers a statement of no more than three pages on the issues and its position, and a trial management checklist (Form 76D). For the form to use for the brief, check the notice of the pre-trial conference or the court's order.",
+          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. In a simplified procedure action, each party files other things instead. These are the proposed trial management plan, the party's affidavit of documents and the documents it relies on, any expert affidavit, and any other material needed. Each party also delivers a statement of no more than three pages on the issues and its position, and a trial management checklist (Form 76D).",
         exceptions: [RCP_76_10_DOCUMENTS, C.RCP_1_03_HOLIDAY],
       },
     ],
@@ -5077,7 +5347,7 @@ const BOTH: CaseStage[] = [
         computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "The notice must be delivered right away once the amounts become known, and in any event not less than ten days before trial.",
+          "The notice must be delivered forthwith (right away) once the amounts become known, and in any event not less than ten days before trial.",
         exceptions: [],
       },
       {
@@ -5367,7 +5637,21 @@ const BOTH: CaseStage[] = [
       { stage: "civil:both:summary-judgment-motion", by: "whether the motion is decided on the pleadings and the law, or on evidence that there is no genuine issue requiring a trial" },
       { stage: "civil:both:motion-scheduled", by: "whether the motion is to strike out or dismiss, or for another order" },
     ],
-    rules: [RCP_21_01_BEFORE_TRIAL, RCP_21_01_DEFENDANT, RCP_21_02_PROMPTLY, RCP_25_11_STRIKE, RCP_37_07_SEVEN_DAYS, RCP_37_08_FILE],
+    rules: [
+      RCP_21_01_BEFORE_TRIAL,
+      RCP_21_01_2_NO_EVIDENCE,
+      RCP_21_01_DEFENDANT,
+      RCP_21_02_PROMPTLY,
+      RCP_21_03_1_FACTUMS,
+      RCP_21_03_2_MOVING_FACTUM,
+      RCP_21_03_3_RESPONDING_FACTUM,
+      RCP_25_11_STRIKE,
+      RCP_37_07_SEVEN_DAYS,
+      RCP_37_08_FILE,
+      RCP_37_10_MOTION_RECORD_FULL,
+      RCP_37_10_1_CONFIRM,
+      RCP_37_10_1_ABANDONED,
+    ],
     deadlines: [
       {
         id: "deadline:civil:strike-serve-7-days",
@@ -5384,6 +5668,64 @@ const BOTH: CaseStage[] = [
           "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. A document served after 4 p.m., or on a Saturday, Sunday or holiday, counts as served on the next day that is not a holiday.",
         exceptions: [RCP_37_08_FILE, RCP_3_01_D_LATE_SERVICE, C.RCP_1_03_HOLIDAY],
       },
+      {
+        id: "deadline:civil:strike-motion-record-7-days",
+        what: "If you are bringing the motion, also serve your motion record on the other parties and file it with proof of service",
+        countFrom: "the date the motion will be heard, counting backwards",
+        countFromEvent: "motion-hearing-date",
+        length: { unit: "days", count: 7 },
+        direction: "before",
+        regime: "civil-rules",
+        rule: RCP_37_10_MOTION_RECORD_FULL,
+        computation: C.RCP_3_01_SHORT,
+        consequence: "changes-what-happens-next",
+        qualifier:
+          "If the motion is under rule 21.01, also serve your factum and file it with proof of service by the same day.",
+        exceptions: [RCP_21_03_2_MOVING_FACTUM, RCP_21_03_1_FACTUMS],
+      },
+      {
+        id: "deadline:civil:strike-confirmation-5-days",
+        what: "If you are bringing the motion, talk or try to talk with the other party. Then give the registrar a confirmation of motion (Form 37B), and email a copy to the other party, by 2 p.m. on the day",
+        countFrom: "the date the motion will be heard, counting backwards",
+        countFromEvent: "motion-hearing-date",
+        length: { unit: "days", count: 5 },
+        direction: "before",
+        regime: "civil-rules",
+        rule: RCP_37_10_1_CONFIRM,
+        computation: C.RCP_3_01_SHORT,
+        consequence: "changes-what-happens-next",
+        qualifier:
+          "Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. If no confirmation is given, the motion is not heard. It is treated as abandoned, unless the court orders otherwise.",
+        exceptions: [RCP_37_10_1_ABANDONED, C.RCP_1_03_HOLIDAY],
+      },
+      {
+        id: "deadline:civil:strike-responding-factum-4-days",
+        what: "If you are responding to a motion under rule 21.01, serve your factum on every other party to the motion and file it with proof of service",
+        countFrom: "the date the motion will be heard, counting backwards",
+        countFromEvent: "motion-hearing-date",
+        length: { unit: "days", count: 4 },
+        direction: "before",
+        regime: "civil-rules",
+        rule: RCP_21_03_3_RESPONDING_FACTUM,
+        computation: C.RCP_3_01_SHORT,
+        consequence: "changes-what-happens-next",
+        exceptions: [RCP_21_03_1_FACTUMS],
+      },
+      {
+        id: "deadline:civil:strike-responding-confirmation-4-days",
+        what: "If you are responding and the moving party did not email you their confirmation of motion, you may give the registrar your own (Form 37B). Email a copy to the moving party, by 10 a.m. on the day",
+        countFrom: "the date the motion will be heard, counting backwards",
+        countFromEvent: "motion-hearing-date",
+        length: { unit: "days", count: 4 },
+        direction: "before",
+        regime: "civil-rules",
+        rule: RCP_37_10_1_RESPONDING_CONFIRM,
+        computation: C.RCP_3_01_SHORT,
+        consequence: "changes-what-happens-next",
+        qualifier:
+          "Because the period is seven days or less, Saturdays, Sundays and holidays are not counted.",
+        exceptions: [C.RCP_1_03_HOLIDAY],
+      },
     ],
     requiresAffirmativeScope: true,
   },
@@ -5399,8 +5741,51 @@ const BOTH: CaseStage[] = [
     distinguishedFrom: [
       { stage: "civil:both:served-with-amended-pleading", by: "whether the person is amending their own pleading or was served with someone else's amended pleading" },
     ],
-    rules: [RCP_26_02_WHEN, RCP_26_01_LEAVE, RCP_26_03_UNDERLINED],
-    deadlines: [],
+    rules: [
+      RCP_26_02_WHEN,
+      RCP_26_01_LEAVE,
+      RCP_26_03_1_ON_FACE,
+      RCP_26_03_UNDERLINED,
+      RCP_26_03_3_EACH_AMENDMENT,
+      RCP_26_04_1_SERVE,
+      RCP_26_04_2_PROOF,
+      RCP_26_04_3_ORIGINATING,
+      RCP_26_05_RESPOND,
+      RCP_26_05_DEEMED,
+      RCP_26_06_AT_TRIAL,
+    ],
+    deadlines: [
+      {
+        id: "deadline:civil:amended-pleading-serve-forthwith",
+        what: "If you amend your pleading: serve the amended pleading forthwith (right away) on every party to the action, including parties to any counterclaim, crossclaim or third party claim, unless the court orders otherwise",
+        qualifier:
+          "File proof of service forthwith (right away) after serving it, unless the amended pleading is an originating process (a document that starts a proceeding, such as a statement of claim, a notice of action, a notice of application, a counterclaim against someone who is not already a party, or a third party claim).",
+        countFrom: "the day you amend your pleading",
+        countFromEvent: "served-with-amended-pleading",
+        length: { unit: "days", count: 0 },
+        regime: "civil-rules",
+        rule: RCP_26_04_1_SERVE,
+        computation: C.RCP_3_01_COUNT,
+        consequence: "changes-what-happens-next",
+        showsCounting: true,
+        exceptions: [RCP_26_04_2_PROOF, RCP_26_04_3_ORIGINATING],
+      },
+      {
+        id: "deadline:civil:amended-pleading-respond",
+        what: "If you are served with an amended pleading: respond within the time left to respond to the original pleading, or within 10 days after the amended pleading was served, whichever is longer, unless the court orders otherwise",
+        qualifier:
+          "If you already responded to the original and do not respond to the amendment in time, you are treated as relying on your original response.",
+        countFrom: "the day the amended pleading was served on you",
+        countFromEvent: "served-with-amended-pleading",
+        length: { unit: "days", count: 0 },
+        regime: "civil-rules",
+        rule: RCP_26_05_RESPOND,
+        computation: C.RCP_3_01_COUNT,
+        consequence: "changes-what-happens-next",
+        showsCounting: true,
+        exceptions: [RCP_26_05_DEEMED],
+      },
+    ],
     requiresAffirmativeScope: true,
   },
   {
@@ -5415,7 +5800,23 @@ const BOTH: CaseStage[] = [
     distinguishedFrom: [
       { stage: "civil:both:motion-scheduled", by: "whether the motion asks for an injunction or another order" },
     ],
-    rules: [CJA_101_INJUNCTION, CJA_101_TERMS, RCP_37_07_SEVEN_DAYS, RCP_37_08_FILE],
+    rules: [
+      CJA_101_INJUNCTION,
+      CJA_101_TERMS,
+      RCP_37_07_SEVEN_DAYS,
+      RCP_37_08_FILE,
+      RCP_37_10_MOTION_RECORD_FULL,
+      RCP_37_10_1_CONFIRM,
+      RCP_37_10_1_ABANDONED,
+      RCP_40_01_MOTION,
+      RCP_40_02_1_TEN_DAYS,
+      RCP_40_02_2_EXTEND_ON_NOTICE,
+      RCP_40_02_3_FURTHER_TEN_DAYS,
+      RCP_40_03_UNDERTAKING,
+      RCP_40_04_1_FACTUMS,
+      RCP_40_04_2_MOVING_FACTUM,
+      RCP_40_04_3_RESPONDING_FACTUM,
+    ],
     deadlines: [
       {
         id: "deadline:civil:injunction-serve-7-days",
@@ -5432,6 +5833,64 @@ const BOTH: CaseStage[] = [
           "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. A document served after 4 p.m., or on a Saturday, Sunday or holiday, counts as served on the next day that is not a holiday.",
         exceptions: [RCP_37_08_FILE, RCP_3_01_D_LATE_SERVICE, C.RCP_1_03_HOLIDAY],
       },
+      {
+        id: "deadline:civil:injunction-record-factum-7-days",
+        what: "If you are bringing the motion, also serve your motion record and your factum on the other parties and file them with proof of service",
+        countFrom: "the date the motion will be heard, counting backwards",
+        countFromEvent: "motion-hearing-date",
+        length: { unit: "days", count: 7 },
+        direction: "before",
+        regime: "civil-rules",
+        rule: RCP_37_10_MOTION_RECORD_FULL,
+        computation: C.RCP_3_01_SHORT,
+        consequence: "changes-what-happens-next",
+        qualifier:
+          "On a motion for an interlocutory injunction or mandatory order, a factum is required.",
+        exceptions: [RCP_40_04_2_MOVING_FACTUM, RCP_40_04_1_FACTUMS],
+      },
+      {
+        id: "deadline:civil:injunction-confirmation-5-days",
+        what: "If you are bringing the motion, talk or try to talk with the other party. Then give the registrar a confirmation of motion (Form 37B), and email a copy to the other party, by 2 p.m. on the day",
+        countFrom: "the date the motion will be heard, counting backwards",
+        countFromEvent: "motion-hearing-date",
+        length: { unit: "days", count: 5 },
+        direction: "before",
+        regime: "civil-rules",
+        rule: RCP_37_10_1_CONFIRM,
+        computation: C.RCP_3_01_SHORT,
+        consequence: "changes-what-happens-next",
+        qualifier:
+          "Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. If no confirmation is given, the motion is not heard. It is treated as abandoned, unless the court orders otherwise.",
+        exceptions: [RCP_37_10_1_ABANDONED, C.RCP_1_03_HOLIDAY],
+      },
+      {
+        id: "deadline:civil:injunction-responding-factum-4-days",
+        what: "If you are responding to the motion, serve your factum on every other party to the motion and file it with proof of service",
+        countFrom: "the date the motion will be heard, counting backwards",
+        countFromEvent: "motion-hearing-date",
+        length: { unit: "days", count: 4 },
+        direction: "before",
+        regime: "civil-rules",
+        rule: RCP_40_04_3_RESPONDING_FACTUM,
+        computation: C.RCP_3_01_SHORT,
+        consequence: "changes-what-happens-next",
+        exceptions: [RCP_40_04_1_FACTUMS],
+      },
+      {
+        id: "deadline:civil:injunction-responding-confirmation-4-days",
+        what: "If you are responding and the moving party did not email you their confirmation of motion, you may give the registrar your own (Form 37B). Email a copy to the moving party, by 10 a.m. on the day",
+        countFrom: "the date the motion will be heard, counting backwards",
+        countFromEvent: "motion-hearing-date",
+        length: { unit: "days", count: 4 },
+        direction: "before",
+        regime: "civil-rules",
+        rule: RCP_37_10_1_RESPONDING_CONFIRM,
+        computation: C.RCP_3_01_SHORT,
+        consequence: "changes-what-happens-next",
+        qualifier:
+          "Because the period is seven days or less, Saturdays, Sundays and holidays are not counted.",
+        exceptions: [C.RCP_1_03_HOLIDAY],
+      },
     ],
     requiresAffirmativeScope: true,
   },
@@ -5447,8 +5906,34 @@ const BOTH: CaseStage[] = [
     distinguishedFrom: [
       { stage: "civil:both:asking-for-injunction", by: "whether the person wants notice of the action on title, or an order stopping a sale or other act" },
     ],
-    rules: [CJA_103_CPL, RCP_42_01_ORDER, RCP_42_01_CLAIM_IT, RCP_42_01_WITHOUT_NOTICE, CJA_103_LIABILITY],
-    deadlines: [],
+    rules: [
+      CJA_103_CPL,
+      CJA_103_2_REGISTER,
+      CJA_103_3_NOT_APPLY,
+      CJA_103_LIABILITY,
+      CJA_103_5_DAMAGES_WHERE,
+      CJA_103_6_DISCHARGE,
+      CJA_103_7_AFTER_DISCHARGE,
+      RCP_42_01_ORDER,
+      RCP_42_01_CLAIM_IT,
+      RCP_42_01_WITHOUT_NOTICE,
+      RCP_42_01_4_SERVE_ORDER,
+    ],
+    deadlines: [
+      {
+        id: "deadline:civil:cpl-order-serve-forthwith",
+        what: "After the court makes the order: serve it forthwith (right away), together with a copy of the notice of motion and all affidavits and other documents used at the hearing of the motion, on all parties against whom an interest in land is claimed in the proceeding",
+        countFrom: "the day the court made the order",
+        countFromEvent: "order-made",
+        length: { unit: "days", count: 0 },
+        regime: "civil-rules",
+        rule: RCP_42_01_4_SERVE_ORDER,
+        computation: C.RCP_3_01_COUNT,
+        consequence: "changes-what-happens-next",
+        showsCounting: true,
+        exceptions: [],
+      },
+    ],
     requiresAffirmativeScope: true,
   },
 ];

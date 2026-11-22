@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-316 documented, 26 without a header.
+318 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -159,6 +159,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:late-repeat-state` | **A LATE SAVE REPEATING A "NOT SURE" OR A REMOVAL THE PERSON ALREADY HAS KEEPS THE NEXT STEPS CURRENT AND THE**<br>CONFIRMATION STANDING (site owner, 6 Nov 2026, read of the read pack: item 3; rules 5 and 6). |
 | `npm run test:law-exam` | **The law exam's answer keys rest on the law, word for word.**<br>WHAT THIS CATCHES: an answer key written from memory. Every question in scripts/eval/lawExam/questions/ cites the official text saved in this repository, and every quote must appear in that text -- the same check the site's own quotes pass (quoteMatch.ts). A k |
 | `npm run test:law-map` | **test:law-map -- the law map (docs/law-map/) stays well-formed and never**<br>judges a case (CLAUDE.md s. 2, "Draft from knowledge; publish only what is verified", 2026-10-13). |
+| `npm run test:legal-changes-20261121` | **THE APPROVED LEGAL WORDING CHANGES OF 2026-11-21 (THE LEGAL REVIEW, 125 CHANGES) ARE ON THE SITE, WORD FOR WORD, IN**<br>THE STAGES NAMED, EACH WITH ITS QUOTE FROM THE SAVED OFFICIAL TEXT. |
 | `npm run test:library-chat` | **The chat can only say what has already been verified.**<br>COSTS NOTHING. No model call. Every check drives `validateSelection` and `assembleChatAnswer` with payloads a model might return — including the ones it must never return — because those are the two functions every answer passes through, whatever the model sai |
 | `npm run test:live-stories` | **Eight live stories through the full Small Claims pipeline: general intake ->**<br>claim-type confirmation -> depth phase -> readiness gate. |
 | `npm run test:loan-stories-kind` | **A STORY WHERE THE PERSON LENT MONEY IS A LOAN, WHATEVER THE MONEY WAS FOR (Chrome check of #547 at 0e0f7e9, G1: "In**<br>March 2026 I lent my friend Alex Testwood $4,500 for a car repair" was suggested as "Work or a service you paid for (e.g. a contractor)"). |
@@ -313,6 +314,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:wants-follow-amount` | **WORDS BUILT FROM AMOUNTS FOLLOW THE AMOUNT THE CASE HOLDS (Chrome check of #550, 1.7; site owner, 14 Nov 2026:**<br>"text built from amounts must be built from the record when it is shown, never saved as text"). |
 | `npm run test:whole-form-record` | **THE WHOLE FORM'S BOXES ARE FILLED FROM, AND SAVED TO, THE CASE RECORD (Chrome check of #544, 6 Nov 2026, F1 root cause).**<br>Chrome, Small Claims: the amount was changed five times across the chat, the review, the whole form and "Change". After "Update my next steps" the whole form showed an older amount, and after "Start the questions again from my story" the case showed $9,350, an |
 | `npm run test:wording-20261109` | **THE SEVEN SMALL CLAIMS WORDING CHANGES APPROVED BY THE FOUNDERS ON 2026-11-09 (Review and Decisions Log) ARE IN EVERY**<br>STAGE NAMED, AND IN NO OTHER. |
+| `npm run test:wording-20261122` | **THE OWNER'S 2026-11-22 FOLLOW-UP TO THE 2026-11-21 WORDING RULE IS ON THE SITE, WORD FOR WORD, EACH SENTENCE RESTING**<br>ON THE RULE WHOSE WORD IT NOW USES. |
 | `npm run test:working-states` | **EVERY CONTROL THAT WAITS ON SLOW WORK SAYS SO IN PLAIN WORDS (site owner, 28 Oct).**<br>Checks, across every page and component under app/ (the admin pages excepted), as properties: - every <button> held by a work state (disabled while loading, saving, busy, sending, …) sits in a file that says, in words, what that same state is doing: a WorkingB |
 | `npm run test:workspace-ai-flag` | **No document text and no file name can reach a model while document analysis is off —**<br>and it is off, and stays off. |
 | `npm run test:workspace-catalogue` | **The document-type catalogue in code and the CHECK constraint in the migration say**<br>the same thing, and no type label characterises anything legally. |
