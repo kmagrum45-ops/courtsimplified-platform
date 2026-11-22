@@ -1,7 +1,7 @@
 /**
  * The checks every Case Law Map entry goes through before it is stored (scripts/content/buildCaseLawBatch1.ts), and
  * that the test re-runs (scripts/verification/verifyCaseLawBatch1.ts). None of them is loosened for these entries: the
- * outcome check is the pipeline's own predictsOutcome with its list of exempt rule phrases unchanged, and the
+ * outcome check is the pipeline's own predictsOutcome with its list of owner-authorized exact phrases, and the
  * case-strength check is validateCaseStrengthLanguage.
  *
  * WHAT THE MACHINE CHECK HERE CAN AND CANNOT SAY. No decision text comes from CanLII, and most of these decisions are
@@ -14,7 +14,7 @@
  */
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { predictsOutcome } from "./verifiedContentPipeline";
+import { predictsOutcome, RULE_PHRASES_NOT_PREDICTIONS } from "./verifiedContentPipeline";
 import { validateCaseStrengthLanguage } from "../../src/lib/case-system/intelligence/caseStrengthLanguageValidator";
 import { inProvision, norm } from "../law-map/checkLawMap";
 
@@ -24,7 +24,8 @@ const SOURCES = path.resolve(import.meta.dirname, "..", "..", "docs", "sources")
 export function predictionCheck(text: string): { phrase: string; rule: string } | null {
   const outcome = predictsOutcome(text);
   if (outcome) return { phrase: outcome, rule: "predictsOutcome (scripts/content/verifiedContentPipeline.ts, OUTCOME_MARKERS)" };
-  const strength = validateCaseStrengthLanguage(text);
+  // The same owner-authorized exact phrases, and only those, are skipped (Jason's decision 1, 2026-11-22).
+  const strength = validateCaseStrengthLanguage(RULE_PHRASES_NOT_PREDICTIONS.reduce((t, phrase) => t.split(phrase).join(""), text));
   if (!strength.valid) {
     return { phrase: strength.matchedTerm ?? "", rule: "validateCaseStrengthLanguage (src/lib/case-system/intelligence/caseStrengthLanguageValidator.ts, BLOCKED_TERMS)" };
   }
@@ -52,7 +53,16 @@ export function procedureMentions(text: string): string[] {
  */
 export const LINK_DOMAINS = ["canlii.org", "canlii.ca", "ontario.ca", "ontariocourts.ca", "ontariocourtforms.on.ca", "laws-lois.justice.gc.ca", "lso.ca"];
 
+/**
+ * Single URLs allowed although their domain is not, each by the site owner's decision. The exact URL only: any other
+ * page on the same domain is still held. Shown, like every other link, only through caseLawDisplay's source-label rules.
+ *   - The Canadian Judicial Council's Statement of Principles on Self-represented Litigants and Accused Persons (2006),
+ *     for E01 Pintea v. Johns (Jason's decision 2, 2026-11-22).
+ */
+export const LINK_EXACT_URLS = ["https://cjc-ccm.ca/sites/default/files/documents/2020/Final-Statement-of-Principles-SRL.pdf"];
+
 export function linkAllowed(url: string): boolean {
+  if (LINK_EXACT_URLS.includes(url)) return true;
   const host = new URL(url).hostname.replace(/^www\./, "");
   return LINK_DOMAINS.some((domain) => host === domain || host.endsWith(`.${domain}`));
 }

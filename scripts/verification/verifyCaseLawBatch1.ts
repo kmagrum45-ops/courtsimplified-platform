@@ -146,7 +146,46 @@ for (const e of store.entries) {
 }
 
 // 5. The outcome and case-strength checks, not loosened.
-check("the exempt rule phrases are unchanged (nothing added for these entries)", JSON.stringify(RULE_PHRASES_NOT_PREDICTIONS) === JSON.stringify(["not likely to be disputed"]));
+// Jason's decision 1 (2026-11-22): five exact phrases, each from the entry's own text, each skipped and nothing else.
+const ALLOWED: { entry: string; phrase: string }[] = [
+  { entry: "E05", phrase: "a meritorious defence" },
+  { entry: "E15", phrase: "a strong likelihood, on the law and the evidence, that they will succeed at trial" },
+  { entry: "E20", phrase: "would likely have resulted in different terms" },
+  { entry: "E21", phrase: "would likely have resulted in different terms" },
+  { entry: "E25", phrase: "A judge may decline to find contempt where the person acted in good faith and took reasonable steps to comply" },
+];
+check(
+  "the exempt rule phrases are exactly r. 14 (19) (b)'s and the five Jason allowed, nothing more",
+  JSON.stringify([...RULE_PHRASES_NOT_PREDICTIONS].sort()) === JSON.stringify([...new Set(["not likely to be disputed", ...ALLOWED.map((a) => a.phrase)])].sort()),
+);
+for (const { entry, phrase } of ALLOWED) {
+  const e = store.entries.find((x) => x.number === entry)!;
+  check(`${entry}: the allowed phrase is word for word in its own summary`, caseLawText(e.summaryTextId).includes(phrase));
+  check(`${entry}: its wording now passes both checks`, predictionCheck(caseLawText(e.summaryTextId)) === null);
+  check(`${entry}: no longer marked stopped`, e.stoppedByPredictionCheck === null);
+}
+// Every other "likely", "unlikely", "likelihood", "meritorious", "judge may" and refused form of "succeed" is still refused,
+// including a near-copy of an allowed phrase and an allowed phrase beside another marker.
+const STILL_REFUSED = [
+  "It is likely the court will agree with you.",
+  "That result is unlikely.",
+  "There is a likelihood the motion is granted.",
+  "You have a meritorious claim.",
+  "a meritorious case",
+  "The judge may side with you.",
+  "A judge may decline to grant your motion.",
+  "You are likely to succeed.",
+  "Your claim may succeed.",
+  "The appeal could succeed.",
+  "The appeal might succeed.",
+  "You are unlikely to succeed.",
+  "You can expect to succeed.",
+  "would likely have resulted in a win",
+  "a strong likelihood that you will succeed at trial",
+  "The court must find a meritorious defence, and you are likely to win.",
+  "would likely have resulted in different terms, and it is likely the judge agrees",
+];
+for (const text of STILL_REFUSED) check(`still refused: "${text}"`, predictionCheck(text) !== null);
 for (const e of store.entries) {
   const texts = [e.topicTextId, e.summaryTextId, e.cautionsTextId].filter(Boolean).map((id) => caseLawText(id!));
   const refused = texts.some((t) => predictionCheck(t));
@@ -205,7 +244,9 @@ for (const e of store.entries) {
   check(`${e.number} has its own source link first`, e.kind === "case-law" ? e.links[0]?.role === "decision" && e.sourceLabel === "Source: CanLII" : e.links[0]?.url.startsWith("https://www.ontario.ca/laws/") === true);
   check(`${e.number} holds back every other link`, e.linkPendingSourceDecision.every((l) => !linkAllowed(l.url)));
 }
-check("E01's Canadian Judicial Council link is held for a source decision", store.entries[0].linkPendingSourceDecision.some((l) => l.url.includes("cjc-ccm.ca")));
+const CJC = "https://cjc-ccm.ca/sites/default/files/documents/2020/Final-Statement-of-Principles-SRL.pdf";
+check("E01: the Canadian Judicial Council Statement is allowed by its exact URL (decision 2)", store.entries[0].links.some((l) => l.url === CJC) && store.entries[0].linkPendingSourceDecision.length === 0);
+check("only that exact URL: another page on cjc-ccm.ca is still held", !linkAllowed("https://cjc-ccm.ca/en/news") && !linkAllowed(`${CJC}?x=1`));
 
 // 9. The machine check: what it says and does not say.
 for (const e of store.entries) {

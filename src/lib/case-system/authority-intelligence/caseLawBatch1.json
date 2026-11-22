@@ -94,15 +94,14 @@
           "label": "CanLII",
           "url": "https://www.canlii.org/en/ca/scc/doc/2017/2017scc23/2017scc23.html",
           "role": "decision"
-        }
-      ],
-      "linkPendingSourceDecision": [
+        },
         {
           "label": "Canadian Judicial Council, Statement of Principles on Self-represented Litigants and Accused Persons (2006)",
           "url": "https://cjc-ccm.ca/sites/default/files/documents/2020/Final-Statement-of-Principles-SRL.pdf",
-          "reason": "cjc-ccm.ca is not on CLAUDE.md s. 2's acceptable list and is not used anywhere else on the site. Held, never shown, until the owner decides."
+          "role": "related"
         }
       ],
+      "linkPendingSourceDecision": [],
       "summaryTextId": "caseLaw.pintea-v-johns.summary",
       "cautionsTextId": "caseLaw.pintea-v-johns.cautions",
       "cautionsAsGiven": "The Statement's points are guidance to judges, not rights a self-represented person can demand.",
@@ -388,11 +387,7 @@
         "note": "A statute or rule, not a decision: its link is the official e-Laws page."
       },
       "hidden_until_checked": false,
-      "stoppedByPredictionCheck": {
-        "field": "summary",
-        "phrase": "meritorious",
-        "rule": "validateCaseStrengthLanguage (src/lib/case-system/intelligence/caseStrengthLanguageValidator.ts, BLOCKED_TERMS)"
-      },
+      "stoppedByPredictionCheck": null,
       "procedureMentions": [],
       "machineCheck": {
         "verified": false,
@@ -961,11 +956,7 @@
         "note": "No CANLII_API_KEY where this was built, so CanLII was not asked. Run npm run canlii:check-case-law with the key."
       },
       "hidden_until_checked": true,
-      "stoppedByPredictionCheck": {
-        "field": "summary",
-        "phrase": "likelihood",
-        "rule": "predictsOutcome (scripts/content/verifiedContentPipeline.ts, OUTCOME_MARKERS)"
-      },
+      "stoppedByPredictionCheck": null,
       "procedureMentions": [],
       "machineCheck": {
         "verified": false,
@@ -1229,11 +1220,7 @@
         "note": "No CANLII_API_KEY where this was built, so CanLII was not asked. Run npm run canlii:check-case-law with the key."
       },
       "hidden_until_checked": true,
-      "stoppedByPredictionCheck": {
-        "field": "summary",
-        "phrase": "likely",
-        "rule": "predictsOutcome (scripts/content/verifiedContentPipeline.ts, OUTCOME_MARKERS)"
-      },
+      "stoppedByPredictionCheck": null,
       "procedureMentions": [],
       "machineCheck": {
         "verified": false,
@@ -1302,11 +1289,7 @@
         "note": "No CANLII_API_KEY where this was built, so CanLII was not asked. Run npm run canlii:check-case-law with the key."
       },
       "hidden_until_checked": true,
-      "stoppedByPredictionCheck": {
-        "field": "summary",
-        "phrase": "likely",
-        "rule": "predictsOutcome (scripts/content/verifiedContentPipeline.ts, OUTCOME_MARKERS)"
-      },
+      "stoppedByPredictionCheck": null,
       "procedureMentions": [],
       "machineCheck": {
         "verified": false,
@@ -1571,11 +1554,7 @@
         "note": "No CANLII_API_KEY where this was built, so CanLII was not asked. Run npm run canlii:check-case-law with the key."
       },
       "hidden_until_checked": true,
-      "stoppedByPredictionCheck": {
-        "field": "summary",
-        "phrase": "judge may",
-        "rule": "validateCaseStrengthLanguage (src/lib/case-system/intelligence/caseStrengthLanguageValidator.ts, BLOCKED_TERMS)"
-      },
+      "stoppedByPredictionCheck": null,
       "procedureMentions": [],
       "machineCheck": {
         "verified": false,

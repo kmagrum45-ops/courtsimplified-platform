@@ -226,7 +226,21 @@ check("23. above $50,000 the rest of the paragraph is still shown", forThisPerso
 }
 
 // ---- 7. changes 83 and 85: the one exact rule phrase the outcome gate skips (owner's decision, 2026-11-21) ----------
-check("83, 85. the skipped phrases are exactly r. 14 (19) (b)'s \"not likely to be disputed\"", JSON.stringify(RULE_PHRASES_NOT_PREDICTIONS) === JSON.stringify(["not likely to be disputed"]));
+// A property, not today's list (CLAUDE.md s. 5): r. 14 (19) (b)'s phrase stays skipped, and every other skipped phrase is
+// one the owner authorized (the Case Law Map's five, Jason's decision 1, 2026-11-22; test:case-law-batch1 checks each).
+check("83, 85. r. 14 (19) (b)'s \"not likely to be disputed\" is skipped", RULE_PHRASES_NOT_PREDICTIONS.includes("not likely to be disputed"));
+check(
+  "83, 85. every skipped phrase is owner-authorized: r. 14 (19) (b)'s, or one of the Case Law Map's five",
+  RULE_PHRASES_NOT_PREDICTIONS.every((p) =>
+    [
+      "not likely to be disputed",
+      "a meritorious defence",
+      "a strong likelihood, on the law and the evidence, that they will succeed at trial",
+      "would likely have resulted in different terms",
+      "A judge may decline to find contempt where the person acted in good faith and took reasonable steps to comply",
+    ].includes(p),
+  ),
+);
 check("83, 85. the approved sentence is not read as a prediction", predictsOutcome("On a contempt motion, that information must also be not likely to be disputed.") === null);
 for (const prediction of ["Your claim is unlikely to succeed.", "The judge will likely agree with you.", "You are not likely to win.", "It is likely that the court will order costs.", "That information must also be not likely to be disputed, and you are likely to win."]) {
   check(`83, 85. the outcome gate still refuses: "${prediction}"`, predictsOutcome(prediction) !== null);
