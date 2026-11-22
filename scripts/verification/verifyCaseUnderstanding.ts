@@ -44,7 +44,10 @@ import {
   askedSide,
 } from "../../src/lib/case-system/understanding/understandCase";
 import { isMapOwnedProcedure } from "../../src/lib/case-system/procedureOwnership";
-import { homeQuestionsFor } from "../../src/lib/case-system/caseFile/factQuestions";
+import { homeAsks, homeQuestionsFor } from "../../src/lib/case-system/caseFile/factQuestions";
+import { offeredAmount } from "../../src/lib/case-system/caseFile/storyOffers";
+import fs from "node:fs";
+import path from "node:path";
 /** The site's fixed home questions for a Small Claims case being started (questions/factQuestions.ts). */
 const SITE_SC_STARTING = homeQuestionsFor("small-claims", "starting").map((item) => item.question);
 
@@ -309,6 +312,28 @@ async function main() {
   );
   // Changed 19 Nov 2026: the model's questions never stay; the rows still do, and the questions are the site's fixed ones.
   check("without that answer, the reading's rows about it stay; its questions are the site's fixed ones", notAnswered.status === "understood" && notAnswered.understanding.facts.length === otherWays.facts.length && JSON.stringify(notAnswered.understanding.questions.map((item) => item.question)) === JSON.stringify(SITE_SC_STARTING));
+
+  // ---- (a2), 22 Nov 2026: a row stating the amount AND the filing status keeps the amount, and only the filing words go.
+  // The recorded S1 readings r1 and r2 (tests/browser/fixtures/real-ai/sc-chrome2-s1-fall) wrote "Total claim and court
+  // status: $5,468.45; nothing filed"; the row was dropped whole once "nothing filed" was answered, the total went with it,
+  // and the home page asked "What is the total dollar amount you are claiming?" cold.
+  const S1_STORY = "On Oct 4, 2026 at about 6:40 pm I slipped on a wet floor near the milk fridge at a Circle K in Ottawa. There was no wet-floor sign. I fell on my right hip. A shopper, Sam Patel, saw it. The manager wrote notes. I went to the hospital that night; X-rays showed a bad bruise, no break. I missed 3 days of work (Oct 5 to 7) at $150 a day and bought Tylenol and an ice pack for $18.45. I want to claim $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine.";
+  const FILING_SHOWN = /\b(?:court|filing|case|claim|lawsuit) status\b|\bnothing (?:has been )?filed\b|\bnot (?:yet )?filed\b/i;
+  for (const reading of ["r1", "r2"]) {
+    const recorded = JSON.parse(fs.readFileSync(path.join("tests/browser/fixtures/real-ai/sc-chrome2-s1-fall", `${reading}.json`), "utf8")) as { entries: { step: string; output: string }[] };
+    for (const [n, entry] of recorded.entries.filter((item) => item.step === "story-reading").entries()) {
+      const result = await understandCase(
+        { story: S1_STORY, chosenCourt: "small-claims", situation: { side: "starting", filed: false } },
+        { reason: async () => entry.output, check: { index, embed: noSearch, thorough: false, check: async () => JSON.stringify({ results: [{ n: 1, verdict: "unsupported", passage: "", quote: "", topic: "x" }] }) } },
+      );
+      const facts = result.status === "understood" ? result.understanding.facts : [];
+      const offer = offeredAmount(S1_STORY, facts);
+      const name = `S1 ${reading} reading ${n + 1}, "nothing filed" answered`;
+      check(`${name}: the amount is offered from the reading, $5,468.45`, offer?.from === "reading" && /5,468\.45/.test(offer.value), JSON.stringify(offer));
+      check(`${name}: the home page does not ask the amount cold`, !homeAsks(null, "sc-amount-claimed", S1_STORY, facts));
+      check(`${name}: no row, and not the offer's quote, states the filing status`, !facts.some((fact) => FILING_SHOWN.test(`${fact.label}: ${fact.value}`)) && !FILING_SHOWN.test(offer?.quote ?? ""), JSON.stringify(facts));
+    }
+  }
 
   console.log(failures ? `\n${failures} failed` : "\nAll passed");
   process.exitCode = failures ? 1 : 0;
