@@ -474,7 +474,8 @@ const NOT_A_NAME =
  * it, with no AI: the other side ("my spouse Test Partner and I", "separated from my wife Jane Doe", "my ex, Ms. Jane
  * Doe,"), the person's own ("my name is ..."), and anyone else ("my son ...", "my landlord ...", "a roofer called ...",
  * "Dr. ..."). Two callers: the Family offer of the other person's name (otherPartyNameFromStory, the other side only),
- * and the label layer that hides every name before anything goes to OpenAI (security/requestNames.ts, all of them).
+ * and the label layer that hides the names it finds before anything goes to OpenAI (security/requestNames.ts storyNames,
+ * all roles). A name written in a way none of these patterns knows is not found, and goes as typed.
  *
  * Until 22 Nov the reader took a name after "my ex" / "my wife" only when a comma or the end of the sentence closed it,
  * and a title as the name itself ("my ex Ms. Jane Doe" read "Ms"): Chrome's "My spouse Test Partner and I" was asked
@@ -487,12 +488,13 @@ const LEAD = "(?<![\\p{L}])";
 /** The other side of a Family case: a spouse or partner, past or present, or the other parent of the person's child. */
 const OTHER_SIDE =
   "[Mm]y (?:ex(?:[- ]?(?:wife|husband|gf|bf|girlfriend|boyfriend|partner|spouse|fianc[eé]e?))?|wife|husband|partner|spouse|fianc[eé]e?|girlfriend|boyfriend|common[- ]law(?: (?:wife|husband|partner|spouse))?|(?:sons?|daughters?|kids?|child|children|baby|boy|girl)(?:'s|’s|')? (?:mom|mum|mother|dad|father))";
-/** Anyone else the person names by how they know them: hidden from the model, never offered as the other side. */
+/** Anyone else the person names by how they know them: labelled for the model, never offered as the other side. */
 const OTHER_PEOPLE =
   "[Mm]y (?:(?:old|former|new|previous|current|late|step|younger|older|little|big)[- ]?)?(?:sons?|daughters?|child|kids?|baby|stepson|stepdaughter|mother|father|mom|mum|dad|brothers?|sisters?|grandmother|grandfather|grandma|grandpa|aunt|uncle|cousin|friend|roommate|landlord|landlady|boss|manager|supervisor|employer|neighbou?r|tenant|contractor|lawyer|doctor)";
 
-type NameRole = "other" | "you" | "person";
-const NAME_PATTERNS: { role: NameRole; pattern: RegExp }[] = [
+export type NameRole = "other" | "you" | "person";
+/** The one set of name patterns: the Family offer reads the "other" ones here; the label layer reads them all (requestNames.ts storyNames). */
+export const STORY_NAME_PATTERNS: readonly { role: NameRole; pattern: RegExp }[] = [
   { role: "other", pattern: new RegExp(`${LEAD}${OTHER_SIDE}(?:'s name is|,?\\s+(?:who is |is )?named|,?\\s+(?:is )?called)\\s+${PERSON}`, "u") },
   // "my spouse Test Partner and I", "my ex, Ms. Jane Doe,", "separated from my wife Jane Doe", "my husband Mark."
   { role: "other", pattern: new RegExp(`${LEAD}${OTHER_SIDE},?\\s+${PERSON}`, "u") },
@@ -508,38 +510,19 @@ const NAME_PATTERNS: { role: NameRole; pattern: RegExp }[] = [
   { role: "person", pattern: new RegExp(`${LEAD}(?:Mr|Mrs|Ms|Miss|Mx|Dr)\\.?\\s+(${NAME_WORD}(?:\\s+${NAME_WORD}){0,2})`, "u") },
 ];
 
-function isName(name: string): boolean {
+export function isStoryName(name: string): boolean {
   return !NOT_A_NAME.test(name) && !MONTH_NAMES.test(name) && !Object.keys(CITIES).includes(name.toLowerCase());
-}
-
-/** A person the story names, how the story says they are related, and the sentence that says it. */
-export type StoryPerson = { name: string; role: NameRole; quote: string };
-
-/** Every name the story gives, each once, in the order the story gives them (a name the first time it is read). */
-export function peopleInStory(story: string): StoryPerson[] {
-  const out: StoryPerson[] = [];
-  for (const sentence of sentences(story)) {
-    for (const { role, pattern } of NAME_PATTERNS) {
-      const global = new RegExp(pattern.source, `${pattern.flags}g`);
-      for (const match of sentence.matchAll(global)) {
-        const name = match[1].trim();
-        if (!isName(name) || out.some((held) => held.name.toLowerCase() === name.toLowerCase())) continue;
-        out.push({ name, role, quote: sentence });
-      }
-    }
-  }
-  return out;
 }
 
 export function otherPartyNameFromStory(story: string): StoryAnswer | null {
   // The other side only ("my mom's dad" is not the other side), the first the story gives.
   for (const sentence of sentences(story)) {
-    for (const { role, pattern } of NAME_PATTERNS) {
+    for (const { role, pattern } of STORY_NAME_PATTERNS) {
       if (role !== "other") continue;
       const match = pattern.exec(sentence);
       if (!match) continue;
       const name = match[1].trim();
-      if (!isName(name)) continue;
+      if (!isStoryName(name)) continue;
       return { value: name, quote: sentence };
     }
   }

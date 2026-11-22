@@ -1,5 +1,8 @@
 /**
- * A NAME TYPED IN THE STORY NEVER REACHES OPENAI, THROUGH ANY AI ROUTE (site owner, 22 Nov 2026, batch (a3)).
+ * A NAME THE STORY GIVES IN ANY WORDING BELOW NEVER REACHES OPENAI, THROUGH ANY AI ROUTE (site owner, 22 Nov 2026, (a3)).
+ *
+ * Only the wordings below are covered: a name written in a way the one name reader does not know is not found, and is
+ * sent as typed (privacy/nameLabels.ts says so). This suite checks the listed wordings; it is not a promise about others.
  *
  * What failed: Chrome's signed-in Family run wrote "My spouse Test Partner and I separated...". The one name reader
  * (otherPartyNameFromStory, app/builder/_components/storyAnswers.ts) did not pick "Test Partner" out, so the label
