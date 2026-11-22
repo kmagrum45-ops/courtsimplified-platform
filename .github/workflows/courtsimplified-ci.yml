@@ -638,6 +638,9 @@ jobs:
       - name: Court decisions from CanLII follow CanLII's terms (attribution, isolation, no scraping, rate limit, works with no key)
         run: npm run test:canlii
 
+      - name: The Case Law Map (batch 1) is stored word for word, checked, and shown to no one
+        run: npm run test:case-law-batch1
+
       - name: No page starts work before the "Before you start" notice (declared work senders, gated pages, the gates themselves)
         run: npm run test:notice-gate
 

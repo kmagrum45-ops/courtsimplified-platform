@@ -637,6 +637,7 @@ async function main() {
     const uiText = [upload, read("app/cases/_components/CourtDecisionPanel.tsx")].join("\n").replace(/\/\*[\s\S]*?\*\//g, "");
     check("no screen text invites downloading in bulk or for others", !BULK.test(uiText.replace(/className="[^"]*"/g, "")));
     check("caseRefFromCitation reads the documented examples", JSON.stringify([caseRefFromCitation("2008 SCC 9"), caseRefFromCitation("2014 ONCA 925"), caseRefFromCitation("1999 CanLII 1527 (ON CA)"), caseRefFromCitation("[1999] 1 S.C.R. 201")]) === JSON.stringify([{ databaseId: "csc-scc", caseId: "2008scc9" }, { databaseId: "onca", caseId: "2014onca925" }, { databaseId: "onca", caseId: "1999canlii1527" }, null]));
+    check("caseRefFromCitation maps a CanLII citation of the Supreme Court to csc-scc", JSON.stringify(caseRefFromCitation("1994 CanLII 117 (SCC)")) === JSON.stringify({ databaseId: "csc-scc", caseId: "1994canlii117" }));
   }
 
   console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");

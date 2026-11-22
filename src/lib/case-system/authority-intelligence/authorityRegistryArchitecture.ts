@@ -4,6 +4,7 @@ import {
   CaseProvince,
   CaseStage,
 } from "../architecture/masterCaseSchema";
+import type { CaseLawEntry } from "./caseLawBatch1";
 
 export type AuthorityRegistryArchitectureVersion = "1.0.0";
 
@@ -222,6 +223,12 @@ export type VerifiedAuthorityEntry = {
   createdAt: string;
   updatedAt: string;
   lastVerifiedAt?: string;
+
+  /**
+   * An entry of the owner's Case Law Map (caseLawBatch1.ts): the approved summary and cautions by text id, the
+   * review record, the CanLII check and the check results. When present it is the entry's only wording.
+   */
+  approvedRecord?: CaseLawEntry;
 };
 
 export type AuthorityRegistryTopicGroup = {
