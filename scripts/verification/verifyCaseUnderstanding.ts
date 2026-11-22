@@ -41,6 +41,7 @@ import {
   withoutLaw,
   askedWhetherFiled,
   aboutWhetherFiled,
+  withoutFilingStatus,
   askedSide,
 } from "../../src/lib/case-system/understanding/understandCase";
 import { isMapOwnedProcedure } from "../../src/lib/case-system/procedureOwnership";
@@ -317,6 +318,18 @@ async function main() {
   // The recorded S1 readings r1 and r2 (tests/browser/fixtures/real-ai/sc-chrome2-s1-fall) wrote "Total claim and court
   // status: $5,468.45; nothing filed"; the row was dropped whole once "nothing filed" was answered, the total went with it,
   // and the home page asked "What is the total dollar amount you are claiming?" cold.
+  for (const [row, kept] of [
+    [{ label: "Total claim and court status", value: "$5,468.45; nothing filed" }, { label: "Total claim", value: "$5,468.45" }],
+    [{ label: "Total claim and filing status", value: "$5,468.45; nothing filed with a court" }, { label: "Total claim", value: "$5,468.45" }],
+    [{ label: "Court filing", value: "Nothing filed" }, null],
+    [{ label: "Court status", value: "You are bringing the claim; nothing has been filed." }, null],
+    [{ label: "Lawsuit status", value: "Not given" }, null],
+    [{ label: "Claim already started", value: "$2,000 claimed; filed in March" }, null],
+    [{ label: "Amount paid", value: "$450" }, { label: "Amount paid", value: "$450" }],
+  ] as const) {
+    const got = withoutFilingStatus(row);
+    check(`"${row.label}: ${row.value}" ${kept ? `keeps "${kept.label}: ${kept.value}"` : "goes whole"}`, JSON.stringify(got) === JSON.stringify(kept), JSON.stringify(got));
+  }
   const S1_STORY = "On Oct 4, 2026 at about 6:40 pm I slipped on a wet floor near the milk fridge at a Circle K in Ottawa. There was no wet-floor sign. I fell on my right hip. A shopper, Sam Patel, saw it. The manager wrote notes. I went to the hospital that night; X-rays showed a bad bruise, no break. I missed 3 days of work (Oct 5 to 7) at $150 a day and bought Tylenol and an ice pack for $18.45. I want to claim $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine.";
   const FILING_SHOWN = /\b(?:court|filing|case|claim|lawsuit) status\b|\bnothing (?:has been )?filed\b|\bnot (?:yet )?filed\b/i;
   for (const reading of ["r1", "r2"]) {

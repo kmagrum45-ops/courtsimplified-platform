@@ -440,6 +440,32 @@ export const aboutWhetherFiled = (text: string) =>
   /\b(?:filed?|started|start|issued|brought|opened)\b[^?]{0,60}\b(?:with|in|at) (?:the )?court\b|\b(?:started|opened|brought|filed)\b[^?]{0,20}\b(?:a |an |any )?(?:court )?(?:case|claim|lawsuit|action|application|proceeding)\b|\bis there (?:a|an|any) (?:open |current |existing )?(?:court )?(?:case|claim|lawsuit|action|proceeding)\b|\b(?:been|were|was) served\b[^?]{0,30}\b(?:papers|claim|application|documents)\b|\b(?:lawsuit|case|claim|court|filing|action)\s+status\b/i.test(text) ||
   /\bwhich court\b[^?]*\b(?:issued|filed|started|has|have)\b|\bcourt file (?:number|no\.?)|\b(?:existing|current|ongoing|pending) (?:court )?(?:case|claim|lawsuit|action|proceeding)\b|\b(?:claim|case|lawsuit|action|application)\b[^:?]{0,30}\b(?:already )?(?:started|filed|issued|commenced)\b|\balready (?:started|filed|issued|commenced)\b/i.test(text);
 
+/** A part of a row that says anything about a court, a filing or service: never kept from a row about whether a case is filed. */
+const FILING_WORDS = /\b(?:filed?|filing|court|started|issued|commenced|served|lawsuit|proceeding|nothing yet)\b/i;
+const HOLDS_AMOUNT = /\$\s?\d/;
+/** "Total claim and court status" -> "Total claim"; "Filing status and amount" -> "amount". */
+const withoutStatusWords = (label: string) =>
+  label
+    .replace(/\s*(?:,|and|&|\/|\+)\s*(?:the\s+)?(?:court|filing|case|claim|lawsuit)\s+status\b/gi, "")
+    .replace(/^\s*(?:court|filing|case|claim|lawsuit)\s+status\s*(?:,|and|&|\/|\+)\s*/i, "")
+    .trim();
+
+/**
+ * A reading row about whether a case is filed, once the person has answered that (withSituation): the row goes, but an
+ * amount it also states stays, under its label without the status words ((a2), 22 Nov 2026: the recorded S1 readings r1
+ * and r2 wrote "Total claim and court status: $5,468.45; nothing filed", and dropping the whole row dropped the total, so
+ * the home page asked the amount cold). Only parts holding a dollar amount and no court or filing words are kept, so the
+ * filing-status words are never shown (the rule this row was dropped for); a row with no such part goes whole, as before.
+ */
+export function withoutFilingStatus(fact: { label: string; value: string }): { label: string; value: string } | null {
+  if (!aboutWhetherFiled(`${fact.label}: ${fact.value}`)) return fact;
+  const label = withoutStatusWords(fact.label);
+  const kept = fact.value.split(/\s*(?:;|,\s|\s[-–—]\s)\s*/).map((part) => part.trim()).filter((part) => HOLDS_AMOUNT.test(part) && !FILING_WORDS.test(part));
+  if (!label || FILING_WORDS.test(label) || /\bstatus\b/i.test(label) || kept.length === 0) return null;
+  const value = kept.join("; ");
+  return aboutWhetherFiled(`${label}: ${value}`) ? null : { label, value };
+}
+
 /** "Has anything (else) happened in the case since you were served?", "Where is the case now?" */
 export const askedWhatHappenedSoFar = (question: string) =>
   /\b(?:has|have) anything(?: else)? (?:happened|been done)\b[^?]*\b(?:case|court|claim|since)\b|\bsince you (?:were served|received|got)\b[^?]*\b(?:anything|happened)\b|\bwhat (?:has happened|stage)\b[^?]*\b(?:case|claim)\b|\bwhere (?:is|does) (?:the|your) (?:court )?case\b/i.test(question);
@@ -467,8 +493,9 @@ function withSituation(understanding: CaseUnderstanding, situation: UnderstandIn
       // happened in the court case since you received the claim?" after it was answered).
       !(situation.stageGiven && askedWhatHappenedSoFar(item.question)) &&
       !(situation.side && askedSide(item.question))),
-    // And the reading's own rows about it go too: the person's answer stands, shown at the top.
-    facts: situation.filed !== undefined ? understanding.facts.filter((fact) => !aboutWhetherFiled(`${fact.label}: ${fact.value}`)) : understanding.facts,
+    // And the reading's own rows about it go too: the person's answer stands, shown at the top. An amount on the same
+    // row stays ((a2): "Total claim and court status: $5,468.45; nothing filed" keeps "Total claim: $5,468.45").
+    facts: situation.filed !== undefined ? understanding.facts.flatMap((fact) => withoutFilingStatus(fact) ?? []) : understanding.facts,
   };
 }
 
