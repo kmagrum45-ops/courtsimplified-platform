@@ -403,7 +403,8 @@
     "test:one-decider": "node --import tsx scripts/verification/verifyOneDecider.ts",
     "test:fact-meanings": "node --import tsx scripts/verification/verifyFactMeanings.ts",
     "test:pass3-asked-twice": "node --import tsx scripts/verification/verifyPass3AskedTwice.ts",
-    "test:legal-changes-20261121": "node --import tsx scripts/verification/verifyLegalChanges20261121.ts"
+    "test:legal-changes-20261121": "node --import tsx scripts/verification/verifyLegalChanges20261121.ts",
+    "test:wording-20261122": "node --import tsx scripts/verification/verifyWording20261122.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",
