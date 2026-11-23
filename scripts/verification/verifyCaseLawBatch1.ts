@@ -81,6 +81,16 @@ for (const { number, slug, fields } of fixture) {
 const rebuilt = buildCaseLawBatch(store);
 check("the store is exactly what the build step makes from the owner's file (npm run content:build-case-law)", JSON.stringify(rebuilt) === JSON.stringify(store));
 
+// E04: the one-word fix Jason authorized on 2026-11-22 (paragraph 20 of Van de Vrande reads "an abuse of process").
+{
+  const e04 = store.entries.find((e) => e.number === "E04")!;
+  const summary = caseLawText(e04.summaryTextId);
+  check("E04 quotes paragraph 20 exactly: \"frivolous, vexatious or an abuse of process\"", summary.includes("\"frivolous, vexatious or an abuse of process\""));
+  check("E04 no longer has the misquote \"frivolous, vexatious or abuse of process\"", !summary.includes("\"frivolous, vexatious or abuse of process\""));
+  check("E04's notes record Jason's authorization and why", /Change authorized by Jason Magrum on 2026-11-22:.*paragraph 20 of the decision reads "an abuse of process"/.test(e04.review.owner_check_notes));
+  check("E04 still needs review, with confirmed_at empty", e04.review.status === "needs review" && e04.review.confirmed_at === null);
+}
+
 // 2. The review record.
 for (const entry of store.entries) {
   check(`${entry.number} status is "needs review"`, entry.review.status === "needs review");
