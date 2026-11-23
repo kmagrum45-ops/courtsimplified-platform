@@ -406,6 +406,7 @@
     "test:no-ai-question-text": "node --import tsx scripts/verification/verifyNoAiQuestionText.ts",
     "test:home-asks-unstated": "node --import tsx scripts/verification/verifyHomeAsksUnstated.ts",
     "test:one-decider": "node --import tsx scripts/verification/verifyOneDecider.ts",
+    "test:fact-places": "node --import tsx scripts/verification/verifyFactPlaces.ts",
     "test:fact-meanings": "node --import tsx scripts/verification/verifyFactMeanings.ts",
     "test:pass3-asked-twice": "node --import tsx scripts/verification/verifyPass3AskedTwice.ts",
     "test:legal-changes-20261121": "node --import tsx scripts/verification/verifyLegalChanges20261121.ts",

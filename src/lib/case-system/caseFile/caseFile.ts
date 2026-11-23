@@ -34,7 +34,7 @@
 import type { Checkpoint } from "../intakeCheckpoint";
 import { freshSections } from "../storyBasis";
 import { isTypedUnsure, isUnsureAnswer } from "./unsureAnswer";
-import { storyOfMaster } from "../intakeStory";
+import { locationOf, storyOfMaster } from "../intakeStory";
 import { withoutGluedAnswers } from "../personWords";
 import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation, SERVED_DATE_QUESTION, JUST_SERVED } from "../situation/situation";
 import { isKindOfClaim, kindFromStory, storyQuoteFor, wordsInStory } from "../intake/claimKind";
@@ -45,7 +45,7 @@ import { parseRecordedAmount } from "../format/recordedAmount";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
 import { chatMayAsk, slotStatus } from "./factStatus";
-import { partyName, partyNames, readParties, type PartiesHeld } from "../parties/parties";
+import { partyName, partyNames, readParties, withHeldOtherName, withStartLocation, type PartiesHeld } from "../parties/parties";
 import { partiesFromOldShapes } from "./oldParties";
 import { fitsFactType } from "./factTypes";
 
@@ -541,6 +541,10 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
       }),
     };
   }
+  // The person's own city and province from the home page, held in their own address (C9): never asked again there.
+  file.parties.list = withStartLocation(file.parties.list, { location: locationOf(sections as never), answered: answeredInIntake(sections) });
+  // The other side's name the person gave (the chat, the review), held as the one other party's name there (C9).
+  file.parties.list = withHeldOtherName(file.parties.list, heldOtherName(file));
   // 12. Words built from amounts follow the amount held now (Chrome check of #550, 1.7): read, never saved.
   const heldAmount = file.amount.state === "answered" ? (typeof file.amount.value === "number" ? file.amount.value : parseRecordedAmount(String(file.amount.value ?? ""))) : null;
   // What they want. Never a defendant's own outcome: the amount held for them is the claim against them, and their own
@@ -1153,6 +1157,15 @@ export function claimKindOf(file: CaseFile, listWords: (codes: string[]) => stri
  * and the Small Claims chat (guided.earlierAnswers, worded from the question bank). For details given there that another
  * step asks for (the Parties step: an address typed as an answer; Chrome milestone pass 2, finding 3).
  */
+/**
+ * The other side's name the case holds as the person's own answer, from a place other than the Parties step (the chat, the
+ * review): the one reading the Parties step and the case file share (C9). Empty when there is none.
+ */
+export function heldOtherName(file: CaseFile): string {
+  const slot = file.otherParty;
+  return slot.state === "answered" && typeof slot.value === "string" && slot.source?.kind === "answer" && slot.source.question !== "parties" && !slot.removed ? slot.value.trim() : "";
+}
+
 export function answeredInIntake(sections: Record<string, unknown> | undefined): { question: string; answer: string }[] {
   const out: { question: string; answer: string }[] = [];
   const all = object(sections);

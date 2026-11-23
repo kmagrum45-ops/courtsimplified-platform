@@ -119,5 +119,19 @@ check("6. the home card asks through homeAsks, the one decider", /homeAsks\(file
 check("6. the home card makes no offer of its own (the intake offers a stated value once)", !/offerForAskedWords|case-understanding-offer/.test(card));
 check("6. the home card keeps each answer by its question's id, never its place", /replies\[item\.id!\]/.test(card) && !/replies\[index\]/.test(card));
 
+// 7. C9 (23 Nov 2026; Chrome check of #558, step 5a): "Tell us about the children" was asked on the home page after the
+// story said "We have no children". The story states the children fact: not asked here, offered once as "No children".
+const NONE = "TEST CASE (made up). My wife Test Partner and I separated in March 2025. We have no children. I want a divorce.";
+const familyIds = (story: string) => decide("family", "starting", null, story).map((item) => item.id);
+check("7. a Family story saying \"We have no children\" is not asked about the children on the home page", !familyIds(NONE).includes("childrenInfo"), familyIds(NONE).join(", "));
+check("7. ... and the story reader states it as \"No children\", the value the intake offers once", review.statedInStory(NONE).children === "No children", JSON.stringify(review.statedInStory(NONE)));
+for (const said of ["We never had kids.", "We don't have any children.", "There are no children of the marriage.", "No children together."]) {
+  check(`7. "${said}" states no children too`, review.statedInStory(`My husband and I separated last year. ${said}`).children === "No children", JSON.stringify(review.statedInStory(`My husband and I separated last year. ${said}`)));
+}
+const MIXED = "My wife and I separated in 2025. We have no children together, but my son from before lives with me.";
+check("7. self-test: no children together but a child of the person's own named: nothing is stated, the question is asked", review.statedInStory("My wife and I separated in 2025. We have no children together. My son lives with me.").children !== "No children");
+check("7. self-test: \"no children together, but my son from before lives with me\": nothing is stated, the children question is asked", review.statedInStory(MIXED).children !== "No children" && familyIds(MIXED).includes("childrenInfo"), JSON.stringify(review.statedInStory(MIXED)));
+check("7. self-test: a story naming a child's age still gives the child, not \"No children\"", review.statedInStory("We separated in May. Our daughter is 6.").children !== "No children" && Boolean(review.statedInStory("We separated in May. Our daughter is 6.").children));
+
 console.log(failed ? `\n${failed} check(s) failed` : "\nAll home-asks-unstated checks passed");
 process.exitCode = failed ? 1 : 0;
