@@ -15,7 +15,7 @@ import { reviewEntries, statedInStory } from "../../src/lib/case-system/intakeRe
 import { suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";
 import type { CaseRecord } from "../../src/lib/case-system/caseRecord";
 import { partyOfOffer, storyPartyOffers, withHeldOtherName, withNameParts, withStartLocation, withoutHeldElsewhere, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
-import { answeredInIntake, caseFileOf, slotText } from "../../src/lib/case-system/caseFile/caseFile";
+import { answeredInIntake, caseFileOf, heldLocation, slotText } from "../../src/lib/case-system/caseFile/caseFile";
 import { amountWithCostsNote } from "../../src/lib/case-system/format/recordedAmount";
 import { FORM_7A } from "../../src/lib/case-system/forms/maps/form7A";
 import { fillForm, pdfValues } from "../../src/lib/case-system/forms/formMap";
@@ -71,6 +71,11 @@ section("Findings 2 and 3", () => {
   check("F2 a city the person gave here is never replaced, and Ontario is not added for it", ownCity.details.city === "Kanata" && ownCity.details.province === undefined && !ownCity.heldElsewhere, JSON.stringify(ownCity));
   const unsureCity = withStartLocation([{ ...you, unsure: ["city" as const] }], { location: { city: "Ottawa" } })[0];
   check("F2 a city the person said they are not sure of is not filled", unsureCity.details.city === undefined, JSON.stringify(unsureCity));
+  // C9: the case file holds the home page's city and province (heldLocation); the court chat reads it before its own copy,
+  // so it never asks "What province or territory did this happen in?" of a person who gave it.
+  const located = caseFileOf({ version: 1, flowId: "f", courtPath: "small-claims", revision: "r", sections: { story: { text: "x", location: { province: "Ontario", city: "Ottawa" } } } } as never);
+  check("F2 the case file holds the city and province given at the start (heldLocation)", JSON.stringify(heldLocation(located)) === JSON.stringify({ city: "Ottawa", province: "Ontario" }), JSON.stringify(heldLocation(located)));
+  check("F2 the court chat reads the held location first", /const held = heldLocation\(reviewView \? caseFileOf\(reviewView\.checkpoint\) : null\);/.test(source("app/builder/_components/CourtAssistantChat.tsx")) && /province: held\?\.province \|\| fromData\.province/.test(source("app/builder/_components/CourtAssistantChat.tsx")));
   check("F2 only the person's own entry is filled, never the other side's", withStartLocation([you, store], { location: { city: "Ottawa" } })[1].details.city === undefined);
   check("F2 the one writer drops what was read from the start before saving", /readParties\(JSON\.parse\(JSON\.stringify\(\{ \.\.\.record, list: record\.list\.map\(withoutHeldElsewhere\) \}\)\)\)/.test(source("app/_components/caseWrite.ts")));
   // C9 (Chrome check of #558, step 5a): the other side's name confirmed in the chat was offered again on the Parties step

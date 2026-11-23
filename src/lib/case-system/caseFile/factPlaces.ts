@@ -34,6 +34,8 @@ import type { CaseFact } from "./factsOfQuestion";
 export const HELD_BY_READER: Readonly<Partial<Record<CaseFact, string>>> = {
   // The parties in the case file (written only by the Parties step).
   yourName: "heldYourName",
+  // The home page's city and province (the story section's location).
+  municipality: "heldLocation",
 };
 
 export type PlaceCourt = "small-claims" | "civil" | "family";
@@ -372,7 +374,7 @@ export const FACT_PLACES: readonly Place[] = [
       { fact: "courtDate", kind: "ask", courts: ALL, gate: FILE },
       { fact: "amount", kind: "ask", courts: ALL, gate: FILE },
       { fact: "evidence", kind: "ask", courts: ALL, gate: FILE, shows: "What proof do you have?" },
-      { fact: "municipality", kind: "ask", courts: ALL, gate: copy("the chat's own list of what is missing") },
+      { fact: "municipality", kind: "ask", courts: ALL, gate: FILE },
     ],
   },
   {

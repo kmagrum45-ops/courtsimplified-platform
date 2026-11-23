@@ -1,24 +1,10 @@
 [
   {
     "court": "small-claims",
-    "fact": "municipality",
-    "place": "court-chat",
-    "other": "home-start",
-    "why": "checks the chat's own list of what is missing, not the case file"
-  },
-  {
-    "court": "small-claims",
     "fact": "serviceMethod",
     "place": "step",
     "other": "sc-guided",
     "why": "checks the step's own service answer, not the case file"
-  },
-  {
-    "court": "civil",
-    "fact": "municipality",
-    "place": "court-chat",
-    "other": "home-start",
-    "why": "checks the chat's own list of what is missing, not the case file"
   },
   {
     "court": "civil",
@@ -47,13 +33,6 @@
     "place": "family-triage",
     "other": "home-start",
     "why": "checks a copy of the home page's city, passed in, not the case file"
-  },
-  {
-    "court": "family",
-    "fact": "municipality",
-    "place": "court-chat",
-    "other": "home-start",
-    "why": "checks the chat's own list of what is missing, not the case file"
   },
   {
     "court": "family",

@@ -83,6 +83,8 @@ export type CaseFile = Record<SlotFact, Slot> & {
   sideWords?: string;
   /** The story's words as they are now, for the lines "What we have so far" quotes from it (storyLines.ts); the fact itself is the `story` slot. */
   storyText?: string;
+  /** The person's own city and province, given on the home page (intakeStory.ts locationOf): read through heldLocation (C9). */
+  location?: { city: string; province: string };
   /**
    * A kind of claim made by the site, not the person (the guided route's story match or the
    * classifier's suggestion not yet ticked, or an older saved case's unticked match): a PROPOSAL,
@@ -541,6 +543,9 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
       }),
     };
   }
+  // The person's own city and province from the home page (C9): the case file holds it; every place reads heldLocation.
+  const startLocation = locationOf(sections as never);
+  if (startLocation?.city.trim()) file.location = { city: startLocation.city.trim(), province: startLocation.province };
   // The person's own city and province from the home page, held in their own address (C9): never asked again there.
   file.parties.list = withStartLocation(file.parties.list, { location: locationOf(sections as never), answered: answeredInIntake(sections) });
   // The other side's name the person gave (the chat, the review), held as the one other party's name there (C9).
@@ -1159,6 +1164,11 @@ export function claimKindOf(file: CaseFile, listWords: (codes: string[]) => stri
 export function heldOtherName(file: CaseFile): string {
   const slot = file.otherParty;
   return slot.state === "answered" && typeof slot.value === "string" && slot.source?.kind === "answer" && slot.source.question !== "parties" && !slot.removed ? slot.value.trim() : "";
+}
+
+/** The person's own city and province the case holds (the home page's), or null (C9): never asked again in another place. */
+export function heldLocation(file: CaseFile | null | undefined): { city: string; province: string } | null {
+  return file?.location ?? null;
 }
 
 /**
