@@ -326,6 +326,14 @@ async function main() {
     [{ label: "Lawsuit status", value: "Not given" }, null],
     [{ label: "Claim already started", value: "$2,000 claimed; filed in March" }, null],
     [{ label: "Amount paid", value: "$450" }, { label: "Amount paid", value: "$450" }],
+    // A row about one named court document is not a row about whether a case is filed: it stays, in every court
+    // ((a2) review, 22 Nov: "not yet filed" / "nothing filed" alone would have dropped these once "filed" was answered).
+    [{ label: "Defence", value: "not yet filed" }, { label: "Defence", value: "not yet filed" }],
+    [{ label: "Defence", value: "nothing filed yet" }, { label: "Defence", value: "nothing filed yet" }],
+    [{ label: "Answer", value: "not filed yet" }, { label: "Answer", value: "not filed yet" }],
+    [{ label: "Financial statement (Form 13.1)", value: "not filed" }, { label: "Financial statement (Form 13.1)", value: "not filed" }],
+    [{ label: "Reply", value: "Not yet filed" }, { label: "Reply", value: "Not yet filed" }],
+    [{ label: "Statement of defence", value: "not filed; 20 days to file" }, { label: "Statement of defence", value: "not filed; 20 days to file" }],
   ] as const) {
     const got = withoutFilingStatus(row);
     check(`"${row.label}: ${row.value}" ${kept ? `keeps "${kept.label}: ${kept.value}"` : "goes whole"}`, JSON.stringify(got) === JSON.stringify(kept), JSON.stringify(got));
