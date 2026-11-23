@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-321 documented, 26 without a header.
+322 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -111,6 +111,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:evidence-guidance` | **Pins the removal of the false "already mentioned" claim.**<br>COSTS NOTHING. Pure functions and a source-order check. |
 | `npm run test:fact-coexistence` | **FAILING FIRST: ONCE A FACT RECORD EXISTS, EVERY OLD COPY IS IGNORED (case core G0; CASE_CORE_DESIGN.md §11).**<br>FAILING FIRST, NOW PASSING: option A (caseFileOf applies the fact record, 1 Nov) and G1a (the readers through the case file) passed 17 of 20; G2(c) (saveCheckpoint keeps the stored fact record, serverFacts.ts) passes the last three (2 Nov). (Written failing on |
 | `npm run test:fact-meanings` | **NO TWO FACTS DECLARE THE SAME MEANING (site owner, 19 Nov 2026).**<br>The same real-world fact under two ids is how a fact gets asked twice (S1: "If this involves an injury, what date did it happen?" after the story gave the date, because the injury date and the event date were asked as two). Every fact id declares one plain mea |
+| `npm run test:fact-places` | **C9: NO FACT IS ASKED OR OFFERED IN TWO PLACES (site owner, 23 Nov 2026: "for every fact in the fact list, in every**<br>court, if the fact can be answered or confirmed in one place, then NO other place may ask or offer it again. The check fails, naming the fact and the two places, whenever two places can. Freeze today's list of known violations on a shrink-only list (like test: |
 | `npm run test:fact-rails` | **THE RAILS OF THE ONE CASE RECORD (case core G0; docs CASE_CORE_DESIGN.md §1, §10, §12).**<br>What it checks, with no network and no AI: 1. `give` is exported from caseFile.ts and records an answer the way caseFileOf does. 2. The server alone orders saves (§12): a write naming `seq` or `at` is refused; each accepted write gets seq = the highest stored  |
 | `npm run test:fact-sources` | **No fact about the person's case is shown without its source.**<br>What it checks: 1. Every place in app/ that states something about the person's case ("you told us", "from what you told us", "from your story", "you said", "you wrote", "we understood") renders the source beside it -- the person's words quoted, or their confi |
 | `npm run test:fact-status` | **THE ONE FUNCTION THAT SAYS WHETHER A FACT IS KNOWN (site owner, 11 Nov 2026, design slice 1; caseFile/factStatus.ts).**<br>Every fact is one of: known (the person's answer, typed or a story value they said Yes to), offer (stated in the story, not yet decided: shown once with Yes / No, that's not right / I'm not sure), ask (unknown, or the person said the story's value was not righ |
