@@ -2269,7 +2269,7 @@ function juryNotice(id: string, afterCounterclaim = false): StageDeadline {
   };
 }
 
-function dismissalCosts(id: string, registrarRuleWording = false): StageDeadline {
+function dismissalCosts(id: string): StageDeadline {
   return {
     id,
     what: "If the action was dismissed for delay, you can ask the court to deal with the costs of the action. Do this by making a motion about the costs",
@@ -2281,7 +2281,7 @@ function dismissalCosts(id: string, registrarRuleWording = false): StageDeadline
     computation: C.RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier:
-      `Any party to the action can make this motion. The rule's own words cover any action "dismissed for delay". ${registrarRuleWording ? "The registrar's order under rule 48.14 (1) is a dismissal for delay." : "The registrar's five-year order is a dismissal for delay."} The only doubt comes from rule 48.14 (9). That rule applies the dismissal rules to a registrar's order, but it names only rules 24.03 to 24.05. So the rules' text does not settle whether this rule, 24.05.1, reaches that order. Bringing the motion within the 30 days avoids the doubt. The time can be extended by filing a consent, or by the court.`,
+      `Any party to the action can make this motion. The rule's own words cover any action "dismissed for delay". The registrar's order under rule 48.14 (1) is a dismissal for delay. The only doubt comes from rule 48.14 (9). That rule applies the dismissal rules to a registrar's order, but it names only rules 24.03 to 24.05. So the rules' text does not settle whether this rule, 24.05.1, reaches that order. Bringing the motion within the 30 days avoids the doubt. The time can be extended by filing a consent, or by the court.`,
     exceptions: [RCP_48_14_EFFECT, RCP_48_14_FIVE_YEARS, RCP_3_02_CONSENT, RCP_3_02_EXTEND],
   };
 }
@@ -4295,7 +4295,7 @@ const DEFENDANT: CaseStage[] = [
           "If you do not, the counterclaim is treated as discontinued, without costs. This applies to a dismissal by the registrar as well as by the court. The time can be extended by filing a consent, or by the court.",
         exceptions: [RCP_48_14_EFFECT, RCP_3_02_CONSENT, RCP_3_02_EXTEND],
       },
-      dismissalCosts("deadline:civil:dismissal-costs-30-days", true),
+      dismissalCosts("deadline:civil:dismissal-costs-30-days"),
     ],
     requiresAffirmativeScope: true,
   },

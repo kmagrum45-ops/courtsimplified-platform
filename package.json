@@ -238,6 +238,7 @@
     "content:promote": "tsx scripts/content/promoteContentRun.ts",
     "test:published-library": "tsx scripts/verification/verifyPublishedLibrary.ts",
     "test:wording-20261109": "tsx scripts/verification/verifyWording20261109.ts",
+    "test:wording-leftovers-3-5-20261122": "node --import tsx scripts/verification/verifyWordingLeftovers3to5_20261122.ts",
     "test:stage-resolution": "tsx scripts/verification/verifyStageResolution.ts",
     "eval:accuracy": "tsx scripts/eval/runAccuracyEval.ts",
     "eval:retrieval": "node --import tsx scripts/eval/retrievalProbe.ts",

@@ -183,8 +183,8 @@ for (const change of DEADLINES) {
     if (published) check(`${label}: the published answer shows the same section`, published.yourDeadline === rendered);
   }
 }
-// change 30 names the defendant's stage only: the plaintiff's keeps its wording
-check("30. civil:plaintiff:action-dismissed-for-delay keeps its wording (not named)", (renderDeadlineSection(stage("civil:plaintiff:action-dismissed-for-delay")!.deadlines) ?? "").includes("The registrar's five-year order is a dismissal for delay."));
+// change 30 named the defendant's stage only; the owner's follow-up of 2026-11-22 (leftover 3) gives the plaintiff's the same words
+check("30. civil:plaintiff:action-dismissed-for-delay has Change 30's words too (2026-11-22)", (renderDeadlineSection(stage("civil:plaintiff:action-dismissed-for-delay")!.deadlines) ?? "").includes("The registrar's order under rule 48.14 (1) is a dismissal for delay."));
 
 // ---- 1, 3. the rules-only pages ----------------------------------------------------------------------------------
 for (const entry of RULES as { changes: number[]; stage: string; rules: { sourceId: string; pinpoint: string; quote: string }[] }[]) {

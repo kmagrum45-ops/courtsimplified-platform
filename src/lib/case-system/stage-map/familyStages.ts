@@ -1927,7 +1927,7 @@ const conferenceDeadlines = (
     "Before the conference, talk or write to every other party, or make your best effort to. Discuss requests for financial disclosure and settling the issues for now" +
     (kind === "case" ? "" : ", and settling them for good") +
     ". You do not have to if a court order forbids it. You also do not have to if there is a risk of domestic violence by a party with no licensed representative." +
-    (kind === "case" ? " If you do not confer as required, the court may make any order that is appropriate. This includes postponing the conference until you have conferred, and ordering costs whether or not the conference is postponed." : "");
+    " If you do not confer as required, the court may make any order that is appropriate. This includes postponing the conference until you have conferred, and ordering costs whether or not the conference is postponed.";
   const extra6 =
     kind === "tmc"
       ? ` ${UPDATED_CERTIFICATE} ${CONFER}`
@@ -1936,10 +1936,10 @@ const conferenceDeadlines = (
         : ` ${FINANCIAL_UPDATE_CONFERENCE} If there is a property claim under Part I of the Family Law Act, also serve and file your net family property statement (Form 13B) by the same day. Or serve and file an affidavit that it has not changed. ${UPDATED_CERTIFICATE} ${CONFER} In a Part I property claim, bring to the conference any paper that supports your side on a disputed property value or debt amount. Also bring any financial disclosure paper whose service is disputed.`;
   const extraExceptions =
     kind === "tmc"
-      ? [F_R17_13_TMC_DOCUMENTS, F_R13_13_1_UPDATED_CERTIFICATE, F_R17_3_1_CONFER, F_R17_3_2_NO_CONFER]
+      ? [F_R17_13_TMC_DOCUMENTS, F_R13_13_1_UPDATED_CERTIFICATE, F_R17_3_1_CONFER, F_R17_3_2_NO_CONFER, F_R17_3_3_FAILURE_TO_CONFER]
       : kind === "case"
         ? [F_R13_12_UPDATE, F_R13_12_1_WHICH_DOCUMENT, F_R13_12_2_UPDATE_TIMING, F_R13_3_2_1_BEFORE_CASE_CONFERENCE, F_R13_3_1_SUPPORT_DOCUMENTS, F_R17_3_1_CONFER, F_R17_3_2_NO_CONFER, F_R17_3_3_FAILURE_TO_CONFER]
-        : [F_R13_12_UPDATE, F_R13_12_1_WHICH_DOCUMENT, F_R13_12_2_UPDATE_TIMING, F_R13_14_NFP_STATEMENT, F_R13_14_0_1_NFP_TIMING, F_R13_13_1_UPDATED_CERTIFICATE, F_R17_3_1_CONFER, F_R17_3_2_NO_CONFER, F_R17_14_2_BRING];
+        : [F_R13_12_UPDATE, F_R13_12_1_WHICH_DOCUMENT, F_R13_12_2_UPDATE_TIMING, F_R13_14_NFP_STATEMENT, F_R13_14_0_1_NFP_TIMING, F_R13_13_1_UPDATED_CERTIFICATE, F_R17_3_1_CONFER, F_R17_3_2_NO_CONFER, F_R17_3_3_FAILURE_TO_CONFER, F_R17_14_2_BRING];
   const countFrom = `the date of the ${name}, counting backwards`;
   return [
     {
@@ -3096,7 +3096,7 @@ const BOTH: CaseStage[] = [
       },
       {
         id: "deadline:family:motion-file-4-days",
-        what: "File your motion papers. File them as soon as you can after you serve them",
+        what: "File your motion papers. File them as soon as possible after you serve them",
         countFrom: "the date the motion will be heard, counting backwards",
         countFromEvent: "motion-hearing-date",
         length: { unit: "days", count: 4 },
