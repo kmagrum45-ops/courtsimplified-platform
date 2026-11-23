@@ -21,6 +21,7 @@ import { FORM_7A } from "../../src/lib/case-system/forms/maps/form7A";
 import { fillForm, pdfValues } from "../../src/lib/case-system/forms/formMap";
 import { formContextOf } from "../../src/lib/case-system/forms/formContext";
 import { factStatus, mayAskWords, settledNotSure } from "../../src/lib/case-system/caseFile/factStatus";
+import { fitsFactType, partyDetailFits } from "../../src/lib/case-system/caseFile/factTypes";
 import { storySuggestionFor } from "../../src/lib/case-system/family/triageStoryQuote";
 import { emptyStatusRecord, selectNextTriageQuestion } from "../../src/lib/case-system/family/statusTriage";
 import { factOfAskedText } from "../../src/lib/case-system/caseFile/factsOfQuestion";
@@ -269,6 +270,21 @@ section("Chrome check of #560: 4a children, 4b married", () => {
   check("4b \"My spouse and I married in June 2015\" is offered as married (once), never asked cold", married?.value === "yes", JSON.stringify(married));
   const triage = source("app/builder/_components/FamilyStatusTriage.tsx");
   check("4a/4b while the story's answer is offered, the question and its own buttons are not shown beside it", /\{suggestionWaiting\(question\.id\) \? null : \(\s*<p data-testid="triage-prompt"/.test(triage) && /\{suggestionWaiting\(current\.id\) \? null : \(\s*<div className="mt-4 flex flex-wrap gap-3">/.test(triage));
+});
+
+// Chrome check of #560, civil. 3i: "Parties recorded: Fakebuild Test Contracting Inc.", then under "What to confirm next":
+// "What company name appears on the agreement, invoices, and payment recipient details, and do you have those records?"
+// It asks the other side's name (fact otherParty), so it is never asked once that is held. Anything else wrong, 1: the
+// Parties step showed "Company's full legal name: A contractor company" from the story offer "The other side: A contractor
+// company": a description is never kept as anyone's name.
+section("Chrome check of #560: 3i the company name, and a description as a legal name", () => {
+  const ASKED = "What company name appears on the agreement, invoices, and payment recipient details, and do you have those records?";
+  const named = { ...caseFileOf(null), otherParty: { state: "answered" as const, value: "Fakebuild Test Contracting Inc.", confirmed: true, source: { kind: "answer" as const, question: "parties" } } };
+  check("3i the company-name question is never asked once the other side's name is recorded", !mayAskWords(named, ASKED, { court: "civil" }) && mayAskWords(caseFileOf(null), ASKED, { court: "civil" }));
+  check("1 \"A contractor company\" is never a name (a description), in the case file or the parties", !fitsFactType("otherParty", "A contractor company").ok && !partyDetailFits("companyName", "A contractor company"));
+  const blankOther = { id: "o1", side: "other" as const, details: {}, unsure: [] };
+  check("1 a description given as the other side is never put in the legal name box (the name stays empty until a person gives one)", !withHeldOtherName([{ id: "you", you: true as const, side: "yours" as const, details: {}, unsure: [] }, blankOther], "A contractor company")[1].details.companyName);
+  check("1 control: a real name, \"The Home Depot\" or \"Fakebuild Test Contracting Inc.\", is still a name", fitsFactType("otherParty", "The Home Depot").ok && partyDetailFits("companyName", "Fakebuild Test Contracting Inc."));
 });
 
 console.log(failed ? `\n${failed} check(s) FAILED.` : "\nAll Chrome pass 2 checks passed.");

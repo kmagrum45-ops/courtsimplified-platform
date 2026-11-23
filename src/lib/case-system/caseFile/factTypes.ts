@@ -136,6 +136,12 @@ export function isPlaceName(value: string): boolean {
 const A_YEAR = /\b(?:1[89]|20)\d{2}\b/;
 const NO_DATE_YET = /^\s*(?:unknown|not[- ]sure|none(?: yet)?|no (?:court |hearing |conference )?date(?: yet)?|not (?:set|scheduled)(?: yet)?|nothing (?:set|scheduled)(?: yet)?)\b/i;
 const QUESTION = /\?\s*$/;
+/**
+ * A description, not a name: "A contractor company", "the landlord", "my neighbour" (an article or a possessive followed by
+ * a lowercase word). Never kept as anyone's name (site owner, 23 Nov 2026; Chrome check of #560: "Company's full legal
+ * name: A contractor company"). A name that starts with "The" keeps its capital ("The Home Depot") and is still a name.
+ */
+const isDescription = (text: string) => /^(?:a|an|the|my|our|their|his|her|some|this|that)\s+[a-z]/.test(text.replace(/^(\w+)/, (word) => word.toLowerCase()));
 
 export type Fits = { ok: true; value: string | number | boolean | string[]; note?: string } | { ok: false; reason: string };
 
@@ -184,6 +190,7 @@ export function fitsFactType(fact: string, value: unknown, options: { fromSugges
     case "name":
       if (QUESTION.test(text)) return { ok: false, reason: "a question is not a name" };
       if (isPlaceName(text)) return { ok: false, reason: "a place is not a name" };
+      if (isDescription(text)) return { ok: false, reason: "a description is not a name" };
       return text.length <= 200 ? { ok: true, value: text } : { ok: false, reason: "too long for a name" };
     case "place":
       if (QUESTION.test(text)) return { ok: false, reason: "a question is not a place" };
@@ -219,7 +226,7 @@ export function partyDetailFits(detail: string, value: string): boolean {
   if (!type) return false;
   const text = value.trim();
   if (!text) return false;
-  if (type === "name") return !QUESTION.test(text) && !isPlaceName(text) && text.length <= 200;
+  if (type === "name") return !QUESTION.test(text) && !isPlaceName(text) && !isDescription(text) && text.length <= 200;
   if (type === "place") return !QUESTION.test(text) && text.length <= 120;
   return true;
 }
