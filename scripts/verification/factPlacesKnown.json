@@ -15,13 +15,6 @@
   },
   {
     "court": "small-claims",
-    "fact": "otherParty",
-    "place": "home-other-party",
-    "other": "sc-form",
-    "why": "checks the AI reading of the story, not the case file"
-  },
-  {
-    "court": "small-claims",
     "fact": "side",
     "place": "forms",
     "other": "situation",
@@ -134,13 +127,6 @@
   },
   {
     "court": "civil",
-    "fact": "otherParty",
-    "place": "home-other-party",
-    "other": "chat-civil-family",
-    "why": "checks the AI reading of the story, not the case file"
-  },
-  {
-    "court": "civil",
     "fact": "side",
     "place": "forms",
     "other": "situation",
@@ -215,13 +201,6 @@
     "place": "home-court-suggestion",
     "other": "home-card",
     "why": "checks the court-path suggestion, not the case file"
-  },
-  {
-    "court": "family",
-    "fact": "otherParty",
-    "place": "home-other-party",
-    "other": "chat-civil-family",
-    "why": "checks the AI reading of the story, not the case file"
   },
   {
     "court": "family",

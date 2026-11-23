@@ -95,5 +95,9 @@ check("4. the review screen shows the other party the record holds", shown.some(
 const reviewPanel = fs.readFileSync("app/_components/IntakeReviewPanel.tsx", "utf8");
 check("4. the review panel shows it through withHeldOtherParty", /withHeldOtherParty\(reviewEntries\(checkpoint\)/.test(reviewPanel));
 
+// C9 (23 Nov 2026): the reading's other party is written only while the case file holds none from the person: a name they
+// gave (or "not sure") is never replaced by it, through the one function (factStatus).
+check("C9. the home page writes the reading's other party only while the case file holds none from the person", /const otherPartyHeld = homeFile \? factStatus\(homeFile, "otherParty"\) === "known" \|\| factStatus\(homeFile, "otherParty"\) === "settled" : false;/.test(gate) && /accepted && !otherPartyHeld \?/.test(gate));
+
 console.log(failures ? `\n${failures} check(s) failed.` : "\nThe accepted reading's other party goes on the record; no witness does.");
 process.exit(failures ? 1 : 0);

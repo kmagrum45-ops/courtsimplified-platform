@@ -6,6 +6,7 @@ import { courtOfPapers, situationFromRaw, situationSection, SITUATION_FIELD, SIT
 import { writeIntakeSession } from "../../src/lib/case-system/intakeCheckpoint";
 import { useIntakeState, useIntakeRef, useStory, useCaseLocation, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, useSituation, useIntakeReviewView, IntakeRecoveryBoundary } from "./IntakeRecovery";
 import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
+import { factStatus } from "../../src/lib/case-system/caseFile/factStatus";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -268,7 +269,10 @@ function HomeLocationGateContent() {
     // The story is the story field only (personWords.ts frontDoorStory; 19 Nov 2026). The answers to the front door's
     // questions are held as answers (home.understoodAnswers below), so the intake does not ask them again.
     const story = frontDoorStory(facts);
-    const acceptedOtherParty = accepted ? offeredOtherParty(facts, storedUnderstood?.understanding?.facts ?? [])?.value ?? null : null;
+    // Only while the case file holds no other party from the person (C9): an answer they gave, or "not sure", is never
+    // replaced by the reading's name (the one function, factStatus.ts).
+    const otherPartyHeld = homeFile ? factStatus(homeFile, "otherParty") === "known" || factStatus(homeFile, "otherParty") === "settled" : false;
+    const acceptedOtherParty = accepted && !otherPartyHeld ? offeredOtherParty(facts, storedUnderstood?.understanding?.facts ?? [])?.value ?? null : null;
     try {
       if (recovery && chosenPath === path) {
         // Same flow, same single copy: the builder reads the story and location written here.
