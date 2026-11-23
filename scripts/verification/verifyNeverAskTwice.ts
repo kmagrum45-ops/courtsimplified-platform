@@ -28,6 +28,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { firstOfferExcused } from "../../tests/browser/harness/askOnce";
+import { answerTriage, type TriageLocator } from "../../tests/browser/harness/triageAnswer";
 import { ASK_ONCE_SCAN, chatQuestionAnswered, chatReplyReader, diagnosticOf, withPageHeld, factsAskedTwice, factsOfAsk, heldFacts, heldInRows, heldViolations, repeatViolations, withHeldFacts, type Asked } from "../../tests/browser/harness/askOnce";
 import { KNOWN_REPEATS, knownRepeatFor, splitKnown, type KnownRepeat, type Violation } from "../../tests/browser/harness/knownRepeats";
 import { QUESTION_WORDS, factsOfWords, questionSentences } from "../../tests/browser/harness/chatQuestionFacts";
@@ -272,5 +273,36 @@ const ask = (surface: string, id: string, text = id): Asked => ({ kind: "ask", s
   check("offer rule: a cold question of a fact already answered is never excused", coldViolations.length > 0 && coldViolations.every((v) => !firstOfferExcused(v, [chatAsk, chatAnswer, cold], OFFERS)), JSON.stringify(coldViolations));
 }
 
-if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }
-console.log("never ask twice: every check passed.");
+// C9 (23 Nov 2026): the browser tests' helper for the Family status questions (harness/triageAnswer.ts) never passes over the
+// repeat it exists to stop. Run on stand-in pages built here: for a story that answers the question ("never married"), it
+// FAILS when (a) the offer is missing (the question asked cold) and (b) the offer is the opposite ("married"); it passes,
+// taking the offer, when the offer is the story's answer.
+async function triageHelperChecks(): Promise<void> {
+  const page = (offer: { shown: boolean; value?: string }) => {
+    const clicks: string[] = [];
+    const el = (id: string): TriageLocator => ({
+      getByTestId: ((child: string) => el(child)) as never,
+      isVisible: (async () => (id === "triage-story-suggestion" ? offer.shown : true)) as never,
+      getAttribute: (async (name: string) => (id === "triage-story-suggestion" && name === "data-value" ? offer.value ?? null : null)) as never,
+      click: (async () => { clicks.push(id); }) as never,
+    });
+    return { question: el("triage-question"), clicks };
+  };
+  const outcome = async (offer: { shown: boolean; value?: string }) => {
+    const { question, clicks } = page(offer);
+    try { await answerTriage(question, "no", { storyAnswer: "no" }); return { threw: null as string | null, clicks }; } catch (error) { return { threw: (error as Error).message, clicks }; }
+  };
+  const missing = await outcome({ shown: false });
+  check("C9 helper: (a) a never-married story with no \"not married\" offer FAILS (asked cold)", Boolean(missing.threw && /not offered/.test(missing.threw)), JSON.stringify(missing));
+  const opposite = await outcome({ shown: true, value: "yes" });
+  check("C9 helper: (b) a never-married story offered \"married\" FAILS (the opposite of the story)", Boolean(opposite.threw && /opposite/.test(opposite.threw)), JSON.stringify(opposite));
+  const right = await outcome({ shown: true, value: "no" });
+  check("C9 helper: the story's own \"not married\" offered: taken in one click, nothing else pressed", right.threw === null && JSON.stringify(right.clicks) === JSON.stringify(["triage-story-suggestion-yes"]), JSON.stringify(right));
+  const spec = readFileSync(path.join(process.cwd(), "tests/browser/chrome-545-round.spec.ts"), "utf8");
+  check("C9 helper: the never-married browser test says what its story answers (storyAnswer), so a missing or opposite offer fails it", /answerTriage\(question, "no", \{ storyAnswer: "no" \}\)/.test(spec));
+}
+
+void triageHelperChecks().then(() => {
+  if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }
+  console.log("never ask twice: every check passed.");
+});

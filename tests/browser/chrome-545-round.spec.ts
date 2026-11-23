@@ -265,7 +265,8 @@ test("Family, never married: the municipality Home gave is not asked again; Form
       if (!(await question.isVisible({ timeout: 10_000 }).catch(() => false))) break;
       const key = (await question.getAttribute("data-question")) ?? "";
       asked.push(key);
-      if (key === "married-to-other-party") await answerTriage(question, "no");
+      // The story says they were never married: its "not married" must be offered (never asked cold, never the opposite).
+      if (key === "married-to-other-party") await answerTriage(question, "no", { storyAnswer: "no" });
       else if (key === "other-party-municipality") { await question.getByTestId("triage-municipality-other").fill("Gatineau"); await question.getByTestId("triage-municipality-record").click(); }
       else if (key === "municipalities") break;
       // The story's own answer offered (C9): the person takes it; the question's buttons are not shown beside it.
