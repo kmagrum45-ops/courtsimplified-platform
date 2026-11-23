@@ -22,13 +22,6 @@
   },
   {
     "court": "small-claims",
-    "fact": "otherParty",
-    "place": "parties",
-    "other": "home-other-party",
-    "why": "checks the parties record, not the case file"
-  },
-  {
-    "court": "small-claims",
     "fact": "side",
     "place": "forms",
     "other": "situation",
@@ -148,13 +141,6 @@
   },
   {
     "court": "civil",
-    "fact": "otherParty",
-    "place": "parties",
-    "other": "home-other-party",
-    "why": "checks the parties record, not the case file"
-  },
-  {
-    "court": "civil",
     "fact": "side",
     "place": "forms",
     "other": "situation",
@@ -236,13 +222,6 @@
     "place": "home-other-party",
     "other": "chat-civil-family",
     "why": "checks the AI reading of the story, not the case file"
-  },
-  {
-    "court": "family",
-    "fact": "otherParty",
-    "place": "parties",
-    "other": "home-other-party",
-    "why": "checks the parties record, not the case file"
   },
   {
     "court": "family",

@@ -45,7 +45,7 @@ import { parseRecordedAmount } from "../format/recordedAmount";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
 import { chatMayAsk, slotStatus } from "./factStatus";
-import { partyName, partyNames, readParties, withHeldOtherName, withStartLocation, type PartiesHeld } from "../parties/parties";
+import { partyName, partyNames, readParties, withHeldOtherName, withNameParts, withStartLocation, type PartiesHeld } from "../parties/parties";
 import { partiesFromOldShapes } from "./oldParties";
 import { fitsFactType } from "./factTypes";
 
@@ -544,7 +544,7 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // The person's own city and province from the home page, held in their own address (C9): never asked again there.
   file.parties.list = withStartLocation(file.parties.list, { location: locationOf(sections as never), answered: answeredInIntake(sections) });
   // The other side's name the person gave (the chat, the review), held as the one other party's name there (C9).
-  file.parties.list = withHeldOtherName(file.parties.list, heldOtherName(file));
+  file.parties.list = withNameParts(withHeldOtherName(file.parties.list, heldOtherName(file)));
   // 12. Words built from amounts follow the amount held now (Chrome check of #550, 1.7): read, never saved.
   const heldAmount = file.amount.state === "answered" ? (typeof file.amount.value === "number" ? file.amount.value : parseRecordedAmount(String(file.amount.value ?? ""))) : null;
   // What they want. Never a defendant's own outcome: the amount held for them is the claim against them, and their own

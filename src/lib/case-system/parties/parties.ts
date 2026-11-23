@@ -324,8 +324,8 @@ export function withStartLocation(list: readonly Party[], given: GivenElsewhere)
  * offered again on the Parties step, "Name: ..." with Yes / No). The name the case file holds as the person's own answer
  * (caseFile.ts heldOtherName) is the one other party's name, shown as held with Change, never offered again. Read each
  * time, never saved here. Not filled: a party that already has a name, one whose name the person is not sure of, or when
- * there is more than one other party (whose it is would be a guess). Splitting it into a first and a last name is not
- * done here: which part is the last name is asked once, on the Parties step (PartiesStep nameSplit).
+ * there is more than one other party (whose it is would be a guess). Its first and last name are filled
+ * in on read from it (withNameParts), never offered.
  */
 export function withHeldOtherName(list: readonly Party[], name: string | null | undefined): Party[] {
   const held = name?.trim();
@@ -336,6 +336,35 @@ export function withHeldOtherName(list: readonly Party[], name: string | null | 
   if (partyName(other) || other.unsure.some((detail) => detail === "firstName" || detail === "lastName" || detail === "companyName" || detail === "fullName")) return [...list];
   const detail: PartyDetail = other.kind === "company" || (!other.kind && isCompanyName(held)) ? "companyName" : "fullName";
   return list.map((party) => (party === other ? { ...party, details: { ...party.details, [detail]: held }, heldElsewhere: [...new Set([...(party.heldElsewhere ?? []), detail])] } : party));
+}
+
+/**
+ * THE FIRST AND LAST NAME, FROM A FULL NAME ALREADY GIVEN (site owner, 23 Nov 2026: "A first/last split is a derived fact:
+ * once the full name is confirmed anywhere, the first and last name boxes are filled in automatically (split on our
+ * server, no AI, nothing sent anywhere), shown as filled in with Change, and never offered or asked again"). Replaces the
+ * "From the name you gave" offer (Chrome check of #558: it showed again after the chat confirmed the name).
+ *
+ * A person's whole name (`fullName`, given in the chat, the review, or kept from the story) is split at its last space:
+ * everything before it is the first name, the last word the last name. Read each time, never saved (`heldElsewhere`), so
+ * the whole name stays the one place it is kept; a first or last name the person types here is theirs and wins. Not
+ * split: a company (by its kind or its name), a one-word name, a party whose first or last name is held or "not sure".
+ */
+export function withNameParts(list: readonly Party[]): Party[] {
+  return list.map((party) => {
+    const whole = clean(party.details.fullName);
+    if (!whole || party.kind === "company" || isCompanyName(whole)) return party;
+    const parts = whole.split(/\s+/);
+    if (parts.length < 2) return party;
+    // Each part on its own: one the person typed (or is not sure of) is kept, the other still filled.
+    const split: Partial<Record<PartyDetail, string>> = { firstName: parts.slice(0, -1).join(" "), lastName: parts[parts.length - 1] };
+    const fill = (["firstName", "lastName"] as const).filter((detail) => !clean(party.details[detail]) && !party.unsure.includes(detail));
+    if (!fill.length) return party;
+    return {
+      ...party,
+      details: { ...party.details, ...Object.fromEntries(fill.map((detail) => [detail, split[detail]])) },
+      heldElsewhere: [...new Set([...(party.heldElsewhere ?? []), ...fill])],
+    };
+  });
 }
 
 /** A party without what was read from another place: what the one writer saves (caseWrite.ts writeParties). */

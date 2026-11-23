@@ -22,7 +22,7 @@ import { UseSuggestion } from "./UseSuggestion";
 import { answeredInIntake, bringsTheCase, caseFileOf, heldOtherName, storyOfFile } from "../../src/lib/case-system/caseFile/caseFile";
 import { locationOf } from "../../src/lib/case-system/intakeStory";
 import {
-  detailStatus, detailsToAsk, partyName, partyOfOffer, partySideWord, sideWordsOf, storyPartyOffers, withHeldOtherName, withStartLocation,
+  detailStatus, detailsToAsk, partyName, partyOfOffer, partySideWord, sideWordsOf, storyPartyOffers, withHeldOtherName, withNameParts, withStartLocation,
   type Party, type PartiesRecord, type PartyDetail, type PartyKind, type PartyOffer,
   isCompanyName,
 } from "../../src/lib/case-system/parties/parties";
@@ -48,14 +48,8 @@ function startingRecord(list: readonly Party[], declined: readonly string[], pla
   return { version: 1, list: parties, declined: [...declined] };
 }
 
-/** The name given whole, split at its last space, as an offer from the person's own words ("Test Plaintiff"). */
-function nameSplit(party: Party, declined: readonly string[]): { firstName: string; lastName: string } | null {
-  if (declined.includes(`name-split:${party.id}`) || party.kind !== "person" || party.details.firstName || party.details.lastName || !party.details.fullName) return null;
-  // A company's name is never split into a first and last name (site owner, 19 Nov 2026; Chrome pass 3 on #550, S2).
-  if (isCompanyName(party.details.fullName)) return null;
-  const parts = party.details.fullName.trim().split(/\s+/);
-  return parts.length >= 2 ? { firstName: parts.slice(0, -1).join(" "), lastName: parts[parts.length - 1] } : null;
-}
+// A whole name is split into a first and last name on read (parties.ts withNameParts), shown filled in with Change, never
+// offered (the split was offered again after the chat had confirmed the name: site owner, 23 Nov 2026).
 
 export default function PartiesStep({ heading = "The parties" }: { heading?: string }) {
   const recovery = useIntakeRecovery();
@@ -95,7 +89,7 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
   // The person's own city and province from the home page (C9): shown as held in their entry, never asked again here.
   const givenOf = (sections: Record<string, unknown> | undefined) => ({ location: locationOf((sections ?? {}) as never), answered: answeredInIntake(sections) });
   const recordOf = (list: readonly Party[], declined: readonly string[], placeholderId?: string): PartiesRecord => { const held = startingRecord(list, declined, placeholderId); return { ...held, list: held.list.map(asPerson) }; };
-  const withHeld = (held: PartiesRecord, sections: Record<string, unknown> | undefined, otherName: string): PartiesRecord => ({ ...held, list: withHeldOtherName(withStartLocation(held.list, givenOf(sections)), otherName) });
+  const withHeld = (held: PartiesRecord, sections: Record<string, unknown> | undefined, otherName: string): PartiesRecord => ({ ...held, list: withNameParts(withHeldOtherName(withStartLocation(held.list, givenOf(sections)), otherName)) });
   const placeholderId = placeholder.current;
   const record = withHeld(recordOf(file.parties.list, savedDeclined, placeholderId), view?.checkpoint.sections as Record<string, unknown> | undefined, heldOtherName(file));
   // Every change is made to the record as it is NOW, never to the copy this screen was drawn with: a box saved when the
@@ -151,7 +145,6 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
     const status = detailStatus(party, detail);
     // The story gives this detail: it is offered (Yes / No / Not sure), not asked as an empty box beside the offer.
     if (status === "ask" && offersFor(party).some((offer) => offer.detail === detail || ((detail === "firstName" || detail === "lastName" || detail === "companyName") && (offer.detail === "fullName" || offer.detail === "companyName")))) return null;
-    if (status === "ask" && (detail === "firstName" || detail === "lastName") && nameSplit(party, record.declined)) return null;
     const typing = status === "known" && inEntry === party.id && Boolean(typedHere[key]);
     if (status === "known" && !typing) {
       return (
@@ -196,7 +189,6 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
       <h2 className="text-lg font-semibold text-[#16302b]">{heading}</h2>
       <p className="text-sm text-[#4d675f]">Each person or company is its own entry. Your details are kept in your case and written into the forms when you download them.</p>
       {record.list.map((party) => {
-        const split = nameSplit(party, record.declined);
         const asked = detailsToAsk(party);
         const own = offersFor(party);
         const number = record.list.filter((other) => other.side === party.side).indexOf(party) + 1;
@@ -214,12 +206,6 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
                 <button type="button" data-testid="parties-kind-person" className="rounded border px-3 py-1" onClick={() => setKind(party.id, "person")}>A person</button>
                 <button type="button" data-testid="parties-kind-company" className="rounded border px-3 py-1" onClick={() => setKind(party.id, "company")}>A company or business</button>
               </div>
-            ) : null}
-            {split ? (
-              <UseSuggestion offer={{ key: `name-split:${party.id}`, fact: null, recordedBy: "screen" }} testId="parties-name-split-yes" noTestId="parties-name-split-no" unsureTestId="parties-name-split-unsure" what={`First name: ${split.firstName} · Last name: ${split.lastName}`} note={`From the name you gave: "${party.details.fullName}"`}
-                onUse={() => update(party.id, (held) => ({ ...held, details: { ...held.details, firstName: split.firstName, lastName: split.lastName } }))}
-                onNo={() => save((current) => ({ ...current, declined: [...new Set([...current.declined, `name-split:${party.id}`])] }))}
-                onUnsure={() => update(party.id, (held) => ({ ...held, unsure: [...new Set([...held.unsure, "firstName" as const, "lastName" as const])] }))} />
             ) : null}
             {(party.kind === "company" ? (["companyName"] as PartyDetail[]) : party.kind === "person" ? (["firstName", "lastName"] as PartyDetail[]) : []).map((detail) => (asked.includes(detail) || detailStatus(party, detail) !== "ask" ? box(party, detail) : null))}
             {(["street", "city", "province", "postalCode"] as PartyDetail[]).map((detail) => box(party, detail))}

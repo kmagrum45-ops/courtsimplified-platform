@@ -14,7 +14,7 @@ import { timelineIn } from "../../src/lib/case-system/caseFile/storyFacts";
 import { reviewEntries, statedInStory } from "../../src/lib/case-system/intakeReview";
 import { suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";
 import type { CaseRecord } from "../../src/lib/case-system/caseRecord";
-import { partyOfOffer, storyPartyOffers, withHeldOtherName, withStartLocation, withoutHeldElsewhere, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
+import { partyOfOffer, storyPartyOffers, withHeldOtherName, withNameParts, withStartLocation, withoutHeldElsewhere, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
 import { answeredInIntake, caseFileOf, slotText } from "../../src/lib/case-system/caseFile/caseFile";
 import { amountWithCostsNote } from "../../src/lib/case-system/format/recordedAmount";
 import { FORM_7A } from "../../src/lib/case-system/forms/maps/form7A";
@@ -82,7 +82,19 @@ section("Findings 2 and 3", () => {
   check("C9 the name given in the chat is the other party's held name on the Parties step, never offered again", named[1].details.fullName === "Test Partner" && JSON.stringify(named[1].heldElsewhere) === '["fullName"]' && !namedOffers.some((item) => item.party === "other:1" && (item.detail === "fullName" || item.detail === "companyName" || item.detail === "firstName")), JSON.stringify({ named: named[1], namedOffers }));
   check("C9 a company's name given in the chat is held as the company's name", withHeldOtherName([you, blank], "Circle K Convenience Stores Ltd.")[1].details.companyName === "Circle K Convenience Stores Ltd.");
   check("C9 a name the party already has is never replaced, and with two other parties neither is guessed", withHeldOtherName([you, store], "Test Partner")[1].details.companyName === "Circle K Convenience Stores Ltd." && withHeldOtherName([you, blank, { ...blank, id: "o2" }], "Test Partner").every((party) => !party.details.fullName));
-  check("C9 a name the person is not sure of is not filled; words that are not a name are not filled", !withHeldOtherName([you, { ...blank, unsure: ["firstName" as const] }], "Test Partner")[1].details.fullName && !withHeldOtherName([you, blank], "Gatineau")[1].details.fullName);
+  // The first and last name (site owner, 23 Nov 2026): derived from the whole name already given, filled in with Change,
+  // never offered ("From the name you gave" showed after the chat confirmed the name: Chrome check of #558, step 5a).
+  const split = withNameParts(named)[1];
+  check("C9 the whole name given in the chat fills the first and last name, never offered", split.details.firstName === "Test" && split.details.lastName === "Partner" && ["firstName", "lastName"].every((detail) => split.heldElsewhere?.includes(detail as never)), JSON.stringify(split));
+  const three = withNameParts([{ ...blank, kind: "person" as const, details: { fullName: "Mary Ann Smith" } }])[0];
+  check("C9 a three-word name: the last word is the last name, the rest the first name", three.details.firstName === "Mary Ann" && three.details.lastName === "Smith", JSON.stringify(three.details));
+  const typedFirst = withNameParts([{ ...blank, details: { fullName: "Test Partner", firstName: "Testa" } }])[0];
+  check("C9 a part the person typed is kept, and the other part is still filled", typedFirst.details.firstName === "Testa" && typedFirst.details.lastName === "Partner" && JSON.stringify(typedFirst.heldElsewhere) === '["lastName"]', JSON.stringify(typedFirst));
+  check("C9 not split: a one-word name, a company, a part the person is not sure of", !withNameParts([{ ...blank, details: { fullName: "Alex" } }])[0].details.lastName && !withNameParts([{ ...blank, kind: "company" as const, details: { fullName: "Test Builder Ltd." } }])[0].details.firstName && !withNameParts([{ ...blank, details: { fullName: "Test Partner" }, unsure: ["lastName" as const] }])[0].details.lastName);
+  check("C9 the split is never saved (the whole name is kept once)", withoutHeldElsewhere(split).details.firstName === undefined && withoutHeldElsewhere(split).details.lastName === undefined);
+  const partiesStep = source("app/_components/PartiesStep.tsx");
+  check("C9 the Parties step never offers the split (no \"From the name you gave\"); the case file and the step both apply withNameParts", !/From the name you gave/.test(partiesStep) && /withNameParts\(withHeldOtherName\(/.test(partiesStep) && /withNameParts\(withHeldOtherName\(file\.parties\.list/.test(source("src/lib/case-system/caseFile/caseFile.ts")));
+  check("C9 a name the person is not sure of is not filled; words that are not a name are not filled",!withHeldOtherName([you, { ...blank, unsure: ["firstName" as const] }], "Test Partner")[1].details.fullName && !withHeldOtherName([you, blank], "Gatineau")[1].details.fullName);
   check("C9 the held name is never saved in the parties record (the case file keeps it)", withoutHeldElsewhere(named[1]).details.fullName === undefined);
   check("C9 the case file and the Parties step read the held name with one function", /withHeldOtherName\(file\.parties\.list, heldOtherName\(file\)\)/.test(source("src/lib/case-system/caseFile/caseFile.ts")) && /const heldOther = heldOtherName\(file\);/.test(source("app/_components/PartiesStep.tsx")));
   check("F3 the store's address, typed as an answer, is offered for Defendant 1", offer("other:1", "street") === "100 Sample Road" && offer("other:1", "city") === "Ottawa" && offer("other:1", "postalCode") === "K1B 0B1", JSON.stringify(offered));

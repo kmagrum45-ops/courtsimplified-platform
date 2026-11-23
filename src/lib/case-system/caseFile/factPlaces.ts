@@ -303,7 +303,7 @@ export const FACT_PLACES: readonly Place[] = [
     at: "app/_components/PartiesStep.tsx",
     facts: [
       { fact: "otherParty", kind: "offer", courts: ALL, gate: FILE, shows: "the other side's name read from the story, when no other place holds it (a name the person gave is held: withHeldOtherName)" },
-      { fact: "otherParty", kind: "offer", courts: ALL, gate: copy("the parties record"), shows: "the name already given, split into first and last name" },
+      { fact: "otherParty", kind: "confirm", courts: ALL, gate: FILE, shows: "the first and last name, split from the whole name already given, filled in with Change (withNameParts)" },
       { fact: "yourName", kind: "ask", courts: ALL, gate: FILE, shows: "Your first and last name (the parties in the case file are the one place it is kept: heldYourName)" },
       { fact: "municipality", kind: "confirm", courts: ALL, gate: FILE, shows: "your own city and province, held from the home page, with Change" },
     ],

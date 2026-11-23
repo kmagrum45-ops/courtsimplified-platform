@@ -108,13 +108,15 @@ for (const court of ["small-claims", "civil", "family"] as const) {
         await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 60_000 });
         // Form 7A is the official boxes filled from the record, with its Parties step "Names and addresses" (site owner,
         // 14 Nov, rule 1). The record holds the name whole, from the accepted reading: the Parties step names the defendant
-        // with it, and offers the split for the person to say Yes to (never guessed); the boxes then show each part.
+        // with it, and shows its first and last name already filled in, with Change (split on read, never offered: site
+        // owner, 23 Nov 2026, parties.ts withNameParts); the boxes then show each part.
         const formParties = page.getByTestId("parties-step").filter({ hasText: "Names and addresses" });
         const defendant = formParties.locator('[data-testid="parties-party"][data-party="other"]').first();
         await expect(defendant.locator("h3"), "the Form 7A screen names the other party from the record").toContainText(name, { timeout: 30_000 });
         const person = defendant.getByTestId("parties-kind-person");
         if (await person.isVisible().catch(() => false)) await person.click();
-        await defendant.getByTestId("parties-name-split-yes").click();
+        await expect(defendant.getByTestId("parties-name-split-yes"), "the split is never offered: it is filled in").toHaveCount(0);
+        await expect(defendant.locator('[data-testid="parties-detail-held"][data-detail="lastName"]'), "the last name is filled in from the whole name").toContainText(name.split(" ").slice(-1)[0], { timeout: 30_000 });
         const filled = page.getByTestId("filled-form-7a").locator('[data-testid="form-box"][data-state="filled"] [data-testid="form-box-value"]');
         for (const part of name.split(" ")) await expect(filled.filter({ hasText: new RegExp(`^${part}$`) }), `the Form 7A boxes read the record: ${part}`).toHaveCount(1, { timeout: 30_000 });
       }
