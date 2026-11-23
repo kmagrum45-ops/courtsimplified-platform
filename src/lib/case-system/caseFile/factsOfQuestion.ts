@@ -185,6 +185,12 @@ const ASKS_FOR: [RegExp, CaseFact][] = [
   // #550, 5d: "Who is the other side?" was asked after the home page's question about who bought the goods).
   [/\bwho (?:bought|purchased|hired|owes|is suing)\b|\bwho did you (?:sell|lend|rent|pay|hire|buy)\b[^?]*\b(?:to|from)?\b|\bwho (?:is|was|are|were) the (?:buyers?|sellers?|purchasers?|landlords?|tenants?|contractors?|lenders?|borrowers?|employers?|customers?|clients?)\b(?!'s|s')|\bname of the (?:company|business|buyers?|sellers?|store|landlord|contractor|employer|person|customer|client)\b|\b(?:full|legal|exact) (?:legal )?name of (?:the )?(?:business|company|store|other)\b|\bwhat (?:company|business|legal) name\b|\b(?:company|business|legal) name (?:appears|is shown|is written|is listed|is on|on the)\b/i, "otherParty"],
   [/\bwhen did (?:this|it|the [a-z]+) happen\b|\bwhat (?:date|day) did (?:this|it) happen\b/i, "whenHappened"],
+  // The AI's dates question ("What are the exact dates of the agreement, completion of work, and any communications...?"):
+  // when things happened, so it is never asked once the case file holds that (C9, 23 Nov 2026: every AI-written question
+  // carries a fact; the 20 recorded in the journey battery were all of this kind or the next).
+  [/\bwhat (?:are|were) the (?:exact |specific |key |main |important )?dates? (?:of|for|when)\b/i, "whenHappened"],
+  // Its costs question ("What are the exact costs incurred due to the contractor's incomplete work?"): the amount claimed.
+  [/\bwhat (?:are|were|is|was) the (?:exact |total |specific )?(?:costs?|losses|damages)\b(?! of (?:filing|the court|court))/i, "amount"],
   // A worry about safety, asked on its own (Chrome check of #550, 5c: "Is anything urgent ... a safety worry" after
   // "No safety concerns"). Only a question about the person's or the child's safety, never "what safety rules".
   [/\b(?:any|immediate|current|ongoing) (?:immediate )?safety (?:concerns?|worr(?:y|ies)|issues?|risks?)\b|\b(?:are|do) you (?:feel )?(?:safe|unsafe)\b|\bworried about (?:your|the child'?s|your child'?s|your children'?s) safety\b/i, "safety"],

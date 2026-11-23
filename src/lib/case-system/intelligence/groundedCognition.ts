@@ -45,6 +45,7 @@ import { FAMILY_MATTER_TYPES } from "../intake/familyMatterTypes";
 import { renderableProfiles } from "../claim-types/catalogue";
 import { CASE_STAGES, type CaseStage } from "../stage-map/stageMap";
 import { officialUrl, sourceName, type RuleCitation } from "../stage-map/citations";
+import { factOfAskedText } from "../caseFile/factsOfQuestion";
 
 export type SourceItem = {
   id: string;
@@ -571,6 +572,15 @@ export function verifyGroundedCognition<T extends AnyRecord>(
     (item: AnyRecord) => {
       const question = str(item.question);
       if (!question) return [];
+      // C9 (23 Nov 2026): every AI-written question about the case carries the fact it asks, read by the one word reader
+      // the pages use (factsOfQuestion.ts factOfAskedText), so it is dropped wherever the case file holds that fact. A
+      // question whose fact cannot be named is dropped here: nothing could stop it being asked twice (Chrome check of #560,
+      // 3i: "What company name appears on the agreement..." was asked after the name was recorded).
+      const fact = factOfAskedText(question) ?? factOfAskedText(question, { responding: true });
+      if (!fact) {
+        drop("missingInformation.question", question, "names no fact the case file knows, so it could be asked again");
+        return [];
+      }
       const reason = str(item.reason);
       const source = hasLegalContent(reason) ? legal("missing.reason", item, reason) : null;
       const reasonOk = source || (reason && factOk("missing.reason", reason));
@@ -579,6 +589,7 @@ export function verifyGroundedCognition<T extends AnyRecord>(
         {
           ...item,
           question,
+          fact,
           reason: reasonOk ? reason : "Recording this lets the case file show what supports each part of the claim.",
           ...(source ? { sourceUrl: source.sourceUrl } : {}),
         },
