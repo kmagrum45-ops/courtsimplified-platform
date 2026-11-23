@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-319 documented, 26 without a header.
+321 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -285,6 +285,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:story-facts` | **EACH FACT THE STORY GIVES, IN PLAIN WORDS (Charter re-test, 27 Oct, root cause 1).**<br>Checks, as properties, on the six cases Chrome re-tested (messy pack cases 11, 14, 16, 19 and 20, and the Charter claim), through the readers "What we have so far" and the questions use (caseFile/storyFacts.ts, storyLines.ts, storyAnswers.ts childrenFromStory) |
 | `npm run test:story-guidance` | **Every box that asks a person for their story shows the same guidance, from one**<br>place (site owner, 30 Oct). |
 | `npm run test:story-invariants` | **THIRTY-TWO STORIES, ALL THREE COURTS, BOTH SIDES: THE SAME FOUR PROMISES HOLD FOR EVERY ONE (audit of the three families,**<br>11 Nov 2026: Chrome kept finding the same kinds of mistake in new places, so they are checked across a wide story set). |
+| `npm run test:story-names-never-sent` | **A NAME THE STORY GIVES IN ANY WORDING BELOW NEVER REACHES OPENAI, THROUGH ANY AI ROUTE (site owner, 22 Nov 2026, (a3)).**<br>Only the wordings below are covered: a name written in a way the one name reader does not know is not found, and is sent as typed (privacy/nameLabels.ts says so). This suite checks the listed wordings; it is not a promise about others. |
 | `npm run test:story-other-party` | **THE STORY READER NEVER TAKES A WITNESS OR BYSTANDER AS THE OTHER PARTY (Chrome check of #544, 6 Nov 2026, F2).**<br>Chrome, Small Claims: the story was "I hired a deck builder in March 2026 to build a deck at my home. They never finished it and kept the money I paid. My neighbour remembers their teal-orange van." The case page's "What we have so far" showed "The other party |
 | `npm run test:story-other-party-relations` | **THE STORY READER READS A FRIEND OR RELATIVE AS THE OTHER PARTY ONLY WHEN THE STORY TIES THEM TO WHAT IS OWED, AND**<br>NEVER A WITNESS (Chrome check of #544 on 9b960f7, 8 Nov 2026, F14). |
 | `npm run test:story-own-sentences` | **THE STORY IS THE PERSON'S OWN STORY SENTENCES; FOLLOW-UP ANSWERS ARE NEVER GLUED ONTO IT (Chrome pass 3 on #550,**<br>19 Nov 2026, the worst finding). |

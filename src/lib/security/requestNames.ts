@@ -9,27 +9,73 @@
  * (intakeGuidanceGate.ts); `withRequestNames` does it for the rest.
  */
 import { knownNameLabels, type NameLabel } from "../case-system/privacy/nameLabels";
-import { otherPartyFromStory, otherPartyNameFromStory } from "../../../app/builder/_components/storyAnswers";
+import { isStoryName, otherPartyFromStory, otherPartyNameFromStory, STORY_NAME_PATTERNS, type NameRole } from "../../../app/builder/_components/storyAnswers";
+import { sentences } from "../case-system/sentences";
 import { withNameLabelsFor } from "../case-system/privacy/modelNameContext";
 import { businessOtherSideIn } from "../case-system/caseFile/storyFacts";
 import { partyName, readParties } from "../case-system/parties/parties";
 import { CASE_FILE_SECTION } from "../case-system/caseFile/caseFile";
 import { getAuthenticatedOwnedCase, getAuthenticatedUser } from "../supabase/serverAuth";
 
-/** A name the story readers pick out as the other party ("my ex, Sarah Jones,"), or none. */
+/**
+ * Every name the one name reader's patterns (storyAnswers.ts STORY_NAME_PATTERNS, the same the Family offer reads) find
+ * in the person's words, each once, with how the words relate them (site owner, 22 Nov 2026, batch (a3)). Read here, in
+ * the place that keeps names out of requests; a name written in a way no pattern knows is not found.
+ */
+function namesIn(words: string): { name: string; role: NameRole }[] {
+  const out: { name: string; role: NameRole }[] = [];
+  for (const sentence of sentences(words)) {
+    for (const { role, pattern } of STORY_NAME_PATTERNS) {
+      for (const match of sentence.matchAll(new RegExp(pattern.source, `${pattern.flags}g`))) {
+        const name = match[1].trim();
+        if (isStoryName(name) && !out.some((held) => held.name.toLowerCase() === name.toLowerCase())) out.push({ name, role });
+      }
+    }
+  }
+  return out;
+}
+
+/**
+ * The other side's names in the person's words: first as the story readers pick it out ("my ex, Sarah Jones,", "my
+ * spouse Test Partner and I", a business named as the other side), then every other side the patterns find.
+ */
 export function storyNames(story: string): string[] {
-  const said = story.trim() ? (otherPartyNameFromStory(story) ?? otherPartyFromStory(story) ?? businessOtherSideIn(story))?.value : undefined;
-  return said ? [said] : [];
+  if (!story.trim()) return [];
+  const said = (otherPartyNameFromStory(story) ?? otherPartyFromStory(story) ?? businessOtherSideIn(story))?.value;
+  const others = namesIn(story).filter((person) => person.role === "other").map((person) => person.name);
+  return [...new Set([...(said ? [said] : []), ...others])];
+}
+
+/**
+ * Every other name in the person's words, as labels: their own ("my name is ...") as "[you]", anyone else ("my son ...",
+ * "my landlord ...", "Dr. ...") as "[person N]". The other side is labelled by knownNameLabels, from storyNames.
+ */
+function peopleLabels(words: string): NameLabel[] {
+  let count = 0;
+  return namesIn(words)
+    .filter((person) => person.role !== "other")
+    .map((person) => ({ name: person.name, label: person.role === "you" ? "[you]" : `[person ${++count}]` }));
 }
 
 const object = (value: unknown): Record<string, unknown> => (value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {});
 const text = (value: unknown): string => (typeof value === "string" ? value : "");
 
-/** Every name the request's own body carries: its intake, its form input, its fields, and its story. */
+/**
+ * Every piece of text a value holds, one per line (a request body, a saved intake). The name reader reads all of the
+ * person's words, wherever the route carries them: until 22 Nov only the first story field was read, so a name in a
+ * tidy-wording box (fields: [{ key, text }]) or a chat answer went to OpenAI as typed.
+ */
+export function allText(value: unknown, depth = 0): string {
+  if (typeof value === "string") return value;
+  if (depth > 12 || !value || typeof value !== "object") return "";
+  return (Array.isArray(value) ? value : Object.values(value)).map((item) => allText(item, depth + 1)).filter((item) => item.trim()).join("\n");
+}
+
+/** Every name the request's own body carries: its intake, its form input, its fields, its story, and every other text in it. */
 export function bodyNameLabels(body: Record<string, unknown>): NameLabel[] {
   const intake = { ...object(body.fields), ...object(body.input), ...object(body.intake), ...object(body.intakeData), ...object(body.caseData) };
-  const story = [body.story, body.facts, intake.facts, body.storyText, body.newStoryText].map(text).find((value) => value.trim()) ?? "";
-  return knownNameLabels(intake, storyNames(story));
+  const words = allText(body);
+  return mergeNameLabels(knownNameLabels(intake, storyNames(words)), peopleLabels(words));
 }
 
 /** Two lists of names as one, each name once (the first label wins). */
@@ -43,7 +89,8 @@ export function mergeNameLabels(...lists: readonly NameLabel[][]): NameLabel[] {
 export function savedCaseNameLabels(master: unknown): NameLabel[] {
   const intake = object(object(master).intakeData);
   const story = text(object(object(object(master).intakeCheckpoint).sections).story && object(object(object(object(master).intakeCheckpoint).sections).story).text) || text(intake.facts);
-  return mergeNameLabels(partyNameLabels(object(object(master).intakeCheckpoint).sections), knownNameLabels(intake, storyNames(story)));
+  const words = [story, allText(intake), allText(object(object(master).intakeCheckpoint).sections)].filter((item) => item.trim()).join("\n");
+  return mergeNameLabels(partyNameLabels(object(object(master).intakeCheckpoint).sections), knownNameLabels(intake, storyNames(words)), peopleLabels(words));
 }
 
 /** For routes outside the confirmed-guidance gate: the request's names (and its saved case's, when it names one). */

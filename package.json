@@ -186,6 +186,7 @@
     "compliance:ai-report": "node --import tsx --env-file=.env.local scripts/compliance/aiQuarterlyReport.ts",
     "test:lso-demo-cases": "node --import tsx scripts/verification/verifyLsoDemoCases.ts",
     "test:no-names-to-model": "node --import tsx scripts/verification/verifyNoNamesToModel.ts",
+    "test:story-names-never-sent": "node --import tsx scripts/verification/verifyStoryNamesNeverSent.ts",
     "test:no-filenames": "node --import tsx scripts/verification/verifyNoFilenamesToModel.ts",
     "test:phase-scope": "node --import tsx scripts/verification/verifyPhaseScope.ts",
     "db:migrate": "node --import tsx scripts/db/applyMigrations.ts",
