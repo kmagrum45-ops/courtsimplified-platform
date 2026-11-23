@@ -17,7 +17,7 @@
 import { MONTH_FULL_NAMES_PATTERN, WEEKDAY_NAMES_PATTERN } from "../../../src/lib/case-system/dates";
 import { dateMentionsIn, MONTH_NAMES_PATTERN, MONTH_WORDS_EN } from "../../../src/lib/case-system/dates";
 import { claimAmountFromStory } from "../../../src/lib/case-system/claimAmount";
-import { NO_CHILDREN } from "../../../src/lib/case-system/copy/caseWords";
+import { NO_CHILDREN } from "../../../src/lib/case-system/copy/askCopy";
 
 export type StoryAnswer = { value: string; quote: string };
 

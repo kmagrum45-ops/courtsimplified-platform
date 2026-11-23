@@ -32,3 +32,6 @@ export const WHY_ASKED_HIDE = "Hide why this is asked";
 /** The words around a story's value offered for a question: "Is this right: <value>?" (the Family triage). */
 export const IS_THIS_RIGHT_BEFORE = "Is this right: ";
 export const IS_THIS_RIGHT_AFTER = "?";
+
+/** The children, when the story says there are none ("We have no children"): offered once with Yes / No / Not sure (C9). */
+export const NO_CHILDREN = "No children";

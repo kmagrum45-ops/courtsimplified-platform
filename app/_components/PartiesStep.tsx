@@ -94,9 +94,10 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
   const asPerson = (party: Party): Party => (familyCourt && !party.kind ? { ...party, kind: "person" } : party);
   // The person's own city and province from the home page (C9): shown as held in their entry, never asked again here.
   const givenOf = (sections: Record<string, unknown> | undefined) => ({ location: locationOf((sections ?? {}) as never), answered: answeredInIntake(sections) });
-  const recordOf = (list: readonly Party[], declined: readonly string[], placeholderId?: string, sections?: Record<string, unknown>, otherName?: string): PartiesRecord => { const held = startingRecord(list, declined, placeholderId); return { ...held, list: withHeldOtherName(withStartLocation(held.list.map(asPerson), givenOf(sections)), otherName) }; };
+  const recordOf = (list: readonly Party[], declined: readonly string[], placeholderId?: string): PartiesRecord => { const held = startingRecord(list, declined, placeholderId); return { ...held, list: held.list.map(asPerson) }; };
+  const withHeld = (held: PartiesRecord, sections: Record<string, unknown> | undefined, otherName: string): PartiesRecord => ({ ...held, list: withHeldOtherName(withStartLocation(held.list, givenOf(sections)), otherName) });
   const placeholderId = placeholder.current;
-  const record = recordOf(file.parties.list, savedDeclined, placeholderId, view?.checkpoint.sections as Record<string, unknown> | undefined, heldOtherName(file));
+  const record = withHeld(recordOf(file.parties.list, savedDeclined, placeholderId), view?.checkpoint.sections as Record<string, unknown> | undefined, heldOtherName(file));
   // Every change is made to the record as it is NOW, never to the copy this screen was drawn with: a box saved when the
   // focus left it and the button that took the focus each change the record, and the second built on the old copy undid
   // the first (Chrome milestone test of #550, row 12: the first click after typing "did nothing"; full local run of
@@ -106,7 +107,7 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
     if (!checkpoint) return record;
     const saved = (checkpoint.sections as Record<string, Record<string, unknown>> | undefined)?.caseFile?.parties as { declined?: string[] } | undefined;
     const now = caseFileOf(checkpoint, recovery.getSavedMaster() ?? undefined);
-    return recordOf(now.parties.list, Array.isArray(saved?.declined) ? saved!.declined : [], placeholderId, checkpoint.sections as Record<string, unknown> | undefined, heldOtherName(now));
+    return withHeld(recordOf(now.parties.list, Array.isArray(saved?.declined) ? saved!.declined : [], placeholderId), checkpoint.sections as Record<string, unknown> | undefined, heldOtherName(now));
   };
   const personSues = bringsTheCase(file) || !file.side.value;
   // The court's own words for each side (parties.ts sideWordsOf): Family's applicant and respondent (row 42).

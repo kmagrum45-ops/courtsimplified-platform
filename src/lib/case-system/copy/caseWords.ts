@@ -14,9 +14,6 @@
 import { getStageLabel, type UniversalStage } from "../../../../app/builder/_components/builderTypes";
 import { optionWords } from "./rawKeys";
 
-/** The children, when the story says there are none ("We have no children"): offered once with Yes / No / Not sure (C9). */
-export const NO_CHILDREN = "No children";
-
 export function stageInWords(stage: string): string {
   return getStageLabel(stage as UniversalStage) || "Not confirmed yet";
 }
