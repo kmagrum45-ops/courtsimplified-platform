@@ -273,6 +273,23 @@ const ask = (surface: string, id: string, text = id): Asked => ({ kind: "ask", s
   check("offer rule: a cold question of a fact already answered is never excused", coldViolations.length > 0 && coldViolations.every((v) => !firstOfferExcused(v, [chatAsk, chatAnswer, cold], OFFERS)), JSON.stringify(coldViolations));
 }
 
+// C9 (23 Nov 2026): the recorder's blind spot. Chrome saw the other side's name offered again on "Here is what we have"
+// after the chat confirmed it, and the city offered again after the home page; the recorder counted 0 for both, because a
+// Parties offer mapped to no fact. Now each is a repeat (a failure), and an address line is not.
+{
+  let t = 100;
+  const home: Asked = { kind: "answer", surface: "home-story", id: "story", screen: "/", text: "", at: ++t };
+  const chatAsk: Asked = { kind: "ask", surface: "chat", id: "otherParty", screen: "/builder", text: "Who is the other side?", at: ++t };
+  const chatAnswer: Asked = { kind: "answer", surface: "chat", id: "otherParty", screen: "/builder", text: "", at: ++t };
+  const offer = (id: string): Asked => ({ kind: "ask", surface: "parties-offer", id, screen: "/builder?step=review", text: id, at: ++t });
+  const events = [home, chatAsk, chatAnswer, offer("party-offer:other:Name: Test Partner"), offer("party-offer:you:City or town: Ottawa"), offer("party-offer:other:Street address (number, street, apartment or unit): 1 Sample Road")];
+  const repeats = factsAskedTwice(events, false).map((repeat) => repeat.fact).sort();
+  check("C9 recorder: the other side's name offered again on the Parties step after the chat is a repeat", repeats.includes("otherParty"), JSON.stringify(repeats));
+  check("C9 recorder: the city offered again on the Parties step after the home page is a repeat", repeats.includes("municipality"), JSON.stringify(repeats));
+  check("C9 recorder self-test: an address line the person never gave is not a repeat", !repeats.some((fact) => /Street address/.test(fact)), JSON.stringify(repeats));
+  check("C9 recorder: the scan keeps whose entry a Parties offer is in", /"party-offer:" \+ \(el\.closest\("\[data-party\]"\)\?\.getAttribute\("data-party"\) \?\? ""\)/.test(ASK_ONCE_SCAN()));
+}
+
 // C9 (23 Nov 2026): the browser tests' helper for the Family status questions (harness/triageAnswer.ts) never passes over the
 // repeat it exists to stop. Run on stand-in pages built here: for a story that answers the question ("never married"), it
 // FAILS when (a) the offer is missing (the question asked cold) and (b) the offer is the opposite ("married"); it passes,

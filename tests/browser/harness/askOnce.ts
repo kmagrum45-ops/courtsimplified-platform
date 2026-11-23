@@ -160,7 +160,9 @@ const SCAN = `(() => {
     // question for its kind; a story offer asks once (its own id, by what it offers). Each party by its id in the record.
     ["parties", "[data-testid=parties-detail-ask]", (el) => ["party:" + ((el.closest("[data-party-id]") || el).getAttribute("data-party-id") || "") + ":" + el.getAttribute("data-detail")]],
     ["parties", "[data-testid=parties-kind]", (el) => ["party:" + ((el.closest("[data-party-id]") || el).getAttribute("data-party-id") || "") + ":kind"]],
-    ["parties-offer", "[data-testid=parties-step] [data-offer-choices]", (el) => ["party-offer:" + words(el.querySelector("[data-testid$=-what]"))]],
+    // Whose entry the offer is in (the person's own, "you", or the other side's), so its fact is known (C9: a name or a city
+    // offered again on the Parties step was counted as nothing, and Chrome saw both).
+    ["parties-offer", "[data-testid=parties-step] [data-offer-choices]", (el) => ["party-offer:" + (el.closest("[data-party]")?.getAttribute("data-party") ?? "") + ":" + words(el.querySelector("[data-testid$=-what]"))]],
     // "Things that may have happened in your case" (EventCandidateSurface): each candidate quotes the
     // person's own sentence. A date box left empty while that very sentence gives the date asks for
     // it again (Chrome 29 Oct, finding 1: "March 2026" in the story, "When, in your words" asked).
@@ -335,13 +337,29 @@ const FORM_FIELD_FACTS: Record<string, readonly string[]> = {
 const WORDED = new Set(["chat-reply", "home-reading", "law", "confirm-next", "forms", "forms-offer"]);
 
 /** The facts a recorded question asks for, on any surface. A question whose words name no fact asks for a fact of its own. */
+/** The fact a Parties offer offers: a name or a city, the person's own or the other side's. Anything else: its own id. */
+export function partyOfferFacts(id: string): string[] {
+  const match = /^party-offer:([^:]*):(.*)$/.exec(id);
+  if (!match) return [id];
+  const [, party, what] = match;
+  const own = party === "you" || party === "yours";
+  if (/^\s*(?:city or town|province)\b/i.test(what)) return [own ? "municipality" : "otherPartyMunicipality"];
+  if (/^\s*(?:name|first name|last name|company's full legal name|another (?:defendant|plaintiff|respondent|applicant))\b/i.test(what)) return [own ? "yourName" : "otherParty"];
+  return [id];
+}
+
 export function factsOfAsk(item: Pick<Asked, "surface" | "id" | "text">): string[] {
   // A date box beside the person's own sentence that already gives that date (SCAN's event-candidate).
   if (item.surface === "event-candidate") return ["dateInOwnSentence"];
   if (WORDED.has(item.surface)) { const facts = factsOfWords(item.id); return facts.length ? facts : [`${item.surface}:${item.id}`]; }
   if (item.surface === "service-method") return ["serviceMethod"];
   // The story: the Small Claims chat's story box asks for it; the home page's or the chat's story sent gives it.
-  if (item.surface === "sc-story" || item.surface === "home-story") return ["story"];
+  if (item.surface === "sc-story") return ["story"];
+  // The home page's Continue sends the story and the city together: both are given there (C9).
+  if (item.surface === "home-story") return ["story", "municipality"];
+  // A Parties offer: its fact by whose entry it is in and what it offers (C9: the name and the city offered again were
+  // counted as nothing). "party-offer:<you|other|...>:<label>: <value>".
+  if (item.surface === "parties-offer") return partyOfferFacts(item.id);
   if (item.surface === "form-field") {
     const own = FORM_FIELD_FACTS[item.id];
     if (own) return [...own];
