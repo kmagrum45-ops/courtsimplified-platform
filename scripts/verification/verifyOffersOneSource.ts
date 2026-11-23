@@ -24,6 +24,8 @@ import { statedInStory, suggestInitialAnswers } from "../../src/lib/case-system/
 import { storyPartyOffers, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
 import { offeredAmount, offeredOtherParty, readingFactsOf, type ReadingFact } from "../../src/lib/case-system/caseFile/storyOffers";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
+import { foundStillToOffer } from "../../src/lib/case-system/intake/asker";
+import { emptyCaseFile } from "../../src/lib/case-system/caseFile/caseFile";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 let failed = 0;
@@ -101,6 +103,24 @@ const stray = calls.filter((call) => !(call in ELSEWHERE));
 check("the amount and other-party readers are called for an offer only from caseFile/storyOffers.ts", stray.length === 0, stray.join("; "));
 check("every listed exception still exists (the list is the code's list)", Object.keys(ELSEWHERE).every((key) => calls.includes(key)), Object.keys(ELSEWHERE).filter((key) => !calls.includes(key)).join("; "));
 check("self-test: a new offer reading amountOfferFromStory directly is caught", !(`app/new.tsx amountOfferFromStory` in ELSEWHERE));
+
+// C9 (23 Nov 2026): the Small Claims form's "Found in your description" offers only what the case file does not hold from
+// another place (asker.ts foundStillToOffer): the amount, when, what they want and the other party given on the home page or
+// in the chat, and the person's own name given on the Parties step, are not offered again.
+{
+  const held = emptyCaseFile();
+  const answer = (value: string, question: string) => ({ state: "answered" as const, value, confirmed: true, source: { kind: "answer" as const, question } });
+  held.amount = answer("2400", "sc-amount-claimed");
+  held.whenHappened = answer("2026-06-01", "sc-orient-when-happened");
+  held.wants = answer("To be paid back", "sc-remedy-sought");
+  held.otherParty = answer("Alex Smith", "otherParty");
+  held.parties = { recorded: true, list: [{ id: "you", you: true, side: "yours", kind: "person", details: { firstName: "Test", lastName: "Person" }, unsure: [] }] };
+  const found = ["amountClaimed", "timeline", "goal", "otherParty", "yourName", "evidence"].map((field) => ({ field }));
+  const left = foundStillToOffer(found, held).map((item) => item.field);
+  check("C9: \"Found in your description\" never offers a value the case file holds (amount, when, goal, other party, your name)", JSON.stringify(left) === JSON.stringify(["evidence"]), JSON.stringify(left));
+  check("C9 self-test: with nothing held, everything found is offered", foundStillToOffer(found, emptyCaseFile()).length === found.length);
+  check("C9: the form lists only foundStillToOffer's values", /foundToOffer\.map\(/.test(readFileSync("app/builder/_components/SmallClaimsIntake.tsx", "utf8")) && !/extractedFacts\.map\(/.test(readFileSync("app/builder/_components/SmallClaimsIntake.tsx", "utf8")));
+}
 
 console.log(failed ? `\n${failed} check(s) FAILED.` : "\nAll one-source offer checks passed.");
 process.exit(failed ? 1 : 0);

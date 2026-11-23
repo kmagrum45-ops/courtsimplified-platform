@@ -30,7 +30,7 @@
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
-import { FACT_PLACES, ALL_COURTS, type Place, type FactAtPlace, type PlaceCourt } from "../../src/lib/case-system/caseFile/factPlaces";
+import { FACT_PLACES, ALL_COURTS, HELD_BY_READER, type Place, type FactAtPlace, type PlaceCourt } from "../../src/lib/case-system/caseFile/factPlaces";
 import { factsOfQuestion } from "../../src/lib/case-system/caseFile/factsOfQuestion";
 import { SLOT_FACTS } from "../../src/lib/case-system/caseFile/slotFacts";
 import { mayShowQuestion, chatMayAsk, questionStatus } from "../../src/lib/case-system/caseFile/factStatus";
@@ -93,7 +93,7 @@ export function violationsOf(places: readonly Place[], file: CaseFile): Violatio
         let why: string | null = null;
         if (gate.by === "none") why = "nothing checks";
         else if (gate.by === "own-copy") why = `checks ${gate.copy}, not the case file`;
-        else if (gate.by === "case-file" && !SLOTS.has(fact)) why = "the case file cannot hold this fact";
+        else if (gate.by === "case-file" && !SLOTS.has(fact) && !HELD_BY_READER[fact as keyof typeof HELD_BY_READER]) why = "the case file cannot hold this fact";
         else if (askedWhenHeld(place, row, file).length) why = `its decider still asks ${askedWhenHeld(place, row, file).join(", ")} when the fact is held`;
         if (!why) continue;
         seen.add(place.id);
@@ -156,6 +156,9 @@ function main() {
   for (const place of FACT_PLACES) for (const row of place.facts) if (row.gate.by === "first") for (const court of row.courts) firsts.set(`${court} ${row.fact}`, [...(firsts.get(`${court} ${row.fact}`) ?? []), place.id]);
   const twoFirsts = [...firsts].filter(([, list]) => new Set(list).size > 1).map(([key, list]) => `${key}: ${list.join(", ")}`);
   check("no fact has two first places in one court", twoFirsts.length === 0, twoFirsts.join("\n      "));
+  const caseFileCode = readFileSync(path.join(ROOT, "src/lib/case-system/caseFile/caseFile.ts"), "utf8");
+  const noReader = Object.entries(HELD_BY_READER).filter(([, reader]) => !new RegExp(`export function ${reader}\\b`).test(caseFileCode)).map(([fact, reader]) => `${fact}: ${reader}`);
+  check("every fact held outside the slots names a reader caseFile.ts exports", noReader.length === 0, noReader.join("\n      "));
   const ids = FACT_PLACES.map((place) => place.id);
   check("every place id is used once", new Set(ids).size === ids.length);
 

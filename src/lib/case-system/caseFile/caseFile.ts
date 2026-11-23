@@ -1153,11 +1153,6 @@ export function claimKindOf(file: CaseFile, listWords: (codes: string[]) => stri
 }
 
 /**
- * Every question the person answered in the intake, with their own words: the home page's reading (home.understoodAnswers)
- * and the Small Claims chat (guided.earlierAnswers, worded from the question bank). For details given there that another
- * step asks for (the Parties step: an address typed as an answer; Chrome milestone pass 2, finding 3).
- */
-/**
  * The other side's name the case holds as the person's own answer, from a place other than the Parties step (the chat, the
  * review): the one reading the Parties step and the case file share (C9). Empty when there is none.
  */
@@ -1166,6 +1161,20 @@ export function heldOtherName(file: CaseFile): string {
   return slot.state === "answered" && typeof slot.value === "string" && slot.source?.kind === "answer" && slot.source.question !== "parties" && !slot.removed ? slot.value.trim() : "";
 }
 
+/**
+ * The person's own name the case holds (the parties in the case file, written by the Parties step), or "" (C9): every place
+ * that would ask or offer the person's name reads it here, so a name given once is never asked again.
+ */
+export function heldYourName(file: CaseFile): string {
+  if (!file.parties.recorded) return "";
+  return partyNames(file.parties.list).you.trim();
+}
+
+/**
+ * Every question the person answered in the intake, with their own words: the home page's reading (home.understoodAnswers)
+ * and the Small Claims chat (guided.earlierAnswers, worded from the question bank). For details given there that another
+ * step asks for (the Parties step: an address typed as an answer; Chrome milestone pass 2, finding 3).
+ */
 export function answeredInIntake(sections: Record<string, unknown> | undefined): { question: string; answer: string }[] {
   const out: { question: string; answer: string }[] = [];
   const all = object(sections);

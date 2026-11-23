@@ -27,6 +27,15 @@
  */
 import type { CaseFact } from "./factsOfQuestion";
 
+/**
+ * Facts the case file holds outside its slots, each with the one reader every place reads it through (in caseFile.ts). A
+ * case-file gate on one of these is real; on any other fact outside SLOT_FACTS it is not (test:fact-places).
+ */
+export const HELD_BY_READER: Readonly<Partial<Record<CaseFact, string>>> = {
+  // The parties in the case file (written only by the Parties step).
+  yourName: "heldYourName",
+};
+
 export type PlaceCourt = "small-claims" | "civil" | "family";
 export const ALL_COURTS: readonly PlaceCourt[] = ["small-claims", "civil", "family"];
 export type PlaceKind = "ask" | "offer" | "confirm";
@@ -231,12 +240,12 @@ export const FACT_PLACES: readonly Place[] = [
     name: "Small Claims whole form: \"Found in your description\"",
     at: "app/builder/_components/SmallClaimsIntake.tsx",
     facts: [
-      { fact: "amount", kind: "offer", courts: SC, gate: copy("the form's own boxes") },
-      { fact: "whenHappened", kind: "offer", courts: SC, gate: copy("the form's own boxes") },
+      { fact: "amount", kind: "offer", courts: SC, gate: FILE },
+      { fact: "whenHappened", kind: "offer", courts: SC, gate: FILE },
       { fact: "evidence", kind: "offer", courts: SC, gate: copy("the form's own boxes") },
-      { fact: "wants", kind: "offer", courts: SC, gate: copy("the form's own boxes") },
-      { fact: "otherParty", kind: "offer", courts: SC, gate: copy("the form's own boxes") },
-      { fact: "yourName", kind: "offer", courts: SC, gate: copy("the form's own boxes") },
+      { fact: "wants", kind: "offer", courts: SC, gate: FILE },
+      { fact: "otherParty", kind: "offer", courts: SC, gate: FILE },
+      { fact: "yourName", kind: "offer", courts: SC, gate: FILE },
     ],
   },
   {
@@ -295,7 +304,7 @@ export const FACT_PLACES: readonly Place[] = [
     facts: [
       { fact: "otherParty", kind: "offer", courts: ALL, gate: FILE, shows: "the other side's name read from the story, when no other place holds it (a name the person gave is held: withHeldOtherName)" },
       { fact: "otherParty", kind: "offer", courts: ALL, gate: copy("the parties record"), shows: "the name already given, split into first and last name" },
-      { fact: "yourName", kind: "ask", courts: ALL, gate: copy("the parties record"), shows: "Your first and last name" },
+      { fact: "yourName", kind: "ask", courts: ALL, gate: FILE, shows: "Your first and last name (the parties in the case file are the one place it is kept: heldYourName)" },
       { fact: "municipality", kind: "confirm", courts: ALL, gate: FILE, shows: "your own city and province, held from the home page, with Change" },
     ],
   },

@@ -16,7 +16,7 @@
  *
  * Pure: no React, no network. States no law; changes no question's wording.
  */
-import { isUnsureAnswer, slotsOfQuestion, slotText, SLOT_FACTS, emptyCaseFile, type CaseFile, type Slot, type SlotFact } from "../caseFile/caseFile";
+import { heldYourName, isUnsureAnswer, slotsOfQuestion, slotText, SLOT_FACTS, emptyCaseFile, type CaseFile, type Slot, type SlotFact } from "../caseFile/caseFile";
 import { formatForCourt } from "../dates";
 import { slotStatus } from "../caseFile/factStatus";
 
@@ -150,4 +150,23 @@ export function heldFromRequest(value: unknown): CaseFile | null {
     if (isSlot(slot)) file[fact] = { state: slot.state, confirmed: slot.confirmed, ...(slot.removed ? { removed: true as const } : {}), ...(slot.value !== undefined ? { value: slot.value } : {}), ...(slot.source ? { source: slot.source } : {}) };
   }
   return file;
+}
+
+/** The Small Claims form's box for each value read from the story, by the fact it holds (the rest: askedFacts). */
+const FOUND_FIELD_FACTS: Record<string, readonly SlotFact[]> = { amountClaimed: ["amount"], goal: ["wants"], otherParty: ["otherParty"], timeline: ["whenHappened"] };
+
+/**
+ * "FOUND IN YOUR DESCRIPTION" OFFERS ONLY WHAT THE CASE FILE DOES NOT HOLD (C9, 23 Nov 2026). The Small Claims form
+ * offered each value its story reader found (amount, when, what they want, the other party, their own name) whenever the
+ * form's own box was empty, though the person had already given it elsewhere (the home page, the chat, the review, the
+ * Parties step). A value is offered only while the one asker would ask its box; the person's own name only while the
+ * parties in the case file hold none (heldYourName).
+ */
+export function foundStillToOffer<T extends { field: string }>(found: readonly T[], file: CaseFile | null | undefined): T[] {
+  if (!file) return [...found];
+  return found.filter((item) => {
+    if (item.field === "yourName") return !heldYourName(file);
+    const facts = FOUND_FIELD_FACTS[item.field] ?? askedFacts(item.field);
+    return facts.every((fact) => !heldState(file[fact]));
+  });
 }

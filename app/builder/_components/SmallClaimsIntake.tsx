@@ -58,6 +58,7 @@ import {
 } from "../../../src/lib/case-system/intake/questionBank";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { analysisClaimType, caseFileOf, claimKindOf, kindForAnalysis } from "../../../src/lib/case-system/caseFile/caseFile";
+import { foundStillToOffer } from "../../../src/lib/case-system/intake/asker";
 import { storyOfFile, type CaseFile } from "../../../src/lib/case-system/caseFile/caseFile";
 import { factStatus } from "../../../src/lib/case-system/caseFile/factStatus";
 import { storyLines } from "../../../src/lib/case-system/caseFile/storyLines";
@@ -761,6 +762,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   // The record as it is now: the banner follows the Parties step and every answer as they are saved.
   const reviewNow = useSyncExternalStore(recovery?.subscribe ?? noStore, recovery?.getReview ?? noReview, noReview);
   const missingPrompt = useMemo(() => buildMissingPrompt(input, reviewNow ? caseFileOf(reviewNow.checkpoint, recovery?.getSavedMaster() ?? undefined) : caseFileOf(null)), [input, reviewNow, recovery]);
+  // "Found in your description" offers only what the case file does not hold from another place (C9): the one asker.
+  const foundToOffer = foundStillToOffer(extractedFacts, reviewNow ? caseFileOf(reviewNow.checkpoint, recovery?.getSavedMaster() ?? undefined) : null);
   const inferredIssues = useMemo(() => inferIssuesFromStory(input), [input]);
   const inferredDisputeCategory = useMemo(() => {
     if (inferredIssues.includes("defamation-reputation")) return "defamation";
@@ -1186,11 +1189,11 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         </div>
       )}
 
-      {extractedFacts.length > 0 && (
+      {foundToOffer.length > 0 && (
         <div className="mt-5 rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-sm text-[#24463d]">
           <p className="font-semibold">Found in your description — review/edit</p>
           <ul className="mt-2 list-disc space-y-1 pl-5">
-            {extractedFacts.map((fact) => {
+            {foundToOffer.map((fact) => {
               const value = Array.isArray(fact.value) ? fact.value.join(", ") : fact.value;
               return (
                 <li key={fact.field}>
