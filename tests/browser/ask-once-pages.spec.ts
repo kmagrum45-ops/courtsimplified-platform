@@ -40,6 +40,10 @@ import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { chooseOffers } from "./harness/offers";
 import { MARRIED_ONLY_SCREEN_TEXT } from "../../src/lib/case-system/family/marriedOnly";
 import { expectThisRunsServer } from "./harness/siteAccess";
+import { HOME_QUESTIONS } from "../../src/lib/case-system/caseFile/factQuestions";
+
+/** The home page's amount questions, every court, by their fact list ids (the A2 check: never asked cold when the story states it). */
+const AMOUNT_HOME_QUESTIONS = Object.values(HOME_QUESTIONS).flatMap((sides) => [...sides.starting, ...sides.responding]).filter((item) => /amount/i.test(item.id)).map((item) => item.question);
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
 
@@ -328,6 +332,12 @@ function chromePass2Problems(story: Story, seen: readonly string[]): string[] {
   // F3: an address typed as an answer about the other side offered for them.
   const typedAddress = note("home: ").find((line) => /=> \d+ [A-Z][\w ]+ (?:Road|Street|Crescent|Avenue)/.test(line));
   if (typedAddress && parties && !/Street address[^:]*: \d+ /.test(parties)) problems.push(`F3 the address typed as an answer was not offered: ${typedAddress.slice(0, 140)}`);
+  // (a2), 22 Nov 2026: an amount the story states is never asked cold on the home page (S1 r1/r2 read "Total claim and
+  // court status: $5,468.45; nothing filed", the row was dropped whole for its filing words, and the total went with it),
+  // and once the start said nothing is filed the reading shows no filing status.
+  if (story.stated.amount) for (const asked of note("home: ")) if (AMOUNT_HOME_QUESTIONS.some((question) => asked.split(" => ")[0].includes(question))) problems.push(`A2 the amount the story states was asked cold on the home page: ${asked.slice(0, 140)}`);
+  const readingShown = note("home-reading: ").join(" ");
+  if (/\b(?:court|filing|case|claim|lawsuit) status\b|\bnothing (?:has been )?filed\b|\bnot (?:yet )?filed\b/i.test(readingShown)) problems.push(`A2 the reading card shows the filing status: ${readingShown.slice(0, 160)}`);
   // F8: "No safety concerns" given, then the urgent question still names a safety worry.
   const safetyGiven = note("home: ").some((line) => /safety/i.test(line) && /=> No safety concerns/i.test(line));
   for (const urgent of note("urgent: ")) if (safetyGiven && /safety/i.test(urgent)) problems.push(`F8 asked about safety again: ${urgent.slice(0, 140)}`);
@@ -442,6 +452,8 @@ async function giveStory(page: Page, story: Story) {
       await page.getByTestId("case-understanding-update").click().catch(() => {});
       await expect(questions).toHaveCount(0, { timeout: 120_000 }).catch(() => {});
     }
+    // (a2): what the reading card shows, for the check that it states no filing status (chromePass3Problems A2).
+    if (story.realAi) homeAnswers.push(`home-reading: ${((await page.getByTestId("case-understanding-facts").textContent().catch(() => "")) ?? "").replace(/\s+/g, " ").trim()}`);
     // The court was chosen at the start (situationOf: every story's start names its court): the reading's same court is
     // not asked again with Yes / No / I'm not sure (Chrome milestone test of #550, row 6, every story).
     await expect(page.getByTestId("case-understanding").getByRole("button", { name: /^(No, that.s not right|I.m not sure)$/ }), "the court chosen at the start is not asked again").toHaveCount(0);

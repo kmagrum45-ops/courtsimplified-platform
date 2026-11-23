@@ -100,6 +100,73 @@
           "disputeCategory"
         ]
       }
+    },
+    {
+      "step": "story-suggestions",
+      "input": "9a4da4c998ca7052",
+      "said": "{\"story\":\"On Oct 4, 2026 at about 6:40 pm I slipped on a wet floor near the milk fridge at a Circle K in Ottawa. There was no wet-floor sign. I fell on my right hip. A shopper, Sam Patel, saw it. The manager wrote notes. I went to the hospital that night; X-rays showed a bad bruise, no break. I missed 3 days of work (Oct 5 to 7) at $150 a day and bought Tylenol and an ice pack for $18.45. I want to claim $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine.\",\"questions\":[\"sc-orient-when-happened\",\"sc-orient-dispute-category\",\"sc-amount-claimed\",\"sc-remedy-sought\",\"sc-date-inj",
+      "output": [
+        {
+          "questionId": "sc-orient-when-happened",
+          "questionText": "Roughly when did the situation that led to this claim happen?",
+          "answer": "October 4, 2026",
+          "storyQuote": "On Oct 4, 2026",
+          "dateQuestion": true
+        },
+        {
+          "questionId": "sc-orient-dispute-category",
+          "questionText": "What kind of dispute is this?",
+          "answer": "A personal injury (a fall, an animal bite, or similar)",
+          "storyQuote": "I slipped on a wet floor near the milk fridge at a Circle K in Ottawa.",
+          "choices": [
+            "Unpaid money owed to you",
+            "A contract or agreement dispute",
+            "Property damage",
+            "A loan or debt",
+            "Work or a service you paid for (e.g. a contractor)",
+            "A deposit that wasn't returned",
+            "A consumer purchase problem",
+            "A vehicle-related dispute",
+            "Something said about you (defamation)",
+            "A personal injury (a fall, an animal bite, or similar)",
+            "Something else"
+          ]
+        },
+        {
+          "questionId": "sc-amount-claimed",
+          "questionText": "What is the total dollar amount you are claiming?",
+          "answer": "$5,468.45",
+          "storyQuote": "I want to claim $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine."
+        },
+        {
+          "questionId": "sc-remedy-sought",
+          "questionText": "What outcome are you asking the court to order?",
+          "answer": "Payment of $5,000 for pain and suffering, $450 for lost wages and $18.45 for medicine.",
+          "storyQuote": "I want to claim $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine."
+        },
+        {
+          "questionId": "sc-date-injury",
+          "questionText": "If this involves an injury, what date did it happen?",
+          "answer": "October 4, 2026",
+          "storyQuote": "On Oct 4, 2026 at about 6:40 pm I slipped on a wet floor",
+          "dateQuestion": true
+        }
+      ]
+    },
+    {
+      "step": "fact-reading",
+      "input": "a14ddda50617525b",
+      "said": "{\"said\":\"Q: Roughly when did the situation that led to this claim happen?\\nA: October 4, 2026\\n\\nQ: What kind of dispute is this?\\nA: A personal injury (a fall, an animal bite, or similar)\\n\\nQ: What is the total dollar amount you are claiming?\\nA: $5,468.45\\n\\nQ: What outcome are you asking the court to order?\\nA: Payment of $5,000 for pain and suffering, $450 for lost wages and $18.45 for medicine.\\n\\nQ: If this involves an injury, what date did it happen?\\nA: October 4, 2026\"}",
+      "output": {
+        "facts": {
+          "role": "plaintiff",
+          "disputeCategory": "personal-injury"
+        },
+        "directFields": [
+          "role",
+          "disputeCategory"
+        ]
+      }
     }
   ]
 }
