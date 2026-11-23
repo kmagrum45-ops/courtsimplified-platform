@@ -110,7 +110,7 @@ export const FACT_PLACES: readonly Place[] = [
     id: "home-court-suggestion",
     name: "Home page: \"This looks like it may be X, not Y\"",
     at: "app/_components/HomeLocationGate.tsx",
-    facts: [{ fact: "court", kind: "offer", courts: ALL, gate: copy("the court-path suggestion") }],
+    facts: [{ fact: "court", kind: "offer", courts: ALL, gate: FILE }],
   },
   {
     id: "situation",

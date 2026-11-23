@@ -99,5 +99,7 @@ check("4. the review panel shows it through withHeldOtherParty", /withHeldOtherP
 // gave (or "not sure") is never replaced by it, through the one function (factStatus).
 check("C9. the home page writes the reading's other party only while the case file holds none from the person", /const otherPartyHeld = homeFile \? factStatus\(homeFile, "otherParty"\) === "known" \|\| factStatus\(homeFile, "otherParty"\) === "settled" : false;/.test(gate) && /accepted && !otherPartyHeld \?/.test(gate));
 
+check("C9. the home page suggests another court only against the court the case file holds from the person (else the one chosen)", /suggested !== \(heldCourt \?\? path\)/.test(gate) && /if \(differentPath\) \{\s*setReadFrom/.test(gate));
+
 console.log(failures ? `\n${failures} check(s) failed.` : "\nThe accepted reading's other party goes on the record; no witness does.");
 process.exit(failures ? 1 : 0);

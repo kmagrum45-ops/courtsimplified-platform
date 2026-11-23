@@ -8,13 +8,6 @@
   },
   {
     "court": "small-claims",
-    "fact": "court",
-    "place": "home-court-suggestion",
-    "other": "home-card",
-    "why": "checks the court-path suggestion, not the case file"
-  },
-  {
-    "court": "small-claims",
     "fact": "serviceMethod",
     "place": "step",
     "other": "sc-guided",
@@ -26,13 +19,6 @@
     "place": "court-chat",
     "other": "home-start",
     "why": "checks the chat's own list of what is missing, not the case file"
-  },
-  {
-    "court": "civil",
-    "fact": "court",
-    "place": "home-court-suggestion",
-    "other": "home-card",
-    "why": "checks the court-path suggestion, not the case file"
   },
   {
     "court": "civil",
@@ -75,13 +61,6 @@
     "place": "child-support",
     "other": "home-card",
     "why": "checks the Family form's saved copy, not the case file"
-  },
-  {
-    "court": "family",
-    "fact": "court",
-    "place": "home-court-suggestion",
-    "other": "home-card",
-    "why": "checks the court-path suggestion, not the case file"
   },
   {
     "court": "family",

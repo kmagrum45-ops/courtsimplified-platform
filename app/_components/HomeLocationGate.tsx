@@ -433,8 +433,11 @@ function HomeLocationGateContent() {
         }
 
         const suggested = asCourtPath(result.primaryPath);
+        // Against the court the case file holds from the person (the card's own rule, CaseUnderstandingCard heldCourt), else
+        // the one chosen: a court they already confirmed is never suggested again (C9).
+        const heldCourt = homeFile && factStatus(homeFile, "court") === "known" && typeof homeFile.court.value === "string" ? homeFile.court.value : null;
         const differentPath =
-          suggested && suggested !== path && confidence >= SUGGESTION_CONFIDENCE_FLOOR ? suggested : null;
+          suggested && suggested !== (heldCourt ?? path) && confidence >= SUGGESTION_CONFIDENCE_FLOOR ? suggested : null;
 
         // Several matters come first: one of them belonging to a tribunal
         // must not hide the ones that belong in court.
@@ -459,11 +462,11 @@ function HomeLocationGateContent() {
           return;
         }
 
-        if (suggested && suggested !== path && confidence >= SUGGESTION_CONFIDENCE_FLOOR) {
+        if (differentPath) {
           setReadFrom(facts.trim());
           setSuggestion({
             kind: "switch-path",
-            suggestedPath: suggested,
+            suggestedPath: differentPath,
             reasoningForAuditLogOnly: String(result.reasoning || "").trim(),
           });
           setChecking(false);
