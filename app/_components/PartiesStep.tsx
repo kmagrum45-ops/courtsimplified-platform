@@ -22,7 +22,7 @@ import { UseSuggestion } from "./UseSuggestion";
 import { answeredInIntake, bringsTheCase, caseFileOf, heldOtherName, storyOfFile } from "../../src/lib/case-system/caseFile/caseFile";
 import { locationOf } from "../../src/lib/case-system/intakeStory";
 import {
-  detailStatus, detailsToAsk, partyName, partyOfOffer, partySideWord, sideWordsOf, storyPartyOffers, withHeldOtherName, withNameParts, withStartLocation,
+  detailStatus, detailsToAsk, partyName, partyOfOffer, partySideWord, sideWordsOf, storyPartyOffers, withHeldOtherName, withHeldYourName, withNameParts, withStartLocation,
   type Party, type PartiesRecord, type PartyDetail, type PartyKind, type PartyOffer,
   isCompanyName,
 } from "../../src/lib/case-system/parties/parties";
@@ -89,7 +89,9 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
   // The person's own city and province from the home page (C9): shown as held in their entry, never asked again here.
   const givenOf = (sections: Record<string, unknown> | undefined) => ({ location: locationOf((sections ?? {}) as never), answered: answeredInIntake(sections) });
   const recordOf = (list: readonly Party[], declined: readonly string[], placeholderId?: string): PartiesRecord => { const held = startingRecord(list, declined, placeholderId); return { ...held, list: held.list.map(asPerson) }; };
-  const withHeld = (held: PartiesRecord, sections: Record<string, unknown> | undefined, otherName: string): PartiesRecord => ({ ...held, list: withNameParts(withHeldOtherName(withStartLocation(held.list, givenOf(sections)), otherName)) });
+  const withHeld = (held: PartiesRecord, sections: Record<string, unknown> | undefined, otherName: string): PartiesRecord => ({ ...held, list: withNameParts(withHeldYourName(withHeldOtherName(withStartLocation(held.list, givenOf(sections)), otherName), familyYourName(sections))) });
+  // The person's own name typed in the Family form (C9): held in their own entry, never asked again here.
+  const familyYourName = (sections: Record<string, unknown> | undefined) => { const name = (sections?.family as Record<string, unknown> | undefined)?.yourName; return typeof name === "string" ? name : null; };
   const placeholderId = placeholder.current;
   const record = withHeld(recordOf(file.parties.list, savedDeclined, placeholderId), view?.checkpoint.sections as Record<string, unknown> | undefined, heldOtherName(file));
   // Every change is made to the record as it is NOW, never to the copy this screen was drawn with: a box saved when the

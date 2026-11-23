@@ -257,7 +257,7 @@ export const FACT_PLACES: readonly Place[] = [
     name: "Family whole form",
     at: "app/builder/_components/FamilyIntake.tsx",
     facts: [
-      { fact: "yourName", kind: "ask", courts: FA, gate: NONE, shows: "Your name" },
+      { fact: "yourName", kind: "ask", courts: FA, gate: FILE, shows: "Your name (a name the parties hold is shown with Change: heldYourName)" },
       { fact: "otherParty", kind: "confirm", courts: FA, gate: FILE },
       { fact: "children", kind: "confirm", courts: FA, gate: FILE },
       { fact: "whenHappened", kind: "confirm", courts: FA, gate: FILE },

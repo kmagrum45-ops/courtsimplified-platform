@@ -14,8 +14,8 @@ import { timelineIn } from "../../src/lib/case-system/caseFile/storyFacts";
 import { reviewEntries, statedInStory } from "../../src/lib/case-system/intakeReview";
 import { suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";
 import type { CaseRecord } from "../../src/lib/case-system/caseRecord";
-import { partyOfOffer, storyPartyOffers, withHeldOtherName, withNameParts, withStartLocation, withoutHeldElsewhere, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
-import { answeredInIntake, caseFileOf, heldLocation, slotText } from "../../src/lib/case-system/caseFile/caseFile";
+import { partyOfOffer, storyPartyOffers, withHeldOtherName, withHeldYourName, withNameParts, withStartLocation, withoutHeldElsewhere, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
+import { answeredInIntake, caseFileOf, heldLocation, heldYourName, slotText } from "../../src/lib/case-system/caseFile/caseFile";
 import { amountWithCostsNote } from "../../src/lib/case-system/format/recordedAmount";
 import { FORM_7A } from "../../src/lib/case-system/forms/maps/form7A";
 import { fillForm, pdfValues } from "../../src/lib/case-system/forms/formMap";
@@ -101,7 +101,14 @@ section("Findings 2 and 3", () => {
   check("C9 not split: a one-word name, a company, a part the person is not sure of", !withNameParts([{ ...blank, details: { fullName: "Alex" } }])[0].details.lastName && !withNameParts([{ ...blank, kind: "company" as const, details: { fullName: "Test Builder Ltd." } }])[0].details.firstName && !withNameParts([{ ...blank, details: { fullName: "Test Partner" }, unsure: ["lastName" as const] }])[0].details.lastName);
   check("C9 the split is never saved (the whole name is kept once)", withoutHeldElsewhere(split).details.firstName === undefined && withoutHeldElsewhere(split).details.lastName === undefined);
   const partiesStep = source("app/_components/PartiesStep.tsx");
-  check("C9 the Parties step never offers the split (no \"From the name you gave\"); the case file and the step both apply withNameParts", !/From the name you gave/.test(partiesStep) && /withNameParts\(withHeldOtherName\(/.test(partiesStep) && /withNameParts\(withHeldOtherName\(file\.parties\.list/.test(source("src/lib/case-system/caseFile/caseFile.ts")));
+  check("C9 the Parties step never offers the split (no \"From the name you gave\"); the case file and the step both apply withNameParts", !/From the name you gave/.test(partiesStep) && /withNameParts\((?:withHeldYourName\()?withHeldOtherName\(/.test(partiesStep) && /withNameParts\((?:withHeldYourName\()?withHeldOtherName\(file\.parties\.list/.test(source("src/lib/case-system/caseFile/caseFile.ts")));
+  // The person's own name (C9): typed in the Family form, it is their held name on the Parties step; held there, the Family
+  // form shows it with Change and never asks it.
+  const familyFile = caseFileOf({ version: 1, flowId: "f", courtPath: "family", revision: "r", sections: { family: { yourName: "Test Person" } } } as never);
+  const ownEntry = withHeldYourName([you], "Test Person")[0];
+  check("C9 the Family form's name is the person's held name on the Parties step (split into first and last), never asked again", ownEntry.details.fullName === "Test Person" && withNameParts([ownEntry])[0].details.lastName === "Person" && withoutHeldElsewhere(ownEntry).details.fullName === undefined, JSON.stringify(ownEntry));
+  check("C9 the case file reads the Family form's name as the person's own (heldYourName) wherever a you entry exists", heldYourName({ ...familyFile, parties: { recorded: true, list: withHeldYourName([you], "Test Person") } }) === "Test Person");
+  check("C9 the Family form shows a name the parties hold, with Change, never an empty box", /\{heldName && !yourName\.trim\(\) && !changingName \? \(/.test(source("app/builder/_components/FamilyIntake.tsx")) && /const heldName = reviewView \? heldYourName\(caseFileOf\(reviewView\.checkpoint\)\) : "";/.test(source("app/builder/_components/FamilyIntake.tsx")));
   check("C9 a name the person is not sure of is not filled; words that are not a name are not filled",!withHeldOtherName([you, { ...blank, unsure: ["firstName" as const] }], "Test Partner")[1].details.fullName && !withHeldOtherName([you, blank], "Gatineau")[1].details.fullName);
   check("C9 the held name is never saved in the parties record (the case file keeps it)", withoutHeldElsewhere(named[1]).details.fullName === undefined);
   check("C9 the case file and the Parties step read the held name with one function", /withHeldOtherName\(file\.parties\.list, heldOtherName\(file\)\)/.test(source("src/lib/case-system/caseFile/caseFile.ts")) && /const heldOther = heldOtherName\(file\);/.test(source("app/_components/PartiesStep.tsx")));

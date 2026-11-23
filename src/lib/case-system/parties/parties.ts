@@ -339,6 +339,20 @@ export function withHeldOtherName(list: readonly Party[], name: string | null | 
 }
 
 /**
+ * THE PERSON'S OWN NAME, GIVEN IN ANOTHER PLACE (C9, 23 Nov 2026): the Family form's "Your name". Shown in the person's own
+ * entry as held, with Change, and never asked again on the Parties step. Read each time, never saved here. Not filled: an
+ * entry that already has a name, a name the person is not sure of, words that are not a name.
+ */
+export function withHeldYourName(list: readonly Party[], name: string | null | undefined): Party[] {
+  const held = name?.trim();
+  if (!held || !partyDetailFits("fullName", held)) return [...list];
+  return list.map((party) => {
+    if (!party.you || partyName(party) || party.unsure.some((detail) => detail === "firstName" || detail === "lastName" || detail === "fullName")) return party;
+    return { ...party, kind: party.kind ?? "person", details: { ...party.details, fullName: held }, heldElsewhere: [...new Set([...(party.heldElsewhere ?? []), "fullName" as const])] };
+  });
+}
+
+/**
  * THE FIRST AND LAST NAME, FROM A FULL NAME ALREADY GIVEN (site owner, 23 Nov 2026: "A first/last split is a derived fact:
  * once the full name is confirmed anywhere, the first and last name boxes are filled in automatically (split on our
  * server, no AI, nothing sent anywhere), shown as filled in with Change, and never offered or asked again"). Replaces the

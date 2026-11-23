@@ -16,13 +16,6 @@
   {
     "court": "family",
     "fact": "yourName",
-    "place": "family-form",
-    "other": "parties",
-    "why": "nothing checks"
-  },
-  {
-    "court": "family",
-    "fact": "yourName",
     "place": "child-support",
     "other": "family-form",
     "why": "checks the Family form's saved copy, not the case file"
