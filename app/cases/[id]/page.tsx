@@ -41,7 +41,7 @@ import { authHeaders, builderHref, formatDate, useCaseHome } from "../_component
 import { caseStageWords, noticeStepForCase, stepStoryText } from "@/src/lib/case-system/caseStep";
 import { stageRecordedFromAnswers, suggestionForSide } from "@/app/builder/_components/stageFromAnswers";
 import { sideOf, situationAnswers, situationOfCase, stepFromSituation } from "@/src/lib/case-system/situation/situation";
-import { caseFileOf, claimKindOf, unsureDateQuestions, withCaseFileDates } from "@/src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, claimKindOf, heldServiceWords, unsureDateQuestions, withCaseFileDates } from "@/src/lib/case-system/caseFile/caseFile";
 import { stageHeldElsewhere } from "@/src/lib/case-system/caseFile/stageHeld";
 import { hidesMarriedOnly } from "@/src/lib/case-system/family/marriedOnly";
 import { fullDayIn } from "@/src/lib/case-system/casePosition";
@@ -290,6 +290,7 @@ export default function CaseOverviewPage() {
               file={caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master)}
               // "Not sure" where the case is: never asked again; the quiet line with "Add it" (founder, 1 Nov).
               stepNotSure={factStatus(caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master), "stage") === "settled"}
+              heldServiceWords={heldServiceWords(caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master))}
               initialDateAnswers={withCaseFileDates(position.dateAnswers, caseFileOf(readCheckpoint(master.intakeCheckpoint, courtPath), master), fullDayIn)}
               initialService={position.service}
               motionToChange={position.motionToChange ?? null}

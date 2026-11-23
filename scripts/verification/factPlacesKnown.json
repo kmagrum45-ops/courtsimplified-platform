@@ -1,12 +1,5 @@
 [
   {
-    "court": "small-claims",
-    "fact": "serviceMethod",
-    "place": "step",
-    "other": "sc-guided",
-    "why": "checks the step's own service answer, not the case file"
-  },
-  {
     "court": "civil",
     "fact": "filedDocuments",
     "place": "chat-civil-family",
@@ -19,13 +12,6 @@
     "place": "chat-story-offer",
     "other": "chat-civil-family",
     "why": "checks the chat's form values, not the case file"
-  },
-  {
-    "court": "civil",
-    "fact": "serviceMethod",
-    "place": "step",
-    "other": "chat-civil-family",
-    "why": "checks the step's own service answer, not the case file"
   },
   {
     "court": "family",

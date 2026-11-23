@@ -53,6 +53,7 @@ import { fitsFactType } from "./factTypes";
 // meets this one half-loaded (21 Nov 2026: caseFile -> personWords -> siteQuestions -> guidedFields -> intakeReview ->
 // ... -> factRecord read SLOT_FACTS before this file had defined it).
 import { SLOT_FACTS, type SlotFact } from "./slotFacts";
+import { serviceRulesFor } from "../deadlines/serviceEffectiveDate";
 export { SLOT_FACTS, type SlotFact };
 export type SlotState = "not-asked" | "answered" | "unsure";
 export type SlotSource = { kind: "answer"; question: string } | { kind: "story"; quote: string };
@@ -279,6 +280,15 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // it wins over the stage given at the start (reviewer, 2026-10-24: a later correction never won).
   const position = object(object(master).position);
   if (typeof position.stepId === "string" && position.stepId) give(file, "stage", position.stepId, "step");
+  // How the papers were served, as the step page recorded it (position.service, per date question): the method in its own
+  // words, so no other place asks it again (C9, 23 Nov 2026).
+  const serviceCourt = court === "small-claims" || court === "civil" || court === "family" ? court : null;
+  for (const [questionId, entry] of Object.entries(object(position.service))) {
+    const method = object(entry).method;
+    if (typeof method !== "string" || !method) continue;
+    const words = serviceCourt ? serviceRulesFor(serviceCourt, questionId).find((rule) => rule.method === method)?.label : undefined;
+    give(file, "serviceMethod", words ?? method, "step");
+  }
   // Likewise a kind of claim they chose themselves (the overview's list, CLAIM_KIND_QUESTION).
   if (typeof position.claimKind === "string" && (position.claimKind === "not-sure" || isKindOfClaim(position.claimKind))) give(file, "claimKind", position.claimKind, CLAIM_KIND_QUESTION);
 
@@ -1164,6 +1174,17 @@ export function claimKindOf(file: CaseFile, listWords: (codes: string[]) => stri
 export function heldOtherName(file: CaseFile): string {
   const slot = file.otherParty;
   return slot.state === "answered" && typeof slot.value === "string" && slot.source?.kind === "answer" && slot.source.question !== "parties" && !slot.removed ? slot.value.trim() : "";
+}
+
+/**
+ * How the papers were served, in the person's words, as another place holds it (the Small Claims chat, its form, the civil
+ * chat): the step page reads it as its chosen method (C9). Empty for the step page's own answer, or none.
+ */
+export function heldServiceWords(file: CaseFile | null | undefined): string {
+  const slot = file?.serviceMethod;
+  if (!slot || slot.state !== "answered" || !slot.confirmed || slot.removed) return "";
+  if (slot.source?.kind === "answer" && slot.source.question === "step") return "";
+  return typeof slot.value === "string" ? slot.value.trim() : "";
 }
 
 /** The person's own city and province the case holds (the home page's), or null (C9): never asked again in another place. */

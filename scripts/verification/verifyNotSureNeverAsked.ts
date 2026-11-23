@@ -26,7 +26,7 @@ import { caseFileOf, nextQuestion, askable, chatMayAsk, slotsOfQuestion, unsureD
 import * as review from "../../src/lib/case-system/intakeReview";
 import { stageHeldElsewhere } from "../../src/lib/case-system/caseFile/stageHeld";
 import { mayShowQuestion, questionStatus } from "../../src/lib/case-system/caseFile/factStatus";
-import { emptyCaseFile as emptyCaseFileForTest } from "../../src/lib/case-system/caseFile/caseFile";
+import { emptyCaseFile as emptyCaseFileForTest, heldServiceWords as heldServiceWordsForTest } from "../../src/lib/case-system/caseFile/caseFile";
 import { readFileSync } from "node:fs";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { BASIS_SECTION, staleAnswerKeys, storyVersion } from "../../src/lib/case-system/storyBasis";
@@ -184,6 +184,18 @@ for (const item of CASES) {
   const unsureDay = { ...emptyCaseFileForTest(), unsureDates: ["sc-date-defence-filed"] };
   check("8. C9: a Defence's filing day said \"not sure\" elsewhere is settled, never asked", questionStatus(unsureDay as never, "sc-date-defence-filed") === "settled");
   check("8. C9 self-test: with nothing held, the day is asked", mayShowQuestion(emptyCaseFileForTest() as never, "sc-date-claim-issued"));
+}
+
+// 9. C9 (23 Nov 2026): how the papers were served is one fact. The step page's choice is held in the case file in its own
+// words; a method given in the Small Claims chat is the step page's chosen method, never asked there again.
+{
+  const fromStep = caseFileOf({ ...checkpoint("small-claims", {}) }, { position: { service: { "sc-date-claim-served": { method: "personal", enteredOn: "2026-10-01" } } } } as never);
+  check("9. C9: the step page's service method is held in the case file, in its own words", fromStep.serviceMethod.state === "answered" && typeof fromStep.serviceMethod.value === "string" && !/^personal$/.test(String(fromStep.serviceMethod.value)), JSON.stringify(fromStep.serviceMethod));
+  const fromChat = caseFileOf(checkpoint("small-claims", { guided: { earlierAnswers: [{ questionId: "sc-defendant-service-method", answerText: "Handed to me in person at my door" }] } }));
+  check("9. C9: a method given in the chat is read by the step page (heldServiceWords); the step's own is not read back", heldServiceWordsForTest(fromChat).includes("in person") && heldServiceWordsForTest(fromStep) === "", JSON.stringify(fromChat.serviceMethod));
+  const panel = readFileSync("app/builder/_components/StageAnswerPanel.tsx", "utf8");
+  check("9. C9: the step page takes a held method as its chosen method (never offered or asked)", /const heldMethod = serviceCourt && heldServiceWords \? serviceMethodFromStory\(serviceCourt, heldServiceWords\) : null;/.test(panel) && /setServiceMethod\(\(current\) => \(\{ \.\.\.current, \.\.\.Object\.fromEntries\(fill/.test(panel));
+  check("9. C9: both pages pass the held method to the step page", [readFileSync("app/builder/page.tsx", "utf8"), readFileSync("app/cases/[id]/page.tsx", "utf8")].every((page) => /heldServiceWords=\{heldServiceWords\(caseFileOf\(/.test(page)));
 }
 
 if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }

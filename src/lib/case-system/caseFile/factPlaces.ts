@@ -338,7 +338,7 @@ export const FACT_PLACES: readonly Place[] = [
       { fact: "conferenceDate", kind: "ask", courts: ALL, gate: FILE, ids: ["sc-date-settlement-conference"] },
       { fact: "claimIssuedDate", kind: "ask", courts: ALL, gate: { by: "answers" }, ids: ["sc-date-claim-issued"] },
       { fact: "defenceFiledDate", kind: "ask", courts: ALL, gate: { by: "answers" }, ids: ["sc-date-defence-filed"] },
-      { fact: "serviceMethod", kind: "ask", courts: ALL, gate: copy("the step's own service answer"), shows: "How were the papers served?" },
+      { fact: "serviceMethod", kind: "ask", courts: ALL, gate: FILE, shows: "How were the papers served? (a method held elsewhere is this page's chosen method: heldServiceWords)" },
     ],
     ownIds: ["sc-date-defendants-claim-served", "sc-date-learned-of-default", "sc-date-learned-of-judgment"],
   },

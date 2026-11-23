@@ -1392,6 +1392,7 @@ export default function StageAnswerPanel({
   laterDates = [],
   file = null,
   stepNotSure = false,
+  heldServiceWords = null,
   onSaved,
 }: {
   courtPath: StagePathway;
@@ -1459,6 +1460,8 @@ export default function StageAnswerPanel({
    * (founder, 1 Nov). No step's content is shown until the person picks one.
    */
   stepNotSure?: boolean;
+  /** How the papers were served, in the words the case file holds from another place (caseFile.ts heldServiceWords, C9). */
+  heldServiceWords?: string | null;
   /** Told what the person chose (dates and step), so a page that remounts this panel can show it again; called just AFTER the save to the case is queued, so positionSavesSettled(caseId) inside it waits for that save. */
   onSaved?: (saved: {
     stepId?: string | null;
@@ -1572,6 +1575,17 @@ export default function StageAnswerPanel({
   // The story tells how papers reached the person; never how they served theirs.
   const storyMethodFor = (questionId: string): ServiceMethod | null =>
     serviceCourt && storyServiceMethod && !serving(questionId) && waysFor(questionId).some((rule) => rule.method === storyServiceMethod) ? storyServiceMethod : null;
+  // How the papers were served, given in another place (the Small Claims chat, its form, the civil chat): the person's own
+  // answer, so it is the method chosen here, shown with Change, never asked again (C9, 23 Nov 2026). Read into this page's
+  // choice only where the step has no method of its own; saved only when the person acts here.
+  const heldMethod = serviceCourt && heldServiceWords ? serviceMethodFromStory(serviceCourt, heldServiceWords) : null;
+  const serviceQuestionIds = (((result as { dateQuestions?: { id: string; question: string }[] } | null)?.dateQuestions) ?? []).filter((question: { id: string; question: string }) => isServiceDateQuestion(question.id, question.question)).map((question: { id: string }) => question.id).join("|");
+  useEffect(() => {
+    if (!heldMethod || !serviceQuestionIds) return;
+    const fill = serviceQuestionIds.split("|").filter((id: string) => !serviceMethod[id] && !serving(id) && waysFor(id).some((rule) => rule.method === heldMethod));
+    if (fill.length) setServiceMethod((current) => ({ ...current, ...Object.fromEntries(fill.filter((id: string) => !current[id]).map((id: string) => [id, heldMethod])) }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [heldMethod, serviceQuestionIds]);
   const [dateStatus, setDateStatus] = useState<"" | "saving" | "saved" | "not-saved">("");
   /*
    * Page review 2026-10-07: a confirmed defendant scrolled 36 to 48 steps,

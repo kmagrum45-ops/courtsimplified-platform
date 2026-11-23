@@ -5,7 +5,7 @@ import { OPEN_WHOLE_FORM_EVENT } from "./_components/openWholeForm";
 import { partyNames } from "../../src/lib/case-system/parties/parties";
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
-import { caseFileOf, claimKindOf, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, claimKindOf, heldServiceWords, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
 import { stageHeldElsewhere } from "../../src/lib/case-system/caseFile/stageHeld";
 import { hidesMarriedOnly } from "../../src/lib/case-system/family/marriedOnly";
 import { analysisFactsOf, formAnalysisInput } from "../../src/lib/case-system/caseFile/chatTurnFacts";
@@ -2539,6 +2539,7 @@ function BuilderPageContent() {
                 file={caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult)}
                 // "Not sure" where the case is (the start's "I am not sure"): never asked again; the quiet line with "Add it" (founder, 1 Nov).
                 stepNotSure={factStatus(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult), "stage") === "settled"}
+                heldServiceWords={heldServiceWords(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult))}
                 initialDateAnswers={savedPosition.dateAnswers}
                 initialService={savedPosition.service}
                 onSaved={(saved) => {
