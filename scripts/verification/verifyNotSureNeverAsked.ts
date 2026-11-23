@@ -24,6 +24,8 @@
  */
 import { caseFileOf, nextQuestion, askable, chatMayAsk, slotsOfQuestion, unsureDateQuestions, withChange, CASE_FILE_SECTION, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import * as review from "../../src/lib/case-system/intakeReview";
+import { stageHeldElsewhere } from "../../src/lib/case-system/caseFile/stageHeld";
+import { readFileSync } from "node:fs";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { BASIS_SECTION, staleAnswerKeys, storyVersion } from "../../src/lib/case-system/storyBasis";
 
@@ -155,6 +157,21 @@ for (const item of CASES) {
 {
   const fresh = checkpoint("civil", {});
   check("a question never answered is still asked", nextQuestion(caseFileOf(fresh), ["legalRemedy"]) === "legalRemedy");
+}
+
+// 7. C9 (23 Nov 2026): the stage card (StageConfirmation, the AI summary page and the case page) reads the stage the case
+// file holds from another place (stageHeld.ts): "not sure" there is never asked again on the card, and a stage the person
+// gave there is shown as recorded.
+{
+  const fileWith = (slot: unknown) => ({ stage: slot } as never);
+  check("7. C9: a stage settled as \"not sure\" elsewhere is held as settled for the stage card", stageHeldElsewhere(fileWith({ state: "unsure", confirmed: true, source: { kind: "answer", question: "caseStage" } }))?.kind === "settled");
+  const known = stageHeldElsewhere(fileWith({ state: "answered", value: "sc-trial-scheduled", confirmed: true, source: { kind: "answer", question: "step" } }));
+  check("7. C9: a stage the person gave on the step page is held as known for the stage card", known?.kind === "known" && known.stage === "sc-trial-scheduled", JSON.stringify(known));
+  check("7. C9 self-test: a stage only read from the story, never confirmed, is not held (the card offers it)", stageHeldElsewhere(fileWith({ state: "answered", value: "responding", confirmed: false, source: { kind: "story", quote: "I was served" } })) === null);
+  const card = readFileSync("app/builder/_components/StageConfirmation.tsx", "utf8");
+  check("7. C9: the card shows the quiet line for a settled stage and never its question", /held\?\.kind === "settled"[\s\S]{0,200}NOT_ANSWERED_YET/.test(card));
+  const pages = [readFileSync("app/builder/page.tsx", "utf8"), readFileSync("app/cases/[id]/page.tsx", "utf8")];
+  check("7. C9: both pages pass the case file's stage to the card", pages.every((page) => /held=\{stageHeldElsewhere\(caseFileOf\(/.test(page)));
 }
 
 if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }

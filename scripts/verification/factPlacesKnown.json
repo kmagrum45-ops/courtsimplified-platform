@@ -65,13 +65,6 @@
   {
     "court": "small-claims",
     "fact": "stage",
-    "place": "stage-confirmation",
-    "other": "situation",
-    "why": "checks the case position's confirmed stage, not the case file"
-  },
-  {
-    "court": "small-claims",
-    "fact": "stage",
     "place": "forms",
     "other": "situation",
     "why": "checks the case position, not the case file"
@@ -212,13 +205,6 @@
   {
     "court": "civil",
     "fact": "stage",
-    "place": "stage-confirmation",
-    "other": "situation",
-    "why": "checks the case position's confirmed stage, not the case file"
-  },
-  {
-    "court": "civil",
-    "fact": "stage",
     "place": "forms",
     "other": "situation",
     "why": "checks the case position, not the case file"
@@ -313,13 +299,6 @@
     "place": "forms",
     "other": "situation",
     "why": "checks the case position, not the case file"
-  },
-  {
-    "court": "family",
-    "fact": "stage",
-    "place": "stage-confirmation",
-    "other": "situation",
-    "why": "checks the case position's confirmed stage, not the case file"
   },
   {
     "court": "family",

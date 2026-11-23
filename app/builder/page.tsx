@@ -6,6 +6,7 @@ import { partyNames } from "../../src/lib/case-system/parties/parties";
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
 import { caseFileOf, claimKindOf, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { stageHeldElsewhere } from "../../src/lib/case-system/caseFile/stageHeld";
 import { hidesMarriedOnly } from "../../src/lib/case-system/family/marriedOnly";
 import { analysisFactsOf, formAnalysisInput } from "../../src/lib/case-system/caseFile/chatTurnFacts";
 import { withoutUnsureAnswers } from "../../src/lib/case-system/caseFile/unsureAnswer";
@@ -2498,6 +2499,7 @@ function BuilderPageContent() {
               suggestedStage={suggestionForSide(detectedStage, respondingSide)}
               pathway={courtPath === "family" ? "family" : courtPath === "civil" ? "civil" : "small-claims"}
               confirmedStage={confirmedStage}
+              held={stageHeldElsewhere(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult))}
               // A case already going: the step the next step follows, the latest chosen (the step page's, else the start's).
               stepWords={situation.where === "going" || situation.where === "served" ? findStage(savedPosition.stepId ?? stepFromSituation(situation, courtPath) ?? "")?.userQuestion ?? null : null}
               basis={

@@ -313,7 +313,7 @@ export const FACT_PLACES: readonly Place[] = [
     id: "stage-confirmation",
     name: "AI summary page and case page: where your case is (confirm the stage)",
     at: "app/builder/page.tsx",
-    facts: [{ fact: "stage", kind: "ask", courts: ALL, gate: copy("the case position's confirmed stage") }],
+    facts: [{ fact: "stage", kind: "ask", courts: ALL, gate: FILE }],
   },
   {
     id: "step",
