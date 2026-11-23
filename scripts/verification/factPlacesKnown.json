@@ -2,13 +2,6 @@
   {
     "court": "small-claims",
     "fact": "municipality",
-    "place": "parties",
-    "other": "home-start",
-    "why": "checks the parties record, not the case file"
-  },
-  {
-    "court": "small-claims",
-    "fact": "municipality",
     "place": "court-chat",
     "other": "home-start",
     "why": "checks the chat's own list of what is missing, not the case file"
@@ -226,13 +219,6 @@
   {
     "court": "civil",
     "fact": "municipality",
-    "place": "parties",
-    "other": "home-start",
-    "why": "checks the parties record, not the case file"
-  },
-  {
-    "court": "civil",
-    "fact": "municipality",
     "place": "court-chat",
     "other": "home-start",
     "why": "checks the chat's own list of what is missing, not the case file"
@@ -355,13 +341,6 @@
     "place": "family-triage",
     "other": "home-start",
     "why": "checks a copy of the home page's city, passed in, not the case file"
-  },
-  {
-    "court": "family",
-    "fact": "municipality",
-    "place": "parties",
-    "other": "home-start",
-    "why": "checks the parties record, not the case file"
   },
   {
     "court": "family",

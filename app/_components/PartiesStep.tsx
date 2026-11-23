@@ -19,10 +19,10 @@ import { afterPointer } from "./afterPointer";
 import { useIntakeRecovery } from "./IntakeRecovery";
 import { writeParties } from "./caseWrite";
 import { UseSuggestion } from "./UseSuggestion";
-import { answeredInIntake, bringsTheCase, caseFileOf, storyOfFile } from "../../src/lib/case-system/caseFile/caseFile";
+import { answeredInIntake, bringsTheCase, caseFileOf, heldOtherName, storyOfFile } from "../../src/lib/case-system/caseFile/caseFile";
 import { locationOf } from "../../src/lib/case-system/intakeStory";
 import {
-  detailStatus, detailsToAsk, partyName, partyOfOffer, partySideWord, sideWordsOf, storyPartyOffers,
+  detailStatus, detailsToAsk, partyName, partyOfOffer, partySideWord, sideWordsOf, storyPartyOffers, withHeldOtherName, withStartLocation,
   type Party, type PartiesRecord, type PartyDetail, type PartyKind, type PartyOffer,
   isCompanyName,
 } from "../../src/lib/case-system/parties/parties";
@@ -92,9 +92,11 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
   // #550, row 42 note). Read as a person here, and saved as one with the first detail given.
   const familyCourt = (view?.checkpoint.courtPath ?? file.area) === "family";
   const asPerson = (party: Party): Party => (familyCourt && !party.kind ? { ...party, kind: "person" } : party);
-  const recordOf = (list: readonly Party[], declined: readonly string[], placeholderId?: string): PartiesRecord => { const held = startingRecord(list, declined, placeholderId); return { ...held, list: held.list.map(asPerson) }; };
+  // The person's own city and province from the home page (C9): shown as held in their entry, never asked again here.
+  const givenOf = (sections: Record<string, unknown> | undefined) => ({ location: locationOf((sections ?? {}) as never), answered: answeredInIntake(sections) });
+  const recordOf = (list: readonly Party[], declined: readonly string[], placeholderId?: string, sections?: Record<string, unknown>, otherName?: string): PartiesRecord => { const held = startingRecord(list, declined, placeholderId); return { ...held, list: withHeldOtherName(withStartLocation(held.list.map(asPerson), givenOf(sections)), otherName) }; };
   const placeholderId = placeholder.current;
-  const record = recordOf(file.parties.list, savedDeclined, placeholderId);
+  const record = recordOf(file.parties.list, savedDeclined, placeholderId, view?.checkpoint.sections as Record<string, unknown> | undefined, heldOtherName(file));
   // Every change is made to the record as it is NOW, never to the copy this screen was drawn with: a box saved when the
   // focus left it and the button that took the focus each change the record, and the second built on the old copy undid
   // the first (Chrome milestone test of #550, row 12: the first click after typing "did nothing"; full local run of
@@ -103,7 +105,8 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
     const checkpoint = recovery.getReview()?.checkpoint;
     if (!checkpoint) return record;
     const saved = (checkpoint.sections as Record<string, Record<string, unknown>> | undefined)?.caseFile?.parties as { declined?: string[] } | undefined;
-    return recordOf(caseFileOf(checkpoint, recovery.getSavedMaster() ?? undefined).parties.list, Array.isArray(saved?.declined) ? saved!.declined : [], placeholderId);
+    const now = caseFileOf(checkpoint, recovery.getSavedMaster() ?? undefined);
+    return recordOf(now.parties.list, Array.isArray(saved?.declined) ? saved!.declined : [], placeholderId, checkpoint.sections as Record<string, unknown> | undefined, heldOtherName(now));
   };
   const personSues = bringsTheCase(file) || !file.side.value;
   // The court's own words for each side (parties.ts sideWordsOf): Family's applicant and respondent (row 42).
@@ -112,12 +115,13 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
   const words = sideWordsOf(court);
   const save = (change: (current: PartiesRecord) => PartiesRecord) => { try { writeParties(recovery, change(latest())); setError(""); } catch (problem) { setError((problem as Error).message); } };
   const update = (id: string, change: (party: Party) => Party) => save((current) => ({ ...current, list: current.list.map((party) => (party.id === id ? change(party) : party)) }));
-  const give = (id: string, detail: PartyDetail, value: string) => update(id, (party) => ({ ...party, details: { ...party.details, [detail]: value.trim() }, unsure: party.unsure.filter((item) => item !== detail) }));
+  // A detail typed here is the person's own: saved, no longer read from the start (heldElsewhere).
+  const give = (id: string, detail: PartyDetail, value: string) => update(id, (party) => ({ ...party, details: { ...party.details, [detail]: value.trim() }, unsure: party.unsure.filter((item) => item !== detail), heldElsewhere: party.heldElsewhere?.filter((item) => item !== detail) }));
   const unsure = (id: string, detail: PartyDetail) => update(id, (party) => ({ ...party, unsure: [...new Set([...party.unsure, detail])] }));
   const setKind = (id: string, kind: PartyKind) => update(id, (party) => ({ ...party, kind }));
 
   // The other party's name: the answer the case holds (not from this step), else the story reading's (storyOffers.ts).
-  const heldOther = file.otherParty.state === "answered" && typeof file.otherParty.value === "string" && file.otherParty.source?.kind === "answer" && file.otherParty.source.question !== "parties" ? file.otherParty.value.trim() : "";
+  const heldOther = heldOtherName(file);
   const named = heldOther ? { value: heldOther, quote: heldOther } : offeredOtherParty(storyOfFile(file), readingFactsOf(view?.checkpoint.sections as Record<string, unknown> | undefined, storyOfFile(file)));
   // What the person gave outside the story too: the city at the start, and an address typed as an answer (findings 2, 3).
   const sections = view?.checkpoint.sections as Record<string, unknown> | undefined;
@@ -152,7 +156,7 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
       return (
         <p key={key} data-testid="parties-detail-held" data-detail={detail} className="text-sm">
           <span className="font-semibold">{LABELS[detail]}:</span> {party.details[detail]}{" "}
-          <button type="button" data-testid="parties-detail-change" className="text-[#2f7d67] underline" onClick={() => { setDrafts((current) => ({ ...current, [key]: party.details[detail] ?? "" })); update(party.id, (held) => { const details = { ...held.details }; delete details[detail]; return { ...held, details }; }); }}>Change</button>
+          <button type="button" data-testid="parties-detail-change" className="text-[#2f7d67] underline" onClick={() => { setDrafts((current) => ({ ...current, [key]: party.details[detail] ?? "" })); if (party.heldElsewhere?.includes(detail)) { setInEntry(party.id); setTypedHere((current) => ({ ...current, [key]: true })); return; } update(party.id, (held) => { const details = { ...held.details }; delete details[detail]; return { ...held, details }; }); }}>Change</button>
         </p>
       );
     }

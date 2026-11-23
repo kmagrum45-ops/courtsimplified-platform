@@ -17,6 +17,7 @@
 import { MONTH_FULL_NAMES_PATTERN, WEEKDAY_NAMES_PATTERN } from "../../../src/lib/case-system/dates";
 import { dateMentionsIn, MONTH_NAMES_PATTERN, MONTH_WORDS_EN } from "../../../src/lib/case-system/dates";
 import { claimAmountFromStory } from "../../../src/lib/case-system/claimAmount";
+import { NO_CHILDREN } from "../../../src/lib/case-system/copy/caseWords";
 
 export type StoryAnswer = { value: string; quote: string };
 
@@ -260,8 +261,29 @@ export function goalFromStory(story: string): StoryAnswer | null {
   return null;
 }
 
-/** The children, when the story says how old they are. */
+/**
+ * A story that says there are no children ("We have no children", "We never had kids", "no children together"): the
+ * children fact is stated, as NO_CHILDREN, never asked cold (C9, 23 Nov 2026; Chrome check of #558: "Tell us about the
+ * children" was asked after the story said "We have no children"). Only when no other words name a child at all,
+ * so "We have no children together, but my son from before lives with me" offers nothing: the question is asked.
+ */
+const NO_CHILDREN_SAID = /\b(?:we|i)\s+(?:have|had|'ve)\s+no\s+(?:kids|children)\b|\b(?:we|i)\s+(?:do not|don't|did not|didn't|never)\s+(?:have|had)\s+(?:any\s+)?(?:kids|children)\b|\b(?:we|i)\s+(?:have\s+)?never\s+had\s+(?:any\s+)?(?:kids|children)\b|\bthere\s+(?:are|were)\s+no\s+(?:kids|children)\b|\bno\s+(?:kids|children)\s+(?:together|of\s+the\s+marriage|from\s+the\s+marriage|between\s+us)\b/i;
+/** Any child named ("my son from before", "her daughter"): beside "no children", nothing is stated. */
+const ANY_CHILD = /\b(?:sons?|daughters?|kids?|child|children|babies|baby|step-?(?:son|daughter|child)(?:ren)?)\b/i;
+function noChildrenFromStory(story: string): StoryAnswer | null {
+  const all = sentences(story);
+  const said = all.find((sentence) => NO_CHILDREN_SAID.test(sentence));
+  if (!said) return null;
+  // Any other child named anywhere ("my son from before", "her daughter", "but my son lives with me"): nothing is stated.
+  const others = all.filter((sentence) => sentence !== said).join(" ") + " " + said.replace(NO_CHILDREN_SAID, "");
+  if (ANY_CHILD.test(others)) return null;
+  return { value: NO_CHILDREN, quote: said };
+}
+
+/** The children, when the story says how old they are, or that there are none. */
 export function childrenFromStory(story: string): StoryAnswer | null {
+  const none = noChildrenFromStory(story);
+  if (none) return none;
   const AGE = "(?:\\d{1,2}|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen)";
   // "on september 29" is a day of the month, not an age (2026-10-13).
   const NOT_A_DAY = `(?<!\\b(?:${MONTH_NAMES_PATTERN})\\s)(?<!\\b(?:${MONTH_NAMES_PATTERN})\\s\\d)`;

@@ -39,6 +39,12 @@ export type Party = {
   details: Partial<Record<PartyDetail, string>>;
   /** Details the person said "I'm not sure" about: never asked again. */
   unsure: PartyDetail[];
+  /**
+   * Details shown from what the person gave in another place (the city and province on the home page: withStartLocation;
+   * the other side's name they gave in the chat: withHeldOtherName), read each time, never saved here (caseWrite.ts
+   * writeParties drops them): one fact, held once (C9).
+   */
+  heldElsewhere?: PartyDetail[];
 };
 
 export type PartiesRecord = {
@@ -272,20 +278,82 @@ function namesStoryBusiness(question: string, story: string): boolean {
   return false;
 }
 
+/**
+ * A province other than Ontario that an answer gives for the start city ("Gatineau, Quebec"): never a value over one the
+ * person gave (site owner, 19 Nov 2026; Chrome pass 3 on #550, S2: "Province: ON" offered after "Gatineau, Quebec").
+ */
+function provinceAnsweredForStartCity(given: GivenElsewhere): { value: string; answer: string } | null {
+  const city = given.location?.city?.trim();
+  if (!city) return null;
+  const cityWithProvince = new RegExp(String.raw`${city.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\s*,?\s+(${PROVINCE})(?![\p{L}])`, "u");
+  for (const item of given.answered ?? []) {
+    const match = cityWithProvince.exec(item.answer);
+    if (match && !/^(?:ON|Ont\.?|Ontario)$/i.test(match[1])) return { value: provinceCode(match[1]), answer: item.answer.trim() };
+  }
+  return null;
+}
+
+/**
+ * THE PERSON'S OWN CITY AND PROVINCE, FROM THE START (C9, 23 Nov 2026; Chrome check of #558: "The city you gave at the
+ * start" was offered again on the Parties step after the person typed it on the home page). The home page's city, and
+ * Ontario, are the person's own answers about where they are: the person's own city box shows them as held, with
+ * Change, and they are never asked or offered again. Read each time, never saved (`heldElsewhere`; caseWrite.ts drops them),
+ * so the home page's city stays the one place it is kept. Not filled: a city or province the person gave here, one they
+ * said "I'm not sure" about, the province when the city here is another one, and Ontario when an answer gives another
+ * province for that city (offered instead: elsewhereOffers).
+ */
+export function withStartLocation(list: readonly Party[], given: GivenElsewhere): Party[] {
+  const city = given.location?.city?.trim();
+  if (!city) return [...list];
+  const startProvince = given.location?.province?.trim();
+  const ontario = !startProvince || /^(?:ontario|on)$/i.test(startProvince);
+  return list.map((party) => {
+    if (!party.you) return party;
+    const fill: Partial<Record<PartyDetail, string>> = {};
+    const ownCity = clean(party.details.city);
+    if (!ownCity && !party.unsure.includes("city")) fill.city = city;
+    const sameCity = !ownCity || sameName(ownCity, city);
+    if (ontario && sameCity && !clean(party.details.province) && !party.unsure.includes("province") && !provinceAnsweredForStartCity(given)) fill.province = "ON";
+    const keys = Object.keys(fill) as PartyDetail[];
+    return keys.length ? { ...party, details: { ...party.details, ...fill }, heldElsewhere: [...new Set([...(party.heldElsewhere ?? []), ...keys])] } : party;
+  });
+}
+
+/**
+ * THE OTHER SIDE'S NAME THE PERSON ALREADY GAVE (C9, 23 Nov 2026; Chrome check of #558: the name confirmed in the chat was
+ * offered again on the Parties step, "Name: ..." with Yes / No). The name the case file holds as the person's own answer
+ * (caseFile.ts heldOtherName) is the one other party's name, shown as held with Change, never offered again. Read each
+ * time, never saved here. Not filled: a party that already has a name, one whose name the person is not sure of, or when
+ * there is more than one other party (whose it is would be a guess). Splitting it into a first and a last name is not
+ * done here: which part is the last name is asked once, on the Parties step (PartiesStep nameSplit).
+ */
+export function withHeldOtherName(list: readonly Party[], name: string | null | undefined): Party[] {
+  const held = name?.trim();
+  if (!held || !partyDetailFits("fullName", held)) return [...list];
+  const others = list.filter((party) => party.side === "other");
+  if (others.length !== 1) return [...list];
+  const other = others[0];
+  if (partyName(other) || other.unsure.some((detail) => detail === "firstName" || detail === "lastName" || detail === "companyName" || detail === "fullName")) return [...list];
+  const detail: PartyDetail = other.kind === "company" || (!other.kind && isCompanyName(held)) ? "companyName" : "fullName";
+  return list.map((party) => (party === other ? { ...party, details: { ...party.details, [detail]: held }, heldElsewhere: [...new Set([...(party.heldElsewhere ?? []), detail])] } : party));
+}
+
+/** A party without what was read from another place: what the one writer saves (caseWrite.ts writeParties). */
+export function withoutHeldElsewhere(party: Party): Party {
+  if (!party.heldElsewhere?.length) return party;
+  const details = { ...party.details };
+  for (const detail of party.heldElsewhere) delete details[detail];
+  const { heldElsewhere: _dropped, ...rest } = party;
+  return { ...rest, details };
+}
+
 function elsewhereOffers(record: PartiesRecord, given: GivenElsewhere, namedOther?: string, story = ""): PartyOffer[] {
   const offers: PartyOffer[] = [];
-  const city = given.location?.city?.trim();
-  if (city) {
-    const quote = `The city you gave at the start: ${city}`;
-    // Never a value over one the person gave (site owner, 19 Nov 2026; Chrome pass 3 on #550, S2: "Province: ON" offered
-    // after "Gatineau, Quebec"): an answer naming this city with another province gives the province instead.
-    const cityWithProvince = new RegExp(String.raw`${city.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\s*,?\s+(${PROVINCE})(?![\p{L}])`, "u");
-    const answeredProvince = (given.answered ?? []).map((item) => ({ item, match: cityWithProvince.exec(item.answer) })).find(({ match }) => match && !/^(?:ON|Ont\.?|Ontario)$/i.test(match[1]));
-    offers.push(...offersOf("you", [
-      { detail: "city", value: city, quote },
-      ...(answeredProvince ? [{ detail: "province" as const, value: provinceCode(answeredProvince.match![1]), quote: `You answered “${answeredProvince.item.answer.trim()}”` }]
-        : !given.location?.province || /^(?:ontario|on)$/i.test(given.location.province.trim()) ? [{ detail: "province" as const, value: "ON", quote: `${quote}, Ontario` }] : []),
-    ]).map((offer) => ({ ...offer, from: "start" as const })));
+  // The city and Ontario given at the start are the person's own answers, held (withStartLocation), never offered again
+  // (C9). A province answered later for that city (S2: "Gatineau, Quebec") is still offered, with the answer quoted.
+  const answeredProvince = provinceAnsweredForStartCity(given);
+  if (answeredProvince) {
+    offers.push(...offersOf("you", [{ detail: "province", value: answeredProvince.value, quote: `You answered “${answeredProvince.answer}”` }]).map((offer) => ({ ...offer, from: "answer" as const })));
   }
   const firstOther = record.list.find((party) => party.side === "other");
   for (const { question, answer } of given.answered ?? []) {

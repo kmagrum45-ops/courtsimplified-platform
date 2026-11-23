@@ -293,10 +293,10 @@ export const FACT_PLACES: readonly Place[] = [
     name: "Parties step: names and addresses (review, Small Claims form, statement of claim)",
     at: "app/_components/PartiesStep.tsx",
     facts: [
-      { fact: "otherParty", kind: "offer", courts: ALL, gate: copy("the parties record"), shows: "the other side's name read from the story" },
+      { fact: "otherParty", kind: "offer", courts: ALL, gate: FILE, shows: "the other side's name read from the story, when no other place holds it (a name the person gave is held: withHeldOtherName)" },
       { fact: "otherParty", kind: "offer", courts: ALL, gate: copy("the parties record"), shows: "the name already given, split into first and last name" },
       { fact: "yourName", kind: "ask", courts: ALL, gate: copy("the parties record"), shows: "Your first and last name" },
-      { fact: "municipality", kind: "offer", courts: ALL, gate: copy("the parties record"), shows: "The city you gave at the start" },
+      { fact: "municipality", kind: "confirm", courts: ALL, gate: FILE, shows: "your own city and province, held from the home page, with Change" },
     ],
   },
   {
