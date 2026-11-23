@@ -256,5 +256,20 @@ section("A cleared box stays a box (form-box-follows-record, 18 Nov)", () => {
   check("both folding boxes use it (NotAnsweredYet, AskedField)", /settledNotSure\(file, item\.fact\)/.test(source("app/_components/NotAnsweredYet.tsx")) && /settledNotSure\(file, decision\.fact\)/.test(source("app/_components/AskedField.tsx")));
 });
 
+// Chrome check of #560 (23 Nov 2026), Family, the story's exact words. 4a: after "We have no children." the status questions
+// asked "Does what you are dealing with involve any children?" and offered "Is this right: the case involves children?".
+// 4b: after "My spouse and I married in June 2015" they asked "Were you and the other person married to each other?".
+section("Chrome check of #560: 4a children, 4b married", () => {
+  const STORY = "TEST CASE (made up). My spouse and I married in June 2015. We separated in March 2026. We have no children. We own a house in Ottawa. I want the property divided and spousal support.";
+  const children = storySuggestionFor("case-involves-children", STORY);
+  check("4a \"We have no children.\" is never offered as \"the case involves children\": only \"No children\", once", children?.value === "no" && children.say === "No children", JSON.stringify(children));
+  check("4a ... and never as a child together", storySuggestionFor("child-together", STORY)?.value !== "yes");
+  check("4a control: \"We have a 6-year-old\" still says the case involves children", storySuggestionFor("case-involves-children", "We separated in May. We have a 6-year-old.")?.value === "yes");
+  const married = storySuggestionFor("married-to-other-party", STORY);
+  check("4b \"My spouse and I married in June 2015\" is offered as married (once), never asked cold", married?.value === "yes", JSON.stringify(married));
+  const triage = source("app/builder/_components/FamilyStatusTriage.tsx");
+  check("4a/4b while the story's answer is offered, the question and its own buttons are not shown beside it", /\{suggestionWaiting\(question\.id\) \? null : \(\s*<p data-testid="triage-prompt"/.test(triage) && /\{suggestionWaiting\(current\.id\) \? null : \(\s*<div className="mt-4 flex flex-wrap gap-3">/.test(triage));
+});
+
 console.log(failed ? `\n${failed} check(s) FAILED.` : "\nAll Chrome pass 2 checks passed.");
 process.exit(failed ? 1 : 0);
