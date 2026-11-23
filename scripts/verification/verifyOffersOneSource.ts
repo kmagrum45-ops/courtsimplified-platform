@@ -119,6 +119,12 @@ check("self-test: a new offer reading amountOfferFromStory directly is caught", 
   const left = foundStillToOffer(found, held).map((item) => item.field);
   check("C9: \"Found in your description\" never offers a value the case file holds (amount, when, goal, other party, your name)", JSON.stringify(left) === JSON.stringify(["evidence"]), JSON.stringify(left));
   check("C9 self-test: with nothing held, everything found is offered", foundStillToOffer(found, emptyCaseFile()).length === found.length);
+  // The kind of claim is offered on the AI summary page and in the Small Claims chat only while the case file holds none
+  // (claimKindOf, the one kind reader): read, so the table's case-file gate for both stays true.
+  const overview = readFileSync("app/builder/_components/IntelligenceOverviewPanel.tsx", "utf8");
+  const guidedChat = readFileSync("app/builder/_components/GuidedSmallClaimsIntake.tsx", "utf8");
+  check("C9: the AI summary page offers a kind only when the case file holds none (claimKindOf; held hides the offer)", /claimKindLine\(claimKindOf\(caseFile/.test(overview) && /\{!kind\.held && kind\.claimTypeId \? <ClaimKindOffer/.test(overview));
+  check("C9: the Small Claims chat offers a kind only when the case file holds none (claimKindOf)", /const heldKind = claimKindOf\(fileNow\);/.test(guidedChat) && /!kindGiven && !turnedDownKinds\.includes/.test(guidedChat));
   check("C9: the form lists only foundStillToOffer's values", /foundToOffer\.map\(/.test(readFileSync("app/builder/_components/SmallClaimsIntake.tsx", "utf8")) && !/extractedFacts\.map\(/.test(readFileSync("app/builder/_components/SmallClaimsIntake.tsx", "utf8")));
 }
 

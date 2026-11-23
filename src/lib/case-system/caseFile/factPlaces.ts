@@ -216,7 +216,7 @@ export const FACT_PLACES: readonly Place[] = [
     id: "sc-claim-type",
     name: "Small Claims chat: the kind of claim it seems to be",
     at: "app/builder/_components/GuidedSmallClaimsIntake.tsx",
-    facts: [{ fact: "claimKind", kind: "offer", courts: SC, gate: copy("the list of kinds turned down") }],
+    facts: [{ fact: "claimKind", kind: "offer", courts: SC, gate: FILE }],
   },
   {
     id: "sc-form",
@@ -315,7 +315,7 @@ export const FACT_PLACES: readonly Place[] = [
     facts: [
       { fact: "defenceFiled", kind: "ask", courts: ["small-claims", "civil"], gate: FILE, shows: "Has the defendant filed a Defence?" },
       { fact: "adoption", kind: "ask", courts: FA, gate: FIRST },
-      { fact: "claimKind", kind: "offer", courts: SC, gate: copy("the page's own claim-kind value") },
+      { fact: "claimKind", kind: "offer", courts: SC, gate: FILE },
     ],
   },
   {

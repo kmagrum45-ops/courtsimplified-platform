@@ -29,20 +29,6 @@
   },
   {
     "court": "small-claims",
-    "fact": "claimKind",
-    "place": "sc-claim-type",
-    "other": "sc-guided",
-    "why": "checks the list of kinds turned down, not the case file"
-  },
-  {
-    "court": "small-claims",
-    "fact": "claimKind",
-    "place": "results-overview",
-    "other": "sc-guided",
-    "why": "checks the page's own claim-kind value, not the case file"
-  },
-  {
-    "court": "small-claims",
     "fact": "serviceMethod",
     "place": "step",
     "other": "sc-guided",
