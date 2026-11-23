@@ -3,7 +3,7 @@ import { useIntakeRecovery, useIntakeReviewView, useSituation } from "../../_com
 import { offerForQuestion } from "../../../src/lib/case-system/caseFile/offerChoice";
 import { sideOf } from "../../../src/lib/case-system/situation/situation";
 import { personWordsOnly } from "../../../src/lib/case-system/personWords";
-import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
+import { reviewPhase, statedInStory } from "../../../src/lib/case-system/intakeReview";
 import { askedQuestionsOf, caseFileOf, heldLocation } from "../../../src/lib/case-system/caseFile/caseFile";
 import { withCaseFileAnswers } from "../../../src/lib/case-system/caseFile/triageFromCaseFile";
 
@@ -133,7 +133,9 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
   // While the story's own answer is offered ("No children", "you were married to each other"), only the offer is shown:
   // never the question beside it (C9, Chrome check of #560, 4a and 4b). After "No, that's not right" the question is asked.
   const offerChoices = useOfferChoices();
-  const suggestionWaiting = (id: string) => Boolean(storySuggestionFor(id, story)) && !offerChoices.choiceOf(`triage:${id}`);
+  // What the one story reader states ("No children"), for the story's own answers (triageStoryQuote.ts storyAnswerFor).
+  const storyStated = statedInStory(story);
+  const suggestionWaiting = (id: string) => Boolean(storySuggestionFor(id, story, storyStated)) && !offerChoices.choiceOf(`triage:${id}`);
   const [dateStart, setDateStart] = useState("");
   const [dateEnd, setDateEnd] = useState("");
   const [userMunicipality, setUserMunicipality] = useState(homeCity);
@@ -216,7 +218,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
 
       // What the person's own words answer is offered first, with the one control;
       // no choice is shown chosen and nothing is recorded until they press one (owner, 31 Oct).
-      const suggestion = storySuggestionFor(current.id, story);
+      const suggestion = storySuggestionFor(current.id, story, storyStated);
       const record = (value: string) => {
         if (current.id === "married-to-other-party") update({ marriedToOtherParty: value as "yes" | "no" | "unsure" });
         if (current.id === "divorce-sought") update({ divorceSought: value as "yes" | "no" | "unsure" });

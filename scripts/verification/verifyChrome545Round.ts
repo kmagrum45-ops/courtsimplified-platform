@@ -77,7 +77,7 @@ const settled = { ...emptyStatusRecord(), marriedToOtherParty: "no" as const, co
 check("B2. nothing recorded: both municipalities are asked together", selectNextTriageQuestion(settled)?.id === "municipalities");
 check("B2. the person's municipality recorded: only the other person's is asked", selectNextTriageQuestion({ ...settled, userMunicipality: "Ottawa" })?.id === "other-party-municipality", String(selectNextTriageQuestion({ ...settled, userMunicipality: "Ottawa" })?.id));
 check("B2. the other person's asked once: recorded or not known, it is not asked again", selectNextTriageQuestion({ ...settled, userMunicipality: "Ottawa", otherPartyMunicipality: "not-yet" }) === null);
-check("B2. the card reads the Home city as the person's municipality, over its own record", /fromFile\.userMunicipality === null && homeCity\.trim\(\)/.test(read("app/builder/_components/FamilyStatusTriage.tsx")));
+check("B2. the card reads the Home city as the person's municipality, over its own record", /fromFile\.userMunicipality === null && homeCity\.trim\(\)/.test(read("app/builder/_components/FamilyStatusTriage.tsx")) || (/const cityHeld = heldLocation\(file\)\?\.city\.trim\(\) \|\| homeCity\.trim\(\);/.test(read("app/builder/_components/FamilyStatusTriage.tsx")) && /fromFile\.userMunicipality === null && cityHeld \?/.test(read("app/builder/_components/FamilyStatusTriage.tsx"))));
 
 // ---- B6 ----
 const stage = findStage("civil:plaintiff:claim-drafted-not-issued");

@@ -23,6 +23,7 @@
 import { slotStatus } from "./factStatus";
 import type { CaseFile, Slot } from "./caseFile";
 import { FIRST_PAGES, paperId, stageChoices, type Situation } from "../situation/situation";
+import { isRealIsoDate } from "../dates";
 
 /** A slot the person settled somewhere other than the situation questions: their answer, or "not sure". */
 function heldElsewhere(slot: Slot | undefined): "known" | "settled" | null {
@@ -61,7 +62,7 @@ export function situationWithHeld(situation: Situation, file: CaseFile | null | 
   if (!out.receivedOn && served) {
     const value = text(file.servedDate.value);
     if (served === "settled" || value === "unknown") out.receivedOn = "unknown";
-    else if (/^\d{4}-\d{2}-\d{2}$/.test(value)) out.receivedOn = value;
+    else if (isRealIsoDate(value)) out.receivedOn = value;
   }
   const stage = heldElsewhere(file.stage);
   if (!out.stage && stage && (out.where === "going" || out.where === "served")) {

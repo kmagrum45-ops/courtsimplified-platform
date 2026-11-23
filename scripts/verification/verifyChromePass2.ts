@@ -271,14 +271,15 @@ section("A cleared box stays a box (form-box-follows-record, 18 Nov)", () => {
 // 4b: after "My spouse and I married in June 2015" they asked "Were you and the other person married to each other?".
 section("Chrome check of #560: 4a children, 4b married", () => {
   const STORY = "TEST CASE (made up). My spouse and I married in June 2015. We separated in March 2026. We have no children. We own a house in Ottawa. I want the property divided and spousal support.";
-  const children = storySuggestionFor("case-involves-children", STORY);
+  const children = storySuggestionFor("case-involves-children", STORY, statedInStory(STORY));
   check("4a \"We have no children.\" is never offered as \"the case involves children\": only \"No children\", once", children?.value === "no" && children.say === "No children", JSON.stringify(children));
-  check("4a ... and never as a child together", storySuggestionFor("child-together", STORY)?.value !== "yes");
+  check("4a ... and never as a child together", storySuggestionFor("child-together", STORY, statedInStory(STORY))?.value !== "yes");
   check("4a control: \"We have a 6-year-old\" still says the case involves children", storySuggestionFor("case-involves-children", "We separated in May. We have a 6-year-old.")?.value === "yes");
   const married = storySuggestionFor("married-to-other-party", STORY);
   check("4b \"My spouse and I married in June 2015\" is offered as married (once), never asked cold", married?.value === "yes", JSON.stringify(married));
   const triage = source("app/builder/_components/FamilyStatusTriage.tsx");
   check("4a/4b while the story's answer is offered, the question and its own buttons are not shown beside it", /\{suggestionWaiting\(question\.id\) \? null : \(\s*<p data-testid="triage-prompt"/.test(triage) && /\{suggestionWaiting\(current\.id\) \? null : \(\s*<div className="mt-4 flex flex-wrap gap-3">/.test(triage));
+  check("4a the status questions pass the one story reader's value (statedInStory) to the story's answers", /const storyStated = statedInStory\(story\);/.test(triage) && /storySuggestionFor\(current\.id, story, storyStated\)/.test(triage));
 });
 
 // Chrome check of #560, civil. 3i: "Parties recorded: Fakebuild Test Contracting Inc.", then under "What to confirm next":

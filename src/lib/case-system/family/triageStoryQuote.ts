@@ -1,5 +1,4 @@
 import { sentences as splitSentences } from "../sentences";
-import { readStoryFacts } from "../caseFile/storyReader";
 import { NO_CHILDREN } from "../copy/askCopy";
 /**
  * Page review, 2026-10-07: the family triage asked "Were you and the other
@@ -70,12 +69,16 @@ const STORY_ANSWERS: Record<string, { yes?: RegExp; no?: RegExp }> = {
   },
 };
 
-export function storyAnswerFor(questionId: string, story: string | undefined): "yes" | "no" | null {
+/**
+ * `stated`: what the one story reader states (intakeReview.ts statedInStory), passed in by the screen: this module is
+ * imported by marriedOnly.ts, which is in an import loop with intakeReview.ts, so it never imports the reader itself.
+ */
+export function storyAnswerFor(questionId: string, story: string | undefined, stated?: { children?: string }): "yes" | "no" | null {
   const cues = STORY_ANSWERS[questionId];
   if (!cues || !story) return null;
   // "We have no children" (the one children reader, storyAnswers.ts childrenFromStory): No, never a Yes from the word
   // "children" (C9, Chrome check of #560, 4a: "Is this right: the case involves children?" after "We have no children.").
-  if ((questionId === "case-involves-children" || questionId === "child-together") && readStoryFacts({ story }).children?.value === NO_CHILDREN) return "no";
+  if ((questionId === "case-involves-children" || questionId === "child-together") && stated?.children === NO_CHILDREN) return "no";
   const no = cues.no?.test(story) ?? false;
   const yes = cues.yes?.test(story) ?? false;
   // Both (e.g. "my ex-husband ... we were never married" is contradictory): offer nothing.
@@ -95,8 +98,8 @@ const SUGGESTION_WORDS: Record<string, { yes?: string; no?: string }> = {
   "case-involves-children": { yes: "the case involves children", no: NO_CHILDREN },
 };
 
-export function storySuggestionFor(questionId: string, story: string | undefined): { value: "yes" | "no"; say: string } | null {
-  const value = storyAnswerFor(questionId, story);
+export function storySuggestionFor(questionId: string, story: string | undefined, stated?: { children?: string }): { value: "yes" | "no"; say: string } | null {
+  const value = storyAnswerFor(questionId, story, stated);
   const say = value ? SUGGESTION_WORDS[questionId]?.[value] : undefined;
   return value && say ? { value, say } : null;
 }
