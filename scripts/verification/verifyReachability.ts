@@ -70,6 +70,12 @@ const DELIBERATELY_DORMANT: DormantEntry[] = [
       "test:fact-meanings, which fails when two fact ids declare the same meaning. No screen shows it.",
   },
   {
+    file: "src/lib/case-system/caseFile/factPlaces.ts",
+    reason:
+      "The when-and-where table (C9, 23 Nov 2026): every place a fact is asked, offered or shown back, " +
+      "a build-time declaration read by test:fact-places, which counts the repeats. No screen shows it.",
+  },
+  {
     file: "src/lib/case-system/chat/libraryChat.ts",
     reason:
       "The ids-only assistant (every word shown is a published block). Its route had no caller and " +
