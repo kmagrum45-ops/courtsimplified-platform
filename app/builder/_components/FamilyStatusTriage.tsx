@@ -240,7 +240,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
               // "Is a divorce sought?" has its own "not sure" answer: recorded as the triage's answer too.
               onUnsure={current.id === "divorce-sought" || current.id === "married-to-other-party" ? () => record("unsure") : undefined}
               className="mt-2 rounded-full bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
-              frame={{ testId: "triage-story-suggestion", className: "mt-4 rounded-xl border border-[#2f7d67] bg-white p-3" }}
+              frame={{ testId: "triage-story-suggestion", className: "mt-4 rounded-xl border border-[#2f7d67] bg-white p-3", attrs: { "data-value": suggestion.value } }}
               ask={<span className="block text-sm text-[#10231f]">{IS_THIS_RIGHT_BEFORE}<strong>{suggestion.say}</strong>{IS_THIS_RIGHT_AFTER}</span>}
             />
         ) : null}

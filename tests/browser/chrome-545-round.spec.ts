@@ -26,6 +26,7 @@ import { serveModelStandIns } from "./harness/thisCommitServer";
 import { openBuilder } from "./harness/builderGate";
 import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { answerTriage, takeTriageOffer } from "./harness/triageAnswer";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
 
@@ -264,9 +265,11 @@ test("Family, never married: the municipality Home gave is not asked again; Form
       if (!(await question.isVisible({ timeout: 10_000 }).catch(() => false))) break;
       const key = (await question.getAttribute("data-question")) ?? "";
       asked.push(key);
-      if (key === "married-to-other-party") await question.getByTestId("triage-answer-no").click();
+      if (key === "married-to-other-party") await answerTriage(question, "no");
       else if (key === "other-party-municipality") { await question.getByTestId("triage-municipality-other").fill("Gatineau"); await question.getByTestId("triage-municipality-record").click(); }
       else if (key === "municipalities") break;
+      // The story's own answer offered (C9): the person takes it; the question's buttons are not shown beside it.
+      else if (await takeTriageOffer(question)) { /* taken */ }
       else if (await question.getByTestId("triage-answer-yes").isVisible().catch(() => false)) await question.getByTestId("triage-answer-yes").click();
       else if (await question.getByTestId("triage-dates-record").isEnabled().catch(() => false)) await question.getByTestId("triage-dates-record").click();
       else await question.getByTestId("triage-answer-not-yet").first().click();

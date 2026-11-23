@@ -41,6 +41,7 @@ import { chooseOffers } from "./harness/offers";
 import { MARRIED_ONLY_SCREEN_TEXT } from "../../src/lib/case-system/family/marriedOnly";
 import { expectThisRunsServer } from "./harness/siteAccess";
 import { HOME_QUESTIONS } from "../../src/lib/case-system/caseFile/factQuestions";
+import { answerTriage } from "./harness/triageAnswer";
 
 /** The home page's amount questions, every court, by their fact list ids (the A2 check: never asked cold when the story states it). */
 const AMOUNT_HOME_QUESTIONS = Object.values(HOME_QUESTIONS).flatMap((sides) => [...sides.starting, ...sides.responding]).filter((item) => /amount/i.test(item.id)).map((item) => item.question);
@@ -595,7 +596,7 @@ async function triageMarriedUnsure(page: Page, seen: string[], wait: number, ans
       return body.master_result?.intakeCheckpoint?.sections?.builder?.triageState?.record?.marriedToOtherParty === answer;
     } catch { return false; }
   }, { timeout: 60_000 });
-  await married.getByTestId(`triage-answer-${answer}`).click();
+  await answerTriage(married, answer);
   await expect(married).toHaveCount(0, { timeout: 30_000 });
   await saved.catch(() => { throw new Error("the married \"I'm not sure\" answer never reached the saved intake record"); });
   seen.push(`triage: married answered ${answer}, saved`);
