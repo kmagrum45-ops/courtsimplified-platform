@@ -1000,7 +1000,7 @@ The one offer reader: the amount and the other party the story reading showed, w
 
 - Reads (3): **app/builder/_components/storyAnswers.ts**, src/lib/case-system/caseFile/factTypes.ts, src/lib/case-system/caseFile/understoodOtherParty.ts
 - Read by (8): app/_components/HomeLocationGate.tsx, app/_components/PartiesStep.tsx, app/builder/_components/GuidedSmallClaimsIntake.tsx, src/lib/case-system/caseFile/factQuestions.ts, src/lib/case-system/caseFile/storyReader.ts, src/lib/case-system/intake/orchestrateIntakeTurn.ts, src/lib/case-system/intake/statedProposals.ts, **src/lib/case-system/intakeReview.ts**
-- Checked by (3): scripts/verification/verifyFactTypes.ts, scripts/verification/verifyOffersOneSource.ts, scripts/verification/verifyPass3AskedTwice.ts
+- Checked by (4): scripts/verification/verifyCaseUnderstanding.ts, scripts/verification/verifyFactTypes.ts, scripts/verification/verifyOffersOneSource.ts, scripts/verification/verifyPass3AskedTwice.ts
 
 ### src/lib/case-system/parties/parties.ts
 
