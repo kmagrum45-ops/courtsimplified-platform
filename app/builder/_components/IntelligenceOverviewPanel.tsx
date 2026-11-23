@@ -228,8 +228,9 @@ export default function IntelligenceOverviewPanel({ analysis: analysisGiven, int
   const filingFacts = filingFactsFromDocuments(documents);
   const defenceQuestion = "Has the defendant filed a Defence?";
   // Asked of the person suing only: for someone being sued, "the defendant" is themselves (role audit, 11 Nov).
+  // And only while the case file holds no answer to it, or "not sure", from another place (C9: the one function).
   const askDefenceQuestion =
-    hasClaimAndService && !/defendant|responding/i.test(role) && !isQuestionAlreadyAnswered(defenceQuestion, filingFacts);
+    hasClaimAndService && !/defendant|responding/i.test(role) && !isQuestionAlreadyAnswered(defenceQuestion, filingFacts) && mayAskWords(caseFile, defenceQuestion, { responding: respondingFromRecord(caseFile ?? undefined) });
   /*
    * "What to confirm next" used to display a MODEL-WRITTEN QUESTION about this
    * user's matter, on the main builder screen, with no guard.

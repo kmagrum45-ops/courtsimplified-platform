@@ -43,13 +43,6 @@
   },
   {
     "court": "small-claims",
-    "fact": "defenceFiled",
-    "place": "results-overview",
-    "other": "sc-guided",
-    "why": "checks the documents list, not the case file"
-  },
-  {
-    "court": "small-claims",
     "fact": "serviceMethod",
     "place": "step",
     "other": "sc-guided",
@@ -103,13 +96,6 @@
     "place": "step",
     "other": "chat-civil-family",
     "why": "checks the step's own service answer, not the case file"
-  },
-  {
-    "court": "civil",
-    "fact": "defenceFiled",
-    "place": "results-overview",
-    "other": "review",
-    "why": "checks the documents list, not the case file"
   },
   {
     "court": "family",

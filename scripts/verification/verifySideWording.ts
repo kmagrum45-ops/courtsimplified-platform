@@ -80,6 +80,14 @@ async function main() {
   const asks = async (yourRole: string) => JSON.stringify(await analyzeSmallClaimsWithBrain({ ...base, yourRole } as never, { allowExternalCognition: false } as never)).includes("Has the defendant filed a Defence?");
   check('3. a person being sued is never asked "Has the defendant filed a Defence?"', !(await asks("defendant")));
   check("3. control: the plaintiff past service still is", await asks("plaintiff"));
+  // C9 (23 Nov 2026): the AI summary page asks it only while the case file holds no answer to it from another place (the
+  // Small Claims chat's "Has a Defence been filed?", the review), through the one function.
+  const panel = (await import("node:fs")).readFileSync("app/builder/_components/IntelligenceOverviewPanel.tsx", "utf8");
+  check("C9: the AI summary page's Defence question reads the case file (mayAskWords)", /!isQuestionAlreadyAnswered\(defenceQuestion, filingFacts\) && mayAskWords\(caseFile, defenceQuestion,/.test(panel));
+  const { mayAskWords } = await import("../../src/lib/case-system/caseFile/factStatus");
+  const { emptyCaseFile } = await import("../../src/lib/case-system/caseFile/caseFile");
+  const held = { ...emptyCaseFile(), defenceFiled: { state: "answered" as const, value: "No", confirmed: true, source: { kind: "answer" as const, question: "sc-defence-filed" } } };
+  check("C9: with the Defence answered in the chat, the words are not asked again", !mayAskWords(held, "Has the defendant filed a Defence?", {}) && mayAskWords(emptyCaseFile(), "Has the defendant filed a Defence?", {}));
 
   console.log(failures ? `\n${failures} check(s) failed.` : "\nA person being sued is never shown wording written for the person suing.");
   process.exit(failures ? 1 : 0);

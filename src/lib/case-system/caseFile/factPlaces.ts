@@ -313,7 +313,7 @@ export const FACT_PLACES: readonly Place[] = [
     name: "AI summary page: what to confirm next",
     at: "app/builder/_components/IntelligenceOverviewPanel.tsx",
     facts: [
-      { fact: "defenceFiled", kind: "ask", courts: ["small-claims", "civil"], gate: copy("the documents list"), shows: "Has the defendant filed a Defence?" },
+      { fact: "defenceFiled", kind: "ask", courts: ["small-claims", "civil"], gate: FILE, shows: "Has the defendant filed a Defence?" },
       { fact: "adoption", kind: "ask", courts: FA, gate: FIRST },
       { fact: "claimKind", kind: "offer", courts: SC, gate: copy("the page's own claim-kind value") },
     ],
