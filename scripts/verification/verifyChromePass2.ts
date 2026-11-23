@@ -14,7 +14,7 @@ import { timelineIn } from "../../src/lib/case-system/caseFile/storyFacts";
 import { reviewEntries, statedInStory } from "../../src/lib/case-system/intakeReview";
 import { suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";
 import type { CaseRecord } from "../../src/lib/case-system/caseRecord";
-import { partyOfOffer, storyPartyOffers, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
+import { partyOfOffer, storyPartyOffers, withHeldOtherName, withStartLocation, withoutHeldElsewhere, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
 import { answeredInIntake, caseFileOf, slotText } from "../../src/lib/case-system/caseFile/caseFile";
 import { amountWithCostsNote } from "../../src/lib/case-system/format/recordedAmount";
 import { FORM_7A } from "../../src/lib/case-system/forms/maps/form7A";
@@ -61,8 +61,30 @@ section("Findings 2 and 3", () => {
   const sections = { home: { understoodAnswers: [{ question: "What is the address of the store where you fell?", answer: "100 Sample Road, Ottawa ON K1B 0B1" }] } };
   const offered = storyPartyOffers(S1, parties([you, store]), null, { location: { city: "Ottawa", province: "Ontario" }, answered: answeredInIntake(sections) });
   const offer = (party: string, detail: string) => offered.find((item) => item.party === party && item.detail === detail)?.value;
-  check("F2 the city given at the start is offered for the person's own city", offer("you", "city") === "Ottawa", JSON.stringify(offered));
-  check("F2 Ontario at the start is offered as the person's province", offer("you", "province") === "ON");
+  // C9 (23 Nov 2026; Chrome check of #558): the city and province given at the start are the person's own answers. Their
+  // own city box holds them (withStartLocation), and they are never offered again ("The city you gave at the start").
+  const startHeld = withStartLocation([you], { location: { city: "Ottawa", province: "Ontario" } })[0];
+  check("F2 the city given at the start is held in the person's own city box, never offered again", startHeld.details.city === "Ottawa" && offer("you", "city") === undefined, JSON.stringify({ startHeld, offered }));
+  check("F2 Ontario at the start is held as the person's province, never offered again", startHeld.details.province === "ON" && offer("you", "province") === undefined);
+  check("F2 what was read from the start is never saved in the parties record (the home page keeps it)", JSON.stringify(withoutHeldElsewhere(startHeld).details) === "{}" && withoutHeldElsewhere(startHeld).heldElsewhere === undefined, JSON.stringify(withoutHeldElsewhere(startHeld)));
+  const ownCity = withStartLocation([{ ...you, details: { city: "Kanata" } }], { location: { city: "Ottawa", province: "Ontario" } })[0];
+  check("F2 a city the person gave here is never replaced, and Ontario is not added for it", ownCity.details.city === "Kanata" && ownCity.details.province === undefined && !ownCity.heldElsewhere, JSON.stringify(ownCity));
+  const unsureCity = withStartLocation([{ ...you, unsure: ["city" as const] }], { location: { city: "Ottawa" } })[0];
+  check("F2 a city the person said they are not sure of is not filled", unsureCity.details.city === undefined, JSON.stringify(unsureCity));
+  check("F2 only the person's own entry is filled, never the other side's", withStartLocation([you, store], { location: { city: "Ottawa" } })[1].details.city === undefined);
+  check("F2 the one writer drops what was read from the start before saving", /readParties\(JSON\.parse\(JSON\.stringify\(\{ \.\.\.record, list: record\.list\.map\(withoutHeldElsewhere\) \}\)\)\)/.test(source("app/_components/caseWrite.ts")));
+  // C9 (Chrome check of #558, step 5a): the other side's name confirmed in the chat was offered again on the Parties step
+  // ("Name: Test Partner", Yes / No). Held there now, as the one other party's name, never offered again.
+  const blank = { id: "o1", side: "other" as const, details: {}, unsure: [] };
+  const chatName = { value: "Test Partner", quote: "Test Partner" };
+  const named = withHeldOtherName([you, blank], chatName.value);
+  const namedOffers = storyPartyOffers("My spouse Test Partner and I separated in March 2025.", parties(named), chatName, {});
+  check("C9 the name given in the chat is the other party's held name on the Parties step, never offered again", named[1].details.fullName === "Test Partner" && JSON.stringify(named[1].heldElsewhere) === '["fullName"]' && !namedOffers.some((item) => item.party === "other:1" && (item.detail === "fullName" || item.detail === "companyName" || item.detail === "firstName")), JSON.stringify({ named: named[1], namedOffers }));
+  check("C9 a company's name given in the chat is held as the company's name", withHeldOtherName([you, blank], "Circle K Convenience Stores Ltd.")[1].details.companyName === "Circle K Convenience Stores Ltd.");
+  check("C9 a name the party already has is never replaced, and with two other parties neither is guessed", withHeldOtherName([you, store], "Test Partner")[1].details.companyName === "Circle K Convenience Stores Ltd." && withHeldOtherName([you, blank, { ...blank, id: "o2" }], "Test Partner").every((party) => !party.details.fullName));
+  check("C9 a name the person is not sure of is not filled; words that are not a name are not filled", !withHeldOtherName([you, { ...blank, unsure: ["firstName" as const] }], "Test Partner")[1].details.fullName && !withHeldOtherName([you, blank], "Gatineau")[1].details.fullName);
+  check("C9 the held name is never saved in the parties record (the case file keeps it)", withoutHeldElsewhere(named[1]).details.fullName === undefined);
+  check("C9 the case file and the Parties step read the held name with one function", /withHeldOtherName\(file\.parties\.list, heldOtherName\(file\)\)/.test(source("src/lib/case-system/caseFile/caseFile.ts")) && /const heldOther = heldOtherName\(file\);/.test(source("app/_components/PartiesStep.tsx")));
   check("F3 the store's address, typed as an answer, is offered for Defendant 1", offer("other:1", "street") === "100 Sample Road" && offer("other:1", "city") === "Ottawa" && offer("other:1", "postalCode") === "K1B 0B1", JSON.stringify(offered));
   const held = storyPartyOffers(S1, parties([{ ...you, details: { city: "Kanata", province: "ON" } }, { ...store, details: { ...store.details, street: "1 Other Road", city: "Ottawa", province: "ON", postalCode: "K1B 0B2" } }]), null, { location: { city: "Ottawa", province: "Ontario" }, answered: answeredInIntake(sections) });
   check("F2/F3 once held (or answered otherwise), neither is offered again", held.every((item) => !["city", "province", "street", "postalCode"].includes(item.detail)), JSON.stringify(held));
