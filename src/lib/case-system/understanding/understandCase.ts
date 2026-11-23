@@ -457,10 +457,12 @@ const aboutOneDocument = (text: string) => ONE_DOCUMENT.test(text.includes(":") 
 const FILING_WORDS = /\b(?:filed?|filing|court|started|issued|commenced|served|lawsuit|proceeding|nothing yet)\b/i;
 const HOLDS_AMOUNT = /\$\s?\d/;
 /** "Total claim and court status" -> "Total claim"; "Filing status and amount" -> "amount". */
+/** A status label's own words ("Court status", "Lawsuit status"): read from the model's text, never shown. */
+const STATUS_LABEL = /\b(?:court|filing|case|claim|lawsuit)\s+status\b/.source;
 const withoutStatusWords = (label: string) =>
   label
-    .replace(/\s*(?:,|and|&|\/|\+)\s*(?:the\s+)?(?:court|filing|case|claim|lawsuit)\s+status\b/gi, "")
-    .replace(/^\s*(?:court|filing|case|claim|lawsuit)\s+status\s*(?:,|and|&|\/|\+)\s*/i, "")
+    .replace(new RegExp(String.raw`\s*(?:,|and|&|\/|\+)\s*(?:the\s+)?${STATUS_LABEL}`, "gi"), "")
+    .replace(new RegExp(String.raw`^\s*${STATUS_LABEL}\s*(?:,|and|&|\/|\+)\s*`, "i"), "")
     .trim();
 
 /**
