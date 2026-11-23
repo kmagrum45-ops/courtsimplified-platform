@@ -20,7 +20,7 @@ import { amountWithCostsNote } from "../../src/lib/case-system/format/recordedAm
 import { FORM_7A } from "../../src/lib/case-system/forms/maps/form7A";
 import { fillForm, pdfValues } from "../../src/lib/case-system/forms/formMap";
 import { formContextOf } from "../../src/lib/case-system/forms/formContext";
-import { factStatus, mayAskWords, settledNotSure } from "../../src/lib/case-system/caseFile/factStatus";
+import { factStatus, mayAskWords, mayShowQuestion, settledNotSure } from "../../src/lib/case-system/caseFile/factStatus";
 import { fitsFactType, partyDetailFits } from "../../src/lib/case-system/caseFile/factTypes";
 import { storySuggestionFor } from "../../src/lib/case-system/family/triageStoryQuote";
 import { emptyStatusRecord, selectNextTriageQuestion } from "../../src/lib/case-system/family/statusTriage";
@@ -76,6 +76,8 @@ section("Findings 2 and 3", () => {
   // so it never asks "What province or territory did this happen in?" of a person who gave it.
   const located = caseFileOf({ version: 1, flowId: "f", courtPath: "small-claims", revision: "r", sections: { story: { text: "x", location: { province: "Ontario", city: "Ottawa" } } } } as never);
   check("F2 the case file holds the city and province given at the start (heldLocation)", JSON.stringify(heldLocation(located)) === JSON.stringify({ city: "Ottawa", province: "Ontario" }), JSON.stringify(heldLocation(located)));
+  check("F2 a question about the person's own city is not asked once the case file holds it (the one function), e.g. the Family status question", !mayShowQuestion(located, "municipalities") && mayShowQuestion(caseFileOf(null), "municipalities"));
+  check("F2 the Family status questions read the city through heldLocation", /const cityHeld = heldLocation\(file\)\?\.city\.trim\(\) \|\| homeCity\.trim\(\);/.test(source("app/builder/_components/FamilyStatusTriage.tsx")));
   check("F2 the court chat reads the held location first", /const held = heldLocation\(reviewView \? caseFileOf\(reviewView\.checkpoint\) : null\);/.test(source("app/builder/_components/CourtAssistantChat.tsx")) && /province: held\?\.province \|\| fromData\.province/.test(source("app/builder/_components/CourtAssistantChat.tsx")));
   check("F2 only the person's own entry is filled, never the other side's", withStartLocation([you, store], { location: { city: "Ottawa" } })[1].details.city === undefined);
   check("F2 the one writer drops what was read from the start before saving", /readParties\(JSON\.parse\(JSON\.stringify\(\{ \.\.\.record, list: record\.list\.map\(withoutHeldElsewhere\) \}\)\)\)/.test(source("app/_components/caseWrite.ts")));

@@ -58,6 +58,8 @@ export function questionStatus(file: CaseFile | null | undefined, questionId: st
     // Which papers are filed: held in the case file's list of documents (caseFile.ts heldDocuments), whichever place
     // recorded them (the civil and Family forms and chats): never asked or offered again (C9).
     if (factsOfQuestion(questionId, surface).includes("filedDocuments") && file.documents?.length) return "known";
+    // The person's own city: held from the home page (caseFile.ts heldLocation), never asked again (C9).
+    if (factsOfQuestion(questionId, surface).includes("municipality") && file.location?.city.trim()) return "known";
     if (typeof file.answers?.[questionId] === "string" && file.answers[questionId].trim()) return "known";
     return "ask";
   }

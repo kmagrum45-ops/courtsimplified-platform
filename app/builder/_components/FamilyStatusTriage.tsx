@@ -4,7 +4,7 @@ import { offerForQuestion } from "../../../src/lib/case-system/caseFile/offerCho
 import { sideOf } from "../../../src/lib/case-system/situation/situation";
 import { personWordsOnly } from "../../../src/lib/case-system/personWords";
 import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
-import { askedQuestionsOf, caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
+import { askedQuestionsOf, caseFileOf, heldLocation } from "../../../src/lib/case-system/caseFile/caseFile";
 import { withCaseFileAnswers } from "../../../src/lib/case-system/caseFile/triageFromCaseFile";
 
 /**
@@ -152,7 +152,9 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
   const storyDates = ownRecord.cohabitationStart === null && !changingDates ? livedTogetherFromStory(story) : null;
   // Where the person lives is the city they gave on Home ("City or municipality"), the case record's city: a recorded
   // answer, read over the triage record and never asked here again (Chrome check of #545 at 7bce410, 3.4d).
-  const fromHome = fromFile.userMunicipality === null && homeCity.trim() ? { ...fromFile, userMunicipality: homeCity.trim() } : fromFile;
+  // Read through the case file's one reader (heldLocation, C9); the passed-in copy only when there is no case file yet.
+  const cityHeld = heldLocation(file)?.city.trim() || homeCity.trim();
+  const fromHome = fromFile.userMunicipality === null && cityHeld ? { ...fromFile, userMunicipality: cityHeld } : fromFile;
   const record = storyDates ? { ...fromHome, cohabitationStart: storyDates.start, cohabitationEnd: storyDates.end } : fromHome;
   // Questions set aside on this page with "I'd rather not answer yet": the next one is asked (statusTriage.ts).
   const [deferred, setDeferred] = useState<ReadonlySet<TriageQuestionId>>(new Set());

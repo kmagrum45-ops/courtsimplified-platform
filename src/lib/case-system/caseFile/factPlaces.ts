@@ -276,7 +276,7 @@ export const FACT_PLACES: readonly Place[] = [
       { fact: "children", kind: "ask", courts: FA, gate: FILE, ids: ["child-together", "case-involves-children"] },
       { fact: "divorceSought", kind: "ask", courts: FA, gate: FIRST, ids: ["divorce-sought"] },
       { fact: "cohabitation", kind: "ask", courts: FA, gate: FIRST, ids: ["cohabitation-dates"] },
-      { fact: "municipality", kind: "ask", courts: FA, gate: copy("a copy of the home page's city, passed in"), ids: ["municipalities"] },
+      { fact: "municipality", kind: "ask", courts: FA, gate: FILE, ids: ["municipalities"] },
       { fact: "otherPartyMunicipality", kind: "ask", courts: FA, gate: FIRST, ids: ["other-party-municipality"] },
     ],
   },

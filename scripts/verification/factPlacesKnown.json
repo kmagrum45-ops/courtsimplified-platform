@@ -1,13 +1,6 @@
 [
   {
     "court": "family",
-    "fact": "municipality",
-    "place": "family-triage",
-    "other": "home-start",
-    "why": "checks a copy of the home page's city, passed in, not the case file"
-  },
-  {
-    "court": "family",
     "fact": "children",
     "place": "child-support",
     "other": "home-card",
