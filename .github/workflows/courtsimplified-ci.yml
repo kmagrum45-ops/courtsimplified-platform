@@ -613,6 +613,9 @@ jobs:
       - name: One place decides, reads, labels and words each fact (rule 0; the list only shrinks)
         run: npm run test:one-decider
 
+      - name: No fact is asked or offered in two places (C9; the known list only shrinks)
+        run: npm run test:fact-places
+
       - name: No two facts declare the same meaning
         run: npm run test:fact-meanings
 

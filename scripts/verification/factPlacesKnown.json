@@ -1,0 +1,527 @@
+[
+  {
+    "court": "small-claims",
+    "fact": "municipality",
+    "place": "parties",
+    "other": "home-start",
+    "why": "checks the parties record, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "municipality",
+    "place": "court-chat",
+    "other": "home-start",
+    "why": "checks the chat's own list of what is missing, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "amount",
+    "place": "sc-form-found",
+    "other": "home-card",
+    "why": "checks the form's own boxes, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "whenHappened",
+    "place": "sc-form-found",
+    "other": "home-card",
+    "why": "checks the form's own boxes, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "wants",
+    "place": "sc-form-found",
+    "other": "home-card",
+    "why": "checks the form's own boxes, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "court",
+    "place": "home-court-suggestion",
+    "other": "home-card",
+    "why": "checks the court-path suggestion, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "court",
+    "place": "situation",
+    "other": "home-card",
+    "why": "checks the situation record, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "otherParty",
+    "place": "home-other-party",
+    "other": "sc-form",
+    "why": "checks the AI reading of the story, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "otherParty",
+    "place": "sc-form-found",
+    "other": "home-other-party",
+    "why": "checks the form's own boxes, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "otherParty",
+    "place": "parties",
+    "other": "home-other-party",
+    "why": "checks the parties record, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "side",
+    "place": "situation",
+    "other": "side-check",
+    "why": "checks the situation record, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "side",
+    "place": "forms",
+    "other": "situation",
+    "why": "checks the case position, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "papers",
+    "place": "situation",
+    "other": "sc-guided",
+    "why": "checks the situation record, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "servedDate",
+    "place": "situation",
+    "other": "sc-guided",
+    "why": "checks the situation record, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "filed",
+    "place": "situation",
+    "other": "sc-guided",
+    "why": "checks the situation record, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "stage",
+    "place": "situation",
+    "other": "sc-form",
+    "why": "checks the situation record, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "stage",
+    "place": "stage-confirmation",
+    "other": "situation",
+    "why": "checks the case position's confirmed stage, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "stage",
+    "place": "forms",
+    "other": "situation",
+    "why": "checks the case position, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "claimKind",
+    "place": "sc-claim-type",
+    "other": "sc-guided",
+    "why": "checks the list of kinds turned down, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "claimKind",
+    "place": "results-overview",
+    "other": "sc-guided",
+    "why": "checks the page's own claim-kind value, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "defenceFiled",
+    "place": "results-overview",
+    "other": "sc-guided",
+    "why": "checks the documents list, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "serviceMethod",
+    "place": "sc-guided",
+    "other": "sc-form",
+    "why": "checks the chat's own answered list, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "serviceMethod",
+    "place": "sc-form",
+    "other": "sc-guided",
+    "why": "checks the form's own boxes, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "serviceMethod",
+    "place": "step",
+    "other": "sc-guided",
+    "why": "checks the step's own service answer, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "evidence",
+    "place": "sc-guided",
+    "other": "sc-form",
+    "why": "checks the chat's own answered list, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "evidence",
+    "place": "sc-form",
+    "other": "sc-guided",
+    "why": "checks the form's own boxes, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "evidence",
+    "place": "sc-form-found",
+    "other": "sc-guided",
+    "why": "checks the form's own boxes, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "evidence",
+    "place": "court-chat",
+    "other": "sc-guided",
+    "why": "nothing checks"
+  },
+  {
+    "court": "small-claims",
+    "fact": "claimIssuedDate",
+    "place": "sc-guided",
+    "other": "step",
+    "why": "checks the chat's own answered list, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "defenceFiledDate",
+    "place": "sc-guided",
+    "other": "step",
+    "why": "checks the chat's own answered list, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "yourName",
+    "place": "sc-form-found",
+    "other": "parties",
+    "why": "checks the form's own boxes, not the case file"
+  },
+  {
+    "court": "small-claims",
+    "fact": "yourName",
+    "place": "parties",
+    "other": "sc-form-found",
+    "why": "checks the parties record, not the case file"
+  },
+  {
+    "court": "civil",
+    "fact": "municipality",
+    "place": "parties",
+    "other": "home-start",
+    "why": "checks the parties record, not the case file"
+  },
+  {
+    "court": "civil",
+    "fact": "municipality",
+    "place": "court-chat",
+    "other": "home-start",
+    "why": "checks the chat's own list of what is missing, not the case file"
+  },
+  {
+    "court": "civil",
+    "fact": "court",
+    "place": "home-court-suggestion",
+    "other": "home-card",
+    "why": "checks the court-path suggestion, not the case file"
+  },
+  {
+    "court": "civil",
+    "fact": "court",
+    "place": "situation",
+    "other": "home-card",
+    "why": "checks the situation record, not the case file"
+  },
+  {
+    "court": "civil",
+    "fact": "otherParty",
+    "place": "home-other-party",
+    "other": "chat-civil-family",
+    "why": "checks the AI reading of the story, not the case file"
+  },
+  {
+    "court": "civil",
+    "fact": "otherParty",
+    "place": "parties",
+    "other": "home-other-party",
+    "why": "checks the parties record, not the case file"
+  },
+  {
+    "court": "civil",
+    "fact": "side",
+    "place": "situation",
+    "other": "side-check",
+    "why": "checks the situation record, not the case file"
+  },
+  {
+    "court": "civil",
+    "fact": "side",
+    "place": "forms",
+    "other": "situation",
+    "why": "checks the case position, not the case file"
+  },
+  {
+    "court": "civil",
+    "fact": "servedDate",
+    "place": "situation",
+    "other": "chat-civil-family",
+    "why": "checks the situation record, not the case file"
+  },
+  {
+    "court": "civil",
+    "fact": "filed",
+    "place": "situation",
+    "other": "review",
+    "why": "checks the situation record, not the case file"
+  },
+  {
+    "court": "civil",
+    "fact": "stage",
+    "place": "situation",
+    "other": "stage-confirmation",
+    "why": "checks the situation record, not the case file"
+  },
+  {
+    "court": "civil",
+    "fact": "stage",
+    "place": "stage-confirmation",
+    "other": "situation",
+    "why": "checks the case position's confirmed stage, not the case file"
+  },
+  {
+    "court": "civil",
+    "fact": "stage",
+    "place": "forms",
+    "other": "situation",
+    "why": "checks the case position, not the case file"
+  },
+  {
+    "court": "civil",
+    "fact": "filedDocuments",
+    "place": "chat-civil-family",
+    "other": "chat-story-offer",
+    "why": "checks the chat's form values, not the case file"
+  },
+  {
+    "court": "civil",
+    "fact": "filedDocuments",
+    "place": "chat-story-offer",
+    "other": "chat-civil-family",
+    "why": "checks the chat's form values, not the case file"
+  },
+  {
+    "court": "civil",
+    "fact": "serviceMethod",
+    "place": "chat-civil-family",
+    "other": "step",
+    "why": "checks the chat's form values, not the case file"
+  },
+  {
+    "court": "civil",
+    "fact": "serviceMethod",
+    "place": "step",
+    "other": "chat-civil-family",
+    "why": "checks the step's own service answer, not the case file"
+  },
+  {
+    "court": "civil",
+    "fact": "defenceFiled",
+    "place": "results-overview",
+    "other": "review",
+    "why": "checks the documents list, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "municipality",
+    "place": "family-triage",
+    "other": "home-start",
+    "why": "checks a copy of the home page's city, passed in, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "municipality",
+    "place": "parties",
+    "other": "home-start",
+    "why": "checks the parties record, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "municipality",
+    "place": "court-chat",
+    "other": "home-start",
+    "why": "checks the chat's own list of what is missing, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "children",
+    "place": "child-support",
+    "other": "home-card",
+    "why": "checks the Family form's saved copy, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "court",
+    "place": "home-court-suggestion",
+    "other": "home-card",
+    "why": "checks the court-path suggestion, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "court",
+    "place": "situation",
+    "other": "home-card",
+    "why": "checks the situation record, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "otherParty",
+    "place": "home-other-party",
+    "other": "chat-civil-family",
+    "why": "checks the AI reading of the story, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "otherParty",
+    "place": "parties",
+    "other": "home-other-party",
+    "why": "checks the parties record, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "otherParty",
+    "place": "child-support",
+    "other": "home-other-party",
+    "why": "checks the Family form's saved copy, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "side",
+    "place": "situation",
+    "other": "side-check",
+    "why": "checks the situation record, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "side",
+    "place": "forms",
+    "other": "situation",
+    "why": "checks the case position, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "servedDate",
+    "place": "situation",
+    "other": "chat-civil-family",
+    "why": "checks the situation record, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "filed",
+    "place": "situation",
+    "other": "review",
+    "why": "checks the situation record, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "stage",
+    "place": "situation",
+    "other": "stage-confirmation",
+    "why": "checks the situation record, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "stage",
+    "place": "stage-confirmation",
+    "other": "situation",
+    "why": "checks the case position's confirmed stage, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "stage",
+    "place": "forms",
+    "other": "situation",
+    "why": "checks the case position, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "married",
+    "place": "forms",
+    "other": "chat-civil-family",
+    "why": "checks the case position, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "filedDocuments",
+    "place": "chat-civil-family",
+    "other": "chat-story-offer",
+    "why": "checks the chat's form values, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "filedDocuments",
+    "place": "chat-story-offer",
+    "other": "chat-civil-family",
+    "why": "checks the chat's form values, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "yourName",
+    "place": "family-form",
+    "other": "parties",
+    "why": "nothing checks"
+  },
+  {
+    "court": "family",
+    "fact": "yourName",
+    "place": "parties",
+    "other": "family-form",
+    "why": "checks the parties record, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "yourName",
+    "place": "child-support",
+    "other": "family-form",
+    "why": "checks the Family form's saved copy, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "otherPartyMunicipality",
+    "place": "child-support",
+    "other": "family-triage",
+    "why": "checks the Family form's saved copy, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "livingSituation",
+    "place": "review",
+    "other": "child-support",
+    "why": "checks the review's own offer record, not the case file"
+  },
+  {
+    "court": "family",
+    "fact": "livingSituation",
+    "place": "child-support",
+    "other": "review",
+    "why": "checks the Family form's saved copy, not the case file"
+  }
+]
