@@ -125,6 +125,10 @@ check("self-test: a new offer reading amountOfferFromStory directly is caught", 
   const guidedChat = readFileSync("app/builder/_components/GuidedSmallClaimsIntake.tsx", "utf8");
   check("C9: the AI summary page offers a kind only when the case file holds none (claimKindOf; held hides the offer)", /claimKindLine\(claimKindOf\(caseFile/.test(overview) && /\{!kind\.held && kind\.claimTypeId \? <ClaimKindOffer/.test(overview));
   check("C9: the Small Claims chat offers a kind only when the case file holds none (claimKindOf)", /const heldKind = claimKindOf\(fileNow\);/.test(guidedChat) && /!kindGiven && !turnedDownKinds\.includes/.test(guidedChat));
+  // The forms page: an answer the case already holds (the side, a step the person chose, "not married") is kept, shown with
+  // Change ("firm"), never offered again; only the site's own suggested step is offered (the person never chose it).
+  const applicability = readFileSync("src/lib/case-system/forms/applicabilitySuggestions.ts", "utf8");
+  check("C9: the forms page keeps what the case holds (side, chosen step, not married) as firm, shown with Change", /reason: "Your case says you are responding to the other side's case\.", firm: true/.test(applicability) && /reason: "You said you were not married to the other person\.", firm: true/.test(applicability) && /firm only for a step they chose/.test(applicability) && /data-testid="forms-kept-from-case"/.test(readFileSync("app/forms/FormsWorkspace.tsx", "utf8")));
   check("C9: the form lists only foundStillToOffer's values", /foundToOffer\.map\(/.test(readFileSync("app/builder/_components/SmallClaimsIntake.tsx", "utf8")) && !/extractedFacts\.map\(/.test(readFileSync("app/builder/_components/SmallClaimsIntake.tsx", "utf8")));
 }
 

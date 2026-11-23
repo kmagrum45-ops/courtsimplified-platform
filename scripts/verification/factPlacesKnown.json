@@ -15,20 +15,6 @@
   },
   {
     "court": "small-claims",
-    "fact": "side",
-    "place": "forms",
-    "other": "situation",
-    "why": "checks the case position, not the case file"
-  },
-  {
-    "court": "small-claims",
-    "fact": "stage",
-    "place": "forms",
-    "other": "situation",
-    "why": "checks the case position, not the case file"
-  },
-  {
-    "court": "small-claims",
     "fact": "serviceMethod",
     "place": "step",
     "other": "sc-guided",
@@ -47,20 +33,6 @@
     "place": "home-court-suggestion",
     "other": "home-card",
     "why": "checks the court-path suggestion, not the case file"
-  },
-  {
-    "court": "civil",
-    "fact": "side",
-    "place": "forms",
-    "other": "situation",
-    "why": "checks the case position, not the case file"
-  },
-  {
-    "court": "civil",
-    "fact": "stage",
-    "place": "forms",
-    "other": "situation",
-    "why": "checks the case position, not the case file"
   },
   {
     "court": "civil",
@@ -117,27 +89,6 @@
     "place": "child-support",
     "other": "home-other-party",
     "why": "checks the Family form's saved copy, not the case file"
-  },
-  {
-    "court": "family",
-    "fact": "side",
-    "place": "forms",
-    "other": "situation",
-    "why": "checks the case position, not the case file"
-  },
-  {
-    "court": "family",
-    "fact": "stage",
-    "place": "forms",
-    "other": "situation",
-    "why": "checks the case position, not the case file"
-  },
-  {
-    "court": "family",
-    "fact": "married",
-    "place": "forms",
-    "other": "chat-civil-family",
-    "why": "checks the case position, not the case file"
   },
   {
     "court": "family",

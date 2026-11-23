@@ -393,9 +393,9 @@ export const FACT_PLACES: readonly Place[] = [
     at: "app/forms/FormsWorkspace.tsx",
     facts: [
       { fact: "defendantsClaim", kind: "offer", courts: ["small-claims"], gate: FILE },
-      { fact: "side", kind: "offer", courts: ALL, gate: copy("the case position") },
-      { fact: "stage", kind: "offer", courts: ALL, gate: copy("the case position") },
-      { fact: "married", kind: "offer", courts: FA, gate: copy("the case position") },
+      { fact: "side", kind: "confirm", courts: ALL, gate: FILE, shows: "kept from the case, with Change (firm); only the site's own suggested step is offered" },
+      { fact: "stage", kind: "confirm", courts: ALL, gate: FILE, shows: "kept from the case, with Change (firm); only the site's own suggested step is offered" },
+      { fact: "married", kind: "confirm", courts: FA, gate: FILE, shows: "kept from the case, with Change (firm)" },
     ],
   },
 ];
