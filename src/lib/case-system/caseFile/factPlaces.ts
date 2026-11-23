@@ -38,6 +38,10 @@ export const HELD_BY_READER: Readonly<Partial<Record<CaseFact, string>>> = {
   municipality: "heldLocation",
   // The papers filed (the case file's documents list).
   filedDocuments: "heldDocuments",
+  // Where the other person lives (the Family status questions).
+  otherPartyMunicipality: "heldOtherPartyCity",
+  // Where the children live now (the Family form, the review).
+  livingSituation: "heldLivingSituation",
 };
 
 export type PlaceCourt = "small-claims" | "civil" | "family";
@@ -384,11 +388,11 @@ export const FACT_PLACES: readonly Place[] = [
     name: "Family child support builder",
     at: "app/builder/_components/ChildSupportIntake.tsx",
     facts: [
-      { fact: "yourName", kind: "ask", courts: FA, gate: copy("the Family form's saved copy") },
-      { fact: "otherParty", kind: "ask", courts: FA, gate: copy("the Family form's saved copy") },
-      { fact: "otherPartyMunicipality", kind: "ask", courts: FA, gate: copy("the Family form's saved copy") },
-      { fact: "children", kind: "ask", courts: FA, gate: copy("the Family form's saved copy") },
-      { fact: "livingSituation", kind: "ask", courts: FA, gate: copy("the Family form's saved copy") },
+      { fact: "yourName", kind: "ask", courts: FA, gate: FILE },
+      { fact: "otherParty", kind: "ask", courts: FA, gate: FILE },
+      { fact: "otherPartyMunicipality", kind: "ask", courts: FA, gate: FILE },
+      { fact: "children", kind: "ask", courts: FA, gate: FILE },
+      { fact: "livingSituation", kind: "ask", courts: FA, gate: FILE },
     ],
   },
   {

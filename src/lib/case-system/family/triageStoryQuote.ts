@@ -1,5 +1,5 @@
 import { sentences as splitSentences } from "../sentences";
-import { childrenFromStory } from "../../../../app/builder/_components/storyAnswers";
+import { readStoryFacts } from "../caseFile/storyReader";
 import { NO_CHILDREN } from "../copy/askCopy";
 /**
  * Page review, 2026-10-07: the family triage asked "Were you and the other
@@ -75,7 +75,7 @@ export function storyAnswerFor(questionId: string, story: string | undefined): "
   if (!cues || !story) return null;
   // "We have no children" (the one children reader, storyAnswers.ts childrenFromStory): No, never a Yes from the word
   // "children" (C9, Chrome check of #560, 4a: "Is this right: the case involves children?" after "We have no children.").
-  if ((questionId === "case-involves-children" || questionId === "child-together") && childrenFromStory(story)?.value === NO_CHILDREN) return "no";
+  if ((questionId === "case-involves-children" || questionId === "child-together") && readStoryFacts({ story }).children?.value === NO_CHILDREN) return "no";
   const no = cues.no?.test(story) ?? false;
   const yes = cues.yes?.test(story) ?? false;
   // Both (e.g. "my ex-husband ... we were never married" is contradictory): offer nothing.

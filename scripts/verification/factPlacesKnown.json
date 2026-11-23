@@ -1,44 +1,9 @@
 [
   {
     "court": "family",
-    "fact": "children",
-    "place": "child-support",
-    "other": "home-card",
-    "why": "checks the Family form's saved copy, not the case file"
-  },
-  {
-    "court": "family",
-    "fact": "otherParty",
-    "place": "child-support",
-    "other": "home-other-party",
-    "why": "checks the Family form's saved copy, not the case file"
-  },
-  {
-    "court": "family",
-    "fact": "yourName",
-    "place": "child-support",
-    "other": "family-form",
-    "why": "checks the Family form's saved copy, not the case file"
-  },
-  {
-    "court": "family",
-    "fact": "otherPartyMunicipality",
-    "place": "child-support",
-    "other": "family-triage",
-    "why": "checks the Family form's saved copy, not the case file"
-  },
-  {
-    "court": "family",
     "fact": "livingSituation",
     "place": "review",
     "other": "child-support",
     "why": "checks the review's own offer record, not the case file"
-  },
-  {
-    "court": "family",
-    "fact": "livingSituation",
-    "place": "child-support",
-    "other": "review",
-    "why": "checks the Family form's saved copy, not the case file"
   }
 ]

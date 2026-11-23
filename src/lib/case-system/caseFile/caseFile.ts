@@ -85,6 +85,10 @@ export type CaseFile = Record<SlotFact, Slot> & {
   /** The story's words as they are now, for the lines "What we have so far" quotes from it (storyLines.ts); the fact itself is the `story` slot. */
   storyText?: string;
   /** The person's own city and province, given on the home page (intakeStory.ts locationOf): read through heldLocation (C9). */
+  /** Where the other person lives (the Family status questions): read through heldOtherPartyCity (C9). */
+  otherPartyCity?: string;
+  /** Where the children live now (the Family form, the review): read through heldLivingSituation (C9). */
+  livingSituation?: string;
   location?: { city: string; province: string };
   /**
    * A kind of claim made by the site, not the person (the guided route's story match or the
@@ -420,6 +424,11 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
 
   // 5. The Family triage.
   const triage = object(object(builder.triageState).record);
+  // Where the other person lives, as the person answered it there (C9): read through heldOtherPartyCity.
+  if (typeof triage.otherPartyMunicipality === "string" && triage.otherPartyMunicipality.trim() && triage.otherPartyMunicipality !== "not-yet") file.otherPartyCity = triage.otherPartyMunicipality.trim();
+  // Where the children live now, as the Family form or the review holds it (C9): read through heldLivingSituation.
+  const living = object(sections.family).currentLivingSituation ?? object(builder.initialAnswers).currentLivingSituation;
+  if (typeof living === "string" && living.trim() && !isUnsureAnswer(living)) file.livingSituation = living.trim();
   const yesNo = (value: unknown) => (value === "yes" ? true : value === "no" ? false : value === "unsure" ? "not-sure" : undefined);
   if (yesNo(triage.marriedToOtherParty) !== undefined) give(file, "married", yesNo(triage.marriedToOtherParty), "married-to-other-party");
   // The same question asked early by the Family questions (guidedFields.ts "married"; Chrome pass 3, S7): one answer, one fact.
@@ -1192,6 +1201,35 @@ export function heldServiceWords(file: CaseFile | null | undefined): string {
 /** The papers the person said are filed (the civil and Family forms and chats), or none (C9): never asked again elsewhere. */
 export function heldDocuments(file: CaseFile | null | undefined): string[] {
   return file?.documents ?? [];
+}
+
+/** Where the other person lives, as the person said in the Family status questions, or "" (C9). */
+export function heldOtherPartyCity(file: CaseFile | null | undefined): string {
+  return file?.otherPartyCity ?? "";
+}
+
+/** Where the children live now, as the Family form or the review holds it, or "" (C9). */
+export function heldLivingSituation(file: CaseFile | null | undefined): string {
+  return file?.livingSituation ?? "";
+}
+
+/**
+ * What the child support builder starts from (C9, 23 Nov 2026): every value through the case file's one reader first (the
+ * person's name from the parties, the other side's name, the children, where they live, the evidence, where the other
+ * parent lives), the Family form's saved copy only where the case file holds nothing. So a fact given anywhere is never
+ * asked again there.
+ */
+export function childSupportStartFrom<T extends { yourName: string; otherParty: string; childrenInfo: string; currentLivingSituation: string; evidence: string; story: string }>(file: CaseFile | null | undefined, recorded: T): T & { otherPartyCity: string } {
+  const held = (fact: SlotFact) => (file && slotStatus(file[fact]) === "known" ? slotText(file[fact], (iso) => iso) : "");
+  return {
+    ...recorded,
+    yourName: (file && heldYourName(file)) || recorded.yourName,
+    otherParty: held("otherParty") || recorded.otherParty,
+    childrenInfo: held("children") || recorded.childrenInfo,
+    currentLivingSituation: heldLivingSituation(file) || recorded.currentLivingSituation,
+    evidence: held("evidence") || recorded.evidence,
+    otherPartyCity: heldOtherPartyCity(file),
+  };
 }
 
 /** The person's own city and province the case holds (the home page's), or null (C9): never asked again in another place. */
