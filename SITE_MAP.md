@@ -1232,7 +1232,7 @@ The content pipeline: drafting, checking and publishing library blocks.
 
 - Reads (7): src/lib/case-system/openaiClient.ts, src/lib/case-system/stage-map/citations.ts, **src/lib/case-system/stage-map/stageMap.ts**, src/lib/content-library/genericAnswers.ts, src/lib/content-library/readability.ts, src/lib/content-library/readabilityExceptions.ts, src/lib/content-library/stageAnswers.ts
 - Read by (0): nothing
-- Checked by (11): scripts/content/blockGates.ts, scripts/content/draftGenericBlocks.ts, scripts/content/draftStageAnswers.ts, scripts/eval/runAccuracyEval.ts, scripts/verification/verifyElidedQuote.ts, scripts/verification/verifyGenericLibrary.ts, scripts/verification/verifyLegalChanges20261121.ts, scripts/verification/verifyPresentationHelp.ts, scripts/verification/verifyStageAnswers.ts, scripts/verification/verifyVerifierRejects.ts, scripts/verification/verifyWording20261109.ts
+- Checked by (13): scripts/content/blockGates.ts, scripts/content/caseLawChecks.ts, scripts/content/draftGenericBlocks.ts, scripts/content/draftStageAnswers.ts, scripts/eval/runAccuracyEval.ts, scripts/verification/verifyCaseLawBatch1.ts, scripts/verification/verifyElidedQuote.ts, scripts/verification/verifyGenericLibrary.ts, scripts/verification/verifyLegalChanges20261121.ts, scripts/verification/verifyPresentationHelp.ts, scripts/verification/verifyStageAnswers.ts, scripts/verification/verifyVerifierRejects.ts, scripts/verification/verifyWording20261109.ts
 
 ### src/lib/case-system/caseRecord.ts
 

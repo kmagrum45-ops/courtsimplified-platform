@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-318 documented, 26 without a header.
+319 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -50,6 +50,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:case-file-cleanup` | **test:case-file-cleanup -- deleting a case deletes its stored files, and only**<br>its owner's (src/lib/case-workspace/caseFileCleanup.ts; 2026-10-14 audit). |
 | `npm run test:case-file-guard` | **THE CASE FILE GUARD: NO NEW COPY OF A CASE FACT OUTSIDE THE CASE FILE (site owner, 29 Oct).**<br>The owner's rule: everything a person tells the site is stored once, in the case file (src/lib/case-system/caseFile/caseFile.ts: SLOT_FACTS, caseFileOf, give; factsOfQuestion.ts), and every screen, card, checklist and AI prompt reads and writes it through that |
 | `npm run test:case-file-summary` | **Deterministic self-test for composeCaseFileSummary().**<br>WHY THIS EXISTS. Fix 1 and Fix 2 (Session 48) removed the free-text summary slot and replaced it with two model-supplied arrays assembled by composeCaseFileSummary(). The intended evidence for that change was a five-runs-either-side interception measurement, w |
+| `npm run test:case-law-batch1` | **THE CASE LAW MAP, BATCH 1 (OWNER, 2026-11-22): STORED WORD FOR WORD, CHECKED, AND SHOWN TO NO ONE.**<br>Checks src/lib/case-system/authority-intelligence/caseLawBatch1.json against the owner's file docs/law-map/case-law-batch1-2026-11-22.md and the rules for these entries: - every entry's summary, cautions, topic and review notes are the owner's text, byte for b |
 | `npm run test:case-load-restore` | **A loaded case restores what it recorded, and invents nothing when it did not.**<br>COSTS NOTHING. Reads `app/builder/page.tsx` and the engine that writes the keys it reads. No browser, no network, no database. |
 | `npm run test:case-position` | **The case's confirmed position — stage, exact step, and the dates that set its**<br>deadlines — is stored only as the user gave it, and reaches the pages that count deadlines. |
 | `npm run test:case-reader` | **The case reader reports only what the person's own words say, and the site**<br>uses it only as suggestions (intake/caseReader.ts, master plan Phase 3, 2026-10-08). |
