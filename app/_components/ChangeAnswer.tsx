@@ -56,6 +56,8 @@ export const FACT_LABEL: Record<SlotFact, string> = {
   urgent: "Anything urgent",
   safety: "Safety concerns",
   courtDate: "Next court date",
+  serviceMethod: "How the papers were served",
+  evidence: "Evidence you have",
 };
 
 /** Changed with the start questions at the top of the page: they choose the court and its steps. */

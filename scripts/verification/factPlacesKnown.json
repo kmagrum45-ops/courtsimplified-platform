@@ -51,51 +51,9 @@
   {
     "court": "small-claims",
     "fact": "serviceMethod",
-    "place": "sc-guided",
-    "other": "sc-form",
-    "why": "checks the chat's own answered list, not the case file"
-  },
-  {
-    "court": "small-claims",
-    "fact": "serviceMethod",
-    "place": "sc-form",
-    "other": "sc-guided",
-    "why": "checks the form's own boxes, not the case file"
-  },
-  {
-    "court": "small-claims",
-    "fact": "serviceMethod",
     "place": "step",
     "other": "sc-guided",
     "why": "checks the step's own service answer, not the case file"
-  },
-  {
-    "court": "small-claims",
-    "fact": "evidence",
-    "place": "sc-guided",
-    "other": "sc-form",
-    "why": "checks the chat's own answered list, not the case file"
-  },
-  {
-    "court": "small-claims",
-    "fact": "evidence",
-    "place": "sc-form",
-    "other": "sc-guided",
-    "why": "checks the form's own boxes, not the case file"
-  },
-  {
-    "court": "small-claims",
-    "fact": "evidence",
-    "place": "sc-form-found",
-    "other": "sc-guided",
-    "why": "checks the form's own boxes, not the case file"
-  },
-  {
-    "court": "small-claims",
-    "fact": "evidence",
-    "place": "court-chat",
-    "other": "sc-guided",
-    "why": "nothing checks"
   },
   {
     "court": "small-claims",
@@ -151,13 +109,6 @@
     "fact": "filedDocuments",
     "place": "chat-story-offer",
     "other": "chat-civil-family",
-    "why": "checks the chat's form values, not the case file"
-  },
-  {
-    "court": "civil",
-    "fact": "serviceMethod",
-    "place": "chat-civil-family",
-    "other": "step",
     "why": "checks the chat's form values, not the case file"
   },
   {

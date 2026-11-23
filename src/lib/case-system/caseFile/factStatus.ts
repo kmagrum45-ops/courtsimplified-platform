@@ -49,7 +49,16 @@ export function factsOfAQuestion(file: CaseFile | null | undefined, questionId: 
  */
 export function questionStatus(file: CaseFile | null | undefined, questionId: string, stated?: Stated, surface?: string): FactStatus {
   if (!file) return "ask";
-  const statuses = factsOfAQuestion(file, questionId, surface).map((fact) => factStatus(file, fact, stated));
+  const facts = factsOfAQuestion(file, questionId, surface);
+  // A question whose fact no slot holds (the day a claim was issued, a Defence's filing day, ...) is held by its own id:
+  // its answer from any place that asks it (the Small Claims chat, the review, the step page; CaseFile.answers), or "not
+  // sure" (unsureDates). Never asked again in another place (C9, 23 Nov 2026).
+  if (!facts.length) {
+    if (file.unsureDates?.includes(questionId)) return "settled";
+    if (typeof file.answers?.[questionId] === "string" && file.answers[questionId].trim()) return "known";
+    return "ask";
+  }
+  const statuses = facts.map((fact) => factStatus(file, fact, stated));
   for (const held of ["known", "settled", "offer"] as const) if (statuses.includes(held)) return held;
   return "ask";
 }

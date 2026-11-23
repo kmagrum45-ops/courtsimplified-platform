@@ -1013,7 +1013,7 @@ function buildBestQuestion(args: {
   const datesInStory = args.intelligence.extractedFacts.some((fact) => fact.category === "date" && fact.confidence !== "low");
   return [
     datesInStory ? null : chatQuestionToAsk(args.caseFile, assistantText("assistant:question:part-dates"), args.turns),
-    chatQuestionToAsk(null, assistantText("assistant:question:part-proof"), args.turns),
+    chatQuestionToAsk(args.caseFile, assistantText("assistant:question:part-proof"), args.turns),
     chatQuestionToAsk(args.caseFile, assistantText("assistant:question:part-outcome"), args.turns),
   ].filter(Boolean).join(" ");
 }

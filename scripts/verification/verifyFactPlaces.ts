@@ -179,7 +179,9 @@ function main() {
   check("self-test: a planted place asking the amount with no gate is a new violation", judge(withPlanted, list, base).unlisted.some((v) => v.place === "planted" && v.fact === "amount"));
   const gated: Place = { id: "gated", name: "gated", at: "x", probe: "sc-guided", facts: [{ fact: "amount", kind: "ask", courts: ["small-claims"], gate: { by: "case-file" }, ids: ["sc-amount-claimed"] }] };
   check("self-test: a planted place gated by the case file is not a violation", !violationsOf([...FACT_PLACES, gated], file).some((v) => v.place === "gated"));
-  const lying: Place = { id: "lying", name: "lying", at: "x", probe: "sc-guided", facts: [{ fact: "evidence", kind: "ask", courts: ["small-claims"], gate: { by: "case-file" }, ids: ["sc-evidence-available"] }] };
+  // Any fact the case file still cannot hold (outside the slots, with no reader), whichever it is today.
+  const unheld = QUESTION_BANK.map((item) => ({ id: item.id, fact: factsOfQuestion(item.id)[0] })).find((item) => item.fact && !SLOTS.has(item.fact) && !HELD_BY_READER[item.fact as keyof typeof HELD_BY_READER] && item.fact !== item.id);
+  const lying: Place = { id: "lying", name: "lying", at: "x", probe: "sc-guided", facts: [{ fact: unheld!.fact as FactAtPlace["fact"], kind: "ask", courts: ["small-claims"], gate: { by: "case-file" }, ids: [unheld!.id] }] };
   check("self-test: a row saying the case file decides a fact it cannot hold is a violation", violationsOf([...FACT_PLACES, lying], file).some((v) => v.place === "lying"));
   check("self-test: adding an entry to the known list fails as growth", judge(found, [...list, { court: "civil", fact: "amount", place: "planted", other: "x", why: "x" }], list).grown.length === 1);
 

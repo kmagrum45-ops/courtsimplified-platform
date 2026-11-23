@@ -45,6 +45,8 @@ const LABEL: Record<SlotFact, string> = {
   urgent: "Anything urgent",
   safety: "Safety concerns",
   courtDate: "Next court date",
+  serviceMethod: "How the papers were served",
+  evidence: "Evidence you have",
 };
 
 /** The days the step page itself asks for: a day not known yet is added there (folded, never asked again). */
