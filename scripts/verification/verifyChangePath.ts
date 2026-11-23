@@ -149,6 +149,9 @@ const FACTS: FactCase[] = [
   { fact: "defendantsClaim", court: "small-claims", sections: { guided: { earlierAnswers: [{ questionId: "sc-defendant-counterclaim", answerText: "Yes" }] } }, value: "No", shows: (f) => valueOf(f, "defendantsClaim") === "No" },
   { fact: "urgent", court: "civil", sections: { civil: { input: { urgent: "Hearing next week" } } }, value: "Nothing urgent now", shows: (f) => valueOf(f, "urgent") === "Nothing urgent now" },
   { fact: "safety", court: "family", sections: { family: { safetyConcerns: "No safety concerns." } }, value: "A safety plan is in place", shows: (f) => valueOf(f, "safety") === "A safety plan is in place" },
+  // Slots since C9 (23 Nov 2026): how the papers were served (the Small Claims chat) and the evidence (the Small Claims form).
+  { fact: "serviceMethod", court: "small-claims", sections: { guided: { earlierAnswers: [{ questionId: "sc-defendant-service-method", answerText: "By mail" }] } }, value: "In person", shows: (f) => valueOf(f, "serviceMethod") === "In person" },
+  { fact: "evidence", court: "small-claims", sections: { "small-claims": { input: { evidence: "Invoices and texts" } } }, value: "Photos and the contract", shows: (f) => valueOf(f, "evidence") === "Photos and the contract" },
 ];
 for (const item of FACTS) {
   const older = checkpointOf(item.court, item.sections);

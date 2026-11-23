@@ -137,6 +137,14 @@ async function asked(court: Court, setup: Setup, wants: "unsure" | "answered" | 
   // names; anything else by a name of its own), for every sentence that asks a case-file fact and every
   // open part. A new chat question that asks a case-file fact must be added here, or check (a) fails.
   const ASKS_ALL: Record<string, string[]> = {
+    // What proof they have: the evidence, a case-file slot since C9 (23 Nov 2026).
+    "What proof do you already have, such as messages, emails, screenshots, witnesses, court papers, recordings, receipts, or transcripts?": ["evidence"],
+    "What proof do you currently have?": ["evidence"],
+    "Do you have a screenshot, message, email, letter, post, recording, or witness who can prove the statement was sent?": ["evidence"],
+    "What proof do you have of the agreement, such as messages, invoices, receipts, or emails?": ["evidence"],
+    "Do you have photos, repair estimates, invoices, messages, or witnesses?": ["evidence"],
+    "What records do you have: transcript, audio, disclosure, order, endorsement, police records, Crown correspondence, or court file documents?": ["evidence"],
+    "Do you have photos or repair estimates?": ["evidence"],
     "What are the main dates, including when the problem happened and when you first found out about it?": ["whenHappened", "discoveredDate", "otherDates"],
     "When did you first find out about the problem, and are there other important dates?": ["discoveredDate", "otherDates"],
     "Has anything already been filed, served, ordered, scheduled, or decided by a court or tribunal?": ["filed", "orderOrDecision"],
@@ -201,7 +209,8 @@ async function asked(court: Court, setup: Setup, wants: "unsure" | "answered" | 
   check("the chat's sentences that ask a case-file fact were found", seen >= 8, String(seen));
   // A question the case file can never hold is asked, whatever the file holds.
   const allHeld = Object.fromEntries(SLOT_FACTS.map((fact) => [fact, { state: "answered", value: "x", confirmed: true }]));
-  for (const sentence of ["What proof do you currently have?", "Is there already a court order or agreement?"]) {
+  // (The proof questions were the other example here until the evidence became a case-file slot, C9, 23 Nov 2026.)
+  for (const sentence of ["Is there already a court order or agreement?"]) {
     check(`"${sentence}" (no case-file fact) is still asked with every fact held`, chatQuestionToAsk({ ...emptyCaseFile(), ...allHeld }, sentence) === sentence);
   }
   // The word reader behind the chat's list still reads the home page's questions as before.

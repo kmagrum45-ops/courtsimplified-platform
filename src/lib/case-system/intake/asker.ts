@@ -152,8 +152,6 @@ export function heldFromRequest(value: unknown): CaseFile | null {
   return file;
 }
 
-/** The Small Claims form's box for each value read from the story, by the fact it holds (the rest: askedFacts). */
-const FOUND_FIELD_FACTS: Record<string, readonly SlotFact[]> = { amountClaimed: ["amount"], goal: ["wants"], otherParty: ["otherParty"], timeline: ["whenHappened"] };
 
 /**
  * "FOUND IN YOUR DESCRIPTION" OFFERS ONLY WHAT THE CASE FILE DOES NOT HOLD (C9, 23 Nov 2026). The Small Claims form
@@ -166,7 +164,7 @@ export function foundStillToOffer<T extends { field: string }>(found: readonly T
   if (!file) return [...found];
   return found.filter((item) => {
     if (item.field === "yourName") return !heldYourName(file);
-    const facts = FOUND_FIELD_FACTS[item.field] ?? askedFacts(item.field);
+    const facts = askedFacts(item.field);
     return facts.every((fact) => !heldState(file[fact]));
   });
 }

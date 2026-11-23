@@ -254,10 +254,15 @@ const CHAT_QUESTIONS: Record<string, ChatQuestion> = {
   // The general question's parts (assistantBlocks.ts).
   "What are the main dates?": { asks: "chat:main-dates", open: "Are there other important dates?" },
   "What outcome are you seeking?": { asks: "chat:outcome" },
-  // What proof they have (buildQuestions; the general question's part): a fact the case file does not
-  // hold, so only the conversation check stops it (CI 29 Oct, m19-laptop-repair).
+  // What proof they have (buildQuestions; the general question's part; the issue frameworks' and the reasoning profiles'
+  // proof questions): the evidence, a case-file slot since C9 (23 Nov 2026), so held evidence is never asked again.
   "What proof do you already have, such as messages, emails, screenshots, witnesses, court papers, recordings, receipts, or transcripts?": { asks: "chat:proof" },
   "What proof do you currently have?": { asks: "chat:proof" },
+  "Do you have a screenshot, message, email, letter, post, recording, or witness who can prove the statement was sent?": { asks: "chat:proof" },
+  "What proof do you have of the agreement, such as messages, invoices, receipts, or emails?": { asks: "chat:proof" },
+  "Do you have photos, repair estimates, invoices, messages, or witnesses?": { asks: "chat:proof" },
+  "What records do you have: transcript, audio, disclosure, order, endorsement, police records, Crown correspondence, or court file documents?": { asks: "chat:proof" },
+  "Do you have photos or repair estimates?": { asks: "chat:proof" },
 };
 /** A chat sentence built with names in it: the parties it names, to confirm (asks only who the other party is). */
 const CHAT_ASKS: [RegExp, string][] = [
