@@ -42,7 +42,7 @@ const ISSUE_ONLY: Record<string, string[]> = {
   institutionalFacts: ["institutional-negligence"],
   privacyRecordsFacts: ["privacy"],
 };
-export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[]; /** What the story says about an empty answer, to help fill it in. */ hint?: string; /** The question the field answers, where one is written: a date question's box asks for the year (dates.ts). */ question?: string; /** Answered in the situation questions before the story (situation.ts): shown, changed only there. */ fromStart?: boolean; /** What the story says for an empty box, offered in one click (storyFacts.ts). */ fromStory?: { value: string; quote: string } };
+export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[]; /** What the story says about an empty answer, to help fill it in. */ hint?: string; /** The question the field answers, where one is written: a date question's box asks for the year (dates.ts). */ question?: string; /** Answered in the situation questions before the story (situation.ts): shown, changed only there. */ fromStart?: boolean; /** What the story says for an empty box, offered in one click (storyFacts.ts). */ fromStory?: { value: string; quote: string }; /** The person's own answer to the same question asked in other words elsewhere (the home page, the chat): shown as held, with Change, never offered (C9). */ answeredElsewhere?: { value: string; quote: string } };
 
 /** Small Claims' roles in the form's own words (one place: the review and its start answers). */
 const SMALL_CLAIMS_ROLE_WORDS: Record<string, string> = { plaintiff: "Plaintiff / claimant", defendant: "Defendant / responding party" };
@@ -53,13 +53,10 @@ const BOX_FROM_STORY: Record<string, (story: string) => { value: string; quote: 
   damagesBreakdown: lossesIn,
   timeline: timelineIn,
 };
-/** Family boxes the home page's reading or the chat may have asked in other words: the questions that ask what the box asks. */
-const ANSWERED_ELSEWHERE: Record<string, RegExp> = {
-  currentLivingSituation: /\bwhere (?:does|do|is) (?:your|the) (?:child|children|kids?|son|daughter)\b[^?]*\b(?:live|living|stay)|\b(?:child|children|kids?|son|daughter)\b[^?]*\b(?:live|lives|living) with\b|\bliving (?:arrangements?|situation)\b|\b(?:parenting|living) arrangements? (?:do you have )?(?:now|currently)\b|\bwhat parenting arrangements?\b|\b(?:child|children|kids?|son|daughter) (?:usually |normally |currently )?(?:live|lives|living) in\b|\bdoes (?:your|the) (?:child|children|kids?|son|daughter) (?:usually |normally |currently )?live\b/i,
-};
 // The real AI's other words for these (Chrome pass 2, S7a reading r3 and S7b readings r2, r3): "In what city or town and
 // province does your child usually live?", "What town or city ... does your child usually live in?", "What parenting
 // arrangement do you currently have...?" were answered on the home page and the box stayed empty.
+import { ANSWERED_ELSEWHERE } from "./caseFile/answeredElsewhere";
 const FAMILY_FIELDS = () => familyGuidedFields({ issues: FAMILY_ISSUE_OPTIONS, filed: FAMILY_FILED_OPTIONS });
 const CIVIL_FIELDS = () => civilGuidedFields({ issues: CIVIL_ISSUE_OPTIONS, documents: CIVIL_DOCUMENT_OPTIONS });
 /** The form's own wording for fields no question defines (Family: ten boxes were labelled from their code names, re-test 2026-10-18). */
@@ -204,14 +201,14 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
     const offer = read && typeof entry.value === "string" && !entry.value.trim() ? read(story) : null;
     if (offer) entry.fromStory = offer;
   }
-  // An empty Family box the person already answered in other words, on the home page or in the chat: their answer offered
-  // in one click (Chrome milestone pass 2, finding 9, S7: "Where does your child normally live...?" answered "With me in
-  // Ottawa since birth", then an empty "Current living situation").
+  // An empty Family box the person already answered in other words, on the home page or in the chat: their own answer, shown
+  // as held with Change, never offered again (C9, 23 Nov 2026; before, offered in one click: Chrome milestone pass 2, finding
+  // 9, S7: "Where does your child normally live...?" answered "With me in Ottawa since birth", then an empty box).
   for (const entry of entries) {
     const asks = entry.section === "family" && !entry.nested ? ANSWERED_ELSEWHERE[entry.field] : undefined;
     if (!asks || entry.fromStory || typeof entry.value !== "string" || entry.value.trim()) continue;
     const given = answeredInIntake(sections).filter((item) => asks.test(item.question));
-    if (given.length) entry.fromStory = { value: given.map((item) => item.answer).join("\n"), quote: given.map((item) => `You answered “${item.answer}” to “${item.question}”`).join(" ") };
+    if (given.length) entry.answeredElsewhere = { value: given.map((item) => item.answer).join("\n"), quote: given.map((item) => `You answered “${item.answer}” to “${item.question}”`).join(" ") };
   }
   return entries;
 }

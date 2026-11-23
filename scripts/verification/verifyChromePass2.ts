@@ -15,7 +15,7 @@ import { reviewEntries, statedInStory } from "../../src/lib/case-system/intakeRe
 import { suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";
 import type { CaseRecord } from "../../src/lib/case-system/caseRecord";
 import { partyOfOffer, storyPartyOffers, withHeldOtherName, withHeldYourName, withNameParts, withStartLocation, withoutHeldElsewhere, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
-import { answeredInIntake, caseFileOf, heldLocation, heldYourName, slotText } from "../../src/lib/case-system/caseFile/caseFile";
+import { answeredInIntake, caseFileOf, heldLivingSituation, heldLocation, heldYourName, slotText } from "../../src/lib/case-system/caseFile/caseFile";
 import { amountWithCostsNote } from "../../src/lib/case-system/format/recordedAmount";
 import { FORM_7A } from "../../src/lib/case-system/forms/maps/form7A";
 import { fillForm, pdfValues } from "../../src/lib/case-system/forms/formMap";
@@ -212,9 +212,10 @@ section("Findings 9 and 11", () => {
   const familyTimeline = reviewEntries({ version: 1, flowId: "f9", courtPath: "family", revision: "f9", sections: { story: { text: S7 }, family: { timeline: "" } } } as never).find((entry) => entry.field === "timeline");
   check("F9 the Family review's empty Timeline box offers the story's dated lines", familyTimeline?.fromStory?.value.includes("June 2026") === true, JSON.stringify(familyTimeline));
   const living = reviewEntries({ version: 1, flowId: "f9b", courtPath: "family", revision: "f9b", sections: { story: { text: S7 }, family: { currentLivingSituation: "" }, home: { understoodAnswers: [{ question: "Where does your child normally live, and how long have they lived there?", answer: "With me in Ottawa since birth." }] } } } as never).find((entry) => entry.field === "currentLivingSituation");
-  check("F9 the Family review's empty \"Current living situation\" offers what they answered on the home page", living?.fromStory?.value === "With me in Ottawa since birth.", JSON.stringify(living));
+  check("F9 the Family review's empty \"Current living situation\" holds what they answered on the home page, with Change, never offered (C9)", living?.answeredElsewhere?.value === "With me in Ottawa since birth." && !living?.fromStory, JSON.stringify(living));
   const notAsked = reviewEntries({ version: 1, flowId: "f9c", courtPath: "family", revision: "f9c", sections: { story: { text: S7 }, family: { currentLivingSituation: "" }, home: { understoodAnswers: [{ question: "Are there any safety concerns involving you or your child?", answer: "No safety concerns." }] } } } as never).find((entry) => entry.field === "currentLivingSituation");
-  check("F9 self-test: an answer to another question is not offered there", !notAsked?.fromStory, JSON.stringify(notAsked));
+  check("F9 self-test: an answer to another question is not offered or held there", !notAsked?.fromStory && !notAsked?.answeredElsewhere, JSON.stringify(notAsked));
+  check("F9 the review shows an answer given elsewhere as held, with Change (never an offer)", /entry\.answeredElsewhere && empty\(entry\.value\) \? <p className="mt-1" data-testid="intake-entry-answered-elsewhere"/.test(source("app/_components/IntakeReviewPanel.tsx")));
   // The real AI's other words for the same questions (S7a reading r3, S7b readings r2 and r3), word for word.
   for (const question of [
     "In what city or town and province does your child usually live?",
@@ -223,7 +224,7 @@ section("Findings 9 and 11", () => {
     "What parenting arrangement do you currently have, and what schedule would you like?",
   ]) {
     const entry = reviewEntries({ version: 1, flowId: "f9d", courtPath: "family", revision: "f9d", sections: { story: { text: S7 }, family: { currentLivingSituation: "" }, home: { understoodAnswers: [{ question, answer: "With me in Ottawa since birth." }] } } } as never).find((item) => item.field === "currentLivingSituation");
-    check(`F9 "${question.slice(0, 50)}..." answered: offered in "Current living situation"`, entry?.fromStory?.value === "With me in Ottawa since birth.", JSON.stringify(entry));
+    check(`F9 "${question.slice(0, 50)}..." answered: held in "Current living situation", never offered`, entry?.answeredElsewhere?.value === "With me in Ottawa since birth." && !entry?.fromStory && heldLivingSituation(caseFileOf({ version: 1, flowId: "f9e", courtPath: "family", revision: "f9e", sections: { story: { text: S7 }, home: { understoodAnswers: [{ question, answer: "With me in Ottawa since birth." }] } } } as never)) === "With me in Ottawa since birth.", JSON.stringify(entry));
   }
 });
 

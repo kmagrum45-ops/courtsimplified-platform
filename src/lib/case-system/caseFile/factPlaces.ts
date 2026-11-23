@@ -302,7 +302,7 @@ export const FACT_PLACES: readonly Place[] = [
       { fact: "defendantsClaim", kind: "ask", courts: SC, gate: FILE },
       { fact: "servedDate", kind: "confirm", courts: FA, gate: FILE, shows: "Day you were served" },
       { fact: "municipality", kind: "confirm", courts: ALL, gate: FILE, shows: "City" },
-      { fact: "livingSituation", kind: "offer", courts: FA, gate: copy("the review's own offer record") },
+      { fact: "livingSituation", kind: "confirm", courts: FA, gate: FILE, shows: "the answer given elsewhere, held in the box with Change (answeredElsewhere)" },
     ],
   },
   {

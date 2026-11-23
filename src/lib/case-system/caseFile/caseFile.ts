@@ -53,6 +53,7 @@ import { fitsFactType } from "./factTypes";
 // meets this one half-loaded (21 Nov 2026: caseFile -> personWords -> siteQuestions -> guidedFields -> intakeReview ->
 // ... -> factRecord read SLOT_FACTS before this file had defined it).
 import { SLOT_FACTS, type SlotFact } from "./slotFacts";
+import { ANSWERED_ELSEWHERE } from "./answeredElsewhere";
 import { serviceRulesFor } from "../deadlines/serviceEffectiveDate";
 export { SLOT_FACTS, type SlotFact };
 export type SlotState = "not-asked" | "answered" | "unsure";
@@ -427,8 +428,11 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // Where the other person lives, as the person answered it there (C9): read through heldOtherPartyCity.
   if (typeof triage.otherPartyMunicipality === "string" && triage.otherPartyMunicipality.trim() && triage.otherPartyMunicipality !== "not-yet") file.otherPartyCity = triage.otherPartyMunicipality.trim();
   // Where the children live now, as the Family form or the review holds it (C9): read through heldLivingSituation.
+  // Else the person's answer to the same question asked in other words (the home page, the chat: ANSWERED_ELSEWHERE).
+  const livingElsewhere = answeredInIntake(sections).filter((item) => ANSWERED_ELSEWHERE.currentLivingSituation.test(item.question)).map((item) => item.answer).join("\n");
   const living = object(sections.family).currentLivingSituation ?? object(builder.initialAnswers).currentLivingSituation;
   if (typeof living === "string" && living.trim() && !isUnsureAnswer(living)) file.livingSituation = living.trim();
+  else if (livingElsewhere.trim()) file.livingSituation = livingElsewhere.trim();
   const yesNo = (value: unknown) => (value === "yes" ? true : value === "no" ? false : value === "unsure" ? "not-sure" : undefined);
   if (yesNo(triage.marriedToOtherParty) !== undefined) give(file, "married", yesNo(triage.marriedToOtherParty), "married-to-other-party");
   // The same question asked early by the Family questions (guidedFields.ts "married"; Chrome pass 3, S7): one answer, one fact.
