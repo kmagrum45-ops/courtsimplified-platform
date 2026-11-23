@@ -25,6 +25,8 @@
 import { caseFileOf, nextQuestion, askable, chatMayAsk, slotsOfQuestion, unsureDateQuestions, withChange, CASE_FILE_SECTION, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import * as review from "../../src/lib/case-system/intakeReview";
 import { stageHeldElsewhere } from "../../src/lib/case-system/caseFile/stageHeld";
+import { mayShowQuestion, questionStatus } from "../../src/lib/case-system/caseFile/factStatus";
+import { emptyCaseFile as emptyCaseFileForTest } from "../../src/lib/case-system/caseFile/caseFile";
 import { readFileSync } from "node:fs";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { BASIS_SECTION, staleAnswerKeys, storyVersion } from "../../src/lib/case-system/storyBasis";
@@ -172,6 +174,16 @@ for (const item of CASES) {
   check("7. C9: the card shows the quiet line for a settled stage and never its question", /held\?\.kind === "settled"[\s\S]{0,200}NOT_ANSWERED_YET/.test(card));
   const pages = [readFileSync("app/builder/page.tsx", "utf8"), readFileSync("app/cases/[id]/page.tsx", "utf8")];
   check("7. C9: both pages pass the case file's stage to the card", pages.every((page) => /held=\{stageHeldElsewhere\(caseFileOf\(/.test(page)));
+}
+
+// 8. C9 (23 Nov 2026): a question whose fact no slot holds (the day a claim was issued, a Defence's filing day) is held by
+// its own id, from whichever place answered it (the step page, the review, the Small Claims chat): never asked again.
+{
+  const withAnswer = { ...emptyCaseFileForTest(), answers: { "sc-date-claim-issued": "2026-09-01" } };
+  check("8. C9: the day the claim was issued, answered on the step page, is not asked by the Small Claims chat", !mayShowQuestion(withAnswer as never, "sc-date-claim-issued"));
+  const unsureDay = { ...emptyCaseFileForTest(), unsureDates: ["sc-date-defence-filed"] };
+  check("8. C9: a Defence's filing day said \"not sure\" elsewhere is settled, never asked", questionStatus(unsureDay as never, "sc-date-defence-filed") === "settled");
+  check("8. C9 self-test: with nothing held, the day is asked", mayShowQuestion(emptyCaseFileForTest() as never, "sc-date-claim-issued"));
 }
 
 if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }

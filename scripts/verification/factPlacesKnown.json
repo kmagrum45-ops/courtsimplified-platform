@@ -56,20 +56,6 @@
     "why": "checks the step's own service answer, not the case file"
   },
   {
-    "court": "small-claims",
-    "fact": "claimIssuedDate",
-    "place": "sc-guided",
-    "other": "step",
-    "why": "checks the chat's own answered list, not the case file"
-  },
-  {
-    "court": "small-claims",
-    "fact": "defenceFiledDate",
-    "place": "sc-guided",
-    "other": "step",
-    "why": "checks the chat's own answered list, not the case file"
-  },
-  {
     "court": "civil",
     "fact": "municipality",
     "place": "court-chat",

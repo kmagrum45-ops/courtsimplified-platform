@@ -197,8 +197,8 @@ export const FACT_PLACES: readonly Place[] = [
       { fact: "admission", kind: "ask", courts: SC, gate: copy("the chat's own answered list"), ids: ["sc-defendant-admission-payment"] },
       { fact: "completionDate", kind: "ask", courts: SC, gate: copy("the chat's own answered list"), ids: ["sc-contractor-completion-date"] },
       { fact: "noticeToContractor", kind: "ask", courts: SC, gate: copy("the chat's own answered list"), ids: ["sc-contractor-notice-before-replacement"] },
-      { fact: "claimIssuedDate", kind: "ask", courts: SC, gate: copy("the chat's own answered list"), ids: ["sc-date-claim-issued"] },
-      { fact: "defenceFiledDate", kind: "ask", courts: SC, gate: copy("the chat's own answered list"), ids: ["sc-date-defence-filed"] },
+      { fact: "claimIssuedDate", kind: "ask", courts: SC, gate: { by: "answers" }, ids: ["sc-date-claim-issued"] },
+      { fact: "defenceFiledDate", kind: "ask", courts: SC, gate: { by: "answers" }, ids: ["sc-date-defence-filed"] },
     ],
   },
   {
