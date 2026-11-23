@@ -107,14 +107,20 @@ export const ASKED_BY_THE_INTAKE: Readonly<Partial<Record<SlotFact, readonly str
  * next") may be asked: never when the fact it asks is known or settled, nor when the court's own intake asks that fact.
  * A question whose words name no fact is the screen's own: it may be asked.
  */
-export function mayAskWords(file: CaseFile | null | undefined, words: string, options: { court?: string | null; responding?: boolean } = {}): boolean {
+export function mayAskWords(file: CaseFile | null | undefined, words: string, options: { court?: string | null; responding?: boolean; wordsOnly?: { storySays: Partial<Record<string, unknown>> } } = {}): boolean {
   const fact = factOfAskedText(words, { responding: options.responding });
   if (!fact) return true;
   if (options.court && ASKED_BY_THE_INTAKE[fact as SlotFact]?.includes(options.court)) return false;
   if (!file || !(fact in file)) return true;
   const status = factStatus(file, fact as SlotFact);
+  // A place that shows the question in words only, with no box to offer the story's value in (the AI's "What to confirm
+  // next"), never asks what the story already says: the story's words are there, and a question about them would ask
+  // the person what they wrote (C9, 23 Nov 2026: "What are the specific terms of the contract..." after "We agreed ...").
+  // `storySays`: the one story reader's reading (intakeReview.ts statedInStory, quotesOf).
+  if (status === "ask" && options.wordsOnly?.storySays[fact]) return false;
   return status === "ask" || status === "offer";
 }
+
 
 
 /**

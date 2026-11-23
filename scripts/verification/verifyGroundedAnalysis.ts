@@ -140,6 +140,10 @@ const model = {
     { field: "x", question: "What are the exact dates of the agreement and the invoice?", reason: "You must serve within 6 months under the rules." },
     { field: "x", question: "What company name appears on the agreement, invoices, and payment recipient details, and do you have those records?", reason: "Recording it helps." },
     { field: "x", question: "What are the specific terms of the contract with the contractor?", reason: "Recording it helps." },
+    // The one fixture question that was still dropped for naming no fact (smallClaimsFullSurvey.md): whether anything is filed.
+    { field: "x", question: "Has the claim been officially filed with the court?", reason: "Recording it helps." },
+    // A question about nothing the case file could ever hold (a synthetic one, never a real fact), so it must be dropped.
+    { field: "x", question: "What is the zzqx-test colour of the contractor's van?", reason: "Recording it helps." },
   ],
   nextBestActions: [
     "File your Defence within 20 days of service.",
@@ -184,9 +188,12 @@ check("gate: a question is kept, its unsourced legal reason replaced", out.inclu
 const kept = ((cognition as Record<string, unknown>).missingInformation as { question: string; fact?: string }[]) ?? [];
 check("C9: every AI-written question kept carries a fact id", kept.length > 0 && kept.every((item) => typeof item.fact === "string" && item.fact.length > 0), JSON.stringify(kept));
 check("C9: the AI's company-name question carries otherParty (Chrome check of #560, 3i)", kept.some((item) => item.fact === "otherParty" && /company name appears/.test(item.question)));
-check("C9: an AI question naming no fact is dropped (\"the specific terms of the contract\")", !out.includes("specific terms of the contract") && report.dropped.some((item) => /names no fact/.test(item.reason)));
+check("C9: an AI question naming no fact is dropped (a synthetic question no fact will ever name)", !out.includes("zzqx-test colour") && report.dropped.some((item) => /names no fact/.test(item.reason) && /zzqx-test colour/.test(JSON.stringify(item))));
+// The terms question was dropped for naming no fact (it was useful): it now carries what was agreed (C9, 23 Nov 2026).
+check("C9: the AI's \"Has the claim been officially filed with the court?\" is kept and carries filed (smallClaimsFullSurvey.md)", kept.some((item) => item.fact === "filed" && /officially filed/.test(item.question)), JSON.stringify(kept));
+check("C9: the AI's terms question is kept and carries agreementTerms (\"the specific terms of the contract\")", kept.some((item) => item.fact === "agreementTerms" && /specific terms of the contract/.test(item.question)), JSON.stringify(kept));
 {
-  const held = { ...emptyCaseFile(), whenHappened: { state: "answered" as const, value: "2026-05-01", confirmed: true, source: { kind: "answer" as const, question: "held" } }, otherParty: { state: "answered" as const, value: "Fakebuild Test Contracting Inc.", confirmed: true, source: { kind: "answer" as const, question: "held" } } };
+  const held = { ...emptyCaseFile(), whenHappened: { state: "answered" as const, value: "2026-05-01", confirmed: true, source: { kind: "answer" as const, question: "held" } }, otherParty: { state: "answered" as const, value: "Fakebuild Test Contracting Inc.", confirmed: true, source: { kind: "answer" as const, question: "held" } }, filed: { state: "answered" as const, value: "yes", confirmed: true, source: { kind: "answer" as const, question: "held" } }, agreementTerms: { state: "answered" as const, value: "Redo the roof for $6,000 by June.", confirmed: true, source: { kind: "answer" as const, question: "depth-contractor-agreement" } } };
   check("C9: each kept AI question is dropped by the pages once the case file holds its fact", kept.every((item) => !mayAskWords(held, item.question, {}) && mayAskWords(emptyCaseFile(), item.question, {})), JSON.stringify(kept.map((item) => [item.fact, mayAskWords(held, item.question, {})])));
 }
 check("gate: the model's warnings are never passed on", (cognition.systemWarnings as unknown[]).length === 0);

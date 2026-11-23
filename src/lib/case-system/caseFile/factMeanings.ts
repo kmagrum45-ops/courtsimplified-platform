@@ -28,6 +28,7 @@ export const FACT_MEANINGS: Readonly<Record<CaseFact, string>> = {
   wants: "what the person wants the court to order",
   whenHappened: "when the events that led to the case happened",
   evidence: "the evidence the person has",
+  agreementTerms: "what was agreed with the other side, in the person's own words",
   story: "the person's own account in their words",
   urgent: "anything urgent, such as a deadline this week",
   courtFileNumber: "the court file number on the papers",

@@ -6,6 +6,8 @@ export const SLOT_FACTS = [
   // How the papers were served, and the evidence: one fact each across the Small Claims chat, its form, the step page and
   // the court chat (C9, 23 Nov 2026).
   "serviceMethod", "evidence",
+  // What was agreed, in the person's words (the Small Claims depth questions and the AI's terms question; C9, 23 Nov 2026).
+  "agreementTerms",
   // The story, held once it is given (founder, 1 Nov: no screen asks for it again; its words are `storyText`).
   "story",
 ] as const;

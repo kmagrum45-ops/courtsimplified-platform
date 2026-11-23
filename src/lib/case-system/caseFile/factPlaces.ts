@@ -324,6 +324,19 @@ export const FACT_PLACES: readonly Place[] = [
       { fact: "defenceFiled", kind: "ask", courts: ["small-claims", "civil"], gate: FILE, shows: "Has the defendant filed a Defence?" },
       { fact: "adoption", kind: "ask", courts: FA, gate: FIRST },
       { fact: "claimKind", kind: "offer", courts: SC, gate: FILE },
+      // The AI's own questions (groundedCognition: each carries its fact), in words only: never asked once the fact is held
+      // or the story says it (factStatus.ts mayAskWords, wordsOnly with the one story reader's reading).
+      { fact: "agreementTerms", kind: "ask", courts: ALL, gate: FILE, shows: "What are the specific terms of the contract with the contractor?" },
+    ],
+  },
+  {
+    id: "sc-depth",
+    name: "Small Claims chat: the questions for this kind of claim (and the story's answers to them, offered)",
+    at: "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    probe: "sc-guided",
+    facts: [
+      { fact: "agreementTerms", kind: "ask", courts: SC, gate: FILE, ids: ["depth-contractor-agreement", "depth-services-agreement", "depth-goods-contract-agreement", "depth-goods-agreement", "depth-commercial-terms", "depth-debt-agreement", "depth-loan-agreement"] },
+      { fact: "agreementTerms", kind: "offer", courts: SC, gate: FILE, shows: "Your story already answers some of them: please check these" },
     ],
   },
   {

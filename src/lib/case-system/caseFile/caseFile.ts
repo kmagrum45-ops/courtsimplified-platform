@@ -235,6 +235,19 @@ function unsure(file: CaseFile, fact: string, question: string) {
   if (isSlot(fact) && file[fact].state === "not-asked") file[fact] = { state: "unsure", source: { kind: "answer", question }, confirmed: true };
 }
 
+/** Each element record a depth question answered (elementStateMap.ts): its words, or "not sure", under the question's facts. */
+function depthAnswers(file: CaseFile, records: Record<string, unknown>) {
+  for (const value of Object.values(records)) {
+    const record = object(value);
+    if (typeof record.questionId !== "string") continue;
+    const words = typeof record.userText === "string" ? record.userText.trim() : "";
+    for (const fact of slotsOf(record.questionId)) {
+      if (record.state === "provided" && words) give(file, fact, words, record.questionId);
+      else if (record.state === "cannot-provide") unsure(file, fact, record.questionId);
+    }
+  }
+}
+
 /**
  * "What kind of dispute is this?" keeps its answer as a code (facts.disputeCategory, the extractor's
  * list): the question's own choice words for it, so the answer is shown as given (26 Oct re-test,
@@ -385,6 +398,11 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
     if (typeof item.questionId === "string" && typeof item.answerText === "string") answers[item.questionId] ??= item.answerText;
     if (typeof item.questionId === "string") for (const fact of slotsOf(item.questionId)) give(file, fact, item.answerText, item.questionId);
   }
+  // The depth questions' typed answers are kept in the depth record (guided.depthStateMap: each element's answer, in the
+  // person's words, with the question that asked it), not among earlierAnswers: what was agreed comes from there too, so a
+  // question in other words (the AI's "What are the specific terms of the contract...?") is never asked after it (C9,
+  // 23 Nov 2026). "I don't know" there is "not sure". An older saved case keeps the same record in its analysis copy (below).
+  depthAnswers(file, object(guided.depthStateMap));
   const guidedFacts = object(guided.facts);
   for (const id of strings(guided.answeredIds)) {
     for (const fact of slotsOf(id)) {
@@ -474,6 +492,7 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // The element record the analysis saved with the case (the depth phase's answers), for the Form 7A section.
   const savedElementStates = object(extra.elementStateMap);
   if (Object.keys(savedElementStates).length) file.elementStates = savedElementStates;
+  depthAnswers(file, savedElementStates);
   // The checkpoint keeps the Small Claims chat's own record (its "guided" section, which "Start the questions again" resets).
   const chatRecorded = Boolean(checkpoint && checkpoint.sections.guided);
   for (const answer of Array.isArray(object(master).intakeAnswers) ? (object(master).intakeAnswers as unknown[]) : []) {

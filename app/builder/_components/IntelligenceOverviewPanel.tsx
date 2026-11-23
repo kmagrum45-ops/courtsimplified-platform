@@ -47,6 +47,7 @@ import { useOfferChoices } from "@/app/_components/offerChoiceSave";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
 import { answerWords } from "../../../src/lib/case-system/caseFile/unsureAnswer";
 import { mayAskWords } from "../../../src/lib/case-system/caseFile/factStatus";
+import { quotesOf, statedInStory } from "../../../src/lib/case-system/intakeReview";
 import { partyNames } from "../../../src/lib/case-system/parties/parties";
 import { hidesMarriedOnly, withoutMarriedOnlyLaw } from "../../../src/lib/case-system/family/marriedOnly";
 
@@ -248,6 +249,8 @@ export default function IntelligenceOverviewPanel({ analysis: analysisGiven, int
    * gone is the model's contribution to either.
    */
   const isQuestionText = (value: string) => value.trim().endsWith("?");
+  // What the story says, by the one story reader: a question in words only is never asked about it (C9).
+  const storyReading = quotesOf(statedInStory(caseFile?.storyText || caseFile?.savedStory || ""));
   const candidateQuestions = withoutMunicipalityAsked(withoutAnsweredQuestions(
     [
       ...analysis.missingInformation.filter(isQuestionText),
@@ -263,7 +266,7 @@ export default function IntelligenceOverviewPanel({ analysis: analysisGiven, int
   // One rule, in answeredQuestions.ts (26 Oct re-test, case 16: a case already going was asked about court dates).
   // The one function (factStatus.ts mayAskWords): a question whose fact the record holds, answered or "not sure", is never
   // asked here (Chrome milestone test of #550, row 39: "Were you married, is a divorce proceeding underway..." after No).
-  const stillToConfirm = withoutStageAnswered(candidateQuestions, caseStage, stageWords).filter((question) => mayAskWords(caseFile, question, { responding: respondingFromRecord(caseFile ?? undefined) }));
+  const stillToConfirm = withoutStageAnswered(candidateQuestions, caseStage, stageWords).filter((question) => mayAskWords(caseFile, question, { responding: respondingFromRecord(caseFile ?? undefined), wordsOnly: { storySays: storyReading } }));
   const confirmQuestion = askDefenceQuestion
     ? defenceQuestion
     : stillToConfirm[0] || GENERIC_CONFIRM_QUESTION;

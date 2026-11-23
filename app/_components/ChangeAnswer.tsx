@@ -30,7 +30,7 @@ import { writeChange } from "./caseWrite";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { CIVIL_ISSUE_OPTIONS, FAMILY_ISSUE_OPTIONS } from "../builder/_components/guidedFields";
 import { dateAnswerCheck } from "../../src/lib/case-system/dates";
-import { ADD_IT_LATER } from "../../src/lib/case-system/copy/askCopy";
+import { ADD_IT_LATER, AGREEMENT_TERMS_LABEL } from "../../src/lib/case-system/copy/askCopy";
 
 /** Each fact's name, as "What we have so far" and the review show it. */
 export const FACT_LABEL: Record<SlotFact, string> = {
@@ -58,6 +58,7 @@ export const FACT_LABEL: Record<SlotFact, string> = {
   courtDate: "Next court date",
   serviceMethod: "How the papers were served",
   evidence: "Evidence you have",
+  agreementTerms: AGREEMENT_TERMS_LABEL,
 };
 
 /** Changed with the start questions at the top of the page: they choose the court and its steps. */

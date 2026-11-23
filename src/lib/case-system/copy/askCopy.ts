@@ -35,3 +35,5 @@ export const IS_THIS_RIGHT_AFTER = "?";
 
 /** The children, when the story says there are none ("We have no children"): offered once with Yes / No / Not sure (C9). */
 export const NO_CHILDREN = "No children";
+/** The case file's "what was agreed" fact, as "What we have so far", the review and Change name it (C9, 23 Nov 2026). */
+export const AGREEMENT_TERMS_LABEL = "What was agreed";

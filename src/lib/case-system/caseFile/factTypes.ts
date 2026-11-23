@@ -61,6 +61,7 @@ export const FACT_TYPES: Record<CaseFact, FactType> = {
   wants: "words",
   whenHappened: "date",
   evidence: "words",
+  agreementTerms: "words",
   story: "words",
   urgent: "words",
   courtFileNumber: "words",

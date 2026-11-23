@@ -14,7 +14,7 @@
 export type CaseFact =
   | "situation" | "side" | "court" | "stage" | "filed" | "defenceFiled" | "defendantsClaim" | "claimServed" | "papers"
   | "servedDate" | "serviceMethod" | "amount" | "otherParty" | "children" | "married" | "claimKind"
-  | "wants" | "whenHappened" | "evidence" | "story" | "urgent" | "courtFileNumber" | "courtDate"
+  | "wants" | "whenHappened" | "evidence" | "agreementTerms" | "story" | "urgent" | "courtFileNumber" | "courtDate"
   | "conferenceDate" | "claimIssuedDate" | "defenceFiledDate" | "marriedWhere" | "outcome" | "filedDocuments" | "safety"
   // Every question asked by id has a fact (site owner, 17 Nov 2026; test:every-question-has-fact). These are asked in one
   // place each and are not case-file slots: the one function reads slots, so they are never decided by it yet.
@@ -86,6 +86,16 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   "sc-defendant-defence-filed": ["defenceFiled"],
   "sc-defence-filed": ["defenceFiled"],
   "sc-evidence-available": ["evidence"],
+  // What was agreed, in the person's words: the Small Claims depth questions about the agreement (elementQuestionRegistry.ts),
+  // one fact with the AI's "What are the specific terms of the contract...?" (C9, 23 Nov 2026: that question was dropped
+  // for naming no fact; it now carries this one, so it is asked once and never again once held or stated in the story).
+  "depth-contractor-agreement": ["agreementTerms"],
+  "depth-services-agreement": ["agreementTerms"],
+  "depth-goods-contract-agreement": ["agreementTerms"],
+  "depth-goods-agreement": ["agreementTerms"],
+  "depth-commercial-terms": ["agreementTerms"],
+  "depth-debt-agreement": ["agreementTerms"],
+  "depth-loan-agreement": ["agreementTerms"],
   "sc-remedy-sought": ["wants"],
   // The step page's date questions (casePosition.ts) for the same moments.
   // The day served ("Day you got the papers") is the day the person got the papers that started their case: never a later
@@ -189,6 +199,9 @@ const ASKS_FOR: [RegExp, CaseFact][] = [
   // when things happened, so it is never asked once the case file holds that (C9, 23 Nov 2026: every AI-written question
   // carries a fact; the 20 recorded in the journey battery were all of this kind or the next).
   [/\bwhat (?:are|were) the (?:exact |specific |key |main |important )?dates? (?:of|for|when)\b/i, "whenHappened"],
+  // The AI's filing question in its own words ("Has the claim been officially filed with the court?", the only fixture
+  // question still dropped for naming no fact; C9, 23 Nov 2026): whether anything is filed.
+  [/\bhas (?:the|your) (?:claim|case|application) (?:already |officially |actually )*been (?:already |officially |actually )*(?:filed|issued|started)\b/i, "filed"],
   // Its costs question ("What are the exact costs incurred due to the contractor's incomplete work?"): the amount claimed.
   [/\bwhat (?:are|were|is|was) the (?:exact |total |specific )?(?:costs?|losses|damages)\b(?! of (?:filing|the court|court))/i, "amount"],
   // A worry about safety, asked on its own (Chrome check of #550, 5c: "Is anything urgent ... a safety worry" after
@@ -205,6 +218,10 @@ const ASKS_FOR: [RegExp, CaseFact][] = [
   // next" use (Chrome milestone test of #550, rows 39 and 45: "Are you and your partner legally married?" on the home page,
   // the triage's own question, and "Were you married, is a divorce proceeding underway..." after "No"). Never "married
   // where" (marriedWhere) or "when did you marry".
+  // What was agreed (C9, 23 Nov 2026): "What are the specific terms of the contract with the contractor?", "What payment
+  // due date or payment terms did you agree on?", "What did you agree to?". Never an order or a parenting agreement in
+  // place ("Is there already a court order or agreement?"), the proof of one, or its dates (read above).
+  [/\bwhat (?:are|were) the (?:exact |specific |key |main |agreed |payment )?terms\b|\bterms of (?:the|your) (?:contract|agreement|deal|arrangement|loan|lease)\b|\bwhat (?:[\w-]+ ){0,5}?terms did you (?:agree|set)\b|\bwhat (?:exactly )?(?:was|were you|had you) (?:agreed|promised)\b|\bwhat did (?:you|you both|the two of you|you and [\w .'-]{1,40}?) agree\b/i, "agreementTerms"],
   [/(?<!\b(?:where|when|how) )\b(?:are|were) you(?: and (?:your|the) [a-z ]+?)? (?:legally |ever )?married\b(?! (?:in|where|at)\b)/i, "married"],
 ];
 

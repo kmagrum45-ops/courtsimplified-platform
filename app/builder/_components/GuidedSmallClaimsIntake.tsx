@@ -1238,6 +1238,11 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     try {
       const result = await callDepthTurn(claimTypeId, currentFacts);
       setDepthStateMap(result.stateMap);
+      // A depth question whose fact the case file holds from another place (what was agreed, given in the review, the
+      // chat or an earlier run) is neither asked nor offered (the one function, factStatus.ts; C9, 23 Nov 2026).
+      const depthFile = caseFileOf(recovery?.getReview().checkpoint ?? null, recovery?.getSavedMaster() ?? undefined);
+      result.questions = result.questions.filter((question) => mayShowQuestion(depthFile, question.id));
+      result.proposals = (result.proposals ?? []).filter((proposal) => mayShowQuestion(depthFile, proposal.questionId));
 
       // A well-covered story suppresses everything. That is the filter working,
       // not a failure — finish immediately rather than announcing a phase with

@@ -5,13 +5,14 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-323 documented, 26 without a header.
+324 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
 | `npm run test:a2i-guard` | **The A2I guard: each of the 13 statements the site makes in its application**<br>to the Law Society of Ontario's Access to Innovation (A2I) sandbox, as checks that fail when the site breaks the statement. |
 | `npm run test:a2i-scope` | **The platform only does what A2I has approved.**<br>COSTS NOTHING. Pure data checks. |
 | `npm run test:address-wins` | **THE ADDRESS WINS: a page that reads its case or court from the address opens**<br>the case the address names (npm run test:address-wins). |
+| `npm run test:agreement-terms` | **WHAT WAS AGREED IS ONE CASE-FILE FACT, ASKED ONCE (C9, site owner, 23 Nov 2026).**<br>The AI-written question "What are the specific terms of the contract with the contractor?" was dropped because the case file had no fact for the terms of an agreement. The owner: "Dropping a useful question is the wrong fix. Add a proper case-file fact for the |
 | `npm run test:ai-call-log-labels-only` | **THE AI CALL LOG HOLDS LABELS, COUNTS AND TIMES ONLY (site owner, 11 Nov 2026, option (a): "Store kind of request,**<br>model, token counts, times and result status. Never store story text, quotes, names or model output, in any column, including structured_output"). |
 | `npm run test:ai-call-log-sink` | **Does a test run write to the live database? It must not.**<br>COSTS NOTHING. No model call, no network, no database — which is the entire point, and is asserted rather than assumed: the Supabase client factory is replaced with one that throws, and the check fails if anything builds a client. |
 | `npm run test:ai-call-logging` | **Every model call is attributable in the audit log.**<br>COSTS NOTHING. Reads source off disk. No network, no AI, no database. |

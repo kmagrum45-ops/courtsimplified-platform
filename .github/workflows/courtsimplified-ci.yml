@@ -616,6 +616,9 @@ jobs:
       - name: No fact is asked or offered in two places (C9; the known list only shrinks)
         run: npm run test:fact-places
 
+      - name: What was agreed is one case-file fact, asked once (C9; the AI terms question carries it)
+        run: npm run test:agreement-terms
+
       - name: No two facts declare the same meaning
         run: npm run test:fact-meanings
 
