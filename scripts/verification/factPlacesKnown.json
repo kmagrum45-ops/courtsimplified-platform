@@ -1,19 +1,5 @@
 [
   {
-    "court": "civil",
-    "fact": "filedDocuments",
-    "place": "chat-civil-family",
-    "other": "chat-story-offer",
-    "why": "checks the chat's form values, not the case file"
-  },
-  {
-    "court": "civil",
-    "fact": "filedDocuments",
-    "place": "chat-story-offer",
-    "other": "chat-civil-family",
-    "why": "checks the chat's form values, not the case file"
-  },
-  {
     "court": "family",
     "fact": "municipality",
     "place": "family-triage",
@@ -33,20 +19,6 @@
     "place": "child-support",
     "other": "home-other-party",
     "why": "checks the Family form's saved copy, not the case file"
-  },
-  {
-    "court": "family",
-    "fact": "filedDocuments",
-    "place": "chat-civil-family",
-    "other": "chat-story-offer",
-    "why": "checks the chat's form values, not the case file"
-  },
-  {
-    "court": "family",
-    "fact": "filedDocuments",
-    "place": "chat-story-offer",
-    "other": "chat-civil-family",
-    "why": "checks the chat's form values, not the case file"
   },
   {
     "court": "family",

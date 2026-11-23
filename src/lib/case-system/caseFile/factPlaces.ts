@@ -36,6 +36,8 @@ export const HELD_BY_READER: Readonly<Partial<Record<CaseFact, string>>> = {
   yourName: "heldYourName",
   // The home page's city and province (the story section's location).
   municipality: "heldLocation",
+  // The papers filed (the case file's documents list).
+  filedDocuments: "heldDocuments",
 };
 
 export type PlaceCourt = "small-claims" | "civil" | "family";
@@ -144,7 +146,7 @@ export const FACT_PLACES: readonly Place[] = [
       { fact: "side", kind: "ask", courts: CVFA, gate: FILE, ids: ["yourRole"] },
       { fact: "married", kind: "ask", courts: FA, gate: FILE, ids: ["married"] },
       { fact: "claimKind", kind: "ask", courts: CVFA, gate: FILE, ids: ["issues"] },
-      { fact: "filedDocuments", kind: "ask", courts: CVFA, gate: copy("the chat's form values"), ids: ["documents", "filedDocuments"] },
+      { fact: "filedDocuments", kind: "ask", courts: CVFA, gate: FILE, ids: ["documents", "filedDocuments"] },
       { fact: "children", kind: "ask", courts: FA, gate: FILE, ids: ["childrenInfo"] },
       { fact: "servedDate", kind: "ask", courts: CVFA, gate: FILE, ids: ["servedDate", "serviceDetails"] },
       { fact: "serviceMethod", kind: "ask", courts: CV, gate: FILE, ids: ["serviceDetails"] },
@@ -167,7 +169,7 @@ export const FACT_PLACES: readonly Place[] = [
       { fact: "amount", kind: "offer", courts: CV, gate: FILE },
       { fact: "wants", kind: "offer", courts: CVFA, gate: FILE },
       { fact: "otherParty", kind: "offer", courts: CVFA, gate: FILE },
-      { fact: "filedDocuments", kind: "offer", courts: CVFA, gate: copy("the chat's form values") },
+      { fact: "filedDocuments", kind: "offer", courts: CVFA, gate: FILE },
     ],
   },
   {

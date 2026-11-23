@@ -198,5 +198,13 @@ for (const item of CASES) {
   check("9. C9: both pages pass the held method to the step page", [readFileSync("app/builder/page.tsx", "utf8"), readFileSync("app/cases/[id]/page.tsx", "utf8")].every((page) => /heldServiceWords=\{heldServiceWords\(caseFileOf\(/.test(page)));
 }
 
+// 10. C9 (23 Nov 2026): which papers are filed is held in the case file's documents (the civil and Family forms and chats):
+// the chats never ask "documents" / "filedDocuments" again, nor offer it from the story, once it is held.
+{
+  const withDocs = { ...emptyCaseFileForTest(), documents: ["statement-of-claim"] };
+  check("10. C9: papers held in the case file are not asked again by the civil or Family chat", !mayShowQuestion(withDocs as never, "documents") && !mayShowQuestion(withDocs as never, "filedDocuments"));
+  check("10. C9 self-test: with no papers held, they are asked", mayShowQuestion(emptyCaseFileForTest() as never, "documents"));
+}
+
 if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }
 console.log("not sure is never asked again: every check passed.");

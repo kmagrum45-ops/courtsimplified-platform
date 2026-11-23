@@ -57,6 +57,10 @@ const SLOTS = new Set<string>(SLOT_FACTS);
 export function heldFile(): CaseFile {
   const file = {} as Record<string, unknown>;
   for (const fact of SLOT_FACTS) file[fact] = { state: "answered", value: "held", confirmed: true, source: { kind: "answer", question: "held" } };
+  // And every fact the case file holds outside its slots (HELD_BY_READER): the papers filed, the person's own name, their city.
+  file.documents = ["held"];
+  file.parties = { recorded: true, list: [{ id: "you", you: true, side: "yours", kind: "person", details: { firstName: "Held", lastName: "Person" }, unsure: [] }] };
+  file.location = { city: "Held", province: "Ontario" };
   return file as CaseFile;
 }
 

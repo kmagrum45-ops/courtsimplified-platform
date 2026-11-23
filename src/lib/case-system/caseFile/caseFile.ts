@@ -1187,6 +1187,11 @@ export function heldServiceWords(file: CaseFile | null | undefined): string {
   return typeof slot.value === "string" ? slot.value.trim() : "";
 }
 
+/** The papers the person said are filed (the civil and Family forms and chats), or none (C9): never asked again elsewhere. */
+export function heldDocuments(file: CaseFile | null | undefined): string[] {
+  return file?.documents ?? [];
+}
+
 /** The person's own city and province the case holds (the home page's), or null (C9): never asked again in another place. */
 export function heldLocation(file: CaseFile | null | undefined): { city: string; province: string } | null {
   return file?.location ?? null;

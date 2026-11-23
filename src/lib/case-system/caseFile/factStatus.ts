@@ -55,6 +55,9 @@ export function questionStatus(file: CaseFile | null | undefined, questionId: st
   // sure" (unsureDates). Never asked again in another place (C9, 23 Nov 2026).
   if (!facts.length) {
     if (file.unsureDates?.includes(questionId)) return "settled";
+    // Which papers are filed: held in the case file's list of documents (caseFile.ts heldDocuments), whichever place
+    // recorded them (the civil and Family forms and chats): never asked or offered again (C9).
+    if (factsOfQuestion(questionId, surface).includes("filedDocuments") && file.documents?.length) return "known";
     if (typeof file.answers?.[questionId] === "string" && file.answers[questionId].trim()) return "known";
     return "ask";
   }
