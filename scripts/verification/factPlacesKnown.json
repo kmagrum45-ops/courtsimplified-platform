@@ -36,13 +36,6 @@
   },
   {
     "court": "small-claims",
-    "fact": "court",
-    "place": "situation",
-    "other": "home-card",
-    "why": "checks the situation record, not the case file"
-  },
-  {
-    "court": "small-claims",
     "fact": "otherParty",
     "place": "home-other-party",
     "other": "sc-form",
@@ -65,44 +58,9 @@
   {
     "court": "small-claims",
     "fact": "side",
-    "place": "situation",
-    "other": "side-check",
-    "why": "checks the situation record, not the case file"
-  },
-  {
-    "court": "small-claims",
-    "fact": "side",
     "place": "forms",
     "other": "situation",
     "why": "checks the case position, not the case file"
-  },
-  {
-    "court": "small-claims",
-    "fact": "papers",
-    "place": "situation",
-    "other": "sc-guided",
-    "why": "checks the situation record, not the case file"
-  },
-  {
-    "court": "small-claims",
-    "fact": "servedDate",
-    "place": "situation",
-    "other": "sc-guided",
-    "why": "checks the situation record, not the case file"
-  },
-  {
-    "court": "small-claims",
-    "fact": "filed",
-    "place": "situation",
-    "other": "sc-guided",
-    "why": "checks the situation record, not the case file"
-  },
-  {
-    "court": "small-claims",
-    "fact": "stage",
-    "place": "situation",
-    "other": "sc-form",
-    "why": "checks the situation record, not the case file"
   },
   {
     "court": "small-claims",
@@ -232,13 +190,6 @@
   },
   {
     "court": "civil",
-    "fact": "court",
-    "place": "situation",
-    "other": "home-card",
-    "why": "checks the situation record, not the case file"
-  },
-  {
-    "court": "civil",
     "fact": "otherParty",
     "place": "home-other-party",
     "other": "chat-civil-family",
@@ -254,37 +205,9 @@
   {
     "court": "civil",
     "fact": "side",
-    "place": "situation",
-    "other": "side-check",
-    "why": "checks the situation record, not the case file"
-  },
-  {
-    "court": "civil",
-    "fact": "side",
     "place": "forms",
     "other": "situation",
     "why": "checks the case position, not the case file"
-  },
-  {
-    "court": "civil",
-    "fact": "servedDate",
-    "place": "situation",
-    "other": "chat-civil-family",
-    "why": "checks the situation record, not the case file"
-  },
-  {
-    "court": "civil",
-    "fact": "filed",
-    "place": "situation",
-    "other": "review",
-    "why": "checks the situation record, not the case file"
-  },
-  {
-    "court": "civil",
-    "fact": "stage",
-    "place": "situation",
-    "other": "stage-confirmation",
-    "why": "checks the situation record, not the case file"
   },
   {
     "court": "civil",
@@ -365,13 +288,6 @@
   },
   {
     "court": "family",
-    "fact": "court",
-    "place": "situation",
-    "other": "home-card",
-    "why": "checks the situation record, not the case file"
-  },
-  {
-    "court": "family",
     "fact": "otherParty",
     "place": "home-other-party",
     "other": "chat-civil-family",
@@ -394,37 +310,9 @@
   {
     "court": "family",
     "fact": "side",
-    "place": "situation",
-    "other": "side-check",
-    "why": "checks the situation record, not the case file"
-  },
-  {
-    "court": "family",
-    "fact": "side",
     "place": "forms",
     "other": "situation",
     "why": "checks the case position, not the case file"
-  },
-  {
-    "court": "family",
-    "fact": "servedDate",
-    "place": "situation",
-    "other": "chat-civil-family",
-    "why": "checks the situation record, not the case file"
-  },
-  {
-    "court": "family",
-    "fact": "filed",
-    "place": "situation",
-    "other": "review",
-    "why": "checks the situation record, not the case file"
-  },
-  {
-    "court": "family",
-    "fact": "stage",
-    "place": "situation",
-    "other": "stage-confirmation",
-    "why": "checks the situation record, not the case file"
   },
   {
     "court": "family",

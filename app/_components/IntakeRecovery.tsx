@@ -28,6 +28,7 @@ import { WorkingButton } from "./Working";
 import { saveThenLeave } from "./leaveAfterSave";
 import { courtOfSavedRow, SAVED_COURT_COLUMNS } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
 import { CASE_FILE_SECTION, caseFileOf, followAnswer } from "../../src/lib/case-system/caseFile/caseFile";
+import { situationWithHeld } from "../../src/lib/case-system/caseFile/situationHeld";
 import { storedFacts, withStoredFacts } from "../../src/lib/case-system/caseFile/serverFacts";
 import NotSavedYet from "./NotSavedYet";
 import { GUEST_ACCOUNT_NOTICE } from "../../src/lib/auth/signUpConfirmation";
@@ -708,7 +709,11 @@ function SituationGate({ court, ownerId, children }: { court: IntakeCourt; owner
   // The first-use notice (not a lawyer; AI is used) comes before any question, these included.
   const [notice, setNotice] = useState<boolean | null>(null);
   const known = withKnownCourt(situation, court);
-  const incomplete = nextSituationQuestion(known, court) !== null;
+  // What the case file holds from another place (the chat, the review, an older case) is never asked here again (C9).
+  const view = useIntakeReviewView();
+  const file = view && recovery ? caseFileOf(view.checkpoint, recovery.getSavedMaster() ?? undefined) : null;
+  const held = situationWithHeld(known, file);
+  const incomplete = nextSituationQuestion(held, court) !== null;
   // The court-path finder asked "Has a case already started?": that answer is the first one here.
   useEffect(() => {
     try {
@@ -747,12 +752,12 @@ function SituationGate({ court, ownerId, children }: { court: IntakeCourt; owner
   }
   if (incomplete || changing) {
     return <div className="mx-auto max-w-4xl px-6" data-testid="situation-gate">
-      <SituationQuestions situation={known} chosenCourt={court} reviewing={changing && !incomplete} onChange={setSituation} onSwitchCourt={switchCourt} onDone={() => setChanging(false)} />
+      <SituationQuestions situation={known} held={file} chosenCourt={court} reviewing={changing && !incomplete} onChange={setSituation} onSwitchCourt={switchCourt} onDone={() => setChanging(false)} />
       {changing && !incomplete && <button type="button" data-testid="situation-change-done" onClick={() => setChanging(false)} className="mt-3 text-sm font-semibold text-[#2f7d67] underline">Keep my answers as they are</button>}
     </div>;
   }
   return <>
-    <SituationLine situation={known} onChange={() => setChanging(true)} />
+    <SituationLine situation={held} onChange={() => setChanging(true)} />
     <SideCrossCheck court={court} situation={known} onChange={() => setChanging(true)} />
     <IntakeSafetyNotice />
     {children}

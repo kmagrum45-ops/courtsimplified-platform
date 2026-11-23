@@ -105,16 +105,16 @@ export const FACT_PLACES: readonly Place[] = [
   },
   {
     id: "situation",
-    name: "Where things stand: the first questions after the home page",
+    name: "Where things stand: the first questions after the home page (a fact the case file holds from another place is not asked: situationHeld.ts)",
     at: "app/_components/SituationQuestions.tsx",
     facts: [
       { fact: "situation", kind: "ask", courts: ALL, gate: FIRST },
-      { fact: "side", kind: "ask", courts: ALL, gate: copy("the situation record") },
-      { fact: "papers", kind: "ask", courts: ALL, gate: copy("the situation record") },
-      { fact: "servedDate", kind: "ask", courts: ALL, gate: copy("the situation record") },
-      { fact: "filed", kind: "ask", courts: ALL, gate: copy("the situation record") },
-      { fact: "court", kind: "ask", courts: ALL, gate: copy("the situation record") },
-      { fact: "stage", kind: "ask", courts: ALL, gate: copy("the situation record") },
+      { fact: "side", kind: "ask", courts: ALL, gate: FILE },
+      { fact: "papers", kind: "ask", courts: ALL, gate: FILE },
+      { fact: "servedDate", kind: "ask", courts: ALL, gate: FILE },
+      { fact: "filed", kind: "ask", courts: ALL, gate: FILE },
+      { fact: "court", kind: "ask", courts: ALL, gate: FILE },
+      { fact: "stage", kind: "ask", courts: ALL, gate: FILE },
     ],
   },
   {
