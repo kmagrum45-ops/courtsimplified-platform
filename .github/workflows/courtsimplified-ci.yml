@@ -754,6 +754,9 @@ jobs:
       - name: Three more 2026-11-22 follow-ups use the rule's own words (r. 48.14 (1), r. 14 (11) (b), r. 17 (3.3)), each with its quote
         run: npm run test:wording-leftovers-3-5-20261122
 
+      - name: The approved Civil lien and Evidence Act wording of 2026-11-22 and 2026-11-23 is on the site word for word, with its quotes
+        run: npm run test:civil-lien-evidence-20261123
+
       - name: The approved legal changes of 2026-11-21 are on the site word for word, with their quotes
         run: npm run test:legal-changes-20261121
 

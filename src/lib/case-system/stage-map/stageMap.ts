@@ -187,6 +187,11 @@ export type StageDeadline = {
    */
   showsCounting?: true;
   /**
+   * Show the Legislation Act paragraph worded for a deadline a statute OR a regulation sets (approved 2026-11-22 for
+   * O. Reg. 302/18's 20-day lien defence). Only where set: other Legislation Act deadlines keep their own sentences.
+   */
+  statuteOrRegulationCounting?: true;
+  /**
    * A point in time after which a step needs the court's leave, not a period
    * for taking a step (2026-10-13 review: r. 20.08 (2.1)'s "more than six
    * years have passed since the order was made"). Counted to the anniversary
@@ -243,6 +248,12 @@ export type CaseStage = {
    */
   rulesLinkOnly?: boolean;
   deadlines: StageDeadline[];
+  /**
+   * Approved Your deadline paragraphs for a step whose times are stated in words, not counted (approved 2026-11-22:
+   * civil:plaintiff:lien-claimant, Construction Act ss. 31, 34, 36, 37). Shown after the rendered deadlines, word for
+   * word; the deadline engine counts nothing from them.
+   */
+  deadlineWords?: string[];
   /**
    * This stage renders ONLY where the scope classifier affirmatively said
    * "small-claims". Not "did not say out-of-scope" — said it.

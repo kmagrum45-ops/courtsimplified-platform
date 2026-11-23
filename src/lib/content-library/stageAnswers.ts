@@ -217,6 +217,19 @@ const STATUTORY_WEEKEND_WARNING =
   "filing at an office. If that place is not open during its regular hours on the last " +
   "day, the deadline moves to the next day it is open during its regular hours (s. 89 (2)).";
 
+/**
+ * The same paragraph for a deadline a statute OR a regulation sets (approved 2026-11-22, civil:defendant:served-with-lien-claim:
+ * O. Reg. 302/18's 20 days are not set "under these rules", RCP r. 3.01). Shown only where a deadline asks for it
+ * (`statuteOrRegulationCounting`).
+ */
+const STATUTE_OR_REGULATION_COUNTING =
+  "A deadline in an Ontario statute or regulation is counted under the Legislation Act, 2006, unless it shows " +
+  "otherwise. When a period is described as starting after a day, that day is not counted (s. 89 (5)). If the last " +
+  "day is a Sunday or a holiday, the deadline moves to the next day that is not a holiday (s. 89 (1)). Saturday is " +
+  "not a holiday under that Act, so a Saturday does not by itself move the deadline. Some deadlines are for doing " +
+  "something at a place, such as filing at an office. If that place is not open during its regular hours on the " +
+  "last day, the deadline moves to the next day it is open during its regular hours (s. 89 (2)).";
+
 export function renderDeadlineSection(
   deadlines: Array<{
     what: string;
@@ -229,6 +242,7 @@ export function renderDeadlineSection(
     qualifier?: string;
     beforeLead?: string;
     showsCounting?: true;
+    statuteOrRegulationCounting?: true;
     threshold?: true;
   }>,
 ): string | null {
@@ -312,16 +326,18 @@ export function renderDeadlineSection(
  * reads.
  */
 function weekendWarningFor(
-  deadlines: Array<{ regime?: string; consequence?: string }>,
+  deadlines: Array<{ regime?: string; consequence?: string; statuteOrRegulationCounting?: true }>,
 ): string {
   const statutoryBar = deadlines.some(
     (deadline) =>
       deadline.regime === "legislation-act" && deadline.consequence === "bars-the-claim",
   );
+  const statuteOrRegulation = deadlines.some((deadline) => deadline.statuteOrRegulationCounting);
   const civil = deadlines.some((deadline) => deadline.regime === "civil-rules");
   const family = deadlines.some((deadline) => deadline.regime === "family-rules");
   return (
     (statutoryBar ? `\n\n${STATUTORY_WEEKEND_WARNING}` : "") +
+    (statuteOrRegulation ? `\n\n${STATUTE_OR_REGULATION_COUNTING}` : "") +
     (civil ? `\n\n${CIVIL_RULES_COUNTING}` : "") +
     (family ? `\n\n${FAMILY_RULES_COUNTING}` : "")
   );

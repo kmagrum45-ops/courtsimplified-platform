@@ -47,6 +47,7 @@ import {
   type CorpusSourceId,
   type RuleCitation,
 } from "../../src/lib/case-system/stage-map/citations";
+import { quoteProblems, savedTextForms, type SavedTextForms } from "../content/savedQuoteMatch";
 import * as CITATIONS from "../../src/lib/case-system/stage-map/citations";
 import { LIMITATION_ADMISSION_RESTARTS_CLOCK } from "../../src/lib/case-system/stage-map/civilStages";
 import {
@@ -66,17 +67,16 @@ function fail(message: string): void {
   failures.push(message);
 }
 
-/** antiword pads words apart and hard-wraps. Compare on collapsed whitespace. */
-const flat = (text: string): string => text.replace(/\s+/g, " ").trim();
-
 // ---------------------------------------------------------------------------
 // 1. Every quote is in the corpus
 // ---------------------------------------------------------------------------
 
-const corpus = new Map<string, string>();
+// Each saved source in both forms the quote check reads (scripts/content/savedQuoteMatch.ts; antiword pads words apart
+// and hard-wraps, so quotes are compared on collapsed whitespace).
+const corpus = new Map<string, SavedTextForms>();
 for (const file of readdirSync(CORPUS_DIR)) {
   if (file.endsWith(".txt")) {
-    corpus.set(file.replace(/\.txt$/, ""), flat(readFileSync(path.join(CORPUS_DIR, file), "utf8")));
+    corpus.set(file.replace(/\.txt$/, ""), savedTextForms(readFileSync(path.join(CORPUS_DIR, file), "utf8")));
   }
 }
 
@@ -122,23 +122,17 @@ const reachedByStages = new Set(
 
 let quotesChecked = 0;
 for (const citation of allCitations) {
-  const text = corpus.get(citation.sourceId);
-  if (!text) {
+  const saved = corpus.get(citation.sourceId);
+  if (!saved) {
     fail(`${citation.pinpoint}: no vendored corpus file for "${citation.sourceId}". Run npm run rules:fetch.`);
     continue;
   }
 
   // A quote may skip material with " ... ". Each run is checked separately,
-  // so an ellipsis cannot be used to stitch together text that is not there.
-  for (const run of citation.quote.split(" ... ")) {
-    quotesChecked += 1;
-    if (!text.includes(flat(run))) {
-      fail(
-        `${citation.pinpoint} (${citation.sourceId}): quoted text is NOT in the vendored source.\n` +
-          `      looked for: ${flat(run).slice(0, 120)}`,
-      );
-    }
-  }
+  // so an ellipsis cannot be used to stitch together text that is not there (savedQuoteMatch.ts, with its two allowances).
+  const checked = quoteProblems(citation.quote, saved);
+  quotesChecked += checked.runs;
+  for (const problem of checked.problems) fail(`${citation.pinpoint} (${citation.sourceId}): ${problem}`);
 
   if (!OFFICIAL_URLS[citation.sourceId as CorpusSourceId]) {
     fail(`${citation.pinpoint}: no official URL recorded for "${citation.sourceId}".`);
