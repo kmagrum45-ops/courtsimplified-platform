@@ -40,7 +40,8 @@ export function stageRulesText(stage: CaseStage): StageRulesText {
     .join("\n\n");
   return {
     title: stage.title,
-    deadlines: renderDeadlineSection(stage.deadlines),
+    // A step's approved deadline paragraphs in words (stageMap.ts deadlineWords) follow the rendered deadlines.
+    deadlines: [renderDeadlineSection(stage.deadlines), ...(stage.deadlineWords ?? [])].filter(Boolean).join("\n\n") || null,
     rules: rules || null,
   };
 }

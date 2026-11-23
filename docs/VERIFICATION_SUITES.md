@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-323 documented, 26 without a header.
+324 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -79,6 +79,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:chrome-pass-2` | **Chrome's milestone pass 2 on PR #550 (bbcade40, 17 Nov 2026): each finding, by its number, at the shared piece that**<br>owns it, so it cannot come back on any route. |
 | `npm run test:citations` | **EVERY CITATION THE SITE SHOWS SAYS EXACTLY WHAT IT CITES (Charter re-test, 27 Oct, root cause 5).**<br>Runs over the whole library: every quoted citation in the stage map (its steps, deadlines, moves and final steps), the rules shown beside published sentences, the practical lines (forms, fees, filing, service), and every source's name. For each it asserts, as  |
 | `npm run test:cited-provisions` | **Every cited provision is vendored, and no not-in-force replacement is**<br>undeclared or stale. |
+| `npm run test:civil-lien-evidence-20261123` | **THE APPROVED CIVIL LIEN AND EVIDENCE ACT WORDING OF 2026-11-22 AND 2026-11-23 IS ON THE SITE WORD FOR WORD (OWNER'S**<br>REVIEW AND DECISIONS LOG, "CHANGES FOR THE SITE CHAT"). civil:plaintiff:lien-claimant (5): the s. 35 (1) and s. 39 (1) quotes in full; s. 31 (3), (6), (7) after s. 31 (2); the new Your deadline box, four paragraphs (ss. 31, 34 (1), 36 (2), (3), 37 (1); O. Reg. |
 | `npm run test:claim-amount` | **The amount offered as "the amount claimed" is the one owed, claimed or the**<br>damage -- never an amount already paid, a fee or a price -- and nothing is offered when the story leaves it unclear (claimAmount.ts). |
 | `npm run test:claim-kind-one-value` | **CLAIM TYPE: ONE FACT, ONE VALUE ON EVERY SCREEN (site owner, 29 Oct; the first fact moved into**<br>the case file). |
 | `npm run test:claim-library` | **Everything the public claims library shows is approved library content.**<br>COSTS NOTHING. Pure data; no model call. |

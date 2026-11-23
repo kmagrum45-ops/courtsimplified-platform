@@ -144,7 +144,11 @@ Source-format traps hit while writing them:
 - e-Laws rule files use straight apostrophes; ontario.ca guide pages use
   curly ones. A quote of "party's" must match the file it came from.
 - A line break inside a hyphenated word ("cross-\nexamine") collapses to
-  "cross- examine"; reword rather than quote across it.
+  "cross- examine"; reword rather than quote across it. Since 2026-11-23
+  (owner's decision, Construction Act s. 39 (1) "twenty-\none") the stage-map
+  quote check (`scripts/content/savedQuoteMatch.ts`) also reads such a word
+  joined, hyphen kept, so a quote of the law's own "twenty-one" passes there.
+  Other quote checks still compare on collapsed whitespace only.
 - Three Steps to Justice pages in the corpus were last reviewed on February
   23, 2017 (including the 20% wage-garnishment figure and "only a lawyer can
   represent you in Superior Court"); the guides state that date wherever they

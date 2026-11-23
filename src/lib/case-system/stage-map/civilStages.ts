@@ -2454,6 +2454,24 @@ export const LIEN_CA_31_2: RuleCitation = {
   quote: "Subject to subsection (4), the lien of a contractor, (a) for services or materials supplied to an improvement on or before the date certified or declared to be the date of the substantial performance of the contract, expires at the conclusion of the 60-day period next following the occurrence of the earlier of, (i) the date on which a copy of the certificate or declaration of the substantial performance of the contract is published as provided in section 32, and (ii) the date the contract is completed, abandoned or terminated; and (b) for services or materials supplied to the improvement where there is no certification or declaration of the substantial performance of the contract, or for services or materials supplied to the improvement after the date certified or declared to be the date of substantial performance, expires at the conclusion of the 60-day period next following the occurrence of the earlier of, (i) the date the contract is completed, and (ii) the date the contract is abandoned or terminated.",
 };
 
+export const LIEN_CA_31_3: RuleCitation = {
+  sourceId: "construction-act",
+  pinpoint: "s. 31 (3)",
+  quote: "Subject to subsection (4), the lien of any other person, (a) for services or materials supplied to an improvement on or before the date certified or declared to be the date of the substantial performance of the contract, expires at the conclusion of the 60-day period next following the occurrence of the earliest of, (i) the date on which a copy of the certificate or declaration of the substantial performance of the contract is published, as provided in section 32, (ii) the date on which the person last supplies services or materials to the improvement, (ii.1) the date the contract is completed, abandoned or terminated, and (iii) the date a subcontract is certified to be completed under section 33, where the services or materials were supplied under or in respect of that subcontract; and (b) for services or materials supplied to the improvement where there is no certification or declaration of the substantial performance of the contract, or for services or materials supplied to the improvement after the date certified or declared to be the date of the substantial performance of the contract, expires at the conclusion of the 60-day period next following the occurrence of the earlier of, (i) the date on which the person last supplied services or materials to the improvement, (i.1) the date the contract is completed, abandoned or terminated, and (ii) the date a subcontract is certified to be completed under section 33, where the services or materials were supplied under or in respect of that subcontract.",
+};
+
+export const LIEN_CA_31_6: RuleCitation = {
+  sourceId: "construction-act",
+  pinpoint: "s. 31 (6)",
+  quote: "No later than seven days after a contract is terminated, either the owner or the contractor or other person whose lien is subject to expiry shall publish a notice of the termination in the prescribed form and manner.",
+};
+
+export const LIEN_CA_31_7: RuleCitation = {
+  sourceId: "construction-act",
+  pinpoint: "s. 31 (7)",
+  quote: "If a notice of termination is published in accordance with subsection (6) in respect of a contract, the date on which the contract was terminated is, for the purposes of this section, the date on which the notice was published or, if more than one notice is published in accordance with that subsection, the date on which the first of the notices was published.",
+};
+
 export const LIEN_CA_34_1: RuleCitation = {
   sourceId: "construction-act",
   pinpoint: "s. 34 (1)",
@@ -2463,7 +2481,7 @@ export const LIEN_CA_34_1: RuleCitation = {
 export const LIEN_CA_35_1: RuleCitation = {
   sourceId: "construction-act",
   pinpoint: "s. 35 (1)",
-  quote: "any person who preserves a claim for lien or who gives written notice of a lien in the following circumstances is liable to any person who suffers damages as a result: 1. The person knows or ought to know that the amount of the lien has been wilfully exaggerated. 2. The person knows or ought to know that he or she does not have a lien.",
+  quote: "In addition to any other ground on which the person may be liable, any person who preserves a claim for lien or who gives written notice of a lien in the following circumstances is liable to any person who suffers damages as a result: 1. The person knows or ought to know that the amount of the lien has been wilfully exaggerated. 2. The person knows or ought to know that he or she does not have a lien.",
 };
 
 export const LIEN_CA_36_2: RuleCitation = {
@@ -2487,7 +2505,7 @@ export const LIEN_CA_37_1: RuleCitation = {
 export const LIEN_CA_39_1: RuleCitation = {
   sourceId: "construction-act",
   pinpoint: "s. 39 (1)",
-  quote: "Any person having a lien or who is the beneficiary of a trust under Part II or who is a mortgagee may, at any time, by written request, require information to be provided within a reasonable time",
+  quote: "Any person having a lien or who is the beneficiary of a trust under Part II or who is a mortgagee may, at any time, by written request, require information to be provided within a reasonable time, not to exceed twenty-one days, as follows: …",
 };
 
 export const LIEN_CA_44_1: RuleCitation = {
@@ -2502,10 +2520,22 @@ export const LIEN_CA_44_2: RuleCitation = {
   quote: "Upon the motion of any person, the court may make an order vacating the registration of a claim for lien, and any certificate of action in respect of that lien, upon the payment into court or the posting of security of an amount that the court determines to be reasonable in the circumstances to satisfy the lien.",
 };
 
+export const LIEN_CA_45_1: RuleCitation = {
+  sourceId: "construction-act",
+  pinpoint: "s. 45 (1)",
+  quote: "Where a lien that attaches to the premises is not preserved or is not perfected within the time allowed for doing so under section 31 or 36, the court upon, (a) the motion of any person without notice to any other person; (b) proof that the lien has not been preserved or perfected within the time allowed; and (c) production of, (i) a certificate of search under the Land Titles Act, or (ii) a registrar's abstract under the Registry Act, together with a certified copy of the claim for lien, shall declare that the lien has expired and order that the registration of the claim for lien be vacated.",
+};
+
 export const LIEN_CA_47_1: RuleCitation = {
   sourceId: "construction-act",
   pinpoint: "s. 47 (1)",
   quote: "The court may, on motion, order the discharge of a lien, (a) on the basis that the claim for the lien is frivolous, vexatious or an abuse of process; or (b) on any other proper ground.",
+};
+
+export const LIEN_CA_47_1_1: RuleCitation = {
+  sourceId: "construction-act",
+  pinpoint: "s. 47 (1.1)",
+  quote: "The court may, on motion, make any of the following orders, on any proper ground: 1. An order that the registration of a claim for lien, a certificate of action or both be vacated. 2. If written notice of a lien has been given, a declaration that the lien has expired or that the written notice of the lien shall no longer bind the person to whom it was given. 3. An order dismissing an action.",
 };
 
 export const LIEN_CA_50_1: RuleCitation = {
@@ -2566,6 +2596,18 @@ export const LIEN_REG_5_2: RuleCitation = {
   sourceId: "oreg-302-18-construction-act-procedures",
   pinpoint: "s. 5 (2)",
   quote: "If a defendant or third party has been noted in default under subsection (1), the defendant or third party may not contest the claim of the person who named the defendant or third party as a defendant or third party, or file a statement of defence, except with leave of the court.",
+};
+
+export const LIEN_REG_5_3: RuleCitation = {
+  sourceId: "oreg-302-18-construction-act-procedures",
+  pinpoint: "s. 5 (3)",
+  quote: "A court may grant leave under subsection (2) only if the court is satisfied that there is evidence to support a defence.",
+};
+
+export const LIEN_REG_5_5: RuleCitation = {
+  sourceId: "oreg-302-18-construction-act-procedures",
+  pinpoint: "s. 5 (5)",
+  quote: "The following rules apply with respect to a defendant or third party who has been noted in default under subsection (1), if leave is not granted under subsection (2): 1. The defendant or third party is deemed to admit all allegations of fact made in the statement of claim, counterclaim, crossclaim or third party claim, as the case may be. 2. Despite anything to the contrary in this Regulation, the defendant or third party is not entitled to notice of the trial of the action or of any step in the action, or to participate in the trial of the action or in any step in the action. 3. Default judgment may be given against the defendant or third party.",
 };
 
 export const LIEN_REG_13: RuleCitation = {
@@ -2937,6 +2979,9 @@ const PLAINTIFF: CaseStage[] = [
       LIEN_CA_14_1,
       LIEN_CA_31_1,
       LIEN_CA_31_2,
+      LIEN_CA_31_3,
+      LIEN_CA_31_6,
+      LIEN_CA_31_7,
       LIEN_CA_34_1,
       LIEN_CA_36_2,
       LIEN_CA_36_3,
@@ -2949,6 +2994,14 @@ const PLAINTIFF: CaseStage[] = [
       LIEN_REG_1_3,
     ],
     deadlines: [],
+    // Approved 2026-11-22 (Construction Act ss. 31, 34 (1), 36 (2), (3), 37 (1); O. Reg. 302/18 s. 1 (2), (3)): stated in
+    // words, so nothing here is counted by the deadline engine.
+    deadlineWords: [
+      "To keep your lien, preserve it before it expires. It expires at the end of 60 days after the earliest of the events in s. 31 that apply to you: s. 31 (2) if you are the contractor, s. 31 (3) if you are a subcontractor or supplier. You preserve it by registering a claim for lien on title, or, if the lien does not attach to the premises, by giving the owner a copy of the claim for lien.",
+      "Then perfect the lien within 90 days after the last day it could have been preserved. You do this by starting an action and, where the lien attaches to the premises, registering a certificate of action on title. Serve the statement of claim within 90 days after it is issued, unless the court extends the time.",
+      "A perfected lien expires immediately after the second anniversary of the start of the action, unless by then the action is set down for trial or an order is made for its trial.",
+      "These times are set by a statute, so they are counted under the Legislation Act, 2006, not the Rules of Civil Procedure.",
+    ],
   },
 
   {
@@ -3657,12 +3710,17 @@ const DEFENDANT: CaseStage[] = [
       LIEN_CA_14_1,
       LIEN_CA_31_1,
       LIEN_CA_31_2,
+      LIEN_CA_31_3,
+      LIEN_CA_31_6,
+      LIEN_CA_31_7,
       LIEN_CA_34_1,
       LIEN_CA_36_2,
       LIEN_CA_36_3,
       LIEN_CA_44_1,
       LIEN_CA_44_2,
+      LIEN_CA_45_1,
       LIEN_CA_47_1,
+      LIEN_CA_47_1_1,
       LIEN_CA_35_1,
       LIEN_CA_39_1,
       LIEN_CA_50_1,
@@ -3703,8 +3761,11 @@ const DEFENDANT: CaseStage[] = [
       LIEN_REG_1_2,
       LIEN_REG_2_5,
       LIEN_REG_2_2,
+      LIEN_REG_2_3,
       LIEN_REG_5_1,
       LIEN_REG_5_2,
+      LIEN_REG_5_3,
+      LIEN_REG_5_5,
       LIEN_REG_13,
       LIEN_CA_44_1,
       LIEN_CA_47_1,
@@ -3716,13 +3777,15 @@ const DEFENDANT: CaseStage[] = [
         countFrom: "the day you were served with the statement of claim",
         countFromEvent: "served-with-claim",
         length: { unit: "days", count: 20 },
-        regime: "civil-rules",
+        // Set by O. Reg. 302/18, not "under these rules" (RCP r. 3.01), so counted under the Legislation Act, 2006 (approved 2026-11-22).
+        regime: "legislation-act",
         rule: LIEN_REG_2_5,
-        computation: C.RCP_3_01_COUNT,
+        computation: C.S_LEGISLATION_89_3_BETWEEN,
         consequence: "changes-what-happens-next",
         qualifier:
-          "A crossclaim or counterclaim goes with the statement of defence, unless the court gives leave on a motion made before the defence is delivered. A defendant who does not deliver a defence may be noted in default, and then cannot contest the claim or file a defence without the court's leave.",
-        exceptions: [LIEN_REG_2_2, LIEN_REG_2_3, LIEN_REG_5_1, LIEN_REG_5_2, LIEN_CA_50_2],
+          "A crossclaim or counterclaim goes with the statement of defence, unless the court gives leave on a motion made before the defence is delivered. A defendant who does not deliver a defence may be noted in default, and then cannot contest the claim or file a defence without the court's leave. If you are noted in default and the court does not give leave, you are treated as admitting all the facts in the claim, you are not entitled to notice of the trial or of any step in the action, and default judgment may be given against you.",
+        statuteOrRegulationCounting: true,
+        exceptions: [LIEN_REG_2_2, LIEN_REG_2_3, LIEN_REG_5_1, LIEN_REG_5_2, LIEN_REG_5_5, LIEN_CA_50_2],
       },
     ],
   },
@@ -5332,7 +5395,7 @@ const BOTH: CaseStage[] = [
         computation: C.S_LEGISLATION_89_3_BETWEEN,
         consequence: "changes-what-happens-next",
         qualifier:
-          "The Act requires at least ten days notice to all other parties before the report is admitted. It does not name the trial date. Notice given at least 10 days before the first day of trial covers every day of the trial. Giving notice later, even because of a Sunday or holiday, leaves fewer than 10 days. This notice is set by a statute, the Evidence Act. So it is counted under the Legislation Act, 2006, not under the court rules' counting described below. The day the notice is given is not counted, and the day the report is offered is. The report also needs the court's leave to be admitted. When notice is given, the other parties can get a copy of the report, unless the court orders otherwise. A practitioner who signed a report cannot testify at trial unless the report was given to the other parties this way. The trial judge can allow it anyway.",
+          "The Act requires at least ten days notice to all other parties before the report is admitted. It does not name the trial date. Notice given at least 10 days before the first day of trial covers every day of the trial. Giving notice later, even because of a Sunday or holiday, leaves fewer than 10 days. This notice is set by a statute, the Evidence Act. So it is counted under the Legislation Act, 2006, not under the court rules' counting described below. The day the notice is given is not counted, and the day the report is offered is. The report also needs the court's leave to be admitted. When notice is given, the other parties can get a copy of the report, and of any other report of that practitioner that relates to the case, unless the court orders otherwise. A practitioner who signed a report cannot testify at trial unless the report was given to the other parties this way. The trial judge can allow it anyway.",
         exceptions: [S_EVIDENCE_52_3, S_EVIDENCE_52_4, RCP_3_01_SCOPE],
       },
       {
