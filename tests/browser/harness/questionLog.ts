@@ -11,13 +11,13 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { factsOfAsk, namesAFact, restoredAsk, type Asked } from "./askOnce";
+import { blindBoxes, factsOfAsk, namesAFact, restoredAsk, type Asked } from "./askOnce";
 
 /** Surfaces that offer a value read from the story (Yes / No, that's not right / I'm not sure), never ask it cold. */
 // The ask-once suite's own list (ask-once-pages.spec.ts OFFER_SURFACES), with the Form 7A story screen.
 export const OFFER_SURFACES = new Set(["sc-proposal", "story-proposal-row", "guided-form-from-story", "claim-kind", "parties-offer", "forms-offer", "form7a-found", "sc-form-offer"]);
 
-export type LogResult = { lines: string[]; held: string[]; twice: string[]; noFact: string[] };
+export type LogResult = { lines: string[]; held: string[]; twice: string[]; noFact: string[]; blind: string[] };
 
 export function questionLog(events: readonly Asked[]): LogResult {
   const lines: string[] = [];
@@ -48,7 +48,8 @@ export function questionLog(events: readonly Asked[]): LogResult {
       if (!before) shownFact.set(fact, `${event.surface}|${event.id}`);
     }
   }
-  return { lines, held, twice, noFact };
+  // Boxes on screen no surface logged and the exempt list does not name (askOnce.ts blindBoxes, Round 3 Step A).
+  return { lines, held, twice, noFact, blind: blindBoxes(events) };
 }
 
 /** Writes the log for one journey to question-logs/<name>.txt and returns its verdicts. */
@@ -59,13 +60,14 @@ export function writeQuestionLog(name: string, title: string, events: readonly A
   const body = [
     `QUESTION LOG: ${title}`,
     `Code: ${process.env.QUESTION_LOG_CODE ?? process.env.GITHUB_SHA ?? "local"}`,
-    `Questions shown: ${result.lines.length}. Asked while held: ${result.held.length}. Shown twice: ${result.twice.length}. No fact id: ${result.noFact.length}.`,
+    `Questions shown: ${result.lines.length}. Asked while held: ${result.held.length}. Shown twice: ${result.twice.length}. No fact id: ${result.noFact.length}. Boxes not logged: ${result.blind.length}.`,
     "",
     ...result.lines,
     "",
     "ASKED WHILE HELD:", ...(result.held.length ? result.held : ["(none)"]),
     "SHOWN TWICE:", ...(result.twice.length ? result.twice : ["(none)"]),
     "NO FACT ID:", ...(result.noFact.length ? result.noFact : ["(none)"]),
+    "BOXES NOT LOGGED (no surface, not exempt):", ...(result.blind.length ? result.blind : ["(none)"]),
     "",
   ].join("\n");
   fs.writeFileSync(path.join(dir, `${name}.txt`), body);

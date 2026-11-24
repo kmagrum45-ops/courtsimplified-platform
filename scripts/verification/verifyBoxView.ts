@@ -69,5 +69,29 @@ const asked = fs.readFileSync("app/_components/AskedField.tsx", "utf8");
 check("5. the form's box component decides through boxView", /boxView\(/.test(asked) && /from "[^"]*caseFile\/boxView"/.test(asked));
 check("5. the box component never returns without its box (no early return of nothing, no text in its place)", !/return null;/.test(asked.slice(asked.indexOf("export function AskedField"), asked.indexOf("export function useBoxesFollow"))));
 
+// 6. EVERY typed box of the Small Claims form is wrapped in its own AskedField, or is on the exempt list with its reason
+// (site owner, 24 Nov 2026: four boxes -- paymentHistory, defenceResponse, settlementEfforts, deadlineDetails -- were not,
+// and a new unwrapped box must fail the build). A box is a textarea, input or select whose data-testid is "sc-intake-<field>".
+export const EXEMPT_FORM_BOXES: Readonly<Record<string, string>> = {
+  // No box is exempt today. A box that holds no fact (a free note) goes here, with why.
+};
+export function unwrappedFormBoxes(source: string): string[] {
+  const out: string[] = [];
+  const open: string[] = [];
+  const token = /<AskedField\s+field="([A-Za-z]+)"|<\/AskedField>|<(textarea|input|select)\b[^>]*?data-testid="sc-intake-([A-Za-z]+)"/g;
+  for (let m = token.exec(source); m; m = token.exec(source)) {
+    if (m[1]) open.push(m[1]);
+    else if (m[0] === "</AskedField>") open.pop();
+    else if (open[open.length - 1] !== m[3] && !(m[3] in EXEMPT_FORM_BOXES)) out.push(m[3]);
+  }
+  return out;
+}
+const form = fs.readFileSync("app/builder/_components/SmallClaimsIntake.tsx", "utf8");
+const unwrapped = unwrappedFormBoxes(form);
+check("6. every Small Claims form box is in its own AskedField (boxView), or exempt with a reason", unwrapped.length === 0, `not wrapped: ${unwrapped.join(", ")}`);
+check("6. the scan finds the form's boxes (it read at least 12)", (form.match(/data-testid="sc-intake-[A-Za-z]+"/g) ?? []).length >= 12);
+check("6. self-test: a planted box outside any AskedField is found", unwrappedFormBoxes(`<AskedField field="goal"><textarea data-testid="sc-intake-goal" /></AskedField><textarea data-testid="sc-intake-planted" />`).join() === "planted");
+check("6. self-test: a box inside ANOTHER box's AskedField is found", unwrappedFormBoxes(`<AskedField field="goal"><textarea data-testid="sc-intake-other" /></AskedField>`).join() === "other");
+
 console.log(failures ? `\n${failures} check(s) failed.` : "\nEvery form box: one table, one function, the box in every state.");
 process.exit(failures ? 1 : 0);

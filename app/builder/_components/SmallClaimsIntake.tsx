@@ -766,7 +766,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   // The boxes the page is offering from the story now: each gives way to its offer (AskedField OfferedFields).
   // Each offer for a box the form shows goes in that box's own place (AskedField OfferedFields): one prompt for the fact, the
   // box still there to type in. The offers for facts with no box of their own stay in the list below.
-  const BOXED = new Set(["amountClaimed", "timeline", "goal", "evidence"]);
+  // A box whose story offer sits above it, in its own place (the recorder's "same fact, same place"); settlementEfforts too
+  // since its box is wrapped (24 Nov 2026): the story reader finds it, and its offer was in the list while its box stood empty.
+  const BOXED = new Set(["amountClaimed", "timeline", "goal", "evidence", "settlementEfforts"]);
   const offerFor = (fact: (typeof foundToOffer)[number]) => (
     <div className="mt-1 mb-2 rounded-xl border border-cyan-200 bg-cyan-50 p-3 text-sm text-[#24463d]" data-testid="sc-form-box-offer" data-field={fact.field} data-fact={fact.facts.join(" ") || undefined}>
       <UseSuggestion
@@ -1436,6 +1438,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             />
             </AskedField>
 
+            {/* paymentHistory is a fact of its own (factsOfQuestion.ts): the one asker decides the box (boxView), as every form box (site owner, 24 Nov 2026). */}
+            <AskedField field="paymentHistory" value={input.paymentHistory} label={"Payment history"}>
             <textarea
               data-testid="sc-intake-paymentHistory" value={input.paymentHistory}
               onChange={(event) =>
@@ -1444,7 +1448,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Payment history, only if money, invoices, loan, debt, or services are involved"
             />
+            </AskedField>
 
+            {/* defenceResponse is a fact of its own (factsOfQuestion.ts): the one asker decides the box (boxView), as every form box (site owner, 24 Nov 2026). */}
+            <AskedField field="defenceResponse" value={input.defenceResponse} label={"Defence response"}>
             <textarea
               data-testid="sc-intake-defenceResponse" value={input.defenceResponse}
               onChange={(event) =>
@@ -1453,7 +1460,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Defence response, only if you are responding to someone else's claim"
             />
+            </AskedField>
 
+            {/* settlementEfforts is a fact of its own (factsOfQuestion.ts): the one asker decides the box (boxView), as every form box (site owner, 24 Nov 2026). */}
+            <AskedField field="settlementEfforts" value={input.settlementEfforts} label={"Settlement efforts or offers"}>
             <textarea
               data-testid="sc-intake-settlementEfforts" value={input.settlementEfforts}
               onChange={(event) =>
@@ -1462,7 +1472,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Settlement efforts or offers"
             />
+            </AskedField>
 
+            {/* deadlineDetails is a fact of its own (factsOfQuestion.ts): the one asker decides the box (boxView), as every form box (site owner, 24 Nov 2026). */}
+            <AskedField field="deadlineDetails" value={input.deadlineDetails} label={"Deadlines, court dates, or urgent timing concerns"}>
             <textarea
               data-testid="sc-intake-deadlineDetails" value={input.deadlineDetails}
               onChange={(event) =>
@@ -1471,6 +1484,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Deadlines, court dates, or urgent timing concerns"
             />
+            </AskedField>
 
             {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
             <AskedField field="urgent" value={input.urgent} label={"Anything urgent"}>

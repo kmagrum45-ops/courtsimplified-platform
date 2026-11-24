@@ -96,6 +96,35 @@ async function throughTheRoute() {
   check("6. a Parties record sent alone is saved, numbered 1, and returned", one.ok && one.parties?.seq === 1 && (section().parties as PartiesRecord) === BETA && section()[PARTIES_SEQ] === 1, JSON.stringify(one));
   const two = await saveFactWrites(client as never, { caseId: CASE_ID, userId: "u1", court: "small-claims" }, [], undefined, [], ACME);
   check("6. a later record (another tab) is the newest, numbered 2", two.ok && two.parties?.seq === 2 && (section().parties as PartiesRecord) === ACME);
+  // 7. The saved title the list of cases reads (chrome-545-round B8): from the record's other party, never emptied by a
+  // record that names none (a name held elsewhere is not saved in the record).
+  check("7. a record naming the other party saves the case's title with that name", String(db.row.master_result.caseTitle ?? "").includes("Acme Movers Ltd."), String(db.row.master_result.caseTitle));
+  const unnamed = { version: 1, list: [{ id: "p-other", side: "other", details: { municipality: "Ottawa" }, unsure: [] }], declined: [] } as unknown as PartiesRecord;
+  await saveFactWrites(client as never, { caseId: CASE_ID, userId: "u1", court: "small-claims" }, [], undefined, [], unnamed);
+  check("7. a record naming no one leaves the saved title as it was", String(db.row.master_result.caseTitle ?? "").includes("Acme Movers Ltd."), String(db.row.master_result.caseTitle));
+
+  // 8. A name changed on the Parties step where the case holds another from another place is the newest answer to that
+  // fact (caseWrite.ts writeParties, the form boxes' rule); a first name with none held records nothing more.
+  const { writeParties } = await import("../../app/_components/caseWrite");
+  const tab = (facts: Record<string, unknown>) => {
+    const sections: Record<string, Record<string, unknown>> = { story: { text: "A moving company broke my table." }, [CASE_FILE_SECTION]: { facts } };
+    return {
+      sections,
+      recovery: {
+        read: (section: string, key: string) => sections[section]?.[key],
+        put: (section: string, key: string, value: unknown) => { sections[section] = { ...(sections[section] ?? {}), [key]: value }; },
+        getReview: () => ({ checkpoint: { version: 1, flowId: CASE_ID, courtPath: "small-claims", revision: REV, sections } as never }),
+        getSavedMaster: () => null,
+      },
+    };
+  };
+  const held = tab({ otherParty: { state: "answered", value: "Alex Testwood", source: "person", at: "2026-11-24T10:00:00.000Z", seq: 1, question: "chat:other-party" } });
+  writeParties(held.recovery as never, BETA);
+  const changed = (held.sections[CASE_FILE_SECTION].changes ?? {}) as Record<string, { state?: string; value?: unknown }>;
+  check("8. a name changed on the Parties step over one held from the chat is recorded as the newest answer", changed.otherParty?.state === "answered" && changed.otherParty.value === "Beta Movers Ltd.", JSON.stringify(changed));
+  const fresh = tab({});
+  writeParties(fresh.recovery as never, BETA);
+  check("8. a first name, with none held, records nothing more than the Parties record", fresh.sections[CASE_FILE_SECTION].changes === undefined && fresh.sections[CASE_FILE_SECTION][PARTIES_PENDING] === true, JSON.stringify(fresh.sections[CASE_FILE_SECTION]));
 }
 
 void throughTheRoute().then(() => {

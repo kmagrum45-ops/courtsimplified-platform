@@ -903,6 +903,8 @@ for (const story of STORIES) for (const reading of story.realAi ? realAiReadings
       expect(log.held, "no question asked while the record held its fact").toEqual([]);
       expect(log.twice, "no fact shown twice").toEqual([]);
       expect(log.noFact, "every question names its fact (fail closed)").toEqual([]);
+      // Round 3 Step A (24 Nov 2026): every box on screen is logged by a surface or exempt with a reason (askOnce.ts BLIND_EXEMPT).
+      expect(log.blind, "every box on screen is logged, or exempt with a reason").toEqual([]);
     }
     if (!REPORT) {
       expect(reached, "the story reached every page (a page not reached is not a zero)").toBe("all pages");

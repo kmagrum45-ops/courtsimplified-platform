@@ -61,4 +61,6 @@ test("Chrome #561 run 1, Small Claims, guest: no fact the story gives is asked, 
   expect(result.held, "no question asked while the record held its fact").toEqual([]);
   expect(result.twice, "no fact shown twice").toEqual([]);
   expect(result.noFact, "every question names its fact (fail closed)").toEqual([]);
+  // Round 3 Step A (24 Nov 2026): every box on screen is logged by a surface or exempt with a reason (askOnce.ts BLIND_EXEMPT).
+  expect(result.blind, "every box on screen is logged, or exempt with a reason").toEqual([]);
 });

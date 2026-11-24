@@ -14,7 +14,7 @@
  * A story guess is never held: it is offered under "Found in your description", never typed in.
  * Restates the person's own answers; states no law; changes no wording of a box.
  */
-import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import { Children, cloneElement, createContext, isValidElement, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { useIntakeRecovery, useIntakeReviewView, useIntakeState } from "./IntakeRecovery";
 import { useCaseField } from "./useCaseField";
 import { writeFollow } from "./caseWrite";
@@ -59,18 +59,33 @@ function boxFact(file: ReturnType<typeof useCaseFile>, field: string, value: unk
  * Change beside a held answer (it puts the cursor in the box). `field`: the form's key (the asker knows its fact). The
  * answer held elsewhere is put into the empty box by the form's fill (useHeldFill), which reads boxView too.
  */
+/** The box inside (a label may wrap it): its "not sure" words shown as an empty box, the rest left as it is. */
+function withoutUnsureWords(node: ReactNode): ReactNode {
+  return Children.map(node, (child) => {
+    if (!isValidElement<{ value?: unknown; children?: ReactNode }>(child)) return child;
+    if (typeof child.props.value === "string" && isUnsureAnswer(child.props.value)) return cloneElement(child, { value: "" });
+    return child.props.children === undefined ? child : cloneElement(child, undefined, withoutUnsureWords(child.props.children));
+  });
+}
+
 export function AskedField({ field, value, label, children }: { field: string; value: unknown; label: ReactNode; children: ReactNode }) {
   const file = useCaseFile();
   const offer = useContext(OfferedFields).get(field);
   const wrapper = useRef<HTMLDivElement>(null);
-  const view = boxView(boxFact(file, field, value, offer), typeof value === "string" ? value : Array.isArray(value) ? value.join(", ") : value == null ? "" : String(value));
+  const own = typeof value === "string" ? value : Array.isArray(value) ? value.join(", ") : value == null ? "" : String(value);
+  // "Not sure" words in the box ("I do not know yet", typed in the review or the chat) are no answer: the box is shown
+  // empty and typeable with the note (boxView, "not sure"), never with those words as its answer (form-view-not-sure, CI
+  // on d8cba8f5; the box itself was hidden for them before boxView).
+  const unsureWords = typeof value === "string" && isUnsureAnswer(value);
+  const view = boxView(boxFact(file, field, value, offer), unsureWords ? "" : own);
+  const box = unsureWords ? withoutUnsureWords(children) : children;
   const fact = heldAnswer(file, field)?.fact;
   void label;
   return (
     <div className="contents" ref={wrapper} data-asked-field={field} data-offered={view.offer ? "true" : undefined}>
       {view.offer && offer ? offer.node : null}
       {view.note ? <p className="text-sm text-[#4d675f]" data-testid="not-answered-yet" data-fact={fact} data-field={field}>{view.note}</p> : null}
-      {children}
+      {box}
       {view.change ? <button type="button" data-testid="asked-field-change" data-field={field} onClick={() => wrapper.current?.querySelector<HTMLInputElement | HTMLTextAreaElement>("input, textarea, select")?.focus()} className="mt-1 text-sm font-semibold text-[#2f7d67] underline">{CHANGE_LINK}</button> : null}
     </div>
   );

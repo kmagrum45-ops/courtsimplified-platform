@@ -13,13 +13,13 @@
  *
  * Plain functions over the recovery's read/put, so test:review-writer runs them on a stand-in. States no law.
  */
-import { CASE_FILE_SECTION, caseFileOf, seenSeqOf, withChange, type ChangeInput, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import { CASE_FILE_SECTION, caseFileOf, heldOtherName, seenSeqOf, withChange, type ChangeInput, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import { discardPending, savePending } from "../../src/lib/case-system/caseFile/pendingFacts";
 import { answerChanges, UnmappedField } from "../../src/lib/case-system/caseFile/tabWrite";
 import { fieldRow } from "../../src/lib/case-system/caseFile/fieldFacts";
 import type { FactId } from "../../src/lib/case-system/caseFile/factRecord";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
-import { readParties, withoutHeldElsewhere, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
+import { partyName, readParties, withoutHeldElsewhere, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
 import { PARTIES_PENDING } from "../../src/lib/case-system/caseFile/serverFacts";
 import { PARTY_DETAIL_TYPES, partyDetailFits } from "../../src/lib/case-system/caseFile/factTypes";
 import { offerChoiceParts, OFFER_CHOICES_FIELD, type OfferChoice, type OfferTarget } from "../../src/lib/case-system/caseFile/offerChoice";
@@ -99,6 +99,8 @@ export function writeParties(recovery: CaseWriteRecovery, record: PartiesRecord)
   // A detail written now keeps only a value of its type: a place is never a name (factTypes.ts; decision 1, 18 Nov 2026).
   // Only what changed is checked, so a record saved before the rule is still read and saved as it was.
   const before = readParties(recovery.read(CASE_FILE_SECTION, "parties"));
+  // The other side's name the case holds from ANOTHER place (the chat, the review, the questions), read before this save.
+  const elsewhere = heldOtherName(caseFileOf(recovery.getReview().checkpoint, recovery.getSavedMaster() ?? undefined));
   for (const party of checked.list) {
     const was = before?.list.find((item) => item.id === party.id);
     for (const [detail, value] of Object.entries(party.details)) {
@@ -110,6 +112,21 @@ export function writeParties(recovery: CaseWriteRecovery, record: PartiesRecord)
   // Not sent yet: the tab sends the record to the server by itself (POST /api/cases/facts), which numbers it, before any
   // save of its whole checkpoint (serverFacts.ts PARTIES_PENDING; site owner's choice, 24 Nov 2026).
   recovery.put(CASE_FILE_SECTION, PARTIES_PENDING, true, true, true, true);
+  // The same rule as every form box (caseFile.ts followAnswer; tabWrite.ts answerChanges): a name given here where the
+  // case holds another from another place is the newest answer to that fact, recorded as its change (sent and numbered
+  // like any answer); the name emptied here, part by part, records its removal. A first name, with none held, records
+  // nothing more than the Parties record. Before this, a name changed on the Parties step left the old one in the case
+  // file, the review and the case page (chrome-545-round, CI on d8cba8f5).
+  if (elsewhere) {
+    // Read from the record as the step shows it (with the parts held elsewhere), so a changed first name keeps the held last name.
+    const others = record.list.filter((party) => party.side === "other");
+    if (others.length === 1) {
+      const now = partyName(others[0]).trim();
+      const emptied = !now && others[0].unsure.some((detail) => detail === "firstName" || detail === "lastName" || detail === "fullName" || detail === "companyName");
+      if (now && now !== elsewhere) writeChange(recovery, "otherParty", { state: "answered", value: now });
+      else if (emptied) writeChange(recovery, "otherParty", { state: "removed" });
+    }
+  }
 }
 
 /**

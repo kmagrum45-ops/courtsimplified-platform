@@ -1022,6 +1022,7 @@ jobs:
             specs: >-
               tests/browser/parties-boxes-stay.spec.ts
               tests/browser/box-offer-one-prompt.spec.ts
+              tests/browser/blind-boxes.spec.ts
               tests/browser/filled-form-every-kind.spec.ts
               tests/browser/intake-reliability.spec.ts
               tests/browser/family-civil-intake-reliability.spec.ts
