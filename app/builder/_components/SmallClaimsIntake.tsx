@@ -59,7 +59,7 @@ import { missingFacts, storyFormValues } from "../../../src/lib/case-system/case
 import { storyOfFile, type CaseFile } from "../../../src/lib/case-system/caseFile/caseFile";
 import { factStatus } from "../../../src/lib/case-system/caseFile/factStatus";
 import { storyLines } from "../../../src/lib/case-system/caseFile/storyLines";
-import { detailStatus, partyName, type Party, type PartyDetail } from "../../../src/lib/case-system/parties/parties";
+import { detailStatus, partyName, storyPartyOffers, type Party, type PartyDetail } from "../../../src/lib/case-system/parties/parties";
 
 /** No store (no case open): the banner reads an empty record. */
 const noStore = () => () => {};
@@ -764,7 +764,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   const formFile = reviewNow ? caseFileOf(reviewNow.checkpoint, recovery?.getSavedMaster() ?? undefined) : caseFileOf(null);
   const foundToOffer = missingFacts({ ...formFile, storyText: formFile.storyText || input.facts }, "sc-form", { boxes: input as unknown as Record<string, unknown>, choices: offerChoicesOf(reviewNow?.checkpoint.sections as Record<string, unknown> | undefined) });
   // The boxes the page is offering from the story now: each gives way to its offer (AskedField OfferedFields).
-  const offeredHere = new Set(foundToOffer.map((fact) => fact.field));
+  // The other side's name, while the Parties step on this page offers it from the story (the one place for names): the
+  // form's own box gives way, so the name is never offered there and asked here (the question logs of #563).
+  const partiesOffersName = storyPartyOffers(formFile.storyText || input.facts, { version: 1, list: formFile.parties.list, declined: [] }).some((offer) => offer.party.startsWith("other") && (offer.detail === "companyName" || offer.detail === "fullName"));
+  const offeredHere = new Set([...foundToOffer.map((fact) => fact.field), ...(partiesOffersName ? ["otherParty"] : [])]);
   const inferredIssues = useMemo(() => inferIssuesFromStory(input), [input]);
   const inferredDisputeCategory = useMemo(() => {
     if (inferredIssues.includes("defamation-reputation")) return "defamation";
