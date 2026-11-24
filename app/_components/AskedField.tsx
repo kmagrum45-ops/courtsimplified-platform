@@ -18,10 +18,10 @@ import { createContext, useContext, useEffect, useRef, useState, type ReactNode 
 import { useIntakeRecovery, useIntakeReviewView, useIntakeState } from "./IntakeRecovery";
 import { useCaseField } from "./useCaseField";
 import { writeFollow } from "./caseWrite";
-import { caseFileOf, changesOf, isUnsureAnswer } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, changesOf, isUnsureAnswer, slotText } from "../../src/lib/case-system/caseFile/caseFile";
 import { filledToFollow, formFill, seenNow } from "../../src/lib/case-system/intake/asker";
 import { heldAnswer } from "../../src/lib/case-system/caseFile/heldAnswer";
-import { ADD_IT_LATER, NOT_ANSWERED_YET } from "../../src/lib/case-system/copy/askCopy";
+import { ADD_IT_LATER, CHANGE_LINK, NOT_ANSWERED_YET } from "../../src/lib/case-system/copy/askCopy";
 import { settledNotSure } from "../../src/lib/case-system/caseFile/factStatus";
 import { boxesToFollow } from "../../src/lib/case-system/caseFile/boxFollow";
 import { formatForCourt } from "../../src/lib/case-system/dates";
@@ -59,6 +59,18 @@ export function AskedField({ field, value, label, children }: { field: string; v
       <div className="block" data-testid="not-answered-yet" data-fact={decision?.fact} data-field={field}>
         <span className="font-semibold text-[#16302b]">{label}</span>
         <p className="mt-2 text-sm text-[#4d675f]">{NOT_ANSWERED_YET}. <button type="button" data-testid="not-answered-yet-add" onClick={() => setOpened(true)} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</button></p>
+      </div>
+    );
+  }
+  // A fact the record holds answered, given in another place (the Parties step, the chat, the review), is never an empty box
+  // asking for it: its words are shown with Change (one asker; the carry runs of #563: the other party's name held, the
+  // form's box empty). A box the person emptied after answering in it stays empty (its own answer is not filled back).
+  const ownAnswer = decision?.slot.source?.kind === "answer" && decision.slot.source.question === `small-claims:${field}`;
+  if (decision?.held === "answered" && blank(value) && !opened && !ownAnswer) {
+    return (
+      <div className="block" data-testid="asked-field-held" data-fact={decision.fact} data-field={field}>
+        <span className="font-semibold text-[#16302b]">{label}</span>
+        <p className="mt-2 text-sm text-[#16302b]">{slotText(decision.slot, (iso) => formatForCourt(iso))} <button type="button" data-testid="asked-field-held-change" onClick={() => setOpened(true)} className="font-semibold text-[#2f7d67] underline">{CHANGE_LINK}</button></p>
       </div>
     );
   }

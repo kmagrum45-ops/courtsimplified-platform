@@ -103,6 +103,14 @@ check("2. a box the person filled is never offered over", !missingFacts(arrived,
   check("5. a story the home page read starts the questions by itself, once (no \"Send my story\" box)", /const homeRead = caseFileOf\(recovery\?\.getReview\(\)\.checkpoint \?\? null\)\.storyReadOnHome \?\? "";\s*const readOnHome = Boolean\(homeRead\) && homeRead === story\.trim\(\);/.test(chat) && /if \(autoStarted\.current \|\| !readOnHome \|\| started/.test(chat) && /autoStarted\.current = true;\s*handleStorySubmit\(\);/.test(chat));
 }
 
+// 6. A fact the record holds is never an empty asking box (the carry and story-pack runs of #563).
+{
+  const parties = fs.readFileSync("app/_components/PartiesStep.tsx", "utf8");
+  check("6. the Parties step never asks the one other party's name the record holds as \"not sure\" or removed elsewhere", /const settledElsewhere = status === "ask" && nameDetail && party\.side === "other" && !partyName\(party\) && record\.list\.filter\(\(item\) => item\.side === "other"\)\.length === 1 && factStatus\(file, "otherParty"\) === "settled";/.test(parties) && /if \(status === "settled" \|\| settledElsewhere\) return <p key=\{key\} data-testid="parties-detail-unsure"/.test(parties));
+  const asked = fs.readFileSync("app/_components/AskedField.tsx", "utf8");
+  check("6. a form box whose fact the record holds answered (from another place) shows it with Change, never as an empty box", /if \(decision\?\.held === "answered" && blank\(value\) && !opened && !ownAnswer\) \{/.test(asked) && /data-testid="asked-field-held"/.test(asked));
+}
+
 // 3. Deleted stays deleted.
 const DELETED = ["askOf", "mayAsk", "foundStillToOffer", "extractFromStory", "EXTRACTABLE_STORY_FIELDS", "alreadyAsked", "askable", "chatQuestionToAsk", "nextQuestion", "notAsked", "pendingFields", "isQuestionAlreadyAnswered", "withoutAnsweredQuestions", "withoutMunicipalityAsked", "withoutStageAnswered"];
 /** Still to delete (each moves onto the one asker in this rebuild): the court whose screens use it. Only shrinks. */

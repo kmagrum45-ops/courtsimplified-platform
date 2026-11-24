@@ -28,6 +28,7 @@ import {
   isCompanyName,
 } from "../../src/lib/case-system/parties/parties";
 import { OFFER_CHOICES } from "../../src/lib/case-system/copy/suggestionCopy";
+import { factStatus } from "../../src/lib/case-system/caseFile/factStatus";
 import { offeredOtherParty, readingFactsOf } from "../../src/lib/case-system/caseFile/storyOffers";
 
 const LABELS: Record<PartyDetail, string> = {
@@ -157,7 +158,12 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
         </p>
       );
     }
-    if (status === "settled") return <p key={key} data-testid="parties-detail-unsure" data-detail={detail} className="text-sm"><span className="font-semibold">{LABELS[detail]}:</span> Not sure yet <span className="text-[#4d675f]">(not asked again)</span></p>;
+    // The one other party's name the record holds as "not sure" or removed in another place (the chat, the review, the
+    // questions): not asked again here (one asker; the carry and story-pack runs of #563: "What is the other person's
+    // name?" answered "I do not know yet", then First name and Last name asked here).
+    const nameDetail = detail === "firstName" || detail === "lastName" || detail === "fullName" || detail === "companyName" || detail === "secondName";
+    const settledElsewhere = status === "ask" && nameDetail && party.side === "other" && !partyName(party) && record.list.filter((item) => item.side === "other").length === 1 && factStatus(file, "otherParty") === "settled";
+    if (status === "settled" || settledElsewhere) return <p key={key} data-testid="parties-detail-unsure" data-detail={detail} className="text-sm"><span className="font-semibold">{LABELS[detail]}:</span> Not sure yet <span className="text-[#4d675f]">(not asked again)</span></p>;
     return (
       <label key={key} className="block text-sm" data-testid={typing ? "parties-detail-typing" : "parties-detail-ask"} data-detail={detail}>
         <span className="font-semibold">{LABELS[detail]}</span>{optional ? <span className="text-[#4d675f]"> (if you have it)</span> : null}

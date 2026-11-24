@@ -20,6 +20,7 @@ import { askedFacts, heldAnswer } from "./heldAnswer";
 import { extractNarrativePrefill } from "../intelligence/narrativePrefill";
 import { quotesOf, statedInStory } from "../intakeReview";
 import { formatForCourt, isRealIsoDate } from "../dates";
+import { sentences } from "../sentences";
 
 export { askedFacts, heldAnswer, type Held } from "./heldAnswer";
 
@@ -107,7 +108,8 @@ function storyQuoteFor(element: ClaimElement, story: string, reading: Partial<Re
   const fact = elementFact(element);
   if (fact) return reading[fact]?.quote ?? null;
   const name = element.name.toLowerCase();
-  const sentencesOf = story.split(/(?<=[.!?])\s+/).map((item) => item.trim()).filter(Boolean);
+  // The one sentence splitter (sentences.ts; test:shared-behaviour).
+  const sentencesOf = sentences(story).map((item) => item.trim()).filter(Boolean);
   // Work not done, not finished or poor: the story's sentence that says so (Chrome 1.14: "The work was not finished").
   if (/\b(?:not finished|unfinished|quality|not performed|not done|incomplete|not delivered|poor)\b/.test(name)) {
     return sentencesOf.find((sentence) => NEGATED_WORK.test(sentence)) ?? null;

@@ -1425,6 +1425,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </summary>
 
           <div className="mt-5 grid gap-5">
+            {/* What was agreed (agreementTerms): one fact with the chat's agreement questions, so the one asker decides it. */}
+            <AskedField field="agreementDetails" value={input.agreementDetails} label={"Agreement details"}>
             <textarea
               data-testid="sc-intake-agreementDetails" value={input.agreementDetails}
               onChange={(event) =>
@@ -1433,6 +1435,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Agreement/contract details, only if this case involves an agreement"
             />
+            </AskedField>
 
             <textarea
               data-testid="sc-intake-paymentHistory" value={input.paymentHistory}
