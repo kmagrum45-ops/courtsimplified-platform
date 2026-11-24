@@ -703,6 +703,15 @@ async function checkFilledForms(page: Page, caseId: string, seen: string[], stor
   seen.push(`form 7A: ${JSON.stringify(Object.fromEntries([...form7A].filter(([, value]) => value && value !== "Off")))}`.slice(0, 2000));
   // Chrome milestone S5 gives only the other party and the amount ("I lent my friend Alex $3,000"): Defendant No. 1 is
   // Alex and the amount 3,000.00 (site owner, 17 Nov). Every other check is Chrome forms story, unchanged.
+  // Chrome's run 1 on #561 (23 Nov 2026), the values Chrome saw on its filled Form 7A (1.15), here reached from the story's
+  // offers taken with Yes, never typed: the plaintiff TEST Tess Plaintiff, the defendant the company, both in Ottawa, $5,468.45.
+  if (story.name === "sc-chrome561-kitchen") {
+    expect(form7A.get("Plaintiff's last name or the company's name"), "Form 7A: the plaintiff's last name").toBe("Plaintiff");
+    expect(form7A.get("First name of the Plaintiff"), "Form 7A: the plaintiff's first name").toBe("TEST Tess");
+    expect(form7A.get("Defendant's last name or company's name"), "Form 7A: Defendant No. 1 is the company").toBe("TEST Fakebuild Contracting Inc.");
+    expect(form7A.get("Principal amount claimed"), "Form 7A: the amount the case holds").toBe("5,468.45");
+    return;
+  }
   if (story.name === "sc-milestone-s5-loan") {
     expect(form7A.get("Defendant's first name"), "Form 7A: Defendant No. 1 is Alex").toBe("Alex");
     expect(form7A.get("Principal amount claimed"), "Form 7A: the amount the case holds").toBe("3,000.00");
