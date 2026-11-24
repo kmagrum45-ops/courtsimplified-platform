@@ -1003,7 +1003,7 @@ What the story says that no answer holds yet, for "What we have so far".
 The one offer reader: the amount and the other party the story reading showed, when the story writes them, else the story's own.
 
 - Reads (3): **app/builder/_components/storyAnswers.ts**, src/lib/case-system/caseFile/factTypes.ts, src/lib/case-system/caseFile/understoodOtherParty.ts
-- Read by (8): app/_components/HomeLocationGate.tsx, app/_components/PartiesStep.tsx, app/builder/_components/GuidedSmallClaimsIntake.tsx, src/lib/case-system/caseFile/factQuestions.ts, src/lib/case-system/caseFile/storyReader.ts, src/lib/case-system/intake/orchestrateIntakeTurn.ts, src/lib/case-system/intake/statedProposals.ts, **src/lib/case-system/intakeReview.ts**
+- Read by (11): app/_components/HomeLocationGate.tsx, app/_components/IntakeReviewPanel.tsx, app/_components/PartiesStep.tsx, app/builder/_components/GuidedSmallClaimsIntake.tsx, app/builder/_components/SmallClaimsIntake.tsx, app/builder/_components/StatementOfClaimSurface.tsx, src/lib/case-system/caseFile/factQuestions.ts, src/lib/case-system/caseFile/storyReader.ts, src/lib/case-system/intake/orchestrateIntakeTurn.ts, src/lib/case-system/intake/statedProposals.ts, **src/lib/case-system/intakeReview.ts**
 - Checked by (4): scripts/verification/verifyCaseUnderstanding.ts, scripts/verification/verifyFactTypes.ts, scripts/verification/verifyOffersOneSource.ts, scripts/verification/verifyPass3AskedTwice.ts
 
 ### src/lib/case-system/parties/parties.ts

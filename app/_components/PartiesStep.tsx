@@ -15,6 +15,7 @@
  * No model is involved, and nothing here is sent to one (rule 3). States no law.
  */
 import { useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { FROM_YOUR_STORY } from "../../src/lib/case-system/caseFile/storyOffers";
 import { afterPointer } from "./afterPointer";
 import { useIntakeRecovery } from "./IntakeRecovery";
 import { writeParties } from "./caseWrite";
@@ -200,7 +201,7 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
             onBlur={() => afterPointer(() => window.setTimeout(() => leftEntry(party.id), 0))}>
             <h3 className="font-semibold">{sideWord(party)} {number}{party.you ? " (you)" : ""}{partyName(party) ? `: ${partyName(party)}` : ""}</h3>
             {own.map((offer) => (
-              <UseSuggestion key={offer.key} offer={{ key: offer.key, fact: null, recordedBy: "screen" }} testId="parties-offer-yes" noTestId="parties-offer-no" unsureTestId="parties-offer-unsure" what={`${LABELS[offer.detail]}: ${offer.value}`} note={offer.from && offer.from !== "story" ? offer.quote : `From your story: "${offer.quote}"`} onUse={() => acceptOffer(offer)} onNo={() => declineOffer(offer)} onUnsure={() => unsureOffer(offer)} />
+              <UseSuggestion key={offer.key} offer={{ key: offer.key, fact: null, recordedBy: "screen" }} testId="parties-offer-yes" noTestId="parties-offer-no" unsureTestId="parties-offer-unsure" what={`${LABELS[offer.detail]}: ${offer.value}`} note={offer.from && offer.from !== "story" ? offer.quote : `${FROM_YOUR_STORY} "${offer.quote}"`} onUse={() => acceptOffer(offer)} onNo={() => declineOffer(offer)} onUnsure={() => unsureOffer(offer)} />
             ))}
             {!party.kind ? (
               <div role="group" aria-label={`Is ${partyName(party) || "this party"} a person or a company?`} className="flex flex-wrap gap-2 text-sm" data-testid="parties-kind">
@@ -223,7 +224,7 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
         <div data-testid="parties-story-others" className="space-y-2">
           <p className="text-sm font-semibold">Your story also names:</p>
           {unheldOffers.filter((offer) => offer.detail === "companyName" || offer.detail === "fullName").map((offer) => (
-            <UseSuggestion key={offer.key} offer={{ key: offer.key, fact: null, recordedBy: "screen" }} testId="parties-offer-yes" noTestId="parties-offer-no" unsureTestId="parties-offer-unsure" what={`Another ${(personSues ? words.responds : words.starts).toLowerCase()}: ${offer.value}`} note={offer.from && offer.from !== "story" ? offer.quote : `From your story: "${offer.quote}"`} onUse={() => acceptOffer(offer)} onNo={() => declineOffer(offer)} onUnsure={() => declineOffer(offer)} />
+            <UseSuggestion key={offer.key} offer={{ key: offer.key, fact: null, recordedBy: "screen" }} testId="parties-offer-yes" noTestId="parties-offer-no" unsureTestId="parties-offer-unsure" what={`Another ${(personSues ? words.responds : words.starts).toLowerCase()}: ${offer.value}`} note={offer.from && offer.from !== "story" ? offer.quote : `${FROM_YOUR_STORY} "${offer.quote}"`} onUse={() => acceptOffer(offer)} onNo={() => declineOffer(offer)} onUnsure={() => declineOffer(offer)} />
           ))}
         </div>
       ) : null}

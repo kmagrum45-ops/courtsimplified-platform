@@ -341,26 +341,6 @@
   },
   {
     "kind": "source-label",
-    "file": "app/_components/IntakeReviewPanel.tsx",
-    "name": "label",
-    "count": 2,
-    "status": "second",
-    "facts": "where a value came from",
-    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
-    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
-  },
-  {
-    "kind": "source-label",
-    "file": "app/_components/PartiesStep.tsx",
-    "name": "label",
-    "count": 2,
-    "status": "second",
-    "facts": "where a value came from",
-    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
-    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
-  },
-  {
-    "kind": "source-label",
     "file": "app/builder/_components/CivilIntake.tsx",
     "name": "label",
     "count": 2,
@@ -401,16 +381,6 @@
   },
   {
     "kind": "source-label",
-    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
-    "name": "label",
-    "count": 2,
-    "status": "second",
-    "facts": "where a value came from",
-    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
-    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
-  },
-  {
-    "kind": "source-label",
     "file": "app/builder/_components/IntelligenceOverviewPanel.tsx",
     "name": "label",
     "count": 1,
@@ -424,16 +394,6 @@
     "file": "app/builder/_components/MotionToChangeRoute.tsx",
     "name": "label",
     "count": 1,
-    "status": "second",
-    "facts": "where a value came from",
-    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
-    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
-  },
-  {
-    "kind": "source-label",
-    "file": "app/builder/_components/SmallClaimsIntake.tsx",
-    "name": "label",
-    "count": 2,
     "status": "second",
     "facts": "where a value came from",
     "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
@@ -1162,5 +1122,13 @@
     "count": 1,
     "status": "rule",
     "facts": "names to keep out of requests (security)"
+  },
+  {
+    "kind": "source-label",
+    "file": "src/lib/case-system/caseFile/storyOffers.ts",
+    "name": "label",
+    "count": 4,
+    "status": "one",
+    "facts": "where a value came from: the one home of these labels (site owner, 23 Nov 2026); the second copies move here"
   }
 ]

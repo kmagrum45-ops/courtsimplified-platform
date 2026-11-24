@@ -21,6 +21,19 @@ import { fitsFactType } from "./factTypes";
 export type ReadingFact = { label: string; value: string };
 export type StoryOffer = { value: string; quote: string; from: "reading" | "story" };
 
+/**
+ * THE ONE HOME OF THE LABELS THAT SAY A VALUE CAME FROM THE STORY (site owner, 23 Nov 2026: "Make the one home now";
+ * test:one-decider). Every such label moves here, one stage at a time (the list of second copies names this file); a new
+ * one is written here, never on a screen. The Form 7A checklist's story screen (one asker): one Yes for all, "Not right" each.
+ */
+export const FROM_YOUR_STORY_WE_FOUND = "From your story we found:";
+/** Beside a value offered from the story, before its quote (the Parties step, the Small Claims chat). */
+export const FROM_YOUR_STORY = "From your story:";
+/** Beside a choice the review suggests from the story, before its quote. */
+export const SUGGESTED_FROM_YOUR_STORY = "Suggested from your story:";
+/** Beside a value held from the start's answers (the review, the Small Claims form). */
+export const FROM_YOUR_START_ANSWERS = "(from your answers at the start; change them at the top of the page)";
+
 const object = (value: unknown): Record<string, unknown> => (value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {});
 
 /**

@@ -1,6 +1,7 @@
 "use client";
 
 import { offerForQuestion } from "../../../src/lib/case-system/caseFile/offerChoice";
+import { FROM_YOUR_START_ANSWERS } from "../../../src/lib/case-system/caseFile/storyOffers";
 import { dateAnswerCheck, dateSpans } from "../../../src/lib/case-system/dates";
 import { SMALL_CLAIMS_FILED_OPTIONS } from "./guidedFields";
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
@@ -1166,7 +1167,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           <label className="block">
             <span className="font-semibold text-[#16302b]">Case stage</span>
             {fromStart.caseStage ? (
-              <p data-testid="stage-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{stageWords(fromStart)} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
+              <p data-testid="stage-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{stageWords(fromStart)} <span className="text-sm text-[#4d675f]">{FROM_YOUR_START_ANSWERS}</span></p>
             ) : (
             <AskedField field="caseStage" value={input.caseStage === "not-sure" ? "" : input.caseStage} label="">
             <select
@@ -1193,7 +1194,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           <label className="block">
             <span className="font-semibold text-[#16302b]">Your role</span>
 {roleFromStart ? (
-              <p data-testid="sc-intake-yourRole-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{fromStart.roleWords ?? roleFromStart} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
+              <p data-testid="sc-intake-yourRole-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{fromStart.roleWords ?? roleFromStart} <span className="text-sm text-[#4d675f]">{FROM_YOUR_START_ANSWERS}</span></p>
             ) : (
             <AskedField field="yourRole" value={input.yourRole} label="">
             <select

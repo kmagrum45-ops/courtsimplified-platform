@@ -23,7 +23,8 @@ import FilledForm7A from "../../_components/FilledForm7A";
 import { formatForCourt } from "@/src/lib/case-system/dates";
 import { factStatus } from "@/src/lib/case-system/caseFile/factStatus";
 import { elementFact, form7aFromRecord } from "@/src/lib/case-system/caseFile/missingFacts";
-import { FORM7A_FOUND_HEADING, FORM7A_FOUND_NOT_RIGHT, FORM7A_FOUND_QUESTION, FORM7A_FOUND_YES, FORM7A_HELD_HEADING } from "@/src/lib/case-system/copy/askCopy";
+import { FROM_YOUR_STORY_WE_FOUND } from "@/src/lib/case-system/caseFile/storyOffers";
+import { FORM7A_FOUND_NOT_RIGHT, FORM7A_FOUND_QUESTION, FORM7A_FOUND_YES, FORM7A_HELD_HEADING } from "@/src/lib/case-system/copy/askCopy";
 import {
   draftStatementOfClaimParticulars,
   type StatementOfClaimDraft,
@@ -334,7 +335,7 @@ export default function StatementOfClaimSurface({
       {/* --- Found in the story: ONE screen, one Yes, "Not right" for each (site owner, 23 Nov 2026, decision 3) --- */}
       {fromRecord.found.length > 0 ? (
         <div className="mt-8 rounded-2xl border border-cyan-200 bg-cyan-50 p-4" data-testid="form7a-found">
-          <p className="font-semibold text-[#10231f]">{FORM7A_FOUND_HEADING}</p>
+          <p className="font-semibold text-[#10231f]">{FROM_YOUR_STORY_WE_FOUND}</p>
           <ul className="mt-2 space-y-3 text-sm">
             {fromRecord.found.map((item) => (
               <li key={item.elementId} data-element={item.elementId} data-fact={`element:${item.elementId}`}>

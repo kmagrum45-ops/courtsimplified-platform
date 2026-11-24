@@ -1,6 +1,7 @@
 "use client";
 
 import { createPortal } from "react-dom";
+import { FROM_YOUR_STORY } from "@/src/lib/case-system/caseFile/storyOffers";
 import { readingFactsOf } from "../../../src/lib/case-system/caseFile/storyOffers";
 import { storyOf } from "../../../src/lib/case-system/intakeStory";
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
@@ -1722,7 +1723,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
                     className="mt-2 w-full rounded-lg border border-[#d8e6df] px-3 py-2 disabled:opacity-50"
                   />
                 )}
-                <p className="mt-1 text-xs text-[#6b8078]">From your story: &ldquo;{draft.storyQuote}&rdquo;</p>
+                <p className="mt-1 text-xs text-[#6b8078]">{FROM_YOUR_STORY} &ldquo;{draft.storyQuote}&rdquo;</p>
                 {proposalDrafts.some((_, other) => sameDayAs(proposalDrafts)[other] === index) ? (
                   <p data-testid="story-proposal-also" className="mt-1 text-xs text-[#6b8078]">
                     Also kept as{" "}
@@ -1767,7 +1768,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           </p>
           {pendingSuggestion.quote ? (
             <p data-testid="claim-type-quote" className="mt-1 text-xs text-[#6b5a26]">
-              From your story: &ldquo;{pendingSuggestion.quote}&rdquo;
+              {FROM_YOUR_STORY} &ldquo;{pendingSuggestion.quote}&rdquo;
             </p>
           ) : null}
           <p data-testid="claim-type-why" className="mt-1 text-xs text-[#6b5a26]">
