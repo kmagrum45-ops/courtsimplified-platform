@@ -262,7 +262,10 @@ export default function IntakeReviewPanel() {
   // One asker: an empty box whose fact one of these questions asks is not a second ask beside it (the question logs of
   // #563: the kind-of-dispute question and an empty "Issues" box, both the kind of claim, on one review).
   const askedByAQuestion = new Set(remaining.flatMap((question) => slotsOfQuestion(question.id)));
-  const entries = shownReviewEntries(withHeldOtherParty(reviewEntries(checkpoint), checkpoint, caseFileNow)).filter((entry) => !(empty(entry.value) && !entry.fromStart && slotsOfQuestion(entry.field).some((fact) => askedByAQuestion.has(fact))));
+  // An answer set aside for an earlier version of the story keeps its box and its label ("Answered for an earlier version").
+  const setAside = new Set(staleAnswerKeys(checkpoint));
+  const setAsideKey = (entry: ReviewEntry) => `${entry.section}.${entry.nested ? `${entry.nested}.` : ""}${entry.field}`;
+  const entries = shownReviewEntries(withHeldOtherParty(reviewEntries(checkpoint), checkpoint, caseFileNow)).filter((entry) => setAside.has(setAsideKey(entry)) || !(empty(entry.value) && !entry.fromStart && slotsOfQuestion(entry.field).some((fact) => askedByAQuestion.has(fact))));
   // Said "I don't know" or "not sure" anywhere (site owner, 31 Oct): a quiet line, never asked again here.
   // The facts with no question here; the questions' quiet lines come in the one list (notYet).
   const quietFacts = notAnsweredYet(checkpoint, savedMaster ?? undefined).filter(line => !line.question);
@@ -497,7 +500,7 @@ export default function IntakeReviewPanel() {
           // A box the form (or the one-at-a-time questions) already showed and the person left empty is listed once, "Not filled
           // in yet" with Change, never asked again here (site owner, 23 Nov 2026; the question logs of #563: "Service details").
           const entryKey = `${entry.section}:${entry.nested ?? ""}:${entry.field}`;
-          const notFilled = !held && !notYet && !changed && FORM_SECTIONS.has(entry.section) && empty(entry.value) && !entry.fromStart && !entry.answeredElsewhere && !(entry.fromStory && !offerChoices[offerKeyOfEntry(entry)]) && !openedNotFilled[entryKey];
+          const notFilled = !held && !notYet && !changed && !staleKeys.has(`${entry.section}.${entry.nested ? `${entry.nested}.` : ""}${entry.field}`) && FORM_SECTIONS.has(entry.section) && empty(entry.value) && !entry.fromStart && !entry.answeredElsewhere && !(entry.fromStory && !offerChoices[offerKeyOfEntry(entry)]) && !openedNotFilled[entryKey];
           return <div key={`${entry.section}:${entry.nested ?? ""}:${entry.field}`} data-testid="intake-entry" data-field={entry.field} data-empty={empty(entry.value) && !entry.fromStart && !held && !notYet && !notFilled ? "true" : "false"} className="block text-sm">
           {entry.label}{!entry.essential && " (optional later detail)"}
           {entry.hint && empty(entry.value) && <span className="block text-[#4d675f]">{entry.hint}</span>}

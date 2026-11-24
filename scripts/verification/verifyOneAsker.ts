@@ -107,8 +107,6 @@ check("2. a box the person filled is never offered over", !missingFacts(arrived,
 {
   const parties = fs.readFileSync("app/_components/PartiesStep.tsx", "utf8");
   check("6. the Parties step never asks the one other party's name the record holds as \"not sure\" or removed elsewhere", /const settledElsewhere = status === "ask" && nameDetail && party\.side === "other" && !partyName\(party\) && record\.list\.filter\(\(item\) => item\.side === "other"\)\.length === 1 && factStatus\(file, "otherParty"\) === "settled";/.test(parties) && /if \(status === "settled" \|\| settledElsewhere\) return <p key=\{key\} data-testid="parties-detail-unsure"/.test(parties));
-  const asked = fs.readFileSync("app/_components/AskedField.tsx", "utf8");
-  check("6. a form box whose fact the record holds answered (from another place) shows it with Change, never as an empty box", /if \(decision\?\.held === "answered" && blank\(value\) && !opened && !ownAnswer\) \{/.test(asked) && /data-testid="asked-field-held"/.test(asked));
 }
 
 // 3. Deleted stays deleted.

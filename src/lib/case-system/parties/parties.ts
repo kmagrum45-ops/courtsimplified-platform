@@ -411,7 +411,12 @@ export function withNameParts(list: readonly Party[]): Party[] {
     const whole = clean(party.details.fullName);
     if (!whole || party.kind === "company" || isCompanyName(whole)) return party;
     const parts = whole.split(/\s+/);
-    if (parts.length < 2) return party;
+    // A one-word name the person gave is their first name ("Alex", "Jean-Marc"): filled the same way, never asked again; only
+    // the last name, which they have not given, is left to ask (the story-pack and ask-once runs of #563).
+    if (parts.length < 2) {
+      if (clean(party.details.firstName) || party.unsure.includes("firstName")) return party;
+      return { ...party, details: { ...party.details, firstName: whole }, heldElsewhere: [...new Set([...(party.heldElsewhere ?? []), "firstName" as const])] };
+    }
     // Each part on its own: one the person typed (or is not sure of) is kept, the other still filled.
     const split: Partial<Record<PartyDetail, string>> = { firstName: parts.slice(0, -1).join(" "), lastName: parts[parts.length - 1] };
     const fill = (["firstName", "lastName"] as const).filter((detail) => !clean(party.details[detail]) && !party.unsure.includes(detail));
@@ -471,7 +476,9 @@ export function partyOfOffer(record: Pick<PartiesRecord, "list">, offer: PartyOf
 
 /** A name given whole that the record already holds split ("Test Plaintiff" as first and last name) is held. */
 function nameHeld(party: Party, detail: PartyDetail): boolean {
-  if (detail !== "fullName" && detail !== "companyName") return false;
+  // Any part of a name, once the party has a name (one asker; the carry runs of #563: "First name: Jordan" offered after the
+  // name was typed in the form's box).
+  if (detail !== "fullName" && detail !== "companyName" && detail !== "firstName" && detail !== "lastName" && detail !== "secondName") return false;
   return Boolean(partyName(party)) || party.unsure.includes("firstName") || party.unsure.includes("lastName") || party.unsure.includes("companyName");
 }
 
