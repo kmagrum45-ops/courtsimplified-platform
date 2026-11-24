@@ -26,13 +26,21 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import * as caseFileModule from "../../src/lib/case-system/caseFile/caseFile";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
+// The one asker (caseFile/heldAnswer.ts, 23 Nov 2026): caseFile.ts's alreadyAsked, nextQuestion, askable, notAsked and
+// chatQuestionToAsk were deleted with it; the checks below read the same decisions under their old names, unchanged.
+import { chatQuestionFor as chatQuestionToAsk, isHeld as alreadyAsked, missingQuestions } from "../../src/lib/case-system/caseFile/heldAnswer";
+import { slotStatus as statusOfSlot } from "../../src/lib/case-system/caseFile/factStatus";
+const notAsked = (slot: Parameters<typeof statusOfSlot>[0]) => ["ask", "offer"].includes(statusOfSlot(slot));
+const nextQuestion = (file: Parameters<typeof missingQuestions>[0], candidates: readonly string[], options: { surface?: string } = {}) => missingQuestions(file, candidates, options.surface)[0] ?? null;
+const askable = (file: Parameters<typeof missingQuestions>[0], candidates: readonly string[], surface?: string) => missingQuestions(file, candidates, surface);
+void chatQuestionToAsk; void alreadyAsked; void notAsked; void nextQuestion; void askable;
 
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
   console.log(`${ok ? "pass" : "FAIL"}  ${name}${ok || !detail ? "" : `\n      ${detail}`}`);
   if (!ok) failures += 1;
 };
-const { caseFileOf, SLOT_FACTS, chatMayAsk, nextQuestion } = caseFileModule;
+const { caseFileOf, SLOT_FACTS, chatMayAsk } = caseFileModule;
 const ID = "00000000-0000-4000-8000-000000000501";
 const STORY = "Synthetic story: Test Storage Ltd. lost my bicycle in May 2026.";
 const cp = (court: Checkpoint["courtPath"], story: string): Checkpoint => ({ version: 1, flowId: ID, courtPath: court, revision: ID, sections: { story: { text: story, location: { province: "Ontario", city: "Sudbury" } } } } as unknown as Checkpoint);

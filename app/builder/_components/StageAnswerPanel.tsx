@@ -1,7 +1,8 @@
 "use client";
 
 import { questionStatus } from "../../../src/lib/case-system/caseFile/factStatus";
-import type { CaseFile } from "../../../src/lib/case-system/caseFile/caseFile";
+import { slotText, type CaseFile, type SlotFact } from "../../../src/lib/case-system/caseFile/caseFile";
+import { factsOfQuestion } from "../../../src/lib/case-system/caseFile/factsOfQuestion";
 import { parseRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
 import { isRealIsoDate, yearChoicesAround } from "../../../src/lib/case-system/dates";
 import { sentences as splitSentences } from "../../../src/lib/case-system/sentences";
@@ -1980,9 +1981,13 @@ export default function StageAnswerPanel({
           <div className="mt-3 space-y-4">
             {result.dateQuestions!.map((question) => {
               if ((laterDates.includes(question.id) || questionStatus(file, question.id) === "settled") && !dateAnswers[question.id] && !openedLater[question.id]) {
+                // A rough time the record holds for this question's fact ("January 2026") is shown as the record words it,
+                // "January 2026 (day not given yet)", never "Not answered yet" (Chrome, test of #561, 1.13: the case
+                // snapshot on the same page held January 2026).
+                const rough = file ? factsOfQuestion(question.id).map((fact) => (fact in file ? slotText(file[fact as SlotFact], (iso) => iso) : "")).find((words) => words.endsWith("(day not given yet)")) : undefined;
                 return (
                   <p key={question.id} data-testid="stage-answer-date-later" className="text-sm text-[#16302b]">
-                    <span className="font-semibold">{shortLabel(dateQuestionTextFor(question, serving(question.id)))}:</span> <span data-testid="not-answered-yet">{NOT_ANSWERED_YET}.</span>{" "}
+                    <span className="font-semibold">{shortLabel(dateQuestionTextFor(question, serving(question.id)))}:</span> {rough ? <span data-testid="stage-answer-date-rough" data-fact={factsOfQuestion(question.id)[0]}>{rough}.</span> : <span data-testid="not-answered-yet">{NOT_ANSWERED_YET}.</span>}{" "}
                     <button type="button" onClick={() => setOpenedLater((now) => ({ ...now, [question.id]: true }))} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</button>
                   </p>
                 );

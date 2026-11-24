@@ -46,7 +46,16 @@
 import { readFileSync } from "node:fs";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { caseFileOf, claimKindOf, claimKindLine, alreadyAsked, type CaseFile } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, claimKindOf, claimKindLine, type CaseFile } from "../../src/lib/case-system/caseFile/caseFile";
+// The one asker (caseFile/heldAnswer.ts, 23 Nov 2026): caseFile.ts's alreadyAsked, nextQuestion, askable, notAsked and
+// chatQuestionToAsk were deleted with it; the checks below read the same decisions under their old names, unchanged.
+import { chatQuestionFor as chatQuestionToAsk, isHeld as alreadyAsked, missingQuestions } from "../../src/lib/case-system/caseFile/heldAnswer";
+import { slotStatus as statusOfSlot } from "../../src/lib/case-system/caseFile/factStatus";
+const notAsked = (slot: Parameters<typeof statusOfSlot>[0]) => ["ask", "offer"].includes(statusOfSlot(slot));
+const nextQuestion = (file: Parameters<typeof missingQuestions>[0], candidates: readonly string[], options: { surface?: string } = {}) => missingQuestions(file, candidates, options.surface)[0] ?? null;
+const askable = (file: Parameters<typeof missingQuestions>[0], candidates: readonly string[], surface?: string) => missingQuestions(file, candidates, surface);
+void chatQuestionToAsk; void alreadyAsked; void notAsked; void nextQuestion; void askable;
+
 import { caseFileOfMaster, claimKindOfMaster } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
 import { claimKindAiContext, classifyClaimTypeBody } from "../../src/lib/case-system/caseFile/aiCaseContext";
 import { suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";

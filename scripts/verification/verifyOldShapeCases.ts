@@ -102,7 +102,9 @@ function allowedDifference(item: { story: string; master: Record<string, unknown
 }
 
 async function main() {
-  const { caseFileOf, notAsked } = await import("../../src/lib/case-system/caseFile/caseFile");
+  const { caseFileOf } = await import("../../src/lib/case-system/caseFile/caseFile");
+  const notAsked = (slot: Parameters<typeof slotStatusOf>[0]) => ["ask", "offer"].includes(slotStatusOf(slot));
+  const { slotStatus: slotStatusOf } = await import("../../src/lib/case-system/caseFile/factStatus");
   const { slotStatus } = await import("../../src/lib/case-system/caseFile/factStatus");
   const { readCheckpoint } = await import("../../src/lib/case-system/intakeCheckpoint");
   const review = await import("../../src/lib/case-system/intakeReview");

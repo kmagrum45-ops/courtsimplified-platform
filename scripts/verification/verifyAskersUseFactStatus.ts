@@ -178,7 +178,7 @@ export function wordingOnly(text: string): boolean {
 // ---- Rule d: wrappers ----------------------------------------------------------------------------------------------
 /** The wrapper each caller uses, the module it is in, and the one function's call it must contain. */
 export const WRAPPERS: Record<string, { wrapper: string; module: string; calls: string }> = {
-  "src/lib/case-system/guided-assistant/conversationIntelligenceEngine.ts": { wrapper: "chatQuestionToAsk", module: "src/lib/case-system/caseFile/caseFile.ts", calls: "chatMayAsk" },
+  "src/lib/case-system/guided-assistant/conversationIntelligenceEngine.ts": { wrapper: "chatQuestionFor", module: "src/lib/case-system/caseFile/heldAnswer.ts", calls: "chatMayAsk" },
 };
 /** The body of `export function <name>(...)` in a module's text, to its closing brace at column 0. */
 export function functionBody(text: string, name: string): string | null {
@@ -313,7 +313,7 @@ check("planted (c): a wording file with a function is not wording only", !wordin
 check("planted (c): one with JSX is not wording only", !wordingOnly('export const A = <p>Are you sure?</p>;'));
 check("self-test (c): string constants only are wording only", wordingOnly('/** words */\nexport const A = "Not answered yet";\nexport const B = \'Add it\';'));
 // d. A wrapper that does not call the one function fails.
-const plantedWrapper = { ...files, "src/lib/case-system/caseFile/caseFile.ts": (files["src/lib/case-system/caseFile/caseFile.ts"] ?? "").replace(/\bchatMayAsk\(/g, "ownGate(") };
+const plantedWrapper = { ...files, "src/lib/case-system/caseFile/heldAnswer.ts": (files["src/lib/case-system/caseFile/heldAnswer.ts"] ?? "").replace(/\bchatMayAsk\(/g, "ownGate(") };
 check("planted (d): a wrapper that does not call the one function fails", wrapperProblems("src/lib/case-system/guided-assistant/conversationIntelligenceEngine.ts", plantedWrapper).length > 0);
 // e. A screen with question text of its own fails.
 const plantedScreen = { ...files, "app/builder/_components/FamilyStatusTriage.tsx": `${files["app/builder/_components/FamilyStatusTriage.tsx"] ?? ""}\nconst extra = "Are you married?";` };

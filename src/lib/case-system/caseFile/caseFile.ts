@@ -269,6 +269,8 @@ export const DISPUTE_CATEGORY_WORDS: Record<string, string> = {
 };
 
 /** Every slot an answer to this question gives (its facts that are slots). */
+// Whether a slot may still be asked (the one function): used here only for reading; the one asker's is heldAnswer.ts stillToAsk.
+const stillOpen = (slot: Slot) => { const status = slotStatus(slot); return status === "ask" || status === "offer"; };
 const slotsOf = (questionId: string, surface?: string): SlotFact[] => factsOfQuestion(questionId, surface).filter(isSlot);
 
 /**
@@ -611,7 +613,7 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // 13. Family's urgent question asks about a safety worry in its own words (guidedFields.ts, asked whole only while
   // safety is not held), so its answer or "not sure" is the safety answer until safety has one of its own (site owner,
   // 14 Nov 2026, 5c: never asked again; carry: the review's "Safety or urgent concerns" box asked after it). Read only.
-  if (file.area === "family" && notAsked(file.safety) && !notAsked(file.urgent)) file.safety = { state: file.urgent.state, value: file.urgent.value, source: file.urgent.source, confirmed: file.urgent.confirmed };
+  if (file.area === "family" && stillOpen(file.safety) && !stillOpen(file.urgent)) file.safety = { state: file.urgent.state, value: file.urgent.value, source: file.urgent.source, confirmed: file.urgent.confirmed };
   return file;
 }
 
@@ -1326,52 +1328,8 @@ export function claimKindLine(held: ClaimKindHeld): { label: string; words: stri
   return null;
 }
 
-/** Whether a question would ask for something the file already holds (an answer, or "not sure"). */
-export function alreadyAsked(file: CaseFile, questionId: string, surface?: string): boolean {
-  return slotsOf(questionId, surface).some((fact) => !notAsked(file[fact]));
-}
-
-/**
- * May still be asked or offered, from the one function (factStatus.ts): not known (no answer of the person's), not
- * settled ("not sure", a skip, removed). A story value not yet decided is an offer, so it may be shown.
- */
-export const notAsked = (slot: Slot) => { const status = slotStatus(slot); return status === "ask" || status === "offer"; };
-
-/**
- * THE ONE GATE. Of a screen's questions, in its order, the first whose facts the file
- * does not hold yet; null when none. A fact held answered OR unsure ("I don't know", "not
- * sure", a skip) is never asked again, on any screen and at no point (site owner, 31 Oct:
- * there is no "offered once more at the end"). A question that asks for no slot is the
- * screen's own.
- */
-export function nextQuestion(file: CaseFile, candidates: readonly string[], options: { surface?: string } = {}): string | null {
-  for (const id of candidates) {
-    const facts = slotsOf(id, options.surface);
-    if (!facts.length) return id;
-    if (facts.every((fact) => notAsked(file[fact]))) return id;
-  }
-  return null;
-}
-
-/** The questions of a list the file still lets this screen ask (the gate, for screens that show several at once). */
-export function askable(file: CaseFile, candidates: readonly string[], surface?: string): string[] {
-  return candidates.filter((id) => nextQuestion(file, [id], { surface }) === id);
-}
-
 /** THE GATE FOR EVERY CHAT: the one function's (factStatus.ts chatMayAsk), re-exported for its callers. */
 export { chatMayAsk };
-
-/**
- * What a chat asks for one of its question sentences: the sentence, when the gate lets its fact be
- * asked; its open part (what the case file does not hold) when the fact is held; null when nothing
- * is left (factsOfQuestion.ts CHAT_QUESTIONS; row 1 review, 29 Oct: a compound question was dropped
- * whole once its fact was held, so when they first found out was never asked).
- */
-export function chatQuestionToAsk(file: CaseFile | null | undefined, words: string, conversation: readonly ChatTurn[] = []): string | null {
-  const question = chatQuestionOf(words);
-  if (chatMayAsk(file, question.asks) && !askedAndReplied(conversation, words)) return words;
-  return question.open && !askedAndReplied(conversation, question.open) ? question.open : null;
-}
 
 /** One turn of a chat's own conversation: the chat's message (with its question id, where it has one) or the person's. */
 export type ChatTurn = { role: string; text: string; questionId?: string };

@@ -22,7 +22,16 @@
  * in the review's questions or shown as an empty box asking for it, counted as still to answer, or
  * a "not sure" that hides a value the person added later, or a day folded as not known after it was given.
  */
-import { caseFileOf, nextQuestion, askable, chatMayAsk, slotsOfQuestion, unsureDateQuestions, withChange, CASE_FILE_SECTION, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, chatMayAsk, slotsOfQuestion, unsureDateQuestions, withChange, CASE_FILE_SECTION, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+// The one asker (caseFile/heldAnswer.ts, 23 Nov 2026): caseFile.ts's alreadyAsked, nextQuestion, askable, notAsked and
+// chatQuestionToAsk were deleted with it; the checks below read the same decisions under their old names, unchanged.
+import { chatQuestionFor as chatQuestionToAsk, isHeld as alreadyAsked, missingQuestions } from "../../src/lib/case-system/caseFile/heldAnswer";
+import { slotStatus as statusOfSlot } from "../../src/lib/case-system/caseFile/factStatus";
+const notAsked = (slot: Parameters<typeof statusOfSlot>[0]) => ["ask", "offer"].includes(statusOfSlot(slot));
+const nextQuestion = (file: Parameters<typeof missingQuestions>[0], candidates: readonly string[], options: { surface?: string } = {}) => missingQuestions(file, candidates, options.surface)[0] ?? null;
+const askable = (file: Parameters<typeof missingQuestions>[0], candidates: readonly string[], surface?: string) => missingQuestions(file, candidates, surface);
+void chatQuestionToAsk; void alreadyAsked; void notAsked; void nextQuestion; void askable;
+
 import * as review from "../../src/lib/case-system/intakeReview";
 import { stageHeldElsewhere } from "../../src/lib/case-system/caseFile/stageHeld";
 import { mayShowQuestion, questionStatus } from "../../src/lib/case-system/caseFile/factStatus";

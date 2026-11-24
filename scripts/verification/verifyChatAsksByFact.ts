@@ -38,7 +38,16 @@ import path from "node:path";
 import { chatReplies, type Court } from "./chatRouteHarness";
 import { factsOfWords, questionSentences } from "../../tests/browser/harness/chatQuestionFacts";
 import { heldFacts } from "../../tests/browser/harness/askOnce";
-import { caseFileOf, chatMayAsk, chatQuestionToAsk, emptyCaseFile, SLOT_FACTS, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, chatMayAsk, emptyCaseFile, SLOT_FACTS, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+// The one asker (caseFile/heldAnswer.ts, 23 Nov 2026): caseFile.ts's alreadyAsked, nextQuestion, askable, notAsked and
+// chatQuestionToAsk were deleted with it; the checks below read the same decisions under their old names, unchanged.
+import { chatQuestionFor as chatQuestionToAsk, isHeld as alreadyAsked, missingQuestions } from "../../src/lib/case-system/caseFile/heldAnswer";
+import { slotStatus as statusOfSlot } from "../../src/lib/case-system/caseFile/factStatus";
+const notAsked = (slot: Parameters<typeof statusOfSlot>[0]) => ["ask", "offer"].includes(statusOfSlot(slot));
+const nextQuestion = (file: Parameters<typeof missingQuestions>[0], candidates: readonly string[], options: { surface?: string } = {}) => missingQuestions(file, candidates, options.surface)[0] ?? null;
+const askable = (file: Parameters<typeof missingQuestions>[0], candidates: readonly string[], surface?: string) => missingQuestions(file, candidates, surface);
+void chatQuestionToAsk; void alreadyAsked; void notAsked; void nextQuestion; void askable;
+
 import { chatQuestionId, factsOfQuestion } from "../../src/lib/case-system/caseFile/factsOfQuestion";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 

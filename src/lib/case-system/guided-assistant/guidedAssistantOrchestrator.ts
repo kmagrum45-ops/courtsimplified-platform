@@ -1,6 +1,7 @@
 import { internalWordingIn } from "../copy/rawKeys";
 import { answeredInStory, caseFileOfChat } from "./answeredInStory";
-import { chatQuestionToAsk, type CaseFile, type ChatTurn } from "../caseFile/caseFile";
+import { type CaseFile, type ChatTurn } from "../caseFile/caseFile";
+import { chatQuestionFor } from "../caseFile/heldAnswer";
 import { mayShowQuestion } from "../caseFile/factStatus";
 import {
   buildConversationIntelligence,
@@ -899,7 +900,7 @@ function buildEvidenceAnswer(args: {
   const evidenceHeld = Boolean(args.caseFile) && !mayShowQuestion(args.caseFile, "chat:proof");
   const stillNeeded = (recorded.length || evidenceHeld ? evidenceNeeds.filter((need) => !/^what proof do you already have/i.test(clean(need))) : evidenceNeeds)
     // A question in the list asked earlier in this conversation and replied to is not asked again (askedAndReplied).
-    .filter((need) => !clean(need).endsWith("?") || chatQuestionToAsk(args.caseFile ?? null, clean(need), args.turns) === clean(need));
+    .filter((need) => !clean(need).endsWith("?") || chatQuestionFor(args.caseFile ?? null, clean(need), args.turns) === clean(need));
 
   if (stillNeeded.length === 0) {
     return opening || assistantText("assistant:evidence:none");
@@ -999,7 +1000,7 @@ function buildBestQuestion(args: {
   const reasoningQuestion = firstItem(
     // By fact (caseFile.ts chatQuestionToAsk): the question, its open part once its fact is held, or none.
     args.legalReasoning.reasoningSummary.firstQuestions
-      .map((question) => chatQuestionToAsk(args.caseFile, question, args.turns))
+      .map((question) => chatQuestionFor(args.caseFile, question, args.turns))
       .filter((question): question is string => Boolean(question) && !answeredInStory(question as string, args.knownStory ?? "")),
   );
 
@@ -1012,9 +1013,9 @@ function buildBestQuestion(args: {
   // Dates the case file holds leave only the other dates open (chatQuestionToAsk), never the whole question.
   const datesInStory = args.intelligence.extractedFacts.some((fact) => fact.category === "date" && fact.confidence !== "low");
   return [
-    datesInStory ? null : chatQuestionToAsk(args.caseFile, assistantText("assistant:question:part-dates"), args.turns),
-    chatQuestionToAsk(args.caseFile, assistantText("assistant:question:part-proof"), args.turns),
-    chatQuestionToAsk(args.caseFile, assistantText("assistant:question:part-outcome"), args.turns),
+    datesInStory ? null : chatQuestionFor(args.caseFile, assistantText("assistant:question:part-dates"), args.turns),
+    chatQuestionFor(args.caseFile, assistantText("assistant:question:part-proof"), args.turns),
+    chatQuestionFor(args.caseFile, assistantText("assistant:question:part-outcome"), args.turns),
   ].filter(Boolean).join(" ");
 }
 

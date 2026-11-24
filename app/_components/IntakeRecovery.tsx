@@ -638,7 +638,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           window.removeEventListener("online", interruption);
         };
         if (!cache()) failure("This tab cannot retain your pending intake text. Copy it before leaving.");
-        else setNotice(ownerId ? (dirty ? "Pending answers recovered in this tab. Saving…" : caseId ? "Intake saved to your account." : "Answers will be saved to your account as you type.") : "Guest progress stays in this tab only. Seeing your next steps needs a free account; sign in from here and what you entered comes with you.");
+        else setNotice(ownerId ? (dirty ? "Pending answers recovered in this tab. Saving…" : caseId ? "Intake saved to your account." : "Answers will be saved to your account as you type.") : ""); // A guest gets ONE account message per screen, the shared GUEST_ACCOUNT_NOTICE below (Chrome, test of #561, 1.1: three).
         setRecovery(store);
         if (initialConflict) { setConflict(true); failure("Another tab changed this intake. Your pending text is shown here for you to copy. Open the saved case separately before resolving the difference."); }
         else if (dirty && ownerId) void flush().catch(() => {});

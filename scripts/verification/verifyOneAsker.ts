@@ -95,14 +95,9 @@ check("2. a box the person filled is never offered over", !missingFacts(arrived,
 }
 
 // 3. Deleted stays deleted.
-const DELETED = ["askOf", "mayAsk", "foundStillToOffer", "extractFromStory", "EXTRACTABLE_STORY_FIELDS"];
+const DELETED = ["askOf", "mayAsk", "foundStillToOffer", "extractFromStory", "EXTRACTABLE_STORY_FIELDS", "alreadyAsked", "askable", "chatQuestionToAsk", "nextQuestion", "notAsked"];
 /** Still to delete (each moves onto the one asker in this rebuild): the court whose screens use it. Only shrinks. */
 const STILL_TO_DELETE: Record<string, string> = {
-  alreadyAsked: "Small Claims chat and review (caseFile.ts)",
-  askable: "caseFile.ts",
-  chatQuestionToAsk: "court chat, all courts (caseFile.ts)",
-  nextQuestion: "caseFile.ts",
-  notAsked: "caseFile.ts",
   pendingFields: "Civil and Family (guidedFields.ts)",
   isQuestionAlreadyAnswered: "AI summary page (answeredQuestions.ts)",
   withoutAnsweredQuestions: "AI summary page (answeredQuestions.ts)",
@@ -113,11 +108,15 @@ const files: string[] = [];
 const walk = (dir: string) => { for (const entry of fs.readdirSync(dir, { withFileTypes: true })) { const full = path.join(dir, entry.name); if (entry.isDirectory()) walk(full); else if (/\.(tsx?|mts)$/.test(entry.name)) files.push(full.replace(/\\/g, "/")); } };
 walk("app"); walk("src");
 const code = files.map((file) => ({ file, text: fs.readFileSync(file, "utf8").replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1") }));
-const usedIn = (name: string) => code.filter((item) => new RegExp(`\\b${name}\\b`).test(item.text)).map((item) => item.file);
+// Defined or imported anywhere (a function, a constant, a set, or an import of the name): "nextQuestion" and "askable" are
+// also ordinary words for a variable or a field, which are not the deleted asker.
+const definesOrImports = (name: string) => new RegExp(`function\\s+${name}\\b|export\\s+const\\s+${name}\\b|const\\s+${name}\\s*=\\s*(?:new\\s+Set|\\(|async\\b|\\[|function\\b)|import[^;]*\\b${name}\\b[^;]*from|export\\s*\\{[^}]*\\b${name}\\b`);
+const usedIn = (name: string) => code.filter((item) => definesOrImports(name).test(item.text)).map((item) => item.file);
 for (const name of DELETED) check(`3. deleted stays deleted: ${name} is in no file of app/ or src/`, usedIn(name).length === 0, usedIn(name).join(", "));
 for (const [name, where] of Object.entries(STILL_TO_DELETE)) check(`3. still to delete (${where}): ${name} is still there, so the list is true (delete the entry when it goes)`, usedIn(name).length > 0);
 // The self-test: a planted copy is found.
-check("3. self-test: a name in a file is found", new RegExp(`\\baskOf\\b`).test("const decision = askOf(file, id);"));
+check("3. self-test: a deleted asker brought back is found (a function, an exported const, a const set, an import)", definesOrImports("askOf").test("export function askOf(file, id) {}") && definesOrImports("notAsked").test("const notAsked = (slot) => true;") && definesOrImports("EXTRACTABLE_STORY_FIELDS").test("const EXTRACTABLE_STORY_FIELDS = new Set([])") && definesOrImports("nextQuestion").test('import { nextQuestion } from "./caseFile";'));
+check("3. self-test: an ordinary variable or field of the same word is not the deleted asker", !definesOrImports("nextQuestion").test("const nextQuestion = remainingIds.length > 0 ? bank[0] : undefined;") && !definesOrImports("nextQuestion").test("nextQuestion?: IntakeQuestion;"));
 
 console.log(failures ? `\n${failures} check(s) failed.` : "\nThe one asker: the story is read on arrival, each fact is offered once, nothing deleted comes back.");
 process.exit(failures ? 1 : 0);

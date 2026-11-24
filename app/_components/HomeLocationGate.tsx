@@ -515,7 +515,7 @@ function HomeLocationGateContent() {
         <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#2f7d67]">{pathLabels[path]} intake</p>
         <h1 className="mt-3 text-3xl font-bold tracking-tight text-[#10231f]">Your location and your story</h1>
         {!hydrated ? <p className="mt-6 text-sm font-semibold text-[#4d675f]" aria-live="polite">Preparing a private case start…</p> : <div data-testid="court-path-location-gate-ready">
-          {!userId && <p className="mt-6 rounded-2xl border border-[#cde7dc] bg-[#f8fcfa] p-4 text-sm text-[#24463d]">You can begin now. To see your next steps, you will need a free account, so a safety check can read your story first. What you enter now comes with you when you sign in from your case.</p>}
+          {/* The guest account message is shown once, by the frame (IntakeRecovery.tsx GUEST_ACCOUNT_NOTICE; Chrome, test of #561, 1.1). */}
           <div className="mt-6 grid gap-5 md:grid-cols-2">
             {/*
               Ontario only, for now: a single fixed option, not a real choice
