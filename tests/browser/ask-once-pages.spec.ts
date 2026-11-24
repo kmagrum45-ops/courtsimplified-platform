@@ -42,6 +42,7 @@ import { MARRIED_ONLY_SCREEN_TEXT } from "../../src/lib/case-system/family/marri
 import { expectThisRunsServer } from "./harness/siteAccess";
 import { HOME_QUESTIONS } from "../../src/lib/case-system/caseFile/factQuestions";
 import { answerTriage } from "./harness/triageAnswer";
+import { writeQuestionLog } from "./harness/questionLog";
 
 /** The home page's amount questions, every court, by their fact list ids (the A2 check: never asked cold when the story states it). */
 const AMOUNT_HOME_QUESTIONS = Object.values(HOME_QUESTIONS).flatMap((sides) => [...sides.starting, ...sides.responding]).filter((item) => /amount/i.test(item.id)).map((item) => item.question);
@@ -181,6 +182,10 @@ export const CHROME_PASS_3: Story[] = [
 ];
 
 export const STORIES: Story[] = [
+  // Chrome's test of #561 (23 Nov 2026), run 1, signed in: its exact story and city; the home reading shows the other side
+  // as Chrome saw it (a description, never a name: "Person or business hired to renovate your kitchen in Ottawa"). Its
+  // question log must show no fact asked while held, nothing twice and every question with its fact (the one asker).
+  { name: "sc-chrome561-kitchen", court: "small-claims", side: "bringing", text: "TEST Tess Plaintiff, Ottawa, hired TEST Fakebuild Contracting Inc., Ottawa, in January 2026 to renovate a kitchen. I paid $5,468.45. The work was not finished and I want my money back.", stated: { amount: "5468.45", when: "January 2026", otherParty: "TEST Fakebuild Contracting Inc." }, city: "Ottawa", home: [], reading: [{ label: "Other party", value: "Person or business hired to renovate your kitchen in Ottawa" }], parties: true },
   S("sc-loan-friend", "small-claims", "bringing", "In March 2026 I lent my friend Alex Testwood $4,500 for a car repair. He promised to pay me back by June 1, 2026.", { amount: "4500", when: "March 2026", otherParty: "Alex Testwood" }),
   S("sc-loan-sister", "small-claims", "bringing", "I loaned my sister $2,000 in May 2026 to fix her roof. She has not repaid any of it.", { amount: "2000", when: "May 2026" }),
   S("sc-iou", "small-claims", "bringing", "My coworker signed an IOU for $900 on April 4, 2026 and has not paid it back.", { amount: "900", when: "April 4, 2026" }),
@@ -782,10 +787,13 @@ for (const story of STORIES) for (const reading of story.realAi ? realAiReadings
     const userId = await authenticateRealTestUser(page, { realCases: true });
     await expectThisRunsServer(page);
     let reached = "start";
+    // The question log (one asker, 23 Nov 2026): every question shown, written for every story, signed in.
+    let events: Asked[] = [];
+    let log: ReturnType<typeof writeQuestionLog> | null = null;
     try {
       await autoAnswerSituation(page, situationOf(story));
       await serveModelStandIns(page, story.court, userId, story.realAi && reading ? { realAi: `${story.name}/${reading}` } : story.home ? { homeQuestions: story.home.map((item) => item.question), homeFacts: story.reading ?? [] } : {});
-      const events: Asked[] = await recordAsks(page);
+      events = await recordAsks(page);
       await giveStory(page, story);
       reached = "story";
       seen.push(...homeAnswers.splice(0));
@@ -859,6 +867,7 @@ for (const story of STORIES) for (const reading of story.realAi ? realAiReadings
         }
       }
     } finally {
+      log = writeQuestionLog(`${story.name}${reading ? `.${reading}` : ""}.signed-in`, `${story.name}${reading ? ` (reading ${reading})` : ""}, ${story.court}, signed in`, events);
       fs.mkdirSync(RECORDS, { recursive: true });
       fs.writeFileSync(path.join(RECORDS, `${story.name}${reading ? `.${reading}` : ""}.json`), JSON.stringify({ story: story.name, reading, court: story.court, side: story.side, reached, violations: found, seen }, null, 2));
       await deleteHarnessUser(userId).catch(() => {});
@@ -868,6 +877,12 @@ for (const story of STORIES) for (const reading of story.realAi ? realAiReadings
     const fixed = EXPECTED.filter((entry) => entry.story === story.name && !found.some((item) => keyOf(item) === keyOf(entry)));
     console.log(`ASK ONCE ${story.name}${reading ? ` (${reading})` : ""}: reached ${reached}; ${found.length} violation(s), ${known.length} on the expected list, ${unexpected.length} not`);
     for (const entry of fixed) console.log(`ASK ONCE FIXED ${keyOf(entry)}: no longer seen; delete its entry`);
+    // Chrome's #561 run (the one asker): its question log is held to zero, every question naming its fact (fail closed).
+    if (story.name.endsWith("chrome561-kitchen") && log && process.env.QUESTION_LOG_ONLY !== "1") {
+      expect(log.held, "no question asked while the record held its fact").toEqual([]);
+      expect(log.twice, "no fact shown twice").toEqual([]);
+      expect(log.noFact, "every question names its fact (fail closed)").toEqual([]);
+    }
     if (!REPORT) {
       expect(reached, "the story reached every page (a page not reached is not a zero)").toBe("all pages");
       expect(unexpected, unexpected.map((item) => `${item.kind} ${item.fact} @ ${item.screen}: ${item.detail}`).join("\n")).toEqual([]);

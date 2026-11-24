@@ -1,0 +1,86 @@
+name: CourtSimplified question logs (Chrome's #561 run, before and after)
+
+# The one-asker rebuild (site owner, 23 Nov 2026): "For each journey (guest, signed in) output a plain-text QUESTION LOG:
+# every question shown, in order, with the screen, the fact id it asks for, and whether the case record already held that
+# fact at that moment. Put the logs for the old code (#561) and the new code in the PR description."
+#
+# Chrome's Small Claims run (its exact story and city), as a guest (tests/browser/chrome-561-journey.spec.ts) and signed in
+# (the ask-once story sc-chrome561-kitchen), on this commit ("after", held to zero) and on #561's commit 7524c27b
+# ("before": the same journey and recorder copied onto that code, logs written, nothing failed). Each run starts its own
+# local Supabase stack (scripts/browser/carryLocal.sh): no staging, no secrets, no AI calls.
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  question-logs:
+    name: question-logs (${{ matrix.code }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        code: [after, before]
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
+      NEXT_TELEMETRY_DISABLED: 1
+      AI_RATE_LIMITS: local
+      QUESTION_LOG_CODE: ${{ matrix.code == 'before' && '7524c27b (#561, before the one asker)' || github.sha }}
+      QUESTION_LOG_ONLY: ${{ matrix.code == 'before' && '1' || '0' }}
+      ASK_ONCE_REPORT: ${{ matrix.code == 'before' && '1' || '' }}
+      QUESTION_LOG_DIR: ${{ github.workspace }}/question-logs
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: The code before the one asker (#561), with this journey and recorder copied onto it
+        if: matrix.code == 'before'
+        run: |
+          mkdir -p "$RUNNER_TEMP/journey"
+          cp tests/browser/chrome-561-journey.spec.ts tests/browser/ask-once-pages.spec.ts tests/browser/harness/askOnce.ts tests/browser/harness/questionLog.ts "$RUNNER_TEMP/journey/"
+          git checkout --force 7524c27b4b2e0bdc05953c323e3f48db632cef4c
+          cp "$RUNNER_TEMP/journey/chrome-561-journey.spec.ts" "$RUNNER_TEMP/journey/ask-once-pages.spec.ts" tests/browser/
+          cp "$RUNNER_TEMP/journey/askOnce.ts" "$RUNNER_TEMP/journey/questionLog.ts" tests/browser/harness/
+          git log --oneline -1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 2.109.0
+      - run: npx playwright install --with-deps chromium
+      - name: Guest journey
+        env:
+          CARRY_SPEC: tests/browser/chrome-561-journey.spec.ts
+          CARRY_GREP: "Chrome #561 run 1"
+          CARRY_PORT: "3100"
+          CARRY_OUT: ${{ github.workspace }}/question-out-guest
+        run: bash scripts/browser/carryLocal.sh
+      - name: Signed-in journey
+        if: always()
+        env:
+          CARRY_SPEC: tests/browser/ask-once-pages.spec.ts
+          CARRY_PORT: "3100"
+          CARRY_SKIP_BUILD: "1"
+          CARRY_OUT: ${{ github.workspace }}/question-out-signed-in
+        run: |
+          export CARRY_GREP="$(node scripts/browser/askOnceGrep.mjs sc-chrome561-kitchen)"
+          bash scripts/browser/carryLocal.sh
+      - name: Keep the question logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: question-logs-${{ matrix.code }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            question-logs/**
+            question-out-*/*.log
+          retention-days: 14
+          if-no-files-found: ignore

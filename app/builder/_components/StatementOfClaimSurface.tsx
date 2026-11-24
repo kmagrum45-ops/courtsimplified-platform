@@ -359,7 +359,7 @@ export default function StatementOfClaimSurface({
 
           <div className="mt-3 space-y-5">
             {gate.outstanding.filter((element) => !foundIds.has(element.elementId)).map((element) => (
-              <div key={element.elementId} className="rounded-2xl border border-[#d8e6df] p-4">
+              <div key={element.elementId} data-testid="form7a-still-to-add" data-element={element.elementId} className="rounded-2xl border border-[#d8e6df] p-4">
                 <p className="font-semibold text-[#10231f]">{outstandingHeading(element)}</p>
                 {element.plainExplanation ? <p className="mt-1 text-sm text-[#4d675f]">{element.plainExplanation}</p> : null}
 

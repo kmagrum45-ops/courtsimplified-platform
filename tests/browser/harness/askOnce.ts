@@ -65,7 +65,9 @@
  */
 import type { Page } from "@playwright/test";
 import { factsOfQuestion } from "../../../src/lib/case-system/caseFile/factsOfQuestion";
-import { caseFileOf, SLOT_FACTS } from "../../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, heldLocation, heldOtherPartyCity, heldYourName, SLOT_FACTS } from "../../../src/lib/case-system/caseFile/caseFile";
+import { FACT_IDS } from "../../../src/lib/case-system/caseFile/factRecord";
+import { CLAIM_TYPES } from "../../../src/lib/case-system/intake/claimTypes";
 import { readCheckpoint } from "../../../src/lib/case-system/intakeCheckpoint";
 import { GUEST_INTAKE_SESSION_KEY } from "../../../src/lib/case-system/storage/intakeStorageKeys";
 import { factsOfWords, questionSentences } from "./chatQuestionFacts";
@@ -158,8 +160,20 @@ const SCAN = `(() => {
     ["sc-form", "[data-testid=sc-intake-documents][data-empty=true]", () => ["filedDocuments"]],
     // The Parties step (site owner, 14 Nov 2026, rule 1): an empty box asks for that party's detail, the person-or-company
     // question for its kind; a story offer asks once (its own id, by what it offers). Each party by its id in the record.
-    ["parties", "[data-testid=parties-detail-ask]", (el) => ["party:" + ((el.closest("[data-party-id]") || el).getAttribute("data-party-id") || "") + ":" + el.getAttribute("data-detail")]],
-    ["parties", "[data-testid=parties-kind]", (el) => ["party:" + ((el.closest("[data-party-id]") || el).getAttribute("data-party-id") || "") + ":kind"]],
+    // Whose entry it is ("you", "yours", "other") as well as its id, so its fact is known (one asker, 23 Nov 2026: a box
+    // named only by the party's id counted as a fact of its own, so a name or a city asked again counted as nothing).
+    ["parties", "[data-testid=parties-detail-ask]", (el) => ["party:" + ((el.closest("[data-party]") || el).getAttribute("data-party") || "") + ":" + ((el.closest("[data-party-id]") || el).getAttribute("data-party-id") || "") + ":" + el.getAttribute("data-detail")]],
+    ["parties", "[data-testid=parties-kind]", (el) => ["party:" + ((el.closest("[data-party]") || el).getAttribute("data-party") || "") + ":" + ((el.closest("[data-party-id]") || el).getAttribute("data-party-id") || "") + ":kind"]],
+    // The Form 7A checklist (one asker, 23 Nov 2026): an item "Still to add" asks for it; an item "From your story we found"
+    // offers it. Each by its element id.
+    // Before the one asker the item had no marker, only its heading ('Still to add: "<the element's name>"'): read by that,
+    // so the "before" question logs (#561) count it the same way.
+    ["form7a-still-to-add", () => [...document.querySelectorAll("[data-testid=form7a-still-to-add]"), ...[...document.querySelectorAll("p")].filter((p) => /^Still to add: “|^Still to add: "/.test(words(p)) && !p.closest("[data-testid=form7a-still-to-add]"))],
+      (el) => [el.getAttribute("data-element") || "name:" + words(el).replace(/^Still to add: ["“]/, "").replace(/["”]\s*$/, "")]],
+    ["form7a-found", "[data-testid=form7a-found] [data-element]", (el) => [el.getAttribute("data-element")]],
+    // The Small Claims form's "Found in your description" offers, each by its box (one asker, 23 Nov 2026). Before the one
+    // asker an item had no marker: read by its "<box>:" words, so the "before" logs count it the same way.
+    ["sc-form-offer", () => [...document.querySelectorAll("p")].filter((p) => words(p).startsWith("Found in your description")).flatMap((p) => [...p.parentElement.querySelectorAll("li")]), (el) => [el.getAttribute("data-field") || words(el).split(":")[0].trim()]],
     // Whose entry the offer is in (the person's own, "you", or the other side's), so its fact is known (C9: a name or a city
     // offered again on the Parties step was counted as nothing, and Chrome saw both).
     ["parties-offer", "[data-testid=parties-step] [data-offer-choices]", (el) => ["party-offer:" + (el.closest("[data-party]")?.getAttribute("data-party") ?? "") + ":" + words(el.querySelector("[data-testid$=-what]"))]],
@@ -348,6 +362,48 @@ export function partyOfferFacts(id: string): string[] {
   return [id];
 }
 
+/**
+ * The fact a Parties box asks for, by whose entry it is in: a name is the person's own name or the other side's, a city or
+ * province their municipality; any other detail (street, postal code, phone, email, person or company) is that party's
+ * detail in the parties record ("party:you:kind"), one fact per party. "party:<you|yours|other>:<party id>:<detail>".
+ */
+export function partyBoxFacts(id: string): string[] {
+  const match = /^party:([^:]*):([^:]*):(.*)$/.exec(id);
+  if (!match) return [id];
+  const [, who, partyId, detail] = match;
+  const own = who === "you";
+  if (/^(?:firstName|lastName|fullName|companyName|secondName)$/.test(detail)) return [own ? "yourName" : who === "other" ? "otherParty" : `party:${partyId}:name`];
+  if (/^(?:city|province)$/.test(detail)) return [own ? "municipality" : who === "other" ? "otherPartyMunicipality" : `party:${partyId}:${detail}`];
+  return [`party:${own ? "you" : partyId}:${detail}`];
+}
+
+/**
+ * A Form 7A element's case-file fact, else the element as its own fact. The same rule as caseFile/missingFacts.ts
+ * elementFact, kept here so this recorder also runs on code before the one asker (the "before" question logs, #561);
+ * test:one-asker checks the two agree on every element.
+ */
+export function recorderElementFact(element: { id: string; name: string }): string | null {
+  const words = `${element.id} ${element.name}`;
+  if (/jurisdiction/i.test(words)) return null;
+  if (/\bagree(?:d|ment)?\b|-agreement-|\bcontract\b|\bunderstanding\b|\barrangement\b/i.test(words) && !/\b(?:breach|broke|not of|quality)\b/i.test(words)) return "agreementTerms";
+  if (/\bamount\b|\bhow much\b|\bcost of (?:repair|loss)\b/i.test(words)) return "amount";
+  return null;
+}
+const FORM7A_ELEMENT_FACTS = (id: string): string => {
+  // By its id, or (the page before the one asker) by its name: "name:<element name>".
+  const byName = id.startsWith("name:") ? id.slice(5) : null;
+  const element = CLAIM_TYPES.flatMap((type) => type.plaintiffElements).find((item) => (byName ? item.name === byName : item.id === id));
+  return (element && recorderElementFact(element)) ?? `element:${element?.id ?? id}`;
+};
+
+/**
+ * FAIL CLOSED (site owner, 23 Nov 2026, rule 6): whether a recorded question names a fact the case record keeps, a party's
+ * detail in the parties record, or a claim element. A question that names none ("a fact of its own") fails the journey.
+ */
+export function namesAFact(fact: string): boolean {
+  return (FACT_IDS as readonly string[]).includes(fact) || /^party:/.test(fact) || /^element:/.test(fact) || /^(?:case|sc)-date-/.test(fact);
+}
+
 export function factsOfAsk(item: Pick<Asked, "surface" | "id" | "text">): string[] {
   // A date box beside the person's own sentence that already gives that date (SCAN's event-candidate).
   if (item.surface === "event-candidate") return ["dateInOwnSentence"];
@@ -360,6 +416,11 @@ export function factsOfAsk(item: Pick<Asked, "surface" | "id" | "text">): string
   // A Parties offer: its fact by whose entry it is in and what it offers (C9: the name and the city offered again were
   // counted as nothing). "party-offer:<you|other|...>:<label>: <value>".
   if (item.surface === "parties-offer") return partyOfferFacts(item.id);
+  if (item.surface === "parties") return partyBoxFacts(item.id);
+  // An offer in the form's "Found in your description": the fact of its box, as the box itself asks it.
+  if (item.surface === "sc-form-offer") return factsOfAsk({ surface: "form-field", id: `sc:${item.id}`, text: item.text });
+  // A Form 7A checklist item: the case-file fact it is about, when it has one (the amount, what was agreed), else its element.
+  if (item.surface === "form7a-still-to-add" || item.surface === "form7a-found") return [FORM7A_ELEMENT_FACTS(item.id)];
   if (item.surface === "form-field") {
     const own = FORM_FIELD_FACTS[item.id];
     if (own) return [...own];
@@ -410,6 +471,10 @@ export function withPageHeld(item: Asked, step?: string): Asked {
     const file = caseFileOf(readCheckpoint(checkpoint, court), undefined);
     const pageHeld: Record<string, string> = {};
     for (const fact of factsOfAsk(item)) if ((SLOT_FACTS as readonly string[]).includes(fact)) pageHeld[fact] = file[fact as (typeof SLOT_FACTS)[number]].state;
+    // The facts kept outside the slots, through the case file's own readers (one asker, 23 Nov 2026: the question logs say,
+    // for every question, whether the record held its fact at that moment): the person's name, their city, the other side's.
+    const outside: Record<string, () => boolean> = { yourName: () => Boolean(heldYourName(file)), municipality: () => Boolean(heldLocation(file)?.city), otherPartyMunicipality: () => Boolean(heldOtherPartyCity(file)) };
+    for (const fact of factsOfAsk(item)) if (outside[fact]) pageHeld[fact] = outside[fact]() ? "answered" : "not-asked";
     return Object.keys(pageHeld).length ? { ...out, pageHeld } : out;
   } catch { return out; }
 }

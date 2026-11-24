@@ -21,7 +21,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { storyPartyOffers, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
-import { form7aFromRecord, missingFacts } from "../../src/lib/case-system/caseFile/missingFacts";
+import { elementFact, form7aFromRecord, missingFacts } from "../../src/lib/case-system/caseFile/missingFacts";
+import { recorderElementFact } from "../../tests/browser/harness/askOnce";
 import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import { emptyCaseFile } from "../../src/lib/case-system/caseFile/caseFile";
 
@@ -54,12 +55,13 @@ check("1. names are offered once, by the Parties step only, never also in the fo
 
 // 2. False positives.
 const sc = storyPartyOffers(SC, none);
-const wrongCity = sc.find((offer) => offer.party !== "you" && offer.detail === "city")!;
+// Each needs the offer to exist first: with no offer (the code before the one asker) these fail rather than pass vacuously.
+const wrongCity = sc.find((offer) => offer.party !== "you" && offer.detail === "city") ?? { key: "missing-offer" };
 const afterNo: PartiesRecord = { ...none, declined: [wrongCity.key] };
-check("2. a city answered \"No, that's not right\" is never offered again with that value", !storyPartyOffers(SC, afterNo).some((offer) => offer.key === wrongCity.key));
+check("2. a city answered \"No, that's not right\" is never offered again with that value", wrongCity.key !== "missing-offer" && !storyPartyOffers(SC, afterNo).some((offer) => offer.key === wrongCity.key));
 check("2. ... and the other offers stay (only that value is turned down)", storyPartyOffers(SC, afterNo).length === sc.length - 1);
-const wrongKind = sc.find((offer) => offer.party !== "you" && offer.detail === "companyName")!;
-check("2. a company name (and its company type) answered \"No\" is never offered again", !storyPartyOffers(SC, { ...none, declined: [wrongKind.key] }).some((offer) => offer.key === wrongKind.key));
+const wrongKind = sc.find((offer) => offer.party !== "you" && offer.detail === "companyName") ?? { key: "missing-offer" };
+check("2. a company name (and its company type) answered \"No\" is never offered again", wrongKind.key !== "missing-offer" && !storyPartyOffers(SC, { ...none, declined: [wrongKind.key] }).some((offer) => offer.key === wrongKind.key));
 const youHeld: PartiesRecord = { version: 1, declined: [], list: [{ id: "you", you: true, side: "yours", kind: "person", details: { firstName: "Tess", lastName: "Realname", city: "Kanata" }, unsure: [] }] };
 check("2. a name or city the record holds is never offered (the person's own answer wins)", !storyPartyOffers(SC, youHeld).some((offer) => offer.party === "you"), JSON.stringify(offers(SC, youHeld)));
 const youUnsure: PartiesRecord = { version: 1, declined: [], list: [{ id: "you", you: true, side: "yours", kind: "person", details: {}, unsure: ["city"] }] };
@@ -86,6 +88,13 @@ check("2. a box the person filled is never offered over", !missingFacts(arrived,
   const surface = fs.readFileSync("app/builder/_components/StatementOfClaimSurface.tsx", "utf8");
   check("4. the checklist reads the one asker and shows ONE Yes for every found item, a \"Not right\" for each", /form7aFromRecord\(caseFile, /.test(surface) && (surface.match(/data-testid="form7a-found-yes"/g) ?? []).length === 1 && /fromRecord\.found\.map\([\s\S]{0,600}data-testid="form7a-found-not-right"/.test(surface));
   check("4. a found item is not also listed as \"Still to add\"", /gate\.outstanding\.filter\(\(element\) => !foundIds\.has\(element\.elementId\)\)\.map\(/.test(surface));
+}
+
+// 4b. The page recorder's copy of the element rule (it also runs on code before the one asker) agrees with the site's.
+{
+  const all = CLAIM_TYPES.flatMap((type) => type.plaintiffElements);
+  const differ = all.filter((element) => recorderElementFact(element) !== elementFact(element)).map((element) => element.id);
+  check(`4b. the question logs' recorder reads every Form 7A element's fact as the site does (${all.length} elements)`, all.length > 600 && differ.length === 0, differ.slice(0, 10).join(", "));
 }
 
 // 5. The chat starts by itself from a story the home page already read (Chrome 1.9).

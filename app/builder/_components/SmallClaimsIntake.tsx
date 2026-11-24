@@ -1136,7 +1136,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             {foundToOffer.map((fact) => {
               const value = fact.value ?? "";
               return (
-                <li key={fact.field}>
+                <li key={fact.field} data-field={fact.field} data-fact={fact.facts.join(" ") || undefined}>
                   {fact.field}:{" "}
                   <UseSuggestion
                     offer={offerForQuestion(`sc-form:${fact.field}`, fact.field)}
