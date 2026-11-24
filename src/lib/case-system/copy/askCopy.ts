@@ -35,6 +35,9 @@ export const IS_THIS_RIGHT_AFTER = "?";
 
 /** The children, when the story says there are none ("We have no children"): offered once with Yes / No / Not sure (C9). */
 export const NO_CHILDREN = "No children";
+/** A box the form (or the questions) already showed and the person left empty: the review lists it once, never asks it again (site owner, 23 Nov 2026). */
+export const NOT_FILLED_IN_YET = "Not filled in yet";
+export const CHANGE_LINK = "Change";
 /** The Form 7A checklist's story screen (one asker, 23 Nov 2026): one Yes for all, "Not right" for each. */
 export const FORM7A_FOUND_QUESTION = "Is this right?";
 export const FORM7A_FOUND_YES = "Yes, that's right";
