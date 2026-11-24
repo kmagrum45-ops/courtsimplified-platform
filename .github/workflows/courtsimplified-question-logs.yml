@@ -43,10 +43,10 @@ jobs:
         if: matrix.code == 'before'
         run: |
           mkdir -p "$RUNNER_TEMP/journey"
-          cp tests/browser/chrome-561-journey.spec.ts tests/browser/ask-once-pages.spec.ts tests/browser/harness/askOnce.ts tests/browser/harness/questionLog.ts "$RUNNER_TEMP/journey/"
+          cp tests/browser/chrome-561-journey.spec.ts tests/browser/ask-once-pages.spec.ts tests/browser/harness/askOnce.ts tests/browser/harness/questionLog.ts tests/browser/harness/thisCommitServer.ts "$RUNNER_TEMP/journey/"
           git checkout --force 7524c27b4b2e0bdc05953c323e3f48db632cef4c
           cp "$RUNNER_TEMP/journey/chrome-561-journey.spec.ts" "$RUNNER_TEMP/journey/ask-once-pages.spec.ts" tests/browser/
-          cp "$RUNNER_TEMP/journey/askOnce.ts" "$RUNNER_TEMP/journey/questionLog.ts" tests/browser/harness/
+          cp "$RUNNER_TEMP/journey/askOnce.ts" "$RUNNER_TEMP/journey/questionLog.ts" "$RUNNER_TEMP/journey/thisCommitServer.ts" tests/browser/harness/
           git log --oneline -1
       - uses: actions/setup-node@v4
         with:
@@ -82,5 +82,6 @@ jobs:
           path: |
             question-logs/**
             question-out-*/*.log
+            question-out-*/test-results/**/error-context.md
           retention-days: 14
           if-no-files-found: ignore

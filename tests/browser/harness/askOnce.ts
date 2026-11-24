@@ -373,7 +373,8 @@ export function partyBoxFacts(id: string): string[] {
   const [, who, partyId, detail] = match;
   const own = who === "you";
   if (/^(?:firstName|lastName|fullName|companyName|secondName)$/.test(detail)) return [own ? "yourName" : who === "other" ? "otherParty" : `party:${partyId}:name`];
-  if (/^(?:city|province)$/.test(detail)) return [own ? "municipality" : who === "other" ? "otherPartyMunicipality" : `party:${partyId}:${detail}`];
+  // The city is the municipality; the province is a detail of its own (a story that names a city names no province).
+  if (detail === "city") return [own ? "municipality" : who === "other" ? "otherPartyMunicipality" : `party:${partyId}:city`];
   return [`party:${own ? "you" : partyId}:${detail}`];
 }
 
@@ -425,7 +426,8 @@ export function factsOfAsk(item: Pick<Asked, "surface" | "id" | "text">): string
     const own = FORM_FIELD_FACTS[item.id];
     if (own) return [...own];
     const [where, key] = [item.id.slice(0, item.id.indexOf(":")), item.id.slice(item.id.indexOf(":") + 1)];
-    if (where === "sc") { const facts = factsOfQuestion(key); return facts.length === 1 && facts[0] === key ? [item.id] : facts; }
+    // A box whose key is itself a fact the record keeps ("otherParty", "missingEvidence") asks for that fact.
+    if (where === "sc") { const facts = factsOfQuestion(key); return facts.length === 1 && facts[0] === key && !namesAFact(key) ? [item.id] : facts; }
     const facts = factsOfWords(key);
     return facts.length ? facts : [item.id];
   }

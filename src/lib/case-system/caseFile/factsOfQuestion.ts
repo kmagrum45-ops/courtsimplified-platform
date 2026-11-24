@@ -18,6 +18,8 @@ export type CaseFact =
   | "conferenceDate" | "claimIssuedDate" | "defenceFiledDate" | "marriedWhere" | "outcome" | "filedDocuments" | "safety"
   // Every question asked by id has a fact (site owner, 17 Nov 2026; test:every-question-has-fact). These are asked in one
   // place each and are not case-file slots: the one function reads slots, so they are never decided by it yet.
+  // The Small Claims review's own boxes (one asker, 23 Nov 2026: every question names its fact; the question logs of #563).
+  | "courtLocation" | "paymentHistory" | "damagesBreakdown" | "deadlineDetails" | "settlementEfforts"
   | "publication" | "twentyDaysPassed" | "notedInDefault" | "responseFacts" | "admission" | "completionDate" | "noticeToContractor"
   | "timeline" | "livingSituation" | "livingHistory" | "property" | "adoption" | "missingEvidence" | "yourName"
   | "divorceSought" | "cohabitation" | "municipality" | "otherPartyMunicipality";
@@ -147,6 +149,11 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   "sc-defence-time-elapsed": ["twentyDaysPassed"],
   "sc-defendant-noted-in-default": ["notedInDefault"],
   "sc-defendant-response-facts": ["responseFacts"],
+  // The Small Claims review's boxes by their field (the question logs of #563: each was a fact of its own): the claim number
+  // is the court file number, the agreement details what was agreed, the defence response the facts in response.
+  claimNumber: ["courtFileNumber"],
+  agreementDetails: ["agreementTerms"],
+  defenceResponse: ["responseFacts"],
   "sc-defendant-response-evidence": ["evidence"],
   "sc-defendant-admission-payment": ["admission"],
   "sc-contractor-completion-date": ["completionDate"],

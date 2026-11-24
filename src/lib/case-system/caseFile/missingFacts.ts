@@ -56,14 +56,17 @@ const empty = (value: unknown) => !(typeof value === "string" ? value.trim() : A
  * each box the story gives, offered while the box is empty and the record holds none of its facts (the person's own name:
  * while the parties hold none). Read from the record's story, so a story from the home page is offered on arrival.
  */
-export function missingFacts(record: CaseFile | null | undefined, place: "sc-form", options: { boxes?: Record<string, unknown> } = {}): MissingFact[] {
+export function missingFacts(record: CaseFile | null | undefined, place: "sc-form", options: { boxes?: Record<string, unknown>; choices?: Readonly<Record<string, string>> } = {}): MissingFact[] {
   if (place !== "sc-form") return [];
   const boxes = options.boxes ?? {};
+  // An offer the person already answered ("No, that's not right", "I'm not sure"; caseFile/offerChoice.ts, kept under the
+  // offer's key "sc-form:<box>") is never offered again: its box asks instead, or is settled.
+  const choices = options.choices ?? {};
   return storyFormValues(record).flatMap(({ field, value, quote }) => {
     // The names are offered by the Parties step on the same page (parties.ts storyPartyOffers): the one place for them,
     // so a name is never offered twice on one screen.
     if (field === "otherParty" || field === "yourName") return [];
-    if (!empty(boxes[field])) return [];
+    if (!empty(boxes[field]) || choices[`sc-form:${field}`]) return [];
     if (field === "yourName" ? Boolean(record && heldYourName(record)) : Boolean(heldAnswer(record, field))) return [];
     return [{ field, facts: askedFacts(field), status: "offer" as const, value, quote }];
   });

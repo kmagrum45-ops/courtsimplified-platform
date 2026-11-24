@@ -14,7 +14,7 @@
  * A story guess is never held: it is offered under "Found in your description", never typed in.
  * Restates the person's own answers; states no law; changes no wording of a box.
  */
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { useIntakeRecovery, useIntakeReviewView, useIntakeState } from "./IntakeRecovery";
 import { useCaseField } from "./useCaseField";
 import { writeFollow } from "./caseWrite";
@@ -35,11 +35,20 @@ function useCaseFile() {
   return view?.checkpoint ? caseFileOf(view.checkpoint, recovery?.getSavedMaster() ?? undefined) : null;
 }
 
+/**
+ * The boxes whose fact the page is offering from the story right now (the one asker, caseFile/missingFacts.ts): an empty
+ * box gives way to the offer, so a fact is never offered and asked on one screen (the question logs of #563: the amount,
+ * when and what they want were offered and asked side by side). After the offer is answered it is no longer in the set.
+ */
+export const OfferedFields = createContext<ReadonlySet<string>>(new Set());
+
 /** One box of the Small Claims form, decided by the asker. `field`: the form's key (the asker knows its fact). */
 export function AskedField({ field, value, label, children }: { field: string; value: unknown; label: ReactNode; children: ReactNode }) {
   const file = useCaseFile();
   // Typing in the box, or "Add it": the box stays for this visit (never folded under the person).
   const [opened, setOpened] = useState(false);
+  const offered = useContext(OfferedFields).has(field);
+  if (offered && blank(value) && !opened) return null;
   const decision = heldAnswer(file, field);
   // A box whose own words are a "not sure" is never shown as if they were the answer, whatever its fact (item 4, 6 Nov).
   // Folded when the one function says the box's fact is settled by a confirmed "I'm not sure" (caseFile/factStatus.ts

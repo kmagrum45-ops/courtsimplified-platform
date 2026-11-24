@@ -203,7 +203,9 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
             {own.map((offer) => (
               <UseSuggestion key={offer.key} offer={{ key: offer.key, fact: null, recordedBy: "screen" }} testId="parties-offer-yes" noTestId="parties-offer-no" unsureTestId="parties-offer-unsure" what={`${LABELS[offer.detail]}: ${offer.value}`} note={offer.from && offer.from !== "story" ? offer.quote : `${FROM_YOUR_STORY} "${offer.quote}"`} onUse={() => acceptOffer(offer)} onNo={() => declineOffer(offer)} onUnsure={() => unsureOffer(offer)} />
             ))}
-            {!party.kind ? (
+            {/* Not asked while the story's name for this party is offered with its kind ("Inc." is a company): the offer
+                settles it on Yes, and after "No" this is asked (one asker; the question logs of #563: asked beside the offer). */}
+            {!party.kind && !own.some((offer) => offer.kind && (offer.detail === "fullName" || offer.detail === "companyName")) ? (
               <div role="group" aria-label={`Is ${partyName(party) || "this party"} a person or a company?`} className="flex flex-wrap gap-2 text-sm" data-testid="parties-kind">
                 <span className="font-semibold">A person or a company?</span>
                 <button type="button" data-testid="parties-kind-person" className="rounded border px-3 py-1" onClick={() => setKind(party.id, "person")}>A person</button>

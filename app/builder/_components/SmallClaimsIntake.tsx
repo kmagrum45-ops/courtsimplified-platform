@@ -66,7 +66,8 @@ const noStore = () => () => {};
 const noReview = () => null;
 import { formAnalysisInput } from "../../../src/lib/case-system/caseFile/chatTurnFacts";
 import PartiesStep from "../../_components/PartiesStep";
-import { AskedField, useBoxesFollow, useHeldFill } from "../../_components/AskedField";
+import { AskedField, OfferedFields, useBoxesFollow, useHeldFill } from "../../_components/AskedField";
+import { offerChoicesOf } from "../../../src/lib/case-system/caseFile/offerChoice";
 import { writeFormBox } from "../../_components/caseWrite";
 import { STORY_INPUT_KEYS } from "../../../src/lib/case-system/intakeStory";
 import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
@@ -761,7 +762,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   // from the home page is offered when it arrives (Chrome, test of #561, 1.4: it was read only on "Save story"), never a
   // box the record holds or one the person filled. Offered, never filled in unseen (owner, 31 Oct).
   const formFile = reviewNow ? caseFileOf(reviewNow.checkpoint, recovery?.getSavedMaster() ?? undefined) : caseFileOf(null);
-  const foundToOffer = missingFacts({ ...formFile, storyText: formFile.storyText || input.facts }, "sc-form", { boxes: input as unknown as Record<string, unknown> });
+  const foundToOffer = missingFacts({ ...formFile, storyText: formFile.storyText || input.facts }, "sc-form", { boxes: input as unknown as Record<string, unknown>, choices: offerChoicesOf(reviewNow?.checkpoint.sections as Record<string, unknown> | undefined) });
+  // The boxes the page is offering from the story now: each gives way to its offer (AskedField OfferedFields).
+  const offeredHere = new Set(foundToOffer.map((fact) => fact.field));
   const inferredIssues = useMemo(() => inferIssuesFromStory(input), [input]);
   const inferredDisputeCategory = useMemo(() => {
     if (inferredIssues.includes("defamation-reputation")) return "defamation";
@@ -1069,6 +1072,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   }
 
   return (
+    <OfferedFields.Provider value={offeredHere}>
     <section onChangeCapture={() => analysisRequest.current.cancel()} className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
       {tribunalFirst.tribunal ? <TribunalNotice tribunal={tribunalFirst.tribunal} courtLabel="Small Claims" context="SmallClaimsIntake:tribunal-first" /> : null}
       <div className="rounded-3xl bg-[#f2fbf7] p-5">
@@ -1651,5 +1655,6 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         <ReviewNeededNotice from="form" />
       </div>
     </section>
+    </OfferedFields.Provider>
   );
 }

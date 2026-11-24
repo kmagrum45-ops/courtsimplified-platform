@@ -50,8 +50,8 @@ test("Chrome #561 run 1, Small Claims, guest: no fact the story gives is asked, 
   }
   // A person or a company, for each party the page still asks it of: the story says (Inc. is a company).
   for (const kind of await page.getByTestId("parties-kind").all()) {
-    const label = (await kind.getAttribute("aria-label")) ?? "";
-    await kind.getByTestId(/Inc\.|Ltd\./.test(label) ? "parties-kind-company" : "parties-kind-person").click().catch(() => {});
+    const label = (await kind.getAttribute("aria-label", { timeout: 3_000 }).catch(() => "")) ?? "";
+    await kind.getByTestId(/Inc\.|Ltd\./.test(label) ? "parties-kind-company" : "parties-kind-person").click({ timeout: 5_000 }).catch(() => {});
   }
   const review = page.getByTestId("intake-start-review");
   if (await review.isVisible({ timeout: 15_000 }).catch(() => false)) { await review.click(); await page.waitForTimeout(6_000); }
