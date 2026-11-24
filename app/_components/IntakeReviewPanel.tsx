@@ -542,7 +542,7 @@ export default function IntakeReviewPanel() {
         <button type="button" data-testid="intake-hidden-keep" disabled={busy} onClick={() => keepOrSetAside(key, true)} className="mr-2 rounded border px-3 py-1">Keep it</button>
         <button type="button" data-testid="intake-hidden-set-aside" disabled={busy} onClick={() => keepOrSetAside(key, false)} className="rounded border px-3 py-1">Set it aside</button>
       </div>)}</fieldset>}
-      {/* Remaining means not yet known: the list is the case file's (remainingEssentialQuestions -> alreadyAsked);
+      {/* Remaining means not yet known: the list is the case file's (remainingEssentialQuestions -> the one asker);
           a question answered here moves to its own group, still changeable, never under "Remaining" (owner's
           Chrome check, 31 Oct: "What is the case about?" stayed listed as remaining after "Dividing property"
           was saved). */}

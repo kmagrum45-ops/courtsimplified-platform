@@ -5,8 +5,8 @@ import {
 
 import {
   filingFactsFromNarrative,
-  withoutAnsweredQuestions,
 } from "./answeredQuestions";
+import { missingWords } from "../caseFile/heldAnswer";
 
 import {
   amountMismatchWarning,
@@ -844,17 +844,14 @@ function buildProceduralPosture(args: {
     ]),
     // Questions the recorded documents already answer are dropped here rather
     // than in each court path, so all three inherit the same behaviour.
-    nextProceduralQuestions: withoutAnsweredQuestions(
-      cleanList([
+    nextProceduralQuestions: missingWords(null, cleanList([
         "Has anything already been filed?",
         "Has anything already been served?",
         "Are there court dates, limitation dates, or urgent deadlines?",
         // "Does this claim require leave, notice, or a public-authority screening step?" was
         // asked of the person here (Charter re-test 2026-10-26): it is the site's to answer,
         // from the library (retrieval/libraryOwned.ts for the Crown's notice), never theirs.
-      ]),
-      filingFactsFromNarrative(rawText),
-    ),
+      ]), { filing: filingFactsFromNarrative(rawText) }),
     warnings: cleanList([
       courtPath === "unknown" ? "Court path requires confirmation." : "",
       stage === "not-sure" ? "Procedural stage requires confirmation." : "",

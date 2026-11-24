@@ -1133,8 +1133,8 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   const autoStarted = useRef(false);
   // Read: the home page showed its reading of this same story ("Here is what we understood"). A story typed here and not
   // sent yet has not been read, so it keeps "Send my story" and "Edit my story".
-  const homeRead = String(recovery?.read("home", "readFrom") ?? "").trim();
-  const readOnHome = Boolean(recovery?.read("home", "understood")) && Boolean(homeRead) && homeRead === story.trim();
+  const homeRead = caseFileOf(recovery?.getReview().checkpoint ?? null).storyReadOnHome ?? "";
+  const readOnHome = Boolean(homeRead) && homeRead === story.trim();
   useEffect(() => {
     if (autoStarted.current || !readOnHome || started || readingOutdated || !showSavedStory || !story.trim() || loading || tribunalFirst.held) return;
     autoStarted.current = true;
@@ -1617,7 +1617,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         ) : !started && showSavedStory && story.trim() ? (
           <div data-testid="guided-saved-story" className="text-sm">
             {/* Confirmed, and the case file holds every question the review would ask (the same gate,
-                remainingEssentialQuestions -> alreadyAsked): said in plain words above the story; the story can
+                remainingEssentialQuestions -> the one asker): said in plain words above the story; the story can
                 still be sent or edited (owner's Chrome check, 31 Oct, item 5). */}
             {intakeConfirmed && reviewView && remainingEssentialQuestions(reviewView.checkpoint, recovery?.getSavedMaster() ?? undefined).length === 0 ? <p data-testid="guided-nothing-left" className="mb-3 text-[#16302b]">{NOTHING_LEFT_TO_ASK} You can change any answer in &ldquo;Review or correct initial information&rdquo;.</p> : null}
             <p className="font-semibold text-[#16302b]">Your story</p>

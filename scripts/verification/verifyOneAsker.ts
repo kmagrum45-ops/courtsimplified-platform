@@ -100,19 +100,13 @@ check("2. a box the person filled is never offered over", !missingFacts(arrived,
 // 5. The chat starts by itself from a story the home page already read (Chrome 1.9).
 {
   const chat = fs.readFileSync("app/builder/_components/GuidedSmallClaimsIntake.tsx", "utf8");
-  check("5. a story the home page read starts the questions by itself, once (no \"Send my story\" box)", /const readOnHome = Boolean\(recovery\?\.read\("home", "understood"\)\) && Boolean\(homeRead\) && homeRead === story\.trim\(\);/.test(chat) && /if \(autoStarted\.current \|\| !readOnHome \|\| started/.test(chat) && /autoStarted\.current = true;\s*handleStorySubmit\(\);/.test(chat));
+  check("5. a story the home page read starts the questions by itself, once (no \"Send my story\" box)", /const homeRead = caseFileOf\(recovery\?\.getReview\(\)\.checkpoint \?\? null\)\.storyReadOnHome \?\? "";\s*const readOnHome = Boolean\(homeRead\) && homeRead === story\.trim\(\);/.test(chat) && /if \(autoStarted\.current \|\| !readOnHome \|\| started/.test(chat) && /autoStarted\.current = true;\s*handleStorySubmit\(\);/.test(chat));
 }
 
 // 3. Deleted stays deleted.
-const DELETED = ["askOf", "mayAsk", "foundStillToOffer", "extractFromStory", "EXTRACTABLE_STORY_FIELDS", "alreadyAsked", "askable", "chatQuestionToAsk", "nextQuestion", "notAsked"];
+const DELETED = ["askOf", "mayAsk", "foundStillToOffer", "extractFromStory", "EXTRACTABLE_STORY_FIELDS", "alreadyAsked", "askable", "chatQuestionToAsk", "nextQuestion", "notAsked", "pendingFields", "isQuestionAlreadyAnswered", "withoutAnsweredQuestions", "withoutMunicipalityAsked", "withoutStageAnswered"];
 /** Still to delete (each moves onto the one asker in this rebuild): the court whose screens use it. Only shrinks. */
-const STILL_TO_DELETE: Record<string, string> = {
-  pendingFields: "Civil and Family (guidedFields.ts)",
-  isQuestionAlreadyAnswered: "AI summary page (answeredQuestions.ts)",
-  withoutAnsweredQuestions: "AI summary page (answeredQuestions.ts)",
-  withoutMunicipalityAsked: "AI summary page (answeredQuestions.ts)",
-  withoutStageAnswered: "AI summary page (answeredQuestions.ts)",
-};
+const STILL_TO_DELETE: Record<string, string> = {};
 const files: string[] = [];
 const walk = (dir: string) => { for (const entry of fs.readdirSync(dir, { withFileTypes: true })) { const full = path.join(dir, entry.name); if (entry.isDirectory()) walk(full); else if (/\.(tsx?|mts)$/.test(entry.name)) files.push(full.replace(/\\/g, "/")); } };
 walk("app"); walk("src");

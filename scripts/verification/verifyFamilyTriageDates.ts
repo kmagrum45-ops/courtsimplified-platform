@@ -25,7 +25,9 @@
  */
 import fs from "node:fs";
 import { emptyStatusRecord, livedTogetherFromStory, partialDateWords, readPartialDate, selectNextTriageQuestion } from "../../src/lib/case-system/family/statusTriage";
-import { withoutMunicipalityAsked } from "../../src/lib/case-system/intelligence/answeredQuestions";
+// The one asker (caseFile/heldAnswer.ts missingWords; withoutMunicipalityAsked was deleted with it, 23 Nov 2026), same rule.
+import { missingWords } from "../../src/lib/case-system/caseFile/heldAnswer";
+const withoutMunicipalityAsked = (questions: string[], municipality: string | null) => missingWords(null, questions, { municipality });
 import { emptyCaseFile } from "../../src/lib/case-system/caseFile/caseFile";
 
 let failures = 0;

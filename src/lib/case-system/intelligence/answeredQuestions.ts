@@ -195,40 +195,6 @@ export function filingFactsFromNarrative(rawUserText: string): RecordedFilingFac
   };
 }
 
-/**
- * Questions the recorded facts already answer. Each entry pairs the question
- * wording produced somewhere in the system with the fact that settles it.
- */
-const ANSWERED_WHEN: Array<{
-  pattern: RegExp;
-  answered: (facts: RecordedFilingFacts) => boolean;
-}> = [
-  {
-    // A default judgment is only available because no Defence was filed, so
-    // either a Defence on record or a default judgment settles this.
-    pattern: /has the (defendant|respondent) filed a defence\??/i,
-    answered: (facts) => facts.defenceOnRecord || facts.defaultJudgmentOnRecord,
-  },
-  {
-    pattern: /has anything already been filed\??/i,
-    answered: (facts) => facts.anythingFiled,
-  },
-  {
-    pattern: /has anything already been served\??/i,
-    answered: (facts) => facts.anythingServed,
-  },
-];
-
-/** True when the recorded facts already answer this question. */
-export function isQuestionAlreadyAnswered(
-  question: string,
-  facts: RecordedFilingFacts,
-): boolean {
-  const text = String(question || "").trim();
-  if (!text) return false;
-
-  return ANSWERED_WHEN.some((rule) => rule.pattern.test(text) && rule.answered(facts));
-}
 
 /**
  * The generic filing and court-date questions, which a known stage answers: once the person has said
@@ -237,40 +203,10 @@ export function isQuestionAlreadyAnswered(
  * dates question by the dates on the step (page review 2026-10-06; 26 Oct re-test, case 16: asked
  * "Are there court dates…?" with the November 16 conference saved).
  */
-const STAGE_ANSWERS = /^(Has anything already been (filed|served)\?|Are there court dates, limitation dates, or urgent deadlines\?)$/;
 /** A stage that says where the case is; "not sure" and "urgent" do not. */
 export function stageAnswersFilingQuestions(caseStage: string | null | undefined, stepWords?: string | null): boolean {
   return Boolean(stepWords) || (Boolean(caseStage) && caseStage !== "not-sure" && caseStage !== "urgent");
 }
-/** The questions still to confirm once the stage is taken into account, in order. */
-export function withoutStageAnswered(questions: string[], caseStage: string | null | undefined, stepWords?: string | null): string[] {
-  return stageAnswersFilingQuestions(caseStage, stepWords) ? questions.filter((question) => !STAGE_ANSWERS.test(question.trim())) : questions;
-}
 
-/** Drop questions the recorded facts already answer, preserving order. */
-export function withoutAnsweredQuestions(
-  questions: string[],
-  facts: RecordedFilingFacts,
-): string[] {
-  return questions.filter((question) => !isQuestionAlreadyAnswered(question, facts));
-}
-
-const ASKS_MUNICIPALITY = /\bmunicipalit(?:y|ies)\b|\bwhich (?:city|town)\b|\bwhere (?:does|do) (?:each (?:parent|of you)|you|the other (?:person|parent)|both (?:of you|parents)) (?:now )?live\b/i;
-
-/**
- * The questions of "What to confirm next", read against the municipality the record holds (the Family card's "Which
- * municipality do you live in?"): one asking it again is dropped, and where it asks something else as well ("…, and
- * where has your daughter lived since birth?") only that part is kept (Chrome check of production c38e69fd, B3: asked
- * for the municipality right after Ottawa was recorded).
- */
-export function withoutMunicipalityAsked(questions: string[], recordedMunicipality: string | null | undefined): string[] {
-  if (!recordedMunicipality?.trim()) return questions;
-  return questions.flatMap((question) => {
-    if (!ASKS_MUNICIPALITY.test(question)) return [question];
-    const parts = question.split(/,\s*and\s+|;\s*and\s+/i);
-    const rest = parts.slice(1).filter((part) => !ASKS_MUNICIPALITY.test(part)).join(", and ").trim();
-    if (!rest) return [];
-    const sentence = rest.charAt(0).toUpperCase() + rest.slice(1);
-    return [sentence.endsWith("?") ? sentence : `${sentence.replace(/[.!]+$/, "")}?`];
-  });
-}
+// The questions a recorded fact, the stage or the city already answers are decided by the one asker (caseFile/heldAnswer.ts
+// missingWords; site owner, 23 Nov 2026): its four filters, the second copies, are deleted. This module keeps the readers of what is on record.

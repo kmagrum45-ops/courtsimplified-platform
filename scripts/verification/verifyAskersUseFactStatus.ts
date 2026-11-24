@@ -61,20 +61,23 @@ export const DECIDING = [
   // Producers of AI-written questions that show nothing themselves (rule a checks every consumer).
   "app/builder/_components/civilAnalysis.ts",
   "app/builder/_components/familyAnalysis.ts",
-  "src/lib/case-system/intelligence/answeredQuestions.ts",
+  // intelligence/answeredQuestions.ts produced and filtered questions until 23 Nov 2026; its filters moved into the one
+  // asker (caseFile/heldAnswer.ts missingWords) and it now only reads what is on record, so it is no longer an asker.
 ];
 
 /** A file's code without its comments (rule b: a marker in a comment is not an asker). URLs in strings are kept. */
 export function codeOf(text: string): string {
   return text.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:"'`\\])\/\/.*$/gm, "$1").replace(/\{\s*\}/g, "{}");
 }
-const IMPORTS_ONE_FUNCTION = /import\s+(?!type\b)[^;]*?from ["'][^"']*caseFile\/factStatus["']/;
+// The one function, or the one asker built on it (caseFile/heldAnswer.ts: its question lists call mayAskWords and
+// heldAnswer, checked below), 23 Nov 2026.
+const IMPORTS_ONE_FUNCTION = /import\s+(?!type\b)[^;]*?from ["'][^"']*caseFile\/(?:factStatus|heldAnswer)["']/;
 // homeAsks (caseFile/factQuestions.ts) is the home page's one decision, itself made by factStatus: accepted as a filter
 // only while that holds (checked here, 19 Nov 2026).
 const FACT_QUESTIONS = readFileSync("src/lib/case-system/caseFile/factQuestions.ts", "utf8");
 const HOME_ASKS_ON_FACT_STATUS = /import \{ factStatus \} from "\.\/factStatus"/.test(FACT_QUESTIONS)
   && /factStatus\(file, fact as SlotFact, stated\) === "ask"/.test((FACT_QUESTIONS.split("export function homeAsks")[1] ?? "").split("\n}")[0]);
-const FILTERS = HOME_ASKS_ON_FACT_STATUS ? /\b(?:mayAskWords|mayShowQuestion|stillNeeded|homeAsks)\(/ : /\b(?:mayAskWords|mayShowQuestion|stillNeeded)\(/;
+const FILTERS = HOME_ASKS_ON_FACT_STATUS ? /\b(?:mayAskWords|mayShowQuestion|stillNeeded|homeAsks|missingWords|missingFields|missingQuestions)\(/ : /\b(?:mayAskWords|mayShowQuestion|stillNeeded|missingWords|missingFields|missingQuestions)\(/;
 const rendersAQuestion = (text: string) => MARKERS.some((marker) => marker.test(codeOf(text)));
 
 // ---- Rule a: producers, every importer enumerated with its role ----------------------------------------------------
@@ -93,17 +96,9 @@ export const PRODUCERS: Record<string, { why: string; importers: Record<string, 
     why: "the Family analysis's AI-written questions and missing-information lines",
     importers: { "app/builder/_components/FamilyIntake.tsx": { role: "hands-on", to: "app/builder/_components/IntelligenceOverviewPanel.tsx" } },
   },
-  "src/lib/case-system/intelligence/answeredQuestions.ts": {
-    why: "filters over AI-written questions, run before the screen's own mayAskWords",
-    importers: {
-      "app/builder/page.tsx": { role: "asker" },
-      "app/builder/_components/civilAnalysis.ts": { role: "producer" },
-      "app/builder/_components/IntelligenceOverviewPanel.tsx": { role: "filters" },
-      "src/lib/case-system/caseRecord.ts": { role: "library" },
-      "src/lib/case-system/intelligence/courtSimplifiedBrain.ts": { role: "library" },
-      "src/lib/case-system/intelligence/smallClaimsIntelligenceEngine.ts": { role: "producer" },
-    },
-  },
+  // intelligence/answeredQuestions.ts: its filters moved into the one asker (caseFile/heldAnswer.ts missingWords, 23 Nov
+  // 2026); it reads only what is on record now, produces no question, so its rule is deleted.
+
   "src/lib/case-system/intelligence/smallClaimsIntelligenceEngine.ts": {
     why: "the Small Claims analysis's \"What to confirm next\" lines (server)",
     importers: {
@@ -306,9 +301,17 @@ const plantedConsumer = { ...files, "app/__planted__/ShowsCivil.tsx": 'import { 
 check("planted (a): a new consumer of a producer that does not filter fails it", producerProblems("app/builder/_components/civilAnalysis.ts", plantedConsumer).some((problem) => problem.includes("__planted__/ShowsCivil.tsx")));
 const plantedFetcher = { ...files, "app/__planted__/FetchesUnderstand.tsx": 'const route = "/api/case/understand";\n<p>{questions[0]}</p>' };
 check("planted (a): a new screen fetching a producer's route, not enumerated, fails it", producerProblems("src/lib/case-system/understanding/understandCase.ts", plantedFetcher).some((problem) => problem.includes("FetchesUnderstand")));
-const notFiltering = { ...files, "app/builder/_components/IntelligenceOverviewPanel.tsx": (files["app/builder/_components/IntelligenceOverviewPanel.tsx"] ?? "").replace(/\b(mayAskWords|mayShowQuestion|stillNeeded)\(/g, "theirOwnFilter(") };
+const notFiltering = { ...files, "app/builder/_components/IntelligenceOverviewPanel.tsx": (files["app/builder/_components/IntelligenceOverviewPanel.tsx"] ?? "").replace(/\b(mayAskWords|mayShowQuestion|stillNeeded|missingWords|missingFields|missingQuestions)\(/g, "theirOwnFilter(") };
 check("planted (a): a declared filtering screen that stops filtering fails the producer", producerProblems("app/builder/_components/familyAnalysis.ts", notFiltering).length > 0);
 // c. A wording file that holds a function is not exempt.
+// The one asker's question lists are built on the one function: missingWords calls mayAskWords, missingFields and
+// missingQuestions call heldAnswer or slotStatus (so a screen filtering through them filters through the one function).
+{
+  const asker = codeOf(files["src/lib/case-system/caseFile/heldAnswer.ts"] ?? "");
+  // Each function's text up to the next export (a default parameter's "= {}" is not its body).
+  const body = (name: string) => { const start = asker.indexOf(`export function ${name}`); if (start < 0) return ""; const end = asker.indexOf("\nexport ", start + 1); return asker.slice(start, end < 0 ? undefined : end); };
+  check("the one asker's question lists call the one function (missingWords -> mayAskWords; missingFields -> heldAnswer; missingQuestions -> the slot status)", /\bmayAskWords\(/.test(body("missingWords")) && /\bheldAnswer\(/.test(body("missingFields")) && /\bstillOpen\(/.test(body("missingQuestions")) && /slotStatus\(/.test(asker));
+}
 check("planted (c): a wording file with a function is not wording only", !wordingOnly('export const A = "words";\nexport function ask() { return "Are you sure?"; }'));
 check("planted (c): one with JSX is not wording only", !wordingOnly('export const A = <p>Are you sure?</p>;'));
 check("self-test (c): string constants only are wording only", wordingOnly('/** words */\nexport const A = "Not answered yet";\nexport const B = \'Add it\';'));

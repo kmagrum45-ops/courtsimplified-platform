@@ -52,7 +52,7 @@ export function caseFileOfChat(caseMemory: unknown): CaseFile | null {
 /**
  * Whether the story, the conversation or the case file already answers this question as it stands
  * (a compound question whose fact is held is not asked as it stands: its open part may be, through
- * caseFile.ts chatQuestionToAsk).
+ * caseFile/heldAnswer.ts chatQuestionFor).
  */
 export function answeredInStory(question: string, known: string, file: CaseFile | null = null): boolean {
   if (chatQuestionFor(file, question) !== question) return true;

@@ -103,8 +103,9 @@ export function answerNeedsMore(field: GuidedField, value: string | string[]): s
 
 export type GuidedValues = Record<string, string | string[] | undefined>;
 
-export { isAnswered, pendingFields } from "./guidedFields";
-import { guidedQuestion, isAnswered, pendingFields } from "./guidedFields";
+export { isAnswered } from "./guidedFields";
+import { guidedQuestion, isAnswered } from "./guidedFields";
+import { missingFields } from "../../../src/lib/case-system/caseFile/heldAnswer";
 import { isTypedUnsure } from "../../../src/lib/case-system/caseFile/unsureAnswer";
 
 /**
@@ -244,7 +245,7 @@ export default function GuidedFormChat({
   // The conversation check (caseFile.ts askedAndReplied): a question this chat asked and the person replied to is not asked again.
   const replied = useMemo(() => heard.flatMap(({ question, reply }) => [{ role: "assistant", text: question }, { role: "user", text: reply }]), [heard]);
   // Each question in the words the record leaves to ask (guidedQuestion: a part the case already holds is not asked).
-  const pending = useMemo(() => pendingFields(fields, values, skipped).map((field) => ({ ...field, question: guidedQuestion(field, caseFile) })).filter((field) => !heldElsewhere.has(field.key) && !askedAndReplied(replied, field.question)), [fields, values, skipped, heldElsewhere, replied, caseFile]);
+  const pending = useMemo(() => missingFields(null, fields, values, skipped, isAnswered).map((field) => ({ ...field, question: guidedQuestion(field, caseFile) })).filter((field) => !heldElsewhere.has(field.key) && !askedAndReplied(replied, field.question)), [fields, values, skipped, heldElsewhere, replied, caseFile]);
   const current = changing ? fields.find((field) => field.key === changing) ?? null : pending[0] ?? null;
   // A follow-up question (anything after the story itself) waits behind the tribunal notice until the person sets it aside.
   const tribunalShown = Boolean(tribunalCourt && tribunalFirst.tribunal && current && current.key !== "facts" && !changing);

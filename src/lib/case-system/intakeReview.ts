@@ -7,7 +7,7 @@ import { countable, dayWrittenBefore, findDates, formatForCourt, findDayMonthWit
 import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
 import { freshSections, storyAnswersOutdated } from "./storyBasis";
 import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
-import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../../app/builder/_components/guidedFields";
+import { familyGuidedFields, civilGuidedFields, isAnswered, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../../app/builder/_components/guidedFields";
 import { kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
 import { readingFactsOf, type ReadingFact } from "./caseFile/storyOffers";
 import { readStoryFacts, type StoryCourt, type StoryReading, type StoryValue } from "./caseFile/storyReader";
@@ -16,7 +16,7 @@ import { mayShowQuestion } from "./caseFile/factStatus";
 import type { Stated } from "./caseFile/factStatus";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
-import { heldAnswer } from "./caseFile/heldAnswer";
+import { missingFields, heldAnswer } from "./caseFile/heldAnswer";
 import { CASE_FILE_SECTION, CHANGE_QUESTION, answeredInIntake, caseFileOf, fromCasePosition, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, repeatsAnswer, sameAnswer, NEWEST_TYPED_FACTS, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
 import { LENT_MONEY, LOAN_WORDS } from "./intake/claimKind";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
@@ -542,7 +542,7 @@ export function remainingEssentialQuestions(stored: Checkpoint, master?: unknown
   const file = caseFileOf(stored, master);
   // Small Claims: the question engine itself asks the case file (the one asker, intake/asker.ts; founder, 1 Nov).
   if (stored.courtPath === "small-claims") return oneQuestionPerFact(remainingBeforeCaseFile(stored, false, file));
-  // The one function (factStatus.ts): shown only while its fact is still to ask or to offer (the same rule alreadyAsked held).
+  // The one function (factStatus.ts): shown only while its fact is still to ask or to offer (the one asker's rule).
   return oneQuestionPerFact(remainingBeforeCaseFile(stored, false).filter(question => mayShowQuestion(file, question.id)));
 }
 
@@ -698,7 +698,7 @@ function remainingBeforeCaseFile(stored: Checkpoint, includeUnknown: boolean, he
     if (fromStart.servedOn && checkpoint.courtPath === "family") values.servedDate = formatForCourt(fromStart.servedOn);
     const fields = checkpoint.courtPath === "family" ? FAMILY_FIELDS() : CIVIL_FIELDS();
     const skipped = new Set(Array.isArray(checkpoint.sections["form-chat"]?.skipped) ? checkpoint.sections["form-chat"].skipped as string[] : []);
-    return pendingFields(fields, values, skipped).map(field => ({ id: field.key, label: field.question })).filter(field => includeUnknown || !unknowns.has(field.id));
+    return missingFields(null, fields, values, skipped, isAnswered).map(field => ({ id: field.key, label: field.question })).filter(field => includeUnknown || !unknowns.has(field.id));
   }
   const initial = smallClaimsInitialAnswers(checkpoint);
   // What the situation answers settle is answered, never asked again (step 2).

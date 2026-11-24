@@ -98,7 +98,7 @@ export function selectQuestions(
   purpose: "all" | "initial" = "all",
   /**
    * THE ONE ASKER (founder's plan step 5, 1 Nov): the case file (caseFileOf). A question whose fact
-   * the person already holds -- answered, "not sure", or removed -- is never returned (asker.ts askOf);
+   * the person already holds -- answered, "not sure", or removed -- is never returned (caseFile/heldAnswer.ts heldAnswer);
    * a story guess holds nothing. Absent or null: nothing is held (a harness, a guest before any save).
    * Held questions are not answered ids: callers never record them as answered.
    */

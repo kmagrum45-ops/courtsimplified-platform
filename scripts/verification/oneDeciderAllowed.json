@@ -1,16 +1,6 @@
 [
   {
     "kind": "decider",
-    "file": "app/builder/_components/guidedFields.ts",
-    "name": "pendingFields",
-    "count": 1,
-    "status": "second",
-    "facts": "the Civil and Family chat fields (form values and skips)",
-    "moveTo": "src/lib/case-system/caseFile/factStatus.ts factStatus",
-    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
-  },
-  {
-    "kind": "decider",
     "file": "src/lib/case-system/caseFile/factQuestions.ts",
     "name": "homeAsks",
     "count": 1,
@@ -64,36 +54,6 @@
     "count": 1,
     "status": "one",
     "facts": "the Family triage questions (calls mayShowQuestion)"
-  },
-  {
-    "kind": "decider",
-    "file": "src/lib/case-system/intelligence/answeredQuestions.ts",
-    "name": "isQuestionAlreadyAnswered",
-    "count": 1,
-    "status": "second",
-    "facts": "AI-worded questions (case page)",
-    "moveTo": "src/lib/case-system/caseFile/factStatus.ts factStatus",
-    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
-  },
-  {
-    "kind": "decider",
-    "file": "src/lib/case-system/intelligence/answeredQuestions.ts",
-    "name": "withoutMunicipalityAsked",
-    "count": 1,
-    "status": "second",
-    "facts": "municipality",
-    "moveTo": "src/lib/case-system/caseFile/factStatus.ts factStatus",
-    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
-  },
-  {
-    "kind": "decider",
-    "file": "src/lib/case-system/intelligence/answeredQuestions.ts",
-    "name": "withoutStageAnswered",
-    "count": 1,
-    "status": "second",
-    "facts": "AI-worded questions (stage answers)",
-    "moveTo": "src/lib/case-system/caseFile/factStatus.ts factStatus",
-    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
   },
   {
     "kind": "decider",

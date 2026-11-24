@@ -85,6 +85,11 @@ export type CaseFile = Record<SlotFact, Slot> & {
   sideWords?: string;
   /** The story's words as they are now, for the lines "What we have so far" quotes from it (storyLines.ts); the fact itself is the `story` slot. */
   storyText?: string;
+  /**
+   * The story the home page showed its reading of ("Here is what we understood"), when it did: the Small Claims chat starts by
+   * itself from that same story, never asking for it again (one asker, 23 Nov 2026; Chrome, test of #561, 1.9). Read only.
+   */
+  storyReadOnHome?: string;
   /** The person's own city and province, given on the home page (intakeStory.ts locationOf): read through heldLocation (C9). */
   /** Where the other person lives (the Family status questions): read through heldOtherPartyCity (C9). */
   otherPartyCity?: string;
@@ -539,6 +544,7 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // withoutGluedAnswers; Chrome pass 3 on #550: the answers printed in the Form 7A reasons box). The answer itself is
   // still held, from home.understoodAnswers.
   file.storyText = withoutGluedAnswers(String(object(sections.story).text ?? ""), answeredInIntake(sections).map((item) => item.answer));
+  { const home = object(sections.home); if (home.understood && typeof home.readFrom === "string" && home.readFrom.trim()) file.storyReadOnHome = home.readFrom.trim(); }
   file.area = checkpoint?.courtPath ?? court ?? undefined;
   if (!file.storyText.trim() && master) file.savedStory = storyOfMaster(master) ?? undefined;
   // The story is a fact: held once given, here or in the saved case (founder, 1 Nov: the Small Claims chat

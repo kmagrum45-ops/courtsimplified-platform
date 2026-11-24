@@ -7,7 +7,7 @@
  * its own idea of what was answered, and a story fact nothing had read into the record counted as nothing. This module is
  * the one place that decides:
  *   heldAnswer(record, field)       whether a box or question is held, and by what (the person's answer, "not sure", or
- *                                   removed): never asked again then. Moved here from intake/asker.ts askOf (deleted).
+ *                                   removed): never asked again then. Moved here from intake/asker.ts (deleted there).
  *   missingFacts(record, place, ..) the facts a place may still show: each to ask, or to offer from the story once
  *                                   (Yes / No, that's not right / I'm not sure), never filled in silently.
  * The story is read from the record itself (its storyText), so it is read when it ARRIVES, from any entry, guest or signed

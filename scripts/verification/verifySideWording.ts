@@ -83,7 +83,7 @@ async function main() {
   // C9 (23 Nov 2026): the AI summary page asks it only while the case file holds no answer to it from another place (the
   // Small Claims chat's "Has a Defence been filed?", the review), through the one function.
   const panel = (await import("node:fs")).readFileSync("app/builder/_components/IntelligenceOverviewPanel.tsx", "utf8");
-  check("C9: the AI summary page's Defence question reads the case file (mayAskWords)", /!isQuestionAlreadyAnswered\(defenceQuestion, filingFacts\) && mayAskWords\(caseFile, defenceQuestion,/.test(panel));
+  check("C9: the AI summary page's Defence question reads the case file (mayAskWords)", /missingWords\(caseFile, \[defenceQuestion\], \{ filing: filingFacts, responding: respondingFromRecord\(caseFile \?\? undefined\) \}\)\.length > 0/.test(panel));
   const { mayAskWords } = await import("../../src/lib/case-system/caseFile/factStatus");
   const { emptyCaseFile } = await import("../../src/lib/case-system/caseFile/caseFile");
   const held = { ...emptyCaseFile(), defenceFiled: { state: "answered" as const, value: "No", confirmed: true, source: { kind: "answer" as const, question: "sc-defence-filed" } } };

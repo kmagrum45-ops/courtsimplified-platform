@@ -1043,8 +1043,8 @@ The stage, the side and the papers in words, never codes.
 Which generic questions the recorded papers and the stage already answer.
 
 - Reads (0): nothing in the repo
-- Read by (6): app/builder/_components/IntelligenceOverviewPanel.tsx, app/builder/_components/civilAnalysis.ts, app/builder/page.tsx, **src/lib/case-system/caseRecord.ts**, src/lib/case-system/intelligence/courtSimplifiedBrain.ts, src/lib/case-system/intelligence/smallClaimsIntelligenceEngine.ts
-- Checked by (4): scripts/verification/verifyCaseWords.ts, scripts/verification/verifyFamilyTriageDates.ts, scripts/verification/verifyOverviewIssueAndDocumentLabels.ts, scripts/verification/verifyRespondingSide.ts
+- Read by (7): app/builder/_components/IntelligenceOverviewPanel.tsx, app/builder/_components/civilAnalysis.ts, app/builder/page.tsx, src/lib/case-system/caseFile/heldAnswer.ts, **src/lib/case-system/caseRecord.ts**, src/lib/case-system/intelligence/courtSimplifiedBrain.ts, src/lib/case-system/intelligence/smallClaimsIntelligenceEngine.ts
+- Checked by (2): scripts/verification/verifyOverviewIssueAndDocumentLabels.ts, scripts/verification/verifyRespondingSide.ts
 
 ### src/lib/case-system/guided-assistant/answeredInStory.ts
 

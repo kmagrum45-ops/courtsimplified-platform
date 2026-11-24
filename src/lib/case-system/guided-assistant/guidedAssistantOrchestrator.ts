@@ -998,7 +998,7 @@ function buildBestQuestion(args: {
   }
 
   const reasoningQuestion = firstItem(
-    // By fact (caseFile.ts chatQuestionToAsk): the question, its open part once its fact is held, or none.
+    // By fact (caseFile/heldAnswer.ts chatQuestionFor): the question, its open part once its fact is held, or none.
     args.legalReasoning.reasoningSummary.firstQuestions
       .map((question) => chatQuestionFor(args.caseFile, question, args.turns))
       .filter((question): question is string => Boolean(question) && !answeredInStory(question as string, args.knownStory ?? "")),
@@ -1010,7 +1010,7 @@ function buildBestQuestion(args: {
 
   // Only the parts the case does not already hold: the dates (the message, the saved story or the
   // case file), the proof (dropped by the caller once evidence is named), what they want.
-  // Dates the case file holds leave only the other dates open (chatQuestionToAsk), never the whole question.
+  // Dates the case file holds leave only the other dates open (chatQuestionFor), never the whole question.
   const datesInStory = args.intelligence.extractedFacts.some((fact) => fact.category === "date" && fact.confidence !== "low");
   return [
     datesInStory ? null : chatQuestionFor(args.caseFile, assistantText("assistant:question:part-dates"), args.turns),

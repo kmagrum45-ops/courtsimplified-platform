@@ -1864,7 +1864,7 @@ function buildQuestions(args: {
 
   function pushQuestion(asked: CasePartnerQuestion) {
     // By fact, through the one gate: the question, its open part once its fact is held, or nothing
-    // (caseFile.ts chatQuestionToAsk; factsOfQuestion.ts CHAT_QUESTIONS).
+    // (caseFile/heldAnswer.ts chatQuestionFor; factsOfQuestion.ts CHAT_QUESTIONS).
     const words = chatQuestionFor(args.caseFile, asked.question, args.conversation);
     if (!words) return;
     const question = words === asked.question ? asked : { ...asked, question: words };

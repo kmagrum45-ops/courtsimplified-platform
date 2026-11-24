@@ -327,12 +327,7 @@ export function guidedQuestion(field: Pick<GuidedField, "question" | "askedWhenH
   return held === "known" || held === "settled" ? field.askedWhenHeld!.question : field.question;
 }
 
-/** The questions still to ask, in order: applicable, unanswered, not skipped. */
-export function pendingFields(fields: readonly GuidedField[], values: GuidedValues, skipped: ReadonlySet<string>): GuidedField[] {
-  return fields.filter(
-    (field) => field.initial !== false && (field.when ? field.when(values) : true) && !isAnswered(field, values[field.key]) && !skipped.has(field.key),
-  );
-}
+// The questions still to ask are decided by the one asker (caseFile/heldAnswer.ts missingFields).
 
 /** The Family and Civil forms' choice lists: one copy, read by the forms and by the review (plain words, not stored values). */
 /**

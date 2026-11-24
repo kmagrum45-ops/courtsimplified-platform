@@ -89,7 +89,7 @@ const chat = fs.readFileSync("app/builder/_components/GuidedSmallClaimsIntake.ts
 check("6. the depth phase drops a question whose fact the case file holds", /result\.questions = result\.questions\.filter\(\(question\) => mayShowQuestion\(depthFile, question\.id\)\)/.test(chat));
 check("6. the depth phase drops a story offer whose fact the case file holds", /result\.proposals = \(result\.proposals \?\? \[\]\)\.filter\(\(proposal\) => mayShowQuestion\(depthFile, proposal\.questionId\)\)/.test(chat));
 const overview = fs.readFileSync("app/builder/_components/IntelligenceOverviewPanel.tsx", "utf8");
-check("6. \"What to confirm next\" asks in words only, with the one story reader's reading (never what the story says)", /mayAskWords\(caseFile, question, \{ responding: respondingFromRecord\(caseFile \?\? undefined\), wordsOnly: \{ storySays: storyReading \} \}\)/.test(overview) && /const storyReading = quotesOf\(statedInStory\(/.test(overview));
+check("6. \"What to confirm next\" asks in words only, with the one story reader's reading (never what the story says)", /missingWords\(caseFile, candidateQuestions, \{[^}]*responding: respondingFromRecord\(caseFile \?\? undefined\), wordsOnly: \{ storySays: storyReading \} \}\)/.test(overview) && /const storyReading = quotesOf\(statedInStory\(/.test(overview));
 // What was agreed is read, never offered: it is not one of the facts the story offers (STORY_STATED_FACTS).
 check("6. what was agreed is never offered from the story (not a stated fact)", !("agreementTerms" in statedInStory(STATED[0])));
 

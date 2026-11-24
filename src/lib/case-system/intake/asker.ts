@@ -19,7 +19,7 @@
 import { isUnsureAnswer, slotText, SLOT_FACTS, emptyCaseFile, type CaseFile, type Slot, type SlotFact } from "../caseFile/caseFile";
 import { formatForCourt } from "../dates";
 // The one asker decides whether a box is held (caseFile/missingFacts.ts heldAnswer); this module only fills form boxes
-// from what it holds (site owner, 23 Nov 2026: askOf, mayAsk and foundStillToOffer, the second copies, are deleted).
+// from what it holds (site owner, 23 Nov 2026: the second copies here are deleted).
 import { askedFacts, heldAnswer } from "../caseFile/heldAnswer";
 
 /** The person's held answer to a question, in their words as screens show them (slotText); null unless answered and confirmed. */
