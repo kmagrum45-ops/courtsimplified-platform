@@ -99,8 +99,16 @@ export function writeParties(recovery: CaseWriteRecovery, record: PartiesRecord)
   // A detail written now keeps only a value of its type: a place is never a name (factTypes.ts; decision 1, 18 Nov 2026).
   // Only what changed is checked, so a record saved before the rule is still read and saved as it was.
   const before = readParties(recovery.read(CASE_FILE_SECTION, "parties"));
-  // The other side's name the case holds from ANOTHER place (the chat, the review, the questions), read before this save.
-  const elsewhere = heldOtherName(caseFileOf(recovery.getReview().checkpoint, recovery.getSavedMaster() ?? undefined));
+  // The other side's name the case holds from ANOTHER place (the chat, the review, the questions), read before this save:
+  // as the case file reads it, or as the fact record holds it (the tab's newer unsent change, else the server's record). The
+  // record's copy is the one every page shows, and the case file names an older case's other party "from the parties"
+  // (caseFile.ts, question "parties"), so heldOtherName alone missed it (local run of chrome-545-round, 24 Nov 2026).
+  const recordName = (() => {
+    const object = (value: unknown): Record<string, unknown> => (value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {});
+    const entry = (object(recovery.read(CASE_FILE_SECTION, "changes")).otherParty ?? object(recovery.read(CASE_FILE_SECTION, "facts")).otherParty) as { state?: unknown; value?: unknown } | undefined;
+    return entry?.state === "answered" && typeof entry.value === "string" ? entry.value.trim() : "";
+  })();
+  const elsewhere = heldOtherName(caseFileOf(recovery.getReview().checkpoint, recovery.getSavedMaster() ?? undefined)) || recordName;
   for (const party of checked.list) {
     const was = before?.list.find((item) => item.id === party.id);
     for (const [detail, value] of Object.entries(party.details)) {

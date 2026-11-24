@@ -395,6 +395,9 @@ const FORM_FIELD_FACTS: Record<string, readonly string[]> = {
   "sc:evidence": ["evidence"],
   "sc:serviceDetails": ["servedDate", "serviceMethod"],
   "label:Amount claimed or disputed": ["amount"],
+  // The home page's own story box (seen by the labelled-box surface): it asks for the story (local10, 24 Nov 2026: "names no
+  // fact" in the kitchen story's log).
+  "label:Your story": ["story"],
   "label:What do you want ordered?": ["wants"],
   "label:Timeline": ["whenHappened"],
   "label:Evidence you have": ["evidence"],

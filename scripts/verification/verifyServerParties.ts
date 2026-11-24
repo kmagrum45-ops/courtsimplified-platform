@@ -122,6 +122,12 @@ async function throughTheRoute() {
   writeParties(held.recovery as never, BETA);
   const changed = (held.sections[CASE_FILE_SECTION].changes ?? {}) as Record<string, { state?: string; value?: unknown }>;
   check("8. a name changed on the Parties step over one held from the chat is recorded as the newest answer", changed.otherParty?.state === "answered" && changed.otherParty.value === "Beta Movers Ltd.", JSON.stringify(changed));
+  // The name held through the fact record under the Parties step's own question (an older case: the case file names its
+  // other party "from the parties"), so heldOtherName reads nothing: the record's copy is still the one every page shows.
+  const viaRecord = tab({ otherParty: { state: "answered", value: "Alex Testwood", source: "person", at: "2026-11-24T10:00:00.000Z", seq: 1, question: "parties" } });
+  writeParties(viaRecord.recovery as never, BETA);
+  const recorded = (viaRecord.sections[CASE_FILE_SECTION].changes ?? {}) as Record<string, { state?: string; value?: unknown }>;
+  check("8. a name changed over one the fact record holds (under the Parties step's question) is recorded as the newest answer", recorded.otherParty?.state === "answered" && recorded.otherParty.value === "Beta Movers Ltd.", JSON.stringify(recorded));
   const fresh = tab({});
   writeParties(fresh.recovery as never, BETA);
   check("8. a first name, with none held, records nothing more than the Parties record", fresh.sections[CASE_FILE_SECTION].changes === undefined && fresh.sections[CASE_FILE_SECTION][PARTIES_PENDING] === true, JSON.stringify(fresh.sections[CASE_FILE_SECTION]));
