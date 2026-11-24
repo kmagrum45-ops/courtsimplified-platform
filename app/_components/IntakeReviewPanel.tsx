@@ -253,9 +253,12 @@ export default function IntakeReviewPanel() {
   const savedMaster = recovery.getSavedMaster();
   const caseFileNow = caseFileOf(checkpoint, savedMaster ?? undefined);
   // The Small Claims questions route also shows the other party the record holds (B1; shown only, never confirmed by itself).
-  const entries = shownReviewEntries(withHeldOtherParty(reviewEntries(checkpoint), checkpoint, caseFileNow));
   // Still to answer: only what nobody has answered or said "not sure" to (the case file's one gate).
   const remaining = remainingEssentialQuestions(checkpoint, savedMaster ?? undefined);
+  // One asker: an empty box whose fact one of these questions asks is not a second ask beside it (the question logs of
+  // #563: "What kind of dispute is this?" and an empty "Issues" box, both the kind of claim, on one review).
+  const askedByAQuestion = new Set(remaining.flatMap((question) => slotsOfQuestion(question.id)));
+  const entries = shownReviewEntries(withHeldOtherParty(reviewEntries(checkpoint), checkpoint, caseFileNow)).filter((entry) => !(empty(entry.value) && !entry.fromStart && slotsOfQuestion(entry.field).some((fact) => askedByAQuestion.has(fact))));
   // Said "I don't know" or "not sure" anywhere (site owner, 31 Oct): a quiet line, never asked again here.
   // The facts with no question here; the questions' quiet lines come in the one list (notYet).
   const quietFacts = notAnsweredYet(checkpoint, savedMaster ?? undefined).filter(line => !line.question);
