@@ -6,7 +6,7 @@
  * Pure: no React, no network. States no law.
  */
 import { slotsOfQuestion, type CaseFile, type Slot, type SlotFact } from "./caseFile";
-import { slotStatus } from "./factStatus";
+import { slotStatus } from "../caseFile/factStatus";
 
 export type Held = { held: "answered" | "unsure" | "removed"; fact: SlotFact; slot: Slot };
 

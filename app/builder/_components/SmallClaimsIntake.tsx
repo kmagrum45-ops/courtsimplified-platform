@@ -775,7 +775,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
    */
   function saveStory(text: string) {
     // Read from the story as it was (not this visit's list, which a reload empties).
-    const fromStory = new Map(storyFormValues(input.facts).map((fact) => [fact.field, fact.value]));
+    const fromStory = new Map(storyFormValues({ ...caseFileOf(null), storyText: input.facts }).map((fact) => [fact.field, fact.value]));
     if (fromStory.size) {
       setInput((current) => {
         const next = { ...current } as Record<string, unknown>;

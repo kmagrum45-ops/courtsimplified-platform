@@ -1125,6 +1125,21 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     void sendTurn(story, answeredIds, facts);
   }
 
+  // The story is read when it ARRIVES (site owner, 23 Nov 2026; Chrome, test of #561, 1.9: the story already read on the
+  // step before was shown again with "Send my story"). A story already given (the home page, any entry) starts the
+  // questions by itself, once, so the person is never asked to send a story they already gave; "Edit my story" stays in
+  // "Review or correct initial information". Not while a tribunal notice waits (it is said first) or the story changed.
+  const autoStarted = useRef(false);
+  // Read: the home page showed its reading of this same story ("Here is what we understood"). A story typed here and not
+  // sent yet has not been read, so it keeps "Send my story" and "Edit my story".
+  const homeRead = String(recovery?.read("home", "readFrom") ?? "").trim();
+  const readOnHome = Boolean(recovery?.read("home", "understood")) && Boolean(homeRead) && homeRead === story.trim();
+  useEffect(() => {
+    if (autoStarted.current || !readOnHome || started || readingOutdated || !showSavedStory || !story.trim() || loading || tribunalFirst.held) return;
+    autoStarted.current = true;
+    handleStorySubmit();
+  });
+
   function handleAnswerSubmit() {
     if (loading || turnRequest.current.pending || !currentQuestion) return;
     const answerText = inputText.trim();

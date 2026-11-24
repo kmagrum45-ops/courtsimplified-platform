@@ -152,6 +152,8 @@ const FACTS: FactCase[] = [
   // Slots since C9 (23 Nov 2026): how the papers were served (the Small Claims chat) and the evidence (the Small Claims form).
   { fact: "serviceMethod", court: "small-claims", sections: { guided: { earlierAnswers: [{ questionId: "sc-defendant-service-method", answerText: "By mail" }] } }, value: "In person", shows: (f) => valueOf(f, "serviceMethod") === "In person" },
   { fact: "evidence", court: "small-claims", sections: { "small-claims": { input: { evidence: "Invoices and texts" } } }, value: "Photos and the contract", shows: (f) => valueOf(f, "evidence") === "Photos and the contract" },
+  // What was agreed (C9, 23 Nov 2026): a slot, held from the Small Claims depth questions about the agreement.
+  { fact: "agreementTerms", court: "small-claims", sections: { guided: { earlierAnswers: [{ questionId: "depth-contractor-agreement", answerText: "Redo the roof by June" }] } }, value: "Redo the roof and gutters by July", shows: (f) => valueOf(f, "agreementTerms") === "Redo the roof and gutters by July" },
 ];
 for (const item of FACTS) {
   const older = checkpointOf(item.court, item.sections);

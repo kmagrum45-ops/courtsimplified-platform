@@ -21,7 +21,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { storyPartyOffers, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
-import { missingFacts } from "../../src/lib/case-system/caseFile/missingFacts";
+import { form7aFromRecord, missingFacts } from "../../src/lib/case-system/caseFile/missingFacts";
+import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import { emptyCaseFile } from "../../src/lib/case-system/caseFile/caseFile";
 
 let failures = 0;
@@ -68,6 +69,30 @@ check("2. an amount the record holds is never offered from the story", !missingF
 const unsureAmount = { ...arrived, amount: { state: "unsure" as const, confirmed: true, source: { kind: "answer" as const, question: "sc-amount-claimed" } } };
 check("2. an amount said \"I'm not sure\" is not offered again", !missingFacts(unsureAmount, "sc-form").some((item) => item.field === "amountClaimed"));
 check("2. a box the person filled is never offered over", !missingFacts(arrived, "sc-form", { boxes: { amountClaimed: "$6,000" } }).some((item) => item.field === "amountClaimed"));
+
+// 4. The Form 7A checklist, from the record (Chrome 1.14; site owner, decision 3).
+{
+  const kind = CLAIM_TYPES.find((type) => type.id === "sc-claim-contractor-poor-or-incomplete-work")!;
+  const amountHeld = { ...arrived, amount: { state: "answered" as const, value: 5468.45, confirmed: true, source: { kind: "answer" as const, question: "sc-amount-claimed" } } };
+  const result = form7aFromRecord(amountHeld, kind.plaintiffElements, {});
+  check("4. the amount the record holds is shown as held, never \"Still to add\"", result.held.some((item) => item.elementId === "amount-cpw" && item.value === "$5,468.45"), JSON.stringify(result.held));
+  check("4. \"What the contractor agreed to do\" is found in the story (\"... hired ... to renovate a kitchen\")", result.found.some((item) => item.elementId === "agreement-for-the-work-cpw" && /to renovate a kitchen/.test(item.quote)), JSON.stringify(result.found));
+  check("4. \"The work was not ... finished\" is found in the story (\"The work was not finished ...\")", result.found.some((item) => item.elementId === "reasonably-acceptable-quality-cpw" && /not finished/.test(item.quote)), JSON.stringify(result.found));
+  const declined = form7aFromRecord(amountHeld, kind.plaintiffElements, { "agreement-for-the-work-cpw": { state: "not-yet", storyDeclined: true } });
+  check("4. an item said \"Not right\" is never offered from the story again (it stays to add)", !declined.found.some((item) => item.elementId === "agreement-for-the-work-cpw") && !declined.held.some((item) => item.elementId === "agreement-for-the-work-cpw"));
+  const answered = form7aFromRecord(amountHeld, kind.plaintiffElements, { "reasonably-acceptable-quality-cpw": { state: "provided" }, "amount-cpw": { state: "cannot-provide" } });
+  check("4. an item the person already answered (or \"I don't have this\") is neither held nor offered", !answered.found.some((item) => item.elementId === "reasonably-acceptable-quality-cpw") && !answered.held.some((item) => item.elementId === "amount-cpw"));
+  check("4. no story, nothing held: nothing found or held (the checklist asks as before)", form7aFromRecord(emptyCaseFile(), kind.plaintiffElements, {}).found.length === 0 && form7aFromRecord(emptyCaseFile(), kind.plaintiffElements, {}).held.length === 0);
+  const surface = fs.readFileSync("app/builder/_components/StatementOfClaimSurface.tsx", "utf8");
+  check("4. the checklist reads the one asker and shows ONE Yes for every found item, a \"Not right\" for each", /form7aFromRecord\(caseFile, /.test(surface) && (surface.match(/data-testid="form7a-found-yes"/g) ?? []).length === 1 && /fromRecord\.found\.map\([\s\S]{0,600}data-testid="form7a-found-not-right"/.test(surface));
+  check("4. a found item is not also listed as \"Still to add\"", /gate\.outstanding\.filter\(\(element\) => !foundIds\.has\(element\.elementId\)\)\.map\(/.test(surface));
+}
+
+// 5. The chat starts by itself from a story the home page already read (Chrome 1.9).
+{
+  const chat = fs.readFileSync("app/builder/_components/GuidedSmallClaimsIntake.tsx", "utf8");
+  check("5. a story the home page read starts the questions by itself, once (no \"Send my story\" box)", /const readOnHome = Boolean\(recovery\?\.read\("home", "understood"\)\) && Boolean\(homeRead\) && homeRead === story\.trim\(\);/.test(chat) && /if \(autoStarted\.current \|\| !readOnHome \|\| started/.test(chat) && /autoStarted\.current = true;\s*handleStorySubmit\(\);/.test(chat));
+}
 
 // 3. Deleted stays deleted.
 const DELETED = ["askOf", "mayAsk", "foundStillToOffer", "extractFromStory", "EXTRACTABLE_STORY_FIELDS"];

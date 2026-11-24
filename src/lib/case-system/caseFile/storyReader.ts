@@ -65,24 +65,27 @@ function whenItHappened(story: string): string | null {
   return `${MONTH_WORDS_EN[month - 1]} ${year}`;
 }
 
-// ---- what was agreed ---------------------------------------------------------------------------
-
-/**
- * A sentence of the story that says what the person and the other side agreed ("We agreed he would redo the roof for
- * $6,000 by June."; "The written quote said the deck would be finished in two weeks."), in their words (C9, 23 Nov
- * 2026). Only the person's own agreement: never one they deny ("I never agreed"), a court order, or a parenting
- * arrangement.
- */
-const AGREED = /\b(?:we|i|they|he|she|the (?:contractor|seller|buyer|landlord|tenant|company|business)) (?:had |both |all )?(?:agreed|promised)\b|\b(?:the|our|my|a|their) (?:signed |written |verbal |oral )?(?:contract|agreement|quote|estimate|deal|invoice) (?:said|says|stated|was for|set out|called for|required)\b|\b(?:agreed|promised) (?:to|on|that)\b/i;
-const NOT_THEIR_AGREEMENT = /\b(?:never|did ?n[o']t|didn't|not) (?:agree|promise)|\b(?:court order|parenting|custody|separation agreement|access schedule)\b/i;
-function agreementTermsOf(story: string): StoryValue | null {
-  for (const sentence of sentences(story)) {
-    if (!AGREED.test(sentence) || NOT_THEIR_AGREEMENT.test(sentence)) continue;
-    return { value: sentence.trim(), quote: sentence.trim() };
-  }
-  return null;
-}
-
+// ---- what was agreed ---------------------------------------------------------------------------
+
+/**
+ * A sentence of the story that says what the person and the other side agreed ("We agreed he would redo the roof for
+ * $6,000 by June."; "The written quote said the deck would be finished in two weeks."), in their words (C9, 23 Nov
+ * 2026). Only the person's own agreement: never one they deny ("I never agreed"), a court order, or a parenting
+ * arrangement.
+ */
+const AGREED = /\b(?:we|i|they|he|she|the (?:contractor|seller|buyer|landlord|tenant|company|business)) (?:had |both |all )?(?:agreed|promised)\b|\b(?:the|our|my|a|their) (?:signed |written |verbal |oral )?(?:contract|agreement|quote|estimate|deal|invoice) (?:said|says|stated|was for|set out|called for|required)\b|\b(?:agreed|promised) (?:to|on|that)\b/i;
+const NOT_THEIR_AGREEMENT = /\b(?:never|did ?n[o']t|didn't|not) (?:agree|promise)|\b(?:court order|parenting|custody|separation agreement|access schedule)\b/i;
+// The job the other side was hired or paid to do ("hired TEST Fakebuild Contracting Inc. ... to renovate a kitchen";
+// Chrome, test of #561, 1.14: "What the contractor agreed to do" was "Still to add" though the story said it).
+const HIRED_TO = /\b(?:hired|paid|contracted|retained|engaged)\b(?:[^.]|\.(?=\s*,))*?\bto (?:renovate|build|fix|repair|install|replace|paint|redo|finish|do|clean|move|remodel|deliver|supply|make|design|landscape|re-?roof|pave|refinish|tile|plumb|wire)\b/i;
+function agreementTermsOf(story: string): StoryValue | null {
+  for (const sentence of sentences(story)) {
+    if (!(AGREED.test(sentence) || HIRED_TO.test(sentence)) || NOT_THEIR_AGREEMENT.test(sentence)) continue;
+    return { value: sentence.trim(), quote: sentence.trim() };
+  }
+  return null;
+}
+
 
 /** Everything the story states, by fact, with the story's words for each. */
 export function readStoryFacts({ story, reading = [], court, oneClick = false }: StoryReadInput): StoryReading {

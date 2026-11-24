@@ -47,7 +47,8 @@ const MARKERS: RegExp[] = [
 export const DECIDING = [
   "src/lib/case-system/intake/depth/selectDepthQuestions.ts",
   "src/lib/case-system/intake/selectQuestions.ts",
-  "src/lib/case-system/intake/asker.ts",
+  // The one asker's held check (23 Nov 2026: it moved here from intake/asker.ts askOf, which only fills form boxes now).
+  "src/lib/case-system/caseFile/heldAnswer.ts",
   "src/lib/case-system/intakeReview.ts",
   "src/lib/case-system/intelligence/smallClaimsIntelligenceEngine.ts",
   "src/lib/case-system/statementOfClaimDraftEngine.ts",

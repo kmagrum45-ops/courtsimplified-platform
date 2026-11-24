@@ -117,26 +117,6 @@
   },
   {
     "kind": "decider",
-    "file": "src/lib/case-system/intake/asker.ts",
-    "name": "askOf",
-    "count": 1,
-    "status": "second",
-    "facts": "the review's questions",
-    "moveTo": "src/lib/case-system/caseFile/factStatus.ts factStatus",
-    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
-  },
-  {
-    "kind": "decider",
-    "file": "src/lib/case-system/intake/asker.ts",
-    "name": "mayAsk",
-    "count": 1,
-    "status": "second",
-    "facts": "the review's questions",
-    "moveTo": "src/lib/case-system/caseFile/factStatus.ts factStatus",
-    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
-  },
-  {
-    "kind": "decider",
     "file": "src/lib/case-system/intelligence/answeredQuestions.ts",
     "name": "isQuestionAlreadyAnswered",
     "count": 1,

@@ -22,6 +22,8 @@ import PartiesStep from "../../_components/PartiesStep";
 import FilledForm7A from "../../_components/FilledForm7A";
 import { formatForCourt } from "@/src/lib/case-system/dates";
 import { factStatus } from "@/src/lib/case-system/caseFile/factStatus";
+import { elementFact, form7aFromRecord } from "@/src/lib/case-system/caseFile/missingFacts";
+import { FORM7A_FOUND_HEADING, FORM7A_FOUND_NOT_RIGHT, FORM7A_FOUND_QUESTION, FORM7A_FOUND_YES, FORM7A_HELD_HEADING } from "@/src/lib/case-system/copy/askCopy";
 import {
   draftStatementOfClaimParticulars,
   type StatementOfClaimDraft,
@@ -133,16 +135,35 @@ export default function StatementOfClaimSurface({
   const wantsStatus = factStatus(caseFile, "wants");
   const remedyHeld = wantsStatus === "known" || wantsStatus === "settled";
   const heldWants = heldWordsOf(caseFile, "wants");
+  // THE ONE ASKER, for the checklist (caseFile/missingFacts.ts form7aFromRecord; site owner, 23 Nov 2026): an element whose
+  // fact the record holds (the amount, what was agreed) is never "Still to add"; one the story says is offered on ONE screen,
+  // "From your story we found: ... Is this right?" (Chrome, test of #561, 1.14).
+  const fromRecord = useMemo(() => form7aFromRecord(caseFile, claimType?.plaintiffElements ?? [], stateMap), [caseFile, claimType, stateMap]);
+  // The held elements count as given for the gate (read, never saved: the record is where they are held).
+  const gateStates = useMemo<ElementStateMap>(() => {
+    const out: ElementStateMap = { ...stateMap };
+    for (const item of fromRecord.held) out[item.elementId] = { elementId: item.elementId, elementName: item.name, state: "provided", providedVia: "depth-answer", userText: item.value, questionId: "case-file" };
+    return out;
+  }, [stateMap, fromRecord]);
+  const foundIds = new Set(fromRecord.found.map((item) => item.elementId));
+  function confirmFound() {
+    const next: ElementStateMap = { ...stateMap };
+    for (const item of fromRecord.found) next[item.elementId] = { elementId: item.elementId, elementName: item.name, state: "provided", providedVia: "depth-answer", userText: item.quote, questionId: "from-story" };
+    applyStateMap(next);
+  }
+  function declineFound(item: { elementId: string; name: string }) {
+    applyStateMap({ ...stateMap, [item.elementId]: { ...(stateMap[item.elementId] ?? { elementId: item.elementId, elementName: item.name, state: "not-yet" as const }), storyDeclined: true } });
+  }
   const gate = useMemo(
     () =>
       evaluateReadinessGate({
         claimType,
-        elementStateMap: stateMap,
+        elementStateMap: gateStates,
         confirmedRemedyId,
         remedyHeld,
         storyText: mappedInput.facts || "",
       }),
-    [claimType, stateMap, confirmedRemedyId, remedyHeld, mappedInput.facts],
+    [claimType, gateStates, confirmedRemedyId, remedyHeld, mappedInput.facts],
   );
 
   /**
@@ -298,16 +319,46 @@ export default function StatementOfClaimSurface({
         )}
       </div>
 
+      {/* --- Held in the case: shown with the value, never "Still to add" (one asker) --- */}
+      {fromRecord.held.length > 0 ? (
+        <div className="mt-8" data-testid="form7a-held">
+          <h3 className="text-sm font-semibold uppercase tracking-wide text-[#2f7d67]">{FORM7A_HELD_HEADING}</h3>
+          <ul className="mt-2 space-y-1 text-sm text-[#10231f]">
+            {fromRecord.held.map((item) => (
+              <li key={item.elementId} data-fact={elementFact({ id: item.elementId, name: item.name }) ?? undefined}><span className="font-semibold">{item.name}:</span> {item.value}</li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      {/* --- Found in the story: ONE screen, one Yes, "Not right" for each (site owner, 23 Nov 2026, decision 3) --- */}
+      {fromRecord.found.length > 0 ? (
+        <div className="mt-8 rounded-2xl border border-cyan-200 bg-cyan-50 p-4" data-testid="form7a-found">
+          <p className="font-semibold text-[#10231f]">{FORM7A_FOUND_HEADING}</p>
+          <ul className="mt-2 space-y-3 text-sm">
+            {fromRecord.found.map((item) => (
+              <li key={item.elementId} data-element={item.elementId} data-fact={`element:${item.elementId}`}>
+                <p className="font-semibold text-[#10231f]">{item.name}</p>
+                <p className="mt-1 text-[#4d675f]">&ldquo;{item.quote}&rdquo;</p>
+                <button type="button" data-testid="form7a-found-not-right" onClick={() => declineFound(item)} className="mt-1 rounded border border-[#2f7d67] bg-white px-3 py-1 text-sm font-semibold text-[#2f7d67]">{FORM7A_FOUND_NOT_RIGHT}</button>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 text-sm font-semibold text-[#10231f]">{FORM7A_FOUND_QUESTION}</p>
+          <button type="button" data-testid="form7a-found-yes" onClick={confirmFound} className="mt-2 rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white">{FORM7A_FOUND_YES}</button>
+        </div>
+      ) : null}
+
       {/* --- Attestation for outstanding elements --- */}
-      {gate.outstanding.length > 0 ? (
+      {gate.outstanding.some((element) => !foundIds.has(element.elementId)) ? (
         <div className="mt-8">
           <h3 className="text-sm font-semibold uppercase tracking-wide text-[#2f7d67]">
             {/* A COUNT, not a score. No percentage, no progress bar, no grade. */}
-            {gate.outstandingCount} of {gate.totalElements} still to add
+            {gate.outstanding.filter((element) => !foundIds.has(element.elementId)).length} of {gate.totalElements} still to add
           </h3>
 
           <div className="mt-3 space-y-5">
-            {gate.outstanding.map((element) => (
+            {gate.outstanding.filter((element) => !foundIds.has(element.elementId)).map((element) => (
               <div key={element.elementId} className="rounded-2xl border border-[#d8e6df] p-4">
                 <p className="font-semibold text-[#10231f]">{outstandingHeading(element)}</p>
                 {element.plainExplanation ? <p className="mt-1 text-sm text-[#4d675f]">{element.plainExplanation}</p> : null}

@@ -35,5 +35,12 @@ export const IS_THIS_RIGHT_AFTER = "?";
 
 /** The children, when the story says there are none ("We have no children"): offered once with Yes / No / Not sure (C9). */
 export const NO_CHILDREN = "No children";
+/** The Form 7A checklist's story screen (one asker, 23 Nov 2026): one Yes for all, "Not right" for each. */
+export const FORM7A_FOUND_HEADING = "From your story we found:";
+export const FORM7A_FOUND_QUESTION = "Is this right?";
+export const FORM7A_FOUND_YES = "Yes, that's right";
+export const FORM7A_FOUND_NOT_RIGHT = "Not right";
+/** Elements the case already holds (the amount, what was agreed): shown with their value, never "Still to add". */
+export const FORM7A_HELD_HEADING = "Already in your case:";
 /** The case file's "what was agreed" fact, as "What we have so far", the review and Change name it (C9, 23 Nov 2026). */
 export const AGREEMENT_TERMS_LABEL = "What was agreed";
