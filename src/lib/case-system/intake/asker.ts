@@ -16,53 +16,16 @@
  *
  * Pure: no React, no network. States no law; changes no question's wording.
  */
-import { heldYourName, isUnsureAnswer, slotsOfQuestion, slotText, SLOT_FACTS, emptyCaseFile, type CaseFile, type Slot, type SlotFact } from "../caseFile/caseFile";
+import { isUnsureAnswer, slotText, SLOT_FACTS, emptyCaseFile, type CaseFile, type Slot, type SlotFact } from "../caseFile/caseFile";
 import { formatForCourt } from "../dates";
-import { slotStatus } from "../caseFile/factStatus";
-
-export type Ask = { ask: true } | { ask: false; held: "answered" | "unsure" | "removed"; fact: SlotFact; slot: Slot };
-
-/** Form boxes whose key names no fact of its own: the fact they ask for (the timeline box asks when it happened). */
-const FORM_FIELD_FACTS: Record<string, readonly SlotFact[]> = { timeline: ["whenHappened"] };
-
-/** The case-file facts a question or box asks for. None: it is the screen's own, never hidden by the case file. */
-export function askedFacts(questionId: string, surface?: string): SlotFact[] {
-  return [...(FORM_FIELD_FACTS[questionId] ?? slotsOfQuestion(questionId, surface))];
-}
-
-/**
- * Held by the person, from the one function (factStatus.ts): known is their answer, settled is "not sure" or removed.
- * A story value not decided yet (an offer) and a story value said "not right" are not held.
- */
-const heldState = (slot: Slot | undefined): "answered" | "unsure" | "removed" | null => {
-  const status = slotStatus(slot);
-  if (status === "known") return "answered";
-  if (status !== "settled") return null;
-  return slot?.removed ? "removed" : "unsure";
-};
-
-/**
- * THE ONE QUESTION: may this question be shown? Asked when none of its facts is held; else held, by the
- * strongest state among its facts (an answer, then "not sure", then removed). No file: nothing is held.
- */
-export function askOf(file: CaseFile | null | undefined, questionId: string, surface?: string): Ask {
-  if (!file) return { ask: true };
-  const states = askedFacts(questionId, surface).map((fact) => ({ fact, slot: file[fact], held: heldState(file[fact]) })).filter((item) => item.held);
-  for (const want of ["answered", "unsure", "removed"] as const) {
-    const found = states.find((item) => item.held === want);
-    if (found) return { ask: false, held: want, fact: found.fact, slot: found.slot };
-  }
-  return { ask: true };
-}
-
-export function mayAsk(file: CaseFile | null | undefined, questionId: string, surface?: string): boolean {
-  return askOf(file, questionId, surface).ask;
-}
+// The one asker decides whether a box is held (caseFile/missingFacts.ts heldAnswer); this module only fills form boxes
+// from what it holds (site owner, 23 Nov 2026: askOf, mayAsk and foundStillToOffer, the second copies, are deleted).
+import { askedFacts, heldAnswer } from "../caseFile/heldAnswer";
 
 /** The person's held answer to a question, in their words as screens show them (slotText); null unless answered and confirmed. */
 export function heldWords(file: CaseFile | null | undefined, questionId: string): string | null {
-  const decision = askOf(file, questionId);
-  if (decision.ask || decision.held !== "answered") return null;
+  const decision = heldAnswer(file, questionId);
+  if (!decision || decision.held !== "answered") return null;
   const words = slotText(decision.slot, (iso) => formatForCourt(iso));
   return words.trim() && !isUnsureAnswer(words) ? words : null;
 }
@@ -95,8 +58,8 @@ export function formFill(file: CaseFile | null | undefined, values: Record<strin
     if (!fillable(field) || before.has(field)) continue;
     const value = values[field];
     if (typeof value === "string" && value.trim()) continue;
-    const decision = askOf(file, field);
-    if (!decision.ask && decision.slot.source?.kind === "answer" && decision.slot.source.question === `small-claims:${field}`) continue;
+    const decision = heldAnswer(file, field);
+    if (decision && decision.slot.source?.kind === "answer" && decision.slot.source.question === `small-claims:${field}`) continue;
     const words = heldWords(file, field);
     if (words) out[field] = words;
   }
@@ -153,18 +116,3 @@ export function heldFromRequest(value: unknown): CaseFile | null {
 }
 
 
-/**
- * "FOUND IN YOUR DESCRIPTION" OFFERS ONLY WHAT THE CASE FILE DOES NOT HOLD (C9, 23 Nov 2026). The Small Claims form
- * offered each value its story reader found (amount, when, what they want, the other party, their own name) whenever the
- * form's own box was empty, though the person had already given it elsewhere (the home page, the chat, the review, the
- * Parties step). A value is offered only while the one asker would ask its box; the person's own name only while the
- * parties in the case file hold none (heldYourName).
- */
-export function foundStillToOffer<T extends { field: string }>(found: readonly T[], file: CaseFile | null | undefined): T[] {
-  if (!file) return [...found];
-  return found.filter((item) => {
-    if (item.field === "yourName") return !heldYourName(file);
-    const facts = askedFacts(item.field);
-    return facts.every((fact) => !heldState(file[fact]));
-  });
-}

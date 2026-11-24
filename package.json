@@ -408,6 +408,7 @@
     "test:home-asks-unstated": "node --import tsx scripts/verification/verifyHomeAsksUnstated.ts",
     "test:one-decider": "node --import tsx scripts/verification/verifyOneDecider.ts",
     "test:fact-places": "node --import tsx scripts/verification/verifyFactPlaces.ts",
+    "test:one-asker": "node --import tsx scripts/verification/verifyOneAsker.ts",
     "test:agreement-terms": "node --import tsx scripts/verification/verifyAgreementTerms.ts",
     "test:fact-meanings": "node --import tsx scripts/verification/verifyFactMeanings.ts",
     "test:pass3-asked-twice": "node --import tsx scripts/verification/verifyPass3AskedTwice.ts",

@@ -16,7 +16,7 @@ import { mayShowQuestion } from "./caseFile/factStatus";
 import type { Stated } from "./caseFile/factStatus";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
-import { askOf } from "./intake/asker";
+import { heldAnswer } from "./caseFile/heldAnswer";
 import { CASE_FILE_SECTION, CHANGE_QUESTION, answeredInIntake, caseFileOf, fromCasePosition, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, repeatsAnswer, sameAnswer, NEWEST_TYPED_FACTS, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
 import { LENT_MONEY, LOAN_WORDS } from "./intake/claimKind";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
@@ -663,16 +663,16 @@ export function notAnsweredYet(stored: Checkpoint, master?: unknown): NotAnswere
  */
 export function reviewBoxState(entry: ReviewEntry, file: CaseFile): "start" | "held" | "not-yet" | "given" | "ask" {
   if (entry.fromStart) return "start";
-  // The one asker (intake/asker.ts; founder, 1 Nov): held means the person's own answer or "not sure";
+  // The one asker (caseFile/missingFacts.ts heldAnswer; founder, 1 Nov): held means the person's own answer or "not sure";
   // a story guess (confirmed false) is never "held", so the box asks and the guess stays an offer.
-  const decision = askOf(file, entry.field);
+  const decision = heldAnswer(file, entry.field);
   const empty = emptyValue(entry.value);
-  if (empty && !decision.ask && decision.held === "answered") return "held";
-  if ((empty || isUnsureAnswer(entry.value)) && !decision.ask && decision.held === "unsure") return "not-yet";
+  if (empty && decision && decision.held === "answered") return "held";
+  if ((empty || isUnsureAnswer(entry.value)) && decision && decision.held === "unsure") return "not-yet";
   // The newest answer wins on every screen (Chrome check of #544, 6 Nov, F1): a box whose own copy is not the answer the
   // case record holds now (a newer answer given in another place, or the answer removed) shows the record's answer with
   // "Change", never its own older copy. Typed words only: a choice keeps its own words (the record may word it otherwise).
-  if (!empty && !decision.ask && NEWEST_TYPED_FACTS.has(decision.fact) && !entry.choices && (typeof entry.value === "string" || typeof entry.value === "number") && !isUnsureAnswer(entry.value)) {
+  if (!empty && decision && NEWEST_TYPED_FACTS.has(decision.fact) && !entry.choices && (typeof entry.value === "string" || typeof entry.value === "number") && !isUnsureAnswer(entry.value)) {
     if (decision.held === "removed") return "held";
     if (decision.held === "answered" && decision.slot.value !== undefined && !sameAnswer(decision.fact, decision.slot.value, entry.value)) return "held";
   }

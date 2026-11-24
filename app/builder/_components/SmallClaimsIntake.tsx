@@ -49,16 +49,12 @@ import {
 } from "../../../src/lib/content-library/questionExplanations";
 import { UUID_PATTERN } from "../../../src/lib/case-system/events/caseEventRequest";
 import {
-  extractNarrativePrefill,
-  type NarrativePrefillFact,
-} from "../../../src/lib/case-system/intelligence/narrativePrefill";
-import {
   QUESTION_BANK,
   type IntakeQuestion,
 } from "../../../src/lib/case-system/intake/questionBank";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { analysisClaimType, caseFileOf, claimKindOf, kindForAnalysis } from "../../../src/lib/case-system/caseFile/caseFile";
-import { foundStillToOffer } from "../../../src/lib/case-system/intake/asker";
+import { missingFacts, storyFormValues } from "../../../src/lib/case-system/caseFile/missingFacts";
 import { storyOfFile, type CaseFile } from "../../../src/lib/case-system/caseFile/caseFile";
 import { factStatus } from "../../../src/lib/case-system/caseFile/factStatus";
 import { storyLines } from "../../../src/lib/case-system/caseFile/storyLines";
@@ -751,9 +747,6 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   const [authRequired, setAuthRequired] = useState(false);
   // Answers based on an earlier version of the story: no next step until the questions start again (storyBasis.ts).
   const storyChanged = useStoryAnswersOutdated();
-  const [extractedFacts, setExtractedFacts] = useState<NarrativePrefillFact[]>(
-    () => [],
-  );
 
   // The kind of claim, from the case file (site owner, 29 Oct): only the person's own, never a proposal.
   const heldKind = recovery ? claimKindOf(caseFileOf(recovery.getReview().checkpoint)) : null;
@@ -763,44 +756,17 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   const reviewNow = useSyncExternalStore(recovery?.subscribe ?? noStore, recovery?.getReview ?? noReview, noReview);
   const missingPrompt = useMemo(() => buildMissingPrompt(input, reviewNow ? caseFileOf(reviewNow.checkpoint, recovery?.getSavedMaster() ?? undefined) : caseFileOf(null)), [input, reviewNow, recovery]);
   // "Found in your description" offers only what the case file does not hold from another place (C9): the one asker.
-  const foundToOffer = foundStillToOffer(extractedFacts, reviewNow ? caseFileOf(reviewNow.checkpoint, recovery?.getSavedMaster() ?? undefined) : null);
+  // "Found in your description": THE ONE ASKER (caseFile/missingFacts.ts), read from the record's story each time, so a story
+  // from the home page is offered when it arrives (Chrome, test of #561, 1.4: it was read only on "Save story"), never a
+  // box the record holds or one the person filled. Offered, never filled in unseen (owner, 31 Oct).
+  const formFile = reviewNow ? caseFileOf(reviewNow.checkpoint, recovery?.getSavedMaster() ?? undefined) : caseFileOf(null);
+  const foundToOffer = missingFacts({ ...formFile, storyText: formFile.storyText || input.facts }, "sc-form", { boxes: input as unknown as Record<string, unknown> });
   const inferredIssues = useMemo(() => inferIssuesFromStory(input), [input]);
   const inferredDisputeCategory = useMemo(() => {
     if (inferredIssues.includes("defamation-reputation")) return "defamation";
     if (inferredIssues.includes("work-or-services")) return "work-or-services";
     return undefined;
   }, [inferredIssues]);
-  // 2026-10-16 live bug: typing a story directly into THIS form's "Case
-  // story" box never extracted anything from it. extractNarrativePrefill
-  // only ran for the AI chat partner's first message (CourtAssistantChat
-  // .tsx), handed off through sessionStorage and consumed once at mount
-  // (since removed: Part 3, stale-story audit item 4) -- a hand-off, not a
-  // live extractor on the form's own story box. Someone who picked "fill in
-  // the form yourself" and typed their story here directly had to re-type
-  // the amount and dates they'd already written, even though the same
-  // regex extraction that works for the chat path works just as well on
-  // this text.
-  //
-  // Run once the person finishes editing the story (closes the toggle), not
-  // on every keystroke. Limited to plain-string fields with no name/type
-  // mismatch against NarrativePrefillFact.field (documentStatus ->
-  // filedDocuments, addressDetails -> yourAddress, and the role/caseStage
-  // facts are deliberately left out of this pass -- they need the same
-  // array/union-safe handling mergeStoredValuesIntoInput already has, and
-  // widening this fix to use that function would let a fresh extraction
-  // silently overwrite something the person already typed by hand, since
-  // mergeStoredValuesIntoInput's own `values.x || base.x` always prefers
-  // the new value). Only fills a field that is still blank.
-  const EXTRACTABLE_STORY_FIELDS = new Set([
-    "amountClaimed",
-    "timeline",
-    "evidence",
-    "settlementEfforts",
-    "yourEmail",
-    "goal",
-    "otherParty",
-    "yourName",
-  ]);
   /*
    * "Save story" (StoryEditor): values this form read from the earlier story are
    * read again from the new one, rather than kept and set aside as answers to an
@@ -809,11 +775,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
    */
   function saveStory(text: string) {
     // Read from the story as it was (not this visit's list, which a reload empties).
-    const fromStory = new Map(
-      extractNarrativePrefill({ narrative: input.facts, courtPath: "small-claims" }).facts
-        .filter((fact) => fact.state === "direct" && EXTRACTABLE_STORY_FIELDS.has(fact.field))
-        .map((fact) => [fact.field, Array.isArray(fact.value) ? fact.value.join(", ") : fact.value]),
-    );
+    const fromStory = new Map(storyFormValues(input.facts).map((fact) => [fact.field, fact.value]));
     if (fromStory.size) {
       setInput((current) => {
         const next = { ...current } as Record<string, unknown>;
@@ -822,27 +784,6 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       });
     }
     updateField("facts", text);
-    // After the clear and the new story are written (the intake store writes in an
-    // effect, so a clear and refill in one click would be one unchanged write).
-    setTimeout(() => extractFromStory(text), 0);
-  }
-
-  function extractFromStory(text: string = input.facts) {
-    if (!text.trim()) return;
-    const prefill = extractNarrativePrefill({ narrative: text, courtPath: "small-claims" });
-    const direct = prefill.facts.filter(
-      (fact) => fact.state === "direct" && EXTRACTABLE_STORY_FIELDS.has(fact.field),
-    );
-    if (direct.length === 0) return;
-    // OFFERED, never typed into the form unseen (owner, 31 Oct): each is listed under "Found in your
-    // description" with the one control, and a field is filled only when the person uses it.
-    setExtractedFacts((current) => [
-      ...current.filter((fact) => !direct.some((found) => found.field === fact.field)),
-      ...direct.filter((fact) => {
-        const existing = (input as unknown as Record<string, unknown>)[fact.field];
-        return !(typeof existing === "string" && existing.trim());
-      }),
-    ]);
   }
 
   // THE ONE ASKER (founder, 1 Nov; intake/asker.ts): an answer the person already gave elsewhere (the
@@ -863,7 +804,6 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
     value: SmallClaimsIntelligenceInput[K],
   ) {
     userEditedRef.current = true;
-    setExtractedFacts((current) => current.filter((fact) => fact.field !== field));
     // Editing the fields the safety check reads clears a prior halt/
     // acknowledgment -- revising the story is exactly how a user tries
     // again, not a dead end.
@@ -1194,7 +1134,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           <p className="font-semibold">Found in your description — review/edit</p>
           <ul className="mt-2 list-disc space-y-1 pl-5">
             {foundToOffer.map((fact) => {
-              const value = Array.isArray(fact.value) ? fact.value.join(", ") : fact.value;
+              const value = fact.value ?? "";
               return (
                 <li key={fact.field}>
                   {fact.field}:{" "}

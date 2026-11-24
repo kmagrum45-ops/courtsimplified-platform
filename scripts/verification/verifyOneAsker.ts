@@ -1,0 +1,98 @@
+/**
+ * THE ONE ASKER (site owner, 23 Nov 2026; Chrome's test of #561, comment 7117157779: 32 repeated questions while the C9
+ * check counted 1).
+ *
+ * What it checks:
+ *   1. Chrome's Small Claims story, as it ARRIVES (no "Save story" pressed), guest or signed in, no AI: the Parties step
+ *      offers the person's name, the other party's name, person or company ("Inc." is a company) and each side's city
+ *      (parties.ts storyPartyOffers); the whole form offers the amount, when and what they want (missingFacts
+ *      "sc-form"). Each is OFFERED, never filled in. A sentence that only starts with a name is not read as one.
+ *   2. False positives (site owner, d): a wrongly read name, city or company type the person answers "No, that's not
+ *      right" is never offered again with that value, and is never saved; "I'm not sure" never overwrites a held answer;
+ *      a value the record holds is never offered.
+ *   3. Deleted stays deleted (site owner, b): the second copies of the asker are gone from app/ and src/, and each name
+ *      still to delete is listed with its court; a listed one that is gone must come off the list (one-line deletion).
+ *
+ * WHAT FAILURE THIS CATCHES: a story fact asked again because nothing read it into the record; a wrong value offered
+ * again after "No"; an old asker brought back beside the one asker.
+ *
+ * Run: npm run test:one-asker
+ */
+import fs from "node:fs";
+import path from "node:path";
+import { storyPartyOffers, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
+import { missingFacts } from "../../src/lib/case-system/caseFile/missingFacts";
+import { emptyCaseFile } from "../../src/lib/case-system/caseFile/caseFile";
+
+let failures = 0;
+const check = (name: string, ok: boolean, detail = "") => {
+  console.log(`${ok ? "pass" : "FAIL"}  ${name}${ok || !detail ? "" : `\n      ${detail}`}`);
+  if (!ok) failures += 1;
+};
+
+// Chrome's three stories, word for word (test of #561, runs 1 to 3).
+const SC = "TEST Tess Plaintiff, Ottawa, hired TEST Fakebuild Contracting Inc., Ottawa, in January 2026 to renovate a kitchen. I paid $5,468.45. The work was not finished and I want my money back.";
+const CIVIL = "TEST Alex Plaintiff, Ottawa, sues TEST BuildRight Ltd., Toronto, for breach of a written contract, $120,000, signed March 2025.";
+const FAMILY = "TEST Sam Applicant, Ottawa, wants a divorce and parenting arrangements for two children who live with me in Ottawa. Married June 2012, separated 1 March 2025.";
+
+const none: PartiesRecord = { version: 1, list: [], declined: [] };
+const offers = (story: string, record: PartiesRecord = none) => storyPartyOffers(story, record).map((offer) => `${offer.party}|${offer.kind}|${offer.detail}|${offer.value}`);
+
+// 1. Read on arrival.
+check("1. Small Claims (Chrome 1.4, 1.12): your name, the other party (a company), each side's city are offered", JSON.stringify(offers(SC)) === JSON.stringify(["you|person|fullName|TEST Tess Plaintiff", "you|person|city|Ottawa", "other:1|company|companyName|TEST Fakebuild Contracting Inc.", "other:1|company|city|Ottawa"]), JSON.stringify(offers(SC)));
+check("1. Civil (Chrome 2.7, 2.12): your name, TEST BuildRight Ltd. (a company), Toronto", JSON.stringify(offers(CIVIL)) === JSON.stringify(["you|person|fullName|TEST Alex Plaintiff", "you|person|city|Ottawa", "other:1|company|companyName|TEST BuildRight Ltd.", "other:1|company|city|Toronto"]), JSON.stringify(offers(CIVIL)));
+check("1. Family (Chrome 3.7, 3.8): your name with TEST kept, your city", JSON.stringify(offers(FAMILY)) === JSON.stringify(["you|person|fullName|TEST Sam Applicant", "you|person|city|Ottawa"]), JSON.stringify(offers(FAMILY)));
+for (const story of ["Ottawa, Toronto, hired someone.", "In January, Bob Smith, Ottawa, was there.", "My friend Alex Testwood, Ottawa, lent me money.", "I hired a contractor in Ottawa."]) {
+  check(`1. not an introduction, nothing read: "${story}"`, offers(story).length === 0, JSON.stringify(offers(story)));
+}
+const arrived = { ...emptyCaseFile(), storyText: SC };
+const formOffers = missingFacts(arrived, "sc-form").map((item) => `${item.field}=${item.value}`);
+check("1. the whole form offers the amount, when and what you want from the story as it arrives (Chrome 1.4)", JSON.stringify(formOffers) === JSON.stringify(["amountClaimed=$5,468.45", "timeline=January 2026", "goal=I want my money back"]), JSON.stringify(formOffers));
+check("1. each is an offer (Yes / No / Not sure), never filled in", missingFacts(arrived, "sc-form").every((item) => item.status === "offer"));
+check("1. names are offered once, by the Parties step only, never also in the form's list", !formOffers.some((item) => /^(?:otherParty|yourName)=/.test(item)));
+
+// 2. False positives.
+const sc = storyPartyOffers(SC, none);
+const wrongCity = sc.find((offer) => offer.party !== "you" && offer.detail === "city")!;
+const afterNo: PartiesRecord = { ...none, declined: [wrongCity.key] };
+check("2. a city answered \"No, that's not right\" is never offered again with that value", !storyPartyOffers(SC, afterNo).some((offer) => offer.key === wrongCity.key));
+check("2. ... and the other offers stay (only that value is turned down)", storyPartyOffers(SC, afterNo).length === sc.length - 1);
+const wrongKind = sc.find((offer) => offer.party !== "you" && offer.detail === "companyName")!;
+check("2. a company name (and its company type) answered \"No\" is never offered again", !storyPartyOffers(SC, { ...none, declined: [wrongKind.key] }).some((offer) => offer.key === wrongKind.key));
+const youHeld: PartiesRecord = { version: 1, declined: [], list: [{ id: "you", you: true, side: "yours", kind: "person", details: { firstName: "Tess", lastName: "Realname", city: "Kanata" }, unsure: [] }] };
+check("2. a name or city the record holds is never offered (the person's own answer wins)", !storyPartyOffers(SC, youHeld).some((offer) => offer.party === "you"), JSON.stringify(offers(SC, youHeld)));
+const youUnsure: PartiesRecord = { version: 1, declined: [], list: [{ id: "you", you: true, side: "yours", kind: "person", details: {}, unsure: ["city"] }] };
+check("2. \"I'm not sure\" settles: the city is not offered again", !storyPartyOffers(SC, youUnsure).some((offer) => offer.party === "you" && offer.detail === "city"));
+const heldAmount = { ...arrived, amount: { state: "answered" as const, value: 6000, confirmed: true, source: { kind: "answer" as const, question: "sc-amount-claimed" } } };
+check("2. an amount the record holds is never offered from the story", !missingFacts(heldAmount, "sc-form").some((item) => item.field === "amountClaimed"));
+const unsureAmount = { ...arrived, amount: { state: "unsure" as const, confirmed: true, source: { kind: "answer" as const, question: "sc-amount-claimed" } } };
+check("2. an amount said \"I'm not sure\" is not offered again", !missingFacts(unsureAmount, "sc-form").some((item) => item.field === "amountClaimed"));
+check("2. a box the person filled is never offered over", !missingFacts(arrived, "sc-form", { boxes: { amountClaimed: "$6,000" } }).some((item) => item.field === "amountClaimed"));
+
+// 3. Deleted stays deleted.
+const DELETED = ["askOf", "mayAsk", "foundStillToOffer", "extractFromStory", "EXTRACTABLE_STORY_FIELDS"];
+/** Still to delete (each moves onto the one asker in this rebuild): the court whose screens use it. Only shrinks. */
+const STILL_TO_DELETE: Record<string, string> = {
+  alreadyAsked: "Small Claims chat and review (caseFile.ts)",
+  askable: "caseFile.ts",
+  chatQuestionToAsk: "court chat, all courts (caseFile.ts)",
+  nextQuestion: "caseFile.ts",
+  notAsked: "caseFile.ts",
+  pendingFields: "Civil and Family (guidedFields.ts)",
+  isQuestionAlreadyAnswered: "AI summary page (answeredQuestions.ts)",
+  withoutAnsweredQuestions: "AI summary page (answeredQuestions.ts)",
+  withoutMunicipalityAsked: "AI summary page (answeredQuestions.ts)",
+  withoutStageAnswered: "AI summary page (answeredQuestions.ts)",
+};
+const files: string[] = [];
+const walk = (dir: string) => { for (const entry of fs.readdirSync(dir, { withFileTypes: true })) { const full = path.join(dir, entry.name); if (entry.isDirectory()) walk(full); else if (/\.(tsx?|mts)$/.test(entry.name)) files.push(full.replace(/\\/g, "/")); } };
+walk("app"); walk("src");
+const code = files.map((file) => ({ file, text: fs.readFileSync(file, "utf8").replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1") }));
+const usedIn = (name: string) => code.filter((item) => new RegExp(`\\b${name}\\b`).test(item.text)).map((item) => item.file);
+for (const name of DELETED) check(`3. deleted stays deleted: ${name} is in no file of app/ or src/`, usedIn(name).length === 0, usedIn(name).join(", "));
+for (const [name, where] of Object.entries(STILL_TO_DELETE)) check(`3. still to delete (${where}): ${name} is still there, so the list is true (delete the entry when it goes)`, usedIn(name).length > 0);
+// The self-test: a planted copy is found.
+check("3. self-test: a name in a file is found", new RegExp(`\\baskOf\\b`).test("const decision = askOf(file, id);"));
+
+console.log(failures ? `\n${failures} check(s) failed.` : "\nThe one asker: the story is read on arrival, each fact is offered once, nothing deleted comes back.");
+process.exit(failures ? 1 : 0);

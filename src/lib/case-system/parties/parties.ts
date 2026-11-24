@@ -19,7 +19,7 @@
  * Pure: no React, no network, no model. States no law.
  */
 import { sentences } from "../sentences";
-import { partyDetailFits } from "../caseFile/factTypes";
+import { isPlaceName, partyDetailFits } from "../caseFile/factTypes";
 
 export const PARTY_DETAILS = [
   "companyName", "firstName", "secondName", "lastName", "fullName", "alsoKnownAs",
@@ -176,6 +176,32 @@ function addressIn(text: string): Address | null {
   return { street: match[1].trim(), city: match[2].trim(), province: provinceCode(match[3]), ...(match[4] ? { postalCode: match[4].toUpperCase().replace(/^(\w{3})(\w{3})$/, "$1 $2") } : {}), quote: match[0].trim() };
 }
 
+/**
+ * A story that opens by naming the person and the other side, each with a city ("TEST Tess Plaintiff, Ottawa, hired TEST
+ * Fakebuild Contracting Inc., Ottawa, in January 2026 ..."; "TEST Alex Plaintiff, Ottawa, sues TEST BuildRight Ltd.,
+ * Toronto, for ..."; "TEST Sam Applicant, Ottawa, wants a divorce ..."). Chrome's test of #561 (23 Nov 2026): every name,
+ * city and "Inc." in these was asked again, because only "My name is ..." and "I am suing ..." were read. Read only when
+ * the words after the first name are a place (isPlaceName) and then a verb, so a sentence that merely starts with a name
+ * is not read as an introduction. Each value is offered once, never filled in (site owner, 23 Nov 2026).
+ */
+const NAME_WORDS = String.raw`[\p{Lu}][\p{L}'’&.-]*(?:\s+(?:[\p{Lu}][\p{L}'’&.-]*|&|and|of|de|du))*?`;
+const COMPANY_END = String.raw`(?:\s+(?:Inc|Ltd|Ltée|Ltee|Limited|Incorporated|Corp|Corporation|Co|LLC|LLP)\.?)?`;
+const INTRO_RE = new RegExp(String.raw`^(${NAME_WORDS}${COMPANY_END}),\s+([\p{Lu}][\p{L}'’. -]*?),\s+(hired|sues|is suing|sued|paid|lent|loaned|owes|rented|bought|sold|contracted|retained|wants|is asking|asks|needs|was|is|has)\b(.*)$`, "u");
+const OTHER_AFTER_VERB = new RegExp(String.raw`^\s+(?:from\s+|to\s+)?(?:the\s+)?(${NAME_WORDS}${COMPANY_END})(?:,\s+([\p{Lu}][\p{L}'’. -]*?))?(?=,|\.|\s+(?:for|in|on|to|by|about|because|over|after|since|at)\b|$)`, "u");
+
+type Intro = { you: { name: string; city: string }; other?: { name: string; city?: string } };
+function introOf(sentence: string): Intro | null {
+  const match = INTRO_RE.exec(sentence.trim());
+  if (!match || !isPlaceName(match[2]) || isPlaceName(match[1])) return null;
+  const intro: Intro = { you: { name: match[1].trim(), city: match[2].trim() } };
+  if (/^(?:hired|sues|is suing|sued|paid|lent|loaned|owes|rented|bought|sold|contracted|retained)$/.test(match[3])) {
+    const other = OTHER_AFTER_VERB.exec(match[4]);
+    const name = other?.[1]?.trim().replace(/\.$/, (end) => (/\b(?:Inc|Ltd|Ltée|Ltee|Corp|Co)$/.test(other![1].trim().slice(0, -1)) ? end : ""));
+    if (name && /\s/.test(name) && !isPlaceName(name)) intro.other = { name, ...(other?.[2] && isPlaceName(other[2]) ? { city: other[2].trim() } : {}) };
+  }
+  return intro;
+}
+
 const isYouSentence = (sentence: string) => YOU_NAME_RE.test(sentence);
 const isSuingSentence = (sentence: string) => SUING_RE.test(sentence);
 
@@ -210,6 +236,23 @@ function allStoryOffers(story: string): PartyOffer[] {
   const offers: PartyOffer[] = [];
   let others = 0;
   for (const sentence of storySentences(story)) {
+    const intro = introOf(sentence);
+    if (intro) {
+      const yourKind: PartyKind = isCompanyName(intro.you.name) ? "company" : "person";
+      offers.push(...offersOf("you", [
+        { detail: yourKind === "company" ? "companyName" : "fullName", value: intro.you.name, quote: sentence.trim() },
+        { detail: "city", value: intro.you.city, quote: sentence.trim() },
+      ], undefined, yourKind));
+      if (intro.other) {
+        others += 1;
+        const kind: PartyKind = isCompanyName(intro.other.name) ? "company" : "person";
+        offers.push(...offersOf(`other:${others}`, [
+          { detail: kind === "company" ? "companyName" : "fullName", value: intro.other.name, quote: sentence.trim() },
+          ...(intro.other.city ? [{ detail: "city" as const, value: intro.other.city, quote: sentence.trim() }] : []),
+        ], intro.other.name, kind));
+      }
+      continue;
+    }
     if (isYouSentence(sentence)) {
       const name = YOU_NAME_RE.exec(sentence)![1];
       const phone = PHONE_RE.exec(sentence)?.[0];

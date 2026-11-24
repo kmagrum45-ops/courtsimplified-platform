@@ -78,8 +78,17 @@ const fileWith = (facts: readonly SlotFact[], slot: (fact: SlotFact) => Slot): C
 };
 
 async function main() {
-  const asker = (await import("../../src/lib/case-system/intake/asker").catch((error) => { console.log(`      (intake/asker.ts not loadable: ${error instanceof Error ? error.message.split("\n")[0] : error})`); return null; })) as Asker | null;
-  check("the one asker exists in the question engine (src/lib/case-system/intake/asker.ts)", Boolean(asker && typeof asker.askOf === "function"));
+  // The one asker's held check is caseFile/heldAnswer.ts (23 Nov 2026: asker.ts askOf and mayAsk, second copies, were
+  // deleted); asker.ts keeps the form fill. The checks below read both through the same shape, unchanged.
+  const fill = (await import("../../src/lib/case-system/intake/asker").catch((error) => { console.log(`      (intake/asker.ts not loadable: ${error instanceof Error ? error.message.split("\n")[0] : error})`); return null; })) as Omit<Asker, "askOf" | "mayAsk" | "askedFacts"> | null;
+  const held = await import("../../src/lib/case-system/caseFile/heldAnswer").catch(() => null);
+  const asker: Asker | null = fill && held ? {
+    ...fill,
+    askOf: (file, id, surface) => { const decision = held.heldAnswer(file, id, surface); return decision ? { ask: false, held: decision.held } : { ask: true }; },
+    mayAsk: (file, id, surface) => held.heldAnswer(file, id, surface) === null,
+    askedFacts: held.askedFacts,
+  } : null;
+  check("the one asker exists (caseFile/heldAnswer.ts heldAnswer, with the form fill in intake/asker.ts)", Boolean(asker && held && typeof held.heldAnswer === "function"));
 
   // The Small Claims questions the engine can return, over the fact sets that open its branches.
   const FACT_SETS: IntakeFacts[] = [{}, { role: "plaintiff" }, { role: "defendant" }, { role: "plaintiff", claimFiled: true }, { role: "plaintiff", claimFiled: true, claimServed: true }, { role: "defendant", claimServed: true }, { role: "plaintiff", disputeCategory: "personal-injury" }];

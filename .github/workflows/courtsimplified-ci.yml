@@ -619,6 +619,9 @@ jobs:
       - name: What was agreed is one case-file fact, asked once (C9; the AI terms question carries it)
         run: npm run test:agreement-terms
 
+      - name: The one asker -- the story is read on arrival, each fact offered once, deleted askers stay deleted
+        run: npm run test:one-asker
+
       - name: No two facts declare the same meaning
         run: npm run test:fact-meanings
 

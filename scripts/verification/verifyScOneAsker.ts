@@ -14,7 +14,7 @@
  *   4. every request to the chat's turn (/api/intake/guided-turn) sends the case file (caseFile:
  *      heldForEngine(...)), and the route hands it to the engine (heldFromRequest -> held);
  *   5. the review's boxes decide by the asker: for every Small Claims review box with a case-file fact,
- *      reviewBoxState agrees with askOf (held answered -> "held", not sure -> "not-yet", a story guess -> "ask").
+ *      reviewBoxState agrees with heldAnswer (held answered -> "held", not sure -> "not-yet", a story guess -> "ask").
  * Each structural check has a self-test with a planted violation, so it cannot pass by matching nothing.
  *
  * WHAT FAILURE THIS CATCHES: a Small Claims screen showing a question or a box without going through the
@@ -24,7 +24,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { askedFacts, askOf } from "../../src/lib/case-system/intake/asker";
+import { askedFacts, heldAnswer } from "../../src/lib/case-system/caseFile/heldAnswer";
 import { emptyCaseFile, type CaseFile, type Slot, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import { reviewBoxState, reviewEntries, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
@@ -134,9 +134,9 @@ for (const entry of boxes) {
   const empty: ReviewEntry = { ...entry, value: Array.isArray(entry.value) ? [] : "" };
   for (const [kind, slot] of Object.entries(SLOTS)) {
     const file = fileWith(askedFacts(entry.field), slot);
-    const decision = askOf(file, entry.field);
-    const agrees = kind === "guess" ? decision.ask : !decision.ask;
-    check(`review box ${entry.field}, ${kind}: the box (${reviewBoxState(empty, file)}) follows the asker`, agrees && reviewBoxState(empty, file) === EXPECT[kind], `asker: ${JSON.stringify(decision.ask ? { ask: true } : { held: decision.held })}`);
+    const decision = heldAnswer(file, entry.field);
+    const agrees = kind === "guess" ? decision === null : decision !== null;
+    check(`review box ${entry.field}, ${kind}: the box (${reviewBoxState(empty, file)}) follows the asker`, agrees && reviewBoxState(empty, file) === EXPECT[kind], `asker: ${JSON.stringify(decision === null ? { ask: true } : { held: decision.held })}`);
   }
 }
 
