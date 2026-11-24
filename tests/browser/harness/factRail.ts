@@ -10,6 +10,7 @@ import { expect, type Page } from "@playwright/test";
 import { openBuilder } from "./builderGate";
 import { STARTING_NOTHING_FILED } from "./situation";
 import { STORY_LABEL } from "../../../src/lib/case-system/copy/storyGuidance";
+import { giveOtherPartyName, removeOtherPartyName } from "./partiesDriver";
 
 export type Court = "family" | "civil" | "small-claims";
 
@@ -26,7 +27,8 @@ export async function openWholeForm(page: Page, court: Court, story: string): Pr
     await expect(ack.or(page.getByRole("button", { name: /Fill in the form yourself/ }))).toBeVisible({ timeout: 60_000 });
     if (await ack.isVisible()) { await ack.check(); await page.getByTestId("acknowledgement-continue").click(); }
     await page.getByRole("button", { name: /Fill in the form yourself/ }).click();
-    await expect(page.getByTestId("sc-intake-otherParty")).toBeVisible({ timeout: 60_000 });
+    // The whole form is open (its amount box; the other party's name is on the Parties step since 23 Nov 2026).
+    await expect(page.getByTestId("sc-intake-amountClaimed")).toBeVisible({ timeout: 60_000 });
   } else {
     await openBuilder(page, court, { city: "Kingston", story, situation: STARTING_NOTHING_FILED });
     await page.waitForURL(/\/builder\?.*intake=/, { timeout: 60_000 }).catch(() => {});
@@ -43,6 +45,8 @@ export const otherPartyBox = (page: Page, court: Court) =>
 
 /** Typed into the whole form, as a person types it, and saved through the page's own save. */
 export async function typeOtherParty(page: Page, court: Court, name: string): Promise<void> {
+  // Small Claims: on the Parties step, the one place for the other side's name (the form's own box is removed, 23 Nov 2026).
+  if (court === "small-claims") { if (name) await giveOtherPartyName(page, name); else await removeOtherPartyName(page); await savedNow(page); return; }
   const box = otherPartyBox(page, court);
   await expect(box).toBeVisible({ timeout: 60_000 });
   await box.fill("");

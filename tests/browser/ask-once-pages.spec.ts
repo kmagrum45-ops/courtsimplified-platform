@@ -835,6 +835,18 @@ for (const story of STORIES) for (const reading of story.realAi ? realAiReadings
       const known = new Set<string>([...Object.keys(story.stated).filter((fact) => fact !== "when").concat(story.stated.when && /\d{1,2}, \d{4}/.test(story.stated.when) ? ["whenHappened"] : []), ...typed.keys()]);
       await readLabels(page, story, id, known, found, seen);
       if (story.parties) await checkFilledForms(page, id, seen, story);
+      // The other side's name, given once on the Parties step (the form's own box is removed, 23 Nov 2026), is shown on the
+      // Form 7A section of the next step and on the review; the filled Form 7A is checked above (checkFilledForms).
+      if (story.name.endsWith("chrome561-kitchen")) {
+        await page.goto(`/builder?path=small-claims&intake=${id}`);
+        // Reopened, the confirmed case shows "Show my next step"; the Form 7A section is drawn on the step's overview.
+        const show = page.getByTestId("intake-continue-guidance").filter({ visible: true }).first();
+        if (await visible(show, 60_000)) await show.click();
+        await expect(page.getByTestId("completed-case-overview"), "the next step's overview").toBeVisible({ timeout: 240_000 });
+        await expect(page.getByTestId("statement-of-claim-surface").first(), "Form 7A section: the other side's name").toContainText("TEST Fakebuild Contracting Inc.", { timeout: 120_000 });
+        await page.goto(`/builder?path=small-claims&intake=${id}&change=amount`);
+        await expect(page.getByTestId("intake-review"), "the review: the other side's name").toContainText("TEST Fakebuild Contracting Inc.", { timeout: 120_000 });
+      }
       if (married) {
         // Every married-only text (marriedOnly.ts MARRIED_ONLY_SCREEN_TEXT: the sentences, the folded fees part, the divorce
         // line, the Divorce Act in the law list, the divorce and equalization steps), on the next-step page and the case
@@ -878,7 +890,7 @@ for (const story of STORIES) for (const reading of story.realAi ? realAiReadings
     } finally {
       log = writeQuestionLog(`${story.name}${reading ? `.${reading}` : ""}.signed-in`, `${story.name}${reading ? ` (reading ${reading})` : ""}, ${story.court}, signed in`, events);
       fs.mkdirSync(RECORDS, { recursive: true });
-      fs.writeFileSync(path.join(RECORDS, `${story.name}${reading ? `.${reading}` : ""}.json`), JSON.stringify({ story: story.name, reading, court: story.court, side: story.side, reached, violations: found, seen }, null, 2));
+      fs.writeFileSync(path.join(RECORDS, `${story.name}${reading ? `.${reading}` : ""}.json`), JSON.stringify({ story: story.name, reading, court: story.court, side: story.side, reached, violations: found, seen, ...(REPORT ? { events: events.filter((item) => item.surface === "sc-chat") } : {}) }, null, 2));
       await deleteHarnessUser(userId).catch(() => {});
     }
     const known = found.filter((item) => expectedFor(item));

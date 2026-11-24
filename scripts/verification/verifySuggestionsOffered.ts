@@ -228,7 +228,8 @@ const scForm = code(read("app/builder/_components/SmallClaimsIntake.tsx"));
 // read from the record's story on every render (23 Nov 2026; extractFromStory, the form's own reader, is deleted). A box is
 // written only when the person uses an offer (the offer's onUse), never by the reading itself.
 const offerList = /const foundToOffer = missingFacts\([^;]*;/.exec(scForm)?.[0] ?? "";
-const offerUse = /foundToOffer\.map\(\(fact\) => \{[\s\S]*?onUse=\{\(\) => updateField\(fact\.field/.test(scForm);
+// Each offer, in its box's place (offerFor) or in the list (listedOffers), writes its box only on the person's Yes (onUse).
+const offerUse = /const offerFor = \(fact[\s\S]*?onUse=\{\(\) => updateField\(fact\.field/.test(scForm) && /listedOffers\.map\(\(fact\) => \{[\s\S]*?onUse=\{\(\) => updateField\(fact\.field/.test(scForm);
 check("the Small Claims form: a fact found in the story is listed with the offer, never written into a field", Boolean(offerList) && !/setInput|updateField/.test(offerList) && offerUse && !/extractFromStory|setExtractedFacts/.test(scForm));
 
 const triage = code(read("app/builder/_components/FamilyStatusTriage.tsx"));

@@ -29,7 +29,7 @@ import { saveThenLeave } from "./leaveAfterSave";
 import { courtOfSavedRow, SAVED_COURT_COLUMNS } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
 import { CASE_FILE_SECTION, caseFileOf, followAnswer } from "../../src/lib/case-system/caseFile/caseFile";
 import { situationWithHeld } from "../../src/lib/case-system/caseFile/situationHeld";
-import { storedFacts, withStoredFacts } from "../../src/lib/case-system/caseFile/serverFacts";
+import { afterPartiesSent, PARTIES_PENDING, storedFacts, withStoredFacts } from "../../src/lib/case-system/caseFile/serverFacts";
 import NotSavedYet from "./NotSavedYet";
 import { GUEST_ACCOUNT_NOTICE } from "../../src/lib/auth/signUpConfirmation";
 import { afterSend, pendingWrites, type SendResponse } from "../../src/lib/case-system/caseFile/pendingFacts";
@@ -332,17 +332,20 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         const sendFacts = async (token: string | undefined) => {
           const sending = snapshot.sections[CASE_FILE_SECTION]?.changes;
           const writes = caseId ? pendingWrites(sending) : [];
-          if (!writes.length || !token) return;
+          // The Parties record, when this tab changed it: sent by itself too, and numbered by the server (serverFacts.ts).
+          const sendingParties = caseId && snapshot.sections[CASE_FILE_SECTION]?.[PARTIES_PENDING] === true ? snapshot.sections[CASE_FILE_SECTION]?.parties : undefined;
+          if ((!writes.length && sendingParties === undefined) || !token) return;
           const response = await fetch("/api/cases/facts", {
             method: "POST",
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-            body: JSON.stringify({ caseId, facts: writes }),
+            body: JSON.stringify({ caseId, facts: writes, ...(sendingParties !== undefined ? { parties: sendingParties } : {}) }),
             signal: AbortSignal.timeout(CASE_REQUEST_TIMEOUT_MS),
           });
           if (!current()) throw new Error("The intake account or case changed. Please retry in the current case.");
           if (!response.ok) throw new Error("Your answers could not be saved. Your pending text remains in this tab. Please retry before continuing.");
           const answer = (await response.json()) as SendResponse;
           snapshot = { ...snapshot, revision: crypto.randomUUID(), sections: afterSend(snapshot.sections, sending, answer) };
+          if (sendingParties !== undefined && answer.parties) snapshot = { ...snapshot, sections: afterPartiesSent(snapshot.sections, sendingParties, answer.parties) };
           remember(snapshot);
           dirty = true;
           cache();

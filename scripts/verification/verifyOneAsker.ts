@@ -20,9 +20,10 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { storyPartyOffers, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
+import { storyPartyOffers, withNameParts, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
+import { FACT_IDS } from "../../src/lib/case-system/caseFile/factRecord";
 import { elementFact, form7aFromRecord, missingFacts } from "../../src/lib/case-system/caseFile/missingFacts";
-import { recorderElementFact } from "../../tests/browser/harness/askOnce";
+import { partyBoxFacts, recorderElementFact } from "../../tests/browser/harness/askOnce";
 import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import { emptyCaseFile } from "../../src/lib/case-system/caseFile/caseFile";
 
@@ -106,7 +107,23 @@ check("2. a box the person filled is never offered over", !missingFacts(arrived,
 // 6. A fact the record holds is never an empty asking box (the carry and story-pack runs of #563).
 {
   const parties = fs.readFileSync("app/_components/PartiesStep.tsx", "utf8");
-  check("6. the Parties step never asks the one other party's name the record holds as \"not sure\" or removed elsewhere", /const settledElsewhere = status === "ask" && nameDetail && party\.side === "other" && !partyName\(party\) && record\.list\.filter\(\(item\) => item\.side === "other"\)\.length === 1 && factStatus\(file, "otherParty"\) === "settled";/.test(parties) && /if \(status === "settled" \|\| settledElsewhere\) return <p key=\{key\} data-testid="parties-detail-unsure"/.test(parties));
+  check("6. the Parties step never asks the one other party's name the record holds as \"not sure\" or removed elsewhere", /const settledElsewhere = !typing && status === "ask" && nameDetail && party\.side === "other" && !partyName\(party\) && record\.list\.filter\(\(item\) => item\.side === "other"\)\.length === 1 && factStatus\(file, "otherParty"\) === "settled";/.test(parties) && /data-testid=\{typing \? "parties-detail-typing" : settledNote !== null \|\| status === "settled" \|\| settledElsewhere \? "parties-detail-unsure" : "parties-detail-ask"\}/.test(parties) && /const settledNote = status === "settled" \|\| settledElsewhere \? boxView\(\{ state: "unsure" \}/.test(parties));
+  // Rule 1 (24 Nov 2026): the box stays in that state, typeable, with the note: never words alone.
+  check("6b. a \"not sure\" or removed name on the Parties step keeps its box, with the note", !/data-testid="parties-detail-unsure" data-detail=\{detail\} className="text-sm"><span className="font-semibold">\{LABELS\[detail\]\}:<\/span> Not sure yet/.test(parties));
+}
+
+// 7. The last name is its own fact (site owner, 23 Nov 2026): a one-word name fills the first name only.
+{
+  check("7. each side's last name is a fact of its own (yourLastName, otherPartyLastName)", (FACT_IDS as readonly string[]).includes("yourLastName") && (FACT_IDS as readonly string[]).includes("otherPartyLastName"));
+  const one = withNameParts([{ id: "o", side: "other", kind: "person", details: { fullName: "Alex" }, unsure: [] }])[0];
+  check("7. a one-word name held fills the first name, and only it (the last name stays to ask, once)", one.details.firstName === "Alex" && !one.details.lastName && Boolean(one.heldElsewhere?.includes("firstName")));
+  const two = withNameParts([{ id: "o", side: "other", kind: "person", details: { fullName: "Jordan Testwood" }, unsure: [] }])[0];
+  check("7. a two-word name fills both (so neither is asked)", two.details.firstName === "Jordan" && two.details.lastName === "Testwood");
+  const typedFirst = withNameParts([{ id: "o", side: "other", kind: "person", details: { fullName: "Alex", firstName: "Alexander" }, unsure: [] }])[0];
+  check("7. a first name the person typed is never replaced", typedFirst.details.firstName === "Alexander");
+  const named: PartiesRecord = { version: 1, declined: [], list: [{ id: "o", side: "other", kind: "person", details: { fullName: "Jordan" }, unsure: [] }] };
+  check("7. a party with a name is never offered a part of a name again (\"First name: Jordan\")", !storyPartyOffers("I am suing Jordan.", named, { value: "Jordan", quote: "Jordan" }).some((offer) => /^(?:firstName|lastName|fullName|companyName)$/.test(offer.detail)));
+  check("7. the recorder reads a last-name box as the last-name fact, not the name", JSON.stringify(partyBoxFacts("party:other:p-1:lastName")) === JSON.stringify(["otherPartyLastName"]) && JSON.stringify(partyBoxFacts("party:you:you:lastName")) === JSON.stringify(["yourLastName"]) && JSON.stringify(partyBoxFacts("party:other:p-1:firstName")) === JSON.stringify(["otherParty"]));
 }
 
 // 3. Deleted stays deleted.

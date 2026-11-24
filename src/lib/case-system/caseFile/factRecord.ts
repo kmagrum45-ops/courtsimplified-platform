@@ -47,6 +47,7 @@ export const FACT_IDS = [
   "timeline", "livingSituation", "livingHistory", "property", "adoption", "missingEvidence", "yourName",
   "divorceSought", "cohabitation", "municipality", "otherPartyMunicipality",
   // The Small Claims review's own boxes (one asker, 23 Nov 2026).
+  "yourLastName", "otherPartyLastName",
   "courtLocation", "paymentHistory", "damagesBreakdown", "deadlineDetails", "settlementEfforts",
 ] as const;
 export type FactId = (typeof FACT_IDS)[number];

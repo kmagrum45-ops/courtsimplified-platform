@@ -17,7 +17,7 @@
  */
 import { expect, test, type Page } from "@playwright/test";
 import { authenticateRealTestUser } from "./harness/intakeDriver";
-import { deleteHarnessUser } from "./harness/realTestSession";
+import { deleteHarnessUser, harnessAdmin } from "./harness/realTestSession";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns } from "./harness/thisCommitServer";
@@ -63,18 +63,23 @@ test("\"Update my next steps\" on the case page shows \"What we have so far\" wi
     await page.getByTestId("case-show-next-step").click();
     await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 240_000 });
     await page.getByTestId("open-whole-form").click();
-    // The answer is sent to the server, which numbers it (POST /api/cases/facts), then the case row is saved.
+    // A new answer typed on the whole form: what the person wants the court to order (fact wants), which this case holds as "not sure" (an answer added, not a change: "not sure" is no answer for the next steps, intakeReview.ts materialFacts). Not the
+    // other party's name: since 23 Nov 2026 it is given on the Parties step, whose details are not yet among the facts the
+    // next steps rest on (open finding, local run of 24 Nov). Not the evidence box: evidence is optional for the next
+    // steps (intakeReview.ts OPTIONAL), so adding it never made them out of date.
     const sent = page.waitForResponse((response) => response.url().includes("/api/cases/facts") && response.request().method() === "POST", { timeout: 60_000 });
-    await page.getByTestId("sc-intake-otherParty").fill("Jordan Testwood");
-    await page.getByTestId("sc-intake-otherParty").blur();
+    await page.getByTestId("sc-intake-goal").fill("Synthetic: repayment of the $5,000 for the roof work");
+    await page.getByTestId("sc-intake-goal").blur();
     expect((await sent).ok(), "the new answer was not saved").toBe(true);
     await expect(page.getByTestId("intake-save-status")).toContainText("Intake saved to your account.", { timeout: 60_000 });
+    // Saved in the case row (the real save path) before the case page is opened.
+    await expect.poll(async () => JSON.stringify((await harnessAdmin().from("cases").select("master_result").eq("id", caseId).single()).data?.master_result ?? {}).includes("repayment of the"), { timeout: 60_000, message: "the new answer was not saved" }).toBe(true);
 
     await page.goto(`/cases/${caseId}`);
     await expect(page.getByTestId("case-update-next-steps"), "the case page does not offer to update the next steps").toBeVisible({ timeout: 60_000 });
     const file = page.getByTestId("case-file");
     await expect(file, "\"What we have so far\" is hidden on the update screen").toBeVisible({ timeout: 15_000 });
-    await expect(file.locator('[data-testid="case-file-line"][data-fact="otherParty"]'), "the new answer is not shown").toContainText("Jordan Testwood");
+    await expect(file.locator('[data-testid="case-file-line"][data-fact="wants"]'), "the new answer is not shown").toContainText("repayment of the");
   } finally {
     await deleteHarnessUser(userId);
   }

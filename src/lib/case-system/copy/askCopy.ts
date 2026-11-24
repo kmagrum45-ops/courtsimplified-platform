@@ -35,6 +35,8 @@ export const IS_THIS_RIGHT_AFTER = "?";
 
 /** The children, when the story says there are none ("We have no children"): offered once with Yes / No / Not sure (C9). */
 export const NO_CHILDREN = "No children";
+/** Beside a form box whose fact is "not sure" or removed (boxView.ts): the box stays, never asked again. */
+export const NOT_SURE_NOT_ASKED_AGAIN = "Not sure yet (not asked again)";
 /** A box the form (or the questions) already showed and the person left empty: the review lists it once, never asks it again (site owner, 23 Nov 2026). */
 export const NOT_FILLED_IN_YET = "Not filled in yet";
 export const CHANGE_LINK = "Change";

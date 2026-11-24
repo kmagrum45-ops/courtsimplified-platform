@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-325 documented, 26 without a header.
+327 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -40,6 +40,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:assistant-context` | **Owned-context and canonical engine contracts, plus actual anonymous HTTP**<br>refusals. Full guidance is no longer available through anonymous fallback. Core factories isolate offline behavior; staging walkthroughs cover real auth. |
 | `npm run test:assistant-law` | **"The law on your question" in the Court Assistant**<br>(src/lib/case-system/retrieval/researchQuestion.ts, /api/assistant/law). |
 | `npm run test:box-follows-other-tab` | **A FORM BOX FOLLOWS ANOTHER TAB'S NEWER SAVE OF THE SAME BOX; ITS OWN UNSAVED WORDS ARE NEVER OVERWRITTEN**<br>(fact-two-tabs.spec.ts, 10 Nov 2026; owner's rule: after a reload the form shows the saved answer). |
+| `npm run test:box-view` | **WHAT A FORM BOX SHOWS, IN EVERY FACT STATE (site owner, 24 Nov 2026: "ONE pure function, boxView(factState, ownAnswer), in**<br>the shared asker code. Every form box uses it, and no screen decides this on its own"). |
 | `npm run test:browser-shards` | **EVERY BROWSER-REGRESSION SPEC RUNS IN EXACTLY ONE SHARD (site owner, 16 Nov 2026).**<br>The browser-regression job of courtsimplified-ci.yml runs as two shards (browser-regression-shard, matrix shard 1 and 2), each with its own list of spec files, balanced by measured CI time. The single job of 417 tests ran past its 70-minute limit on #550. Two  |
 | `npm run test:canlii` | **Court decisions from CanLII: the rules CanLII's Terms of Use (2026) set for**<br>this feature hold in code (docs/SOURCING_NOTES.md, "CanLII"). |
 | `npm run test:carry` | **THE END-TO-END CARRY TEST: ONE STORY, CARRIED FROM INTAKE THROUGH EVERY QUESTION AND STEP**<br>(site owner, 30 Oct: "a fact given once is known everywhere, never asked again, never refilled after the person removed it, never shown on the wrong case"). |
@@ -254,6 +255,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:served-date-not-when` | **THE DAY A PERSON WAS SERVED IS NEVER SUGGESTED AS THE DAY THE DISPUTE HAPPENED (Chrome check of #547 at 0e0f7e9, G3a:**<br>"On October 28, 2026 I was served with a Plaintiff's Claim..." offered October 28, 2026 for "When it happened"). |
 | `npm run test:server-error-log` | **test:server-error-log -- the built-in error log records a server error**<br>without anything that identifies a person (src/lib/monitoring/ serverErrorLog.ts, instrumentation.ts; 2026-10-14 audit). |
 | `npm run test:server-order` | **THE SERVER'S NUMBER DECIDES WHICH ANSWER IS NEWEST; THE TAB ORDERS ONLY ITS UNSENT EDITS (case core G2(a), G2(b);**<br>founder, 2 Nov; CASE_CORE_DESIGN.md §12). |
+| `npm run test:server-parties` | **THE PARTIES RECORD, NUMBERED BY THE SERVER (site owner's choice, 24 Nov 2026: "server-numbered Parties"; serverFacts.ts).**<br>Why it exists: the Small Claims form's own "Other party name" box was removed (23 Nov 2026), so the Parties step is the one place a name is given, and its record was saved only inside the tab's whole checkpoint. When a second tab's save met a conflict on anoth |
 | `npm run test:service-dates` | **When service counts from (serviceEffectiveDate.ts, build order Step 2D,**<br>2026-10-12). |
 | `npm run test:service-notices` | **Court-closure notices are real, traceable to the corpus, and warn at the right**<br>times. |
 | `npm run test:shared-behaviour` | **No shared behaviour is implemented a second time (the guard for the eight steps).**<br>What it checks: for each behaviour in sharedBehaviourRegistry.ts, every .ts/.tsx file in app/ and src/ other than the behaviour's one module is scanned, with comments removed, for the patterns that mean "this re-implements it". Any hit not on the behaviour's w |

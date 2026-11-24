@@ -203,7 +203,15 @@ const SCAN = `(() => {
     ["forms", formsQuestions, (el) => [words(el.childNodes[0]) || words(el)]],
     ["forms-offer", formsOffers, (el) => [words(el.querySelector("p.font-semibold"))]],
     ["service-method", "select[data-testid^=stage-answer-service-method-]", (el) => ["serviceMethod:" + el.getAttribute("data-testid").slice("stage-answer-service-method-".length)]],
-    ["form-field", "input[data-testid^=sc-intake-], textarea[data-testid^=sc-intake-], select[data-testid^=sc-intake-]", (el) => { const key = el.getAttribute("data-testid").slice("sc-intake-".length); return steadyEmpty("sc:" + key, el.type !== "file" && el.value === "") ? ["sc:" + key] : []; }],
+    // A box shown with the story's offer for it in its own place is one prompt, the offer (sc-form-offer below): its box is
+    // not a second question beside it (one asker, 23 Nov 2026).
+    // Only the same fact in the same place: the box's own wrapper (data-asked-field = this box) holds the offer for this
+    // same box (data-field = this box). Anywhere else, the box is its own question (site owner, 24 Nov 2026, rule 2c).
+    // The same for a box shown with its own "Not sure yet (not asked again)" note (boxView, "not sure" and removed): the box
+    // stays so the person can type, and the note in its own wrapper, for this same box, says it is not asked (carry run of
+    // 24 Nov: the amount "not sure" on the review, then its box on the form counted as asked again).
+    ["form-field", "input[data-testid^=sc-intake-], textarea[data-testid^=sc-intake-], select[data-testid^=sc-intake-]", (el) => { const key = el.getAttribute("data-testid").slice("sc-intake-".length); const mine = el.closest("[data-asked-field]"); if (mine && mine.getAttribute("data-asked-field") === key && mine.querySelector('[data-testid=not-answered-yet][data-field="' + key + '"]')) return []; const own = el.closest('[data-offered="true"]'); if (own && own.getAttribute("data-asked-field") === key && own.querySelector('[data-testid=sc-form-box-offer][data-field="' + key + '"]')) return []; return steadyEmpty("sc:" + key, el.type !== "file" && el.value === "") ? ["sc:" + key] : []; }],
+    ["sc-form-offer", "[data-testid=sc-form-box-offer]", (el) => [el.getAttribute("data-field")]],
     ["form-field", formLabels, (el) => { const label = words(el.querySelector(":scope > span.font-semibold")); return steadyEmpty("label:" + label, el.querySelector(":scope > textarea:not([data-testid])").value === "") ? ["label:" + label] : []; }],
   ];
   const chatPressed = new Set();
@@ -357,8 +365,11 @@ export function partyOfferFacts(id: string): string[] {
   if (!match) return [id];
   const [, party, what] = match;
   const own = party === "you" || party === "yours";
-  if (/^\s*(?:city or town|province)\b/i.test(what)) return [own ? "municipality" : "otherPartyMunicipality"];
-  if (/^\s*(?:name|first name|last name|company's full legal name|another (?:defendant|plaintiff|respondent|applicant))\b/i.test(what)) return [own ? "yourName" : "otherParty"];
+  // As the Parties boxes (partyBoxFacts): the city is the municipality, the province its own detail, the last name its own fact.
+  if (/^\s*city or town\b/i.test(what)) return [own ? "municipality" : "otherPartyMunicipality"];
+  if (/^\s*province\b/i.test(what)) return [`party:${own ? "you" : party}:province`];
+  if (/^\s*last name\b/i.test(what)) return [own ? "yourLastName" : "otherPartyLastName"];
+  if (/^\s*(?:name|first name|company's full legal name|another (?:defendant|plaintiff|respondent|applicant))\b/i.test(what)) return [own ? "yourName" : "otherParty"];
   return [id];
 }
 
@@ -372,7 +383,9 @@ export function partyBoxFacts(id: string): string[] {
   if (!match) return [id];
   const [, who, partyId, detail] = match;
   const own = who === "you";
-  if (/^(?:firstName|lastName|fullName|companyName|secondName)$/.test(detail)) return [own ? "yourName" : who === "other" ? "otherParty" : `party:${partyId}:name`];
+  // The last name is a fact of its own (site owner, 23 Nov 2026): a one-word name gives the first name only.
+  if (detail === "lastName") return [own ? "yourLastName" : who === "other" ? "otherPartyLastName" : `party:${partyId}:lastName`];
+  if (/^(?:firstName|fullName|companyName|secondName)$/.test(detail)) return [own ? "yourName" : who === "other" ? "otherParty" : `party:${partyId}:name`];
   // The city is the municipality; the province is a detail of its own (a story that names a city names no province).
   if (detail === "city") return [own ? "municipality" : who === "other" ? "otherPartyMunicipality" : `party:${partyId}:city`];
   return [`party:${own ? "you" : partyId}:${detail}`];
@@ -477,6 +490,13 @@ export function withPageHeld(item: Asked, step?: string): Asked {
     // for every question, whether the record held its fact at that moment): the person's name, their city, the other side's.
     const outside: Record<string, () => boolean> = { yourName: () => Boolean(heldYourName(file)), municipality: () => Boolean(heldLocation(file)?.city), otherPartyMunicipality: () => Boolean(heldOtherPartyCity(file)) };
     for (const fact of factsOfAsk(item)) if (outside[fact]) pageHeld[fact] = outside[fact]() ? "answered" : "not-asked";
+    // Each side's last name, from the parties record: given (answered) or "I'm not sure" (unsure), the same states as any fact.
+    const list = (file.parties?.list ?? []) as { you?: boolean; side?: string; details?: Record<string, string>; unsure?: string[] }[];
+    const lastOf = (party: (typeof list)[number] | undefined) => (party?.details?.lastName?.trim() ? "answered" : party?.unsure?.includes("lastName") ? "unsure" : "not-asked");
+    for (const fact of factsOfAsk(item)) {
+      if (fact === "yourLastName") pageHeld[fact] = lastOf(list.find((party) => party.you));
+      if (fact === "otherPartyLastName") pageHeld[fact] = lastOf(list.find((party) => party.side === "other"));
+    }
     return Object.keys(pageHeld).length ? { ...out, pageHeld } : out;
   } catch { return out; }
 }

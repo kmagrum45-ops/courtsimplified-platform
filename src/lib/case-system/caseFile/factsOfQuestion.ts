@@ -19,6 +19,8 @@ export type CaseFact =
   // Every question asked by id has a fact (site owner, 17 Nov 2026; test:every-question-has-fact). These are asked in one
   // place each and are not case-file slots: the one function reads slots, so they are never decided by it yet.
   // The Small Claims review's own boxes (one asker, 23 Nov 2026: every question names its fact; the question logs of #563).
+  // Each side's last name, a fact of its own (site owner, 23 Nov 2026): a one-word name gives the first name only.
+  | "yourLastName" | "otherPartyLastName"
   | "courtLocation" | "paymentHistory" | "damagesBreakdown" | "deadlineDetails" | "settlementEfforts"
   | "publication" | "twentyDaysPassed" | "notedInDefault" | "responseFacts" | "admission" | "completionDate" | "noticeToContractor"
   | "timeline" | "livingSituation" | "livingHistory" | "property" | "adoption" | "missingEvidence" | "yourName"

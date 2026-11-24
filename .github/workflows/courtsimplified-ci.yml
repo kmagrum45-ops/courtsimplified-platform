@@ -495,6 +495,9 @@ jobs:
       - name: The rails of the one case record -- server-assigned seq, compare-and-set retry, per-fact two-tab conflicts, the field-to-fact table
         run: npm run test:fact-rails
 
+      - name: The Parties record numbered by the server -- a tab's whole save never puts an older one back, an unsent edit is kept
+        run: npm run test:server-parties
+
       - name: No list of answered, held, offered or turned-down items held in the page or the tab -- the review's list from the saved case (fault 1)
         run: npm run test:no-page-held-answers
 
@@ -621,6 +624,9 @@ jobs:
 
       - name: The one asker -- the story is read on arrival, each fact offered once, deleted askers stay deleted
         run: npm run test:one-asker
+
+      - name: What a form box shows in every fact state -- one function, the box always there (boxView)
+        run: npm run test:box-view
 
       - name: No two facts declare the same meaning
         run: npm run test:fact-meanings
@@ -1015,6 +1021,7 @@ jobs:
           - shard: 2
             specs: >-
               tests/browser/parties-boxes-stay.spec.ts
+              tests/browser/box-offer-one-prompt.spec.ts
               tests/browser/filled-form-every-kind.spec.ts
               tests/browser/intake-reliability.spec.ts
               tests/browser/family-civil-intake-reliability.spec.ts

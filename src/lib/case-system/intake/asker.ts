@@ -21,6 +21,8 @@ import { formatForCourt } from "../dates";
 // The one asker decides whether a box is held (caseFile/missingFacts.ts heldAnswer); this module only fills form boxes
 // from what it holds (site owner, 23 Nov 2026: the second copies here are deleted).
 import { askedFacts, heldAnswer } from "../caseFile/heldAnswer";
+import { boxView } from "../caseFile/boxView";
+import { factTypeOf } from "../caseFile/factTypes";
 
 /** The person's held answer to a question, in their words as screens show them (slotText); null unless answered and confirmed. */
 export function heldWords(file: CaseFile | null | undefined, questionId: string): string | null {
@@ -35,8 +37,16 @@ export function heldWords(file: CaseFile | null | undefined, questionId: string)
  * the amount, when it happened, what they want. Named by fact, never by a form key: a box is fillable when it
  * asks for exactly one of these (askedFacts), so a box added later for one of them is filled too.
  */
-export const FILLABLE_FACTS: readonly SlotFact[] = ["otherParty", "amount", "whenHappened", "wants"];
-/** Whether a form box (by its key) is filled from the case file: it asks for exactly one fillable fact. */
+/**
+ * The kinds of fact a typed box holds as words: an answer of one of them, held anywhere, is put into its empty box (boxView:
+ * "answered anywhere: the SAME box, pre-filled with that answer"; site owner, 24 Nov 2026). Was four named facts (the other
+ * party, the amount, when it happened, what they want), so an answer held elsewhere for any other box (the evidence, what
+ * was agreed) left it empty.
+ */
+const TYPED_KINDS = new Set(["words", "amount", "date", "name"]);
+// Not the story (its own editor) nor whether anything is filed (a choice): neither is a typed box.
+export const FILLABLE_FACTS: readonly SlotFact[] = SLOT_FACTS.filter((fact) => fact !== "story" && fact !== "filed" && TYPED_KINDS.has(factTypeOf(fact) ?? ""));
+/** Whether a form box (by its key) is filled from the case file: it asks for exactly one fact of a typed kind. */
 export function fillable(field: string): boolean {
   const facts = askedFacts(field);
   return facts.length === 1 && FILLABLE_FACTS.includes(facts[0]);
@@ -61,7 +71,9 @@ export function formFill(file: CaseFile | null | undefined, values: Record<strin
     const decision = heldAnswer(file, field);
     if (decision && decision.slot.source?.kind === "answer" && decision.slot.source.question === `small-claims:${field}`) continue;
     const words = heldWords(file, field);
-    if (words) out[field] = words;
+    // What the box shows, from the one table (caseFile/boxView.ts): the held answer, pre-filled into the empty box.
+    const fill = words ? boxView({ state: "answered", words }, typeof value === "string" ? value : "").fill : null;
+    if (fill) out[field] = fill;
   }
   return out;
 }

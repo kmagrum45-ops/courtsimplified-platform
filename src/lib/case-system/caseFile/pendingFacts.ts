@@ -50,7 +50,7 @@ export function pendingWrites(changes: unknown): FactWrite[] {
   return writes;
 }
 
-export type SendResponse = { saved: { fact: string; seq: number; at: string }[]; conflicts: FactConflict[]; facts: FactRecords };
+export type SendResponse = { saved: { fact: string; seq: number; at: string }[]; conflicts: FactConflict[]; facts: FactRecords; parties?: { record: unknown; seq: number } };
 
 /**
  * The tab's sections after the server answered a send of `sent` (the change record as it was sent). `sections` is the

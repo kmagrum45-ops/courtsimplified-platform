@@ -18,10 +18,11 @@ import { createContext, useContext, useEffect, useRef, useState, type ReactNode 
 import { useIntakeRecovery, useIntakeReviewView, useIntakeState } from "./IntakeRecovery";
 import { useCaseField } from "./useCaseField";
 import { writeFollow } from "./caseWrite";
-import { caseFileOf, changesOf, isUnsureAnswer } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, changesOf, isUnsureAnswer, slotText } from "../../src/lib/case-system/caseFile/caseFile";
+import { boxView, type BoxFact } from "../../src/lib/case-system/caseFile/boxView";
 import { filledToFollow, formFill, seenNow } from "../../src/lib/case-system/intake/asker";
 import { heldAnswer } from "../../src/lib/case-system/caseFile/heldAnswer";
-import { ADD_IT_LATER, NOT_ANSWERED_YET } from "../../src/lib/case-system/copy/askCopy";
+import { CHANGE_LINK } from "../../src/lib/case-system/copy/askCopy";
 import { settledNotSure } from "../../src/lib/case-system/caseFile/factStatus";
 import { boxesToFollow } from "../../src/lib/case-system/caseFile/boxFollow";
 import { formatForCourt } from "../../src/lib/case-system/dates";
@@ -36,33 +37,43 @@ function useCaseFile() {
 }
 
 /**
- * The boxes whose fact the page is offering from the story right now (the one asker, caseFile/missingFacts.ts): an empty
- * box gives way to the offer, so a fact is never offered and asked on one screen (the question logs of #563: the amount,
- * when and what they want were offered and asked side by side). After the offer is answered it is no longer in the set.
+ * The story's offer for each box the page is offering right now (the one asker, caseFile/missingFacts.ts), by box: its value
+ * and quote (for boxView) and the offer's own Yes / No, that's not right / I'm not sure (node). Once answered it is no longer
+ * in the map.
  */
-export const OfferedFields = createContext<ReadonlySet<string>>(new Set());
+export const OfferedFields = createContext<ReadonlyMap<string, { value: string; quote: string; node: ReactNode }>>(new Map());
 
-/** One box of the Small Claims form, decided by the asker. `field`: the form's key (the asker knows its fact). */
+/** The box's fact state, for boxView: the story's offer, the answer held anywhere, "not sure", removed, or none yet. */
+function boxFact(file: ReturnType<typeof useCaseFile>, field: string, value: unknown, offer: { value: string; quote: string } | undefined): BoxFact {
+  const decision = heldAnswer(file, field);
+  if (isUnsureAnswer(value)) return { state: "unsure" };
+  if (decision?.held === "answered") return { state: "answered", words: slotText(decision.slot, (iso) => formatForCourt(iso)) };
+  if (decision?.held === "unsure" || (decision && settledNotSure(file, decision.fact))) return { state: "unsure" };
+  if (decision?.held === "removed") return { state: "removed" };
+  return offer ? { state: "offer", value: offer.value, quote: offer.quote } : { state: "ask" };
+}
+
+/**
+ * One box of a form, decided by the one asker (caseFile/boxView.ts boxView: the table of what a box shows in each fact
+ * state). The box is always shown, typeable; the story's offer above it while it is empty; a note for "not sure" or removed;
+ * Change beside a held answer (it puts the cursor in the box). `field`: the form's key (the asker knows its fact). The
+ * answer held elsewhere is put into the empty box by the form's fill (useHeldFill), which reads boxView too.
+ */
 export function AskedField({ field, value, label, children }: { field: string; value: unknown; label: ReactNode; children: ReactNode }) {
   const file = useCaseFile();
-  // Typing in the box, or "Add it": the box stays for this visit (never folded under the person).
-  const [opened, setOpened] = useState(false);
-  const offered = useContext(OfferedFields).has(field);
-  if (offered && blank(value) && !opened) return null;
-  const decision = heldAnswer(file, field);
-  // A box whose own words are a "not sure" is never shown as if they were the answer, whatever its fact (item 4, 6 Nov).
-  // Folded when the one function says the box's fact is settled by a confirmed "I'm not sure" (caseFile/factStatus.ts
-  // settledNotSure); a box the person cleared stays an empty box.
-  const folded = !opened && (isUnsureAnswer(value) || (decision !== null && settledNotSure(file, decision.fact) && blank(value)));
-  if (folded) {
-    return (
-      <div className="block" data-testid="not-answered-yet" data-fact={decision?.fact} data-field={field}>
-        <span className="font-semibold text-[#16302b]">{label}</span>
-        <p className="mt-2 text-sm text-[#4d675f]">{NOT_ANSWERED_YET}. <button type="button" data-testid="not-answered-yet-add" onClick={() => setOpened(true)} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</button></p>
-      </div>
-    );
-  }
-  return <div className="contents" data-asked-field={field} onFocusCapture={() => setOpened(true)}>{children}</div>;
+  const offer = useContext(OfferedFields).get(field);
+  const wrapper = useRef<HTMLDivElement>(null);
+  const view = boxView(boxFact(file, field, value, offer), typeof value === "string" ? value : Array.isArray(value) ? value.join(", ") : value == null ? "" : String(value));
+  const fact = heldAnswer(file, field)?.fact;
+  void label;
+  return (
+    <div className="contents" ref={wrapper} data-asked-field={field} data-offered={view.offer ? "true" : undefined}>
+      {view.offer && offer ? offer.node : null}
+      {view.note ? <p className="text-sm text-[#4d675f]" data-testid="not-answered-yet" data-fact={fact} data-field={field}>{view.note}</p> : null}
+      {children}
+      {view.change ? <button type="button" data-testid="asked-field-change" data-field={field} onClick={() => wrapper.current?.querySelector<HTMLInputElement | HTMLTextAreaElement>("input, textarea, select")?.focus()} className="mt-1 text-sm font-semibold text-[#2f7d67] underline">{CHANGE_LINK}</button> : null}
+    </div>
+  );
 }
 
 /**

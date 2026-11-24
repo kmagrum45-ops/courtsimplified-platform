@@ -17,11 +17,13 @@ import { caseFileOfMaster } from "./caseFileOfMaster";
 import { readCheckpoint, type IntakeCourt } from "../intakeCheckpoint";
 import { CASE_FILE_SECTION } from "./caseFile";
 import { OFFER_UNSURE_PLACE, sectionWithOfferChoices, type OfferChoice } from "./offerChoice";
+import { PARTIES_SEQ, sectionWithSavedParties } from "./serverFacts";
+import type { PartiesRecord } from "../parties/parties";
 
 const NOTHING_TO_SAVE = "nothing-to-save";
 
 export type FactSaveOutcome =
-  | { ok: true; saved: { fact: FactId; seq: number; at: string }[]; conflicts: FactConflict[]; facts: FactRecords }
+  | { ok: true; saved: { fact: FactId; seq: number; at: string }[]; conflicts: FactConflict[]; facts: FactRecords; parties?: { record: PartiesRecord; seq: number } }
   | { ok: false; reason: "no-intake-checkpoint" | "rejected" | "not-found" | "conflict" | "error"; error?: string };
 
 export async function saveFactWrites(
@@ -31,7 +33,10 @@ export async function saveFactWrites(
   clock: () => Date = () => new Date(),
   /** The person's choices on offers (offerChoice.ts), kept in the same save. */
   offers: readonly { key: string; choice: OfferChoice }[] = [],
+  /** The Parties record the tab sent (checked by the route, parties.ts readParties): saved with the next number (serverFacts.ts). */
+  parties?: PartiesRecord,
 ): Promise<FactSaveOutcome> {
+  let partiesSeq: number | null = null;
   // The change runs once per attempt; the last attempt's result is the one written.
   let last: FactWriteResult | null = null;
   const saved = await updateMasterResult(client, { caseId: ids.caseId, userId: ids.userId, courtPath: ids.court }, (master) => {
@@ -41,10 +46,13 @@ export async function saveFactWrites(
     const kept = held ? writes.filter((write) => !(write.state === "unsure" && write.question?.startsWith(`${OFFER_UNSURE_PLACE}:`) && held[write.fact as keyof typeof held] && (held[write.fact as keyof typeof held] as { state?: string }).state === "answered")) : writes;
     last = applyFactWrites(master, ids.court, ids.caseId, kept, clock());
     if (!last.ok) return { reject: last.reject };
-    if (offers.length) {
+    if (offers.length || parties) {
       const checkpoint = readCheckpoint(last.master.intakeCheckpoint, ids.court, ids.caseId);
       if (!checkpoint) return { reject: "no-intake-checkpoint" };
-      const next = { ...checkpoint, sections: { ...checkpoint.sections, [CASE_FILE_SECTION]: sectionWithOfferChoices(checkpoint.sections[CASE_FILE_SECTION], offers) } };
+      let section: unknown = checkpoint.sections[CASE_FILE_SECTION];
+      if (offers.length) section = sectionWithOfferChoices(section, offers);
+      if (parties) { section = sectionWithSavedParties(section, parties); partiesSeq = (section as Record<string, unknown>)[PARTIES_SEQ] as number; }
+      const next = { ...checkpoint, sections: { ...checkpoint.sections, [CASE_FILE_SECTION]: section as Record<string, unknown> } };
       if (!readCheckpoint(next, ids.court, ids.caseId)) return { reject: "intake-too-large" };
       return { ...last.master, intakeCheckpoint: next };
     }
@@ -59,7 +67,7 @@ export async function saveFactWrites(
     return { ok: false, reason: saved.reason, ...(saved.error ? { error: saved.error } : {}) };
   }
   if (!result?.ok) return { ok: false, reason: "error", error: "no result" };
-  return { ok: true, saved: result.saved, conflicts: result.conflicts, facts: result.facts };
+  return { ok: true, saved: result.saved, conflicts: result.conflicts, facts: result.facts, ...(parties && partiesSeq !== null ? { parties: { record: parties, seq: partiesSeq } } : {}) };
 }
 
 /**

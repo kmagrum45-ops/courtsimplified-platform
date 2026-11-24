@@ -1,7 +1,7 @@
 "use client";
 
 import { offerForQuestion } from "../../../src/lib/case-system/caseFile/offerChoice";
-import { FROM_YOUR_START_ANSWERS } from "../../../src/lib/case-system/caseFile/storyOffers";
+import { FROM_YOUR_START_ANSWERS, FROM_YOUR_STORY } from "../../../src/lib/case-system/caseFile/storyOffers";
 import { dateAnswerCheck, dateSpans } from "../../../src/lib/case-system/dates";
 import { SMALL_CLAIMS_FILED_OPTIONS } from "./guidedFields";
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
@@ -59,7 +59,7 @@ import { missingFacts, storyFormValues } from "../../../src/lib/case-system/case
 import { storyOfFile, type CaseFile } from "../../../src/lib/case-system/caseFile/caseFile";
 import { factStatus } from "../../../src/lib/case-system/caseFile/factStatus";
 import { storyLines } from "../../../src/lib/case-system/caseFile/storyLines";
-import { detailStatus, partyName, storyPartyOffers, type Party, type PartyDetail } from "../../../src/lib/case-system/parties/parties";
+import { detailStatus, partyName, type Party, type PartyDetail } from "../../../src/lib/case-system/parties/parties";
 
 /** No store (no case open): the banner reads an empty record. */
 const noStore = () => () => {};
@@ -764,10 +764,23 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   const formFile = reviewNow ? caseFileOf(reviewNow.checkpoint, recovery?.getSavedMaster() ?? undefined) : caseFileOf(null);
   const foundToOffer = missingFacts({ ...formFile, storyText: formFile.storyText || input.facts }, "sc-form", { boxes: input as unknown as Record<string, unknown>, choices: offerChoicesOf(reviewNow?.checkpoint.sections as Record<string, unknown> | undefined) });
   // The boxes the page is offering from the story now: each gives way to its offer (AskedField OfferedFields).
-  // The other side's name, while the Parties step on this page offers it from the story (the one place for names): the
-  // form's own box gives way, so the name is never offered there and asked here (the question logs of #563).
-  const partiesOffersName = storyPartyOffers(formFile.storyText || input.facts, { version: 1, list: formFile.parties.list, declined: [] }).some((offer) => offer.party.startsWith("other") && (offer.detail === "companyName" || offer.detail === "fullName"));
-  const offeredHere = new Set([...foundToOffer.map((fact) => fact.field), ...(partiesOffersName ? ["otherParty"] : [])]);
+  // Each offer for a box the form shows goes in that box's own place (AskedField OfferedFields): one prompt for the fact, the
+  // box still there to type in. The offers for facts with no box of their own stay in the list below.
+  const BOXED = new Set(["amountClaimed", "timeline", "goal", "evidence"]);
+  const offerFor = (fact: (typeof foundToOffer)[number]) => (
+    <div className="mt-1 mb-2 rounded-xl border border-cyan-200 bg-cyan-50 p-3 text-sm text-[#24463d]" data-testid="sc-form-box-offer" data-field={fact.field} data-fact={fact.facts.join(" ") || undefined}>
+      <UseSuggestion
+        offer={offerForQuestion(`sc-form:${fact.field}`, fact.field)}
+        testId="sc-form-use-suggestion"
+        what={fact.value ?? ""}
+        note={fact.quote ? `${FROM_YOUR_STORY} "${fact.quote}"` : undefined}
+        onUse={() => updateField(fact.field as keyof SmallClaimsIntelligenceInput, (fact.value ?? "") as never)}
+        className="mt-1 rounded border border-[#2f7d67] bg-white px-3 py-1 text-left text-sm font-semibold text-[#2f7d67]"
+      />
+    </div>
+  );
+  const offeredHere = new Map(foundToOffer.filter((fact) => BOXED.has(fact.field)).map((fact) => [fact.field, { value: fact.value ?? "", quote: fact.quote ?? "", node: offerFor(fact) }] as const));
+  const listedOffers = foundToOffer.filter((fact) => !BOXED.has(fact.field));
   const inferredIssues = useMemo(() => inferIssuesFromStory(input), [input]);
   const inferredDisputeCategory = useMemo(() => {
     if (inferredIssues.includes("defamation-reputation")) return "defamation";
@@ -1137,11 +1150,11 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         </div>
       )}
 
-      {foundToOffer.length > 0 && (
+      {listedOffers.length > 0 && (
         <div className="mt-5 rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-sm text-[#24463d]">
           <p className="font-semibold">Found in your description — review/edit</p>
           <ul className="mt-2 list-disc space-y-1 pl-5">
-            {foundToOffer.map((fact) => {
+            {listedOffers.map((fact) => {
               const value = fact.value ?? "";
               return (
                 <li key={fact.field} data-field={fact.field} data-fact={fact.facts.join(" ") || undefined}>
@@ -1221,22 +1234,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </label>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2">
-          {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
-          <AskedField field="otherParty" value={input.otherParty} label={"Other party name"}>
-          <label className="block">
-            <span className="font-semibold text-[#16302b]">
-              Other party name
-            </span>
-            <input
-              data-testid="sc-intake-otherParty" value={input.otherParty}
-              onChange={(event) => updateField("otherParty", event.target.value)}
-              className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
-              placeholder="Person or business on the other side"
-            />
-          </label>
-          </AskedField>
-        </div>
+        {/* The other side's name is asked, offered and shown in one place, the Parties step on this page (site owner, 23 Nov
+            2026: the form's own "Other party name" box is removed; it asked beside the Parties step's offer of the same name). */}
 
         <StoryEditor section="small-claims" story={input.facts} startOpen={!input.facts.trim()} onSave={saveStory} ids={{ toggle: "sc-intake-edit-story", draft: "sc-intake-facts", save: "sc-story-save" }} />
 

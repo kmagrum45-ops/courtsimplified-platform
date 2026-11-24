@@ -53,6 +53,8 @@ export const FACT_MEANINGS: Readonly<Record<CaseFact, string>> = {
   property: "in a family case, details of the home, property and financial disclosure",
   adoption: "details of an adoption",
   missingEvidence: "evidence the person does not have yet",
+  yourLastName: "the person's own last name (a one-word name gives only the first)",
+  otherPartyLastName: "the other party's last name (a one-word name gives only the first)",
   courtLocation: "which Small Claims court office the claim is filed at",
   paymentHistory: "what has been paid on the debt, and when",
   damagesBreakdown: "what the losses claimed are made up of",

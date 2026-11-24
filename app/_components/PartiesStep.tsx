@@ -29,6 +29,7 @@ import {
 } from "../../src/lib/case-system/parties/parties";
 import { OFFER_CHOICES } from "../../src/lib/case-system/copy/suggestionCopy";
 import { factStatus } from "../../src/lib/case-system/caseFile/factStatus";
+import { boxView } from "../../src/lib/case-system/caseFile/boxView";
 import { offeredOtherParty, readingFactsOf } from "../../src/lib/case-system/caseFile/storyOffers";
 
 const LABELS: Record<PartyDetail, string> = {
@@ -149,12 +150,22 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
     const status = detailStatus(party, detail);
     // The story gives this detail: it is offered (Yes / No / Not sure), not asked as an empty box beside the offer.
     if (status === "ask" && offersFor(party).some((offer) => offer.detail === detail || ((detail === "firstName" || detail === "lastName" || detail === "companyName") && (offer.detail === "fullName" || offer.detail === "companyName")))) return null;
-    const typing = status === "known" && inEntry === party.id && Boolean(typedHere[key]);
+    // A box the person is editing stays that box while the focus is in its entry, typed or emptied (an emptied name part
+    // turned into an empty question at once, asking for a name the case still held by its other part: carry runs of
+    // 24 Nov, "remove a value"). It folds when the focus leaves the entry (leftEntry).
+    const typing = (status === "known" || status === "ask") && inEntry === party.id && Boolean(typedHere[key]);
     if (status === "known" && !typing) {
       return (
         <p key={key} data-testid="parties-detail-held" data-detail={detail} className="text-sm">
           <span className="font-semibold">{LABELS[detail]}:</span> {party.details[detail]}{" "}
-          <button type="button" data-testid="parties-detail-change" className="text-[#2f7d67] underline" onClick={() => { setDrafts((current) => ({ ...current, [key]: party.details[detail] ?? "" })); if (party.heldElsewhere?.includes(detail)) { setInEntry(party.id); setTypedHere((current) => ({ ...current, [key]: true })); return; } update(party.id, (held) => { const details = { ...held.details }; delete details[detail]; return { ...held, details }; }); }}>Change</button>
+          <button type="button" data-testid="parties-detail-change" className="text-[#2f7d67] underline" onClick={() => {
+            // Change opens the same box, pre-filled and typeable (boxView, "answered"): the answer stays held until the
+            // person types another or empties the box and leaves it. It used to be taken away at once for a detail typed
+            // here, which showed an empty box asking for a name the case still held (carry runs of 24 Nov, "remove a value").
+            setDrafts((current) => ({ ...current, [key]: party.details[detail] ?? "" }));
+            setInEntry(party.id);
+            setTypedHere((current) => ({ ...current, [key]: true }));
+          }}>Change</button>
         </p>
       );
     }
@@ -162,11 +173,15 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
     // questions): not asked again here (one asker; the carry and story-pack runs of #563: "What is the other person's
     // name?" answered "I do not know yet", then First name and Last name asked here).
     const nameDetail = detail === "firstName" || detail === "lastName" || detail === "fullName" || detail === "companyName" || detail === "secondName";
-    const settledElsewhere = status === "ask" && nameDetail && party.side === "other" && !partyName(party) && record.list.filter((item) => item.side === "other").length === 1 && factStatus(file, "otherParty") === "settled";
-    if (status === "settled" || settledElsewhere) return <p key={key} data-testid="parties-detail-unsure" data-detail={detail} className="text-sm"><span className="font-semibold">{LABELS[detail]}:</span> Not sure yet <span className="text-[#4d675f]">(not asked again)</span></p>;
+    const settledElsewhere = !typing && status === "ask" && nameDetail && party.side === "other" && !partyName(party) && record.list.filter((item) => item.side === "other").length === 1 && factStatus(file, "otherParty") === "settled";
+    // "Not sure" here, or the name "not sure" or removed elsewhere: the box stays, typeable, with the note that it is not
+    // asked again (boxView, site owner 24 Nov 2026 rule 1: a box people type into exists in every state). Not a question:
+    // its own testid, never "parties-detail-ask".
+    const settledNote = status === "settled" || settledElsewhere ? boxView({ state: "unsure" }, drafts[key] ?? "").note : null;
     return (
-      <label key={key} className="block text-sm" data-testid={typing ? "parties-detail-typing" : "parties-detail-ask"} data-detail={detail}>
+      <label key={key} className="block text-sm" data-testid={typing ? "parties-detail-typing" : settledNote !== null || status === "settled" || settledElsewhere ? "parties-detail-unsure" : "parties-detail-ask"} data-detail={detail}>
         <span className="font-semibold">{LABELS[detail]}</span>{optional ? <span className="text-[#4d675f]"> (if you have it)</span> : null}
+        {settledNote ? <span className="ml-1 text-[#4d675f]" data-testid="not-answered-yet" data-detail={detail}>{settledNote}</span> : null}
         <span className="mt-1 flex flex-wrap gap-2">
           <input type={detail.toLowerCase().includes("email") ? "email" : "text"} aria-label={`${sideWord(party)}${party.you ? " (you)" : ""}: ${LABELS[detail]}`} data-testid={`parties-input-${detail}`} className="min-w-0 flex-[1_1_14rem] rounded border p-2" value={drafts[key] ?? (typing ? party.details[detail] ?? "" : "")} onChange={(event) => { const value = event.target.value; setDrafts((current) => ({ ...current, [key]: value })); setTypedHere((current) => (current[key] ? current : { ...current, [key]: true })); }}
             onBlur={() => afterPointer(() => (() => {
@@ -174,16 +189,19 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
               if (draft === undefined) return;
               const typed = draft.trim();
               const held = typing ? (party.details[detail] ?? "").trim() : "";
-              // Typed: saved. Emptied while it still shows the saved words: taken away, as "Change" does. Unchanged: nothing.
+              // Typed: saved. Emptied while it still shows the saved words: taken away AND kept as not asked again (boxView,
+              // "removed": the same box with "Not sure yet (not asked again)", and it stays removed; site owner 24 Nov 2026
+              // rule 1). It was taken away into an open question, asked again at once (carry runs of 24 Nov, "remove a
+              // value"). Typing in its box later gives it again (give() clears the mark). Unchanged: nothing.
               if (typed && typed !== held) give(party.id, detail, typed);
-              else if (!typed && held) update(party.id, (current) => { const details = { ...current.details }; delete details[detail]; return { ...current, details }; });
+              else if (!typed && held) update(party.id, (current) => { const details = { ...current.details }; delete details[detail]; return { ...current, details, unsure: [...new Set([...current.unsure, detail])] }; });
               setDrafts((current) => { const next = { ...current }; delete next[key]; return next; });
             })())}
             onKeyDown={(event) => { if (event.key === "Enter") (event.target as HTMLInputElement).blur(); }} />
           {/* Kept while the box is typed in: Tab from a box lands on this button, and the box's save then turned it into a
               typed box; taking the button away there dropped the focus to nothing, so the entry never heard it was left and
               stayed open (local run of the Parties spec, 18 Nov). Pressed after typing, the typed words are taken back out. */}
-          {optional ? null : <button type="button" data-testid="parties-detail-not-sure" className="rounded border px-3 py-1" onClick={() => {
+          {optional || status === "settled" || settledElsewhere ? null : <button type="button" data-testid="parties-detail-not-sure" className="rounded border px-3 py-1" onClick={() => {
             if (!typing) return unsure(party.id, detail);
             setDrafts((current) => { const next = { ...current }; delete next[key]; return next; });
             update(party.id, (held) => { const details = { ...held.details }; delete details[detail]; return { ...held, details, unsure: [...new Set([...held.unsure, detail])] }; });

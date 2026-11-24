@@ -44,8 +44,50 @@ export function withStoredFacts(tab: Sections, stored: unknown): Sections {
   const caseFile = { ...object(tab[RECORD_SECTION]) };
   delete caseFile.facts;
   if (Object.keys(facts).length) caseFile.facts = facts;
+  // The Parties record, once the server has numbered it, is the server's too (the same rule): the stored record is kept,
+  // whatever the tab's copy holds; the tab's edits reach it only through POST /api/cases/facts. A case whose record the
+  // server never numbered (saved before 24 Nov 2026, or a guest's) keeps the tab's copy, as before. An edit the tab has
+  // not sent yet (`partiesPending`) is the person's newest word and stays, with its mark, until it is sent (the tab sends
+  // before it saves its checkpoint: IntakeRecovery.tsx sendFacts).
+  const storedFile = object(object(stored)[RECORD_SECTION]);
+  if (typeof storedFile[PARTIES_SEQ] === "number" && caseFile[PARTIES_PENDING] !== true) {
+    caseFile.parties = storedFile.parties;
+    caseFile[PARTIES_SEQ] = storedFile[PARTIES_SEQ];
+  }
   if (!Object.keys(caseFile).length && !(RECORD_SECTION in tab)) return tab;
   return { ...tab, [RECORD_SECTION]: caseFile };
+}
+
+/**
+ * THE PARTIES RECORD, NUMBERED BY THE SERVER (site owner's choice, 24 Nov 2026: "server-numbered Parties"). Since the
+ * Small Claims form's own "Other party name" box was removed (23 Nov 2026) the Parties step is the one place a name is
+ * given, and its record was saved only with the tab's whole checkpoint, so a second tab's name was lost when that tab's
+ * save met a conflict on another answer (fact-two-tabs: passed on main, failed on #563). Now an edit is marked
+ * `partiesPending` in the tab, sent by itself to POST /api/cases/facts (beside the fact writes, as the offer choices
+ * are), and the server writes the record with the next `partiesSeq`; the newest save is the newest record.
+ */
+export const PARTIES_SEQ = "partiesSeq";
+export const PARTIES_PENDING = "partiesPending";
+
+/** The caseFile section with the Parties record the server accepted, numbered after the stored one. */
+export function sectionWithSavedParties(caseFileSection: unknown, record: unknown): Record<string, unknown> {
+  const section = { ...object(caseFileSection) };
+  const seq = typeof section[PARTIES_SEQ] === "number" ? (section[PARTIES_SEQ] as number) + 1 : 1;
+  delete section[PARTIES_PENDING];
+  return { ...section, parties: record, [PARTIES_SEQ]: seq };
+}
+
+/** The tab's sections after the server saved the Parties record it sent: the saved copy and its number taken in, and the
+ * mark cleared, unless the person changed the record again while it was on the way (then it stays marked, to be sent). */
+export function afterPartiesSent(sections: Sections, sent: unknown, saved: { record: unknown; seq: number }): Sections {
+  const caseFile = { ...object(sections[RECORD_SECTION]) };
+  const changedSince = JSON.stringify(caseFile.parties ?? null) !== JSON.stringify(sent ?? null);
+  caseFile[PARTIES_SEQ] = saved.seq;
+  if (!changedSince) {
+    caseFile.parties = saved.record;
+    delete caseFile[PARTIES_PENDING];
+  }
+  return { ...sections, [RECORD_SECTION]: caseFile };
 }
 
 /** True when the stored record holds a save the tab's copy has not seen. */

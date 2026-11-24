@@ -11,7 +11,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { factsOfAsk, namesAFact, type Asked } from "./askOnce";
+import { factsOfAsk, namesAFact, restoredAsk, type Asked } from "./askOnce";
 
 /** Surfaces that offer a value read from the story (Yes / No, that's not right / I'm not sure), never ask it cold. */
 // The ask-once suite's own list (ask-once-pages.spec.ts OFFER_SURFACES), with the Form 7A story screen.
@@ -34,6 +34,9 @@ export function questionLog(events: readonly Asked[]): LogResult {
     const heldThen = facts.map((fact) => `${fact}=${page[fact] ?? event.held?.[fact] ?? "not-read"}`);
     const where = `${event.surface} @ ${event.screen}`;
     const words = (event.text ?? "").replace(/\s+/g, " ").trim().slice(0, 160);
+    // The saved Small Claims conversation shown again with the very reply already recorded for that question (askOnce.ts
+    // restoredAsk; site owner, 29 Oct): listed, never counted as asked (the recorder's held and twice checks skip it too).
+    if (restoredAsk(event, events)) { lines.push(`${n}. [${where}] "${words}" | the saved conversation, shown with its saved reply "${event.reply}": not asked`); continue; }
     lines.push(`${n}. [${where}] "${words}" | fact: ${facts.join(", ")} | held then: ${heldThen.join(", ")}`);
     const offered = OFFER_SURFACES.has(event.surface);
     for (const fact of facts) {

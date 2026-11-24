@@ -88,6 +88,8 @@ export const FACT_TYPES: Record<CaseFact, FactType> = {
   property: "words",
   adoption: "words",
   missingEvidence: "words",
+  yourLastName: "name",
+  otherPartyLastName: "name",
   courtLocation: "words",
   paymentHistory: "words",
   damagesBreakdown: "words",

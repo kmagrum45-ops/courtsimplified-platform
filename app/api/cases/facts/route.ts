@@ -2,8 +2,11 @@
  * POST /api/cases/facts: the one server route that saves facts into the case's fact record
  * (case core G0, "the rails"; CASE_CORE_DESIGN.md §12).
  *
- * In:  { caseId, facts: [{ fact, state, value?, source?, question?, seenSeq?, force? }], offers?: [{ key, choice: "no" | "unsure" }] }
- * Out: { saved: [{ fact, seq, at }], conflicts: [{ fact, stored, sent }], facts } or { error }
+ * In:  { caseId, facts: [{ fact, state, value?, source?, question?, seenSeq?, force? }], offers?: [{ key, choice: "no" | "unsure" }], parties? }
+ * Out: { saved: [{ fact, seq, at }], conflicts: [{ fact, stored, sent }], facts, parties?: { record, seq } } or { error }
+ *
+ * `parties`: the Parties step's whole record (parties.ts readParties checks it; one not well formed is refused), saved with
+ * the next number, the newest save winning (serverFacts.ts sectionWithSavedParties; site owner's choice, 24 Nov 2026).
  *
  * The browser never sends a seq or an ordering time (a write naming either is refused,
  * factRecord.ts readFactWrites). The route checks the signed-in owner and case
@@ -24,6 +27,7 @@ import { NextResponse } from "next/server";
 
 import { readFactWrites } from "../../../../src/lib/case-system/caseFile/factRecord";
 import { readOfferChoices } from "../../../../src/lib/case-system/caseFile/offerChoice";
+import { readParties } from "../../../../src/lib/case-system/parties/parties";
 import { intakeCourtOfRow, saveFactWrites } from "../../../../src/lib/case-system/caseFile/factSave";
 import type { CaseRecordClient } from "../../../../src/lib/case-system/updateCaseRecord";
 import { UUID_PATTERN } from "../../../../src/lib/case-system/events/caseEventRequest";
@@ -56,8 +60,11 @@ export async function POST(request: Request) {
   // The person's choices on offers (No / I'm not sure), kept beside the facts (offerChoice.ts; site owner, 14 Nov 2026).
   const offers = readOfferChoices(body);
   if (!offers.ok) return NextResponse.json({ error: offers.error }, { status: 400 });
-  // A "No" on an offer saves the choice alone: an empty facts list only beside at least one offer choice.
-  const offersOnly = offers.offers.length > 0 && Array.isArray(body.facts) && body.facts.length === 0;
+  // The Parties record, when sent: refused unless it is well formed (parties.ts readParties).
+  const parties = body.parties === undefined ? undefined : readParties(body.parties);
+  if (parties === null) return NextResponse.json({ error: "The parties could not be saved: the record is not well formed." }, { status: 400 });
+  // A "No" on an offer, or a Parties record, saves alone: an empty facts list only beside at least one of them.
+  const offersOnly = (offers.offers.length > 0 || Boolean(parties)) && Array.isArray(body.facts) && body.facts.length === 0;
   const read: ReturnType<typeof readFactWrites> = offersOnly ? { ok: true, writes: [] } : readFactWrites(body);
   if (!read.ok) return NextResponse.json({ error: read.error }, { status: 400 });
 
@@ -71,8 +78,8 @@ export async function POST(request: Request) {
   const supabase = authenticatedClient(request);
   if (!supabase) return NextResponse.json({ error: "Authentication is required." }, { status: 401 });
 
-  const outcome = await saveFactWrites(supabase as unknown as CaseRecordClient, { caseId, userId: user.id, court }, read.writes, undefined, offers.offers);
-  if (outcome.ok) return NextResponse.json({ saved: outcome.saved, conflicts: outcome.conflicts, facts: outcome.facts });
+  const outcome = await saveFactWrites(supabase as unknown as CaseRecordClient, { caseId, userId: user.id, court }, read.writes, undefined, offers.offers, parties);
+  if (outcome.ok) return NextResponse.json({ saved: outcome.saved, conflicts: outcome.conflicts, facts: outcome.facts, ...(outcome.parties ? { parties: outcome.parties } : {}) });
   if (outcome.reason === "no-intake-checkpoint") return NextResponse.json({ error: NO_INTAKE }, { status: 409 });
   if (outcome.reason === "rejected") return NextResponse.json({ error: outcome.error }, { status: 400 });
   if (outcome.reason === "not-found") return NextResponse.json({ error: "The selected case could not be found." }, { status: 404 });

@@ -230,8 +230,9 @@ async function main() {
     for (const field of fields) {
       // The parties' names and addresses are given in the Parties step (site owner, 14 Nov 2026, rule 1), which the form
       // renders in place of its own name and address boxes; the draft reads them from the parties record
-      // (test:drafts-from-record). Only these three fields; every other field still needs its own box.
-      const PARTY_FIELDS = new Set(["yourName", "yourAddress", "defendantAddress"]);
+      // (test:drafts-from-record). Only these fields; every other field still needs its own box. The other side's name too
+      // since 23 Nov 2026 (site owner: the form's own "Other party name" box is removed, the Parties step is the one place).
+      const PARTY_FIELDS = new Set(["yourName", "yourAddress", "defendantAddress", "otherParty"]);
       check(`risk (a): "${label}" -- the Small Claims form has a box for ${field}`, form.includes(`sc-intake-${field}`) || (PARTY_FIELDS.has(field) && /<PartiesStep\b/.test(form)));
       if (!asker) continue;
       const own = asker.askedFacts(field);
@@ -255,8 +256,8 @@ async function main() {
   }
   if (asker) {
     // A box is filled only when it asks for one fillable fact; a box that asks for none is never filled.
-    for (const field of ["yourName", "yourAddress", "defendantAddress", "evidence", "damagesBreakdown"]) check(`form: ${field} asks for no fillable fact -> never filled from the case file`, !asker.fillable(field));
-    for (const field of ["otherParty", "amountClaimed", "timeline", "goal"]) check(`form: ${field} asks for a fillable fact -> filled when held`, asker.fillable(field));
+    for (const field of ["yourName", "yourAddress", "defendantAddress", "damagesBreakdown"]) check(`form: ${field} asks for no fillable fact -> never filled from the case file`, !asker.fillable(field));
+    for (const field of ["otherParty", "amountClaimed", "timeline", "goal", "evidence", "agreementDetails"]) check(`form: ${field} asks for a fillable fact -> filled when held`, asker.fillable(field));
   }
 
   // 5. RISK (b), on the real reader: the story alone, and an unticked kind, hold nothing.

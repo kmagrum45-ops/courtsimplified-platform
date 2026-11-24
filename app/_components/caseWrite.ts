@@ -20,6 +20,7 @@ import { fieldRow } from "../../src/lib/case-system/caseFile/fieldFacts";
 import type { FactId } from "../../src/lib/case-system/caseFile/factRecord";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { readParties, withoutHeldElsewhere, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
+import { PARTIES_PENDING } from "../../src/lib/case-system/caseFile/serverFacts";
 import { PARTY_DETAIL_TYPES, partyDetailFits } from "../../src/lib/case-system/caseFile/factTypes";
 import { offerChoiceParts, OFFER_CHOICES_FIELD, type OfferChoice, type OfferTarget } from "../../src/lib/case-system/caseFile/offerChoice";
 
@@ -106,6 +107,9 @@ export function writeParties(recovery: CaseWriteRecovery, record: PartiesRecord)
     }
   }
   recovery.put(CASE_FILE_SECTION, "parties", checked, true, true, true);
+  // Not sent yet: the tab sends the record to the server by itself (POST /api/cases/facts), which numbers it, before any
+  // save of its whole checkpoint (serverFacts.ts PARTIES_PENDING; site owner's choice, 24 Nov 2026).
+  recovery.put(CASE_FILE_SECTION, PARTIES_PENDING, true, true, true, true);
 }
 
 /**

@@ -18,6 +18,7 @@ import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { serveFromThisCommit } from "./harness/thisCommitServer";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { giveOtherPartyName, removeOtherPartyName } from "./harness/partiesDriver";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -36,14 +37,11 @@ test("Small Claims form: the other party typed key by key, then emptied: it stay
   await expect(ack.or(page.getByRole("button", { name: "Fill in the form yourself" }))).toBeVisible({ timeout: 60_000 });
   if (await ack.isVisible()) { await ack.check(); await page.getByTestId("acknowledgement-continue").click(); }
   await page.getByRole("button", { name: "Fill in the form yourself" }).click();
-  const box = page.getByTestId("sc-intake-otherParty");
-  await box.click();
-  await box.pressSequentially("Jordan Testwood", { delay: 40 });
-  await box.blur();
+  // Given on the Parties step, the one place for the other side's name (the form's own box is removed, 23 Nov 2026).
+  await giveOtherPartyName(page, "Jordan Testwood");
   await page.waitForTimeout(2_000);
-  // Removed: the box emptied, as the carry test does.
-  await box.fill("");
-  await box.blur();
+  // Removed: each part taken away with its Change.
+  await removeOtherPartyName(page);
   await page.waitForTimeout(2_500);
   const saved = async () => {
     const row = [...account.rows.values()][0] as { master_result?: unknown } | undefined;
