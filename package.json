@@ -416,7 +416,9 @@
     "test:pass3-asked-twice": "node --import tsx scripts/verification/verifyPass3AskedTwice.ts",
     "test:legal-changes-20261121": "node --import tsx scripts/verification/verifyLegalChanges20261121.ts",
     "test:wording-20261122": "node --import tsx scripts/verification/verifyWording20261122.ts",
-    "test:wording-leftovers-20261122": "node --import tsx scripts/verification/verifyWordingLeftovers20261122.ts"
+    "test:wording-leftovers-20261122": "node --import tsx scripts/verification/verifyWordingLeftovers20261122.ts",
+    "ci:local": "bash scripts/ci/ciLocal.sh",
+    "test:ci-local": "node --import tsx scripts/verification/verifyCiLocal.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

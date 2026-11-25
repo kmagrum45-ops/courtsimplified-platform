@@ -787,6 +787,9 @@ jobs:
       - name: OpenAI spending stays under control (no cache writes, daily limit, no repeat runs)
         run: npm run test:openai-cost
 
+      - name: npm run ci:local runs this job as written (every step run or skipped for a reason)
+        run: npm run test:ci-local
+
       # This suite makes real, billed OpenAI calls, so it needs the
       # OPENAI_API_KEY repository secret. Without the secret it cannot run at
       # all -- it failed in one second on 2026-09-28, the first time any CI run

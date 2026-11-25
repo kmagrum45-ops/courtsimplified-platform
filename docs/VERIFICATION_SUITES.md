@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-327 documented, 26 without a header.
+328 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -79,6 +79,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:chrome-29oct-safety` | **The site owner's Chrome re-test of 29 October, items E, F and G: safety,**<br>deadlines and the Family "which court" step. Known problems, written as FAILING checks before any fix (tests/browser/harness/knownProblems29oct-safety.ts lists each one, in plain words). |
 | `npm run test:chrome-545-round` | **THE CHROME CHECK OF #545 AT 7bce410 (9 Nov 2026), THE RULES BEHIND EACH FIX, IN ALL THREE COURTS WHERE THEY APPLY.**<br>B1 (3.5): Form 8A, the Application (Divorce), is in no list of a step's forms for someone who recorded they were never married: the card's forms, "Forms for your next step", the catalogue's "For your step" tag (leadForms), the folded forms, and the forms named |
 | `npm run test:chrome-pass-2` | **Chrome's milestone pass 2 on PR #550 (bbcade40, 17 Nov 2026): each finding, by its number, at the shared piece that**<br>owns it, so it cannot come back on any route. |
+| `npm run test:ci-local` | **test:ci-local -- `npm run ci:local` runs CI's main job as the workflow writes it, and only skips what it must.**<br>WHAT IT CHECKS. 1. Every step of the workflow's `typecheck-and-build` job is either run by ci:local or skipped with a reason, and the only steps skipped (other than `uses:` steps the container does itself) are the billed OpenAI ones. Every `npm run test:` the  |
 | `npm run test:citations` | **EVERY CITATION THE SITE SHOWS SAYS EXACTLY WHAT IT CITES (Charter re-test, 27 Oct, root cause 5).**<br>Runs over the whole library: every quoted citation in the stage map (its steps, deadlines, moves and final steps), the rules shown beside published sentences, the practical lines (forms, fees, filing, service), and every source's name. For each it asserts, as  |
 | `npm run test:cited-provisions` | **Every cited provision is vendored, and no not-in-force replacement is**<br>undeclared or stale. |
 | `npm run test:claim-amount` | **The amount offered as "the amount claimed" is the one owed, claimed or the**<br>damage -- never an amount already paid, a fee or a price -- and nothing is offered when the story leaves it unclear (claimAmount.ts). |

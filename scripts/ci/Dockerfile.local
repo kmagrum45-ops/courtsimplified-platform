@@ -1,0 +1,22 @@
+# The machine CI's main job runs on, for `npm run ci:local` (scripts/ci/ciLocal.sh).
+#
+# CI runs on GitHub's ubuntu-latest (Ubuntu 24.04, PostgreSQL 16 preinstalled) with Node 22
+# (actions/setup-node). This image is the same: Ubuntu 24.04, Node 22, PostgreSQL 16 for
+# test:rls-matrix, git for the checks that compare with origin/main, python3 for the mutation
+# step's error summary, socat so the local Supabase stack answers on 127.0.0.1 inside the container.
+FROM node:22-bookworm AS node
+
+FROM ubuntu:24.04
+RUN apt-get update \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+      ca-certificates git python3 socat postgresql-16 postgresql-client-16 util-linux \
+ && rm -rf /var/lib/apt/lists/*
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
+COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+RUN ln -s ../lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
+ && ln -s ../lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx \
+ && node --version && npm --version
+# runCiSteps.mjs reads the workflow before the job's own npm ci, so its yaml parser (the version the repo's lock
+# already holds) lives beside a copy of it here.
+RUN mkdir -p /opt/ci-tools && cd /opt/ci-tools && npm init -y > /dev/null && npm install --no-audit --no-fund yaml@1.10.3 > /dev/null
+ENV PATH="/usr/lib/postgresql/16/bin:${PATH}"
