@@ -2,6 +2,7 @@ import { SOURCE_SAVED_ON, rulesForWords } from "@/src/lib/content-library/nextSt
 import { officialUrl, sourceName, type RuleCitation } from "@/src/lib/case-system/stage-map/citations";
 import { nextStepsFor, type NextStepView } from "@/src/lib/case-system/stage-map/stageSequence";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
+import { MARRIED_ONLY_FAMILY_STEPS } from "@/src/lib/case-system/family/marriedOnly";
 
 /**
  * "What can happen next" on the step card: the steps this one can lead to,
@@ -86,9 +87,11 @@ function Move({ move }: { move: NextStepView }) {
  * goes under "Other things that can come up", with its rules unchanged.
  * Nothing is removed. Exported for test:next-step.
  */
-export function movesForWords(stepId: string, responding = false, words = "", city = "") {
+export function movesForWords(stepId: string, responding = false, words = "", city = "", notMarried = false) {
   const { moves, final } = nextStepsFor(stepId, responding);
-  const shown = moves.map((move) => {
+  // A married person's steps (a divorce, an equalization claim) are never listed for someone not married or not sure
+  // (family/marriedOnly.ts; Chrome milestone test of #550, rows 40 and 44).
+  const shown = moves.filter((move) => !(notMarried && MARRIED_ONLY_FAMILY_STEPS.has(move.to))).map((move) => {
     const rules = rulesForWords(move.rules, words, city);
     return rules.length > 0 ? { move: { ...move, rules }, fits: true } : { move, fits: false };
   });
@@ -105,14 +108,17 @@ export default function WhatComesNext({
   responding = false,
   story = "",
   city = "",
+  notMarried = false,
 }: {
   stepId: string;
   responding?: boolean;
+  /** The record says not married or not sure (marriedOnly.ts hidesMarriedOnly): married-only steps are left out. */
+  notMarried?: boolean;
   /** The person's words, used only to narrow notice rules to the ones that fit. */
   story?: string;
   city?: string;
 }) {
-  const { lead, others, final } = movesForWords(stepId, responding, story, city);
+  const { lead, others, final } = movesForWords(stepId, responding, story, city, notMarried);
   if (lead.length === 0 && others.length === 0 && !final) return null;
   return (
     <details data-testid="what-comes-next" className="mt-3 text-sm leading-6 text-[#16302b]">

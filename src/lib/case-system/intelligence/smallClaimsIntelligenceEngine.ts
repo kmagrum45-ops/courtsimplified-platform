@@ -9,11 +9,12 @@ import {
 
 import {
   filingFactsFromDocuments,
-  isQuestionAlreadyAnswered,
 } from "./answeredQuestions";
+import { missingWords } from "../caseFile/heldAnswer";
 import { runCourtSimplifiedBrain } from "./courtSimplifiedBrain";
 import { formatRecordedAmount } from "../format/recordedAmount";
 import type { ProceduralEvent } from "../procedure/proceduralStateArchitecture";
+import type { ResearchCaseContext } from "../caseFile/aiCaseContext";
 import { sanitizeSummaryText } from "./caseStrengthLanguageValidator";
 import { nameRecorded } from "../privacy/modelPayloadNames";
 
@@ -117,6 +118,8 @@ export type SmallClaimsIntelligenceInput = {
    */
   confirmedClaimTypeId?: string;
   elementStates?: Record<string, "provided" | "cannot-provide" | "not-yet">;
+  /** The case file's kind of case in words, for the AI research (caseFile/aiCaseContext.ts researchCaseContext). Checked by the route. */
+  caseContext?: ResearchCaseContext;
 };
 
 export type SmallClaimsIntelligenceOutput = {
@@ -587,6 +590,7 @@ export async function analyzeSmallClaimsWithBrain(
     sourceType: "user-intake",
     allowExternalCognition: options.allowExternalCognition,
     confirmedEvents: options.confirmedEvents,
+    ...(input.caseContext ? { caseContext: input.caseContext } : {}),
     ...(input.confirmedClaimTypeId
       ? {
           catalogueClaim: {
@@ -641,10 +645,12 @@ export async function analyzeSmallClaimsWithBrain(
   // which only exists because no Defence was filed. Both decisions come from
   // the shared filing-facts table rather than a local document check.
   const smallClaimsFilingFacts = filingFactsFromDocuments(input.filedDocuments);
+  // The plaintiff's own default step only: for someone being sued, "the defendant" is themselves (role audit, 11 Nov).
   const defaultStageReview =
+    !/defendant|responding/i.test(String(input.yourRole ?? "")) &&
     input.filedDocuments.includes("plaintiffs-claim") &&
     input.filedDocuments.includes("affidavit-service") &&
-    !isQuestionAlreadyAnswered("Has the defendant filed a Defence?", smallClaimsFilingFacts);
+    missingWords(null, ["Has the defendant filed a Defence?"], { filing: smallClaimsFilingFacts }).length > 0;
   const defaultStageGuidance = defaultStageReview
     ? [
         "Service was completed and an Affidavit of Service was filed with the court.",

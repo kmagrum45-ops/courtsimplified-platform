@@ -1,17 +1,24 @@
 /** Review provenance on workflowStatus; intakeCompleted remains the completion flag. */
 import { sentences as sharedSentences } from "./sentences";
+import { suggestionFits } from "./caseFile/factTypes";
 import { canonicalJson } from "./canonicalJson";
 import { sideOf, situationAnswers, situationOf, stageWords } from "./situation/situation";
-import { countable, dayWrittenBefore, findDates, formatForCourt, findDayMonthWithoutYear, MONTH_WORDS_EN } from "./dates";
+import { countable, dayWrittenBefore, findDates, formatForCourt, findDayMonthWithoutYear, isRealIsoDate, MONTH_WORDS_EN } from "./dates";
 import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
-import { freshSections } from "./storyBasis";
+import { freshSections, storyAnswersOutdated } from "./storyBasis";
 import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
-import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../../app/builder/_components/guidedFields";
-import { amountFromStory, goalFromStory } from "../../../app/builder/_components/storyAnswers";
+import { familyGuidedFields, civilGuidedFields, isAnswered, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../../app/builder/_components/guidedFields";
+import { kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
+import { readingFactsOf, type ReadingFact } from "./caseFile/storyOffers";
+import { readStoryFacts, type StoryCourt, type StoryReading, type StoryValue } from "./caseFile/storyReader";
+import { PARTY_FORM_FIELDS } from "./caseFile/oldParties";
+import { mayShowQuestion } from "./caseFile/factStatus";
+import type { Stated } from "./caseFile/factStatus";
 import { QUESTION_BANK } from "./intake/questionBank";
-import { selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
-import { alreadyAsked, caseFileOf, slotsOfQuestion } from "./caseFile/caseFile";
-import { LOAN_WORDS } from "./intake/claimKind";
+import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
+import { missingFields, heldAnswer } from "./caseFile/heldAnswer";
+import { CASE_FILE_SECTION, CHANGE_QUESTION, answeredInIntake, caseFileOf, fromCasePosition, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, repeatsAnswer, sameAnswer, NEWEST_TYPED_FACTS, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
+import { LENT_MONEY, LOAN_WORDS } from "./intake/claimKind";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
 
 type ObjectValue = Record<string, unknown>;
@@ -35,7 +42,7 @@ const ISSUE_ONLY: Record<string, string[]> = {
   institutionalFacts: ["institutional-negligence"],
   privacyRecordsFacts: ["privacy"],
 };
-export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[]; /** What the story says about an empty answer, to help fill it in. */ hint?: string; /** The question the field answers, where one is written: a date question's box asks for the year (dates.ts). */ question?: string; /** Answered in the situation questions before the story (situation.ts): shown, changed only there. */ fromStart?: boolean; /** What the story says for an empty box, offered in one click (storyFacts.ts). */ fromStory?: { value: string; quote: string } };
+export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[]; /** What the story says about an empty answer, to help fill it in. */ hint?: string; /** The question the field answers, where one is written: a date question's box asks for the year (dates.ts). */ question?: string; /** Answered in the situation questions before the story (situation.ts): shown, changed only there. */ fromStart?: boolean; /** What the story says for an empty box, offered in one click (storyFacts.ts). */ fromStory?: { value: string; quote: string }; /** The person's own answer to the same question asked in other words elsewhere (the home page, the chat): shown as held, with Change, never offered (C9). */ answeredElsewhere?: { value: string; quote: string } };
 
 /** Small Claims' roles in the form's own words (one place: the review and its start answers). */
 const SMALL_CLAIMS_ROLE_WORDS: Record<string, string> = { plaintiff: "Plaintiff / claimant", defendant: "Defendant / responding party" };
@@ -46,6 +53,10 @@ const BOX_FROM_STORY: Record<string, (story: string) => { value: string; quote: 
   damagesBreakdown: lossesIn,
   timeline: timelineIn,
 };
+// The real AI's other words for these (Chrome pass 2, S7a reading r3 and S7b readings r2, r3): "In what city or town and
+// province does your child usually live?", "What town or city ... does your child usually live in?", "What parenting
+// arrangement do you currently have...?" were answered on the home page and the box stayed empty.
+import { ANSWERED_ELSEWHERE } from "./caseFile/answeredElsewhere";
 const FAMILY_FIELDS = () => familyGuidedFields({ issues: FAMILY_ISSUE_OPTIONS, filed: FAMILY_FILED_OPTIONS });
 const CIVIL_FIELDS = () => civilGuidedFields({ issues: CIVIL_ISSUE_OPTIONS, documents: CIVIL_DOCUMENT_OPTIONS });
 /** The form's own wording for fields no question defines (Family: ten boxes were labelled from their code names, re-test 2026-10-18). */
@@ -63,6 +74,18 @@ const FIELD_LABELS: Record<string, string> = {
   privacyRecordsFacts: "The records or privacy issue", damagesBreakdown: "What your losses are made up of",
   settlementEfforts: "What you have tried to settle it", limitationDeadline: "A deadline you know of",
   courtLocation: "Court location", courtFileNumber: "Court file number", otherParty: "The other party",
+  // The form's own words for the box, for either side ("Defendant address" was its code name: role audit, 11 Nov).
+  defendantAddress: "Other party address for service",
+};
+/**
+ * The labels a person being sued reads instead: the Small Claims form's own defendant wording (SmallClaimsIntake.tsx), so
+ * the review never says "your losses" or "the court to order" to them (role audit, 11 Nov; test:side-wording).
+ */
+export const RESPONDING_LABELS: Record<string, string> = {
+  damagesBreakdown: "Which part of the amount you dispute, and why",
+  goal: "What do you want to happen with the claim against you?",
+  // Civil's own box for it ("What would you like the court to order?").
+  legalRemedy: "What do you want to happen with the claim against you?",
 };
 /** Whether a field has words written for it (a field with none would show its code name turned into words). */
 export function hasWrittenLabel(courtPath: string, key: string): boolean {
@@ -110,8 +133,11 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   if (fromStart.caseStage) { source.caseStage = fromStart.caseStage; startKeys.add("caseStage"); }
   else if (Array.isArray(source[courtPath === "civil" ? "documents" : "filedDocuments"]) && fromStart.excludeDocuments) source[courtPath === "civil" ? "documents" : "filedDocuments"] = (source[courtPath === "civil" ? "documents" : "filedDocuments"] as string[]).filter(item => !fromStart.excludeDocuments!.includes(item));
   const entries: ReviewEntry[] = [];
+  const responding = sideOf(situationOf(sections)) === "responding" || /defendant|responding/i.test(String(source.yourRole ?? ""));
   const add = (area: string, key: string, value: unknown, nested?: string) => {
     // Civil keeps the location as city and province in its form input too: a second copy of the one location, not a second answer.
+    // The Small Claims form's party boxes are the Parties step's, asked there once (oldParties.ts PARTY_FORM_FIELDS).
+    if (area === "small-claims" && PARTY_FORM_FIELDS.has(key)) return;
     if (UI.has(key) || (area !== STORY_SECTION && STORY_INPUT_KEYS.has(key)) || (area === "civil" && (key === "city" || key === "province")) || !(typeof value === "string" || typeof value === "number" || typeof value === "boolean" || (Array.isArray(value) && value.every(v => typeof v === "string")))) return;
     const definition = fields.find(field => field.key === key);
     const question = QUESTION_BANK.find(item => item.capturesField === key);
@@ -135,7 +161,7 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
     // A question asked only on one side or in one situation (its `when`: "When and how you were
     // served" is the responding side's) is not essential for anyone else.
     const notTheirQuestion = definition?.when ? !definition.when({ ...asGiven, facts: storyOf(sections) } as never) : false;
-    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: notTheirIssue || notTheirQuestion ? false : definition?.initial ?? !OPTIONAL.has(key), ...(choices?.length ? { choices } : {}), ...(definition?.question ?? question?.text ? { question: definition?.question ?? question?.text } : {}), ...(fromStartHere ? { fromStart: true } : {}) });
+    entries.push({ section: area, field: key, nested, label: (responding ? RESPONDING_LABELS[key] : undefined) ?? definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: notTheirIssue || notTheirQuestion ? false : definition?.initial ?? !OPTIONAL.has(key), ...(choices?.length ? { choices } : {}), ...((responding ? RESPONDING_LABELS[key] : undefined) ?? definition?.question ?? question?.text ? { question: (responding ? RESPONDING_LABELS[key] : undefined) ?? definition?.question ?? question?.text } : {}), ...(fromStartHere ? { fromStart: true } : {}) });
   };
   // The one copy of the story and location comes first, whatever the route (intakeStory.ts).
   entries.push({ section: STORY_SECTION, field: "text", label: "Your story", value: storyOf(sections), essential: true });
@@ -169,11 +195,37 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   // An empty civil box the story answers: its words offered in one click, never filled for them (s. 4).
   const story = storyOf(sections);
   if (story.trim()) for (const entry of entries) {
-    const read = entry.section === "civil" && (!entry.nested || entry.nested === "input") ? BOX_FROM_STORY[entry.field] : undefined;
+    // Family's Timeline box too (Chrome milestone pass 2, finding 9: empty after "separated in June 2026").
+    const fromStoryBox = (entry.section === "civil" && (!entry.nested || entry.nested === "input")) || (entry.section === "family" && !entry.nested && entry.field === "timeline");
+    const read = fromStoryBox ? BOX_FROM_STORY[entry.field] : undefined;
     const offer = read && typeof entry.value === "string" && !entry.value.trim() ? read(story) : null;
     if (offer) entry.fromStory = offer;
   }
+  // An empty Family box the person already answered in other words, on the home page or in the chat: their own answer, shown
+  // as held with Change, never offered again (C9, 23 Nov 2026; before, offered in one click: Chrome milestone pass 2, finding
+  // 9, S7: "Where does your child normally live...?" answered "With me in Ottawa since birth", then an empty box).
+  for (const entry of entries) {
+    const asks = entry.section === "family" && !entry.nested ? ANSWERED_ELSEWHERE[entry.field] : undefined;
+    if (!asks || entry.fromStory || typeof entry.value !== "string" || entry.value.trim()) continue;
+    const given = answeredInIntake(sections).filter((item) => asks.test(item.question));
+    if (given.length) entry.answeredElsewhere = { value: given.map((item) => item.answer).join("\n"), quote: given.map((item) => `You answered “${item.answer}” to “${item.question}”`).join(" ") };
+  }
   return entries;
+}
+
+/**
+ * The review's lines with the other party the record holds, on the Small Claims questions route (B1): the chat never
+ * asks it, so the accepted story reading's name had no line there. For the review screen ONLY: never part of
+ * reviewEntries, which also decides what a confirmation rests on (materialFacts), so a value read from the case file
+ * never becomes a confirmed fact of its own (the carry test's "typed in Change, then Confirm" lost the new amount when
+ * it was; 8 Nov).
+ */
+export function withHeldOtherParty(entries: ReviewEntry[], checkpoint: Checkpoint, file: CaseFile): ReviewEntry[] {
+  if (checkpoint.courtPath !== "small-claims" || checkpoint.sections.builder?.step !== "guided") return entries;
+  if (entries.some((entry) => entry.field === "otherParty")) return entries;
+  const held = file.otherParty;
+  if (held.state !== "answered" || held.removed || typeof held.value !== "string" || !held.value.trim()) return entries;
+  return [...entries, { section: "guided", nested: "facts", field: "otherParty", label: FIELD_LABELS.otherParty ?? label("otherParty"), value: held.value.trim(), essential: false }];
 }
 
 /** UI navigation, research results and later evidence never masquerade as initial fact edits. */
@@ -199,8 +251,44 @@ function materialFacts(checkpoint: Checkpoint): Map<string, string> {
   if (Array.isArray(answers) && answers.length) facts.set("home.understoodAnswers", canonicalJson(answers));
   // The situation answers (situation.ts) are facts the guidance rests on: changing one is confirmed again.
   for (const [key, value] of Object.entries(situationOf(checkpoint.sections))) facts.set(JSON.stringify(["situation", key]), canonicalJson(value));
+  // The change record (caseFile.ts withChange): each change is a change of a confirmed fact (rule 6,
+  // 31 Oct), so it cancels the confirmation that rested on the old answer (isChangeKey below).
+  // G2: by each fact's value now -- the saved fact record (server-numbered), or this tab's unsent edit over it -- never
+  // by the raw entry, so an edit moving from the tab's buffer into the saved record is no change of a fact.
+  // A record that says what the answers already say is no new fact (item 1, 6 Nov): a late save of the chat, or a page
+  // keeping an answer the person gave, changes nothing the next steps rest on.
+  const recorded = Object.entries(recordedValues(checkpoint.sections));
+  const own = recorded.length ? caseFileOf({ ...checkpoint, sections: { ...checkpoint.sections, [CASE_FILE_SECTION]: {} } }) : null;
+  for (const [fact, value] of recorded) if (!repeatsAnswer(own!, fact, value)) facts.set(JSON.stringify([CHANGE_KEY, fact]), canonicalJson(value));
   return facts;
 }
+
+/** Each fact's recorded value now: the saved record, with this tab's unsent edit made on it applied over it (G2(b)). */
+function recordedValues(sections: Checkpoint["sections"]): Record<string, { state: string; value?: unknown }> {
+  const out: Record<string, { state: string; value?: unknown }> = {};
+  const records = (sections[CASE_FILE_SECTION]?.facts ?? {}) as Record<string, { state?: unknown; value?: unknown; seq?: unknown; question?: unknown }>;
+  for (const [fact, entry] of Object.entries(records)) {
+    if (!entry || typeof entry !== "object" || typeof entry.seq !== "number" || typeof entry.state !== "string") continue;
+    // Saved from the step page or the overview: that page's own answer, not the intake's (D1, 29 Oct), as before G2.
+    if (fromCasePosition(entry.question)) continue;
+    // "Not sure" given at a place is an unknown, not a fact, as for the forms' own answers above; "not sure" through
+    // "Change" is a change, as before G2.
+    if (entry.state === "unsure" && entry.question !== CHANGE_QUESTION) continue;
+    out[fact] = entry.state === "answered" ? { state: "answered", value: entry.value } : { state: entry.state };
+  }
+  for (const [fact, change] of Object.entries(changesOf(sections))) {
+    if (!change) continue;
+    const record = records[fact];
+    const recordSeq = record && typeof record.seq === "number" ? record.seq : 0;
+    if (recordSeq && (change.held || change.seen === undefined || change.seen < recordSeq)) continue;
+    out[fact] = change.state === "answered" ? { state: "answered", value: change.value } : { state: "removed" };
+  }
+  return out;
+}
+
+/** The material-fact key of one fact's change record: a change counts even where the fact had no key before. */
+const CHANGE_KEY = "caseFile.change";
+const isChangeKey = (key: string) => key.startsWith(`["${CHANGE_KEY}",`);
 
 export function materialInitialFacts(checkpoint: Checkpoint): string {
   return JSON.stringify([...materialFacts(checkpoint)].sort(([a], [b]) => a.localeCompare(b)));
@@ -214,7 +302,10 @@ export function materialInitialFacts(checkpoint: Checkpoint): string {
  */
 export function existingFactChanged(previous: Checkpoint, next: Checkpoint): boolean {
   const after = materialFacts(next);
-  for (const [key, value] of materialFacts(previous)) if (after.get(key) !== value) return true;
+  const before = materialFacts(previous);
+  for (const [key, value] of before) if (after.get(key) !== value) return true;
+  // A new change through "Change" is never "only an added answer": it replaces or removes one.
+  for (const [key, value] of after) if (isChangeKey(key) && before.get(key) !== value) return true;
   return false;
 }
 
@@ -244,9 +335,48 @@ function fingerprint(value: string): string {
   return `${hash.toString(16)}:${value.length}`;
 }
 
-/** Each material fact's mark, as confirmed: recorded with the confirmation (transitionReview). */
+/** The mark key of one case-file fact's value (personFacts). */
+const FACT_KEY = "caseFile.fact";
+const isFactKey = (key: string) => key.startsWith(`["${FACT_KEY}",`);
+
+/**
+ * Each fact the person answered, by its value in the case file, from whichever place holds it (Chrome check of #544 on
+ * a8c8cf57, 7 Nov, step 6: the chat's confirmed $6,400 typed over as $7,250 in the whole form's empty box was taken for
+ * an added answer, because the marks named boxes). Left out: the story slot (the story is marked as itself), a value
+ * read from the story (a suggestion, not an answer), "not sure", and a fact saved from the step page or the overview
+ * (that page's own answer, never an intake answer: the D1 rule, 29 Oct).
+ */
+function personFacts(checkpoint: Checkpoint): Map<string, string> {
+  const sections = checkpoint.sections;
+  const records = (sections[CASE_FILE_SECTION]?.facts ?? {}) as Record<string, { question?: unknown }>;
+  const intakeOnly = Object.fromEntries(Object.entries(records).filter(([, entry]) => !(entry && typeof entry === "object" && fromCasePosition(entry.question))));
+  const file = caseFileOf({ ...checkpoint, sections: { ...sections, [CASE_FILE_SECTION]: { ...sections[CASE_FILE_SECTION], facts: intakeOnly } } });
+  const facts = new Map<string, string>();
+  for (const fact of SLOT_FACTS) {
+    const slot = file[fact];
+    if (fact === "story" || slot.state !== "answered" || slot.source?.kind === "story" || slot.value === undefined || isUnsureAnswer(slot.value)) continue;
+    if (typeof slot.value === "string" && !slot.value.trim()) continue;
+    facts.set(JSON.stringify([FACT_KEY, fact]), canonicalJson(slot.value));
+  }
+  return facts;
+}
+
+/**
+ * A box for a fact the person had answered when they confirmed (its value is marked, personFacts): judged by that fact,
+ * not by its own text. A box whose fact was not answered then (the chat's raw facts are read only for questions it
+ * asked, so a box can name a fact without holding it) keeps its own mark.
+ */
+function boxOfMarkedFact(key: string, marks: Record<string, unknown>): boolean {
+  try {
+    const [section, , field] = JSON.parse(key) as [unknown, unknown, unknown];
+    if (typeof section !== "string" || section === STORY_SECTION || typeof field !== "string") return false;
+    return slotsOfQuestion(field).some((fact) => marks[JSON.stringify([FACT_KEY, fact])] !== undefined);
+  } catch { return false; }
+}
+
+/** Each material fact's mark, as confirmed: recorded with the confirmation (transitionReview). Also each answered fact's value (personFacts). */
 export function confirmedFactMarks(checkpoint: Checkpoint): Record<string, string> {
-  return Object.fromEntries([...materialFacts(checkpoint)].map(([key, value]) => [key, fingerprint(value)]));
+  return Object.fromEntries([...materialFacts(checkpoint), ...personFacts(checkpoint)].map(([key, value]) => [key, fingerprint(value)]));
 }
 
 /**
@@ -261,7 +391,16 @@ export function confirmedAnswerChanged(workflow: ObjectValue, previous: Checkpoi
   const marks = object(object(workflow.intakeReview).confirmedFacts);
   if (!Object.keys(marks).length) return existingFactChanged(previous, next);
   const now = confirmedFactMarks(next);
-  return Object.entries(marks).some(([key, mark]) => now[key] !== mark);
+  // Confirmed with the facts marked (personFacts): a box holding a fact is judged by the fact, never by its own text, so
+  // the chat's answer typed over in an empty box is a change, and "9400" typed over "$9,400" is not (7 Nov, step 6). A
+  // confirmation recorded before the facts were marked keeps the boxes' marks, as before.
+  if (Object.keys(marks).some(isFactKey)) {
+    return Object.entries(marks).some(([key, mark]) => !boxOfMarkedFact(key, marks) && now[key] !== mark)
+      || Object.entries(now).some(([key, mark]) => isChangeKey(key) && marks[key] !== mark);
+  }
+  // A change made through "Change" after Confirm replaces or removes a confirmed answer, even where
+  // the answer it replaces was held outside these marks (the saved position, the saved copy).
+  return Object.entries(marks).some(([key, mark]) => now[key] !== mark) || Object.entries(now).some(([key, mark]) => isChangeKey(key) && marks[key] !== mark);
 }
 
 /**
@@ -335,34 +474,212 @@ export function canReview(checkpoint: Checkpoint): boolean {
   return Boolean(confirmedLocationOf(checkpoint.sections)) && storyOf(checkpoint.sections).trim().length > 0;
 }
 
+/**
+ * A review question's fixed place: its place in the court's own list of questions (Small Claims: the
+ * question bank in the order the selector asks it, by phase then bank order; civil and Family: the
+ * form's fields in order). The review sorts its questions by this, so each keeps its place while
+ * answered, after a reload and in any tab, with nothing held in the page (fault 1, 31 Oct; the earlier
+ * owner rule, #471 re-test: answered questions must not jump). A question in neither list goes last.
+ */
+export function reviewQuestionRank(courtPath: string, id: string): number {
+  const order = courtPath === "family" ? FAMILY_FIELDS().map((field) => field.key)
+    : courtPath === "civil" ? CIVIL_FIELDS().map((field) => field.key)
+    : QUESTION_BANK.filter((question) => question.courtArea === "small-claims").sort((a, b) => PHASE_ORDER[a.phase] - PHASE_ORDER[b.phase]).map((question) => question.id);
+  const place = order.indexOf(id);
+  return place === -1 ? Number.MAX_SAFE_INTEGER : place;
+}
+
+/** Whether a review question holds an answer in the checkpoint now (a civil or Family form field, Family's day of service in its Timeline, a Small Claims review answer). */
+function holdsAnswer(checkpoint: Checkpoint, id: string): boolean {
+  const fresh: Checkpoint = { ...checkpoint, sections: freshSections(checkpoint) };
+  const value = checkpoint.courtPath === "civil" ? object(fresh.sections.civil?.input)[id]
+    : checkpoint.courtPath === "family" ? (id === "servedDate" ? familyTimelineValues(String(object(fresh.sections.family).timeline ?? "")).servedDate : object(fresh.sections.family)[id])
+    : initialAnswersOf(fresh)[id];
+  return Array.isArray(value) ? value.length > 0 : typeof value === "string" ? value.trim().length > 0 : value !== undefined && value !== null;
+}
+
+/**
+ * THE REVIEW'S ONE LIST ("Initial questions"), from the saved case only (fault 1, 31 Oct): the questions
+ * still to answer, and those the person answered in the review, as the case file records them
+ * (caseFileOf -> answeredInReview), each in its fixed place (reviewQuestionRank). Nothing in it comes
+ * from the page, so a reload, a second tab and every screen show the same list. An answered question
+ * is listed only while it still holds its answer; when a later answer from another place (or "Change") now
+ * holds its fact, it stays in its place and shows that newest answer (the panel reads it from the case file,
+ * caseFileWords; founder, 1 Nov: the newest answer shows everywhere at once).
+ * A question the person said they do not know (here or anywhere) is listed as its quiet line
+ * (`notYet`, from notAnsweredYet), in its place, never as still to answer: "N still to answer" counts
+ * only `!answered && !notYet` (site owner, 31 Oct: not sure is never asked again, nor counted).
+ */
+export function reviewQuestionList(checkpoint: Checkpoint, master?: unknown): { id: string; label: string; answered: boolean; notYet?: NotAnsweredYetLine }[] {
+  const file = caseFileOf(checkpoint, master);
+  const unanswered = remainingEssentialQuestions(checkpoint, master);
+  const quiet = notAnsweredYet(checkpoint, master).filter((line) => line.question);
+  const listed = [
+    ...unanswered.map((question) => ({ ...question, answered: false })),
+    ...quiet.filter((line) => !unanswered.some((question) => question.id === line.id)).map((line) => ({ id: line.id, label: line.label, answered: false, notYet: line })),
+    ...(file.answeredInReview ?? [])
+      .filter((id) => reviewQuestionRank(checkpoint.courtPath, id) !== Number.MAX_SAFE_INTEGER && !unanswered.some((question) => question.id === id) && !quiet.some((line) => line.id === id) && holdsAnswer(checkpoint, id)
+        // A question whose fact a later change removed ("Remove this answer") is not listed with its older answer (PR #541
+        // browser-regression, change-answer.spec.ts:209); one a later answer changed stays, showing the newest (caseFileWords).
+        && !slotsOfQuestion(id).some((fact) => file[fact].removed || (file[fact].changed && file[fact].state !== "answered")))
+      .map((id) => ({ id, label: reviewQuestionField(checkpoint.courtPath, id)?.question ?? QUESTION_BANK.find((item) => item.id === id)?.text ?? id, answered: true })),
+  ];
+  return listed.sort((a, b) => reviewQuestionRank(checkpoint.courtPath, a.id) - reviewQuestionRank(checkpoint.courtPath, b.id));
+}
+
 /** Reuse the existing initial selectors. Unknown/skipped is an answer, never an invented fact. */
-export function remainingEssentialQuestions(stored: Checkpoint, includeUnknown = false): { id: string; label: string }[] {
-  // The case file is the one gate (caseFile.ts): a question whose fact is held anywhere is not
-  // asked again here, and never blocks Confirm. A fact the person said they did not know gets
-  // its one more offer in this review (Jason, 2026-10-24, option 1), as ONE field: its box when
-  // the review shows one, otherwise this question (listed with `includeUnknown`, never required).
-  // Those this review marked "I don't know yet" stay listed (marked) so they can be changed.
-  const unknown = new Set(Array.isArray(stored.sections.builder?.initialUnknowns) ? stored.sections.builder.initialUnknowns as string[] : []);
-  const file = caseFileOf(stored);
-  // Only the boxes the review shows: essential ones, and optional ones with something in them.
-  const boxFacts = new Set(reviewEntries(stored).filter(entry => entry.essential || !(entry.value === "" || (Array.isArray(entry.value) && entry.value.length === 0))).flatMap(entry => slotsOfQuestion(entry.field)));
-  // Each unsure fact once: a fact already offered by a box, or by an earlier question here, is not offered again.
-  const offered = new Set<string>(boxFacts);
-  const listed = remainingBeforeCaseFile(stored, includeUnknown);
-  // A question this review already offered and the person marked "I don't know yet" covers its facts too.
-  for (const question of listed) if (unknown.has(question.id)) for (const fact of slotsOfQuestion(question.id)) offered.add(fact);
-  return listed.filter(question => {
-    if (!alreadyAsked(file, question.id)) return true;
-    if (!includeUnknown) return false;
-    if (unknown.has(question.id)) return true;
+/**
+ * `master`: the saved case, when there is one, so the review reads the same case file as the
+ * results and case pages (its saved position: a kind of claim picked on the overview, a step, the
+ * step page's dates). Site owner, 29 Oct: the review listed "What kind of dispute is this?" as still
+ * needed while the overview showed the person's answer.
+ */
+export function remainingEssentialQuestions(stored: Checkpoint, master?: unknown): { id: string; label: string }[] {
+  // The case file is the one gate (caseFile.ts): a question whose fact is held anywhere, answered
+  // or "not sure", is not asked again here, never counted as remaining, and never blocks Confirm
+  // (site owner, 31 Oct: it replaced option 1's "one more offer" of a not-sure fact in this review).
+  // Those the person said they do not know are notAnsweredYet's quiet lines instead.
+  const file = caseFileOf(stored, master);
+  // Small Claims: the question engine itself asks the case file (the one asker, intake/asker.ts; founder, 1 Nov).
+  if (stored.courtPath === "small-claims") return oneQuestionPerFact(remainingBeforeCaseFile(stored, false, file));
+  // The one function (factStatus.ts): shown only while its fact is still to ask or to offer (the one asker's rule).
+  return oneQuestionPerFact(remainingBeforeCaseFile(stored, false).filter(question => mayShowQuestion(file, question.id)));
+}
+
+/**
+ * ONE QUESTION PER FACT ON A PAGE (Chrome pass 3 on #550, S1, 19 Nov 2026): the review listed "Roughly when did the
+ * situation that led to this claim happen?" (offered with the story's Oct 4, 2026) AND "If this involves an injury, what
+ * date did it happen?" (sc-date-injury, no offer), both the one fact whenHappened, and the second blocked Continue. A
+ * question whose facts an earlier question on the list already asks is left out; the first (with its offer) stays.
+ */
+export function oneQuestionPerFact<T extends { id: string }>(questions: readonly T[]): T[] {
+  const asked = new Set<string>();
+  return questions.filter((question) => {
     const facts = slotsOfQuestion(question.id);
-    if (!facts.length || !facts.every(fact => file[fact].state === "unsure") || facts.some(fact => offered.has(fact))) return false;
-    for (const fact of facts) offered.add(fact);
+    if (facts.length && facts.every((fact) => asked.has(fact))) return false;
+    for (const fact of facts) asked.add(fact);
     return true;
   });
 }
 
-function remainingBeforeCaseFile(stored: Checkpoint, includeUnknown: boolean): { id: string; label: string }[] {
+/** Empty as a review box shows it: nothing typed, or an empty list. */
+const emptyValue = (value: ReviewEntry["value"]) => value === "" || (Array.isArray(value) && value.length === 0);
+
+/**
+ * THE OFFERS FROM THE STORY STILL UNDECIDED (site owner, 11 Nov 2026: "the review: Confirm only for story offers not yet
+ * decided. A value the person typed never asks for confirmation"). A suggestion read from the story for a question not
+ * answered and not said "not sure", and a review box with a value offered from the story that the case file does not
+ * hold. Zero: nothing is left for the person to decide, so the review asks for no confirmation.
+ */
+export function undecidedStoryOffers(checkpoint: Checkpoint, master?: unknown): number {
+  const suggestions = suggestInitialAnswers(checkpoint);
+  const choices = reviewOfferChoicesOf(checkpoint);
+  const questions = reviewQuestionList(checkpoint, master).filter((question) => questionOfferUndecided(question, suggestions, choices)).length;
+  const file = caseFileOf(checkpoint, master);
+  // Only the boxes the review shows: an offer the person cannot see has no choices to press (story pack, 12 Nov: the
+  // Charter review counted an empty optional box it does not draw, and Continue stayed disabled for good).
+  const boxes = shownReviewEntries(withHeldOtherParty(reviewEntries(checkpoint), checkpoint, file)).filter((entry) => boxOfferUndecided(entry, file, choices)).length;
+  return questions + boxes;
+}
+
+/**
+ * Of the review's boxes (with the Small Claims other party the record holds: withHeldOtherParty), the ones the review
+ * draws: the essential boxes and those holding something (optional ones with nothing in them are not shown, re-test
+ * 2026-10-18). The one filter the review panel draws with and undecidedStoryOffers counts with, so Continue never waits
+ * on a box the person cannot see.
+ */
+export function shownReviewEntries(entries: ReviewEntry[]): ReviewEntry[] {
+  const blank = (value: ReviewEntry["value"]) => Array.isArray(value) ? value.length === 0 : typeof value === "string" ? !value.trim() : false;
+  return entries.filter((entry) => entry.essential || !blank(entry.value));
+}
+
+/**
+ * THE REVIEW'S THREE CHOICES ON A STORY OFFER (site owner, 12 Nov 2026: "three choices, no tick"). Yes uses the
+ * suggestion (it becomes the answer); "no" (No, that's not right) leaves the box or question to answer plainly; "unsure"
+ * (I'm not sure) settles it, add it when you know. Kept in the review's own record, builder.reviewOfferChoices, by key.
+ */
+export type ReviewOfferChoice = "no" | "unsure";
+export const offerKeyOfQuestion = (id: string) => `q:${id}`;
+export const offerKeyOfEntry = (entry: Pick<ReviewEntry, "section" | "nested" | "field">) => `box:${entry.section}.${entry.nested ? `${entry.nested}.` : ""}${entry.field}`;
+export function reviewOfferChoicesOf(checkpoint: Checkpoint): Record<string, ReviewOfferChoice> {
+  const raw = object(object(checkpoint.sections.builder).reviewOfferChoices);
+  return Object.fromEntries(Object.entries(raw).filter(([, choice]) => choice === "no" || choice === "unsure")) as Record<string, ReviewOfferChoice>;
+}
+/** A question's story offer still to choose on: one rule for the count and for the screen, so Continue never waits on a choice not shown. */
+export function questionOfferUndecided(question: { id: string; answered: boolean; notYet?: unknown }, suggestions: Record<string, unknown>, choices: Record<string, ReviewOfferChoice>): boolean {
+  return !question.answered && !question.notYet && Boolean(suggestions[question.id]) && !choices[offerKeyOfQuestion(question.id)];
+}
+/** A review box's story offer still to choose on (the same rule for the count and for the screen). */
+export function boxOfferUndecided(entry: ReviewEntry, file: CaseFile, choices: Record<string, ReviewOfferChoice>): boolean {
+  return Boolean(entry.fromStory) && emptyValue(entry.value) && reviewBoxState(entry, file) === "ask" && !choices[offerKeyOfEntry(entry)];
+}
+
+/** The facts of the review's boxes that are shown: essential ones, and optional ones with something in them. */
+function shownBoxFacts(stored: Checkpoint): Set<SlotFact> {
+  return new Set(reviewEntries(stored).filter(entry => entry.essential || !emptyValue(entry.value)).flatMap(entry => slotsOfQuestion(entry.field)));
+}
+
+/** One quiet line of the review: a question (its id and words) or, with `question` false, a fact with no question here. */
+export type NotAnsweredYetLine = { id: string; label: string; facts: SlotFact[]; question: boolean; markedHere: boolean };
+
+/**
+ * THE REVIEW'S QUIET LINES (site owner, 31 Oct). Each fact the person said they do not know -- a
+ * skip, "I don't know" typed, or the review's own "I do not know yet" -- shown once as "Not answered
+ * yet: add it when you know" (askCopy.ts NOT_ANSWERED_YET), never as a question or a box asking for
+ * it. Listed: the review's questions marked "I do not know yet" here (kept in their place, marked),
+ * the review's questions whose facts are all held not sure, and each other not-sure fact with no box
+ * and no question here (`question: false`). A box for a not-sure fact shows the line itself
+ * (reviewBoxState). Once the fact is answered anywhere (the change path included), no line remains.
+ */
+export function notAnsweredYet(stored: Checkpoint, master?: unknown): NotAnsweredYetLine[] {
+  const unknown = new Set(Array.isArray(stored.sections.builder?.initialUnknowns) ? stored.sections.builder.initialUnknowns as string[] : []);
+  const file = caseFileOf(stored, master);
+  const boxes = shownBoxFacts(stored);
+  const covered = new Set<SlotFact>(boxes);
+  const lines: NotAnsweredYetLine[] = [];
+  const held = (fact: SlotFact) => file[fact].state === "answered" || Boolean(file[fact].removed);
+  for (const question of remainingBeforeCaseFile(stored, true)) {
+    const facts = slotsOfQuestion(question.id);
+    if (facts.some(held)) continue;
+    const markedHere = unknown.has(question.id);
+    const notSure = facts.length > 0 && facts.every(fact => file[fact].state === "unsure");
+    if (!markedHere && (!notSure || facts.some(fact => covered.has(fact)))) continue;
+    for (const fact of facts) covered.add(fact);
+    lines.push({ ...question, facts, question: true, markedHere });
+  }
+  for (const fact of SLOT_FACTS) {
+    if (file[fact].state !== "unsure" || covered.has(fact)) continue;
+    covered.add(fact);
+    lines.push({ id: `fact:${fact}`, label: "", facts: [fact], question: false, markedHere: false });
+  }
+  return lines;
+}
+
+/**
+ * What the review's box shows, by the one rule (site owner, 31 Oct): the start answer ("start"); the
+ * answer given elsewhere for an empty box ("held"); the quiet line for a fact held not sure, empty or
+ * with "I don't know" typed ("not-yet": never a box asking for it again); its own value ("given"); or,
+ * empty with nothing held, the box asking ("ask").
+ */
+export function reviewBoxState(entry: ReviewEntry, file: CaseFile): "start" | "held" | "not-yet" | "given" | "ask" {
+  if (entry.fromStart) return "start";
+  // The one asker (caseFile/missingFacts.ts heldAnswer; founder, 1 Nov): held means the person's own answer or "not sure";
+  // a story guess (confirmed false) is never "held", so the box asks and the guess stays an offer.
+  const decision = heldAnswer(file, entry.field);
+  const empty = emptyValue(entry.value);
+  if (empty && decision && decision.held === "answered") return "held";
+  if ((empty || isUnsureAnswer(entry.value)) && decision && decision.held === "unsure") return "not-yet";
+  // The newest answer wins on every screen (Chrome check of #544, 6 Nov, F1): a box whose own copy is not the answer the
+  // case record holds now (a newer answer given in another place, or the answer removed) shows the record's answer with
+  // "Change", never its own older copy. Typed words only: a choice keeps its own words (the record may word it otherwise).
+  if (!empty && decision && NEWEST_TYPED_FACTS.has(decision.fact) && !entry.choices && (typeof entry.value === "string" || typeof entry.value === "number") && !isUnsureAnswer(entry.value)) {
+    if (decision.held === "removed") return "held";
+    if (decision.held === "answered" && decision.slot.value !== undefined && !sameAnswer(decision.fact, decision.slot.value, entry.value)) return "held";
+  }
+  return empty ? "ask" : "given";
+}
+
+function remainingBeforeCaseFile(stored: Checkpoint, includeUnknown: boolean, held?: CaseFile): { id: string; label: string }[] {
   // A question answered only for an earlier version of the story is asked again (storyBasis.ts).
   const checkpoint: Checkpoint = { ...stored, sections: freshSections(stored) };
   const unknowns = new Set(Array.isArray(checkpoint.sections.builder?.initialUnknowns) ? checkpoint.sections.builder.initialUnknowns as string[] : []);
@@ -381,7 +698,7 @@ function remainingBeforeCaseFile(stored: Checkpoint, includeUnknown: boolean): {
     if (fromStart.servedOn && checkpoint.courtPath === "family") values.servedDate = formatForCourt(fromStart.servedOn);
     const fields = checkpoint.courtPath === "family" ? FAMILY_FIELDS() : CIVIL_FIELDS();
     const skipped = new Set(Array.isArray(checkpoint.sections["form-chat"]?.skipped) ? checkpoint.sections["form-chat"].skipped as string[] : []);
-    return pendingFields(fields, values, skipped).map(field => ({ id: field.key, label: field.question })).filter(field => includeUnknown || !unknowns.has(field.id));
+    return missingFields(null, fields, values, skipped, isAnswered).map(field => ({ id: field.key, label: field.question })).filter(field => includeUnknown || !unknowns.has(field.id));
   }
   const initial = smallClaimsInitialAnswers(checkpoint);
   // What the situation answers settle is answered, never asked again (step 2).
@@ -393,7 +710,7 @@ function remainingBeforeCaseFile(stored: Checkpoint, includeUnknown: boolean): {
     ...(fromStart.claimServed !== undefined ? { claimServed: fromStart.claimServed } : {}),
   };
   const answered = [...new Set([...initial.answered, ...fromStart.questionIds])];
-  return selectQuestions(facts, answered, QUESTION_BANK, "small-claims", "initial").map(id => ({ id, label: QUESTION_BANK.find(question => question.id === id)!.text })).filter(question => includeUnknown || !unknowns.has(question.id));
+  return selectQuestions(facts, answered, QUESTION_BANK, "small-claims", "initial", { held }).map(id => ({ id, label: QUESTION_BANK.find(question => question.id === id)!.text })).filter(question => includeUnknown || !unknowns.has(question.id));
 }
 
 /** What an answer given in the review panel says as a fact, for the questions that depend on it. */
@@ -455,18 +772,37 @@ const SIDE_CUES: [RegExp, string][] = [
   // ("a contractor took a $3,000 deposit and never did the work", re-test 2026-10-18).
   [/\b(owes? me|owed me|never paid|did not pay|didn't pay|won't pay|refused to (pay|refund|return)|kept my|i want to sue|i want (my|the) money|never came back|left the work|did not return|i paid|we paid|paid (him|her|them|a|an|the)|took (my|our|a|an|the)\b[^.]{0,30}\b(deposit|money|payment)|never (did|finished|completed|delivered|showed up|started))\b/i, "Bringing the claim (plaintiff)"],
 ];
-const CATEGORY_CUES: [RegExp, string][] = [
+/** Small Claims' cue table for "What kind of dispute is this?", read by the one shared reader (storyAnswers.ts kindsFromStory). */
+/**
+ * Answers to "What kind of dispute is this?" worded for the person suing (role audit, 11 Nov; test:side-wording). Not
+ * "Something said about you (defamation)": test:side-change keeps it for someone served with a defamation claim (the
+ * owner's case M19), so its wording is for the review chat (REVIEW_CHAT_ADDITIONS.md item 7).
+ */
+export const PLAINTIFF_WORDED_KINDS: ReadonlySet<string> = new Set([
+  "Unpaid money owed to you",
+  "Work or a service you paid for (e.g. a contractor)",
+]);
+
+export const SMALL_CLAIMS_KIND_CUES: readonly KindCue[] = [
+  // Money the person lent is a loan, whatever it was for: before the work cue, which "for a car repair" also matches
+  // (Chrome check of #547, G1).
+  ["A loan or debt", LENT_MONEY],
   // A contractor's deposit is about the work, so this comes before "deposit".
-  [/\b(contractor|renovat\w*|repair\w*|roof\w*|plumb\w*|electrician|landscap\w*|mechanic)\b/i, "Work or a service you paid for (e.g. a contractor)"],
-  [/\bdeposit\b/i, "A deposit that wasn't returned"],
-  [LOAN_WORDS, "A loan or debt"],
-  [/\b(bit|bite|bitten|fell|slipped|injur\w*)\b/i, "A personal injury (a fall, an animal bite, or similar)"],
-  [/\b(defam\w*|lies about me|posted about me|rumou?rs?)\b/i, "Something said about you (defamation)"],
-  [/\b(car|vehicle|truck|collision)\b/i, "A vehicle-related dispute"],
-  [/\b(damaged|damage to)\b/i, "Property damage"],
-  [/\b(invoice\w*|unpaid)\b/i, "Unpaid money owed to you"],
-  [/\b(bought|purchase\w*|refund)\b/i, "A consumer purchase problem"],
-  [/\b(contract|agreement)\b/i, "A contract or agreement dispute"],
+  ["Work or a service you paid for (e.g. a contractor)", /\b(contractor|renovat\w*|repair\w*|roof\w*|plumb\w*|electrician|landscap\w*|mechanic)\b/i],
+  ["A deposit that wasn't returned", /\bdeposit\b/i],
+  ["A loan or debt", LOAN_WORDS],
+  // "fell" of a person, never of a thing that "fell apart" or "fell off".
+  ["A personal injury (a fall, an animal bite, or similar)", /\b(bit|bite|bitten|slipped|tripped|injur\w*)\b|\bfell\b(?!\s+(?:apart|off|through|behind|short|out of)\b)/i],
+  ["Something said about you (defamation)", /\b(defam\w*|lies about me|posted about me|rumou?rs?)\b/i],
+  // A vehicle only when the same sentence says it crashed, hit or was damaged, or it is theirs: a truck merely
+  // parked outside named a vehicle dispute for "A moving company broke my dining table" (carry, Small Claims
+  // second case). The shared reader tests one sentence at a time (sentences.ts), so both words are in one sentence.
+  ["A vehicle-related dispute", /\b(car|vehicle|truck)\b.*\b(hit|crash\w*|collid\w*|damag\w*|dent\w*|scratch\w*|accident|rear-ended|backed into)\b|\b(hit|crash\w*|collid\w*|damag\w*|dent\w*|scratch\w*|accident|rear-ended|backed into)\b.*\b(car|vehicle|truck)\b|\bcollision\b|\bmy (car|vehicle|truck)\b/i],
+  // "broke" of a thing, never of an agreement ("broke the contract", "broke the lease", "broke up", "broke down").
+  ["Property damage", /\b(damaged|damage to|smashed|cracked|shattered|destroyed|ruined)\b|\b(broke|broken)\b(?!\s+(?:(?:the|our|my|their|his|her|a|an|its)\s+)?(?:contract|lease|agreement|promise|deal|law|laws|rules?|terms|news|up|down|in|off)\b)/i],
+  ["Unpaid money owed to you", /\b(invoice\w*|unpaid)\b/i],
+  ["A consumer purchase problem", /\b(bought|purchase\w*|refund)\b/i],
+  ["A contract or agreement dispute", /\b(contract|agreement)\b/i],
 ];
 
 /**
@@ -481,58 +817,110 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
   // Someone responding is asked about the claim against them: read the sentences about it, never
   // the claim they once meant to bring (26 Oct re-test, case 19 after the side change: "Work or a
   // service you paid for" was suggested for the defamation claim against him). None: nothing offered.
-  const story = sideOf(situationOf(checkpoint.sections)) === "responding" ? againstThemIn(whole) : whole;
+  const responding = sideOf(situationOf(checkpoint.sections)) === "responding";
+  const story = responding ? againstThemIn(whole) : whole;
   if (!story.trim()) return {};
   const out: Record<string, string> = {};
-  const date = whenItHappened(story);
-  if (date) out["sc-orient-when-happened"] = date;
+  // The one story reader (statedInStory below) for the date, the amount and the outcome, with the review's strict
+  // one-click rule for the amount. Someone responding: the story only (no reading), as before.
+  const read = quotesOf(statedInStory(story, responding ? [] : readingFactsOf(checkpoint.sections, whole), undefined, { oneClick: true }));
+  if (read.whenHappened) out["sc-orient-when-happened"] = String(read.whenHappened.value);
   const side = SIDE_CUES.find(([cue]) => cue.test(story));
   if (side) out["sc-orient-role"] = side[1];
   // Someone billed for work they did and was not paid is owed money, whatever the work was
   // (re-test round 7: an unpaid renovation invoice was suggested as "a service you paid for").
-  const owedForWork = /\b(invoice\w*|unpaid|never paid|did not pay|didn't pay|won't pay)\b/i.test(story) && !/\b(i|we) paid\b|\bdeposit\b/i.test(story);
-  const category = owedForWork ? [/./, "Unpaid money owed to you"] as const : CATEGORY_CUES.find(([cue]) => cue.test(story));
-  if (category) out["sc-orient-dispute-category"] = category[1];
-  // The amount and the outcome, read as the form already reads them (storyAnswers.ts).
-  const amount = amountFromStory(story);
-  if (amount) out["sc-amount-claimed"] = amount.value;
-  const goal = goalFromStory(story);
-  if (goal) out["sc-remedy-sought"] = goal.value;
+  // A loan named ("I lent my cousin $2,000 and she never paid it back") is a loan, not money owed for work.
+  const owedForWork = /\b(invoice\w*|unpaid|never paid|did not pay|didn't pay|won't pay)\b/i.test(story) && !/\b(i|we) paid\b|\bdeposit\b/i.test(story) && !LOAN_WORDS.test(story);
+  const found = owedForWork ? "Unpaid money owed to you" : kindsFromStory(story, SMALL_CLAIMS_KIND_CUES, { first: true })?.value[0];
+  // Someone being sued is never offered a kind worded for the person suing ("owed to you", "you paid for", "said about
+  // you"): role audit, 11 Nov. The choice stays theirs to make in the list.
+  const category = found && responding && PLAINTIFF_WORDED_KINDS.has(found) ? undefined : found;
+  // Never a kind the person removed or turned down ("Not quite"), rule 6 (31 Oct): the case file says which.
+  const file = caseFileOf(checkpoint);
+  const named = claimKindOf({ ...emptyCaseFile(), claimKind: { state: "answered", value: category ?? "", confirmed: true } }).claimTypeId;
+  if (category && !file.claimKind.removed && !(named && file.claimKindRemoved?.includes(named))) out["sc-orient-dispute-category"] = category;
+  // The amount from the one offer reader (caseFile/storyOffers.ts): what the story reading showed, when the story
+  // writes it or its parts, else the story's own reader, a quote included (Chrome milestone test of #550, S1 and S4: the
+  // reading showed $5,468.45 and a $1,500 quote, the review offered nothing). Someone responding: the story only.
+  if (read.amount) out["sc-amount-claimed"] = String(read.amount.value);
+  if (read.wants) out["sc-remedy-sought"] = String(read.wants.value);
+  // Each only when it fits its question's fact (factTypes.ts; decision 1, 18 Nov 2026).
+  return Object.fromEntries(Object.entries(out).filter(([questionId, value]) => suggestionFits(questionId, value)));
+}
+
+/**
+ * THE ONE STORY READER (site owner, 11 Nov 2026; made the one for every fact the story states, 21 Nov 2026, batch (a);
+ * rule 0: one reader per fact; caseFile/factStatus.ts `stated`).
+ *
+ * Until 21 Nov the home page read the story here for three facts only (the date, the amount, what the person wants), and
+ * without the story reading the person was shown, while the Civil and Family chat (guidedFields.ts) called eight readers
+ * of its own, field by field. So the home page asked what the intake then offered:
+ *   - S1 (Chrome check of ad67c3f7): its amount question while the reading showed $5,468.45, which the intake then
+ *     offered (the home page read the story without the reading);
+ *   - S7: "Tell us about the children: how many, how old, and who they live with now" right after "One child, age 6",
+ *     which the Family chat then offered (the home page had no children reader).
+ * Now every fact the story states is read here, once, and every place that asks whether the story states a fact reads
+ * this: the home page's questions (factQuestions.ts homeAsks), the Small Claims chat's offers (statedProposals.ts), the
+ * Civil and Family chat's offers (guidedFields.ts), the review's first suggestions (suggestInitialAnswers above), the
+ * role read at the start (IntakeRecovery.tsx). Each value is only ever OFFERED (Yes / No, that's not right / I'm not
+ * sure); none is an answer until the person says Yes.
+ *
+ * `reading`: the story reading the person was shown (storyOffers.ts readingFactsOf, or the home card's own), used only
+ * where the story writes its value. `court`: the readers that depend on the court (the person's role, the kind of claim,
+ * the papers filed, the other side). It returns each fact's value in words (`stated`); quotesOf gives each with the
+ * story's words it came from (the chat's offers). `oneClick`: the review's strict amount rule (#471: never an amount
+ * already paid); every other place offers what the story states, as before. STORY_STATED_FACTS is the one list of the
+ * facts it can state (the home page's questions, the chat's offers and test:home-asks-unstated all read it).
+ */
+// The facts it states for any court (`stated`). With a court it also reads the role, the kind of claim, the papers filed
+// and the other side, given with their words through quotesOf (the chat offers them; no home question asks them).
+export const STORY_STATED_FACTS = ["whenHappened", "amount", "wants", "children", "servedDate", "courtDate"] as const satisfies readonly SlotFact[];
+export type { StoryCourt, StoryReading, StoryValue };
+
+export function statedInStory(story: string, reading: readonly ReadingFact[] = [], court?: StoryCourt, options: { oneClick?: boolean } = {}): Stated {
+  // The reading itself is done in the case file module (caseFile/storyReader.ts), called only from here.
+  const out = readStoryFacts({ story, reading, ...(court ? { court } : {}), ...(options.oneClick ? { oneClick: true } : {}) });
+  // Each fact's value in words (`stated`), with the story's words each came from kept beside them, not among its keys.
+  const values = statedValues(out);
+  Object.defineProperty(values, QUOTES, { value: out, enumerable: false });
+  return values;
+}
+
+const QUOTES = Symbol("storyQuotes");
+/** What the one reader found, with the story's words for each (the chat's offers quote them); {} for a plain object. */
+export function quotesOf(stated: Stated): StoryReading {
+  return ((stated as Record<symbol, unknown>)[QUOTES] as StoryReading | undefined) ?? {};
+}
+
+/** Each stated fact's value in words, as the one function's `stated` (factStatus.ts). */
+function statedValues(read: StoryReading): Stated {
+  const out: Stated = {};
+  for (const fact of STORY_STATED_FACTS) {
+    const found = read[fact];
+    if (!found) continue;
+    const value = Array.isArray(found.value) ? found.value.join(", ") : found.value;
+    if (value.trim()) out[fact] = fact === "amount" ? value.replace(/[$,s]/g, "") : value;
+  }
   return out;
 }
 
-/** "payment was due July 10", "by July 10": a deadline, not when it happened. */
-const DEADLINE_BEFORE = /\b(?:due|deadline|payable|by|until|before|no later than|expires?|expiring)\s*(?:on\s*)?$/i;
-
-/**
- * When it happened, from the story: the first date that is not written as a
- * deadline (re-test round 7: "work finished June 10, payment due July 10" was
- * read as July 10), read by the shared reader (dates.ts). A full date is offered
- * as it is, a month and year ("August 2026") as it is. A day and month with no
- * year is not offered: its year would be a guess (it took another date's year
- * before), so the person types it and is asked for the year.
- */
-function whenItHappened(story: string): string | null {
-  const notDeadline = (index: number) => !DEADLINE_BEFORE.test(story.slice(Math.max(0, index - 30), index));
-  const mentions = [
-    ...findDates(story).filter((date) => (date.precision === "day" ? countable(date) : date.precision === "month" && !dayWrittenBefore(story, date))).map((date) => ({ index: story.indexOf(date.source), date })),
-    ...findDayMonthWithoutYear(story).filter((date) => !date.numeric).map((date) => ({ index: date.index, date: null })),
-  ].filter((mention) => mention.index >= 0).sort((a, b) => a.index - b.index);
-  const chosen = mentions.find((mention) => notDeadline(mention.index));
-  if (!chosen || !chosen.date) return null;
-  if (chosen.date.precision === "day") return chosen.date.iso;
-  const [year, month] = chosen.date.iso.split("-").map(Number);
-  return `${MONTH_WORDS_EN[month - 1]} ${year}`;
-}
-
-export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, action: "review" | "collect" | "confirm", expectedInputRevision: string, now: string): ObjectValue {
+export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, action: "review" | "collect" | "confirm", expectedInputRevision: string, now: string, master?: unknown): ObjectValue {
   if (inputRevision(checkpoint) !== expectedInputRevision) throw new Error("The initial facts changed. Please review the current information again.");
-  if (action === "collect") return invalidateReview(workflow);
+  // "You changed an answer, so please review and confirm again." is kept, in the saved record, until the
+  // person confirms again: opening the review or returning to the questions never drops it (founder's
+  // Chrome check of #536, 1 Nov: reloaded before the change was saved, the review opened collecting, and
+  // "Stop initial questions and review" took the message away).
+  const marker = action !== "confirm" && object(workflow.intakeReview).changedAfterConfirm === true ? { changedAfterConfirm: true } : {};
+  if (action === "collect") return { ...invalidateReview(workflow), intakeReview: { version: 1, ...marker } };
   if (!canReview(checkpoint)) throw new Error("Add your city and a description of your situation before reviewing.");
   if (action === "confirm" && reviewPhase(workflow, checkpoint) === "user-confirmed") return workflow;
   if (action === "confirm" && reviewPhase(workflow, checkpoint) !== "reviewing") throw new Error("Review the current information before confirming it.");
-  if (action === "confirm" && remainingEssentialQuestions(checkpoint).length) throw new Error("Answer the remaining initial questions, or explicitly mark what you do not know, before confirming.");
-  return { ...workflow, intakeCompleted: action === "confirm", intakeReview: { version: 1, reviewedRevision: expectedInputRevision, ...(action === "confirm" ? { confirmedRevision: expectedInputRevision, confirmedAt: now, confirmedFacts: confirmedFactMarks(checkpoint) } : {}) } };
+  if (action === "confirm" && remainingEssentialQuestions(checkpoint, master).length) throw new Error("Answer the remaining initial questions, or explicitly mark what you do not know, before confirming.");
+  // A confirm that closes a change keeps that it did (changeConfirmed): the one press that saves a changed answer also
+  // confirms it (e9131832), so the review was never left open to say so (Chrome pass 3 on #550, CA-1, second pass in a
+  // row: "You changed an answer. Here is what we have now." never appeared). The confirmed panel says it from this.
+  const changeConfirmed = action === "confirm" && object(workflow.intakeReview).changedAfterConfirm === true ? { changeConfirmed: true } : {};
+  return { ...workflow, intakeCompleted: action === "confirm", intakeReview: { version: 1, reviewedRevision: expectedInputRevision, ...marker, ...changeConfirmed, ...(action === "confirm" ? { confirmedRevision: expectedInputRevision, confirmedAt: now, confirmedFacts: confirmedFactMarks(checkpoint) } : {}) } };
 }
 
 /**
@@ -543,5 +931,68 @@ export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, 
 export function reconcileReview(workflow: ObjectValue, previous: Checkpoint, next: Checkpoint, fromReview = false): ObjectValue {
   const phase = reviewPhase(workflow, previous);
   const reviewing = phase === "reviewing" || (fromReview && phase === "user-confirmed");
-  return { ...invalidateReview(workflow), ...(reviewing ? { intakeReview: { version: 1, reviewedRevision: inputRevision(next) } } : {}) };
+  // Remembered until confirmed again, so the review can say why (rule 6, 31 Oct): "You changed an
+  // answer, so please review and confirm again." Kept on the server too (saveCheckpoint reconciles).
+  const marker = phase === "user-confirmed" || object(workflow.intakeReview).changedAfterConfirm === true ? { changedAfterConfirm: true } : {};
+  return { ...invalidateReview(workflow), intakeReview: { version: 1, ...(reviewing ? { reviewedRevision: inputRevision(next) } : {}), ...marker } };
 }
+
+/** An answer was changed after Confirm and it is not confirmed again yet: the review says so (reconcileReview). */
+/**
+ * An answer was changed and the change is now confirmed (transitionReview changeConfirmed): the confirmed review says
+ * "You changed an answer. Here is what we have now." above what it holds, after a reload too, until the next change.
+ */
+export function changeJustConfirmed(workflow: ObjectValue, checkpoint: Checkpoint): boolean {
+  return object(workflow.intakeReview).changeConfirmed === true && reviewPhase(workflow, checkpoint) === "user-confirmed";
+}
+
+export function changedAfterConfirm(workflow: ObjectValue, checkpoint: Checkpoint): boolean {
+  return object(workflow.intakeReview).changedAfterConfirm === true && reviewPhase(workflow, checkpoint) !== "user-confirmed";
+}
+
+/**
+ * The same, for a saved case (the case page): read from the saved record only, so the case page says
+ * "You changed an answer, so please review and confirm again." and shows the newest answers before the
+ * person confirms again (founder's Chrome check of #536, 1 Nov: the case page showed neither).
+ */
+export function savedCaseChangedAfterConfirm(master: unknown, court?: string | null, caseId?: string): boolean {
+  const record = object(master);
+  const area = court ?? object(record.intakeCheckpoint).courtPath;
+  if (area !== "small-claims" && area !== "family" && area !== "civil") return false;
+  const checkpoint = readCheckpoint(object(record.intakeCheckpoint), area, caseId);
+  return Boolean(checkpoint && changedAfterConfirm(object(record.workflowStatus), checkpoint));
+}
+
+/**
+ * WHAT IS STILL NEEDED BEFORE THE PERSON CAN CONTINUE: the one rule for every continue button (site owner, 16 Nov 2026;
+ * Chrome milestone test of #550, row 11: the review said "Still needed before you can continue: ... What outcome are
+ * you a..." while a "Continue" on the same page was not marked disabled). The review's own Continue and its "Still
+ * needed" line, the questions-one-at-a-time route's "Continue to your next steps" and the whole form's read it. While the
+ * review is open (phase "reviewing"); before it, nothing holds a button here.
+ */
+export function continueNeeds(checkpoint: Checkpoint, workflow: ObjectValue, master?: unknown): string[] {
+  if (reviewPhase(workflow, checkpoint) !== "reviewing") return [];
+  const remaining = remainingEssentialQuestions(checkpoint, master);
+  const offersLeft = undecidedStoryOffers(checkpoint, master);
+  return [
+    !canReview(checkpoint) && "your city and a description of what happened",
+    remaining.length > 0 && `an answer, or "I do not know yet", for: ${remaining.map(question => question.label).join("; ")}`,
+    storyAnswersOutdated(checkpoint) && "the answers marked as given for an earlier version of your story answered again, or the questions started again from your story",
+    offersLeft > 0 && "a choice (Yes, No or I'm not sure) on each suggestion taken from the story",
+  ].filter(Boolean) as string[];
+}
+
+/**
+ * What a continue button says beside itself when pressed before the review is done (ReviewNeededNotice.tsx): the review
+ * still has a suggestion from the story to decide (an offer: the one function's "offer", counted by undecidedStoryOffers),
+ * or only the summary to look over. Decided here, with the rule it reads.
+ */
+export function reviewNeededWords(checkpoint: Checkpoint, master?: unknown): string {
+  return undecidedStoryOffers(checkpoint, master) > 0
+    ? "Your initial case information at the top of this page needs confirming before your next steps can be shown."
+    : "Your next steps come after the summary of your initial case information at the top of this page: look it over and press Continue there.";
+}
+
+/** The "Still needed" line every continue button shows beside itself (the review's own included). */
+// A need may end with its question's own full stop ("...in your own words."): the line ends with one, never "words..".
+export const continueNeedsLine = (needs: readonly string[]): string => `Still needed before you can continue: ${needs.join("; ").replace(/[.\s]+$/, "")}.`;

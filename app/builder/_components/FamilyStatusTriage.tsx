@@ -1,8 +1,10 @@
 "use client";
-import { useIntakeReviewView, useSituation } from "../../_components/IntakeRecovery";
+import { useIntakeRecovery, useIntakeReviewView, useSituation } from "../../_components/IntakeRecovery";
+import { offerForQuestion } from "../../../src/lib/case-system/caseFile/offerChoice";
 import { sideOf } from "../../../src/lib/case-system/situation/situation";
-import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
-import { caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
+import { personWordsOnly } from "../../../src/lib/case-system/personWords";
+import { reviewPhase, statedInStory } from "../../../src/lib/case-system/intakeReview";
+import { askedQuestionsOf, caseFileOf, heldLocation } from "../../../src/lib/case-system/caseFile/caseFile";
 import { withCaseFileAnswers } from "../../../src/lib/case-system/caseFile/triageFromCaseFile";
 
 /**
@@ -43,11 +45,19 @@ import { useState } from "react";
 import {
   buildTriageOutcome,
   emptyStatusRecord,
+  livedTogetherFromStory,
+  separatedFromStory,
+  partialDateWords,
+  readPartialDate,
   selectNextTriageQuestion,
   type FamilyStatusRecord,
   type TriageQuestion,
+  type TriageQuestionId,
 } from "../../../src/lib/case-system/family/statusTriage";
-import { storyAnswerFor, storyQuoteFor, storySuggestionFor } from "../../../src/lib/case-system/family/triageStoryQuote";
+import { storyQuoteFor, storySuggestionFor } from "../../../src/lib/case-system/family/triageStoryQuote";
+import { UseSuggestion } from "../../_components/UseSuggestion";
+import { useOfferChoices } from "../../_components/offerChoiceSave";
+import { OFFER_CHOICES } from "../../../src/lib/case-system/copy/suggestionCopy";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 
 export type FamilyTriageState = {
@@ -110,6 +120,7 @@ function Citations({ items }: { items: { label: string; sourceUrl: string }[] })
 
 /** The person's story says a family court order already exists. */
 import { existingFamilyOrder, existingFamilyOrderQuote, respondingInFamilyStory } from "../../../src/lib/case-system/familyStoryReading";
+import { IS_THIS_RIGHT_AFTER, IS_THIS_RIGHT_BEFORE, WHY_ASKED_HIDE, WHY_ASKED_SHOW } from "../../../src/lib/case-system/copy/askCopy";
 export { existingFamilyOrder, respondingInFamilyStory };
 
 
@@ -119,6 +130,12 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
   const [situation] = useSituation();
   const confirmed = Boolean(review && reviewPhase(review.workflowStatus, review.checkpoint) === "user-confirmed");
   const [showWhy, setShowWhy] = useState(false);
+  // While the story's own answer is offered ("No children", "you were married to each other"), only the offer is shown:
+  // never the question beside it (C9, Chrome check of #560, 4a and 4b). After "No, that's not right" the question is asked.
+  const offerChoices = useOfferChoices();
+  // What the one story reader states ("No children"), for the story's own answers (triageStoryQuote.ts storyAnswerFor).
+  const storyStated = statedInStory(story);
+  const suggestionWaiting = (id: string) => Boolean(storySuggestionFor(id, story, storyStated)) && !offerChoices.choiceOf(`triage:${id}`);
   const [dateStart, setDateStart] = useState("");
   const [dateEnd, setDateEnd] = useState("");
   const [userMunicipality, setUserMunicipality] = useState(homeCity);
@@ -127,14 +144,31 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
   const { record: ownRecord, dismissed } = state;
   // The case file is the one gate (caseFile.ts): whether there are children, or a marriage,
   // given anywhere else (the form, the questions one at a time) is not asked here again.
-  const record = review ? withCaseFileAnswers(ownRecord, caseFileOf(review.checkpoint)) : ownRecord;
-  const question = selectNextTriageQuestion(record);
+  // With the saved case too (getSavedMaster), so an answer kept only on the saved row counts (finding 7).
+  const recovery = useIntakeRecovery();
+  const file = review ? caseFileOf(review.checkpoint, recovery?.getSavedMaster() ?? undefined) : null;
+  const fromFile = file ? withCaseFileAnswers(ownRecord, file) : ownRecord;
+  // The lived-together dates the story gives are used, never asked again (B3); "Change" asks them with the story's words
+  // in the boxes. Read over the record like the case file's answers, never copied into it.
+  const [changingDates, setChangingDates] = useState(false);
+  const storyDates = ownRecord.cohabitationStart === null && !changingDates ? livedTogetherFromStory(story) : null;
+  // Where the person lives is the city they gave on Home ("City or municipality"), the case record's city: a recorded
+  // answer, read over the triage record and never asked here again (Chrome check of #545 at 7bce410, 3.4d).
+  // Read through the case file's one reader (heldLocation, C9); the passed-in copy only when there is no case file yet.
+  const cityHeld = heldLocation(file)?.city.trim() || homeCity.trim();
+  const fromHome = fromFile.userMunicipality === null && cityHeld ? { ...fromFile, userMunicipality: cityHeld } : fromFile;
+  const record = storyDates ? { ...fromHome, cohabitationStart: storyDates.start, cohabitationEnd: storyDates.end } : fromHome;
+  // Questions set aside on this page with "I'd rather not answer yet": the next one is asked (statusTriage.ts).
+  const [deferred, setDeferred] = useState<ReadonlySet<TriageQuestionId>>(new Set());
+  // Each question through the one function: one whose fact is known or settled anywhere is not asked here again.
+  const question = selectNextTriageQuestion(record, deferred, file);
   const outcome = buildTriageOutcome(record);
   // Someone who already has a family court order (a motion to change, support
   // not being paid) is not choosing where to START a case; the start-a-case
   // court statutes and municipality list were the first thing they read
   // (held-back walkthrough, 2026-10-09). Hidden for them, with a line saying so.
-  const orderQuote = existingFamilyOrderQuote(story);
+  // Only the person's words are quoted "From your story", never a site question saved with it (personWords.ts).
+  const orderQuote = existingFamilyOrderQuote(personWordsOnly(story, askedQuestionsOf(review?.checkpoint)));
   const hasOrderAlready = orderQuote !== null;
   // The rules about where to start a case are for someone starting one: shown
   // once their story is known and says they are, not before and not to a
@@ -182,12 +216,11 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
           ? ["yes", "no", "unsure"]
           : ["yes", "no"];
 
-      // What the person's own words answer is offered first, highlighted;
-      // nothing is recorded until they press it.
-      const fromStory = storyAnswerFor(current.id, story);
-      const suggestion = storySuggestionFor(current.id, story);
+      // What the person's own words answer is offered first, with the one control;
+      // no choice is shown chosen and nothing is recorded until they press one (owner, 31 Oct).
+      const suggestion = storySuggestionFor(current.id, story, storyStated);
       const record = (value: string) => {
-        if (current.id === "married-to-other-party") update({ marriedToOtherParty: value as "yes" | "no" });
+        if (current.id === "married-to-other-party") update({ marriedToOtherParty: value as "yes" | "no" | "unsure" });
         if (current.id === "divorce-sought") update({ divorceSought: value as "yes" | "no" | "unsure" });
         if (current.id === "child-together") update({ haveChildTogether: value as "yes" | "no" });
         if (current.id === "case-involves-children") update({ caseInvolvesChildren: value as "yes" | "no" });
@@ -197,33 +230,31 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
         {suggestion ? (
           // Said plainly and confirmed in one click (walkthrough run
           // 38525903567, FR: "my ex gf" was asked "Were you married?").
-          <div data-testid="triage-story-suggestion" className="mt-4 rounded-xl border border-[#2f7d67] bg-white p-3">
-            <p className="text-sm text-[#10231f]">
-              {/* A question, not a fact of ours: no quote to show here (#469 re-test). */}
-              Is this right: <strong>{suggestion.say}</strong>?
-            </p>
-            <button
-              type="button"
-              data-testid="triage-story-suggestion-yes"
-              onClick={() => record(suggestion.value)}
+          // The box and its question are drawn by the one control, so they never show without its buttons (PR #550 CI).
+          // A question, not a fact of ours: no quote to show here (#469 re-test).
+            <UseSuggestion
+              offer={offerForQuestion(`triage:${current.id}`, current.id)}
+              testId="triage-story-suggestion-yes"
+              what={suggestion.say}
+              onUse={() => record(suggestion.value)}
+              // "Is a divorce sought?" has its own "not sure" answer: recorded as the triage's answer too.
+              onUnsure={current.id === "divorce-sought" || current.id === "married-to-other-party" ? () => record("unsure") : undefined}
               className="mt-2 rounded-full bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
-            >
-              Yes, that&apos;s right
-            </button>
-          </div>
+              frame={{ testId: "triage-story-suggestion", className: "mt-4 rounded-xl border border-[#2f7d67] bg-white p-3", attrs: { "data-value": suggestion.value } }}
+              ask={<span className="block text-sm text-[#10231f]">{IS_THIS_RIGHT_BEFORE}<strong>{suggestion.say}</strong>{IS_THIS_RIGHT_AFTER}</span>}
+            />
         ) : null}
+        {suggestionWaiting(current.id) ? null : (
         <div className="mt-4 flex flex-wrap gap-3">
           {values.map((value) => (
             <button
               key={value}
               type="button"
               data-testid={`triage-answer-${value}`}
-              data-from-story={fromStory === value ? "yes" : undefined}
               onClick={() => record(value)}
-              className={fromStory === value ? "rounded-full border-2 border-[#2f7d67] bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white" : chip}
+              className={chip}
             >
-              {value === "unsure" ? "I'm not sure" : value === "yes" ? "Yes" : "No"}
-              {fromStory === value ? " — as you wrote" : ""}
+              {value === "unsure" ? OFFER_CHOICES.unsure : value === "yes" ? "Yes" : "No"}
             </button>
           ))}
           {/*
@@ -240,25 +271,41 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
               if (current.id === "divorce-sought") update({ divorceSought: "not-yet" });
               if (current.id === "child-together") update({ haveChildTogether: "not-yet" });
               if (current.id === "case-involves-children") update({ caseInvolvesChildren: "not-yet" });
+              setDeferred((now) => new Set(now).add(current.id));
             }}
             className={chip}
           >
             I&apos;d rather not answer yet
           </button>
         </div>
+        )}
         </>
       );
     }
 
     if (current.kind === "date-range") {
+      // When living together ended, from the story ("separated in June 2026"), offered once beside the "Ended" box when the
+      // box is empty (Chrome milestone test of #550, row 41). Yes puts it in the box; nothing is recorded unasked.
+      const ended = !dateEnd.trim() ? separatedFromStory(story) : null;
       return (
         <div className="mt-4 space-y-3">
+          {ended ? (
+            <UseSuggestion
+              offer={offerForQuestion("triage:cohabitation-end", "cohabitation-dates")}
+              testId="triage-cohabitation-end-yes"
+              what={`Ended: ${partialDateWords(ended.end)}`}
+              note={`From your story: "${ended.quote}"`}
+              onUse={() => setDateEnd(partialDateWords(ended.end))}
+              className="mt-2 rounded-full bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
+            />
+          ) : null}
           <div className="grid gap-3 sm:grid-cols-2">
             <label className="text-sm">
               <span className="font-semibold text-[#10231f]">Started</span>
               <input
-                type="date"
+                type="text"
                 data-testid="triage-cohabitation-start"
+                placeholder="For example: 2018, August 2018, or March 3, 2018"
                 value={dateStart}
                 onChange={(event) => setDateStart(event.target.value)}
                 className="mt-1 w-full rounded-xl border border-[#d8e6df] bg-white p-2"
@@ -267,8 +314,9 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
             <label className="text-sm">
               <span className="font-semibold text-[#10231f]">Ended, if it has</span>
               <input
-                type="date"
+                type="text"
                 data-testid="triage-cohabitation-end"
+                placeholder="For example: 2025, August 2025, or May 1, 2025"
                 value={dateEnd}
                 onChange={(event) => setDateEnd(event.target.value)}
                 className="mt-1 w-full rounded-xl border border-[#d8e6df] bg-white p-2"
@@ -279,19 +327,63 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
             <button
               type="button"
               data-testid="triage-dates-record"
-              disabled={!dateStart}
-              onClick={() => update({ cohabitationStart: dateStart, cohabitationEnd: dateEnd || null })}
+              disabled={!readPartialDate(dateStart) || (dateEnd.trim() !== "" && !readPartialDate(dateEnd))}
+              onClick={() => { update({ cohabitationStart: readPartialDate(dateStart), cohabitationEnd: dateEnd.trim() ? readPartialDate(dateEnd) : null }); setChangingDates(false); }}
               className="rounded-full bg-[#2f7d67] px-5 py-2 text-sm font-bold text-white disabled:opacity-60"
             >
               Record these dates
             </button>
+            {/* When it ended is known (typed, or the story's separation) and when it started is not: "I'm not sure" for the
+                start records the end alone, and the start is never asked again (site owner, 17 Nov; Chrome milestone
+                pass 2, finding 6: "separated in June 2026", then "Did you live together? ... from when" with a required
+                start). */}
+            {readPartialDate(dateEnd) && !readPartialDate(dateStart) ? (
+              <button
+                type="button"
+                data-testid="triage-cohabitation-start-unsure"
+                onClick={() => { update({ cohabitationStart: "not-yet", cohabitationEnd: readPartialDate(dateEnd) }); setChangingDates(false); }}
+                className={chip}
+              >
+                {OFFER_CHOICES.unsure} when it started
+              </button>
+            ) : null}
             <button
               type="button"
               data-testid="triage-answer-not-yet"
-              onClick={() => update({ cohabitationStart: "not-yet", cohabitationEnd: "not-yet" })}
+              onClick={() => { update({ cohabitationStart: "not-yet", cohabitationEnd: "not-yet" }); setChangingDates(false); }}
               className={chip}
             >
               I&apos;d rather not answer yet
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    if (current.kind === "municipality-other") {
+      return (
+        <div className="mt-4 space-y-3">
+          <label className="block text-sm">
+            <span className="font-semibold text-[#10231f]">Where the other person lives</span>
+            <input
+              data-testid="triage-municipality-other"
+              value={otherMunicipality}
+              onChange={(event) => setOtherMunicipality(event.target.value)}
+              className="mt-1 w-full rounded-xl border border-[#d8e6df] bg-white p-2"
+            />
+          </label>
+          <div className="flex flex-wrap gap-3">
+            <button
+              type="button"
+              data-testid="triage-municipality-record"
+              disabled={!otherMunicipality.trim()}
+              onClick={() => update({ otherPartyMunicipality: otherMunicipality.trim() })}
+              className="rounded-full bg-[#2f7d67] px-5 py-2 text-sm font-bold text-white disabled:opacity-60"
+            >
+              Record this
+            </button>
+            <button type="button" data-testid="triage-answer-not-yet" onClick={() => update({ otherPartyMunicipality: "not-yet" })} className={chip}>
+              I don&apos;t know
             </button>
           </div>
         </div>
@@ -328,7 +420,8 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
             onClick={() =>
               update({
                 userMunicipality: userMunicipality || null,
-                otherPartyMunicipality: otherMunicipality || null,
+                // Left empty: not known yet, so the other person's question is not asked again on its own.
+                otherPartyMunicipality: otherMunicipality || "not-yet",
               })
             }
             className="rounded-full bg-[#2f7d67] px-5 py-2 text-sm font-bold text-white disabled:opacity-60"
@@ -351,7 +444,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
   return (
     <section
       data-testid="family-status-triage"
-      data-complete={outcome.complete ? "true" : "false"}
+      data-complete={question === null ? "true" : "false"}
       className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm"
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -374,25 +467,22 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
 
       {question ? (
         <div data-testid="triage-question" data-question={question.id} className="mt-6 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
+          {suggestionWaiting(question.id) ? null : (
           <p data-testid="triage-prompt" className="font-semibold text-[#10231f]">
             {question.prompt}
           </p>
+          )}
           <button
             type="button"
             onClick={() => setShowWhy((current) => !current)}
             className="mt-2 text-sm font-semibold text-[#2f7d67] underline"
           >
-            {showWhy ? "Hide why this is asked" : "Why is this asked?"}
+            {showWhy ? WHY_ASKED_HIDE : WHY_ASKED_SHOW}
           </button>
           {showWhy ? <p className="mt-2 text-sm text-[#4f685f]">{question.whyAsked}</p> : null}
-          {storyQuoteFor(question.id, story) ? (
+          {storyQuoteFor(question.id, story) && !suggestionWaiting(question.id) ? (
             <p data-testid="triage-story-quote" className="mt-2 text-sm text-[#4f685f]">
               You wrote: &ldquo;{storyQuoteFor(question.id, story)}&rdquo;
-            </p>
-          ) : null}
-          {question.kind !== "yes-no" && question.kind !== "yes-no-unsure" && question.kind !== "date-range" && homeCity && userMunicipality === homeCity ? (
-            <p data-testid="triage-home-city" className="mt-2 text-sm text-[#4f685f]">
-              &ldquo;Where you live&rdquo; is filled in from the location you gave on Home. Change it if it is not right.
             </p>
           ) : null}
           {answers(question)}
@@ -418,6 +508,19 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
               </li>
             ))}
           </ul>
+          {storyDates ? (
+            <p data-testid="triage-dates-from-story" className="mt-2 text-sm text-[#4d675f]">
+              The dates you lived together are your own words: &ldquo;{storyDates.quote}&rdquo;{" "}
+              <button
+                type="button"
+                data-testid="triage-dates-change"
+                onClick={() => { setDateStart(partialDateWords(storyDates.start)); setDateEnd(storyDates.end ? partialDateWords(storyDates.end) : ""); setChangingDates(true); }}
+                className="font-semibold text-[#2f7d67] underline"
+              >
+                Change
+              </button>
+            </p>
+          ) : null}
         </div>
       )}
 

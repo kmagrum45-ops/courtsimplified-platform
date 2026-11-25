@@ -86,7 +86,7 @@ for (const [name, suggested] of refused) {
 
 const panel = readFileSync(path.join(process.cwd(), "app/builder/_components/TidyWordingReview.tsx"), "utf8");
 check(
-  "the builder applies a suggestion only from the user's 'Use suggested' choice",
+  "the builder applies a suggestion only from the user's 'Use the suggestion' choice",
   (panel.match(/setValue\(/g) ?? []).length === 1 && /if \(accept && suggestion && field\) field\.setValue/.test(panel),
 );
 

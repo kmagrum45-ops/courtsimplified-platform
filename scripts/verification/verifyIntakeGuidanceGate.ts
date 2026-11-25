@@ -84,7 +84,16 @@ async function main() {
     const response = await post(new Request(`http://localhost/api/${name}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ input: {} }) }) as never);
     assert.equal(response.status, 401, `${name}: an anonymous request with no case is refused too`);
   }
-  const independentRoutes = ["case/understand", "classify-court-path", "intake/guided-turn", "intake/classify-claim-type", "intake/safety-check", "intake/tidy-wording", "law/explain", "cases", "cases/position", "cases/drafts", "cases/event-candidates", "workspace/documents", "workspace/documents/upload-url", "workspace/documents/extract", "workspace/documents/link", "workspace/documents/file/[id]/[name]", "canlii/case", "site-access"];
+  const independentRoutes = ["case/understand", "classify-court-path", "intake/guided-turn", "intake/classify-claim-type", "intake/safety-check", "intake/tidy-wording", "law/explain", "cases", "cases/position", "cases/facts", "cases/forms/filled", "cases/drafts", "cases/event-candidates", "workspace/documents", "workspace/documents/upload-url", "workspace/documents/extract", "workspace/documents/link", "workspace/documents/file/[id]/[name]", "canlii/case", "site-access"];
+  // The fact record's writer (case core G0) records facts before any confirmation, like cases/position; it refuses anyone not signed in.
+  const { POST: factsPost } = await import("../../app/api/cases/facts/route");
+  const anonymousFacts = await factsPost(new Request("http://localhost/api/cases/facts", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ caseId: id, facts: [{ fact: "otherParty", state: "removed" }] }) }));
+  assert.equal(anonymousFacts.status, 401, "cases/facts: an anonymous fact write is refused");
+  // The filled official form (site owner, 14 Nov 2026): the person's own case only, signed in; no model is called. It
+  // refuses anyone not signed in (or answers that form completion is paused), never a PDF.
+  const { POST: filledPost } = await import("../../app/api/cases/forms/filled/route");
+  const anonymousForm = await filledPost(new Request("http://localhost/api/cases/forms/filled", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ caseId: id, form: "small-claims/7A" }) }));
+  assert.ok([401, 403].includes(anonymousForm.status) && !String(anonymousForm.headers.get("content-type")).includes("pdf"), `cases/forms/filled: an anonymous request is refused (got ${anonymousForm.status})`);
   const actualRoutes = readdirSync("app/api", { recursive: true }).map(String).filter(name => /route\.ts$/.test(name)).map(name => name.replaceAll("\\", "/").replace(/\/route\.ts$/, ""));
   assert.deepEqual(actualRoutes.sort(), [...protectedRoutes, ...independentRoutes].sort(), "new API routes require an explicit presentation/security audit");
   assert(!readFileSync("app/api/intake/safety-check/route.ts", "utf8").includes("withConfirmedGuidance"), "urgent safety information must not wait for confirmation");

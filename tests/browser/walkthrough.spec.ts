@@ -35,6 +35,7 @@ import { confirmInitialInformation } from "./harness/intakeReview";
 import { GUEST_INTAKE_SESSION_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
 import { HELD_BACK_PERSONAS } from "./walkthrough/heldBackPersonas";
 import { PERSONAS, type Persona } from "./walkthrough/personas";
+import { chooseOffers } from "./harness/offers";
 
 const OUT = path.resolve(process.cwd(), "walkthrough-output");
 // Worker-scoped options belong at file scope; real sessions must not enter traces.
@@ -145,7 +146,7 @@ async function runSpellingCheck(page: Page, persona: Persona, steps: Step[]) {
   await capture(page, persona, steps, "spelling-suggestions");
   // Accept every suggestion, as a user who trusts the fixes would.
   for (let i = 0; i < 25; i += 1) {
-    const use = page.getByRole("button", { name: "Use suggested" }).first();
+    const use = page.getByTestId("tidy-wording-use").first();
     if ((await use.count()) === 0) break;
     await use.click();
   }
@@ -332,7 +333,8 @@ async function guidedSmallClaims(page: Page, persona: Persona, steps: Step[]) {
   await expect(chooseGuided).toBeVisible({ timeout: 60_000 });
   await capture(page, persona, steps, "mode-chooser");
   await chooseGuided.click();
-  const input = page.getByPlaceholder(/Tell us what happened/i);
+  // The story box is named, not placeholdered: its guidance is the shared text above it (StoryGuidance, 30 Oct).
+  const input = page.getByRole("textbox", { name: /Tell us what happened/i });
   await expect(input).toBeVisible({ timeout: 60_000 });
   await capture(page, persona, steps, "guided-start");
   await input.fill(persona.story);
@@ -356,10 +358,12 @@ async function guidedSmallClaims(page: Page, persona: Persona, steps: Step[]) {
     if (await proposals.isVisible().catch(() => false)) {
       if (!seen.has("proposals")) await capture(page, persona, steps, "story-proposals", "What the AI took from the story, offered for confirmation.");
       seen.add("proposals");
-      await page.getByRole("button", { name: "Looks right, continue" }).click();
+      // Offered, never pre-ticked (owner, 31 Oct): the persona uses each suggestion, then continues.
+      await chooseOffers(proposals, "yes");
+      await proposals.getByTestId("story-proposals-continue").click();
       continue;
     }
-    const confirmType = page.getByRole("button", { name: "Yes, that's right" });
+    const confirmType = page.getByTestId("claim-type-use-suggestion");
     if (await confirmType.isVisible().catch(() => false)) {
       if (!seen.has("claim-type")) await capture(page, persona, steps, "claim-type-suggestion");
       seen.add("claim-type");
@@ -432,7 +436,7 @@ async function confirmStage(page: Page, persona: Persona, steps: Step[]) {
     await page.waitForTimeout(3_000);
   }
   await capture(page, persona, steps, "stage-confirmed");
-  // A user offered "Count my deadline from <the date in my story>" takes it.
+  // A user offered "Use the suggestion: <the date in my story>" takes it.
   // A date given in full is offered as one click; a month and day without a
   // year is answered by picking the year (the nearest is listed first, which
   // is the year every persona means).

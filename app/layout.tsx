@@ -7,6 +7,9 @@ import AuthNavAction from "./_components/AuthNavAction";
 import AuthStorageGuard from "./_components/AuthStorageGuard";
 import MobileNav from "./_components/MobileNav";
 import ScrollToTopOnNavigation from "./_components/ScrollToTopOnNavigation";
+import SafetyFooterLine from "./_components/SafetyFooterLine";
+import AiLimitNotice from "./_components/AiLimitNotice";
+import { CONTACT_EMAIL } from "@/src/lib/site/contact";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -91,6 +94,9 @@ export default function RootLayout({
             </div>
           </header>
 
+          {/* The daily limit for AI help, said on every screen once it is reached (aiSpendLimit.ts). */}
+          <AiLimitNotice />
+
           <main className="flex-1">{children}</main>
 
           <footer className="border-t border-[#D7E7E5] bg-white print:hidden">
@@ -124,6 +130,18 @@ export default function RootLayout({
                 ))}
 
                 <AuthNavAction className="font-semibold transition hover:text-[#2FB8AC]" />
+
+                {/* Feedback on every page: the shared footer is the only footer, and every page (builder and case pages
+                    included) renders inside it. A mailto to the privacy page's contact address; nothing stored here. */}
+                <a
+                  data-testid="send-feedback"
+                  href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("CourtSimplified feedback")}`}
+                  className="font-semibold transition hover:text-[#2FB8AC]"
+                >
+                  Send feedback
+                </a>
+                {/* The address as text too, to copy when no mail program opens (Chrome check of #547, G5). */}
+                <span data-testid="send-feedback-address" className="select-all">{CONTACT_EMAIL}</span>
               </div>
             </div>
 
@@ -149,6 +167,9 @@ export default function RootLayout({
                   CourtSimplified helps you navigate the Ontario court system on your own,
                   without a lawyer. We are not a law firm and are not your lawyer.
                 </p>
+
+                {/* The safety line, on every page (SafetyFooterLine.tsx, site owner 2026-10-29). */}
+                <div className="mt-1"><SafetyFooterLine /></div>
 
                 <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                   <p>

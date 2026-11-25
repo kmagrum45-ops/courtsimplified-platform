@@ -52,6 +52,7 @@
  *    ratio, grade or ladder from it.
  */
 
+import { sourceFitsCourt } from "../../content-library/sourceCourt";
 import type { ClaimType, PlaintiffElement } from "../intake/claimTypes";
 import { isNoQuestionNeeded } from "../intake/depth/elementQuestionRegistry";
 import { REMEDY_TYPES } from "../intake/remedyTypes";
@@ -84,6 +85,11 @@ export type OutstandingElement = {
   thingsThatOftenHelp: { name: string; why: string; examples: string[] }[];
   /** The element's citation, so the user can read the source themselves. */
   sourceUrl: string;
+  /**
+   * False when that source is written for another court (sourceCourt.ts): its link is not shown and the explanation,
+   * which states what that source says, is empty (Chrome check of #545, item 4). The citation is still carried.
+   */
+  sourceShown: boolean;
 };
 
 /** A remedy the user may confirm. Seeded from data, never auto-applied. */
@@ -102,6 +108,11 @@ export type ReadinessGateInput = {
   elementStateMap: ElementStateMap;
   /** The remedy id the user affirmatively confirmed, if any (design section 2). */
   confirmedRemedyId: string | null;
+  /**
+   * True when the case file holds the person's answer to what they want (factStatus "known" or "settled"): it is the
+   * remedy question's answer, and a settled fact is never asked again (Chrome check of #550, S2-S4).
+   */
+  remedyHeld?: boolean;
   /** The user's own narrative. Non-empty satisfies condition 4. */
   storyText: string;
 };
@@ -179,7 +190,7 @@ export function evaluateReadinessGate(input: ReadinessGateInput): ReadinessGateR
   // deciding for them (CLAUDE.md section 4).
   const remedyOptions = buildRemedyOptions(input.claimType);
 
-  if (!input.confirmedRemedyId) {
+  if (!input.confirmedRemedyId && !input.remedyHeld) {
     blockers.push({ kind: "no-remedy-confirmed" });
   }
 
@@ -215,7 +226,7 @@ export function evaluateReadinessGate(input: ReadinessGateInput): ReadinessGateR
   return {
     draftAvailable: blockers.length === 0,
     blockers,
-    outstanding: notYet.map(toOutstandingElement),
+    outstanding: notYet.map((element) => toOutstandingElement(element, input.claimType?.courtArea ?? null)),
     outstandingCount: notYet.length,
     totalElements: elements.length,
     cannotProvide,
@@ -232,17 +243,19 @@ export function evaluateReadinessGate(input: ReadinessGateInput): ReadinessGateR
  * generally involve...") can drift into the specific ("your claim requires..."),
  * and that drift is the whole of CLAUDE.md section 2.
  */
-function toOutstandingElement(element: PlaintiffElement): OutstandingElement {
+function toOutstandingElement(element: PlaintiffElement, court: string | null): OutstandingElement {
+  const sourceShown = sourceFitsCourt(element.sourceUrl, court);
   return {
     elementId: element.id,
     name: element.name,
-    plainExplanation: element.plainExplanation,
+    plainExplanation: sourceShown ? element.plainExplanation : "",
     thingsThatOftenHelp: element.evidenceCategories.map((category) => ({
       name: category.name,
       why: category.why,
       examples: category.examples,
     })),
     sourceUrl: element.sourceUrl,
+    sourceShown,
   };
 }
 

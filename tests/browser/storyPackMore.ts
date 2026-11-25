@@ -36,6 +36,8 @@ export type PackStory = {
   guide?: { relationship: string; remedy: string; amount: string; started: "yes" | "no" | "not-sure"; choose: Court };
   /** Small Claims kinds of claim the story's words fit ([] : only "not sure" is right). */
   kinds?: string[];
+  /** Small Claims guided route: the answer to "What kind of dispute is this?" (default: a contract dispute). */
+  dispute?: string;
 };
 
 const k = (...ids: string[]) => ids.map((id) => `sc-claim-${id}`);
@@ -147,6 +149,19 @@ export const MESSY_STORIES: PackStory[] = [
 
 export const WALKTHROUGH_STORIES: PackStory[] = [
   {
+    // Site owner on the live site, 29 Oct (claim type, the first fact moved into the case file): a case
+    // already going, the defendant noted in default. The overview said "Kind of dispute (your answer):
+    // Something said about you (defamation)" while "Check my case file" said the kind was not confirmed,
+    // the review listed "What kind of dispute is this?" as still needed and the Form 7A section said "A
+    // claim type has not been confirmed". Every screen must show the one answer. Made up; no real names.
+    // (Same shape as fix/status-answers-questions' story, which also carries the home reading's rounds.)
+    id: "w8-sc-defamation-noted-in-default", court: "small-claims", side: "plaintiff", filed: [], amount: ["$10,000", null],
+    situation: { where: "going", started: "me", stage: "plaintiff:defendant-noted-in-default" },
+    dispute: "Something said about you (defamation)",
+    kinds: k("defamation-libel-slander", "defamation-online-or-in-print", "harassment-or-cyberbullying", "bad-reference-or-employer-defamation"),
+    story: "My former coworker Jordan Testperson sent text messages about me to our manager and three coworkers in May 2026 saying I stole money from the till, which is false. I lost shifts and I have been anxious and unable to sleep. I issued a Small Claims claim against him on June 20, 2026 and he was served on June 23, 2026. He never filed a defence and he was noted in default. There is no order yet. I am claiming $10,000 for defamation and emotional distress. I have screenshots of the texts.",
+  },
+  {
     id: "w1-form-plaintiff", court: "small-claims", side: "plaintiff", filed: [], amount: ["$6,000", null], routes: ["form"],
     kinds: k("unpaid-debt-services", "breach-of-contract-services"),
     story: "I hired Test Decks Ltd. in March 2026 to build a deck for $8,000. I paid $2,000 and $6,000 is still owed. I have the contract, text messages and a bank receipt.",
@@ -195,5 +210,16 @@ export const CHARTER_STORIES: PackStory[] = [
   {
     id: "c1-charter-police", court: "civil", side: "plaintiff", filed: ["nothing"], issues: ["charter", "police-conduct"], amount: "$75,000",
     story: "TEST story. On June 3, 2025 in Ottawa I was stopped by two officers of the TEST Capital Region Police Service, badges 4471 and 5520. They searched my backpack even though I clearly refused. They handcuffed me very tightly, did not tell me why, and refused to let me call a lawyer when I asked twice. They held me for about 3 hours and released me with no charges. They kept my phone for 6 weeks and it came back with a cracked screen. My left wrist was bruised and swollen, I saw a doctor on June 5 and missed 2 weeks of work ($2,640). I filed a police complaint in August 2025 and it was screened out in September with no reasons. I want to sue the police service and the two officers for violating my Charter rights (unreasonable search, arbitrary detention, not being told why and not getting a lawyer) and for the injury. I think about $75,000. I have my own timeline, the clinic note, the property receipt for my phone, a letter from my employer, my complaint letter and a witness who saw it.",
+  },
+];
+
+/**
+ * Chrome's forms test on #550 (14 Nov 2026): the person's name, address, phone and email and two defendants, typed in the
+ * story. The Parties step offers each detail once; the two defendants stay separate (story-pack.spec.ts "forms test").
+ */
+export const FORMS_STORIES: PackStory[] = [
+  {
+    id: "f1-chrome-forms", court: "small-claims", side: "plaintiff", filed: ["nothing"], amount: "$5,468.45", routes: ["review"],
+    story: "TEST story. On October 4, 2026 I slipped on a wet floor at the Circle K on Sample Road in Ottawa and fell. I want to claim $5,000 for pain and suffering, $450 in lost wages and $18.45 for medicine. My name is Test Plaintiff, 12 Example Street, Ottawa ON K1A 0A1, phone 613-555-0100, email test.plaintiff@example.com. I am suing Circle K Convenience Stores Ltd., 100 Sample Road, Ottawa ON K1B 0B1, and also the store manager, Test Manager, at the same address.",
   },
 ];

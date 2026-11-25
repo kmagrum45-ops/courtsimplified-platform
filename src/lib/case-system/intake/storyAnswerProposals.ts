@@ -37,6 +37,8 @@ import type { IntakeQuestion } from "./questionBank";
 import { dateAnswerCheck, findDates } from "../dates";
 import { isDateQuestionId } from "../casePosition";
 import { describesLoan } from "./claimKind";
+import { SERVED_WORDS } from "../servedWords";
+import { factsOfQuestion } from "../caseFile/factsOfQuestion";
 
 /** Upper bound on one proposed answer, matching the captured-answer cap. */
 const MAX_PROPOSED_ANSWER_LENGTH = 400;
@@ -58,6 +60,8 @@ export type StoryAnswerProposal = {
 export type ConfirmedStoryAnswer = {
   questionId: string;
   answerText: string;
+  /** Where it came from, so it is never read as typed: a story value the person said Yes to, or I'm not sure (11 Nov 2026). */
+  source?: "story-offer" | "not-sure";
 };
 
 /** Questions a proposal may be offered for: never the sensitive phase. */
@@ -165,6 +169,8 @@ export function validateStoryProposals(
     if (mustMention && !mustMention.test(storyQuote)) continue;
     const textRule = TEXT_MUST_MENTION.find((rule) => rule.pattern.test(question.text));
     if (textRule && !textRule.mustContain.test(storyQuote)) continue;
+    // "When it happened" is never the day the person was served, its own fact (servedWords.ts; Chrome check of #547, G3a).
+    if (factsOfQuestion(questionId).includes("whenHappened") && SERVED_WORDS.test(storyQuote)) continue;
 
     if (question.answerType === "choice") {
       const choice = (question.choices || []).find((option) => normalize(option) === normalize(trimmedAnswer));

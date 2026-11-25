@@ -55,6 +55,13 @@ export type IntakeStorageKey = {
   holdsCaseContent: boolean;
   /** What it holds relative to the story (StoryDataClass; verifyStoryDataRegistry). */
   storyData: StoryDataClass;
+  /**
+   * Kept when the login page clears the browser at sign-in (resetIntake's `signingIn`),
+   * still cleared at sign-out. Only for a key that holds no case content: today the
+   * safety notice's fingerprints, so "shown once" holds when a guest case moves into an
+   * account (owner's Chrome check, 2026-10-30).
+   */
+  keptAtSignIn?: true;
   note: string;
 };
 
@@ -104,6 +111,19 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     note: "Which guest intake this tab chose to bring into an account, set when the guest presses Sign in from it. Read once by the login page; expires after 30 minutes.",
   },
   {
+    key: "courtSimplifiedSafetyNoticeShown",
+    area: "session",
+    scope: "guest",
+    matches: "exact",
+    holdsCaseContent: false,
+    storyData: "not-story",
+    keptAtSignIn: true,
+    note:
+      "Short one-way fingerprints (SHA-256 hex prefixes) of the stories the danger notice was already shown for, so it shows once (safetyNoticeOnce.ts, 2026-10-29). " +
+      "Never the words themselves. sessionStorage, so it dies with the tab and is not left on a shared computer; cleared on sign-out with the rest of the registry. " +
+      "Kept at sign-in (keptAtSignIn), so a notice a guest already saw is not shown again when their case moves into the account (2026-10-30).",
+  },
+  {
     key: "courtSimplifiedNotSureGuide",
     area: "session",
     scope: "guest",
@@ -111,9 +131,10 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     holdsCaseContent: true,
     storyData: "version-record",
     note:
-      "Court-path finder hand-off. Written with seven fields; only province, city and facts " +
-      "are ever read. Removed only when all three validate, so a payload failing that guard " +
-      "stays for the life of the tab.",
+      "Court-path finder hand-off: province, city, the story and \"has a case started\". The first new intake " +
+      "on the builder takes it (flowId); any other opening, a saved case, or the home page drops it at once, " +
+      "and a refresh of the same intake keeps it (finderHandoff.ts, 9 Nov 2026: a person who left at " +
+      "\"Before you start\" left their story for the next intake).",
   },
   {
     key: "courtsimplified-ai-case-partner-chat:route-transfer",
@@ -168,7 +189,8 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     holdsCaseContent: false,
     storyData: "not-story",
     note:
-      "The id and court path of the case this tab's builder last saved, so a reload of the results " +
+      "RETIRED 2026-10-30 (site owner's rule 1: the address alone decides which case is open, openCase.ts): " +
+      "nothing reads or writes it (test:open-case). It held the id and court path of the case this tab's builder last saved, so a reload of the results " +
       "step reopens that case instead of a blank intake (2026-10-06). An id, never case content.",
   },
 
@@ -426,6 +448,7 @@ export const PARSED_MESSAGES_KEY = "courtsimplified_parsed_messages";
 export const BUILDER_LAST_CASE_KEY = "courtSimplifiedBuilderLastCase";
 export const PENDING_POSITION_SAVE_KEY = "courtSimplifiedPendingPositionSave:";
 export const PENDING_FORM_APPLICABILITY_KEY = "courtSimplifiedPendingFormApplicability:";
+export const SAFETY_NOTICE_SHOWN_KEY = "courtSimplifiedSafetyNoticeShown";
 
 /** Every individually-named constant, for the registry-coverage check. */
 export const NAMED_STORAGE_KEYS = [
@@ -441,4 +464,5 @@ export const NAMED_STORAGE_KEYS = [
   BUILDER_LAST_CASE_KEY,
   PENDING_POSITION_SAVE_KEY,
   PENDING_FORM_APPLICABILITY_KEY,
+  SAFETY_NOTICE_SHOWN_KEY,
 ] as const;

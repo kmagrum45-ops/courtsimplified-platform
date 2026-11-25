@@ -180,7 +180,8 @@ const checks: Check[] = [
     name: "OWNER-2: the case overview's \"When\" row reads the recorded day, not only the story's words",
     run: () => {
       const panel = read("app/builder/_components/IntelligenceOverviewPanel.tsx");
-      const row = panel.split(/\r?\n/).filter((line) => /When \(your words\)|const timeline =/.test(line)).join("\n");
+      // The row's own lines, as named before item 6 (6 Nov) and after it ("When it happened", read from the case file).
+      const row = panel.split(/\r?\n/).filter((line) => /When \(your words\)|const timeline =|When it happened|const whenSlot =/.test(line)).join("\n");
       return /whenHappened|dateAnswers|case-date-act-or-omission|caseFile/.test(row) ? [] : [`IntelligenceOverviewPanel's When row: ${row.trim().replace(/\s+/g, " ").slice(0, 200)}`];
     },
   },

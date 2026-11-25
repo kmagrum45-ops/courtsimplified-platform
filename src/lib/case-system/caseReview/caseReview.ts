@@ -29,6 +29,9 @@
  */
 
 import { userStory } from "../userStory";
+import { partiesHeldOfMaster, type PartiesHeld } from "../parties/partiesHeld";
+import { caseFileOfMaster, claimKindOfMaster } from "../caseFile/caseFileOfMaster";
+import { changedWords } from "../caseFile/caseFile";
 import { parseRecordedAmount } from "../format/recordedAmount";
 
 export const CASE_REVIEW_RULES_SOURCE = {
@@ -40,6 +43,8 @@ export const CASE_REVIEW_RULES_SOURCE = {
 /** The confirmed facts a review reads. Every field is the user's own entry. */
 export type ConfirmedCaseFile = {
   courtPath: "small-claims" | "civil" | "family" | string;
+  /** Whether the Parties step holds the names and the other party's address: yes or no only (parties/partiesHeld.ts). */
+  partiesHeld?: PartiesHeld;
   /** "Plaintiff / claimant", "Defendant / responding party", or "". */
   role: string;
   /** The builder's recorded stage, e.g. "starting-case". */
@@ -52,7 +57,15 @@ export type ConfirmedCaseFile = {
   timelineText: string;
   evidenceText: string;
   goalText: string;
-  confirmedClaimTypeId: string | null;
+  /** The catalogue kind of claim the case file holds (caseFile.ts claimKindOf), or null. */
+  claimTypeId: string | null;
+  /**
+   * The kind of claim in the words every screen shows, when the case file holds one (the person's
+   * answer, or a suggestion they ticked); null when it holds none. Site owner, 29 Oct: "Check my
+   * case file" said "You haven't confirmed what kind of claim this is" beside the overview's
+   * "Kind of dispute (your answer): Something said about you (defamation)".
+   */
+  claimKindWords?: string | null;
   /** Recorded filings, e.g. ["plaintiffs-claim"]. */
   filedDocuments: string[];
 };
@@ -102,7 +115,7 @@ export function deterministicFindings(file: ConfirmedCaseFile): CaseReviewFindin
     file.courtPath === "small-claims" && isPlaintiff(file) && notYetFiled(file);
 
   if (smallClaimsPlaintiffBeforeFiling) {
-    if (!file.yourName.trim()) {
+    if (!file.yourName.trim() && !file.partiesHeld?.you) {
       out.push({
         kind: "missing-your-name",
         text:
@@ -113,7 +126,7 @@ export function deterministicFindings(file: ConfirmedCaseFile): CaseReviewFindin
         aiLocated: false,
       });
     }
-    if (!file.otherParty.trim()) {
+    if (!file.otherParty.trim() && !file.partiesHeld?.other) {
       out.push({
         kind: "missing-other-party-name",
         text:
@@ -125,7 +138,7 @@ export function deterministicFindings(file: ConfirmedCaseFile): CaseReviewFindin
         aiLocated: false,
       });
     }
-    if (!file.otherPartyAddress.trim()) {
+    if (!file.otherPartyAddress.trim() && !file.partiesHeld?.otherAddress) {
       out.push({
         kind: "missing-other-party-address",
         text:
@@ -159,7 +172,9 @@ export function deterministicFindings(file: ConfirmedCaseFile): CaseReviewFindin
     });
   }
 
-  if (file.courtPath === "small-claims" && !file.confirmedClaimTypeId) {
+  // Only when the case file holds no kind of claim at all: an answer the person gave counts, with or
+  // without a separate "confirmed" tick (site owner, 29 Oct).
+  if (file.courtPath === "small-claims" && !file.claimTypeId && !file.claimKindWords) {
     out.push({
       kind: "no-claim-type-confirmed",
       text:
@@ -235,6 +250,10 @@ export function caseFileFromMasterResult(masterResult: unknown, courtPath: strin
     unknown
   >;
   const extra = (intake.extra && typeof intake.extra === "object" ? intake.extra : {}) as Record<string, unknown>;
+  const claimKind = claimKindOfMaster(master, str(intake.courtPath) || courtPath);
+  // A fact the person changed or removed with "Change" is the case file's, never the analysis copy's (rule 6, 31 Oct).
+  const changedFile = caseFileOfMaster(master, str(intake.courtPath) || courtPath);
+  const latest = (fact: "amount" | "otherParty" | "wants", copy: string) => { const said = changedWords(changedFile, fact); return said === undefined ? copy : said ?? ""; };
   const filed = Array.isArray(extra.filedDocuments)
     ? extra.filedDocuments.filter((item): item is string => typeof item === "string")
     : [];
@@ -245,14 +264,17 @@ export function caseFileFromMasterResult(masterResult: unknown, courtPath: strin
     stage: str(intake.caseStage),
     // The person's own story, never the labelled record the civil and Family intakes save with names in it.
     story: userStory(intake as never),
+    partiesHeld: partiesHeldOfMaster(master, str(intake.courtPath) || courtPath),
     yourName: str(intake.yourName),
-    otherParty: str(intake.otherParty),
+    otherParty: latest("otherParty", str(intake.otherParty)),
     otherPartyAddress: str(extra.defendantAddress),
-    amountText: str(extra.amountClaimed),
+    amountText: latest("amount", str(extra.amountClaimed)),
     timelineText: str(intake.timeline),
     evidenceText: str(intake.evidence),
-    goalText: str(intake.goal),
-    confirmedClaimTypeId: typeof extra.confirmedClaimTypeId === "string" ? extra.confirmedClaimTypeId : null,
+    goalText: latest("wants", str(intake.goal)),
+    // The kind of claim from the case file, the one place every screen reads it (site owner, 29 Oct).
+    claimTypeId: claimKind.claimTypeId,
+    claimKindWords: claimKind.state === "answered" ? claimKind.words : null,
     filedDocuments: filed,
   };
 }

@@ -1,8 +1,16 @@
 "use client";
 
+import { factStatus } from "../../src/lib/case-system/caseFile/factStatus";
+import { OPEN_WHOLE_FORM_EVENT } from "./_components/openWholeForm";
+import { partyNames } from "../../src/lib/case-system/parties/parties";
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
-import { caseFileOf, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, childSupportStartFrom, claimKindOf, heldServiceWords, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { stageHeldElsewhere } from "../../src/lib/case-system/caseFile/stageHeld";
+import { hidesMarriedOnly } from "../../src/lib/case-system/family/marriedOnly";
+import { analysisFactsOf, formAnalysisInput } from "../../src/lib/case-system/caseFile/chatTurnFacts";
+import { withoutUnsureAnswers } from "../../src/lib/case-system/caseFile/unsureAnswer";
+import { researchCaseContext } from "../../src/lib/case-system/caseFile/aiCaseContext";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
 
 /** The Small Claims side and filing answer the situation answers settle, in the stage map's terms. */
@@ -36,7 +44,9 @@ import { ChildSupportTableCard } from "./_components/ChildSupportTableCard";
 import ChildSupportIntake from "./_components/ChildSupportIntake";
 import { childSupportPrefill } from "./_components/childSupportPrefill";
 import SmallClaimsIntake, {
+  lateSafetyOutcome,
   requestSmallClaimsAnalysis,
+  runFormSafetyCheck,
 } from "./_components/SmallClaimsIntake";
 import GuidedSmallClaimsIntake, {
   type GuidedIntakeCompletionResult,
@@ -46,6 +56,7 @@ import {
   CASE_REQUEST_TIMEOUT_MS,
   caseRouteWrite,
   nextSaveGeneration,
+  forgetSavedPosition,
   retryCatchUp,
   runCaseWrite,
   savePositionQueuedOutcome,
@@ -62,7 +73,6 @@ import type { ServiceMethod } from "@/src/lib/case-system/deadlines/serviceEffec
 import { mapGuidedIntakeToSmallClaimsInput } from "./_components/guidedIntakeToSmallClaimsInput";
 import StatementOfClaimSurface from "./_components/StatementOfClaimSurface";
 import { COURT_DOCUMENT_DRAFTING_ENABLED } from "@/src/lib/case-system/policy/courtDocumentDrafting";
-import type { SmallClaimsIntelligenceInput } from "@/src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 import type { ElementStateMap } from "@/src/lib/case-system/intake/depth/elementStateMap";
 import CivilIntake from "./_components/CivilIntake";
 import FamilyStatusTriage, {
@@ -110,11 +120,15 @@ import { personAnswersFromGuided, personAnswersOf, stageRecordedFromAnswers, sug
 import StageAnswerPanel from "./_components/StageAnswerPanel";
 import { respondingDocumentDraft, respondingDocumentTitle, type RespondingDocumentIntake } from "../../src/lib/case-system/drafts/respondingDocumentDraft";
 import { movingOnMotionToChange, originatingDocumentRecorded, respondingDocumentStillDue, userIsResponding } from "./_components/respondingSide";
+import { savedStepOf } from "../../src/lib/case-system/savedStep";
 import { readCasePosition, storyHintsForDates, storyWithTimeline, suggestedDatesFromAnswers, type SuggestedDate } from "../../src/lib/case-system/casePosition";
 import { suggestedNoticeStep } from "../../src/lib/case-system/claim-types/noticeStep";
 import { caseTitleFromIntake, isGeneratedTitle } from "../../src/lib/case-system/caseTitle";
+import { caseFileOfMaster, heldWordsOf } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
 import { userWordsOf } from "../../src/lib/content-library/forms/formsInText";
 import { type CaseDraft } from "../../src/lib/case-system/drafts/caseDrafts";
+import { claimDraftOfRecord } from "../../src/lib/case-system/drafts/recordDrafts";
+import { formContextOf } from "../../src/lib/case-system/forms/formContext";
 import { startingDocumentDraft } from "../../src/lib/case-system/drafts/startingDocumentDraft";
 import AiUseNotice from "../_components/AiUseNotice";
 import PathwayUnavailable from "../_components/PathwayUnavailable";
@@ -123,7 +137,8 @@ import FirstUseAcknowledgement from "../_components/FirstUseAcknowledgement";
 import LegalInformationNotice from "../_components/LegalInformationNotice";
 
 import { supabase } from "../../src/lib/supabase/client";
-import { BUILDER_LAST_CASE_KEY, COURT_PATH_FINDER_KEY, SHARED_STORAGE_KEYS } from "../../src/lib/case-system/storage/intakeStorageKeys";
+import { COURT_PATH_FINDER_KEY, SHARED_STORAGE_KEYS } from "../../src/lib/case-system/storage/intakeStorageKeys";
+import { openCaseFromAddress } from "../../src/lib/case-system/openCase";
 import { userStory } from "@/src/lib/case-system/userStory";
 import { canonicalJson } from "@/src/lib/case-system/canonicalJson";
 
@@ -258,19 +273,16 @@ function BuilderPageContent() {
   const validateIntakeResponse = useValidateIntakeResponse();
   const searchParams = useSearchParams();
 
-  const queryCaseId = searchParams.get("caseId");
+  // Which case is open: the address and nothing else (openCase.ts, rule 1).
+  const openCase = useMemo(() => openCaseFromAddress(searchParams), [searchParams]);
+  const queryCaseId = openCase.caseId;
 
-  const initialPath = useMemo<CourtPath | null>(() => {
-    const raw = searchParams.get("path");
+  const initialPath: CourtPath | null = openCase.court;
 
-    if (raw === "family" || raw === "small-claims" || raw === "civil") {
-      return raw;
-    }
-
-    return null;
-  }, [searchParams]);
-
-  const courtPath = initialPath || "family";
+  // Never a default court: the intake boundary renders this page only with a court in
+  // the address (an id without one is given its case's own saved court, else the chooser;
+  // openCase.ts addressWithSavedCourt).
+  const courtPath = initialPath as CourtPath;
 
   const [chatSessionId, setChatSessionId] = useState(() =>
     createChatSessionId(courtPath),
@@ -332,8 +344,6 @@ function BuilderPageContent() {
   // Session 48 — inputs the Statement of Claim surface needs. Retained from
   // the completing guided turn rather than rebuilt, so the readiness gate reads
   // the same element states the depth phase produced.
-  const [draftInput, setDraftInput] = useState<SmallClaimsIntelligenceInput | null>(null);
-  const [draftClaimTypeId, setDraftClaimTypeId] = useState<string | null>(null);
   const [draftElementStateMap, setDraftElementStateMap] = useState<ElementStateMap>({});
   // Guided intake produces real IntakeFacts. Retained so the save site can
   // persist them -- see the intakeFacts block in masterPayload for why.
@@ -375,6 +385,9 @@ function BuilderPageContent() {
   const [canonicalIntakeSaved, setCanonicalIntakeSaved] = useState(false);
   const completedOverviewRef = useRef<HTMLElement | null>(null);
   const [showFollowUp, setShowFollowUp] = useState(false);
+  // Where the Small Claims chat, kept on the page but hidden while the whole form shows, puts its "Start the questions
+  // again from my story" so it can be seen and pressed (Chrome check of #544 on 9b960f7, F16).
+  const [chatNoticeSlot, setChatNoticeSlot] = useState<HTMLDivElement | null>(null);
   /**
    * Whether `confirmedLocation` came from the loaded case rather than from the
    * user answering the gate in this session.
@@ -414,20 +427,6 @@ function BuilderPageContent() {
    */
   const [hydrated, setHydrated] = useState(false);
   /*
-   * Set the moment this mount loads a fresh story hand-off -- either the
-   * court-path finder's COURT_PATH_FINDER_KEY or the home page's
-   * GUEST_INTAKE_SESSION_STORAGE_KEY (both below) -- so the stale-case
-   * recovery effect (search caseIdRecoveryDecidedRef) knows not to clobber it.
-   * Found 2026-10-16 from the site owner's own live test: starting a brand
-   * new Small Claims case, right after finishing an earlier one, landed on
-   * the OLD case with its OLD story, because that recovery effect reads
-   * BUILDER_LAST_CASE_KEY and injects its caseId into the URL whenever the
-   * court path matches -- with no way to tell "this tab lost its place and
-   * should resume" from "this is an intentional new case of the same type".
-   * A hand-off that just set a fresh story IS that distinction.
-   */
-  const freshStoryHandoffRef = useRef(Boolean(recovery));
-  /*
    * EACH BUILDER STEP IS A BACK STOP (2026-10-06).
    *
    * The mode chooser, the intake and the results were all React state on one
@@ -462,6 +461,8 @@ function BuilderPageContent() {
     return () => request.cancel();
   }, [queryCaseId, courtPath]);
   const [guidedAnalysisError, setGuidedAnalysisError] = useState("");
+  // The safety check's words for this route, when it found danger or distress (item N, 2026-10-29).
+  const [guidedSafety, setGuidedSafety] = useState<{ halt?: string; distress?: string }>({});
   // The guided route's analysis, shown beside "Show my next step" at the top too (L27).
   // A failed next step is never silent: the message, and Try again with the same answers (item 9).
   const lastGuidedResult = useRef<GuidedIntakeCompletionResult | null>(null);
@@ -513,12 +514,27 @@ function BuilderPageContent() {
     }
     // The review panel's answers are answers too (re-test round 7).
     const panel = view ? panelAnswerFacts(view.checkpoint) : {};
-    void handleGuidedComplete({ facts: { ...panel, ...(saved.facts ?? {}) } as GuidedIntakeCompletionResult["facts"], answeredIds: Array.isArray(saved.answeredIds) ? saved.answeredIds as string[] : [], matchedClaimType: (saved.matchedClaimType ?? null) as GuidedIntakeCompletionResult["matchedClaimType"], storyText: homeStory, answers: (Array.isArray(saved.earlierAnswers) ? saved.earlierAnswers : []) as NonNullable<GuidedIntakeCompletionResult["answers"]> });
+    void handleGuidedComplete({ facts: { ...panel, ...(saved.facts ?? {}) } as GuidedIntakeCompletionResult["facts"], answeredIds: Array.isArray(saved.answeredIds) ? saved.answeredIds as string[] : [], storyText: homeStory, answers: (Array.isArray(saved.earlierAnswers) ? saved.earlierAnswers : []) as NonNullable<GuidedIntakeCompletionResult["answers"]> });
   });
   useContinueHandler("choose", () => {
     pushStep("form");
     recovery?.continueToGuidance();
   });
+
+  /**
+   * From the overview of a confirmed case, the whole form (every box): Chrome check of #544 on a8c8cf57, 7 Nov. The
+   * intake, with the Small Claims route chooser and civil and Family's "Show the whole form instead", is hidden while
+   * the overview shows, so nothing led there once a case was confirmed. Small Claims opens its form route; civil and
+   * Family switch their intake to its form and leave the overview. Opening a form changes no answer.
+   */
+  function openWholeForm() {
+    if (courtPath === "small-claims") { pushStep("form"); return; }
+    // Civil and Family switch to their form themselves (their own mode, saved as before), so no new writer is added.
+    window.dispatchEvent(new Event(OPEN_WHOLE_FORM_EVENT));
+    const url = new URL(window.location.href);
+    url.searchParams.delete("step");
+    window.history.pushState(null, "", `${url.pathname}${url.searchParams.toString() ? `?${url.searchParams.toString()}` : ""}`);
+  }
 
   function pushStep(step: "form" | "guided" | "results") {
     const url = new URL(window.location.href);
@@ -602,8 +618,10 @@ function BuilderPageContent() {
       // deleting it here made them ask it again (finding 1, the "not sure" path).
       if (temporaryGuide) {
         let started: unknown;
-        try { started = (JSON.parse(temporaryGuide) as { started?: unknown }).started; } catch { started = undefined; }
-        if (typeof started === "string") sessionStorage.setItem(COURT_PATH_FINDER_KEY, JSON.stringify({ started }));
+        let flowId: unknown;
+        try { ({ started, flowId } = JSON.parse(temporaryGuide) as { started?: unknown; flowId?: unknown }); } catch { started = undefined; }
+        // Still the intake's it was handed to (finderHandoff.ts), with no story left in it.
+        if (typeof started === "string") sessionStorage.setItem(COURT_PATH_FINDER_KEY, JSON.stringify({ started, ...(typeof flowId === "string" ? { flowId } : {}) }));
         else sessionStorage.removeItem(COURT_PATH_FINDER_KEY);
       }
 
@@ -611,7 +629,6 @@ function BuilderPageContent() {
         try {
           const guide = JSON.parse(temporaryGuide) as { province?: string; city?: string; facts?: string };
           if (guide.province === "Ontario" && guide.city?.trim() && guide.facts?.trim()) {
-            freshStoryHandoffRef.current = true;
             setConfirmedLocation({ province: "Ontario", city: guide.city.trim() });
             setHomeStory(guide.facts.trim());
             return;
@@ -832,6 +849,8 @@ function BuilderPageContent() {
    * second case.
    */
   const saveChainRef = useRef<Promise<void>>(Promise.resolve());
+  /** The step on screen is the saved one, shown again (showSavedStep): the save below writes nothing for it. */
+  const adoptedSavedStep = useRef(false);
   const lastSavedInputsRef = useRef<{ analysis: unknown; caseData: unknown; courtPath: string; attempt: number } | null>(null);
   const masterCaseIdRef = useRef<string | null>(masterCaseId);
   useEffect(() => {
@@ -856,31 +875,27 @@ function BuilderPageContent() {
       const stage = getStageForPersistence(analysis, caseData);
       const now = new Date().toISOString();
 
+      /*
+       * ONLY THE INTAKE STORE CREATES A CASE, under the id already in the address
+       * (?intake=), site owner's rule 1 (30 Oct). This used to insert a case of its
+       * own here, under a new id the address never named. Now: have the store save
+       * (which creates the case under the address's id), and if there is still no
+       * case, stop with the visible "could not be saved" message and its "Try saving
+       * again" button. Nothing typed is lost; it stays in the store and this tab.
+       * npm run test:open-case.
+       */
       if (!finalCaseId && user) {
-        const { data, error } = await supabase
-          .from("cases")
-          .insert({
-            user_id: user.id,
-            court_path: courtPath,
-            title: "New CourtSimplified Case",
-            status: "active",
-            current_stage: stage,
-            master_result: {
-              source: "builder-created-shell",
-              lifecycleStage: "intake-started",
-              updatedAt: now,
-            },
-          })
-          .select("id")
-          .single();
-
-        if (error) {
-          setSaveError(error.message);
+        try {
+          await recovery?.flush();
+        } catch {
+          // The store's own notice says what failed; the message below offers the retry.
+        }
+        finalCaseId = recovery?.getCaseId() || "";
+        if (!finalCaseId) {
+          setSaveError("This case is not saved to your account yet, so there is nothing to add these next steps to.");
           setSavingMaster(false);
           return;
         }
-
-        finalCaseId = data.id;
       }
 
       /*
@@ -941,7 +956,12 @@ function BuilderPageContent() {
           syncNotes: ["Built from completed intake analysis."],
         },
         intakeAnalysis: analysis,
-        intakeData: caseData,
+        // Without its masterResultPatch: that is the whole saved record merged with the new analysis, already spread at
+        // the top of this payload. Kept inside intakeData, each save nested the previous record in it: staging rows grew
+        // to 4.6 MB (intakeData 4.3 MB, five levels deep), and the case page, case file and Forms tab froze reading them
+        // (Chrome check of #545 at 7bce410, note 1). Nothing reads intakeData.masterResultPatch; the next save of an
+        // oversized row drops the nesting.
+        intakeData: (({ masterResultPatch: _nested, ...rest }) => (void _nested, rest))(caseData),
 
         source: "builder-intake",
         lifecycleStage: "intake-analyzed",
@@ -1093,6 +1113,9 @@ function BuilderPageContent() {
           // Old procedural choices/readings cannot be relabelled as guidance
           // for corrected facts. Preserve the person's recorded dates/service.
           if (storedMaster.position) userOwned.position = { ...asRecord(storedMaster.position), confirmedStage: null, confirmedStageAt: null, confirmedStageFrom: null, stepId: null, stepChosenAt: null };
+          // The stage and step this page saved are no longer on the case: send them again once it is saved (F12).
+          sentPositionRef.current = "";
+          forgetSavedPosition(activeId);
           userOwned.casePicture = null;
         }
         // Dates and service details recorded for an earlier story do not count deadlines for this one.
@@ -1118,7 +1141,9 @@ function BuilderPageContent() {
           .from("cases")
           .update({
             // Named for who the case is with, not the engine's summary.
-            title: isGeneratedTitle(recordTitle) ? caseTitleFromIntake(caseData.otherParty, courtPath) : recordTitle,
+            // Who the case is with, from the case file first (F15: a name typed in the whole form is not in the
+            // questions route's answers, so the title said "Small Claims case").
+            title: isGeneratedTitle(recordTitle) ? caseTitleFromIntake(((held) => (held.held ? held.words : caseData.otherParty))(heldWordsOf(caseFileOfMaster(storedMaster, courtPath), "otherParty")), courtPath) : recordTitle,
             court_path: courtPath,
             status: "active",
             current_stage: stage,
@@ -1132,6 +1157,9 @@ function BuilderPageContent() {
               // page and chat refused guidance (409) and the tab saw "Another tab changed
               // this intake" (#465 re-test E and G). Always the record just read.
               ...(storedMaster.intakeCheckpoint !== undefined ? { intakeCheckpoint: storedMaster.intakeCheckpoint } : {}),
+              // The safety check's record is the analyze route's (analysisSafetyGate.ts), written
+              // during this analysis; masterPayload's copy is the one from when the page opened.
+              ...(storedMaster.safetyCheck !== undefined ? { safetyCheck: storedMaster.safetyCheck } : {}),
               workflowStatus: { ...asRecord(masterPayload.workflowStatus), ...asRecord(storedMaster.workflowStatus) },
               derivedFrom,
               intakeFacts,
@@ -1229,6 +1257,16 @@ function BuilderPageContent() {
       }
     }
 
+    // A saved, current next step shown again (showSavedStep): it is the saved case already, so nothing is written (F10).
+    if (adoptedSavedStep.current && analysis && caseData) {
+      adoptedSavedStep.current = false;
+      lastSavedInputsRef.current = { analysis, caseData, courtPath, attempt: saveAttempt };
+      const savedId = recovery?.getCaseId() ?? null;
+      masterCaseIdRef.current = savedId;
+      setMasterCaseId(savedId);
+      setCanonicalIntakeSaved(true);
+      return;
+    }
     // Skip a re-run that changes nothing but the case id this save just set.
     const last = lastSavedInputsRef.current;
     if (last && last.analysis === analysis && last.caseData === caseData && last.courtPath === courtPath && last.attempt === saveAttempt) {
@@ -1296,26 +1334,40 @@ function BuilderPageContent() {
       return;
     }
 
-    setGuidedAnalyzing(true);
-    setGuidedAnalysisError("");
-
     try {
       await guidedRequest.current.run(async (signal) => {
+        // The one gate first, before the working note or any AI step (Chrome check of #544, 6 Nov, F5: after "Start the
+        // questions again" the chat showed "Working out your next steps..." while the intake was unconfirmed).
+        // "guided": the review-needed line shows beside the questions route’s own Continue (rule 7; it said nothing).
+        setGuidedAnalysisError("");
+        if (!(await prepareCaseGuidance("guided"))) return;
+        setGuidedAnalyzing(true);
+        setGuidedSafety({});
         await beforeIntakeAI(signal);
-        if (!(await prepareCaseGuidance())) return;
       // The side and filing are the situation answers, current even before the next guided turn (step 2).
       const situationFacts = personAnswersFromSituation(situation);
-      const mappedInput = mapGuidedIntakeToSmallClaimsInput({ ...result, facts: { ...(result.facts ?? {}), ...(situationFacts.side ? { role: situationFacts.side } : {}), ...(situationFacts.claimFiled !== undefined ? { claimFiled: situationFacts.claimFiled } : {}) } }, confirmedLocation, homeStory);
+      // The kind of claim the analysis follows, from the case file (the person's, else the one the
+      // story shows), the same value every screen shows (site owner, 29 Oct).
+      const fileNow = caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult);
+      // The record's answers, not the chat's older copy (rule 3; chatTurnFacts.ts factsWithRecord): an amount changed on
+      // the review while the chat was open goes to the analysis at its new value; a removed answer does not go.
+      // The review's answers too, whichever way the analysis started (the chat finishing on its own carried only its own
+      // facts, so an amount given in the review went out empty: run 43490561082; chatTurnFacts.ts analysisFactsOf).
+      const checkpointNow = recovery?.getReview().checkpoint ?? reviewView?.checkpoint ?? null;
+      const recordFacts = analysisFactsOf((result.facts ?? {}) as Record<string, unknown>, checkpointNow, caseFileOf(checkpointNow, recovery?.getSavedMaster() ?? existingMasterResult)) as GuidedIntakeCompletionResult["facts"];
+      const heldNow = claimKindOf(fileNow);
+      // The kind in words, told to the AI research, from the same case file through the shared builder
+      // (aiCaseContext.ts, rule 8; site owner, 31 Oct): a dispute category has no catalogue id.
+      const mappedInput = { ...mapGuidedIntakeToSmallClaimsInput({ ...result, facts: { ...(recordFacts ?? {}), ...(situationFacts.side ? { role: situationFacts.side } : {}), ...(situationFacts.claimFiled !== undefined ? { claimFiled: situationFacts.claimFiled } : {}) } }, confirmedLocation, homeStory, kindForAnalysis(heldNow)), caseContext: researchCaseContext(fileNow) };
 
-      // Retained for the Statement of Claim surface below.
-      setDraftInput(mappedInput);
-      setDraftClaimTypeId(result.matchedClaimType?.claimTypeId || null);
+      // The element record the depth questions made, until the analysis saves it with the case (the
+      // Form 7A section reads the case file's saved copy first).
       setDraftElementStateMap((result.elementStateMap as ElementStateMap) || {});
       // Guided intake produces real IntakeFacts — claimFiled, claimServed,
       // defenceFiled among them. Retained so the save site can persist them;
       // without that, deriveCaseStageWithEvents receives {} and the stage comes
       // entirely from confirmed events.
-      setDraftIntakeFacts(result.facts as Record<string, unknown>);
+      setDraftIntakeFacts(recordFacts as Record<string, unknown>);
       guidedAnswersRef.current = (result.answers ?? []);
       const confirmedDates = suggestedDatesFromAnswers(result.answers ?? []);
       setGuidedDates(confirmedDates);
@@ -1327,6 +1379,18 @@ function BuilderPageContent() {
           .map(([questionId, suggestion]) => [questionId, suggestion.value]),
       );
 
+      // The safety check before the analysis, as on the form: this route reached
+      // the analysis with none when the story came from the home page or the
+      // review panel (item N, 2026-10-29). Danger stops here; distress is shown;
+      // a failed check carries on, and the route checks and records it itself.
+      const safety = await runFormSafetyCheck([mappedInput.facts, mappedInput.urgent].filter((text) => text.trim()).join("\n\n"));
+      signal.throwIfAborted();
+      if (safety.halted) {
+        setGuidedSafety({ halt: safety.haltMessage || "" });
+        return;
+      }
+      if (safety.distressAcknowledgment) setGuidedSafety({ distress: safety.distressAcknowledgment });
+
       // The active case, so the run sees the events the user confirmed.
       const response = await requestSmallClaimsAnalysis(
         mappedInput,
@@ -1334,6 +1398,12 @@ function BuilderPageContent() {
         signal,
         intakeGuidanceHeaders(recovery),
       );
+      const late = lateSafetyOutcome(safety, response);
+      if (late?.halted) {
+        setGuidedSafety({ halt: late.haltMessage || "" });
+        return;
+      }
+      if (late?.distressAcknowledgment) setGuidedSafety({ distress: late.distressAcknowledgment });
       const analysisResult = response.result!;
       const payload: StoredCaseData = {
         ...analysisResult.payload,
@@ -1350,27 +1420,15 @@ function BuilderPageContent() {
           // rather than rebuilding its own (design section 5). Absent when no
           // claim type was confirmed or the user skipped — both legitimate.
           ...(result.elementStateMap ? { elementStateMap: result.elementStateMap } : {}),
-          // 2026-09-28. The claim type MATCHED for this case, or null when
-          // none was. The overview reads this instead of re-matching the
-          // story, so its cards follow this match rather than a separate
-          // keyword match that can disagree with it.
-          confirmedClaimTypeId: result.matchedClaimType?.claimTypeId ?? null,
-          // 2026-10-16 live bug: the field above is named "confirmed" but an
-          // exact-phrase story match reaches it with the person never having
-          // seen or been asked about the claim type -- no card, no message,
-          // nothing names it before the results page. True only when the
-          // person clicked "that's right" on the suggestion card
-          // (GuidedSmallClaimsIntake.tsx's resolveSuggestion). The overview
-          // panel reads this to word its label honestly either way.
-          claimTypeUserConfirmed: result.matchedClaimType?.userConfirmed === true,
-          // The story's words the kind was shown with (claimKind.ts): its source on every later screen.
-          ...(result.matchedClaimType?.quote ? { claimTypeQuote: result.matchedClaimType.quote } : {}),
+          // The kind of claim is not copied here (29 Oct): it lives in the case file (the guided
+          // answers and the ticked or proposed match in the checkpoint, the overview's pick in the
+          // position), read through caseFile.ts claimKindOf by every screen.
           // Follow-up answers, kept with the case so a return visit doesn't ask them again (Step 2A).
           ...(result.sourcedAnswers?.length ? { sourcedAnswers: result.sourcedAnswers } : {}),
           // The side and filing answers the person gave or confirmed in the
           // conversation itself (stageFromAnswers.ts), never the story alone.
           // The situation answers (situation.ts) are the person's own and win; the guided answers add what they do not settle.
-          personAnswers: { ...personAnswersFromGuided(result.answers ?? [], (result.facts ?? {}) as Record<string, unknown>), ...personAnswersFromSituation(situation) },
+          personAnswers: { ...personAnswersFromGuided(result.answers ?? [], (recordFacts ?? {}) as Record<string, unknown>), ...personAnswersFromSituation(situation) },
         },
       };
       await validateIntakeResponse(signal);
@@ -1390,8 +1448,22 @@ function BuilderPageContent() {
 
   function handleComplete(
     result: AnalysisResult,
-    payload: StoredCaseData,
+    given: StoredCaseData,
   ) {
+    // Every court's answers enter the analysis input here: an answer that is only "I do not know yet" is kept
+    // as not answered (the case file's "not sure"), never saved or shown as the answer (unsureAnswer.ts).
+    const answered = withoutUnsureAnswers(given);
+    // The hand-off's answer boxes with the record's answers, the record winning, for every court (chatTurnFacts.ts
+    // formAnalysisInput, the one function every route builds its analysis input with; site owner, 14 Nov 2026).
+    const checkpointAtHandOff = recovery?.getReview().checkpoint ?? null;
+    const payload: StoredCaseData = {
+      ...answered,
+      ...formAnalysisInput(
+        { yourName: answered.yourName, otherParty: answered.otherParty, timeline: answered.timeline, evidence: answered.evidence, missingEvidence: answered.missingEvidence, goal: answered.goal, urgent: answered.urgent },
+        checkpointAtHandOff,
+        caseFileOf(checkpointAtHandOff, recovery?.getSavedMaster() ?? existingMasterResult),
+      ),
+    };
     const previousRevision = analysisInputRevision.current;
     const previousFacts = analysisFactsRevision.current;
     analysisInputRevision.current = recovery?.getReview().checkpoint.inputRevision ?? null;
@@ -1458,180 +1530,45 @@ function BuilderPageContent() {
    * The results show only on the results step, so Back from them returns to
    * the intake as it was, and Forward brings them back.
    */
+  /*
+   * A CONFIRMED CASE'S SAVED NEXT STEP, SHOWN AT ONCE (Chrome check of #544 on 99e2ec0, 7 Nov, F10). While the step saved
+   * with the case is still the one for the confirmed answers (savedStep.ts), the overview (?step=results: its own
+   * address, or "Show my next step" in the review panel) shows it as saved, with no new AI run and nothing written.
+   * It goes through the same handleComplete a fresh run uses, so the overview is drawn the same way.
+   */
+  useEffect(() => {
+    if (stepParam !== "results" || analysis || !intakeConfirmed || !reviewView || !recovery || loadingExistingCase) return;
+    const saved = savedStepOf(recovery.getSavedMaster(), reviewView, courtPath, recovery.getCaseId());
+    if (!saved) return;
+    adoptedSavedStep.current = true;
+    setCasePicture(readStoredPicture(asRecord(recovery.getSavedMaster()).casePicture));
+    handleComplete(saved.analysis as unknown as AnalysisResult, saved.data as unknown as StoredCaseData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- handleComplete is this page's own, run once per adoption
+  }, [stepParam, analysis, intakeConfirmed, reviewView, recovery, loadingExistingCase, courtPath]);
+
   const resultsVisible = intakeConfirmed && Boolean(analysis) && analysisInputRevision.current === reviewView?.checkpoint.inputRevision && Boolean(reviewView && analysisFactsRevision.current === factsRevision(reviewView.checkpoint)) && stepParam === "results";
 
-  // The case this tab last saved, so a reload of the results step reopens it.
-  useEffect(() => {
-    const id = savedCaseId();
-    if (!id) return;
-    try {
-      sessionStorage.setItem(BUILDER_LAST_CASE_KEY, JSON.stringify({ caseId: id, courtPath }));
-    } catch {
-      // Storage unavailable: a reload then starts a fresh intake, as before.
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [masterCaseId, queryCaseId, courtPath]);
-
   /*
-   * A reload (or a Forward after the tab forgot its state) lands on
-   * ?step=results with nothing in memory. Open the case that was saved
-   * instead of showing an empty page; without one, start the intake.
+   * NO REMEMBERED LAST CASE (site owner's rule 1, 30 Oct 2026).
+   *
+   * This page used to keep the case it last saved in tab storage
+   * (courtSimplifiedBuilderLastCase) and, on an address with no case id, put
+   * that case back into the address: on a reload of ?step=results, and on a
+   * fresh mount on ?step=guided or ?step=form (6, 15 and 16 Oct). It was a
+   * remembered last case overriding the address, and it opened an older case
+   * when a new one was meant -- guarded since by freshStoryHandoffRef and
+   * mountedStepRef, each added after a live test found the previous guard
+   * missing a door. All of it is gone. Which case is open is the address alone
+   * (openCase.ts): every intake carries its id in ?intake= from the moment it
+   * starts, so a reload resumes from the address; an address on a step with no
+   * id goes to My cases when signed in, and a guest is asked about the one
+   * unsaved intake in the tab (IntakeRecovery.tsx). npm run test:open-case.
    */
-  useEffect(() => {
-    if (!hydrated || stepParam !== "results" || analysis || queryCaseId) return;
-    // Same guard as the guided/form recovery below: a fresh story hand-off
-    // landing on this mount is an intentional new case and must never be
-    // overwritten with an old one of the same court type, even though this
-    // exact effect was not the one the 2026-10-16 live test happened to hit
-    // (it only fires on ?step=results). It shares the same flaw and the
-    // same fix belongs in both places.
-    if (freshStoryHandoffRef.current) return;
-    let last: { caseId?: string; courtPath?: string } | null = null;
-    try {
-      last = JSON.parse(sessionStorage.getItem(BUILDER_LAST_CASE_KEY) || "null");
-    } catch {
-      last = null;
-    }
-    if (last?.caseId && last.courtPath === courtPath) {
-      router.replace(`/cases/${encodeURIComponent(last.caseId)}`);
-      return;
-    }
-    const url = new URL(window.location.href);
-    url.searchParams.delete("step");
-    window.history.replaceState(null, "", `${url.pathname}?${url.searchParams.toString()}`);
-  }, [hydrated, stepParam, analysis, queryCaseId, courtPath, router]);
 
-  /*
-   * The same "tab forgot its state" problem as the results-step recovery
-   * above, but for the guided intake step, which had no recovery at all: a
-   * reload, or any full remount of this page (not just a reload -- leaving
-   * and coming back without the SPA navigation pushStep() uses), on
-   * ?step=guided with no caseId in the URL starts the intake completely from
-   * scratch, even when this tab already saved answers for this exact case.
-   * GuidedSmallClaimsIntake only resumes what's already answered (the
-   * `previous` prop) when `queryCaseId` is set, and nothing writes caseId
-   * into this page's own URL during intake -- only when navigating away to
-   * /cases/<id>.
-   *
-   * Covers both "guided" and "form": GuidedSmallClaimsIntake already has a
-   * late-arriving-`previous` effect (`previousTaken` ref, gated on
-   * `!started`) built for exactly this kind of async backfill, so adding
-   * caseId to the URL after mount is enough to make it resume correctly.
-   * SmallClaimsIntake (the "form" step) originally read `storedValues` only
-   * in its initial useState initializer, with no such backfill -- extending
-   * this effect to "form" without that would have updated the URL without
-   * fixing what's on screen until the next reload. Gave it the matching
-   * `storedValuesTaken`/`userEditedRef` backfill (2026-10-15) before
-   * extending this effect, so both steps now resume correctly.
-   *
-   * Found 2026-10-15 from live testing: finishing the guided intake, then
-   * reopening "Answer questions one at a time with AI help" re-asked
-   * everything, including the opening story, from zero.
-   */
-  /*
-   * This must act on a fresh mount of this page only, never on an in-session
-   * Browser Back/Forward -- a Page Walkthrough run on 2026-10-15 found every
-   * Small Claims persona failing at exactly Browser Forward after Back: a
-   * first attempt tried to detect Back/Forward with a `popstate` listener,
-   * but that lost a race against Next's own router (which also reacts to
-   * the same `popstate` and, on this evidence, finishes updating the URL and
-   * re-running this effect before the listener's flag was set), so it still
-   * fired. The intake panels already "stay mounted while hidden" (see the
-   * comment above), so an in-session Back/Forward never remounts this page
-   * -- only leaving the builder entirely and coming back (the real bug this
-   * exists for) does. Deciding once per mount, rather than per Back/Forward,
-   * sidesteps the race instead of trying to win it.
-   */
-  const caseIdRecoveryDecidedRef = useRef(false);
-  /*
-   * THE STEP THIS PAGE MOUNTED ON, WHICH IS NOT THE STEP IT IS SHOWING.
-   *
-   * *** WHY THE "DECIDE ONCE PER MOUNT" REF ABOVE WAS NOT ENOUGH (2026-10-16) ***
-   *
-   * `caseIdRecoveryDecidedRef` is only set on the first run that gets PAST the
-   * guided/form guard. Mount on the chooser -- `/builder?path=small-claims`, which
-   * the dashboard's "Start a new case" opens -- and `stepParam` is null, so this
-   * effect returns at that guard having decided nothing. The moment the person
-   * enters a city and picks "Answer questions one at a time with AI help",
-   * `stepParam` becomes "guided", the effect runs for real, finds the previous
-   * case in BUILDER_LAST_CASE_KEY, and injects its caseId into the URL.
-   *
-   * So the person asked for a new case and got the old one's story and location
-   * back. `freshStoryHandoffRef` did not save them: it is only set by the home
-   * page's and the court-path finder's hand-offs, and arriving at the chooser
-   * from the dashboard is neither.
-   *
-   * The distinction that actually matters is WHERE THE PAGE CAME IN. A tab that
-   * lost its place and should resume re-enters directly on ?step=guided or
-   * ?step=form. Somebody starting a new case enters on the chooser and walks
-   * forward to guided/form. Both end up with the same `stepParam`, so the step
-   * being shown cannot tell them apart -- only the step it mounted on can.
-   */
-  const mountedStepRef = useRef<string | null>(null);
-  const mountedStepDecidedRef = useRef(false);
-  if (!mountedStepDecidedRef.current) {
-    mountedStepDecidedRef.current = true;
-    mountedStepRef.current = stepParam;
-  }
-
-  /*
-   * A new case started from the chooser forgets the last one.
-   *
-   * The second half of the same fix. Without this, the stale caseId sits in
-   * sessionStorage for the rest of the tab's life, so the NEXT thing that reads it
-   * -- a reload of the results step, or any future recovery path -- still reopens
-   * the finished case. Arriving at the chooser with no caseId is an intentional
-   * new case, and the whole purpose of that key is "this tab lost its place";
-   * a tab that is deliberately starting over has not lost its place.
-   *
-   * Only on a mount that is BOTH on the chooser and without a caseId. Opening a
-   * saved case (?caseId=...) must leave the key alone.
-   */
-  useEffect(() => {
-    if (!hydrated || queryCaseId) return;
-    if (mountedStepRef.current === "guided" || mountedStepRef.current === "form") return;
-    try {
-      sessionStorage.removeItem(BUILDER_LAST_CASE_KEY);
-    } catch {
-      // Storage unavailable: nothing was stored to clear.
-    }
-    /*
-     * `hydrated` and `queryCaseId` are the complete dependency list: the step this
-     * mount came in on is read from a ref, so it deliberately does not appear here
-     * and does not re-trigger when the person walks forward to guided or form.
-     * That is the whole point — an eslint-disable was added here at first and was
-     * unnecessary, which lint caught.
-     */
-  }, [hydrated, queryCaseId]);
-
-  useEffect(() => {
-    if (!hydrated || queryCaseId) return;
-    if (stepParam !== "guided" && stepParam !== "form") return;
-    /*
-     * Recovery is for a tab that RE-ENTERED on the intake, not one that walked
-     * here from the chooser. See mountedStepRef above.
-     */
-    if (mountedStepRef.current !== "guided" && mountedStepRef.current !== "form") return;
-    if (caseIdRecoveryDecidedRef.current) return;
-    caseIdRecoveryDecidedRef.current = true;
-    // A fresh story hand-off just landed on this mount (the home page or the
-    // court-path finder) -- that is an intentional new case, not a tab that
-    // lost its place, so it must never be overwritten with an old one of the
-    // same court type. See freshStoryHandoffRef above for the live-test bug
-    // this guards against (2026-10-16).
-    if (freshStoryHandoffRef.current) return;
-    let last: { caseId?: string; courtPath?: string } | null = null;
-    try {
-      last = JSON.parse(sessionStorage.getItem(BUILDER_LAST_CASE_KEY) || "null");
-    } catch {
-      last = null;
-    }
-    if (!last?.caseId || last.courtPath !== courtPath) return;
-    const url = new URL(window.location.href);
-    url.searchParams.set("caseId", last.caseId);
-    router.replace(`${url.pathname}?${url.searchParams.toString()}`);
-  }, [hydrated, stepParam, queryCaseId, courtPath, router]);
-
+  // The kind of claim, from the case file: the one value the overview, the Form 7A section and the
+  // notice step read (site owner, 29 Oct: they read three different copies and disagreed).
+  const builderCaseFile = caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult);
+  const heldClaimKind = claimKindOf(builderCaseFile);
   const respondingSide = userIsResponding({
     confirmedStage,
     caseData,
@@ -1853,7 +1790,8 @@ function BuilderPageContent() {
       return;
     }
 
-    const draft = startingDocumentDraft("small-claims", caseData, new Date());
+    // From the case record (site owner, 14 Nov 2026, rule 7): the parties, the person's own words, the amount (recordDrafts.ts).
+    const draft = claimDraftOfRecord(formContextOf(reviewView?.checkpoint ?? null, existingMasterResult), { timeline: [], intake: caseData as unknown as Record<string, unknown>, now: new Date() });
     if (draft) void saveDraftAndOpen(caseId, draft);
   }
 
@@ -1864,7 +1802,7 @@ function BuilderPageContent() {
       setSaveError("Save the selected case before creating a working draft.");
       return;
     }
-    const draft = startingDocumentDraft(court, caseData, new Date());
+    const draft = startingDocumentDraft(court, caseData, new Date(), builderCaseFile);
     if (draft) void saveDraftAndOpen(caseId, draft);
   }
 
@@ -1875,7 +1813,7 @@ function BuilderPageContent() {
       setSaveError("Save the selected case before creating a working draft.");
       return;
     }
-    const draft = respondingDocumentDraft(courtPath, caseData as RespondingDocumentIntake, new Date());
+    const draft = respondingDocumentDraft(courtPath, caseData as RespondingDocumentIntake, new Date(), builderCaseFile?.parties.recorded ? partyNames(builderCaseFile.parties.list) : undefined);
     if (draft) void saveDraftAndOpen(caseId, draft);
   }
 
@@ -2204,6 +2142,11 @@ function BuilderPageContent() {
           />
         )}
 
+        {resultsVisible && intakeConfirmed && !loadingExistingCase && !caseLoadError && (courtPath === "small-claims" || courtPath === "civil" || courtPath === "family") && (
+          <p className="mx-auto max-w-6xl text-sm">
+            <button type="button" data-testid="open-whole-form" onClick={openWholeForm} className="font-semibold text-[#2f7d67] underline">Open the whole form (all your answers)</button>
+          </p>
+        )}
         {!loadingExistingCase && !caseLoadError && confirmedLocation && (
           <section hidden={resultsVisible} className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
             <div className="mb-6">
@@ -2276,7 +2219,8 @@ function BuilderPageContent() {
               />
             )}
 
-            {courtPath === "small-claims" && smallClaimsMode === "choose" && (
+            {/* Not on the overview once confirmed: the case page's next-step buttons open it, and the step is worked out there (F6). */}
+            {courtPath === "small-claims" && smallClaimsMode === "choose" && !(stepParam === "results" && intakeConfirmed) && (
               <div className="grid gap-4 md:grid-cols-2">
                 <button
                   type="button"
@@ -2304,6 +2248,7 @@ function BuilderPageContent() {
 
             {courtPath === "small-claims" && startedModes.form && (
               <div hidden={visibleMode !== "form"}>
+                <div ref={setChatNoticeSlot} data-testid="sc-chat-notice-slot" />
                 <SmallClaimsIntake
                   onComplete={handleComplete}
                   location={confirmedLocation}
@@ -2316,6 +2261,7 @@ function BuilderPageContent() {
             {courtPath === "small-claims" && startedModes.guided && (
               <div hidden={visibleMode !== "guided"}>
                 <GuidedSmallClaimsIntake
+                  noticeSlot={visibleMode === "form" ? chatNoticeSlot : null}
                   location={confirmedLocation}
                   initialStory={homeStory}
                   onComplete={handleGuidedComplete}
@@ -2333,6 +2279,16 @@ function BuilderPageContent() {
                 />
                 {guidedAnalyzing ? (
                   <AnalyzingNote />
+                ) : null}
+                {guidedSafety.halt ? (
+                  <div data-testid="guided-safety-halt" className="mt-4 whitespace-pre-wrap rounded-2xl border border-red-200 bg-red-50 p-4 text-sm leading-6 text-red-800">
+                    {guidedSafety.halt}
+                  </div>
+                ) : null}
+                {guidedSafety.distress ? (
+                  <div data-testid="guided-safety-distress" className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900">
+                    {guidedSafety.distress}
+                  </div>
                 ) : null}
                 {guidedAnalysisError ? (
                   <div role="alert" data-testid="guided-analysis-error" className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
@@ -2413,7 +2369,7 @@ function BuilderPageContent() {
                   side given in the intake (#470 re-test: a respondent was told "This produces your application"). */}
               {role !== "respondent" && !respondingSide && !existingFamilyOrder(homeStory || userStory(caseData)) && intakeConfirmed && ((familyQuestionsDone && resultsVisible) || Boolean(queryCaseId)) && (
                 <ChildSupportIntake
-                  recorded={childSupportPrefill(
+                  recorded={childSupportPrefill(childSupportStartFrom(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult),
                     familyScope?.recorded ?? {
                       yourName: typeof caseData?.yourName === "string" ? caseData.yourName : "",
                       otherParty: typeof caseData?.otherParty === "string" ? caseData.otherParty : "",
@@ -2423,7 +2379,7 @@ function BuilderPageContent() {
                       evidence: typeof caseData?.evidence === "string" ? caseData.evidence : "",
                       story: homeStory || userStory(caseData),
                     },
-                  )}
+                  ))}
                 />
               )}
               {/* With an order already in place, the table card is folded
@@ -2543,6 +2499,7 @@ function BuilderPageContent() {
               suggestedStage={suggestionForSide(detectedStage, respondingSide)}
               pathway={courtPath === "family" ? "family" : courtPath === "civil" ? "civil" : "small-claims"}
               confirmedStage={confirmedStage}
+              held={stageHeldElsewhere(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult))}
               // A case already going: the step the next step follows, the latest chosen (the step page's, else the start's).
               stepWords={situation.where === "going" || situation.where === "served" ? findStage(savedPosition.stepId ?? stepFromSituation(situation, courtPath) ?? "")?.userQuestion ?? null : null}
               basis={
@@ -2570,14 +2527,19 @@ function BuilderPageContent() {
             {confirmedStage ? (
               <StageAnswerPanel
                 courtPath={courtPath}
+                notMarried={hidesMarriedOnly(builderCaseFile)}
                 confirmedStage={confirmedStage}
                 responding={respondingSide}
                 sideFromRecord={sideOf(situation) !== null}
                 caseId={savedCaseId()}
                 initialStepId={savedPosition.stepId ?? stepFromSituation(situation, courtPath)}
-                // A day the person said they do not know had its one more offer in the review: folded
-                // here ("not known yet — Add it"), never asked a second time (caseFile.ts).
+                // A day the person said they do not know is never asked again: folded here as "Not answered yet:
+                // add it when you know", with "Add it" (site owner, 31 Oct; caseFile.ts unsureDateQuestions).
                 laterDates={unsureDateQuestions(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult))}
+                file={caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult)}
+                // "Not sure" where the case is (the start's "I am not sure"): never asked again; the quiet line with "Add it" (founder, 1 Nov).
+                stepNotSure={factStatus(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult), "stage") === "settled"}
+                heldServiceWords={heldServiceWords(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult))}
                 initialDateAnswers={savedPosition.dateAnswers}
                 initialService={savedPosition.service}
                 onSaved={(saved) => {
@@ -2602,11 +2564,8 @@ function BuilderPageContent() {
                 picture={casePicture}
                 motionToChange={motionLead && motionChoice ? { answer: motionChoice, readingKind: motionLead.kind } : null}
                 noticeStepId={suggestedNoticeStep({
-                  claimTypeId:
-                    draftClaimTypeId ||
-                    (typeof asRecord(caseData?.extra).confirmedClaimTypeId === "string"
-                      ? (asRecord(caseData?.extra).confirmedClaimTypeId as string)
-                      : null),
+                  // The case file's kind, else the one it proposes from the story: the notice step is a suggestion too.
+                  claimTypeId: kindForAnalysis(heldClaimKind),
                   story: userStory(caseData),
                   courtPath,
                 })}
@@ -2626,24 +2585,23 @@ function BuilderPageContent() {
               </details>
             ) : null}
             {confirmedStage && (
-              <IntelligenceOverviewPanel analysis={analysis} intake={caseData} confirmedStage={confirmedStage} roleWords={courtPath ? situationAnswers(courtPath, situation).roleWords ?? null : null} stageWords={findStage(savedPosition.stepId ?? stepFromSituation(situation, courtPath) ?? "")?.title ?? null} caseId={savedCaseId()} chosenClaimKind={savedPosition.claimKind ?? null} heldKind={caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult).claimKind} />
+              <IntelligenceOverviewPanel analysis={analysis} intake={caseData} confirmedStage={confirmedStage} roleWords={courtPath ? situationAnswers(courtPath, situation).roleWords ?? null : null} stageWords={findStage(savedPosition.stepId ?? stepFromSituation(situation, courtPath) ?? "")?.title ?? null} caseId={savedCaseId()} claimKind={heldClaimKind} caseFile={builderCaseFile} recordedMunicipality={courtPath === "family" ? confirmedLocation?.city || null : null} />
             )}
             {confirmedStage ? <EvidenceUploadCard caseId={savedCaseId()} /> : null}
             {confirmedStage ? <CaseReviewPanel caseId={savedCaseId()} /> : null}
             {/*
-              The Statement of Claim stays gated, and not by oversight — see
-              the note in the spec. It needs `draftInput`, a
-              SmallClaimsIntelligenceInput built during the run, which no load
-              path reconstructs.
+              The Form 7A section on every Small Claims route (site owner, 30 Oct): the questions one
+              at a time, the whole form, "Show my next step" and a saved case reopened. It reads the
+              case file only (the same file the overview's kind of claim comes from), never a copy
+              one route built during its run (it was drawn only after the questions one at a time).
             */}
             {/* Paused with official-form completion: see FORM_COMPLETION_PAUSED in phaseScope.ts. */}
             {/* Never for a defendant: a served person was shown "Preparing your
                 Plaintiff's Claim (Form 7A)" (page review, 2026-10-06). */}
-            {draftInput && !FORM_COMPLETION_PAUSED && !respondingSide ? (
+            {courtPath === "small-claims" && !respondingSide && !FORM_COMPLETION_PAUSED ? (
               <StatementOfClaimSurface
-                matchedClaimTypeId={draftClaimTypeId}
-                initialElementStateMap={draftElementStateMap}
-                mappedInput={draftInput}
+                caseFile={builderCaseFile}
+                elementStatesThisVisit={draftElementStateMap}
                 onStateMapChange={setDraftElementStateMap}
               />
             ) : null}

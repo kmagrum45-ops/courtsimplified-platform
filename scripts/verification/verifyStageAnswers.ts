@@ -231,13 +231,11 @@ for (const answer of verified) {
   // including its term-of-art exception. Until 2026-10-01 this suite had its own
   // stricter copy, so a block the gate published could fail here: a second copy
   // of a gate is a second, different gate.
-  const score = readability(answerText(answer));
+  // A warning since 2026-11-21 (site owner): listed, never failed; no legal wording changed to lower a score.
   const assessment = assessReadability(answerText(answer), TARGET_GRADE);
-  check(
-    `${answer.id}: reads at or below grade ${TARGET_GRADE}`,
-    assessment.withinTarget,
-    `${assessment.withinTarget ? "" : assessment.reason}; hardest: "${score.hardestSentences[0]?.text ?? ""}"`,
-  );
+  if (!assessment.withinTarget) {
+    console.log(`warning  ${answer.id}: reads above grade ${TARGET_GRADE} (${assessment.reason}); hardest: "${readability(answerText(answer)).hardestSentences[0]?.text ?? ""}"`);
+  }
 
   /*
    * Every sentence supported, and every quote found AGAIN, now.

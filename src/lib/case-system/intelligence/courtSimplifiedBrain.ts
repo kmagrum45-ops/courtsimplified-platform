@@ -5,8 +5,8 @@ import {
 
 import {
   filingFactsFromNarrative,
-  withoutAnsweredQuestions,
 } from "./answeredQuestions";
+import { missingWords } from "../caseFile/heldAnswer";
 
 import {
   amountMismatchWarning,
@@ -844,17 +844,14 @@ function buildProceduralPosture(args: {
     ]),
     // Questions the recorded documents already answer are dropped here rather
     // than in each court path, so all three inherit the same behaviour.
-    nextProceduralQuestions: withoutAnsweredQuestions(
-      cleanList([
+    nextProceduralQuestions: missingWords(null, cleanList([
         "Has anything already been filed?",
         "Has anything already been served?",
         "Are there court dates, limitation dates, or urgent deadlines?",
         // "Does this claim require leave, notice, or a public-authority screening step?" was
         // asked of the person here (Charter re-test 2026-10-26): it is the site's to answer,
         // from the library (retrieval/libraryOwned.ts for the Crown's notice), never theirs.
-      ]),
-      filingFactsFromNarrative(rawText),
-    ),
+      ]), { filing: filingFactsFromNarrative(rawText) }),
     warnings: cleanList([
       courtPath === "unknown" ? "Court path requires confirmation." : "",
       stage === "not-sure" ? "Procedural stage requires confirmation." : "",
@@ -2535,6 +2532,25 @@ function seeksInjunctiveRelief(desiredOutcomes: DesiredOutcome[]): boolean {
 export const FIXED_VERIFY_WARNING =
   "Verify legal authorities, forms, deadlines, and filing requirements before relying on this output.";
 
+/**
+ * What the AI research (researchStory, or plain retrieval) is given: the analysis's account, the
+ * court, the stage and side, and the case file's kind of case (input.caseContext, from the shared
+ * builder caseFile/aiCaseContext.ts; site owner, 31 Oct). Pure; exported for
+ * `npm run test:research-case-context`.
+ */
+export function retrievalInputOf(input: CourtSimplifiedBrainInput): RetrievalInput {
+  return {
+    story: input.rawUserText,
+    courtPath: input.courtPath === "civil" || input.courtPath === "family" ? input.courtPath : "small-claims",
+    stage: input.stage,
+    side:
+      input.stage === "responding" || /user role:\s*(defendant|responding)/i.test(input.rawUserText)
+        ? "defendant"
+        : "plaintiff",
+    ...(input.caseContext ? { caseContext: input.caseContext } : {}),
+  };
+}
+
 export async function runCourtSimplifiedBrain(
   input: CourtSimplifiedBrainInput,
 ): Promise<CourtSimplifiedBrainOutput> {
@@ -2546,16 +2562,8 @@ export async function runCourtSimplifiedBrain(
   // what the analysis may cite; the gate below still checks every quote.
   // Resolves to nothing on any failure, and is skipped when the analysis
   // will not call the model at all.
-  const retrievalCourt = input.courtPath === "civil" || input.courtPath === "family" ? input.courtPath : "small-claims";
-  const retrievalInput: RetrievalInput = {
-    story: input.rawUserText,
-    courtPath: retrievalCourt,
-    stage: input.stage,
-    side:
-      input.stage === "responding" || /user role:\s*(defendant|responding)/i.test(input.rawUserText)
-        ? "defendant"
-        : "plaintiff",
-  };
+  const retrievalInput = retrievalInputOf(input);
+  const retrievalCourt = retrievalInput.courtPath;
   // 2026-10-05: the research step (retrieval/researchStory.ts) -- questions
   // a lawyer would research, looked up and read, gaps named -- in place of
   // single-pass retrieval. If it produces nothing (failure, timeout), plain

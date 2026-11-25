@@ -1,0 +1,110 @@
+name: CourtSimplified ask once on every page
+
+# The page-level ask-once test (tests/browser/ask-once-pages.spec.ts, site owner 11 Nov 2026): 35 stories in all three
+# courts, both sides, taken through the questions, the review, the next step, the case page, the case file page and
+# the draft. After every answer, no prompt may ask for a fact already answered or stated in the story, no value the
+# person typed may be shown again for confirmation, and no "not entered" label may show for a fact the case holds.
+# A violation not on the expected list (tests/browser/harness/askOnceExpected.json, which may only shrink) fails.
+#
+# Each machine starts its own local Supabase stack (scripts/browser/carryLocal.sh with CARRY_SPEC), so the run never
+# touches staging, needs no repository secrets and makes no AI calls (the spec stands in for every model route).
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Read-only token: it checks out the code and keeps artifacts; it writes nothing to the repository.
+permissions:
+  contents: read
+
+# Six shards (site owner, 18 Nov 2026; a sixth on 19 Nov for Chrome pass 3's four stories, 12 readings): the two jobs of one court each were cancelled at their 60-minute limit on
+# #550 (eb3cc085, no failure), once the real-AI readings were added (about 170 minutes of tests in all). The limit
+# stays 60 minutes. Each shard has its own list of stories, balanced by each story's measured CI time (the eb3cc085
+# and 17 Nov runs; a reading not reached there counted at its story's measured rate): about 36 minutes of tests (a pass 3 story counted at its pass 2 twin's time) plus
+# about 4 of setup each. A story's readings all run in its shard. npm run test:ask-once-shards fails on a story in no
+# shard or in two, and checks Playwright's own list for each shard's grep. The job named ask-once below passes only
+# when every shard passed.
+jobs:
+  ask-once-shard:
+    name: ask-once (${{ matrix.shard }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - shard: 1
+            stories: >-
+              civil-fired civil-goods-home civil-served-guarantee family-sell-house sc-car-backed
+              sc-chrome2-readings-recorded sc-chrome2-s2-deposit sc-chrome2-s6-sued sc-chrome3-s1-fall
+              sc-served-plumber sc-tree-cut
+          - shard: 2
+            stories: >-
+              civil-chrome2-s8-goods civil-milestone-s8 civil-served-dismissal family-served-motion
+              sc-chrome2-s4-tree sc-milestone-s1-injury sc-roofer sc-served-kitchen sc-slip-and-fall-changed
+          - shard: 3
+            stories: >-
+              civil-tree-fell family-chrome2-s7b-unsure family-support-unpaid sc-chrome2-s1-fall sc-iou
+              sc-loan-sister sc-mechanic sc-milestone-s5-loan sc-served-truck sc-slip-and-fall
+          - shard: 4
+            stories: >-
+              family-chrome2-s7a-no family-never-married family-served-divorce sc-chrome2-s3-fence
+              sc-deposit-landlord sc-forms-chrome sc-loan-friend sc-milestone-s4-tree sc-served-furniture sc-wages
+          - shard: 5
+            stories: >-
+              civil-builder civil-loan-partner family-chrome3-s7-no family-married-2015 family-moved-away
+              sc-chrome3-s6-sued sc-deposit-venue sc-invoice sc-served-kitchen-home sc-served-roommate
+          - shard: 6
+            stories: >-
+              family-married-unsure family-milestone-s7a-not-married family-milestone-s7b-unsure
+              family-not-married-home family-served-form8 sc-chrome2-s5-loan sc-chrome3-s2-deposit
+              sc-contractor-bathroom sc-laptop sc-milestone-s6-sued sc-served-cousin sc-chrome561-kitchen
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
+      NEXT_TELEMETRY_DISABLED: 1
+      AI_RATE_LIMITS: local
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 2.109.0
+      - run: npx playwright install --with-deps chromium
+      - name: Ask once on every page, on a local stack (shard ${{ matrix.shard }})
+        env:
+          CARRY_SPEC: tests/browser/ask-once-pages.spec.ts
+          CARRY_PORT: "3100"
+          CARRY_OUT: ${{ github.workspace }}/ask-once-out
+        run: |
+          export CARRY_GREP="$(node scripts/browser/askOnceGrep.mjs ${{ matrix.stories }})"
+          echo "grep: $CARRY_GREP"
+          bash scripts/browser/carryLocal.sh
+      - name: Keep the records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ask-once-records-${{ github.run_id }}-${{ github.run_attempt }}-shard${{ matrix.shard }}
+          path: |
+            ask-once-records/**
+            question-logs/**
+            ask-once-out/*.log
+          retention-days: 14
+          if-no-files-found: ignore
+
+  # The one check named ask-once: it passes only when every shard passed (a cancelled or failed shard fails it).
+  ask-once:
+    name: ask-once
+    needs: ask-once-shard
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Every shard passed
+        run: |
+          echo "shards: ${{ needs.ask-once-shard.result }}"
+          test "${{ needs.ask-once-shard.result }}" = "success"

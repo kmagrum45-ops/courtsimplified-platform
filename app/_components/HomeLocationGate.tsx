@@ -1,14 +1,18 @@
 "use client";
 
 import { STORY_SECTION } from "../../src/lib/case-system/intakeStory";
-import { courtOfPapers, filedFromSituation, sideOf, situationAnswers, situationFromRaw, situationSection, SITUATION_FIELD, SITUATION_SECTION, withKnownCourt } from "../../src/lib/case-system/situation/situation";
+import { frontDoorStory } from "../../src/lib/case-system/personWords";
+import { courtOfPapers, situationFromRaw, situationSection, SITUATION_FIELD, SITUATION_SECTION, withKnownCourt } from "../../src/lib/case-system/situation/situation";
 import { writeIntakeSession } from "../../src/lib/case-system/intakeCheckpoint";
-import { useIntakeState, useIntakeRef, useStory, useCaseLocation, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, useSituation, IntakeRecoveryBoundary } from "./IntakeRecovery";
+import { useIntakeState, useIntakeRef, useStory, useCaseLocation, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, useSituation, useIntakeReviewView, IntakeRecoveryBoundary } from "./IntakeRecovery";
+import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
+import { factStatus } from "../../src/lib/case-system/caseFile/factStatus";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { IntakeRequest } from "./intakeRequest";
 import { understandingInputError } from "../../src/lib/case-system/understanding/understandInput";
+import { understandRequestBody } from "../../src/lib/case-system/understanding/understandRequest";
 import { supabase } from "../../src/lib/supabase/client";
 import {
   type BuilderDraftCourtPath,
@@ -18,6 +22,7 @@ import { scrollAndFocus } from "./scrollFocus";
 import { pathwayDescriptionFor } from "../../src/lib/content-library/pathwayDescriptions";
 import { assertApprovedUserContent } from "../../src/lib/content-library/outputGuard";
 import LegalAdviceDeflection from "./LegalAdviceDeflection";
+import TribunalNotice, { useTribunalFirst } from "./TribunalNotice";
 import AiUseNotice from "./AiUseNotice";
 import CaseUnderstandingCard, { type UnderstandResponse } from "./CaseUnderstandingCard";
 import PathwayUnavailable from "./PathwayUnavailable";
@@ -31,6 +36,12 @@ import {
   type IssueKind,
 } from "../../src/lib/content-library/crossForumNotes";
 import { WorkingButton } from "./Working";
+import { writeAnswer } from "./caseWrite";
+import { offeredOtherParty } from "../../src/lib/case-system/caseFile/storyOffers";
+import StoryGuidance from "./StoryGuidance";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import FirstUseAcknowledgement from "./FirstUseAcknowledgement";
+import { loadNoticeStatus, noticeOutstandingNow, useNoticeOutstanding } from "./noticeStatus";
 
 const pathLabels: Record<BuilderDraftCourtPath, string> = {
   family: "Family",
@@ -64,7 +75,7 @@ type CourtPathSuggestion =
        */
       reasoningForAuditLogOnly: string;
     }
-  | { kind: "out-of-scope"; forumName: string; message: string }
+  | { kind: "out-of-scope"; forumName: string; message: string; forumId?: string }
   | {
       /**
        * The story involves more than one matter (2026-09-30). Shows each
@@ -111,6 +122,22 @@ export default function HomeLocationGate() {
 
 function HomeLocationGateContent() {
   const recovery = useIntakeRecovery();
+  // The "Before you start" notice before the story goes anywhere (site owner, 15 Nov 2026): Continue, with the notice not
+  // yet accepted, shows the same notice here and sends nothing; once it is accepted, Continue carries on by itself.
+  const noticeWaits = useNoticeOutstanding();
+  const [noticeAsked, setNoticeAsked] = useState(false);
+  const noticeFirst = async (): Promise<boolean> => {
+    const outstanding = noticeOutstandingNow() ?? (await loadNoticeStatus()).outstanding;
+    if (outstanding) setNoticeAsked(true);
+    return outstanding;
+  };
+  useEffect(() => {
+    if (!noticeAsked || noticeWaits !== false) return;
+    setNoticeAsked(false);
+    void continueToIntake();
+    // Once, when the notice is accepted: Continue carries on as the person pressed it.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [noticeAsked, noticeWaits]);
   const beforeIntakeAI = useBeforeIntakeAI();
   const validateIntakeResponse = useValidateIntakeResponse();
   const router = useRouter();
@@ -131,7 +158,12 @@ function HomeLocationGateContent() {
   const city = location?.city ?? "";
   const setCity = useCallback((value: string) => setLocation({ province: "Ontario", city: value }), [setLocation]);
   const [facts, setFacts] = useStory();
+  // The one tribunal rule (fixedRegimes.ts exclusiveTribunalFor), checked in Continue before the AI reading (C1).
+  const tribunalFirst = useTribunalFirst(facts.trim());
   const [situation] = useSituation();
+  // The case record as it is now, for the reading card's one-function checks (CaseUnderstandingCard file).
+  const reviewView = useIntakeReviewView();
+  const homeFile = useMemo(() => (reviewView ? caseFileOf(reviewView.checkpoint) : null), [reviewView]);
   const [userId, setUserId] = useState<string | null>(null);
   const [hydrated, setHydrated] = useState(false);
   const [checking, setChecking] = useState(false);
@@ -228,22 +260,30 @@ function HomeLocationGateContent() {
   function openIntake(key: string, chosenPath: BuilderDraftCourtPath, answers: { question: string; answer: string }[] = []) {
     if (opening) return;
     setOpening(key);
-    void goToIntake(chosenPath, answers).finally(() => setOpening(null));
+    // The story reading's own buttons accept the reading: its other party goes on the record (B1).
+    void goToIntake(chosenPath, answers, key.startsWith("understanding:")).finally(() => setOpening(null));
   }
 
-  async function goToIntake(chosenPath: BuilderDraftCourtPath, answers: { question: string; answer: string }[] = []) {
+  async function goToIntake(chosenPath: BuilderDraftCourtPath, answers: { question: string; answer: string }[] = [], accepted = false) {
     requestRef.current.cancel();
-    // Answers given to the front door's questions travel with the story, so
-    // the intake does not ask them again.
-    // An answer already in the story (Back, then Continue again) is not appended twice.
-    const answered = answers.filter((item) => item.answer.trim()).map((item) => `${item.question.trim()} ${item.answer.trim()}`).filter((line) => !facts.includes(line));
-    const story = [facts.trim(), ...answered].join("\n\n");
+    // The story is the story field only (personWords.ts frontDoorStory; 19 Nov 2026). The answers to the front door's
+    // questions are held as answers (home.understoodAnswers below), so the intake does not ask them again.
+    const story = frontDoorStory(facts);
+    // Only while the case file holds no other party from the person (C9): an answer they gave, or "not sure", is never
+    // replaced by the reading's name (the one function, factStatus.ts).
+    const otherPartyHeld = homeFile ? factStatus(homeFile, "otherParty") === "known" || factStatus(homeFile, "otherParty") === "settled" : false;
+    const acceptedOtherParty = accepted && !otherPartyHeld ? offeredOtherParty(facts, storedUnderstood?.understanding?.facts ?? [])?.value ?? null : null;
     try {
       if (recovery && chosenPath === path) {
         // Same flow, same single copy: the builder reads the story and location written here.
         // Written to the store directly (and announced) so the flush below includes it.
         recovery.put(STORY_SECTION, "text", story, true, true);
         recovery.put(STORY_SECTION, "location", { province: "Ontario", city: city.trim() }, true, true);
+        // The answers are held as answers (the case file reads them), not glued onto the story (frontDoorStory).
+        if (answers.length) writeAnswer(recovery, "home", "understoodAnswers", answers, { external: true });
+        // The other party the accepted reading named, on the record through the one writer, so it is never asked again
+        // and every screen reads it from there (Chrome check of production c38e69fd, B1; never a witness).
+        if (acceptedOtherParty) writeAnswer(recovery, "home", "otherParty", acceptedOtherParty);
         await recovery.flush();
         router.push(`/builder?path=${chosenPath}&intake=${recovery.flowId}`);
       } else {
@@ -254,7 +294,7 @@ function HomeLocationGateContent() {
         const carried = withKnownCourt({ ...situation, court: chosenPath, courtFrom: courtOfPapers(situation) === chosenPath ? "papers" : "asked" }, chosenPath);
         const next = { version: 2 as const, ownerId: recovery?.ownerId ?? userId, caseId: null, serverRevision: null,
           checkpoint: { version: 1 as const, flowId, courtPath: chosenPath, revision: crypto.randomUUID(),
-            sections: { [STORY_SECTION]: { text: story, location: { province: "Ontario", city: city.trim() } }, ...situationSection(carried) } } };
+            sections: { [STORY_SECTION]: { text: story, location: { province: "Ontario", city: city.trim() } }, ...situationSection(carried), ...(acceptedOtherParty || answers.length ? { home: { ...(acceptedOtherParty ? { otherParty: acceptedOtherParty } : {}), ...(answers.length ? { understoodAnswers: answers } : {}) } } : {}) } } };
         if (!writeIntakeSession(sessionStorage, next)) throw new Error("Your text could not be retained. Please copy it before leaving and retry.");
         router.push(`/builder?path=${chosenPath}&intake=${flowId}`);
       }
@@ -284,14 +324,8 @@ function HomeLocationGateContent() {
         signal,
         method: "POST",
         headers: { "Content-Type": "application/json", ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}) },
-        body: JSON.stringify({
-          story: facts.trim(),
-          city: city.trim(),
-          chosenCourt: path,
-          ...(answers.length ? { answers } : {}),
-          // The person's situation answers (step 2): their side and the day served, never read from the story instead.
-          ...(sideOf(situation) ? { situation: { side: sideOf(situation) === "responding" ? "responding" : "starting", ...(situationAnswers(path, situation).servedOn ? { servedOn: situationAnswers(path, situation).servedOn } : {}), ...(filedFromSituation(situation) !== undefined ? { filed: filedFromSituation(situation) } : {}) } } : {}),
-        }),
+        // Built in one place (understandRequest.ts), so test:understand-request checks what is sent against the route's own check.
+        body: JSON.stringify(understandRequestBody({ story: facts.trim(), city: city.trim(), chosenCourt: path, answers, situation })),
       });
       const result = (await response.json().catch(() => ({}))) as Partial<UnderstandResponse> & { ok?: boolean; skipped?: string };
       await validateIntakeResponse(signal);
@@ -320,6 +354,7 @@ function HomeLocationGateContent() {
 
   async function updateWithAnswers(answers: { question: string; answer: string }[]) {
     if (checking) return;
+    if (await noticeFirst()) return;
     // A reading still running (the story's own, started as it was typed) gave the first click no
     // feedback for half a minute (Charter re-test 2026-10-26). The new reading includes the story
     // and the answers, so the older one is cancelled and "Updating…" shows at once.
@@ -334,10 +369,21 @@ function HomeLocationGateContent() {
 
   async function continueToIntake() {
     if (!isOntarioReady || !path || checking || requestRef.current.pending) return;
+    if (await noticeFirst()) return;
 
     setChecking(true);
     setRequestError("");
     setSuggestion(null);
+
+    // A matter the code rule gives to a tribunal is said first, before the AI reading and before any follow-up
+    // question, signed in or not (C1, site owner 9 Nov 2026; CLAUDE.md s. 2a). Until 9 Nov the rule ran only when the
+    // reading was skipped (guests), so a signed-in person got the model's own label, under its questions.
+    if (tribunalFirst.held && tribunalFirst.tribunal) {
+      setReadFrom(facts.trim());
+      setSuggestion({ kind: "out-of-scope", forumName: tribunalFirst.tribunal.name, message: tribunalFirst.tribunal.redirectMessage, forumId: tribunalFirst.tribunal.id });
+      setChecking(false);
+      return;
+    }
 
     const drafts = draftAnswersRef.current;
     const answers = [...understoodAnswers.filter((old) => !drafts.some((item) => item.question === old.question)), ...drafts];
@@ -387,8 +433,11 @@ function HomeLocationGateContent() {
         }
 
         const suggested = asCourtPath(result.primaryPath);
+        // Against the court the case file holds from the person (the card's own rule, CaseUnderstandingCard heldCourt), else
+        // the one chosen: a court they already confirmed is never suggested again (C9).
+        const heldCourt = homeFile && factStatus(homeFile, "court") === "known" && typeof homeFile.court.value === "string" ? homeFile.court.value : null;
         const differentPath =
-          suggested && suggested !== path && confidence >= SUGGESTION_CONFIDENCE_FLOOR ? suggested : null;
+          suggested && suggested !== (heldCourt ?? path) && confidence >= SUGGESTION_CONFIDENCE_FLOOR ? suggested : null;
 
         // Several matters come first: one of them belonging to a tribunal
         // must not hide the ones that belong in court.
@@ -413,11 +462,11 @@ function HomeLocationGateContent() {
           return;
         }
 
-        if (suggested && suggested !== path && confidence >= SUGGESTION_CONFIDENCE_FLOOR) {
+        if (differentPath) {
           setReadFrom(facts.trim());
           setSuggestion({
             kind: "switch-path",
-            suggestedPath: suggested,
+            suggestedPath: differentPath,
             reasoningForAuditLogOnly: String(result.reasoning || "").trim(),
           });
           setChecking(false);
@@ -466,7 +515,7 @@ function HomeLocationGateContent() {
         <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#2f7d67]">{pathLabels[path]} intake</p>
         <h1 className="mt-3 text-3xl font-bold tracking-tight text-[#10231f]">Your location and your story</h1>
         {!hydrated ? <p className="mt-6 text-sm font-semibold text-[#4d675f]" aria-live="polite">Preparing a private case start…</p> : <div data-testid="court-path-location-gate-ready">
-          {!userId && <p className="mt-6 rounded-2xl border border-[#cde7dc] bg-[#f8fcfa] p-4 text-sm text-[#24463d]">You can begin now. To see your next steps, you will need a free account, so a safety check can read your story first. What you enter now comes with you when you sign in from your case.</p>}
+          {/* The guest account message is shown once, by the frame (IntakeRecovery.tsx GUEST_ACCOUNT_NOTICE; Chrome, test of #561, 1.1). */}
           <div className="mt-6 grid gap-5 md:grid-cols-2">
             {/*
               Ontario only, for now: a single fixed option, not a real choice
@@ -483,7 +532,7 @@ function HomeLocationGateContent() {
             <label className="block"><span className="font-semibold text-[#16302b]">Province or territory</span><select aria-label="Province or territory" value={province} onChange={() => {}} className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3 text-[#16302b]"><option value="Ontario">Ontario (beta — other provinces are added later)</option></select></label>
             <label className="block"><span className="font-semibold text-[#16302b]">City or municipality</span><input ref={cityRef} aria-label="City or municipality" value={city} onChange={(event) => { requestRef.current.cancel(); setChecking(false); setCity(event.target.value); }} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="City or municipality" /></label>
           </div>
-          <label className="mt-5 block"><span className="font-semibold text-[#16302b]">Tell us what happened in your own words</span><textarea aria-label="Tell us what happened in your own words" value={facts} onChange={(event) => { requestRef.current.cancel(); setChecking(false); setFacts(event.target.value); setSuggestion(null); }} className="mt-2 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="Share the main events, people involved, and what you are trying to resolve." /></label>
+          <label className="mt-5 block"><span className="font-semibold text-[#16302b]">{STORY_LABEL}</span><StoryGuidance id="home-story-guidance" length={facts.length} /><textarea aria-label={STORY_LABEL} aria-describedby="home-story-guidance" value={facts} onChange={(event) => { requestRef.current.cancel(); setChecking(false); setFacts(event.target.value); setSuggestion(null); }} className="mt-2 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" /></label>
 
           {requestError && <p role="alert" className="mt-4 text-sm text-red-700">{requestError}</p>}
           {requestError && !understood && (
@@ -496,6 +545,7 @@ function HomeLocationGateContent() {
             <div ref={suggestionRef} tabIndex={-1}>
               <CaseUnderstandingCard
                 result={understood}
+                file={homeFile}
                 chosenPath={path}
                 story={facts}
                 city={city}
@@ -693,47 +743,15 @@ function HomeLocationGateContent() {
           )}
 
           {suggestion && suggestion.kind === "out-of-scope" && (
-            <div
-              ref={suggestionRef}
-              tabIndex={-1}
-              role="group"
-              aria-label="Court path check"
-              data-testid="court-path-out-of-scope"
-              className="mt-6 rounded-3xl border border-[#ead9a7] bg-[#fffaf0] p-5"
-            >
-              <h2 className="text-lg font-bold text-[#10231f]">CourtSimplified doesn&apos;t cover this</h2>
-              <p className="mt-2 text-sm leading-6 text-[#6e5726]">
-                {assertApprovedUserContent(
-                  suggestion.message,
-                  "HomeLocationGate:out-of-scope-redirect",
-                )}
-              </p>
-              <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-                This is a suggestion based on the words you used, not a decision about your case. If you believe this belongs in {pathLabels[path]}, you can continue anyway.
-              </p>
-              {/*
-                LSO Step 6e. The forum wording above is the library's own
-                redirectMessage, selected by id -- but a user told "we don't
-                cover this" and nothing else has been sent away with nowhere
-                to go. The referral list is the point of saying no.
-              */}
-              <div className="mt-4">
-                <LegalAdviceDeflection reason="out-of-scope" />
-              </div>
-
-              <div className="mt-4 flex flex-wrap gap-3">
-                <WorkingButton
-                  data-testid="court-path-out-of-scope-continue"
-                  disabled={opening !== null}
-                  working={opening === "court-path-out-of-scope-continue"}
-                  workingLabel="Opening your intake…"
-                  onClick={() => openIntake("court-path-out-of-scope-continue", path)}
-                  className="rounded-xl border border-[#bdd4ca] bg-white px-5 py-3 text-sm font-semibold text-[#1c473d]"
-                >
-                  Continue with {pathLabels[path]} anyway
-                </WorkingButton>
-              </div>
-            </div>
+            <TribunalNotice
+              panelRef={suggestionRef}
+              tribunal={{ id: suggestion.forumId, redirectMessage: suggestion.message }}
+              courtLabel={pathLabels[path]}
+              context="HomeLocationGate:out-of-scope-redirect"
+              disabled={opening !== null}
+              working={opening === "court-path-out-of-scope-continue"}
+              onContinue={() => { tribunalFirst.setAside(); openIntake("court-path-out-of-scope-continue", path); }}
+            />
           )}
 
           {/*
@@ -745,6 +763,8 @@ function HomeLocationGateContent() {
           <div className="mt-5">
             <AiUseNotice activity="read what you write, work out your situation and next step, and check the law it states against the official text" />
           </div>
+
+          {noticeAsked && noticeWaits !== false ? <div className="mt-5" data-testid="home-notice"><FirstUseAcknowledgement /></div> : null}
 
           <button type="button" onClick={continueToIntake} disabled={!isOntarioReady || checking} className="mt-6 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300">{checking ? "Reading your story and checking the law (this can take a minute or two)…" : understood ? "Check again" : `Continue to ${pathLabels[path]} intake`}</button>
           {/* A button that cannot be pressed says why (item 12: a blank city gave no message). */}

@@ -61,6 +61,11 @@ export type ContentType =
   | "claim-type"
   | "depth-question"
   | "next-step"
+  /**
+   * One line of the next-step card: a form, a fee, a filing or service line,
+   * a quoted rule. See content-library/nextStepCardInventory.ts.
+   */
+  | "next-step-card"
   | "pathway-description"
   | "form-guidance"
   | "procedural-stage"
@@ -103,6 +108,10 @@ export type ContentItem = {
   sourceUrl: string;
   /** Where in the product this appears, for the reviewer's context. */
   appearsIn: string;
+  /** The pinpoint of the source the line quotes, where it carries one (next-step-card). */
+  pinpoint?: string;
+  /** The official words the line rests on, as the card shows them under it (next-step-card). */
+  quote?: string;
   /** Bumped whenever `text` changes, which voids any existing approval. */
   version: number;
 };

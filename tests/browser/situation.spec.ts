@@ -18,6 +18,7 @@ import { openBuilder } from "./harness/builderGate";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { autoAnswerSituation } from "./harness/situation";
 import { FIRST_PAGES } from "../../src/lib/case-system/situation/situation";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "retain-on-failure", actionTimeout: 20_000 });
 
@@ -36,7 +37,7 @@ for (const court of COURTS) {
     await page.goto(`/?path=${court}`);
     const gate = page.getByTestId("situation-questions");
     await expect(gate).toHaveAttribute("data-question", "where", { timeout: 60_000 });
-    await expect(page.getByLabel("Tell us what happened in your own words")).toHaveCount(0);
+    await expect(page.getByLabel(STORY_LABEL, { exact: true })).toHaveCount(0);
 
     await gate.locator('[data-testid="situation-option"][data-value="served"]').click();
     await expect(gate).toHaveAttribute("data-question", "papers");
@@ -58,7 +59,7 @@ for (const court of COURTS) {
 
     await expect(gate).toHaveCount(0);
     await expect(page.getByTestId("situation-line")).toContainText(FIRST[court].line);
-    await expect(page.getByLabel("Tell us what happened in your own words")).toBeVisible();
+    await expect(page.getByLabel(STORY_LABEL, { exact: true })).toBeVisible();
 
     await page.getByTestId("situation-change").click();
     await expect(gate).toHaveAttribute("data-question", "where");

@@ -8,6 +8,8 @@ import { runFamilyIntakeCanonicalIntegration } from "../../src/lib/case-system/o
 import { runCivilIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
 import { analyzeSmallClaimsWithBrain } from "../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 import { guidanceIsCurrent } from "../../src/lib/case-system/intakeReview";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { homeQuestionsFor } from "../../src/lib/case-system/caseFile/factQuestions";
 
 test.use({ trace: "off", screenshot: "off", actionTimeout: 30_000, navigationTimeout: 120_000 });
 const STORY = "Synthetic facts: I need help organizing this matter, the parties and dates.";
@@ -137,16 +139,18 @@ for (const [court, label] of [["small-claims", "Small Claims"], ["family", "Fami
 }
 
 test("Home keeps factual clarification but never displays mocked procedural guidance", async ({ page }) => {
+  // A factual question the site itself asks (factQuestions.ts; a model-written question never reaches the card, 19 Nov 2026).
+  const [ESSENTIAL] = homeQuestionsFor("civil", "starting");
   await grantSiteAccess(page);
-  await page.route("**/api/case/understand", route => route.fulfill({ json: { ok: true, understanding: { summary: STORY, facts: [], matters: [{ title: "Synthetic matter", court: "civil" }], mainCourt: "civil", side: "starting", stage: "", questions: [{ question: "Synthetic essential question?" }], asksForPrediction: false, step: "civil-start-claim", regime: null }, answer: { status: "answered", statements: [{ text: "Synthetic prohibited premature procedure", sources: [] }], notConfirmed: [], declinedToJudge: false } } }));
+  await page.route("**/api/case/understand", route => route.fulfill({ json: { ok: true, understanding: { summary: STORY, facts: [], matters: [{ title: "Synthetic matter", court: "civil" }], mainCourt: "civil", side: "starting", stage: "", questions: [{ id: ESSENTIAL.id, question: ESSENTIAL.question }], asksForPrediction: false, step: "civil-start-claim", regime: null }, answer: { status: "answered", statements: [{ text: "Synthetic prohibited premature procedure", sources: [] }], notConfirmed: [], declinedToJudge: false } } }));
   await page.goto("/?path=civil");
   await page.getByLabel("City or municipality").fill("Toronto");
-  await page.getByLabel("Tell us what happened in your own words").fill(STORY);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(STORY);
   await page.getByRole("button", { name: "Continue to Civil intake" }).click();
   await expect(page.getByTestId("case-understanding-summary")).toContainText(STORY);
   await expect(page.getByTestId("case-understanding-next-step")).toHaveCount(0);
   await expect(page.getByText("Synthetic prohibited premature procedure")).toHaveCount(0);
-  await expect(page.getByLabel("Synthetic essential question?")).toBeVisible();
+  await expect(page.getByTestId(`case-understanding-answer-${ESSENTIAL.id}`)).toBeVisible();
 });
 
 test("Urgent verified notice and public information remain available during collection", async ({ page }) => {

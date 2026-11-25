@@ -211,7 +211,7 @@ add("b", "drafting-scope-off", () => ({ ok: isOff(isInScope("formCompletion")), 
 const CASE_FILE: ConfirmedCaseFile = {
   courtPath: "small-claims", role: "Plaintiff / claimant", stage: "starting-case",
   story: "I lent my neighbour $1,200 in March and he has not paid it back.", yourName: "", otherParty: "",
-  otherPartyAddress: "", amountText: "$1,200", timelineText: "", evidenceText: "", goalText: "", confirmedClaimTypeId: null, filedDocuments: [],
+  otherPartyAddress: "", amountText: "$1,200", timelineText: "", evidenceText: "", goalText: "", claimTypeId: null, filedDocuments: [],
 };
 add("c", "ai-review-off", async () => {
   let located = false;
@@ -500,7 +500,10 @@ add("m", "invented-quote-dropped", () => {
   return { ok: kept.length === 1 && proposalsFromStory(kept, PROPOSAL_STORY), detail: `a proposal whose quote is not in the story is dropped; one whose quote is, is kept (kept ${kept.length})` };
 });
 // Source check: the quote's display is on a client screen.
-const showsQuote = (source: string) => /From your story:[^\n]*\{\s*[\w.]+\.storyQuote\s*\}/.test(source);
+// The label is written in its one home (caseFile/storyOffers.ts FROM_YOUR_STORY, 23 Nov 2026): shown by the constant, whose
+// words must still be exactly "From your story:", or written out.
+const labelHome = () => /export const FROM_YOUR_STORY = "From your story:";/.test(read("src/lib/case-system/caseFile/storyOffers.ts"));
+const showsQuote = (source: string) => /From your story:[^\n]*\{\s*[\w.]+\.storyQuote\s*\}/.test(source) || (/\{FROM_YOUR_STORY\}[^\n]*\{\s*[\w.]+\.storyQuote\s*\}/.test(source) && labelHome());
 add("m", "quote-shown", () => ({ ok: showsQuote(read("app/builder/_components/GuidedSmallClaimsIntake.tsx")), detail: "the guided intake shows the proposal's story quote (\"From your story: '…'\")" }));
 
 // ---------------------------------------------------------------------------

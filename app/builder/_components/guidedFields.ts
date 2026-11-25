@@ -14,24 +14,17 @@
 
 import type { GuidedChoice, GuidedField, GuidedValues } from "./GuidedFormChat";
 import { SERVED_LINE, storyHintsForDates } from "../../../src/lib/case-system/casePosition";
-import {
-  amountFromStory,
-  childrenFromStory,
-  courtDateFromStory,
-  civilIssuesFromStory,
-  familyIssuesFromStory,
-  childrenPartialFromStory,
-  civilFiledFromStory,
-  civilRoleFromStory,
-  familyFiledFromStory,
-  familyRoleFromStory,
-  goalFromStory,
-  otherPartyFromStory,
-  otherPartyNameFromStory,
-  servedDateFromStory,
-} from "./storyAnswers";
+import { STORY_LABEL } from "../../../src/lib/case-system/copy/storyGuidance";
+import { MARRIED_TRIAGE_QUESTION } from "../../../src/lib/case-system/family/statusTriage";
+import { factStatus } from "../../../src/lib/case-system/caseFile/factStatus";
+import type { CaseFile, SlotFact } from "../../../src/lib/case-system/caseFile/caseFile";
+import { quotesOf, statedInStory, type StoryCourt, type StoryValue } from "../../../src/lib/case-system/intakeReview";
 
 const storyOf = (values: GuidedValues) => (typeof values.facts === "string" ? values.facts : "");
+/** What the story states (intakeReview.ts statedInStory): the one story reader, read by every field below. */
+const read = (values: GuidedValues, court?: StoryCourt) => quotesOf(statedInStory(storyOf(values), [], court));
+/** A list the reader gives (the kinds of claim, the papers filed), in the shape offeredFiled takes. */
+const listOf = (found: StoryValue | undefined) => (found && Array.isArray(found.value) ? { value: found.value, quote: found.quote } : null);
 
 /**
  * A filed-documents answer from the story, kept to the options this form
@@ -90,15 +83,16 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
   const fields: GuidedField[] = [
     {
       key: "facts",
-      label: "Your story",
-      question: "In your own words, what is happening in your family situation?",
+      label: STORY_LABEL,
+      question: STORY_LABEL,
       why: "Everything else we show you starts from this, so we read it before asking anything else.",
       kind: "longtext",
+      story: true,
     },
     {
       key: "yourRole",
       label: "Your side",
-      fromStory: (values) => familyRoleFromStory(storyOf(values)),
+      fromStory: (values) => read(values, "family").side ?? null,
       question: "Are you starting a family case, or responding to one the other person started?",
       why: "Your side decides which forms and deadlines are yours, so we only show you your own.",
       kind: "choice",
@@ -109,10 +103,25 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       ],
     },
     {
+      // Asked once, here, early, by the Family questions themselves (Chrome pass 3 on #550, S7: never asked, so "No" could
+      // not be given and the divorce and property content showed). The triage's own words; the triage does not ask it again
+      // once the case file holds the answer (statusTriage.ts selectNextTriageQuestion, mayShowQuestion).
+      key: "married",
+      label: "Married to the other person",
+      question: MARRIED_TRIAGE_QUESTION.prompt,
+      why: MARRIED_TRIAGE_QUESTION.whyAsked,
+      kind: "choice",
+      options: [
+        { value: "yes", label: "Yes" },
+        { value: "no", label: "No" },
+        { value: "unsure", label: "I'm not sure" },
+      ],
+    },
+    {
       key: "issues",
       label: "What the case is about",
       // The issues the story names, offered for one click (26 Oct re-test, case 14).
-      fromStory: (values) => offeredFiled(familyIssuesFromStory(storyOf(values)), options.issues),
+      fromStory: (values) => offeredFiled(listOf(read(values, "family").claimKind), options.issues),
       question: "What is the case about? Pick everything that applies.",
       why: "Each issue has its own forms and steps, so this keeps what you see to the ones that fit.",
       kind: "multi",
@@ -122,7 +131,7 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       key: "filedDocuments",
       label: "What has been filed",
       // "i got served the papers last week" answers this (walkthrough FR, 2026-10-13).
-      fromStory: (values) => offeredFiled(familyFiledFromStory(storyOf(values)), options.filed),
+      fromStory: (values) => offeredFiled(listOf(read(values, "family").filedDocuments), options.filed),
       confirmAlone: true,
       question: "Has anything been filed with the court or given to you yet?",
       why: "This tells us where your case is, so the next step we show is the right one.",
@@ -133,9 +142,9 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
     {
       key: "childrenInfo",
       label: "The children",
-      fromStory: (values) => childrenFromStory(storyOf(values)),
+      fromStory: (values) => read(values, "family").children ?? null,
       // "our daugter": "One daughter." filled in, only the age and home asked (FR).
-      partialFromStory: (values) => childrenPartialFromStory(storyOf(values)),
+      partialFromStory: (values) => read(values, "family").childrenPartial ?? null,
       question: "Tell us about the children: how many, how old, and who they live with now.",
       why: "Parenting and child support depend on the children's ages and where they live.",
       kind: "longtext",
@@ -144,7 +153,7 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
     {
       key: "servedDate",
       label: "When you were served",
-      fromStory: (values) => servedDateFromStory(storyOf(values)),
+      fromStory: (values) => read(values).servedDate ?? null,
       // The year is asked for here, and an answer without one is asked to
       // add it, so the step page never asks "Which year was that?" (review
       // 2026-10-13). The why says only what the site does with the date: it
@@ -159,7 +168,7 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       key: "upcomingCourtDate",
       // The court's own words (Jason, 2026-10-24): "Next court date", never "Court date".
       label: "Next court date",
-      fromStory: (values) => courtDateFromStory(storyOf(values)),
+      fromStory: (values) => read(values, "family").courtDate ?? null,
       question: "Is there a court date coming up? If so, what is it and when?",
       why: "A date that's coming up can change what you need to do first.",
       kind: "text",
@@ -168,7 +177,7 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
     {
       key: "goal",
       label: "What you want",
-      fromStory: (values) => goalFromStory(storyOf(values)),
+      fromStory: (values) => read(values).wants ?? null,
       question: "What would you like to happen in the end?",
       why: "What you're asking for shapes what goes in your papers.",
       kind: "longtext",
@@ -177,7 +186,7 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       key: "otherParty",
       label: "The other person",
       // The question asks for a name: only a name the story gives is offered.
-      fromStory: (values) => otherPartyNameFromStory(storyOf(values)),
+      fromStory: (values) => read(values, "family").otherParty ?? null,
       question: "What is the other person's name? You can leave this for later.",
       why: "It goes on your forms. Nothing else depends on it.",
       kind: "text",
@@ -186,6 +195,10 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       key: "urgent",
       label: "Anything urgent",
       question: "Is anything urgent, like a deadline this week, a safety worry, or someone about to move away with a child?",
+      // Safety already answered (the home page's question, or the safety box): asked without it (5c), and without "someone
+      // about to move away with a child", which is the same safety fact (the safety question asks about a child being taken
+      // away; Chrome pass 3 on #550, S7: asked after "No safety concerns").
+      askedWhenHeld: { fact: "safety", question: "Is anything urgent, like a deadline this week?" },
       why: "Urgent situations can have a faster route, and we show those first.",
       kind: "longtext",
     },
@@ -199,15 +212,16 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
   const fields: GuidedField[] = [
     {
       key: "facts",
-      label: "Your story",
-      question: "In your own words, what happened?",
+      label: STORY_LABEL,
+      question: STORY_LABEL,
       why: "Everything else we show you starts from this, so we read it before asking anything else.",
       kind: "longtext",
+      story: true,
     },
     {
       key: "yourRole",
       label: "Your side",
-      fromStory: (values) => civilRoleFromStory(storyOf(values)),
+      fromStory: (values) => read(values, "civil").side ?? null,
       question: "Are you suing someone, or is someone suing you?",
       why: "Your side decides which forms and deadlines are yours, so we only show you your own.",
       kind: "choice",
@@ -223,7 +237,7 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
       key: "documents",
       label: "What has been filed",
       // "i got served a statement of claim", "i want to sue the city" (walkthrough SW, 2026-10-13).
-      fromStory: (values) => offeredFiled(civilFiledFromStory(storyOf(values)), options.documents),
+      fromStory: (values) => offeredFiled(listOf(read(values, "civil").filedDocuments), options.documents),
       confirmAlone: true,
       question: "Has anything been filed with the court or served yet?",
       why: "This tells us where your case is, so the next step we show is the right one.",
@@ -235,7 +249,7 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
       key: "issues",
       label: "What the case is about",
       // The kinds the story's words name, offered for the person to confirm (Charter re-test).
-      fromStory: (values) => civilIssuesFromStory(storyOf(values)),
+      fromStory: (values) => read(values, "civil").claimKind ?? null,
       question: "What kind of case is it? Pick everything that fits.",
       why: "Different kinds of cases have different rules and forms, so this keeps what you see to the ones that fit.",
       kind: "multi",
@@ -244,7 +258,8 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
     {
       key: "amountClaimed",
       label: "Amount",
-      fromStory: (values) => amountFromStory(storyOf(values)),
+      // The one offer reader (caseFile/storyOffers.ts); this form holds the story only, not the saved reading.
+      fromStory: (values) => read(values, "civil").amount ?? null,
       question: "How much money is involved, if any?",
       why: "The amount decides which court and which procedure your case uses.",
       kind: "text",
@@ -252,7 +267,7 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
     {
       key: "serviceDetails",
       label: "When and how you were served",
-      fromStory: (values) => servedDateFromStory(storyOf(values)),
+      fromStory: (values) => read(values).servedDate ?? null,
       question: "When were you served with the papers, and how (in person, by mail, by email)?",
       why: "We use the date and the way you were served to count your deadline.",
       kind: "text",
@@ -269,7 +284,7 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
     {
       key: "legalRemedy",
       label: "What you want",
-      fromStory: (values) => goalFromStory(storyOf(values)),
+      fromStory: (values) => read(values).wants ?? null,
       question: "What would you like the court to order?",
       why: "What you're asking for shapes what goes in your papers.",
       kind: "longtext",
@@ -277,7 +292,8 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
     {
       key: "otherParty",
       label: "The other side",
-      fromStory: (values) => otherPartyFromStory(storyOf(values)),
+      // The chat's own stricter reader, then a business the story names (storyFacts.ts businessOtherSideIn).
+      fromStory: (values) => read(values, "civil").otherParty ?? null,
       question: "Who is the other side (a person or a business)? You can leave the name for later.",
       why: "It goes on your forms. Nothing else depends on it.",
       kind: "text",
@@ -301,12 +317,17 @@ export function isAnswered(field: GuidedField, value: GuidedValues[string]): boo
   return text.length > 0 && !(field.emptyValues ?? []).includes(text);
 }
 
-/** The questions still to ask, in order: applicable, unanswered, not skipped. */
-export function pendingFields(fields: readonly GuidedField[], values: GuidedValues, skipped: ReadonlySet<string>): GuidedField[] {
-  return fields.filter(
-    (field) => field.initial !== false && (field.when ? field.when(values) : true) && !isAnswered(field, values[field.key]) && !skipped.has(field.key),
-  );
+/**
+ * The words a field is asked in, from the record: a question that asks about a fact the case already holds as well as
+ * something else is asked without that part (askedWhenHeld). Family's "Is anything urgent, like a deadline this week, a
+ * safety worry, ...?" after the person said "No safety concerns" (Chrome check of #550, 5c).
+ */
+export function guidedQuestion(field: Pick<GuidedField, "question" | "askedWhenHeld">, file: CaseFile | null | undefined): string {
+  const held = field.askedWhenHeld && file ? factStatus(file, field.askedWhenHeld.fact) : null;
+  return held === "known" || held === "settled" ? field.askedWhenHeld!.question : field.question;
 }
+
+// The questions still to ask are decided by the one asker (caseFile/heldAnswer.ts missingFields).
 
 /** The Family and Civil forms' choice lists: one copy, read by the forms and by the review (plain words, not stored values). */
 /**
@@ -315,7 +336,9 @@ export function pendingFields(fields: readonly GuidedField[], values: GuidedValu
  */
 export const SMALL_CLAIMS_FILED_OPTIONS: GuidedChoice[] = [
   { value: "nothing", label: "Nothing filed yet" },
-  { value: "plaintiffs-claim", label: "Plaintiff’s Claim already filed / served" },
+  // The one label for a filed claim (the overview reads it through caseWords.ts documentInWords): filed only, as the
+  // question asks; service is its own answer (Chrome check of #541, 2 Nov: "filed and served" after service was No).
+  { value: "plaintiffs-claim", label: "Plaintiff’s Claim filed" },
   { value: "defence", label: "Defence already filed / received" },
   { value: "affidavit-service", label: "Affidavit of Service filed with the court" },
   { value: "offer-settle", label: "Offer to Settle prepared" },

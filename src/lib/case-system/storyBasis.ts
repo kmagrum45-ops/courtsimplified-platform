@@ -22,7 +22,9 @@ import type { Checkpoint } from "./intakeCheckpoint";
 import { guidedReadingOutdated, STORY_INPUT_KEYS, STORY_SECTION, storyOf } from "./intakeStory";
 import { sentences } from "./sentences";
 import { canonicalJson } from "./canonicalJson";
+import { isUnsureAnswer } from "./caseFile/unsureAnswer";
 import { situationAnswers, situationOf } from "./situation/situation";
+import { QUESTION_BANK } from "./intake/questionBank";
 
 /**
  * The answers the situation answers settle, wherever a route stored a copy (the Small Claims chat's
@@ -44,6 +46,7 @@ function settledByTheStart(checkpoint: Checkpoint): Set<string> {
 
 type Sections = Checkpoint["sections"];
 export const BASIS_SECTION = "storyBasis";
+const strings = (value: unknown): string[] => (Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : []);
 const object = (value: unknown): Record<string, unknown> => value && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : {};
 
 /** Navigation and display state that holds no answer, and facts about the person rather than the story (their own name and contact details, the court file number). */
@@ -142,7 +145,11 @@ export function staleAnswerKeys(checkpoint: Checkpoint): string[] {
   const noStory = storyVersion("");
   const settled = settledByTheStart(checkpoint);
   return Object.entries(object(checkpoint.sections[BASIS_SECTION]))
-    .filter(([answer, based]) => based !== version && based !== noStory && !settled.has(answer) && !empty(valueAt(checkpoint.sections, answer)))
+    // A "not sure" states no fact from the earlier story: never set aside to be given again (it is the quiet line, with
+    // no box to give it in, and never blocks Confirm; PR #541 story-pack:694, founder's rule of 31 Oct).
+    // Judged answer by answer: in a list of answers (the Small Claims chat keeps one, WHOLE) a "not sure" is kept and only
+    // the rest is set aside (Chrome check of #541, 2 Nov: the unsure goal went with the list and left the review).
+    .filter(([answer, based]) => based !== version && based !== noStory && !settled.has(answer) && !empty(withoutNotSure(valueAt(checkpoint.sections, answer))))
     .map(([answer]) => answer);
 }
 
@@ -152,9 +159,20 @@ function valueAt(sections: Sections, answer: string): unknown {
   return inner === undefined ? value : object(value)[inner];
 }
 
-/** The empty value of an answer's own type (so every screen showing it updates, not just forgets it). */
+/** One answer that is a "not sure": the words themselves, or a chat answer ({questionId, answerText}) whose words are. */
+const notSureItem = (item: unknown) => isUnsureAnswer(item) || isUnsureAnswer(object(item).answerText);
+/** What an answer states, without its "not sure" parts: a list keeps its other answers; a "not sure" alone states nothing. */
+function withoutNotSure(value: unknown): unknown {
+  if (Array.isArray(value)) return value.filter((item) => !notSureItem(item));
+  return isUnsureAnswer(value) ? "" : value;
+}
+
+/** The ids of the chat answers in a list that are a "not sure" (kept with them in guided.answeredIds). */
+const notSureIds = (answers: unknown) => new Set((Array.isArray(answers) ? answers : []).filter(notSureItem).map((item) => object(item).questionId).filter((id): id is string => typeof id === "string"));
+
+/** The empty value of an answer's own type (so every screen showing it updates, not just forgets it); a list keeps its "not sure" answers. */
 function emptied(value: unknown): unknown {
-  if (Array.isArray(value)) return [];
+  if (Array.isArray(value)) return value.filter(notSureItem);
   if (typeof value === "string") return "";
   if (typeof value === "boolean") return false;
   if (value && typeof value === "object") return {};
@@ -169,7 +187,7 @@ export function freshSections(checkpoint: Checkpoint): Sections {
   for (const answer of stale) {
     const [section, field, inner] = answer.split(".");
     sections[section] = { ...sections[section] };
-    if (inner === undefined) sections[section][field] = emptied(sections[section][field]);
+    if (inner === undefined) sections[section][field] = answer === "guided.answeredIds" ? strings(sections[section][field]).filter((id) => notSureIds(object(checkpoint.sections.guided).earlierAnswers).has(id)) : emptied(sections[section][field]);
     else sections[section][field] = { ...object(sections[section][field]), [inner]: emptied(object(sections[section][field])[inner]) };
   }
   return sections;
@@ -182,18 +200,82 @@ export function discardedFields(checkpoint: Checkpoint): [string, string][] {
   return [...fields].map(field => field.split(".") as [string, string]);
 }
 
-/** "Start the questions again": stale answers emptied and untagged, the question-and-answer state reset. */
+/**
+ * "Start the questions again" (site owner, 6 Nov 2026; replaces "stale answers emptied"): every answer the person
+ * gave or confirmed is kept, in every court -- the form answers, the review's, the chat's replies, the kind they
+ * confirmed, "not sure" -- and is now based on the story as it is, so nothing blocks the next step or is asked
+ * again. Only the question-and-answer state starts again, and with it what was a suggestion read from the old
+ * story: a kind not confirmed, the story card's drafts, a fact the chat only read from the story
+ * (test:restart-keeps-answers; founder's Chrome check of #543, 5 Nov, step 3).
+ *
+ * KNOWN GAP (site owner, 6 Nov 2026): the restart retags EVERY kept answer as based on the current story. So when the
+ * story is rewritten to contradict an answer (the story now says "no children", the answer says "one child"), the old
+ * answer is shown and used with nothing flagging the contradiction. That stays so until the prompt "your story now
+ * says X, you answered Y: keep or use?" is built; it is not built yet.
+ */
 export function discardStale(checkpoint: Checkpoint): Checkpoint {
-  const stale = staleAnswerKeys(checkpoint);
-  const sections = freshSections(checkpoint);
-  const basis = { ...(object(sections[BASIS_SECTION]) as Record<string, string>) };
-  for (const answer of stale) delete basis[answer];
-  sections[BASIS_SECTION] = basis;
+  const sections: Sections = { ...checkpoint.sections };
   for (const [section, keys] of Object.entries(CONVERSATION)) {
     if (section === "guided" && !sections.guided) continue; // only where that conversation exists
-    sections[section] = { ...sections[section], ...keys };
+    sections[section] = { ...sections[section], ...keys, ...(section === "guided" ? chatKept(sections.guided) : notSureKept(section, sections[section])) };
   }
+  // Each kept answer is based on the story as it is now; an answer the restart emptied (a chat reading) loses its tag.
+  const version = storyVersion(storyOf(sections));
+  const basis = { ...(object(sections[BASIS_SECTION]) as Record<string, string>) };
+  for (const answer of Object.keys(basis)) {
+    if (empty(withoutNotSure(valueAt(sections, answer))) && empty(valueAt(sections, answer))) delete basis[answer];
+    else basis[answer] = version;
+  }
+  sections[BASIS_SECTION] = basis;
   return { ...checkpoint, sections };
+}
+
+/** The chat's facts the start questions settle (the side, what is filed): never a reading of the story. */
+const SETTLED_CHAT_FACTS = ["role", "claimFiled", "claimServed", "defenceFiled"];
+
+/**
+ * What a restart keeps of the Small Claims chat: the person's replies (each {questionId, answerText}, "not sure"
+ * included), the answers they confirmed from the story card ("Confirmed from my story" rows), the facts those
+ * answers give (each question's captured field), the kind they confirmed, and what they declined.
+ */
+function chatKept(current: Record<string, unknown> | undefined): Record<string, unknown> {
+  const now = object(current);
+  const replies = (Array.isArray(now.earlierAnswers) ? now.earlierAnswers : []).filter((item) => typeof object(item).questionId === "string");
+  const confirmedRows = (Array.isArray(now.messages) ? now.messages : []).flatMap((message) => (Array.isArray(object(message).confirmed) ? object(message).confirmed as unknown[] : []));
+  const ids = [...new Set([...replies.map((item) => String(object(item).questionId)), ...confirmedRows.map((row) => object(row).questionId).filter((id): id is string => typeof id === "string")])];
+  const facts = object(now.facts);
+  const kept: Record<string, unknown> = {};
+  for (const id of ids) {
+    const field = QUESTION_BANK.find((question) => question.id === id)?.capturesField;
+    if (field && facts[field] !== undefined) kept[field] = facts[field];
+  }
+  for (const field of SETTLED_CHAT_FACTS) if (facts[field] !== undefined) kept[field] = facts[field];
+  const kind = object(now.matchedClaimType);
+  return {
+    earlierAnswers: replies,
+    answeredIds: ids,
+    facts: kept,
+    matchedClaimType: kind.userConfirmed === true ? now.matchedClaimType : null,
+    ...(Array.isArray(now.declinedIds) ? { declinedIds: now.declinedIds } : {}),
+  };
+}
+
+/**
+ * What "Start the questions again" keeps of the conversation: each "not sure" given, which is never asked again
+ * (site owner, 31 Oct) -- the chat's own "not sure" answers and the questions skipped one at a time. Chrome check
+ * of #541, 2 Nov: they were reset with the conversation, so the quiet line went in all three courts.
+ */
+function notSureKept(section: string, current: Record<string, unknown> | undefined): Record<string, unknown> {
+  const now = object(current);
+  if (section === "guided") {
+    const answers = (Array.isArray(now.earlierAnswers) ? now.earlierAnswers : []).filter(notSureItem);
+    return answers.length ? { earlierAnswers: answers, answeredIds: [...notSureIds(answers)] } : {};
+  }
+  if (section === "form-chat") {
+    const skipped = strings(now.skipped);
+    return skipped.length ? { skipped } : {};
+  }
+  return {};
 }
 
 /** The story's sentences, each as compared (case, spacing and punctuation ignored). */

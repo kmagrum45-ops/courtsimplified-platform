@@ -13,11 +13,12 @@
 import { sentences } from "../sentences";
 import { DANGER_WORDS } from "../intake/dangerWords";
 import { claimAmountFromStory, moneyMentions } from "../claimAmount";
-import { acknowledgedIn, againstThemIn, complaintIn, evidenceIn, injuryIn, lastPaymentIn, lostPayIn, otherSideIn, otherSideSaysIn, propertyIn, witnessIn, type StoryFact } from "./storyFacts";
+import { acknowledgedIn, againstThemIn, complaintIn, costsIn, evidenceIn, injuryIn, lastPaymentIn, lostPayIn, otherSideIn, otherSideSaysIn, propertyIn, witnessIn, type StoryFact } from "./storyFacts";
 import { otherPartyFromStory, otherPartyNameFromStory } from "../../../../app/builder/_components/storyAnswers";
-import { marriedWhereIn, type CaseFile } from "./caseFile";
+import { marriedWhereIn, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile";
+import { factStatus } from "./factStatus";
 
-export type StoryLine = { fact: "otherParty" | "marriedWhere" | "amountAgainst" | "amount" | "safety" | "injury" | "property" | "complaint" | "witness" | "lostPay" | "evidence" | "lastPayment" | "acknowledged" | "otherSideSays"; label: string; value: string; quote: string };
+export type StoryLine = { fact: "otherParty" | "marriedWhere" | "amountAgainst" | "amount" | "safety" | "injury" | "property" | "complaint" | "witness" | "lostPay" | "costs" | "evidence" | "lastPayment" | "acknowledged" | "otherSideSays"; label: string; value: string; quote: string };
 
 /**
  * Each fact the story gives, in plain words, with the sentence it came from as its quote
@@ -26,6 +27,8 @@ export type StoryLine = { fact: "otherParty" | "marriedWhere" | "amountAgainst" 
  */
 const FACT_LINES: [StoryLine["fact"], string, (story: string) => StoryFact | null][] = [
   ["lostPay", "Lost pay", lostPayIn],
+  // What they paid out, beside lost pay, never inside it (Chrome milestone test of #550, row 22).
+  ["costs", "Costs you paid", costsIn],
   ["injury", "Injury", injuryIn],
   ["property", "Property", propertyIn],
   ["complaint", "Complaint", complaintIn],
@@ -39,25 +42,28 @@ const FACT_LINES: [StoryLine["fact"], string, (story: string) => StoryFact | nul
 export function storyLines(story: string, file: CaseFile, responding: boolean): StoryLine[] {
   const lines: StoryLine[] = [];
   if (!story.trim()) return lines;
+  // A fact the person removed is never read back from the story (item 3, 6 Nov: Chrome check of #543, steps 5 and 6,
+  // "Your neighbour (Paul Brown) (from your story)" after the name was removed). A removal leaves it unanswered, marked.
+  const removed = (fact: string) => (file as unknown as Record<string, { removed?: true } | undefined>)[fact]?.removed === true;
   // Not answered, or answered "not sure" while the story says it (Charter case: "Not sure yet" beside a
   // story naming the police service and the badges): the story's words, marked as from the story.
-  if (file.otherParty.state !== "answered") {
+  if (file.otherParty.state !== "answered" && !removed("otherParty")) {
     // A business and the person behind it, or who they are to the person (storyFacts.ts), else the
     // older readers' name or role (Charter re-test 27 Oct: the other side was never listed).
     const named = otherSideIn(story) ?? otherPartyNameFromStory(story) ?? otherPartyFromStory(story);
     if (named) lines.push({ fact: "otherParty", label: "The other party", value: named.value, quote: named.quote });
   }
   // The amount the story gives, when no answer holds one: every case lists its loss (root cause 1).
-  if (!responding && file.amount.state !== "answered") {
+  if (!responding && file.amount.state !== "answered" && !removed("amount")) {
     const amount = claimAmountFromStory(story);
     if (amount) lines.push({ fact: "amount", label: "Amount", value: amount.value, quote: amount.quote });
   }
-  if (file.marriedWhere.state === "not-asked") {
+  if (file.marriedWhere.state === "not-asked" && !removed("marriedWhere")) {
     const said = marriedWhereIn(story);
     if (said) lines.push({ fact: "marriedWhere", label: "Where you married", value: said.place, quote: said.quote });
   }
   // The claim against them: the amount and who is suing, in their words (case 19).
-  if (responding && file.amount.state !== "answered") {
+  if (responding && file.amount.state !== "answered" && !removed("amount")) {
     const against = moneyMentions(story).filter((mention) => mention.kind === "against");
     if (against.length && new Set(against.map((mention) => mention.number)).size === 1) lines.push({ fact: "amountAgainst", label: "The claim against you", value: against[0].quote.trim(), quote: against[0].quote });
     else {
@@ -68,6 +74,7 @@ export function storyLines(story: string, file: CaseFile, responding: boolean): 
     }
   }
   for (const [fact, label, read] of FACT_LINES) {
+    if (removed(fact)) continue;
     const found = read(story);
     if (found) lines.push({ fact, label, value: found.value, quote: found.quote });
   }
@@ -75,4 +82,17 @@ export function storyLines(story: string, file: CaseFile, responding: boolean): 
   const safety = sentences(story).filter((sentence) => DANGER_WORDS.test(sentence) || /\b(?:called|phoned) (?:the )?police\b|\bpolice (?:came|were called)\b/i.test(sentence)).map((sentence) => sentence.trim());
   if (safety.length) lines.push({ fact: "safety", label: "Safety", value: safety.join(" "), quote: safety.join(" ") });
   return lines;
+}
+
+/**
+ * The case file's facts "What we have so far" lists (CaseFilePanel.tsx), from the one function (factStatus.ts): known or
+ * offered from the story is listed with its value; settled ("I'm not sure" confirmed) is the quiet line; one still to ask
+ * is not listed (an unconfirmed "not sure" was shown as settled: Chrome milestone pass 2, S1 case page). A fact the story
+ * tells (`toldInStory`) and settled "not sure" is listed once, in the story's words, never also as "Not sure yet".
+ * `shown`: whether the panel has words for the fact's value; `sameDay`: the conference is the next court date, listed once
+ * (caseFile.ts courtDateIsConference). Pure: test:story-facts runs it.
+ */
+export function listedSlotFacts(file: CaseFile, toldInStory: ReadonlySet<string>, shown: (fact: SlotFact) => boolean, sameDay: boolean): SlotFact[] {
+  const status = (fact: SlotFact) => factStatus(file, fact);
+  return SLOT_FACTS.filter((fact) => fact !== "story" && status(fact) !== "ask" && shown(fact) && !(fact === "courtDate" && sameDay) && !(status(fact) === "settled" && toldInStory.has(fact)));
 }

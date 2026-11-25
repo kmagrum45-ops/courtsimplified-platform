@@ -17,6 +17,9 @@
  * wrong court, so each signal needs the context that makes it unambiguous.
  */
 
+import { getOutOfScopeForum, type OutOfScopeForum, type OutOfScopeForumId } from "./outOfScopeForums";
+import { coherentForum, hasTenancyEndedSignal, keywordCourtArea, namesExistingSmallClaimsCase } from "./tribunalSignals";
+
 export type FixedRegimeId = "construction-lien" | "over-small-claims-limit";
 
 export type FixedRegimeRule = {
@@ -215,4 +218,46 @@ export function fixedRegimeFor(story: string): FixedRegime | null {
     };
   }
   return null;
+}
+
+// ---------------------------------------------------------------------------
+// The tribunals the law gives a matter to (C1, site owner 9 Nov 2026)
+// ---------------------------------------------------------------------------
+
+export type ExclusiveTribunal = {
+  /** The forum, with its own sourced redirectMessage (outOfScopeForums.ts): the only words shown about it. */
+  forum: OutOfScopeForum;
+  /**
+   * LTB only: the story says the tenancy has ended ("moved out", "former landlord"). Where a former tenancy belongs is
+   * a boundary this platform cannot source (tribunalSignals.ts TENANCY_ENDED_SIGNALS), so the same notice is shown
+   * but the questions are not held back; listed for the legal review.
+   */
+  ended: boolean;
+};
+
+/**
+ * The tribunal a story belongs to, decided in code from the person's first message, or null. Every screen runs this
+ * before its first follow-up question and before the AI reading (CLAUDE.md s. 2a: rules fixed by law run before the
+ * model and win over it): the home page, the reading card, the builder chat in all three courts and the Small Claims
+ * chat. A match is a suggestion the person can set aside ("Continue ... anyway", s. 4).
+ *
+ * The keyword pass and its guards are the court path classifier's own (tribunalSignals.ts): a commercial lease is not
+ * the LTB's, a WSIAT match needs a work connection, and a story naming a case already in Small Claims follows that
+ * case. Pure; no network, no model.
+ */
+export function exclusiveTribunalFor(story: string): ExclusiveTribunal | null {
+  const text = (story || "").trim();
+  if (!text) return null;
+  const named = getOutOfScopeForum(String(keywordCourtArea(text)).toLowerCase());
+  const forum = named ? coherentForum(named, text) : null;
+  if (!forum) return null;
+  if (forum.id === "ltb" && namesExistingSmallClaimsCase(text)) return null;
+  return { forum, ended: forum.id === "ltb" && hasTenancyEndedSignal(text) };
+}
+
+/** What a screen needs to show the one tribunal notice (TribunalNotice.tsx): the forum's own words, never the model's. */
+export type TribunalNoticeView = { id: OutOfScopeForumId; name: string; redirectMessage: string; ended: boolean };
+
+export function tribunalNoticeView(found: ExclusiveTribunal): TribunalNoticeView {
+  return { id: found.forum.id, name: found.forum.name, redirectMessage: found.forum.redirectMessage, ended: found.ended };
 }

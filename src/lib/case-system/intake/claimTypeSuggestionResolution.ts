@@ -22,6 +22,7 @@ import { classifyClaimTypeWithAi, type ClaimTypeAiSuggestion } from "./claimType
 import { buildEvidenceCategoryGuidance, type EvidenceGuidance } from "./evidenceGapDetector";
 import { buildClaimGuidance, type ClaimGuidance } from "./claimGuidance";
 import type { ClaimType } from "./claimTypes";
+import { claimTypeForSide, kindNameForSide } from "./roleView";
 import type { IntakeFacts } from "./selectQuestions";
 
 export type ClaimTypeSuggestionResolution =
@@ -58,10 +59,13 @@ export async function resolveClaimTypeSuggestion(
     const claimType = claimTypes.find((candidate) => candidate.id === claimTypeId);
     if (!claimType) return { outcome: "no-match" };
 
+    // As the person's side reads it (roleView.ts): a person being sued gets their side's name and guidance.
+    const responding = facts.role === "defendant";
+    const shownType = claimTypeForSide(claimType, responding);
     return {
       outcome: "confirmed",
-      claimType: { claimTypeId: claimType.id, claimTypeName: claimType.name },
-      ...(!intakeOnly ? { evidenceGuidance: buildEvidenceCategoryGuidance(claimType), claimGuidance: buildClaimGuidance(claimType, facts) } : {}),
+      claimType: { claimTypeId: claimType.id, claimTypeName: kindNameForSide(claimType.id, responding, claimType.name) },
+      ...(!intakeOnly ? { evidenceGuidance: buildEvidenceCategoryGuidance(shownType), claimGuidance: buildClaimGuidance(shownType, facts) } : {}),
     };
   }
 

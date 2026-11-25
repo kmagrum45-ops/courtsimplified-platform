@@ -7,16 +7,19 @@
  *    no forced "I do not know yet";
  *  - stored choices read "Not sure", not "not-sure"; Family's boxes carry the
  *    form's labels, not code names; empty optional details are hidden;
- *  - starting a new case warns before it discards an unsaved one.
+ *  - starting a new case warns before it discards an unsaved one;
+ *  - "Start the questions again" keeps every answer the person gave, even after the story is rewritten from start
+ *    to finish (site owner, 6 Nov). NOT BUILT YET: a "your story now says X, you answered Y: keep or use" prompt.
  */
 import { expect, test, type Page } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
 import { grantSiteAccess } from "./harness/siteAccess";
-import { confirmInitialInformation, saveCaseStory } from "./harness/intakeReview";
+import { confirmInitialInformation, saveCaseStory, tickIfAsked } from "./harness/intakeReview";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { passSituationGate } from "./harness/situation";
 import { serveFromThisCommit } from "./harness/thisCommitServer";
-import { confirmAndShowNextStep, expectServedNotAskedOnNextStep, expectServedOfferedOnceInReview } from "./harness/servedOnce";
+import { confirmAndShowNextStep, expectServedNotAskedInReview, expectServedNotAskedOnNextStep, openServedAdd } from "./harness/servedOnce";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -30,7 +33,7 @@ async function smallClaimsFromStart(page: Page, story = SC_STORY) {
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(story);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(story);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
@@ -49,22 +52,22 @@ test("Small Claims: suggestions from the story answer the initial questions; Con
   await expect(panel).toHaveAttribute("data-phase", "reviewing");
   const needs = page.getByTestId("intake-confirm-needs");
   await expect(needs).toContainText("What kind of dispute is this?");
-  await expect(needs).toContainText("I have reviewed this information");
+  await expect(needs).toContainText("a choice (Yes, No or I'm not sure) on each suggestion taken from the story");
   await expect(page.getByTestId("intake-confirm")).toBeDisabled();
 
   // The side was given in the situation questions (step 2): not asked again here.
   await expect(page.locator('[data-question="sc-orient-role"]')).toHaveCount(0);
   // Suggested, never chosen for the person.
   const kind = page.locator('[data-question="sc-orient-dispute-category"]');
-  await kind.getByRole("button", { name: /Work or a service you paid for .*\(suggested from your story\)/ }).click();
+  await kind.getByRole("button", { name: /^Yes: Work or a service you paid for/ }).click();
   const when = page.locator('[data-question="sc-orient-when-happened"]');
   if (await when.count()) {
-    await when.getByRole("button", { name: "Use “2026-05-12” (from your story)" }).click();
+    await when.getByRole("button", { name: "Yes: 2026-05-12" }).click();
   }
   // Choosing a side brings up the questions that depend on it (re-test round 7).
   // An amount already paid is never offered in one click (#471 re-test): it is typed.
   const amount = page.locator('[data-question="sc-amount-claimed"]');
-  await expect(amount.getByRole("button", { name: /from your story/ })).toHaveCount(0);
+  await expect(amount.getByRole("button", { name: /^Yes: / })).toHaveCount(0);
   await amount.getByLabel(/^Answer: /).fill("$9,000");
   await amount.getByLabel(/^Answer: /).press("Tab");
   // "Nothing filed yet" was given in the situation questions too.
@@ -73,8 +76,8 @@ test("Small Claims: suggestions from the story answer the initial questions; Con
   await outcome.fill("Synthetic: my $9,000 back");
   await outcome.press("Tab");
   await expect(page.locator('input[data-testid="intake-unknown"]:checked')).toHaveCount(0);
-  await expect(needs).not.toContainText("an answer");
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await expect(needs).toHaveCount(0);
+  await tickIfAsked(page);
   await expect(needs).toHaveCount(0);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
@@ -160,7 +163,7 @@ test("Small Claims: month and year are suggested; the side, given at the start, 
   test.setTimeout(180_000);
   await smallClaimsFromStart(page, "Synthetic story: a contractor took a $3,000 deposit and never did the work, in August 2026.");
   await page.getByTestId("intake-start-review").click();
-  await expect(page.locator('[data-question="sc-orient-when-happened"]').getByRole("button", { name: "Use “August 2026” (from your story)" })).toBeVisible();
+  await expect(page.locator('[data-question="sc-orient-when-happened"]').getByRole("button", { name: "Yes: August 2026" })).toBeVisible();
   await expect(page.locator('[data-question="sc-orient-role"]')).toHaveCount(0);
   await expect(page.getByTestId("situation-line")).toContainText("You're suing in Small Claims Court");
 });
@@ -189,7 +192,9 @@ test("Family: one sentence that answers several questions is confirmed once per 
     } else if (await skip.isVisible()) await skip.click();
     else break;
   }
-  expect(confirmed.sort(), "the sentence answers what was filed and the day, each once").toEqual(["filedDocuments", "servedDate"]);
+  // The day was answered "I don't know the date" at the start (receivedOn: unknown), so it is never offered again, not even
+  // from the story (site owner, 31 Oct; until then the story could offer it once): the sentence answers what was filed, once.
+  expect(confirmed.sort(), "the sentence answers what was filed, once; the day said not known is never offered again").toEqual(["filedDocuments"]);
   await expect(page.getByTestId("guided-form-from-story").filter({ hasText: quote })).toHaveCount(0);
   await expect(page.getByText("You told us there is already a court order")).toHaveCount(0);
 });
@@ -201,9 +206,9 @@ test("Small Claims guided: a saved story shows as text with Send and Edit; an ou
   await page.getByRole("button", { name: "Answer questions one at a time with AI help" }).click();
   const saved = page.getByTestId("guided-saved-story");
   await expect(saved, "the saved story is visible, not hidden in an empty-looking box").toContainText(SC_STORY);
-  await expect(page.getByRole("textbox", { name: "Tell us what happened..." })).toHaveCount(0);
+  await expect(page.getByRole("textbox", { name: STORY_LABEL, exact: true })).toHaveCount(0);
   await saved.getByRole("button", { name: "Edit my story" }).click();
-  await expect(page.getByRole("textbox", { name: "Tell us what happened..." }), "editing shows the story itself").toHaveValue(SC_STORY);
+  await expect(page.getByRole("textbox", { name: STORY_LABEL, exact: true }), "editing shows the story itself").toHaveValue(SC_STORY);
 
   // A conversation that read an earlier version of the story.
   await page.evaluate(() => {
@@ -243,16 +248,17 @@ test("Family: being served is not recorded as an application filed without its o
   await expect(panel).toHaveAttribute("data-phase", "reviewing");
   await expect(panel).toContainText("Day you were served");
   await expect(panel).toContainText("Your story says: “Synthetic story: I got served the papers last week.”");
-  // Offered once more in the review, as one field (Jason, 2026-10-24, option 1).
-  await expectServedOfferedOnceInReview(page);
+  // Not known at the start, so never asked again (site owner, 31 Oct; it replaced option 1's one
+  // more offer here): the quiet line in the box's place, and its "Add it" takes the day.
+  await expectServedNotAskedInReview(page);
   // Typed key by key (re-test round 4: spaces vanished while typing; pasting kept them).
-  const served = panel.getByRole("textbox", { name: "Review: Day you were served", exact: true });
+  const served = await openServedAdd(page);
   await served.click();
   await served.pressSequentially("October 12, 2026", { delay: 30 });
   await expect(served, "spaces survive typing").toHaveValue("October 12, 2026");
-  await served.press("Tab");
-  await expect(served).toHaveValue("October 12, 2026");
-  await expect(panel.getByRole("textbox", { name: "Review: Timeline", exact: true }), "the served date is kept in the Timeline, as typed").toHaveValue(/October 12, 2026/);
+  await served.press("Enter");
+  // Saved through the one change path: the review then shows it as the person's answer.
+  await expect(panel.locator('[data-testid=intake-entry-held][data-fact="servedDate"]').first(), "the day added is held as the person's answer, as typed").toContainText("October 12, 2026");
   expect(await panel.innerText()).not.toMatch(/Property \/ equalization|Matrimonial home \/ exclusive possession/);
   // Offered exactly once: the next step does not ask it again.
   await confirmAndShowNextStep(page);
@@ -342,6 +348,9 @@ test("Small Claims: questions that read an earlier story block every route's nex
 
 // Re-test round 7: the whole Small Claims restart path, start to next step, with no
 // "I do not know yet". The analysis is answered offline by the real engine.
+// Since 6 Nov (site owner) the restart keeps every answer the person gave, even when the story is rewritten from start
+// to finish; the person changes any of them in the review. NOT BUILT YET: a prompt saying "your story now says X, you
+// answered Y: keep yours or use the story's", so a rewrite that contradicts an answer is pointed out rather than kept quietly.
 test("Small Claims: answer, confirm, change the story, start again once, answer in the review, confirm, reach the next step", async ({ page }) => {
   test.setTimeout(240_000);
   await fakeAccount(page);
@@ -361,13 +370,13 @@ test("Small Claims: answer, confirm, change the story, start again once, answer 
   await page.getByTestId("intake-start-review").click();
   // The side and "nothing filed" were given in the situation questions (step 2).
   await expect(question("sc-orient-role")).toHaveCount(0);
-  await question("sc-orient-dispute-category").getByRole("button", { name: /Work or a service you paid for/ }).click();
+  await question("sc-orient-dispute-category").getByRole("button", { name: /^Work or a service you paid for/ }).click();
   await question("sc-orient-when-happened").getByTestId("intake-use-suggestion").click();
   await question("sc-amount-claimed").getByLabel(/^Answer: /).fill("$9,000");
   await question("sc-amount-claimed").getByLabel(/^Answer: /).press("Tab");
   await question("sc-remedy-sought").getByLabel(/^Answer: /).fill("Synthetic: my $9,000 back");
   await question("sc-remedy-sought").getByLabel(/^Answer: /).press("Tab");
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
 
@@ -382,27 +391,30 @@ test("Small Claims: answer, confirm, change the story, start again once, answer 
   await page.getByRole("button", { name: "Start the questions again from my story" }).filter({ visible: true }).first().click();
   await expect(page.getByTestId("story-changed-beside-button"), "one click clears the block").toHaveCount(0);
 
-  // The review asks again, with the story's date (June 10, not the July 10 due date) suggested.
-  await question("sc-orient-when-happened").getByRole("button", { name: "Use “2026-06-10” (from your story)" }).click();
+  // The restart keeps every answer the person gave, even for a story rewritten from start to finish (site owner, 6 Nov:
+  // test:restart-keeps-answers). It used to ask again here, offering the new story's date (2026-06-10) and taking new answers.
+  // Nothing from the earlier answers is asked again, and no suggestion from the new story replaces them.
+  await expect(question("sc-orient-when-happened").getByRole("button", { name: /^Yes: / }), "the date given is offered again from the new story").toHaveCount(0);
+  await expect(question("sc-orient-when-happened"), "the date given is not kept").toContainText("Answered: 2026-05-12");
+  await expect(panel, "the kind given is not kept").toContainText("Work or a service you paid for");
+  await expect(page.locator('[data-testid="intake-initial-question"][data-answered="false"]'), "a question the person answered is asked again").toHaveCount(0);
   // A story change never sets the situation answers aside: the side is not asked again.
   await expect(question("sc-orient-role")).toHaveCount(0);
-  await question("sc-orient-dispute-category").getByRole("button", { name: /Unpaid money owed to you/ }).click();
-  // Typed values count when the box is left; no separate button.
-  await question("sc-amount-claimed").getByLabel(/^Answer: /).fill("$8,500");
-  await question("sc-amount-claimed").getByLabel(/^Answer: /).press("Tab");
   await expect(question("sc-claim-filed")).toHaveCount(0);
-  await question("sc-remedy-sought").getByLabel(/^Answer: /).fill("Synthetic: payment of the invoice");
-  await question("sc-remedy-sought").getByLabel(/^Answer: /).press("Tab");
+  await expect(panel.getByLabel("Review: What is the total dollar amount you are claiming?"), "the amount given is not kept").toHaveValue("$9,000");
+  await expect(panel.getByLabel("Review: What outcome are you asking the court to order?"), "the outcome given is not kept").toHaveValue("Synthetic: my $9,000 back");
   await expect(page.locator('input[data-testid="intake-unknown"]:checked'), "no 'I do not know yet' needed").toHaveCount(0);
-  await expect(page.getByTestId("intake-confirm-needs")).not.toContainText("an answer");
-  await page.getByTestId("intake-review-acknowledgement").check();
-  await page.getByTestId("intake-confirm").click();
+  if (await panel.getAttribute("data-phase") !== "user-confirmed") {
+    await expect(page.getByTestId("intake-confirm-needs")).toHaveCount(0);
+    await tickIfAsked(page);
+    await page.getByTestId("intake-confirm").click();
+  }
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
 
-  // The next step, built from these answers.
+  // The next step, built from the answers kept: the $9,000 the person gave, until they change it.
   await page.getByTestId("intake-continue-guidance").click();
   await expect(page).toHaveURL(/step=results/, { timeout: 60_000 });
-  expect(String((sent as Record<string, unknown> | null)?.amountClaimed ?? ""), "the review's amount reaches the analysis").toContain("8,500");
+  expect(String((sent as Record<string, unknown> | null)?.amountClaimed ?? ""), "the amount kept reaches the analysis").toContain("9,000");
 });
 
 // #469 re-test: civil's remaining questions had only "I do not know yet" boxes.

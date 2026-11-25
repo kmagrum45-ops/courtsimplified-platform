@@ -32,7 +32,7 @@ export function roleInWords(role: string, startWords?: string | null): string {
 }
 
 const DOCUMENT_WORDS: Record<string, string> = {
-  "plaintiffs-claim": "Plaintiff’s Claim filed and served",
+  // "plaintiffs-claim" has no copy here: its one label is the form's (guidedFields.ts), read through optionWords.
   "affidavit-service": "Affidavit of Service filed with the court",
   "statement-claim": "Statement of Claim filed or served",
   "statement-defence": "Statement of Defence filed or received",

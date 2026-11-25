@@ -44,6 +44,7 @@ import { PDFDocument, StandardFonts, rgb, type PDFFont, type PDFPage } from "pdf
 import { exhibitLabel } from "./exhibitNumbering";
 import { formatForCourt, type DatePrecision } from "../case-system/dates";
 import { documentTypeById } from "./documentTypes";
+import { printableValues } from "../case-system/forms/printableText";
 
 export type ExhibitBookDocument = {
   id: string;
@@ -70,6 +71,8 @@ export type ExhibitBookCase = {
   courtName: string | null;
   plaintiff: string | null;
   defendant: string | null;
+  /** The court's words for each side (parties.ts sideWordsOf): Family's applicant and respondent. */
+  sideWords?: { starts: string; responds: string };
 };
 
 export type ExhibitIndexEntry = {
@@ -157,6 +160,19 @@ export async function buildExhibitBook(
   documents: readonly ExhibitBookDocument[],
   options: { preparedOn?: string } = {},
 ): Promise<ExhibitBook> {
+  /*
+   * The person's words the book prints (the case details and each document's description) go through the one printing
+   * gate first, all at once, so a refusal names every character (printableText.ts; site owner, 16 Nov 2026). pdf-lib's
+   * Helvetica prints French; a character it cannot (Chinese, for example) stops the book with UnprintableText, which
+   * the route turns into the exhibit-book message, instead of a raw encoding error midway through.
+   */
+  const printed = printableValues(
+    Object.fromEntries([...Object.entries(caseDetails), ...documents.map((document, n) => [`document ${n}`, describe(document)])]) as Record<string, string | null>,
+    "pages",
+  );
+  caseDetails = { title: printed.title ?? "", courtFileNumber: printed.courtFileNumber, courtName: printed.courtName, plaintiff: printed.plaintiff, defendant: printed.defendant };
+  documents = documents.map((document, n) => ({ ...document, userLabel: printed[`document ${n}`] }));
+
   const pdf = await PDFDocument.create();
 
   const regular = await pdf.embedFont(StandardFonts.Helvetica);
@@ -206,7 +222,7 @@ export async function buildExhibitBook(
       maxWidth: PAGE_WIDTH - MARGIN * 2,
     });
     y -= 6;
-    cover.drawText("Plaintiff", { x: PAGE_WIDTH - MARGIN - 60, y: y + 15, size: 10, font: regular });
+    cover.drawText(caseDetails.sideWords?.starts ?? "Plaintiff", { x: PAGE_WIDTH - MARGIN - 60, y: y + 15, size: 10, font: regular });
     y -= 14;
     cover.drawText("- and -", { x: MARGIN, y, size: 10, font: regular });
     y -= 20;
@@ -217,7 +233,7 @@ export async function buildExhibitBook(
       font: regular,
       maxWidth: PAGE_WIDTH - MARGIN * 2,
     });
-    cover.drawText("Defendant", { x: PAGE_WIDTH - MARGIN - 62, y: y + 15, size: 10, font: regular });
+    cover.drawText(caseDetails.sideWords?.responds ?? "Defendant", { x: PAGE_WIDTH - MARGIN - 62, y: y + 15, size: 10, font: regular });
     y -= 40;
   }
 

@@ -13,6 +13,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
 import { errorRow, recordServerError, scrubErrorMessage } from "../../src/lib/monitoring/serverErrorLog";
+import { SiteMessageError } from "../../src/lib/logging/safeLog";
 
 let failures = 0;
 async function check(name: string, fn: () => void | Promise<void>) {
@@ -45,7 +46,12 @@ async function main() {
     assert.equal(row.route, "/api/case/understand");
     assert.equal(row.method, "POST");
     assert.equal(row.kind, "route:TypeError");
-    assert.equal(row.message, "boom");
+    // An error's own message can carry the person's words, which scrubbing does not catch: only its name is kept
+    // (site owner, 16 Nov 2026; safeLog.ts). A message the site wrote itself is kept (scrubbed).
+    assert.ok(!row.message.includes("boom"), row.message);
+    assert.equal(row.message, "TypeError");
+    const site = errorRow(new SiteMessageError("case delete: 1 of 3 stored file(s) could not be removed, call 613-555-0199"), {}, {});
+    assert.ok(site.message.startsWith("case delete: 1 of 3") && !site.message.includes("555"), site.message);
   });
 
   await check("writing never throws, even with no database", async () => {

@@ -1,0 +1,1031 @@
+[
+  {
+    "kind": "intake-state",
+    "file": "app/_components/CaseUnderstandingCard.tsx",
+    "target": "\"home-card\", \"replies\"",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/_components/HomeLocationGate.tsx",
+    "target": "\"home\", \"suggestion\"",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/_components/HomeLocationGate.tsx",
+    "target": "\"home\", \"understood\"",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/_components/HomeLocationGate.tsx",
+    "target": "\"home\", \"readFrom\"",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/_components/HomeLocationGate.tsx",
+    "target": "\"home\", \"understoodAnswers\"",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/_components/HomeLocationGate.tsx",
+    "target": "useCaseLocation",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/_components/HomeLocationGate.tsx",
+    "target": "useStory",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/_components/HomeLocationGate.tsx",
+    "target": "useSituation",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/_components/HomeLocationGate.tsx",
+    "target": "useIntakeRef(\"home\", \"draftAnswers\")",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "recovery-put",
+    "file": "app/_components/HomeLocationGate.tsx",
+    "target": "STORY_SECTION, \"text\"",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "recovery-put",
+    "file": "app/_components/HomeLocationGate.tsx",
+    "target": "STORY_SECTION, \"location\"",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "recovery-put",
+    "file": "app/_components/HomeLocationGate.tsx",
+    "target": "\"home\", \"draftAnswers\"",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "tab-copy",
+    "file": "app/_components/HomeLocationGate.tsx",
+    "target": "writeIntakeSession",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/_components/IntakeRecovery.tsx",
+    "target": "SITUATION_SECTION, \"keptAgainst\"",
+    "count": 1,
+    "group": "rails"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/_components/IntakeRecovery.tsx",
+    "target": "section, field",
+    "count": 1,
+    "group": "rails"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/_components/IntakeRecovery.tsx",
+    "target": "STORY_SECTION, \"text\"",
+    "count": 1,
+    "group": "rails"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/_components/IntakeRecovery.tsx",
+    "target": "STORY_SECTION, \"location\"",
+    "count": 1,
+    "group": "rails"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/_components/IntakeRecovery.tsx",
+    "target": "section, \"input\"",
+    "count": 1,
+    "group": "rails"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/_components/IntakeRecovery.tsx",
+    "target": "SITUATION_SECTION, SITUATION_FIELD",
+    "count": 1,
+    "group": "rails"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/_components/IntakeRecovery.tsx",
+    "target": "useSituation",
+    "count": 1,
+    "group": "rails"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/_components/IntakeRecovery.tsx",
+    "target": "useStory",
+    "count": 3,
+    "group": "rails"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/_components/IntakeRecovery.tsx",
+    "target": "useCaseLocation",
+    "count": 1,
+    "group": "rails"
+  },
+  {
+    "kind": "recovery-put",
+    "file": "app/_components/IntakeRecovery.tsx",
+    "target": "court, \"mode\"",
+    "count": 1,
+    "group": "rails"
+  },
+  {
+    "kind": "recovery-put",
+    "file": "app/_components/IntakeRecovery.tsx",
+    "target": "section, field",
+    "count": 3,
+    "group": "rails"
+  },
+  {
+    "kind": "checkpoint-save",
+    "file": "app/_components/IntakeRecovery.tsx",
+    "target": "createCheckpointCase",
+    "count": 1,
+    "group": "rails"
+  },
+  {
+    "kind": "checkpoint-save",
+    "file": "app/_components/IntakeRecovery.tsx",
+    "target": "saveCheckpoint",
+    "count": 1,
+    "group": "rails"
+  },
+  {
+    "kind": "checkpoint-save",
+    "file": "app/_components/IntakeRecovery.tsx",
+    "target": "saveReviewTransition",
+    "count": 1,
+    "group": "rails"
+  },
+  {
+    "kind": "tab-copy",
+    "file": "app/_components/IntakeRecovery.tsx",
+    "target": "writeIntakeSession",
+    "count": 3,
+    "group": "rails"
+  },
+  {
+    "kind": "tab-copy",
+    "file": "app/_components/IntakeRecovery.tsx",
+    "target": "setItem(COURT_PATH_FINDER_KEY)",
+    "count": 1,
+    "group": "rails"
+  },
+  {
+    "kind": "tab-copy",
+    "file": "app/_components/NotSureCourtGuide.tsx",
+    "target": "setItem(COURT_PATH_FINDER_KEY)",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "update-master",
+    "file": "app/api/case/read/route.ts",
+    "target": "updateMasterResult",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "update-master",
+    "file": "app/api/cases/drafts/route.ts",
+    "target": "updateMasterResult",
+    "count": 2,
+    "group": "G6"
+  },
+  {
+    "kind": "update-master",
+    "file": "app/api/cases/form-applicability/route.ts",
+    "target": "updateMasterResult",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "cases-write",
+    "file": "app/api/cases/route.ts",
+    "target": "upsert",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "cases-write",
+    "file": "app/api/cases/route.ts",
+    "target": "delete",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/CivilIntake.tsx",
+    "target": "\"civil\", \"mode\"",
+    "count": 1,
+    "group": "G4"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/CivilIntake.tsx",
+    "target": "\"civil\", \"personSet\"",
+    "count": 1,
+    "group": "G4"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/CivilIntake.tsx",
+    "target": "\"civil\", \"personDocuments\"",
+    "count": 1,
+    "group": "G4"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/builder/_components/CivilIntake.tsx",
+    "target": "useInputWithStory(\"civil\")",
+    "count": 1,
+    "group": "G4"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/builder/_components/CivilIntake.tsx",
+    "target": "useSituation",
+    "count": 1,
+    "group": "G4"
+  },
+  {
+    "kind": "recovery-put",
+    "file": "app/builder/_components/CivilIntake.tsx",
+    "target": "\"civil\", \"personSet\"",
+    "count": 1,
+    "group": "G4"
+  },
+  {
+    "kind": "recovery-put",
+    "file": "app/builder/_components/CivilIntake.tsx",
+    "target": "\"civil\", \"personDocuments\"",
+    "count": 1,
+    "group": "G4"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/builder/_components/CourtAssistantChat.tsx",
+    "target": "useSituation",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "tab-copy",
+    "file": "app/builder/_components/CourtAssistantChat.tsx",
+    "target": "setItem(args.storageKey)",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "tab-copy",
+    "file": "app/builder/_components/CourtAssistantChat.tsx",
+    "target": "setItem(ROUTE_TRANSFER_KEY)",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"mode\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"caseStage\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"yourRole\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"filedDocuments\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"issues\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"yourName\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"otherParty\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"childrenInfo\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"currentLivingSituation\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"pastLivingHistory\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"timeline\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"evidence\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"missingEvidence\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"goal\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"urgent\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"safetyConcerns\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"propertyHomeDetails\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"upcomingCourtDate\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"adoptionDetails\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"uploadedEvidenceFiles\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"safety\", \"checkUnavailable\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"personSet\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"personDocuments\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "useSituation",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "useStory",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "recovery-put",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"personSet\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "recovery-put",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "target": "\"family\", \"personDocuments\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/builder/_components/FamilyStatusTriage.tsx",
+    "target": "useSituation",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedFormChat.tsx",
+    "target": "\"form-chat\", \"skipped\"",
+    "count": 1,
+    "group": "G4"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedFormChat.tsx",
+    "target": "\"form-chat\", \"heard\"",
+    "count": 1,
+    "group": "G4"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedFormChat.tsx",
+    "target": "\"form-chat\", \"changing\"",
+    "count": 1,
+    "group": "G4"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedFormChat.tsx",
+    "target": "\"form-chat\", \"notFromStory\"",
+    "count": 1,
+    "group": "G4"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedFormChat.tsx",
+    "target": "\"form-chat\", \"needsMore\"",
+    "count": 1,
+    "group": "G4"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedFormChat.tsx",
+    "target": "\"form-chat\", \"edited\"",
+    "count": 1,
+    "group": "G4"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedFormChat.tsx",
+    "target": "\"form-chat\", \"knownAtStart\"",
+    "count": 1,
+    "group": "G4"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedFormChat.tsx",
+    "target": "\"form-chat\", \"drafts\"",
+    "count": 1,
+    "group": "G4"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"facts\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"answeredIds\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"currentQuestion\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"messages\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"asksForAdvice\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"inputText\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"halted\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"intakeComplete\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"started\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"evidenceGuidance\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"claimGuidance\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"matchedClaimType\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"pendingSuggestion\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"rejectedSuggestionIds\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"noClaimTypeMatch\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"depthQuestions\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"depthIndex\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"depthStateMap\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"depthActive\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"completionPayload\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"heldPayload\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"proposalDrafts\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"proposalMode\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"reproposed\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"earlierAnswers\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"declinedIds\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "\"guided\", \"readFrom\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "useSituation",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "useStory",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "recovery-put",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "target": "CASE_FILE_SECTION, \"turnedDown\"",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/MunicipalNoticeFirst.tsx",
+    "target": "\"urgent-warning\", \"municipalNotice\"",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/builder/_components/SmallClaimsIntake.tsx",
+    "target": "useInputWithStory(\"small-claims\")",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/builder/_components/SmallClaimsIntake.tsx",
+    "target": "useSituation",
+    "count": 1,
+    "group": "G3"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/SourcedQuestions.tsx",
+    "target": "\"sourced\", \"state\"",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/SourcedQuestions.tsx",
+    "target": "\"sourced\", \"questions\"",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/SourcedQuestions.tsx",
+    "target": "\"sourced\", \"answers\"",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/SourcedQuestions.tsx",
+    "target": "\"sourced\", \"askedFor\"",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/SourcedQuestions.tsx",
+    "target": "\"sourced\", \"index\"",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "recovery-put",
+    "file": "app/builder/_components/SourcedQuestions.tsx",
+    "target": "\"sourced\", \"askedFor\"",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/_components/StoryEditor.tsx",
+    "target": "section, draftField",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/page.tsx",
+    "target": "\"builder\", \"triageState\"",
+    "count": 1,
+    "group": "G5"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/page.tsx",
+    "target": "\"builder\", \"familyQuestionsDone\"",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/page.tsx",
+    "target": "\"safety\", \"checkUnavailable\"",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/page.tsx",
+    "target": "\"builder\", \"intakeCity\"",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/builder/page.tsx",
+    "target": "\"builder\", \"startedModes\"",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/builder/page.tsx",
+    "target": "useSituation",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/builder/page.tsx",
+    "target": "useCaseLocation",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "intake-hook",
+    "file": "app/builder/page.tsx",
+    "target": "useStory",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "recovery-put",
+    "file": "app/builder/page.tsx",
+    "target": "\"builder\", \"step\"",
+    "count": 2,
+    "group": "G6"
+  },
+  {
+    "kind": "update-master",
+    "file": "app/builder/page.tsx",
+    "target": "updateMasterResult",
+    "count": 2,
+    "group": "G6"
+  },
+  {
+    "kind": "cases-write",
+    "file": "app/builder/page.tsx",
+    "target": "update",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "tab-copy",
+    "file": "app/builder/page.tsx",
+    "target": "setItem(COURT_PATH_FINDER_KEY)",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "tab-copy",
+    "file": "app/login/page.tsx",
+    "target": "writeIntakeSession",
+    "count": 2,
+    "group": "G6"
+  },
+  {
+    "kind": "tab-copy",
+    "file": "src/lib/case-system/builderDraftStorage.ts",
+    "target": "setItem(activeCaseIdStorageKey(userId))",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "tab-copy",
+    "file": "src/lib/case-system/builderDraftStorage.ts",
+    "target": "setItem(builderDraftStorageKey(userId))",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "tab-copy",
+    "file": "src/lib/case-system/builderDraftStorage.ts",
+    "target": "setItem(GUEST_INTAKE_SESSION_STORAGE_KEY)",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "tab-copy",
+    "file": "src/lib/case-system/guestCarry.ts",
+    "target": "setItem(GUEST_CARRY_KEY)",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "update-master",
+    "file": "src/lib/case-system/intake/analysisSafetyGate.ts",
+    "target": "updateMasterResult",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "tab-copy",
+    "file": "src/lib/case-system/intake/safetyNoticeOnce.ts",
+    "target": "setItem(SAFETY_NOTICE_SHOWN_KEY)",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "update-master",
+    "file": "src/lib/case-system/intakeCheckpoint.ts",
+    "target": "updateMasterResult",
+    "count": 2,
+    "group": "rails"
+  },
+  {
+    "kind": "cases-write",
+    "file": "src/lib/case-system/intakeCheckpoint.ts",
+    "target": "insert",
+    "count": 1,
+    "group": "rails"
+  },
+  {
+    "kind": "tab-copy",
+    "file": "src/lib/case-system/intakeCheckpoint.ts",
+    "target": "setItem(GUEST_INTAKE_SESSION_KEY)",
+    "count": 1,
+    "group": "rails"
+  },
+  {
+    "kind": "tab-copy",
+    "file": "src/lib/case-system/storage/pendingPositionSaves.ts",
+    "target": "setItem(keyFor(caseId, kind))",
+    "count": 1,
+    "group": "G6"
+  },
+  {
+    "kind": "cases-write",
+    "file": "src/lib/case-system/updateCaseRecord.ts",
+    "target": "update",
+    "count": 1,
+    "group": "rails"
+  },
+  {
+    "kind": "tab-copy",
+    "file": "src/lib/content-library/acknowledgement.ts",
+    "target": "setItem(keyFor(userId))",
+    "count": 1,
+    "group": "outside"
+  },
+  {
+    "kind": "intake-state",
+    "file": "app/_components/AskedField.tsx",
+    "target": "\"small-claims\", \"filledFromCaseFile\"",
+    "count": 1,
+    "group": "outside"
+  }
+]

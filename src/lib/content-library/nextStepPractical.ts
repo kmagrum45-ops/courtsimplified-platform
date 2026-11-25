@@ -239,6 +239,18 @@ export function familyFeeNotesFor(claims: FamilyClaims | null, exemptionLeads: b
  * Divorce Act. Support under FLA Part III is inside the exemption, so the
  * fold's condition names a divorce, property and the home, not support.
  */
+/**
+ * The card's fixed sentences (NextStepPractical.tsx), kept here so the review
+ * inventory indexes the exact words the card shows (contentInventory, type
+ * "next-step-card"). Moved from the component unchanged, 2026-10-29.
+ */
+export const CARD_TEXT = {
+  formsIfClaimed: "Only if the case has that kind of claim",
+  formsSource: "From the official Ontario Court Forms site. Check the version date there before you file.",
+  garnisheeChoice: "The rules give these ways forward; which to use is your choice.",
+  officesSource: "The court named on your papers is the one for your case.",
+} as const;
+
 export const FEES_IF_CLAIMED_LABEL = "Only if the case also asks for a divorce, or claims property or the matrimonial home";
 
 /**
@@ -504,6 +516,8 @@ export const SC_COURIER_RULE = scrCite(
   "r. 8.07.1 (2)",
   "Service of a document sent by courier is deemed to be effective on the fifth day following the date on which the courier verifies to the sender that the document was delivered.",
 );
+/** The courier line the mail timing lines carry; a constant so the review inventory can index it. */
+export const SC_COURIER_LINE: PlainLine = { say: "A courier is the same: service counts on the fifth day after the courier confirms delivery.", cite: SC_COURIER_RULE };
 export const SC_SOONER_WAYS: PlainLine[] = [
   {
     say: "By email, service counts on the day the email is sent, or the next day if it is sent between 4 p.m. and midnight. It goes to the last email address the other side or their representative gave.",
@@ -558,6 +572,15 @@ function scrCite(pinpoint: string, quote: string): RuleCitation {
  */
 /** Civil (Rules of Civil Procedure): "deliver" is "serve and file with proof of service" (r. 1.03 (1)); a motion to be made is filed. Met by filing; never mail-timed (that is Small Claims only). */
 const CIVIL_FILES: string[] = [
+  // Approved legal changes of 2026-11-21 (changes 118, 120, 121): each classified as its motion-scheduled twin is.
+  "deadline:civil:strike-motion-record-7-days",
+  "deadline:civil:strike-confirmation-5-days",
+  "deadline:civil:strike-responding-factum-4-days",
+  "deadline:civil:strike-responding-confirmation-4-days",
+  "deadline:civil:injunction-record-factum-7-days",
+  "deadline:civil:injunction-confirmation-5-days",
+  "deadline:civil:injunction-responding-factum-4-days",
+  "deadline:civil:injunction-responding-confirmation-4-days",
   "deadline:civil:associate-judge-appeal-record-7-days",
   "deadline:civil:associate-judge-appeal-respondent-4-days",
   "deadline:civil:basic-limitation",
@@ -686,6 +709,10 @@ const CIVIL_NOT_TIMED: Record<string, string> = {
   "deadline:civil:toronto-notice-10-days": "a notice given before suing, outside the court; nothing is filed with the court",
   "deadline:civil:defence:plaintiff-view": "binds the other side, not the person",
   "deadline:civil:simplified-set-down-180-days:defendant-view": "binds the other side, not the person",
+  // Changes 119 and 123 (2026-11-21): the time is stated in words (forthwith; the longer of two times), with no number.
+  "deadline:civil:amended-pleading-serve-forthwith": "the rule says forthwith and sets no fixed period, so no day is ever counted",
+  "deadline:civil:amended-pleading-respond": "the time is the longer of what was left to answer the original and 10 days, stated in words; no single day is counted",
+  "deadline:civil:cpl-order-serve-forthwith": "the rule says forthwith and sets no fixed period, so no day is ever counted",
 };
 
 /** Small Claims deadlines that time nothing, each with why. */
@@ -704,6 +731,8 @@ const SC_NOT_TIMED: Record<string, string> = {
   "deadline:trial-summons-10-days": "a summons is served personally (r. 8.01 (7)) and is not filed",
   "deadline:trial-summons-10-days:defendant": "a summons is served personally (r. 8.01 (7)) and is not filed",
   "deadline:set-aside-as-soon-as-possible": "the rule sets no fixed period, so no day is ever counted",
+  // Change 18 (2026-11-21): the approved paragraph states the 30 days in its words; the missed-trial step counts them.
+  "deadline:set-aside-judgment-after-missed-trial": "the 30 days are stated in the approved words, with no number to count; both:missed-trial counts them (deadline:set-aside-after-missed-trial)",
   "deadline:appeal-notice": "an appeal is started in the Divisional Court under the Rules of Civil Procedure (r. 61.04), not filed in the Small Claims court file these lines describe",
 };
 
@@ -784,6 +813,7 @@ export const PERSON_SERVE_OR_FILE: Record<string, { files: boolean; serves: bool
   "deadline:sc-amend-30-days-before-trial": { files: true, serves: true },
   "deadline:sc-strike-motion-serve-7-days": { files: false, serves: true },
   "deadline:sc-strike-motion-file-3-days": { files: true, serves: false },
+  "deadline:sc-strike-motion-response-2-days": { files: true, serves: true },
   "deadline:sc-dismissal-submission-20-days": { files: true, serves: false },
 };
 
@@ -820,7 +850,7 @@ export function mailTimingLines(today: string, deadline: string): PlainLine[] {
     : `Service by mail counts only on the fifth day after mailing. To count by your last day, ${formatLongDate(deadline)}, it must be mailed no later than ${lastMailing === today ? "today, " : ""}${formatLongDate(lastMailing)}.`;
   return [
     { say, cite: SC_MAIL_RULE },
-    { say: "A courier is the same: service counts on the fifth day after the courier confirms delivery.", cite: SC_COURIER_RULE },
+    SC_COURIER_LINE,
     ...SC_SOONER_WAYS,
   ];
 }
@@ -1412,7 +1442,7 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "civil:before-filing:notice-required-before-suing": { forms: [], fees: [], files: false, serve: null, also: [MUNICIPAL_NOTICE, TORONTO_NOTICE, SNOW_ICE_NOTICE, S_CLPA_18_1_NOTICE] },
   "civil:before-filing:limitation-period-may-have-passed": NOTHING,
   // ---- Civil: plaintiff
-  "civil:plaintiff:claim-drafted-not-issued": { forms: ["14A", "14C"], fees: ["civ-claim"], files: true, serve: "originating", also: [CIV_START, CIV_SERVE_IN_SIX_MONTHS] },
+  "civil:plaintiff:claim-drafted-not-issued": { forms: ["14A", "14C", "14D", "14F"], fees: ["civ-claim"], files: true, serve: "originating", also: [CIV_START, CIV_SERVE_IN_SIX_MONTHS] },
   "civil:plaintiff:claim-issued-not-served": { forms: ["16B", "14D"], fees: [], files: true, serve: "originating" },
   // A motion on notice; how it is served on the Crown is in s. 15 of the Crown Liability and Proceedings Act, quoted in the step's own rules.
   "civil:plaintiff:crown-misfeasance-leave-needed": { forms: ["37A"], fees: ["civ-motion"], files: true, serve: null, also: [CIV_MOTION] },
@@ -1657,7 +1687,7 @@ export function supportOnly(claims: FamilyClaims): boolean {
  * folded under r. 13 (1) (a) and (b) only when the person's words show no
  * support or money at all. Never removed.
  */
-const FINANCIAL_STATEMENT_WHEN: PlainLine = {
+export const FINANCIAL_STATEMENT_WHEN: PlainLine = {
   say: "A financial statement (Form 13 or 13.1) is needed when an application, answer or motion claims support or property, or the matrimonial home. If the other side's papers make that claim against you, you must serve and file one within your time to answer, even if you file no answer.",
   cite: flr(
     "r. 13 (1) (a), (b)",
@@ -1681,7 +1711,7 @@ export const FINANCIAL_STATEMENT_WHEN_RESPONDING_MOTION: PlainLine = {
 export function financialStatementNoteFor(stepId: string): PlainLine {
   return /motion-to-change|change-final-order/.test(stepId) ? FINANCIAL_STATEMENT_WHEN_RESPONDING_MOTION : FINANCIAL_STATEMENT_WHEN_RESPONDING;
 }
-const PARENTING_AFFIDAVIT_WHEN: PlainLine = {
+export const PARENTING_AFFIDAVIT_WHEN: PlainLine = {
   say: "The parenting affidavit (Form 35.1) is needed when an application, answer or motion to change claims decision-making responsibility, parenting time or contact.",
   cite: FAM_PARENTING_AFFIDAVIT,
 };
@@ -1826,11 +1856,11 @@ function claimKindsNamedIn(what: string): ("parenting" | "support" | "property" 
  * r. 5 (1)). The offices for the person's city come from the courts' own
  * location pages (courts/courtLocations.ts, checked by test:court-locations).
  */
-const FAMILY_SAME_PLACE: PlainLine = {
+export const FAMILY_SAME_PLACE: PlainLine = {
   say: "Every step in your case, except enforcing an order, takes place in the municipality where the case was started (or moved to). The court is named on the papers.",
   cite: flr("r. 5 (4)", "All steps in the case, other than enforcement, shall take place in the municipality where the case is started or transferred."),
 };
-const FAMILY_CHANGE_PLACE: PlainLine[] = [
+export const FAMILY_CHANGE_PLACE: PlainLine[] = [
   {
     say: "A motion to change is started where a new case would be.",
     cite: flr("r. 15 (4)", "Rule 5 (where a case starts) applies to a motion to change a final order or agreement as if the motion were a new case."),
@@ -1966,7 +1996,7 @@ export function familyCourtOfficesFor(stepId: string, city: string): CourtOffice
  * business. Plain-language companion to R_6_01_PLACE's verbatim quote, same
  * shape as FAMILY_SAME_PLACE above.
  */
-const SMALL_CLAIMS_PLACE: PlainLine = {
+export const SMALL_CLAIMS_PLACE: PlainLine = {
   say: "The right Small Claims court location is the one where your claim arose, or where the defendant lives or carries on business -- not simply where you live. Living in a city does not, by itself, make that city the proper court location.",
   cite: R_6_01_PLACE,
 };
@@ -2649,6 +2679,45 @@ export function isMunicipalNoticeStep(noticeStepId: string, story = "", city = "
   return noticeStepId === "civil:before-filing:notice-required-before-suing" && (NOTICE_FITS["municipal-act-2001"]!(prose, city) || NOTICE_FITS["city-of-toronto-act-2006"]!(prose, city));
 }
 
+/** The Application (Divorce): the one form the "never married" rule leaves out (B4; Chrome check of #545, 3.5). */
+export function isDivorceApplication(form: { court: PracticalCourt; number: string }): boolean {
+  return form.court === "family" && MARRIED_ONLY_FAMILY_FORMS.has(form.number);
+}
+
+/**
+ * The Family forms for married spouses only, by their official titles (officialFormLinks.json): 8A Application (Divorce),
+ * 13B Net Family Property Statement, 13C Comparison of Net Family Property Statements, 25A Divorce Order, 36 Affidavit
+ * for Divorce, 36A Certificate of Clerk (Divorce), 36B Certificate of Divorce. Hidden wherever isDivorceApplication is
+ * read until the person says they were married (Chrome pass 3 on #550, S7; the content table: N11, N12, N13, F1-F7, F9).
+ */
+export const MARRIED_ONLY_FAMILY_FORMS: ReadonlySet<string> = new Set(["8A", "13B", "13C", "25A", "36", "36A", "36B"]);
+
+/**
+ * A step's practical view without the Application (Divorce), for someone who recorded they were never married: every
+ * list the view carries, so the card, "Forms for your next step" and the catalogue's "For your step" tag agree (Chrome
+ * check of #545 at 7bce410, 3.5: the Forms tab tagged Form 8A "For your step" because only `forms` was filtered).
+ */
+export function withoutDivorceApplication(view: PracticalView | null, notMarried: boolean): PracticalView | null {
+  if (!view || !notMarried) return view;
+  // The view's own court: a lead form carries only its number, and Form 8A is another form in Small Claims and civil.
+  const family = [...view.forms, ...view.formsIfClaimed].some((form) => form.court === "family");
+  // The divorce fee and the federal divorce fee note are a divorce's only (Chrome check of #550, 7.2).
+  const noDivorceFee = (fees: Fee[]) => fees.filter((fee) => fee.id !== "fam-answer-divorce");
+  const noDivorceNote = (lines: PlainLine[]) => lines.filter((line) => line !== FAMILY_DIVORCE_FEE_NOTE);
+  return {
+    ...view,
+    forms: view.forms.filter((form) => !isDivorceApplication(form)),
+    formsIfClaimed: view.formsIfClaimed.filter((form) => !isDivorceApplication(form)),
+    leadForms: family ? view.leadForms.filter((lead) => !isDivorceApplication({ court: "family", number: lead.number })) : view.leadForms,
+    fees: noDivorceFee(view.fees),
+    feeNotes: noDivorceNote(view.feeNotes),
+    // The fees "Only if the case also asks for a divorce, or claims property or the matrimonial home" (FEES_IF_CLAIMED_LABEL):
+    // each a married person's claim only (family/marriedOnly.ts), so the whole folded part is left out (Chrome milestone
+    // test of #550, rows 40 and 44).
+    feesIfClaimed: family ? null : view.feesIfClaimed ? { ...view.feesIfClaimed, fees: noDivorceFee(view.feesIfClaimed.fees), notes: noDivorceNote(view.feesIfClaimed.notes) } : null,
+  };
+}
+
 export function practicalFor(
   stepId: string,
   court: PracticalCourt,
@@ -2663,7 +2732,7 @@ export function practicalFor(
    * replaces the online-portal lines, and a Small Claims step served the
    * ordinary way gets the mail timing lines.
    */
-  timing: { deadline?: string; serveBy?: string; today?: string; divisionalOnly?: boolean } = {},
+  timing: { deadline?: string; serveBy?: string; today?: string; divisionalOnly?: boolean; notMarried?: boolean } = {},
 ): PracticalView | null {
   const step = STEP_PRACTICAL[stepId];
   if (!step || (step.forms.length === 0 && step.fees.length === 0 && !step.files && !step.serve && !(step.also ?? []).length)) return null;
@@ -2683,6 +2752,10 @@ export function practicalFor(
       const [other, number] = form.includes(":") ? form.split(":") : [court, form];
       return { court: other as PracticalCourt, number };
     })
+    // The Application (Divorce) is not listed for someone who recorded that they were never married to the other person
+    // (the Family card's "Were you and the other person married to each other?": No). A rule on their recorded answer
+    // only; nothing is read from the story here (Chrome check of production c38e69fd, B4).
+    .filter((form) => !(timing.notMarried && isDivorceApplication(form)))
     .sort((a, b) =>
       responding && stepId.includes(":both:")
         ? Number(MOVING_PARTY_FORMS[a.court]?.has(a.number) ?? false) - Number(MOVING_PARTY_FORMS[b.court]?.has(b.number) ?? false)
@@ -2783,7 +2856,7 @@ export function practicalFor(
  * the Superior Court). Keyed on the person's own words; a suggestion of what
  * the rule says, never a judgment of the case.
  */
-const CORPORATION_NEEDS_LAWYER: PlainLine = {
+export const CORPORATION_NEEDS_LAWYER: PlainLine = {
   say: "In this court, a company (a corporation) must be represented by a lawyer, unless the court gives permission for someone else.",
   cite: rcp("r. 15.01 (2)", "A party to a proceeding that is a corporation shall be represented by a lawyer, except with leave of the court."),
 };

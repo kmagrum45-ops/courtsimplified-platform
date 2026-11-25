@@ -16,25 +16,27 @@
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { partyNames } from "@/src/lib/case-system/parties/parties";
+import { caseFileOfMaster } from "@/src/lib/case-system/caseFile/caseFileOfMaster";
 
 import TidyWordingReview from "../../../builder/_components/TidyWordingReview";
 import ScopePreviewNotice from "../../../builder/_components/ScopePreviewNotice";
 import {
   DRAFT_KIND_LABELS,
-  affidavitOutlineDraft,
   blankDraft,
-  chronologyDraft,
   draftAsPlainText,
   draftAsWordHtml,
   importLegacyWorkspaceDocument,
   newId,
   readCaseDrafts,
-  yourStoryDraft,
   type CaseDraft,
   type IntakeStory,
   type TimelineEntry,
 } from "@/src/lib/case-system/drafts/caseDrafts";
 import { startingDocumentDraft, startingDocumentTitle, type StartingDocumentIntake } from "@/src/lib/case-system/drafts/startingDocumentDraft";
+import { affidavitOutlineOfRecord, chronologyOfRecord, claimDraftOfRecord, recordDates, yourStoryOfRecord } from "@/src/lib/case-system/drafts/recordDrafts";
+import { formContextOf } from "@/src/lib/case-system/forms/formContext";
+import { readCheckpoint } from "@/src/lib/case-system/intakeCheckpoint";
 import { respondingDocumentDraft, respondingDocumentTitle, type RespondingDocumentIntake } from "@/src/lib/case-system/drafts/respondingDocumentDraft";
 import { COURT_DOCUMENT_DRAFTING_ENABLED } from "@/src/lib/case-system/policy/courtDocumentDrafting";
 import { FORM_COMPLETION_PAUSED } from "@/src/lib/content-library/phaseScope";
@@ -43,6 +45,8 @@ import type { StoredCaseData } from "../../../builder/_components/builderTypes";
 import { caseRouteWrite } from "../../../builder/_components/positionSave";
 import { authHeaders, formatDate, useCaseHome } from "../../_components/CaseHomeContext";
 import { WorkingButton } from "@/app/_components/Working";
+import { FACT_LABEL } from "@/app/_components/ChangeAnswer";
+import { draftChanges, draftToShow, madeFromOf, type DraftChange } from "@/src/lib/case-system/drafts/draftFreshness";
 
 type SaveState = "idle" | "saving" | "saved" | "failed";
 
@@ -151,7 +155,9 @@ export default function CaseDraftsSection() {
   );
 
   /** Edits apply at once on screen and are saved a moment after typing stops. */
-  function change(next: CaseDraft) {
+  function change(edit: CaseDraft) {
+    // The person changed it: their words are kept from now on (a later change to the case is said, never rewritten).
+    const next: CaseDraft = { ...edit, edited: true };
     setDrafts((current) => current.map((draft) => (draft.id === next.id ? next : draft)));
     pending.current = next;
     setSaveState("idle");
@@ -171,7 +177,10 @@ export default function CaseDraftsSection() {
     }
   }
 
-  async function create(draft: CaseDraft) {
+  async function create(fresh: CaseDraft) {
+    // Made from the case: it keeps what the case said, so a later change is said on it (draftFreshness.ts; Chrome pass 2
+    // on #550, C.5). A blank or imported draft is not made from the case.
+    const draft = fresh.kind === "blank" || fresh.kind === "imported" ? fresh : { ...fresh, madeFrom: madeFromOf(caseFileOfMaster(master, courtPath)), edited: false };
     if (await persist(draft)) {
       setDrafts((current) => [draft, ...current.filter((existing) => existing.id !== draft.id)]);
       setOpenId(draft.id);
@@ -195,6 +204,10 @@ export default function CaseDraftsSection() {
   }
 
   const intake = (master.intakeData ?? {}) as IntakeStory;
+  // The parties and facts every draft reads, from the case record (site owner, 14 Nov 2026, rule 7; recordDrafts.ts).
+  const recordCtx = formContextOf(courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? readCheckpoint(master.intakeCheckpoint, courtPath, caseId) : null, master);
+  const recordGiven = (entries: TimelineEntry[]) => ({ timeline: entries, intake: intake as Record<string, unknown>, now: now() });
+  const recordedDates = recordDates(recordCtx).length;
 
   // The document that starts a case, offered only where the builder offers it:
   // drafting in scope, not paused, not already filed, and not to the side
@@ -223,10 +236,38 @@ export default function CaseDraftsSection() {
     // Not past the defence (noted in default, a judgment, a defence filed).
     respondingDocumentStillDue(stepId);
 
+  const fileNow = caseFileOfMaster(master, courtPath);
+  /** The same kind of draft made from the case as it is now: the builders the "start" buttons below use. */
+  const freshOf = (draft: CaseDraft): CaseDraft | null => {
+    const given = recordGiven(timeline ?? []);
+    if (draft.kind === "chronology") return chronologyOfRecord(recordCtx, given);
+    if (draft.kind === "your-story") return yourStoryOfRecord(recordCtx, given);
+    if (draft.kind === "affidavit-outline") return affidavitOutlineOfRecord(recordCtx, given);
+    if (draft.kind === "starting-document") return courtPath === "small-claims" ? claimDraftOfRecord(recordCtx, given) : startingDocumentDraft(courtPath, master.intakeData as StartingDocumentIntake, new Date(), fileNow);
+    if (draft.kind === "responding-document") return respondingDocumentDraft(courtPath, master.intakeData as RespondingDocumentIntake, new Date(), fileNow.parties.recorded ? partyNames(fileNow.parties.list) : undefined);
+    return null;
+  };
+  /**
+   * A draft as shown: one the person has not changed is built from the case as it is now (site owner, 19 Nov 2026; Chrome
+   * pass 3 on #550, CA-4: a Form 7A draft made before the amount changed still said $5,468.45). Shown, never saved by
+   * opening it (opening writes nothing); their first edit saves it. One they changed keeps their words.
+   */
+  const shownDraft = (draft: CaseDraft): CaseDraft => draftToShow(draft, fileNow, freshOf);
+  /** "Update this draft from your case": the person's own press, after they say yes to losing their changes. */
+  const updateFromCase = (draft: CaseDraft) => {
+    const fresh = freshOf(draft);
+    if (!fresh || !window.confirm("Update this draft from your case? Your changes to this draft will be replaced.")) return;
+    const next: CaseDraft = { ...draft, sections: fresh.sections, madeFrom: madeFromOf(fileNow), edited: false };
+    setDrafts((current) => current.map((existing) => (existing.id === next.id ? next : existing)));
+    void persist(next);
+  };
+
   if (open) {
     return (
       <DraftEditor
-        draft={open}
+        draft={shownDraft(open)}
+        changes={draftChanges(shownDraft(open).madeFrom, fileNow)}
+        onUpdate={freshOf(open) ? () => updateFromCase(open) : undefined}
         saveState={saveState}
         savedAt={savedAt}
         message={message}
@@ -301,20 +342,20 @@ export default function CaseDraftsSection() {
             description={
               timeline === null
                 ? "What happened, in date order, from your timeline and dated documents."
-                : `What happened, in date order: ${timeline.length} item${timeline.length === 1 ? "" : "s"} from your timeline and dated documents.`
+                : `What happened, in date order: ${timeline.length + recordedDates} item${timeline.length + recordedDates === 1 ? "" : "s"} from your case, timeline and dated documents.`
             }
-            onClick={() => void create(chronologyDraft(timeline ?? [], now()))}
+            onClick={() => void create(chronologyOfRecord(recordCtx, recordGiven(timeline ?? [])))}
             disabled={timeline === null}
           />
           <StartOption
             title="Your story"
             description="What happened and what you want, in the words you used when you told us."
-            onClick={() => void create(yourStoryDraft(intake, now()))}
+            onClick={() => void create(yourStoryOfRecord(recordCtx, recordGiven(timeline ?? [])))}
           />
           <StartOption
             title="Affidavit outline"
             description="Numbered statements, one per thing that happened, for you to rewrite in your own words."
-            onClick={() => void create(affidavitOutlineDraft(timeline ?? [], now()))}
+            onClick={() => void create(affidavitOutlineOfRecord(recordCtx, recordGiven(timeline ?? [])))}
             disabled={timeline === null}
           />
           {offerStartingDocument && startingTitle ? (
@@ -322,7 +363,8 @@ export default function CaseDraftsSection() {
               title={startingTitle.replace(/^Draft /, "")}
               description="The document that starts your case, laid out from your answers, to compare with the official form."
               onClick={() => {
-                const draft = startingDocumentDraft(courtPath, master.intakeData as StartingDocumentIntake, now());
+                // Small Claims: from the case record (rule 7); civil and Family still from the saved intake.
+                const draft = courtPath === "small-claims" ? claimDraftOfRecord(recordCtx, recordGiven(timeline ?? [])) : startingDocumentDraft(courtPath, master.intakeData as StartingDocumentIntake, now(), caseFileOfMaster(master, courtPath));
                 if (draft) void create(draft);
               }}
             />
@@ -332,7 +374,8 @@ export default function CaseDraftsSection() {
               title={respondingTitle.replace(/^Draft /, "")}
               description="Your response to the case, laid out from your answers, to compare with the official form."
               onClick={() => {
-                const draft = respondingDocumentDraft(courtPath, master.intakeData as RespondingDocumentIntake, now());
+                const held = caseFileOfMaster(master, courtPath);
+                const draft = respondingDocumentDraft(courtPath, master.intakeData as RespondingDocumentIntake, now(), held.parties.recorded ? partyNames(held.parties.list) : undefined);
                 if (draft) void create(draft);
               }}
             />
@@ -363,6 +406,7 @@ export default function CaseDraftsSection() {
                       Updated {formatDate(draft.updatedAt)} · {checked} of {draft.sections.length} part
                       {draft.sections.length === 1 ? "" : "s"} checked by you
                     </p>
+                    <DraftOutOfDate compact changes={draftChanges(shownDraft(draft).madeFrom, fileNow)} />
                   </button>
                 </li>
               );
@@ -398,8 +442,33 @@ function StartOption({
   );
 }
 
+/**
+ * "Your case changed after this draft was made" (Chrome pass 2 on #550, C.5; pass 3, CA-4; the site owner's words, 19 Nov 2026): each fact the draft was made with that
+ * the case now says differently, with both. The draft is the person's own and is never rewritten here.
+ */
+function DraftOutOfDate({ changes, compact = false, onUpdate }: { changes: DraftChange[]; compact?: boolean; onUpdate?: () => void }) {
+  if (!changes.length) return null;
+  if (compact) return <p data-testid="draft-out-of-date" className="mt-2 text-xs font-semibold text-[#8a4b12]">Your case changed after this draft was made.</p>;
+  return (
+    <div data-testid="draft-out-of-date" role="status" className="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950">
+      <p className="font-semibold">Your case changed after this draft was made.</p>
+      <ul className="mt-2 list-disc pl-5">
+        {changes.map((change) => (
+          <li key={change.fact} data-testid="draft-out-of-date-fact" data-fact={change.fact}>
+            {FACT_LABEL[change.fact] ?? change.fact}: {change.fact === "story" ? "changed" : change.now ? <>now &ldquo;{change.now}&rdquo;</> : "now removed or not known"}
+            {change.then ? <>; this draft was made with &ldquo;{change.then}&rdquo;</> : null}
+          </li>
+        ))}
+      </ul>
+      <p className="mt-2">This draft keeps your words.</p>
+      {onUpdate ? <button type="button" data-testid="draft-update-from-case" onClick={onUpdate} className="mt-2 rounded-xl border border-amber-400 bg-white px-3 py-1 font-semibold text-amber-950">Update this draft from your case</button> : null}
+    </div>
+  );
+}
+
 function DraftEditor({
   draft,
+  changes,
   saveState,
   savedAt,
   message,
@@ -407,8 +476,12 @@ function DraftEditor({
   onBack,
   onDelete,
   onRetry,
+  onUpdate,
 }: {
   draft: CaseDraft;
+  changes: DraftChange[];
+  /** "Update this draft from your case" (absent for a draft not made from the case). */
+  onUpdate?: () => void;
   saveState: SaveState;
   savedAt: string;
   message: string;
@@ -437,6 +510,8 @@ function DraftEditor({
           {saveState === "saving" ? "Saving…" : saveState === "saved" ? `Saved to your case${savedAt ? ` at ${savedAt}` : ""}` : saveState === "failed" ? "" : "Changes save automatically"}
         </p>
       </div>
+
+      <DraftOutOfDate changes={changes} onUpdate={onUpdate} />
 
       {saveState === "failed" ? (
         <p role="alert" className="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950">

@@ -65,6 +65,10 @@
       "pinpoint": "r. 7.01 (1)"
     },
     {
+      "sourceId": "oreg-332-16-small-claims-fees",
+      "pinpoint": "s. 1 (1)-(2)"
+    },
+    {
       "sourceId": "ontario-fee-waiver",
       "pinpoint": "Have your court fees waived"
     },
@@ -400,6 +404,14 @@
     },
     {
       "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 1.02 (1)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 8.01 (4)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 9.03 (1)"
     },
     {
@@ -415,6 +427,10 @@
     {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 11.05 (1)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 8.01 (4)"
     }
   ],
   "defendant:noted-in-default": [
@@ -577,6 +593,12 @@
     {
       "sourceId": "family-law-rules",
       "pinpoint": "r. 8 (1)-(3)"
+    }
+  ],
+  "family:both:appealing-temporary-order": [
+    {
+      "sourceId": "rules-of-civil-procedure",
+      "pinpoint": "r. 63.01 (1)"
     }
   ]
 }

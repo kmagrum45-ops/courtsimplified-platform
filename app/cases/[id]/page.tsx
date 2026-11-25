@@ -13,6 +13,7 @@
  * (section 4), exactly as in the builder.
  */
 
+import { factStatus } from "@/src/lib/case-system/caseFile/factStatus";
 import { readStoredPicture } from "@/src/lib/case-system/intake/caseReader";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
@@ -40,13 +41,15 @@ import { authHeaders, builderHref, formatDate, useCaseHome } from "../_component
 import { caseStageWords, noticeStepForCase, stepStoryText } from "@/src/lib/case-system/caseStep";
 import { stageRecordedFromAnswers, suggestionForSide } from "@/app/builder/_components/stageFromAnswers";
 import { sideOf, situationAnswers, situationOfCase, stepFromSituation } from "@/src/lib/case-system/situation/situation";
-import { caseFileOf, unsureDateQuestions, withCaseFileDates } from "@/src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, claimKindOf, heldServiceWords, unsureDateQuestions, withCaseFileDates } from "@/src/lib/case-system/caseFile/caseFile";
+import { stageHeldElsewhere } from "@/src/lib/case-system/caseFile/stageHeld";
+import { hidesMarriedOnly } from "@/src/lib/case-system/family/marriedOnly";
 import { fullDayIn } from "@/src/lib/case-system/casePosition";
 import { readCheckpoint } from "@/src/lib/case-system/intakeCheckpoint";
 import CaseFilePanel from "../_components/CaseFilePanel";
 import SafetyNotice from "@/app/_components/SafetyNotice";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
-import { countedStepDeadlines } from "@/src/lib/case-system/caseFile/stepDeadlines";
+import { caseDeadlines } from "@/src/lib/case-system/caseFile/stepDeadlines";
 
 type EventsResponse = {
   events: Array<{
@@ -202,16 +205,17 @@ export default function CaseOverviewPage() {
         </section>
       ) : null}
 
-      {/* Kept open while the story mentions threats, fear or violence (SafetyNotice.tsx). */}
+      {/* Shown once, when the story first names threats, fear or violence (SafetyNotice.tsx). */}
       <SafetyNotice story={record.story ?? ""} />
 
       {/* The case file (caseFile.ts): everything the person has told us, each asked once. */}
       <CaseFilePanel
         file={caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master)}
         changeHref={builderHref(caseRecord)}
-        situationHref={`${builderHref(caseRecord)}&situation=change`}
+        situationHref={`${builderHref(caseRecord)}${builderHref(caseRecord).includes("?") ? "&" : "?"}situation=change`}
         stepHref="#next-heading"
-        deadlines={countedStepDeadlines(position.stepId ?? situationStep ?? (homeStepId || null), position.dateAnswers)}
+        // The one source both pages show (stepDeadlines.ts caseDeadlines; F4): the next-step card's own count over the case's dates.
+        deadlines={caseDeadlines(master, courtPath, homeStepId || null)}
       />
 
       <section aria-labelledby="where-heading" className="space-y-3">
@@ -226,6 +230,7 @@ export default function CaseOverviewPage() {
             confirmedStage={confirmed}
             // A case already going: the step the next step follows, the latest chosen.
             stepWords={situation.where === "going" || situation.where === "served" ? findStage(position.stepId ?? situationStep ?? "")?.userQuestion ?? null : null}
+            held={stageHeldElsewhere(caseFileOf(readCheckpoint(master.intakeCheckpoint, courtPath), master))}
             onConfirm={(stage) => void confirmStage(stage)}
           />
         ) : (
@@ -274,13 +279,18 @@ export default function CaseOverviewPage() {
           {courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? (
             <StageAnswerPanel
               courtPath={courtPath}
+              notMarried={hidesMarriedOnly(caseFileOf(readCheckpoint(master.intakeCheckpoint, courtPath), master))}
               confirmedStage={confirmed}
               responding={responding}
               sideFromRecord={sideOf(situationOfCase(master)) !== null}
               caseId={caseId}
               initialStepId={position.stepId ?? situationStep}
-              // A day not known had its one more offer in the review: folded here (caseFile.ts).
+              // A day not known is never asked again: folded here as "Not answered yet" (site owner, 31 Oct; caseFile.ts).
               laterDates={unsureDateQuestions(caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master))}
+              file={caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master)}
+              // "Not sure" where the case is: never asked again; the quiet line with "Add it" (founder, 1 Nov).
+              stepNotSure={factStatus(caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master), "stage") === "settled"}
+              heldServiceWords={heldServiceWords(caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master))}
               initialDateAnswers={withCaseFileDates(position.dateAnswers, caseFileOf(readCheckpoint(master.intakeCheckpoint, courtPath), master), fullDayIn)}
               initialService={position.service}
               motionToChange={position.motionToChange ?? null}
@@ -310,7 +320,7 @@ export default function CaseOverviewPage() {
               noticeStepId={noticeStepForCase(master, courtPath)}
             />
           ) : (
-            <NextStepsCard pathway={courtPath} stage={confirmed} userWords={userWordsOf(master.intakeData)} />
+            <NextStepsCard pathway={courtPath} stage={confirmed} userWords={userWordsOf(master.intakeData)} notMarried={hidesMarriedOnly(caseFileOf(readCheckpoint(master.intakeCheckpoint, courtPath), master))} />
           )}
         </section>
       ) : null}
@@ -392,7 +402,7 @@ export default function CaseOverviewPage() {
               Change your story
             </Link>
           </div>
-          <IntelligenceOverviewPanel analysis={analysis} intake={intake ?? null} confirmedStage={confirmed} roleWords={courtPath ? situationAnswers(courtPath, situation).roleWords ?? null : null} stageWords={caseStageWords(master, courtPath)} caseId={caseId} chosenClaimKind={position.claimKind ?? null} heldKind={caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master).claimKind} />
+          <IntelligenceOverviewPanel analysis={analysis} intake={intake ?? null} confirmedStage={confirmed} roleWords={courtPath ? situationAnswers(courtPath, situation).roleWords ?? null : null} stageWords={caseStageWords(master, courtPath)} caseId={caseId} claimKind={claimKindOf(caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master))} caseFile={caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master)} recordedMunicipality={courtPath === "family" ? record.city || null : null} />
         </section>
       ) : null}
     </div>

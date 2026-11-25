@@ -41,6 +41,8 @@ import {
 import { civilLibraryIdsForIssues } from "../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
 import { familyLibraryIdsForIssues } from "../../src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
 import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
+import { mayAskWords } from "../../src/lib/case-system/caseFile/factStatus";
+import { emptyCaseFile } from "../../src/lib/case-system/caseFile/caseFile";
 import { renderableProfiles } from "../../src/lib/case-system/claim-types/catalogue";
 import { analyzeSmallClaimsWithBrain } from "../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 import { mapGuidedIntakeToSmallClaimsInput } from "../../app/builder/_components/guidedIntakeToSmallClaimsInput";
@@ -133,7 +135,16 @@ const model = {
     { formNumber: "9A", title: "Grounded form", reason: "A time limit applies at this stage.", sourceIds: [good.id], quote: goodQuote },
   ],
   evidenceIssueLinks: [{ issueLabel: "Invoice", requiredProof: "This proves the debt under the Sale of Goods Act.", explanation: "You recorded an invoice." }],
-  missingInformation: [{ field: "x", question: "When did you send the invoice?", reason: "You must serve within 6 months under the rules." }],
+  // C9 (23 Nov 2026): every AI-written question carries the fact it asks; one naming no fact is dropped.
+  missingInformation: [
+    { field: "x", question: "What are the exact dates of the agreement and the invoice?", reason: "You must serve within 6 months under the rules." },
+    { field: "x", question: "What company name appears on the agreement, invoices, and payment recipient details, and do you have those records?", reason: "Recording it helps." },
+    { field: "x", question: "What are the specific terms of the contract with the contractor?", reason: "Recording it helps." },
+    // The one fixture question that was still dropped for naming no fact (smallClaimsFullSurvey.md): whether anything is filed.
+    { field: "x", question: "Has the claim been officially filed with the court?", reason: "Recording it helps." },
+    // A question about nothing the case file could ever hold (a synthetic one, never a real fact), so it must be dropped.
+    { field: "x", question: "What is the zzqx-test colour of the contractor's van?", reason: "Recording it helps." },
+  ],
   nextBestActions: [
     "File your Defence within 20 days of service.",
     "Gather the invoice and your texts in one place.",
@@ -172,7 +183,19 @@ check(
   claimType.plaintiffElements.every((el) => out.includes(`"elementKey":"${el.id}"`)),
 );
 check("gate: unsourced 'what this proves' is replaced", !out.includes("Sale of Goods Act"));
-check("gate: a question is kept, its unsourced legal reason replaced", out.includes("When did you send the invoice?") && !out.includes("serve within 6 months"));
+check("gate: a question is kept, its unsourced legal reason replaced", out.includes("What are the exact dates of the agreement and the invoice?") && !out.includes("serve within 6 months"));
+// C9: every AI-written question that is kept carries its fact, so every page drops it once the case file holds that fact.
+const kept = ((cognition as Record<string, unknown>).missingInformation as { question: string; fact?: string }[]) ?? [];
+check("C9: every AI-written question kept carries a fact id", kept.length > 0 && kept.every((item) => typeof item.fact === "string" && item.fact.length > 0), JSON.stringify(kept));
+check("C9: the AI's company-name question carries otherParty (Chrome check of #560, 3i)", kept.some((item) => item.fact === "otherParty" && /company name appears/.test(item.question)));
+check("C9: an AI question naming no fact is dropped (a synthetic question no fact will ever name)", !out.includes("zzqx-test colour") && report.dropped.some((item) => /names no fact/.test(item.reason) && /zzqx-test colour/.test(JSON.stringify(item))));
+// The terms question was dropped for naming no fact (it was useful): it now carries what was agreed (C9, 23 Nov 2026).
+check("C9: the AI's \"Has the claim been officially filed with the court?\" is kept and carries filed (smallClaimsFullSurvey.md)", kept.some((item) => item.fact === "filed" && /officially filed/.test(item.question)), JSON.stringify(kept));
+check("C9: the AI's terms question is kept and carries agreementTerms (\"the specific terms of the contract\")", kept.some((item) => item.fact === "agreementTerms" && /specific terms of the contract/.test(item.question)), JSON.stringify(kept));
+{
+  const held = { ...emptyCaseFile(), whenHappened: { state: "answered" as const, value: "2026-05-01", confirmed: true, source: { kind: "answer" as const, question: "held" } }, otherParty: { state: "answered" as const, value: "Fakebuild Test Contracting Inc.", confirmed: true, source: { kind: "answer" as const, question: "held" } }, filed: { state: "answered" as const, value: "yes", confirmed: true, source: { kind: "answer" as const, question: "held" } }, agreementTerms: { state: "answered" as const, value: "Redo the roof for $6,000 by June.", confirmed: true, source: { kind: "answer" as const, question: "depth-contractor-agreement" } } };
+  check("C9: each kept AI question is dropped by the pages once the case file holds its fact", kept.every((item) => !mayAskWords(held, item.question, {}) && mayAskWords(emptyCaseFile(), item.question, {})), JSON.stringify(kept.map((item) => [item.fact, mayAskWords(held, item.question, {})])));
+}
 check("gate: the model's warnings are never passed on", (cognition.systemWarnings as unknown[]).length === 0);
 check("gate: every removal is recorded with a reason", report.dropped.length >= 6 && report.dropped.every((item) => item.reason.length > 0));
 check("detector: flags a plain-looking legal statement", hasLegalContent("You have 20 days to respond."));

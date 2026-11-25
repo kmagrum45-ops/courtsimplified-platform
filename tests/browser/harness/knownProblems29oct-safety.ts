@@ -29,13 +29,6 @@ export const KNOWN_PROBLEMS_29OCT_SAFETY: KnownProblem[] = [
     ],
   },
   {
-    id: "E2-helplines-everywhere",
-    reason:
-      "The results page shows the domestic-violence helplines (Assaulted Women's Helpline, Fem'aide) on every case in every area, including a bakery invoice in Small Claims, open after the review is confirmed.",
-    test: SUITE,
-    checks: ["E2-helplines-guarded"],
-  },
-  {
     id: "F1-christmas-not-a-date",
     reason:
       "\"Christmas 2025\" is read as the year 2025 only, so no limitation date is counted, and nothing asks for the day either.",
@@ -58,8 +51,8 @@ export const KNOWN_PROBLEMS_29OCT_SAFETY: KnownProblem[] = [
   {
     id: "G2-divorce-for-never-married",
     reason:
-      "A person who said they were never married is shown divorce material on the which-court step: the Divorce Act's \"court\" statement in the triage, and Form 8A (Application (Divorce)) as a form for their step.",
+      "A person who said they were never married is shown divorce material on the which-court step: Form 8A (Application (Divorce)) as a form for their step when the story alone says so (the step leaves it out for a recorded No: nextStepPractical.ts notMarried). The triage's Divorce Act statement was fixed on 16 Nov (statusTriage.ts buildTriageOutcome; test:not-married-everywhere 10).",
     test: SUITE,
-    checks: ["G2-form-8A", "G2-triage"],
+    checks: ["G2-form-8A"],
   },
 ];

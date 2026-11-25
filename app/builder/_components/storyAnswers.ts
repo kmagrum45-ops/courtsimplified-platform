@@ -17,6 +17,7 @@
 import { MONTH_FULL_NAMES_PATTERN, WEEKDAY_NAMES_PATTERN } from "../../../src/lib/case-system/dates";
 import { dateMentionsIn, MONTH_NAMES_PATTERN, MONTH_WORDS_EN } from "../../../src/lib/case-system/dates";
 import { claimAmountFromStory } from "../../../src/lib/case-system/claimAmount";
+import { NO_CHILDREN } from "../../../src/lib/case-system/copy/askCopy";
 
 export type StoryAnswer = { value: string; quote: string };
 
@@ -170,6 +171,44 @@ export function amountFromStory(story: string): StoryAnswer | null {
   return claimAmountFromStory(story);
 }
 
+const QUOTED_AMOUNT = /\b(?:quote[sd]?|quoted|estimate[sd]?)\b(?:\s+(?:of|for|was|is|came to|at))*\s+\$?\s?(\d{1,3}(?:,\d{3})+(?:\.\d{2})?|\d+(?:\.\d{2})?)\b/i;
+
+/** The story's only dollar amount, when it gives exactly one (two different amounts: which one is unclear, so none). */
+function onlyDollarAmount(story: string): string | undefined {
+  const amounts = new Set([...story.matchAll(/\$\s?(\d[\d,]*(?:\.\d{2})?)/g)].map((match) => Number(match[1].replace(/,/g, ""))).filter((value) => Number.isFinite(value) && value > 0));
+  return amounts.size === 1 ? String([...amounts][0]) : undefined;
+}
+
+/**
+ * A quote or estimate the review may offer in one click: only when it is the story's only amount ("I got a quote for
+ * $1500", Chrome S4). Never the story's only amount when it is not a quote, which may be one already paid (#471 re-test:
+ * "I paid a contractor $9,000"), and never one quote among other amounts, which may be for something else (story pack
+ * m01-kitchen: "someone else who quoted $6,300 to finish", the claim $10,700 or more).
+ */
+export function oneClickQuote(story: string, amount: number): boolean {
+  const only = onlyDollarAmount(story);
+  return only !== undefined && Number(only) === amount;
+}
+
+/**
+ * The amount a story states, to OFFER (Yes / No, that's not right / I'm not sure), never to fill in: the one-click
+ * reader's (amountFromStory, which #471 keeps strict), else a quote or an estimate ("a quote for 1500"), else the
+ * story's only dollar amount (site owner, 12 Nov: "offer when it is the only amount"). The one story reader
+ * (intakeReview.ts statedInStory) and the civil chat's amount question both read it here, so they offer the same.
+ */
+export function amountOfferFromStory(story: string, options: { oneClick?: boolean } = {}): StoryAnswer | null {
+  const strict = amountFromStory(story);
+  if (strict) return strict;
+  // One click (the review's suggestion): only a quote or an estimate that is the story's only amount (oneClickQuote).
+  const quoted = QUOTED_AMOUNT.exec(story)?.[1]?.replace(/,/g, "");
+  const digits = options.oneClick ? (quoted && oneClickQuote(story, Number(quoted)) ? quoted : undefined) : quoted ?? onlyDollarAmount(story);
+  if (!digits) return null;
+  const value = Number(digits);
+  const shown = `$${value.toLocaleString("en-CA", { minimumFractionDigits: /\./.test(digits) ? 2 : 0, maximumFractionDigits: 2 })}`;
+  const quote = sentences(story).find((sentence) => sentence.replace(/[$,\s]/g, "").includes(digits.replace(/\.00$/, ""))) ?? story;
+  return { value: shown, quote: quote.trim() };
+}
+
 const TYPOS: [RegExp, string][] = [
   [/\bbuisness\b/gi, "business"],
   [/\bbusness\b/gi, "business"],
@@ -222,8 +261,29 @@ export function goalFromStory(story: string): StoryAnswer | null {
   return null;
 }
 
-/** The children, when the story says how old they are. */
+/**
+ * A story that says there are no children ("We have no children", "We never had kids", "no children together"): the
+ * children fact is stated, as NO_CHILDREN, never asked cold (C9, 23 Nov 2026; Chrome check of #558: "Tell us about the
+ * children" was asked after the story said "We have no children"). Only when no other words name a child at all,
+ * so "We have no children together, but my son from before lives with me" offers nothing: the question is asked.
+ */
+const NO_CHILDREN_SAID = /\b(?:we|i)\s+(?:have|had|'ve)\s+no\s+(?:kids|children)\b|\b(?:we|i)\s+(?:do not|don't|did not|didn't|never)\s+(?:have|had)\s+(?:any\s+)?(?:kids|children)\b|\b(?:we|i)\s+(?:have\s+)?never\s+had\s+(?:any\s+)?(?:kids|children)\b|\bthere\s+(?:are|were)\s+no\s+(?:kids|children)\b|\bno\s+(?:kids|children)\s+(?:together|of\s+the\s+marriage|from\s+the\s+marriage|between\s+us)\b/i;
+/** Any child named ("my son from before", "her daughter"): beside "no children", nothing is stated. */
+const ANY_CHILD = /\b(?:sons?|daughters?|kids?|child|children|babies|baby|step-?(?:son|daughter|child)(?:ren)?)\b/i;
+function noChildrenFromStory(story: string): StoryAnswer | null {
+  const all = sentences(story);
+  const said = all.find((sentence) => NO_CHILDREN_SAID.test(sentence));
+  if (!said) return null;
+  // Any other child named anywhere ("my son from before", "her daughter", "but my son lives with me"): nothing is stated.
+  const others = all.filter((sentence) => sentence !== said).join(" ") + " " + said.replace(NO_CHILDREN_SAID, "");
+  if (ANY_CHILD.test(others)) return null;
+  return { value: NO_CHILDREN, quote: said };
+}
+
+/** The children, when the story says how old they are, or that there are none. */
 export function childrenFromStory(story: string): StoryAnswer | null {
+  const none = noChildrenFromStory(story);
+  if (none) return none;
   const AGE = "(?:\\d{1,2}|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen)";
   // "on september 29" is a day of the month, not an age (2026-10-13).
   const NOT_A_DAY = `(?<!\\b(?:${MONTH_NAMES_PATTERN})\\s)(?<!\\b(?:${MONTH_NAMES_PATTERN})\\s\\d)`;
@@ -429,25 +489,62 @@ const MONTH_NAMES = new RegExp(`^(?:${MONTH_FULL_NAMES_PATTERN}|${WEEKDAY_NAMES_
  * gf" is not an answer to it.
  */
 const NOT_A_NAME =
-  /^(?:I|Is|He|She|They|We|The|A|An|My|His|Her|It|Was|Has|Had|And|But|So|Then|Now|Divorce|Custody|Support|Court|Police|Lawyer|Judge|Mom|Dad|Ontario|Canada)\b/;
+  /^(?:I|Is|He|She|They|We|You|The|A|An|My|Our|Your|Their|His|Her|Its|It|Was|Has|Had|And|But|So|Or|Then|Now|When|After|Before|Since|Because|Who|Which|That|This|There|Last|Next|Not|Also|Just|Still|Never|Always|Divorce|Custody|Support|Court|Police|Lawyer|Judge|Mom|Mum|Dad|Ontario|Canada|Mr|Mrs|Ms|Miss|Mx|Dr)\b/;
+
+/*
+ * THE ONE NAME READER (site owner, 22 Nov 2026, batch (a3)). Every person's name the story gives, by the words around
+ * it, with no AI: the other side ("my spouse Test Partner and I", "separated from my wife Jane Doe", "my ex, Ms. Jane
+ * Doe,"), the person's own ("my name is ..."), and anyone else ("my son ...", "my landlord ...", "a roofer called ...",
+ * "Dr. ..."). Two callers: the Family offer of the other person's name (otherPartyNameFromStory, the other side only),
+ * and the label layer that hides the names it finds before anything goes to OpenAI (security/requestNames.ts storyNames,
+ * all roles). A name written in a way none of these patterns knows is not found, and goes as typed.
+ *
+ * Until 22 Nov the reader took a name after "my ex" / "my wife" only when a comma or the end of the sentence closed it,
+ * and a title as the name itself ("my ex Ms. Jane Doe" read "Ms"): Chrome's "My spouse Test Partner and I" was asked
+ * cold in the guest Family chat, and signed in it went to OpenAI as typed. A title is never a name: it is read past.
+ */
+const TITLE = "(?:(?:Mr|Mrs|Ms|Miss|Mx|Dr)\\.?\\s+)";
+const NAME_WORD = "\\p{Lu}\\p{Ll}+(?:[-'’]?\\p{Lu}?\\p{Ll}+)*";
+const PERSON = `${TITLE}?(${NAME_WORD}(?:\\s+${NAME_WORD}){0,2})`;
+const LEAD = "(?<![\\p{L}])";
+/** The other side of a Family case: a spouse or partner, past or present, or the other parent of the person's child. */
+const OTHER_SIDE =
+  "[Mm]y (?:ex(?:[- ]?(?:wife|husband|gf|bf|girlfriend|boyfriend|partner|spouse|fianc[eé]e?))?|wife|husband|partner|spouse|fianc[eé]e?|girlfriend|boyfriend|common[- ]law(?: (?:wife|husband|partner|spouse))?|(?:sons?|daughters?|kids?|child|children|baby|boy|girl)(?:'s|’s|')? (?:mom|mum|mother|dad|father))";
+/** Anyone else the person names by how they know them: labelled for the model, never offered as the other side. */
+const OTHER_PEOPLE =
+  "[Mm]y (?:(?:old|former|new|previous|current|late|step|younger|older|little|big)[- ]?)?(?:sons?|daughters?|child|kids?|baby|stepson|stepdaughter|mother|father|mom|mum|dad|brothers?|sisters?|grandmother|grandfather|grandma|grandpa|aunt|uncle|cousin|friend|roommate|landlord|landlady|boss|manager|supervisor|employer|neighbou?r|tenant|contractor|lawyer|doctor)";
+
+export type NameRole = "other" | "you" | "person";
+/** The one set of name patterns: the Family offer reads the "other" ones here; the label layer reads them all (requestNames.ts storyNames). */
+export const STORY_NAME_PATTERNS: readonly { role: NameRole; pattern: RegExp }[] = [
+  { role: "other", pattern: new RegExp(`${LEAD}${OTHER_SIDE}(?:'s name is|,?\\s+(?:who is |is )?named|,?\\s+(?:is )?called)\\s+${PERSON}`, "u") },
+  // "my spouse Test Partner and I", "my ex, Ms. Jane Doe,", "separated from my wife Jane Doe", "my husband Mark."
+  { role: "other", pattern: new RegExp(`${LEAD}${OTHER_SIDE},?\\s+${PERSON}`, "u") },
+  // The relationship said with the name (page test, 12 Nov: the Family chat asked cold for a name the story gave):
+  // "I married Sam Testmarsh", "I was married to Pat Lee", "I have two kids with Chris Doe".
+  { role: "other", pattern: new RegExp(`${LEAD}[Ii] (?:married|was married to|am married to|divorced|separated from|lived with|(?:have|had) (?:a child|a baby|a son|a daughter|(?:two|three|four|\\d) (?:kids|children|sons|daughters)|kids|children) with)\\s+${PERSON}`, "u") },
+  // "Jordan Testfield and I lived together": only at the start of a sentence (never "Yesterday Jordan Smith").
+  { role: "other", pattern: new RegExp(`(?:^|:\\s+)${PERSON} and I (?:lived|were|have been|had been|got|separated|split|broke up|married|dated|met|had|have)\\b`, "u") },
+  { role: "you", pattern: new RegExp(`${LEAD}[Mm]y (?:full )?name is\\s+${PERSON}`, "u") },
+  { role: "person", pattern: new RegExp(`${LEAD}${OTHER_PEOPLE}(?:'s name is|,?\\s+(?:who is |is )?named|,?\\s+(?:is )?called)?,?\\s+${PERSON}`, "u") },
+  { role: "person", pattern: new RegExp(`${LEAD}(?:named|called)\\s+${PERSON}`, "u") },
+  // A title, anywhere: "Dr. Kenwyn Opie", "Ms. Locryn Tregear", "Mrs Morvoren Hocking".
+  { role: "person", pattern: new RegExp(`${LEAD}(?:Mr|Mrs|Ms|Miss|Mx|Dr)\\.?\\s+(${NAME_WORD}(?:\\s+${NAME_WORD}){0,2})`, "u") },
+];
+
+export function isStoryName(name: string): boolean {
+  return !NOT_A_NAME.test(name) && !MONTH_NAMES.test(name) && !Object.keys(CITIES).includes(name.toLowerCase());
+}
 
 export function otherPartyNameFromStory(story: string): StoryAnswer | null {
-  // Only "my ex, Sarah Jones," / "my husband Mark." (a name set off and closed
-  // by a comma or the end) or "named / called / 's name is" (review,
-  // 2026-10-13: "my husband Is abusive" gave "Is"). The other parent of a
-  // child only: "my mom's dad" is not the other side.
-  const relation = "[Mm]y (?:ex(?:[- ]?(?:wife|husband|gf|bf|girlfriend|boyfriend|partner))?|wife|husband|partner|spouse|common[- ]law (?:wife|husband|partner)|(?:sons?|daughters?|kids?|child|children|baby|boy|girl)'?s? (?:mom|mother|dad|father))";
-  const person = "([A-Z][a-z'-]+(?: [A-Z][a-z'-]+){0,2})";
-  const patterns = [
-    new RegExp(`\\b${relation}(?:'s name is|\\s+(?:is )?named|\\s+(?:is )?called)\\s+${person}\\b`),
-    new RegExp(`\\b${relation},?\\s+${person}(?=\\s*(?:,|\\.|;|$))`),
-  ];
+  // The other side only ("my mom's dad" is not the other side), the first the story gives.
   for (const sentence of sentences(story)) {
-    for (const pattern of patterns) {
+    for (const { role, pattern } of STORY_NAME_PATTERNS) {
+      if (role !== "other") continue;
       const match = pattern.exec(sentence);
       if (!match) continue;
       const name = match[1].trim();
-      if (NOT_A_NAME.test(name) || MONTH_NAMES.test(name) || Object.keys(CITIES).includes(name.toLowerCase())) continue;
+      if (!isStoryName(name)) continue;
       return { value: name, quote: sentence };
     }
   }
@@ -655,54 +752,83 @@ export function courtDateFromStory(story: string): StoryAnswer | null {
   return { value: `${what.charAt(0).toUpperCase()}${what.slice(1)} on ${match[2].replace(/,?\s+(\d{4})$/, ", $1")}`, quote: match[0] };
 }
 
+/** One kind of dispute a court's form offers, and the words in a story that support it. */
+export type KindCue = readonly [value: string, words: RegExp];
+
 /**
- * Civil: the kinds of case the story's own words name, as the form's options, for the person to
- * confirm (Charter re-test 2026-10-26: a Charter claim against police showed the 30-item list with
- * nothing ticked). Only what the words name -- the Charter, the police -- never a legal reading of
- * the facts (no "assault" from "handcuffed", no "negligence" from an injury).
+ * THE ONE READER OF A STORY FOR ITS KIND OF DISPUTE, in all three courts (owner, 30 Oct): Small Claims'
+ * "What kind of dispute is this?" (intakeReview.ts suggestInitialAnswers), civil's "What kind of case is
+ * it?" and Family's "What is the case about?" (guidedFields.ts fromStory, the review's offer). Each court
+ * has its own table of cues in this one shape; each cue counts only in a plain sentence (plainMatch: never
+ * in a question, a doubt or a "no"), and that sentence is kept as the offer's quote. What it returns is a
+ * SUGGESTION the person ticks or leaves ("From what you told us ... Is that right?", "(suggested from your
+ * story)"), never an answer by itself (CLAUDE.md s. 4). `first`: the court asks for one kind (Small
+ * Claims), else every kind the story supports, in the table's order.
  */
-/**
- * Family: what the case is about, as the form's options, where the story's own words name it
- * (26 Oct re-test, case 14: a story naming a divorce, selling the house, spousal support and
- * parenting was asked "What is the case about?" with nothing offered). Only the words themselves --
- * never a reading of the facts (no "safety concerns" from a threat, no "relocation" from a city) --
- * and only in a plain sentence: a question, a doubt or a "no" names nothing.
- */
-export function familyIssuesFromStory(story: string): { value: string[]; quote: string } | null {
-  const named: [string, RegExp][] = [
-    ["divorce", /\bdivorc\w*/i],
-    ["sale-of-home", /\b(?:sell|selling|sale of|sold)\b(?:\s+\w+){0,3}?\s+(?:home|house|condo|place)\b/i],
-    ["spousal-support", /\bspousal support\b/i],
-    ["child-support", /\bchild support\b/i],
-    ["parenting-time", /\bparenting\b|\baccess to (?:my|our|the) (?:son|daughter|child|children|kids?)\b/i],
-    ["decision-making-responsibility", /\bdecision[- ]making\b|\bcustody\b/i],
-    ["property-division", /\bequali[sz]ation\b|\bdivid\w* (?:the |our )?(?:property|assets)\b/i],
-  ];
+export function kindsFromStory(story: string, cues: readonly KindCue[], options: { first?: boolean } = {}): { value: string[]; quote: string } | null {
   const values: string[] = [];
   const quotes: string[] = [];
-  for (const [value, words] of named) {
+  for (const [value, words] of cues) {
     const sentence = firstPlain(story, words);
     if (!sentence || /\?\s*$/.test(sentence)) continue;
     values.push(value);
     if (!quotes.includes(sentence)) quotes.push(sentence);
+    if (options.first) break;
   }
   return values.length ? { value: values, quote: quotes.join(" ") } : null;
 }
 
+/**
+ * Family: what the case is about, as the form's options, where the story's own words name it
+ * (26 Oct re-test, case 14: a story naming a divorce, selling the house, spousal support and
+ * parenting was asked "What is the case about?" with nothing offered). Only the words themselves --
+ * never a reading of the facts (no "safety concerns" from a threat) -- and only in a plain sentence.
+ */
+export const FAMILY_KIND_CUES: readonly KindCue[] = [
+  ["divorce", /\bdivorc\w*/i],
+  ["sale-of-home", /\b(?:sell|selling|sale of|sold)\b(?:\s+\w+){0,3}?\s+(?:home|house|condo|place)\b/i],
+  ["spousal-support", /\bspousal support\b/i],
+  ["child-support", /\bchild support\b/i],
+  // "time with the kids" is parenting time in the person's own words (known problem B5).
+  ["parenting-time", /\bparenting\b|\baccess to (?:my|our|the) (?:son|daughter|child|children|kids?)\b|\btime with (?:my|our|the) (?:son|daughter|child|children|kids?)\b/i],
+  ["decision-making-responsibility", /\bdecision[- ]making\b|\bcustody\b/i],
+  // "dividing the house" / "split the house" name dividing property (carry run 41137395354, Family second
+  // case; known problem B5).
+  ["property-division", /\bequali[sz]ation\b|\b(?:divid\w*|split\w*) (?:up )?(?:the |our |my )?(?:property|assets|house|home|condo|belongings)\b/i],
+  ["relocation", /\b(?:move|moving|relocat\w*)\b(?:\s+\w+){0,4}?\s+with (?:my|our|the) (?:son|daughter|child|children|kids?)\b/i],
+  ["adoption", /\badopt(?:ion|ing|ed)?\b/i],
+];
+
+/**
+ * Civil: the kinds of case the story supports, as the form's options, for the person to confirm
+ * (Charter re-test 2026-10-26: a Charter claim against police showed the 30-item list with nothing
+ * ticked; owner 30 Oct: "a supplier never delivered the machine I ordered" supports a contract dispute
+ * and is offered, as in Small Claims, never asked from scratch).
+ */
+export const CIVIL_KIND_CUES: readonly KindCue[] = [
+  ["charter", /\bcharter\b/i],
+  ["police-conduct", /\bpolice\b|\bpolice officers?\b|\bconstables?\b/i],
+  ["defamation", /\bdefam\w*|\blibel\w*|\bslander\w*/i],
+  ["human-rights", /\bdiscriminat\w*|\bhuman rights\b/i],
+  ["contract", /\b(?:contract|agreement)\b|\b(?:never|didn'?t|did not|failed to) deliver\w*|\bnot delivered\b|\bordered\b|\babandoned the (?:job|work|project)\b|\bnever (?:finished|completed)\b/i],
+  ["debt", /\bowes? me\b|\bowed me\b|\bunpaid\b|\bnever (?:paid|repaid) (?:me|us|back)\b|\b(?:lent|loaned)\b/i],
+  // One sentence at a time (kindsFromStory reads through sentences.ts), so ".*" stays inside it.
+  // Their own professional, with a failure named ("my lawyer missed the deadline"); never a doctor merely
+  // seen beside missed work (verifyCharterRetest: "I saw a doctor on June 5 and missed 2 weeks of work").
+  ["professional-negligence", /\bmy (?:lawyer|accountant|doctor|dentist|engineer|architect|surgeon)\b.*\b(?:made a mistake|negligen\w*|missed (?:the |a |my )?(?:deadline|diagnosis|filing)|botched)\b/i],
+  // Only the words: never negligence read from an injury (verifyCharterRetest: "for the injury").
+  ["negligence", /\bnegligen\w*|\bcareless\w*|\breckless\w*/i],
+  ["employment", /\b(?:fired|dismissed|terminated|wrongful dismissal|laid off)\b/i],
+  ["fraud-misrepresentation", /\bfraud\w*|\bscam\w*|\bmisrepresent\w*|\blied to (?:me|us)\b/i],
+  ["property", /\bproperty line\b|\beasement\b|\btrespass\w*|\bboundary\b/i],
+  ["estate", /(?<!real )\bestate\b|\bprobate\b|\bexecutor\b|\binheritance\b/i],
+  ["privacy", /\bprivacy\b|\bpersonal information\b/i],
+];
+
+export function familyIssuesFromStory(story: string): { value: string[]; quote: string } | null {
+  return kindsFromStory(story, FAMILY_KIND_CUES);
+}
+
 export function civilIssuesFromStory(story: string): { value: string[]; quote: string } | null {
-  const named: [string, RegExp][] = [
-    ["charter", /\bcharter\b/i],
-    ["police-conduct", /\bpolice\b|\bpolice officers?\b|\bconstables?\b/i],
-    ["defamation", /\bdefam\w*|\blibel\w*|\bslander\w*/i],
-    ["human-rights", /\bdiscriminat\w*|\bhuman rights\b/i],
-  ];
-  const values: string[] = [];
-  const quotes: string[] = [];
-  for (const [value, words] of named) {
-    const sentence = sentences(story).find((candidate) => words.test(candidate) && !/\?\s*$/.test(candidate));
-    if (!sentence) continue;
-    values.push(value);
-    if (!quotes.includes(sentence)) quotes.push(sentence);
-  }
-  return values.length ? { value: values, quote: quotes.join(" ") } : null;
+  return kindsFromStory(story, CIVIL_KIND_CUES);
 }

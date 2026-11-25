@@ -1,7 +1,15 @@
 "use client";
 
-import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
+import { useOpenWholeForm } from "./openWholeForm";
+import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeReviewView, useIntakeState, useStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
+import { notMarriedOf, withoutMarriedOnly } from "../../../src/lib/case-system/family/marriedOnly";
+import { MARRIED_UNSURE_NOTE } from "../../../src/lib/case-system/copy/askCopy";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
+import { caseFileOf, heldYourName } from "../../../src/lib/case-system/caseFile/caseFile";
+import { formAnalysisInput } from "../../../src/lib/case-system/caseFile/chatTurnFacts";
+import { NotAnsweredYetField } from "../../_components/NotAnsweredYet";
+import { useBoxesFollow } from "../../_components/AskedField";
+import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
 import { formatForCourt } from "../../../src/lib/case-system/dates";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
@@ -14,6 +22,7 @@ import { IntakeRequest } from "../../_components/intakeRequest";
 import { buildFamilyAnalysis } from "./familyAnalysis";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { writeAnswer } from "../../_components/caseWrite";
 import {
   AnalysisResult,
   StoredCaseData,
@@ -26,10 +35,10 @@ import type { FamilyCanonicalIntakeResult } from "@/src/lib/case-system/orchestr
 import { supabase } from "@/src/lib/supabase/client";
 import { userStory } from "@/src/lib/case-system/userStory";
 import {
-  runClientSafetyCheck,
+  ensureSafetyChecked,
+  safetyConcernFromAnalysis,
   type ClientSafetyClassification,
 } from "@/src/lib/case-system/intake/clientSafetyCheck";
-import { FAMILY_RESOURCE_TOPICS } from "@/src/lib/case-system/intake/familySafetyResources";
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
 import {
   assignReferences,
@@ -156,6 +165,8 @@ type Props = {
 };
 
 type TextareaField = {
+  /** The form key, for a box whose fact the case file may hold "not sure" (NotAnsweredYetField). */
+  key?: string;
   label: string;
   value: string;
   setter: React.Dispatch<React.SetStateAction<string>>;
@@ -276,6 +287,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   // One question at a time by default (Step 2C, 2026-10-12); the whole form
   // is one click away and holds exactly the same answers.
   const [mode, setMode] = useIntakeState<"chat" | "form">("family", "mode", "chat");
+  // The overview's "Open the whole form (all your answers)" on a confirmed case (Chrome check of #544, 7 Nov).
+  useOpenWholeForm(() => setMode("form"));
   // No values handed over from the follow-up chat any more: a second copy of the
   // story outside the version record (Part 3, stale-story audit item 4).
   const initialValues: Record<string, string | string[]> = {};
@@ -311,10 +324,22 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   const city = location.city;
   const [otherParty, setOtherParty] = useIntakeState("family", "otherParty", () => saved?.otherParty || String(initialValues.otherParty || ""));
   const [childrenInfo, setChildrenInfo] = useIntakeState("family", "childrenInfo", () => saved?.childrenInfo ?? "");
+  // Married to the other person: asked once, early, here (guidedFields.ts "married"); the triage reads the case file.
+  const recoveryForMarried = useIntakeRecovery();
+  // Read from the case, saved through the one writer (caseWrite.ts writeAnswer), which records the married fact.
+  const [married, setMarriedShown] = useState<string>(() => String(recoveryForMarried?.read("family", "married") ?? ""));
+  const setMarried = (value: string) => { setMarriedShown(value); if (recoveryForMarried) writeAnswer(recoveryForMarried, "family", "married", value); };
   const [currentLivingSituation, setCurrentLivingSituation] = useIntakeState("family", "currentLivingSituation", () => saved?.currentLivingSituation ?? "");
   const [pastLivingHistory, setPastLivingHistory] = useIntakeState("family", "pastLivingHistory", () => saved?.pastLivingHistory ?? "");
   // The one copy of the story (intakeStory.ts). A story read from a saved case fills an empty one once.
   const [facts, setFacts] = useStory();
+  // Someone not married to the other person is not offered married-only topics (marriedOnly.ts); a story reading alone
+  // hides them behind "Show all topics", never for good (CLAUDE.md s. 4).
+  const reviewView = useIntakeReviewView();
+  // The person's own name the parties hold (the Parties step), read through the one reader (caseFile.ts heldYourName, C9).
+  const heldName = reviewView ? heldYourName(caseFileOf(reviewView.checkpoint)) : "";
+  const [changingName, setChangingName] = useState(false);
+  const [showAllIssues, setShowAllIssues] = useState(false);
   const storySeeded = useRef(false);
   useEffect(() => {
     if (storySeeded.current) return;
@@ -376,7 +401,10 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
    * can stand as their confirmation of the stage.
    */
   const recovery = useIntakeRecovery();
+  // The one continue rule (intakeReview.ts continueNeeds): this route's continue is held while the review still needs something.
   const beforeIntakeAI = useBeforeIntakeAI();
+  // The whole form's boxes follow the newest saved answer (rule 3; Chrome check of #544, step 14).
+  useBoxesFollow("family", null);
   const prepareCaseGuidance = usePrepareCaseGuidance();
   const validateIntakeResponse = useValidateIntakeResponse();
   const [storedPersonSet] = useIntakeState<Set<"yourRole">>("family", "personSet", new Set());
@@ -396,6 +424,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   const textareaFields: TextareaField[] = useMemo(
     () => [
       {
+        key: "childrenInfo",
         label: "Children / parenting details",
         value: childrenInfo,
         setter: setChildrenInfo,
@@ -417,6 +446,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           "Who handled school, medical appointments, routines, meals, homework, activities, appointments, finances, and caregiving over time.",
       },
       {
+        key: "timeline",
         label: "Timeline",
         value: timeline,
         setter: setTimeline,
@@ -452,6 +482,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           "Matrimonial home, possession, debts, bank accounts, pensions, vehicles, business interests, hidden assets, missing disclosure, or equalization/property concerns.",
       },
       {
+        key: "goal",
         label: "What do you want the court to order?",
         value: goal,
         setter: setGoal,
@@ -459,6 +490,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           "Exact parenting schedule, decision-making terms, support, disclosure, property order, exclusive possession, urgent order, enforcement, costs, or other relief.",
       },
       {
+        key: "urgent",
         label: "Anything urgent or deadline-related?",
         value: urgent,
         setter: setUrgent,
@@ -640,12 +672,15 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
      * should be asked specifically whether continuing is right here, or
      * whether family should halt like Small Claims does.
      */
+    // A check that failed twice is "failed", never clear; the route checks again and records it (item N).
+    let safetyFailed = true;
     try {
       const {
         data: { session },
       } = await supabase.auth.getSession();
 
-      const safety = await runClientSafetyCheck(facts, session?.access_token);
+      const safety = await ensureSafetyChecked(facts, session?.access_token);
+      safetyFailed = safety.status === "failed";
       await validateIntakeResponse(signal);
       signal.throwIfAborted();
       setSafetyClassification(safety.classification);
@@ -661,7 +696,13 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
 
     try {
       const narrative = buildNarrative();
-      const familyInput: FamilyMasterCaseInput = {
+      // The form's boxes with the record's answers, the record winning (chatTurnFacts.ts formAnalysisInput, the one
+      // function every route builds its analysis input with; site owner, 14 Nov 2026).
+      const checkpointNow = recovery?.getReview().checkpoint ?? null;
+      const familyInput: FamilyMasterCaseInput = formAnalysisInput<FamilyMasterCaseInput>({
+        // The issues picked, in words, told to the AI research, from the case file through the shared
+        // builder (aiCaseContext.ts, rule 8; site owner, 31 Oct).
+        caseContext: researchCaseContext(caseFileOf(recovery?.getReview().checkpoint ?? null)),
         caseStage,
         role: yourRole,
         issues: issues.map(labelForIssue),
@@ -692,7 +733,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           source: file.source,
           notes: cleanList([file.evidenceDate, file.relevance]).join("; "),
         })),
-      };
+      }, checkpointNow, caseFileOf(checkpointNow, recovery?.getSavedMaster() ?? undefined));
       const {
         data: { session },
       } = await supabase.auth.getSession();
@@ -720,6 +761,13 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
 
       if (!response.ok || !body.ok || !body.result) {
         throw new Error(body.error || "Family analysis could not be completed.");
+      }
+      // The browser's check failed: the route checked the same story itself.
+      // Family shows the resources and continues, as it does for its own check.
+      const late = safetyFailed ? safetyConcernFromAnalysis(body) : null;
+      if (late) {
+        setSafetyClassification(late.classification);
+        setSafetyMessage(late.userMessage || "");
       }
 
       const result = body.result;
@@ -808,6 +856,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   const guidedValues: GuidedValues = {
     facts,
     yourRole,
+    married,
     issues,
     filedDocuments,
     childrenInfo,
@@ -828,6 +877,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
       case "yourRole": personSet.current.add("yourRole"); setYourRole(one === "applicant" || one === "respondent" ? one : "not-sure"); break;
       case "issues": setIssues(list.filter((item): item is FamilyIssue => issueOptions.some((option) => option.value === item))); break;
       case "filedDocuments": personDocuments.current = new Set(list); setFiledDocuments(list.filter((item): item is FiledDocument => filedOptions.some((option) => option.value === item))); break;
+      case "married": setMarried(one === "yes" || one === "no" || one === "unsure" ? one : ""); break;
       case "childrenInfo": setChildrenInfo(one); break;
       case "servedDate": setTimeline((current) => familyTimelineAnswer(key, one, current) ?? current); break;
       case "upcomingCourtDate": setUpcomingCourtDate(one); break;
@@ -864,11 +914,14 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
         intake below stays fully usable — this path never halts.
 
         The wording is NOT generated and NOT assembled here: `safetyMessage` is
-        safetyPass.ts's fixed constant, and the resources are
-        FAMILY_RESOURCE_TOPICS, whose own header records that each phone number
-        was individually fetched from an ontario.ca page and quoted verbatim.
-        Nothing on this panel is a judgment about this user's facts beyond the
-        classification itself.
+        safetyPass.ts's fixed constant. Nothing on this panel is a judgment
+        about this user's facts beyond the classification itself.
+
+        ONE SUPPORT BOX (owner's Chrome check, 2026-10-30): the "Support if
+        family violence is part of your situation" box is the overview's
+        family-safety-resources (IntelligenceOverviewPanel.tsx), on every
+        Family case. Its copy here was a second, hidden one: this panel sits in
+        the builder's intake section, which is hidden once the results show.
       */}
       {asksForAdvice && (
         <div className="mt-5">
@@ -876,40 +929,15 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
         </div>
       )}
 
-      {safetyClassification !== "clear" && (
+      {safetyClassification !== "clear" && safetyMessage && (
         <div
           role="note"
           aria-live="polite"
           className="mt-5 rounded-2xl border-2 border-[#c2410c] bg-[#fff7ed] p-5"
         >
-          {safetyMessage && (
-            <p className="whitespace-pre-line text-[15px] font-semibold leading-7 text-[#7c2d12]">
-              {safetyMessage}
-            </p>
-          )}
-
-          {FAMILY_RESOURCE_TOPICS.map((topic) => (
-            <div key={topic.id} className={safetyMessage ? "mt-5" : ""}>
-              <h3 className="text-base font-bold text-[#7c2d12]">{topic.title}</h3>
-              <p className="mt-2 whitespace-pre-line text-[15px] leading-7 text-[#7c2d12]">
-                {topic.content}
-              </p>
-              <ul className="mt-3 space-y-1">
-                {topic.citations.map((citation) => (
-                  <li key={citation.officialUrl} className="text-xs leading-5 text-[#9a3412]">
-                    <a
-                      href={citation.officialUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="underline"
-                    >
-                      {citation.sourceName}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <p className="whitespace-pre-line text-[15px] font-semibold leading-7 text-[#7c2d12]">
+            {safetyMessage}
+          </p>
 
           <p className="mt-5 text-sm leading-6 text-[#7c2d12]">
             Your intake below is saved and you can carry on with it whenever you
@@ -950,6 +978,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
 
         {mode === "chat" ? (<>
           <GuidedFormChat
+            tribunalCourt="family"
             fields={guidedFields}
             values={guidedValues}
             onAnswer={answerGuided}
@@ -1026,14 +1055,24 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
         <div className="grid gap-5 md:grid-cols-2">
           <label className="block">
             <span className="font-semibold text-[#16302b]">Your name</span>
+            {/* A name the parties already hold (the Parties step) is shown with Change, never asked again here (C9). */}
+            {heldName && !yourName.trim() && !changingName ? (
+              <span data-testid="family-your-name-held" className="mt-2 block text-[#16302b]">
+                {heldName}{" "}
+                <button type="button" onClick={() => setChangingName(true)} className="font-semibold text-[#2f7d67] underline">Change</button>
+              </span>
+            ) : (
             <input
               value={yourName}
               onChange={(e) => setYourName(e.target.value)}
               className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Full legal name"
             />
+            )}
           </label>
 
+          {/* A "not sure" in this box is never shown as its answer (item 4, 6 Nov). */}
+          <NotAnsweredYetField field="otherParty" value={otherParty} label="Other party">
           <label className="block">
             <span className="font-semibold text-[#16302b]">Other party</span>
             <input
@@ -1043,6 +1082,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
               placeholder="Other party’s full legal name"
             />
           </label>
+          </NotAnsweredYetField>
         </div>
 
         <div>
@@ -1077,7 +1117,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
             What issues may exist?
           </h3>
           <div className="mt-3 grid gap-3 md:grid-cols-2">
-            {issueOptions.map((option) => (
+            {(showAllIssues ? issueOptions : withoutMarriedOnly(issueOptions, notMarriedOf(reviewView ? caseFileOf(reviewView.checkpoint) : null, facts), issues)).map((option) => (
               <button
                 key={option.value}
                 type="button"
@@ -1096,12 +1136,23 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
               </button>
             ))}
           </div>
+          {!showAllIssues && notMarriedOf(reviewView ? caseFileOf(reviewView.checkpoint) : null, facts) === "story" && withoutMarriedOnly(issueOptions, "story", issues).length < issueOptions.length ? (
+            <button type="button" data-testid="family-issue-show-all" onClick={() => setShowAllIssues(true)} className="mt-2 text-sm font-semibold text-[#2f7d67] underline">
+              Show all topics
+            </button>
+          ) : null}
+          {/* Married "I'm not sure" (decision A, 14 Nov 2026): the married-only topics are left out, said plainly. */}
+          {notMarriedOf(reviewView ? caseFileOf(reviewView.checkpoint) : null, facts) === "unsure" && withoutMarriedOnly(issueOptions, "unsure", issues).length < issueOptions.length ? (
+            <p data-testid="family-issue-married-unsure" className="mt-2 text-sm text-[#4d675f]">Topics only for married people are not shown. {MARRIED_UNSURE_NOTE}</p>
+          ) : null}
         </div>
 
         {issues.includes("adoption") && <section className="rounded-2xl border border-[#cde7dc] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Adoption details to organize</h3><p className="mt-2 text-sm text-[#4d675f]">Answer only what you know. These questions do not confirm legal requirements.</p><textarea aria-label="Adoption details" value={adoptionDetails} onChange={(event) => setAdoptionDetails(event.target.value)} className="mt-4 min-h-48 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="Is the person to be adopted 18 or older? Does the adult person want to be adopted? Is the applicant a step-parent, relative, or another person? Does the adult live in Ontario? Is the biological parent known/contactable, unknown, or location currently unknown? What steps have been taken to locate or contact that parent? Is there an existing adoption, family, child-protection, or court file?" /></section>}
 
         {textareaFields.map((field) => (
-          <label key={field.label} className="block">
+          // A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct).
+          <NotAnsweredYetField key={field.label} field={field.key ?? ""} facts={field.key === "timeline" ? ["whenHappened"] : field.key ? undefined : []} value={field.value} label={field.label}>
+          <label className="block">
             <span className="font-semibold text-[#16302b]">{field.label}</span>
             <textarea
               value={field.value}
@@ -1110,6 +1161,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
               placeholder={field.placeholder}
             />
           </label>
+          </NotAnsweredYetField>
         ))}
 
         <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
@@ -1287,6 +1339,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           )}
         </div>
 
+        <NotAnsweredYetField field="upcomingCourtDate" value={upcomingCourtDate} label="Next court date or deadline">
         <label className="block">
           <span className="font-semibold text-[#16302b]">
             Next court date or deadline
@@ -1298,6 +1351,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
             placeholder="Example: Case conference on June 15, 2026"
           />
         </label>
+        </NotAnsweredYetField>
 
         </div>
 

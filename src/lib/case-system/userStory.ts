@@ -13,6 +13,8 @@
  * The record itself is left alone: the engines downstream read it.
  */
 
+import { personWordsOnly } from "./personWords";
+
 /** The labels the intakes' records use for the story itself. */
 const STORY_LABELS = ["Main story", "Case story", "Facts"];
 
@@ -133,6 +135,7 @@ export function userStory(intake: IntakeLike): string {
     (typeof extra.story === "string" && extra.story) ||
     (civilInput && typeof civilInput.facts === "string" && civilInput.facts) ||
     "";
-  if (direct.trim()) return direct.trim();
-  return typeof intake.facts === "string" ? storyFromRecord(intake.facts) : "";
+  // The person's words only: a site question saved in the story the old way is never shown back as theirs (personWords.ts).
+  if (direct.trim()) return personWordsOnly(direct.trim());
+  return typeof intake.facts === "string" ? personWordsOnly(storyFromRecord(intake.facts)) : "";
 }

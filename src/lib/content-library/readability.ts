@@ -158,3 +158,38 @@ export function readability(text: string): ReadabilityScore {
 export function isPlainEnough(text: string, target: number = TARGET_GRADE): boolean {
   return readability(text).grade <= target;
 }
+
+/**
+ * *** THE READING LEVEL IS A WARNING, NOT A GATE (site owner, 2026-11-21) ***
+ *
+ * The approved legal wording of 2026-11-21 stays word for word, and some of it reads above grade 8. So the check still
+ * runs and lists every sentence above the target, with its stage and section, but it no longer fails a build or a test,
+ * and no legal wording is changed to lower a score.
+ *
+ * Word-for-word quotes from rules and statutes are left out of the check entirely: the text in quotation marks after a
+ * citation ("Rules of Civil Procedure, R.R.O. 1990, Reg. 194, r. 37.10 (1): “...”"). They are the law's own words,
+ * never ours to simplify.
+ */
+export function withoutQuotedRules(text: string): string {
+  return text.replace(/:\s*“[^”]*”/g, ":").replace(/:\s*"[^"]*"/g, ":");
+}
+
+export type ReadingWarning = { section: string; sentence: string; grade: number };
+
+/** Every sentence above the target, outside quoted rule text, in each named section. Never a failure. */
+export function sentencesAboveTarget(
+  sections: ReadonlyArray<{ section: string; text: string | null | undefined }>,
+  target: number = TARGET_GRADE,
+): ReadingWarning[] {
+  const out: ReadingWarning[] = [];
+  for (const { section, text } of sections) {
+    if (!text) continue;
+    for (const sentence of splitSentences(withoutQuotedRules(text))) {
+      const words = splitWords(stripCitations(sentence));
+      if (words.length === 0) continue;
+      const grade = fleschKincaid(words.length, 1, words.reduce((t, w) => t + countSyllables(w), 0));
+      if (Number(grade.toFixed(1)) > target) out.push({ section, sentence, grade: Number(grade.toFixed(1)) });
+    }
+  }
+  return out;
+}

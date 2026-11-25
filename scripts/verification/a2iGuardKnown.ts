@@ -43,7 +43,6 @@ export const A2I_GUARD_KNOWN: A2iGuardKnown[] = [
 
   // (e) Remaining questions come only from a fixed, reviewed set.
   { check: "A2I-e-sourced-questions-off", reason: "Sourced questions are written by the model from the law it read, up to five a run.", cause: "src/lib/content-library/phaseScope.ts:257" },
-  { check: "A2I-e-front-door-questions-fixed", reason: "The front-door reading shows questions the model wrote itself; only a citation in one is screened.", cause: "src/lib/case-system/understanding/understandCase.ts:259-272" },
   { check: "A2I-e-bank-reviewed", reason: "Not checkable from code: no review sign-off is recorded, and the site's notice says the content has not been reviewed by a licensed lawyer or paralegal.", cause: "app/_components/AiUseNotice.tsx" },
 
   // (f) Names are never sent to the AI.

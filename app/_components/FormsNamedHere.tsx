@@ -1,4 +1,5 @@
 import { officialFormsNamedIn, relevantToFamilyCase } from "@/src/lib/content-library/forms/formsInText";
+import { isDivorceApplication } from "@/src/lib/content-library/nextStepPractical";
 
 /**
  * "Forms named in this step": the official forms the guidance above names,
@@ -10,15 +11,18 @@ export default function FormsNamedHere({
   court,
   heading = "Forms named in this step",
   userWords = "",
+  notMarried = false,
 }: {
   texts: readonly string[];
   court: string;
   heading?: string;
   /** The user's own story and answers, so a family case lists only the forms for its kind of case. */
   userWords?: string;
+  /** The person recorded they were never married (caseFile.ts neverMarried): no Application (Divorce), as on every form list. */
+  notMarried?: boolean;
 }) {
   const forms = officialFormsNamedIn(texts, court).filter(
-    (form) => court !== "family" || relevantToFamilyCase(form, userWords),
+    (form) => (court !== "family" || relevantToFamilyCase(form, userWords)) && !(notMarried && isDivorceApplication({ court: "family", number: form.number }) && court === "family"),
   );
   if (forms.length === 0) return null;
   return (

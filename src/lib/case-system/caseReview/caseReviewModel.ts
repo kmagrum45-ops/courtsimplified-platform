@@ -84,7 +84,9 @@ export function validateCaseReviewOutput(raw: unknown, file: ConfirmedCaseFile):
   // What the user has NOT already listed as evidence. A document-mentioned
   // finding that quotes their own evidence answer tells them to add what they
   // just said they have (story review battery, 2026-09-28, SC1/SC2/SC5).
-  const beyondEvidence = normalize(caseFileText({ ...file, evidenceText: "" }));
+  // Nor what they WANT: a goal ("The house sold and the money divided equally") is not something
+  // that happened, so asking for proof of it is wrong (founder's Chrome re-test of #536, Family, 1 Nov).
+  const beyondEvidence = normalize(caseFileText({ ...file, evidenceText: "", goalText: "" }));
   const seen = new Set<string>();
   const kept: CaseReviewFinding[] = [];
 

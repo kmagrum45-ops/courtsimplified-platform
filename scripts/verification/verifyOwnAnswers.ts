@@ -21,10 +21,19 @@
  * want after the person had answered with a declaration; the other party never asked after "No,
  * let me answer"; the chat asking "what outcome are you seeking?" once they had said it.
  */
-import { alreadyAsked, caseFileOf, unsureDateQuestions } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, unsureDateQuestions } from "../../src/lib/case-system/caseFile/caseFile";
+// The one asker (caseFile/heldAnswer.ts, 23 Nov 2026): caseFile.ts's alreadyAsked, nextQuestion, askable, notAsked and
+// chatQuestionToAsk were deleted with it; the checks below read the same decisions under their old names, unchanged.
+import { chatQuestionFor as chatQuestionToAsk, isHeld as alreadyAsked, missingQuestions } from "../../src/lib/case-system/caseFile/heldAnswer";
+import { slotStatus as statusOfSlot } from "../../src/lib/case-system/caseFile/factStatus";
+const notAsked = (slot: Parameters<typeof statusOfSlot>[0]) => ["ask", "offer"].includes(statusOfSlot(slot));
+const nextQuestion = (file: Parameters<typeof missingQuestions>[0], candidates: readonly string[], options: { surface?: string } = {}) => missingQuestions(file, candidates, options.surface)[0] ?? null;
+const askable = (file: Parameters<typeof missingQuestions>[0], candidates: readonly string[], surface?: string) => missingQuestions(file, candidates, surface);
+void chatQuestionToAsk; void alreadyAsked; void notAsked; void nextQuestion; void askable;
+
 import { factOfAskedText } from "../../src/lib/case-system/caseFile/factsOfQuestion";
 import { remainingEssentialQuestions } from "../../src/lib/case-system/intakeReview";
-import { answeredFactsOf, answeredInStory } from "../../src/lib/case-system/guided-assistant/answeredInStory";
+import { answeredInStory, caseFileOfChat } from "../../src/lib/case-system/guided-assistant/answeredInStory";
 import { onSideChange } from "../../src/lib/case-system/sideChange";
 import { civilGuidedFields, familyGuidedFields, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, FAMILY_ISSUE_OPTIONS, FAMILY_FILED_OPTIONS } from "../../app/builder/_components/guidedFields";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
@@ -65,8 +74,8 @@ for (const court of ["civil", "family", "small-claims"] as const) {
   check(`${court}: the question for it counts as asked`, alreadyAsked(file, court === "family" ? "goal" : court === "civil" ? "legalRemedy" : "sc-remedy-sought"));
   const remaining = remainingEssentialQuestions(stored).map((question) => question.id);
   check(`${court}: the review does not ask it again`, !remaining.some((id) => ["goal", "legalRemedy", "sc-remedy-sought", "remedySought"].includes(id)), remaining.join(", "));
-  const facts = answeredFactsOf({ masterResult: { intakeCheckpoint: stored } });
-  check(`${court}: the chat does not ask it again`, answeredInStory("What outcome are you seeking?", "", facts));
+  const held = caseFileOfChat({ masterResult: { intakeCheckpoint: stored } });
+  check(`${court}: the chat does not ask it again`, answeredInStory("What outcome are you seeking?", "", held));
 }
 // Without the home answer it is still asked (control).
 const without = remainingEssentialQuestions(checkpoint("civil", {})).map((question) => question.id);
@@ -123,9 +132,9 @@ check("a side change sets the old side's 'what you want' from the home page asid
   ];
   // Story pack on GitHub, 27 Oct (w4): "I don't know yet" to the day the claim was issued, then that
   // question asked on the results page and again on the case page. Any date question answered so is
-  // offered once more at the end, like the days the case file holds.
+  // folded on the step page (never asked again), like the days the case file holds.
   const unsureIssued = caseFileOf({ version: 1, flowId: "00000000-0000-4000-8000-000000000044", courtPath: "small-claims", revision: "00000000-0000-4000-8000-000000000044", sections: { story: { text: "Synthetic." }, builder: { initialUnknowns: ["sc-date-claim-issued", "sc-remedy-sought"] } } } as never);
-  check("a date answered 'I don't know yet' with no slot of its own is offered once at the end, never asked cold", unsureDateQuestions(unsureIssued).includes("sc-date-claim-issued") && !unsureDateQuestions(unsureIssued).includes("sc-remedy-sought"), JSON.stringify(unsureDateQuestions(unsureIssued)));
+  check("a date answered 'I don't know yet' with no slot of its own is folded on the step page, never asked again", unsureDateQuestions(unsureIssued).includes("sc-date-claim-issued") && !unsureDateQuestions(unsureIssued).includes("sc-remedy-sought"), JSON.stringify(unsureDateQuestions(unsureIssued)));
   for (const [step, want, why] of STEPS) check(`${step} settles ${JSON.stringify(want)} (${why})`, JSON.stringify(settledBySmallClaimsStep(step)) === JSON.stringify(want), JSON.stringify(settledBySmallClaimsStep(step)));
 }
 
