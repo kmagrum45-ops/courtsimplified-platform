@@ -80,7 +80,8 @@ section("Findings 2 and 3", () => {
   check("F2 the Family status questions read the city through heldLocation", /const cityHeld = heldLocation\(file\)\?\.city\.trim\(\) \|\| homeCity\.trim\(\);/.test(source("app/builder/_components/FamilyStatusTriage.tsx")));
   check("F2 the court chat reads the held location first", /const held = heldLocation\(reviewView \? caseFileOf\(reviewView\.checkpoint\) : null\);/.test(source("app/builder/_components/CourtAssistantChat.tsx")) && /province: held\?\.province \|\| fromData\.province/.test(source("app/builder/_components/CourtAssistantChat.tsx")));
   check("F2 only the person's own entry is filled, never the other side's", withStartLocation([you, store], { location: { city: "Ottawa" } })[1].details.city === undefined);
-  check("F2 the one writer drops what was read from the start before saving", /readParties\(JSON\.parse\(JSON\.stringify\(\{ \.\.\.record, list: record\.list\.map\(withoutHeldElsewhere\) \}\)\)\)/.test(source("app/_components/caseWrite.ts")));
+  // (`owned`: the list with the one other party's whole name taken in once the person edits it, rule 1; caseWrite.ts.)
+  check("F2 the one writer drops what was read from the start before saving", /readParties\(JSON\.parse\(JSON\.stringify\(\{ \.\.\.record, list: (?:record\.list|owned)\.map\(withoutHeldElsewhere\) \}\)\)\)/.test(source("app/_components/caseWrite.ts")));
   // C9 (Chrome check of #558, step 5a): the other side's name confirmed in the chat was offered again on the Parties step
   // ("Name: Test Partner", Yes / No). Held there now, as the one other party's name, never offered again.
   const blank = { id: "o1", side: "other" as const, details: {}, unsure: [] };
