@@ -23,6 +23,11 @@ import { homeAsks } from "../../src/lib/case-system/caseFile/factQuestions";
 import { SLOT_FACTS } from "../../src/lib/case-system/caseFile/slotFacts";
 import { factsOfQuestion } from "../../src/lib/case-system/caseFile/factsOfQuestion";
 import { nextSituationQuestion } from "../../src/lib/case-system/situation/situation";
+import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
+import { civilGuidedFields, familyGuidedFields } from "../../app/builder/_components/guidedFields";
+import { HOME_QUESTIONS } from "../../src/lib/case-system/caseFile/factQuestions";
+import { stagesForPathway } from "../../src/lib/case-system/stage-map/stageMap";
+import { dateQuestionsForStep } from "../../src/lib/case-system/casePosition";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -36,7 +41,10 @@ const typeStart = source.indexOf("export type CaseFact");
 const declared = [...source.slice(typeStart, source.indexOf("\n\n", typeStart)).replace(/\/\/.*$/gm, "").matchAll(/"([a-zA-Z]+)"/g)].map((match) => match[1]);
 const entries = FACT_REGISTRY.map((entry) => entry.fact as string);
 check(`every declared fact (${declared.length}) has an entry`, declared.every((fact) => entries.includes(fact)), declared.filter((fact) => !entries.includes(fact)).join(", "));
-check("no entry names a fact that is not declared", entries.every((fact) => declared.includes(fact)), entries.filter((fact) => !declared.includes(fact)).join(", "));
+// An entry is a declared fact, or a question id that asks a fact of its own (factsOfQuestion gives back the id itself):
+// never a made-up name (the own-id entries are each asked by some screen, section 6).
+const ownId = (fact: string) => factsOfQuestion(fact).length === 1 && factsOfQuestion(fact)[0] === fact;
+check("every entry is a declared fact or a question asking a fact of its own", entries.every((fact) => declared.includes(fact) || ownId(fact)), entries.filter((fact) => !declared.includes(fact) && !ownId(fact)).join(", "));
 check("no fact has two entries", new Set(entries).size === entries.length);
 const mapped = new Set([...source.slice(source.indexOf("const FACTS"), source.indexOf("};", source.indexOf("const FACTS"))).matchAll(/"?([\w:.-]+)"?:\s*\[/g)].flatMap((match) => factsOfQuestion(match[1])));
 check("every fact a question id asks is in the registry", [...mapped].every((fact) => entries.includes(fact)), [...mapped].filter((fact) => !entries.includes(fact)).join(", "));
@@ -72,6 +80,28 @@ check("the case file gives the context: court, side, nothing filed", JSON.string
 check("an unknown side rules nothing out", contextOfFile({}).side === null && !contextOfFile({}).nothingFiled);
 check("a defendant's own claim is not asked on the home page of a person suing", !homeAsks(suing as never, "sc-defendant-counterclaim", "My neighbour owes me $900."));
 check("it is asked of the person sued", homeAsks(sued as never, "sc-defendant-counterclaim", "I was served with a claim for $900."));
+
+console.log("\n6. Fail closed: every fact any screen can ask for is in the registry");
+// Every list of question ids a screen draws from, each id through the one fact map (factsOfQuestion: an id not mapped asks
+// a fact of its own, its id). A fact that is not registered has no rule of whom it applies to, so it could be shown to
+// anyone: fail closed. (The Parties step's details live in the Parties record, whose facts are registered.)
+const triageSource = readFileSync("src/lib/case-system/family/statusTriage.ts", "utf8");
+const reviewSource = readFileSync("src/lib/case-system/intakeReview.ts", "utf8");
+const labels = reviewSource.slice(reviewSource.indexOf("const FIELD_LABELS"), reviewSource.indexOf("};", reviewSource.indexOf("const FIELD_LABELS")));
+const screens: Record<string, string[]> = {
+  "the Small Claims question bank": QUESTION_BANK.map((question) => question.id),
+  "the Civil questions": civilGuidedFields({ issues: [], documents: [] }).map((field) => field.key),
+  "the Family questions": familyGuidedFields({ issues: [], filed: [] }).map((field) => field.key),
+  "the start": ["where", "started", "papers", "received", "filed", "court", "stage"].map((question) => `situation:${question}`),
+  "the home page": Object.values(HOME_QUESTIONS).flatMap((sides) => Object.values(sides).flatMap((list) => list.map((question) => question.id))),
+  "the Family triage": [...triageSource.slice(triageSource.indexOf("export type TriageQuestionId"), triageSource.indexOf(";", triageSource.indexOf("export type TriageQuestionId"))).matchAll(/"([a-z-]+)"/g)].map((match) => match[1]),
+  "the step page's dates": (["small-claims", "civil", "family"] as const).flatMap((court) => stagesForPathway(court).flatMap((stage) => dateQuestionsForStep(stage.id).map((question) => question.id))),
+  "the review's own boxes": [...labels.matchAll(/(\w+):\s*"/g)].map((match) => match[1]),
+};
+for (const [screen, ids] of Object.entries(screens)) {
+  const unregistered = [...new Set(ids.flatMap((id) => factsOfQuestion(id).filter((fact) => !entries.includes(fact)).map((fact) => (fact === id ? id : `${id} -> ${fact}`))))];
+  check(`${screen} (${new Set(ids).size} question ids): every fact it can ask is registered`, ids.length > 0 && unregistered.length === 0, unregistered.join(", "));
+}
 
 console.log(failures ? `\n${failures} check(s) failed` : "\nThe registry decides which facts apply, in one place");
 process.exit(failures ? 1 : 0);

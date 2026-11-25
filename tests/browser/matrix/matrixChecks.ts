@@ -12,7 +12,7 @@
  *
  *   1 held         a question whose fact the record already held
  *   2 twice        a question asked again after the person gave it
- *   3 applies      a question that does not apply to this side and stage (the fact registry's rule, factRegistry.ts)
+ *   3 applies      a question the story's own list says must not be asked (from the stage map, matrixStories.ts)
  *   4 logged       a visible box or question neither logged nor on the recorder's exempt list
  *   5 one-place    a fact that can be typed in more than one place across the journey
  *   6 offered      a fact the story gives that is not offered from the story exactly once (or is asked cold)
@@ -23,7 +23,6 @@
  *  11 form7a       Form 7A's fill values missing or contradicting a fact the record holds (Small Claims claims)
  */
 import type { Asked } from "../harness/askOnce";
-import { FACT_REGISTRY, factApplies, type FactContext } from "../../../src/lib/case-system/caseFile/factRegistry";
 
 export type Court = "small-claims" | "civil" | "family";
 export type Side = "plaintiff" | "defendant" | "applicant" | "respondent";
@@ -59,6 +58,8 @@ export type MatrixStory = {
   names: string[];
   /** Nothing has been filed with a court yet (the start says so). */
   nothingFiled: boolean;
+  /** What must not be asked of this person, each with the stage-map step it belongs to (check 3). */
+  mustNotAsk?: readonly { fact: string; step: string; why: string }[];
 };
 
 /** One screen as the spec found it after each step. */
@@ -146,12 +147,10 @@ export const fileOf = (surface: string) => SURFACE_FILES[surface] ?? SURFACE_FIL
 export const OFFER_SURFACES = new Set(["sc-proposal", "story-proposal-row", "chat-story", "claim-kind", "sc-claim-kind", "parties-offer", "forms-offer", "form7a-found", "sc-form-offer"]);
 
 /**
- * CHECK 3 READS THE FACT REGISTRY (src/lib/case-system/caseFile/factRegistry.ts, Round 6 PR 2): the site's one rule of
- * whom each fact applies to, with its reason. The matrix keeps no copy of its own (until PR 2 it had a short test-side
- * table, now gone).
+ * CHECK 3 COMPARES WITH THE STORY'S OWN LIST (site owner, 25 Nov 2026): what must not be asked of this person, written in
+ * matrixStories.ts from the stage map's steps and sides, never from the site's fact registry, so a wrong rule in the
+ * registry is caught here instead of passing its own check.
  */
-export type Context = FactContext;
-const contextOf = (story: MatrixStory): Context => ({ court: story.court, side: story.side === "defendant" || story.side === "respondent" ? "responding" : "bringing", nothingFiled: story.nothingFiled });
 
 const fail = (r: JourneyRecord, check: CheckId, screen: string, file: string, fact: string, text: string): Failure => ({ journey: r.journey, check, screen, file, fact, text: text.replace(/\s+/g, " ").trim().slice(0, 240) });
 
@@ -164,13 +163,12 @@ export function check2Twice(r: JourneyRecord): Failure[] {
 }
 
 export function check3Applies(r: JourneyRecord, factsOfEvent: (event: Asked) => string[]): Failure[] {
-  const context = contextOf(r.story);
   const out: Failure[] = [];
   for (const event of [...r.events, ...(r.shown ?? [])]) {
     if (event.kind !== "ask") continue;
     for (const fact of factsOfEvent(event)) {
-      const rule = FACT_REGISTRY.find((item) => item.fact === fact)?.applies;
-      if (rule && !factApplies(fact, context)) out.push(fail(r, 3, event.screen, fileOf(event.surface), fact, `${event.text} -- ${rule.why}`));
+      const rule = (r.story.mustNotAsk ?? []).find((item) => item.fact === fact);
+      if (rule) out.push(fail(r, 3, event.screen, fileOf(event.surface), fact, `${event.text} -- ${rule.why} (stage map: ${rule.step})`));
     }
   }
   return dedupe(out);

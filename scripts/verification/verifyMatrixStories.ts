@@ -19,6 +19,7 @@
  */
 import { readFileSync } from "node:fs";
 import { STARTING_POINTS } from "../../src/lib/case-system/stage-map/stageSequence";
+import { stagesForPathway } from "../../src/lib/case-system/stage-map/stageMap";
 import { MATRIX_STORIES } from "../../tests/browser/matrix/matrixStories";
 import { listedNamesIn, namesNeverSent } from "../../tests/browser/harness/aiFixtures";
 import { bodyNameLabels } from "../../src/lib/security/requestNames";
@@ -84,6 +85,14 @@ const strangers = shardStories.filter((id) => !ids.includes(id));
 check("no story in no shard", inNone.length === 0, inNone.join(", "));
 check("no story in two shards", inTwo.length === 0, inTwo.join(", "));
 check("no shard names a story that does not exist", strangers.length === 0, strangers.join(", "));
+
+console.log("\n8. What must not be asked: each story's own list, from the stage map, never from the site's registry");
+const steps = new Map((["small-claims", "civil", "family"] as const).flatMap((court) => stagesForPathway(court).map((stage) => [stage.id, court] as const)));
+const badSteps = MATRIX_STORIES.flatMap((story) => story.mustNotAsk.filter((item) => steps.get(item.step) !== story.court).map((item) => `${story.id}: ${item.fact} -> ${item.step} (${steps.has(item.step) ? `a ${steps.get(item.step)} step` : "no such step"})`));
+check("every step a list names is a stage-map step of the story's own court", badSteps.length === 0, badSteps.join("; "));
+check("every entry says why", MATRIX_STORIES.every((story) => story.mustNotAsk.every((item) => item.why.trim().length > 15)));
+check("every story that starts before anything is filed has a list", MATRIX_STORIES.filter((story) => story.nothingFiled && story.side !== "defendant" && story.side !== "respondent").every((story) => story.mustNotAsk.length > 0));
+check("the lists are written apart from the site's fact registry (matrixStories.ts does not import it)", !/froms+["'][^"']*factRegistry["']/.test(readFileSync("tests/browser/matrix/matrixStories.ts", "utf8")));
 
 console.log(failures ? `\n${failures} check(s) failed` : `\nAll ${MATRIX_STORIES.length} matrix stories check out`);
 process.exit(failures ? 1 : 0);

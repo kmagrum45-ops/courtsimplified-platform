@@ -11,7 +11,6 @@
  * Pure and fast: no browser, no page, no network.
  */
 import { existsSync } from "node:fs";
-import { FACT_REGISTRY } from "../../src/lib/case-system/caseFile/factRegistry";
 import type { Asked } from "../../tests/browser/harness/askOnce";
 import {
   CHECK_NAMES, OFFERS_HOME, SURFACE_FILES, screenFile, check1Held, check2Twice, check3Applies, check4Logged, check5OnePlace, check6Offered, check7Carried,
@@ -24,7 +23,7 @@ function check(name: string, ok: boolean, detail = "") {
   if (!ok) failures++;
 }
 
-const story: MatrixStory = { id: "sc-kitchen", court: "small-claims", side: "plaintiff", startingPoint: "chrome", text: "...", city: "Ottawa", facts: { otherParty: "TEST Fakebuild Contracting Inc.", amount: "12,500" }, names: ["TEST Fakebuild Contracting Inc."], nothingFiled: true };
+const story: MatrixStory = { id: "sc-kitchen", court: "small-claims", side: "plaintiff", startingPoint: "chrome", text: "...", city: "Ottawa", facts: { otherParty: "TEST Fakebuild Contracting Inc.", amount: "12,500" }, names: ["TEST Fakebuild Contracting Inc."], nothingFiled: true, mustNotAsk: [{ fact: "responseFacts", step: "defendant:defence-filed", why: "the other side's own step" }, { fact: "claimServed", step: "plaintiff:served-awaiting-defence", why: "a step after the claim is issued" }, { fact: "filed", step: "before-filing:deciding-whether-to-sue", why: "the start already says they are starting a case" }] };
 const ev = (surface: string, id: string, text: string, screen = "/builder"): Asked => ({ kind: "ask", surface, id, screen, text, at: 0 });
 /** The test's own fact reader: the event's id is its fact. */
 const factsOf = (event: Asked) => [event.id];
@@ -51,8 +50,8 @@ check("3 \"Defence response\" shown to someone suing", one(check3Applies(clean({
 check("3 \"Claim served\" when nothing was filed", one(check3Applies(clean({ events: [...clean().events, ev("review-entry", "claimServed", "Claim served")] }), factsOf), 3, "claimServed"));
 check("3 \"Has anything been filed\" after \"I want to start a case\"", one(check3Applies(clean({ events: [ev("situation", "filed", "Has anything been filed with the court yet?"), ...clean().events] }), factsOf), 3, "filed"));
 check("3 \"Claim served\" merely shown on the review (already answered No) when nothing was filed", one(check3Applies(clean({ shown: [ev("review-entry", "claimServed", "Claim served Yes No")] }), factsOf), 3, "claimServed"));
-check("3 a defendant may be asked for their defence response", check3Applies(clean({ story: { ...story, side: "defendant", nothingFiled: false }, events: [ev("form-field", "responseFacts", "Defence response")] }), factsOf).length === 0);
-check("3 reads the fact registry's rules, each with its reason", FACT_REGISTRY.filter((entry) => entry.applies).length >= 5 && FACT_REGISTRY.every((entry) => !entry.applies || entry.applies.why.trim().length > 20));
+check("3 a defendant may be asked for their defence response", check3Applies(clean({ story: { ...story, side: "defendant", nothingFiled: false, mustNotAsk: [] }, events: [ev("form-field", "responseFacts", "Defence response")] }), factsOf).length === 0);
+check("3 names the stage-map step of the rule it broke", check3Applies(clean({ shown: [ev("review-entry", "claimServed", "Claim served")] }), factsOf).some((f) => /stage map: plaintiff:served-awaiting-defence/.test(f.text)));
 check("4 a box neither logged nor exempt", one(check4Logged(clean({ blind: ["/builder | input[name=city]"] })), 4, ""));
 check("5 the other side's name typed on the Parties step and in the review", one(check5OnePlace(clean({ events: [ev("parties", "otherParty", "Company's full legal name"), ev("review-entry", "otherParty", "The other party: Not filled in yet")] }), factsOf), 5, "otherParty"));
 check("5 an offer above its own box is one place", check5OnePlace(clean({ events: [ev("parties-offer", "otherParty", "From your story: X"), ev("parties", "otherParty", "Company's full legal name")] }), factsOf).length === 0);
