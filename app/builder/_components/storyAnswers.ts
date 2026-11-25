@@ -512,7 +512,13 @@ const OTHER_SIDE =
   "[Mm]y (?:ex(?:[- ]?(?:wife|husband|gf|bf|girlfriend|boyfriend|partner|spouse|fianc[eé]e?))?|wife|husband|partner|spouse|fianc[eé]e?|girlfriend|boyfriend|common[- ]law(?: (?:wife|husband|partner|spouse))?|(?:sons?|daughters?|kids?|child|children|baby|boy|girl)(?:'s|’s|')? (?:mom|mum|mother|dad|father))";
 /** Anyone else the person names by how they know them: labelled for the model, never offered as the other side. */
 const OTHER_PEOPLE =
-  "[Mm]y (?:(?:old|former|new|previous|current|late|step|younger|older|little|big)[- ]?)?(?:sons?|daughters?|child|kids?|baby|stepson|stepdaughter|mother|father|mom|mum|dad|brothers?|sisters?|grandmother|grandfather|grandma|grandpa|aunt|uncle|cousin|friend|roommate|landlord|landlady|boss|manager|supervisor|employer|neighbou?r|tenant|contractor|lawyer|doctor)";
+  "[Mm]y (?:(?:old|former|new|previous|current|late|step|younger|older|little|big)[- ]?)?(?:sons?|daughters?|child|kids?|baby|stepson|stepdaughter|mother|father|mom|mum|dad|brothers?|sisters?|grandmother|grandfather|grandma|grandpa|aunt|uncle|cousin|friend|roommate|landlord|landlady|boss|manager|supervisor|employer|neighbou?r|tenant|contractor|lawyer|doctor|business partner|client|customer|co-?worker|colleague|employee|supplier)";
+/**
+ * A full name (first and last) that is not a court or a place ("Superior Court", "Small Claims", "Ottawa Ontario"): for
+ * the two patterns below that find a name with no relationship word before it (journey matrix, 25 Nov 2026: "Jordan
+ * Testowner says I helped breach..." and "work on Sam Testhome's basement" reached the model as typed).
+ */
+const FULL_NAME = `(?!(?:Small|Superior|Divisional|Family|Ontario|Canada|Court|Claims|Tribunal|Board|Toronto|Ottawa)\\b)(${NAME_WORD}\\s+(?!(?:Court|Claims|Tribunal|Board|Inc|Ltd|Corp|Corporation|Company|Limited)\\b)${NAME_WORD})`;
 
 export type NameRole = "other" | "you" | "person";
 /** The one set of name patterns: the Family offer reads the "other" ones here; the label layer reads them all (requestNames.ts storyNames). */
@@ -528,6 +534,10 @@ export const STORY_NAME_PATTERNS: readonly { role: NameRole; pattern: RegExp }[]
   { role: "you", pattern: new RegExp(`${LEAD}[Mm]y (?:full )?name is\\s+${PERSON}`, "u") },
   { role: "person", pattern: new RegExp(`${LEAD}${OTHER_PEOPLE}(?:'s name is|,?\\s+(?:who is |is )?named|,?\\s+(?:is )?called)?,?\\s+${PERSON}`, "u") },
   { role: "person", pattern: new RegExp(`${LEAD}(?:named|called)\\s+${PERSON}`, "u") },
+  // A full name that opens a sentence with what the person says or does: "Jordan Testowner says I helped breach a contract".
+  { role: "person", pattern: new RegExp(`(?:^|:\\s+)${FULL_NAME}\\s+(?:says|said|claims|claimed|alleges|alleged|wants|wanted|owes|owed|sued|is suing|told|refuses|refused|insists|insisted)\\b`, "u") },
+  // A full name in the possessive: "I finished work on Sam Testhome's basement".
+  { role: "person", pattern: new RegExp(`${LEAD}${FULL_NAME}(?:'s|’s)(?=\\s)`, "u") },
   // A title, anywhere: "Dr. Kenwyn Opie", "Ms. Locryn Tregear", "Mrs Morvoren Hocking".
   { role: "person", pattern: new RegExp(`${LEAD}(?:Mr|Mrs|Ms|Miss|Mx|Dr)\\.?\\s+(${NAME_WORD}(?:\\s+${NAME_WORD}){0,2})`, "u") },
 ];

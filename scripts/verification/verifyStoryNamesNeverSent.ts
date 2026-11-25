@@ -42,6 +42,12 @@ type Wording = { story: string; names: string[]; other?: string };
 
 /** The wordings the owner listed (22 Nov 2026), each with and without commas. */
 const NEW_WORDINGS: Wording[] = [
+  // The journey matrix (25 Nov 2026): three of its stories reached the model with the name as typed (the recorder stopped
+  // them before they were sent). A relationship the patterns did not list, a name that opens a sentence with what it
+  // says, and a name in the possessive. Hidden only: none is offered as the other side by this change.
+  { story: "In February 2026 I lent my former business partner Dana Testpartner $90,000. She signed a promissory note to repay it by August 1, 2026 and has paid nothing.", names: ["Dana Testpartner"] },
+  { story: "I was not part of the lawsuit, but on November 2, 2026 I was served with a counterclaim naming me as a new party. Jordan Testowner says I helped breach a supply contract.", names: ["Jordan Testowner"] },
+  { story: "I am a drywall contractor. I finished work on Sam Testhome's basement on October 1, 2026 and was never paid the $27,500 invoice.", names: ["Sam Testhome"] },
   { story: "My spouse Test Partner and I separated in March 2025. We have two children.", names: ["Test Partner"], other: "Test Partner" },
   { story: "My spouse, Test Partner, and I separated in March 2025. We have two children.", names: ["Test Partner"], other: "Test Partner" },
   { story: "I separated from my wife Quilla Marrowby last year and she kept the house.", names: ["Quilla Marrowby"], other: "Quilla Marrowby" },
@@ -343,6 +349,18 @@ async function callRoute(route: string, handler: Handler, story: string, court: 
   for (const story of ["My ex Mr. kept the car.", "my husband Is abusive", "My ex Then left in June.", "My spouse March was when we split."]) {
     const offered = readStoryFacts({ story, court: "family" }).otherParty?.value;
     check(`Not a name, not offered: "${story}"`, offered === undefined, String(offered));
+  }
+  // The new patterns for a full name with no relationship word (25 Nov 2026) never take a court or a place for a
+  // person: the model keeps reading "the Superior Court's decision" as a court.
+  const { bodyNameLabels } = await import("../../src/lib/security/requestNames");
+  for (const [story, word] of [
+    ["The Superior Court's decision came in March.", "Superior Court"],
+    ["Small Claims Court says I must file a form.", "Small Claims"],
+    ["Canada Post's truck hit my fence.", "Canada Post"],
+    ["Ottawa Ontario is where it happened.", "Ottawa Ontario"],
+  ] as const) {
+    const labelled = bodyNameLabels({ story }).map((label) => label.name);
+    check(`Not taken for a person's name: "${word}" in "${story}"`, !labelled.some((name) => name.includes(word) || word.includes(name)), labelled.join(", "));
   }
 
   console.log(failures ? `\n${failures} failure(s).` : "\nAll checks passed.");
