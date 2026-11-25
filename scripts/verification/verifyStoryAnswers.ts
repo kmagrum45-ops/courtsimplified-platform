@@ -54,7 +54,10 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import { heardAs, pendingFields, type GuidedField } from "../../app/builder/_components/GuidedFormChat";
+import { heardAs, isAnswered, type GuidedField } from "../../app/builder/_components/GuidedFormChat";
+// The one asker (caseFile/heldAnswer.ts missingFields; pendingFields was deleted with it, 23 Nov 2026), same rule.
+import { missingFields } from "../../src/lib/case-system/caseFile/heldAnswer";
+const pendingFields = (fields: readonly GuidedField[], values: Record<string, string | string[] | undefined>, skipped: ReadonlySet<string>) => missingFields(null, fields, values, skipped, isAnswered);
 import {
   civilGuidedFields,
   familyGuidedFields,

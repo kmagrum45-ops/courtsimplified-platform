@@ -14,10 +14,14 @@
 export type CaseFact =
   | "situation" | "side" | "court" | "stage" | "filed" | "defenceFiled" | "defendantsClaim" | "claimServed" | "papers"
   | "servedDate" | "serviceMethod" | "amount" | "otherParty" | "children" | "married" | "claimKind"
-  | "wants" | "whenHappened" | "evidence" | "story" | "urgent" | "courtFileNumber" | "courtDate"
+  | "wants" | "whenHappened" | "evidence" | "agreementTerms" | "story" | "urgent" | "courtFileNumber" | "courtDate"
   | "conferenceDate" | "claimIssuedDate" | "defenceFiledDate" | "marriedWhere" | "outcome" | "filedDocuments" | "safety"
   // Every question asked by id has a fact (site owner, 17 Nov 2026; test:every-question-has-fact). These are asked in one
   // place each and are not case-file slots: the one function reads slots, so they are never decided by it yet.
+  // The Small Claims review's own boxes (one asker, 23 Nov 2026: every question names its fact; the question logs of #563).
+  // Each side's last name, a fact of its own (site owner, 23 Nov 2026): a one-word name gives the first name only.
+  | "yourLastName" | "otherPartyLastName"
+  | "courtLocation" | "paymentHistory" | "damagesBreakdown" | "deadlineDetails" | "settlementEfforts"
   | "publication" | "twentyDaysPassed" | "notedInDefault" | "responseFacts" | "admission" | "completionDate" | "noticeToContractor"
   | "timeline" | "livingSituation" | "livingHistory" | "property" | "adoption" | "missingEvidence" | "yourName"
   | "divorceSought" | "cohabitation" | "municipality" | "otherPartyMunicipality";
@@ -86,6 +90,16 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   "sc-defendant-defence-filed": ["defenceFiled"],
   "sc-defence-filed": ["defenceFiled"],
   "sc-evidence-available": ["evidence"],
+  // What was agreed, in the person's words: the Small Claims depth questions about the agreement (elementQuestionRegistry.ts),
+  // one fact with the AI's "What are the specific terms of the contract...?" (C9, 23 Nov 2026: that question was dropped
+  // for naming no fact; it now carries this one, so it is asked once and never again once held or stated in the story).
+  "depth-contractor-agreement": ["agreementTerms"],
+  "depth-services-agreement": ["agreementTerms"],
+  "depth-goods-contract-agreement": ["agreementTerms"],
+  "depth-goods-agreement": ["agreementTerms"],
+  "depth-commercial-terms": ["agreementTerms"],
+  "depth-debt-agreement": ["agreementTerms"],
+  "depth-loan-agreement": ["agreementTerms"],
   "sc-remedy-sought": ["wants"],
   // The step page's date questions (casePosition.ts) for the same moments.
   // The day served ("Day you got the papers") is the day the person got the papers that started their case: never a later
@@ -137,6 +151,11 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   "sc-defence-time-elapsed": ["twentyDaysPassed"],
   "sc-defendant-noted-in-default": ["notedInDefault"],
   "sc-defendant-response-facts": ["responseFacts"],
+  // The Small Claims review's boxes by their field (the question logs of #563: each was a fact of its own): the claim number
+  // is the court file number, the agreement details what was agreed, the defence response the facts in response.
+  claimNumber: ["courtFileNumber"],
+  agreementDetails: ["agreementTerms"],
+  defenceResponse: ["responseFacts"],
   "sc-defendant-response-evidence": ["evidence"],
   "sc-defendant-admission-payment": ["admission"],
   "sc-contractor-completion-date": ["completionDate"],
@@ -183,8 +202,17 @@ const ASKS_FOR: [RegExp, CaseFact][] = [
   [/\bwho (?:is|are) the (?:other party|other side|defendants?|respondents?)\b(?!'s|s')|\bwho (?:exactly )?(?:are you|do you want to|will you|would you like to) su(?:e|ing)\b|\bwho (?:exactly )?(?:do|would) you (?:name|sue)\b/i, "otherParty"],
   // The other side named by their part in the story, in the words the home page's questions use for it (Chrome check of
   // #550, 5d: "Who is the other side?" was asked after the home page's question about who bought the goods).
-  [/\bwho (?:bought|purchased|hired|owes|is suing)\b|\bwho did you (?:sell|lend|rent|pay|hire|buy)\b[^?]*\b(?:to|from)?\b|\bwho (?:is|was|are|were) the (?:buyers?|sellers?|purchasers?|landlords?|tenants?|contractors?|lenders?|borrowers?|employers?|customers?|clients?)\b(?!'s|s')|\bname of the (?:company|business|buyers?|sellers?|store|landlord|contractor|employer|person|customer|client)\b|\b(?:full|legal|exact) (?:legal )?name of (?:the )?(?:business|company|store|other)\b/i, "otherParty"],
+  [/\bwho (?:bought|purchased|hired|owes|is suing)\b|\bwho did you (?:sell|lend|rent|pay|hire|buy)\b[^?]*\b(?:to|from)?\b|\bwho (?:is|was|are|were) the (?:buyers?|sellers?|purchasers?|landlords?|tenants?|contractors?|lenders?|borrowers?|employers?|customers?|clients?)\b(?!'s|s')|\bname of the (?:company|business|buyers?|sellers?|store|landlord|contractor|employer|person|customer|client)\b|\b(?:full|legal|exact) (?:legal )?name of (?:the )?(?:business|company|store|other)\b|\bwhat (?:company|business|legal) name\b|\b(?:company|business|legal) name (?:appears|is shown|is written|is listed|is on|on the)\b/i, "otherParty"],
   [/\bwhen did (?:this|it|the [a-z]+) happen\b|\bwhat (?:date|day) did (?:this|it) happen\b/i, "whenHappened"],
+  // The AI's dates question ("What are the exact dates of the agreement, completion of work, and any communications...?"):
+  // when things happened, so it is never asked once the case file holds that (C9, 23 Nov 2026: every AI-written question
+  // carries a fact; the 20 recorded in the journey battery were all of this kind or the next).
+  [/\bwhat (?:are|were) the (?:exact |specific |key |main |important )?dates? (?:of|for|when)\b/i, "whenHappened"],
+  // The AI's filing question in its own words ("Has the claim been officially filed with the court?", the only fixture
+  // question still dropped for naming no fact; C9, 23 Nov 2026): whether anything is filed.
+  [/\bhas (?:the|your) (?:claim|case|application) (?:already |officially |actually )*been (?:already |officially |actually )*(?:filed|issued|started)\b/i, "filed"],
+  // Its costs question ("What are the exact costs incurred due to the contractor's incomplete work?"): the amount claimed.
+  [/\bwhat (?:are|were|is|was) the (?:exact |total |specific )?(?:costs?|losses|damages)\b(?! of (?:filing|the court|court))/i, "amount"],
   // A worry about safety, asked on its own (Chrome check of #550, 5c: "Is anything urgent ... a safety worry" after
   // "No safety concerns"). Only a question about the person's or the child's safety, never "what safety rules".
   [/\b(?:any|immediate|current|ongoing) (?:immediate )?safety (?:concerns?|worr(?:y|ies)|issues?|risks?)\b|\b(?:are|do) you (?:feel )?(?:safe|unsafe)\b|\bworried about (?:your|the child'?s|your child'?s|your children'?s) safety\b/i, "safety"],
@@ -199,6 +227,10 @@ const ASKS_FOR: [RegExp, CaseFact][] = [
   // next" use (Chrome milestone test of #550, rows 39 and 45: "Are you and your partner legally married?" on the home page,
   // the triage's own question, and "Were you married, is a divorce proceeding underway..." after "No"). Never "married
   // where" (marriedWhere) or "when did you marry".
+  // What was agreed (C9, 23 Nov 2026): "What are the specific terms of the contract with the contractor?", "What payment
+  // due date or payment terms did you agree on?", "What did you agree to?". Never an order or a parenting agreement in
+  // place ("Is there already a court order or agreement?"), the proof of one, or its dates (read above).
+  [/\bwhat (?:are|were) the (?:exact |specific |key |main |agreed |payment )?terms\b|\bterms of (?:the|your) (?:contract|agreement|deal|arrangement|loan|lease)\b|\bwhat (?:[\w-]+ ){0,5}?terms did you (?:agree|set)\b|\bwhat (?:exactly )?(?:was|were you|had you) (?:agreed|promised)\b|\bwhat did (?:you|you both|the two of you|you and [\w .'-]{1,40}?) agree\b/i, "agreementTerms"],
   [/(?<!\b(?:where|when|how) )\b(?:are|were) you(?: and (?:your|the) [a-z ]+?)? (?:legally |ever )?married\b(?! (?:in|where|at)\b)/i, "married"],
 ];
 
@@ -254,10 +286,15 @@ const CHAT_QUESTIONS: Record<string, ChatQuestion> = {
   // The general question's parts (assistantBlocks.ts).
   "What are the main dates?": { asks: "chat:main-dates", open: "Are there other important dates?" },
   "What outcome are you seeking?": { asks: "chat:outcome" },
-  // What proof they have (buildQuestions; the general question's part): a fact the case file does not
-  // hold, so only the conversation check stops it (CI 29 Oct, m19-laptop-repair).
+  // What proof they have (buildQuestions; the general question's part; the issue frameworks' and the reasoning profiles'
+  // proof questions): the evidence, a case-file slot since C9 (23 Nov 2026), so held evidence is never asked again.
   "What proof do you already have, such as messages, emails, screenshots, witnesses, court papers, recordings, receipts, or transcripts?": { asks: "chat:proof" },
   "What proof do you currently have?": { asks: "chat:proof" },
+  "Do you have a screenshot, message, email, letter, post, recording, or witness who can prove the statement was sent?": { asks: "chat:proof" },
+  "What proof do you have of the agreement, such as messages, invoices, receipts, or emails?": { asks: "chat:proof" },
+  "Do you have photos, repair estimates, invoices, messages, or witnesses?": { asks: "chat:proof" },
+  "What records do you have: transcript, audio, disclosure, order, endorsement, police records, Crown correspondence, or court file documents?": { asks: "chat:proof" },
+  "Do you have photos or repair estimates?": { asks: "chat:proof" },
 };
 /** A chat sentence built with names in it: the parties it names, to confirm (asks only who the other party is). */
 const CHAT_ASKS: [RegExp, string][] = [

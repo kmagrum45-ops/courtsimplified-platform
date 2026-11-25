@@ -21,6 +21,7 @@ import { deleteHarnessUser } from "./harness/realTestSession";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { serveModelStandIns } from "./harness/thisCommitServer";
 import { confirmReview, DECK_STORY, deckChat, openReview, startDeckCase } from "./harness/deckCase";
+import { giveOtherPartyName, otherPartyNameShown } from "./harness/partiesDriver";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
 
@@ -44,8 +45,8 @@ test("a restart from the story keeps the other party's name in the heading, the 
     await deckChat(page);
     // The other party typed in the whole form (Chrome step 6), then confirmed and the next step shown.
     await page.goto(`/builder?path=small-claims&intake=${id}&step=form`);
-    await page.getByTestId("sc-intake-otherParty").fill(NAME);
-    await page.getByTestId("sc-intake-otherParty").blur();
+    // On the Parties step, the one place for the other side's name (the form's own box is removed, 23 Nov 2026).
+    await giveOtherPartyName(page, NAME);
     await expect(page.getByTestId("intake-save-status")).toContainText(/saved/i, { timeout: 60_000 });
     await openReview(page, id);
     await confirmReview(page);
@@ -56,7 +57,7 @@ test("a restart from the story keeps the other party's name in the heading, the 
     // What the review and the whole form show of the other party before the restart; the same is shown after it.
     const reviewBefore = ((await (await openReview(page, id)).textContent()) ?? "").includes(NAME);
     await page.goto(`/builder?path=small-claims&intake=${id}&step=form`);
-    await expect(page.getByTestId("sc-intake-otherParty")).toHaveValue(NAME, { timeout: 60_000 });
+    await expect.poll(() => otherPartyNameShown(page), { timeout: 60_000 }).toContain(NAME);
     console.log(`F15 before the restart: the review names the other party: ${reviewBefore}`);
 
     // The story added to and saved, the questions started again from it, sent, confirmed and the next step again (Chrome step 14).
@@ -84,7 +85,7 @@ test("a restart from the story keeps the other party's name in the heading, the 
     const review = await openReview(page, id);
     if (reviewBefore) await expect(review, "after the restart, the review lost the other party").toContainText(NAME);
     await page.goto(`/builder?path=small-claims&intake=${id}&step=form`);
-    await expect(page.getByTestId("sc-intake-otherParty"), "after the restart, the whole form lost the other party").toHaveValue(NAME, { timeout: 60_000 });
+    await expect.poll(() => otherPartyNameShown(page), { timeout: 60_000, message: "after the restart, the whole form lost the other party" }).toContain(NAME);
   } finally {
     await deleteHarnessUser(userId);
   }

@@ -30,7 +30,7 @@
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
-import { FACT_PLACES, ALL_COURTS, type Place, type FactAtPlace, type PlaceCourt } from "../../src/lib/case-system/caseFile/factPlaces";
+import { FACT_PLACES, ALL_COURTS, HELD_BY_READER, type Place, type FactAtPlace, type PlaceCourt } from "../../src/lib/case-system/caseFile/factPlaces";
 import { factsOfQuestion } from "../../src/lib/case-system/caseFile/factsOfQuestion";
 import { SLOT_FACTS } from "../../src/lib/case-system/caseFile/slotFacts";
 import { mayShowQuestion, chatMayAsk, questionStatus } from "../../src/lib/case-system/caseFile/factStatus";
@@ -57,6 +57,10 @@ const SLOTS = new Set<string>(SLOT_FACTS);
 export function heldFile(): CaseFile {
   const file = {} as Record<string, unknown>;
   for (const fact of SLOT_FACTS) file[fact] = { state: "answered", value: "held", confirmed: true, source: { kind: "answer", question: "held" } };
+  // And every fact the case file holds outside its slots (HELD_BY_READER): the papers filed, the person's own name, their city.
+  file.documents = ["held"];
+  file.parties = { recorded: true, list: [{ id: "you", you: true, side: "yours", kind: "person", details: { firstName: "Held", lastName: "Person" }, unsure: [] }] };
+  file.location = { city: "Held", province: "Ontario" };
   return file as CaseFile;
 }
 
@@ -93,7 +97,7 @@ export function violationsOf(places: readonly Place[], file: CaseFile): Violatio
         let why: string | null = null;
         if (gate.by === "none") why = "nothing checks";
         else if (gate.by === "own-copy") why = `checks ${gate.copy}, not the case file`;
-        else if (gate.by === "case-file" && !SLOTS.has(fact)) why = "the case file cannot hold this fact";
+        else if (gate.by === "case-file" && !SLOTS.has(fact) && !HELD_BY_READER[fact as keyof typeof HELD_BY_READER]) why = "the case file cannot hold this fact";
         else if (askedWhenHeld(place, row, file).length) why = `its decider still asks ${askedWhenHeld(place, row, file).join(", ")} when the fact is held`;
         if (!why) continue;
         seen.add(place.id);
@@ -156,6 +160,9 @@ function main() {
   for (const place of FACT_PLACES) for (const row of place.facts) if (row.gate.by === "first") for (const court of row.courts) firsts.set(`${court} ${row.fact}`, [...(firsts.get(`${court} ${row.fact}`) ?? []), place.id]);
   const twoFirsts = [...firsts].filter(([, list]) => new Set(list).size > 1).map(([key, list]) => `${key}: ${list.join(", ")}`);
   check("no fact has two first places in one court", twoFirsts.length === 0, twoFirsts.join("\n      "));
+  const caseFileCode = readFileSync(path.join(ROOT, "src/lib/case-system/caseFile/caseFile.ts"), "utf8");
+  const noReader = Object.entries(HELD_BY_READER).filter(([, reader]) => !new RegExp(`export function ${reader}\\b`).test(caseFileCode)).map(([fact, reader]) => `${fact}: ${reader}`);
+  check("every fact held outside the slots names a reader caseFile.ts exports", noReader.length === 0, noReader.join("\n      "));
   const ids = FACT_PLACES.map((place) => place.id);
   check("every place id is used once", new Set(ids).size === ids.length);
 
@@ -176,7 +183,9 @@ function main() {
   check("self-test: a planted place asking the amount with no gate is a new violation", judge(withPlanted, list, base).unlisted.some((v) => v.place === "planted" && v.fact === "amount"));
   const gated: Place = { id: "gated", name: "gated", at: "x", probe: "sc-guided", facts: [{ fact: "amount", kind: "ask", courts: ["small-claims"], gate: { by: "case-file" }, ids: ["sc-amount-claimed"] }] };
   check("self-test: a planted place gated by the case file is not a violation", !violationsOf([...FACT_PLACES, gated], file).some((v) => v.place === "gated"));
-  const lying: Place = { id: "lying", name: "lying", at: "x", probe: "sc-guided", facts: [{ fact: "evidence", kind: "ask", courts: ["small-claims"], gate: { by: "case-file" }, ids: ["sc-evidence-available"] }] };
+  // Any fact the case file still cannot hold (outside the slots, with no reader), whichever it is today.
+  const unheld = QUESTION_BANK.map((item) => ({ id: item.id, fact: factsOfQuestion(item.id)[0] })).find((item) => item.fact && !SLOTS.has(item.fact) && !HELD_BY_READER[item.fact as keyof typeof HELD_BY_READER] && item.fact !== item.id);
+  const lying: Place = { id: "lying", name: "lying", at: "x", probe: "sc-guided", facts: [{ fact: unheld!.fact as FactAtPlace["fact"], kind: "ask", courts: ["small-claims"], gate: { by: "case-file" }, ids: [unheld!.id] }] };
   check("self-test: a row saying the case file decides a fact it cannot hold is a violation", violationsOf([...FACT_PLACES, lying], file).some((v) => v.place === "lying"));
   check("self-test: adding an entry to the known list fails as growth", judge(found, [...list, { court: "civil", fact: "amount", place: "planted", other: "x", why: "x" }], list).grown.length === 1);
 

@@ -2,6 +2,7 @@
 import type { Page } from "@playwright/test";
 import { readFactWrites } from "../../../src/lib/case-system/caseFile/factRecord";
 import { intakeCourtOfRow, saveFactWrites } from "../../../src/lib/case-system/caseFile/factSave";
+import { readParties } from "../../../src/lib/case-system/parties/parties";
 const OWNER = "11111111-1111-4111-8111-111111111111";
 export async function fakeAccount(page: Page) {
   await page.addInitScript(({ owner }) => {
@@ -76,7 +77,10 @@ export async function fakeAccount(page: Page) {
    */
   await page.route("**/api/cases/facts", async route => {
     const body = route.request().postDataJSON() as Record<string, unknown>;
-    const read = readFactWrites(body);
+    // As the route: a Parties record is checked (parties.ts readParties) and may be sent with no fact writes (serverFacts.ts).
+    const parties = body.parties === undefined ? undefined : readParties(body.parties);
+    if (parties === null) return route.fulfill({ status: 400, json: { error: "The parties could not be saved: the record is not well formed." } });
+    const read: ReturnType<typeof readFactWrites> = parties && Array.isArray(body.facts) && body.facts.length === 0 ? { ok: true, writes: [] } : readFactWrites(body);
     if (!read.ok) return route.fulfill({ status: 400, json: { error: read.error } });
     const row = typeof body.caseId === "string" ? rows.get(body.caseId) : undefined;
     if (!row || row.user_id !== OWNER) return route.fulfill({ status: 404, json: { error: "The selected case could not be found." } });
@@ -101,8 +105,8 @@ export async function fakeAccount(page: Page) {
         },
       }),
     };
-    const outcome = await saveFactWrites(client, { caseId: String(body.caseId), userId: OWNER, court }, read.writes);
-    if (outcome.ok) return route.fulfill({ json: { saved: outcome.saved, conflicts: outcome.conflicts, facts: outcome.facts } });
+    const outcome = await saveFactWrites(client, { caseId: String(body.caseId), userId: OWNER, court }, read.writes, undefined, [], parties);
+    if (outcome.ok) return route.fulfill({ json: { saved: outcome.saved, conflicts: outcome.conflicts, facts: outcome.facts, ...(outcome.parties ? { parties: outcome.parties } : {}) } });
     return route.fulfill({ status: outcome.reason === "rejected" ? 400 : outcome.reason === "not-found" ? 404 : outcome.reason === "error" ? 500 : 409, json: { error: outcome.reason } });
   });
   return { rows, fail: (value: boolean, status = 503) => { fail = value; failureStatus = status; }, calls: () => aiCalls, writes: () => writes };

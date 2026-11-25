@@ -6,6 +6,7 @@ import { courtOfPapers, situationFromRaw, situationSection, SITUATION_FIELD, SIT
 import { writeIntakeSession } from "../../src/lib/case-system/intakeCheckpoint";
 import { useIntakeState, useIntakeRef, useStory, useCaseLocation, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, useSituation, useIntakeReviewView, IntakeRecoveryBoundary } from "./IntakeRecovery";
 import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
+import { factStatus } from "../../src/lib/case-system/caseFile/factStatus";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -268,7 +269,10 @@ function HomeLocationGateContent() {
     // The story is the story field only (personWords.ts frontDoorStory; 19 Nov 2026). The answers to the front door's
     // questions are held as answers (home.understoodAnswers below), so the intake does not ask them again.
     const story = frontDoorStory(facts);
-    const acceptedOtherParty = accepted ? offeredOtherParty(facts, storedUnderstood?.understanding?.facts ?? [])?.value ?? null : null;
+    // Only while the case file holds no other party from the person (C9): an answer they gave, or "not sure", is never
+    // replaced by the reading's name (the one function, factStatus.ts).
+    const otherPartyHeld = homeFile ? factStatus(homeFile, "otherParty") === "known" || factStatus(homeFile, "otherParty") === "settled" : false;
+    const acceptedOtherParty = accepted && !otherPartyHeld ? offeredOtherParty(facts, storedUnderstood?.understanding?.facts ?? [])?.value ?? null : null;
     try {
       if (recovery && chosenPath === path) {
         // Same flow, same single copy: the builder reads the story and location written here.
@@ -429,8 +433,11 @@ function HomeLocationGateContent() {
         }
 
         const suggested = asCourtPath(result.primaryPath);
+        // Against the court the case file holds from the person (the card's own rule, CaseUnderstandingCard heldCourt), else
+        // the one chosen: a court they already confirmed is never suggested again (C9).
+        const heldCourt = homeFile && factStatus(homeFile, "court") === "known" && typeof homeFile.court.value === "string" ? homeFile.court.value : null;
         const differentPath =
-          suggested && suggested !== path && confidence >= SUGGESTION_CONFIDENCE_FLOOR ? suggested : null;
+          suggested && suggested !== (heldCourt ?? path) && confidence >= SUGGESTION_CONFIDENCE_FLOOR ? suggested : null;
 
         // Several matters come first: one of them belonging to a tribunal
         // must not hide the ones that belong in court.
@@ -455,11 +462,11 @@ function HomeLocationGateContent() {
           return;
         }
 
-        if (suggested && suggested !== path && confidence >= SUGGESTION_CONFIDENCE_FLOOR) {
+        if (differentPath) {
           setReadFrom(facts.trim());
           setSuggestion({
             kind: "switch-path",
-            suggestedPath: suggested,
+            suggestedPath: differentPath,
             reasoningForAuditLogOnly: String(result.reasoning || "").trim(),
           });
           setChecking(false);
@@ -508,7 +515,7 @@ function HomeLocationGateContent() {
         <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#2f7d67]">{pathLabels[path]} intake</p>
         <h1 className="mt-3 text-3xl font-bold tracking-tight text-[#10231f]">Your location and your story</h1>
         {!hydrated ? <p className="mt-6 text-sm font-semibold text-[#4d675f]" aria-live="polite">Preparing a private case start…</p> : <div data-testid="court-path-location-gate-ready">
-          {!userId && <p className="mt-6 rounded-2xl border border-[#cde7dc] bg-[#f8fcfa] p-4 text-sm text-[#24463d]">You can begin now. To see your next steps, you will need a free account, so a safety check can read your story first. What you enter now comes with you when you sign in from your case.</p>}
+          {/* The guest account message is shown once, by the frame (IntakeRecovery.tsx GUEST_ACCOUNT_NOTICE; Chrome, test of #561, 1.1). */}
           <div className="mt-6 grid gap-5 md:grid-cols-2">
             {/*
               Ontario only, for now: a single fixed option, not a real choice

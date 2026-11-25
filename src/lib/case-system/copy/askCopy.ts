@@ -35,3 +35,16 @@ export const IS_THIS_RIGHT_AFTER = "?";
 
 /** The children, when the story says there are none ("We have no children"): offered once with Yes / No / Not sure (C9). */
 export const NO_CHILDREN = "No children";
+/** Beside a form box whose fact is "not sure" or removed (boxView.ts): the box stays, never asked again. */
+export const NOT_SURE_NOT_ASKED_AGAIN = "Not sure yet (not asked again)";
+/** A box the form (or the questions) already showed and the person left empty: the review lists it once, never asks it again (site owner, 23 Nov 2026). */
+export const NOT_FILLED_IN_YET = "Not filled in yet";
+export const CHANGE_LINK = "Change";
+/** The Form 7A checklist's story screen (one asker, 23 Nov 2026): one Yes for all, "Not right" for each. */
+export const FORM7A_FOUND_QUESTION = "Is this right?";
+export const FORM7A_FOUND_YES = "Yes, that's right";
+export const FORM7A_FOUND_NOT_RIGHT = "Not right";
+/** Elements the case already holds (the amount, what was agreed): shown with their value, never "Still to add". */
+export const FORM7A_HELD_HEADING = "Already in your case:";
+/** The case file's "what was agreed" fact, as "What we have so far", the review and Change name it (C9, 23 Nov 2026). */
+export const AGREEMENT_TERMS_LABEL = "What was agreed";

@@ -1,7 +1,8 @@
 "use client";
 
 import { questionStatus } from "../../../src/lib/case-system/caseFile/factStatus";
-import type { CaseFile } from "../../../src/lib/case-system/caseFile/caseFile";
+import { slotText, type CaseFile, type SlotFact } from "../../../src/lib/case-system/caseFile/caseFile";
+import { factsOfQuestion } from "../../../src/lib/case-system/caseFile/factsOfQuestion";
 import { parseRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
 import { isRealIsoDate, yearChoicesAround } from "../../../src/lib/case-system/dates";
 import { sentences as splitSentences } from "../../../src/lib/case-system/sentences";
@@ -1392,6 +1393,7 @@ export default function StageAnswerPanel({
   laterDates = [],
   file = null,
   stepNotSure = false,
+  heldServiceWords = null,
   onSaved,
 }: {
   courtPath: StagePathway;
@@ -1459,6 +1461,8 @@ export default function StageAnswerPanel({
    * (founder, 1 Nov). No step's content is shown until the person picks one.
    */
   stepNotSure?: boolean;
+  /** How the papers were served, in the words the case file holds from another place (caseFile.ts heldServiceWords, C9). */
+  heldServiceWords?: string | null;
   /** Told what the person chose (dates and step), so a page that remounts this panel can show it again; called just AFTER the save to the case is queued, so positionSavesSettled(caseId) inside it waits for that save. */
   onSaved?: (saved: {
     stepId?: string | null;
@@ -1572,6 +1576,17 @@ export default function StageAnswerPanel({
   // The story tells how papers reached the person; never how they served theirs.
   const storyMethodFor = (questionId: string): ServiceMethod | null =>
     serviceCourt && storyServiceMethod && !serving(questionId) && waysFor(questionId).some((rule) => rule.method === storyServiceMethod) ? storyServiceMethod : null;
+  // How the papers were served, given in another place (the Small Claims chat, its form, the civil chat): the person's own
+  // answer, so it is the method chosen here, shown with Change, never asked again (C9, 23 Nov 2026). Read into this page's
+  // choice only where the step has no method of its own; saved only when the person acts here.
+  const heldMethod = serviceCourt && heldServiceWords ? serviceMethodFromStory(serviceCourt, heldServiceWords) : null;
+  const serviceQuestionIds = (((result as { dateQuestions?: { id: string; question: string }[] } | null)?.dateQuestions) ?? []).filter((question: { id: string; question: string }) => isServiceDateQuestion(question.id, question.question)).map((question: { id: string }) => question.id).join("|");
+  useEffect(() => {
+    if (!heldMethod || !serviceQuestionIds) return;
+    const fill = serviceQuestionIds.split("|").filter((id: string) => !serviceMethod[id] && !serving(id) && waysFor(id).some((rule) => rule.method === heldMethod));
+    if (fill.length) setServiceMethod((current) => ({ ...current, ...Object.fromEntries(fill.filter((id: string) => !current[id]).map((id: string) => [id, heldMethod])) }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [heldMethod, serviceQuestionIds]);
   const [dateStatus, setDateStatus] = useState<"" | "saving" | "saved" | "not-saved">("");
   /*
    * Page review 2026-10-07: a confirmed defendant scrolled 36 to 48 steps,
@@ -1966,9 +1981,13 @@ export default function StageAnswerPanel({
           <div className="mt-3 space-y-4">
             {result.dateQuestions!.map((question) => {
               if ((laterDates.includes(question.id) || questionStatus(file, question.id) === "settled") && !dateAnswers[question.id] && !openedLater[question.id]) {
+                // A rough time the record holds for this question's fact ("January 2026") is shown as the record words it,
+                // "January 2026 (day not given yet)", never "Not answered yet" (Chrome, test of #561, 1.13: the case
+                // snapshot on the same page held January 2026).
+                const rough = file ? factsOfQuestion(question.id).map((fact) => (fact in file ? slotText(file[fact as SlotFact], (iso) => iso) : "")).find((words) => words.endsWith("(day not given yet)")) : undefined;
                 return (
                   <p key={question.id} data-testid="stage-answer-date-later" className="text-sm text-[#16302b]">
-                    <span className="font-semibold">{shortLabel(dateQuestionTextFor(question, serving(question.id)))}:</span> <span data-testid="not-answered-yet">{NOT_ANSWERED_YET}.</span>{" "}
+                    <span className="font-semibold">{shortLabel(dateQuestionTextFor(question, serving(question.id)))}:</span> {rough ? <span data-testid="stage-answer-date-rough" data-fact={factsOfQuestion(question.id)[0]}>{rough}.</span> : <span data-testid="not-answered-yet">{NOT_ANSWERED_YET}.</span>}{" "}
                     <button type="button" onClick={() => setOpenedLater((now) => ({ ...now, [question.id]: true }))} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</button>
                   </p>
                 );

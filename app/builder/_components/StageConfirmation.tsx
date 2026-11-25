@@ -5,6 +5,9 @@ import { saveOpenEditsBeforeConfirm } from "../../_components/openEdits";
 
 import type { UniversalStage } from "./builderTypes";
 import { UseSuggestion } from "../../_components/UseSuggestion";
+import type { HeldStage } from "../../../src/lib/case-system/caseFile/stageHeld";
+import { findStage } from "../../../src/lib/case-system/stage-map/stageMap";
+import { ADD_IT_LATER, NOT_ANSWERED_YET } from "../../../src/lib/case-system/copy/askCopy";
 
 /**
  * Suggest-then-confirm for the detected case stage.
@@ -75,6 +78,11 @@ export type StageConfirmationProps = {
    * next step below follows (case 16: "I'm starting it" above a filed case's step).
    */
   stepWords?: string | null;
+  /**
+   * The stage the case file holds from another place (stageHeld.ts, C9): the person's own stage is shown as recorded,
+   * with Change; "I'm not sure" shows the quiet "add it when you know" line. Never asked again.
+   */
+  held?: HeldStage | null;
 };
 
 export default function StageConfirmation({
@@ -84,11 +92,35 @@ export default function StageConfirmation({
   confirmedStage,
   basis = null,
   stepWords = null,
+  held = null,
 }: StageConfirmationProps) {
   // Nothing pre-selected from the suggestion (owner, 31 Oct): the list starts on "Choose one".
   const [choice, setChoice] = useState<UniversalStage | "">("");
   const [changing, setChanging] = useState(false);
   const [unsaved, setUnsaved] = useState("");
+
+  // Held elsewhere (C9): never asked again here. "Not sure": the quiet line, with Add it; the person's own stage: recorded.
+  if (!confirmedStage && !changing && held?.kind === "settled") {
+    return (
+      <section data-testid="stage-held-unsure" className="rounded-3xl border border-[#d8e6df] bg-white p-5 shadow-sm">
+        <p className="text-sm text-[#4d675f]">{NOT_ANSWERED_YET}</p>
+        <button type="button" onClick={() => setChanging(true)} className="mt-2 text-sm font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</button>
+      </section>
+    );
+  }
+  const heldWords = !confirmedStage && held?.kind === "known" ? stepWords ?? findStage(held.stage)?.userQuestion ?? (STAGE_OPTIONS.some((option) => option.value === held.stage) ? labelFor(held.stage as UniversalStage, pathway) : null) : null;
+  if (heldWords && !changing) {
+    return (
+      <section data-testid="stage-confirmed" data-held="elsewhere" className="rounded-3xl border border-[#d8e6df] bg-white p-5 shadow-sm">
+        <p className="text-sm text-[#4d675f]">
+          Stage recorded: <strong className="text-[#10231f]">{heldWords}</strong>
+        </p>
+        <button type="button" onClick={() => setChanging(true)} className="mt-2 text-sm font-semibold text-[#2f7d67] underline">
+          Change this
+        </button>
+      </section>
+    );
+  }
 
   if (confirmedStage && !changing) {
     return (

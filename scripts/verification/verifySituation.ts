@@ -45,6 +45,8 @@ import { readCasePosition } from "../../src/lib/case-system/casePosition";
 import { remainingEssentialQuestions, reviewEntries } from "../../src/lib/case-system/intakeReview";
 import { situationFacts } from "../../app/api/intake/guided-turn/route";
 import { dateAnswerCheck } from "../../src/lib/case-system/dates";
+import { situationWithHeld } from "../../src/lib/case-system/caseFile/situationHeld";
+import { emptyCaseFile } from "../../src/lib/case-system/caseFile/caseFile";
 
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
@@ -209,6 +211,32 @@ for (const page of FIRST_PAGES) {
   const official = links.forms.find((item) => item.court === page.court && item.number === page.number);
   check(`picture ${page.court} ${page.number}: title, date and PDF are the official form's`, Boolean(official) && official!.title === page.title && official!.date === page.date && official!.pdf === page.pdf, JSON.stringify(page));
   check(`picture ${page.court} ${page.number}: the image exists`, fs.existsSync(path.join(process.cwd(), "public", page.image)));
+}
+
+// C9 (23 Nov 2026): the situation questions ask only what the case file does not hold from another place (the chat,
+// the review, an older saved case, the step page): situationHeld.ts, read by the gate and the questions.
+{
+  const answer = (value: unknown, question: string) => ({ state: "answered" as const, value: value as string, confirmed: true, source: { kind: "answer" as const, question } });
+  const file = emptyCaseFile();
+  file.side = answer("bringing", "yourRole");
+  file.filed = answer(false, "sc-claim-filed");
+  const startingHeld = situationWithHeld({}, file);
+  check("C9: a side and \"nothing filed\" the chat holds are not asked again: no situation question is left", nextSituationQuestion(withKnownCourt(startingHeld, "small-claims"), "small-claims") === null, JSON.stringify(startingHeld));
+  const going = emptyCaseFile();
+  going.side = answer("responding", "sc-orient-role");
+  going.servedDate = answer("2026-10-01", "sc-date-claim-served");
+  going.stage = { state: "unsure" as const, confirmed: true, source: { kind: "answer" as const, question: "caseStage" } };
+  const goingHeld = situationWithHeld({ where: "going", court: "small-claims" } as Situation, going);
+  check("C9: a case already going: who started it is not asked when the side is held", goingHeld.started === "them", JSON.stringify(goingHeld));
+  check("C9: the day the papers came is not asked when the served date is held", goingHeld.receivedOn === "2026-10-01");
+  check("C9: a stage settled as \"not sure\" elsewhere is not asked", goingHeld.stage === "not-sure");
+  const own = emptyCaseFile();
+  own.side = answer("bringing", "situation:started");
+  check("C9 self-test: what the situation questions themselves gave is not read back as held elsewhere", situationWithHeld({}, own).where === undefined);
+  check("C9 self-test: with nothing held, the first question is still asked", nextSituationQuestion(situationWithHeld({}, emptyCaseFile()), "small-claims") === "where");
+  const gate = fs.readFileSync("app/_components/IntakeRecovery.tsx", "utf8");
+  const questions = fs.readFileSync("app/_components/SituationQuestions.tsx", "utf8");
+  check("C9: the gate and the questions decide from the situation with the case file applied", /const incomplete = nextSituationQuestion\(held, court\) !== null;/.test(gate) && /nextSituationQuestion\(situationWithHeld\(known, held\), chosenCourt\)/.test(questions) && /held=\{file\}/.test(gate));
 }
 
 if (failures) { console.log(`${failures} check(s) failed across ${rows} situations.`); process.exit(1); }

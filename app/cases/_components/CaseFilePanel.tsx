@@ -16,7 +16,7 @@ import { factStatus } from "@/src/lib/case-system/caseFile/factStatus";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { inWords, optionWords } from "@/src/lib/case-system/copy/rawKeys";
 import { listedSlotFacts, storyLines } from "@/src/lib/case-system/caseFile/storyLines";
-import { ADD_IT_LATER, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
+import { ADD_IT_LATER, AGREEMENT_TERMS_LABEL, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
 import type { CountedDeadline } from "@/src/lib/case-system/caseFile/stepDeadlines";
 
 /** A rough time the person gave for a day ("July 2026"): kept and shown, the day still to add. */
@@ -45,6 +45,9 @@ const LABEL: Record<SlotFact, string> = {
   urgent: "Anything urgent",
   safety: "Safety concerns",
   courtDate: "Next court date",
+  serviceMethod: "How the papers were served",
+  evidence: "Evidence you have",
+  agreementTerms: AGREEMENT_TERMS_LABEL,
 };
 
 /** The days the step page itself asks for: a day not known yet is added there (folded, never asked again). */

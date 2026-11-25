@@ -7,7 +7,7 @@ import { countable, dayWrittenBefore, findDates, formatForCourt, findDayMonthWit
 import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
 import { freshSections, storyAnswersOutdated } from "./storyBasis";
 import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
-import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../../app/builder/_components/guidedFields";
+import { familyGuidedFields, civilGuidedFields, isAnswered, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../../app/builder/_components/guidedFields";
 import { kindsFromStory, type KindCue } from "../../../app/builder/_components/storyAnswers";
 import { readingFactsOf, type ReadingFact } from "./caseFile/storyOffers";
 import { readStoryFacts, type StoryCourt, type StoryReading, type StoryValue } from "./caseFile/storyReader";
@@ -16,7 +16,7 @@ import { mayShowQuestion } from "./caseFile/factStatus";
 import type { Stated } from "./caseFile/factStatus";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { PHASE_ORDER, selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
-import { askOf } from "./intake/asker";
+import { missingFields, heldAnswer } from "./caseFile/heldAnswer";
 import { CASE_FILE_SECTION, CHANGE_QUESTION, answeredInIntake, caseFileOf, fromCasePosition, changesOf, claimKindOf, emptyCaseFile, isUnsureAnswer, repeatsAnswer, sameAnswer, NEWEST_TYPED_FACTS, slotsOfQuestion, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile/caseFile";
 import { LENT_MONEY, LOAN_WORDS } from "./intake/claimKind";
 import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
@@ -42,7 +42,7 @@ const ISSUE_ONLY: Record<string, string[]> = {
   institutionalFacts: ["institutional-negligence"],
   privacyRecordsFacts: ["privacy"],
 };
-export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[]; /** What the story says about an empty answer, to help fill it in. */ hint?: string; /** The question the field answers, where one is written: a date question's box asks for the year (dates.ts). */ question?: string; /** Answered in the situation questions before the story (situation.ts): shown, changed only there. */ fromStart?: boolean; /** What the story says for an empty box, offered in one click (storyFacts.ts). */ fromStory?: { value: string; quote: string } };
+export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[]; /** What the story says about an empty answer, to help fill it in. */ hint?: string; /** The question the field answers, where one is written: a date question's box asks for the year (dates.ts). */ question?: string; /** Answered in the situation questions before the story (situation.ts): shown, changed only there. */ fromStart?: boolean; /** What the story says for an empty box, offered in one click (storyFacts.ts). */ fromStory?: { value: string; quote: string }; /** The person's own answer to the same question asked in other words elsewhere (the home page, the chat): shown as held, with Change, never offered (C9). */ answeredElsewhere?: { value: string; quote: string } };
 
 /** Small Claims' roles in the form's own words (one place: the review and its start answers). */
 const SMALL_CLAIMS_ROLE_WORDS: Record<string, string> = { plaintiff: "Plaintiff / claimant", defendant: "Defendant / responding party" };
@@ -53,13 +53,10 @@ const BOX_FROM_STORY: Record<string, (story: string) => { value: string; quote: 
   damagesBreakdown: lossesIn,
   timeline: timelineIn,
 };
-/** Family boxes the home page's reading or the chat may have asked in other words: the questions that ask what the box asks. */
-const ANSWERED_ELSEWHERE: Record<string, RegExp> = {
-  currentLivingSituation: /\bwhere (?:does|do|is) (?:your|the) (?:child|children|kids?|son|daughter)\b[^?]*\b(?:live|living|stay)|\b(?:child|children|kids?|son|daughter)\b[^?]*\b(?:live|lives|living) with\b|\bliving (?:arrangements?|situation)\b|\b(?:parenting|living) arrangements? (?:do you have )?(?:now|currently)\b|\bwhat parenting arrangements?\b|\b(?:child|children|kids?|son|daughter) (?:usually |normally |currently )?(?:live|lives|living) in\b|\bdoes (?:your|the) (?:child|children|kids?|son|daughter) (?:usually |normally |currently )?live\b/i,
-};
 // The real AI's other words for these (Chrome pass 2, S7a reading r3 and S7b readings r2, r3): "In what city or town and
 // province does your child usually live?", "What town or city ... does your child usually live in?", "What parenting
 // arrangement do you currently have...?" were answered on the home page and the box stayed empty.
+import { ANSWERED_ELSEWHERE } from "./caseFile/answeredElsewhere";
 const FAMILY_FIELDS = () => familyGuidedFields({ issues: FAMILY_ISSUE_OPTIONS, filed: FAMILY_FILED_OPTIONS });
 const CIVIL_FIELDS = () => civilGuidedFields({ issues: CIVIL_ISSUE_OPTIONS, documents: CIVIL_DOCUMENT_OPTIONS });
 /** The form's own wording for fields no question defines (Family: ten boxes were labelled from their code names, re-test 2026-10-18). */
@@ -204,14 +201,14 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
     const offer = read && typeof entry.value === "string" && !entry.value.trim() ? read(story) : null;
     if (offer) entry.fromStory = offer;
   }
-  // An empty Family box the person already answered in other words, on the home page or in the chat: their answer offered
-  // in one click (Chrome milestone pass 2, finding 9, S7: "Where does your child normally live...?" answered "With me in
-  // Ottawa since birth", then an empty "Current living situation").
+  // An empty Family box the person already answered in other words, on the home page or in the chat: their own answer, shown
+  // as held with Change, never offered again (C9, 23 Nov 2026; before, offered in one click: Chrome milestone pass 2, finding
+  // 9, S7: "Where does your child normally live...?" answered "With me in Ottawa since birth", then an empty box).
   for (const entry of entries) {
     const asks = entry.section === "family" && !entry.nested ? ANSWERED_ELSEWHERE[entry.field] : undefined;
     if (!asks || entry.fromStory || typeof entry.value !== "string" || entry.value.trim()) continue;
     const given = answeredInIntake(sections).filter((item) => asks.test(item.question));
-    if (given.length) entry.fromStory = { value: given.map((item) => item.answer).join("\n"), quote: given.map((item) => `You answered “${item.answer}” to “${item.question}”`).join(" ") };
+    if (given.length) entry.answeredElsewhere = { value: given.map((item) => item.answer).join("\n"), quote: given.map((item) => `You answered “${item.answer}” to “${item.question}”`).join(" ") };
   }
   return entries;
 }
@@ -545,7 +542,7 @@ export function remainingEssentialQuestions(stored: Checkpoint, master?: unknown
   const file = caseFileOf(stored, master);
   // Small Claims: the question engine itself asks the case file (the one asker, intake/asker.ts; founder, 1 Nov).
   if (stored.courtPath === "small-claims") return oneQuestionPerFact(remainingBeforeCaseFile(stored, false, file));
-  // The one function (factStatus.ts): shown only while its fact is still to ask or to offer (the same rule alreadyAsked held).
+  // The one function (factStatus.ts): shown only while its fact is still to ask or to offer (the one asker's rule).
   return oneQuestionPerFact(remainingBeforeCaseFile(stored, false).filter(question => mayShowQuestion(file, question.id)));
 }
 
@@ -666,16 +663,16 @@ export function notAnsweredYet(stored: Checkpoint, master?: unknown): NotAnswere
  */
 export function reviewBoxState(entry: ReviewEntry, file: CaseFile): "start" | "held" | "not-yet" | "given" | "ask" {
   if (entry.fromStart) return "start";
-  // The one asker (intake/asker.ts; founder, 1 Nov): held means the person's own answer or "not sure";
+  // The one asker (caseFile/missingFacts.ts heldAnswer; founder, 1 Nov): held means the person's own answer or "not sure";
   // a story guess (confirmed false) is never "held", so the box asks and the guess stays an offer.
-  const decision = askOf(file, entry.field);
+  const decision = heldAnswer(file, entry.field);
   const empty = emptyValue(entry.value);
-  if (empty && !decision.ask && decision.held === "answered") return "held";
-  if ((empty || isUnsureAnswer(entry.value)) && !decision.ask && decision.held === "unsure") return "not-yet";
+  if (empty && decision && decision.held === "answered") return "held";
+  if ((empty || isUnsureAnswer(entry.value)) && decision && decision.held === "unsure") return "not-yet";
   // The newest answer wins on every screen (Chrome check of #544, 6 Nov, F1): a box whose own copy is not the answer the
   // case record holds now (a newer answer given in another place, or the answer removed) shows the record's answer with
   // "Change", never its own older copy. Typed words only: a choice keeps its own words (the record may word it otherwise).
-  if (!empty && !decision.ask && NEWEST_TYPED_FACTS.has(decision.fact) && !entry.choices && (typeof entry.value === "string" || typeof entry.value === "number") && !isUnsureAnswer(entry.value)) {
+  if (!empty && decision && NEWEST_TYPED_FACTS.has(decision.fact) && !entry.choices && (typeof entry.value === "string" || typeof entry.value === "number") && !isUnsureAnswer(entry.value)) {
     if (decision.held === "removed") return "held";
     if (decision.held === "answered" && decision.slot.value !== undefined && !sameAnswer(decision.fact, decision.slot.value, entry.value)) return "held";
   }
@@ -701,7 +698,7 @@ function remainingBeforeCaseFile(stored: Checkpoint, includeUnknown: boolean, he
     if (fromStart.servedOn && checkpoint.courtPath === "family") values.servedDate = formatForCourt(fromStart.servedOn);
     const fields = checkpoint.courtPath === "family" ? FAMILY_FIELDS() : CIVIL_FIELDS();
     const skipped = new Set(Array.isArray(checkpoint.sections["form-chat"]?.skipped) ? checkpoint.sections["form-chat"].skipped as string[] : []);
-    return pendingFields(fields, values, skipped).map(field => ({ id: field.key, label: field.question })).filter(field => includeUnknown || !unknowns.has(field.id));
+    return missingFields(null, fields, values, skipped, isAnswered).map(field => ({ id: field.key, label: field.question })).filter(field => includeUnknown || !unknowns.has(field.id));
   }
   const initial = smallClaimsInitialAnswers(checkpoint);
   // What the situation answers settle is answered, never asked again (step 2).

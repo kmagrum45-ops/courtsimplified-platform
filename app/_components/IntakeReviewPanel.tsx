@@ -1,6 +1,7 @@
 "use client";
 
 import { factStatus } from "../../src/lib/case-system/caseFile/factStatus";
+import { FROM_YOUR_START_ANSWERS, SUGGESTED_FROM_YOUR_STORY } from "../../src/lib/case-system/caseFile/storyOffers";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { afterPointer } from "./afterPointer";
 import { usePathname } from "next/navigation";
@@ -15,7 +16,7 @@ import { dateAnswerCheck, formatForCourt, isDateQuestion } from "../../src/lib/c
 import { CASE_FILE_SECTION, caseFileOf, claimKindOf, otherSideWords, withAnsweredInReview, slotsOfQuestion, slotText, SLOT_FACTS, type CaseFile, type Slot, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import ChangeAnswer, { changeChoices, FACT_LABEL } from "./ChangeAnswer";
 import NotAnsweredYet from "./NotAnsweredYet";
-import { ADD_IT_LATER } from "../../src/lib/case-system/copy/askCopy";
+import { ADD_IT_LATER, CHANGE_LINK, NOT_FILLED_IN_YET } from "../../src/lib/case-system/copy/askCopy";
 import { inWords } from "../../src/lib/case-system/copy/rawKeys";
 import { isDateQuestionId } from "../../src/lib/case-system/casePosition";
 import { situationAnswers, situationOf } from "../../src/lib/case-system/situation/situation";
@@ -25,7 +26,7 @@ import { freshSections, staleAnswerKeys, storyAnswersOutdated } from "../../src/
 import StoryChangedNotice from "./StoryChangedNotice";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { changeJustConfirmed, continueNeeds, continueNeedsLine, canReview, reviewEntries, withHeldOtherParty, shownReviewEntries, undecidedStoryOffers, boxOfferUndecided, questionOfferUndecided, offerKeyOfEntry, offerKeyOfQuestion, reviewOfferChoicesOf, type ReviewOfferChoice, changedAfterConfirm, initialAnswersOf, reviewQuestionField, inputRevision, notAnsweredYet, remainingEssentialQuestions, reviewBoxState, reviewPhase, reviewQuestionList, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
-import { askOf } from "../../src/lib/case-system/intake/asker";
+import { heldAnswer } from "../../src/lib/case-system/caseFile/heldAnswer";
 import NextStepStatus, { nextStepPressed, useNextStepReading } from "./NextStepStatus";
 import { WorkingNote } from "./Working";
 import { UseSuggestion } from "./UseSuggestion";
@@ -61,6 +62,8 @@ function showWaitingStep(): boolean {
   step.querySelector<HTMLInputElement>('[data-testid="acknowledgement-checkbox"]')?.focus({ preventScroll: true });
   return true;
 }
+/** The sections of the whole forms and the one-at-a-time questions: a box there was shown to the person already. */
+const FORM_SECTIONS = new Set(["small-claims", "civil", "family"]);
 const empty = (value: ReviewEntry["value"]) => Array.isArray(value) ? value.length === 0 : typeof value === "string" ? !value.trim() : false;
 
 /**
@@ -139,6 +142,8 @@ export default function IntakeReviewPanel() {
   // saved, trimmed, when the person leaves the field.
   // A date box's typing, kept until it leaves the box, so its year can be asked first.
   const [dateDrafts, setDateDrafts] = useState<Record<string, string>>({});
+  // The boxes the form already showed and the person left empty, opened again here with Change (one asker).
+  const [openedNotFilled, setOpenedNotFilled] = useState<Record<string, boolean>>({});
   // "Pick everything that fits" in the panel: ticked here, saved together (#470 re-test:
   // the question closed after the first pick).
   const [picks, setPicks] = useState<Record<string, string[]>>({});
@@ -252,9 +257,15 @@ export default function IntakeReviewPanel() {
   const savedMaster = recovery.getSavedMaster();
   const caseFileNow = caseFileOf(checkpoint, savedMaster ?? undefined);
   // The Small Claims questions route also shows the other party the record holds (B1; shown only, never confirmed by itself).
-  const entries = shownReviewEntries(withHeldOtherParty(reviewEntries(checkpoint), checkpoint, caseFileNow));
   // Still to answer: only what nobody has answered or said "not sure" to (the case file's one gate).
   const remaining = remainingEssentialQuestions(checkpoint, savedMaster ?? undefined);
+  // One asker: an empty box whose fact one of these questions asks is not a second ask beside it (the question logs of
+  // #563: the kind-of-dispute question and an empty "Issues" box, both the kind of claim, on one review).
+  const askedByAQuestion = new Set(remaining.flatMap((question) => slotsOfQuestion(question.id)));
+  // An answer set aside for an earlier version of the story keeps its box and its label ("Answered for an earlier version").
+  const setAside = new Set(staleAnswerKeys(checkpoint));
+  const setAsideKey = (entry: ReviewEntry) => `${entry.section}.${entry.nested ? `${entry.nested}.` : ""}${entry.field}`;
+  const entries = shownReviewEntries(withHeldOtherParty(reviewEntries(checkpoint), checkpoint, caseFileNow)).filter((entry) => setAside.has(setAsideKey(entry)) || !(empty(entry.value) && !entry.fromStart && slotsOfQuestion(entry.field).some((fact) => askedByAQuestion.has(fact))));
   // Said "I don't know" or "not sure" anywhere (site owner, 31 Oct): a quiet line, never asked again here.
   // The facts with no question here; the questions' quiet lines come in the one list (notYet).
   const quietFacts = notAnsweredYet(checkpoint, savedMaster ?? undefined).filter(line => !line.question);
@@ -317,9 +328,9 @@ export default function IntakeReviewPanel() {
   // Each box by the one rule (intakeReview.ts reviewBoxState): an answer given elsewhere is shown in
   // place of an empty box; a fact said "not sure" anywhere shows the quiet line, never a box asking for
   // it again (site owner, 31 Oct: it replaced option 1's one more offer here).
-  // Through the one asker (intake/asker.ts): the slot it says is held, never a story guess.
-  const heldSlot = (entry: ReviewEntry) => { const decision = askOf(caseFile, entry.field); return reviewBoxState(entry, caseFile) === "held" && !decision.ask ? decision.slot : null; };
-  const notYetFact = (entry: ReviewEntry) => { const decision = askOf(caseFile, entry.field); return reviewBoxState(entry, caseFile) === "not-yet" && !decision.ask ? decision.fact : undefined; };
+  // Through the one asker (caseFile/missingFacts.ts heldAnswer): the slot it says is held, never a story guess.
+  const heldSlot = (entry: ReviewEntry) => { const decision = heldAnswer(caseFile, entry.field); return reviewBoxState(entry, caseFile) === "held" && decision ? decision.slot : null; };
+  const notYetFact = (entry: ReviewEntry) => { const decision = heldAnswer(caseFile, entry.field); return reviewBoxState(entry, caseFile) === "not-yet" && decision ? decision.fact : undefined; };
   // ONE CHANGE PATH (rule 6, 31 Oct): a fact changed or removed with "Change" shows the case file's
   // value on its box, never the form's own older copy; so does the fact the case page asked to change.
   const changedFact = (field: string): [SlotFact, Slot] | null => slotsOfQuestion(field).map(fact => [fact, caseFile[fact]] as [SlotFact, Slot]).find(([fact, slot]) => slot.changed || (fact === "claimKind" && slot.state === "answered") || (fact === changeFact && (slot.state === "answered" || slot.removed))) ?? null;
@@ -485,7 +496,12 @@ export default function IntakeReviewPanel() {
     {showEntries && <>
       <p>{phase === "user-confirmed" ? "This is what you confirmed. Changing anything here means confirming again." : "Edit the information below, or return to the intake controls to change choices. Empty answers remain unknown."}</p>
       <div className="mt-4 grid gap-4 md:grid-cols-2">
-        {entries.map(entry => { const changed = changedFact(entry.field); const held = changed ? changed[1] : heldSlot(entry); const notYet = changed || held ? undefined : notYetFact(entry); const heldFact = changed ? changed[0] : held ? slotsOfQuestion(entry.field).find(fact => caseFile[fact] === held) : undefined; return <div key={`${entry.section}:${entry.nested ?? ""}:${entry.field}`} data-testid="intake-entry" data-field={entry.field} data-empty={empty(entry.value) && !entry.fromStart && !held && !notYet ? "true" : "false"} className="block text-sm">
+        {entries.map(entry => { const changed = changedFact(entry.field); const held = changed ? changed[1] : heldSlot(entry); const notYet = changed || held ? undefined : notYetFact(entry); const heldFact = changed ? changed[0] : held ? slotsOfQuestion(entry.field).find(fact => caseFile[fact] === held) : undefined;
+          // A box the form (or the one-at-a-time questions) already showed and the person left empty is listed once, "Not filled
+          // in yet" with Change, never asked again here (site owner, 23 Nov 2026; the question logs of #563: "Service details").
+          const entryKey = `${entry.section}:${entry.nested ?? ""}:${entry.field}`;
+          const notFilled = !held && !notYet && !changed && !staleKeys.has(`${entry.section}.${entry.nested ? `${entry.nested}.` : ""}${entry.field}`) && FORM_SECTIONS.has(entry.section) && empty(entry.value) && !entry.fromStart && !entry.answeredElsewhere && !(entry.fromStory && !offerChoices[offerKeyOfEntry(entry)]) && !openedNotFilled[entryKey];
+          return <div key={`${entry.section}:${entry.nested ?? ""}:${entry.field}`} data-testid="intake-entry" data-field={entry.field} data-empty={empty(entry.value) && !entry.fromStart && !held && !notYet && !notFilled ? "true" : "false"} className="block text-sm">
           {entry.label}{!entry.essential && " (optional later detail)"}
           {entry.hint && empty(entry.value) && <span className="block text-[#4d675f]">{entry.hint}</span>}
           {offerChoices[offerKeyOfEntry(entry)] === "unsure" && empty(entry.value) && !notYet ? <span data-testid="review-offer-unsure-note" className="block text-[#4d675f]">Marked not sure. You can add it when you know.</span> : null}
@@ -497,7 +513,9 @@ export default function IntakeReviewPanel() {
           {held ? heldLine(heldFact, held, `Review: ${entry.label}`)
           : notYet ? <NotAnsweredYet fact={notYet} court={court} startOpen={notYet === changeFact} />
           : entry.section === STORY_SECTION && entry.field === "text" ? <div className="mt-1"><StoryEditor section={checkpoint.courtPath} story={String(entry.value)} onSave={text => edit(entry, text)} startOpen draftField="reviewStoryDraft" label={`Review: ${entry.label}`} heading={null} showStory={false} ids={{ toggle: "review-story-edit", draft: "review-story-draft", save: "review-story-save" }} /></div>
-          : entry.fromStart ? <p className="mt-1" data-testid="intake-entry-from-start" aria-label={`Review: ${entry.label}`}>{Array.isArray(entry.value) ? entry.value.map(value => shown(entry, value)).join(", ") : typeof entry.value === "string" ? shown(entry, entry.value) : String(entry.value)} <span className="text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
+          : notFilled ? <p className="mt-1" data-testid="intake-entry-not-filled" aria-label={`Review: ${entry.label}`}>{NOT_FILLED_IN_YET}. <button type="button" data-testid="intake-entry-not-filled-change" onClick={() => setOpenedNotFilled((now) => ({ ...now, [entryKey]: true }))} className="font-semibold text-[#2f7d67] underline">{CHANGE_LINK}</button></p>
+          : entry.answeredElsewhere && empty(entry.value) ? <p className="mt-1" data-testid="intake-entry-answered-elsewhere" aria-label={`Review: ${entry.label}`}>{entry.answeredElsewhere.value}{" "}<button type="button" disabled={busy} onClick={() => edit(entry, entry.answeredElsewhere!.value)} className="text-[#2f7d67] underline">Change</button><span className="block text-xs text-[#4d675f]">{entry.answeredElsewhere.quote}</span></p>
+          : entry.fromStart ? <p className="mt-1" data-testid="intake-entry-from-start" aria-label={`Review: ${entry.label}`}>{Array.isArray(entry.value) ? entry.value.map(value => shown(entry, value)).join(", ") : typeof entry.value === "string" ? shown(entry, entry.value) : String(entry.value)} <span className="text-[#4d675f]">{FROM_YOUR_START_ANSWERS}</span></p>
           : Array.isArray(entry.value) ? <div role="group" aria-label={`Review: ${entry.label}`}>{entry.value.length ? entry.value.map(value => <label key={value} className="mr-3 block"><input type="checkbox" checked disabled={busy} onChange={() => edit(entry, (entry.value as string[]).filter(item => item !== value))} /> {shown(entry, value)}</label>) : <span>Not recorded</span>}</div>
             : typeof entry.value === "boolean" ? <div role="group" aria-label={`Review: ${entry.label}`} className="mt-1 flex gap-2">{/* Yes or No, the answer marked: an unticked box read the same as no answer (#470 re-test: "nothing filed" showed no "Claim Filed" tick). */}{([true, false] as const).map(choice => <button key={String(choice)} type="button" data-testid="intake-entry-yes-no" aria-pressed={entry.value === choice} disabled={busy} onClick={() => edit(entry, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice ? "Yes" : "No"}</button>)}</div>
               : typeof entry.value === "string" && (entry.choices || SLUG.test(entry.value)) ? <p className="mt-1" aria-label={`Review: ${entry.label}`}>{shown(entry, entry.value)} <span className="text-[#4d675f]">(change this in the intake controls)</span></p>
@@ -527,7 +545,7 @@ export default function IntakeReviewPanel() {
         <button type="button" data-testid="intake-hidden-keep" disabled={busy} onClick={() => keepOrSetAside(key, true)} className="mr-2 rounded border px-3 py-1">Keep it</button>
         <button type="button" data-testid="intake-hidden-set-aside" disabled={busy} onClick={() => keepOrSetAside(key, false)} className="rounded border px-3 py-1">Set it aside</button>
       </div>)}</fieldset>}
-      {/* Remaining means not yet known: the list is the case file's (remainingEssentialQuestions -> alreadyAsked);
+      {/* Remaining means not yet known: the list is the case file's (remainingEssentialQuestions -> the one asker);
           a question answered here moves to its own group, still changeable, never under "Remaining" (owner's
           Chrome check, 31 Oct: "What is the case about?" stayed listed as remaining after "Dividing property"
           was saved). */}
@@ -573,7 +591,7 @@ export default function IntakeReviewPanel() {
               // showed ticked while unsaved, so the first click unticked it and the question stayed "remaining").
               const ticked = picks[question.id] ?? (answered && Array.isArray(held) ? held as string[] : []);
               const suggestedLabels = !answered && field.suggested?.length ? options.filter(option => field.suggested!.includes(option.value)).map(option => option.label) : [];
-              return <div className="mt-1" role="group" aria-label={question.label}>{options.map(option => <label key={option.value} className="mr-3 block"><input type="checkbox" data-testid="intake-field-pick" value={option.value} checked={ticked.includes(option.value)} disabled={busy} onChange={() => setPicks(current => ({ ...current, [question.id]: ticked.includes(option.value) ? ticked.filter(value => value !== option.value) : [...ticked, option.value] }))} /> {option.label}{!answered && field.suggested?.includes(option.value) ? <span data-testid="intake-field-pick-suggested" className="text-[#4f685f]"> (suggested)</span> : null}</label>)}{!answered && field.suggestedQuote ? <p data-testid="intake-field-pick-quote" className="mt-1 text-sm text-[#4f685f]">Suggested from your story: &ldquo;{field.suggestedQuote}&rdquo;</p> : null}{suggestedLabels.length && !offerChoices[offerKeyOfQuestion(question.id)] ? reviewOffer(offerKeyOfQuestion(question.id), question.id, { testId: "intake-field-use-suggestion", disabled: busy, onUse: () => answerField(question.id, field.suggested!), what: suggestedLabels.join(", "), className: "rounded border px-3 py-1" }) : null}<button type="button" data-testid="intake-field-save" disabled={busy || ticked.length === 0} onClick={() => answerField(question.id, ticked)} className="mt-2 rounded border px-3 py-1 disabled:opacity-50">Save these</button></div>;
+              return <div className="mt-1" role="group" aria-label={question.label}>{options.map(option => <label key={option.value} className="mr-3 block"><input type="checkbox" data-testid="intake-field-pick" value={option.value} checked={ticked.includes(option.value)} disabled={busy} onChange={() => setPicks(current => ({ ...current, [question.id]: ticked.includes(option.value) ? ticked.filter(value => value !== option.value) : [...ticked, option.value] }))} /> {option.label}{!answered && field.suggested?.includes(option.value) ? <span data-testid="intake-field-pick-suggested" className="text-[#4f685f]"> (suggested)</span> : null}</label>)}{!answered && field.suggestedQuote ? <p data-testid="intake-field-pick-quote" className="mt-1 text-sm text-[#4f685f]">{SUGGESTED_FROM_YOUR_STORY} &ldquo;{field.suggestedQuote}&rdquo;</p> : null}{suggestedLabels.length && !offerChoices[offerKeyOfQuestion(question.id)] ? reviewOffer(offerKeyOfQuestion(question.id), question.id, { testId: "intake-field-use-suggestion", disabled: busy, onUse: () => answerField(question.id, field.suggested!), what: suggestedLabels.join(", "), className: "rounded border px-3 py-1" }) : null}<button type="button" data-testid="intake-field-save" disabled={busy || ticked.length === 0} onClick={() => answerField(question.id, ticked)} className="mt-2 rounded border px-3 py-1 disabled:opacity-50">Save these</button></div>;
             }
             return <div className="mt-1"><div className="flex flex-wrap items-center gap-2">{field.fromStory && !answered && !offerChoices[offerKeyOfQuestion(question.id)] ? reviewOffer(offerKeyOfQuestion(question.id), question.id, { testId: "intake-field-from-story", disabled: busy, onUse: () => answerField(question.id, field.fromStory!), what: field.fromStory, className: "rounded border px-3 py-1" }) : null}<input type="text" aria-label={`Answer: ${question.label}`} placeholder="Your answer" value={dates[question.id] ?? (answered ? caseFileWords(question.id) ?? (typeof fieldValue(question.id) === "string" ? fieldValue(question.id) as string : "") : "")} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => afterPointer(() => (() => typedField(question.id, (typed) => field.needsMore?.(typed) ?? dateAnswerCheck(field.question, typed)))())} onKeyDown={event => { if (event.key === "Enter") typedField(question.id, (typed) => field.needsMore?.(typed) ?? dateAnswerCheck(field.question, typed)); }} className="min-w-[16rem] flex-1 rounded border px-3 py-1" /></div>{fieldNotes[question.id] ? <p data-testid="intake-field-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[question.id]}</p> : null}</div>;
           })()}

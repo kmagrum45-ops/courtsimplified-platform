@@ -23,7 +23,9 @@ import { reviewEntries } from "../../src/lib/case-system/intakeReview";
 import { situationAnswers, situationFromRaw } from "../../src/lib/case-system/situation/situation";
 import { FAMILY_FILED_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../app/builder/_components/guidedFields";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
-import { withoutStageAnswered } from "../../src/lib/case-system/intelligence/answeredQuestions";
+// The one asker (caseFile/heldAnswer.ts missingWords; withoutStageAnswered was deleted with it, 23 Nov 2026), same rule.
+import { missingWords } from "../../src/lib/case-system/caseFile/heldAnswer";
+const withoutStageAnswered = (questions: string[], caseStage: string | null, stepWords?: string | null) => missingWords(null, questions, { caseStage, stepWords });
 import fs from "node:fs";
 import path from "node:path";
 
@@ -63,7 +65,7 @@ for (const [stage, step] of [["conference", "Case conference scheduled"], ["alre
 }
 for (const stage of ["not-sure", "urgent", null] as const) check(`"${stage ?? "no stage"}" does not: the questions stay`, withoutStageAnswered(GENERIC, stage).length === GENERIC.length);
 const overview = fs.readFileSync(path.join(path.resolve(import.meta.dirname, "..", ".."), "app/builder/_components/IntelligenceOverviewPanel.tsx"), "utf8");
-check("the overview uses the one rule, with the step's words", /withoutStageAnswered\(candidateQuestions, caseStage, stageWords\)/.test(overview) && !/STAGE_ANSWERS/.test(overview));
+check("the overview uses the one rule, with the step's words", /missingWords\(caseFile, candidateQuestions, \{ filing: filingFacts, caseStage, stepWords: stageWords,/.test(overview) && !/STAGE_ANSWERS/.test(overview));
 
 // "plaintiffs-claim" records only that the claim was filed ("Has a Plaintiff's Claim already been filed?",
 // guidedIntakeToSmallClaimsInput.ts mapFiledDocuments); service is its own answer. Chrome check of #541

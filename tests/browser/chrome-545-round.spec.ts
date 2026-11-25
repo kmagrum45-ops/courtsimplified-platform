@@ -26,6 +26,8 @@ import { serveModelStandIns } from "./harness/thisCommitServer";
 import { openBuilder } from "./harness/builderGate";
 import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { giveOtherPartyName, otherPartyEntry } from "./harness/partiesDriver";
+import { answerTriage, takeTriageOffer } from "./harness/triageAnswer";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 45_000 });
 
@@ -95,7 +97,7 @@ async function seedAnswers(id: string, answers: Record<string, string>) {
 
 /** The whole form's own box for a fact (Small Claims' whole-form route), where the person changes it there. */
 const formBoxFor = (page: Page, fact: string) =>
-  fact === "amount" ? page.getByRole("textbox", { name: /^Amount claimed or disputed/ }) : fact === "otherParty" ? page.getByRole("textbox", { name: /^Other party name$/ }) : null;
+  fact === "amount" ? page.getByRole("textbox", { name: /^Amount claimed or disputed/ }) : null;
 
 /** The review opened from the builder, ticked and confirmed again (a changed answer is confirmed before the case file shows). */
 async function confirmAgain(page: Page, id: string, court: string) {
@@ -117,12 +119,26 @@ async function confirmAgain(page: Page, id: string, court: string) {
 }
 
 /** "Change" (or "Add it") on a line of the case page's "What we have so far", typed and saved in the review it opens. */
-async function changeOnCasePage(page: Page, id: string, fact: string, words: string) {
+async function changeOnCasePage(page: Page, id: string, fact: string, words: string, court: string) {
   await page.goto(`/cases/${id}`);
   const line = factLine(page, fact);
   await expect(line).toBeVisible({ timeout: 90_000 });
   await line.getByRole("link").first().click();
   const opened = page.getByTestId("intake-review").locator(`[data-testid="change-answer"][data-fact="${fact}"][data-open="true"]`);
+  // Small Claims' other party: given on the Parties step, the one place for the name since the form's own box was removed
+  // (23 Nov 2026); the change of a name held elsewhere is recorded as its newest answer (caseWrite.ts writeParties).
+  if (fact === "otherParty" && court === "small-claims" && await otherPartyEntry(page).waitFor({ state: "visible", timeout: 60_000 }).then(() => true, () => false)) {
+    await giveOtherPartyName(page, words);
+    // Saved in its home, the Parties record (rule 1, 14 Nov 2026: every screen reads the other party from it), whole.
+    await expect.poll(async () => {
+      const sections = (((await savedRow(id)).master.intakeCheckpoint as Record<string, unknown> | undefined)?.sections ?? {}) as Record<string, Record<string, unknown>>;
+      const list = ((sections.caseFile?.parties as { list?: { side?: string; kind?: string; details?: Record<string, string> }[] } | undefined)?.list ?? []);
+      const other = list.find((party) => party.side === "other");
+      const d = other?.details ?? {};
+      return other?.kind === "company" ? d.companyName ?? "" : [d.firstName, d.secondName, d.lastName].filter(Boolean).join(" ") || d.fullName || "";
+    }, { timeout: 45_000, message: `the change of ${fact} was saved in the Parties record` }).toBe(words);
+    return;
+  }
   // Small Claims' lines open the whole form, whose own boxes hold its answers (typed there, saved as they are held).
   const formBox = formBoxFor(page, fact);
   const useForm = Boolean(formBox) && await formBox!.waitFor({ state: "visible", timeout: 15_000 }).then(() => true, () => false);
@@ -164,12 +180,12 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       }
       // B8: the other party changed; the dashboard's card is titled with the name.
       const name = "Morgan Testtitle";
-      await changeOnCasePage(page, id, "otherParty", name);
+      await changeOnCasePage(page, id, "otherParty", name, court);
       expect((await savedRow(id)).master.caseTitle, "B8: the title was saved with the other party").toBe(`Your case with ${name}`);
       await page.goto("/dashboard");
       await expect(page.getByTestId("dashboard-case").first().locator("h3"), "B8: the dashboard card is titled with the newest other party").toHaveText(`Your case with ${name}`, { timeout: 60_000 });
       // B7: the amount changed; the case file page shows it, and the other party.
-      if (court !== "family") await changeOnCasePage(page, id, "amount", "5200");
+      if (court !== "family") await changeOnCasePage(page, id, "amount", "5200", court);
       await confirmAgain(page, id, court);
       await page.goto(`/cases/${id}/case-file`);
       await expect(page.locator("article[data-testid=case-file]")).toBeVisible({ timeout: 90_000 });
@@ -264,9 +280,12 @@ test("Family, never married: the municipality Home gave is not asked again; Form
       if (!(await question.isVisible({ timeout: 10_000 }).catch(() => false))) break;
       const key = (await question.getAttribute("data-question")) ?? "";
       asked.push(key);
-      if (key === "married-to-other-party") await question.getByTestId("triage-answer-no").click();
+      // The story says they were never married: its "not married" must be offered (never asked cold, never the opposite).
+      if (key === "married-to-other-party") await answerTriage(question, "no", { storyAnswer: "no" });
       else if (key === "other-party-municipality") { await question.getByTestId("triage-municipality-other").fill("Gatineau"); await question.getByTestId("triage-municipality-record").click(); }
       else if (key === "municipalities") break;
+      // The story's own answer offered (C9): the person takes it; the question's buttons are not shown beside it.
+      else if (await takeTriageOffer(question)) { /* taken */ }
       else if (await question.getByTestId("triage-answer-yes").isVisible().catch(() => false)) await question.getByTestId("triage-answer-yes").click();
       else if (await question.getByTestId("triage-dates-record").isEnabled().catch(() => false)) await question.getByTestId("triage-dates-record").click();
       else await question.getByTestId("triage-answer-not-yet").first().click();

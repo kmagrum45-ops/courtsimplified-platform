@@ -5,7 +5,8 @@ import { OPEN_WHOLE_FORM_EVENT } from "./_components/openWholeForm";
 import { partyNames } from "../../src/lib/case-system/parties/parties";
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
-import { caseFileOf, claimKindOf, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, childSupportStartFrom, claimKindOf, heldServiceWords, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { stageHeldElsewhere } from "../../src/lib/case-system/caseFile/stageHeld";
 import { hidesMarriedOnly } from "../../src/lib/case-system/family/marriedOnly";
 import { analysisFactsOf, formAnalysisInput } from "../../src/lib/case-system/caseFile/chatTurnFacts";
 import { withoutUnsureAnswers } from "../../src/lib/case-system/caseFile/unsureAnswer";
@@ -2368,7 +2369,7 @@ function BuilderPageContent() {
                   side given in the intake (#470 re-test: a respondent was told "This produces your application"). */}
               {role !== "respondent" && !respondingSide && !existingFamilyOrder(homeStory || userStory(caseData)) && intakeConfirmed && ((familyQuestionsDone && resultsVisible) || Boolean(queryCaseId)) && (
                 <ChildSupportIntake
-                  recorded={childSupportPrefill(
+                  recorded={childSupportPrefill(childSupportStartFrom(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult),
                     familyScope?.recorded ?? {
                       yourName: typeof caseData?.yourName === "string" ? caseData.yourName : "",
                       otherParty: typeof caseData?.otherParty === "string" ? caseData.otherParty : "",
@@ -2378,7 +2379,7 @@ function BuilderPageContent() {
                       evidence: typeof caseData?.evidence === "string" ? caseData.evidence : "",
                       story: homeStory || userStory(caseData),
                     },
-                  )}
+                  ))}
                 />
               )}
               {/* With an order already in place, the table card is folded
@@ -2498,6 +2499,7 @@ function BuilderPageContent() {
               suggestedStage={suggestionForSide(detectedStage, respondingSide)}
               pathway={courtPath === "family" ? "family" : courtPath === "civil" ? "civil" : "small-claims"}
               confirmedStage={confirmedStage}
+              held={stageHeldElsewhere(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult))}
               // A case already going: the step the next step follows, the latest chosen (the step page's, else the start's).
               stepWords={situation.where === "going" || situation.where === "served" ? findStage(savedPosition.stepId ?? stepFromSituation(situation, courtPath) ?? "")?.userQuestion ?? null : null}
               basis={
@@ -2537,6 +2539,7 @@ function BuilderPageContent() {
                 file={caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult)}
                 // "Not sure" where the case is (the start's "I am not sure"): never asked again; the quiet line with "Add it" (founder, 1 Nov).
                 stepNotSure={factStatus(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult), "stage") === "settled"}
+                heldServiceWords={heldServiceWords(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult))}
                 initialDateAnswers={savedPosition.dateAnswers}
                 initialService={savedPosition.service}
                 onSaved={(saved) => {

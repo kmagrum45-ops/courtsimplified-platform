@@ -25,6 +25,7 @@ import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { deleteHarnessUser } from "./harness/realTestSession";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { openWholeForm, savedNow, typeOtherParty } from "./harness/factRail";
+import { otherPartyNameShown } from "./harness/partiesDriver";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
@@ -74,7 +75,7 @@ test("two tabs (small-claims): the amount changed in both tabs is a conflict for
     await expect(holder, "tab 2's own entry is shown too").toContainText(/7,?000/);
     await expect(tab2.locator('[data-testid^="not-saved-yet-"]').filter({ hasText: /Not saved yet/ }), "only the amount is not saved yet").toHaveCount(1);
     await openForm(page, caseId);
-    await expect(page.getByTestId("sc-intake-otherParty"), "tab 2's other fact (the other party) is saved").toHaveValue("Beta Movers Ltd.");
+    await expect.poll(() => otherPartyNameShown(page), { timeout: 60_000, message: "tab 2's other fact (the other party) is saved" }).toContain("Beta Movers Ltd.");
     await expect(amountBox(page), "tab 2's conflicting amount was not applied").toHaveValue(/6,?000/);
 
     // 5. "Save mine" in tab 2 makes it the newest save.

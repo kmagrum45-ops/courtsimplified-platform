@@ -70,7 +70,8 @@ async function start(page: Page) {
 async function openForm(page: Page, id: string) {
   await page.goto(`/builder?path=small-claims&intake=${id}&step=form`);
   await passNotice(page);
-  await expect(page.getByTestId("sc-intake-otherParty")).toBeVisible({ timeout: 60_000 });
+  // The whole form is open (its amount box; the other party's name is on the Parties step since 23 Nov 2026).
+  await expect(page.getByTestId("sc-intake-amountClaimed")).toBeVisible({ timeout: 60_000 });
   await page.waitForTimeout(2_500);
 }
 

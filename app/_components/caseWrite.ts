@@ -13,13 +13,14 @@
  *
  * Plain functions over the recovery's read/put, so test:review-writer runs them on a stand-in. States no law.
  */
-import { CASE_FILE_SECTION, caseFileOf, seenSeqOf, withChange, type ChangeInput, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import { CASE_FILE_SECTION, caseFileOf, heldOtherName, seenSeqOf, withChange, type ChangeInput, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import { discardPending, savePending } from "../../src/lib/case-system/caseFile/pendingFacts";
 import { answerChanges, UnmappedField } from "../../src/lib/case-system/caseFile/tabWrite";
 import { fieldRow } from "../../src/lib/case-system/caseFile/fieldFacts";
 import type { FactId } from "../../src/lib/case-system/caseFile/factRecord";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
-import { readParties, withoutHeldElsewhere, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
+import { partyName, readParties, withoutHeldElsewhere, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
+import { PARTIES_PENDING } from "../../src/lib/case-system/caseFile/serverFacts";
 import { PARTY_DETAIL_TYPES, partyDetailFits } from "../../src/lib/case-system/caseFile/factTypes";
 import { offerChoiceParts, OFFER_CHOICES_FIELD, type OfferChoice, type OfferTarget } from "../../src/lib/case-system/caseFile/offerChoice";
 
@@ -91,13 +92,42 @@ export function writeFormBox(recovery: CaseWriteRecovery, section: string, field
  * (PartiesStep.tsx) calls this and nothing else. Checked before it is saved (parties.ts readParties): a record that is
  * not well formed is refused, never half-saved.
  */
+/** The parts of a party's name (the record keeps them as one name: partyName). */
+const NAME_PARTS = ["firstName", "lastName", "fullName", "companyName"] as const;
+const clean = (value: unknown): string => (typeof value === "string" ? value.trim() : "");
+
 export function writeParties(recovery: CaseWriteRecovery, record: PartiesRecord): void {
-  // What was read from another place (the home page's city, the chat's name) is shown, never saved here (C9).
-  const checked = readParties(JSON.parse(JSON.stringify({ ...record, list: record.list.map(withoutHeldElsewhere) })));
+  // What was read from another place (the home page's city, the chat's name) is shown, never saved here (C9) -- except the
+  // one other party's name once the person edits any part of it: the record is the name's home (rule 1, 14 Nov 2026:
+  // caseFile.ts reads the other party from the record's first named other party), so the WHOLE name is saved, the part
+  // shown from another place with the part typed here. Saved alone, the typed part made half a name ("Morgan Testwood"
+  // after "Alex Testwood" became "Morgan Testtitle": CI on 55c9b935, chrome-545-round).
+  const owned = record.list.map((party) => {
+    const others = record.list.filter((item) => item.side === "other");
+    if (party.side !== "other" || others.length !== 1) return party;
+    const typedHere = NAME_PARTS.some((detail) => clean(party.details[detail]) && !party.heldElsewhere?.includes(detail));
+    if (!typedHere) return party;
+    const parts = NAME_PARTS.filter((detail) => detail !== "fullName" && clean(party.details[detail]));
+    const details = { ...party.details };
+    // A whole name shown from another place is replaced by its parts (the parts are what the person sees and edits).
+    if (parts.length && party.heldElsewhere?.includes("fullName")) delete details.fullName;
+    return { ...party, details, heldElsewhere: party.heldElsewhere?.filter((detail) => !(NAME_PARTS as readonly string[]).includes(detail)) };
+  });
+  const checked = readParties(JSON.parse(JSON.stringify({ ...record, list: owned.map(withoutHeldElsewhere) })));
   if (!checked) throw new Error("The parties could not be saved: the record is not well formed.");
   // A detail written now keeps only a value of its type: a place is never a name (factTypes.ts; decision 1, 18 Nov 2026).
   // Only what changed is checked, so a record saved before the rule is still read and saved as it was.
   const before = readParties(recovery.read(CASE_FILE_SECTION, "parties"));
+  // The other side's name the case holds from ANOTHER place (the chat, the review, the questions), read before this save:
+  // as the case file reads it, or as the fact record holds it (the tab's newer unsent change, else the server's record). The
+  // record's copy is the one every page shows, and the case file names an older case's other party "from the parties"
+  // (caseFile.ts, question "parties"), so heldOtherName alone missed it (local run of chrome-545-round, 24 Nov 2026).
+  const recordName = (() => {
+    const object = (value: unknown): Record<string, unknown> => (value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {});
+    const entry = (object(recovery.read(CASE_FILE_SECTION, "changes")).otherParty ?? object(recovery.read(CASE_FILE_SECTION, "facts")).otherParty) as { state?: unknown; value?: unknown } | undefined;
+    return entry?.state === "answered" && typeof entry.value === "string" ? entry.value.trim() : "";
+  })();
+  const elsewhere = heldOtherName(caseFileOf(recovery.getReview().checkpoint, recovery.getSavedMaster() ?? undefined)) || recordName;
   for (const party of checked.list) {
     const was = before?.list.find((item) => item.id === party.id);
     for (const [detail, value] of Object.entries(party.details)) {
@@ -106,6 +136,20 @@ export function writeParties(recovery: CaseWriteRecovery, record: PartiesRecord)
     }
   }
   recovery.put(CASE_FILE_SECTION, "parties", checked, true, true, true);
+  // Not sent yet: the tab sends the record to the server by itself (POST /api/cases/facts), which numbers it, before any
+  // save of its whole checkpoint (serverFacts.ts PARTIES_PENDING; site owner's choice, 24 Nov 2026).
+  recovery.put(CASE_FILE_SECTION, PARTIES_PENDING, true, true, true, true);
+  // A name held from another place (the chat, the review, the fact record), emptied here part by part: its removal is
+  // recorded, so the step does not show it again from there. A name typed here needs nothing more: the record is its home.
+  if (elsewhere) {
+    const others = record.list.filter((party) => party.side === "other");
+    if (others.length === 1) {
+      const now = partyName(others[0]).trim();
+      const emptied = !now && others[0].unsure.some((detail) => detail === "firstName" || detail === "lastName" || detail === "fullName" || detail === "companyName");
+      // The name emptied here, part by part, takes away the name held from another place too, so it is not shown again.
+      if (emptied) writeChange(recovery, "otherParty", { state: "removed" });
+    }
+  }
 }
 
 /**

@@ -167,7 +167,8 @@ export async function serveModelStandIns(page: Page, court: Court, ownerId: stri
   await page.route("**/api/case/read", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
   // homeFacts: the facts the reading shows ("AMOUNT SOUGHT $5,468.45"), as the model gives them (Chrome milestone test of #550).
   if (real) await serveHomeReading(page, court, [], [], real);
-  else if (standIns.homeQuestions?.length) await serveHomeReading(page, court, standIns.homeQuestions, standIns.homeFacts ?? []);
+  // A reading of facts only, with no questions, too (Chrome's run on #561: the reading named the other side, asked nothing).
+  else if (standIns.homeQuestions?.length || standIns.homeFacts?.length) await serveHomeReading(page, court, standIns.homeQuestions ?? [], standIns.homeFacts ?? []);
   else await page.route("**/api/case/understand", (route) => refusedByRoute(route, "case/understand") ?? route.fulfill({ json: { ok: true, skipped: "off" } }));
   await page.route("**/api/classify-court-path", async (route) => {
     if (!real) return route.fulfill({ json: { primaryPath: court, confidence: 0.95 } });

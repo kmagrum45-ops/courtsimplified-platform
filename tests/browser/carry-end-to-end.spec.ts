@@ -75,6 +75,7 @@ import { countsLine, countsOf, readBaseline, shows, splitByBaseline, splitUnreac
 import { asksForDate } from "../../src/lib/case-system/dates";
 import { chooseOffers } from "./harness/offers";
 import { tickIfAsked } from "./harness/intakeReview";
+import { giveOtherPartyName, otherPartyNameShown, removeOtherPartyName } from "./harness/partiesDriver";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
@@ -89,7 +90,7 @@ const TRACK: Record<Court, {
 }> = {
   "small-claims": {
     change: { fact: "amount", fields: ["amountClaimed", "amountClaimedText", "amount"], box: "sc-intake-amountClaimed", v1: { text: "$6,400", amount: 6400 }, v2: { text: "$7,250", amount: 7250 } },
-    remove: { fact: "otherParty", fields: ["otherParty", "defendantName", "otherPartyName"], box: "sc-intake-otherParty", value: { text: "Jordan Testwood", marker: /Testwood/ } },
+    remove: { fact: "otherParty", fields: ["otherParty", "defendantName", "otherPartyName"], box: "(the Parties step: readRemoved)", value: { text: "Jordan Testwood", marker: /Testwood/ } },
   },
   civil: {
     change: { fact: "amount", fields: ["amountClaimed"], box: "Amount claimed or disputed", v1: { text: "$96,400", amount: 96400 }, v2: { text: "$97,250", amount: 97250 } },
@@ -366,6 +367,24 @@ async function guidedFormQuestions(run: Run) {
 }
 
 /** The form box for a tracked fact on this court's form view (opening the form view first). */
+/**
+ * The removed fact (the other party), read, given and taken away where a person does it: on Small Claims the Parties step
+ * (the form's own "Other party name" box is removed, site owner, 23 Nov 2026); on civil and Family the form's own box.
+ */
+async function readRemoved(page: Page, court: Court): Promise<string | null> {
+  if (court === "small-claims") return otherPartyNameShown(page).catch(() => null);
+  return (await formBox(page, court, TRACK[court].remove.box)).inputValue().catch(() => null);
+}
+async function giveRemoved(page: Page, court: Court, value: string): Promise<void> {
+  if (court === "small-claims") { if (!TRACK[court].remove.value.marker!.test((await readRemoved(page, court)) ?? "")) await giveOtherPartyName(page, value); return; }
+  const field = await formBox(page, court, TRACK[court].remove.box);
+  if (!(await field.inputValue()).trim()) await typeInto(field, value);
+}
+async function takeRemoved(page: Page, court: Court, caseId: string): Promise<void> {
+  if (court === "small-claims") return removeOtherPartyName(page, `/builder?path=small-claims&intake=${caseId}&change=otherParty`);
+  await typeInto(await formBox(page, court, TRACK[court].remove.box), "");
+}
+
 async function formBox(page: Page, court: Court, box: string): Promise<Locator> {
   if (court === "small-claims") return page.getByTestId(box);
   return page.locator("label").filter({ has: page.locator("span.font-semibold", { hasText: new RegExp(`^${box.replace(/[?().]/g, "\\$&")}$`) }) }).locator("input, textarea").first();
@@ -380,7 +399,8 @@ async function openForm(run: Run, id = run.caseA) {
     await expect(show.or(await formBox(page, court, TRACK[court].remove.box)).first()).toBeVisible({ timeout: 60_000 });
     if (await show.isVisible().catch(() => false)) await show.click();
   }
-  await expect(await formBox(page, court, TRACK[court].remove.box)).toBeVisible({ timeout: 60_000 });
+  // The form is open: its tracked box (Small Claims: the amount; the other party is on the Parties step there).
+  await expect(await formBox(page, court, court === "small-claims" ? TRACK[court].change.box : TRACK[court].remove.box)).toBeVisible({ timeout: 60_000 });
 }
 
 /** Waits until the case's saved row holds (or no longer holds) a value: the real save path, read from staging. */
@@ -518,7 +538,7 @@ async function readBuilder(run: Run, when: string) {
   const { page, court } = run;
   await openForm(run);
   const change = await (await formBox(page, court, TRACK[court].change.box)).inputValue().catch(() => null);
-  const remove = await (await formBox(page, court, TRACK[court].remove.box)).inputValue().catch(() => null);
+  const remove = await readRemoved(page, court);
   judge(run, `form (${when})`, { change, remove }, null);
   const panel = page.getByTestId("intake-review");
   if (await panel.isVisible().catch(() => false)) {
@@ -892,10 +912,9 @@ for (const { court, route, who } of RUNS) {
       // 3. The tracked facts, given in the form where they are not yet given.
       await run.step("give the two tracked facts in the form", async () => {
         await openForm(run);
-        for (const [box, value] of [[track.change.box, track.change.v1.text], [track.remove.box, track.remove.value.text]] as const) {
-          const field = await formBox(page, court, box);
-          if (!(await field.inputValue()).trim()) await typeInto(field, value);
-        }
+        const changeField = await formBox(page, court, track.change.box);
+        if (!(await changeField.inputValue()).trim()) await typeInto(changeField, track.change.v1.text);
+        await giveRemoved(page, court, track.remove.value.text);
         run.given = true;
         await savedHolds(run, signedIn ? userId : null, track.remove.value.marker!, true);
         await readBuilder(run, "given");
@@ -929,7 +948,7 @@ for (const { court, route, who } of RUNS) {
       });
       await run.step("remove a value", async () => {
         await openForm(run);
-        await typeInto(await formBox(page, court, track.remove.box), "");
+        await takeRemoved(page, court, run.caseA);
         run.removed = true;
         await savedHolds(run, userId, track.remove.value.marker!, false);
         await page.reload();

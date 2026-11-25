@@ -43,7 +43,9 @@ async function main() {
     stillNeeded: (file: unknown, facts: readonly string[], stated?: Record<string, string>) => { fact: string; status: string; addWhenYouKnow: boolean }[];
   };
   const { emptyCaseFile, chatMayAsk, SLOT_FACTS } = await import("../../src/lib/case-system/caseFile/caseFile");
-  const { mayAsk } = await import("../../src/lib/case-system/intake/asker");
+  // The one asker's held check (caseFile/heldAnswer.ts; asker.ts mayAsk was deleted with it, 23 Nov 2026): may ask == not held.
+  const { heldAnswer } = await import("../../src/lib/case-system/caseFile/heldAnswer");
+  const mayAsk = (file: Parameters<typeof heldAnswer>[0], questionId: string) => heldAnswer(file, questionId) === null;
   const { claimAmountFromStory } = await import("../../src/lib/case-system/claimAmount");
   const statedInStory = review.statedInStory as (story: string) => Record<string, string>;
 

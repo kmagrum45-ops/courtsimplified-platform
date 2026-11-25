@@ -78,8 +78,17 @@ const fileWith = (facts: readonly SlotFact[], slot: (fact: SlotFact) => Slot): C
 };
 
 async function main() {
-  const asker = (await import("../../src/lib/case-system/intake/asker").catch((error) => { console.log(`      (intake/asker.ts not loadable: ${error instanceof Error ? error.message.split("\n")[0] : error})`); return null; })) as Asker | null;
-  check("the one asker exists in the question engine (src/lib/case-system/intake/asker.ts)", Boolean(asker && typeof asker.askOf === "function"));
+  // The one asker's held check is caseFile/heldAnswer.ts (23 Nov 2026: asker.ts askOf and mayAsk, second copies, were
+  // deleted); asker.ts keeps the form fill. The checks below read both through the same shape, unchanged.
+  const fill = (await import("../../src/lib/case-system/intake/asker").catch((error) => { console.log(`      (intake/asker.ts not loadable: ${error instanceof Error ? error.message.split("\n")[0] : error})`); return null; })) as Omit<Asker, "askOf" | "mayAsk" | "askedFacts"> | null;
+  const held = await import("../../src/lib/case-system/caseFile/heldAnswer").catch(() => null);
+  const asker: Asker | null = fill && held ? {
+    ...fill,
+    askOf: (file, id, surface) => { const decision = held.heldAnswer(file, id, surface); return decision ? { ask: false, held: decision.held } : { ask: true }; },
+    mayAsk: (file, id, surface) => held.heldAnswer(file, id, surface) === null,
+    askedFacts: held.askedFacts,
+  } : null;
+  check("the one asker exists (caseFile/heldAnswer.ts heldAnswer, with the form fill in intake/asker.ts)", Boolean(asker && held && typeof held.heldAnswer === "function"));
 
   // The Small Claims questions the engine can return, over the fact sets that open its branches.
   const FACT_SETS: IntakeFacts[] = [{}, { role: "plaintiff" }, { role: "defendant" }, { role: "plaintiff", claimFiled: true }, { role: "plaintiff", claimFiled: true, claimServed: true }, { role: "defendant", claimServed: true }, { role: "plaintiff", disputeCategory: "personal-injury" }];
@@ -221,8 +230,9 @@ async function main() {
     for (const field of fields) {
       // The parties' names and addresses are given in the Parties step (site owner, 14 Nov 2026, rule 1), which the form
       // renders in place of its own name and address boxes; the draft reads them from the parties record
-      // (test:drafts-from-record). Only these three fields; every other field still needs its own box.
-      const PARTY_FIELDS = new Set(["yourName", "yourAddress", "defendantAddress"]);
+      // (test:drafts-from-record). Only these fields; every other field still needs its own box. The other side's name too
+      // since 23 Nov 2026 (site owner: the form's own "Other party name" box is removed, the Parties step is the one place).
+      const PARTY_FIELDS = new Set(["yourName", "yourAddress", "defendantAddress", "otherParty"]);
       check(`risk (a): "${label}" -- the Small Claims form has a box for ${field}`, form.includes(`sc-intake-${field}`) || (PARTY_FIELDS.has(field) && /<PartiesStep\b/.test(form)));
       if (!asker) continue;
       const own = asker.askedFacts(field);
@@ -246,8 +256,8 @@ async function main() {
   }
   if (asker) {
     // A box is filled only when it asks for one fillable fact; a box that asks for none is never filled.
-    for (const field of ["yourName", "yourAddress", "defendantAddress", "evidence", "damagesBreakdown"]) check(`form: ${field} asks for no fillable fact -> never filled from the case file`, !asker.fillable(field));
-    for (const field of ["otherParty", "amountClaimed", "timeline", "goal"]) check(`form: ${field} asks for a fillable fact -> filled when held`, asker.fillable(field));
+    for (const field of ["yourName", "yourAddress", "defendantAddress", "damagesBreakdown"]) check(`form: ${field} asks for no fillable fact -> never filled from the case file`, !asker.fillable(field));
+    for (const field of ["otherParty", "amountClaimed", "timeline", "goal", "evidence", "agreementDetails"]) check(`form: ${field} asks for a fillable fact -> filled when held`, asker.fillable(field));
   }
 
   // 5. RISK (b), on the real reader: the story alone, and an unticked kind, hold nothing.

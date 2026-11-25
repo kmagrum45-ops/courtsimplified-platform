@@ -22,8 +22,21 @@
  * in the review's questions or shown as an empty box asking for it, counted as still to answer, or
  * a "not sure" that hides a value the person added later, or a day folded as not known after it was given.
  */
-import { caseFileOf, nextQuestion, askable, chatMayAsk, slotsOfQuestion, unsureDateQuestions, withChange, CASE_FILE_SECTION, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, chatMayAsk, slotsOfQuestion, unsureDateQuestions, withChange, CASE_FILE_SECTION, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+// The one asker (caseFile/heldAnswer.ts, 23 Nov 2026): caseFile.ts's alreadyAsked, nextQuestion, askable, notAsked and
+// chatQuestionToAsk were deleted with it; the checks below read the same decisions under their old names, unchanged.
+import { chatQuestionFor as chatQuestionToAsk, isHeld as alreadyAsked, missingQuestions } from "../../src/lib/case-system/caseFile/heldAnswer";
+import { slotStatus as statusOfSlot } from "../../src/lib/case-system/caseFile/factStatus";
+const notAsked = (slot: Parameters<typeof statusOfSlot>[0]) => ["ask", "offer"].includes(statusOfSlot(slot));
+const nextQuestion = (file: Parameters<typeof missingQuestions>[0], candidates: readonly string[], options: { surface?: string } = {}) => missingQuestions(file, candidates, options.surface)[0] ?? null;
+const askable = (file: Parameters<typeof missingQuestions>[0], candidates: readonly string[], surface?: string) => missingQuestions(file, candidates, surface);
+void chatQuestionToAsk; void alreadyAsked; void notAsked; void nextQuestion; void askable;
+
 import * as review from "../../src/lib/case-system/intakeReview";
+import { stageHeldElsewhere } from "../../src/lib/case-system/caseFile/stageHeld";
+import { mayShowQuestion, questionStatus } from "../../src/lib/case-system/caseFile/factStatus";
+import { emptyCaseFile as emptyCaseFileForTest, heldServiceWords as heldServiceWordsForTest } from "../../src/lib/case-system/caseFile/caseFile";
+import { readFileSync } from "node:fs";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { BASIS_SECTION, staleAnswerKeys, storyVersion } from "../../src/lib/case-system/storyBasis";
 
@@ -155,6 +168,51 @@ for (const item of CASES) {
 {
   const fresh = checkpoint("civil", {});
   check("a question never answered is still asked", nextQuestion(caseFileOf(fresh), ["legalRemedy"]) === "legalRemedy");
+}
+
+// 7. C9 (23 Nov 2026): the stage card (StageConfirmation, the AI summary page and the case page) reads the stage the case
+// file holds from another place (stageHeld.ts): "not sure" there is never asked again on the card, and a stage the person
+// gave there is shown as recorded.
+{
+  const fileWith = (slot: unknown) => ({ stage: slot } as never);
+  check("7. C9: a stage settled as \"not sure\" elsewhere is held as settled for the stage card", stageHeldElsewhere(fileWith({ state: "unsure", confirmed: true, source: { kind: "answer", question: "caseStage" } }))?.kind === "settled");
+  const known = stageHeldElsewhere(fileWith({ state: "answered", value: "sc-trial-scheduled", confirmed: true, source: { kind: "answer", question: "step" } }));
+  check("7. C9: a stage the person gave on the step page is held as known for the stage card", known?.kind === "known" && known.stage === "sc-trial-scheduled", JSON.stringify(known));
+  check("7. C9 self-test: a stage only read from the story, never confirmed, is not held (the card offers it)", stageHeldElsewhere(fileWith({ state: "answered", value: "responding", confirmed: false, source: { kind: "story", quote: "I was served" } })) === null);
+  const card = readFileSync("app/builder/_components/StageConfirmation.tsx", "utf8");
+  check("7. C9: the card shows the quiet line for a settled stage and never its question", /held\?\.kind === "settled"[\s\S]{0,200}NOT_ANSWERED_YET/.test(card));
+  const pages = [readFileSync("app/builder/page.tsx", "utf8"), readFileSync("app/cases/[id]/page.tsx", "utf8")];
+  check("7. C9: both pages pass the case file's stage to the card", pages.every((page) => /held=\{stageHeldElsewhere\(caseFileOf\(/.test(page)));
+}
+
+// 8. C9 (23 Nov 2026): a question whose fact no slot holds (the day a claim was issued, a Defence's filing day) is held by
+// its own id, from whichever place answered it (the step page, the review, the Small Claims chat): never asked again.
+{
+  const withAnswer = { ...emptyCaseFileForTest(), answers: { "sc-date-claim-issued": "2026-09-01" } };
+  check("8. C9: the day the claim was issued, answered on the step page, is not asked by the Small Claims chat", !mayShowQuestion(withAnswer as never, "sc-date-claim-issued"));
+  const unsureDay = { ...emptyCaseFileForTest(), unsureDates: ["sc-date-defence-filed"] };
+  check("8. C9: a Defence's filing day said \"not sure\" elsewhere is settled, never asked", questionStatus(unsureDay as never, "sc-date-defence-filed") === "settled");
+  check("8. C9 self-test: with nothing held, the day is asked", mayShowQuestion(emptyCaseFileForTest() as never, "sc-date-claim-issued"));
+}
+
+// 9. C9 (23 Nov 2026): how the papers were served is one fact. The step page's choice is held in the case file in its own
+// words; a method given in the Small Claims chat is the step page's chosen method, never asked there again.
+{
+  const fromStep = caseFileOf({ ...checkpoint("small-claims", {}) }, { position: { service: { "sc-date-claim-served": { method: "personal", enteredOn: "2026-10-01" } } } } as never);
+  check("9. C9: the step page's service method is held in the case file, in its own words", fromStep.serviceMethod.state === "answered" && typeof fromStep.serviceMethod.value === "string" && !/^personal$/.test(String(fromStep.serviceMethod.value)), JSON.stringify(fromStep.serviceMethod));
+  const fromChat = caseFileOf(checkpoint("small-claims", { guided: { earlierAnswers: [{ questionId: "sc-defendant-service-method", answerText: "Handed to me in person at my door" }] } }));
+  check("9. C9: a method given in the chat is read by the step page (heldServiceWords); the step's own is not read back", heldServiceWordsForTest(fromChat).includes("in person") && heldServiceWordsForTest(fromStep) === "", JSON.stringify(fromChat.serviceMethod));
+  const panel = readFileSync("app/builder/_components/StageAnswerPanel.tsx", "utf8");
+  check("9. C9: the step page takes a held method as its chosen method (never offered or asked)", /const heldMethod = serviceCourt && heldServiceWords \? serviceMethodFromStory\(serviceCourt, heldServiceWords\) : null;/.test(panel) && /setServiceMethod\(\(current\) => \(\{ \.\.\.current, \.\.\.Object\.fromEntries\(fill/.test(panel));
+  check("9. C9: both pages pass the held method to the step page", [readFileSync("app/builder/page.tsx", "utf8"), readFileSync("app/cases/[id]/page.tsx", "utf8")].every((page) => /heldServiceWords=\{heldServiceWords\(caseFileOf\(/.test(page)));
+}
+
+// 10. C9 (23 Nov 2026): which papers are filed is held in the case file's documents (the civil and Family forms and chats):
+// the chats never ask "documents" / "filedDocuments" again, nor offer it from the story, once it is held.
+{
+  const withDocs = { ...emptyCaseFileForTest(), documents: ["statement-of-claim"] };
+  check("10. C9: papers held in the case file are not asked again by the civil or Family chat", !mayShowQuestion(withDocs as never, "documents") && !mayShowQuestion(withDocs as never, "filedDocuments"));
+  check("10. C9 self-test: with no papers held, they are asked", mayShowQuestion(emptyCaseFileForTest() as never, "documents"));
 }
 
 if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }

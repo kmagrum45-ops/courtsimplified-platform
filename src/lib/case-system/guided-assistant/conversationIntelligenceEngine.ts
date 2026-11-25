@@ -1,5 +1,6 @@
 import { answeredInStory, caseFileOfChat } from "./answeredInStory";
-import { chatQuestionToAsk, type CaseFile, type ChatTurn } from "../caseFile/caseFile";
+import { type CaseFile, type ChatTurn } from "../caseFile/caseFile";
+import { chatQuestionFor } from "../caseFile/heldAnswer";
 import { sentences as sharedSentences } from "../sentences";
 import { findDates, findDayMonthWithoutYear, mentionsDate, mentionsRelativeDate } from "../dates";
 import {
@@ -1863,8 +1864,8 @@ function buildQuestions(args: {
 
   function pushQuestion(asked: CasePartnerQuestion) {
     // By fact, through the one gate: the question, its open part once its fact is held, or nothing
-    // (caseFile.ts chatQuestionToAsk; factsOfQuestion.ts CHAT_QUESTIONS).
-    const words = chatQuestionToAsk(args.caseFile, asked.question, args.conversation);
+    // (caseFile/heldAnswer.ts chatQuestionFor; factsOfQuestion.ts CHAT_QUESTIONS).
+    const words = chatQuestionFor(args.caseFile, asked.question, args.conversation);
     if (!words) return;
     const question = words === asked.question ? asked : { ...asked, question: words };
     if (wasQuestionAlreadyAsked(question.question, args.conversationText)) return;

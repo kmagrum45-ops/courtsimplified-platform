@@ -3,8 +3,8 @@ import { useIntakeRecovery, useIntakeReviewView, useSituation } from "../../_com
 import { offerForQuestion } from "../../../src/lib/case-system/caseFile/offerChoice";
 import { sideOf } from "../../../src/lib/case-system/situation/situation";
 import { personWordsOnly } from "../../../src/lib/case-system/personWords";
-import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
-import { askedQuestionsOf, caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
+import { reviewPhase, statedInStory } from "../../../src/lib/case-system/intakeReview";
+import { askedQuestionsOf, caseFileOf, heldLocation } from "../../../src/lib/case-system/caseFile/caseFile";
 import { withCaseFileAnswers } from "../../../src/lib/case-system/caseFile/triageFromCaseFile";
 
 /**
@@ -56,6 +56,7 @@ import {
 } from "../../../src/lib/case-system/family/statusTriage";
 import { storyQuoteFor, storySuggestionFor } from "../../../src/lib/case-system/family/triageStoryQuote";
 import { UseSuggestion } from "../../_components/UseSuggestion";
+import { useOfferChoices } from "../../_components/offerChoiceSave";
 import { OFFER_CHOICES } from "../../../src/lib/case-system/copy/suggestionCopy";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 
@@ -129,6 +130,12 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
   const [situation] = useSituation();
   const confirmed = Boolean(review && reviewPhase(review.workflowStatus, review.checkpoint) === "user-confirmed");
   const [showWhy, setShowWhy] = useState(false);
+  // While the story's own answer is offered ("No children", "you were married to each other"), only the offer is shown:
+  // never the question beside it (C9, Chrome check of #560, 4a and 4b). After "No, that's not right" the question is asked.
+  const offerChoices = useOfferChoices();
+  // What the one story reader states ("No children"), for the story's own answers (triageStoryQuote.ts storyAnswerFor).
+  const storyStated = statedInStory(story);
+  const suggestionWaiting = (id: string) => Boolean(storySuggestionFor(id, story, storyStated)) && !offerChoices.choiceOf(`triage:${id}`);
   const [dateStart, setDateStart] = useState("");
   const [dateEnd, setDateEnd] = useState("");
   const [userMunicipality, setUserMunicipality] = useState(homeCity);
@@ -147,7 +154,9 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
   const storyDates = ownRecord.cohabitationStart === null && !changingDates ? livedTogetherFromStory(story) : null;
   // Where the person lives is the city they gave on Home ("City or municipality"), the case record's city: a recorded
   // answer, read over the triage record and never asked here again (Chrome check of #545 at 7bce410, 3.4d).
-  const fromHome = fromFile.userMunicipality === null && homeCity.trim() ? { ...fromFile, userMunicipality: homeCity.trim() } : fromFile;
+  // Read through the case file's one reader (heldLocation, C9); the passed-in copy only when there is no case file yet.
+  const cityHeld = heldLocation(file)?.city.trim() || homeCity.trim();
+  const fromHome = fromFile.userMunicipality === null && cityHeld ? { ...fromFile, userMunicipality: cityHeld } : fromFile;
   const record = storyDates ? { ...fromHome, cohabitationStart: storyDates.start, cohabitationEnd: storyDates.end } : fromHome;
   // Questions set aside on this page with "I'd rather not answer yet": the next one is asked (statusTriage.ts).
   const [deferred, setDeferred] = useState<ReadonlySet<TriageQuestionId>>(new Set());
@@ -209,7 +218,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
 
       // What the person's own words answer is offered first, with the one control;
       // no choice is shown chosen and nothing is recorded until they press one (owner, 31 Oct).
-      const suggestion = storySuggestionFor(current.id, story);
+      const suggestion = storySuggestionFor(current.id, story, storyStated);
       const record = (value: string) => {
         if (current.id === "married-to-other-party") update({ marriedToOtherParty: value as "yes" | "no" | "unsure" });
         if (current.id === "divorce-sought") update({ divorceSought: value as "yes" | "no" | "unsure" });
@@ -231,10 +240,11 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
               // "Is a divorce sought?" has its own "not sure" answer: recorded as the triage's answer too.
               onUnsure={current.id === "divorce-sought" || current.id === "married-to-other-party" ? () => record("unsure") : undefined}
               className="mt-2 rounded-full bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
-              frame={{ testId: "triage-story-suggestion", className: "mt-4 rounded-xl border border-[#2f7d67] bg-white p-3" }}
+              frame={{ testId: "triage-story-suggestion", className: "mt-4 rounded-xl border border-[#2f7d67] bg-white p-3", attrs: { "data-value": suggestion.value } }}
               ask={<span className="block text-sm text-[#10231f]">{IS_THIS_RIGHT_BEFORE}<strong>{suggestion.say}</strong>{IS_THIS_RIGHT_AFTER}</span>}
             />
         ) : null}
+        {suggestionWaiting(current.id) ? null : (
         <div className="mt-4 flex flex-wrap gap-3">
           {values.map((value) => (
             <button
@@ -268,6 +278,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
             I&apos;d rather not answer yet
           </button>
         </div>
+        )}
         </>
       );
     }
@@ -456,9 +467,11 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
 
       {question ? (
         <div data-testid="triage-question" data-question={question.id} className="mt-6 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
+          {suggestionWaiting(question.id) ? null : (
           <p data-testid="triage-prompt" className="font-semibold text-[#10231f]">
             {question.prompt}
           </p>
+          )}
           <button
             type="button"
             onClick={() => setShowWhy((current) => !current)}
@@ -467,7 +480,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
             {showWhy ? WHY_ASKED_HIDE : WHY_ASKED_SHOW}
           </button>
           {showWhy ? <p className="mt-2 text-sm text-[#4f685f]">{question.whyAsked}</p> : null}
-          {storyQuoteFor(question.id, story) ? (
+          {storyQuoteFor(question.id, story) && !suggestionWaiting(question.id) ? (
             <p data-testid="triage-story-quote" className="mt-2 text-sm text-[#4f685f]">
               You wrote: &ldquo;{storyQuoteFor(question.id, story)}&rdquo;
             </p>

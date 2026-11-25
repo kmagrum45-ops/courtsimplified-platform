@@ -1,66 +1,6 @@
 [
   {
     "kind": "decider",
-    "file": "app/builder/_components/guidedFields.ts",
-    "name": "pendingFields",
-    "count": 1,
-    "status": "second",
-    "facts": "the Civil and Family chat fields (form values and skips)",
-    "moveTo": "src/lib/case-system/caseFile/factStatus.ts factStatus",
-    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
-  },
-  {
-    "kind": "decider",
-    "file": "src/lib/case-system/caseFile/caseFile.ts",
-    "name": "alreadyAsked",
-    "count": 1,
-    "status": "second",
-    "facts": "asked marks",
-    "moveTo": "src/lib/case-system/caseFile/factStatus.ts factStatus",
-    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
-  },
-  {
-    "kind": "decider",
-    "file": "src/lib/case-system/caseFile/caseFile.ts",
-    "name": "askable",
-    "count": 1,
-    "status": "second",
-    "facts": "askable questions",
-    "moveTo": "src/lib/case-system/caseFile/factStatus.ts factStatus",
-    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
-  },
-  {
-    "kind": "decider",
-    "file": "src/lib/case-system/caseFile/caseFile.ts",
-    "name": "chatQuestionToAsk",
-    "count": 1,
-    "status": "second",
-    "facts": "the chat's next question",
-    "moveTo": "src/lib/case-system/caseFile/factStatus.ts factStatus",
-    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
-  },
-  {
-    "kind": "decider",
-    "file": "src/lib/case-system/caseFile/caseFile.ts",
-    "name": "nextQuestion",
-    "count": 1,
-    "status": "second",
-    "facts": "the next question",
-    "moveTo": "src/lib/case-system/caseFile/factStatus.ts factStatus",
-    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
-  },
-  {
-    "kind": "decider",
-    "file": "src/lib/case-system/caseFile/caseFile.ts",
-    "name": "notAsked",
-    "count": 1,
-    "status": "second",
-    "facts": "asked marks",
-    "moveTo": "src/lib/case-system/caseFile/factStatus.ts factStatus",
-    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
-  },
-  {
-    "kind": "decider",
     "file": "src/lib/case-system/caseFile/factQuestions.ts",
     "name": "homeAsks",
     "count": 1,
@@ -114,56 +54,6 @@
     "count": 1,
     "status": "one",
     "facts": "the Family triage questions (calls mayShowQuestion)"
-  },
-  {
-    "kind": "decider",
-    "file": "src/lib/case-system/intake/asker.ts",
-    "name": "askOf",
-    "count": 1,
-    "status": "second",
-    "facts": "the review's questions",
-    "moveTo": "src/lib/case-system/caseFile/factStatus.ts factStatus",
-    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
-  },
-  {
-    "kind": "decider",
-    "file": "src/lib/case-system/intake/asker.ts",
-    "name": "mayAsk",
-    "count": 1,
-    "status": "second",
-    "facts": "the review's questions",
-    "moveTo": "src/lib/case-system/caseFile/factStatus.ts factStatus",
-    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
-  },
-  {
-    "kind": "decider",
-    "file": "src/lib/case-system/intelligence/answeredQuestions.ts",
-    "name": "isQuestionAlreadyAnswered",
-    "count": 1,
-    "status": "second",
-    "facts": "AI-worded questions (case page)",
-    "moveTo": "src/lib/case-system/caseFile/factStatus.ts factStatus",
-    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
-  },
-  {
-    "kind": "decider",
-    "file": "src/lib/case-system/intelligence/answeredQuestions.ts",
-    "name": "withoutMunicipalityAsked",
-    "count": 1,
-    "status": "second",
-    "facts": "municipality",
-    "moveTo": "src/lib/case-system/caseFile/factStatus.ts factStatus",
-    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
-  },
-  {
-    "kind": "decider",
-    "file": "src/lib/case-system/intelligence/answeredQuestions.ts",
-    "name": "withoutStageAnswered",
-    "count": 1,
-    "status": "second",
-    "facts": "AI-worded questions (stage answers)",
-    "moveTo": "src/lib/case-system/caseFile/factStatus.ts factStatus",
-    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
   },
   {
     "kind": "decider",
@@ -411,26 +301,6 @@
   },
   {
     "kind": "source-label",
-    "file": "app/_components/IntakeReviewPanel.tsx",
-    "name": "label",
-    "count": 2,
-    "status": "second",
-    "facts": "where a value came from",
-    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
-    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
-  },
-  {
-    "kind": "source-label",
-    "file": "app/_components/PartiesStep.tsx",
-    "name": "label",
-    "count": 2,
-    "status": "second",
-    "facts": "where a value came from",
-    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
-    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
-  },
-  {
-    "kind": "source-label",
     "file": "app/builder/_components/CivilIntake.tsx",
     "name": "label",
     "count": 2,
@@ -471,16 +341,6 @@
   },
   {
     "kind": "source-label",
-    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
-    "name": "label",
-    "count": 2,
-    "status": "second",
-    "facts": "where a value came from",
-    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
-    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
-  },
-  {
-    "kind": "source-label",
     "file": "app/builder/_components/IntelligenceOverviewPanel.tsx",
     "name": "label",
     "count": 1,
@@ -494,16 +354,6 @@
     "file": "app/builder/_components/MotionToChangeRoute.tsx",
     "name": "label",
     "count": 1,
-    "status": "second",
-    "facts": "where a value came from",
-    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
-    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
-  },
-  {
-    "kind": "source-label",
-    "file": "app/builder/_components/SmallClaimsIntake.tsx",
-    "name": "label",
-    "count": 2,
     "status": "second",
     "facts": "where a value came from",
     "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
@@ -1232,5 +1082,13 @@
     "count": 1,
     "status": "rule",
     "facts": "names to keep out of requests (security)"
+  },
+  {
+    "kind": "source-label",
+    "file": "src/lib/case-system/caseFile/storyOffers.ts",
+    "name": "label",
+    "count": 4,
+    "status": "one",
+    "facts": "where a value came from: the one home of these labels (site owner, 23 Nov 2026); the second copies move here"
   }
 ]

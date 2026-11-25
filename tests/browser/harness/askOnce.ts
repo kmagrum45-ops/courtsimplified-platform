@@ -65,7 +65,9 @@
  */
 import type { Page } from "@playwright/test";
 import { factsOfQuestion } from "../../../src/lib/case-system/caseFile/factsOfQuestion";
-import { caseFileOf, SLOT_FACTS } from "../../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, heldLocation, heldOtherPartyCity, heldYourName, SLOT_FACTS } from "../../../src/lib/case-system/caseFile/caseFile";
+import { FACT_IDS } from "../../../src/lib/case-system/caseFile/factRecord";
+import { CLAIM_TYPES } from "../../../src/lib/case-system/intake/claimTypes";
 import { readCheckpoint } from "../../../src/lib/case-system/intakeCheckpoint";
 import { GUEST_INTAKE_SESSION_KEY } from "../../../src/lib/case-system/storage/intakeStorageKeys";
 import { factsOfWords, questionSentences } from "./chatQuestionFacts";
@@ -77,7 +79,7 @@ export type HeldState = "answered" | "unsure";
  * `occurrence`: which of the follow-up chat's replies a question was in (and which reply a person's
  * answer answers), so the same words in a later reply are a new question; absent on every other surface.
  */
-export type Asked = { kind: "ask" | "answer"; surface: string; id: string; screen: string; text: string; at: number; held?: Record<string, HeldState>;
+export type Asked = { kind: "ask" | "answer" | "blind"; surface: string; id: string; screen: string; text: string; at: number; held?: Record<string, HeldState>;
   /** Small Claims guided only: the person's reply shown under the question (an ask) or given to it (an answer). */
   reply?: string; occurrence?: string;
   /**
@@ -99,6 +101,28 @@ export type Asked = { kind: "ask" | "answer"; surface: string; id: string; scree
  */
 export function chatQuestionAnswered(left: { pressedAnswer: boolean; skipped: boolean; chatStillShown: boolean }): boolean {
   return left.pressedAnswer || left.skipped || left.chatStillShown;
+}
+
+/**
+ * BOXES THAT ARE NOT QUESTIONS (the blind-spot check's exempt list; site owner, 24 Nov 2026, Round 3 Step A). A box a person
+ * can type in that no surface logs fails the journey unless it is here, with why. A new box is a question until it is
+ * either logged by a surface or listed here.
+ */
+export const BLIND_EXEMPT: readonly { selector: string; why: string }[] = [
+  { selector: "[data-testid=parties-detail-typing] input", why: "the person's own Change opened it on an answer the Parties step holds (they are editing, not being asked)" },
+  { selector: "[data-testid=parties-detail-unsure] input", why: "a Parties box shown with its own \"Not sure yet (not asked again)\" note (boxView, not sure or removed)" },
+  { selector: "[data-testid=change-answer-text]", why: "the review's Change, opened by the person on an answer already held" },
+  { selector: "select[aria-label=\"Province or territory\"]", why: "the home page's province: one fixed option (Ontario), nothing to choose" },
+  { selector: "[data-testid=guided-answer]", why: "the Small Claims chat's reply box: the question is the chat's message (sc-chat), this is where the person answers it" },
+  { selector: "[data-testid=review-story-draft]", why: "the person's own story, held, shown in its box to edit (the story is never asked again)" },
+  { selector: "input[placeholder^=\"Search by form number\"]", why: "the Forms page's search: a list control, not a question about the case" },
+  { selector: "select:has(option[value=verified])", why: "the Forms page's \"Show\" filter: a list control, not a question about the case" },
+];
+const BLIND_EXEMPT_SELECTORS = BLIND_EXEMPT.map((entry) => entry.selector);
+
+/** The boxes the recorder saw on screen that no surface logs and the exempt list does not name (the blind spots). */
+export function blindBoxes(events: readonly Asked[]): string[] {
+  return [...new Set(events.filter((event) => event.kind === "blind").map((event) => `${event.id} @ ${event.screen}`))];
 }
 
 const SCAN = `(() => {
@@ -145,22 +169,38 @@ const SCAN = `(() => {
     // conversation shown again after a reload from a question asked again.
     ["sc-chat", "[data-testid=guided-message][data-question-id]", (el) => [el.getAttribute("data-question-id")]],
     ["sc-proposal", "[data-testid=story-proposal-row]", (el) => [el.getAttribute("data-question-id")]],
-    ["review", "[data-testid=intake-initial-question][data-answered=false]", (el) => [el.getAttribute("data-question")]],
+    // Every review question is SEEN (the blind-spot check: an answered one is no blind box), and asked only while unanswered.
+    ["review", "[data-testid=intake-initial-question]", (el) => el.getAttribute("data-answered") === "false" ? [el.getAttribute("data-question")] : []],
     ["triage", "[data-testid=triage-question]", (el) => [el.getAttribute("data-question")]],
     ["stage", "[data-testid=stage-confirmation]", () => ["stage-confirmation"]],
     ["sc-claim-kind", "[data-testid=claim-type-suggestion]", () => ["claim-kind-suggestion"]],
     ["date", "[data-testid=stage-answer-date-question]", (el) => [el.getAttribute("data-question-id")]],
     // An empty, editable box in the review asks for its fact; so does the Small Claims form's documents list with nothing ticked.
-    ["review-entry", "[data-testid=intake-entry][data-empty=true]", (el) => [el.getAttribute("data-field")]],
+    // Every review entry is SEEN, and asked only while empty (blind-spot check, 24 Nov 2026: the filled ones were "blind").
+    ["review-entry", "[data-testid=intake-entry]", (el) => el.getAttribute("data-empty") === "true" ? [el.getAttribute("data-field")] : []],
     // An answer-now offer of an unsure fact on "What we have so far" (none is drawn now: any is a repeat); the kind-of-claim chooser asks it.
     ["end", "[data-testid=case-file-line][data-state=unsure] [data-testid=case-file-answer-now]", (el) => [el.closest("[data-testid=case-file-line]").getAttribute("data-question")]],
     ["claim-kind", "[data-testid=claim-kind-chooser]", () => ["claim-kind-suggestion"]],
     ["sc-form", "[data-testid=sc-intake-documents][data-empty=true]", () => ["filedDocuments"]],
     // The Parties step (site owner, 14 Nov 2026, rule 1): an empty box asks for that party's detail, the person-or-company
     // question for its kind; a story offer asks once (its own id, by what it offers). Each party by its id in the record.
-    ["parties", "[data-testid=parties-detail-ask]", (el) => ["party:" + ((el.closest("[data-party-id]") || el).getAttribute("data-party-id") || "") + ":" + el.getAttribute("data-detail")]],
-    ["parties", "[data-testid=parties-kind]", (el) => ["party:" + ((el.closest("[data-party-id]") || el).getAttribute("data-party-id") || "") + ":kind"]],
-    ["parties-offer", "[data-testid=parties-step] [data-offer-choices]", (el) => ["party-offer:" + words(el.querySelector("[data-testid$=-what]"))]],
+    // Whose entry it is ("you", "yours", "other") as well as its id, so its fact is known (one asker, 23 Nov 2026: a box
+    // named only by the party's id counted as a fact of its own, so a name or a city asked again counted as nothing).
+    ["parties", "[data-testid=parties-detail-ask]", (el) => ["party:" + ((el.closest("[data-party]") || el).getAttribute("data-party") || "") + ":" + ((el.closest("[data-party-id]") || el).getAttribute("data-party-id") || "") + ":" + el.getAttribute("data-detail")]],
+    ["parties", "[data-testid=parties-kind]", (el) => ["party:" + ((el.closest("[data-party]") || el).getAttribute("data-party") || "") + ":" + ((el.closest("[data-party-id]") || el).getAttribute("data-party-id") || "") + ":kind"]],
+    // The Form 7A checklist (one asker, 23 Nov 2026): an item "Still to add" asks for it; an item "From your story we found"
+    // offers it. Each by its element id.
+    // Before the one asker the item had no marker, only its heading ('Still to add: "<the element's name>"'): read by that,
+    // so the "before" question logs (#561) count it the same way.
+    ["form7a-still-to-add", () => [...document.querySelectorAll("[data-testid=form7a-still-to-add]"), ...[...document.querySelectorAll("p")].filter((p) => /^Still to add: “|^Still to add: "/.test(words(p)) && !p.closest("[data-testid=form7a-still-to-add]"))],
+      (el) => [el.getAttribute("data-element") || "name:" + words(el).replace(/^Still to add: ["“]/, "").replace(/["”]\s*$/, "")]],
+    ["form7a-found", "[data-testid=form7a-found] [data-element]", (el) => [el.getAttribute("data-element")]],
+    // The Small Claims form's "Found in your description" offers, each by its box (one asker, 23 Nov 2026). Before the one
+    // asker an item had no marker: read by its "<box>:" words, so the "before" logs count it the same way.
+    ["sc-form-offer", () => [...document.querySelectorAll("p")].filter((p) => words(p).startsWith("Found in your description")).flatMap((p) => [...p.parentElement.querySelectorAll("li")]), (el) => [el.getAttribute("data-field") || words(el).split(":")[0].trim()]],
+    // Whose entry the offer is in (the person's own, "you", or the other side's), so its fact is known (C9: a name or a city
+    // offered again on the Parties step was counted as nothing, and Chrome saw both).
+    ["parties-offer", "[data-testid=parties-step] [data-offer-choices]", (el) => ["party-offer:" + (el.closest("[data-party]")?.getAttribute("data-party") ?? "") + ":" + words(el.querySelector("[data-testid$=-what]"))]],
     // "Things that may have happened in your case" (EventCandidateSurface): each candidate quotes the
     // person's own sentence. A date box left empty while that very sentence gives the date asks for
     // it again (Chrome 29 Oct, finding 1: "March 2026" in the story, "When, in your words" asked).
@@ -182,12 +222,23 @@ const SCAN = `(() => {
     }],
     // Never ask twice (28 Oct): the places that ask in words. The id is the question's own words.
     ["home-reading", "[data-testid=case-understanding-questions] li", (el) => [words(el.querySelector("label > span"))]],
+    // The home page's city box: the municipality fact, asked while it stays empty (found by the blind-spot check, 24 Nov 2026:
+    // no surface logged it).
+    ["home-location", "input[aria-label='City or municipality']", (el) => steadyEmpty("home-city", !el.value.trim()) ? ["municipality"] : []],
     ["law", "[data-testid=sourced-question-current]", (el) => [words(el.querySelector("label"))]],
     ["confirm-next", () => headed("section > h2", "What to confirm next"), (el) => [words(el.querySelector("p.font-semibold"))]],
     ["forms", formsQuestions, (el) => [words(el.childNodes[0]) || words(el)]],
     ["forms-offer", formsOffers, (el) => [words(el.querySelector("p.font-semibold"))]],
     ["service-method", "select[data-testid^=stage-answer-service-method-]", (el) => ["serviceMethod:" + el.getAttribute("data-testid").slice("stage-answer-service-method-".length)]],
-    ["form-field", "input[data-testid^=sc-intake-], textarea[data-testid^=sc-intake-], select[data-testid^=sc-intake-]", (el) => { const key = el.getAttribute("data-testid").slice("sc-intake-".length); return steadyEmpty("sc:" + key, el.type !== "file" && el.value === "") ? ["sc:" + key] : []; }],
+    // A box shown with the story's offer for it in its own place is one prompt, the offer (sc-form-offer below): its box is
+    // not a second question beside it (one asker, 23 Nov 2026).
+    // Only the same fact in the same place: the box's own wrapper (data-asked-field = this box) holds the offer for this
+    // same box (data-field = this box). Anywhere else, the box is its own question (site owner, 24 Nov 2026, rule 2c).
+    // The same for a box shown with its own "Not sure yet (not asked again)" note (boxView, "not sure" and removed): the box
+    // stays so the person can type, and the note in its own wrapper, for this same box, says it is not asked (carry run of
+    // 24 Nov: the amount "not sure" on the review, then its box on the form counted as asked again).
+    ["form-field", "input[data-testid^=sc-intake-], textarea[data-testid^=sc-intake-], select[data-testid^=sc-intake-]", (el) => { const key = el.getAttribute("data-testid").slice("sc-intake-".length); const mine = el.closest("[data-asked-field]"); if (mine && mine.getAttribute("data-asked-field") === key && mine.querySelector('[data-testid=not-answered-yet][data-field="' + key + '"]')) return []; const own = el.closest('[data-offered="true"]'); if (own && own.getAttribute("data-asked-field") === key && own.querySelector('[data-testid=sc-form-box-offer][data-field="' + key + '"]')) return []; return steadyEmpty("sc:" + key, el.type !== "file" && el.value === "") ? ["sc:" + key] : []; }],
+    ["sc-form-offer", "[data-testid=sc-form-box-offer]", (el) => [el.getAttribute("data-field")]],
     ["form-field", formLabels, (el) => { const label = words(el.querySelector(":scope > span.font-semibold")); return steadyEmpty("label:" + label, el.querySelector(":scope > textarea:not([data-testid])").value === "") ? ["label:" + label] : []; }],
   ];
   const chatPressed = new Set();
@@ -229,10 +280,14 @@ const SCAN = `(() => {
     const storyShown = Boolean(storyBox && visible(storyBox));
     if (storyShown && !storyBoxShown) emit("ask", "sc-story", "story", words(document.getElementById("guided-story-guidance")) || "the chat's story box");
     storyBoxShown = storyShown;
+    // Everything a surface below saw on screen, logged as a question or seen and not asked (a filled box; a box that is its
+    // own offer's): the blind-spot check after the loop counts every other box a person can type in.
+    const covered = storyBox && storyShown ? [storyBox] : [];
     for (const [surface, selector, ids] of surfaces) {
       const found = typeof selector === "function" ? selector() : document.querySelectorAll(selector);
       for (const el of found) {
         if (!visible(el)) continue;
+        covered.push(el);
         for (const id of ids(el)) {
           if (!id) continue;
           const key = surface + "|" + id + "|" + screen();
@@ -241,6 +296,21 @@ const SCAN = `(() => {
           emit("ask", surface, id, el.innerText, surface === "sc-chat" ? replyAfter(el) : undefined);
         }
       }
+    }
+    // THE BLIND-SPOT CHECK (site owner, 24 Nov 2026, Round 3 Step A): every box on screen a person can type in or choose in
+    // is either seen by a surface above or on the exempt list (BLIND_EXEMPT: not a question, with why). Any other is
+    // recorded "blind", once per box per screen, and fails the journey (blindBoxes).
+    for (const box of document.querySelectorAll("main textarea, main select, main input")) {
+      const type = (box.getAttribute("type") || "text").toLowerCase();
+      if (type === "hidden" || type === "checkbox" || type === "radio" || type === "file" || type === "submit" || type === "button") continue;
+      if (!visible(box) || covered.some((el) => el === box || el.contains(box))) continue;
+      if (${JSON.stringify(BLIND_EXEMPT_SELECTORS)}.some((selector) => box.matches(selector))) continue;
+      const label = box.closest("label");
+      const name = box.getAttribute("data-testid") || box.getAttribute("aria-label") || (label ? words(label) : "") || box.getAttribute("placeholder") || box.getAttribute("name") || "an unnamed box";
+      const key = "blind|" + name + "|" + screen();
+      if (seen.has(key)) continue;
+      seen.add(key);
+      emit("blind", "blind", name, name);
     }
     // The follow-up chat: each assistant reply, whole, as it grows; the test process splits it into its question sentences.
     const bubbles = [...document.querySelectorAll("[data-testid=case-partner-transcript] > div.mr-auto")].filter(visible);
@@ -325,6 +395,9 @@ const FORM_FIELD_FACTS: Record<string, readonly string[]> = {
   "sc:evidence": ["evidence"],
   "sc:serviceDetails": ["servedDate", "serviceMethod"],
   "label:Amount claimed or disputed": ["amount"],
+  // The home page's own story box (seen by the labelled-box surface): it asks for the story (local10, 24 Nov 2026: "names no
+  // fact" in the kitchen story's log).
+  "label:Your story": ["story"],
   "label:What do you want ordered?": ["wants"],
   "label:Timeline": ["whenHappened"],
   "label:Evidence you have": ["evidence"],
@@ -335,18 +408,88 @@ const FORM_FIELD_FACTS: Record<string, readonly string[]> = {
 const WORDED = new Set(["chat-reply", "home-reading", "law", "confirm-next", "forms", "forms-offer"]);
 
 /** The facts a recorded question asks for, on any surface. A question whose words name no fact asks for a fact of its own. */
+/** The fact a Parties offer offers: a name or a city, the person's own or the other side's. Anything else: its own id. */
+export function partyOfferFacts(id: string): string[] {
+  const match = /^party-offer:([^:]*):(.*)$/.exec(id);
+  if (!match) return [id];
+  const [, party, what] = match;
+  const own = party === "you" || party === "yours";
+  // As the Parties boxes (partyBoxFacts): the city is the municipality, the province its own detail, the last name its own fact.
+  if (/^\s*city or town\b/i.test(what)) return [own ? "municipality" : "otherPartyMunicipality"];
+  if (/^\s*province\b/i.test(what)) return [`party:${own ? "you" : party}:province`];
+  if (/^\s*last name\b/i.test(what)) return [own ? "yourLastName" : "otherPartyLastName"];
+  if (/^\s*(?:name|first name|company's full legal name|another (?:defendant|plaintiff|respondent|applicant))\b/i.test(what)) return [own ? "yourName" : "otherParty"];
+  return [id];
+}
+
+/**
+ * The fact a Parties box asks for, by whose entry it is in: a name is the person's own name or the other side's, a city or
+ * province their municipality; any other detail (street, postal code, phone, email, person or company) is that party's
+ * detail in the parties record ("party:you:kind"), one fact per party. "party:<you|yours|other>:<party id>:<detail>".
+ */
+export function partyBoxFacts(id: string): string[] {
+  const match = /^party:([^:]*):([^:]*):(.*)$/.exec(id);
+  if (!match) return [id];
+  const [, who, partyId, detail] = match;
+  const own = who === "you";
+  // The last name is a fact of its own (site owner, 23 Nov 2026): a one-word name gives the first name only.
+  if (detail === "lastName") return [own ? "yourLastName" : who === "other" ? "otherPartyLastName" : `party:${partyId}:lastName`];
+  if (/^(?:firstName|fullName|companyName|secondName)$/.test(detail)) return [own ? "yourName" : who === "other" ? "otherParty" : `party:${partyId}:name`];
+  // The city is the municipality; the province is a detail of its own (a story that names a city names no province).
+  if (detail === "city") return [own ? "municipality" : who === "other" ? "otherPartyMunicipality" : `party:${partyId}:city`];
+  return [`party:${own ? "you" : partyId}:${detail}`];
+}
+
+/**
+ * A Form 7A element's case-file fact, else the element as its own fact. The same rule as caseFile/missingFacts.ts
+ * elementFact, kept here so this recorder also runs on code before the one asker (the "before" question logs, #561);
+ * test:one-asker checks the two agree on every element.
+ */
+export function recorderElementFact(element: { id: string; name: string }): string | null {
+  const words = `${element.id} ${element.name}`;
+  if (/jurisdiction/i.test(words)) return null;
+  if (/\bagree(?:d|ment)?\b|-agreement-|\bcontract\b|\bunderstanding\b|\barrangement\b/i.test(words) && !/\b(?:breach|broke|not of|quality)\b/i.test(words)) return "agreementTerms";
+  if (/\bamount\b|\bhow much\b|\bcost of (?:repair|loss)\b/i.test(words)) return "amount";
+  return null;
+}
+const FORM7A_ELEMENT_FACTS = (id: string): string => {
+  // By its id, or (the page before the one asker) by its name: "name:<element name>".
+  const byName = id.startsWith("name:") ? id.slice(5) : null;
+  const element = CLAIM_TYPES.flatMap((type) => type.plaintiffElements).find((item) => (byName ? item.name === byName : item.id === id));
+  return (element && recorderElementFact(element)) ?? `element:${element?.id ?? id}`;
+};
+
+/**
+ * FAIL CLOSED (site owner, 23 Nov 2026, rule 6): whether a recorded question names a fact the case record keeps, a party's
+ * detail in the parties record, or a claim element. A question that names none ("a fact of its own") fails the journey.
+ */
+export function namesAFact(fact: string): boolean {
+  return (FACT_IDS as readonly string[]).includes(fact) || /^party:/.test(fact) || /^element:/.test(fact) || /^(?:case|sc)-date-/.test(fact);
+}
+
 export function factsOfAsk(item: Pick<Asked, "surface" | "id" | "text">): string[] {
   // A date box beside the person's own sentence that already gives that date (SCAN's event-candidate).
   if (item.surface === "event-candidate") return ["dateInOwnSentence"];
   if (WORDED.has(item.surface)) { const facts = factsOfWords(item.id); return facts.length ? facts : [`${item.surface}:${item.id}`]; }
   if (item.surface === "service-method") return ["serviceMethod"];
   // The story: the Small Claims chat's story box asks for it; the home page's or the chat's story sent gives it.
-  if (item.surface === "sc-story" || item.surface === "home-story") return ["story"];
+  if (item.surface === "sc-story") return ["story"];
+  // The home page's Continue sends the story and the city together: both are given there (C9).
+  if (item.surface === "home-story") return ["story", "municipality"];
+  // A Parties offer: its fact by whose entry it is in and what it offers (C9: the name and the city offered again were
+  // counted as nothing). "party-offer:<you|other|...>:<label>: <value>".
+  if (item.surface === "parties-offer") return partyOfferFacts(item.id);
+  if (item.surface === "parties") return partyBoxFacts(item.id);
+  // An offer in the form's "Found in your description": the fact of its box, as the box itself asks it.
+  if (item.surface === "sc-form-offer") return factsOfAsk({ surface: "form-field", id: `sc:${item.id}`, text: item.text });
+  // A Form 7A checklist item: the case-file fact it is about, when it has one (the amount, what was agreed), else its element.
+  if (item.surface === "form7a-still-to-add" || item.surface === "form7a-found") return [FORM7A_ELEMENT_FACTS(item.id)];
   if (item.surface === "form-field") {
     const own = FORM_FIELD_FACTS[item.id];
     if (own) return [...own];
     const [where, key] = [item.id.slice(0, item.id.indexOf(":")), item.id.slice(item.id.indexOf(":") + 1)];
-    if (where === "sc") { const facts = factsOfQuestion(key); return facts.length === 1 && facts[0] === key ? [item.id] : facts; }
+    // A box whose key is itself a fact the record keeps ("otherParty", "missingEvidence") asks for that fact.
+    if (where === "sc") { const facts = factsOfQuestion(key); return facts.length === 1 && facts[0] === key && !namesAFact(key) ? [item.id] : facts; }
     const facts = factsOfWords(key);
     return facts.length ? facts : [item.id];
   }
@@ -392,6 +535,17 @@ export function withPageHeld(item: Asked, step?: string): Asked {
     const file = caseFileOf(readCheckpoint(checkpoint, court), undefined);
     const pageHeld: Record<string, string> = {};
     for (const fact of factsOfAsk(item)) if ((SLOT_FACTS as readonly string[]).includes(fact)) pageHeld[fact] = file[fact as (typeof SLOT_FACTS)[number]].state;
+    // The facts kept outside the slots, through the case file's own readers (one asker, 23 Nov 2026: the question logs say,
+    // for every question, whether the record held its fact at that moment): the person's name, their city, the other side's.
+    const outside: Record<string, () => boolean> = { yourName: () => Boolean(heldYourName(file)), municipality: () => Boolean(heldLocation(file)?.city), otherPartyMunicipality: () => Boolean(heldOtherPartyCity(file)) };
+    for (const fact of factsOfAsk(item)) if (outside[fact]) pageHeld[fact] = outside[fact]() ? "answered" : "not-asked";
+    // Each side's last name, from the parties record: given (answered) or "I'm not sure" (unsure), the same states as any fact.
+    const list = (file.parties?.list ?? []) as { you?: boolean; side?: string; details?: Record<string, string>; unsure?: string[] }[];
+    const lastOf = (party: (typeof list)[number] | undefined) => (party?.details?.lastName?.trim() ? "answered" : party?.unsure?.includes("lastName") ? "unsure" : "not-asked");
+    for (const fact of factsOfAsk(item)) {
+      if (fact === "yourLastName") pageHeld[fact] = lastOf(list.find((party) => party.you));
+      if (fact === "otherPartyLastName") pageHeld[fact] = lastOf(list.find((party) => party.side === "other"));
+    }
     return Object.keys(pageHeld).length ? { ...out, pageHeld } : out;
   } catch { return out; }
 }

@@ -2,6 +2,7 @@
 import { limitMessageOf } from "../../../src/lib/security/limitWords";
 import { authHeaders } from "../../cases/_components/CaseHomeContext";
 import { useIntakeReviewView, useSituation } from "../../_components/IntakeRecovery";
+import { caseFileOf, heldLocation } from "../../../src/lib/case-system/caseFile/caseFile";
 import { sideOf } from "../../../src/lib/case-system/situation/situation";
 import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
 
@@ -864,7 +865,13 @@ function CourtAssistantChatInner({
   );
   const transcriptRef = useRef<HTMLDivElement | null>(null);
   const shouldAutoScrollRef = useRef(true);
-  const location = useMemo(() => knownLocation(caseData), [caseData]);
+  // The city and province the case file holds from the home page first (heldLocation, C9), then the analysis's copy: the
+  // chat never asks "What province or territory did this happen in?" of a person who already gave it.
+  const location = useMemo(() => {
+    const held = heldLocation(reviewView ? caseFileOf(reviewView.checkpoint) : null);
+    const fromData = knownLocation(caseData);
+    return { province: held?.province || fromData.province, city: held?.city || fromData.city };
+  }, [caseData, reviewView]);
 
   const detectedClaimAmount = useMemo(() => {
     const latestUserMessage = [...messages]

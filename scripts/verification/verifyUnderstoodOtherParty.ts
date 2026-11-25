@@ -85,7 +85,7 @@ const gate = fs.readFileSync("app/_components/HomeLocationGate.tsx", "utf8");
 check("the home page writes the reading's other party through writeAnswer(recovery, \"home\", \"otherParty\", ...)", /writeAnswer\(recovery, "home", "otherParty", /.test(gate));
 // Read through the one offer reader (caseFile/storyOffers.ts offeredOtherParty, which calls otherPartyFromUnderstanding),
 // and only on the accepted branch: the read sits behind `accepted ?` (16 Nov 2026; stricter than "both words appear").
-check("only when the reading was accepted (the card's own buttons)", /accepted \? offeredOtherParty\(/.test(gate));
+check("only when the reading was accepted (the card's own buttons)", /accepted && !otherPartyHeld \? offeredOtherParty\(/.test(gate));
 
 // 4. Shown on the review, never a confirmed fact of its own.
 const guidedRoute = checkpoint({ builder: { step: "guided" }, guided: { facts: { amount: "4500" } }, home: { otherParty: "Alex Testwood" } }) as never;
@@ -94,6 +94,12 @@ const shown = withHeldOtherParty(reviewEntries(guidedRoute), guidedRoute, caseFi
 check("4. the review screen shows the other party the record holds", shown.some((entry) => entry.field === "otherParty" && entry.value === "Alex Testwood"), JSON.stringify(shown.map((entry) => entry.field)));
 const reviewPanel = fs.readFileSync("app/_components/IntakeReviewPanel.tsx", "utf8");
 check("4. the review panel shows it through withHeldOtherParty", /withHeldOtherParty\(reviewEntries\(checkpoint\)/.test(reviewPanel));
+
+// C9 (23 Nov 2026): the reading's other party is written only while the case file holds none from the person: a name they
+// gave (or "not sure") is never replaced by it, through the one function (factStatus).
+check("C9. the home page writes the reading's other party only while the case file holds none from the person", /const otherPartyHeld = homeFile \? factStatus\(homeFile, "otherParty"\) === "known" \|\| factStatus\(homeFile, "otherParty"\) === "settled" : false;/.test(gate) && /accepted && !otherPartyHeld \?/.test(gate));
+
+check("C9. the home page suggests another court only against the court the case file holds from the person (else the one chosen)", /suggested !== \(heldCourt \?\? path\)/.test(gate) && /if \(differentPath\) \{\s*setReadFrom/.test(gate));
 
 console.log(failures ? `\n${failures} check(s) failed.` : "\nThe accepted reading's other party goes on the record; no witness does.");
 process.exit(failures ? 1 : 0);

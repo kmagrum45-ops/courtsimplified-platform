@@ -9,8 +9,8 @@ import {
 
 import {
   filingFactsFromDocuments,
-  isQuestionAlreadyAnswered,
 } from "./answeredQuestions";
+import { missingWords } from "../caseFile/heldAnswer";
 import { runCourtSimplifiedBrain } from "./courtSimplifiedBrain";
 import { formatRecordedAmount } from "../format/recordedAmount";
 import type { ProceduralEvent } from "../procedure/proceduralStateArchitecture";
@@ -650,7 +650,7 @@ export async function analyzeSmallClaimsWithBrain(
     !/defendant|responding/i.test(String(input.yourRole ?? "")) &&
     input.filedDocuments.includes("plaintiffs-claim") &&
     input.filedDocuments.includes("affidavit-service") &&
-    !isQuestionAlreadyAnswered("Has the defendant filed a Defence?", smallClaimsFilingFacts);
+    missingWords(null, ["Has the defendant filed a Defence?"], { filing: smallClaimsFilingFacts }).length > 0;
   const defaultStageGuidance = defaultStageReview
     ? [
         "Service was completed and an Affidavit of Service was filed with the court.",

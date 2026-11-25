@@ -95,7 +95,14 @@ test("guests are told up front, and signing in from the intake marks it to come 
   await page.route("**/api/classify-court-path", (route) => route.fulfill({ json: { primaryPath: "family", confidence: 0.95 } }));
   await page.goto("/?path=family");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
-  await expect(page.getByText("To see your next steps, you will need a free account")).toBeVisible();
+  // ONE account message per screen, the frame's (IntakeRecovery.tsx GUEST_ACCOUNT_NOTICE; Chrome, test of #561, 1.1): the
+  // home page's own sentence was taken away for it.
+  await expect(page.getByTestId("guest-account-notice")).toHaveCount(1);
+  await expect(page.getByTestId("guest-account-notice")).toContainText("see your next steps, you need a free account");
+  // And no second message that an account is needed (the home page's own sentence, taken away for the notice, said "you
+  // will need a free account"; the notice says "you need a free account"): "need a free account" appears once. The sign-in
+  // link ("Sign in or create a free account") is a link, not a message, and is not counted.
+  expect(((await page.locator("body").innerText()).match(/need a free account/gi) ?? []).length, "one account message on the screen").toBe(1);
   await page.getByLabel("City or municipality").fill("Sudbury");
   await page.getByLabel(STORY_LABEL, { exact: true }).fill(STORY.family);
   await page.getByRole("button", { name: "Continue to Family intake" }).click();

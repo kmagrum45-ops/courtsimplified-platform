@@ -28,7 +28,8 @@ import { WorkingButton } from "./Working";
 import { saveThenLeave } from "./leaveAfterSave";
 import { courtOfSavedRow, SAVED_COURT_COLUMNS } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
 import { CASE_FILE_SECTION, caseFileOf, followAnswer } from "../../src/lib/case-system/caseFile/caseFile";
-import { storedFacts, withStoredFacts } from "../../src/lib/case-system/caseFile/serverFacts";
+import { situationWithHeld } from "../../src/lib/case-system/caseFile/situationHeld";
+import { afterPartiesSent, PARTIES_PENDING, storedFacts, withStoredFacts } from "../../src/lib/case-system/caseFile/serverFacts";
 import NotSavedYet from "./NotSavedYet";
 import { GUEST_ACCOUNT_NOTICE } from "../../src/lib/auth/signUpConfirmation";
 import { afterSend, pendingWrites, type SendResponse } from "../../src/lib/case-system/caseFile/pendingFacts";
@@ -331,17 +332,20 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         const sendFacts = async (token: string | undefined) => {
           const sending = snapshot.sections[CASE_FILE_SECTION]?.changes;
           const writes = caseId ? pendingWrites(sending) : [];
-          if (!writes.length || !token) return;
+          // The Parties record, when this tab changed it: sent by itself too, and numbered by the server (serverFacts.ts).
+          const sendingParties = caseId && snapshot.sections[CASE_FILE_SECTION]?.[PARTIES_PENDING] === true ? snapshot.sections[CASE_FILE_SECTION]?.parties : undefined;
+          if ((!writes.length && sendingParties === undefined) || !token) return;
           const response = await fetch("/api/cases/facts", {
             method: "POST",
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-            body: JSON.stringify({ caseId, facts: writes }),
+            body: JSON.stringify({ caseId, facts: writes, ...(sendingParties !== undefined ? { parties: sendingParties } : {}) }),
             signal: AbortSignal.timeout(CASE_REQUEST_TIMEOUT_MS),
           });
           if (!current()) throw new Error("The intake account or case changed. Please retry in the current case.");
           if (!response.ok) throw new Error("Your answers could not be saved. Your pending text remains in this tab. Please retry before continuing.");
           const answer = (await response.json()) as SendResponse;
           snapshot = { ...snapshot, revision: crypto.randomUUID(), sections: afterSend(snapshot.sections, sending, answer) };
+          if (sendingParties !== undefined && answer.parties) snapshot = { ...snapshot, sections: afterPartiesSent(snapshot.sections, sendingParties, answer.parties) };
           remember(snapshot);
           dirty = true;
           cache();
@@ -637,7 +641,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           window.removeEventListener("online", interruption);
         };
         if (!cache()) failure("This tab cannot retain your pending intake text. Copy it before leaving.");
-        else setNotice(ownerId ? (dirty ? "Pending answers recovered in this tab. Saving…" : caseId ? "Intake saved to your account." : "Answers will be saved to your account as you type.") : "Guest progress stays in this tab only. Seeing your next steps needs a free account; sign in from here and what you entered comes with you.");
+        else setNotice(ownerId ? (dirty ? "Pending answers recovered in this tab. Saving…" : caseId ? "Intake saved to your account." : "Answers will be saved to your account as you type.") : ""); // A guest gets ONE account message per screen, the shared GUEST_ACCOUNT_NOTICE below (Chrome, test of #561, 1.1: three).
         setRecovery(store);
         if (initialConflict) { setConflict(true); failure("Another tab changed this intake. Your pending text is shown here for you to copy. Open the saved case separately before resolving the difference."); }
         else if (dirty && ownerId) void flush().catch(() => {});
@@ -708,7 +712,11 @@ function SituationGate({ court, ownerId, children }: { court: IntakeCourt; owner
   // The first-use notice (not a lawyer; AI is used) comes before any question, these included.
   const [notice, setNotice] = useState<boolean | null>(null);
   const known = withKnownCourt(situation, court);
-  const incomplete = nextSituationQuestion(known, court) !== null;
+  // What the case file holds from another place (the chat, the review, an older case) is never asked here again (C9).
+  const view = useIntakeReviewView();
+  const file = view && recovery ? caseFileOf(view.checkpoint, recovery.getSavedMaster() ?? undefined) : null;
+  const held = situationWithHeld(known, file);
+  const incomplete = nextSituationQuestion(held, court) !== null;
   // The court-path finder asked "Has a case already started?": that answer is the first one here.
   useEffect(() => {
     try {
@@ -747,12 +755,12 @@ function SituationGate({ court, ownerId, children }: { court: IntakeCourt; owner
   }
   if (incomplete || changing) {
     return <div className="mx-auto max-w-4xl px-6" data-testid="situation-gate">
-      <SituationQuestions situation={known} chosenCourt={court} reviewing={changing && !incomplete} onChange={setSituation} onSwitchCourt={switchCourt} onDone={() => setChanging(false)} />
+      <SituationQuestions situation={known} held={file} chosenCourt={court} reviewing={changing && !incomplete} onChange={setSituation} onSwitchCourt={switchCourt} onDone={() => setChanging(false)} />
       {changing && !incomplete && <button type="button" data-testid="situation-change-done" onClick={() => setChanging(false)} className="mt-3 text-sm font-semibold text-[#2f7d67] underline">Keep my answers as they are</button>}
     </div>;
   }
   return <>
-    <SituationLine situation={known} onChange={() => setChanging(true)} />
+    <SituationLine situation={held} onChange={() => setChanging(true)} />
     <SideCrossCheck court={court} situation={known} onChange={() => setChanging(true)} />
     <IntakeSafetyNotice />
     {children}

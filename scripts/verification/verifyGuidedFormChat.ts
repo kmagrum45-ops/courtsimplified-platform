@@ -34,7 +34,10 @@ async function main() {
 // synthetic configuration only and never reads a real environment file.
 process.env.NEXT_PUBLIC_SUPABASE_URL = "http://127.0.0.1:1";
 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "synthetic-offline-test-key";
-const { acknowledgement, answerNeedsMore, cutAtWord, isAnswered, pendingFields } = await import("../../app/builder/_components/GuidedFormChat");
+const { acknowledgement, answerNeedsMore, cutAtWord, isAnswered } = await import("../../app/builder/_components/GuidedFormChat");
+// The one asker (caseFile/heldAnswer.ts missingFields; pendingFields was deleted with it, 23 Nov 2026), same rule.
+const { missingFields } = await import("../../src/lib/case-system/caseFile/heldAnswer");
+const pendingFields = (fields: Parameters<typeof missingFields>[1], values: Parameters<typeof missingFields>[2], skipped: ReadonlySet<string>) => missingFields(null, fields, values, skipped, isAnswered as never);
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const read = (file: string) => readFileSync(path.join(ROOT, file), "utf8");

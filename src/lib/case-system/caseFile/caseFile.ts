@@ -45,7 +45,7 @@ import { parseRecordedAmount } from "../format/recordedAmount";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
 import { chatMayAsk, slotStatus } from "./factStatus";
-import { partyName, partyNames, readParties, withHeldOtherName, withStartLocation, type PartiesHeld } from "../parties/parties";
+import { partyName, partyNames, readParties, withHeldOtherName, withHeldYourName, withNameParts, withStartLocation, type PartiesHeld } from "../parties/parties";
 import { partiesFromOldShapes } from "./oldParties";
 import { fitsFactType } from "./factTypes";
 
@@ -53,6 +53,8 @@ import { fitsFactType } from "./factTypes";
 // meets this one half-loaded (21 Nov 2026: caseFile -> personWords -> siteQuestions -> guidedFields -> intakeReview ->
 // ... -> factRecord read SLOT_FACTS before this file had defined it).
 import { SLOT_FACTS, type SlotFact } from "./slotFacts";
+import { ANSWERED_ELSEWHERE } from "./answeredElsewhere";
+import { serviceRulesFor } from "../deadlines/serviceEffectiveDate";
 export { SLOT_FACTS, type SlotFact };
 export type SlotState = "not-asked" | "answered" | "unsure";
 export type SlotSource = { kind: "answer"; question: string } | { kind: "story"; quote: string };
@@ -83,6 +85,17 @@ export type CaseFile = Record<SlotFact, Slot> & {
   sideWords?: string;
   /** The story's words as they are now, for the lines "What we have so far" quotes from it (storyLines.ts); the fact itself is the `story` slot. */
   storyText?: string;
+  /**
+   * The story the home page showed its reading of ("Here is what we understood"), when it did: the Small Claims chat starts by
+   * itself from that same story, never asking for it again (one asker, 23 Nov 2026; Chrome, test of #561, 1.9). Read only.
+   */
+  storyReadOnHome?: string;
+  /** The person's own city and province, given on the home page (intakeStory.ts locationOf): read through heldLocation (C9). */
+  /** Where the other person lives (the Family status questions): read through heldOtherPartyCity (C9). */
+  otherPartyCity?: string;
+  /** Where the children live now (the Family form, the review): read through heldLivingSituation (C9). */
+  livingSituation?: string;
+  location?: { city: string; province: string };
   /**
    * A kind of claim made by the site, not the person (the guided route's story match or the
    * classifier's suggestion not yet ticked, or an older saved case's unticked match): a PROPOSAL,
@@ -227,6 +240,19 @@ function unsure(file: CaseFile, fact: string, question: string) {
   if (isSlot(fact) && file[fact].state === "not-asked") file[fact] = { state: "unsure", source: { kind: "answer", question }, confirmed: true };
 }
 
+/** Each element record a depth question answered (elementStateMap.ts): its words, or "not sure", under the question's facts. */
+function depthAnswers(file: CaseFile, records: Record<string, unknown>) {
+  for (const value of Object.values(records)) {
+    const record = object(value);
+    if (typeof record.questionId !== "string") continue;
+    const words = typeof record.userText === "string" ? record.userText.trim() : "";
+    for (const fact of slotsOf(record.questionId)) {
+      if (record.state === "provided" && words) give(file, fact, words, record.questionId);
+      else if (record.state === "cannot-provide") unsure(file, fact, record.questionId);
+    }
+  }
+}
+
 /**
  * "What kind of dispute is this?" keeps its answer as a code (facts.disputeCategory, the extractor's
  * list): the question's own choice words for it, so the answer is shown as given (26 Oct re-test,
@@ -248,6 +274,8 @@ export const DISPUTE_CATEGORY_WORDS: Record<string, string> = {
 };
 
 /** Every slot an answer to this question gives (its facts that are slots). */
+// Whether a slot may still be asked (the one function): used here only for reading; the one asker's is heldAnswer.ts stillToAsk.
+const stillOpen = (slot: Slot) => { const status = slotStatus(slot); return status === "ask" || status === "offer"; };
 const slotsOf = (questionId: string, surface?: string): SlotFact[] => factsOfQuestion(questionId, surface).filter(isSlot);
 
 /**
@@ -277,6 +305,15 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // it wins over the stage given at the start (reviewer, 2026-10-24: a later correction never won).
   const position = object(object(master).position);
   if (typeof position.stepId === "string" && position.stepId) give(file, "stage", position.stepId, "step");
+  // How the papers were served, as the step page recorded it (position.service, per date question): the method in its own
+  // words, so no other place asks it again (C9, 23 Nov 2026).
+  const serviceCourt = court === "small-claims" || court === "civil" || court === "family" ? court : null;
+  for (const [questionId, entry] of Object.entries(object(position.service))) {
+    const method = object(entry).method;
+    if (typeof method !== "string" || !method) continue;
+    const words = serviceCourt ? serviceRulesFor(serviceCourt, questionId).find((rule) => rule.method === method)?.label : undefined;
+    give(file, "serviceMethod", words ?? method, "step");
+  }
   // Likewise a kind of claim they chose themselves (the overview's list, CLAIM_KIND_QUESTION).
   if (typeof position.claimKind === "string" && (position.claimKind === "not-sure" || isKindOfClaim(position.claimKind))) give(file, "claimKind", position.claimKind, CLAIM_KIND_QUESTION);
 
@@ -368,6 +405,11 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
     if (typeof item.questionId === "string" && typeof item.answerText === "string") answers[item.questionId] ??= item.answerText;
     if (typeof item.questionId === "string") for (const fact of slotsOf(item.questionId)) give(file, fact, item.answerText, item.questionId);
   }
+  // The depth questions' typed answers are kept in the depth record (guided.depthStateMap: each element's answer, in the
+  // person's words, with the question that asked it), not among earlierAnswers: what was agreed comes from there too, so a
+  // question in other words (the AI's "What are the specific terms of the contract...?") is never asked after it (C9,
+  // 23 Nov 2026). "I don't know" there is "not sure". An older saved case keeps the same record in its analysis copy (below).
+  depthAnswers(file, object(guided.depthStateMap));
   const guidedFacts = object(guided.facts);
   for (const id of strings(guided.answeredIds)) {
     for (const fact of slotsOf(id)) {
@@ -408,6 +450,14 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
 
   // 5. The Family triage.
   const triage = object(object(builder.triageState).record);
+  // Where the other person lives, as the person answered it there (C9): read through heldOtherPartyCity.
+  if (typeof triage.otherPartyMunicipality === "string" && triage.otherPartyMunicipality.trim() && triage.otherPartyMunicipality !== "not-yet") file.otherPartyCity = triage.otherPartyMunicipality.trim();
+  // Where the children live now, as the Family form or the review holds it (C9): read through heldLivingSituation.
+  // Else the person's answer to the same question asked in other words (the home page, the chat: ANSWERED_ELSEWHERE).
+  const livingElsewhere = answeredInIntake(sections).filter((item) => ANSWERED_ELSEWHERE.currentLivingSituation.test(item.question)).map((item) => item.answer).join("\n");
+  const living = object(sections.family).currentLivingSituation ?? object(builder.initialAnswers).currentLivingSituation;
+  if (typeof living === "string" && living.trim() && !isUnsureAnswer(living)) file.livingSituation = living.trim();
+  else if (livingElsewhere.trim()) file.livingSituation = livingElsewhere.trim();
   const yesNo = (value: unknown) => (value === "yes" ? true : value === "no" ? false : value === "unsure" ? "not-sure" : undefined);
   if (yesNo(triage.marriedToOtherParty) !== undefined) give(file, "married", yesNo(triage.marriedToOtherParty), "married-to-other-party");
   // The same question asked early by the Family questions (guidedFields.ts "married"; Chrome pass 3, S7): one answer, one fact.
@@ -449,6 +499,7 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // The element record the analysis saved with the case (the depth phase's answers), for the Form 7A section.
   const savedElementStates = object(extra.elementStateMap);
   if (Object.keys(savedElementStates).length) file.elementStates = savedElementStates;
+  depthAnswers(file, savedElementStates);
   // The checkpoint keeps the Small Claims chat's own record (its "guided" section, which "Start the questions again" resets).
   const chatRecorded = Boolean(checkpoint && checkpoint.sections.guided);
   for (const answer of Array.isArray(object(master).intakeAnswers) ? (object(master).intakeAnswers as unknown[]) : []) {
@@ -493,6 +544,7 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // withoutGluedAnswers; Chrome pass 3 on #550: the answers printed in the Form 7A reasons box). The answer itself is
   // still held, from home.understoodAnswers.
   file.storyText = withoutGluedAnswers(String(object(sections.story).text ?? ""), answeredInIntake(sections).map((item) => item.answer));
+  { const home = object(sections.home); if (home.understood && typeof home.readFrom === "string" && home.readFrom.trim()) file.storyReadOnHome = home.readFrom.trim(); }
   file.area = checkpoint?.courtPath ?? court ?? undefined;
   if (!file.storyText.trim() && master) file.savedStory = storyOfMaster(master) ?? undefined;
   // The story is a fact: held once given, here or in the saved case (founder, 1 Nov: the Small Claims chat
@@ -541,10 +593,15 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
       }),
     };
   }
+  // The person's own city and province from the home page (C9): the case file holds it; every place reads heldLocation.
+  const startLocation = locationOf(sections as never);
+  if (startLocation?.city.trim()) file.location = { city: startLocation.city.trim(), province: startLocation.province };
   // The person's own city and province from the home page, held in their own address (C9): never asked again there.
   file.parties.list = withStartLocation(file.parties.list, { location: locationOf(sections as never), answered: answeredInIntake(sections) });
   // The other side's name the person gave (the chat, the review), held as the one other party's name there (C9).
-  file.parties.list = withHeldOtherName(file.parties.list, heldOtherName(file));
+  // The person's own name typed in the Family form, held in their own entry (C9).
+  const familyName = object(sections.family).yourName;
+  file.parties.list = withNameParts(withHeldYourName(withHeldOtherName(file.parties.list, heldOtherName(file)), typeof familyName === "string" ? familyName : null));
   // 12. Words built from amounts follow the amount held now (Chrome check of #550, 1.7): read, never saved.
   const heldAmount = file.amount.state === "answered" ? (typeof file.amount.value === "number" ? file.amount.value : parseRecordedAmount(String(file.amount.value ?? ""))) : null;
   // What they want. Never a defendant's own outcome: the amount held for them is the claim against them, and their own
@@ -562,7 +619,7 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // 13. Family's urgent question asks about a safety worry in its own words (guidedFields.ts, asked whole only while
   // safety is not held), so its answer or "not sure" is the safety answer until safety has one of its own (site owner,
   // 14 Nov 2026, 5c: never asked again; carry: the review's "Safety or urgent concerns" box asked after it). Read only.
-  if (file.area === "family" && notAsked(file.safety) && !notAsked(file.urgent)) file.safety = { state: file.urgent.state, value: file.urgent.value, source: file.urgent.source, confirmed: file.urgent.confirmed };
+  if (file.area === "family" && stillOpen(file.safety) && !stillOpen(file.urgent)) file.safety = { state: file.urgent.state, value: file.urgent.value, source: file.urgent.source, confirmed: file.urgent.confirmed };
   return file;
 }
 
@@ -1153,11 +1210,6 @@ export function claimKindOf(file: CaseFile, listWords: (codes: string[]) => stri
 }
 
 /**
- * Every question the person answered in the intake, with their own words: the home page's reading (home.understoodAnswers)
- * and the Small Claims chat (guided.earlierAnswers, worded from the question bank). For details given there that another
- * step asks for (the Parties step: an address typed as an answer; Chrome milestone pass 2, finding 3).
- */
-/**
  * The other side's name the case holds as the person's own answer, from a place other than the Parties step (the chat, the
  * review): the one reading the Parties step and the case file share (C9). Empty when there is none.
  */
@@ -1166,6 +1218,69 @@ export function heldOtherName(file: CaseFile): string {
   return slot.state === "answered" && typeof slot.value === "string" && slot.source?.kind === "answer" && slot.source.question !== "parties" && !slot.removed ? slot.value.trim() : "";
 }
 
+/**
+ * How the papers were served, in the person's words, as another place holds it (the Small Claims chat, its form, the civil
+ * chat): the step page reads it as its chosen method (C9). Empty for the step page's own answer, or none.
+ */
+export function heldServiceWords(file: CaseFile | null | undefined): string {
+  const slot = file?.serviceMethod;
+  if (!slot || slot.state !== "answered" || !slot.confirmed || slot.removed) return "";
+  if (slot.source?.kind === "answer" && slot.source.question === "step") return "";
+  return typeof slot.value === "string" ? slot.value.trim() : "";
+}
+
+/** The papers the person said are filed (the civil and Family forms and chats), or none (C9): never asked again elsewhere. */
+export function heldDocuments(file: CaseFile | null | undefined): string[] {
+  return file?.documents ?? [];
+}
+
+/** Where the other person lives, as the person said in the Family status questions, or "" (C9). */
+export function heldOtherPartyCity(file: CaseFile | null | undefined): string {
+  return file?.otherPartyCity ?? "";
+}
+
+/** Where the children live now, as the Family form or the review holds it, or "" (C9). */
+export function heldLivingSituation(file: CaseFile | null | undefined): string {
+  return file?.livingSituation ?? "";
+}
+
+/**
+ * What the child support builder starts from (C9, 23 Nov 2026): every value through the case file's one reader first (the
+ * person's name from the parties, the other side's name, the children, where they live, the evidence, where the other
+ * parent lives), the Family form's saved copy only where the case file holds nothing. So a fact given anywhere is never
+ * asked again there.
+ */
+export function childSupportStartFrom<T extends { yourName: string; otherParty: string; childrenInfo: string; currentLivingSituation: string; evidence: string; story: string }>(file: CaseFile | null | undefined, recorded: T): T & { otherPartyCity: string } {
+  const held = (fact: SlotFact) => (file && slotStatus(file[fact]) === "known" ? slotText(file[fact], (iso) => iso) : "");
+  return {
+    ...recorded,
+    yourName: (file && heldYourName(file)) || recorded.yourName,
+    otherParty: held("otherParty") || recorded.otherParty,
+    childrenInfo: held("children") || recorded.childrenInfo,
+    currentLivingSituation: heldLivingSituation(file) || recorded.currentLivingSituation,
+    evidence: held("evidence") || recorded.evidence,
+    otherPartyCity: heldOtherPartyCity(file),
+  };
+}
+
+/** The person's own city and province the case holds (the home page's), or null (C9): never asked again in another place. */
+export function heldLocation(file: CaseFile | null | undefined): { city: string; province: string } | null {
+  return file?.location ?? null;
+}
+
+/**
+ * The person's own name the case holds (the parties in the case file, written by the Parties step), or "" (C9): every place
+ * that would ask or offer the person's name reads it here, so a name given once is never asked again.
+ */
+export function heldYourName(file: CaseFile): string {
+  return partyNames(file.parties.list).you.trim();
+}
+
+/**
+ * Every question the person answered in the intake, with their own words: the home page's reading (home.understoodAnswers)
+ * and the Small Claims chat (guided.earlierAnswers, worded from the question bank). For details given there that another
+ * step asks for (the Parties step: an address typed as an answer; Chrome milestone pass 2, finding 3).
+ */
 export function answeredInIntake(sections: Record<string, unknown> | undefined): { question: string; answer: string }[] {
   const out: { question: string; answer: string }[] = [];
   const all = object(sections);
@@ -1219,52 +1334,8 @@ export function claimKindLine(held: ClaimKindHeld): { label: string; words: stri
   return null;
 }
 
-/** Whether a question would ask for something the file already holds (an answer, or "not sure"). */
-export function alreadyAsked(file: CaseFile, questionId: string, surface?: string): boolean {
-  return slotsOf(questionId, surface).some((fact) => !notAsked(file[fact]));
-}
-
-/**
- * May still be asked or offered, from the one function (factStatus.ts): not known (no answer of the person's), not
- * settled ("not sure", a skip, removed). A story value not yet decided is an offer, so it may be shown.
- */
-export const notAsked = (slot: Slot) => { const status = slotStatus(slot); return status === "ask" || status === "offer"; };
-
-/**
- * THE ONE GATE. Of a screen's questions, in its order, the first whose facts the file
- * does not hold yet; null when none. A fact held answered OR unsure ("I don't know", "not
- * sure", a skip) is never asked again, on any screen and at no point (site owner, 31 Oct:
- * there is no "offered once more at the end"). A question that asks for no slot is the
- * screen's own.
- */
-export function nextQuestion(file: CaseFile, candidates: readonly string[], options: { surface?: string } = {}): string | null {
-  for (const id of candidates) {
-    const facts = slotsOf(id, options.surface);
-    if (!facts.length) return id;
-    if (facts.every((fact) => notAsked(file[fact]))) return id;
-  }
-  return null;
-}
-
-/** The questions of a list the file still lets this screen ask (the gate, for screens that show several at once). */
-export function askable(file: CaseFile, candidates: readonly string[], surface?: string): string[] {
-  return candidates.filter((id) => nextQuestion(file, [id], { surface }) === id);
-}
-
 /** THE GATE FOR EVERY CHAT: the one function's (factStatus.ts chatMayAsk), re-exported for its callers. */
 export { chatMayAsk };
-
-/**
- * What a chat asks for one of its question sentences: the sentence, when the gate lets its fact be
- * asked; its open part (what the case file does not hold) when the fact is held; null when nothing
- * is left (factsOfQuestion.ts CHAT_QUESTIONS; row 1 review, 29 Oct: a compound question was dropped
- * whole once its fact was held, so when they first found out was never asked).
- */
-export function chatQuestionToAsk(file: CaseFile | null | undefined, words: string, conversation: readonly ChatTurn[] = []): string | null {
-  const question = chatQuestionOf(words);
-  if (chatMayAsk(file, question.asks) && !askedAndReplied(conversation, words)) return words;
-  return question.open && !askedAndReplied(conversation, question.open) ? question.open : null;
-}
 
 /** One turn of a chat's own conversation: the chat's message (with its question id, where it has one) or the person's. */
 export type ChatTurn = { role: string; text: string; questionId?: string };

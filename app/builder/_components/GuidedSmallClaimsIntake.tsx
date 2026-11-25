@@ -1,6 +1,7 @@
 "use client";
 
 import { createPortal } from "react-dom";
+import { FROM_YOUR_STORY } from "@/src/lib/case-system/caseFile/storyOffers";
 import { readingFactsOf } from "../../../src/lib/case-system/caseFile/storyOffers";
 import { storyOf } from "../../../src/lib/case-system/intakeStory";
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
@@ -1125,6 +1126,21 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     void sendTurn(story, answeredIds, facts);
   }
 
+  // The story is read when it ARRIVES (site owner, 23 Nov 2026; Chrome, test of #561, 1.9: the story already read on the
+  // step before was shown again with "Send my story"). A story already given (the home page, any entry) starts the
+  // questions by itself, once, so the person is never asked to send a story they already gave; "Edit my story" stays in
+  // "Review or correct initial information". Not while a tribunal notice waits (it is said first) or the story changed.
+  const autoStarted = useRef(false);
+  // Read: the home page showed its reading of this same story ("Here is what we understood"). A story typed here and not
+  // sent yet has not been read, so it keeps "Send my story" and "Edit my story".
+  const homeRead = caseFileOf(recovery?.getReview().checkpoint ?? null).storyReadOnHome ?? "";
+  const readOnHome = Boolean(homeRead) && homeRead === story.trim();
+  useEffect(() => {
+    if (autoStarted.current || !readOnHome || started || readingOutdated || !showSavedStory || !story.trim() || loading || tribunalFirst.held) return;
+    autoStarted.current = true;
+    handleStorySubmit();
+  });
+
   function handleAnswerSubmit() {
     if (loading || turnRequest.current.pending || !currentQuestion) return;
     const answerText = inputText.trim();
@@ -1238,6 +1254,11 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     try {
       const result = await callDepthTurn(claimTypeId, currentFacts);
       setDepthStateMap(result.stateMap);
+      // A depth question whose fact the case file holds from another place (what was agreed, given in the review, the
+      // chat or an earlier run) is neither asked nor offered (the one function, factStatus.ts; C9, 23 Nov 2026).
+      const depthFile = caseFileOf(recovery?.getReview().checkpoint ?? null, recovery?.getSavedMaster() ?? undefined);
+      result.questions = result.questions.filter((question) => mayShowQuestion(depthFile, question.id));
+      result.proposals = (result.proposals ?? []).filter((proposal) => mayShowQuestion(depthFile, proposal.questionId));
 
       // A well-covered story suppresses everything. That is the filter working,
       // not a failure — finish immediately rather than announcing a phase with
@@ -1596,7 +1617,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         ) : !started && showSavedStory && story.trim() ? (
           <div data-testid="guided-saved-story" className="text-sm">
             {/* Confirmed, and the case file holds every question the review would ask (the same gate,
-                remainingEssentialQuestions -> alreadyAsked): said in plain words above the story; the story can
+                remainingEssentialQuestions -> the one asker): said in plain words above the story; the story can
                 still be sent or edited (owner's Chrome check, 31 Oct, item 5). */}
             {intakeConfirmed && reviewView && remainingEssentialQuestions(reviewView.checkpoint, recovery?.getSavedMaster() ?? undefined).length === 0 ? <p data-testid="guided-nothing-left" className="mb-3 text-[#16302b]">{NOTHING_LEFT_TO_ASK} You can change any answer in &ldquo;Review or correct initial information&rdquo;.</p> : null}
             <p className="font-semibold text-[#16302b]">Your story</p>
@@ -1702,7 +1723,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
                     className="mt-2 w-full rounded-lg border border-[#d8e6df] px-3 py-2 disabled:opacity-50"
                   />
                 )}
-                <p className="mt-1 text-xs text-[#6b8078]">From your story: &ldquo;{draft.storyQuote}&rdquo;</p>
+                <p className="mt-1 text-xs text-[#6b8078]">{FROM_YOUR_STORY} &ldquo;{draft.storyQuote}&rdquo;</p>
                 {proposalDrafts.some((_, other) => sameDayAs(proposalDrafts)[other] === index) ? (
                   <p data-testid="story-proposal-also" className="mt-1 text-xs text-[#6b8078]">
                     Also kept as{" "}
@@ -1747,7 +1768,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           </p>
           {pendingSuggestion.quote ? (
             <p data-testid="claim-type-quote" className="mt-1 text-xs text-[#6b5a26]">
-              From your story: &ldquo;{pendingSuggestion.quote}&rdquo;
+              {FROM_YOUR_STORY} &ldquo;{pendingSuggestion.quote}&rdquo;
             </p>
           ) : null}
           <p data-testid="claim-type-why" className="mt-1 text-xs text-[#6b5a26]">

@@ -224,8 +224,13 @@ const answerFor = /function answerFor\([^)]*\)[^{]*\{([\s\S]*?)\n  \}/.exec(form
 check("the forms page: a suggestion is no answer (nothing unchosen is selected or saved by \"Save confirmations\")", Boolean(answerFor) && !/suggestionFor/.test(answerFor));
 
 const scForm = code(read("app/builder/_components/SmallClaimsIntake.tsx"));
-const extract = /function extractFromStory\([\s\S]*?\n  \}/.exec(scForm)?.[0] ?? "";
-check("the Small Claims form: a fact found in the story is listed with the offer, never written into a field", Boolean(extract) && !/next\[fact\.field\] =/.test(extract) && !/setInput\(/.test(extract));
+// The form's story offers come from the one asker (caseFile/missingFacts.ts, pure: it returns offers and writes nothing),
+// read from the record's story on every render (23 Nov 2026; extractFromStory, the form's own reader, is deleted). A box is
+// written only when the person uses an offer (the offer's onUse), never by the reading itself.
+const offerList = /const foundToOffer = missingFacts\([^;]*;/.exec(scForm)?.[0] ?? "";
+// Each offer, in its box's place (offerFor) or in the list (listedOffers), writes its box only on the person's Yes (onUse).
+const offerUse = /const offerFor = \(fact[\s\S]*?onUse=\{\(\) => updateField\(fact\.field/.test(scForm) && /listedOffers\.map\(\(fact\) => \{[\s\S]*?onUse=\{\(\) => updateField\(fact\.field/.test(scForm);
+check("the Small Claims form: a fact found in the story is listed with the offer, never written into a field", Boolean(offerList) && !/setInput|updateField/.test(offerList) && offerUse && !/extractFromStory|setExtractedFacts/.test(scForm));
 
 const triage = code(read("app/builder/_components/FamilyStatusTriage.tsx"));
 check("the Family triage: no choice is shown as the story's before the person presses it", !/data-from-story/.test(triage) && !/fromStory === value/.test(triage));

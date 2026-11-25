@@ -24,6 +24,8 @@ import { statedInStory, suggestInitialAnswers } from "../../src/lib/case-system/
 import { storyPartyOffers, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
 import { offeredAmount, offeredOtherParty, readingFactsOf, type ReadingFact } from "../../src/lib/case-system/caseFile/storyOffers";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
+import { missingFacts } from "../../src/lib/case-system/caseFile/missingFacts";
+import { emptyCaseFile } from "../../src/lib/case-system/caseFile/caseFile";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 let failed = 0;
@@ -101,6 +103,36 @@ const stray = calls.filter((call) => !(call in ELSEWHERE));
 check("the amount and other-party readers are called for an offer only from caseFile/storyOffers.ts", stray.length === 0, stray.join("; "));
 check("every listed exception still exists (the list is the code's list)", Object.keys(ELSEWHERE).every((key) => calls.includes(key)), Object.keys(ELSEWHERE).filter((key) => !calls.includes(key)).join("; "));
 check("self-test: a new offer reading amountOfferFromStory directly is caught", !(`app/new.tsx amountOfferFromStory` in ELSEWHERE));
+
+// C9 (23 Nov 2026): the Small Claims form's "Found in your description" offers only what the case file does not hold from
+// another place (the one asker, caseFile/missingFacts.ts; asker.ts foundStillToOffer was deleted, 23 Nov 2026): the amount, when, what they want and the other party given on the home page or
+// in the chat, and the person's own name given on the Parties step, are not offered again.
+{
+  const held = emptyCaseFile();
+  const answer = (value: string, question: string) => ({ state: "answered" as const, value, confirmed: true, source: { kind: "answer" as const, question } });
+  held.amount = answer("2400", "sc-amount-claimed");
+  held.whenHappened = answer("2026-06-01", "sc-orient-when-happened");
+  held.wants = answer("To be paid back", "sc-remedy-sought");
+  held.otherParty = answer("Alex Smith", "otherParty");
+  held.parties = { recorded: true, list: [{ id: "you", you: true, side: "yours", kind: "person", details: { firstName: "Test", lastName: "Person" }, unsure: [] }] };
+  // A story that gives the amount, when, what they want and the evidence, read from the record's story (as on arrival).
+  const story = "My name is Test Person. I am suing Fakebuild Test Contracting Inc. On May 1, 2026 they left my roof unfinished. They owe me $2,400. I want my money back. I have the invoice and texts.";
+  const offered = (file: ReturnType<typeof emptyCaseFile>) => missingFacts({ ...file, storyText: story }, "sc-form").map((item) => item.field);
+  const left = offered(held);
+  check("C9: \"Found in your description\" never offers a value the case file holds (amount, when, goal, other party, your name)", JSON.stringify(left) === JSON.stringify(["evidence"]), JSON.stringify(left));
+  check("C9 self-test: with nothing held, everything the story gives is offered (the names by the Parties step, not here)", JSON.stringify(offered(emptyCaseFile())) === JSON.stringify(["amountClaimed", "timeline", "goal", "evidence"]), JSON.stringify(offered(emptyCaseFile())));
+  // The kind of claim is offered on the AI summary page and in the Small Claims chat only while the case file holds none
+  // (claimKindOf, the one kind reader): read, so the table's case-file gate for both stays true.
+  const overview = readFileSync("app/builder/_components/IntelligenceOverviewPanel.tsx", "utf8");
+  const guidedChat = readFileSync("app/builder/_components/GuidedSmallClaimsIntake.tsx", "utf8");
+  check("C9: the AI summary page offers a kind only when the case file holds none (claimKindOf; held hides the offer)", /claimKindLine\(claimKindOf\(caseFile/.test(overview) && /\{!kind\.held && kind\.claimTypeId \? <ClaimKindOffer/.test(overview));
+  check("C9: the Small Claims chat offers a kind only when the case file holds none (claimKindOf)", /const heldKind = claimKindOf\(fileNow\);/.test(guidedChat) && /!kindGiven && !turnedDownKinds\.includes/.test(guidedChat));
+  // The forms page: an answer the case already holds (the side, a step the person chose, "not married") is kept, shown with
+  // Change ("firm"), never offered again; only the site's own suggested step is offered (the person never chose it).
+  const applicability = readFileSync("src/lib/case-system/forms/applicabilitySuggestions.ts", "utf8");
+  check("C9: the forms page keeps what the case holds (side, chosen step, not married) as firm, shown with Change", /reason: "Your case says you are responding to the other side's case\.", firm: true/.test(applicability) && /reason: "You said you were not married to the other person\.", firm: true/.test(applicability) && /firm only for a step they chose/.test(applicability) && /data-testid="forms-kept-from-case"/.test(readFileSync("app/forms/FormsWorkspace.tsx", "utf8")));
+  check("C9: the form lists only the one asker's values (missingFacts \"sc-form\", read from the record's story)", /const listedOffers = foundToOffer\.filter\(/.test(readFileSync("app/builder/_components/SmallClaimsIntake.tsx", "utf8")) && /const offeredHere = new Map\(foundToOffer\.filter\(/.test(readFileSync("app/builder/_components/SmallClaimsIntake.tsx", "utf8")) && /const foundToOffer = missingFacts\(/.test(readFileSync("app/builder/_components/SmallClaimsIntake.tsx", "utf8")) && !/extractedFacts/.test(readFileSync("app/builder/_components/SmallClaimsIntake.tsx", "utf8")));
+}
 
 console.log(failed ? `\n${failed} check(s) FAILED.` : "\nAll one-source offer checks passed.");
 process.exit(failed ? 1 : 0);

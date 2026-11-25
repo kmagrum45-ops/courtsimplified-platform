@@ -1,6 +1,7 @@
 "use client";
 
 import { offerForQuestion } from "../../../src/lib/case-system/caseFile/offerChoice";
+import { FROM_YOUR_START_ANSWERS, FROM_YOUR_STORY } from "../../../src/lib/case-system/caseFile/storyOffers";
 import { dateAnswerCheck, dateSpans } from "../../../src/lib/case-system/dates";
 import { SMALL_CLAIMS_FILED_OPTIONS } from "./guidedFields";
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
@@ -49,15 +50,12 @@ import {
 } from "../../../src/lib/content-library/questionExplanations";
 import { UUID_PATTERN } from "../../../src/lib/case-system/events/caseEventRequest";
 import {
-  extractNarrativePrefill,
-  type NarrativePrefillFact,
-} from "../../../src/lib/case-system/intelligence/narrativePrefill";
-import {
   QUESTION_BANK,
   type IntakeQuestion,
 } from "../../../src/lib/case-system/intake/questionBank";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { analysisClaimType, caseFileOf, claimKindOf, kindForAnalysis } from "../../../src/lib/case-system/caseFile/caseFile";
+import { missingFacts, storyFormValues } from "../../../src/lib/case-system/caseFile/missingFacts";
 import { storyOfFile, type CaseFile } from "../../../src/lib/case-system/caseFile/caseFile";
 import { factStatus } from "../../../src/lib/case-system/caseFile/factStatus";
 import { storyLines } from "../../../src/lib/case-system/caseFile/storyLines";
@@ -68,7 +66,8 @@ const noStore = () => () => {};
 const noReview = () => null;
 import { formAnalysisInput } from "../../../src/lib/case-system/caseFile/chatTurnFacts";
 import PartiesStep from "../../_components/PartiesStep";
-import { AskedField, useBoxesFollow, useHeldFill } from "../../_components/AskedField";
+import { AskedField, OfferedFields, useBoxesFollow, useHeldFill } from "../../_components/AskedField";
+import { offerChoicesOf } from "../../../src/lib/case-system/caseFile/offerChoice";
 import { writeFormBox } from "../../_components/caseWrite";
 import { STORY_INPUT_KEYS } from "../../../src/lib/case-system/intakeStory";
 import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
@@ -750,9 +749,6 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   const [authRequired, setAuthRequired] = useState(false);
   // Answers based on an earlier version of the story: no next step until the questions start again (storyBasis.ts).
   const storyChanged = useStoryAnswersOutdated();
-  const [extractedFacts, setExtractedFacts] = useState<NarrativePrefillFact[]>(
-    () => [],
-  );
 
   // The kind of claim, from the case file (site owner, 29 Oct): only the person's own, never a proposal.
   const heldKind = recovery ? claimKindOf(caseFileOf(recovery.getReview().checkpoint)) : null;
@@ -761,43 +757,38 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   // The record as it is now: the banner follows the Parties step and every answer as they are saved.
   const reviewNow = useSyncExternalStore(recovery?.subscribe ?? noStore, recovery?.getReview ?? noReview, noReview);
   const missingPrompt = useMemo(() => buildMissingPrompt(input, reviewNow ? caseFileOf(reviewNow.checkpoint, recovery?.getSavedMaster() ?? undefined) : caseFileOf(null)), [input, reviewNow, recovery]);
+  // "Found in your description" offers only what the case file does not hold from another place (C9): the one asker.
+  // "Found in your description": THE ONE ASKER (caseFile/missingFacts.ts), read from the record's story each time, so a story
+  // from the home page is offered when it arrives (Chrome, test of #561, 1.4: it was read only on "Save story"), never a
+  // box the record holds or one the person filled. Offered, never filled in unseen (owner, 31 Oct).
+  const formFile = reviewNow ? caseFileOf(reviewNow.checkpoint, recovery?.getSavedMaster() ?? undefined) : caseFileOf(null);
+  const foundToOffer = missingFacts({ ...formFile, storyText: formFile.storyText || input.facts }, "sc-form", { boxes: input as unknown as Record<string, unknown>, choices: offerChoicesOf(reviewNow?.checkpoint.sections as Record<string, unknown> | undefined) });
+  // The boxes the page is offering from the story now: each gives way to its offer (AskedField OfferedFields).
+  // Each offer for a box the form shows goes in that box's own place (AskedField OfferedFields): one prompt for the fact, the
+  // box still there to type in. The offers for facts with no box of their own stay in the list below.
+  // A box whose story offer sits above it, in its own place (the recorder's "same fact, same place"); settlementEfforts too
+  // since its box is wrapped (24 Nov 2026): the story reader finds it, and its offer was in the list while its box stood empty.
+  const BOXED = new Set(["amountClaimed", "timeline", "goal", "evidence", "settlementEfforts"]);
+  const offerFor = (fact: (typeof foundToOffer)[number]) => (
+    <div className="mt-1 mb-2 rounded-xl border border-cyan-200 bg-cyan-50 p-3 text-sm text-[#24463d]" data-testid="sc-form-box-offer" data-field={fact.field} data-fact={fact.facts.join(" ") || undefined}>
+      <UseSuggestion
+        offer={offerForQuestion(`sc-form:${fact.field}`, fact.field)}
+        testId="sc-form-use-suggestion"
+        what={fact.value ?? ""}
+        note={fact.quote ? `${FROM_YOUR_STORY} "${fact.quote}"` : undefined}
+        onUse={() => updateField(fact.field as keyof SmallClaimsIntelligenceInput, (fact.value ?? "") as never)}
+        className="mt-1 rounded border border-[#2f7d67] bg-white px-3 py-1 text-left text-sm font-semibold text-[#2f7d67]"
+      />
+    </div>
+  );
+  const offeredHere = new Map(foundToOffer.filter((fact) => BOXED.has(fact.field)).map((fact) => [fact.field, { value: fact.value ?? "", quote: fact.quote ?? "", node: offerFor(fact) }] as const));
+  const listedOffers = foundToOffer.filter((fact) => !BOXED.has(fact.field));
   const inferredIssues = useMemo(() => inferIssuesFromStory(input), [input]);
   const inferredDisputeCategory = useMemo(() => {
     if (inferredIssues.includes("defamation-reputation")) return "defamation";
     if (inferredIssues.includes("work-or-services")) return "work-or-services";
     return undefined;
   }, [inferredIssues]);
-  // 2026-10-16 live bug: typing a story directly into THIS form's "Case
-  // story" box never extracted anything from it. extractNarrativePrefill
-  // only ran for the AI chat partner's first message (CourtAssistantChat
-  // .tsx), handed off through sessionStorage and consumed once at mount
-  // (since removed: Part 3, stale-story audit item 4) -- a hand-off, not a
-  // live extractor on the form's own story box. Someone who picked "fill in
-  // the form yourself" and typed their story here directly had to re-type
-  // the amount and dates they'd already written, even though the same
-  // regex extraction that works for the chat path works just as well on
-  // this text.
-  //
-  // Run once the person finishes editing the story (closes the toggle), not
-  // on every keystroke. Limited to plain-string fields with no name/type
-  // mismatch against NarrativePrefillFact.field (documentStatus ->
-  // filedDocuments, addressDetails -> yourAddress, and the role/caseStage
-  // facts are deliberately left out of this pass -- they need the same
-  // array/union-safe handling mergeStoredValuesIntoInput already has, and
-  // widening this fix to use that function would let a fresh extraction
-  // silently overwrite something the person already typed by hand, since
-  // mergeStoredValuesIntoInput's own `values.x || base.x` always prefers
-  // the new value). Only fills a field that is still blank.
-  const EXTRACTABLE_STORY_FIELDS = new Set([
-    "amountClaimed",
-    "timeline",
-    "evidence",
-    "settlementEfforts",
-    "yourEmail",
-    "goal",
-    "otherParty",
-    "yourName",
-  ]);
   /*
    * "Save story" (StoryEditor): values this form read from the earlier story are
    * read again from the new one, rather than kept and set aside as answers to an
@@ -806,11 +797,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
    */
   function saveStory(text: string) {
     // Read from the story as it was (not this visit's list, which a reload empties).
-    const fromStory = new Map(
-      extractNarrativePrefill({ narrative: input.facts, courtPath: "small-claims" }).facts
-        .filter((fact) => fact.state === "direct" && EXTRACTABLE_STORY_FIELDS.has(fact.field))
-        .map((fact) => [fact.field, Array.isArray(fact.value) ? fact.value.join(", ") : fact.value]),
-    );
+    const fromStory = new Map(storyFormValues({ ...caseFileOf(null), storyText: input.facts }).map((fact) => [fact.field, fact.value]));
     if (fromStory.size) {
       setInput((current) => {
         const next = { ...current } as Record<string, unknown>;
@@ -819,27 +806,6 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       });
     }
     updateField("facts", text);
-    // After the clear and the new story are written (the intake store writes in an
-    // effect, so a clear and refill in one click would be one unchanged write).
-    setTimeout(() => extractFromStory(text), 0);
-  }
-
-  function extractFromStory(text: string = input.facts) {
-    if (!text.trim()) return;
-    const prefill = extractNarrativePrefill({ narrative: text, courtPath: "small-claims" });
-    const direct = prefill.facts.filter(
-      (fact) => fact.state === "direct" && EXTRACTABLE_STORY_FIELDS.has(fact.field),
-    );
-    if (direct.length === 0) return;
-    // OFFERED, never typed into the form unseen (owner, 31 Oct): each is listed under "Found in your
-    // description" with the one control, and a field is filled only when the person uses it.
-    setExtractedFacts((current) => [
-      ...current.filter((fact) => !direct.some((found) => found.field === fact.field)),
-      ...direct.filter((fact) => {
-        const existing = (input as unknown as Record<string, unknown>)[fact.field];
-        return !(typeof existing === "string" && existing.trim());
-      }),
-    ]);
   }
 
   // THE ONE ASKER (founder, 1 Nov; intake/asker.ts): an answer the person already gave elsewhere (the
@@ -860,7 +826,6 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
     value: SmallClaimsIntelligenceInput[K],
   ) {
     userEditedRef.current = true;
-    setExtractedFacts((current) => current.filter((fact) => fact.field !== field));
     // Editing the fields the safety check reads clears a prior halt/
     // acknowledgment -- revising the story is exactly how a user tries
     // again, not a dead end.
@@ -1125,6 +1090,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   }
 
   return (
+    <OfferedFields.Provider value={offeredHere}>
     <section onChangeCapture={() => analysisRequest.current.cancel()} className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
       {tribunalFirst.tribunal ? <TribunalNotice tribunal={tribunalFirst.tribunal} courtLabel="Small Claims" context="SmallClaimsIntake:tribunal-first" /> : null}
       <div className="rounded-3xl bg-[#f2fbf7] p-5">
@@ -1186,14 +1152,14 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         </div>
       )}
 
-      {extractedFacts.length > 0 && (
+      {listedOffers.length > 0 && (
         <div className="mt-5 rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-sm text-[#24463d]">
           <p className="font-semibold">Found in your description — review/edit</p>
           <ul className="mt-2 list-disc space-y-1 pl-5">
-            {extractedFacts.map((fact) => {
-              const value = Array.isArray(fact.value) ? fact.value.join(", ") : fact.value;
+            {listedOffers.map((fact) => {
+              const value = fact.value ?? "";
               return (
-                <li key={fact.field}>
+                <li key={fact.field} data-field={fact.field} data-fact={fact.facts.join(" ") || undefined}>
                   {fact.field}:{" "}
                   <UseSuggestion
                     offer={offerForQuestion(`sc-form:${fact.field}`, fact.field)}
@@ -1223,7 +1189,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           <label className="block">
             <span className="font-semibold text-[#16302b]">Case stage</span>
             {fromStart.caseStage ? (
-              <p data-testid="stage-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{stageWords(fromStart)} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
+              <p data-testid="stage-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{stageWords(fromStart)} <span className="text-sm text-[#4d675f]">{FROM_YOUR_START_ANSWERS}</span></p>
             ) : (
             <AskedField field="caseStage" value={input.caseStage === "not-sure" ? "" : input.caseStage} label="">
             <select
@@ -1250,7 +1216,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           <label className="block">
             <span className="font-semibold text-[#16302b]">Your role</span>
 {roleFromStart ? (
-              <p data-testid="sc-intake-yourRole-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{fromStart.roleWords ?? roleFromStart} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
+              <p data-testid="sc-intake-yourRole-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{fromStart.roleWords ?? roleFromStart} <span className="text-sm text-[#4d675f]">{FROM_YOUR_START_ANSWERS}</span></p>
             ) : (
             <AskedField field="yourRole" value={input.yourRole} label="">
             <select
@@ -1270,22 +1236,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </label>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2">
-          {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
-          <AskedField field="otherParty" value={input.otherParty} label={"Other party name"}>
-          <label className="block">
-            <span className="font-semibold text-[#16302b]">
-              Other party name
-            </span>
-            <input
-              data-testid="sc-intake-otherParty" value={input.otherParty}
-              onChange={(event) => updateField("otherParty", event.target.value)}
-              className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
-              placeholder="Person or business on the other side"
-            />
-          </label>
-          </AskedField>
-        </div>
+        {/* The other side's name is asked, offered and shown in one place, the Parties step on this page (site owner, 23 Nov
+            2026: the form's own "Other party name" box is removed; it asked beside the Parties step's offer of the same name). */}
 
         <StoryEditor section="small-claims" story={input.facts} startOpen={!input.facts.trim()} onSave={saveStory} ids={{ toggle: "sc-intake-edit-story", draft: "sc-intake-facts", save: "sc-story-save" }} />
 
@@ -1474,6 +1426,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </summary>
 
           <div className="mt-5 grid gap-5">
+            {/* What was agreed (agreementTerms): one fact with the chat's agreement questions, so the one asker decides it. */}
+            <AskedField field="agreementDetails" value={input.agreementDetails} label={"Agreement details"}>
             <textarea
               data-testid="sc-intake-agreementDetails" value={input.agreementDetails}
               onChange={(event) =>
@@ -1482,7 +1436,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Agreement/contract details, only if this case involves an agreement"
             />
+            </AskedField>
 
+            {/* paymentHistory is a fact of its own (factsOfQuestion.ts): the one asker decides the box (boxView), as every form box (site owner, 24 Nov 2026). */}
+            <AskedField field="paymentHistory" value={input.paymentHistory} label={"Payment history"}>
             <textarea
               data-testid="sc-intake-paymentHistory" value={input.paymentHistory}
               onChange={(event) =>
@@ -1491,7 +1448,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Payment history, only if money, invoices, loan, debt, or services are involved"
             />
+            </AskedField>
 
+            {/* defenceResponse is a fact of its own (factsOfQuestion.ts): the one asker decides the box (boxView), as every form box (site owner, 24 Nov 2026). */}
+            <AskedField field="defenceResponse" value={input.defenceResponse} label={"Defence response"}>
             <textarea
               data-testid="sc-intake-defenceResponse" value={input.defenceResponse}
               onChange={(event) =>
@@ -1500,7 +1460,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Defence response, only if you are responding to someone else's claim"
             />
+            </AskedField>
 
+            {/* settlementEfforts is a fact of its own (factsOfQuestion.ts): the one asker decides the box (boxView), as every form box (site owner, 24 Nov 2026). */}
+            <AskedField field="settlementEfforts" value={input.settlementEfforts} label={"Settlement efforts or offers"}>
             <textarea
               data-testid="sc-intake-settlementEfforts" value={input.settlementEfforts}
               onChange={(event) =>
@@ -1509,7 +1472,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Settlement efforts or offers"
             />
+            </AskedField>
 
+            {/* deadlineDetails is a fact of its own (factsOfQuestion.ts): the one asker decides the box (boxView), as every form box (site owner, 24 Nov 2026). */}
+            <AskedField field="deadlineDetails" value={input.deadlineDetails} label={"Deadlines, court dates, or urgent timing concerns"}>
             <textarea
               data-testid="sc-intake-deadlineDetails" value={input.deadlineDetails}
               onChange={(event) =>
@@ -1518,6 +1484,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Deadlines, court dates, or urgent timing concerns"
             />
+            </AskedField>
 
             {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
             <AskedField field="urgent" value={input.urgent} label={"Anything urgent"}>
@@ -1707,5 +1674,6 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         <ReviewNeededNotice from="form" />
       </div>
     </section>
+    </OfferedFields.Provider>
   );
 }

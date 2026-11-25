@@ -41,6 +41,8 @@ import { chooseOffers } from "./harness/offers";
 import { MARRIED_ONLY_SCREEN_TEXT } from "../../src/lib/case-system/family/marriedOnly";
 import { expectThisRunsServer } from "./harness/siteAccess";
 import { HOME_QUESTIONS } from "../../src/lib/case-system/caseFile/factQuestions";
+import { answerTriage } from "./harness/triageAnswer";
+import { writeQuestionLog } from "./harness/questionLog";
 
 /** The home page's amount questions, every court, by their fact list ids (the A2 check: never asked cold when the story states it). */
 const AMOUNT_HOME_QUESTIONS = Object.values(HOME_QUESTIONS).flatMap((sides) => [...sides.starting, ...sides.responding]).filter((item) => /amount/i.test(item.id)).map((item) => item.question);
@@ -180,6 +182,10 @@ export const CHROME_PASS_3: Story[] = [
 ];
 
 export const STORIES: Story[] = [
+  // Chrome's test of #561 (23 Nov 2026), run 1, signed in: its exact story and city; the home reading shows the other side
+  // as Chrome saw it (a description, never a name: "Person or business hired to renovate your kitchen in Ottawa"). Its
+  // question log must show no fact asked while held, nothing twice and every question with its fact (the one asker).
+  { name: "sc-chrome561-kitchen", court: "small-claims", side: "bringing", text: "TEST Tess Plaintiff, Ottawa, hired TEST Fakebuild Contracting Inc., Ottawa, in January 2026 to renovate a kitchen. I paid $5,468.45. The work was not finished and I want my money back.", stated: { amount: "5468.45", when: "January 2026", otherParty: "TEST Fakebuild Contracting Inc." }, city: "Ottawa", home: [], reading: [{ label: "Other party", value: "Person or business hired to renovate your kitchen in Ottawa" }], parties: true },
   S("sc-loan-friend", "small-claims", "bringing", "In March 2026 I lent my friend Alex Testwood $4,500 for a car repair. He promised to pay me back by June 1, 2026.", { amount: "4500", when: "March 2026", otherParty: "Alex Testwood" }),
   S("sc-loan-sister", "small-claims", "bringing", "I loaned my sister $2,000 in May 2026 to fix her roof. She has not repaid any of it.", { amount: "2000", when: "May 2026" }),
   S("sc-iou", "small-claims", "bringing", "My coworker signed an IOU for $900 on April 4, 2026 and has not paid it back.", { amount: "900", when: "April 4, 2026" }),
@@ -595,7 +601,7 @@ async function triageMarriedUnsure(page: Page, seen: string[], wait: number, ans
       return body.master_result?.intakeCheckpoint?.sections?.builder?.triageState?.record?.marriedToOtherParty === answer;
     } catch { return false; }
   }, { timeout: 60_000 });
-  await married.getByTestId(`triage-answer-${answer}`).click();
+  await answerTriage(married, answer);
   await expect(married).toHaveCount(0, { timeout: 30_000 });
   await saved.catch(() => { throw new Error("the married \"I'm not sure\" answer never reached the saved intake record"); });
   seen.push(`triage: married answered ${answer}, saved`);
@@ -697,6 +703,15 @@ async function checkFilledForms(page: Page, caseId: string, seen: string[], stor
   seen.push(`form 7A: ${JSON.stringify(Object.fromEntries([...form7A].filter(([, value]) => value && value !== "Off")))}`.slice(0, 2000));
   // Chrome milestone S5 gives only the other party and the amount ("I lent my friend Alex $3,000"): Defendant No. 1 is
   // Alex and the amount 3,000.00 (site owner, 17 Nov). Every other check is Chrome forms story, unchanged.
+  // Chrome's run 1 on #561 (23 Nov 2026), the values Chrome saw on its filled Form 7A (1.15), here reached from the story's
+  // offers taken with Yes, never typed: the plaintiff TEST Tess Plaintiff, the defendant the company, both in Ottawa, $5,468.45.
+  if (story.name === "sc-chrome561-kitchen") {
+    expect(form7A.get("Plaintiff's last name or the company's name"), "Form 7A: the plaintiff's last name").toBe("Plaintiff");
+    expect(form7A.get("First name of the Plaintiff"), "Form 7A: the plaintiff's first name").toBe("TEST Tess");
+    expect(form7A.get("Defendant's last name or company's name"), "Form 7A: Defendant No. 1 is the company").toBe("TEST Fakebuild Contracting Inc.");
+    expect(form7A.get("Principal amount claimed"), "Form 7A: the amount the case holds").toBe("5,468.45");
+    return;
+  }
   if (story.name === "sc-milestone-s5-loan") {
     expect(form7A.get("Defendant's first name"), "Form 7A: Defendant No. 1 is Alex").toBe("Alex");
     expect(form7A.get("Principal amount claimed"), "Form 7A: the amount the case holds").toBe("3,000.00");
@@ -781,10 +796,13 @@ for (const story of STORIES) for (const reading of story.realAi ? realAiReadings
     const userId = await authenticateRealTestUser(page, { realCases: true });
     await expectThisRunsServer(page);
     let reached = "start";
+    // The question log (one asker, 23 Nov 2026): every question shown, written for every story, signed in.
+    let events: Asked[] = [];
+    let log: ReturnType<typeof writeQuestionLog> | null = null;
     try {
       await autoAnswerSituation(page, situationOf(story));
       await serveModelStandIns(page, story.court, userId, story.realAi && reading ? { realAi: `${story.name}/${reading}` } : story.home ? { homeQuestions: story.home.map((item) => item.question), homeFacts: story.reading ?? [] } : {});
-      const events: Asked[] = await recordAsks(page);
+      events = await recordAsks(page);
       await giveStory(page, story);
       reached = "story";
       seen.push(...homeAnswers.splice(0));
@@ -817,6 +835,18 @@ for (const story of STORIES) for (const reading of story.realAi ? realAiReadings
       const known = new Set<string>([...Object.keys(story.stated).filter((fact) => fact !== "when").concat(story.stated.when && /\d{1,2}, \d{4}/.test(story.stated.when) ? ["whenHappened"] : []), ...typed.keys()]);
       await readLabels(page, story, id, known, found, seen);
       if (story.parties) await checkFilledForms(page, id, seen, story);
+      // The other side's name, given once on the Parties step (the form's own box is removed, 23 Nov 2026), is shown on the
+      // Form 7A section of the next step and on the review; the filled Form 7A is checked above (checkFilledForms).
+      if (story.name.endsWith("chrome561-kitchen")) {
+        await page.goto(`/builder?path=small-claims&intake=${id}`);
+        // Reopened, the confirmed case shows "Show my next step"; the Form 7A section is drawn on the step's overview.
+        const show = page.getByTestId("intake-continue-guidance").filter({ visible: true }).first();
+        if (await visible(show, 60_000)) await show.click();
+        await expect(page.getByTestId("completed-case-overview"), "the next step's overview").toBeVisible({ timeout: 240_000 });
+        await expect(page.getByTestId("statement-of-claim-surface").first(), "Form 7A section: the other side's name").toContainText("TEST Fakebuild Contracting Inc.", { timeout: 120_000 });
+        await page.goto(`/builder?path=small-claims&intake=${id}&change=amount`);
+        await expect(page.getByTestId("intake-review"), "the review: the other side's name").toContainText("TEST Fakebuild Contracting Inc.", { timeout: 120_000 });
+      }
       if (married) {
         // Every married-only text (marriedOnly.ts MARRIED_ONLY_SCREEN_TEXT: the sentences, the folded fees part, the divorce
         // line, the Divorce Act in the law list, the divorce and equalization steps), on the next-step page and the case
@@ -858,8 +888,9 @@ for (const story of STORIES) for (const reading of story.realAi ? realAiReadings
         }
       }
     } finally {
+      log = writeQuestionLog(`${story.name}${reading ? `.${reading}` : ""}.signed-in`, `${story.name}${reading ? ` (reading ${reading})` : ""}, ${story.court}, signed in`, events);
       fs.mkdirSync(RECORDS, { recursive: true });
-      fs.writeFileSync(path.join(RECORDS, `${story.name}${reading ? `.${reading}` : ""}.json`), JSON.stringify({ story: story.name, reading, court: story.court, side: story.side, reached, violations: found, seen }, null, 2));
+      fs.writeFileSync(path.join(RECORDS, `${story.name}${reading ? `.${reading}` : ""}.json`), JSON.stringify({ story: story.name, reading, court: story.court, side: story.side, reached, violations: found, seen, ...(REPORT ? { events: events.filter((item) => item.surface === "sc-chat") } : {}) }, null, 2));
       await deleteHarnessUser(userId).catch(() => {});
     }
     const known = found.filter((item) => expectedFor(item));
@@ -867,6 +898,14 @@ for (const story of STORIES) for (const reading of story.realAi ? realAiReadings
     const fixed = EXPECTED.filter((entry) => entry.story === story.name && !found.some((item) => keyOf(item) === keyOf(entry)));
     console.log(`ASK ONCE ${story.name}${reading ? ` (${reading})` : ""}: reached ${reached}; ${found.length} violation(s), ${known.length} on the expected list, ${unexpected.length} not`);
     for (const entry of fixed) console.log(`ASK ONCE FIXED ${keyOf(entry)}: no longer seen; delete its entry`);
+    // Chrome's #561 run (the one asker): its question log is held to zero, every question naming its fact (fail closed).
+    if (story.name.endsWith("chrome561-kitchen") && log && process.env.QUESTION_LOG_ONLY !== "1") {
+      expect(log.held, "no question asked while the record held its fact").toEqual([]);
+      expect(log.twice, "no fact shown twice").toEqual([]);
+      expect(log.noFact, "every question names its fact (fail closed)").toEqual([]);
+      // Round 3 Step A (24 Nov 2026): every box on screen is logged by a surface or exempt with a reason (askOnce.ts BLIND_EXEMPT).
+      expect(log.blind, "every box on screen is logged, or exempt with a reason").toEqual([]);
+    }
     if (!REPORT) {
       expect(reached, "the story reached every page (a page not reached is not a zero)").toBe("all pages");
       expect(unexpected, unexpected.map((item) => `${item.kind} ${item.fact} @ ${item.screen}: ${item.detail}`).join("\n")).toEqual([]);

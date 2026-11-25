@@ -19,7 +19,7 @@
  * Pure: no React, no network, no model. States no law.
  */
 import { sentences } from "../sentences";
-import { partyDetailFits } from "../caseFile/factTypes";
+import { isPlaceName, partyDetailFits } from "../caseFile/factTypes";
 
 export const PARTY_DETAILS = [
   "companyName", "firstName", "secondName", "lastName", "fullName", "alsoKnownAs",
@@ -176,6 +176,32 @@ function addressIn(text: string): Address | null {
   return { street: match[1].trim(), city: match[2].trim(), province: provinceCode(match[3]), ...(match[4] ? { postalCode: match[4].toUpperCase().replace(/^(\w{3})(\w{3})$/, "$1 $2") } : {}), quote: match[0].trim() };
 }
 
+/**
+ * A story that opens by naming the person and the other side, each with a city ("TEST Tess Plaintiff, Ottawa, hired TEST
+ * Fakebuild Contracting Inc., Ottawa, in January 2026 ..."; "TEST Alex Plaintiff, Ottawa, sues TEST BuildRight Ltd.,
+ * Toronto, for ..."; "TEST Sam Applicant, Ottawa, wants a divorce ..."). Chrome's test of #561 (23 Nov 2026): every name,
+ * city and "Inc." in these was asked again, because only "My name is ..." and "I am suing ..." were read. Read only when
+ * the words after the first name are a place (isPlaceName) and then a verb, so a sentence that merely starts with a name
+ * is not read as an introduction. Each value is offered once, never filled in (site owner, 23 Nov 2026).
+ */
+const NAME_WORDS = String.raw`[\p{Lu}][\p{L}'’&.-]*(?:\s+(?:[\p{Lu}][\p{L}'’&.-]*|&|and|of|de|du))*?`;
+const COMPANY_END = String.raw`(?:\s+(?:Inc|Ltd|Ltée|Ltee|Limited|Incorporated|Corp|Corporation|Co|LLC|LLP)\.?)?`;
+const INTRO_RE = new RegExp(String.raw`^(${NAME_WORDS}${COMPANY_END}),\s+([\p{Lu}][\p{L}'’. -]*?),\s+(hired|sues|is suing|sued|paid|lent|loaned|owes|rented|bought|sold|contracted|retained|wants|is asking|asks|needs|was|is|has)\b(.*)$`, "u");
+const OTHER_AFTER_VERB = new RegExp(String.raw`^\s+(?:from\s+|to\s+)?(?:the\s+)?(${NAME_WORDS}${COMPANY_END})(?:,\s+([\p{Lu}][\p{L}'’. -]*?))?(?=,|\.|\s+(?:for|in|on|to|by|about|because|over|after|since|at)\b|$)`, "u");
+
+type Intro = { you: { name: string; city: string }; other?: { name: string; city?: string } };
+function introOf(sentence: string): Intro | null {
+  const match = INTRO_RE.exec(sentence.trim());
+  if (!match || !isPlaceName(match[2]) || isPlaceName(match[1])) return null;
+  const intro: Intro = { you: { name: match[1].trim(), city: match[2].trim() } };
+  if (/^(?:hired|sues|is suing|sued|paid|lent|loaned|owes|rented|bought|sold|contracted|retained)$/.test(match[3])) {
+    const other = OTHER_AFTER_VERB.exec(match[4]);
+    const name = other?.[1]?.trim().replace(/\.$/, (end) => (/\b(?:Inc|Ltd|Ltée|Ltee|Corp|Co)$/.test(other![1].trim().slice(0, -1)) ? end : ""));
+    if (name && /\s/.test(name) && !isPlaceName(name)) intro.other = { name, ...(other?.[2] && isPlaceName(other[2]) ? { city: other[2].trim() } : {}) };
+  }
+  return intro;
+}
+
 const isYouSentence = (sentence: string) => YOU_NAME_RE.test(sentence);
 const isSuingSentence = (sentence: string) => SUING_RE.test(sentence);
 
@@ -210,6 +236,23 @@ function allStoryOffers(story: string): PartyOffer[] {
   const offers: PartyOffer[] = [];
   let others = 0;
   for (const sentence of storySentences(story)) {
+    const intro = introOf(sentence);
+    if (intro) {
+      const yourKind: PartyKind = isCompanyName(intro.you.name) ? "company" : "person";
+      offers.push(...offersOf("you", [
+        { detail: yourKind === "company" ? "companyName" : "fullName", value: intro.you.name, quote: sentence.trim() },
+        { detail: "city", value: intro.you.city, quote: sentence.trim() },
+      ], undefined, yourKind));
+      if (intro.other) {
+        others += 1;
+        const kind: PartyKind = isCompanyName(intro.other.name) ? "company" : "person";
+        offers.push(...offersOf(`other:${others}`, [
+          { detail: kind === "company" ? "companyName" : "fullName", value: intro.other.name, quote: sentence.trim() },
+          ...(intro.other.city ? [{ detail: "city" as const, value: intro.other.city, quote: sentence.trim() }] : []),
+        ], intro.other.name, kind));
+      }
+      continue;
+    }
     if (isYouSentence(sentence)) {
       const name = YOU_NAME_RE.exec(sentence)![1];
       const phone = PHONE_RE.exec(sentence)?.[0];
@@ -324,8 +367,8 @@ export function withStartLocation(list: readonly Party[], given: GivenElsewhere)
  * offered again on the Parties step, "Name: ..." with Yes / No). The name the case file holds as the person's own answer
  * (caseFile.ts heldOtherName) is the one other party's name, shown as held with Change, never offered again. Read each
  * time, never saved here. Not filled: a party that already has a name, one whose name the person is not sure of, or when
- * there is more than one other party (whose it is would be a guess). Splitting it into a first and a last name is not
- * done here: which part is the last name is asked once, on the Parties step (PartiesStep nameSplit).
+ * there is more than one other party (whose it is would be a guess). Its first and last name are filled
+ * in on read from it (withNameParts), never offered.
  */
 export function withHeldOtherName(list: readonly Party[], name: string | null | undefined): Party[] {
   const held = name?.trim();
@@ -336,6 +379,54 @@ export function withHeldOtherName(list: readonly Party[], name: string | null | 
   if (partyName(other) || other.unsure.some((detail) => detail === "firstName" || detail === "lastName" || detail === "companyName" || detail === "fullName")) return [...list];
   const detail: PartyDetail = other.kind === "company" || (!other.kind && isCompanyName(held)) ? "companyName" : "fullName";
   return list.map((party) => (party === other ? { ...party, details: { ...party.details, [detail]: held }, heldElsewhere: [...new Set([...(party.heldElsewhere ?? []), detail])] } : party));
+}
+
+/**
+ * THE PERSON'S OWN NAME, GIVEN IN ANOTHER PLACE (C9, 23 Nov 2026): the Family form's "Your name". Shown in the person's own
+ * entry as held, with Change, and never asked again on the Parties step. Read each time, never saved here. Not filled: an
+ * entry that already has a name, a name the person is not sure of, words that are not a name.
+ */
+export function withHeldYourName(list: readonly Party[], name: string | null | undefined): Party[] {
+  const held = name?.trim();
+  if (!held || !partyDetailFits("fullName", held)) return [...list];
+  return list.map((party) => {
+    if (!party.you || partyName(party) || party.unsure.some((detail) => detail === "firstName" || detail === "lastName" || detail === "fullName")) return party;
+    return { ...party, kind: party.kind ?? "person", details: { ...party.details, fullName: held }, heldElsewhere: [...new Set([...(party.heldElsewhere ?? []), "fullName" as const])] };
+  });
+}
+
+/**
+ * THE FIRST AND LAST NAME, FROM A FULL NAME ALREADY GIVEN (site owner, 23 Nov 2026: "A first/last split is a derived fact:
+ * once the full name is confirmed anywhere, the first and last name boxes are filled in automatically (split on our
+ * server, no AI, nothing sent anywhere), shown as filled in with Change, and never offered or asked again"). Replaces the
+ * "From the name you gave" offer (Chrome check of #558: it showed again after the chat confirmed the name).
+ *
+ * A person's whole name (`fullName`, given in the chat, the review, or kept from the story) is split at its last space:
+ * everything before it is the first name, the last word the last name. Read each time, never saved (`heldElsewhere`), so
+ * the whole name stays the one place it is kept; a first or last name the person types here is theirs and wins. Not
+ * split: a company (by its kind or its name), a one-word name, a party whose first or last name is held or "not sure".
+ */
+export function withNameParts(list: readonly Party[]): Party[] {
+  return list.map((party) => {
+    const whole = clean(party.details.fullName);
+    if (!whole || party.kind === "company" || isCompanyName(whole)) return party;
+    const parts = whole.split(/\s+/);
+    // A one-word name the person gave is their first name ("Alex", "Jean-Marc"): filled the same way, never asked again; only
+    // the last name, which they have not given, is left to ask (the story-pack and ask-once runs of #563).
+    if (parts.length < 2) {
+      if (clean(party.details.firstName) || party.unsure.includes("firstName")) return party;
+      return { ...party, details: { ...party.details, firstName: whole }, heldElsewhere: [...new Set([...(party.heldElsewhere ?? []), "firstName" as const])] };
+    }
+    // Each part on its own: one the person typed (or is not sure of) is kept, the other still filled.
+    const split: Partial<Record<PartyDetail, string>> = { firstName: parts.slice(0, -1).join(" "), lastName: parts[parts.length - 1] };
+    const fill = (["firstName", "lastName"] as const).filter((detail) => !clean(party.details[detail]) && !party.unsure.includes(detail));
+    if (!fill.length) return party;
+    return {
+      ...party,
+      details: { ...party.details, ...Object.fromEntries(fill.map((detail) => [detail, split[detail]])) },
+      heldElsewhere: [...new Set([...(party.heldElsewhere ?? []), ...fill])],
+    };
+  });
 }
 
 /** A party without what was read from another place: what the one writer saves (caseWrite.ts writeParties). */
@@ -385,7 +476,9 @@ export function partyOfOffer(record: Pick<PartiesRecord, "list">, offer: PartyOf
 
 /** A name given whole that the record already holds split ("Test Plaintiff" as first and last name) is held. */
 function nameHeld(party: Party, detail: PartyDetail): boolean {
-  if (detail !== "fullName" && detail !== "companyName") return false;
+  // Any part of a name, once the party has a name (one asker; the carry runs of #563: "First name: Jordan" offered after the
+  // name was typed in the form's box).
+  if (detail !== "fullName" && detail !== "companyName" && detail !== "firstName" && detail !== "lastName" && detail !== "secondName") return false;
   return Boolean(partyName(party)) || party.unsure.includes("firstName") || party.unsure.includes("lastName") || party.unsure.includes("companyName");
 }
 

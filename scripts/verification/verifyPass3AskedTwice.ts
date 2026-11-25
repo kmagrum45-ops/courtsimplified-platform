@@ -19,7 +19,7 @@ import { slotsOfQuestion } from "../../src/lib/case-system/caseFile/caseFile";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { readFileSync } from "node:fs";
 import { offeredOtherParty } from "../../src/lib/case-system/caseFile/storyOffers";
-import { storyPartyOffers } from "../../src/lib/case-system/parties/parties";
+import { storyPartyOffers, withNameParts } from "../../src/lib/case-system/parties/parties";
 import { withThisAnswer } from "../../src/lib/case-system/caseFile/chatTurnFacts";
 import { draftChanges, draftToShow, madeFromOf } from "../../src/lib/case-system/drafts/draftFreshness";
 import { validateDraft } from "../../src/lib/case-system/drafts/caseDrafts";
@@ -66,8 +66,9 @@ const s2 = storyPartyOffers(S2_STORY, { list: [{ id: "o1", side: "other", detail
 const of = (party: string, detail: string) => s2.filter((offer) => offer.party === party && offer.detail === detail).map((offer) => offer.value);
 check("6b. S2: the province answered (Quebec) is offered, never ON over it, and once", JSON.stringify(of("you", "province")) === JSON.stringify(["QC"]), JSON.stringify(of("you", "province")));
 check("6c. S2: the defendant's address typed as an answer is carried (street, city, province, postal code)", of("other:1", "street")[0] === "8 rue de l'Église" && of("other:1", "city")[0] === "Gatineau" && of("other:1", "province")[0] === "QC" && of("other:1", "postalCode")[0] === "J8X 1A1", JSON.stringify(s2.map((offer) => [offer.party, offer.detail, offer.value])));
-const parties = readFileSync("app/_components/PartiesStep.tsx", "utf8");
-check("6a. build check: a company's name is never split into first and last (PartiesStep nameSplit)", /if \(isCompanyName\(party\.details\.fullName\)\) return null;/.test(parties));
+// The whole name is split on read now (parties.ts withNameParts, 23 Nov 2026): a company's never is.
+const companyParty = withNameParts([{ id: "o1", side: "other", details: { fullName: "Saint-Jérôme Rénovations Ltée" }, unsure: [] }])[0];
+check("6a. a company's name is never split into first and last (withNameParts)", !companyParty.details.firstName && !companyParty.details.lastName, JSON.stringify(companyParty));
 
 console.log(failed ? `\n${failed} check(s) failed` : "\nAll pass-3 asked-twice checks passed");
 process.exitCode = failed ? 1 : 0;

@@ -114,12 +114,28 @@ export function targetMissing(entry: Entry, files: Record<string, string>): stri
 /** The second copies the sweep of 19 Nov 2026 found; every report prints "59 -> N" against it (site owner, 20 Nov 2026). */
 export const SWEEP_SECONDS = 59;
 
+/**
+ * THE ONE HOME of a kind of second copy, made once (site owner, 23 Nov 2026: "Make the one home now"). The one entry the
+ * list may gain: of a kind with no one place yet, its single "one" entry, count 1, in the very file the kind's second
+ * copies already name as where they move to (their moveTo). A second home, a home in any other file, or a "second" entry
+ * is still growth.
+ */
+export function isTheOneHome(entry: Entry, list: Entry[], base: Entry[]): boolean {
+  // The labels moved into the home leave their second copies (whose counts drop); the kind's whole count may rise by the
+  // one new label the owner authorized, never more (23 Nov 2026: "the list may only shrink from here").
+  const total = (entries: Entry[]) => entries.filter((item) => item.kind === entry.kind).reduce((sum, item) => sum + item.count, 0);
+  if (entry.status !== "one" || entry.count < 1 || total(list) > total(base) + 1 || base.some((item) => keyOf(item) === keyOf(entry))) return false;
+  if (base.some((item) => item.kind === entry.kind && item.status === "one")) return false;
+  if (list.filter((item) => item.kind === entry.kind && item.status === "one").length !== 1) return false;
+  return base.some((item) => item.kind === entry.kind && item.status === "second" && (item.moveTo ?? "").split(" ")[0] === entry.file);
+}
+
 export function judge(found: Found[], list: Entry[], base: Entry[]) {
   const listed = new Map(list.map((entry) => [keyOf(entry), entry]));
   const baseOf = new Map(base.map((entry) => [keyOf(entry), entry]));
   const unlisted = found.filter((item) => (listed.get(keyOf(item))?.count ?? 0) < item.count);
   const stale = list.filter((entry) => (found.find((item) => keyOf(item) === keyOf(entry))?.count ?? 0) < entry.count);
-  const grown = list.filter((entry) => entry.count > (baseOf.get(keyOf(entry))?.count ?? 0) || (entry.status === "second" && baseOf.get(keyOf(entry))?.status !== "second" && baseOf.has(keyOf(entry))));
+  const grown = list.filter((entry) => !isTheOneHome(entry, list, base) && (entry.count > (baseOf.get(keyOf(entry))?.count ?? 0) || (entry.status === "second" && baseOf.get(keyOf(entry))?.status !== "second" && baseOf.has(keyOf(entry)))));
   const malformed = list.filter((entry) => entry.status === "second" ? !entry.moveTo || !entry.why || entry.why.trim().length < 40 : false);
   const seen = new Set<string>();
   const duplicates = list.filter((entry) => { const key = keyOf(entry); if (seen.has(key)) return true; seen.add(key); return false; });
@@ -171,6 +187,18 @@ function main() {
   check("self-test: the planted ones fail as new", judge([...found, ...planted], list, base).unlisted.length === 4);
   const added: Entry = { kind: "decider", file: "app/__planted__/Second.tsx", name: "mayAskAgain", count: 1, status: "second", moveTo: "factStatus.ts", why: "a planted entry, added to the list to allow a new second decider" };
   check("self-test: adding an entry to the list fails as growth", judge([...found, ...planted], [...list, added], list).grown.length === 1);
+  // The one home, made once (23 Nov 2026): only the single "one" entry, in the file the kind's second copies move to.
+  {
+    const second: Entry = { kind: "source-label", file: "app/__planted__/A.tsx", name: "label", count: 1, status: "second", moveTo: "src/__planted__/home.ts Label", why: "a planted second copy of a label, waiting to move to its one home" };
+    const home: Entry = { kind: "source-label", file: "src/__planted__/home.ts", name: "label", count: 1, status: "one" };
+    const elsewhere: Entry = { ...home, file: "src/__planted__/other.ts" };
+    check("self-test: the one home of a kind with none yet, in the file its second copies move to, is not growth", judge([], [second, home], [second]).grown.length === 0);
+    check("self-test: a home in any other file is growth", judge([], [second, elsewhere], [second]).grown.length === 1);
+    check("self-test: a second home of the same kind is growth", judge([], [second, home, elsewhere], [second]).grown.length === 2);
+    check("self-test: a new home once one exists is growth", judge([], [second, home, elsewhere], [second, home]).grown.length === 1);
+    check("self-test: a home that adds more than the one new label is growth", judge([], [second, { ...home, count: 2 }], [second]).grown.length === 1);
+    check("self-test: labels moved into the home (their second copy gone) with the one new label are not growth", judge([], [{ ...home, count: 2 }], [second]).grown.length === 0);
+  }
   check("self-test: a second copy whose target does not exist fails (no file, no such export, not a place); a real one passes",
     targetMissing({ ...added, moveTo: "src/lib/case-system/caseFile/notThere.ts" }, files) !== null
       && targetMissing({ ...added, moveTo: "src/lib/case-system/caseFile/factStatus.ts noSuchExport" }, files) !== null

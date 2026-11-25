@@ -6,11 +6,7 @@ import StrategyPanel from "../../_components/StrategyPanel";
 import ResearchPanel from "../../_components/ResearchPanel";
 import {
   filingFactsFromDocuments,
-  isQuestionAlreadyAnswered,
   recordedDocuments,
-  withoutAnsweredQuestions,
-  withoutMunicipalityAsked,
-  withoutStageAnswered,
 } from "@/src/lib/case-system/intelligence/answeredQuestions";
 import { meaningfulIssueSignals } from "@/src/lib/case-system/intelligence/issueSignals";
 import {
@@ -46,7 +42,8 @@ import { UseSuggestion } from "@/app/_components/UseSuggestion";
 import { useOfferChoices } from "@/app/_components/offerChoiceSave";
 import { ADD_IT_LATER, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
 import { answerWords } from "../../../src/lib/case-system/caseFile/unsureAnswer";
-import { mayAskWords } from "../../../src/lib/case-system/caseFile/factStatus";
+import { missingWords } from "../../../src/lib/case-system/caseFile/heldAnswer";
+import { quotesOf, statedInStory } from "../../../src/lib/case-system/intakeReview";
 import { partyNames } from "../../../src/lib/case-system/parties/parties";
 import { hidesMarriedOnly, withoutMarriedOnlyLaw } from "../../../src/lib/case-system/family/marriedOnly";
 
@@ -228,8 +225,9 @@ export default function IntelligenceOverviewPanel({ analysis: analysisGiven, int
   const filingFacts = filingFactsFromDocuments(documents);
   const defenceQuestion = "Has the defendant filed a Defence?";
   // Asked of the person suing only: for someone being sued, "the defendant" is themselves (role audit, 11 Nov).
+  // And only while the case file holds no answer to it, or "not sure", from another place (C9: the one function).
   const askDefenceQuestion =
-    hasClaimAndService && !/defendant|responding/i.test(role) && !isQuestionAlreadyAnswered(defenceQuestion, filingFacts);
+    hasClaimAndService && !/defendant|responding/i.test(role) && missingWords(caseFile, [defenceQuestion], { filing: filingFacts, responding: respondingFromRecord(caseFile ?? undefined) }).length > 0;
   /*
    * "What to confirm next" used to display a MODEL-WRITTEN QUESTION about this
    * user's matter, on the main builder screen, with no guard.
@@ -247,22 +245,22 @@ export default function IntelligenceOverviewPanel({ analysis: analysisGiven, int
    * gone is the model's contribution to either.
    */
   const isQuestionText = (value: string) => value.trim().endsWith("?");
-  const candidateQuestions = withoutMunicipalityAsked(withoutAnsweredQuestions(
-    [
-      ...analysis.missingInformation.filter(isQuestionText),
-      ...(analysis.nextBestActions || []).filter(isQuestionText),
-    ],
-    filingFacts,
-  ), recordedMunicipality);
+  // What the story says, by the one story reader: a question in words only is never asked about it (C9).
+  const storyReading = quotesOf(statedInStory(caseFile?.storyText || caseFile?.savedStory || ""));
+  const candidateQuestions = [
+    ...analysis.missingInformation.filter(isQuestionText),
+    ...(analysis.nextBestActions || []).filter(isQuestionText),
+  ];
   // Once the stage is known ("I have not filed anything yet", "I was served
   // and need to respond"), the generic filing questions are answered by it,
   // and the deadline question by the dates on the step (page review,
   // 2026-10-06: a mother who answered "Nothing filed yet" was asked "Has
   // anything already been filed?" on every page).
-  // One rule, in answeredQuestions.ts (26 Oct re-test, case 16: a case already going was asked about court dates).
+  // One rule, in the one asker (caseFile/heldAnswer.ts missingWords; 26 Oct re-test, case 16: a case already going was
+  // asked about court dates): the papers on record, the stage, the city the record holds, and the record itself.
   // The one function (factStatus.ts mayAskWords): a question whose fact the record holds, answered or "not sure", is never
   // asked here (Chrome milestone test of #550, row 39: "Were you married, is a divorce proceeding underway..." after No).
-  const stillToConfirm = withoutStageAnswered(candidateQuestions, caseStage, stageWords).filter((question) => mayAskWords(caseFile, question, { responding: respondingFromRecord(caseFile ?? undefined) }));
+  const stillToConfirm = missingWords(caseFile, candidateQuestions, { filing: filingFacts, caseStage, stepWords: stageWords, municipality: recordedMunicipality, responding: respondingFromRecord(caseFile ?? undefined), wordsOnly: { storySays: storyReading } });
   const confirmQuestion = askDefenceQuestion
     ? defenceQuestion
     : stillToConfirm[0] || GENERIC_CONFIRM_QUESTION;

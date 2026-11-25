@@ -60,7 +60,7 @@ jobs:
             stories: >-
               family-married-unsure family-milestone-s7a-not-married family-milestone-s7b-unsure
               family-not-married-home family-served-form8 sc-chrome2-s5-loan sc-chrome3-s2-deposit
-              sc-contractor-bathroom sc-laptop sc-milestone-s6-sued sc-served-cousin
+              sc-contractor-bathroom sc-laptop sc-milestone-s6-sued sc-served-cousin sc-chrome561-kitchen
     env:
       NODE_OPTIONS: --max-old-space-size=8192
       NEXT_TELEMETRY_DISABLED: 1
@@ -92,6 +92,7 @@ jobs:
           name: ask-once-records-${{ github.run_id }}-${{ github.run_attempt }}-shard${{ matrix.shard }}
           path: |
             ask-once-records/**
+            question-logs/**
             ask-once-out/*.log
           retention-days: 14
           if-no-files-found: ignore

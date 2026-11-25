@@ -784,14 +784,6 @@
     "reason": "Inventory row 109: children :: checkpoint family.childrenInfo (FamilyIntake.tsx:313); childSupportPrefill.ts:103 (from familyScope.recorded)"
   },
   {
-    "row": 42,
-    "fact": "stage",
-    "pattern": "st.answeredQuestions",
-    "file": "app/builder/_components/civilAnalysis.ts",
-    "reason": "Found by the guard's scan beside inventory row 42 (the same store or reader, in a file the inventory did not name): stage/status :: src/lib/case-system/intelligence/answeredQuestions.ts:242-246 + IntelligenceOverviewPanel \"What to confirm next\"/\"Where your case is now\" (:117-122, hasClaimAndService)",
-    "scanFound": true
-  },
-  {
     "row": 60,
     "fact": "dates",
     "pattern": "dt.masterCaseTimeline",
@@ -3770,13 +3762,6 @@
     "scanFound": true
   },
   {
-    "row": 42,
-    "fact": "stage",
-    "pattern": "st.answeredQuestions",
-    "file": "src/lib/case-system/intelligence/answeredQuestions.ts",
-    "reason": "Inventory row 42: stage/status :: src/lib/case-system/intelligence/answeredQuestions.ts:242-246 + IntelligenceOverviewPanel \"What to confirm next\"/\"Where your case is now\" (:117-122, hasClaimAndService)"
-  },
-  {
     "row": 77,
     "fact": "amount",
     "pattern": "am.statedDollarAmounts",
@@ -3789,14 +3774,6 @@
     "pattern": "st.proceduralPosture.stage",
     "file": "src/lib/case-system/intelligence/courtSimplifiedBrain.ts",
     "reason": "Found by the guard's scan beside inventory row 19 (the same store or reader, in a file the inventory did not name): stage/status :: master_result.intakeAnalysis.caseStage / courtSimplifiedIntelligence.proceduralPosture.stage (builder/page.tsx:922-944)",
-    "scanFound": true
-  },
-  {
-    "row": 42,
-    "fact": "stage",
-    "pattern": "st.answeredQuestions",
-    "file": "src/lib/case-system/intelligence/courtSimplifiedBrain.ts",
-    "reason": "Found by the guard's scan beside inventory row 42 (the same store or reader, in a file the inventory did not name): stage/status :: src/lib/case-system/intelligence/answeredQuestions.ts:242-246 + IntelligenceOverviewPanel \"What to confirm next\"/\"Where your case is now\" (:117-122, hasClaimAndService)",
     "scanFound": true
   },
   {

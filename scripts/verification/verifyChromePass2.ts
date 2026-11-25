@@ -14,13 +14,14 @@ import { timelineIn } from "../../src/lib/case-system/caseFile/storyFacts";
 import { reviewEntries, statedInStory } from "../../src/lib/case-system/intakeReview";
 import { suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";
 import type { CaseRecord } from "../../src/lib/case-system/caseRecord";
-import { partyOfOffer, storyPartyOffers, withHeldOtherName, withStartLocation, withoutHeldElsewhere, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
-import { answeredInIntake, caseFileOf, slotText } from "../../src/lib/case-system/caseFile/caseFile";
+import { partyOfOffer, storyPartyOffers, withHeldOtherName, withHeldYourName, withNameParts, withStartLocation, withoutHeldElsewhere, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
+import { answeredInIntake, caseFileOf, heldLivingSituation, heldLocation, heldYourName, slotText } from "../../src/lib/case-system/caseFile/caseFile";
 import { amountWithCostsNote } from "../../src/lib/case-system/format/recordedAmount";
 import { FORM_7A } from "../../src/lib/case-system/forms/maps/form7A";
 import { fillForm, pdfValues } from "../../src/lib/case-system/forms/formMap";
 import { formContextOf } from "../../src/lib/case-system/forms/formContext";
-import { factStatus, mayAskWords, settledNotSure } from "../../src/lib/case-system/caseFile/factStatus";
+import { factStatus, mayAskWords, mayShowQuestion, settledNotSure } from "../../src/lib/case-system/caseFile/factStatus";
+import { fitsFactType, partyDetailFits } from "../../src/lib/case-system/caseFile/factTypes";
 import { storySuggestionFor } from "../../src/lib/case-system/family/triageStoryQuote";
 import { emptyStatusRecord, selectNextTriageQuestion } from "../../src/lib/case-system/family/statusTriage";
 import { factOfAskedText } from "../../src/lib/case-system/caseFile/factsOfQuestion";
@@ -71,8 +72,16 @@ section("Findings 2 and 3", () => {
   check("F2 a city the person gave here is never replaced, and Ontario is not added for it", ownCity.details.city === "Kanata" && ownCity.details.province === undefined && !ownCity.heldElsewhere, JSON.stringify(ownCity));
   const unsureCity = withStartLocation([{ ...you, unsure: ["city" as const] }], { location: { city: "Ottawa" } })[0];
   check("F2 a city the person said they are not sure of is not filled", unsureCity.details.city === undefined, JSON.stringify(unsureCity));
+  // C9: the case file holds the home page's city and province (heldLocation); the court chat reads it before its own copy,
+  // so it never asks "What province or territory did this happen in?" of a person who gave it.
+  const located = caseFileOf({ version: 1, flowId: "f", courtPath: "small-claims", revision: "r", sections: { story: { text: "x", location: { province: "Ontario", city: "Ottawa" } } } } as never);
+  check("F2 the case file holds the city and province given at the start (heldLocation)", JSON.stringify(heldLocation(located)) === JSON.stringify({ city: "Ottawa", province: "Ontario" }), JSON.stringify(heldLocation(located)));
+  check("F2 a question about the person's own city is not asked once the case file holds it (the one function), e.g. the Family status question", !mayShowQuestion(located, "municipalities") && mayShowQuestion(caseFileOf(null), "municipalities"));
+  check("F2 the Family status questions read the city through heldLocation", /const cityHeld = heldLocation\(file\)\?\.city\.trim\(\) \|\| homeCity\.trim\(\);/.test(source("app/builder/_components/FamilyStatusTriage.tsx")));
+  check("F2 the court chat reads the held location first", /const held = heldLocation\(reviewView \? caseFileOf\(reviewView\.checkpoint\) : null\);/.test(source("app/builder/_components/CourtAssistantChat.tsx")) && /province: held\?\.province \|\| fromData\.province/.test(source("app/builder/_components/CourtAssistantChat.tsx")));
   check("F2 only the person's own entry is filled, never the other side's", withStartLocation([you, store], { location: { city: "Ottawa" } })[1].details.city === undefined);
-  check("F2 the one writer drops what was read from the start before saving", /readParties\(JSON\.parse\(JSON\.stringify\(\{ \.\.\.record, list: record\.list\.map\(withoutHeldElsewhere\) \}\)\)\)/.test(source("app/_components/caseWrite.ts")));
+  // (`owned`: the list with the one other party's whole name taken in once the person edits it, rule 1; caseWrite.ts.)
+  check("F2 the one writer drops what was read from the start before saving", /readParties\(JSON\.parse\(JSON\.stringify\(\{ \.\.\.record, list: (?:record\.list|owned)\.map\(withoutHeldElsewhere\) \}\)\)\)/.test(source("app/_components/caseWrite.ts")));
   // C9 (Chrome check of #558, step 5a): the other side's name confirmed in the chat was offered again on the Parties step
   // ("Name: Test Partner", Yes / No). Held there now, as the one other party's name, never offered again.
   const blank = { id: "o1", side: "other" as const, details: {}, unsure: [] };
@@ -82,7 +91,26 @@ section("Findings 2 and 3", () => {
   check("C9 the name given in the chat is the other party's held name on the Parties step, never offered again", named[1].details.fullName === "Test Partner" && JSON.stringify(named[1].heldElsewhere) === '["fullName"]' && !namedOffers.some((item) => item.party === "other:1" && (item.detail === "fullName" || item.detail === "companyName" || item.detail === "firstName")), JSON.stringify({ named: named[1], namedOffers }));
   check("C9 a company's name given in the chat is held as the company's name", withHeldOtherName([you, blank], "Circle K Convenience Stores Ltd.")[1].details.companyName === "Circle K Convenience Stores Ltd.");
   check("C9 a name the party already has is never replaced, and with two other parties neither is guessed", withHeldOtherName([you, store], "Test Partner")[1].details.companyName === "Circle K Convenience Stores Ltd." && withHeldOtherName([you, blank, { ...blank, id: "o2" }], "Test Partner").every((party) => !party.details.fullName));
-  check("C9 a name the person is not sure of is not filled; words that are not a name are not filled", !withHeldOtherName([you, { ...blank, unsure: ["firstName" as const] }], "Test Partner")[1].details.fullName && !withHeldOtherName([you, blank], "Gatineau")[1].details.fullName);
+  // The first and last name (site owner, 23 Nov 2026): derived from the whole name already given, filled in with Change,
+  // never offered ("From the name you gave" showed after the chat confirmed the name: Chrome check of #558, step 5a).
+  const split = withNameParts(named)[1];
+  check("C9 the whole name given in the chat fills the first and last name, never offered", split.details.firstName === "Test" && split.details.lastName === "Partner" && ["firstName", "lastName"].every((detail) => split.heldElsewhere?.includes(detail as never)), JSON.stringify(split));
+  const three = withNameParts([{ ...blank, kind: "person" as const, details: { fullName: "Mary Ann Smith" } }])[0];
+  check("C9 a three-word name: the last word is the last name, the rest the first name", three.details.firstName === "Mary Ann" && three.details.lastName === "Smith", JSON.stringify(three.details));
+  const typedFirst = withNameParts([{ ...blank, details: { fullName: "Test Partner", firstName: "Testa" } }])[0];
+  check("C9 a part the person typed is kept, and the other part is still filled", typedFirst.details.firstName === "Testa" && typedFirst.details.lastName === "Partner" && JSON.stringify(typedFirst.heldElsewhere) === '["lastName"]', JSON.stringify(typedFirst));
+  check("C9 not split: a one-word name, a company, a part the person is not sure of", !withNameParts([{ ...blank, details: { fullName: "Alex" } }])[0].details.lastName && !withNameParts([{ ...blank, kind: "company" as const, details: { fullName: "Test Builder Ltd." } }])[0].details.firstName && !withNameParts([{ ...blank, details: { fullName: "Test Partner" }, unsure: ["lastName" as const] }])[0].details.lastName);
+  check("C9 the split is never saved (the whole name is kept once)", withoutHeldElsewhere(split).details.firstName === undefined && withoutHeldElsewhere(split).details.lastName === undefined);
+  const partiesStep = source("app/_components/PartiesStep.tsx");
+  check("C9 the Parties step never offers the split (no \"From the name you gave\"); the case file and the step both apply withNameParts", !/From the name you gave/.test(partiesStep) && /withNameParts\(withHeldYourName\(withHeldOtherName\(/.test(partiesStep) && /withNameParts\(withHeldYourName\(withHeldOtherName\(file\.parties\.list/.test(source("src/lib/case-system/caseFile/caseFile.ts")));
+  // The person's own name (C9): typed in the Family form, it is their held name on the Parties step; held there, the Family
+  // form shows it with Change and never asks it.
+  const familyFile = caseFileOf({ version: 1, flowId: "f", courtPath: "family", revision: "r", sections: { family: { yourName: "Test Person" } } } as never);
+  const ownEntry = withHeldYourName([you], "Test Person")[0];
+  check("C9 the Family form's name is the person's held name on the Parties step (split into first and last), never asked again", ownEntry.details.fullName === "Test Person" && withNameParts([ownEntry])[0].details.lastName === "Person" && withoutHeldElsewhere(ownEntry).details.fullName === undefined, JSON.stringify(ownEntry));
+  check("C9 the case file reads the Family form's name as the person's own (heldYourName) wherever a you entry exists", heldYourName({ ...familyFile, parties: { recorded: true, list: withHeldYourName([you], "Test Person") } }) === "Test Person");
+  check("C9 the Family form shows a name the parties hold, with Change, never an empty box", /\{heldName && !yourName\.trim\(\) && !changingName \? \(/.test(source("app/builder/_components/FamilyIntake.tsx")) && /const heldName = reviewView \? heldYourName\(caseFileOf\(reviewView\.checkpoint\)\) : "";/.test(source("app/builder/_components/FamilyIntake.tsx")));
+  check("C9 a name the person is not sure of is not filled; words that are not a name are not filled",!withHeldOtherName([you, { ...blank, unsure: ["firstName" as const] }], "Test Partner")[1].details.fullName && !withHeldOtherName([you, blank], "Gatineau")[1].details.fullName);
   check("C9 the held name is never saved in the parties record (the case file keeps it)", withoutHeldElsewhere(named[1]).details.fullName === undefined);
   check("C9 the case file and the Parties step read the held name with one function", /withHeldOtherName\(file\.parties\.list, heldOtherName\(file\)\)/.test(source("src/lib/case-system/caseFile/caseFile.ts")) && /const heldOther = heldOtherName\(file\);/.test(source("app/_components/PartiesStep.tsx")));
   check("F3 the store's address, typed as an answer, is offered for Defendant 1", offer("other:1", "street") === "100 Sample Road" && offer("other:1", "city") === "Ottawa" && offer("other:1", "postalCode") === "K1B 0B1", JSON.stringify(offered));
@@ -185,9 +213,10 @@ section("Findings 9 and 11", () => {
   const familyTimeline = reviewEntries({ version: 1, flowId: "f9", courtPath: "family", revision: "f9", sections: { story: { text: S7 }, family: { timeline: "" } } } as never).find((entry) => entry.field === "timeline");
   check("F9 the Family review's empty Timeline box offers the story's dated lines", familyTimeline?.fromStory?.value.includes("June 2026") === true, JSON.stringify(familyTimeline));
   const living = reviewEntries({ version: 1, flowId: "f9b", courtPath: "family", revision: "f9b", sections: { story: { text: S7 }, family: { currentLivingSituation: "" }, home: { understoodAnswers: [{ question: "Where does your child normally live, and how long have they lived there?", answer: "With me in Ottawa since birth." }] } } } as never).find((entry) => entry.field === "currentLivingSituation");
-  check("F9 the Family review's empty \"Current living situation\" offers what they answered on the home page", living?.fromStory?.value === "With me in Ottawa since birth.", JSON.stringify(living));
+  check("F9 the Family review's empty \"Current living situation\" holds what they answered on the home page, with Change, never offered (C9)", living?.answeredElsewhere?.value === "With me in Ottawa since birth." && !living?.fromStory, JSON.stringify(living));
   const notAsked = reviewEntries({ version: 1, flowId: "f9c", courtPath: "family", revision: "f9c", sections: { story: { text: S7 }, family: { currentLivingSituation: "" }, home: { understoodAnswers: [{ question: "Are there any safety concerns involving you or your child?", answer: "No safety concerns." }] } } } as never).find((entry) => entry.field === "currentLivingSituation");
-  check("F9 self-test: an answer to another question is not offered there", !notAsked?.fromStory, JSON.stringify(notAsked));
+  check("F9 self-test: an answer to another question is not offered or held there", !notAsked?.fromStory && !notAsked?.answeredElsewhere, JSON.stringify(notAsked));
+  check("F9 the review shows an answer given elsewhere as held, with Change (never an offer)", /entry\.answeredElsewhere && empty\(entry\.value\) \? <p className="mt-1" data-testid="intake-entry-answered-elsewhere"/.test(source("app/_components/IntakeReviewPanel.tsx")));
   // The real AI's other words for the same questions (S7a reading r3, S7b readings r2 and r3), word for word.
   for (const question of [
     "In what city or town and province does your child usually live?",
@@ -196,7 +225,7 @@ section("Findings 9 and 11", () => {
     "What parenting arrangement do you currently have, and what schedule would you like?",
   ]) {
     const entry = reviewEntries({ version: 1, flowId: "f9d", courtPath: "family", revision: "f9d", sections: { story: { text: S7 }, family: { currentLivingSituation: "" }, home: { understoodAnswers: [{ question, answer: "With me in Ottawa since birth." }] } } } as never).find((item) => item.field === "currentLivingSituation");
-    check(`F9 "${question.slice(0, 50)}..." answered: offered in "Current living situation"`, entry?.fromStory?.value === "With me in Ottawa since birth.", JSON.stringify(entry));
+    check(`F9 "${question.slice(0, 50)}..." answered: held in "Current living situation", never offered`, entry?.answeredElsewhere?.value === "With me in Ottawa since birth." && !entry?.fromStory && heldLivingSituation(caseFileOf({ version: 1, flowId: "f9e", courtPath: "family", revision: "f9e", sections: { story: { text: S7 }, home: { understoodAnswers: [{ question, answer: "With me in Ottawa since birth." }] } } } as never)) === "With me in Ottawa since birth.", JSON.stringify(entry));
   }
 });
 
@@ -237,6 +266,37 @@ section("A cleared box stays a box (form-box-follows-record, 18 Nov)", () => {
   // Everywhere a box folds on "settled": the two boxes that do (found by searching "=== \"settled\"" with a fold).
   check("the one test: settled by \"not sure\", never by clearing", !settledNotSure(cleared, "amount") && settledNotSure(notSure, "amount"));
   check("both folding boxes use it (NotAnsweredYet, AskedField)", /settledNotSure\(file, item\.fact\)/.test(source("app/_components/NotAnsweredYet.tsx")) && /settledNotSure\(file, decision\.fact\)/.test(source("app/_components/AskedField.tsx")));
+});
+
+// Chrome check of #560 (23 Nov 2026), Family, the story's exact words. 4a: after "We have no children." the status questions
+// asked "Does what you are dealing with involve any children?" and offered "Is this right: the case involves children?".
+// 4b: after "My spouse and I married in June 2015" they asked "Were you and the other person married to each other?".
+section("Chrome check of #560: 4a children, 4b married", () => {
+  const STORY = "TEST CASE (made up). My spouse and I married in June 2015. We separated in March 2026. We have no children. We own a house in Ottawa. I want the property divided and spousal support.";
+  const children = storySuggestionFor("case-involves-children", STORY, statedInStory(STORY));
+  check("4a \"We have no children.\" is never offered as \"the case involves children\": only \"No children\", once", children?.value === "no" && children.say === "No children", JSON.stringify(children));
+  check("4a ... and never as a child together", storySuggestionFor("child-together", STORY, statedInStory(STORY))?.value !== "yes");
+  check("4a control: \"We have a 6-year-old\" still says the case involves children", storySuggestionFor("case-involves-children", "We separated in May. We have a 6-year-old.")?.value === "yes");
+  const married = storySuggestionFor("married-to-other-party", STORY);
+  check("4b \"My spouse and I married in June 2015\" is offered as married (once), never asked cold", married?.value === "yes", JSON.stringify(married));
+  const triage = source("app/builder/_components/FamilyStatusTriage.tsx");
+  check("4a/4b while the story's answer is offered, the question and its own buttons are not shown beside it", /\{suggestionWaiting\(question\.id\) \? null : \(\s*<p data-testid="triage-prompt"/.test(triage) && /\{suggestionWaiting\(current\.id\) \? null : \(\s*<div className="mt-4 flex flex-wrap gap-3">/.test(triage));
+  check("4a the status questions pass the one story reader's value (statedInStory) to the story's answers", /const storyStated = statedInStory\(story\);/.test(triage) && /storySuggestionFor\(current\.id, story, storyStated\)/.test(triage));
+});
+
+// Chrome check of #560, civil. 3i: "Parties recorded: Fakebuild Test Contracting Inc.", then under "What to confirm next":
+// "What company name appears on the agreement, invoices, and payment recipient details, and do you have those records?"
+// It asks the other side's name (fact otherParty), so it is never asked once that is held. Anything else wrong, 1: the
+// Parties step showed "Company's full legal name: A contractor company" from the story offer "The other side: A contractor
+// company": a description is never kept as anyone's name.
+section("Chrome check of #560: 3i the company name, and a description as a legal name", () => {
+  const ASKED = "What company name appears on the agreement, invoices, and payment recipient details, and do you have those records?";
+  const named = { ...caseFileOf(null), otherParty: { state: "answered" as const, value: "Fakebuild Test Contracting Inc.", confirmed: true, source: { kind: "answer" as const, question: "parties" } } };
+  check("3i the company-name question is never asked once the other side's name is recorded", !mayAskWords(named, ASKED, { court: "civil" }) && mayAskWords(caseFileOf(null), ASKED, { court: "civil" }));
+  check("1 \"A contractor company\" is never a name (a description), in the case file or the parties", !fitsFactType("otherParty", "A contractor company").ok && !partyDetailFits("companyName", "A contractor company"));
+  const blankOther = { id: "o1", side: "other" as const, details: {}, unsure: [] };
+  check("1 a description given as the other side is never put in the legal name box (the name stays empty until a person gives one)", !withHeldOtherName([{ id: "you", you: true as const, side: "yours" as const, details: {}, unsure: [] }, blankOther], "A contractor company")[1].details.companyName);
+  check("1 control: a real name, \"The Home Depot\" or \"Fakebuild Test Contracting Inc.\", is still a name", fitsFactType("otherParty", "The Home Depot").ok && partyDetailFits("companyName", "Fakebuild Test Contracting Inc."));
 });
 
 console.log(failed ? `\n${failed} check(s) FAILED.` : "\nAll Chrome pass 2 checks passed.");

@@ -5,7 +5,7 @@ import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIn
 import { notMarriedOf, withoutMarriedOnly } from "../../../src/lib/case-system/family/marriedOnly";
 import { MARRIED_UNSURE_NOTE } from "../../../src/lib/case-system/copy/askCopy";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
-import { caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, heldYourName } from "../../../src/lib/case-system/caseFile/caseFile";
 import { formAnalysisInput } from "../../../src/lib/case-system/caseFile/chatTurnFacts";
 import { NotAnsweredYetField } from "../../_components/NotAnsweredYet";
 import { useBoxesFollow } from "../../_components/AskedField";
@@ -336,6 +336,9 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   // Someone not married to the other person is not offered married-only topics (marriedOnly.ts); a story reading alone
   // hides them behind "Show all topics", never for good (CLAUDE.md s. 4).
   const reviewView = useIntakeReviewView();
+  // The person's own name the parties hold (the Parties step), read through the one reader (caseFile.ts heldYourName, C9).
+  const heldName = reviewView ? heldYourName(caseFileOf(reviewView.checkpoint)) : "";
+  const [changingName, setChangingName] = useState(false);
   const [showAllIssues, setShowAllIssues] = useState(false);
   const storySeeded = useRef(false);
   useEffect(() => {
@@ -1052,12 +1055,20 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
         <div className="grid gap-5 md:grid-cols-2">
           <label className="block">
             <span className="font-semibold text-[#16302b]">Your name</span>
+            {/* A name the parties already hold (the Parties step) is shown with Change, never asked again here (C9). */}
+            {heldName && !yourName.trim() && !changingName ? (
+              <span data-testid="family-your-name-held" className="mt-2 block text-[#16302b]">
+                {heldName}{" "}
+                <button type="button" onClick={() => setChangingName(true)} className="font-semibold text-[#2f7d67] underline">Change</button>
+              </span>
+            ) : (
             <input
               value={yourName}
               onChange={(e) => setYourName(e.target.value)}
               className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Full legal name"
             />
+            )}
           </label>
 
           {/* A "not sure" in this box is never shown as its answer (item 4, 6 Nov). */}

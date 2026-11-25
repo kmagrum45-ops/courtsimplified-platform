@@ -46,6 +46,9 @@ export const FACT_IDS = [
   "publication", "twentyDaysPassed", "notedInDefault", "responseFacts", "admission", "completionDate", "noticeToContractor",
   "timeline", "livingSituation", "livingHistory", "property", "adoption", "missingEvidence", "yourName",
   "divorceSought", "cohabitation", "municipality", "otherPartyMunicipality",
+  // The Small Claims review's own boxes (one asker, 23 Nov 2026).
+  "yourLastName", "otherPartyLastName",
+  "courtLocation", "paymentHistory", "damagesBreakdown", "deadlineDetails", "settlementEfforts",
 ] as const;
 export type FactId = (typeof FACT_IDS)[number];
 // FACT_IDS and factsOfQuestion's CaseFact are the same set: a fact added to one and not the other fails to compile.

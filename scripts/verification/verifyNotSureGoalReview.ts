@@ -33,7 +33,16 @@
  * WHAT FAILURE THIS CATCHES: the goal said "not sure" in the guided chat shown again as an empty Goal
  * box, listed or counted as still to answer, or asked by any chat.
  */
-import { caseFileOf, chatMayAsk, nextQuestion, slotsOfQuestion } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, chatMayAsk, slotsOfQuestion } from "../../src/lib/case-system/caseFile/caseFile";
+// The one asker (caseFile/heldAnswer.ts, 23 Nov 2026): caseFile.ts's alreadyAsked, nextQuestion, askable, notAsked and
+// chatQuestionToAsk were deleted with it; the checks below read the same decisions under their old names, unchanged.
+import { chatQuestionFor as chatQuestionToAsk, isHeld as alreadyAsked, missingQuestions } from "../../src/lib/case-system/caseFile/heldAnswer";
+import { slotStatus as statusOfSlot } from "../../src/lib/case-system/caseFile/factStatus";
+const notAsked = (slot: Parameters<typeof statusOfSlot>[0]) => ["ask", "offer"].includes(statusOfSlot(slot));
+const nextQuestion = (file: Parameters<typeof missingQuestions>[0], candidates: readonly string[], options: { surface?: string } = {}) => missingQuestions(file, candidates, options.surface)[0] ?? null;
+const askable = (file: Parameters<typeof missingQuestions>[0], candidates: readonly string[], surface?: string) => missingQuestions(file, candidates, surface);
+void chatQuestionToAsk; void alreadyAsked; void notAsked; void nextQuestion; void askable;
+
 import * as review from "../../src/lib/case-system/intakeReview";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 

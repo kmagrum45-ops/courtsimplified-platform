@@ -12,6 +12,8 @@
  * Wording here restates the person's answers and asks; it states no law.
  */
 import { useState } from "react";
+import { situationWithHeld } from "../../src/lib/case-system/caseFile/situationHeld";
+import type { CaseFile } from "../../src/lib/case-system/caseFile/caseFile";
 import { dateAnswerCheck, formatForCourt, parseAnswerDate, todayInOntario } from "../../src/lib/case-system/dates";
 import {
   answerSituation,
@@ -38,6 +40,8 @@ type Props = {
   onChange: (next: Situation) => void;
   /** The area the person chose (the landing page's ?path). */
   chosenCourt: SituationCourt | null;
+  /** The case file: a question whose fact it holds from another place is not asked (situationHeld.ts, C9). */
+  held?: CaseFile | null;
   /** Called when the person picks a court other than the area they are in. */
   onSwitchCourt?: (court: SituationCourt, next: Situation) => void;
   /** Ask from the first question again, keeping the answers as they are (the Change link). */
@@ -46,10 +50,10 @@ type Props = {
 };
 
 /** The next situation question, or nothing when the record is complete (unless reviewing). */
-export default function SituationQuestions({ situation, onChange, chosenCourt, onSwitchCourt, reviewing = false, onDone }: Props) {
+export default function SituationQuestions({ situation, onChange, chosenCourt, held, onSwitchCourt, reviewing = false, onDone }: Props) {
   const known = withKnownCourt(situation, chosenCourt);
   const [step, setStep] = useState<SituationQuestion | null>(reviewing ? "where" : null);
-  const question = step ?? nextSituationQuestion(known, chosenCourt);
+  const question = step ?? nextSituationQuestion(situationWithHeld(known, held), chosenCourt);
   // null until the person types: on Change, the saved day is the box's real value, so
   // "Save the date" keeps it without retyping (finding 7).
   const [typedRaw, setTyped] = useState<string | null>(null);

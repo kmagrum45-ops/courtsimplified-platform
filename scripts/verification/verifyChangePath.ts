@@ -31,7 +31,16 @@
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import * as caseFileModule from "../../src/lib/case-system/caseFile/caseFile";
-import { caseFileOf, claimKindOf, claimKindLine, alreadyAsked, SLOT_FACTS, type CaseFile, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, claimKindOf, claimKindLine, SLOT_FACTS, type CaseFile, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
+// The one asker (caseFile/heldAnswer.ts, 23 Nov 2026): caseFile.ts's alreadyAsked, nextQuestion, askable, notAsked and
+// chatQuestionToAsk were deleted with it; the checks below read the same decisions under their old names, unchanged.
+import { chatQuestionFor as chatQuestionToAsk, isHeld as alreadyAsked, missingQuestions } from "../../src/lib/case-system/caseFile/heldAnswer";
+import { slotStatus as statusOfSlot } from "../../src/lib/case-system/caseFile/factStatus";
+const notAsked = (slot: Parameters<typeof statusOfSlot>[0]) => ["ask", "offer"].includes(statusOfSlot(slot));
+const nextQuestion = (file: Parameters<typeof missingQuestions>[0], candidates: readonly string[], options: { surface?: string } = {}) => missingQuestions(file, candidates, options.surface)[0] ?? null;
+const askable = (file: Parameters<typeof missingQuestions>[0], candidates: readonly string[], surface?: string) => missingQuestions(file, candidates, surface);
+void chatQuestionToAsk; void alreadyAsked; void notAsked; void nextQuestion; void askable;
+
 import { caseFileOfMaster } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
 import { readCheckpoint, type Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import * as reviewModule from "../../src/lib/case-system/intakeReview";
@@ -149,6 +158,11 @@ const FACTS: FactCase[] = [
   { fact: "defendantsClaim", court: "small-claims", sections: { guided: { earlierAnswers: [{ questionId: "sc-defendant-counterclaim", answerText: "Yes" }] } }, value: "No", shows: (f) => valueOf(f, "defendantsClaim") === "No" },
   { fact: "urgent", court: "civil", sections: { civil: { input: { urgent: "Hearing next week" } } }, value: "Nothing urgent now", shows: (f) => valueOf(f, "urgent") === "Nothing urgent now" },
   { fact: "safety", court: "family", sections: { family: { safetyConcerns: "No safety concerns." } }, value: "A safety plan is in place", shows: (f) => valueOf(f, "safety") === "A safety plan is in place" },
+  // Slots since C9 (23 Nov 2026): how the papers were served (the Small Claims chat) and the evidence (the Small Claims form).
+  { fact: "serviceMethod", court: "small-claims", sections: { guided: { earlierAnswers: [{ questionId: "sc-defendant-service-method", answerText: "By mail" }] } }, value: "In person", shows: (f) => valueOf(f, "serviceMethod") === "In person" },
+  { fact: "evidence", court: "small-claims", sections: { "small-claims": { input: { evidence: "Invoices and texts" } } }, value: "Photos and the contract", shows: (f) => valueOf(f, "evidence") === "Photos and the contract" },
+  // What was agreed (C9, 23 Nov 2026): a slot, held from the Small Claims depth questions about the agreement.
+  { fact: "agreementTerms", court: "small-claims", sections: { guided: { earlierAnswers: [{ questionId: "depth-contractor-agreement", answerText: "Redo the roof by June" }] } }, value: "Redo the roof and gutters by July", shows: (f) => valueOf(f, "agreementTerms") === "Redo the roof and gutters by July" },
 ];
 for (const item of FACTS) {
   const older = checkpointOf(item.court, item.sections);
@@ -161,7 +175,7 @@ for (const item of FACTS) {
   const gone = caseFileOf(goneCp, master(goneCp));
   const goneFromMaster = caseFileOfMaster(master(goneCp), item.court);
   check(`2. ${item.court} ${item.fact}: removed beats every older source`, gone[item.fact].state === "not-asked" && gone[item.fact].value === undefined && goneFromMaster[item.fact].state === "not-asked", JSON.stringify(gone[item.fact]));
-  check(`2. ${item.court} ${item.fact}: removed is not asked again by itself`, caseFileModule.nextQuestion(gone, [{ otherParty: "otherParty", amount: "amountClaimed", wants: "goal", claimKind: "issues", children: "childrenInfo", married: "married-to-other-party", marriedWhere: "placeOfMarriage", filed: "sc-claim-filed", defenceFiled: "sc-defence-filed", whenHappened: "sc-orient-when-happened", courtDate: "case-date-trial-date", conferenceDate: "case-date-case-conference-date", servedDate: "servedDate", outcome: "defendantOutcomeText", defendantsClaim: "sc-defendant-counterclaim", urgent: "urgent" }[item.fact as string] ?? item.fact]) === null);
+  check(`2. ${item.court} ${item.fact}: removed is not asked again by itself`, nextQuestion(gone, [{ otherParty: "otherParty", amount: "amountClaimed", wants: "goal", claimKind: "issues", children: "childrenInfo", married: "married-to-other-party", marriedWhere: "placeOfMarriage", filed: "sc-claim-filed", defenceFiled: "sc-defence-filed", whenHappened: "sc-orient-when-happened", courtDate: "case-date-trial-date", conferenceDate: "case-date-case-conference-date", servedDate: "servedDate", outcome: "defendantOutcomeText", defendantsClaim: "sc-defendant-counterclaim", urgent: "urgent" }[item.fact as string] ?? item.fact]) === null);
   // No step-page date comes back from an older answer once the day is removed.
   const days = withCaseFileDates({}, gone, (words) => caseFileModule.dayOfSlot({ state: "answered", value: words, confirmed: true }));
   if (["whenHappened", "courtDate", "conferenceDate", "servedDate"].includes(item.fact)) check(`2. ${item.court} ${item.fact}: removed, no step-page date is filled from an older answer`, !Object.keys(days).some((id) => caseFileModule.slotsOfQuestion(id).includes(item.fact)), JSON.stringify(days));
