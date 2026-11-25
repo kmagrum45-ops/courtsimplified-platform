@@ -1,0 +1,15 @@
+{
+  "story": "matrix-civil-lawyer-removed",
+  "reading": "r1",
+  "recorded": "2026-11-25",
+  "note": "Real model outputs for a made-up story (AI_FIXTURES=record).",
+  "entries": [
+    {
+      "step": "story-reading",
+      "input": "8acda8a20c001981",
+      "said": "{\"sent\":\"My lawyer was removed from the record in my action against Testcorp Holdings Ltd. in November 2026, and now I have to continue on my own.\\n\\nI am the one bringing this case.\\n\\nA court case has already been started.\",\"chosen\":null}",
+      "output": "{\n  \"summary\": \"You are bringing an action against the other party, and the court case has already started. Your lawyer was removed from the record in November 2026, and you are now continuing on your own.\",\n  \"facts\": [\n    {\n      \"label\": \"Your role\",\n      \"value\": \"Plaintiff bringing the action\"\n    },\n    {\n      \"label\": \"Other party\",\n      \"value\": \"The party you are suing; identity and relationship not given\"\n    },\n    {\n      \"label\": \"Representation\",\n      \"value\": \"Your lawyer was removed from the record in November 2026; you are now representing yourself\"\n    },\n    {\n      \"label\": \"Court\",\n      \"value\": \"Not given\"\n    },\n    {\n      \"label\": \"Subject of the claim\",\n      \"value\": \"Not given\"\n    },\n    {\n      \"label\": \"Amount or other remedy sought\",\n      \"value\": \"Not given\"\n    }\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Your existing action against the other party\",\n      \"court\": \"unclear\",\n      \"forum\": \"Court not yet identified\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"Your action is already underway, and your lawyer has been removed from the record; the stage of the underlying case is not yet known.\",\n  \"questions\": [\n    {\n      \"question\": \"What is the name and location of the court where your case was started?\",\n      \"why\": \"This identifies which court is handling your existing case.\"\n    },\n    {\n      \"question\": \"What happened that led you to sue the other party?\",\n      \"why\": \"This identifies the subject of your claim.\"\n    },\n    {\n      \"question\": \"What amount of money or other outcome are you asking the court for?\",\n      \"why\": \"This clarifies the scope of your action.\"\n    },\n    {\n      \"question\": \"Apart from your lawyer being removed, what has happened most recently in the case?\",\n      \"why\": \"This clarifies how far the action has progressed.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}",
+      "ms": 18586
+    }
+  ]
+}

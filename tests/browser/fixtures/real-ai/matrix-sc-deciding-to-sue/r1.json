@@ -1,0 +1,125 @@
+{
+  "story": "matrix-sc-deciding-to-sue",
+  "reading": "r1",
+  "recorded": "2026-11-25",
+  "note": "Real model outputs for a made-up story (AI_FIXTURES=record).",
+  "entries": [
+    {
+      "step": "story-reading",
+      "input": "7129ef77dd6c6c1d",
+      "said": "{\"sent\":\"In May 2026 I paid Testfix Appliance Repair Ltd. $1,850 to fix my fridge. It broke again two days later and they refuse to come back. I want my $1,850 back.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\",\"chosen\":null}",
+      "output": "{\n  \"summary\": \"You paid the other party $1,850 in May 2026 to fix your fridge. It broke again two days later, and they refuse to come back. You want your $1,850 back and have not started a court case.\",\n  \"facts\": [\n    {\"label\": \"Your role\", \"value\": \"Person bringing the claim\"},\n    {\"label\": \"Other party\", \"value\": \"The person or business paid to repair your fridge\"},\n    {\"label\": \"Payment\", \"value\": \"$1,850 in May 2026\"},\n    {\"label\": \"Problem\", \"value\": \"The fridge broke again two days after the repair\"},\n    {\"label\": \"Other party's response\", \"value\": \"Refuses to come back\"},\n    {\"label\": \"Amount sought\", \"value\": \"$1,850 refund\"},\n    {\"label\": \"Court filing\", \"value\": \"Nothing filed\"},\n    {\"label\": \"Location of repair\", \"value\": \"Not given\"}\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Refund claim for fridge repair\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You are seeking a refund and have not started a court case.\",\n  \"questions\": [\n    {\n      \"question\": \"In which city and province was the fridge repaired?\",\n      \"why\": \"This identifies the appropriate location for the dispute.\"\n    },\n    {\n      \"question\": \"Was the other party a business or an individual, and what name did they use?\",\n      \"why\": \"This identifies who your claim is against.\"\n    },\n    {\n      \"question\": \"What did they agree to repair, and what did they promise about the repair?\",\n      \"why\": \"The agreement defines what you paid them to do.\"\n    },\n    {\n      \"question\": \"What went wrong with the fridge two days later?\",\n      \"why\": \"This helps clarify whether the later problem involved the repair you paid for.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}",
+      "ms": 11139
+    },
+    {
+      "step": "safety",
+      "input": "d5a459c47b762523",
+      "said": "{\"said\":\"In May 2026 I paid Testfix Appliance Repair Ltd. $1,850 to fix my fridge. It broke again two days later and they refuse to come back. I want my $1,850 back.\"}",
+      "output": {
+        "classification": "clear",
+        "requestsLegalAdvice": false
+      },
+      "ms": 2811
+    },
+    {
+      "step": "fact-reading",
+      "input": "d5a459c47b762523",
+      "said": "{\"said\":\"In May 2026 I paid Testfix Appliance Repair Ltd. $1,850 to fix my fridge. It broke again two days later and they refuse to come back. I want my $1,850 back.\"}",
+      "output": {
+        "facts": {
+          "role": "plaintiff",
+          "disputeCategory": "work-or-services"
+        },
+        "directFields": [
+          "role",
+          "disputeCategory"
+        ]
+      },
+      "ms": 2948
+    },
+    {
+      "step": "claim-kind",
+      "input": "ee911097e47a1af4",
+      "said": "{\"said\":\"In May 2026 I paid Testfix Appliance Repair Ltd. $1,850 to fix my fridge. It broke again two days later and they refuse to come back. I want my $1,850 back.\",\"exclude\":[],\"responding\":false}",
+      "output": {
+        "claimTypeId": "sc-claim-breach-of-contract-services",
+        "claimTypeName": "Breach of contract — services not performed or substandard",
+        "quote": "I paid Testfix Appliance Repair Ltd. $1,850 to fix my fridge. It broke again two days later"
+      },
+      "ms": 6650
+    },
+    {
+      "step": "story-suggestions",
+      "input": "4f217224fcf4483e",
+      "said": "{\"story\":\"In May 2026 I paid Testfix Appliance Repair Ltd. $1,850 to fix my fridge. It broke again two days later and they refuse to come back. I want my $1,850 back.\",\"questions\":[\"sc-orient-when-happened\",\"sc-orient-dispute-category\",\"sc-amount-claimed\",\"sc-remedy-sought\"],\"quoteFrom\":null}",
+      "output": [
+        {
+          "questionId": "sc-orient-when-happened",
+          "questionText": "Roughly when did the situation that led to this claim happen?",
+          "answer": "May 2026",
+          "storyQuote": "In May 2026",
+          "dateQuestion": true
+        },
+        {
+          "questionId": "sc-orient-dispute-category",
+          "questionText": "What kind of dispute is this?",
+          "answer": "Work or a service you paid for (e.g. a contractor)",
+          "storyQuote": "I paid Testfix Appliance Repair Ltd. $1,850 to fix my fridge.",
+          "choices": [
+            "Unpaid money owed to you",
+            "A contract or agreement dispute",
+            "Property damage",
+            "A loan or debt",
+            "Work or a service you paid for (e.g. a contractor)",
+            "A deposit that wasn't returned",
+            "A consumer purchase problem",
+            "A vehicle-related dispute",
+            "Something said about you (defamation)",
+            "A personal injury (a fall, an animal bite, or similar)",
+            "Something else"
+          ]
+        },
+        {
+          "questionId": "sc-amount-claimed",
+          "questionText": "What is the total dollar amount you are claiming?",
+          "answer": "$1,850",
+          "storyQuote": "I want my $1,850 back."
+        },
+        {
+          "questionId": "sc-remedy-sought",
+          "questionText": "What outcome are you asking the court to order?",
+          "answer": "I want my $1,850 back.",
+          "storyQuote": "I want my $1,850 back."
+        }
+      ],
+      "ms": 4343
+    },
+    {
+      "step": "claim-kind-confirm",
+      "input": "bec74909df7fa033",
+      "said": "{\"action\":\"confirm\",\"said\":\"In May 2026 I paid Testfix Appliance Repair Ltd. $1,850 to fix my fridge. It broke again two days later and they refuse to come back. I want my $1,850 back.\",\"claimTypeId\":\"sc-claim-breach-of-contract-services\",\"prior\":[]}",
+      "output": {
+        "outcome": "confirmed",
+        "claimType": {
+          "claimTypeId": "sc-claim-breach-of-contract-services",
+          "claimTypeName": "Breach of contract — services not performed or substandard"
+        }
+      },
+      "ms": 0
+    },
+    {
+      "step": "fact-reading",
+      "input": "3fbb1aafb2435d89",
+      "said": "{\"said\":\"Q: Roughly when did the situation that led to this claim happen?\\nA: May 2026\\n\\nQ: What is the total dollar amount you are claiming?\\nA: $1,850.00\\n\\nQ: What outcome are you asking the court to order?\\nA: I want my $1,850 back.\"}",
+      "output": {
+        "facts": {
+          "role": "plaintiff"
+        },
+        "directFields": [
+          "role"
+        ]
+      },
+      "ms": 3096
+    }
+  ]
+}

@@ -16,7 +16,7 @@ import fs from "node:fs";
 import path from "node:path";
 import type { Asked } from "../../tests/browser/harness/askOnce";
 import { check9Same, counts, journeyFailures, table, type Failure, type JourneyRecord } from "../../tests/browser/matrix/matrixChecks";
-import { storyNames } from "../../src/lib/security/requestNames";
+import { bodyNameLabels } from "../../src/lib/security/requestNames";
 import { MATRIX_STORIES } from "../../tests/browser/matrix/matrixStories";
 
 const COUNTERS = "tests/browser/matrix/matrixCounters.json";
@@ -60,7 +60,7 @@ function main() {
   const result = report(records);
   const committed: Record<string, number> = fs.existsSync(COUNTERS) ? (JSON.parse(fs.readFileSync(COUNTERS, "utf8")) as { perFile: Record<string, number> }).perFile : {};
   const rose = Object.entries(result.perFile).filter(([file, n]) => n > (committed[file] ?? 0)).map(([file, n]) => `${file}: ${committed[file] ?? 0} -> ${n}`);
-  const missed = MATRIX_STORIES.flatMap((story) => story.names.filter((name) => !storyNames(story.text).some((found) => found.includes(name) || name.includes(found))).map((name) => `${story.id}: "${name}"`));
+  const missed = MATRIX_STORIES.flatMap((story) => story.names.filter((name) => !JSON.stringify(bodyNameLabels({ story: story.text })).includes(name)).map((name) => `${story.id}: "${name}"`));
   const drift = records.flatMap((r) => r.drift ?? []);
   const lines = [
     `# Journey matrix: ${records.length} journeys, ${records.length - result.notRun.length} run, ${result.failures.length} failures`,
@@ -71,7 +71,7 @@ function main() {
     "", "## Journeys that did not run", "", ...(result.notRun.length ? result.notRun.map((x) => `- ${x}`) : ["- none"]),
     "", "## Journeys that stopped before their end", "", ...(result.stopped.length ? result.stopped.map((x) => `- ${x}`) : ["- none"]),
     "", "## Counter: files whose count went up against the committed counter", "", ...(rose.length ? rose.map((x) => `- ${x}`) : ["- none"]),
-    "", "## Names the site's own finder does not pick out (the live site sends them to the AI as typed)", "", ...(missed.length ? missed.map((x) => `- ${x}`) : ["- none"]),
+    "", "## Names the site's name labels do not hide (the live site sends them to the AI as typed; the recorder refuses them, so these journeys cannot be recorded)", "", ...(missed.length ? missed.map((x) => `- ${x}`) : ["- none"]),
     ...(drift.length ? ["", "## Live AI no longer matching its recording (nightly check)", "", ...drift.map((x) => `- ${x}`)] : []),
   ];
   fs.mkdirSync(out, { recursive: true });

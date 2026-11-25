@@ -21,7 +21,7 @@ import { readFileSync } from "node:fs";
 import { STARTING_POINTS } from "../../src/lib/case-system/stage-map/stageSequence";
 import { MATRIX_STORIES } from "../../tests/browser/matrix/matrixStories";
 import { listedNamesIn, namesNeverSent } from "../../tests/browser/harness/aiFixtures";
-import { storyNames } from "../../src/lib/security/requestNames";
+import { bodyNameLabels } from "../../src/lib/security/requestNames";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -70,10 +70,10 @@ for (const story of MATRIX_STORIES) namesNeverSent(`matrix-${story.id}`, story.n
 const unrefused = MATRIX_STORIES.flatMap((story) => story.names.filter((name) => listedNamesIn(JSON.stringify({ messages: [{ role: "user", content: `Notes: ${name.toUpperCase()} said no.` }] })).length === 0).map((name) => `${story.id}: ${name}`));
 check("a request holding any story's listed name (any case) is stopped before it is sent", unrefused.length === 0, unrefused.join("; "));
 check("a request holding none of them, the names replaced by labels, is sent", listedNamesIn(JSON.stringify({ messages: [{ role: "user", content: "[Other party 1] said no to [Person 2]." }] })).length === 0);
-// The site's own name finder (security/requestNames.ts storyNames) on each story: a name it misses is sent as typed by
+// The site's own name labels (security/requestNames.ts bodyNameLabels, what every AI route applies) on each story: a name it misses is sent as typed by
 // the live site. Reported here, never failed here: the matrix report carries it, and the fix is the site's.
-const missed = MATRIX_STORIES.flatMap((story) => story.names.filter((name) => !storyNames(story.text).some((found) => found.includes(name) || name.includes(found))).map((name) => `${story.id}: "${name}"`));
-console.log(`info  names the site's own finder does not pick out (the live site would send them as typed): ${missed.length ? missed.join("; ") : "none"}`);
+const missed = MATRIX_STORIES.flatMap((story) => story.names.filter((name) => !JSON.stringify(bodyNameLabels({ story: story.text })).includes(name)).map((name) => `${story.id}: "${name}"`));
+console.log(`info  names the site's name labels do not hide (the live site would send them as typed): ${missed.length ? missed.join("; ") : "none"}`);
 
 console.log("\n7. Every story runs in exactly one shard of the matrix workflow");
 const workflow = readFileSync(".github/workflows/courtsimplified-matrix.yml", "utf8");
