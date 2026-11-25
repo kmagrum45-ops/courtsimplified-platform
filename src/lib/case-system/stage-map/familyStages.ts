@@ -474,6 +474,12 @@ const F_R17_3_1_CONFER = flr(
   "Before a conference, each party shall, subject to subrule (3.2), confer or make best efforts to confer orally or in writing with every other party respecting, (a) the parties’ requests for financial disclosure; (b) a temporary resolution of the issues that are in dispute; and (c) in the case of a settlement conference or trial management conference, a final resolution of the issues that are in dispute.",
 );
 
+// Changes 43, 44, 49, 87 (approved 2026-11-21): what the court may do if a party does not confer.
+const F_R17_3_3_FAILURE_TO_CONFER = flr(
+  "r. 17 (3.3)",
+  "If a party fails to comply with subrule (3.1), the court may, for greater certainty, make any order under subrule 1 (8.1) that is appropriate in the circumstances, including, (a) an order postponing the conference until the requirements of subrule (3.1) are met; and (b) an order for costs, regardless of whether the conference is postponed.",
+);
+
 const F_R17_3_2_NO_CONFER = flr(
   "r. 17 (3.2)",
   "Subrule (3.1) does not apply with respect to a party if, (a) the party is prohibited from such communication by court order; or (b) there is a risk of domestic violence by a party who is not represented by a licensed representative.",
@@ -620,6 +626,12 @@ const F_R38_5_START_APPEAL = flr(
 const F_R38_6_TEMPORARY = flr(
   "r. 38 (6)",
   "Subrule (5) applies to the starting of an appeal from a temporary order of the Ontario Court of Justice to the Superior Court of Justice except that the notice of appeal shall be served within seven days after the date of the temporary order.",
+);
+
+// Changes 62, 63, 64 (approved 2026-11-21): 30 days to serve a leave motion in a CYFSA case.
+const F_R38_2_6_CYFSA_LEAVE_30_DAYS = flr(
+  "r. 38 (2) para. 6",
+  "6. The time period referred to in subrule 62.02 (5) for serving the notice of motion for leave to appeal shall be 30 days.",
 );
 
 const F_R38_7_CYFSA_TEMPORARY = flr(
@@ -1132,6 +1144,12 @@ const F_R39_2_EXCLUDED = flr(
   "r. 39 (2)",
   "This rule does not apply to, (a) enforcements; (b) cases under rule 32.1, 37, 37.1 or 37.2; or (c) cases under the Child, Youth and Family Services Act, 2017.",
 );
+// Changes 68, 92 (approved 2026-11-21): rule 41 covers only Superior Court cases outside the Family Court started on or after July 1, 2004.
+const F_R41_1_SCOPE = flr(
+  "r. 41 (1)",
+  "This rule applies only to cases in the Superior Court of Justice, other than cases in the Family Court of the Superior Court of Justice, started on or after July 1, 2004.",
+);
+
 const F_R41_2_EXCLUDED = flr(
   "r. 41 (2)",
   "This rule does not apply to, (a) enforcements; or (b) cases under rule 32.1, 37, 37.1 or 37.2.",
@@ -1475,6 +1493,17 @@ const S_DIVORCE_11_1_B_CHILD_SUPPORT: RuleCitation = {
   quote:
     "(b) to satisfy itself that reasonable arrangements have been made for the support of any children of the marriage, having regard to the applicable guidelines, and, if such arrangements have not been made, to stay the granting of the divorce until such arrangements are made;",
 };
+// Change 97 (approved 2026-11-21): who proves the order beats the offer, and other offers in setting costs.
+const F_R24_13_BURDEN = flr(
+  "r. 24 (13)",
+  "The burden of proof that the order is as good as or better than the offer to settle is on the party who claims the benefit of subrule (12).",
+);
+
+const F_R24_14_OFFERS_CONSIDERED = flr(
+  "r. 24 (14) (a) (iii)",
+  "In setting the amount of costs in relation to a step in a case, the court may consider, (a) the reasonableness and proportionality of the following factors, as applicable, as they relate to the importance and complexity of the issues in the step: (i) Each party’s behaviour. (ii) The time spent by each party. (iii) Any written offers to settle, including offers that do not meet the conditions set out in subrule (12) or the requirements of rule 18.",
+);
+
 const F_R24_12_OFFER_COSTS = flr(
   "r. 24 (12)",
   "A party who makes an offer in relation to a step in a case is, unless the court orders otherwise, entitled to costs to the date the offer was served and full recovery of costs from that date to the conclusion of the step, if the following conditions are met: 1. If the offer relates to a motion, it is made at least one day before the motion date. 2. If the offer relates to a trial or the hearing of a step other than a motion, it is made at least seven days before the trial or hearing date. 3. The offer does not expire and is not withdrawn before the hearing starts. 4. The offer is not accepted. 5. The party who made the offer obtains an order that is as good as or better than the offer.",
@@ -1763,20 +1792,20 @@ const DISMISSAL_STEPS =
   "Step one: get an order giving more time. Step two: file an agreement signed by all parties and their licensed representatives, if any, for a final order on all issues. File it with a notice of motion for an order carrying it out. Step three: serve and file a notice of withdrawal (Form 12) of all outstanding claims. Step four: schedule or adjourn the case for trial. Step five: arrange a case conference or settlement conference for the first available date.";
 
 const DISMISSAL_EXCLUSIONS =
-  "These rules do not apply to an enforcement. They do not apply to cases under rules 37, 37.1 and 37.2. Those cover support across borders, provisional orders and child abduction across borders. In the Superior Court and the Family Court, they do not apply to a request to enforce a family arbitration award (rule 32.1). In the Ontario Court of Justice and the Family Court, they do not apply to a child protection case.";
+  "These rules do not apply to an enforcement. They do not apply to cases under rules 37, 37.1 and 37.2. Those cover support across borders, provisional orders and child abduction across borders. In the Superior Court and the Family Court, they do not apply to a request to enforce a family arbitration award (rule 32.1). In the Ontario Court of Justice and the Family Court, they do not apply to a child protection case. In the Superior Court of Justice outside the Family Court, these rules apply only to cases started on or after July 1, 2004.";
 
 const CONSENT_OR_COURT = "The parties can agree in writing to change this time. The court can also change it.";
 
 const CONFIRM_QUALIFIER = `The parties cannot change this time by agreement. Unless the court orders otherwise, the conference will not go ahead without it.`;
 
 const FINANCIAL_UPDATE_CONFERENCE =
-  "Your last financial statement may be more than 60 days old by the conference. If so, update it by this same day. Serve and file an affidavit saying nothing has changed, an affidavit with the changes, or a new statement.";
+  "Your last financial statement may be more than 60 days old by the conference. If so, update it by this same day. Serve and file an affidavit saying nothing has changed, an affidavit with details of the changes if they are only minor, or otherwise a new financial statement.";
 
 const LIMIT_QUALIFIER =
   "The time ends on the earliest of three dates. One is 2 years after a divorce or a nullity judgment ends the marriage. One is 6 years after the spouses separate with no reasonable prospect of living together again. One is 6 months after the first spouse dies. The court can extend the time on a motion. It must find three things. There are apparent grounds for relief. The delay was in good faith. No one will suffer substantial prejudice from it. This claim is only for married spouses. That includes a void or voidable marriage entered into in good faith.";
 
 const ANSWER_QUALIFIER_YOU =
-  "If you were served outside Canada and the United States, you have 60 days. If another party’s answer added you as a respondent, you have 14 days. That becomes 30 days if you were served outside Canada and the United States. Other times apply to an application to dispense with a parent’s consent before adoption placement. Service rules decide when your time starts. Papers left at your home with an adult, with a copy mailed, count as served on the fifth day after mailing. Papers left with you after 4 p.m. count as served the next day. If that day is one when court offices are closed, service counts on the next open day. For mail with an acknowledgment card, the rules set no separate start day. The general rule for mail is the fifth day after mailing. That service counts only once the card you signed is filed. If the application claims support, property or the matrimonial home against you, your financial statement is due in the same time. For a support claim with no property claim, serve the income papers in r. 13 (3.1) with it. If your answer claims decision-making responsibility, parenting time or contact, serve and file an affidavit in Form 35.1 with it, and the other papers rule 35.1 requires. If the application made a claim about parenting, property or support, the rules say an automatic order is served together with the application, so look for it in what you were served. Only if no automatic order has been issued in the case does the clerk issue one for a claim in your answer. Then serve it on every other party promptly, and no later than 7 days after it is issued. If you miss the time, then unless the court orders otherwise, you lose the right to notice of further steps. Any order must still be served on you. You cannot take part in the case. The court may decide the case without you. A date may be set for an uncontested trial. The court office will refuse a late answer. It will take one only if the other parties agree in writing or the court gives more time. The parties can agree in writing to change the time. The court can also give more time.";
+  "If you were served outside Canada and the United States, you have 60 days. If another party’s answer added you as a respondent, you have 14 days. That becomes 30 days if you were served outside Canada and the United States. Other times apply to an application to dispense with a parent’s consent before adoption placement. Service rules decide when your time starts. Papers left at your home with an adult, with a copy mailed, count as served on the fifth day after mailing. Papers left with you after 4 p.m. count as served the next day. If that day is one when court offices are closed, service counts on the next open day. For mail with an acknowledgment card, the rules set no separate start day. The general rule for mail is the fifth day after mailing. That service counts only once the card you signed is filed. If the application claims support, property or the matrimonial home against you, your financial statement is due in the same time. For a support claim with no property claim, serve the income papers in r. 13 (3.1) with it. If your answer claims decision-making responsibility, parenting time or contact, serve and file an affidavit in Form 35.1 with it, and the other papers rule 35.1 requires. If the application made a claim about parenting, net family property, the matrimonial home or support, the clerk usually issues an automatic order, and the rules say it must be served together with the application. Look for it in what you were served. Only if no automatic order has been issued in the case does the clerk issue one for a claim in your answer. Then serve it on every other party promptly, and no later than 7 days after it is issued. If you miss the time, then unless the court orders otherwise, you lose the right to notice of further steps. Any order must still be served on you. You cannot take part in the case. The court may decide the case without you. A date may be set for an uncontested trial. The court office will refuse a late answer. It will take one only if the other parties agree in writing or the court gives more time. The parties can agree in writing to change the time. The court can also give more time.";
 
 const ANSWER_QUALIFIER_THEY =
   "If the respondent was served outside Canada and the United States, the time is 60 days. A respondent added by another party’s answer has 14 days. That becomes 30 days if they were served outside Canada and the United States. Other times apply to an application to dispense with a parent’s consent before adoption placement. Service rules decide when the time starts. Papers left at the home with an adult, with a copy mailed, count as served on the fifth day after mailing. Papers left with the respondent after 4 p.m. count as served the next day. If that day is one when court offices are closed, service counts on the next open day. For mail with an acknowledgment card, the rules set no separate start day. The general rule for mail is the fifth day after mailing. That service counts only once the card signed by the respondent is filed. If the application claims support, property or the matrimonial home, the respondent’s financial statement is due in the same time. The parties can agree in writing to change the time. The court can also give more time.";
@@ -1897,7 +1926,8 @@ const conferenceDeadlines = (
   const CONFER =
     "Before the conference, talk or write to every other party, or make your best effort to. Discuss requests for financial disclosure and settling the issues for now" +
     (kind === "case" ? "" : ", and settling them for good") +
-    ". You do not have to if a court order forbids it. You also do not have to if there is a risk of domestic violence by a party with no licensed representative.";
+    ". You do not have to if a court order forbids it. You also do not have to if there is a risk of domestic violence by a party with no licensed representative." +
+    " If you do not confer as required, the court may make any order that is appropriate. This includes postponing the conference until you have conferred, and ordering costs whether or not the conference is postponed.";
   const extra6 =
     kind === "tmc"
       ? ` ${UPDATED_CERTIFICATE} ${CONFER}`
@@ -1906,10 +1936,10 @@ const conferenceDeadlines = (
         : ` ${FINANCIAL_UPDATE_CONFERENCE} If there is a property claim under Part I of the Family Law Act, also serve and file your net family property statement (Form 13B) by the same day. Or serve and file an affidavit that it has not changed. ${UPDATED_CERTIFICATE} ${CONFER} In a Part I property claim, bring to the conference any paper that supports your side on a disputed property value or debt amount. Also bring any financial disclosure paper whose service is disputed.`;
   const extraExceptions =
     kind === "tmc"
-      ? [F_R17_13_TMC_DOCUMENTS, F_R13_13_1_UPDATED_CERTIFICATE, F_R17_3_1_CONFER, F_R17_3_2_NO_CONFER]
+      ? [F_R17_13_TMC_DOCUMENTS, F_R13_13_1_UPDATED_CERTIFICATE, F_R17_3_1_CONFER, F_R17_3_2_NO_CONFER, F_R17_3_3_FAILURE_TO_CONFER]
       : kind === "case"
-        ? [F_R13_12_UPDATE, F_R13_12_1_WHICH_DOCUMENT, F_R13_12_2_UPDATE_TIMING, F_R13_3_2_1_BEFORE_CASE_CONFERENCE, F_R13_3_1_SUPPORT_DOCUMENTS, F_R17_3_1_CONFER, F_R17_3_2_NO_CONFER]
-        : [F_R13_12_UPDATE, F_R13_12_1_WHICH_DOCUMENT, F_R13_12_2_UPDATE_TIMING, F_R13_14_NFP_STATEMENT, F_R13_14_0_1_NFP_TIMING, F_R13_13_1_UPDATED_CERTIFICATE, F_R17_3_1_CONFER, F_R17_3_2_NO_CONFER, F_R17_14_2_BRING];
+        ? [F_R13_12_UPDATE, F_R13_12_1_WHICH_DOCUMENT, F_R13_12_2_UPDATE_TIMING, F_R13_3_2_1_BEFORE_CASE_CONFERENCE, F_R13_3_1_SUPPORT_DOCUMENTS, F_R17_3_1_CONFER, F_R17_3_2_NO_CONFER, F_R17_3_3_FAILURE_TO_CONFER]
+        : [F_R13_12_UPDATE, F_R13_12_1_WHICH_DOCUMENT, F_R13_12_2_UPDATE_TIMING, F_R13_14_NFP_STATEMENT, F_R13_14_0_1_NFP_TIMING, F_R13_13_1_UPDATED_CERTIFICATE, F_R17_3_1_CONFER, F_R17_3_2_NO_CONFER, F_R17_3_3_FAILURE_TO_CONFER, F_R17_14_2_BRING];
   const countFrom = `the date of the ${name}, counting backwards`;
   return [
     {
@@ -2167,9 +2197,9 @@ const APPLICANT: CaseStage[] = [
       {
         id: "deadline:family:serve-application-immediately",
         what:
-          "Serve the application on every other party right away, by special service. The rule sets no number of days. It says the application must be served immediately",
+          "Serve the application on every other party immediately, by special service. The rule sets no number of days. It says the application must be served immediately",
         qualifier:
-          "Someone other than you must do the special service, unless the court orders otherwise. Serve the continuing record on all other parties too. File it with proof of service. Some papers must go with the application. In a case about parenting, net family property, the matrimonial home or support, include the automatic order (Form 8.0.1). Include your financial statement if one is required. For a support claim with no property claim, also include the income papers in r. 13 (3.1) and a certificate of financial disclosure (Form 13A). The clerk will not accept a financial statement for a support claim without proof of your income. You need proof of your current income and of your income for the past three years. For a claim about decision-making responsibility, parenting time or contact, include the papers rule 35.1 requires. If you are not the child's parent and ask for decision-making responsibility, attach a police records check to Form 35.1. If you only have proof that you asked for the check, serve and file the check within 10 days after you get it. If the application is not served by its court date, the clerk must set a new date if you ask. You then serve it right away.",
+          "Someone other than you must do the special service, unless the court orders otherwise. Serve the continuing record on all other parties too. File it with proof of service. Some papers must go with the application. In a case about parenting, net family property, the matrimonial home or support, include the automatic order (Form 8.0.1). Include your financial statement if one is required. For a support claim with no property claim, also include the income papers in r. 13 (3.1) and a certificate of financial disclosure (Form 13A). The clerk will not accept a financial statement for a support claim without proof of your income. You need proof of your current income and of your income for the past three years. For a claim about decision-making responsibility, parenting time or contact, include the papers rule 35.1 requires. If you are not the child's parent and ask for decision-making responsibility, attach a police records check to Form 35.1. If you only have proof that you asked for the check, serve and file the check within 10 days after you get it. If the application is not served by its court date, the clerk must set a new date if you ask. You then serve it immediately.",
         countFrom: "the day the application was filed",
         countFromEvent: "family-case-started",
         length: { unit: "days", count: 0 },
@@ -2294,7 +2324,7 @@ const APPLICANT: CaseStage[] = [
       },
       mipDeadline(
         "deadline:family:mip-45-days:applicant-waiting",
-        `${APPLICANT_MIP_EXTRA} If you claim support and no property, the income papers in r. 13 (3.1) should have gone with your financial statement. If they did not, serve them now. In any case, serve them before the case conference.`,
+        `${APPLICANT_MIP_EXTRA} If you claim support and no property, the income papers in r. 13 (3.1) should have gone with your financial statement. You must also give them to the other party before any case conference, unless you already served them.`,
         [F_R8_1_5_MIP_APPOINTMENTS, F_R8_1_7_MIP_NO_STEPS, F_R13_3_2_WHEN_SUPPORT_DOCUMENTS, F_R13_3_2_1_BEFORE_CASE_CONFERENCE],
       ),
       propertyDisclosureDeadline(
@@ -2498,6 +2528,8 @@ const RESPONDENT: CaseStage[] = [
         consequence: "changes-what-happens-next",
         exceptions: [
           ...ANSWER_EXCEPTIONS,
+          F_R8_0_1_1_AUTO_APPLIES,
+          F_R8_0_1_3_AUTO_ISSUED,
           F_R8_0_1_5_AUTO_SERVICE,
           F_R8_0_1_4_AUTO_EXCEPTIONS,
           F_R35_1_1_AFFIDAVIT,
@@ -2604,7 +2636,7 @@ const RESPONDENT: CaseStage[] = [
       {
         id: "deadline:family:automatic-order-from-answer-7-days",
         what:
-          "If your answer made its own claim about parenting, property or support and the clerk gave you an automatic order, serve it on every other party",
+          "If your answer made its own claim about parenting, net family property, the matrimonial home or support and the clerk gave you an automatic order, serve it on every other party",
         qualifier:
           "Serve it promptly after the clerk gives it to you.",
         countFrom: "the day the automatic order was issued",
@@ -2614,7 +2646,7 @@ const RESPONDENT: CaseStage[] = [
         rule: F_R8_0_1_5_AUTO_SERVICE,
         computation: C.F_R3_1_COUNTING,
         consequence: "changes-what-happens-next",
-        exceptions: [F_R8_0_1_2_WHEN_MADE, F_R8_0_1_4_AUTO_EXCEPTIONS, C.F_R3_3_CLOSED],
+        exceptions: [F_R8_0_1_1_AUTO_APPLIES, F_R8_0_1_2_WHEN_MADE, F_R8_0_1_4_AUTO_EXCEPTIONS, C.F_R3_3_CLOSED],
       },
       mipDeadline("deadline:family:mip-45-days:answer-filed", RESPONDENT_MIP_EXTRA, [F_R8_1_5_MIP_APPOINTMENTS, F_R8_1_7_MIP_NO_STEPS]),
       propertyDisclosureDeadline(
@@ -2930,7 +2962,7 @@ const BOTH: CaseStage[] = [
         rule: F_R40_6_DISMISSAL,
         computation: C.F_R3_1_COUNTING,
         consequence: "changes-what-happens-next",
-        exceptions: [F_R40_5_2_MISSED, F_R39_11_2_MISSED, F_R41_5_2_MISSED, F_R39_12_DISMISSAL, F_R41_6_DISMISSAL, F_R40_6_1_SECOND_MISS, F_R40_9_SET_ASIDE, F_R39_2_EXCLUDED, F_R40_2_EXCLUDED, F_R41_2_EXCLUDED],
+        exceptions: [F_R40_5_2_MISSED, F_R39_11_2_MISSED, F_R41_5_2_MISSED, F_R39_12_DISMISSAL, F_R41_6_DISMISSAL, F_R40_6_1_SECOND_MISS, F_R40_9_SET_ASIDE, F_R39_2_EXCLUDED, F_R40_2_EXCLUDED, F_R41_2_EXCLUDED, F_R41_1_SCOPE],
       },
     ],
     requiresAffirmativeScope: true,
@@ -3037,7 +3069,7 @@ const BOTH: CaseStage[] = [
         countFromEvent: "motion-hearing-date",
         length: { unit: "days", count: 6 },
         direction: "before",
-        qualifier: `In most cases, you cannot serve a motion or have it heard until a conference on the main issues is done. The court can allow it sooner for urgency, hardship or another reason in the interest of justice. The wait does not apply to the motions the rule lists. Examples are motions without notice, on consent, unopposed or procedural (Form 14B). It also does not apply to a motion for summary judgment, or to change an order for fraud, mistake or lack of notice. Before the motion, talk or write to every other party about the issues, or make your best effort to. You do not have to if a court order forbids it. You also do not have to if there is a risk of domestic violence by a party with no licensed representative. Where the information program applies, you cannot bring a motion until your certificate is filed. The court can order otherwise, for example for urgency or hardship. Your last financial statement may be more than 30 days old when the motion is heard. If so, update it by this same day with an affidavit or a new statement. If the motion claims support, property or exclusive possession of the matrimonial home, serve and file a financial statement with it. Do the same if it asks to change temporary support. For a motion without notice, file the papers on or before the motion date. If the court then makes an order, serve it right away on every party affected. Serve all the motion papers with it, unless the court orders otherwise. The order sets a return date within 14 days, or on a date the court chooses. ${CONSENT_OR_COURT}`,
+        qualifier: `In most cases, you cannot serve a motion or have it heard until a conference on the main issues is done. The court can allow it sooner for urgency, hardship or another reason in the interest of justice. The wait does not apply to the motions the rule lists. Examples are motions without notice, on consent, unopposed or procedural (Form 14B). It also does not apply to a motion for summary judgment, or to change a temporary order for fraud, mistake or lack of notice. Before the motion, talk or write to every other party about the issues, or make your best effort to. You do not have to if a court order forbids it. You also do not have to if there is a risk of domestic violence by a party with no licensed representative. Where the information program applies, you cannot bring a motion until your certificate is filed. The court can order otherwise, for example for urgency or hardship. Your last financial statement may be more than 30 days old when the motion is heard. If so, update it by this same day with an affidavit if nothing has changed or the changes are only minor, or otherwise a new financial statement. If the motion claims support, property or exclusive possession of the matrimonial home, serve and file a financial statement with it. Do the same if it asks to change temporary support. For a motion without notice, file the papers on or before the motion date. If the court then makes an order, serve it immediately on every party affected. Serve all the motion papers with it, unless the court orders otherwise. The order sets a return date within 14 days, or on a date the court chooses. ${CONSENT_OR_COURT}`,
         regime: "family-rules",
         rule: F_R14_11_SERVE_FILE,
         computation: C.F_R3_2_SHORT,
@@ -3064,7 +3096,7 @@ const BOTH: CaseStage[] = [
       },
       {
         id: "deadline:family:motion-file-4-days",
-        what: "File your motion papers. File them as soon as you can after you serve them",
+        what: "File your motion papers. File them as soon as possible after you serve them",
         countFrom: "the date the motion will be heard, counting backwards",
         countFromEvent: "motion-hearing-date",
         length: { unit: "days", count: 4 },
@@ -3136,7 +3168,7 @@ const BOTH: CaseStage[] = [
         countFromEvent: "motion-hearing-date",
         length: { unit: "days", count: 4 },
         direction: "before",
-        qualifier: `Your last financial statement may be more than 30 days old when the motion is heard. If so, update it by this same day with an affidavit or a new statement. The motion may claim support, property or exclusive possession of the matrimonial home against you. If so, serve and file your financial statement by this same day, even if you do not respond. If the motion asks to change temporary support, see the rule below as well. Meet whichever time is earlier. ${CONSENT_OR_COURT}`,
+        qualifier: `Your last financial statement may be more than 30 days old when the motion is heard. If so, update it by this same day with an affidavit if nothing has changed or the changes are only minor, or otherwise a new financial statement. The motion may claim support, property or exclusive possession of the matrimonial home against you. If so, serve and file your financial statement by this same day, even if you do not respond. If the motion asks to change temporary support, see the rule below as well. Meet whichever time is earlier. ${CONSENT_OR_COURT}`,
         regime: "family-rules",
         rule: F_R14_11_3_RESPONSE,
         computation: C.F_R3_2_SHORT,
@@ -3208,7 +3240,7 @@ const BOTH: CaseStage[] = [
         what: "The order must send the matter back to court",
         actor: "court",
         qualifier:
-          "The court can choose another date instead. The matter goes back to the same judge if possible. The order sets the return date. Unless the court orders otherwise, the other party must serve you right away. They must serve the order and all the papers used on the motion. You can also bring a motion to change the order because it was made without notice. That motion does not have to wait for a conference.",
+          "The court can choose another date instead. The matter goes back to the same judge if possible. The order sets the return date. Unless the court orders otherwise, the other party must serve you immediately. They must serve the order and all the papers used on the motion. You can also bring a motion to change the order because it was made without notice. If the order is a temporary order, that motion does not have to wait for a conference.",
         countFrom: "the day the order was made",
         countFromEvent: "order-made",
         length: { unit: "days", count: 14 },
@@ -3344,7 +3376,7 @@ const BOTH: CaseStage[] = [
       {
         id: "deadline:family:automatic-order-from-motion-to-change-7-days",
         what:
-          "If your motion to change makes a claim about parenting, property or support and the clerk gave you an automatic order, serve it on every other party",
+          "If your motion to change makes a claim about parenting, net family property, the matrimonial home or support and the clerk gave you an automatic order, serve it on every other party",
         qualifier:
           "Serve it promptly after the clerk gives it to you.",
         countFrom: "the day the automatic order was issued",
@@ -3354,7 +3386,7 @@ const BOTH: CaseStage[] = [
         rule: F_R8_0_1_5_AUTO_SERVICE,
         computation: C.F_R3_1_COUNTING,
         consequence: "changes-what-happens-next",
-        exceptions: [F_R8_0_1_2_WHEN_MADE, F_R8_0_1_4_AUTO_EXCEPTIONS, C.F_R3_3_CLOSED],
+        exceptions: [F_R8_0_1_1_AUTO_APPLIES, F_R8_0_1_2_WHEN_MADE, F_R8_0_1_4_AUTO_EXCEPTIONS, C.F_R3_3_CLOSED],
       },
       mipDeadline(
         "deadline:family:mip-45-days:motion-to-change",
@@ -3408,7 +3440,7 @@ const BOTH: CaseStage[] = [
         what:
           "If you do not agree, or want the court to make an added or different change, serve and file a response (Form 15B). If you agree, return a signed consent motion to change (Form 15C) to the party making the motion. Give a copy to any assignee",
         qualifier:
-          "It is 60 days if you do not live in Canada or the United States. The motion may ask to change support, or your response may ask for a support change. If so, your financial statement is due in the same time. Serve the papers the rule lists with it. Examples are the income papers in r. 13 (3.1) and a current schedule of arrears from the Family Responsibility Office. Add a certificate of financial disclosure (Form 13A). Your response may ask for its own change to parenting, property or support. If the clerk then issues an automatic order, serve it promptly, and no later than 7 days after it is issued. Where the information program applies, your certificate must be filed before you serve the response. This is explained below. The parties can agree in writing to change the time. The court can also give more time.",
+          "It is 60 days if you do not live in Canada or the United States. The motion may ask to change support, or your response may ask for a support change. If so, your financial statement is due in the same time. Serve the papers the rule lists with it. Examples are the income papers in r. 13 (3.1) and a current schedule of arrears from the Family Responsibility Office. Add a certificate of financial disclosure (Form 13A). Your response may ask for its own change to parenting, net family property, the matrimonial home or support. If the clerk then issues an automatic order, serve it promptly, and no later than 7 days after it is issued. Where the information program applies, your certificate must be filed before you serve the response. This is explained below. The parties can agree in writing to change the time. The court can also give more time.",
         countFrom: "the day you receive the motion to change and its supporting documents",
         countFromEvent: "served-with-motion-to-change",
         length: { unit: "days", count: 30 },
@@ -3422,6 +3454,7 @@ const BOTH: CaseStage[] = [
           F_R13_4_3_RESPONSE_ASKS_SUPPORT,
           F_R13_5_0_1_CHANGE_SUPPORT_DOCUMENTS,
           F_R13_5_0_2_CERTIFICATE,
+          F_R8_0_1_1_AUTO_APPLIES,
           F_R8_0_1_5_AUTO_SERVICE,
           F_R8_1_7_MIP_NO_STEPS,
           F_R3_6_CONSENT,
@@ -3584,7 +3617,7 @@ const BOTH: CaseStage[] = [
         length: { unit: "days", count: 30 },
         direction: "before",
         qualifier:
-          "In a child protection case it is 14 days. The parties cannot change this time by agreement. It can be extended only by an order made at the settlement conference. The trial judge or the judge managing the case can order otherwise.",
+          "In a child protection case it is 14 days. The parties cannot change this time by agreement. It can be extended only by an order made at the settlement conference, together with an order about costs. The trial judge or the judge managing the case can order otherwise.",
         regime: "family-rules",
         rule: F_R20_2_4_SUPPLEMENTARY,
         computation: C.F_R3_1_COUNTING,
@@ -3673,7 +3706,7 @@ const BOTH: CaseStage[] = [
         countFromEvent: "order-made",
         length: { unit: "days", count: 7 },
         qualifier:
-          "File it within 10 days after serving it. If you do not, the appeal is treated as withdrawn unless the court orders otherwise. In a child protection case, the time to serve is 30 days. A temporary order made by a judge of the Superior Court of Justice is different. An appeal to the Divisional Court then needs leave. Under the civil rules, serve a notice of motion for leave to appeal (Form 61A) within 15 days after the order. File it with proof of service within 5 days after serving it. The court can give more time.",
+          "File it within 10 days after serving it. If you do not, the appeal is treated as withdrawn unless the court orders otherwise. In a child protection case, the time to serve is 30 days. A temporary order made by a judge of the Superior Court of Justice is different. An appeal to the Divisional Court then needs leave. Under the civil rules, serve a notice of motion for leave to appeal (Form 61A) within 15 days after the order, or 30 days in a case under the Child, Youth and Family Services Act, 2017. File it with proof of service within 5 days after serving it. The court can give more time.",
         regime: "family-rules",
         rule: F_R38_6_TEMPORARY,
         computation: C.F_R3_1_COUNTING,
@@ -3687,6 +3720,7 @@ const BOTH: CaseStage[] = [
           R_RCP_62_02_1_LEAVE_NEEDED,
           R_RCP_62_02_3_LEAVE_NOTICE,
           R_RCP_61_03_1_3_LEAVE_TIMES,
+          F_R38_2_6_CYFSA_LEAVE_30_DAYS,
           F_R3_5_COURT_CHANGES_TIME,
         ],
       },
@@ -3765,7 +3799,7 @@ const BOTH: CaseStage[] = [
         countFromEvent: "order-made",
         length: { unit: "days", count: 30 },
         qualifier:
-          "File the notice within 10 days after serving it. If you do not, the appeal is treated as withdrawn unless the court orders otherwise. A final order of the Superior Court of Justice or its Family Court is different. The appeal goes to the Divisional Court or the Court of Appeal, depending on the order. Serve the notice of appeal within 30 days after the order. Serve the appellant's certificate respecting evidence (Form 61C) with it. File the notice within 10 days after serving it. Some appeals need leave of the court the appeal goes to. That includes an appeal from an order made on consent, and an appeal only about costs. For a Superior Court order going to the Divisional Court, serve a notice of motion for leave within 15 days after the order. File it within 5 days after serving it. An order under the Divorce Act cannot be appealed more than 30 days after it was made. The appeal court can extend that time on special grounds. A divorce itself cannot be appealed once it takes effect. That is usually the 31st day after the judgment. On an appeal to the Superior Court of Justice, serving the notice does not stop a support order from being enforced. The court can give more time.",
+          "File the notice within 10 days after serving it. If you do not, the appeal is treated as withdrawn unless the court orders otherwise. A final order of the Superior Court of Justice or its Family Court is different. The appeal goes to the Divisional Court or the Court of Appeal, depending on the order. Serve the notice of appeal within 30 days after the order. Serve the appellant's certificate respecting evidence (Form 61C) with it. File the notice within 10 days after serving it. Some appeals need leave of the court the appeal goes to. That includes an appeal from an order made on consent, and an appeal only about costs. If leave is needed, serve the notice of motion for leave within 15 days after the order, unless a statute provides otherwise. This applies whether the appeal goes to the Divisional Court or the Court of Appeal. File it within 5 days after serving it. In a case under the Child, Youth and Family Services Act, 2017, the time to serve a notice of motion for leave to the Divisional Court is 30 days instead. An order under the Divorce Act cannot be appealed more than 30 days after it was made. The appeal court can extend that time on special grounds. A divorce itself cannot be appealed once it takes effect. That is usually the 31st day after the judgment. On an appeal to the Superior Court of Justice, serving the notice does not stop a support order from being enforced. The court can give more time.",
         regime: "family-rules",
         rule: F_R38_5_START_APPEAL,
         computation: C.F_R3_1_COUNTING,
@@ -3781,6 +3815,7 @@ const BOTH: CaseStage[] = [
           R_RCP_62_02_1_LEAVE_NEEDED,
           R_RCP_62_02_3_LEAVE_NOTICE,
           R_RCP_61_03_1_3_LEAVE_TIMES,
+          F_R38_2_6_CYFSA_LEAVE_30_DAYS,
           S_CJA_19_1_DIVISIONAL,
           S_CJA_6_1_B_COURT_OF_APPEAL,
           S_DIVORCE_21_3_THIRTY_DAYS,
@@ -3945,6 +3980,7 @@ const BOTH: CaseStage[] = [
           F_R39_2_EXCLUDED,
           F_R40_2_EXCLUDED,
           F_R41_2_EXCLUDED,
+          F_R41_1_SCOPE,
           F_R6_7_MAIL,
           F_R6_11_EMAIL,
         ],
@@ -4088,7 +4124,8 @@ const BOTH: CaseStage[] = [
         id: "deadline:family:summary-judgment-response-4-days",
         what:
           "Serve and file your response. Include an affidavit or other evidence with specific facts showing there is a genuine issue for trial",
-        qualifier: `You cannot rely only on allegations or denials. If your evidence does not come from someone who knows the facts personally, the court may draw conclusions against you. If there is no genuine issue that needs a trial, the court makes a final order. Your last financial statement may be more than 30 days old when the motion is heard. If so, update it by this same day with an affidavit or a new statement. ${CONSENT_OR_COURT}`,
+        beforeLead: "If the motion was made with a notice of motion (Form 14), do this",
+        qualifier: `If it was made with a motion form (Form 14B), do it within 7 days after it was served on you. You cannot rely only on allegations or denials. If your evidence does not come from someone who knows the facts personally, the court may draw conclusions against you. If there is no genuine issue that needs a trial, the court makes a final order. Your last financial statement may be more than 30 days old when the motion is heard. If so, update it by this same day with an affidavit if nothing has changed or the changes are only minor, or otherwise a new financial statement. ${CONSENT_OR_COURT}`,
         countFrom: "the date the motion will be heard, counting backwards",
         countFromEvent: "motion-hearing-date",
         length: { unit: "days", count: 4 },
@@ -4102,6 +4139,8 @@ const BOTH: CaseStage[] = [
           F_R16_4_1_RESPONDING_EVIDENCE,
           F_R16_5_PERSONAL_KNOWLEDGE,
           F_R16_6_NO_GENUINE_ISSUE,
+          F_R14_11_3_RESPONSE,
+          F_R14_11_4_RESPONSE_FORM_14B,
           F_R13_12_UPDATE,
           F_R13_12_1_WHICH_DOCUMENT,
           F_R13_12_2_UPDATE_TIMING,
@@ -4120,7 +4159,7 @@ const BOTH: CaseStage[] = [
     userQuestion: "We both want the divorce, or my spouse is not contesting it — how does a divorce go through on paper?",
     title: "Uncontested or joint divorce",
     description:
-      "A divorce is going ahead without a contest: either the spouses filed a joint application, or one spouse applied and the other filed no answer or withdrew it. The divorce is dealt with on affidavit evidence and a draft order. Where the divorce is based on separation, the spouses must have lived separate and apart for at least one year before the divorce is decided, and been living apart when the case started; the Act also allows a divorce for adultery or cruelty. The court must be satisfied that reasonable arrangements have been made for the support of any children of the marriage, or it holds back the divorce until they are. Once the divorce takes effect, either party can ask the clerk for a divorce certificate (Form 36B).",
+      "A divorce is going ahead without a contest: either the spouses filed a joint application, or one spouse applied and the other filed no answer or withdrew it. The divorce is dealt with on affidavit evidence and a draft order. Where the divorce is based on separation, the spouses must have lived separate and apart for at least one year before the divorce is decided, and been living apart when the case started; the Act also allows a divorce for adultery or cruelty. The court must be satisfied that reasonable arrangements have been made for the support of any children of the marriage, or it must stay (pause) the granting of the divorce until they are. Once the divorce takes effect, either party can ask the clerk for a divorce certificate (Form 36B).",
     cues: [
       "joint divorce",
       "uncontested divorce",
@@ -4280,7 +4319,7 @@ const BOTH: CaseStage[] = [
         what:
           "To accept an offer, serve an acceptance on the party who made it. Do it before the offer is withdrawn or ends, and before the court starts to give a decision on the claim it covers",
         qualifier:
-          "An offer not accepted within the time it sets is treated as withdrawn. The party who made it can withdraw it at any time before it is accepted, by serving a notice of withdrawal. It can still be accepted after it was rejected, or after a counter-offer. The party making it must sign it personally. Their licensed representative, if they have one, must sign it too. Making, withdrawing, accepting or rejecting an offer can affect costs. The costs rule in r. 24 (12) has conditions. An offer about a motion must be made at least 1 day before the motion date. An offer about a trial or other hearing must be made at least 7 days before it. The offer must not end or be withdrawn before the hearing starts. It must not be accepted. The party who made it must get an order as good as or better than the offer.",
+          "An offer not accepted within the time it sets is treated as withdrawn. The party who made it can withdraw it at any time before it is accepted, by serving a notice of withdrawal. It can still be accepted after it was rejected, or after a counter-offer. The party making it must sign it personally. Their licensed representative, if they have one, must sign it too. Making, withdrawing, accepting or rejecting an offer can affect costs. The costs rule in r. 24 (12) has conditions. An offer about a motion must be made at least 1 day before the motion date. An offer about a trial or other hearing must be made at least 7 days before it. The offer must not end or be withdrawn before the hearing starts. It must not be accepted. The party who made it must get an order as good as or better than the offer. If all of these conditions are met, the party who made the offer is entitled, unless the court orders otherwise, to costs up to the date the offer was served and full recovery of costs from that date to the end of that step. That party must prove the order is as good as or better than the offer. Even an offer that does not meet these conditions may still be considered when the court sets the amount of costs.",
         countFrom: "the day the offer was served",
         countFromEvent: "offer-served",
         length: { unit: "days", count: 0 },
@@ -4288,7 +4327,7 @@ const BOTH: CaseStage[] = [
         rule: F_R18_3_TO_10_OFFERS,
         computation: C.F_R3_1_COUNTING,
         consequence: "changes-what-happens-next",
-        exceptions: [F_R18_4_SIGNATURES, F_R18_12_1_COSTS, F_R24_12_OFFER_COSTS],
+        exceptions: [F_R18_4_SIGNATURES, F_R18_12_1_COSTS, F_R24_12_OFFER_COSTS, F_R24_13_BURDEN, F_R24_14_OFFERS_CONSIDERED],
       },
     ],
     requiresAffirmativeScope: true,
@@ -4325,7 +4364,7 @@ const BOTH: CaseStage[] = [
         what:
           "If you want to amend your answer without the court's permission, serve and file an amended answer",
         qualifier:
-          "In a child protection case, if something significant about the child has changed, the time is 30 days. It is 60 days if you were served outside Canada and the United States. After the time runs out, you need the court's permission on a motion to amend your answer. Your amended answer may add a claim about decision-making responsibility, parenting time or contact that was not in your first answer. If so, include the papers rule 35.1 requires. The amendment may add a claim for support or property against you. If so, your financial statement is due in the time for answering it. The parties can agree in writing to change this time. The court can also change it.",
+          "In a child protection case, if something significant about the child has changed, the time is 30 days. It is 60 days if you were served outside Canada and the United States. After the time runs out, you need the court's permission on a motion to amend your answer, unless the parties agree in writing to a later time. Your amended answer may add a claim about decision-making responsibility, parenting time or contact that was not in your first answer. If so, include the papers rule 35.1 requires. The amendment may add a claim for support, a property claim, or a claim for exclusive possession of the matrimonial home against you. If so, your financial statement is due in the time for answering it. The parties can agree in writing to change this time. The court can also change it.",
         countFrom: "the day you were served with the amended application",
         countFromEvent: "served-with-amended-application",
         length: { unit: "days", count: 14 },
@@ -4380,7 +4419,7 @@ const BOTH: CaseStage[] = [
         what:
           "Serve your respondent's factum on the appellant and anyone else entitled to be heard, and file it. Do the same with a respondent's appeal record if one is needed",
         qualifier:
-          "The appellant decides whether a transcript is needed after talking with you. You may also want to appeal the same order. If so, the same rule applies, and the two appeals are heard together. Your own notice of appeal must be served within 30 days after the date of the order. For a temporary order, it is 7 days. Count from the order, not from when you were served. Serving a notice of appeal does not stop a support order from being enforced. It does hold back other payment orders until the appeal is decided. The appellant may miss a step. It may not file proof that a needed transcript was ordered within 30 days after filing the notice. Or it may not serve and file the appeal record and factum on time. You can then file a motion form (Form 14B) to have the appeal dismissed for delay. Other times apply in a child protection case. The parties can agree in writing to change this time. The court can also change it.",
+          "The appellant decides whether a transcript is needed after talking with you. You may also want to appeal the same order. If so, the same rule applies, and the two appeals are heard together. Your own notice of appeal must be served within 30 days after the date of the order. For a temporary order, it is 7 days. Count from the order, not from when you were served. Serving a notice of appeal does not stop a support order from being enforced. It does stay (pause) other payment orders until the appeal is decided. The appellant may miss a step. It may not file proof that a needed transcript was ordered within 30 days after filing the notice. Or it may not serve and file the appeal record and factum on time. You can then file a motion form (Form 14B) to have the appeal dismissed for delay. Other times apply in a child protection case. The parties can agree in writing to change this time. The court can also change it.",
         countFrom: "the day the appellant's appeal record and factum were served",
         countFromEvent: "appellant-record-served",
         length: { unit: "days", count: 60 },
@@ -4458,7 +4497,7 @@ const BOTH: CaseStage[] = [
         what:
           "To stop the suspension, do one of three things. Make an arrangement the Director accepts for paying the support and the arrears. Or get a court order to refrain and file it in the Director's office. Or pay all the arrears",
         qualifier:
-          "For a court order to refrain, these 30 days cannot be extended. A court cannot make an order to refrain after the 30 days. It can make only one for each first notice. If the 30th day is a day court offices are closed, the time for the order does NOT move to the next open day. The order to refrain must be made by the last day court offices are open BEFORE the 30th day. To ask for an order to refrain, bring a motion to change the support order. Also bring a motion for the order to refrain, on notice to the Director. Bring both in the court that can change the support order. You can ask for the order to refrain before you bring the motion to change. To do that, you or your lawyer must give an undertaking (a formal promise) to get a court date for the motion to change. That date must be got within 20 days after the order. You do not need a motion to change if you have appealed the support order and the appeal is not decided. Serve and file a financial statement and proof of income with the notice of motion. If you cannot file proof of income before the motion is heard, the court can still make the order. You or your lawyer must then undertake to serve and file it within 20 days. This motion does not have to wait for a case conference. A motion must normally be served at least 6 days before it is heard, not counting weekends. The order must be made within the 30 days. So start right away.",
+          "For a court order to refrain, these 30 days cannot be extended. A court cannot make an order to refrain after the 30 days. It can make only one for each first notice. If the 30th day is a day court offices are closed, the time for the order does NOT move to the next open day. The order to refrain must be made by the last day court offices are open BEFORE the 30th day. To ask for an order to refrain, bring a motion to change the support order. Also bring a motion for the order to refrain, on notice to the Director. Bring both in the court that can change the support order. You can ask for the order to refrain before you bring the motion to change. To do that, you or your lawyer must give an undertaking (a formal promise) to get a court date for the motion to change. That date must be got within 20 days after the order. You do not need a motion to change if you have appealed the support order and the appeal is not decided. Serve and file a financial statement and proof of income with the notice of motion. If you cannot file proof of income before the motion is heard, the court can still make the order. You or your lawyer must then undertake to serve and file it within 20 days. This motion does not have to wait for a case conference. A motion must normally be served at least 6 days before it is heard, not counting Saturdays, Sundays and other days when all court offices are closed. The order must be made within the 30 days. So start right away.",
         countFrom: "the day the first notice was served",
         countFromEvent: "licence-suspension-first-notice-served",
         length: { unit: "days", count: 30 },

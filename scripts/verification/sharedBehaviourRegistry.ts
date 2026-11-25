@@ -49,6 +49,8 @@ export const BEHAVIOURS: Behaviour[] = [
       { file: "app/builder/_components/childSupportPrefill.ts", contains: "\\b(?:lives?|living|stays?|staying|resides?|residing)\\b[^.!?]{0,40}\\bwith\\b", why: "a 40-character window between \"lives\" and \"with\"; matches, never quotes or cuts text" },
       { file: "app/builder/_components/storyAnswers.ts", contains: "const ONLY_WHEN = ", why: "ONLY_WHEN: tells a phrase that is only a time apart from a fact; a match window, not a sentence end" },
       { file: "src/lib/case-workspace/fileValidation.ts", contains: "name.lastIndexOf(\".\")", why: "a file name's extension, not a sentence" },
+      { file: "src/lib/case-system/parties/parties.ts", contains: "const COMPANY = ", why: "COMPANY: whether a party's name is a company's (\"Ltd.\", \"Inc.\"); reads a name, never a sentence end (the story is split by sentences.ts)" },
+      { file: "src/lib/case-system/parties/parties.ts", contains: "const chunk = rawChunk.replace(", why: "keeps the full stop of a company's \"Ltd.\" or \"Inc.\" at the end of a name read from the story; never a sentence end" },
     ],
   },
   {
@@ -67,6 +69,7 @@ export const BEHAVIOURS: Behaviour[] = [
       { pattern: /timeZone:\s*"America\/Toronto"/, means: "today in Ontario worked out again; use todayInOntario" },
     ],
     allowed: [
+      { file: "src/lib/case-system/intake/dangerWords.ts", contains: "const PRESENT = ", why: "PRESENT: whether a sentence speaks of now (\"still\", \"last week\") for the emergency notice; reads tense, never a date" },
       { file: "app/builder/_components/storyAnswers.ts", contains: "^(?:(?:yesterday|today|tonight|tomorrow|last|next|this|in|on|then|now|so", why: "LEAD_WORDS: words stripped from the front of a name (\"Yesterday Sam\"); reads names, not dates, and takes its month and weekday names from dates.ts" },
       { file: "app/builder/_components/storyAnswers.ts", contains: "const ONLY_WHEN = ", why: "ONLY_WHEN: tells a phrase that is only a time apart from a fact; reads which words are a fact, not a date" },
       { file: "src/lib/canlii/canliiServer.ts", contains: "Date.parse(data.fetched_at)", why: "a timestamp this site stored, not anything a person wrote" },

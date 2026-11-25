@@ -41,7 +41,16 @@ import {
 } from "../../src/lib/case-system/situation/situation";
 import { caseStageWords, caseStepFor } from "../../src/lib/case-system/caseStep";
 import { caseFactsText, readCaseRecord } from "../../src/lib/case-system/caseRecord";
-import { alreadyAsked, caseFileOf, conferenceKind, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, conferenceKind, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+// The one asker (caseFile/heldAnswer.ts, 23 Nov 2026): caseFile.ts's alreadyAsked, nextQuestion, askable, notAsked and
+// chatQuestionToAsk were deleted with it; the checks below read the same decisions under their old names, unchanged.
+import { chatQuestionFor as chatQuestionToAsk, isHeld as alreadyAsked, missingQuestions } from "../../src/lib/case-system/caseFile/heldAnswer";
+import { slotStatus as statusOfSlot } from "../../src/lib/case-system/caseFile/factStatus";
+const notAsked = (slot: Parameters<typeof statusOfSlot>[0]) => ["ask", "offer"].includes(statusOfSlot(slot));
+const nextQuestion = (file: Parameters<typeof missingQuestions>[0], candidates: readonly string[], options: { surface?: string } = {}) => missingQuestions(file, candidates, options.surface)[0] ?? null;
+const askable = (file: Parameters<typeof missingQuestions>[0], candidates: readonly string[], surface?: string) => missingQuestions(file, candidates, surface);
+void chatQuestionToAsk; void alreadyAsked; void notAsked; void nextQuestion; void askable;
+
 import { stageRecordedFromAnswers } from "../../app/builder/_components/stageFromAnswers";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
@@ -177,7 +186,9 @@ const whatNext = fs.readFileSync(path.join(ROOT, "app/_components/WhatComesNext.
 check("\"What can happen next\" shows a link-only step's rules without their words", /linkOnly=\{Boolean\(findStage\(stepId\)\?\.rulesLinkOnly\)\}/.test(whatNext));
 check("civil case management: its next steps are on the map, or said to be not covered yet", STAGE_MOVES.some((move) => move.from === "civil:both:case-management") || FINAL_STEPS.some((entry) => entry.stage === "civil:both:case-management" && /not covered yet/.test(entry.why)));
 const brief = findStage("civil:both:pretrial-scheduled")?.deadlines.find((deadline) => deadline.id === "deadline:civil:pretrial-brief-5-days");
-check("civil pre-trial brief: no form named for it; check the notice or order", Boolean(brief) && !/brief[^.]*\(Form \d/i.test(brief!.what) && /check the notice of the pre-trial conference or the court's order/.test(brief!.qualifier ?? ""));
+// No form is named for the brief: r. 50.04 names none. The "check the notice or the court's order" sentence was deleted
+// by approved change 38 (2026-11-21), because the rule says nothing about a form or where to find one.
+check("civil pre-trial brief: no form named for it, and no unsupported pointer to one", Boolean(brief) && !/brief[^.]*\(Form \d/i.test(brief!.what) && !/\(Form \d/i.test(brief!.qualifier?.match(/[^.]*\bbrief\b[^.]*\./g)?.join(" ") ?? "") && !/check the notice of the pre-trial conference or the court's order/.test(brief!.qualifier ?? ""));
 const scTmc = findStage("both:trial-management-conference");
 check("Small Claims trial management conference: a step, and any deadline it gets carries its rule", Boolean(scTmc) && scTmc!.deadlines.every((deadline) => Boolean(deadline.rule?.quote)));
 

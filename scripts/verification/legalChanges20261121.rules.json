@@ -1,0 +1,627 @@
+[
+  {
+    "changes": [
+      103
+    ],
+    "stage": "both:bringing-a-motion",
+    "rules": [
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 15.01 (2)",
+        "quote": "The moving party shall obtain a hearing date from the clerk before serving the notice of motion and supporting affidavit under subrule (3)."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 15.01 (6)",
+        "quote": "A motion that is made after judgment has been signed shall be served on all parties, including those who have been noted in default."
+      }
+    ]
+  },
+  {
+    "changes": [
+      104
+    ],
+    "stage": "both:responding-to-a-motion",
+    "rules": [
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 15.01 (5)",
+        "quote": "The moving party may serve a supplementary affidavit on every party who has filed a claim or defence and file it, with proof of service, at least two days before the hearing date."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 15.05",
+        "quote": "A motion shall not be adjourned at a party's request before the hearing date unless the written consent of all parties is filed when the request is made, unless the court orders otherwise."
+      }
+    ]
+  },
+  {
+    "changes": [
+      105
+    ],
+    "stage": "defendant:admitted-and-proposed-terms",
+    "rules": [
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 9.03 (2)",
+        "quote": "If the plaintiff does not dispute the proposal within the 20-day period referred to in subrule (3), (a) the defendant shall make payment in accordance with the proposal as if it were a court order; (b) the plaintiff may serve a notice of default of payment (Form 20L) on the defendant if the defendant fails to make payment in accordance with the proposal; and (c) the clerk shall sign judgment for the unpaid balance of the undisputed amount on the filing of an affidavit of default of payment (Form 20M) by the plaintiff swearing, (i) that the defendant failed to make payment in accordance with the proposal, (ii) to the amount paid by the defendant and the unpaid balance, and (iii) that 15 days have passed since the defendant was served with a notice of default of payment."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 9.03 (6)",
+        "quote": "If the defendant does not appear at the hearing, the clerk may sign default judgment against the defendant for the part of the claim that has been admitted and shall serve a default judgment (Form 11B) on the defendant in accordance with subrule 8.01 (4)."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 9.03 (7)",
+        "quote": "Unless the referee or other person specifies otherwise in the order as to terms of payment, if the defendant fails to make payment in accordance with the order, the clerk shall sign judgment for the unpaid balance on the filing of an affidavit by the plaintiff swearing to the default and stating the amount paid and the unpaid balance."
+      }
+    ]
+  },
+  {
+    "changes": [
+      106
+    ],
+    "stage": "plaintiff:defendant-proposed-terms",
+    "rules": [
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 9.03 (2)",
+        "quote": "If the plaintiff does not dispute the proposal within the 20-day period referred to in subrule (3), (a) the defendant shall make payment in accordance with the proposal as if it were a court order; (b) the plaintiff may serve a notice of default of payment (Form 20L) on the defendant if the defendant fails to make payment in accordance with the proposal; and (c) the clerk shall sign judgment for the unpaid balance of the undisputed amount on the filing of an affidavit of default of payment (Form 20M) by the plaintiff swearing, (i) that the defendant failed to make payment in accordance with the proposal, (ii) to the amount paid by the defendant and the unpaid balance, and (iii) that 15 days have passed since the defendant was served with a notice of default of payment."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 9.03 (6)",
+        "quote": "If the defendant does not appear at the hearing, the clerk may sign default judgment against the defendant for the part of the claim that has been admitted and shall serve a default judgment (Form 11B) on the defendant in accordance with subrule 8.01 (4)."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 9.03 (7)",
+        "quote": "Unless the referee or other person specifies otherwise in the order as to terms of payment, if the defendant fails to make payment in accordance with the order, the clerk shall sign judgment for the unpaid balance on the filing of an affidavit by the plaintiff swearing to the default and stating the amount paid and the unpaid balance."
+      }
+    ]
+  },
+  {
+    "changes": [
+      107
+    ],
+    "stage": "both:trial-management-conference",
+    "rules": [
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 16.1.01 (5)",
+        "quote": "The court may award costs against a person who attends a trial management conference if, in the opinion of the court, the person is so inadequately prepared as to frustrate the purposes of the conference."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 16.1.02 (2)",
+        "quote": "At the trial management conference, the parties and their representatives shall openly and frankly discuss the issues involved in the action."
+      }
+    ]
+  },
+  {
+    "changes": [
+      108
+    ],
+    "stage": "both:offer-to-settle",
+    "rules": [
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 14.01.1 (1)",
+        "quote": "An offer to settle, an acceptance of an offer to settle and a notice of withdrawal of an offer to settle shall be in writing."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 14.02 (2)",
+        "quote": "The costs consequences referred to in rule 14.07 apply only if the offer to settle is served on the party to whom it is made at least seven days before the trial commences."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 14.03 (2)",
+        "quote": "If an offer to settle specifies a date after which it is no longer available for acceptance, and has not been accepted on or before that date, the offer shall be deemed to have been withdrawn on the day after that date."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 14.07 (3)",
+        "quote": "If an amount is awarded under subrule (1) or (2) to a self- represented party, the court may, despite rule 19.05, also award the party an amount not exceeding $1,500 as compensation for inconvenience and expense."
+      }
+    ]
+  },
+  {
+    "changes": [
+      109
+    ],
+    "stage": "plaintiff:debtor-examination",
+    "rules": [
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 20.10 (2)",
+        "quote": "The creditor's request shall be accompanied by, (a) an affidavit for enforcement request (Form 20P) setting out, (i) the date of the order and the amount awarded, (ii) the territorial division in which the order was made, (iii) the rate of postjudgment interest payable, (iv) the total amount of any payments received since the order was granted, and (v) the amount owing, including postjudgment interest; and (b) a certificate of judgment (Form 20A), if the order was made in another territorial jurisdiction."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 20.10 (8)",
+        "quote": "While an order as to payment is in force, no step to enforce the judgment may be taken or continued against the debtor by a creditor named in the order, except issuing a writ of seizure and sale of land and filing it with the sheriff."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 20.11 (1)",
+        "quote": "If a person on whom a notice of examination has been served under rule 20.10 attends the examination but refuses to answer questions or to produce records or documents, the court may order the person to attend before it for a contempt hearing."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 20.11 (2)",
+        "quote": "If a person on whom a notice of examination has been served under rule 20.10 fails to attend the examination, the court may order the person to attend before it for a contempt hearing under subsection 30 (1) of the Courts of Justice Act."
+      }
+    ]
+  },
+  {
+    "changes": [
+      110
+    ],
+    "stage": "defendant:judgment-being-enforced",
+    "rules": [
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 20.03",
+        "quote": "In addition to any other method of enforcement provided by law, (a) an order for the payment or recovery of money may be enforced by, (i) a writ of seizure and sale of personal property (Form 20C) under rule 20.06, (ii) a writ of seizure and sale of land (Form 20D) under rule 20.07, and (iii) garnishment under rule 20.08; and (b) a further order as to payment may be made under subrule 20.10 (7)."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 20.08 (9)",
+        "quote": "A garnishee who admits owing a debt to the debtor shall pay it to the clerk in the manner prescribed by the notice of garnishment, and the amounts paid into court shall not exceed the portion of the debtor's wages that are subject to seizure or garnishment under section 7 of the Wages Act."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 20.08 (15)",
+        "quote": "At the request of a creditor, debtor, garnishee, co-owner of the debt or any other interested person, the clerk shall schedule a garnishment hearing."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 20.02 (2)",
+        "quote": "While an order for periodic payment is in force, no step to enforce the judgment may be taken or continued against the debtor by a creditor named in the order, except issuing a writ of seizure and sale of land and filing it with the sheriff."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 20.02 (4)",
+        "quote": "An order for periodic payment terminates on the day that is 15 days after the creditor serves the debtor with the notice of default of payment, unless a consent (Form 13B) in which the creditor waives the default is filed within the 15-day period."
+      }
+    ]
+  },
+  {
+    "changes": [
+      111
+    ],
+    "stage": "plaintiff:wants-to-discontinue",
+    "rules": [
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 11.2.01 (1)",
+        "quote": "The clerk shall, on the filing of a request for clerk's order on consent (Form 11.2A), make an order granting the relief sought, including costs, if the following conditions are satisfied: 1. The relief sought is, ... vi. dismissing an action. 2. The request is signed by all parties (including any party to be added, deleted or substituted) and states, i. that each party has received a copy of the request, and ii. that no party that would be affected by the order is under disability."
+      }
+    ]
+  },
+  {
+    "changes": [
+      112
+    ],
+    "stage": "both:amending-a-claim-or-defence",
+    "rules": [
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 12.01 (1)",
+        "quote": "A plaintiff's or defendant's claim and a defence to a plaintiff's or defendant's claim may be amended by filing with the clerk an amended claim or defence that meets the following requirements: 1. It shall be marked \"Amended\". 2. Any additions shall be underlined, and any other changes identified. 3. A copy of any document on which the amended claim or defence is based shall be attached to it, or, if the document is not available, the amended claim or defence shall state the reason why the document is not attached."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 12.01 (1.1)",
+        "quote": "Paragraph 3 of subrule (1) applies even if a copy of the document was attached to a previously filed version of the claim or defence."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 12.01 (4)",
+        "quote": "A person added as a party shall be served with the claim as amended, except that if the person is added as a party at trial, the court may dispense with service of the claim."
+      }
+    ]
+  },
+  {
+    "changes": [
+      113
+    ],
+    "stage": "both:motion-to-strike-out",
+    "rules": [
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 12.02 (2)",
+        "quote": "In connection with an order striking out or amending a document under subrule (1), the court may do one or more of the following: 1. In the case of a claim, order that the action be stayed or dismissed. 2. In the case of a defence, strike out the defence and grant judgment. 2.1 In the case of a motion, order that the motion be stayed or dismissed. 3. Impose such terms as are just."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 15.01 (2)",
+        "quote": "The moving party shall obtain a hearing date from the clerk before serving the notice of motion and supporting affidavit under subrule (3)."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 15.01 (4)",
+        "quote": "A party who prepares an affidavit (Form 15B) in response to the moving party's notice of motion and supporting affidavit shall serve it on every party who has filed a claim or defence and file it, with proof of service, at least two days before the hearing date."
+      }
+    ]
+  },
+  {
+    "changes": [
+      114
+    ],
+    "stage": "plaintiff:court-considering-dismissal",
+    "rules": [
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 12.02 (4)",
+        "quote": "Unless the court orders otherwise, an order under subrule (3) shall be made on the basis of written submissions in accordance with the following procedures: 1. The court shall direct the clerk to send notice by mail to the plaintiff that the court is considering making the order. 2. The plaintiff may, within 20 days after receiving the notice, file with the court a written submission, no more than four pages in length, responding to the notice. 3. If the plaintiff does not file a written submission that complies with paragraph 2, the court may make the order without any further notice to the plaintiff or to any other party. 4. If the plaintiff files a written submission that complies with paragraph 2, the court may direct the clerk to send a copy of the submission by mail to any other party. 5. A party who receives a copy of the plaintiff's submission may, within 10 days after receiving the copy, file with the court a written submission, no more than four pages in length, responding to the plaintiff's submission, and shall send a copy of the responding submission by mail to the plaintiff, and, on the request of any other party, to that party."
+      },
+      {
+        "sourceId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 12.02 (6)",
+        "quote": "A document required under this rule to be sent by mail shall be mailed in the manner described in subrule 8.07 (1), and is deemed to have been received on the fifth day after it is mailed."
+      }
+    ]
+  },
+  {
+    "changes": [
+      115,
+      122
+    ],
+    "stage": "civil:plaintiff:crown-misfeasance-leave-needed",
+    "rules": [
+      {
+        "sourceId": "crown-liability-and-proceedings-act-2019",
+        "pinpoint": "s. 17 (12)",
+        "quote": "The Crown may exercise its discretion under subsection (11) at any time before the hearing of a motion for leave under subsection (2), including before an intended proceeding is brought."
+      },
+      {
+        "sourceId": "crown-liability-and-proceedings-act-2019",
+        "pinpoint": "s. 17 (13)",
+        "quote": "If the Crown exercises its discretion under subsection (11) after a proceeding has been brought, (a) the stay of the proceeding is lifted once notice of the waiver is given to the claimant; and (b) the Crown shall give notice of the waiver in writing to the court."
+      },
+      {
+        "sourceId": "crown-liability-and-proceedings-act-2019",
+        "pinpoint": "s. 17 (14)",
+        "quote": "This section does not apply if the claimant is the Crown."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 37.10 (1)",
+        "quote": "Where a motion is made on notice, the moving party shall, unless the court orders otherwise before or at the hearing of the motion, serve a motion record on every other party to the motion and file it, with proof of service, in the court office where the motion is to be heard, at least seven days before the hearing, and the court file shall not be placed before the judge or associate judge hearing the motion unless he or she requests it or a party requisitions it."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 37.10.1 (1)",
+        "quote": "A party who makes a motion on notice to another party shall confer or attempt to confer with the other party and shall, not later than 2 p.m. five days before the hearing date, (a) give the registrar a confirmation of motion (Form 37B) by, (i) sending it by email to the court office, or (ii) leaving it at the court office; and (b) send a copy of the confirmation of motion to the other party by email."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 37.10.1 (4)",
+        "quote": "If no confirmation is given under subrule (1), the motion shall not be heard and is deemed to have been abandoned, unless the court orders otherwise."
+      }
+    ]
+  },
+  {
+    "changes": [
+      116,
+      122
+    ],
+    "stage": "civil:defendant:sued-over-public-expression",
+    "rules": [
+      {
+        "sourceId": "cja-courts-of-justice-act",
+        "pinpoint": "s. 137.1 (2)",
+        "quote": "In this section, \"expression\" means any communication, regardless of whether it is made verbally or non-verbally, whether it is made publicly or privately, and whether or not it is directed at a person or entity."
+      },
+      {
+        "sourceId": "cja-courts-of-justice-act",
+        "pinpoint": "s. 137.1 (6)",
+        "quote": "Unless a judge orders otherwise, the responding party shall not be permitted to amend his or her pleadings in the proceeding, (a) in order to prevent or avoid an order under this section dismissing the proceeding; or (b) if the proceeding is dismissed under this section, in order to continue the proceeding."
+      },
+      {
+        "sourceId": "cja-courts-of-justice-act",
+        "pinpoint": "s. 137.1 (8)",
+        "quote": "If a judge does not dismiss a proceeding under this section, the responding party is not entitled to costs on the motion, unless the judge determines that such an award is appropriate in the circumstances."
+      },
+      {
+        "sourceId": "cja-courts-of-justice-act",
+        "pinpoint": "s. 137.1 (9)",
+        "quote": "If, in dismissing a proceeding under this section, the judge finds that the responding party brought the proceeding in bad faith or for an improper purpose, the judge may award the moving party such damages as the judge considers appropriate."
+      },
+      {
+        "sourceId": "cja-courts-of-justice-act",
+        "pinpoint": "s. 137.2 (1)",
+        "quote": "A motion to dismiss a proceeding under section 137.1 shall be made in accordance with the rules of court, subject to the rules set out in this section, and may be made at any time after the proceeding has commenced."
+      },
+      {
+        "sourceId": "cja-courts-of-justice-act",
+        "pinpoint": "s. 137.2 (4)",
+        "quote": "Subject to subsection (5), cross-examination on any documentary evidence filed by the parties shall not exceed a total of seven hours for all plaintiffs in the proceeding and seven hours for all defendants."
+      },
+      {
+        "sourceId": "cja-courts-of-justice-act",
+        "pinpoint": "s. 137.2 (5)",
+        "quote": "A judge may extend the time permitted for cross-examination on documentary evidence if it is necessary to do so in the interests of justice."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 37.07 (6)",
+        "quote": "Where a motion is made on notice, the notice of motion shall be served at least seven days before the date on which the motion is to be heard."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 37.08 (1)",
+        "quote": "Where a motion is made on notice, the notice of motion shall be filed with proof of service at least seven days before the hearing date in the court office where the motion is to be heard."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 37.10 (1)",
+        "quote": "Where a motion is made on notice, the moving party shall, unless the court orders otherwise before or at the hearing of the motion, serve a motion record on every other party to the motion and file it, with proof of service, in the court office where the motion is to be heard, at least seven days before the hearing, and the court file shall not be placed before the judge or associate judge hearing the motion unless he or she requests it or a party requisitions it."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 37.10.1 (1)",
+        "quote": "A party who makes a motion on notice to another party shall confer or attempt to confer with the other party and shall, not later than 2 p.m. five days before the hearing date, (a) give the registrar a confirmation of motion (Form 37B) by, (i) sending it by email to the court office, or (ii) leaving it at the court office; and (b) send a copy of the confirmation of motion to the other party by email."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 37.10.1 (4)",
+        "quote": "If no confirmation is given under subrule (1), the motion shall not be heard and is deemed to have been abandoned, unless the court orders otherwise."
+      }
+    ]
+  },
+  {
+    "changes": [
+      117
+    ],
+    "stage": "civil:both:case-management",
+    "rules": [
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 77.01 (1)",
+        "quote": "The purpose of this Rule is to establish a case management system that provides case management only of those proceedings for which a need for the court's intervention is demonstrated and only to the degree that is appropriate, as determined in reliance on the criteria set out in this Rule."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 77.01 (2), para. 1",
+        "quote": "Despite the application of case management under this Rule to a proceeding, the greater share of the responsibility for managing the proceeding and moving it expeditiously to a trial, hearing or other resolution remains with the parties."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 77.02 (1)",
+        "quote": "This Rule applies to actions and applications commenced in or transferred to one of the following counties on or after January 1, 2010 and assigned to case management by an order under these rules: 1. The City of Ottawa. 2. The City of Toronto. 3. The County of Essex."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 77.04 (1)",
+        "quote": "A judge or associate judge may, (a) extend or abridge a time prescribed by an order or the rules; (b) adjourn a case conference; (c) set aside an order made by the registrar; (d) establish or amend a timetable; and (e) make orders, impose terms, give directions and award costs as necessary to carry out the purpose of this Rule."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 77.04 (2)",
+        "quote": "A judge or associate judge may, on his or her own initiative, require the parties to appear before him or her or to participate in a conference call to deal with any matter arising in connection with the case management of the proceeding, including a failure to comply with an order or the rules."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 77.06 (1)",
+        "quote": "The Chief Justice or Associate Chief Justice of the Superior Court of Justice, a regional senior judge, or a judge designated by any of them may direct that all steps in a proceeding that is assigned for case management under this Rule be heard and conducted by a particular judge."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 77.06 (2)",
+        "quote": "A judge who is directed under subrule (1) to hear all steps in a proceeding shall not preside at the trial of the action or the hearing of the application, except with the written consent of all parties."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 77.07 (1)",
+        "quote": "A motion may be made only to a judge or associate judge."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 77.07 (2)",
+        "quote": "If a direction is made under subrule 77.06 (1) for all steps in a proceeding to be heard by a particular judge, then any motions in the proceeding shall be made to that judge."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 77.08",
+        "quote": "A judge or associate judge may at any time, on his or her own initiative or at a party's request, convene a case conference under rule 50.13."
+      }
+    ]
+  },
+  {
+    "changes": [
+      118,
+      121
+    ],
+    "stage": "civil:both:motion-to-strike-or-dismiss",
+    "rules": [
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 21.01 (2)",
+        "quote": "No evidence is admissible on a motion, (a) under clause (1) (a), except with leave of a judge or on consent of the parties; (b) under clause (1) (b)."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 21.03 (1)",
+        "quote": "On a motion under rule 21.01, each party shall serve on every other party to the motion a factum that meets the requirements of rule 4.06.1."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 21.03 (2)",
+        "quote": "The moving party's factum shall be served and filed with proof of service in the court office where the motion is to be heard at least seven days before the hearing."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 21.03 (3)",
+        "quote": "The responding party's factum shall be served and filed with proof of service in the court office where the motion is to be heard at least four days before the hearing."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 37.10 (1)",
+        "quote": "Where a motion is made on notice, the moving party shall, unless the court orders otherwise before or at the hearing of the motion, serve a motion record on every other party to the motion and file it, with proof of service, in the court office where the motion is to be heard, at least seven days before the hearing, and the court file shall not be placed before the judge or associate judge hearing the motion unless he or she requests it or a party requisitions it."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 37.10.1 (1)",
+        "quote": "A party who makes a motion on notice to another party shall confer or attempt to confer with the other party and shall, not later than 2 p.m. five days before the hearing date, (a) give the registrar a confirmation of motion (Form 37B) by, (i) sending it by email to the court office, or (ii) leaving it at the court office; and (b) send a copy of the confirmation of motion to the other party by email."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 37.10.1 (4)",
+        "quote": "If no confirmation is given under subrule (1), the motion shall not be heard and is deemed to have been abandoned, unless the court orders otherwise."
+      }
+    ]
+  },
+  {
+    "changes": [
+      119
+    ],
+    "stage": "civil:both:amending-a-pleading",
+    "rules": [
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 26.03 (1)",
+        "quote": "An amendment to a pleading shall be made on the face of the copy filed in the court office, except that where the amendment is so extensive as to make the amended pleading difficult or inconvenient to read the party shall file a fresh copy of the original pleading as amended, bearing the date of the original pleading and the title of the pleading preceded by the word \"amended\"."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 26.03 (3)",
+        "quote": "Where a pleading has been amended more than once each subsequent amendment shall be underlined with an additional line for each occasion."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 26.04 (1)",
+        "quote": "An amended pleading shall be served forthwith on every person who is, at the time of service, a party to the main action or to a counterclaim, crossclaim or third party claim in the main action, unless the court orders otherwise."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 26.04 (2)",
+        "quote": "Proof of service of an amended pleading other than an originating process shall be filed forthwith after it is served."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 26.04 (3)",
+        "quote": "Where an amended pleading is an originating process, (a) it need not be served personally on a party who was served with the original pleading and responded to it; and (b) it shall be served personally or by an alternative to personal service under rule 16.03 on an opposite party who has not responded to the original pleading, whether or not the party has been noted in default."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 26.05 (1)",
+        "quote": "A party shall respond to an amended pleading within the time remaining for responding to the original pleading, or within ten days after service of the amended pleading, whichever is the longer period, unless the court orders otherwise."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 26.05 (2)",
+        "quote": "A party who has responded to a pleading that is subsequently amended and does not respond to the amended pleading within the prescribed time shall be deemed to rely on the party's original pleading in answer to the amended pleading."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 26.06",
+        "quote": "Where a pleading is amended at the trial, and the amendment is made on the face of the record, an order need not be taken out and the pleading as amended need not be filed or served unless the court orders otherwise."
+      }
+    ]
+  },
+  {
+    "changes": [
+      120
+    ],
+    "stage": "civil:both:asking-for-injunction",
+    "rules": [
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 37.10 (1)",
+        "quote": "Where a motion is made on notice, the moving party shall, unless the court orders otherwise before or at the hearing of the motion, serve a motion record on every other party to the motion and file it, with proof of service, in the court office where the motion is to be heard, at least seven days before the hearing, and the court file shall not be placed before the judge or associate judge hearing the motion unless he or she requests it or a party requisitions it."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 37.10.1 (1)",
+        "quote": "A party who makes a motion on notice to another party shall confer or attempt to confer with the other party and shall, not later than 2 p.m. five days before the hearing date, (a) give the registrar a confirmation of motion (Form 37B) by, (i) sending it by email to the court office, or (ii) leaving it at the court office; and (b) send a copy of the confirmation of motion to the other party by email."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 37.10.1 (4)",
+        "quote": "If no confirmation is given under subrule (1), the motion shall not be heard and is deemed to have been abandoned, unless the court orders otherwise."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 40.01",
+        "quote": "An interlocutory injunction or mandatory order under section 101 or 102 of the Courts of Justice Act may be obtained on motion to a judge by a party to a pending or intended proceeding."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 40.02 (1)",
+        "quote": "An interlocutory injunction or mandatory order may be granted on motion without notice for a period not exceeding ten days."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 40.02 (2)",
+        "quote": "Where an interlocutory injunction or mandatory order is granted on a motion without notice, a motion to extend the injunction or mandatory order may be made only on notice to every party affected by the order, unless the judge is satisfied that because a party has been evading service or because there are other exceptional circumstances, the injunction or mandatory order ought to be extended without notice to the party."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 40.02 (3)",
+        "quote": "An extension may be granted on a motion without notice for a further period not exceeding ten days."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 40.03",
+        "quote": "On a motion for an interlocutory injunction or mandatory order, the moving party shall, unless the court orders otherwise, undertake to abide by any order concerning damages that the court may make if it ultimately appears that the granting of the order has caused damage to the responding party for which the moving party ought to compensate the responding party."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 40.04 (1)",
+        "quote": "On a motion under rule 40.01, each party shall serve on every other party to the motion a factum that meets the requirements of rule 4.06.1."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 40.04 (2)",
+        "quote": "The moving party's factum shall be served and filed with proof of service in the court office where the motion is to be heard at least seven days before the hearing."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 40.04 (3)",
+        "quote": "The responding party's factum shall be served and filed with proof of service in the court office where the motion is to be heard at least four days before the hearing."
+      }
+    ]
+  },
+  {
+    "changes": [
+      123
+    ],
+    "stage": "civil:plaintiff:certificate-of-pending-litigation",
+    "rules": [
+      {
+        "sourceId": "cja-courts-of-justice-act",
+        "pinpoint": "s. 103 (2)",
+        "quote": "Where a certificate of pending litigation is issued under subsection (1) it may be registered whether the land is registered under the Land Titles Act or the Registry Act."
+      },
+      {
+        "sourceId": "cja-courts-of-justice-act",
+        "pinpoint": "s. 103 (3)",
+        "quote": "Subsections (1) and (2) do not apply to a proceeding for foreclosure or sale on a registered mortgage or to enforce a lien under the Construction Act."
+      },
+      {
+        "sourceId": "cja-courts-of-justice-act",
+        "pinpoint": "s. 103 (5)",
+        "quote": "The liability for damages under subsection (4) and the amount thereof may be determined in the proceeding in respect of which the certificate was registered or in a separate proceeding."
+      },
+      {
+        "sourceId": "cja-courts-of-justice-act",
+        "pinpoint": "s. 103 (6)",
+        "quote": "The court may make an order discharging a certificate, (a) where the party at whose instance it was issued, (i) claims a sum of money in place of or as an alternative to the interest in the land claimed, (ii) does not have a reasonable claim to the interest in the land claimed, or (iii) does not prosecute the proceeding with reasonable diligence; (b) where the interests of the party at whose instance it was issued can be adequately protected by another form of security; or (c) on any other ground that is considered just, and the court may, in making the order, impose such terms as to the giving of security or otherwise as the court considers just."
+      },
+      {
+        "sourceId": "cja-courts-of-justice-act",
+        "pinpoint": "s. 103 (7)",
+        "quote": "Where a certificate is discharged, any person may deal with the land as fully as if the certificate had not been registered."
+      },
+      {
+        "sourceId": "rules-of-civil-procedure",
+        "pinpoint": "r. 42.01 (4)",
+        "quote": "A party who obtains an order under subrule (1) shall forthwith serve it, together with a copy of the notice of motion and all affidavits and other documents used at the hearing of the motion, on all parties against whom an interest in land is claimed in the proceeding."
+      }
+    ]
+  }
+]

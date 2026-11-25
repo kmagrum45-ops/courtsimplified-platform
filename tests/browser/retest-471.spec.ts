@@ -24,7 +24,9 @@ import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { autoAnswerSituation } from "./harness/situation";
-import { expectServedNotAskedOnNextStep, expectServedOfferedOnceInReview } from "./harness/servedOnce";
+import { expectServedNotAskedInReview, expectServedNotAskedOnNextStep, openServedAdd } from "./harness/servedOnce";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 20_000 });
 
@@ -65,7 +67,7 @@ async function smallClaimsReview(page: Page) {
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(STORY["small-claims"]);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(STORY["small-claims"]);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
@@ -103,13 +105,25 @@ for (const court of ["small-claims", "civil", "family"] as const) {
   test(`${court}: after the story changes, the side and "filed" given at the start are never set aside or asked again`, async ({ page }) => {
     test.setTimeout(240_000);
     await start(page, court);
+    const given = court === "small-claims" ? "You're suing in Small Claims Court · nothing filed yet" : court === "civil" ? "You're bringing a civil case · nothing filed yet" : "You're bringing a family case · nothing filed yet";
+    // Setup: the side and "nothing filed" were really given at the start, before the change and the check.
+    await expect(page.getByTestId("situation-line"), "setup: the side and the filed status were given at the start").toContainText(given);
     await changeStory(page);
     const sideId = court === "small-claims" ? "sc-orient-role" : "yourRole";
     const filedId = court === "small-claims" ? "sc-claim-filed" : court === "civil" ? "documents" : "filedDocuments";
     await expect(question(page, sideId), "the side is not asked again").toHaveCount(0);
     await expect(question(page, filedId), "\"filed\" is not asked again").toHaveCount(0);
-    await expect(page.getByTestId("intake-confirm-needs")).not.toContainText(/side|filed/i);
-    await expect(page.getByTestId("situation-line"), "the answers given at the start stand").toContainText(court === "small-claims" ? "You're suing in Small Claims Court · nothing filed yet" : court === "civil" ? "You're bringing a civil case · nothing filed yet" : "You're bringing a family case · nothing filed yet");
+    const needs = page.getByTestId("intake-confirm-needs");
+    if (court === "small-claims") {
+      // Not vacuous: the review is in the state described, with these (and only answers of this kind) still needed.
+      for (const item of ["Roughly when did the situation that led to this claim happen?", "What kind of dispute is this?", "What is the total dollar amount you are claiming?", "What outcome are you asking the court to order?"]) {
+        await expect(needs, `the review still needs: ${item}`).toContainText(item);
+      }
+    }
+    // Once the side and the filed status are answered, the "still needed" text never mentions side or filed (no line: no text).
+    const needsText = (await needs.count()) ? await needs.innerText() : "";
+    expect(needsText, "the 'still needed' text never mentions side or filed").not.toMatch(/side|filed/i);
+    await expect(page.getByTestId("situation-line"), "the answers given at the start stand").toContainText(given);
   });
 
   test(`${court}: "Close without saving" on the review's story box leaves the story shown`, async ({ page }) => {
@@ -128,7 +142,7 @@ for (const court of ["small-claims", "civil", "family"] as const) {
     const account = await start(page, court);
     const unknowns = panel(page).locator('input[data-testid="intake-unknown"]:not(:checked)');
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel(page)).toHaveAttribute("data-phase", "user-confirmed");
     await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
@@ -149,18 +163,19 @@ test(`Family: the review's "Day you were served" box asks for the year, and a ty
   // Served, the day not known at the start: the questions and the review ask it, with the year rule.
   await openBuilder(page, "family", { story: "Synthetic story: my former partner started a family case about parenting time for our daughter, age 5.", situation: { where: "served", papers: "family-8", receivedOn: "unknown" } });
   await guided(page, "family", "respondent", ["application"], "October 6, 2026");
-  // Offered once more in the review, as one field (Jason, 2026-10-24, option 1).
-  await expectServedOfferedOnceInReview(page);
-  const served = panel(page).getByRole("textbox", { name: "Review: Day you were served" });
+  // Not known at the start, so never asked again (site owner, 31 Oct; it replaced option 1's one more
+  // offer here): the quiet line's "Add it" takes the day, with the year rule.
+  await expectServedNotAskedInReview(page);
+  const served = await openServedAdd(page);
   await served.fill("October 6");
   await served.press("Enter");
-  await expect(panel(page).getByTestId("intake-entry-needs-more")).toContainText("add the year");
+  await expect(panel(page).getByTestId("change-answer-needs-more")).toContainText("add the year");
   await served.fill("October 6, 2026");
   await served.press("Enter");
-  await expect(panel(page).getByTestId("intake-entry-needs-more")).toHaveCount(0);
+  await expect(panel(page).getByTestId("change-answer-needs-more")).toHaveCount(0);
   const unknowns = panel(page).locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel(page)).toHaveAttribute("data-phase", "user-confirmed");
   await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
@@ -168,8 +183,10 @@ test(`Family: the review's "Day you were served" box asks for the year, and a ty
   await page.waitForTimeout(2_000);
   const results = await page.locator("body").innerText();
   expect(results, "the typed date is not labelled as the story").not.toMatch(/From your story: “[^”]*October 6, 2026/);
-  if (/October 6, 2026/.test(results)) expect(results).toMatch(/From your answer: “[^”]*October 6, 2026/);
-  // Offered exactly once: the next step does not ask it again.
+  // Added through the quiet line's "Add it" (the change path, site owner 31 Oct), the day is shown as saved by the person
+  // ("Saved to your case"), never as the story's. No screen writes "From your answer: ..." any more (no such words in app/ or src/).
+  if (/October 6, 2026/.test(results)) expect(results, "the day is shown as the person's own").toMatch(/October 6, 2026[\s\S]{0,40}Saved to your case|From your answer: “[^”]*October 6, 2026/);
+  // Never asked again: the next step does not ask it.
   await expectServedNotAskedOnNextStep(page);
 });
 

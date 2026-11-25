@@ -3,6 +3,7 @@ import { confirmInitialInformation, saveCaseStory } from "./harness/intakeReview
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { openBuilder } from "./harness/builderGate";
 import { grantSiteAccess } from "./harness/siteAccess";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 const OWNER = "11111111-1111-4111-8111-111111111111";
@@ -16,8 +17,19 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await openBuilder(page, court, { story: court === "small-claims" ? undefined : STORY });
     if (court === "small-claims") await page.getByRole("button", { name: "Fill in the form yourself" }).click();
     else await page.getByTestId("guided-form-show-form").click();
-    const name = page.getByLabel(court === "small-claims" ? "Your full legal name or business name" : "Your name", { exact: true });
-    await name.fill("Synthetic unfinished name");
+    // Small Claims asks the person's name in the Parties step (site owner, 14 Nov 2026, rule 1): a person, then the first
+    // name, saved when the box is left; once saved it is shown as the held line, not a box. Civil and Family: their box.
+    const NAME = "Synthetic unfinished name";
+    const you = page.locator('[data-testid="parties-party"][data-party="you"]');
+    const nameShown = async () => {
+      if (court === "small-claims") await expect(you.getByTestId("parties-detail-held").filter({ hasText: NAME }), "the name is shown after the reload").toBeVisible({ timeout: 60_000 });
+      else await expect(page.getByLabel("Your name", { exact: true })).toHaveValue(NAME, { timeout: 60_000 });
+    };
+    if (court === "small-claims") {
+      await you.getByTestId("parties-kind-person").click();
+      await you.getByTestId("parties-input-firstName").fill(NAME);
+      await you.getByTestId("parties-input-firstName").blur();
+    } else await page.getByLabel("Your name", { exact: true }).fill(NAME);
     if (court === "small-claims") {
       await page.getByLabel("Case story", { exact: true }).fill(STORY);
       await saveCaseStory(page);
@@ -28,11 +40,11 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     // A refresh after analysis returned but before its canonical save must recover intake.
     await page.evaluate(() => { const url = new URL(location.href); url.searchParams.set("step", "results"); history.replaceState(null, "", url); });
     await page.reload();
-    await expect(name).toHaveValue("Synthetic unfinished name", { timeout: 60_000 });
+    await nameShown();
     await expect(story).toHaveValue(STORY);
     await page.goto("/about");
     await page.goto(address);
-    await expect(name).toHaveValue("Synthetic unfinished name");
+    await nameShown();
     account.fail(true, 401);
     await story.fill(`${STORY} New unsent text after a failed save.`);
     await saveCaseStory(page);
@@ -64,7 +76,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await expect(page.getByTestId("intake-save-status")).toContainText("saved to your account");
     await page.evaluate(() => sessionStorage.clear());
     await page.goto(`/builder?path=${court}&caseId=${savedId}`);
-    await expect(name).toHaveValue("Synthetic unfinished name", { timeout: 60_000 });
+    await nameShown();
     await expect(story).toHaveValue(`${STORY} New unsent text after a failed save.`);
     // Historical completion does not establish explicit confirmation.
     (saved.master_result as Record<string, unknown>).lifecycleStage = "intake-completed";
@@ -82,7 +94,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     const account = await fakeAccount(page);
     await openBuilder(page, court);
     if (court === "small-claims") await page.getByRole("button", { name: "Answer questions one at a time with AI help" }).click();
-    const question = court === "small-claims" ? page.getByRole("textbox", { name: "Tell us what happened..." }) : page.getByTestId("guided-form-question").getByRole("textbox");
+    const question = court === "small-claims" ? page.getByRole("textbox", { name: STORY_LABEL, exact: true }) : page.getByTestId("guided-form-question").getByRole("textbox");
     await question.fill(STORY);
     await expect.poll(() => JSON.stringify([...account.rows.values()])).toContain(STORY);
     await page.reload();
@@ -127,7 +139,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     });
     await page.goto(`/?path=${court}`);
     await page.getByLabel("City or municipality").fill("Ottawa");
-    const story = page.getByLabel("Tell us what happened in your own words");
+    const story = page.getByLabel(STORY_LABEL, { exact: true });
     await story.fill(STORY);
     await saveCaseStory(page);
     const label = court === "small-claims" ? "Small Claims" : court === "family" ? "Family" : "Civil";
@@ -147,7 +159,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await grantSiteAccess(page);
     await page.route("**/api/**", route => route.fulfill({ status: 503, json: { ok: false } }));
     await page.goto(`/?path=${court}`);
-    const story = page.getByLabel("Tell us what happened in your own words");
+    const story = page.getByLabel(STORY_LABEL, { exact: true });
     await story.fill(STORY);
     await saveCaseStory(page);
     await page.getByLabel("City or municipality").fill("Ottawa");

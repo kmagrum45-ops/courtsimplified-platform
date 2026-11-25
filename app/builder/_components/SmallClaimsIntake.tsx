@@ -1,8 +1,11 @@
 "use client";
 
+import { offerForQuestion } from "../../../src/lib/case-system/caseFile/offerChoice";
+import { FROM_YOUR_START_ANSWERS, FROM_YOUR_STORY } from "../../../src/lib/case-system/caseFile/storyOffers";
 import { dateAnswerCheck, dateSpans } from "../../../src/lib/case-system/dates";
 import { SMALL_CLAIMS_FILED_OPTIONS } from "./guidedFields";
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
+import TribunalNotice, { useTribunalFirst } from "../../_components/TribunalNotice";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
 import { panelAnswerFacts } from "../../../src/lib/case-system/intakeReview";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
@@ -15,7 +18,7 @@ import { IntakeRequest } from "../../_components/intakeRequest";
 import TidyWordingReview from "./TidyWordingReview";
 
 import SignInForSafetyCheck from "./SignInForSafetyCheck";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 
 import type {
   AnalysisResult,
@@ -32,7 +35,7 @@ import type {
 } from "../../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 
 import { supabase } from "../../../src/lib/supabase/client";
-import { runClientSafetyCheck } from "../../../src/lib/case-system/intake/clientSafetyCheck";
+import { ensureSafetyChecked, safetyConcernFromAnalysis, type ClientSafetyResult } from "../../../src/lib/case-system/intake/clientSafetyCheck";
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
 import {
   assignReferences,
@@ -47,16 +50,28 @@ import {
 } from "../../../src/lib/content-library/questionExplanations";
 import { UUID_PATTERN } from "../../../src/lib/case-system/events/caseEventRequest";
 import {
-  extractNarrativePrefill,
-  type NarrativePrefillFact,
-} from "../../../src/lib/case-system/intelligence/narrativePrefill";
-import {
   QUESTION_BANK,
   type IntakeQuestion,
 } from "../../../src/lib/case-system/intake/questionBank";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
-import { CLAIM_TYPES } from "../../../src/lib/case-system/intake/claimTypes";
-import { kindFromStory } from "../../../src/lib/case-system/intake/claimKind";
+import { analysisClaimType, caseFileOf, claimKindOf, kindForAnalysis } from "../../../src/lib/case-system/caseFile/caseFile";
+import { missingFacts, storyFormValues } from "../../../src/lib/case-system/caseFile/missingFacts";
+import { storyOfFile, type CaseFile } from "../../../src/lib/case-system/caseFile/caseFile";
+import { factStatus } from "../../../src/lib/case-system/caseFile/factStatus";
+import { storyLines } from "../../../src/lib/case-system/caseFile/storyLines";
+import { detailStatus, partyName, type Party, type PartyDetail } from "../../../src/lib/case-system/parties/parties";
+
+/** No store (no case open): the banner reads an empty record. */
+const noStore = () => () => {};
+const noReview = () => null;
+import { formAnalysisInput } from "../../../src/lib/case-system/caseFile/chatTurnFacts";
+import PartiesStep from "../../_components/PartiesStep";
+import { AskedField, OfferedFields, useBoxesFollow, useHeldFill } from "../../_components/AskedField";
+import { offerChoicesOf } from "../../../src/lib/case-system/caseFile/offerChoice";
+import { writeFormBox } from "../../_components/caseWrite";
+import { STORY_INPUT_KEYS } from "../../../src/lib/case-system/intakeStory";
+import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
+import { UseSuggestion } from "../../_components/UseSuggestion";
 
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
@@ -72,6 +87,8 @@ export type SmallClaimsAnalysisResponse = {
   reasoningMode?: "structured-ai" | "deterministic-fallback";
   analysisAvailable?: boolean;
   authenticated?: boolean;
+  /** The route's own safety check on the analysed text (analysisSafetyGate.ts). */
+  safety?: unknown;
   error?: string;
 };
 
@@ -171,14 +188,8 @@ function mergeStoredValuesIntoInput(
     filedDocuments: Array.isArray(values.documentStatus)
       ? (values.documentStatus as SmallClaimsIntelligenceInput["filedDocuments"])
       : base.filedDocuments,
-    // 2026-10-16 live bug: a claim type the guided route already confirmed
-    // (saved to extra.confirmedClaimTypeId, now in storedIntakeValues' own
-    // allow-list) never carried into the form route at all -- never merged
-    // here, so "kind of claim not clear yet" showed even for a saved case
-    // that already had one.
-    ...(values.confirmedClaimTypeId || base.confirmedClaimTypeId
-      ? { confirmedClaimTypeId: String(values.confirmedClaimTypeId || base.confirmedClaimTypeId) }
-      : {}),
+    // The kind of claim is not carried in the form's values: the form reads it from the case
+    // file (caseFile.ts claimKindOf), the one place every screen reads it (site owner, 29 Oct).
   };
 }
 
@@ -421,20 +432,35 @@ function isDefendantRole(role: string | undefined): boolean {
   return /defendant|responding/i.test(role ?? "");
 }
 
-function buildMissingPrompt(input: SmallClaimsIntelligenceInput): string {
-  const missing: string[] = [];
 
-  if (!hasText(input.yourName)) missing.push("your legal name");
-  if (!hasText(input.otherParty)) missing.push("the other party’s name");
-  if (!hasText(input.defendantAddress)) missing.push("the other party’s address for service");
-  if (!hasText(input.facts)) missing.push("the case story");
+/**
+ * What is still useful to add, from the case record (site owner, 16 Nov 2026; Chrome milestone test of #550, row 15: the
+ * banner asked for "your legal name, the other party's address for service, what evidence you have, how the amount was
+ * calculated" when the Parties step held the names and addresses and the story gave the evidence and the breakdown). The
+ * names and addresses are the Parties step's (parties.ts detailStatus: given or "not sure" is never asked again), the
+ * other party and the amount the one function's (factStatus.ts), the evidence and the breakdown what the story states
+ * (storyFacts.ts) as well as the form's own boxes. No list of its own.
+ */
+export function buildMissingPrompt(input: SmallClaimsIntelligenceInput, file: CaseFile): string {
+  const missing: string[] = [];
+  const story = storyOfFile(file) || input.facts;
+  const you = file.parties.list.find((party) => party.you);
+  const other = file.parties.list.find((party) => party.side === "other");
+  const nameHeld = (party: Party | undefined) => Boolean(party && (partyName(party) || ["fullName", "firstName", "lastName", "companyName"].some((detail) => detailStatus(party, detail as PartyDetail) === "settled")));
+
+  if (!nameHeld(you) && !hasText(input.yourName)) missing.push("your legal name");
+  if (factStatus(file, "otherParty") === "ask" && !nameHeld(other) && !hasText(input.otherParty)) missing.push("the other party’s name");
+  if (!(other && detailStatus(other, "street") !== "ask") && !hasText(input.defendantAddress)) missing.push("the other party’s address for service");
+  if (!hasText(story)) missing.push("the case story");
   // Dates and evidence already in the story count (page review, 2026-10-06:
   // "important dates" was asked for after "the papers came on September 25").
-  const storyHasDate = dateSpans(input.facts).length > 0;
+  const storyHasDate = dateSpans(story).length > 0;
   if (!hasText(input.timeline) && !storyHasDate) missing.push("important dates");
-  if (!hasText(input.evidence)) missing.push("what evidence you have");
-  if (!hasText(input.amountClaimed)) missing.push(isDefendantRole(input.yourRole) ? "the amount the claim asks for" : "the amount claimed, if money is requested");
-  if (!hasText(input.damagesBreakdown) && !isDefendantRole(input.yourRole)) missing.push("how the amount was calculated");
+  // What the story states, read as "What we have so far" reads it (storyLines.ts), never a list of the banner's own.
+  const told = new Set(storyLines(story, file, isDefendantRole(input.yourRole)).map((line) => line.fact));
+  if (!hasText(input.evidence) && !told.has("evidence")) missing.push("what evidence you have");
+  if (factStatus(file, "amount") === "ask" && !hasText(input.amountClaimed)) missing.push(isDefendantRole(input.yourRole) ? "the amount the claim asks for" : "the amount claimed, if money is requested");
+  if (!hasText(input.damagesBreakdown) && !["lostPay", "costs", "property", "injury"].some((fact) => told.has(fact as never)) && !isDefendantRole(input.yourRole)) missing.push("how the amount was calculated");
 
   if (!missing.length) {
     return "You have given enough to see your next steps. You can add more later.";
@@ -443,7 +469,7 @@ function buildMissingPrompt(input: SmallClaimsIntelligenceInput): string {
   return `Still useful to add: ${missing.join(", ")}.`;
 }
 
-function buildCaseDirection(input: SmallClaimsIntelligenceInput): string {
+function buildCaseDirection(input: SmallClaimsIntelligenceInput, kindWords: string | null): string {
   const issues = inferIssuesFromStory(input);
   const stage = inferStage(input);
 
@@ -467,16 +493,11 @@ function buildCaseDirection(input: SmallClaimsIntelligenceInput): string {
   // Nothing is guessed before there is a story (page review, 2026-10-06: a
   // blank form read "Likely direction: starting case · not yet classified").
   if (!hasText(input.facts)) return "";
-  // 2026-10-16 live bug: a claim type the guided route already confirmed
-  // (now carried into `input` by mergeStoredValuesIntoInput above) is the
-  // real answer, over the weaker generic-issue guesser below -- reopening a
-  // saved case showed "kind of claim not clear yet" even when one had
-  // already been settled.
-  const confirmedClaimType = input.confirmedClaimTypeId
-    ? CLAIM_TYPES.find((claimType) => claimType.id === input.confirmedClaimTypeId)
-    : null;
-  const issueText = confirmedClaimType
-    ? confirmedClaimType.name
+  // The kind of claim the case file holds (the person's answer, from any route) is the real
+  // answer, over the weaker generic-issue guesser below (2026-10-16 live bug: reopening a saved
+  // case showed "kind of claim not clear yet" when one had been given).
+  const issueText = kindWords
+    ? kindWords
     : issues.length
       ? issues.map((issue) => labels[issue]).join(", ")
       : "kind of claim not clear yet";
@@ -490,13 +511,33 @@ function buildCaseDirection(input: SmallClaimsIntelligenceInput): string {
 // src/lib/case-system/intake/clientSafetyCheck.ts, rather than being restated
 // per caller.
 
-type SafetyCheckOutcome = {
+export type SafetyCheckOutcome = {
   /** Step 6d: the user asked for legal advice rather than describing events. */
   requestsLegalAdvice?: boolean;
   halted: boolean;
   haltMessage?: string;
   distressAcknowledgment?: string;
+  /** The check failed twice (ensureSafetyChecked). Never read as clear: the analyze route checks again and records it. */
+  failed?: boolean;
 };
+
+/** A safety result as the Small Claims screens act on it: halt on danger, acknowledge distress. */
+export function smallClaimsSafetyOutcome(result: ClientSafetyResult): SafetyCheckOutcome {
+  if (result.classification === "immediate-danger") {
+    return { halted: true, haltMessage: result.userMessage, requestsLegalAdvice: result.requestsLegalAdvice };
+  }
+  if (result.classification === "distress") {
+    return { halted: false, distressAcknowledgment: result.userMessage, requestsLegalAdvice: result.requestsLegalAdvice };
+  }
+  return { halted: false, requestsLegalAdvice: result.requestsLegalAdvice, ...(result.failed ? { failed: true } : {}) };
+}
+
+/** When the browser's check failed: what the analyze route's own check found, if it was a concern (else null). */
+export function lateSafetyOutcome(pre: SafetyCheckOutcome, response: unknown): SafetyCheckOutcome | null {
+  if (!pre.failed) return null;
+  const concern = safetyConcernFromAnalysis(response);
+  return concern ? smallClaimsSafetyOutcome(concern) : null;
+}
 
 /**
  * Session 17 -- the form's own path to the identical safety pass guided
@@ -517,7 +558,7 @@ type SafetyCheckOutcome = {
  * technical hiccup, same philosophy as every other AI feature in this
  * codebase.
  */
-async function runFormSafetyCheck(storyText: string): Promise<SafetyCheckOutcome> {
+export async function runFormSafetyCheck(storyText: string): Promise<SafetyCheckOutcome> {
   /*
    * TWO CHANGES, 2026-09-17.
    *
@@ -537,15 +578,8 @@ async function runFormSafetyCheck(storyText: string): Promise<SafetyCheckOutcome
     data: { session },
   } = await supabase.auth.getSession().catch(() => ({ data: { session: null } }));
 
-  const result = await runClientSafetyCheck(storyText, session?.access_token);
-
-  if (result.classification === "immediate-danger") {
-    return { halted: true, haltMessage: result.userMessage, requestsLegalAdvice: result.requestsLegalAdvice };
-  }
-  if (result.classification === "distress") {
-    return { halted: false, distressAcknowledgment: result.userMessage, requestsLegalAdvice: result.requestsLegalAdvice };
-  }
-  return { halted: false, requestsLegalAdvice: result.requestsLegalAdvice };
+  // Tried once more on a failure; a second failure is "failed", never clear (item N, 2026-10-29).
+  return smallClaimsSafetyOutcome(await ensureSafetyChecked(storyText, session?.access_token));
 }
 
 /**
@@ -613,6 +647,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   const beforeIntakeAI = useBeforeIntakeAI();
   const prepareCaseGuidance = usePrepareCaseGuidance();
   const recovery = useIntakeRecovery();
+  // The one continue rule (intakeReview.ts continueNeeds): this route's continue is held while the review still needs something.
   const validateIntakeResponse = useValidateIntakeResponse();
   const [storedInput, setInput] = useInputWithStory<SmallClaimsIntelligenceInput>("small-claims", () => {
     // What the case already holds, under anything newly read from a story
@@ -625,17 +660,13 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       values,
       initialStory,
     );
-    // 2026-10-16 live bug: "Case stage" showed "Not sure" even when the
-    // story plainly describes a dispute that hasn't gone to court yet --
-    // inferStage() already works this out correctly, but was only ever
-    // consulted at submission time (handleAnalyze below), never fed back
-    // into what the select actually shows while the person is filling in
-    // the form. Applying it here is a pre-filled SUGGESTION, same as any
-    // other prefilled field: the select stays editable, and nothing here
-    // is stored until the person submits or saves.
-    return merged.caseStage === "not-sure" && hasText(merged.facts)
-      ? { ...merged, caseStage: inferStage(merged) }
-      : merged;
+    // No stage guessed from the story is kept as the person's answer (founder's Chrome check of #541, 2 Nov,
+    // step 2). A guess pre-filled here (from 2026-10-16) was stored with the form, and the case file read it as
+    // the answer to "where the case is" (caseFile.ts, each area's form), so "I'm not sure" given at the start
+    // was replaced by "Starting a case" and the step page asked "Where is your case?" again. The start's answers
+    // settle the stage (situationAnswers, shown in place of the select); the analysis still makes its own
+    // reading of the story when the form is sent (handleAnalyze, inferStage).
+    return merged;
   });
   // The situation answers, given before the story (situation.ts), answer the side and what
   // has been filed: read from there, never asked again (step 2).
@@ -685,13 +716,29 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   // land on an empty "Case story" summary with no visible way to type into it
   // until they notice the "Edit case story" toggle.
 
+  // The one tribunal rule on the story (C1, site owner 9 Nov 2026). The form asks no follow-up question one at a time,
+  // so nothing is held back here: the notice is shown first, above the form.
+  const tribunalFirst = useTribunalFirst(input.facts ?? "");
+
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const analysisRequest = useRef(new IntakeRequest());
   const requestScope = input;
+  // A held answer put into an empty box by the one asker (useHeldFill below) is not the person changing the
+  // form: it never cancels the running analysis (#542: the fill landed while Continue's analysis ran and the
+  // request was aborted, "signal is aborted without reason", in every Small Claims route). The person's own
+  // edits still cancel it (the section's onChangeCapture, and any other change to the input), and so does leaving.
+  const filledOnly = useRef(false);
+  useEffect(() => {
+    const request = analysisRequest.current;
+    return () => {
+      if (filledOnly.current) { filledOnly.current = false; return; }
+      request.cancel();
+    };
+  }, [requestScope]);
   useEffect(() => {
     const request = analysisRequest.current;
     return () => request.cancel();
-  }, [requestScope]);
+  }, []);
   const [analysisError, setAnalysisError] = useState("");
   const [storageWarning, setStorageWarning] = useState("");
   const [safetyHalted, setSafetyHalted] = useState(false);
@@ -702,49 +749,46 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   const [authRequired, setAuthRequired] = useState(false);
   // Answers based on an earlier version of the story: no next step until the questions start again (storyBasis.ts).
   const storyChanged = useStoryAnswersOutdated();
-  const [extractedFacts, setExtractedFacts] = useState<NarrativePrefillFact[]>(
-    () => [],
-  );
 
-  const inferredDirection = useMemo(() => buildCaseDirection(input), [input]);
-  const missingPrompt = useMemo(() => buildMissingPrompt(input), [input]);
+  // The kind of claim, from the case file (site owner, 29 Oct): only the person's own, never a proposal.
+  const heldKind = recovery ? claimKindOf(caseFileOf(recovery.getReview().checkpoint)) : null;
+  const heldKindWords = heldKind?.state === "answered" ? heldKind.words : null;
+  const inferredDirection = useMemo(() => buildCaseDirection(input, heldKindWords), [input, heldKindWords]);
+  // The record as it is now: the banner follows the Parties step and every answer as they are saved.
+  const reviewNow = useSyncExternalStore(recovery?.subscribe ?? noStore, recovery?.getReview ?? noReview, noReview);
+  const missingPrompt = useMemo(() => buildMissingPrompt(input, reviewNow ? caseFileOf(reviewNow.checkpoint, recovery?.getSavedMaster() ?? undefined) : caseFileOf(null)), [input, reviewNow, recovery]);
+  // "Found in your description" offers only what the case file does not hold from another place (C9): the one asker.
+  // "Found in your description": THE ONE ASKER (caseFile/missingFacts.ts), read from the record's story each time, so a story
+  // from the home page is offered when it arrives (Chrome, test of #561, 1.4: it was read only on "Save story"), never a
+  // box the record holds or one the person filled. Offered, never filled in unseen (owner, 31 Oct).
+  const formFile = reviewNow ? caseFileOf(reviewNow.checkpoint, recovery?.getSavedMaster() ?? undefined) : caseFileOf(null);
+  const foundToOffer = missingFacts({ ...formFile, storyText: formFile.storyText || input.facts }, "sc-form", { boxes: input as unknown as Record<string, unknown>, choices: offerChoicesOf(reviewNow?.checkpoint.sections as Record<string, unknown> | undefined) });
+  // The boxes the page is offering from the story now: each gives way to its offer (AskedField OfferedFields).
+  // Each offer for a box the form shows goes in that box's own place (AskedField OfferedFields): one prompt for the fact, the
+  // box still there to type in. The offers for facts with no box of their own stay in the list below.
+  // A box whose story offer sits above it, in its own place (the recorder's "same fact, same place"); settlementEfforts too
+  // since its box is wrapped (24 Nov 2026): the story reader finds it, and its offer was in the list while its box stood empty.
+  const BOXED = new Set(["amountClaimed", "timeline", "goal", "evidence", "settlementEfforts"]);
+  const offerFor = (fact: (typeof foundToOffer)[number]) => (
+    <div className="mt-1 mb-2 rounded-xl border border-cyan-200 bg-cyan-50 p-3 text-sm text-[#24463d]" data-testid="sc-form-box-offer" data-field={fact.field} data-fact={fact.facts.join(" ") || undefined}>
+      <UseSuggestion
+        offer={offerForQuestion(`sc-form:${fact.field}`, fact.field)}
+        testId="sc-form-use-suggestion"
+        what={fact.value ?? ""}
+        note={fact.quote ? `${FROM_YOUR_STORY} "${fact.quote}"` : undefined}
+        onUse={() => updateField(fact.field as keyof SmallClaimsIntelligenceInput, (fact.value ?? "") as never)}
+        className="mt-1 rounded border border-[#2f7d67] bg-white px-3 py-1 text-left text-sm font-semibold text-[#2f7d67]"
+      />
+    </div>
+  );
+  const offeredHere = new Map(foundToOffer.filter((fact) => BOXED.has(fact.field)).map((fact) => [fact.field, { value: fact.value ?? "", quote: fact.quote ?? "", node: offerFor(fact) }] as const));
+  const listedOffers = foundToOffer.filter((fact) => !BOXED.has(fact.field));
   const inferredIssues = useMemo(() => inferIssuesFromStory(input), [input]);
   const inferredDisputeCategory = useMemo(() => {
     if (inferredIssues.includes("defamation-reputation")) return "defamation";
     if (inferredIssues.includes("work-or-services")) return "work-or-services";
     return undefined;
   }, [inferredIssues]);
-  // 2026-10-16 live bug: typing a story directly into THIS form's "Case
-  // story" box never extracted anything from it. extractNarrativePrefill
-  // only ran for the AI chat partner's first message (CourtAssistantChat
-  // .tsx), handed off through sessionStorage and consumed once at mount
-  // (since removed: Part 3, stale-story audit item 4) -- a hand-off, not a
-  // live extractor on the form's own story box. Someone who picked "fill in
-  // the form yourself" and typed their story here directly had to re-type
-  // the amount and dates they'd already written, even though the same
-  // regex extraction that works for the chat path works just as well on
-  // this text.
-  //
-  // Run once the person finishes editing the story (closes the toggle), not
-  // on every keystroke. Limited to plain-string fields with no name/type
-  // mismatch against NarrativePrefillFact.field (documentStatus ->
-  // filedDocuments, addressDetails -> yourAddress, and the role/caseStage
-  // facts are deliberately left out of this pass -- they need the same
-  // array/union-safe handling mergeStoredValuesIntoInput already has, and
-  // widening this fix to use that function would let a fresh extraction
-  // silently overwrite something the person already typed by hand, since
-  // mergeStoredValuesIntoInput's own `values.x || base.x` always prefers
-  // the new value). Only fills a field that is still blank.
-  const EXTRACTABLE_STORY_FIELDS = new Set([
-    "amountClaimed",
-    "timeline",
-    "evidence",
-    "settlementEfforts",
-    "yourEmail",
-    "goal",
-    "otherParty",
-    "yourName",
-  ]);
   /*
    * "Save story" (StoryEditor): values this form read from the earlier story are
    * read again from the new one, rather than kept and set aside as answers to an
@@ -753,11 +797,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
    */
   function saveStory(text: string) {
     // Read from the story as it was (not this visit's list, which a reload empties).
-    const fromStory = new Map(
-      extractNarrativePrefill({ narrative: input.facts, courtPath: "small-claims" }).facts
-        .filter((fact) => fact.state === "direct" && EXTRACTABLE_STORY_FIELDS.has(fact.field))
-        .map((fact) => [fact.field, Array.isArray(fact.value) ? fact.value.join(", ") : fact.value]),
-    );
+    const fromStory = new Map(storyFormValues({ ...caseFileOf(null), storyText: input.facts }).map((fact) => [fact.field, fact.value]));
     if (fromStory.size) {
       setInput((current) => {
         const next = { ...current } as Record<string, unknown>;
@@ -766,39 +806,26 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       });
     }
     updateField("facts", text);
-    // After the clear and the new story are written (the intake store writes in an
-    // effect, so a clear and refill in one click would be one unchanged write).
-    setTimeout(() => extractFromStory(text), 0);
   }
 
-  function extractFromStory(text: string = input.facts) {
-    if (!text.trim()) return;
-    const prefill = extractNarrativePrefill({ narrative: text, courtPath: "small-claims" });
-    const direct = prefill.facts.filter(
-      (fact) => fact.state === "direct" && EXTRACTABLE_STORY_FIELDS.has(fact.field),
-    );
-    if (direct.length === 0) return;
-    setExtractedFacts((current) => [
-      ...current.filter((fact) => !direct.some((found) => found.field === fact.field)),
-      ...direct,
-    ]);
-    setInput((current) => {
-      const next = { ...current } as Record<string, unknown>;
-      for (const fact of direct) {
-        const existing = next[fact.field];
-        if (typeof existing === "string" && existing.trim()) continue;
-        next[fact.field] = Array.isArray(fact.value) ? fact.value.join(", ") : fact.value;
-      }
-      return next as SmallClaimsIntelligenceInput;
-    });
-  }
+  // THE ONE ASKER (founder, 1 Nov; intake/asker.ts): an answer the person already gave elsewhere (the
+  // chat, the review, a change) is put into its empty box here once, so the form never asks for it again;
+  // never over what they typed, never a story guess, never again once they cleared the box.
+  // The whole form's boxes follow the newest saved answer (rule 3; Chrome check of #544, step 14).
+  useBoxesFollow("small-claims", "input");
+  useHeldFill(input as unknown as Record<string, unknown>, (fill) => { filledOnly.current = true; setInput((current) => {
+    const next = { ...current } as Record<string, unknown>;
+    // Only over the words the box must still hold (empty for a first fill, the fill's own words to follow a change):
+    // never over what the person typed.
+    for (const [field, { words, over }] of Object.entries(fill)) if (String(next[field] ?? "").trim() === over.trim()) next[field] = words;
+    return next as unknown as SmallClaimsIntelligenceInput;
+  }); });
 
   function updateField<K extends keyof SmallClaimsIntelligenceInput>(
     field: K,
     value: SmallClaimsIntelligenceInput[K],
   ) {
     userEditedRef.current = true;
-    setExtractedFacts((current) => current.filter((fact) => fact.field !== field));
     // Editing the fields the safety check reads clears a prior halt/
     // acknowledgment -- revising the story is exactly how a user tries
     // again, not a dead end.
@@ -807,6 +834,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       setSafetyHaltMessage("");
       setDistressAcknowledgment("");
     }
+    // The person's own answer goes through the one writer, so the server numbers each fact a box holds (F1 root cause,
+    // Chrome check of #544): the form's state then writes the same input, which is no change.
+    if (recovery && !STORY_INPUT_KEYS.has(field)) writeFormBox(recovery, "small-claims", field, value);
     setInput((current) => ({ ...current, [field]: value }));
   }
 
@@ -884,8 +914,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
     if (analysisRequest.current.pending) return;
     try {
       await analysisRequest.current.run(async (signal) => {
-        await beforeIntakeAI(signal);
+        // The one gate first, before any AI step (Chrome check of #544, 6 Nov, F5): nothing starts while unconfirmed.
         if (!(await prepareCaseGuidance("form"))) return;
+        await beforeIntakeAI(signal);
     if (!hasText(input.facts)) {
       setAnalysisError("Add a short description of what happened before continuing the core intake.");
       return;
@@ -949,7 +980,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       const untouchedDefault = input.filedDocuments.length === 0 || (input.filedDocuments.length === 1 && input.filedDocuments[0] === "nothing");
       // 2026-10-16 live bug: this route never matched a claim type at all, so
       // the overview's evidence checklist, court points and common defences
-      // (all driven by confirmedClaimTypeId) never appeared for anyone who
+      // (all driven by the kind of claim) never appeared for anyone who
       // filled in the form instead of using the guided chat. Matched here on
       // "Case story" alone -- the same single field the guided route matches
       // its opening story against -- via the same settledClaimTypeMatch bar
@@ -957,19 +988,26 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       // scattered-word candidate is left out rather than auto-applied: this
       // route has no suggestion card to ask the person about it (CLAUDE.md
       // §4, suggest never decide).
-      // Kinds of claim only, with the story's words that show it (claimKind.ts, step 2b).
-      const matched = hasText(input.facts) ? kindFromStory(input.facts, CLAIM_TYPES) : null;
-      const matchedClaimTypeId = matched?.claimType.id ?? null;
+      // Kinds of claim only, from the case file: the person's, else the one the story shows
+      // (claimKind.ts, step 2b), the same value every screen shows (site owner, 29 Oct).
+      const fileNow = recovery ? caseFileOf(recovery.getReview().checkpoint) : { ...caseFileOf(null), storyText: input.facts, area: "small-claims" };
+      const kindNow = claimKindOf(fileNow);
+      const analysisKind = hasText(input.facts) ? kindForAnalysis(kindNow) : null;
       // Answers given in the review panel count here too, where the form left them empty
       // (re-test round 7: after "start the questions again" they were the only answers).
       const panel = recovery ? panelAnswerFacts(recovery.getReview().checkpoint) : {};
+      // The form's boxes with the record's answers, the record winning (chatTurnFacts.ts formAnalysisInput, the one
+      // function every route builds its analysis input with; site owner, 14 Nov 2026): an answer held in the case file
+      // and missing from a box is sent, never the box's older copy.
+      const checkpointNow = recovery?.getReview().checkpoint ?? null;
+      const boxes = formAnalysisInput(input, checkpointNow, caseFileOf(checkpointNow, recovery?.getSavedMaster() ?? undefined));
       const preparedInput: SmallClaimsIntelligenceInput = {
-        ...input,
-        amountClaimed: input.amountClaimed || String(panel.amountClaimedText ?? ""),
-        goal: input.goal || String(panel.remedySoughtText ?? ""),
+        ...boxes,
+        amountClaimed: boxes.amountClaimed || String(panel.amountClaimedText ?? ""),
+        goal: boxes.goal || String(panel.remedySoughtText ?? ""),
         // The situation answer is the side; an older answer in the review panel never replaces it (step 2 reviewer).
         yourRole: fromStart.role === "plaintiff" || fromStart.role === "defendant" ? fromStart.role : input.yourRole === "plaintiff" || input.yourRole === "defendant" ? input.yourRole : (panel.role === "plaintiff" || panel.role === "defendant" ? panel.role : input.yourRole),
-        timeline: input.timeline || String(panel.timelineText ?? ""),
+        timeline: boxes.timeline || String(panel.timelineText ?? ""),
         caseStage: stage,
         issues: inferIssuesFromStory(input),
         filedDocuments:
@@ -978,7 +1016,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             : input.filedDocuments.length > 0
               ? input.filedDocuments
               : ["nothing"],
-        ...(matchedClaimTypeId ? { confirmedClaimTypeId: matchedClaimTypeId } : {}),
+        ...analysisClaimType(analysisKind),
+        // The kind in words (a dispute category has no catalogue id), told to the AI research, from the
+        // same case file through the shared builder (aiCaseContext.ts, rule 8; site owner, 31 Oct).
+        ...(hasText(input.facts) ? { caseContext: researchCaseContext(fileNow) } : {}),
       };
 
       const response = await requestSmallClaimsAnalysis(
@@ -987,6 +1028,15 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         signal,
         intakeGuidanceHeaders(recovery),
       );
+      // The browser's check failed: the route checked the same story itself.
+      const late = lateSafetyOutcome(safety, response);
+      if (late?.halted) {
+        setSafetyHalted(true);
+        setSafetyHaltMessage(late.haltMessage || "");
+        setIsAnalyzing(false);
+        return;
+      }
+      if (late?.distressAcknowledgment) setDistressAcknowledgment(late.distressAcknowledgment);
       const result = response.result!;
       const payload: StoredCaseData = {
         ...result.payload,
@@ -998,12 +1048,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             authenticated: response.authenticated === true,
             completedAt: new Date().toISOString(),
           },
-          // Never user-confirmed on this route -- there is no suggestion card
-          // here, only the automatic exact-phrase match above. Matches
-          // IntelligenceOverviewPanel.tsx's claimTypeUserConfirmed read, which
-          // words the "Kind of claim..." label honestly either way (see the
-          // guided route's same field, app/builder/page.tsx).
-          ...(matchedClaimTypeId ? { claimTypeUserConfirmed: false, claimTypeQuote: matched!.quote } : {}),
+          // No "confirmed" flag or quote of its own (29 Oct): the case file says whose the kind is.
           // The side and filing the situation answers settle, as the person's own (stageFromAnswers.ts).
           ...(fromStart.role === "plaintiff" || fromStart.role === "defendant"
             ? { personAnswers: { side: fromStart.role, ...(fromStart.role === "plaintiff" && fromStart.claimFiled !== undefined ? { claimFiled: fromStart.claimFiled } : {}) } }
@@ -1045,7 +1090,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   }
 
   return (
+    <OfferedFields.Provider value={offeredHere}>
     <section onChangeCapture={() => analysisRequest.current.cancel()} className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
+      {tribunalFirst.tribunal ? <TribunalNotice tribunal={tribunalFirst.tribunal} courtLabel="Small Claims" context="SmallClaimsIntake:tribunal-first" /> : null}
       <div className="rounded-3xl bg-[#f2fbf7] p-5">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#2f7d67]">
           Small Claims intake
@@ -1105,15 +1152,25 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         </div>
       )}
 
-      {extractedFacts.length > 0 && (
+      {listedOffers.length > 0 && (
         <div className="mt-5 rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-sm text-[#24463d]">
           <p className="font-semibold">Found in your description — review/edit</p>
           <ul className="mt-2 list-disc space-y-1 pl-5">
-            {extractedFacts.map((fact) => (
-              <li key={fact.field}>
-                {fact.field}: {Array.isArray(fact.value) ? fact.value.join(", ") : fact.value}
-              </li>
-            ))}
+            {listedOffers.map((fact) => {
+              const value = fact.value ?? "";
+              return (
+                <li key={fact.field} data-field={fact.field} data-fact={fact.facts.join(" ") || undefined}>
+                  {fact.field}:{" "}
+                  <UseSuggestion
+                    offer={offerForQuestion(`sc-form:${fact.field}`, fact.field)}
+                    testId="sc-form-use-suggestion"
+                    what={value}
+                    onUse={() => updateField(fact.field as keyof SmallClaimsIntelligenceInput, value as never)}
+                    className="mt-1 rounded border border-[#2f7d67] bg-white px-3 py-1 text-left text-sm font-semibold text-[#2f7d67]"
+                  />
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}
@@ -1132,8 +1189,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           <label className="block">
             <span className="font-semibold text-[#16302b]">Case stage</span>
             {fromStart.caseStage ? (
-              <p data-testid="stage-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{stageWords(fromStart)} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
+              <p data-testid="stage-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{stageWords(fromStart)} <span className="text-sm text-[#4d675f]">{FROM_YOUR_START_ANSWERS}</span></p>
             ) : (
+            <AskedField field="caseStage" value={input.caseStage === "not-sure" ? "" : input.caseStage} label="">
             <select
               data-testid="sc-intake-caseStage" value={input.caseStage}
               onChange={(event) =>
@@ -1151,14 +1209,16 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               <option value="enforcement">Enforcement</option>
               <option value="urgent">Urgent issue</option>
             </select>
+            </AskedField>
             )}
           </label>
 
           <label className="block">
             <span className="font-semibold text-[#16302b]">Your role</span>
 {roleFromStart ? (
-              <p data-testid="sc-intake-yourRole-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{fromStart.roleWords ?? roleFromStart} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
+              <p data-testid="sc-intake-yourRole-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{fromStart.roleWords ?? roleFromStart} <span className="text-sm text-[#4d675f]">{FROM_YOUR_START_ANSWERS}</span></p>
             ) : (
+            <AskedField field="yourRole" value={input.yourRole} label="">
             <select
               data-testid="sc-intake-yourRole" value={input.yourRole}
               onChange={(event) => updateField("yourRole", event.target.value)}
@@ -1170,40 +1230,20 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               <option value="Defendant / responding party">Defendant / responding party</option>
               <option value="Not sure">Not sure</option>
             </select>
+            </AskedField>
             )}
             <FieldHelp question={ROLE_QUESTION} />
           </label>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2">
-          <label className="block">
-            <span className="font-semibold text-[#16302b]">
-              Your full legal name or business name
-            </span>
-            <input
-              data-testid="sc-intake-yourName" value={input.yourName}
-              onChange={(event) => updateField("yourName", event.target.value)}
-              className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
-              placeholder="Full legal name or business name"
-            />
-          </label>
-
-          <label className="block">
-            <span className="font-semibold text-[#16302b]">
-              Other party name
-            </span>
-            <input
-              data-testid="sc-intake-otherParty" value={input.otherParty}
-              onChange={(event) => updateField("otherParty", event.target.value)}
-              className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
-              placeholder="Person or business on the other side"
-            />
-          </label>
-        </div>
+        {/* The other side's name is asked, offered and shown in one place, the Parties step on this page (site owner, 23 Nov
+            2026: the form's own "Other party name" box is removed; it asked beside the Parties step's offer of the same name). */}
 
         <StoryEditor section="small-claims" story={input.facts} startOpen={!input.facts.trim()} onSave={saveStory} ids={{ toggle: "sc-intake-edit-story", draft: "sc-intake-facts", save: "sc-story-save" }} />
 
         <div className="grid gap-5 md:grid-cols-2">
+          {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
+          <AskedField field="timeline" value={input.timeline} label={"Important dates / timeline"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               Important dates / timeline
@@ -1215,7 +1255,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               placeholder="List dates in order. If you do not know exact dates, estimate."
             />
           </label>
+          </AskedField>
 
+          {/* A "not sure" in this box is never shown as its answer (item 4, 6 Nov). */}
+          <AskedField field="evidence" value={input.evidence} label={"Evidence you have"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               Evidence you have
@@ -1228,9 +1271,12 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             />
             <FieldHelp question={EVIDENCE_QUESTION} />
           </label>
+          </AskedField>
         </div>
 
         <div className="grid gap-5 md:grid-cols-2">
+          {/* A "not sure" in this box is never shown as its answer (item 4, 6 Nov). */}
+          <AskedField field="missingEvidence" value={input.missingEvidence} label={"Evidence still missing"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               Evidence still missing
@@ -1244,7 +1290,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               placeholder="Example: exact date, full thread, witness names, proof of who saw the statement."
             />
           </label>
+          </AskedField>
 
+          {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
+          <AskedField field="goal" value={input.goal} label={isDefendantRole(input.yourRole) ? "What do you want to happen with the claim against you?" : "What do you want the court to order?"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               {/* A defendant does not ask the court for an order on the claim;
@@ -1259,9 +1308,12 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             />
             <FieldHelp question={REMEDY_QUESTION} />
           </label>
+          </AskedField>
         </div>
 
         <div className="grid gap-5 md:grid-cols-2">
+          {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
+          <AskedField field="amountClaimed" value={input.amountClaimed} label={"Amount claimed or disputed"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               Amount claimed or disputed
@@ -1276,7 +1328,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             />
             <FieldHelp question={AMOUNT_CLAIMED_QUESTION} />
           </label>
+          </AskedField>
 
+          {/* A "not sure" in this box is never shown as its answer (item 4, 6 Nov). */}
+          <AskedField field="damagesBreakdown" value={input.damagesBreakdown} label={isDefendantRole(input.yourRole) ? "Which part of the amount you dispute, and why" : "Breakdown of amount claimed"}>
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               {isDefendantRole(input.yourRole) ? "Which part of the amount you dispute, and why" : "Breakdown of amount claimed"}
@@ -1290,6 +1345,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               placeholder="Explain how you reached the number, if known."
             />
           </label>
+          </AskedField>
         </div>
 
         <div className="rounded-3xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
@@ -1298,38 +1354,11 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </h3>
 
           <div className="mt-4 grid gap-5 md:grid-cols-2">
-            <input
-              data-testid="sc-intake-yourAddress" value={input.yourAddress}
-              onChange={(event) => updateField("yourAddress", event.target.value)}
-              className="rounded-2xl border border-[#d8e6df] px-4 py-3"
-              placeholder="Your address"
-            />
+            {/* Names, addresses, phone and email: the one shared asker, read from the case record (site owner, 14 Nov 2026, rule 1). */}
+            <div className="md:col-span-2"><PartiesStep heading="The parties" /></div>
 
-            <input
-              data-testid="sc-intake-yourPostalCode" value={input.yourPostalCode}
-              onChange={(event) =>
-                updateField("yourPostalCode", event.target.value)
-              }
-              className="rounded-2xl border border-[#d8e6df] px-4 py-3"
-              placeholder="Your postal code"
-            />
-
-            <input
-              data-testid="sc-intake-yourEmail" value={input.yourEmail}
-              onChange={(event) => updateField("yourEmail", event.target.value)}
-              className="rounded-2xl border border-[#d8e6df] px-4 py-3"
-              placeholder="Your email"
-            />
-
-            <textarea
-              data-testid="sc-intake-defendantAddress" value={input.defendantAddress}
-              onChange={(event) =>
-                updateField("defendantAddress", event.target.value)
-              }
-              className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3 md:col-span-2"
-              placeholder="Other party address for service, if known"
-            />
-
+            {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
+            <AskedField field="serviceDetails" value={input.serviceDetails} label={"Service details"}>
             <textarea
               data-testid="sc-intake-serviceDetails" value={input.serviceDetails}
               onChange={(event) =>
@@ -1338,6 +1367,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3 md:col-span-2"
               placeholder={fromStart.servedOn ? "How the papers were served (in person, by mail, by email)" : "Service details, only if anything has already been served"}
             />
+            </AskedField>
             {/* The same date check as every date box (dates.ts), as in the civil form: a note, since nothing is counted from this box. */}
             {input.serviceDetails.trim() && dateAnswerCheck("When and how was it served?", input.serviceDetails.trim()) ? (
               <span data-testid="sc-field-needs-more" className="text-sm text-[#8a4b12] md:col-span-2">{dateAnswerCheck("When and how was it served?", input.serviceDetails.trim())}</span>
@@ -1396,6 +1426,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </summary>
 
           <div className="mt-5 grid gap-5">
+            {/* What was agreed (agreementTerms): one fact with the chat's agreement questions, so the one asker decides it. */}
+            <AskedField field="agreementDetails" value={input.agreementDetails} label={"Agreement details"}>
             <textarea
               data-testid="sc-intake-agreementDetails" value={input.agreementDetails}
               onChange={(event) =>
@@ -1404,7 +1436,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Agreement/contract details, only if this case involves an agreement"
             />
+            </AskedField>
 
+            {/* paymentHistory is a fact of its own (factsOfQuestion.ts): the one asker decides the box (boxView), as every form box (site owner, 24 Nov 2026). */}
+            <AskedField field="paymentHistory" value={input.paymentHistory} label={"Payment history"}>
             <textarea
               data-testid="sc-intake-paymentHistory" value={input.paymentHistory}
               onChange={(event) =>
@@ -1413,7 +1448,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Payment history, only if money, invoices, loan, debt, or services are involved"
             />
+            </AskedField>
 
+            {/* defenceResponse is a fact of its own (factsOfQuestion.ts): the one asker decides the box (boxView), as every form box (site owner, 24 Nov 2026). */}
+            <AskedField field="defenceResponse" value={input.defenceResponse} label={"Defence response"}>
             <textarea
               data-testid="sc-intake-defenceResponse" value={input.defenceResponse}
               onChange={(event) =>
@@ -1422,7 +1460,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Defence response, only if you are responding to someone else's claim"
             />
+            </AskedField>
 
+            {/* settlementEfforts is a fact of its own (factsOfQuestion.ts): the one asker decides the box (boxView), as every form box (site owner, 24 Nov 2026). */}
+            <AskedField field="settlementEfforts" value={input.settlementEfforts} label={"Settlement efforts or offers"}>
             <textarea
               data-testid="sc-intake-settlementEfforts" value={input.settlementEfforts}
               onChange={(event) =>
@@ -1431,7 +1472,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Settlement efforts or offers"
             />
+            </AskedField>
 
+            {/* deadlineDetails is a fact of its own (factsOfQuestion.ts): the one asker decides the box (boxView), as every form box (site owner, 24 Nov 2026). */}
+            <AskedField field="deadlineDetails" value={input.deadlineDetails} label={"Deadlines, court dates, or urgent timing concerns"}>
             <textarea
               data-testid="sc-intake-deadlineDetails" value={input.deadlineDetails}
               onChange={(event) =>
@@ -1440,13 +1484,17 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Deadlines, court dates, or urgent timing concerns"
             />
+            </AskedField>
 
+            {/* A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct). */}
+            <AskedField field="urgent" value={input.urgent} label={"Anything urgent"}>
             <textarea
               data-testid="sc-intake-urgent" value={input.urgent}
               onChange={(event) => updateField("urgent", event.target.value)}
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Anything urgent"
             />
+            </AskedField>
           </div>
         </details>
 
@@ -1596,7 +1644,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               ["timeline", "Important dates / timeline"],
               ["evidence", "Evidence you have"],
               ["missingEvidence", "Evidence still missing"],
-              ["goal", "What do you want the court to order?"],
+              ["goal", isDefendantRole(input.yourRole) ? "What do you want to happen with the claim against you?" : "What do you want the court to order?"],
               ["serviceDetails", "Service details"],
               ["agreementDetails", "Agreement or contract details"],
               ["paymentHistory", "Payment history"],
@@ -1626,5 +1674,6 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         <ReviewNeededNotice from="form" />
       </div>
     </section>
+    </OfferedFields.Provider>
   );
 }

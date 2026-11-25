@@ -21,6 +21,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 import { childSupportPrefill } from "../../app/builder/_components/childSupportPrefill";
+import { childSupportStartFrom, emptyCaseFile } from "../../src/lib/case-system/caseFile/caseFile";
 import { draftChildSupportApplication } from "../../src/lib/case-system/family/childSupportDraftEngine";
 import {
   SCOPE_NOTICES,
@@ -383,6 +384,20 @@ function main(): void {
     "a notice tells the user the site does not cover it, rather than blocking",
     /does not cover it yet/i.test(body) && !/disabled=\{notices\.length/.test(body),
   );
+
+  // C9 (23 Nov 2026): the builder starts from the case file's readers first (the person's name from the parties, the other
+  // side's name, the children, where they live, the evidence, where the other parent lives), the Family form's copy only
+  // where the case file holds nothing: a fact given anywhere is never asked again here.
+  {
+    const known = (value: string) => ({ state: "answered" as const, value, confirmed: true, source: { kind: "answer" as const, question: "held" } });
+    const file = { ...emptyCaseFile(), otherParty: known("Testy Partnerson"), children: known("Two children, 9 and 11"), livingSituation: "They live with me in Ottawa.", otherPartyCity: "Kingston", parties: { recorded: true, list: [{ id: "you", you: true as const, side: "yours" as const, kind: "person" as const, details: { firstName: "Test", lastName: "Person" }, unsure: [] }] } };
+    const empty = { yourName: "", otherParty: "", childrenInfo: "", currentLivingSituation: "", evidence: "", story: "" };
+    const start = childSupportPrefill(childSupportStartFrom(file, empty));
+    check("C9: the builder starts from the case file: names, children, where they live, where the other parent lives", start.applicantName === "Test Person" && start.respondentName === "Testy Partnerson" && start.childrenDescribed === "Two children, 9 and 11" && /live with me/.test(start.parentingTimeDescribed) && start.respondentResidence === "Kingston", JSON.stringify(start));
+    check("C9 self-test: with nothing in the case file, the Family form's copy is used as before", childSupportPrefill(childSupportStartFrom(emptyCaseFile(), { ...empty, yourName: "Form Name" })).applicantName === "Form Name");
+    const page = fs.readFileSync(path.join(process.cwd(), "app/builder/page.tsx"), "utf8");
+    check("C9: the builder page passes the case file's readers to the builder (childSupportStartFrom)", /recorded=\{childSupportPrefill\(childSupportStartFrom\(caseFileOf\(/.test(page));
+  }
 
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
   if (failures) process.exitCode = 1;

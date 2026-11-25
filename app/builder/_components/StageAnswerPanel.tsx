@@ -1,5 +1,9 @@
 "use client";
 
+import { questionStatus } from "../../../src/lib/case-system/caseFile/factStatus";
+import { slotText, type CaseFile, type SlotFact } from "../../../src/lib/case-system/caseFile/caseFile";
+import { factsOfQuestion } from "../../../src/lib/case-system/caseFile/factsOfQuestion";
+import { parseRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
 import { isRealIsoDate, yearChoicesAround } from "../../../src/lib/case-system/dates";
 import { sentences as splitSentences } from "../../../src/lib/case-system/sentences";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -27,6 +31,7 @@ import {
 } from "@/src/lib/case-system/deadlines/serviceEffectiveDate";
 
 import { findStage, stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
+import { MARRIED_ONLY_FAMILY_STEPS, withoutMarriedOnlyAnswer } from "../../../src/lib/case-system/family/marriedOnly";
 import { DEADLINE_EVENTS, caseDatesFrom } from "@/src/lib/case-system/deadlines/deadlineEvents";
 import { formatLongDate } from "@/src/lib/case-system/deadlines/holidays";
 import { computedDeadlinesFor } from "@/src/lib/content-library/computedDeadline";
@@ -60,9 +65,11 @@ import {
   todayInOntario,
   type PlainLine,
   type PracticalCourt,
+  withoutDivorceApplication,
 } from "@/src/lib/content-library/nextStepPractical";
 import { datesFromPicture, stepFromPicture, type CasePicture } from "@/src/lib/case-system/intake/caseReader";
 import { amountNoteFor } from "@/src/lib/case-system/amountNotes";
+import { UseSuggestion } from "@/app/_components/UseSuggestion";
 import { officialUrl, sourceName, type RuleCitation } from "@/src/lib/case-system/stage-map/citations";
 
 /**
@@ -156,6 +163,7 @@ function groupOf(stage: { id: string; side: string }): string {
 export { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
 import { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
 import { isLeaveSentence, withLeaveRulesQuoted } from "@/src/lib/content-library/leaveRuleWords";
+import { ADD_IT_LATER, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
 
 export function orderGroupsForReader<T extends { side: string; label: string }>(
   groups: readonly T[],
@@ -529,7 +537,13 @@ export function NextStepCard({
   responding = false,
   arrival = null,
   noticeStepId = "",
+  recordedAmount = "",
+  notMarried = false,
 }: {
+  /** The person recorded that they were never married to the other person (the forms list leaves out Form 8A; B4). */
+  notMarried?: boolean;
+  /** The amount the record holds, so text about a claim of another size is left out (forThisPerson; B4). */
+  recordedAmount?: string;
   /** Opens another step, as choosing it in "Where is your case?" does. */
   onChooseStep?: (id: string) => void;
   summary: NextStepSummary;
@@ -556,7 +570,7 @@ export function NextStepCard({
   const today = todayIso();
   // The counted last day the filing and service lines are timed against (walkthrough run 38525903567, SD).
   const filingDeadline = cardFilingDeadline(summary, arrival, responding, userWords, city, stepId);
-  const practical = practicalFor(stepId, court as PracticalCourt, city, responding, userWords, noticeStepId, { deadline: filingDeadline.filing, serveBy: filingDeadline.serving, today, divisionalOnly: filingDeadline.divisionalOnly });
+  const practical = withoutDivorceApplication(practicalFor(stepId, court as PracticalCourt, city, responding, userWords, noticeStepId, { deadline: filingDeadline.filing, serveBy: filingDeadline.serving, today, divisionalOnly: filingDeadline.divisionalOnly }), notMarried);
   const toDo = answer.sections.find((section) => section.heading === "What to do next")?.text ?? "";
   // The answer's first paragraph speaks of every notice the step covers; once
   // the notice filter has narrowed them, the card leaves it to the full
@@ -567,6 +581,7 @@ export function NextStepCard({
     ? forThisPerson(toDo.split(/\n\s*\n/)[0]?.trim() ?? "", {
         userWords,
         filingShown: Boolean(practical?.filing.length),
+        amount: parseRecordedAmount(recordedAmount),
       })
     : "";
   const unit = (count: number, word: string) => `${count} ${count === 1 ? word.replace(/s$/, "") : word}`;
@@ -825,8 +840,8 @@ export function NextStepCard({
       {shownLead ? <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => !isLeaveSentence(entry.sentence) && shownLead.includes(courtWords(entry.sentence, court)))} /> : null}
       {/* The form, fee, filing and service for this step (Phase 2); the forms
           the answer's text names are the fallback for a step with none recorded. */}
-      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} noticeStepId={noticeStepId} deadline={filingDeadline.filing} serveBy={filingDeadline.serving} divisionalOnly={filingDeadline.divisionalOnly} today={today} timeRanOut={Boolean(ranOut)} /> : null}
-      {!practical?.forms.length && toDo ? <FormsNamedHere texts={[toDo]} court={court} userWords={userWords} heading="Forms for this step" /> : null}
+      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} noticeStepId={noticeStepId} deadline={filingDeadline.filing} serveBy={filingDeadline.serving} divisionalOnly={filingDeadline.divisionalOnly} today={today} timeRanOut={Boolean(ranOut)} notMarried={notMarried} /> : null}
+      {!practical?.forms.length && toDo ? <FormsNamedHere texts={[toDo]} court={court} userWords={userWords} heading="Forms for this step" notMarried={notMarried} /> : null}
       {(() => {
         // Say what the card doesn't list yet, instead of leaving a gap the
         // person can't see (build order Step 2E, 2026-10-12). Worded so it
@@ -864,7 +879,7 @@ export function NextStepCard({
           {answer.sources.length > 4 ? " — all sources are in the full answer below." : ""}
         </p>
       ) : null}
-      <WhatComesNext stepId={stepId} responding={responding} story={userWords} city={city} />
+      <WhatComesNext stepId={stepId} responding={responding} story={userWords} city={city} notMarried={notMarried} />
       {limitNotesFor(court as PracticalCourt, userWords).map((line) => (
         <p key={line.cite.pinpoint} data-testid="next-step-limit" className="mt-3 rounded-xl border border-[#f0c88a] bg-[#fffaf2] px-3 py-2 text-sm leading-6 text-[#7a4b12]">
           {line.say}{" "}
@@ -925,6 +940,8 @@ export function AnswerView({
   userWords = "",
   underCard = false,
   servedWhen = [],
+  notMarried = false,
+  amount = null,
 }: {
   answer: RenderedAnswer;
   court: string;
@@ -933,6 +950,10 @@ export function AnswerView({
   underCard?: boolean;
   /** Service-timing sentences of the step's deadlines, each with its subrule, shown under "Your deadline" where the sentence appears. */
   servedWhen?: PlainLine[];
+  /** Married-only forms left out of the forms the answer names until they say married (marriedOnly.ts hidesMarriedOnly). */
+  notMarried?: boolean;
+  /** The amount the record holds: the leave sentences are left out above $50,000, as on the card (forThisPerson; change 23). */
+  amount?: number | null;
 }) {
   const cardLead = underCard ? cardLeadOf(answer) : "";
   return (
@@ -945,7 +966,8 @@ export function AnswerView({
         </p>
       ) : null}
       {answer.sections.map((section) => {
-        const text = courtWords(withoutCardLead(section.heading, section.text, cardLead), court);
+        const own = withoutCardLead(section.heading, section.text, cardLead);
+        const text = courtWords(section.heading === "What to do next" ? withoutLeaveSentencesForAmount(own, amount) : own, court);
         return (
           <div key={section.heading}>
             <p className="text-sm font-semibold text-[#16302b]">{section.heading}</p>
@@ -973,7 +995,7 @@ export function AnswerView({
           </div>
         );
       })}
-      <FormsNamedHere texts={answer.sections.map((section) => section.text)} court={court} userWords={userWords} />
+      <FormsNamedHere texts={answer.sections.map((section) => section.text)} court={court} userWords={userWords} notMarried={notMarried} />
       {answer.sources.length > 0 && (
         <div>
           <p className="text-sm font-semibold text-[#16302b]">Sources</p>
@@ -1299,8 +1321,39 @@ export function withoutSentencesNaming(paragraph: string, naming: RegExp): strin
   return splitSentences(paragraph).filter((sentence) => !naming.test(sentence)).join(" ").replace(/\s+/g, " ").trim();
 }
 
-export function forThisPerson(paragraph: string, { userWords, filingShown }: { userWords: string; filingShown: boolean }): string {
-  let text = paragraph;
+/**
+ * The sentences of the civil starting step on starting a claim within the Small Claims limit in the Superior Court (Courts
+ * of Justice Act s. 23 (1.1), r. 14.01.1): about a claim of $50,000 or less, so not shown once the recorded amount is more
+ * (Chrome check of production c38e69fd, B4: shown for an $85,000 claim). Not one word of them is changed; with no amount
+ * recorded they are shown.
+ */
+export const LEAVE_SENTENCES = [
+  /^The Small Claims Court can hear a claim for money up to a set amount\b/,
+  /^That amount is \$50,000\.$/,
+  /^If your claim is within that limit, it can only be started in the Superior Court with that court's leave\.$/,
+  /^A claim above it needs no such leave\.$/,
+  /^You may ask for leave by motion without notice\b/,
+  /^The court may grant it only if it is in the interest of justice\.$/,
+  // Change 23 (approved 2026-11-21): the civil before-filing step's four leave sentences ("What to do next", sentences 6 to
+  // 9 of the page), shown only when the amount claimed is $50,000 or less, or not yet known. Wording unchanged.
+  /^A case that is within the Small Claims Court's limits must not be started in the Superior Court of Justice unless the Superior Court gives leave\.$/,
+  /^The court may give that leave only if it is in the interest of justice\.$/,
+  /^You may ask for this leave without notice, unless the court orders otherwise\.$/,
+  /^Leave is not needed for a counterclaim, a crossclaim, or a third or later party claim, if the main case was started in the Superior Court\.$/,
+];
+
+/** Each paragraph without the leave sentences, once the recorded amount is over $50,000 (Courts of Justice Act s. 23 (1.1)). */
+export function withoutLeaveSentencesForAmount(text: string, amount: number | null): string {
+  if (amount === null || amount <= 50_000) return text;
+  return text
+    .split(/\n\s*\n/)
+    .map((paragraph) => splitSentences(paragraph).filter((sentence) => !LEAVE_SENTENCES.some((pattern) => pattern.test(sentence.trim()))).join(" "))
+    .filter((paragraph) => paragraph.trim())
+    .join("\n\n");
+}
+
+export function forThisPerson(paragraph: string, { userWords, filingShown, amount = null }: { userWords: string; filingShown: boolean; amount?: number | null }): string {
+  let text = withoutLeaveSentencesForAmount(paragraph, amount);
   if (!/\bmortgage/i.test(userWords)) {
     text = text.replace(/,? or Form 14B for a mortgage action/g, "").replace(/ \(Form 14A, or Form 14B for a mortgage action\)/g, " (Form 14A)");
   }
@@ -1350,12 +1403,16 @@ export default function StageAnswerPanel({
   noticeStepId = null,
   userWords = "",
   recordedAmount = "",
+  notMarried = false,
   city = "",
   storyText = "",
   picture = null,
   motionToChange = null,
   suggestedStepId = null,
   laterDates = [],
+  file = null,
+  stepNotSure = false,
+  heldServiceWords = null,
   onSaved,
 }: {
   courtPath: StagePathway;
@@ -1388,6 +1445,8 @@ export default function StageAnswerPanel({
   userWords?: string;
   /** The amount the user recorded, set against the court's limits at the starting step (amountNotes.ts). */
   recordedAmount?: string;
+  /** The person recorded that they were never married to the other person (Form 8A is left out; B4). */
+  notMarried?: boolean;
   /** The person's city, so the card names the filing portal for their region. */
   city?: string;
   /** The person's own story (not the analysis), read for a procedural event they name, such as "noted in default". */
@@ -1407,11 +1466,22 @@ export default function StageAnswerPanel({
    */
   suggestedStepId?: string | null;
   /**
-   * Date questions whose day the person said they do not know, already offered once more
-   * in the review (Jason, 2026-10-24, option 1): shown folded with "Add it", which is not a
-   * second question (the case file, caseFile.ts).
+   * Date questions whose day the person said they do not know (caseFile.ts unsureDateQuestions):
+   * never asked again (site owner, 31 Oct), shown folded as "Not answered yet: add it when you know"
+   * (askCopy.ts NOT_ANSWERED_YET) with "Add it", which the person may open; never a second question.
    */
   laterDates?: readonly string[];
+  /** The case file: a date question whose fact it holds as settled ("not sure") is folded too (caseFile/factStatus.ts). */
+  file?: CaseFile | null;
+  /**
+   * The person said they are not sure where the case is (the case file holds "stage" not sure; the start's
+   * "I am not sure" for a case already going): "Where is your case?" is never asked again, nor a step suggested
+   * in its place; the panel shows "Not answered yet: add it when you know" with "Add it", which opens the list
+   * (founder, 1 Nov). No step's content is shown until the person picks one.
+   */
+  stepNotSure?: boolean;
+  /** How the papers were served, in the words the case file holds from another place (caseFile.ts heldServiceWords, C9). */
+  heldServiceWords?: string | null;
   /** Told what the person chose (dates and step), so a page that remounts this panel can show it again; called just AFTER the save to the case is queued, so positionSavesSettled(caseId) inside it waits for that save. */
   onSaved?: (saved: {
     stepId?: string | null;
@@ -1419,7 +1489,9 @@ export default function StageAnswerPanel({
     service?: Record<string, { method: ServiceMethod; enteredOn: string } | null>;
   }) => void;
 }) {
-  const options = stagesForPathway(courtPath).map((stage) => ({
+  // Someone not married to the other person is not offered a married-only step (marriedOnly.ts), unless it is the step
+  // saved or the one suggested: shown, so nothing is changed for them silently (CLAUDE.md s. 4).
+  const options = stagesForPathway(courtPath).filter((stage) => !(notMarried && MARRIED_ONLY_FAMILY_STEPS.has(stage.id) && stage.id !== initialStepId && stage.id !== suggestedStepId)).map((stage) => ({
     id: stage.id,
     group: groupOf(stage),
     label: stage.userQuestion,
@@ -1458,12 +1530,20 @@ export default function StageAnswerPanel({
     [givenServiceKey, replayedService],
   );
   const savedStep = initialStepId && options.some((option) => option.id === initialStepId) ? initialStepId : "";
-  const startingStep = savedStep || suggested;
+  const startingStep = savedStep || (stepNotSure ? "" : suggested);
   const [stageId, setStageId] = useState(startingStep);
   const [choosingStep, setChoosingStep] = useState(false);
+  // "I'm not sure" on the suggested step (the one offer handler settles the step in the case file): folded at once.
+  const [stepUnsureHere, setStepUnsureHere] = useState(false);
+  // The step the person chose on this page ("Use the suggestion" or the list): until then a step the site
+  // suggested is named as a suggestion, never as theirs (owner, 31 Oct).
+  const [chosenHere, setChosenHere] = useState<string | null>(null);
   // A folded "not known yet" date the person chose to add after all.
   const [openedLater, setOpenedLater] = useState<Record<string, boolean>>({});
-  const [result, setResult] = useState<Response | null>(null);
+  const [serverResult, setResult] = useState<Response | null>(null);
+  // The answer as this person reads it: a person the record says was not married never reads the married-only
+  // sentences (marriedOnly.ts withoutMarriedOnlyAnswer; Chrome check of #550, 7.2). The card and the full answer read it.
+  const result = useMemo(() => withoutMarriedOnlyAnswer(serverResult, notMarried), [serverResult, notMarried]);
   const [municipality, setMunicipality] = useState("");
   const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -1515,6 +1595,17 @@ export default function StageAnswerPanel({
   // The story tells how papers reached the person; never how they served theirs.
   const storyMethodFor = (questionId: string): ServiceMethod | null =>
     serviceCourt && storyServiceMethod && !serving(questionId) && waysFor(questionId).some((rule) => rule.method === storyServiceMethod) ? storyServiceMethod : null;
+  // How the papers were served, given in another place (the Small Claims chat, its form, the civil chat): the person's own
+  // answer, so it is the method chosen here, shown with Change, never asked again (C9, 23 Nov 2026). Read into this page's
+  // choice only where the step has no method of its own; saved only when the person acts here.
+  const heldMethod = serviceCourt && heldServiceWords ? serviceMethodFromStory(serviceCourt, heldServiceWords) : null;
+  const serviceQuestionIds = (((result as { dateQuestions?: { id: string; question: string }[] } | null)?.dateQuestions) ?? []).filter((question: { id: string; question: string }) => isServiceDateQuestion(question.id, question.question)).map((question: { id: string }) => question.id).join("|");
+  useEffect(() => {
+    if (!heldMethod || !serviceQuestionIds) return;
+    const fill = serviceQuestionIds.split("|").filter((id: string) => !serviceMethod[id] && !serving(id) && waysFor(id).some((rule) => rule.method === heldMethod));
+    if (fill.length) setServiceMethod((current) => ({ ...current, ...Object.fromEntries(fill.filter((id: string) => !current[id]).map((id: string) => [id, heldMethod])) }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [heldMethod, serviceQuestionIds]);
   const [dateStatus, setDateStatus] = useState<"" | "saving" | "saved" | "not-saved">("");
   /*
    * Page review 2026-10-07: a confirmed defendant scrolled 36 to 48 steps,
@@ -1565,9 +1656,13 @@ export default function StageAnswerPanel({
     for (const [id, date] of Object.entries(storyDates)) if (!dropped[id]) fromStory[id] = date.value;
     return { ...fromStory, ...answers };
   };
+  // The dates the deadline is counted from that came from the story, not from the person (B6): kept from it on this page,
+  // or the story's own date unchanged. The card then says "Based on the date in your story".
+  const storyDateIds = (sent: Record<string, string>) => Object.keys(sent).filter((qid) => Boolean(keptFromStory[qid]) || (Boolean(storyDates[qid]) && storyDates[qid].value === sent[qid]));
   /** The person chooses a step: from "Where is your case?", or the card's "Open this step" (whenTimeRunsOut). */
   function chooseStep(id: string) {
     setStageId(id);
+    setChosenHere(id);
     setChoosingStep(false);
     setResult(null);
     setMunicipality("");
@@ -1635,7 +1730,7 @@ export default function StageAnswerPanel({
       const response = await fetch("/api/case/stage-answer", {
         method: "POST",
         headers: { "Content-Type": "application/json", ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}) },
-        body: JSON.stringify({ caseId, stageId: id, courtPath, confirmedFacts: facts, dateAnswers: withStoryDates(answers, dropped) }),
+        body: JSON.stringify({ caseId, stageId: id, courtPath, confirmedFacts: facts, dateAnswers: withStoryDates(answers, dropped), datesFromStory: storyDateIds(withStoryDates(answers, dropped)) }),
       });
       if (!response.ok) throw new Error(String(response.status));
       setResult((await response.json()) as Response);
@@ -1752,7 +1847,8 @@ export default function StageAnswerPanel({
     // because a date was kept (case position stores only what they chose).
     // Queued before onSaved is told, so a page waiting on it waits for it.
     if (caseId) {
-      void savePosition(caseId, { dateAnswers: counted, ...(Object.keys(keptService).length ? { service: keptService } : {}) }).then((saved) =>
+      // Marked as kept from the story: counted like any date, never recorded as the person's answer (B2).
+      void savePosition(caseId, { dateAnswers: counted, datesFromStory: Object.keys(counted), ...(Object.keys(keptService).length ? { service: keptService } : {}) }).then((saved) =>
         setDateStatus(saved ? "saved" : "not-saved"),
       );
     }
@@ -1771,6 +1867,13 @@ export default function StageAnswerPanel({
       className="rounded-3xl border border-[#d8e6df] bg-white p-5 shadow-sm"
     >
       <h3 className="text-lg font-bold text-[#10231f]">What happens next at your exact step</h3>
+      {(stepNotSure || stepUnsureHere) && !stageId && !choosingStep ? (
+        // Said "not sure" where the case is: the quiet line, never the question again (founder, 1 Nov).
+        <p className="mt-4 text-sm text-[#4d675f]" data-testid="stage-not-answered-yet" data-fact="stage">
+          <span className="font-semibold text-[#16302b]">Where is your case: </span>{NOT_ANSWERED_YET}.{" "}
+          <button type="button" data-testid="not-answered-yet-add" onClick={() => setChoosingStep(true)} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</button>
+        </p>
+      ) : <>
       <p className="mt-2 text-sm leading-6 text-[#4d675f]">
         {noticeFirst && suggested === stageId
           ? "Before filing: this step may apply to the kind of claim you described. It shows a written-notice deadline counted from the day of the injury, with the rule it comes from. If it does not fit, choose the question closest to where your case is."
@@ -1786,12 +1889,23 @@ export default function StageAnswerPanel({
           one click away. */}
       {stageId && !choosingStep ? (
         <p className="mt-4 text-sm text-[#16302b]" data-testid="stage-answer-current">
-          <span className="font-semibold">Your step: </span>
+          <span className="font-semibold">{stageId === suggested && stageId !== savedStep && stageId !== chosenHere ? "Suggested step: " : "Your step: "}</span>
           {/* Fitted to the one notice the person's words keep (walkthrough run
               38500825561, SW), else the step's own question. */}
           {(result?.outcome === "rendered" && result.nextStep ? stepTitleFor(result.nextStep, userWords, city) : null) ??
             options.find((option) => option.id === stageId)?.label ??
             ""}{" "}
+          {stageId === suggested && stageId !== savedStep && stageId !== chosenHere ? (
+            <UseSuggestion
+              offer={{ key: `step:${stageId}`, fact: "stage" }}
+              testId="stage-answer-use-suggestion"
+              onUse={() => chooseStep(stageId)}
+              // No: the step list, asked once; I'm not sure: folded, never asked again (site owner, 14 Nov 2026).
+              onNo={() => setChoosingStep(true)}
+              onUnsure={() => { setStepUnsureHere(true); setStageId(""); setChoosingStep(false); }}
+              className="mr-2 mt-1 rounded-xl border border-[#2f7d67] bg-white px-3 py-1 text-sm font-semibold text-[#2f7d67]"
+            />
+          ) : null}
           <button
             type="button"
             data-testid="stage-answer-change"
@@ -1831,6 +1945,7 @@ export default function StageAnswerPanel({
           ))}
         </select>
       </label>
+      </>}
       {confirmedStage && !showOtherSide && (choosingStep || !stageId) ? (
         <button
           type="button"
@@ -1861,6 +1976,8 @@ export default function StageAnswerPanel({
           city={city}
           responding={responding}
           noticeStepId={noticeStepId ?? ""}
+          recordedAmount={recordedAmount}
+          notMarried={notMarried}
           fromStory={(result.dateQuestions ?? [])
             .filter((question) => !dateAnswers[question.id] && storyDates[question.id] && !rejected[question.id])
             .map((question) => ({ label: "", date: formatIso(storyDates[question.id].value), basis: storyDates[question.id].basis }))}
@@ -1882,11 +1999,15 @@ export default function StageAnswerPanel({
           </p>
           <div className="mt-3 space-y-4">
             {result.dateQuestions!.map((question) => {
-              if (laterDates.includes(question.id) && !dateAnswers[question.id] && !openedLater[question.id]) {
+              if ((laterDates.includes(question.id) || questionStatus(file, question.id) === "settled") && !dateAnswers[question.id] && !openedLater[question.id]) {
+                // A rough time the record holds for this question's fact ("January 2026") is shown as the record words it,
+                // "January 2026 (day not given yet)", never "Not answered yet" (Chrome, test of #561, 1.13: the case
+                // snapshot on the same page held January 2026).
+                const rough = file ? factsOfQuestion(question.id).map((fact) => (fact in file ? slotText(file[fact as SlotFact], (iso) => iso) : "")).find((words) => words.endsWith("(day not given yet)")) : undefined;
                 return (
                   <p key={question.id} data-testid="stage-answer-date-later" className="text-sm text-[#16302b]">
-                    <span className="font-semibold">{shortLabel(dateQuestionTextFor(question, serving(question.id)))}:</span> not known yet.{" "}
-                    <button type="button" onClick={() => setOpenedLater((now) => ({ ...now, [question.id]: true }))} className="font-semibold text-[#2f7d67] underline">Add it</button>
+                    <span className="font-semibold">{shortLabel(dateQuestionTextFor(question, serving(question.id)))}:</span> {rough ? <span data-testid="stage-answer-date-rough" data-fact={factsOfQuestion(question.id)[0]}>{rough}.</span> : <span data-testid="not-answered-yet">{NOT_ANSWERED_YET}.</span>}{" "}
+                    <button type="button" onClick={() => setOpenedLater((now) => ({ ...now, [question.id]: true }))} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</button>
                   </p>
                 );
               }
@@ -1933,20 +2054,32 @@ export default function StageAnswerPanel({
                     </p>
                     <div className="mt-2 flex flex-wrap gap-2">
                       {fromStory ? (
-                        <button
-                          type="button"
-                          data-testid={`stage-answer-date-suggestion-${question.id}`}
-                          // Held while a deadline is counted ("Counting your deadline…" says so): pressed twice it counted twice (fresh review, 28 Oct).
+                        // Held while a deadline is counted ("Counting your deadline…" says so): pressed twice it counted twice (fresh review, 28 Oct).
+                        // The one control every suggestion is offered with (owner, 31 Oct).
+                        <UseSuggestion
+                          offer={{ key: `date:${question.id}`, fact: null }}
+                          testId={`stage-answer-date-suggestion-${question.id}`}
+                          what={formatIso(fromStory.value)}
                           disabled={dateStatus === "saving"}
-                          onClick={() => {
+                          onUse={() => {
                             const draft = { ...dateDraft, [question.id]: fromStory.value };
                             setDateDraft(draft);
                             void countDeadline(draft);
                           }}
+                          // No: the story's day is dropped and the date box opens, asked once (as "No, change it");
+                          // I'm not sure: the story's day is dropped and the question folds (the one offer handler keeps it).
+                          onNo={() => {
+                            setEditing({ ...editing, [question.id]: true });
+                            const dropped = { ...rejected, [question.id]: true };
+                            setRejected(dropped);
+                            void load(stageId, factsForStep(stageId, municipality), dateAnswers, dropped);
+                          }}
+                          onUnsure={() => {
+                            const dropped = { ...rejected, [question.id]: true };
+                            setRejected(dropped);
+                          }}
                           className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
-                        >
-                          Yes, save this date
-                        </button>
+                        />
                       ) : null}
                       <button
                         type="button"
@@ -2107,20 +2240,19 @@ export default function StageAnswerPanel({
                     // One click uses the suggested date AND counts the deadline:
                     // choosing it is the user's confirmation (page review,
                     // 2026-10-06: no served person ever saw their due date).
-                    <button
-                      type="button"
-                      data-testid={`stage-answer-date-suggestion-${question.id}`}
+                    <UseSuggestion
+                      offer={{ key: `date:${question.id}`, fact: null }}
+                      testId={`stage-answer-date-suggestion-${question.id}`}
+                      what={formatIso(suggestion.value)}
+                      note={suggestion.basis}
                       disabled={dateStatus === "saving"}
-                      onClick={() => {
+                      onUse={() => {
                         const draft = { ...dateDraft, [question.id]: suggestion.value };
                         setDateDraft(draft);
                         void countDeadline(draft);
                       }}
                       className="mt-2 block rounded-xl border border-[#2f7d67] bg-white px-4 py-2 text-left text-sm font-semibold text-[#2f7d67]"
-                    >
-                      Count my deadline from {formatIso(suggestion.value)}
-                      <span className="block text-xs font-normal text-[#4d675f]">{suggestion.basis}</span>
-                    </button>
+                    />
                   ) : null}
                 </div>
               );
@@ -2176,10 +2308,12 @@ export default function StageAnswerPanel({
             userWords={userWords}
             underCard={cardShowsLead(result.nextStep, userWords, city)}
             servedWhen={servedWhenOf(result.nextStep)}
+            notMarried={notMarried}
+            amount={parseRecordedAmount(recordedAmount)}
           />
         </details>
       ) : result?.outcome === "rendered" ? (
-        <AnswerView answer={result.answer} court={courtPath} userWords={userWords} />
+        <AnswerView answer={result.answer} court={courtPath} userWords={userWords} notMarried={notMarried} amount={parseRecordedAmount(recordedAmount)} />
       ) : null}
 
       {result?.outcome === "needs-a-fact" && (
@@ -2201,7 +2335,7 @@ export default function StageAnswerPanel({
           >
             Show the steps for that place
           </button>
-          {result.answer && <AnswerView answer={result.answer} court={courtPath} userWords={userWords} />}
+          {result.answer && <AnswerView answer={result.answer} court={courtPath} userWords={userWords} notMarried={notMarried} amount={parseRecordedAmount(recordedAmount)} />}
         </div>
       )}
 

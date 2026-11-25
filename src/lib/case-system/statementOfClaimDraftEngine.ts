@@ -9,7 +9,7 @@
  * foundation for guided intake's actual data shape; see the session
  * report in docs/INTAKE_STATUS.md for the reasoning).
  *
- * Input shape is deliberately SmallClaimsIntelligenceInput -- the exact
+ * Input shape is deliberately the fields of SmallClaimsIntelligenceInput it reads -- the exact
  * type mapGuidedIntakeToSmallClaimsInput() produces and the fixture
  * harness's PipelineRun.mappedInput already is (pipelineRunner.ts) --
  * not a new shape invented for this file.
@@ -45,6 +45,8 @@ import { sentences as sharedSentences } from "./sentences";
 import type { SmallClaimsIntelligenceInput } from "./intelligence/smallClaimsIntelligenceEngine";
 import { sanitizeCognitionOutput } from "./intelligence/caseStrengthLanguageValidator";
 import { parseRecordedAmount, formatRecordedAmount } from "./format/recordedAmount";
+import { stillNeeded } from "./caseFile/factStatus";
+import type { CaseFile } from "./caseFile/caseFile";
 
 export type MatchedClaimTypeForDraft = {
   claimTypeId: string;
@@ -117,10 +119,21 @@ export type UnrecordedElementForDraft = {
   name: string;
 };
 
+/**
+ * The fields the draft reads, and only those: the Form 7A section builds them from the case file
+ * on every Small Claims route (site owner, 30 Oct), the fixtures pass a whole intake input.
+ */
+export type StatementOfClaimDraftInput = Pick<
+  SmallClaimsIntelligenceInput,
+  "yourName" | "yourAddress" | "otherParty" | "defendantAddress" | "amountClaimed" | "facts" | "timeline" | "goal"
+>;
+
 export function draftStatementOfClaimParticulars(
-  input: SmallClaimsIntelligenceInput,
+  input: StatementOfClaimDraftInput,
   matchedClaimType: MatchedClaimTypeForDraft | null,
   unrecordedElements: UnrecordedElementForDraft[] = [],
+  /** The case file: a fact the one function says is known is not listed as missing (caseFile/factStatus.ts). */
+  file?: CaseFile | null,
 ): StatementOfClaimDraft {
   const yourName = trimmed(input.yourName);
   const yourAddress = trimmed(input.yourAddress);
@@ -137,7 +150,7 @@ export function draftStatementOfClaimParticulars(
   };
   track("Plaintiff's full legal name", Boolean(yourName));
   track("Plaintiff's address for court forms", Boolean(yourAddress));
-  track("Defendant's full legal name", Boolean(otherParty));
+  track("Defendant's full legal name", Boolean(otherParty) || (file ? stillNeeded(file, ["otherParty"]).length === 0 : false));
   track("Defendant's address for service", Boolean(defendantAddress));
   // NOT `Boolean(amountClaimed)`. That asked whether the user typed anything,
   // so "I don't know what it would come to." satisfied it and the draft

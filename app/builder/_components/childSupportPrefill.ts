@@ -35,6 +35,8 @@ export type FamilyRecordedForPrefill = {
   currentLivingSituation: string;
   evidence: string;
   story: string;
+  /** Where the other parent lives, as the case file holds it (caseFile.ts childSupportStartFrom, C9). */
+  otherPartyCity?: string;
 };
 
 export type ChildSupportPrefill = {
@@ -43,6 +45,8 @@ export type ChildSupportPrefill = {
   childrenDescribed: string;
   parentingTimeDescribed: string;
   incomeDocumentsHeld: string;
+  /** Where the other parent ordinarily lives: the answer the case already holds (C9). */
+  respondentResidence: string;
 };
 
 const AGE = "(?:\\d{1,2}|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen)";
@@ -102,7 +106,7 @@ function livingFrom(text: string): string {
 
 export function childSupportPrefill(recorded: FamilyRecordedForPrefill | null | undefined): ChildSupportPrefill {
   if (!recorded) {
-    return { applicantName: "", respondentName: "", childrenDescribed: "", parentingTimeDescribed: "", incomeDocumentsHeld: "" };
+    return { applicantName: "", respondentName: "", childrenDescribed: "", parentingTimeDescribed: "", incomeDocumentsHeld: "", respondentResidence: "" };
   }
   const childrenInfo = recorded.childrenInfo.trim();
   const otherName = recorded.otherParty.trim().split(/\s+/)[0] ?? "";
@@ -119,5 +123,6 @@ export function childSupportPrefill(recorded: FamilyRecordedForPrefill | null | 
     incomeDocumentsHeld: items(recorded.evidence)
       .filter((item) => INCOME_DOCUMENT.test(item) && !namesOther(item))
       .join("\n"),
+    respondentResidence: recorded.otherPartyCity?.trim() ?? "",
   };
 }

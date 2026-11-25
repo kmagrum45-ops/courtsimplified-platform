@@ -1,5 +1,6 @@
-import { answeredFactsOf, answeredInStory } from "./answeredInStory";
-import type { SlotFact } from "../caseFile/caseFile";
+import { answeredInStory, caseFileOfChat } from "./answeredInStory";
+import { type CaseFile, type ChatTurn } from "../caseFile/caseFile";
+import { chatQuestionFor } from "../caseFile/heldAnswer";
 import { sentences as sharedSentences } from "../sentences";
 import { findDates, findDayMonthWithoutYear, mentionsDate, mentionsRelativeDate } from "../dates";
 import {
@@ -14,6 +15,7 @@ import {
 
 import type { CaseProvince } from "../architecture/masterCaseSchema";
 import { userStory } from "../userStory";
+import { COMMERCIAL_TENANCY_WORDS, RESIDENTIAL_TENANCY_WORDS, hasTenancyDisputeSignal } from "../intelligence/tenancyWords";
 
 export type CasePartnerRole = "user" | "assistant" | "system";
 
@@ -612,6 +614,11 @@ function confidenceFromSignals(count: number): CasePartnerConfidence {
   return "low";
 }
 
+/** The conversation as the conversation check reads it (caseFile.ts ChatTurn). */
+export function chatTurnsOf(conversation: CasePartnerConversationMessage[] = []): ChatTurn[] {
+  return conversation.map((item) => ({ role: item.role, text: item.content }));
+}
+
 function getConversationText(conversation: CasePartnerConversationMessage[] = []): string {
   return conversation
     .filter((item) => item.role === "user")
@@ -761,19 +768,10 @@ export function inferCourtArea(message: string): CasePartnerCourtArea {
   // A lease described as commercial, with nothing residential in the story,
   // scores no LTB signal and falls through to the ordinary court paths.
   const commercialTenancy =
-    countSignals(message, [
-      "commercial",
-      "strip mall",
-      "storefront",
-      "retail unit",
-      "office space",
-      "my restaurant",
-      "my store",
-      "my shop",
-      "business premises",
-    ]) > 0 &&
-    countSignals(message, ["apartment", "residential", "rental unit", "basement", "my home", "house i rent"]) === 0;
-  const ltb = commercialTenancy ? 0 : countSignals(message, [
+    countSignals(message, [...COMMERCIAL_TENANCY_WORDS]) > 0 &&
+    countSignals(message, [...RESIDENTIAL_TENANCY_WORDS]) === 0;
+  // A tenancy word alone is not a tenancy dispute (site owner, 10 Nov 2026; tenancyWords.ts hasTenancyDisputeSignal).
+  const ltb = commercialTenancy || !hasTenancyDisputeSignal(message) ? 0 : countSignals(message, [
     "landlord",
     "tenant",
     "eviction",
@@ -782,6 +780,12 @@ export function inferCourtArea(message: string): CasePartnerCourtArea {
     "rent arrears",
     "residential lease",
     "rental unit",
+    // A tenant who names the apartment they rent, or a property manager, without the word "landlord" (site owner,
+    // 10 Nov 2026: "I rent an apartment from a property management company and there is mould" is the LTB's).
+    "rent an apartment",
+    "renting an apartment",
+    "property management company",
+    "property manager",
     // Not "locked me out" alone: "he locked me out of the bank accounts" is a
     // business partner, not a landlord (coverage test, 2026-10-05).
     "locked me out of my apartment",
@@ -1851,14 +1855,21 @@ function buildQuestions(args: {
   conversationText: string;
   /** The saved story and timeline: a question they answer is not asked (answeredInStory.ts). */
   knownText?: string;
-  /** The facts the saved case file holds: a question asking for one is not asked (answeredInStory.ts). */
-  knownFacts?: ReadonlySet<SlotFact>;
+  /** The saved case file: a question whose fact it holds (answered or unsure) is not asked (caseFile.ts chatMayAsk). */
+  caseFile?: CaseFile | null;
+  /** This conversation: a question it asked that the person replied to is not asked again (caseFile.ts askedAndReplied). */
+  conversation?: readonly ChatTurn[];
 }): CasePartnerQuestion[] {
   const questions: CasePartnerQuestion[] = [];
 
-  function pushQuestion(question: CasePartnerQuestion) {
+  function pushQuestion(asked: CasePartnerQuestion) {
+    // By fact, through the one gate: the question, its open part once its fact is held, or nothing
+    // (caseFile/heldAnswer.ts chatQuestionFor; factsOfQuestion.ts CHAT_QUESTIONS).
+    const words = chatQuestionFor(args.caseFile, asked.question, args.conversation);
+    if (!words) return;
+    const question = words === asked.question ? asked : { ...asked, question: words };
     if (wasQuestionAlreadyAsked(question.question, args.conversationText)) return;
-    if (answeredInStory(question.question, `${args.knownText ?? ""} ${args.conversationText}`, args.knownFacts)) return;
+    if (answeredInStory(question.question, `${args.knownText ?? ""} ${args.conversationText}`)) return;
     if (questions.some((existing) => existing.question === question.question)) return;
     questions.push(question);
   }
@@ -2230,7 +2241,8 @@ export function buildConversationIntelligence(
     actors: inferredActors,
     conversationText,
     knownText: savedCaseText(input.caseMemory),
-    knownFacts: answeredFactsOf(input.caseMemory),
+    caseFile: caseFileOfChat(input.caseMemory),
+    conversation: chatTurnsOf(input.conversation),
   });
 
   const questions: CasePartnerQuestion[] =

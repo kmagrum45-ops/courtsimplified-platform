@@ -54,6 +54,11 @@ export type ElementRecord = {
   userText?: string;
   /** Which authored question produced this, when one did. */
   questionId?: string;
+  /**
+   * The person said "Not right" to the story's sentence for this element on the Form 7A screen ("From your story we
+   * found"): never offered from the story again; the element stays to add (site owner, 23 Nov 2026).
+   */
+  storyDeclined?: boolean;
 };
 
 export type ElementStateMap = Record<string, ElementRecord>;

@@ -21,7 +21,13 @@ export const QUESTION_WORDS: readonly (readonly [RegExp, readonly string[]])[] =
   // What the person wants (chat: conversationIntelligenceEngine.ts "What are you trying to get or fix...").
   [/\bwhat are you trying to (?:get|fix|change|achieve)\b|\bwhat (?:outcome|result|remedy|order) (?:are|do) you (?:seeking|want|asking)\b|\bwhat (?:do|would) you (?:want|like) the court to\b/i, ["wants"]],
   // Whether anything is filed (chat "Has anything already been filed, served, ordered, ..."; the overview's "Has anything already been filed?").
-  [/\bhas anything (?:already )?been (?:filed|served|started)\b|\bhave you (?:already )?(?:filed|started)\b|\bis there already a court (?:order|case)\b/i, ["filed"]],
+  // Not "Is there already a court order or agreement?": an order or agreement in place is a fact of its own, not
+  // "anything filed" (row 1 review, 29 Oct: a new case and a motion to change are different steps).
+  [/\bhas anything (?:already )?been (?:filed|served|started)\b|\bhave you (?:already )?(?:filed|started)\b|\bis there already a court case\b/i, ["filed"]],
+  // An order or agreement already in place: a fact of its own, so asking it again is still a repeat (site
+  // owner, 29 Oct). Chat "Is there already a court order or agreement?", "What order or arrangement exists
+  // right now?", and the Family framework's "Is there already a court order, agreement, upcoming conference, ...".
+  [/\bis there already a court order\b|\bwhat order or arrangement exists\b/i, ["existingOrder"]],
   // Court dates (chat "Is there already ... upcoming conference, motion, or court date?"; the overview's "Are there court dates, ...").
   [/\bare there (?:any )?court dates\b|\bupcoming conference, motion, or court date\b|\bwhen is (?:the|your) (?:next )?(?:court date|hearing|conference)\b/i, ["courtDate"]],
   // When it happened (chat "What are the main dates, including when the problem happened..."; "When did the event happen?"; "What are the key dates in order?").
@@ -44,6 +50,13 @@ export const QUESTION_WORDS: readonly (readonly [RegExp, readonly string[]])[] =
   [/\bare you the one who started this case\b|\bare you responding to (?:a|the) (?:plaintiff's claim|claim|application)\b|\bare you (?:the )?(?:plaintiff|defendant|applicant|respondent)\b/i, ["side"]],
   // Married (the Family triage; the story reading).
   [/\bwere you (?:ever )?married\b|\bare you married to\b/i, ["married"]],
+  // The home page's questions Chrome saw asked again (check of #550, 13 Nov): what has happened in the case since
+  // the person was served (the start screen's stage), a claim of their own (the outcome), safety, and who bought.
+  [/\b(?:has|have) anything(?: else)? happened\b[^?]*\b(?:case|court|claim|since)\b/i, ["stage"]],
+  // Whether they claim money back: the yes/no fact defendantsClaim (decision 1, 18 Nov 2026), as the site maps it.
+  [/\bclaim of your own\b|\bcounter-?claim\b/i, ["defendantsClaim"]],
+  [/\bsafety (?:concerns?|worry|worries)\b/i, ["safety"]],
+  [/\bwho bought\b|\bwho did you sell\b/i, ["otherParty"]],
 ];
 
 /** Every fact the words ask for: this table's rows, else the site's own map, else none. */

@@ -50,6 +50,7 @@
  * NO MODEL IS CALLED ANYWHERE IN THIS FILE.
  */
 
+import { pdfjsServer } from "../pdf/pdfjsServer";
 import { unzipSync } from "fflate";
 
 /** Matches `workspace_document_text.extraction_method`. */
@@ -128,7 +129,8 @@ async function extractPdf(bytes: Uint8Array): Promise<ExtractionOutcome> {
      * dynamically so a PDF-parsing dependency is not loaded on a request that is
      * only listing documents.
      */
-    const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
+    // With its worker shipped (pdf/pdfjsServer.ts: missing on Vercel, found 17 Nov 2026).
+    const pdfjs = await pdfjsServer();
 
     /*
      * A document is a hostile input until proven otherwise, so the parts of PDF

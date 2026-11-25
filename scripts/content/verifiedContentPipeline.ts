@@ -463,7 +463,33 @@ export function modalMismatch(sentence: string, quote: string): boolean {
   return governingModal(quote, period) === "may";
 }
 
-export function predictsOutcome(sentence: string): string | null {
+/**
+ * A rule's own words that use a marker above but predict nothing about the case, each authorized by the site owner one
+ * at a time. Only the exact phrase is skipped; any other "likely" or "unlikely" in the same text is still refused.
+ *   - "not likely to be disputed": Family Law Rules r. 14 (19) (b), on hearsay in an affidavit on a contempt motion
+ *     (changes 83 and 85, approved 2026-11-21; owner's decision the same day). It is about evidence, not the outcome.
+ * The Case Law Map, batch 1 (Jason's decision 1, 2026-11-22): each states what a court requires, not what will happen
+ * in anyone's case. Each string is taken from the entry's own approved summary.
+ *   - "a meritorious defence": E05, Small Claims Rules r. 11.06's own words.
+ *   - "a strong likelihood, on the law and the evidence, that they will succeed at trial": E15, R. v. Canadian
+ *     Broadcasting Corp., 2018 SCC 5, para 17 (the test for a mandatory injunction).
+ *   - "would likely have resulted in different terms": E20, Willick v. Willick, and E21, L.M.P. v. L.S. (what counts
+ *     as a material change).
+ *   - "A judge may decline to find contempt where the person acted in good faith and took reasonable steps to comply":
+ *     E25, Carey v. Laiken, 2015 SCC 17, para 37.
+ * The Case Law Map's check (scripts/content/caseLawChecks.ts) skips the same exact phrases before the case-strength
+ * check too, which is what refused "meritorious" and "judge may"; it is not changed for any other text.
+ */
+export const RULE_PHRASES_NOT_PREDICTIONS: readonly string[] = [
+  "not likely to be disputed",
+  "a meritorious defence",
+  "a strong likelihood, on the law and the evidence, that they will succeed at trial",
+  "would likely have resulted in different terms",
+  "A judge may decline to find contempt where the person acted in good faith and took reasonable steps to comply",
+];
+
+export function predictsOutcome(given: string): string | null {
+  const sentence = RULE_PHRASES_NOT_PREDICTIONS.reduce((text, phrase) => text.split(phrase).join(""), given);
   for (const marker of OUTCOME_MARKERS) {
     const found = marker.exec(sentence);
     if (found) return found[0];

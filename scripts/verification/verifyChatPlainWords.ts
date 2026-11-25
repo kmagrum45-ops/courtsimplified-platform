@@ -22,6 +22,7 @@ import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { internalWordingIn } from "../../src/lib/case-system/copy/rawKeys";
 import { answeredInStory } from "../../src/lib/case-system/guided-assistant/answeredInStory";
+import { emptyCaseFile } from "../../src/lib/case-system/caseFile/caseFile";
 import CheckedAnswerPanel from "../../app/_components/CheckedAnswerPanel";
 import { chatReplies, type Court } from "./chatRouteHarness";
 import { inOrder, validLaw, validMessages } from "../../app/api/cases/chat/route";
@@ -76,8 +77,8 @@ async function main() {
   check("and passes plain words", internalWordingIn("This helps put what happened in the order a court will look at it. What proof do you currently have?").length === 0);
 
   // One list of what answers a question: the case file's facts, and the story.
-  check("an outcome already given is not asked for again", answeredInStory("What proof do you currently have, and what outcome are you seeking?", "", new Set(["wants"])));
-  check("an outcome not yet given is still asked for", !answeredInStory("What outcome are you seeking?", "", new Set()));
+  check("an outcome already given is not asked for again", answeredInStory("What proof do you currently have, and what outcome are you seeking?", "", { ...emptyCaseFile(), wants: { state: "answered", value: "repairs paid", confirmed: true } }));
+  check("an outcome not yet given is still asked for", !answeredInStory("What outcome are you seeking?", "", emptyCaseFile()));
   check("what they did is not asked after a story saying it", answeredInStory("What exactly did they do or fail to do?", CASES[0].story));
 
   // Through the chat's own route, in every area.

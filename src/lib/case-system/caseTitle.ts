@@ -7,6 +7,7 @@
  * walkthrough). A title should tell the user which case this is at a glance;
  * the other party's name does that, and it is something they typed.
  */
+import { partyName, readParties } from "./parties/parties";
 
 const COURT_NAMES: Record<string, string> = {
   "small-claims": "Small Claims case",
@@ -20,8 +21,15 @@ export function isGeneratedTitle(title: string | null | undefined): boolean {
   return (
     !value ||
     /^(new|untitled) courtsimplified case$/i.test(value) ||
+    // The placeholder a case row is created with (intakeCheckpoint.ts createCheckpointCase), never a title of the person's:
+    // the dashboard said "Unfinished intake" while the review was open (Chrome milestone test of #550, S8).
+    /^unfinished intake$/i.test(value) ||
     /^current case status:/i.test(value) ||
     /\bcase story\b/i.test(value) ||
+    // Made from who the case is with (below), so made again from the case file each time: a stored "Small Claims case"
+    // stayed after the name was given (Chrome check of #544 on 9b960f7, F15).
+    Object.values(COURT_NAMES).some((name) => name.toLowerCase() === value.toLowerCase()) ||
+    /^your case(?: with .+)?$/i.test(value) ||
     value.length > 70
   );
 }
@@ -30,4 +38,16 @@ export function caseTitleFromIntake(otherParty: unknown, courtPath: string | nul
   const other = typeof otherParty === "string" ? otherParty.trim().replace(/\s+/g, " ") : "";
   if (other && other.length <= 60) return `Your case with ${other}`;
   return (courtPath && COURT_NAMES[courtPath]) || "Your case";
+}
+
+/**
+ * The case's title from a saved Parties record ("Your case with <name>"), the name of its first other party; null when the
+ * record names no other party, so a save that names no one never takes a good title away. The one rule, read by the
+ * server's Parties save (factSave.ts) and by the tab's whole save (intakeCheckpoint.ts), so the title follows the record
+ * whichever saves it (the record is the name's home: rule 1, 14 Nov 2026).
+ */
+export function partiesTitle(raw: unknown, court: string | null | undefined): string | null {
+  const record = readParties(raw);
+  const other = record?.list.find((party) => party.side === "other" && partyName(party));
+  return other ? caseTitleFromIntake(partyName(other), court) : null;
 }

@@ -41,6 +41,7 @@ import { findProvision, parsePinpoint, referencedProvisions } from "./crossRefer
 import { readableUrl } from "./corpusChunker";
 import { ownTitleFor } from "../../content-library/sourceDisplay";
 import { withoutWrongForStory } from "./passagesForStory";
+import { researchContextLines, type ResearchCaseContext } from "../caseFile/aiCaseContext";
 
 export type RetrievalCourt = "small-claims" | "civil" | "family";
 
@@ -50,6 +51,11 @@ export type RetrievalInput = {
   /** The user's stage, in their words or the intake's code ("responding", "starting-case"). */
   stage?: string;
   side?: "plaintiff" | "defendant";
+  /**
+   * The kind of case the case file holds (the person's, else a suggestion marked as one), built by
+   * the shared builder caseFile/aiCaseContext.ts (rule 8). Told to the model; it decides nothing here.
+   */
+  caseContext?: ResearchCaseContext;
 };
 
 export type RetrievalResult = {
@@ -179,6 +185,7 @@ export function queryPrompt(input: RetrievalInput): string {
     `Court: ${court}.`,
     input.stage ? `Where they say they are: ${input.stage}.` : "",
     input.side ? `They are the ${input.side === "defendant" ? "person responding to a case" : "person bringing the case"}.` : "",
+    ...researchContextLines(input.caseContext),
     "",
     "Their account:",
     input.story.slice(0, 6000),

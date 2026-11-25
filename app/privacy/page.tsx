@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
+import { CONTACT_EMAIL } from "@/src/lib/site/contact";
 
 export const metadata: Metadata = {
   title: "Privacy Policy & Terms of Use | CourtSimplified",
   description:
     "How CourtSimplified collects, uses, and protects personal information, and the terms that apply to using the platform.",
 };
-
-const CONTACT_EMAIL = "privacy@courtsimplified.com";
 
 const LAST_UPDATED = "September 2026";
 
@@ -50,6 +49,10 @@ const sections: Section[] = [
       {
         lead: "Files and documents.",
         text: "Evidence you upload and documents the platform prepares for you.",
+      },
+      {
+        lead: "Records of AI requests.",
+        text: "For each request to the AI we keep its kind, the model used, how much text it used (token counts), when it was made and whether it worked. These records never contain your story, your answers, names, or what the AI wrote.",
       },
       "We collect only the information needed to provide the service.",
     ],

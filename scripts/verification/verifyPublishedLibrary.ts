@@ -31,7 +31,7 @@
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 
-import { barExceptionProblems, gateFailures, isPublishable } from "../content/blockGates";
+import { barExceptionProblems, gateFailures, isPublishable, readingWarnings } from "../content/blockGates";
 import { ALL_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 import {
   hashBlocks,
@@ -136,6 +136,11 @@ if (PUBLISHED_BLOCKS.length > 0) {
 
 // Every court's steps (2026-10-06): civil and family answers are published too.
 const stages = new Map(ALL_STAGES.map((stage) => [stage.id, stage]));
+
+// The reading level: a WARNING, listed and never failed (site owner, 2026-11-21). Rule quotes are not scored.
+const warnings = PUBLISHED_BLOCKS.flatMap((block) => readingWarnings(block).map((w) => ({ stageId: block.stageId, ...w })));
+console.log(`\nREADING LEVEL (warning only): ${warnings.length} sentence(s) above grade 8, outside quoted rule text`);
+for (const w of warnings) console.log(`  warning  ${w.stageId} | ${w.section} | grade ${w.grade} | ${w.sentence}`);
 
 for (const block of PUBLISHED_BLOCKS) {
   const reasons = gateFailures(block, stages.get(block.stageId));

@@ -30,6 +30,11 @@
  * conclusion into the user's experience without ever stating it, which is worse
  * than stating it, because it cannot be argued with.
  */
+import { mayShowQuestion } from "../caseFile/factStatus";
+import type { CaseFile } from "../caseFile/caseFile";
+import { MONTH_WORDS_EN } from "../dates";
+import { MARRIED_UNSURE_NOTE } from "../copy/askCopy";
+import { isMarriedOnlyLaw } from "./marriedOnly";
 
 /**
  * Every source cited below is vendored under docs/sources/ and checked by
@@ -59,7 +64,9 @@ export type YesNoUnsure = "yes" | "no" | "unsure";
 
 export type FamilyStatusRecord = {
   /** The FACT, never the word "spouse" — which is the term doing ambiguous work. */
-  marriedToOtherParty: YesNo | "not-yet";
+  // "unsure": the person said "I'm not sure" (site owner, 14 Nov 2026, decision A): settled, never asked again; only what
+  // applies either way is asked, and the married-only topics stay hidden (marriedOnly.ts hidesMarriedOnly).
+  marriedToOtherParty: YesNoUnsure | "not-yet";
 
   /** Asked only when married. The Divorce-Act-versus-provincial fork. */
   divorceSought: YesNoUnsure | "not-asked" | "not-yet";
@@ -121,9 +128,10 @@ export type TriageQuestionId =
   | "cohabitation-dates"
   | "child-together"
   | "case-involves-children"
-  | "municipalities";
+  | "municipalities"
+  | "other-party-municipality";
 
-export type TriageQuestionKind = "yes-no" | "yes-no-unsure" | "date-range" | "municipality-pair";
+export type TriageQuestionKind = "yes-no" | "yes-no-unsure" | "date-range" | "municipality-pair" | "municipality-other";
 
 export type TriageQuestion = {
   id: TriageQuestionId;
@@ -137,7 +145,7 @@ export type TriageQuestion = {
 const QUESTIONS: Record<TriageQuestionId, TriageQuestion> = {
   "married-to-other-party": {
     id: "married-to-other-party",
-    kind: "yes-no",
+    kind: "yes-no-unsure",
     prompt: "Were you and the other person married to each other?",
     whyAsked:
       "Ontario's family statutes treat married and unmarried couples differently in some " +
@@ -185,7 +193,21 @@ const QUESTIONS: Record<TriageQuestionId, TriageQuestion> = {
       "there is more than one court. Both answers matter, because a case may be started in " +
       "the Family Court if EITHER person lives in one of them.",
   },
+  // The other person's municipality, its own question: asked once the person's own is recorded (the Home page's "City or
+  // municipality" is that answer), never the person's own again (Chrome check of #545 at 7bce410, 3.4d).
+  "other-party-municipality": {
+    id: "other-party-municipality",
+    kind: "municipality-other",
+    prompt: "Which municipality does the other person live in, if you know?",
+    whyAsked:
+      "In 24 named municipalities a single Family Court hears all family matters. Elsewhere " +
+      "there is more than one court. Both answers matter, because a case may be started in " +
+      "the Family Court if EITHER person lives in one of them.",
+  },
 };
+
+/** The married question, in its own words: also asked early by the Family questions (guidedFields.ts). */
+export const MARRIED_TRIAGE_QUESTION = QUESTIONS["married-to-other-party"];
 
 /**
  * The next question, or null when the triage has what it needs.
@@ -197,21 +219,83 @@ const QUESTIONS: Record<TriageQuestionId, TriageQuestion> = {
  * Municipality is last because it is routing rather than existence, and it is
  * only meaningful once there is something to route.
  */
-export function selectNextTriageQuestion(record: FamilyStatusRecord): TriageQuestion | null {
-  if (record.marriedToOtherParty === "not-yet") {
-    return QUESTIONS["married-to-other-party"];
-  }
-
+export function selectNextTriageQuestion(record: FamilyStatusRecord, deferred: ReadonlySet<TriageQuestionId> = new Set(), file: CaseFile | null = null): TriageQuestion | null {
+  // `deferred`: questions the person set aside on this page ("I'd rather not answer yet"). Their answer stays "not-yet",
+  // the same as never asked, so without this the same question came straight back and the button seemed to do nothing
+  // (found reading the code, 8 Nov; reproduced by verifyFamilyTriageDates.ts). The next question is asked instead.
+  const due: TriageQuestionId[] = [];
+  if (record.marriedToOtherParty === "not-yet") due.push("married-to-other-party");
   if (record.marriedToOtherParty === "yes") {
-    if (record.divorceSought === "not-yet") return QUESTIONS["divorce-sought"];
-  } else {
-    if (record.cohabitationStart === null) return QUESTIONS["cohabitation-dates"];
-    if (record.haveChildTogether === "not-yet") return QUESTIONS["child-together"];
+    if (record.divorceSought === "not-yet") due.push("divorce-sought");
+  } else if (record.marriedToOtherParty !== "unsure") {
+    // Not married (or not answered yet). "I'm not sure" asks neither branch: only what applies either way.
+    if (record.cohabitationStart === null) due.push("cohabitation-dates");
+    if (record.haveChildTogether === "not-yet") due.push("child-together");
   }
+  if (record.caseInvolvesChildren === "not-yet") due.push("case-involves-children");
+  if (record.userMunicipality === null) due.push("municipalities");
+  else if (record.otherPartyMunicipality === null) due.push("other-party-municipality");
+  // `file`: the case file, read by the one function (caseFile/factStatus.ts mayShowQuestion), so a fact known or settled anywhere else is not asked
+  // here again (Chrome milestone pass 2, finding 7: "Do you and the other person have a child together?" after the case
+  // was recorded as involving the 6-year-old).
+  const next = due.find((id) => !deferred.has(id) && (!file || mayShowQuestion(file, id)));
+  return next ? QUESTIONS[next] : null;
+}
 
-  if (record.caseInvolvesChildren === "not-yet") return QUESTIONS["case-involves-children"];
-  if (record.userMunicipality === null) return QUESTIONS.municipalities;
+// The month names, from the one place that lists them (dates.ts).
+const MONTH_NAMES: readonly string[] = MONTH_WORDS_EN;
+const monthOf = (word: string): number | null => {
+  const found = MONTH_NAMES.findIndex((name) => name.toLowerCase().startsWith(word.toLowerCase().replace(/\.$/, "")) && word.replace(/\.$/, "").length >= 3);
+  return found < 0 ? null : found + 1;
+};
+const two = (value: number) => String(value).padStart(2, "0");
+const validDay = (year: number, month: number, day: number) => day >= 1 && day <= new Date(Date.UTC(year, month, 0)).getUTCDate();
 
+/**
+ * A lived-together date as the person gives it: a year ("2018"), a month and year ("August 2025", "2025-08") or a day
+ * ("March 3, 2018", "2018-03-03"). Kept as "YYYY", "YYYY-MM" or "YYYY-MM-DD"; null when it cannot be read (B3, 8 Nov:
+ * the boxes took only an exact day, so "2018 to August 2025" had to be typed as invented days).
+ */
+export function readPartialDate(text: string): string | null {
+  const value = text.trim().replace(/\s+/g, " ");
+  const yearOk = (year: number) => year >= 1900 && year <= 2100;
+  let match = /^(\d{4})$/.exec(value);
+  if (match) return yearOk(Number(match[1])) ? match[1] : null;
+  match = /^(\d{4})-(\d{1,2})$/.exec(value);
+  if (match) return yearOk(Number(match[1])) && Number(match[2]) >= 1 && Number(match[2]) <= 12 ? `${match[1]}-${two(Number(match[2]))}` : null;
+  match = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(value);
+  if (match) return yearOk(Number(match[1])) && validDay(Number(match[1]), Number(match[2]), Number(match[3])) ? `${match[1]}-${two(Number(match[2]))}-${two(Number(match[3]))}` : null;
+  match = /^([A-Za-z]+\.?),? (\d{4})$/.exec(value);
+  if (match) { const month = monthOf(match[1]); return month && yearOk(Number(match[2])) ? `${match[2]}-${two(month)}` : null; }
+  match = /^([A-Za-z]+\.?) (\d{1,2}),? (\d{4})$/.exec(value);
+  if (match) { const month = monthOf(match[1]); const [day, year] = [Number(match[2]), Number(match[3])]; return month && yearOk(year) && validDay(year, month, day) ? `${year}-${two(month)}-${two(day)}` : null; }
+  return null;
+}
+
+/** A kept lived-together date in words: "2018", "August 2025", "March 3, 2018"; anything else as it is. */
+export function partialDateWords(value: string): string {
+  const match = /^(\d{4})(?:-(\d{2}))?(?:-(\d{2}))?$/.exec(value);
+  if (!match) return value;
+  const [, year, month, day] = match;
+  if (!month) return year;
+  const name = MONTH_NAMES[Number(month) - 1];
+  return day ? `${name} ${Number(day)}, ${year}` : `${name} ${year}`;
+}
+
+const STORY_DATE = `(?:(?:${MONTH_NAMES.join("|")}|${MONTH_NAMES.map((name) => name.slice(0, 3)).join("|")}|Sept)\\.? (?:\\d{1,2},? )?)?\\d{4}`;
+const LIVED_TOGETHER = new RegExp(`\\blived together (?:from|since|starting in|beginning in|in) (${STORY_DATE})(?:\\s*(?:to|until|till|through|-|–)\\s*(${STORY_DATE}))?`, "i");
+const MOVED_IN = new RegExp(`\\bmoved in together in (${STORY_DATE})(?:[^.]*?\\b(?:separated|split up|broke up|moved out)(?: in)? (${STORY_DATE}))?`, "i");
+
+/** The lived-together dates the story itself gives ("lived together from 2018 to August 2025"), with the words they came from. */
+export function livedTogetherFromStory(story: string): { start: string; end: string | null; quote: string } | null {
+  for (const pattern of [LIVED_TOGETHER, MOVED_IN]) {
+    const match = pattern.exec(story);
+    if (!match) continue;
+    const start = readPartialDate(match[1]);
+    if (!start) continue;
+    const end = match[2] ? readPartialDate(match[2]) : null;
+    return { start, end, quote: match[0] };
+  }
   return null;
 }
 
@@ -219,6 +303,7 @@ export function selectNextTriageQuestion(record: FamilyStatusRecord): TriageQues
 export function prunedQuestions(record: FamilyStatusRecord): TriageQuestionId[] {
   if (record.marriedToOtherParty === "yes") return ["cohabitation-dates", "child-together"];
   if (record.marriedToOtherParty === "no") return ["divorce-sought"];
+  if (record.marriedToOtherParty === "unsure") return ["divorce-sought", "cohabitation-dates", "child-together"];
   return [];
 }
 
@@ -531,18 +616,20 @@ export function buildTriageOutcome(record: FamilyStatusRecord): TriageOutcome {
   const recorded: RecordedFact[] = [
     fact(
       "Married to the other person",
-      YES_NO_TEXT[record.marriedToOtherParty] ?? "not-yet",
+      record.marriedToOtherParty === "unsure" ? `Not sure. ${MARRIED_UNSURE_NOTE}` : YES_NO_TEXT[record.marriedToOtherParty] ?? "not-yet",
       false,
     ),
-    fact(
+    // A divorce is for married people only (marriedOnly.ts): after No or "I'm not sure" there is no divorce line at all,
+    // never "Asking a court for a divorce: Not asked" (Chrome milestone test of #550, rows 40 and 44).
+    ...(record.marriedToOtherParty === "no" || record.marriedToOtherParty === "unsure" ? [] : [fact(
       "Asking a court for a divorce",
       YES_NO_TEXT[record.divorceSought] ?? "not-yet",
       pruned.has("divorce-sought"),
-    ),
+    )]),
     fact(
       "Lived together",
       record.cohabitationStart
-        ? `${record.cohabitationStart} to ${record.cohabitationEnd ?? "not recorded"}`
+        ? `${partialDateWords(record.cohabitationStart)} to ${record.cohabitationEnd ? partialDateWords(record.cohabitationEnd) : "not recorded"}`
         : null,
       pruned.has("cohabitation-dates"),
     ),
@@ -563,9 +650,26 @@ export function buildTriageOutcome(record: FamilyStatusRecord): TriageOutcome {
   return {
     complete: selectNextTriageQuestion(record) === null,
     recorded,
-    courtInformation: courtInformation(),
+    // After "Were you married?" No or not sure, no statement that rests only on married-only law (the Divorce Act's
+    // "court": marriedOnly.ts isMarriedOnlyLaw; 29 Oct known problem G2-triage, full local run of 4d1ae680).
+    courtInformation: record.marriedToOtherParty === "no" || record.marriedToOtherParty === "unsure"
+      ? courtInformation().filter((statement) => !statement.citations.every((citation) => isMarriedOnlyLaw(citation.label)))
+      : courtInformation(),
     municipalities: municipalityRows(record),
     municipalitiesCitation: FAMILY_COURT_MUNICIPALITIES_CITATION,
     topics: surfacedTopics(record),
   };
+}
+
+const SEPARATED = new RegExp(`\\b(?:separated|split up|broke up|moved out|stopped living together)(?: in| on| since)? (${STORY_DATE})`, "i");
+
+/**
+ * When living together ended, from the story's own words ("we separated in June 2026"), to OFFER in the lived-together
+ * question's "Ended" box when the story gives no start (Chrome milestone test of #550, row 41: the box was empty with no
+ * offer after "separated in June 2026"). Only offered: Yes puts it in the box; it is never recorded unasked.
+ */
+export function separatedFromStory(story: string): { end: string; quote: string } | null {
+  const match = SEPARATED.exec(story);
+  const end = match ? readPartialDate(match[1]) : null;
+  return match && end ? { end, quote: match[0] } : null;
 }

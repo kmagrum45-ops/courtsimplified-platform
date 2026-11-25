@@ -20,10 +20,12 @@ import { openBuilder } from "./harness/builderGate";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { serveFromThisCommit } from "./harness/thisCommitServer";
-import { confirmAndShowNextStep, expectServedNotAskedOnNextStep, expectServedOfferedOnceInReview } from "./harness/servedOnce";
+import { confirmAndShowNextStep, expectServedNotAskedInReview, expectServedNotAskedOnNextStep, openServedAdd } from "./harness/servedOnce";
 import { runFamilyIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
 import { runCivilIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
 import { applyPositionPatch, readCasePosition } from "../../src/lib/case-system/casePosition";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -100,7 +102,7 @@ async function confirmAndContinue(page: Page) {
   const panel = page.getByTestId("intake-review");
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
   // The form ends with "Continue to your next steps"; questions stopped early, "Show my next step".
@@ -160,19 +162,19 @@ test("Family: the served date answered in the review accepts real dates, and ask
   test.setTimeout(240_000);
   const account = await fakeAccount(page);
   await serveFromThisCommit(page, "family", account.rows as unknown as Map<string, Record<string, unknown>>);
-  // Served, the day not known at the start: the review offers it once more, as ONE field, the
-  // "Day you were served" box (Jason, 2026-10-24, option 1); the date rule holds there.
+  // Served, the day not known at the start: never asked again (site owner, 31 Oct; it replaced option
+  // 1's one more offer in the review). The quiet line's "Add it" takes the day; the date rule holds there.
   await openBuilder(page, "family", { story: "Synthetic story: my former partner started a family case and I was served with the Application.", situation: { where: "served", papers: "family-8", receivedOn: "unknown" } });
   await answerQuestions(page, { side: "respondent", filed: ["application"], stopAt: "servedDate", neverAsked: ["yourRole", "filedDocuments"] });
-  await expectServedOfferedOnceInReview(page);
+  await expectServedNotAskedInReview(page);
   const panel = page.getByTestId("intake-review");
-  const box = panel.getByRole("textbox", { name: "Review: Day you were served", exact: true });
+  const box = await openServedAdd(page);
   await box.fill("October 6");
   await box.press("Enter");
-  await expect(panel.getByTestId("intake-entry-needs-more")).toContainText("add the year");
+  await expect(panel.getByTestId("change-answer-needs-more")).toContainText("add the year");
   await box.fill("October 6, 2026");
   await box.press("Enter");
-  await expect(panel.getByTestId("intake-entry-needs-more"), "the example's own date is accepted").toHaveCount(0);
+  await expect(panel.getByTestId("change-answer-needs-more"), "the example's own date is accepted").toHaveCount(0);
   await expect(panel).toContainText("October 6, 2026");
   // Offered exactly once: the next step does not ask it again.
   await confirmAndShowNextStep(page);
@@ -191,7 +193,7 @@ async function smallClaimsReview(page: Page, story: string) {
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(story);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(story);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
@@ -220,7 +222,7 @@ for (const [name, story, offered, never] of [
     await grantSiteAccess(page);
     await fakeAccount(page);
     const amount = await smallClaimsReview(page, story);
-    await expect(amount.getByRole("button", { name: `Use “${offered}” (from your story)` })).toBeVisible();
+    await expect(amount.getByRole("button", { name: `Yes: ${offered}` })).toBeVisible();
     for (const wrong of never) {
       await expect(amount.getByRole("button", { name: new RegExp(wrong.replace(/[$,]/g, "\$&")) })).toHaveCount(0);
       expect(await reviewValues(page), `no box in the review holds ${wrong}`).not.toContain(wrong);
@@ -234,7 +236,7 @@ test("Small Claims: a price and a payment with nothing said to be owed: no amoun
   await fakeAccount(page);
   const amount = await smallClaimsReview(page, "Synthetic story: I hired Test Renovations Ltd. to build a deck for $8,000. I paid $2,000 and they never finished.");
   await expect(amount, "the amount is asked").toBeVisible();
-  await expect(amount.getByRole("button", { name: /from your story/ })).toHaveCount(0);
+  await expect(amount.getByRole("button", { name: /^Yes: / })).toHaveCount(0);
   expect(await reviewValues(page)).not.toMatch(/\$\d/);
 });
 

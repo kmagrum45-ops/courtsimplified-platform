@@ -1,0 +1,571 @@
+Prejudgment and postjudgment interest rates | ontario.ca
+Skip to main content
+Log in to continue
+Please log in for full account access.
+Government of Ontario home page
+Search
+Submit
+Français
+FR
+Search
+Topics
+Menu
+Sign in
+close
+Benefits and taxes
+Business and economy
+Courts, justice and law
+Driving and road safety
+Education and apprenticeship
+Environment and energy
+Family and social services
+Government
+Health and wellness
+Heritage, arts and history
+Home and housing
+Immigration
+Jobs and employment
+Land use planning
+Recreation and tourism
+Rural, agriculture and north
+Sign-in Menu EN
+ServiceOntario Account
+Driver’s licence renewal, health card renewal, notifications
+Ontario Business Account
+Ontario Business Registry
+MyBenefits
+Ontario Works, Ontario Disability Support Program
+OSAP
+Ontario Student Assistance Program
+Skilled Trades Ontario
+Skilled trades and apprenticeships
+More accounts
+Topics
+Sign in
+Benefits and taxes
+Business and economy
+Courts, justice and law
+Driving and road safety
+Education and apprenticeship
+Environment and energy
+Family and social services
+Government
+Health and wellness
+Heritage, arts and history
+Home and housing
+Immigration
+Jobs and employment
+Land use planning
+Recreation and tourism
+Rural, agriculture and north
+Sign-in Menu EN
+ServiceOntario Account
+Driver’s licence renewal, health card renewal, notifications
+Ontario Business Account
+Ontario Business Registry
+MyBenefits
+Ontario Works, Ontario Disability Support Program
+OSAP
+Ontario Student Assistance Program
+Skilled Trades Ontario
+Skilled trades and apprenticeships
+More accounts
+Home
+Courts, justice and law
+Prejudgment and postjudgment interest rates
+Find the interest rates that apply to the money you are owed in a civil court case in the Superior Court of Justice or Small Claims Court.
+On this page
+Skip this page navigation
+Overview
+In a civil or Small Claims Court lawsuit, the successful party is usually entitled to have interest added to the money awarded by the court. The Courts of Justice Act sets out how interest is awarded. If you want to ask for interest on the money you are claiming, you must ask for it in your statement of claim or notice of application (or plaintiff’s claim, in the Small Claims Court). There are two types of interest:
+prejudgment interest
+postjudgment interest
+Prejudgment interest
+Prejudgment interest is calculated from the date the reason for the court case (called the “cause of action”) happens until the date the court makes an order about the money you should receive. This interest is intended to cover the loss of the use of money you would have had if you received the money when the incident occurred.
+Important: If you do not mention in your statement of claim, notice of application, or plaintiff’s claim that you want to receive prejudgment interest, it will not be included in the final judgment. The total amount of prejudgment interest becomes fixed once the court order is made because the calculation ends on that date.
+If the parties have agreed on the rate or there is another source for the rate
+If the rate of prejudgment interest has already been agreed to by the parties, you must indicate that interest rate in your statement of claim, notice of application or plaintiff’s claim. For example, if the court case is about a written contract, and the contract says the interest rate that will apply, you must put that rate in the statement of claim, notice of application or plaintiff’s claim.
+If your claim is related to a particular law (statute or regulation) and that law says what the interest rate is, that is the rate you must put in the statement of claim, notice of application or plaintiff’s claim.
+For example, the prejudgment interest rate that applies to damages for non-pecuniary loss in an action for personal injury is the rate set out in the Rules of Civil Procedure , rule 53.10.
+If parties have not agreed on the rate
+If no prejudgment interest rate was agreed upon, or set out in another source, you can ask the court to award you prejudgment interest at the rate set out in the Courts of Justice Act by saying this in your statement of claim, notice of application or plaintiff’s claim. The amount of prejudgment interest will not be calculated until the date judgment is awarded.
+Use the table to find out the prejudgment rate under the Courts of Justice Act that would apply in your situation.
+To find the right rate, look at the quarter when you started your civil court case.
+The date you started your court case is the date the court issued the first document in your case, for example:
+statement of claim
+notice of action or notice of application in the Superior Court of Justice
+plaintiff’s claim in the Small Claims Court
+Calculation
+The prejudgment interest amount you may claim is calculated by:
+Multiplying the amount awarded by the court by the prejudgment interest rate that applies in your situation.
+Dividing the result from step one by 365 days per year.
+Multiplying the result from step two by the number of days from when the “cause of action” arose to when the court order was made.
+Calculation example
+For example, if you are awarded $40,000 for a claim that you started in February 2021 and there is no other source that says the interest rate that will apply, then start by using the table below to find the interest rate for the correct quarter. In this example, the interest rate you can claim is 0.5% because February 2021 is in the first quarter ( Q1 ) of 2021 and 0.5% is the rate for that quarter.
+Next think about the day the “cause of action” (reason for the case) arose. If 60 days have passed since the day the “cause of action” occurred to the date the court makes the order, the prejudgment interest amount you are owed would be as follows:
+$40,000 x 0.5% ÷ 365 days per year x 60 days = $32.88
+Postjudgment interest
+If your claim is successful and the court makes an order that says you are owed money, postjudgment interest starts accumulating automatically on the amount you are owed, starting on the date when the court makes the order and ending on the date you receive payment. This interest is intended to cover the loss of the use of money you would have had if you received payment the day the judgment was made.
+Postjudgment interest accumulates on the amount the court orders plus costs (as ordered by the court) and the prejudgment interest (if any).
+Like prejudgment interest, the rate of postjudgment interest can either be determined by a particular source (such as the contract that the court case was about) or it can be the rate set out in the Courts of Justice Act .
+Unlike prejudgment interest, the total amount of postjudgment interest continues to grow as long as the defendant still owes some of the money ordered by the court.
+Use the table to find out the postjudgment rate under the Courts of Justice Act that would apply in your situation.
+To find the right rate, look at the quarter when the court made the order awarding you money.
+Calculation
+The amount of postjudgment interest starts accumulating from the day the judgment was made to the day you receive the payment. It is calculated on the day you are paid by:
+Multiplying the total judgment amount (including costs and prejudgment interest) by the postjudgment interest rate.
+Dividing the result from step one by 365 days per year.
+Multiplying the result from step two by the number of days from when the judgment was made to when the payment was received.
+Calculation example
+For example, if you are awarded a judgment for $40,000 plus $750 in costs and $32.88 prejudgment interest in February 2021, and there is no other source that says the interest rate that will apply, then start by using the table below to find the interest rate for the correct quarter. In this example the postjudgment interest rate you are entitled to receive is 2.0% because February 2021 is in the first quarter ( Q1 ) of 2021 and 2.0% is the rate for that quarter. If 60 days have passed since the day you were granted the judgment to the day you were paid by the defendant, the postjudgment interest amount you are owed is:
+($40,000 + $750 in costs + $32.88 for prejudgment interest) x 2.00% ÷ 365 days per year x 60 days = $134.08
+Partial payment
+For both prejudgment interest and postjudgment interest, the interest only applies to the amount of money that has not been paid.
+Sometimes, a defendant will not pay the entire amount at one time. Instead, they will make multiple partial payments. In some situations, they might make a payment before the case has ended. In other cases, they might make several partial payments after the court has issued its order.
+Interest for partial payments
+If the defendant pays the plaintiff part of the money claimed or owing, interest must not be calculated on the amount that was already paid. Instead, the plaintiff must calculate the interest for each period separately and then add those amounts together.
+Important: The rate of postjudgment interest stays the same when you calculate interest on partial payments. It is always determined from the quarter when the order was made.
+Calculation example
+You are awarded $40,000 plus $750 in costs and $32.88 in prejudgment interest in February 2021 and there is no other source (such as a contract or specific statute) to determine the interest rate. The Courts of Justice Act postjudgment interest rate for Q1 of 2021 is 2.0%. If the defendant pays $10,000 15 days after the order is made and another $30,000 after 45 days, then the interest applies to the full amount owing for 15 days and on the remaining $30,000 plus costs and prejudgment interest for the next 45 days. The calculation for postjudgment interest is as follows:
+($40,000 + $750 in costs + $32.88 for prejudgment interest) x 2.00% ÷ 365 days per year x 15 days = $33.52
++
+($30,000 remaining + $750 in costs + $32.88 for prejudgment interest) x 2.00% ÷ 365 days per year x 45 days = $75.90
+Total: $33.52 + $75.90 = $109.42
+Tables of prejudgment and postjudgment interest rates
+We are required to publish the prejudgment and postjudgment interest rates under the Courts of Justice Act on our website. Effective September 7, 2021, this webpage is where they are posted. Please update your bookmarks.
+Prejudgment interest rates for causes of action arising after October 23, 1989
+Year
+First quarter
+Second quarter
+Third quarter
+Fourth quarter
+2026
+2.5%
+2.5%
+2.5%
+2.5%
+2025
+4.0%
+3.3%
+3.0%
+3.0%
+2024
+5.3%
+5.3%
+5.3%
+4.8%
+2023
+4.0%
+4.8%
+4.8%
+5.3%
+2022
+0.5%
+0.5%
+1.8%
+2.8%
+2021
+0.5%
+0.5%
+0.5%
+0.5%
+2020
+2.0%
+2.0%
+0.5%
+0.5%
+2019
+2.0%
+2.0%
+2.0%
+2.0%
+2018
+1.3%
+1.5%
+1.5%
+1.8%
+2017
+0.8%
+0.8%
+0.8%
+1.0%
+2016
+0.8%
+0.8%
+0.8%
+0.8%
+2015
+1.3%
+1.0%
+1.0%
+1.0%
+2014
+1.3%
+1.3%
+1.3%
+1.3%
+2013
+1.3%
+1.3%
+1.3%
+1.3%
+2012
+1.3%
+1.3%
+1.3%
+1.3%
+2011
+1.3%
+1.3%
+1.3%
+1.3%
+2010
+0.5%
+0.5%
+0.8%
+1.0%
+2009
+2.5%
+1.3%
+0.5%
+0.5%
+2008
+4.8%
+4.3%
+3.3%
+3.3%
+2007
+4.5%
+4.5%
+4.5%
+4.8%
+2006
+3.3%
+3.8%
+4.5%
+4.5%
+2005
+2.8%
+2.8%
+2.8%
+2.8%
+2004
+3.0%
+2.8%
+2.3%
+2.3%
+2003
+3.0%
+3.0%
+3.5%
+3.3%
+2002
+2.5%
+2.3%
+2.5%
+3.0%
+2001
+6.0%
+5.8%
+4.8%
+4.3%
+2000
+5.0%
+5.3%
+6.0%
+6.0%
+1999
+5.3%
+5.3%
+4.8%
+4.8%
+1998
+4.0%
+5.0%
+5.0%
+6.0%
+1997
+3.3%
+3.3%
+3.3%
+3.5%
+1996
+6.1%
+5.6%
+5.0%
+4.3%
+1995
+6.0%
+8.0%
+7.6%
+6.6%
+1994
+4.3%
+4.1%
+6.6%
+5.6%
+1993
+8.3%
+6.1%
+5.1%
+5.0%
+1992
+7.7%
+7.5%
+6.3%
+5.1%
+1991
+12.3%
+10%
+9.1%
+8.8%
+1990
+12.5%
+13.5%
+13.9%
+12.9%
+1989
+N/A
+N/A
+N/A
+12.4%
+Postjudgment interest rates (and prejudgment interest rates for causes of action arising on or before October 23, 1989)
+Year
+First quarter
+Second quarter
+Third quarter
+Fourth quarter
+2026
+4.0%
+4.0%
+4.0%
+4.0%
+2025
+5.0%
+5.0%
+4.0%
+4.0%
+2024
+7.0%
+7.0%
+7.0%
+6.0%
+2023
+5.0%
+6.0%
+6.0%
+7.0%
+2022
+2.0%
+2.0%
+3.0%
+4.0%
+2021
+2.0%
+2.0%
+2.0%
+2.0%
+2020
+3.0%
+3.0%
+2.0%
+2.0%
+2019
+3.0%
+3.0%
+3.0%
+3.0%
+2018
+3.0%
+3.0%
+3.0%
+3.0%
+2017
+2.0%
+2.0%
+2.0%
+2.0%
+2016
+2.0%
+2.0%
+2.0%
+2.0%
+2015
+3.0%
+2.0%
+2.0%
+2.0%
+2014
+3.0%
+3.0%
+3.0%
+3.0%
+2013
+3.0%
+3.0%
+3.0%
+3.0%
+2012
+3.0%
+3.0%
+3.0%
+3.0%
+2011
+3.0%
+3.0%
+3.0%
+3.0%
+2010
+2.0%
+2.0%
+2.0%
+2.0%
+2009
+4.0%
+3.0%
+2.0%
+2.0%
+2008
+6.0%
+6.0%
+5.0%
+5.0%
+2007
+6.0%
+6.0%
+6.0%
+6.0%
+2006
+5.0%
+5.0%
+6.0%
+6.0%
+2005
+4.0%
+4.0%
+4.0%
+4.0%
+2004
+4.0%
+4.0%
+4.0%
+4.0%
+2003
+4.0%
+4.0%
+5.0%
+5.0%
+2002
+4.0%
+4.0%
+4.0%
+4.0%
+2001
+7.0%
+7.0%
+6.0%
+6.0%
+2000
+6.0%
+7.0%
+7.0%
+7.0%
+1999
+7.0%
+7.0%
+6.0%
+6.0%
+1998
+5.0%
+6.0%
+6.0%
+7.0%
+1997
+5.0%
+5.0%
+5.0%
+5.0%
+1996
+8.0%
+7.0%
+6.0%
+6.0%
+1995
+8.0%
+10.0%
+9.0%
+8.0%
+1994
+6.0%
+6.0%
+8.0%
+7.0%
+1993
+10.0%
+8.0%
+7.0%
+6.0%
+1992
+9.0%
+9.0%
+8.0%
+7.0%
+1991
+14.0%
+11.0%
+11.0%
+10.0%
+1990
+14.0%
+15.0%
+15.0%
+14.0%
+1989
+13.0%
+13.0%
+14.0%
+14.0%
+1988
+10.0%
+10.0%
+11.0%
+12.0%
+1987
+10.0%
+9.0%
+10.0%
+11.0%
+1986
+11.0%
+13.0%
+10.0%
+10.0%
+1985
+12.0%
+13.0%
+11.0%
+11.0%
+Proceedings before 1985
+For proceedings commenced before January 1, 1985, the postjudgment interest rate is the prime bank rate, which is published in the Bank of Canada Review . You can find this rate from back copies of the Bank of Canada Review or by contacting the Bank of Canada .
+The rates are also listed in the:
+1987 to 1991 editions of Carthy Millar Cowan’s Ontario Annual Practice (published by Canada Law Book Inc. )
+1985-1990 editions of Watson and McGowan’s Supreme and District Court Practice (published by Thomson Carswell) following the text of section 138 of the Judicature Act
+You may be able to access these texts through:
+subscription
+a law library
+some public libraries
+Updated: September 02, 2026
+Published: December 02, 2021
+Ministry of the Attorney General
+The Ministry of the Attorney General works to deliver fair, equitable and accessible justice services to the people of Ontario.
+Questions or comments
+There are many ways to contact the Government of Ontario.
+Contact us
+About Ontario
+Accessibility
+Archives
+News
+Privacy
+Terms of use
+&copy; King’s Printer for Ontario, 2012 – to 26
+Top

@@ -1,26 +1,39 @@
 "use client";
 
 import IntakeReviewPanel from "./IntakeReviewPanel";
+import { continueNeeds, quotesOf, statedInStory } from "../../src/lib/case-system/intakeReview";
 import { startSignIn } from "./startSignIn";
 import { markReviewNeeded } from "./reviewNeeded";
-import { guidanceIsCurrent, inputRevision, reconcileReview, materialInitialFacts, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
+import { blockedMessage, flushOpenEdits } from "./openEdits";
+import { applyFactRevisions, factsRevision, guidanceIsCurrent, inputRevision, reconcileReview, materialInitialFacts, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
 import { IntakeRequest } from "./intakeRequest";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useSyncExternalStore, type Dispatch, type ReactNode, type SetStateAction } from "react";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { addressWithoutACase, boundaryView, courtFromCaseAddress, openCaseFromAddress, withoutACase } from "../../src/lib/case-system/openCase";
 import { supabase } from "../../src/lib/supabase/client";
 import { COURT_PATH_FINDER_KEY, GUEST_INTAKE_SESSION_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
+import { keepFinderHandoff, takeFinderHandoff, withoutStarted } from "../../src/lib/case-system/storage/finderHandoff";
 import { onSideChange } from "../../src/lib/case-system/sideChange";
 import { BASIS_SECTION, discardedFields, discardStale, onStoryChange, reaffirmAnswers, storyAnswersOutdated, STORY_TEXT_FIELD, tagAnswers } from "../../src/lib/case-system/storyBasis";
 import { migrateStory, storyOf, STORY_INPUT_KEYS, STORY_SECTION, type CaseLocation } from "../../src/lib/case-system/intakeStory";
 import { answerSituation, courtOfPapers, nextSituationQuestion, sideContradiction, situationFromRaw, situationSection, SITUATION_FIELD, SITUATION_SECTION, withKnownCourt, type Situation } from "../../src/lib/case-system/situation/situation";
-import { civilRoleFromStory, familyRoleFromStory } from "../builder/_components/storyAnswers";
 import SituationQuestions, { SITUATION_CHANGE_EVENT, SituationLine } from "./SituationQuestions";
 import SafetyNotice from "./SafetyNotice";
 import FirstUseAcknowledgement from "./FirstUseAcknowledgement";
-import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt } from "../../src/lib/case-system/intakeCheckpoint";
+import { savedStepOf } from "../../src/lib/case-system/savedStep";
+import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, landedReviewTransition, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt, type PendingTransition } from "../../src/lib/case-system/intakeCheckpoint";
 import { canonicalJson } from "../../src/lib/case-system/canonicalJson";
 import { WorkingButton } from "./Working";
+import { saveThenLeave } from "./leaveAfterSave";
+import { courtOfSavedRow, SAVED_COURT_COLUMNS } from "../../src/lib/case-system/caseFile/caseFileOfMaster";
+import { CASE_FILE_SECTION, caseFileOf, followAnswer } from "../../src/lib/case-system/caseFile/caseFile";
+import { situationWithHeld } from "../../src/lib/case-system/caseFile/situationHeld";
+import { afterPartiesSent, PARTIES_PENDING, storedFacts, withStoredFacts } from "../../src/lib/case-system/caseFile/serverFacts";
+import NotSavedYet from "./NotSavedYet";
+import { GUEST_ACCOUNT_NOTICE } from "../../src/lib/auth/signUpConfirmation";
+import { afterSend, pendingWrites, type SendResponse } from "../../src/lib/case-system/caseFile/pendingFacts";
+import { CASE_REQUEST_TIMEOUT_MS } from "../builder/_components/positionSave";
 
 async function readAuthSession() {
   const request = new IntakeRequest();
@@ -36,6 +49,8 @@ type Recovery = {
   subscribeField: (section: string, field: string, listener: () => void) => () => void;
   subscribe: (listener: () => void) => () => void;
   getReview: () => ReviewView;
+  /** The saved case as last read or written (its master_result), so the review reads the same case file as the results page; null for a guest. */
+  getSavedMaster: () => Record<string, unknown> | null;
   transition: (action: "review" | "collect" | "confirm", expectedInput: string) => Promise<void>;
   /** Each route registers the action that turns its confirmed answers into guidance. */
   registerContinue: (key: ContinueKey, handler: () => void) => () => void;
@@ -50,6 +65,8 @@ type Recovery = {
   /** `reaffirm`: the person answered this again (true: the whole field; a key: that one answer), so it is based on the current story even when the value is unchanged. */
   put: (section: string, key: string, value: unknown, touched?: boolean, external?: boolean, fromReview?: boolean, reaffirm?: true | string) => void;
   flush: (signal?: AbortSignal) => Promise<void>;
+  /** "Retry saving intake": the answers saved, then a review action whose save answered an error read back, or sent again. */
+  retry: () => Promise<void>;
   validate: (signal?: AbortSignal) => Promise<void>;
   getCaseId: () => string | null;
   flowId: string;
@@ -59,6 +76,16 @@ type Recovery = {
 };
 const Context = createContext<Recovery | null>(null);
 export const useIntakeRecovery = () => useContext(Context);
+
+/**
+ * What is still needed before continuing, from the one rule (intakeReview.ts continueNeeds): every continue button reads
+ * it, so none is pressable while the review says something is still needed (Chrome milestone test of #550, row 11).
+ */
+export function useContinueNeeds(): string[] {
+  const recovery = useIntakeRecovery();
+  const view = useIntakeReviewView();
+  return view && recovery ? continueNeeds(view.checkpoint, view.workflowStatus, recovery.getSavedMaster() ?? undefined) : [];
+}
 
 export function useIntakeReviewView() {
   const recovery = useIntakeRecovery();
@@ -98,18 +125,88 @@ export function intakeGuidanceHeaders(recovery: Recovery | null): Record<string,
 
 /** The existing case row is authoritative; this boundary connects unfinished UI fields to it. */
 export function IntakeRecoveryBoundary({ children }: { children: ReactNode }) {
-  const params = useSearchParams();
-  const path = params.get("path");
-  const caseId = params.get("caseId");
-  const flow = params.get("intake");
-  if (path !== "small-claims" && path !== "family" && path !== "civil") return <>{children}</>;
+  // Which case is open comes from the address alone (openCase.ts, rule 1).
+  const open = openCaseFromAddress(useSearchParams());
+  const pathname = usePathname();
+  const { court: path, caseId, intake: flow } = open;
+  // One decision (openCase.ts boundaryView, exercised by test:open-case):
+  // the builder with no court and no id names nothing to open: the chooser, never a guessed court or case;
+  // an id with no court: never a default court, the court comes from that case's own row, else the chooser;
+  // other pages (the home page) show their own start without a court.
+  const view = boundaryView(open, pathname);
+  if (view === "no-case") return <NoCaseInAddress />;
+  if (view === "court-from-case") return <CourtFromCase />;
+  if (view === "children" || !path) return <>{children}</>;
   return <RecoveryProvider key={`${path}:${caseId ?? ""}:${flow ?? ""}`} court={path} selectedId={caseId} requestedFlow={flow}>{children}</RecoveryProvider>;
+}
+
+/**
+ * An address that names no case on a page that needs one: My cases when signed in,
+ * the start page for a guest (openCase.ts). Never a remembered case.
+ */
+function NoCaseInAddress() {
+  useEffect(() => {
+    let active = true;
+    void supabase.auth.getSession().then(({ data }) => {
+      if (!active) return;
+      const open = openCaseFromAddress(new URL(window.location.href).searchParams);
+      const to = addressWithoutACase(withoutACase(open, { pathname: window.location.pathname, signedIn: Boolean(data.session?.user) }));
+      if (to) window.location.replace(to);
+    });
+    return () => { active = false; };
+  }, []);
+  return <div className="mx-auto max-w-6xl px-6 py-3 text-sm" role="status" data-testid="no-case-in-address">Opening your cases…</div>;
+}
+
+/**
+ * The builder's address names a case or intake but no court. The court is read
+ * from that case's own saved row (the signed-in owner's), and the same address is
+ * opened with it; with no saved court, the chooser (openCase.ts). Never a default.
+ */
+function CourtFromCase() {
+  useEffect(() => {
+    let active = true;
+    // The decision is courtFromCaseAddress (openCase.ts, exercised by test:open-case); here only the reads.
+    void courtFromCaseAddress(window.location.href, {
+      signedInUser: async () => (await supabase.auth.getSession()).data.session?.user.id ?? null,
+      savedCourtOf: async (id, userId) => {
+        if (!intakeId(id)) return null;
+        // The court through the case file (caseFileOfMaster.ts courtOfSavedRow): the saved case's own court, the column only as its fallback.
+        const { data: row } = await supabase.from("cases").select(SAVED_COURT_COLUMNS).eq("id", id).eq("user_id", userId).maybeSingle();
+        return courtOfSavedRow(row);
+      },
+    }).then((to) => { if (active) window.location.replace(to); }).catch(() => {
+      if (active) window.location.replace(addressWithoutACase("chooser") ?? "/dashboard");
+    });
+    return () => { active = false; };
+  }, []);
+  return <div className="mx-auto max-w-6xl px-6 py-3 text-sm" role="status" data-testid="court-from-case">Opening your case…</div>;
+}
+
+/**
+ * A failed save, worded for a signed-in person (Chrome check of #544 on a8c8cf57, 7 Nov: "Your review could not be saved.
+ * Your answers remain here; retry before continuing. Retry saving intake Sign in for account recovery" while signed in).
+ * A notice that says what to do about something else (another tab, a text too large, signing in again) keeps its words.
+ */
+export const SIGNED_IN_SAVE_FAILED = "Your case could not be saved just now. Try again.";
+
+/** Which screen or route is showing (fieldFacts.ts PAGE_STATE): never an answer, never a save of its own (F9, 7 Nov). */
+const SCREEN_FIELDS = new Set(["builder:step", "builder:startedModes", "small-claims:mode", "civil:mode", "family:mode"]);
+export function failureWords(notice: string, signedIn: boolean): string {
+  return signedIn && /^Your (intake|review|answers) could not be saved/.test(notice) ? SIGNED_IN_SAVE_FAILED : notice;
+}
+/** The sign-in offer under a failed save: only to a guest, or to someone whose sign-in ended ("Sign in again"). */
+export function signInOffer(notice: string, signedIn: boolean, hasStore: boolean): string | null {
+  if (signedIn) return /^Sign in again/.test(notice) ? "Sign in again" : null;
+  return hasStore ? "Sign in or create a free account (what you entered comes with you)" : "Sign in for account recovery";
 }
 
 function RecoveryProvider({ court, selectedId, requestedFlow, children }: { court: IntakeCourt; selectedId: string | null; requestedFlow: string | null; children: ReactNode }) {
   const [recovery, setRecovery] = useState<Recovery | null>(null);
   const [notice, setNotice] = useState("Opening your intake…");
   const [failed, setFailed] = useState(false);
+  // Whether the person is signed in, known once the account is read: a signed-in person is never offered a sign-in for a failed save.
+  const [signedIn, setSignedIn] = useState(false);
   const [conflict, setConflict] = useState(false);
   const [attempt, setAttempt] = useState(0);
   // "Retry saving intake" while its save runs: it says so, and is not pressed twice (fresh review, 28 Oct).
@@ -123,11 +220,17 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
     let active = true;
     let identity: string | null | undefined;
     let disposeStore = () => {};
+    // The court-path finder's hand-off belongs to the intake that takes it (finderHandoff.ts): any other opening drops
+    // it at once, from the address alone, never waiting on the account (the story left at "Before you start", 9 Nov).
+    try {
+      if (!window.location.pathname.startsWith("/builder") || !keepFinderHandoff(sessionStorage.getItem(COURT_PATH_FINDER_KEY), { requestedFlow: requestedFlow ?? null, selectedId: selectedId ?? null })) putFinderHandoff(null);
+    } catch { /* no storage: nothing handed over */ }
     async function initialize(ownerId: string | null) {
       const epoch = ++generation.current;
       disposeStore();
       setRecovery(null);
       setFailed(false);
+      setSignedIn(Boolean(ownerId));
       setConflict(false);
       const current = () => active && epoch === generation.current;
       try {
@@ -148,6 +251,8 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         const initialConflict = Boolean(session && row && session.serverRevision !== serverRevision && session.checkpoint.revision !== serverRevision);
         let snapshot: Checkpoint = session?.checkpoint ?? saved ?? { version: 1, flowId, courtPath: court, revision: crypto.randomUUID(), sections: {} };
         snapshot = JSON.parse(JSON.stringify(snapshot)) as Checkpoint;
+        // The saved fact record is shown, never the tab's older copy of it (G2(c), serverFacts.ts).
+        if (saved) snapshot = { ...snapshot, sections: withStoredFacts(snapshot.sections, saved.sections) };
         snapshot.inputRevision ??= snapshot.revision;
         // One copy of the story: older checkpoints move theirs into sections.story once, here.
         const unmigrated = snapshot;
@@ -155,6 +260,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         const migrated = snapshot !== unmigrated;
         if (migrated) snapshot = { ...snapshot, revision: crypto.randomUUID() };
         let workflowStatus = ownerId ? record(row?.master_result.workflowStatus) : session?.workflowStatus ?? { intakeCompleted: false };
+        let savedMaster: Record<string, unknown> | null = ownerId && row ? record(row.master_result) : null;
         let view: ReviewView = { checkpoint: snapshot, workflowStatus };
         const listeners = new Set<() => void>();
         const fieldListeners = new Map<string, Set<() => void>>();
@@ -170,8 +276,16 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           // (a guest's, or text not yet saved to the account): ask first.
           const held = readHeldIntake(ownerId);
           if (held && !discardAllowed.current) { setUnsaved(held); setNotice("You have an unsaved case in this tab."); return; }
+          // No id in the address: never a remembered case. Signed in and returning to a
+          // builder step, the person picks the case from My cases (openCase.ts, rule 1).
+          const elsewhere = addressWithoutACase(withoutACase(openCaseFromAddress(new URL(window.location.href).searchParams), { pathname: window.location.pathname, signedIn: Boolean(ownerId) }));
+          if (elsewhere) { window.location.replace(elsewhere); return; }
           discardAllowed.current = false;
           if (!ownerId && window.location.pathname === "/") resetIntakeInBrowser();
+          if (window.location.pathname.startsWith("/builder")) {
+            // This new intake takes the finder's hand-off, if one is waiting (finderHandoff.ts).
+            putFinderHandoff(takeFinderHandoff(sessionStorage.getItem(COURT_PATH_FINDER_KEY), flowId));
+          }
           if (!writeIntakeSession(sessionStorage, { version: 2, ownerId, caseId: null, serverRevision: null, checkpoint: snapshot })) throw new Error("This tab cannot retain intake text. Please enable session storage before continuing.");
           const url = new URL(window.location.href);
           url.searchParams.set("intake", flowId);
@@ -183,13 +297,21 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         if (address.pathname === "/builder" && address.searchParams.get("step") === "results") {
           // Preserve the existing completed-case route; an interrupted unsaved analysis resumes intake.
           const pending = Boolean(session && session.checkpoint.revision !== serverRevision);
-          if (row && guidanceIsCurrent(row.master_result, court, row.id) && !pending && !initialConflict) {
+          // A saved, current next step is shown here at once, from the saved case (savedStep.ts; Chrome check of #544 on
+          // 99e2ec0, 7 Nov, F10: this address went to the case page, so the overview was reached only by working the step
+          // out again). An older case with no saved step to show still goes to its case page.
+          const savedStep = row && !pending && !initialConflict ? savedStepOf(row.master_result, { workflowStatus: row.master_result.workflowStatus, checkpoint: snapshot }, court, row.id) : null;
+          if (row && !savedStep && guidanceIsCurrent(row.master_result, court, row.id) && !pending && !initialConflict) {
             window.location.replace(`/cases/${encodeURIComponent(row.id)}`);
             return;
           }
-          if (step === "form" || step === "guided") address.searchParams.set("step", step);
-          else address.searchParams.delete("step");
-          window.history.replaceState(null, "", `${address.pathname}?${address.searchParams}`);
+          // The case page's "Show my next step" / "Update my next steps" (?next=start) stay on the overview, where the step
+          // is worked out from that route without opening it (Chrome check of #544, 6 Nov, F6: the rewrite opened the whole form).
+          if (address.searchParams.get("next") !== "start" && !savedStep) {
+            if (step === "form" || step === "guided") address.searchParams.set("step", step);
+            else address.searchParams.delete("step");
+            window.history.replaceState(null, "", `${address.pathname}?${address.searchParams}`);
+          }
         }
         if (address.pathname === "/builder" && !address.searchParams.has("step") && (step === "form" || step === "guided")) {
           address.searchParams.set("step", step);
@@ -199,11 +321,36 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         let dirty = migrated || Boolean(session && session.checkpoint.revision !== serverRevision);
         let timer: ReturnType<typeof setTimeout> | undefined;
         let flight: Promise<void> | null = null;
+        // A review action whose save answered an error: the retry reads the case back for it, or sends it again (7 Nov, step 19).
+        let pendingTransition: PendingTransition | null = null;
         const invalid = new Set<string>();
         // `pending`: something entered here has not reached the account (still saving,
         // a failed save, or no case created yet). Default values a form writes are not.
         const cache = () => writeIntakeSession(sessionStorage, { version: 2, ownerId, caseId, serverRevision, checkpoint: snapshot, ...(!ownerId ? { workflowStatus } : { pending: dirty || !caseId, ...(session?.carried && !caseId ? { carried: true } : {}) }) });
         const failure = (message: string) => { if (current()) { setFailed(true); setNotice(message); } };
+        // G2(b): this tab's unsent edits go to the server, which numbers each one it accepts (POST /api/cases/facts).
+        const sendFacts = async (token: string | undefined) => {
+          const sending = snapshot.sections[CASE_FILE_SECTION]?.changes;
+          const writes = caseId ? pendingWrites(sending) : [];
+          // The Parties record, when this tab changed it: sent by itself too, and numbered by the server (serverFacts.ts).
+          const sendingParties = caseId && snapshot.sections[CASE_FILE_SECTION]?.[PARTIES_PENDING] === true ? snapshot.sections[CASE_FILE_SECTION]?.parties : undefined;
+          if ((!writes.length && sendingParties === undefined) || !token) return;
+          const response = await fetch("/api/cases/facts", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+            body: JSON.stringify({ caseId, facts: writes, ...(sendingParties !== undefined ? { parties: sendingParties } : {}) }),
+            signal: AbortSignal.timeout(CASE_REQUEST_TIMEOUT_MS),
+          });
+          if (!current()) throw new Error("The intake account or case changed. Please retry in the current case.");
+          if (!response.ok) throw new Error("Your answers could not be saved. Your pending text remains in this tab. Please retry before continuing.");
+          const answer = (await response.json()) as SendResponse;
+          snapshot = { ...snapshot, revision: crypto.randomUUID(), sections: afterSend(snapshot.sections, sending, answer) };
+          if (sendingParties !== undefined && answer.parties) snapshot = { ...snapshot, sections: afterPartiesSent(snapshot.sections, sendingParties, answer.parties) };
+          remember(snapshot);
+          dirty = true;
+          cache();
+          emit();
+        };
         const flush = async (signal?: AbortSignal): Promise<void> => {
           signal?.throwIfAborted();
           // Let a discrete input event commit its last state and effects before taking the snapshot.
@@ -218,6 +365,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             const { data: { session: auth } } = await readAuthSession();
             if (!current() || auth?.user.id !== ownerId) throw new Error("Sign in again to the same account before saving. Your pending text remains in this tab.");
             signal?.throwIfAborted();
+            await sendFacts(auth.access_token);
             const sent = snapshot;
             let savedInput = inputRevision(sent);
             if (caseId && sent.revision === serverRevision) { dirty = false; return; }
@@ -227,6 +375,8 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
               if (!current()) throw new Error("The account changed while saving.");
               caseId = sent.flowId;
               workflowStatus = { intakeCompleted: false, intakeReview: { version: 1 } };
+              // Edits made before the case existed are sent now; the next save keeps the record the server wrote.
+              await sendFacts(auth.access_token);
             } else {
               // The saved record follows this tab: an edit made while reviewing stays in review.
               const outcome = await saveCheckpoint(supabase, ownerId, caseId, sent, serverRevision, current, inputRevision(sent) !== acknowledgedInput, reviewPhase(workflowStatus, sent) === "reviewing");
@@ -236,8 +386,11 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
               }
               if (outcome.ok) {
                 workflowStatus = record(outcome.master.workflowStatus);
+                savedMaster = record(outcome.master);
                 const committed = readCheckpoint(outcome.master.intakeCheckpoint, court, caseId);
                 if (committed) savedInput = inputRevision(committed);
+                // The server kept its fact record over this tab's copy: adopt it, so the screens show it (G2(c)).
+                if (committed && JSON.stringify(storedFacts(committed.sections)) !== JSON.stringify(storedFacts(snapshot.sections))) snapshot = { ...snapshot, sections: withStoredFacts(snapshot.sections, committed.sections) };
                 if (committed && inputRevision(snapshot) === inputRevision(sent) && inputRevision(committed) !== inputRevision(sent)) { snapshot = { ...snapshot, inputRevision: inputRevision(committed) }; remember(snapshot); }
               }
             }
@@ -288,7 +441,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             if (!current()) return;
             const fields = discardedFields(snapshot);
             const next = { ...discardStale(snapshot), revision: crypto.randomUUID() };
-            if (materialInitialFacts(next) !== materialInitialFacts(snapshot)) { next.inputRevision = next.revision; workflowStatus = reconcileReview(workflowStatus, snapshot, next); }
+            if (applyFactRevisions(workflowStatus, snapshot, next)) workflowStatus = reconcileReview(workflowStatus, snapshot, next);
             snapshot = next;
             for (const [section, key] of fields) fieldListeners.get(`${section}:${key}`)?.forEach(listener => listener());
             emit();
@@ -317,9 +470,38 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             if (court !== "small-claims") return runContinue(court);
             // The route on screen is the address bar's; the saved step lags behind Back/Forward.
             const step = new URL(window.location.href).searchParams.get("step");
-            return runContinue(step === "guided" ? "guided" : step === "form" ? "form" : "choose");
+            // On the overview (?step=results: the case page's "Show my next step" / "Update my next steps"): worked out from
+            // the route the answers came from, which stays hidden, never by opening the whole form or the chooser
+            // (Chrome check of #544, 6 Nov, F6).
+            const route = step === "results" ? snapshot.sections.builder?.step : step;
+            return runContinue(route === "guided" ? "guided" : route === "form" ? "form" : "choose");
           },
-          begin: async signal => { await flush(signal); signal?.throwIfAborted(); if (signal) leases.set(signal, inputRevision(snapshot)); },
+          retry: async () => {
+            await flush();
+            if (!current()) return;
+            // A review action for answers changed since is not finished: the change itself reopened the review.
+            if (pendingTransition && inputRevision(snapshot) !== pendingTransition.expectedInput) pendingTransition = null;
+            if (pendingTransition && ownerId && caseId) {
+              const pending = pendingTransition;
+              const landed = await landedReviewTransition(supabase, ownerId, caseId, court, pending);
+              if (!current()) return;
+              if (landed) {
+                // Its save landed although it answered an error: taken as saved, nothing written again.
+                pendingTransition = null;
+                workflowStatus = record(landed.workflowStatus);
+                savedMaster = record(landed);
+                cache();
+                emit();
+              } else {
+                // Not there: sent again through the one review writer, which keeps it pending and says so if it fails again.
+                await store.transition(pending.action, pending.expectedInput);
+                if (!current()) return;
+              }
+            }
+            setFailed(false);
+            setNotice("Intake saved to your account.");
+          },
+          begin: async signal => { await flush(signal); signal?.throwIfAborted(); if (signal) leases.set(signal, factsRevision(snapshot)); },
           subscribeField: (section, field, listener) => {
             const key = `${section}:${field}`;
             const group = fieldListeners.get(key) ?? new Set<() => void>();
@@ -328,7 +510,15 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           },
           subscribe: listener => { listeners.add(listener); return () => { listeners.delete(listener); }; },
           getReview: () => view,
-          transition: async (action, expectedInput) => {
+          getSavedMaster: () => savedMaster,
+          transition: async (action, given) => {
+            // Anything typed in an open box and not saved yet is saved first (openEdits.ts; founder's Chrome check of
+            // #541, step 3: "5200" typed, Confirm pressed, the amount lost). What it saves is what the person pressed
+            // Confirm on, so the revision they confirm is the one after it; a box that needs more stops the Confirm.
+            const before = inputRevision(snapshot);
+            const unsent = action === "confirm" ? flushOpenEdits() : { saved: [], blocked: [] };
+            if (unsent.blocked.length) throw new Error(blockedMessage(unsent.blocked));
+            const expectedInput = unsent.saved.length && given === before ? inputRevision(snapshot) : given;
             await flush();
             if (!current() || inputRevision(snapshot) !== expectedInput) {
               // Names only, never values: what changed between the tick and the press.
@@ -337,9 +527,12 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             }
             if (ownerId && caseId) {
               const result = await saveReviewTransition(supabase, ownerId, caseId, snapshot, action, expectedInput, current);
-              if (!result.ok) { failure("Your review could not be saved. Your answers remain here; retry before continuing."); throw new Error("Review was not saved. Please retry."); }
+              if (!result.ok) { pendingTransition = { action, expectedInput }; failure("Your review could not be saved. Your answers remain here; retry before continuing."); throw new Error("Review was not saved. Please retry."); }
               if (!current()) return;
+              pendingTransition = null;
+              setFailed(false);
               workflowStatus = record(result.master.workflowStatus);
+              savedMaster = record(result.master);
               if (inputRevision(snapshot) !== expectedInput) {
                 workflowStatus = reconcileReview(view.workflowStatus, view.checkpoint, snapshot);
                 emit(); cache();
@@ -356,6 +549,11 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           put: (section, key, value, touched = true, external = false, fromReview = false, reaffirm = undefined) => {
             if (!current()) return;
             const field = `${section}:${key}`;
+            // Which screen is showing is never an answer: kept with the case, saved with the next answer, never a save of
+            // its own. Opening a route sent a save of the whole case, whose failure said "could not be saved" and held
+            // the leave guard (Chrome check of #544 on 99e2ec0, 7 Nov, F9).
+            const screenOnly = SCREEN_FIELDS.has(field);
+            if (screenOnly) touched = false;
             const json = JSON.stringify(value instanceof Set ? [...value] : value);
             if (json === undefined) return;
             const encoded: unknown = JSON.parse(json);
@@ -369,12 +567,23 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             // A changed side: the old side's answers are emptied, to be asked again (sideChange.ts).
             const sideChange = field === `${SITUATION_SECTION}:${SITUATION_FIELD}` ? onSideChange(snapshot.sections, sections) : { sections, changed: [] as [string, string][] };
             sections = sideChange.sections;
+            // The newest answer wins (founder, 1 Nov): an answer to a fact the person changed with "Change", or that
+            // the case file already holds with another value from another place, is recorded as the newest change
+            // with its time, so no older copy outranks it on any screen (caseFile.ts followAnswer; the time is
+            // replaced by the server's number in G2(b)).
+            const followed = touched && section !== CASE_FILE_SECTION ? followAnswer(snapshot.sections, section, key, snapshot.sections[section]?.[key], encoded, new Date(), caseFileOf(snapshot, savedMaster ?? undefined)) : null;
+            if (followed) sections = { ...sections, [CASE_FILE_SECTION]: { ...sections[CASE_FILE_SECTION], changes: followed } };
             // Only what the person enters or confirms is an answer; a form registering its defaults is not.
             if (touched) sections[BASIS_SECTION] = tagAnswers(sections, section, key, snapshot.sections[section]?.[key], encoded);
             if (reaffirm !== undefined) sections[BASIS_SECTION] = reaffirmAnswers(sections, section, key, encoded, reaffirm === true ? undefined : reaffirm);
             if (unchanged && JSON.stringify(sections[BASIS_SECTION]) === JSON.stringify(snapshot.sections[BASIS_SECTION])) { invalid.delete(field); return; }
-            const next = { ...snapshot, revision: crypto.randomUUID(), sections };
-            if (touched && materialInitialFacts(next) !== materialInitialFacts(snapshot)) { next.inputRevision = next.revision; workflowStatus = reconcileReview(workflowStatus, snapshot, next, fromReview); }
+            // A screen change keeps the revision too: a new one made this tab's copy differ from the saved case, so the next
+            // page load saved it at once, the same write one page later.
+            const next = { ...snapshot, revision: screenOnly ? snapshot.revision : crypto.randomUUID(), sections };
+            // The one rule, shared with the server (intakeReview.ts applyFactRevisions): after Confirm an
+            // answer that only adds a fact keeps the confirmation (Chrome re-test 29 Oct, D1), but next
+            // steps made before it are outdated (factsRevision; D1 review).
+            if (touched && applyFactRevisions(workflowStatus, snapshot, next)) workflowStatus = reconcileReview(workflowStatus, snapshot, next, fromReview);
             if (!readCheckpoint(next, court)) { invalid.add(field); dirty = true; emit(); failure("This intake is too large to save together. Nothing has been removed; copy your text before leaving."); return; }
             invalid.delete(field);
             snapshot = next;
@@ -394,7 +603,8 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           flush,
           validate: async (signal) => {
             signal?.throwIfAborted();
-            if (signal && leases.has(signal) && leases.get(signal) !== inputRevision(snapshot)) throw new Error("Initial information changed. The outdated AI response was discarded.");
+            // An AI response started on older facts is discarded, an added answer included (D1 review).
+            if (signal && leases.has(signal) && leases.get(signal) !== factsRevision(snapshot)) throw new Error("Initial information changed. The outdated AI response was discarded.");
             if (!current()) throw new Error("The intake account or case changed. Please retry.");
             if (flight) await flight;
             if (ownerId && caseId) {
@@ -411,15 +621,10 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           },
         };
         const interruption = () => { if (dirty && current()) void flush().catch(() => {}); };
+        // Save, then go where the person clicked -- always, even if the save fails (leaveAfterSave.ts).
         const navigate = (event: MouseEvent) => {
-          if (!ownerId || !dirty || event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
           const anchor = event.target instanceof Element ? event.target.closest("a[href]") : null;
-          if (!(anchor instanceof HTMLAnchorElement) || anchor.target === "_blank" || anchor.hasAttribute("download")) return;
-          const target = new URL(anchor.href);
-          if (target.origin !== window.location.origin || target.href === window.location.href) return;
-          event.preventDefault();
-          event.stopPropagation();
-          void flush().then(() => { if (current()) window.location.assign(target.href); }).catch(() => {});
+          saveThenLeave(event, anchor instanceof HTMLAnchorElement ? anchor : null, { pending: Boolean(ownerId) && dirty, here: window.location.href }, () => flush(), (href) => window.location.assign(href));
         };
         const beforeUnload = (event: BeforeUnloadEvent) => { if (dirty && ownerId) { event.preventDefault(); } };
         document.addEventListener("click", navigate, true);
@@ -436,7 +641,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           window.removeEventListener("online", interruption);
         };
         if (!cache()) failure("This tab cannot retain your pending intake text. Copy it before leaving.");
-        else setNotice(ownerId ? (dirty ? "Pending answers recovered in this tab. Saving…" : caseId ? "Intake saved to your account." : "Answers will be saved to your account as you type.") : "Guest progress stays in this tab only. Seeing your next steps needs a free account; sign in from here and what you entered comes with you.");
+        else setNotice(ownerId ? (dirty ? "Pending answers recovered in this tab. Saving…" : caseId ? "Intake saved to your account." : "Answers will be saved to your account as you type.") : ""); // A guest gets ONE account message per screen, the shared GUEST_ACCOUNT_NOTICE below (Chrome, test of #561, 1.1: three).
         setRecovery(store);
         if (initialConflict) { setConflict(true); failure("Another tab changed this intake. Your pending text is shown here for you to copy. Open the saved case separately before resolving the difference."); }
         else if (dirty && ownerId) void flush().catch(() => {});
@@ -469,12 +674,20 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
   </div>;
   return <Context.Provider value={recovery}>
     <div className="mx-auto max-w-6xl px-6 py-3 text-sm" role={failed ? "alert" : "status"} data-testid="intake-save-status">
-      {notice}{" "}
-      {failed && <WorkingButton className="underline" working={retrying} workingLabel="Saving intake…" onClick={async () => { if (!recovery) { setAttempt((value) => value + 1); return; } setRetrying(true); try { await recovery.flush(); } catch { /* the notice says what failed */ } finally { setRetrying(false); } }}>Retry saving intake</WorkingButton>}{" "}
-      {(recovery || failed) && (!recovery?.ownerId || failed) && <a className="underline" href={`/login?next=${encodeURIComponent(here)}`} onClick={(event) => { event.preventDefault(); startSignIn(); }}>{recovery && !recovery.ownerId ? "Sign in or create a free account (what you entered comes with you)" : "Sign in for account recovery"}</a>}
+      {failed ? failureWords(notice, signedIn || Boolean(recovery?.ownerId)) : notice}{" "}
+      {failed && <WorkingButton className="underline" working={retrying} workingLabel="Saving intake…" onClick={async () => { if (!recovery) { setAttempt((value) => value + 1); return; } setRetrying(true); try { await recovery.retry(); } catch { /* the notice says what failed */ } finally { setRetrying(false); } }}>Retry saving intake</WorkingButton>}{" "}
+      {(() => {
+        const offer = (recovery || failed) && (!recovery?.ownerId || failed) ? signInOffer(notice, signedIn || Boolean(recovery?.ownerId), Boolean(recovery)) : null;
+        return offer ? <a className="underline" href={`/login?next=${encodeURIComponent(here)}`} onClick={(event) => { event.preventDefault(); startSignIn(); }}>{offer}</a> : null;
+      })()}
       {conflict && recovery?.getCaseId() && <a className="underline" href={`/builder?path=${court}&caseId=${recovery.getCaseId()}`} target="_blank" rel="noopener noreferrer">Open the saved intake separately</a>}
       {!recovery && failed && <> · <a className="underline" href={`/builder?path=${court}`}>Start a new intake</a></>}
     </div>
+    {/* A person not signed in is told, before their story, what an account is for and that signing up sends an email to
+        confirm (site owner, 21 Nov 2026): every page that starts a case is in this frame (the home page's story step and
+        the builder, every court). Words only. */}
+    {recovery && !recovery.ownerId && !signedIn ? <p className="mx-auto max-w-6xl px-6 pb-2 text-sm text-[#4d675f]" data-testid="guest-account-notice">{GUEST_ACCOUNT_NOTICE}</p> : null}
+    {recovery ? <NotSavedYet /> : null}
     {recovery ? <SituationGate court={court} ownerId={recovery.ownerId ?? null}><IntakeReviewPanel />{children}</SituationGate> : null}
   </Context.Provider>;
 }
@@ -499,18 +712,20 @@ function SituationGate({ court, ownerId, children }: { court: IntakeCourt; owner
   // The first-use notice (not a lawyer; AI is used) comes before any question, these included.
   const [notice, setNotice] = useState<boolean | null>(null);
   const known = withKnownCourt(situation, court);
-  const incomplete = nextSituationQuestion(known, court) !== null;
+  // What the case file holds from another place (the chat, the review, an older case) is never asked here again (C9).
+  const view = useIntakeReviewView();
+  const file = view && recovery ? caseFileOf(view.checkpoint, recovery.getSavedMaster() ?? undefined) : null;
+  const held = situationWithHeld(known, file);
+  const incomplete = nextSituationQuestion(held, court) !== null;
   // The court-path finder asked "Has a case already started?": that answer is the first one here.
   useEffect(() => {
     try {
       const handed = JSON.parse(sessionStorage.getItem(COURT_PATH_FINDER_KEY) ?? "null") as Record<string, unknown> | null;
       const started = handed?.started;
       // Taken once: what is left of the hand-off is the builder's to read, or nothing.
+      // Never written back without the intake it belongs to (finderHandoff.ts; this line rewrote the story unbound).
       if (handed && "started" in handed) {
-        const { started: _taken, ...rest } = handed;
-        void _taken;
-        if (Object.keys(rest).length) sessionStorage.setItem(COURT_PATH_FINDER_KEY, JSON.stringify(rest));
-        else sessionStorage.removeItem(COURT_PATH_FINDER_KEY);
+        putFinderHandoff(withoutStarted(JSON.stringify(handed)));
       }
       if (situation.where) return;
       if (started === "no") setSituation(withKnownCourt(answerSituation(situation, "where", "starting"), court));
@@ -540,12 +755,12 @@ function SituationGate({ court, ownerId, children }: { court: IntakeCourt; owner
   }
   if (incomplete || changing) {
     return <div className="mx-auto max-w-4xl px-6" data-testid="situation-gate">
-      <SituationQuestions situation={known} chosenCourt={court} reviewing={changing && !incomplete} onChange={setSituation} onSwitchCourt={switchCourt} onDone={() => setChanging(false)} />
+      <SituationQuestions situation={known} held={file} chosenCourt={court} reviewing={changing && !incomplete} onChange={setSituation} onSwitchCourt={switchCourt} onDone={() => setChanging(false)} />
       {changing && !incomplete && <button type="button" data-testid="situation-change-done" onClick={() => setChanging(false)} className="mt-3 text-sm font-semibold text-[#2f7d67] underline">Keep my answers as they are</button>}
     </div>;
   }
   return <>
-    <SituationLine situation={known} onChange={() => setChanging(true)} />
+    <SituationLine situation={held} onChange={() => setChanging(true)} />
     <SideCrossCheck court={court} situation={known} onChange={() => setChanging(true)} />
     <IntakeSafetyNotice />
     {children}
@@ -560,7 +775,9 @@ function SituationGate({ court, ownerId, children }: { court: IntakeCourt; owner
 function SideCrossCheck({ court, situation, onChange }: { court: IntakeCourt; situation: Situation; onChange: () => void }) {
   const [story] = useStory();
   const [kept, setKept] = useIntakeState<string>(SITUATION_SECTION, "keptAgainst", "");
-  const reading = court === "family" ? familyRoleFromStory(story) : civilRoleFromStory(story);
+  // The one story reader (intakeReview.ts statedInStory): the role the story states, with its words.
+  const role = quotesOf(statedInStory(story, [], court)).side;
+  const reading = role && typeof role.value === "string" ? { value: role.value, quote: role.quote } : null;
   const storySide = reading ? (reading.value === "defendant" || reading.value === "respondent" ? "responding" : "bringing") : null;
   const contradiction = sideContradiction(situation, storySide);
   if (!contradiction || !reading || kept === reading.quote) return null;
@@ -636,7 +853,7 @@ export function useValidateIntakeResponse() {
 }
 
 /** The person's story: the one copy every screen reads and every edit writes. */
-/** The safety notice for the intake's story, on every builder screen once the story is written (SafetyNotice.tsx). */
+/** The safety notice for the intake's story: shown once, on the screen where words naming danger first appear (SafetyNotice.tsx). */
 function IntakeSafetyNotice() {
   const [story] = useStory();
   return <SafetyNotice story={story} />;
@@ -695,6 +912,12 @@ export function useContinueHandler(key: ContinueKey, handler: () => void) {
 }
 
 /** The intake this tab holds, when it has a story and is not saved to the account. */
+/** The court-path finder's hand-off, written or dropped in this one place; finderHandoff.ts decides what it holds. */
+function putFinderHandoff(next: string | null) {
+  if (next) sessionStorage.setItem(COURT_PATH_FINDER_KEY, next);
+  else sessionStorage.removeItem(COURT_PATH_FINDER_KEY);
+}
+
 function readHeldIntake(ownerId: string | null): { court: IntakeCourt; flowId: string; signedIn: boolean } | null {
   try {
     const value = record(JSON.parse(sessionStorage.getItem(GUEST_INTAKE_SESSION_KEY) || "null"));

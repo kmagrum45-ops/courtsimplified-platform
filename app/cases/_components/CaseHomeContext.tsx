@@ -5,6 +5,9 @@ import { createContext, useContext } from "react";
 
 import type { CasePosition } from "@/src/lib/case-system/casePosition";
 import { caseTitleFromIntake, isGeneratedTitle } from "@/src/lib/case-system/caseTitle";
+import { caseFileOfMaster, otherPartyOfMaster } from "@/src/lib/case-system/caseFile/caseFileOfMaster";
+import { storyLines } from "@/src/lib/case-system/caseFile/storyLines";
+import { respondingFromRecord } from "@/src/lib/case-system/caseFile/caseFile";
 
 /** The case row the case page loads once and every section reads. */
 export type CaseRecord = {
@@ -64,13 +67,39 @@ export const COURT_LABELS: Record<string, string> = {
 export function caseTitle(record: CaseRecord): string {
   const title = (record.title || "").trim();
   if (!isGeneratedTitle(title)) return title;
-  const intake = (record.master_result?.intakeData ?? {}) as { otherParty?: unknown };
-  return caseTitleFromIntake(intake.otherParty, record.court_path);
+  // A list of cases (the dashboard) loads no case file: it reads the title the one writer saved when the other party was
+  // (factRecord.ts applyFactWrites). A page with the whole case reads the case file below, as before.
+  const master = (record.master_result ?? {}) as Record<string, unknown>;
+  // (The dashboard's slim record carries a few checkpoint ids, never its sections: that is what "no case file" means.)
+  const sections = (master.intakeCheckpoint as Record<string, unknown> | undefined)?.sections;
+  const loaded = Boolean(sections && typeof sections === "object" && Object.keys(sections).length);
+  if (!loaded && typeof master.caseTitle === "string" && master.caseTitle.trim()) return master.caseTitle.trim();
+  // Who the case is with, from the case file (the "The other party" line), else the saved copy of the answers: after a
+  // restart the copy had no name while the case file did, and the heading went back to "Small Claims case" (F15).
+  const held = otherPartyOfMaster(record.master_result, record.court_path);
+  if (held) return caseTitleFromIntake(held, record.court_path);
+  // None held: the other party the story names, the same line "What we have so far" shows (storyLines.ts; Chrome
+  // milestone test of #550, S6: "Small Claims case" when the story said who was suing). Never a witness.
+  const file = caseFileOfMaster(record.master_result, record.court_path);
+  const told = storyLines(file.storyText ?? "", file, respondingFromRecord(file)).find((line) => line.fact === "otherParty")?.value ?? "";
+  return caseTitleFromIntake(told.replace(/^The /, "the "), record.court_path);
 }
 
-export function builderHref(record: CaseRecord): string {
-  const params = new URLSearchParams({ caseId: record.id });
-  if (record.court_path && record.court_path !== "unknown") params.set("path", record.court_path);
+/**
+ * The builder for this case, under its own court. A case whose court is not one
+ * the builder knows gets its own page instead: a builder address with no court
+ * used to open under Family (never a default court, 30 Oct; test:open-case).
+ */
+export function builderHref(record: Pick<CaseRecord, "id" | "court_path">, options: { startNextStep?: boolean; openReview?: boolean } = {}): string {
+  const court = record.court_path;
+  if (court !== "small-claims" && court !== "family" && court !== "civil") return `/cases/${encodeURIComponent(record.id)}`;
+  const params = new URLSearchParams({ caseId: record.id, path: court });
+  // The case page's "Show my next step" / "Update my next steps": the builder's overview (?step=results), where the step is
+  // started once (IntakeReviewPanel, ?next=start) from the route the answers came from, never by opening that route
+  // (Chrome check of #544, 6 Nov, F6: both opened the whole form, the route last used).
+  if (options.startNextStep) { params.set("step", "results"); params.set("next", "start"); }
+  // The case page’s "Review and confirm": the builder opens the review once (IntakeReviewPanel, ?review=open).
+  if (options.openReview) params.set("review", "open");
   return `/builder?${params.toString()}`;
 }
 

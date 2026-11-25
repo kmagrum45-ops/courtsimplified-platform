@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Suspense, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
+import { openCaseFromAddress } from "@/src/lib/case-system/openCase";
 
 /*
  * The 22 stage cards moved to src/lib/content-library/proceduralStages.ts on
@@ -80,7 +81,8 @@ function CitationList({ citations }: { citations: PrincipleCitation[] }) {
 function LegalPrinciplesPageContent() {
   const searchParams = useSearchParams();
 
-  const caseId = searchParams.get("caseId") || "";
+  // The case comes from the address alone (openCase.ts, rule 1).
+  const caseId = openCaseFromAddress(searchParams).caseId || "";
 
   const groupedPrinciples = useMemo(() => {
     return PRINCIPLES.reduce<Record<string, PrincipleCard[]>>((acc, item) => {

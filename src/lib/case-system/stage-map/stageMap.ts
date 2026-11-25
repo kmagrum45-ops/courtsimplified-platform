@@ -177,6 +177,16 @@ export type StageDeadline = {
    */
   qualifier?: string;
   /**
+   * For a "before" deadline only: the words that open its period sentence, in place of "Do this", where the rule
+   * sets the period for one way of doing the step only (change 66, approved 2026-11-21: Family r. 14 (11.3) and (11.4)).
+   */
+  beforeLead?: string;
+  /**
+   * For a deadline with no number (count 0) only: still show its court's counting paragraph, because its words state a
+   * time (changes 119 and 123, approved 2026-11-21). Without it, only numbered deadlines bring the paragraph.
+   */
+  showsCounting?: true;
+  /**
    * A point in time after which a step needs the court's leave, not a period
    * for taking a step (2026-10-13 review: r. 20.08 (2.1)'s "more than six
    * years have passed since the order was made"). Counted to the anniversary
@@ -978,11 +988,11 @@ const PLAINTIFF: CaseStage[] = [
         length: { unit: "years", count: 2 },
         regime: "small-claims-rules",
         qualifier:
-          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+          "This does not apply if the action was already decided by an order. An order includes a judgment, such as a default judgment signed by the clerk. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
         rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
-        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS, C.R_1_02_ORDER_INCLUDES_JUDGMENT, C.R_11_02_DEFAULT_JUDGMENT],
       },
     ],
   },
@@ -1043,11 +1053,11 @@ const PLAINTIFF: CaseStage[] = [
         length: { unit: "years", count: 2 },
         regime: "small-claims-rules",
         qualifier:
-          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+          "This does not apply if the action was already decided by an order. An order includes a judgment, such as a default judgment signed by the clerk. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
         rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
-        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS, C.R_1_02_ORDER_INCLUDES_JUDGMENT, C.R_11_02_DEFAULT_JUDGMENT],
       },
     ],
   },
@@ -1084,11 +1094,11 @@ const PLAINTIFF: CaseStage[] = [
         length: { unit: "years", count: 2 },
         regime: "small-claims-rules",
         qualifier:
-          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+          "This does not apply if the action was already decided by an order. An order includes a judgment, such as a default judgment signed by the clerk. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
         rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
-        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS, C.R_1_02_ORDER_INCLUDES_JUDGMENT, C.R_11_02_DEFAULT_JUDGMENT],
       },
     ],
   },
@@ -1145,11 +1155,11 @@ const PLAINTIFF: CaseStage[] = [
         length: { unit: "years", count: 2 },
         regime: "small-claims-rules",
         qualifier:
-          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+          "This does not apply if the action was already decided by an order. An order includes a judgment, such as a default judgment signed by the clerk. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
         rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
-        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS, C.R_1_02_ORDER_INCLUDES_JUDGMENT, C.R_11_02_DEFAULT_JUDGMENT],
       },
     ],
   },
@@ -1197,11 +1207,11 @@ const PLAINTIFF: CaseStage[] = [
         length: { unit: "years", count: 2 },
         regime: "small-claims-rules",
         qualifier:
-          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+          "This does not apply if the action was already decided by an order. An order includes a judgment, such as a default judgment signed by the clerk. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
         rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
-        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS, C.R_1_02_ORDER_INCLUDES_JUDGMENT, C.R_11_02_DEFAULT_JUDGMENT],
       },
     ],
   },
@@ -1243,11 +1253,11 @@ const PLAINTIFF: CaseStage[] = [
         length: { unit: "years", count: 2 },
         regime: "small-claims-rules",
         qualifier:
-          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+          "This does not apply if the action was already decided by an order. An order includes a judgment, such as a default judgment signed by the clerk. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
         rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
-        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS, C.R_1_02_ORDER_INCLUDES_JUDGMENT, C.R_11_02_DEFAULT_JUDGMENT],
       },
     ],
   },
@@ -1282,11 +1292,11 @@ const PLAINTIFF: CaseStage[] = [
         length: { unit: "years", count: 2 },
         regime: "small-claims-rules",
         qualifier:
-          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, or if you are under disability. The court may order otherwise.",
+          "This does not apply if the action was already decided by an order. An order includes a judgment, such as a default judgment signed by the clerk. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
         rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
-        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS, C.R_1_02_ORDER_INCLUDES_JUDGMENT, C.R_11_02_DEFAULT_JUDGMENT],
       },
     ],
   },
@@ -1386,11 +1396,11 @@ const PLAINTIFF: CaseStage[] = [
         length: { unit: "years", count: 2 },
         regime: "small-claims-rules",
         qualifier:
-          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+          "This does not apply if the action was already decided by an order. An order includes a judgment, such as a default judgment signed by the clerk. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
         rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
-        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS, C.R_1_02_ORDER_INCLUDES_JUDGMENT, C.R_11_02_DEFAULT_JUDGMENT],
       },
     ],
   },
@@ -1486,11 +1496,11 @@ const PLAINTIFF: CaseStage[] = [
         length: { unit: "years", count: 2 },
         regime: "small-claims-rules",
         qualifier:
-          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+          "This does not apply if the action was already decided by an order. An order includes a judgment, such as a default judgment signed by the clerk. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
         rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
-        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS, C.R_1_02_ORDER_INCLUDES_JUDGMENT, C.R_11_02_DEFAULT_JUDGMENT],
       },
     ],
   },
@@ -1528,11 +1538,11 @@ const PLAINTIFF: CaseStage[] = [
         length: { unit: "years", count: 2 },
         regime: "small-claims-rules",
         qualifier:
-          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+          "This does not apply if the action was already decided by an order. An order includes a judgment, such as a default judgment signed by the clerk. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
         rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
-        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS, C.R_1_02_ORDER_INCLUDES_JUDGMENT, C.R_11_02_DEFAULT_JUDGMENT],
       },
     ],
   },
@@ -2108,6 +2118,22 @@ const DEFENDANT: CaseStage[] = [
           "File the notice, with proof of service, within 10 days after serving it, and file the certificate with it. You can appeal only a final order to pay more than $5,000, not counting costs, or to return personal property worth more than $5,000.",
         exceptions: [C.S_CJA_31_APPEAL, C.S_APPEAL_LIMIT, C.R_61_05_CERTIFICATE, C.R_61_04_FILE_10_DAYS],
       },
+      {
+        // Change 18 (approved 2026-11-21), word for word. No number here: the approved paragraph states the 30 days
+        // itself, and a numbered deadline would render "You have 30 days after ..." instead (stageAnswers.ts).
+        id: "deadline:set-aside-judgment-after-missed-trial",
+        what: "If the judgment was made because you did not attend the trial, you can ask the court to set it aside or vary it",
+        qualifier:
+          "You must make the motion within 30 days after you become aware of the judgment, unless the court extends that time because of special circumstances.",
+        countFrom: "the day you became aware of the judgment",
+        countFromEvent: "trial-judgment-awareness",
+        length: { unit: "days", count: 0 },
+        regime: "small-claims-rules",
+        rule: C.R_17_01_SET_ASIDE,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [C.R_17_01_SET_ASIDE_30_DAYS],
+      },
     ],
   },
 ];
@@ -2315,12 +2341,12 @@ const LAW_MAP_STAGES: CaseStage[] = [
       { stage: "both:responding-to-a-motion", by: "whether the person is the one asking for the order or the one served with someone else's motion" },
       { stage: "defendant:noted-in-default", by: "whether the motion is to set aside a noting in default, which has its own step, or for another order" },
     ],
-    rules: [C.R_15_01_MOTION_FORM, C.R_15_01_SERVE_FILE, C.R_15_02_HEARING, C.R_3_02_EXTEND],
+    rules: [C.R_15_01_MOTION_FORM, C.R_15_01_HEARING_DATE_FIRST, C.R_15_01_SERVE_FILE, C.R_15_01_AFTER_JUDGMENT, C.R_15_02_HEARING, C.R_3_02_EXTEND],
     deadlines: [
       {
         id: "deadline:sc-motion-serve-7-days",
         what: "Serve the notice of motion and supporting affidavit on every party who filed a claim and any defendant not noted in default",
-        qualifier: "Get a hearing date from the clerk before you serve. Earlier is fine.",
+        qualifier: "If the motion is made after judgment has been signed, serve it on all parties, including those noted in default. Get a hearing date from the clerk before you serve. Earlier is fine.",
         countFrom: "the hearing date, counting backwards",
         countFromEvent: "motion-hearing-date",
         length: { unit: "days", count: 7 },
@@ -2329,7 +2355,7 @@ const LAW_MAP_STAGES: CaseStage[] = [
         rule: C.R_15_01_SERVE_FILE,
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
-        exceptions: [C.R_15_01_HEARING_DATE_FIRST],
+        exceptions: [C.R_15_01_AFTER_JUDGMENT, C.R_15_01_HEARING_DATE_FIRST],
       },
       {
         id: "deadline:sc-motion-file-3-days",
@@ -2357,7 +2383,7 @@ const LAW_MAP_STAGES: CaseStage[] = [
     distinguishedFrom: [
       { stage: "both:bringing-a-motion", by: "whether the person was served with the motion or is bringing it" },
     ],
-    rules: [C.R_15_01_RESPONSE, C.R_15_01_SERVE_FILE, C.R_15_02_HEARING],
+    rules: [C.R_15_01_RESPONSE, C.R_15_01_SERVE_FILE, C.R_15_01_SUPPLEMENTARY, C.R_15_02_HEARING, C.R_15_05_ADJOURNMENT],
     deadlines: [
       {
         id: "deadline:sc-motion-response-2-days",
@@ -2387,7 +2413,7 @@ const LAW_MAP_STAGES: CaseStage[] = [
       { stage: "defendant:served-defence-period-running", by: "whether the defendant disputes the whole claim or admits some of it and wants to arrange payment" },
       { stage: "plaintiff:defendant-proposed-terms", by: "which side the person is on: the defendant proposing the terms or the plaintiff receiving them" },
     ],
-    rules: [C.R_9_03_ADMIT_PROPOSE, C.R_9_03_NO_DISPUTE, C.R_9_03_DISPUTE, C.R_9_03_FINANCIAL_FORM, C.R_9_01_DEFENCE],
+    rules: [C.R_9_03_ADMIT_PROPOSE, C.R_9_03_NO_DISPUTE_FULL, C.R_9_03_DISPUTE, C.R_9_03_FINANCIAL_FORM, C.R_9_03_NO_APPEARANCE, C.R_9_03_DEFAULT_ON_ORDER, C.R_9_01_DEFENCE],
     deadlines: [
       {
         id: "deadline:sc-defence-with-proposal-20-days",
@@ -2416,7 +2442,7 @@ const LAW_MAP_STAGES: CaseStage[] = [
       { stage: "plaintiff:defence-filed", by: "whether the defence disputes the claim or admits it and proposes terms of payment" },
       { stage: "defendant:admitted-and-proposed-terms", by: "which side the person is on: the plaintiff receiving the proposal or the defendant making it" },
     ],
-    rules: [C.R_9_03_DISPUTE, C.R_9_03_NO_DISPUTE, C.R_9_03_ADMIT_PROPOSE],
+    rules: [C.R_9_03_DISPUTE, C.R_9_03_NO_DISPUTE_FULL, C.R_9_03_ADMIT_PROPOSE, C.R_9_03_NO_APPEARANCE, C.R_9_03_DEFAULT_ON_ORDER],
     deadlines: [
       {
         id: "deadline:sc-dispute-proposal-20-days",
@@ -2445,7 +2471,7 @@ const LAW_MAP_STAGES: CaseStage[] = [
       { stage: "plaintiff:awaiting-settlement-conference", by: "whether the conference is the settlement conference held in every defended case, or a trial management conference directed after a trial date was requested" },
       { stage: "plaintiff:trial-date-set", by: "whether a trial management conference was directed before the trial" },
     ],
-    rules: [C.R_16_1_01_TMC, C.R_16_1_01_TMC_PARTICIPATE, C.R_16_1_02_TMC_PURPOSES, C.R_16_1_01_TMC_MISSED],
+    rules: [C.R_16_1_01_TMC, C.R_16_1_01_TMC_PARTICIPATE, C.R_16_1_01_TMC_MISSED, C.R_16_1_01_TMC_COSTS, C.R_16_1_02_TMC_PURPOSES, C.R_16_1_02_TMC_DISCUSS],
     deadlines: [],
   },
   {
@@ -2459,7 +2485,7 @@ const LAW_MAP_STAGES: CaseStage[] = [
     distinguishedFrom: [
       { stage: "plaintiff:awaiting-settlement-conference", by: "whether the parties are exchanging written offers or attending the court's settlement conference" },
     ],
-    rules: [C.R_14_01_1_FORMS, C.R_14_02_ANY_TIME, C.R_14_03_WITHDRAW, C.R_14_05_ACCEPT, C.R_14_06_BREACH, C.R_14_07_PLAINTIFF_OFFER, C.R_14_07_DEFENDANT_OFFER],
+    rules: [C.R_14_01_1_WRITING, C.R_14_01_1_FORMS, C.R_14_02_ANY_TIME, C.R_14_02_COSTS_7_DAYS, C.R_14_03_WITHDRAW, C.R_14_03_DEEMED_WITHDRAWN, C.R_14_05_ACCEPT, C.R_14_06_BREACH, C.R_14_07_PLAINTIFF_OFFER, C.R_14_07_DEFENDANT_OFFER, C.R_14_07_SELF_REPRESENTED],
     deadlines: [
       {
         id: "deadline:sc-offer-7-days-before-trial",
@@ -2488,7 +2514,7 @@ const LAW_MAP_STAGES: CaseStage[] = [
     distinguishedFrom: [
       { stage: "plaintiff:judgment-in-my-favour-unpaid", by: "whether the creditor has chosen to examine the debtor, or is still choosing how to enforce" },
     ],
-    rules: [C.R_20_10_EXAMINATION, C.R_20_10_EXAM_TOPICS, C.R_20_10_ORDER_AS_TO_PAYMENT, C.R_20_04_CERTIFICATE],
+    rules: [C.R_20_10_EXAMINATION, C.R_20_10_REQUEST_DOCUMENTS, C.R_20_10_EXAM_TOPICS, C.R_20_10_ORDER_AS_TO_PAYMENT, C.R_20_10_ORDER_IN_FORCE, C.R_20_11_REFUSES, C.R_20_11_FAILS_TO_ATTEND, C.R_20_04_CERTIFICATE],
     deadlines: [],
   },
   {
@@ -2503,7 +2529,7 @@ const LAW_MAP_STAGES: CaseStage[] = [
       { stage: "defendant:judgment-against-me", by: "whether the creditor has started enforcing the judgment or judgment was only just given" },
       { stage: "defendant:default-judgment-against-me", by: "whether the person is dealing with enforcement or wants the default judgment set aside" },
     ],
-    rules: [C.R_20_08_GARNISHMENT, C.R_20_10_EXAM_TOPICS, C.R_20_02_STAY_VARY, C.R_20_10_ORDER_AS_TO_PAYMENT],
+    rules: [C.R_20_03_ENFORCEMENT, C.R_20_08_GARNISHMENT, C.R_20_08_PAY_CLERK, C.R_20_08_HEARING, C.R_20_10_EXAM_TOPICS, C.R_20_02_STAY_VARY, C.R_20_02_PERIODIC_IN_FORCE, C.R_20_02_PERIODIC_TERMINATES, C.R_20_10_ORDER_AS_TO_PAYMENT],
     deadlines: [],
   },
   {
@@ -2518,7 +2544,7 @@ const LAW_MAP_STAGES: CaseStage[] = [
       { stage: "both:offer-to-settle", by: "whether the claim is being ended by the plaintiff alone or settled by agreement with the other side" },
       { stage: "plaintiff:action-dismissed-for-delay", by: "whether the plaintiff is ending the claim or the clerk dismissed it" },
     ],
-    rules: [C.R_11_3_01_DISCONTINUE, C.R_11_3_01_DISABILITY, C.R_13_09_AFTER_CONFERENCE, C.R_11_3_02_EFFECT],
+    rules: [C.R_11_2_01_DISMISS_ON_CONSENT, C.R_11_3_01_DISCONTINUE, C.R_11_3_01_DISABILITY, C.R_13_09_AFTER_CONFERENCE, C.R_11_3_02_EFFECT],
     deadlines: [],
   },
   {
@@ -2533,7 +2559,7 @@ const LAW_MAP_STAGES: CaseStage[] = [
       { stage: "plaintiff:claim-drafted-not-filed", by: "whether the claim has already been filed or is still a draft" },
       { stage: "both:bringing-a-motion", by: "whether the change can be made by filing an amended document or needs the court's order, such as for less than 30 days' notice before trial" },
     ],
-    rules: [C.R_12_01_AMEND, C.R_12_01_SERVE, C.R_12_01_TIME, C.R_12_01_NO_RESPONSE_NEEDED],
+    rules: [C.R_12_01_AMEND_FULL, C.R_12_01_DOCUMENT_AGAIN, C.R_12_01_SERVE, C.R_12_01_TIME, C.R_12_01_ADDED_PARTY, C.R_12_01_NO_RESPONSE_NEEDED],
     deadlines: [
       {
         id: "deadline:sc-amend-30-days-before-trial",
@@ -2563,7 +2589,7 @@ const LAW_MAP_STAGES: CaseStage[] = [
       { stage: "both:bringing-a-motion", by: "whether the motion asks to strike out or amend a document, or for another order" },
       { stage: "plaintiff:court-considering-dismissal", by: "whether a party brought the motion or the court itself sent notice that it is considering dismissing the action" },
     ],
-    rules: [C.R_12_02_STRIKE, C.R_12_02_ORDERS, C.R_15_01_MOTION_FORM, C.R_15_01_SERVE_FILE],
+    rules: [C.R_12_02_STRIKE, C.R_12_02_ORDERS_FULL, C.R_15_01_MOTION_FORM, C.R_15_01_HEARING_DATE_FIRST, C.R_15_01_SERVE_FILE, C.R_15_01_RESPONSE],
     deadlines: [
       {
         id: "deadline:sc-strike-motion-serve-7-days",
@@ -2592,6 +2618,19 @@ const LAW_MAP_STAGES: CaseStage[] = [
         consequence: "changes-what-happens-next",
         exceptions: [],
       },
+      {
+        id: "deadline:sc-strike-motion-response-2-days",
+        what: "If you are responding to the motion: serve any affidavit in response (Form 15B) on every party who filed a claim or defence, and file it with proof of service",
+        countFrom: "the hearing date, counting backwards",
+        countFromEvent: "motion-hearing-date",
+        length: { unit: "days", count: 2 },
+        direction: "before",
+        regime: "small-claims-rules",
+        rule: C.R_15_01_RESPONSE,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [],
+      },
     ],
   },
   {
@@ -2606,20 +2645,20 @@ const LAW_MAP_STAGES: CaseStage[] = [
       { stage: "both:motion-to-strike-out", by: "whether the court started this itself by a notice, or a party brought a motion" },
       { stage: "plaintiff:action-dismissed-for-delay", by: "whether the notice is about the claim on its face or about two years passing without the steps the rules require" },
     ],
-    rules: [C.R_12_02_OWN_INITIATIVE, C.R_12_02_SUBMISSION],
+    rules: [C.R_12_02_OWN_INITIATIVE, C.R_12_02_SUBMISSION_FULL, C.R_12_02_MAILED_RECEIVED],
     deadlines: [
       {
         id: "deadline:sc-dismissal-submission-20-days",
         what: "If you want to respond, file a written submission with the court, no more than four pages long",
-        qualifier: "If no submission is filed, the court may make the order without further notice.",
-        countFrom: "the day you received the notice",
+        qualifier: "A mailed notice is treated as received on the fifth day after it was mailed. If you don't file a submission on time and within four pages, the court may make the order without further notice.",
+        countFrom: "you receive the notice",
         countFromEvent: "sc-dismissal-notice-received",
         length: { unit: "days", count: 20 },
         regime: "small-claims-rules",
-        rule: C.R_12_02_SUBMISSION,
+        rule: C.R_12_02_SUBMISSION_FULL,
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
-        exceptions: [],
+        exceptions: [C.R_12_02_MAILED_RECEIVED],
       },
     ],
   },

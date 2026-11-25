@@ -41,8 +41,10 @@
 import { sentences as sharedSentences } from "../sentences";
 import { checkedAnswer, type CheckedAnswer, type CheckedAnswerDeps } from "../retrieval/checkedAnswer";
 import type { RetrievalCourt } from "../retrieval/storyRetrieval";
-import { fixedRegimeFor, lienStepFor, type FixedRegimeId } from "../intelligence/fixedRegimes";
+import { exclusiveTribunalFor, fixedRegimeFor, lienStepFor, tribunalNoticeView, type ExclusiveTribunal, type FixedRegimeId, type TribunalNoticeView } from "../intelligence/fixedRegimes";
+export { tribunalNoticeView, type TribunalNoticeView } from "../intelligence/fixedRegimes";
 import { isMapOwnedInstruction, isMapOwnedProcedure } from "../procedureOwnership";
+import { homeQuestionsFor } from "../caseFile/factQuestions";
 import { ALL_STAGES, findStage, isSpecialStage, pathwayOf, type StagePathway } from "../stage-map/stageMap";
 
 // ------------------------------------------------------------------ types
@@ -57,7 +59,8 @@ export type UnderstoodMatter = {
   forum?: string;
 };
 
-export type UnderstoodQuestion = { question: string; why?: string };
+/** A question the site asks, in its own fixed words, by its id (questions/factQuestions.ts); never written by the model. */
+export type UnderstoodQuestion = { id?: string; question: string; why?: string };
 
 export type CaseUnderstanding = {
   /** The person's own facts, restated plainly in the second person. No law. */
@@ -88,7 +91,15 @@ export type CaseUnderstanding = {
    * map does not cover yet, so no ordinary steps are shown for it.
    */
   regime: { id: FixedRegimeId; reasoning: string; ownProcedure: boolean } | null;
+  /**
+   * The tribunal the code rule names from the person's first message (fixedRegimes.ts exclusiveTribunalFor), shown
+   * first with its own sourced redirectMessage (C1, 9 Nov 2026). On a confident match the reading asks no follow-up
+   * question; `ended` (a former tenancy) keeps the reading and its questions under the notice.
+   */
+  tribunal?: TribunalNoticeView | null;
 };
+
+
 
 export type UnderstandResult =
   | {
@@ -113,7 +124,7 @@ export type UnderstandInput = {
    * side, and the day they were served. Told to the reasoning as their answers, and the
    * side read from the story never replaces them (step 2).
    */
-  situation?: { side?: "starting" | "responding"; servedOn?: string; filed?: boolean };
+  situation?: { side?: "starting" | "responding"; servedOn?: string; filed?: boolean; /** The start screen holds what has happened in the case so far. */ stageGiven?: true };
 };
 
 // ------------------------------------------------------------------ limits
@@ -230,6 +241,11 @@ export function withoutLaw(text: string): string {
 
 export type ParsedUnderstanding = { understanding: CaseUnderstanding; points: { text: string; cites: string[] }[] };
 
+/** The model's questions, dropped: none reaches a screen (site owner, 19 Nov 2026). Kept as a call so the reason is in one place. */
+function modelQuestionsNeverShown(_questions: UnderstoodQuestion[]): UnderstoodQuestion[] {
+  return [];
+}
+
 export function parseUnderstanding(raw: string): ParsedUnderstanding | null {
   let parsed: unknown;
   try {
@@ -293,7 +309,8 @@ export function parseUnderstanding(raw: string): ParsedUnderstanding | null {
       mainCourt: allMatters[0].court,
       side,
       stage: withoutLaw(str(record.stage, 400)),
-      questions,
+      // The model's own questions are read (to screen them) but never kept: the site asks its fixed ones (factQuestions.ts).
+      questions: modelQuestionsNeverShown(questions),
       asksForPrediction: record.asksForPrediction === true,
       step,
       regime: null,
@@ -416,12 +433,57 @@ export const askedWhetherFiled = (question: string) =>
  * given" (26 Oct re-test, cases 19 and 20). The situation answers own this once given.
  */
 export const aboutWhetherFiled = (text: string) =>
-  askedWhetherFiled(text) ||
+  !aboutOneDocument(text) &&
+  (askedWhetherFiled(text) ||
   // Reviewer, 26 Oct: "Has your ex filed an application with the court?", "Did the landlord file
   // anything with the court?", "Has the other side started a court case?", "Is there a court case open
   // about this?", "Have you been served with any court papers?", a row "Lawsuit status: Not given".
   /\b(?:filed?|started|start|issued|brought|opened)\b[^?]{0,60}\b(?:with|in|at) (?:the )?court\b|\b(?:started|opened|brought|filed)\b[^?]{0,20}\b(?:a |an |any )?(?:court )?(?:case|claim|lawsuit|action|application|proceeding)\b|\bis there (?:a|an|any) (?:open |current |existing )?(?:court )?(?:case|claim|lawsuit|action|proceeding)\b|\b(?:been|were|was) served\b[^?]{0,30}\b(?:papers|claim|application|documents)\b|\b(?:lawsuit|case|claim|court|filing|action)\s+status\b/i.test(text) ||
-  /\bwhich court\b[^?]*\b(?:issued|filed|started|has|have)\b|\bcourt file (?:number|no\.?)|\b(?:existing|current|ongoing|pending) (?:court )?(?:case|claim|lawsuit|action|proceeding)\b|\b(?:claim|case|lawsuit|action|application)\b[^:?]{0,30}\b(?:already )?(?:started|filed|issued|commenced)\b|\balready (?:started|filed|issued|commenced)\b/i.test(text);
+  /\bwhich court\b[^?]*\b(?:issued|filed|started|has|have)\b|\bcourt file (?:number|no\.?)|\b(?:existing|current|ongoing|pending) (?:court )?(?:case|claim|lawsuit|action|proceeding)\b|\b(?:claim|case|lawsuit|action|application)\b[^:?]{0,30}\b(?:already )?(?:started|filed|issued|commenced)\b|\balready (?:started|filed|issued|commenced)\b/i.test(text) ||
+  // (a2), the recorded S1 readings: a row "Court filing: Nothing filed" (r1, r3) was kept and shown beside the answer.
+  /\bcourt filings?\b|\bnothing (?:has been |was |is )?(?:yet )?filed\b|\bnot (?:yet )?(?:been )?filed\b/i.test(text));
+
+/**
+ * A row or question about one named court document ("Defence: not yet filed", "Answer: not filed yet", "Financial
+ * statement (Form 13.1): not filed", "Has your Reply been filed yet?") is about that document, not about whether a case
+ * exists: the situation answers do not settle it, so it is never dropped for them ((a2) review, 22 Nov 2026; on main
+ * "already/yet ... filed" alone dropped such rows once "filed" was answered, in all three courts). For a row, only its
+ * label is read, so "Lawsuit status: defence filed" is still a status row.
+ */
+const ONE_DOCUMENT = /\b(?:statement of defen[cs]e|defen[cs]e|reply|financial statement|affidavit|notice of motion|motion|factum|offer to settle|form \d+[a-z]?(?:\.\d+)?)\b|^\s*(?:your |the |an? )?answer\b|\b(?:your|the|an?) answer\b/i;
+const aboutOneDocument = (text: string) => ONE_DOCUMENT.test(text.includes(":") ? text.slice(0, text.indexOf(":")) : text);
+
+/** A part of a row that says anything about a court, a filing or service: never kept from a row about whether a case is filed. */
+const FILING_WORDS = /\b(?:filed?|filing|court|started|issued|commenced|served|lawsuit|proceeding|nothing yet)\b/i;
+const HOLDS_AMOUNT = /\$\s?\d/;
+/** "Total claim and court status" -> "Total claim"; "Filing status and amount" -> "amount". */
+/** A status label's own words ("Court status", "Lawsuit status"): read from the model's text, never shown. */
+const STATUS_LABEL = /\b(?:court|filing|case|claim|lawsuit)\s+status\b/.source;
+const withoutStatusWords = (label: string) =>
+  label
+    .replace(new RegExp(String.raw`\s*(?:,|and|&|\/|\+)\s*(?:the\s+)?${STATUS_LABEL}`, "gi"), "")
+    .replace(new RegExp(String.raw`^\s*${STATUS_LABEL}\s*(?:,|and|&|\/|\+)\s*`, "i"), "")
+    .trim();
+
+/**
+ * A reading row about whether a case is filed, once the person has answered that (withSituation): the row goes, but an
+ * amount it also states stays, under its label without the status words ((a2), 22 Nov 2026: the recorded S1 readings r1
+ * and r2 wrote "Total claim and court status: $5,468.45; nothing filed", and dropping the whole row dropped the total, so
+ * the home page asked the amount cold). Only parts holding a dollar amount and no court or filing words are kept, so the
+ * filing-status words are never shown (the rule this row was dropped for); a row with no such part goes whole, as before.
+ */
+export function withoutFilingStatus(fact: { label: string; value: string }): { label: string; value: string } | null {
+  if (!aboutWhetherFiled(`${fact.label}: ${fact.value}`)) return fact;
+  const label = withoutStatusWords(fact.label);
+  const kept = fact.value.split(/\s*(?:;|,\s|\s[-–—]\s)\s*/).map((part) => part.trim()).filter((part) => HOLDS_AMOUNT.test(part) && !FILING_WORDS.test(part));
+  if (!label || FILING_WORDS.test(label) || /\bstatus\b/i.test(label) || kept.length === 0) return null;
+  const value = kept.join("; ");
+  return aboutWhetherFiled(`${label}: ${value}`) ? null : { label, value };
+}
+
+/** "Has anything (else) happened in the case since you were served?", "Where is the case now?" */
+export const askedWhatHappenedSoFar = (question: string) =>
+  /\b(?:has|have) anything(?: else)? (?:happened|been done)\b[^?]*\b(?:case|court|claim|since)\b|\bsince you (?:were served|received|got)\b[^?]*\b(?:anything|happened)\b|\bwhat (?:has happened|stage)\b[^?]*\b(?:case|claim)\b|\bwhere (?:is|does) (?:the|your) (?:court )?case\b/i.test(question);
 
 /** "Are you suing, or is someone suing you?" */
 export const askedSide = (question: string) => /\b(?:are you|is (?:someone|anyone|the other)[^?]*)\b[^?]*\b(?:suing|being sued|sued|the (?:plaintiff|defendant|applicant|respondent))\b/i.test(question);
@@ -442,25 +504,57 @@ function withSituation(understanding: CaseUnderstanding, situation: UnderstandIn
       // case 19: "Have you already started a court claim?" after "No, nothing yet"; 26 Oct: "Which
       // court, if any, has issued your claim?").
       !(situation.filed !== undefined && aboutWhetherFiled(item.question)) &&
+      // What has happened in the case so far is the start screen's own answer (Chrome check of #550, 5b: "Has anything
+      // happened in the court case since you received the claim?" after it was answered).
+      !(situation.stageGiven && askedWhatHappenedSoFar(item.question)) &&
       !(situation.side && askedSide(item.question))),
-    // And the reading's own rows about it go too: the person's answer stands, shown at the top.
-    facts: situation.filed !== undefined ? understanding.facts.filter((fact) => !aboutWhetherFiled(`${fact.label}: ${fact.value}`)) : understanding.facts,
+    // And the reading's own rows about it go too: the person's answer stands, shown at the top. An amount on the same
+    // row stays ((a2): "Total claim and court status: $5,468.45; nothing filed" keeps "Total claim: $5,468.45").
+    facts: situation.filed !== undefined ? understanding.facts.flatMap((fact) => withoutFilingStatus(fact) ?? []) : understanding.facts,
   };
 }
+
+/** The reading for a story the code rule gives to a tribunal: the notice and nothing to answer first (no model call). */
+function tribunalFirstUnderstanding(found: ExclusiveTribunal, situation: UnderstandInput["situation"]): CaseUnderstanding {
+  return {
+    summary: "",
+    facts: [],
+    matters: [{ title: "Your matter", court: "tribunal", forum: found.forum.name }],
+    mainCourt: "tribunal",
+    side: situation?.side ?? "unclear",
+    stage: "",
+    questions: [],
+    asksForPrediction: false,
+    step: null,
+    regime: null,
+    tribunal: tribunalNoticeView(found),
+  };
+}
+
+const NO_CHECKED_ANSWER: CheckedAnswer = { status: "unavailable", statements: [], notConfirmed: [], declinedToJudge: false, missingLaw: [] };
 
 export async function understandCase(input: UnderstandInput, deps: UnderstandDeps = {}): Promise<UnderstandResult> {
   try {
     const story = storyWithAnswers(input);
     if (!input.story.trim()) return { status: "unavailable" };
     deps.signal?.throwIfAborted();
+    // Rules fixed by law run before the model (CLAUDE.md s. 2a): a matter the code gives to a tribunal is said first,
+    // from the person's own first message, with no follow-up question before it (C1, 9 Nov 2026).
+    const tribunalFound = exclusiveTribunalFor(input.story);
+    if (tribunalFound && !tribunalFound.ended) return { status: "understood", understanding: tribunalFirstUnderstanding(tribunalFound, input.situation), answer: NO_CHECKED_ANSWER, drafted: [] };
+    const tribunal = tribunalFound ? tribunalNoticeView(tribunalFound) : null;
 
     const raw = await within(deps.reason ? deps.reason(story, input.chosenCourt) : reasonWithModel(story, input.chosenCourt, deps.signal, deps.understandMs, deps.intakeOnly), deps.understandMs ?? UNDERSTAND_TIME_MS, "");
     deps.signal?.throwIfAborted();
     const parsed = raw ? parseUnderstanding(raw) : null;
     if (!parsed) return { status: "unavailable" };
     const { points } = parsed;
-    const understanding = withSituation(withFixedRegime(parsed.understanding, story), input.situation);
-    if (deps.intakeOnly) return { status: "understood", understanding: { ...understanding, stage: "", step: null }, answer: { status: "unavailable", statements: [], notConfirmed: [], declinedToJudge: false, missingLaw: [] }, drafted: [] };
+    const situated = withSituation(withFixedRegime(parsed.understanding, story), input.situation);
+    // The questions are the site's own, by court and side, in fixed words (factQuestions.ts): the model's are never shown
+    // (site owner, 19 Nov 2026). Not under a tribunal notice (a former tenancy keeps them: a boundary, not a redirect), nor
+    // for a court outside the three.
+    const understanding = { ...situated, questions: tribunal && !tribunal.ended ? [] : homeQuestionsFor(input.chosenCourt ?? situated.mainCourt, situated.side), tribunal };
+    if (deps.intakeOnly) return { status: "understood", understanding: { ...understanding, stage: "", step: null }, answer: NO_CHECKED_ANSWER, drafted: [] };
 
     // The reasoning step's points become the draft the checker works on. The
     // checker never sees the reasoning, only each point and the official text.

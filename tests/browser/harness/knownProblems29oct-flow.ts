@@ -71,24 +71,13 @@ export const KNOWN_PROBLEMS_29OCT_FLOW: readonly KnownProblem[] = [
       "The court-office line repeats the city as typed (\"If your case is in kingston\") instead of the place's own name (nextStepPractical.ts city.trim()).",
     test: "H3: the court-office line names the city with its own capitalisation",
   },
-  {
-    id: "D1-new-answer-drops-confirmation",
-    reason:
-      "After \"Stop initial questions and review\" and Confirm, answering one more chat question cancels the confirmation in the browser (IntakeRecovery.tsx put: any material change renews the revision, unlike the server's existingFactChanged), so \"Continue to your next steps\" shows the red \"needs confirming\" line and sends the person back to the review.",
-    test: "retest-29oct D1: confirmed early, one more answer, Continue goes to the next step -- small-claims (sc-deck-owed)",
-  },
+
   // The owner's Chrome test of #501's preview (29 Oct, second round). Each was also there before #501.
   {
     id: "OWNER-1-month-year-asked",
     reason:
       "A story sentence \"... in March 2026 ...\" is offered under \"Things that may have happened in your case\" with \"When, in your words\" empty and \"The exact date\" asked: dateInSentence (casePosition.ts:808) reads a full day or a day and month only, so a month and year fills nothing (EventCandidateSurface.tsx emptyDraft). Small Claims only (the surface is Small Claims only).",
     test: "OWNER-1: a month and year in an event's own sentence fills \"When, in your words\"",
-  },
-  {
-    id: "OWNER-2-overview-keeps-story-month",
-    reason:
-      "The case overview's \"Case snapshot\" row \"When (your words)\" shows the story's \"March 2026\" after the exact day is recorded: it reads intake.timeline only (IntelligenceOverviewPanel.tsx:341,348), while the step page's day goes to position.dateAnswers (read by caseFileOf) and an event's exact day goes to case_events (read by neither).",
-    test: "OWNER-2: the case overview's \"When\" row reads the recorded day, not only the story's words",
   },
   {
     id: "OWNER-3-topic-cut-mid-word",
@@ -101,12 +90,6 @@ export const KNOWN_PROBLEMS_29OCT_FLOW: readonly KnownProblem[] = [
     reason:
       "The follow-up chat has no close (app/builder/page.tsx:374 showFollowUp is only ever set true, line 2767), and after a reload nothing on the case page opens it; the only way back is \"Update your story\" and \"Show my next step\", which runs the analysis again (OWNER-5).",
     test: "OWNER-4: the follow-up chat can be closed, and the case page opens it again",
-  },
-  {
-    id: "OWNER-5-next-step-reanalysed",
-    reason:
-      "Back to the questions with nothing changed, \"Show my next step\" runs the whole analysis again (about 2 minutes with the model): the guided continue handler (app/builder/page.tsx:502-516) always calls handleGuidedComplete, never checking guidanceIsCurrent (intakeReview.ts:233) on the saved case.",
-    test: "OWNER-5: back to the questions with nothing changed, the next step shows without a new analysis -- small-claims",
   },
   {
     id: "OWNER-7-ask-button-wraps",

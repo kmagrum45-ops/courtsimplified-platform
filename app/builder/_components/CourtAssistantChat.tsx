@@ -2,6 +2,7 @@
 import { limitMessageOf } from "../../../src/lib/security/limitWords";
 import { authHeaders } from "../../cases/_components/CaseHomeContext";
 import { useIntakeReviewView, useSituation } from "../../_components/IntakeRecovery";
+import { caseFileOf, heldLocation } from "../../../src/lib/case-system/caseFile/caseFile";
 import { sideOf } from "../../../src/lib/case-system/situation/situation";
 import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
 
@@ -49,6 +50,8 @@ type ChatMessage = {
   id?: string;
   /** The law has been saved with the case. */
   lawSaved?: boolean;
+  /** A ready-made question the person pressed (a chip), not words they typed (site owner, 11 Nov 2026). */
+  source?: "chip";
 };
 
 type CourtAssistantChatProps = {
@@ -183,7 +186,6 @@ const quickActions = [
   "What is the most important thing I should clarify next?",
   "What evidence am I missing?",
   "What legal issues should be reviewed?",
-  "What would a judge likely be concerned about?",
   "What should I fix before generating documents?",
 ];
 
@@ -863,7 +865,13 @@ function CourtAssistantChatInner({
   );
   const transcriptRef = useRef<HTMLDivElement | null>(null);
   const shouldAutoScrollRef = useRef(true);
-  const location = useMemo(() => knownLocation(caseData), [caseData]);
+  // The city and province the case file holds from the home page first (heldLocation, C9), then the analysis's copy: the
+  // chat never asks "What province or territory did this happen in?" of a person who already gave it.
+  const location = useMemo(() => {
+    const held = heldLocation(reviewView ? caseFileOf(reviewView.checkpoint) : null);
+    const fromData = knownLocation(caseData);
+    return { province: held?.province || fromData.province, city: held?.city || fromData.city };
+  }, [caseData, reviewView]);
 
   const detectedClaimAmount = useMemo(() => {
     const latestUserMessage = [...messages]
@@ -943,7 +951,7 @@ function CourtAssistantChatInner({
     systemWarnings,
   ]);
 
-  async function sendMessage(customMessage?: string) {
+  async function sendMessage(customMessage?: string, source?: "chip") {
     const trimmed = clean(customMessage ?? input);
 
     if (!trimmed || loading) {
@@ -953,6 +961,7 @@ function CourtAssistantChatInner({
     const userMessage: ChatMessage = {
       role: "user",
       content: trimmed,
+      ...(source ? { source } : {}),
     };
 
     const nextMessages = [...messages, userMessage];
@@ -1438,7 +1447,7 @@ function CourtAssistantChatInner({
               <button
                 key={action}
                 type="button"
-                onClick={() => sendMessage(action)}
+                onClick={() => sendMessage(action, "chip")}
                 disabled={loading}
                 className="rounded-full border border-[#b8d8cc] bg-[#f4fbf8] px-4 py-2 text-sm font-medium text-[#2f7d67] hover:bg-[#e8f6f1] disabled:cursor-not-allowed disabled:opacity-50"
               >

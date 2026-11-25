@@ -46,6 +46,11 @@ const RAW = new RegExp(
     `\\b(?:${FIELD_NAMES.map(escape).join("|")})\\b`,
     // A stage id: "family:both:case-conference-scheduled", "plaintiff:awaiting-settlement-conference".
     String.raw`\b(?:family|civil|plaintiff|defendant|applicant|respondent|both):[a-z0-9]+(?:[:-][a-z0-9]+)+\b`,
+    // A Small Claims question or claim-kind id: "sc-orient-role", "sc-claim-homeowner-wont-pay-contractor"
+    // (founder's Chrome check of #541, 2 Nov: the review listed them after the story was rewritten).
+    String.raw`(?<![\w/.#?=&-])sc-[a-z0-9]+(?:-[a-z0-9]+)+(?![\w/-])`,
+    // A stored object turned into text (the same check: "[object Object] [object Object]").
+    String.raw`\[object (?:Object|Array|Map|Set)\]`,
   ].join("|"),
   "g",
 );

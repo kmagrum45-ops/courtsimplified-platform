@@ -73,6 +73,12 @@ export function sentenceSpans(text: string): SentenceSpan[] {
 }
 
 /** The sentences, and separate lines, of a text; an abbreviation's full stop does not end one. */
+/** Whether the text ends with a company's abbreviation and its period ("Testgoods Ltd.", "Acme Inc."): the same list the
+ *  sentence splitter uses, so a name reader keeps that period (understoodOtherParty.ts). */
+export function endsWithCompanyAbbreviation(text: string): boolean {
+  return COMPANY.test(text);
+}
+
 export function sentences(text: string): string[] {
   return sentenceSpans(text).map((span) => span.text);
 }

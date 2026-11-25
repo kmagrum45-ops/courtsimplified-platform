@@ -165,3 +165,27 @@ export async function deleteHarnessUser(userId: string): Promise<void> {
     // Deliberately swallowed. See the note above.
   }
 }
+
+/**
+ * A fresh staging account a test signs in to THROUGH THE PAGE'S OWN LOGIN FORM (the guest's
+ * sign-in from the builder, carry test 30 Oct). The password is made here, held only in memory,
+ * typed into the form and never logged. Refuses production like mintRealTestSession.
+ */
+export async function createRealTestAccount(): Promise<{ email: string; password: string; userId: string }> {
+  const supabaseUrl = readEnvVar("NEXT_PUBLIC_SUPABASE_URL");
+  const serviceRoleKey = readEnvVar("SUPABASE_SERVICE_ROLE_KEY");
+  if (!supabaseUrl || !serviceRoleKey) throw new Error("NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are required (environment or .env.local).");
+  refuseProduction(supabaseUrl);
+  const password = `${crypto.randomBytes(18).toString("base64url")}Aa1!`;
+  const admin = createClient(supabaseUrl, serviceRoleKey, { auth: { persistSession: false, autoRefreshToken: false } });
+  const email = freshHarnessEmail();
+  const userId = await createHarnessUser(admin, email, password);
+  return { email, password, userId };
+}
+
+/** The staging database, read with the service key from the environment (never printed). Refuses production. */
+export function harnessAdmin(): SupabaseClient<any, any, any> {
+  const supabaseUrl = readEnvVar("NEXT_PUBLIC_SUPABASE_URL");
+  refuseProduction(supabaseUrl);
+  return createClient(supabaseUrl, readEnvVar("SUPABASE_SERVICE_ROLE_KEY"), { auth: { persistSession: false, autoRefreshToken: false } });
+}

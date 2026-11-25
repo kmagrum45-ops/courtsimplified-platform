@@ -60,7 +60,7 @@ const FILE: ConfirmedCaseFile = {
   timelineText: "july 15 2026 they stopped working",
   evidenceText: "text messages and the contract",
   goalText: "money",
-  confirmedClaimTypeId: "sc-claim-breach-of-contract-services",
+  claimTypeId: "sc-claim-breach-of-contract-services",
   filedDocuments: [],
 };
 
@@ -129,6 +129,28 @@ async function main(): Promise<void> {
     pointless.length === 1 && pointless[0].quotes[0] === "they charged me 3200",
     JSON.stringify(pointless.map((f) => f.quotes)),
   );
+  // Founder's Chrome re-test of #536 (Family, 1 Nov): "Check my case file" said
+  // "You mentioned “The house sold”. If you have something that shows this..."
+  // about the goal "The house sold and the money divided equally". What the
+  // person wants is not something that happened, so no proof can be asked for.
+  const withGoal: ConfirmedCaseFile = {
+    ...FILE,
+    courtPath: "family",
+    goalText: "The house sold and the money divided equally",
+  };
+  const goalAsEvent = validateCaseReviewOutput(
+    { findings: [
+      { kind: "document-mentioned", quotes: ["The house sold"] },
+      { kind: "document-mentioned", quotes: ["the money divided equally"] },
+      { kind: "document-mentioned", quotes: ["they charged me 3200"] },
+    ] },
+    withGoal,
+  );
+  check(
+    "a document pointer never quotes what the person wants (their goal)",
+    goalAsEvent.length === 1 && goalAsEvent[0].quotes[0] === "they charged me 3200",
+    JSON.stringify(goalAsEvent.map((f) => f.quotes)),
+  );
   const figure = validateCaseReviewOutput(
     { findings: [{ kind: "unknown-amount-mentioned", quotes: ["they charged me 3200"] }] },
     FILE,
@@ -193,13 +215,13 @@ async function main(): Promise<void> {
         timeline: "",
         evidence: "",
         goal: "money",
-        extra: { yourRole: "Plaintiff / claimant", amountClaimed: "2000", confirmedClaimTypeId: "sc-claim-breach-of-contract-services", filedDocuments: ["nothing"] },
+        extra: { yourRole: "Plaintiff / claimant", amountClaimed: "2000", confirmedClaimTypeId: "sc-claim-breach-of-contract-services", claimTypeUserConfirmed: true, filedDocuments: ["nothing"] },
       },
       courtSimplifiedIntelligence: { summary: "MODEL PROSE" },
     },
     "small-claims",
   );
-  check("the assembler reads the user's confirmed claim type", assembled.confirmedClaimTypeId === "sc-claim-breach-of-contract-services");
+  check("the assembler reads the user's confirmed claim type (an older saved case: ticked in intakeData.extra, read by the case file)", assembled.claimTypeId === "sc-claim-breach-of-contract-services");
   check("the assembler never reads stored model output", !JSON.stringify(assembled).includes("MODEL PROSE"));
   check("the assembler tolerates an empty record", caseFileFromMasterResult(null, null).story === "");
 

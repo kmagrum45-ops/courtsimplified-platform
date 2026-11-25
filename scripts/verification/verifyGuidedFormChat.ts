@@ -20,6 +20,7 @@
  */
 
 import { readFileSync } from "node:fs";
+import { OFFER_CHOICES } from "../../src/lib/case-system/copy/suggestionCopy";
 import path from "node:path";
 
 import type { GuidedField } from "../../app/builder/_components/GuidedFormChat";
@@ -33,7 +34,10 @@ async function main() {
 // synthetic configuration only and never reads a real environment file.
 process.env.NEXT_PUBLIC_SUPABASE_URL = "http://127.0.0.1:1";
 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "synthetic-offline-test-key";
-const { acknowledgement, answerNeedsMore, cutAtWord, isAnswered, pendingFields } = await import("../../app/builder/_components/GuidedFormChat");
+const { acknowledgement, answerNeedsMore, cutAtWord, isAnswered } = await import("../../app/builder/_components/GuidedFormChat");
+// The one asker (caseFile/heldAnswer.ts missingFields; pendingFields was deleted with it, 23 Nov 2026), same rule.
+const { missingFields } = await import("../../src/lib/case-system/caseFile/heldAnswer");
+const pendingFields = (fields: Parameters<typeof missingFields>[1], values: Parameters<typeof missingFields>[2], skipped: ReadonlySet<string>) => missingFields(null, fields, values, skipped, isAnswered as never);
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const read = (file: string) => readFileSync(path.join(ROOT, file), "utf8");
@@ -138,7 +142,9 @@ console.log("\n6. What the story already says is offered for one click, not aske
   }
   const chat = read("app/builder/_components/GuidedFormChat.tsx");
   check("the chat shows the story's words and asks 'Is that right?'", /From what you told us: &ldquo;/.test(chat) && /Is that right\?/.test(chat));
-  check("'No' asks the question plainly instead", /setNotFromStory/.test(chat) && /No, let me answer/.test(chat));
+  // The button's words are the site owner's (11 Nov 2026: "No, that's not right"; it was "No, let me answer"). Since 14 Nov
+  // they come from the one shared copy, through the one offer control (UseSuggestion.tsx, OFFER_CHOICES; 2.4 and 8.3).
+  check("'No' asks the question plainly instead", /onNo=\{\(\) => setNotFromStory\(/.test(chat) && /<UseSuggestion\b/.test(chat) && OFFER_CHOICES.no === "No, that's not right");
 }
 
 console.log("\n7. Small Claims 'Here's what I understood' states answers once (2026-10-13)");
@@ -250,7 +256,7 @@ console.log("\n4b. Walkthrough run 38525903567: the echo, the closing answer, th
   const chat = read("app/builder/_components/GuidedFormChat.tsx");
   check("no part of the chat slices text for display any more", !/\.slice\(0, (?:157|197)\)/.test(chat));
   // 5: the closing answer is shown when the questions end, with its rules.
-  check("the chat shows the closing answer, with the rules it restates, before 'That's everything'", /data-testid="guided-form-closing"[\s\S]{0,1200}closing\.rules\.map[\s\S]{0,1200}That&apos;s everything we need for now/.test(chat));
+  check("the chat shows the closing answer, with the rules it restates, before 'That's everything'", /data-testid="guided-form-closing"[\s\S]{0,1200}closing\.rules\.map[\s\S]{0,1200}data-testid="guided-nothing-left"/.test(chat));
   // 9: a partial story answer is filled in, editable, and only the rest is asked.
   check("a partial story answer is shown with its quote and asks only the rest", /data-testid="guided-form-partial-from-story"/.test(chat) && /partial \? partial\.question : current\.question/.test(chat));
   check("the filled-in part is saved only on Next, from the box the person sees", /answer\(current\.kind === "multi" \? draft : boxValue\)/.test(chat));

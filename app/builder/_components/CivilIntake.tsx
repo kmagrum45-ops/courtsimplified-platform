@@ -1,7 +1,13 @@
 "use client";
 
+import { useOpenWholeForm } from "./openWholeForm";
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
+import { caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
+import { formAnalysisInput } from "../../../src/lib/case-system/caseFile/chatTurnFacts";
+import { NotAnsweredYetField } from "../../_components/NotAnsweredYet";
+import { useBoxesFollow } from "../../_components/AskedField";
+import { researchCaseContext } from "../../../src/lib/case-system/caseFile/aiCaseContext";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
@@ -36,7 +42,7 @@ import type {
   CivilCanonicalIntakeResult,
 } from "../../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
 import { supabase } from "../../../src/lib/supabase/client";
-import { runClientSafetyCheck } from "../../../src/lib/case-system/intake/clientSafetyCheck";
+import { ensureSafetyChecked, safetyConcernFromAnalysis } from "../../../src/lib/case-system/intake/clientSafetyCheck";
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
 import {
   assignReferences,
@@ -561,6 +567,8 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
   // One question at a time by default (Step 2C, 2026-10-12); the whole form
   // is one click away and holds exactly the same answers.
   const [mode, setMode] = useIntakeState<"chat" | "form">("civil", "mode", "chat");
+  // The overview's "Open the whole form (all your answers)" on a confirmed case (Chrome check of #544, 7 Nov).
+  useOpenWholeForm(() => setMode("form"));
   /** Set only on "immediate-danger". Blocks analysis and shows crisis resources. */
   const [safetyHalt, setSafetyHalt] = useState("");
   /** Set on "distress". Shown alongside the intake, which continues. */
@@ -578,7 +586,10 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
    * 2026-10-14). Only these can stand as their confirmation of the stage.
    */
   const recovery = useIntakeRecovery();
+  // The one continue rule (intakeReview.ts continueNeeds): this route's continue is held while the review still needs something.
   const beforeIntakeAI = useBeforeIntakeAI();
+  // The whole form's boxes follow the newest saved answer (rule 3; Chrome check of #544, step 14).
+  useBoxesFollow("civil", "input");
   const prepareCaseGuidance = usePrepareCaseGuidance();
   const validateIntakeResponse = useValidateIntakeResponse();
   const [storedPersonSet] = useIntakeState<Set<"yourRole">>("civil", "personSet", new Set());
@@ -709,12 +720,15 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
      * that difference is itself a question for the clinical reviewer
      * (OUTSTANDING_ISSUES section 0a).
      */
+    // A check that failed twice is "failed", never clear; the route checks again and records it (item N).
+    let safetyFailed = true;
     try {
       const {
         data: { session },
       } = await supabase.auth.getSession();
 
-      const safety = await runClientSafetyCheck(input.facts, session?.access_token);
+      const safety = await ensureSafetyChecked(input.facts, session?.access_token);
+      safetyFailed = safety.status === "failed";
       await validateIntakeResponse(signal);
       signal.throwIfAborted();
       setAsksForAdvice(safety.requestsLegalAdvice);
@@ -737,7 +751,11 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
       const {
         data: { session },
       } = await supabase.auth.getSession();
-      const { province: _province, city: _city, ...civilAnalysisInput } = input;
+      const { province: _province, city: _city, ...civilBoxes } = input;
+      // The form's boxes with the record's answers, the record winning (chatTurnFacts.ts formAnalysisInput, the one
+      // function every route builds its analysis input with; site owner, 14 Nov 2026).
+      const checkpointNow = recovery?.getReview().checkpoint ?? null;
+      const civilAnalysisInput = formAnalysisInput(civilBoxes, checkpointNow, caseFileOf(checkpointNow, recovery?.getSavedMaster() ?? undefined));
       signal.throwIfAborted();
       const response = await fetch("/api/civil/analyze", {
         signal,
@@ -756,6 +774,9 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
             // No side recorded ("I do not know yet") is "not-sure" to the route; "" was refused with a 400.
             yourRole: civilAnalysisInput.yourRole || "not-sure",
             caseId: caseId || undefined,
+            // The issues picked, in words, told to the AI research, from the case file through the shared
+            // builder (aiCaseContext.ts, rule 8; site owner, 31 Oct).
+            caseContext: researchCaseContext(caseFileOf(recovery?.getReview().checkpoint ?? null)),
           },
         }),
       });
@@ -770,6 +791,15 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
       if (!response.ok || !body.ok || !body.result) {
         throw new Error(body.error || "Civil analysis could not be completed.");
       }
+      // The browser's check failed: the route checked the same story itself.
+      const late = safetyFailed ? safetyConcernFromAnalysis(body) : null;
+      if (late?.classification === "immediate-danger") {
+        setSafetyHalt(late.userMessage || "");
+        setIsAnalyzing(false);
+        submissionInFlight.current = false;
+        return;
+      }
+      if (late?.classification === "distress") setSafetyNotice(late.userMessage || "");
 
       const result = body.result;
       const masterResult = result.civilMasterResult;
@@ -978,6 +1008,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
 
         {mode === "chat" ? (<>
           <GuidedFormChat
+            tribunalCourt="civil"
             fields={guidedFields}
             values={guidedValues}
             fromStart={[...(fromStart.role ? ["yourRole"] : []), ...(fromStart.documents ? ["documents"] : [])]}
@@ -1033,6 +1064,8 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
             />
           </label>
 
+          {/* A "not sure" in this box is never shown as its answer (item 4, 6 Nov). */}
+          <NotAnsweredYetField field="otherParty" value={input.otherParty} label="Other party">
           <label className="block">
             <span className="font-semibold text-[#16302b]">Other party</span>
             <input
@@ -1042,6 +1075,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
               placeholder="Person, business, institution, employer, landlord, school, police, government body"
             />
           </label>
+          </NotAnsweredYetField>
         </div>
 
         <label className="block">
@@ -1123,7 +1157,9 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           const typed = String(input[field as keyof CivilInput] ?? "").trim();
           const needsMore = question && typed ? dateAnswerCheck(question, typed) : null;
           return (
-          <label key={field} className="block">
+          // A fact said "not sure" (here or anywhere) is not asked again: the quiet line, with "Add it" (site owner, 31 Oct).
+          <NotAnsweredYetField key={field} field={field} facts={field === "timeline" ? ["whenHappened"] : undefined} value={input[field as keyof CivilInput]} label={label}>
+          <label className="block">
             <span className="font-semibold text-[#16302b]">{label}</span>
             <textarea
               value={String(input[field as keyof CivilInput])}
@@ -1135,6 +1171,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
             />
             {needsMore ? <span data-testid="civil-field-needs-more" className="mt-1 block text-sm text-[#8a4b12]">{needsMore}</span> : null}
           </label>
+          </NotAnsweredYetField>
           );
         })}
 
