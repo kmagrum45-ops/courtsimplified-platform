@@ -24,7 +24,7 @@ import { serveModelStandIns } from "./harness/thisCommitServer";
 import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { deleteHarnessUser } from "./harness/realTestSession";
 import { openBuilder } from "./harness/builderGate";
-import { recordInitialUnknowns, saveCaseStory } from "./harness/intakeReview";
+import { recordInitialUnknowns, saveCaseStory, tickIfAsked } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
@@ -70,7 +70,8 @@ async function confirmReview(page: Page, shown?: string) {
   if (await kind.count()) await kind.click();
   if (await q("sc-claim-filed").count()) await q("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  // Since 12 Nov the review has no tick: each undecided story offer has its own choices (harness/intakeReview.ts tickIfAsked).
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
 }
