@@ -42,6 +42,7 @@ import {
   documentObjectPath,
   isUuid,
 } from "@/src/lib/case-workspace/storagePaths";
+import { safeError } from "@/src/lib/logging/safeLog";
 
 export const runtime = "nodejs";
 
@@ -149,7 +150,7 @@ export async function POST(req: NextRequest) {
       .createSignedUploadUrl(storagePath);
 
     if (error || !data) {
-      console.error("workspace upload-url error:", error?.message);
+      console.error("workspace upload-url error:", safeError(error));
       return refuse(500, "CourtSimplified could not start the upload.");
     }
 
@@ -175,7 +176,7 @@ export async function POST(req: NextRequest) {
       nextStep: "POST /api/workspace/documents with this documentId",
     });
   } catch (error) {
-    console.error("workspace upload-url error:", error);
+    console.error("workspace upload-url error:", safeError(error));
     return refuse(500, "CourtSimplified could not start the upload.");
   }
 }

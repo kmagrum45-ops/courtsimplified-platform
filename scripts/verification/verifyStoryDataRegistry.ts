@@ -26,7 +26,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
-import { BASIS_SECTION, discardStale, onStoryChange, tagAnswers } from "../../src/lib/case-system/storyBasis";
+import { BASIS_SECTION, discardStale, onStoryChange, staleAnswerKeys, tagAnswers } from "../../src/lib/case-system/storyBasis";
 import { INTAKE_STORAGE_KEYS } from "../../src/lib/case-system/storage/intakeStorageKeys";
 import { removeLegacyKeys } from "../../src/lib/case-system/storage/resetIntake";
 import { INTAKE_SECTIONS, MASTER_RESULT_KEYS, TABLES } from "../../src/lib/case-system/storage/storyDataRegistry";
@@ -53,6 +53,8 @@ check("every listed intake section is still used (delete the line if not)", unus
 
 // Each version-record section really is covered: an answer given for the old
 // story does not survive "the story changed, start the questions again".
+/** The sections holding the person's own answers (kept by a restart); the rest is question-and-answer state. */
+const ANSWER_SECTIONS = new Set(["family", "civil", "small-claims", "builder", "sourced", "guided"]);
 const SAMPLE: Record<string, [string, unknown]> = {
   family: ["goal", "SAMPLE-ANSWER"],
   civil: ["input", { legalRemedy: "SAMPLE-ANSWER" }],
@@ -73,7 +75,10 @@ for (const [section, entry] of Object.entries(INTAKE_SECTIONS)) {
   base[BASIS_SECTION] = tagAnswers(base, section, key, undefined, value);
   const changed = onStoryChange({ ...base, story: { text: "Synthetic new story." } });
   const after = discardStale({ version: 1, flowId: "11111111-1111-4111-8111-111111111111", courtPath: "family", revision: "22222222-2222-4222-8222-222222222222", sections: changed });
-  check(`${section}: an answer given for the old story is gone once it changes and the questions start again`, !JSON.stringify(after.sections[section] ?? {}).includes("SAMPLE-ANSWER"));
+  // "Start the questions again" keeps what the person gave (site owner, 6 Nov; it used to empty it): a form, review or
+  // research answer is kept and no longer stale; the question-and-answer state (what was heard, Home's readings) goes.
+  if (ANSWER_SECTIONS.has(section)) check(`${section}: an answer the person gave is kept, current, once the story changes and the questions start again`, JSON.stringify(after.sections[section] ?? {}).includes("SAMPLE-ANSWER") && staleAnswerKeys(after).length === 0);
+  else check(`${section}: the old story's question-and-answer state is gone once it changes and the questions start again`, !JSON.stringify(after.sections[section] ?? {}).includes("SAMPLE-ANSWER"));
 }
 
 // --- master_result keys ----------------------------------------------------

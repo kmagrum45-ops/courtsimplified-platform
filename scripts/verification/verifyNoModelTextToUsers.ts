@@ -111,6 +111,8 @@ function input() {
     } as never,
     { province: "Ontario", city: "Ottawa" },
     "I cleaned a rental unit for ten hours and was never paid the $2,400 we agreed.",
+    // The kind the case file holds (the builder passes claimKindOf's value since 29 Oct).
+    claimType.id,
   );
 }
 

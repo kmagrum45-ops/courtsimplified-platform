@@ -20,11 +20,14 @@
  * are.
  */
 
-import { CLAIM_TYPES } from "./intake/claimTypes";
+import { caseFileOfMaster, claimKindOfMaster, heldWordsOf, otherPartyOfMaster } from "./caseFile/caseFileOfMaster";
+import { partyNames } from "./parties/parties";
+import { changedWords, type ClaimKindHeld } from "./caseFile/caseFile";
 import { nameRecorded } from "./privacy/modelPayloadNames";
 import { readCasePosition, settledStage, suggestedDatesFromAnswers, type CasePosition } from "./casePosition";
 import { filingFactsFromDocuments, recordedDocuments } from "./intelligence/answeredQuestions";
 import { userStory } from "./userStory";
+import { answerWords } from "./caseFile/unsureAnswer";
 import { recordedAmountOf } from "./amountNotes";
 import { broadStageOfStep, sideOf as situationSide, situationOfCase, stepFromSituation, type Situation } from "./situation/situation";
 
@@ -44,7 +47,10 @@ export type CaseRecord = {
   /** Dates by date-question id ("sc-date-claim-served"); confirmed ones win. */
   dates: Record<string, RecordedFact<string>>;
   amount: string;
+  /** The kind of claim the case file holds (caseFile.ts claimKindOf): the person's, never a proposal. */
   claimTypeId: string | null;
+  /** The same, with its words, its source, and any proposal the site made that the person has not ticked. */
+  claimKind: ClaimKindHeld;
   yourName: string;
   otherParty: string;
   /** The court file number the person typed, if their case has one ("" if not). */
@@ -58,7 +64,8 @@ export type CaseRecord = {
 
 const asRecord = (value: unknown): Record<string, unknown> =>
   value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
-const text = (value: unknown): string => (typeof value === "string" ? value.trim() : "");
+// "I do not know yet" is never a recorded answer (the one reader, unsureAnswer.ts answerWords).
+const text = (value: unknown): string => answerWords(value);
 
 export function courtPathOf(value: unknown): CourtPath | null {
   return value === "small-claims" || value === "civil" || value === "family" ? value : null;
@@ -131,6 +138,10 @@ export function readCaseRecord(masterResult: unknown, courtPathColumn?: string |
   const civil = asRecord(extra.civilInput);
   const courtPath = courtPathOf(courtPathColumn) ?? courtPathOf(intake.courtPath);
   const position = readCasePosition(master, courtPath);
+  const claimKind = claimKindOfMaster(master, courtPath);
+  // A fact the person changed or removed with "Change" is the case file's, never the analysis copy's (rule 6, 31 Oct).
+  const changedFile = caseFileOfMaster(master, courtPath);
+  const latest = (fact: "amount", copy: string) => { const said = changedWords(changedFile, fact); return said === undefined ? copy : said ?? ""; };
 
   // Guided answers the person confirmed (saved as intakeAnswers since
   // 2026-10-07), then their own dates on the case page, which win.
@@ -153,10 +164,15 @@ export function readCaseRecord(masterResult: unknown, courtPathColumn?: string |
     position,
     startStepId: startStepOf(master, courtPath, position),
     dates,
-    amount: recordedAmountOf(intake),
-    claimTypeId: text(extra.confirmedClaimTypeId) || null,
-    yourName: text(intake.yourName) || text(extra.yourName) || text(civil.yourName),
-    otherParty: text(intake.otherParty) || text(extra.otherParty) || text(civil.otherParty),
+    amount: latest("amount", recordedAmountOf(intake)),
+    // The kind of claim from the case file, as every screen reads it (site owner, 29 Oct).
+    claimTypeId: claimKind.claimTypeId,
+    claimKind,
+    // The parties record's name for the person (parties.ts partyNames, 16 Nov 2026); an older case's form copy only when
+    // the record holds none.
+    yourName: partyNames(changedFile.parties.recorded ? changedFile.parties.list : []).you || text(intake.yourName) || text(extra.yourName) || text(civil.yourName),
+    // The case file's other party (a removal included); an older saved case's analysis copy only when it holds none (G1a).
+    otherParty: otherPartyOfMaster(master, courtPath, changedFile),
     // Small Claims saves its court file number as extra.claimNumber (SmallClaimsIntake).
     courtFileNumber: text(civil.courtFileNumber) || text(extra.courtFileNumber) || text(intake.courtFileNumber) || text(extra.claimNumber),
     city: text(extra.yourCity) || text(extra.city) || text(civil.city),
@@ -190,27 +206,30 @@ export function storedIntakeValues(masterResult: unknown): Record<string, string
   const civil = asRecord(extra.civilInput);
   const position = readCasePosition(master, text(intake.courtPath) || null);
   const pick = (...values: unknown[]) => values.map(text).find(Boolean) ?? "";
+  // The case file of the saved case: its fact record and change record win over the copies below.
+  const file = caseFileOfMaster(master, text(intake.courtPath) || null);
+  // The record's newest answer from any place (the review, the whole form, the chat, "Change"), a removal included; the
+  // analysis copy only when the record holds none (Chrome check of #544, 6 Nov, F1: after "Update my next steps" the
+  // whole form opened on the analysis copy's older amount, because only an answer given with "Change" counted here).
+  const latestOf = (fact: "amount" | "wants" | "urgent", copy: string) => { const held = heldWordsOf(file, fact); return held.held ? held.words : copy; };
   const out: Record<string, string | string[]> = {
     facts: userStory(intake),
-    yourName: pick(intake.yourName, extra.yourName, civil.yourName),
-    otherParty: pick(intake.otherParty, extra.otherParty, civil.otherParty),
+    yourName: partyNames(file.parties.recorded ? file.parties.list : []).you || pick(intake.yourName, extra.yourName, civil.yourName),
+    // Through the case file (G1a, 1 Nov): a removal or change wins; an older case's copy only when it holds none.
+    otherParty: otherPartyOfMaster(master, file.area, file),
     yourRole: pick(extra.yourRole, civil.yourRole),
     caseStage: pick(position.confirmedStage, intake.caseStage, civil.caseStage),
-    amountClaimed: pick(extra.amountClaimed, civil.amountClaimed),
+    amountClaimed: latestOf("amount", pick(extra.amountClaimed, civil.amountClaimed)),
     damagesBreakdown: pick(extra.damagesBreakdown, civil.damagesBreakdown),
     timeline: pick(intake.timeline, civil.timeline),
     evidence: pick(intake.evidence, civil.evidence),
-    goal: pick(intake.goal, extra.goal),
+    goal: latestOf("wants", pick(intake.goal, extra.goal)),
     legalRemedy: pick(extra.legalRemedy, civil.legalRemedy),
     serviceDetails: pick(extra.serviceDetails, civil.serviceDetails),
     settlementEfforts: pick(extra.settlementEfforts, civil.settlementEfforts),
-    urgent: pick(intake.urgent, extra.urgent, civil.urgent),
-    // 2026-10-16 live bug: after the guided route had already classified the
-    // claim, reopening the form route (e.g. to edit a saved case) showed
-    // "kind of claim not clear yet" -- the claim type was saved to
-    // extra.confirmedClaimTypeId, but this allow-list, the only thing the
-    // form route reads a saved case's values back through, never carried it.
-    confirmedClaimTypeId: pick(extra.confirmedClaimTypeId),
+    urgent: latestOf("urgent", pick(intake.urgent, extra.urgent, civil.urgent)),
+    // The kind of claim is not carried here: the form route reads it from the case file
+    // (caseFile.ts claimKindOf), the one place every screen reads it (site owner, 29 Oct).
   };
   const documents = documentsOf(intake).map(String);
   if (documents.length) out.documentStatus = documents;
@@ -235,9 +254,11 @@ export function caseFactsText(record: CaseRecord, describe: { stepTitle?: (stepI
     lines.push(`${describe.dateQuestion?.(id) ?? id}: ${fact.value} (${from(fact.source)})`);
   }
   if (record.amount) lines.push(`Amount: ${record.amount} (from their intake)`);
-  // The kind of claim the person confirmed (it was never sent: the law lookup guessed one).
-  const kind = record.claimTypeId ? CLAIM_TYPES.find((type) => type.id === record.claimTypeId)?.name : undefined;
-  if (kind) lines.push(`Kind of claim: ${kind} (confirmed by the person)`);
+  // The kind of claim the case file holds, in the words every screen shows (it was never sent: the
+  // law lookup guessed one). Only the person's own: a kind the site proposed and they have not
+  // ticked is not a fact of their case (site owner, 29 Oct).
+  const kind = record.claimKind?.state === "answered" ? record.claimKind.words : null;
+  if (kind) lines.push(`Kind of claim: ${kind} (${record.claimKind.source === "confirmed" ? "suggested from their story and confirmed by the person" : "the person's own answer"})`);
   // Names never go to the model (privacy/modelPayloadNames.ts): only that one is recorded. This
   // text is sent to the checked answer by /api/assistant/law; it carried the other party's name
   // until 2026-10-25 (found writing the site map).

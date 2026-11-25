@@ -40,14 +40,18 @@
  */
 
 import { runSafetyPass, type SafetyClassification } from "./safetyPass";
+import type { ReadingFact } from "../caseFile/storyOffers";
 import { extractIntakeFactsWithConfidence } from "./extractIntakeFacts";
+import { suggestionFits } from "../caseFile/factTypes";
 import type { ClaimTypeMatch } from "./claimTypeMatcher";
 import { classifyClaimTypeWithAi, type ClaimTypeAiSuggestion } from "./claimTypeAiClassifier";
 import { CLAIM_TYPES, type ClaimType } from "./claimTypes";
 import { settledKindMatch } from "./claimKind";
 import { buildEvidenceCategoryGuidance, type EvidenceGuidance } from "./evidenceGapDetector";
 import { buildClaimGuidance, type ClaimGuidance } from "./claimGuidance";
+import { claimTypeForSide, kindNameForSide } from "./roleView";
 import { selectQuestions, type IntakeFacts } from "./selectQuestions";
+import type { CaseFile } from "../caseFile/caseFile";
 import { QUESTION_BANK, type CourtArea, type IntakeQuestion, type KnownFactField } from "./questionBank";
 import { composeVoiceTurn, type VoiceTurn } from "./voiceLayer";
 import {
@@ -68,6 +72,7 @@ const MAX_CAPTURED_ANSWER_LENGTH = 1_000;
 
 export { storySuggestsDanger } from "./dangerWords";
 import { storySuggestsDanger } from "./dangerWords";
+import { withStatedProposals } from "./statedProposals";
 
 export type OrchestrateIntakeTurnResult = {
   /** Set only when newStoryText was provided this turn -- undefined otherwise. */
@@ -264,6 +269,10 @@ function mergeFacts(
  */
 export type OrchestrateIntakeTurnOverrides = {
   intakeOnly?: boolean;
+  /** THE ONE ASKER: the case file (caseFileOf); every question the turn picks or proposes goes through it (selectQuestions held, asker.ts). */
+  held?: CaseFile | null;
+  /** The story reading the person was shown (home.understood), for the one offer reader (caseFile/storyOffers.ts). Never sent to a model. */
+  reading?: readonly ReadingFact[];
   runSafety?: typeof runSafetyPass;
   extractFacts?: typeof extractIntakeFactsWithConfidence;
   classifyClaimType?: typeof classifyClaimTypeWithAi;
@@ -341,6 +350,7 @@ export async function orchestrateIntakeTurn(
           courtArea,
           apiKey,
           proposeAnswers: overrides.proposeAnswers || proposeAnswersFromStory,
+          held: overrides.held,
         })
       : null;
 
@@ -424,8 +434,10 @@ export async function orchestrateIntakeTurn(
     matchedClaimTypes = match ? [match] : [];
     if (match) {
       if (!overrides.intakeOnly) {
-        evidenceGuidance = buildEvidenceCategoryGuidance(match.claimType);
-        claimGuidance = buildClaimGuidance(match.claimType, facts);
+        // The view for the person's side (roleView.ts, the one place): never the person suing's to the person being sued.
+        const shownType = claimTypeForSide(match.claimType, facts.role === "defendant");
+        evidenceGuidance = buildEvidenceCategoryGuidance(shownType);
+        claimGuidance = buildClaimGuidance(shownType, facts);
       }
     } else if (isOpeningStory) {
       // Session 48. The AI classifier runs ONLY on the opening story.
@@ -454,6 +466,9 @@ export async function orchestrateIntakeTurn(
       // (2026-10-13): the person can still pick a claim type themselves.
       // A defendant is asked about the claim made against them (step 2b).
       suggestedClaimType = (await classifyClaimType(newStoryText, claimTypes, apiKey, [], facts.role === "defendant").catch(() => null)) ?? undefined;
+      // Named as the person's side reads it (roleView.ts): a person being sued is never offered the name written for
+      // the person suing them.
+      if (suggestedClaimType) suggestedClaimType = { ...suggestedClaimType, claimTypeName: kindNameForSide(suggestedClaimType.claimTypeId, facts.role === "defendant", suggestedClaimType.claimTypeName) };
     }
   }
 
@@ -464,11 +479,11 @@ export async function orchestrateIntakeTurn(
   // convenience, and the intake must continue exactly as before without it.
   let storyProposals: StoryAnswerProposal[] = [];
   if (earlierCheck) {
-    const due = new Set(selectQuestions(facts, answeredIds, questionBank, courtArea, "initial"));
+    const due = new Set(selectQuestions(facts, answeredIds, questionBank, courtArea, "initial", { held: overrides.held }));
     storyProposals = (await earlierCheck).filter((proposal) => due.has(proposal.questionId));
   }
   if (newStoryText && !answeredQuestionId) {
-    const upcoming = selectQuestions(facts, answeredIds, questionBank, courtArea, "initial")
+    const upcoming = selectQuestions(facts, answeredIds, questionBank, courtArea, "initial", { held: overrides.held })
       .map((id) => questionBank.find((question) => question.id === id))
       .filter((question): question is IntakeQuestion => Boolean(question));
     const offered = proposableQuestions(upcoming);
@@ -479,6 +494,8 @@ export async function orchestrateIntakeTurn(
         storyProposals = [];
       }
     }
+    // What the story states and the AI did not propose (a quote as the amount, a full date): offered once too.
+    storyProposals = withStatedProposals(newStoryText, upcoming, storyProposals, overrides.reading ?? []);
   }
 
   return finishTurn({
@@ -488,6 +505,7 @@ export async function orchestrateIntakeTurn(
     courtArea,
     apiKey,
     composeVoice,
+    held: overrides.held,
     base: {
       safetyClassification,
       distressAcknowledgment,
@@ -537,6 +555,7 @@ async function checkEarlierAnswers(args: {
   courtArea: CourtArea;
   apiKey: string;
   proposeAnswers: typeof proposeAnswersFromStory;
+  held?: CaseFile | null;
 }): Promise<StoryAnswerProposal[]> {
   try {
     const answered = args.questionBank.find((question) => question.id === args.answeredQuestionId);
@@ -545,7 +564,7 @@ async function checkEarlierAnswers(args: {
       facts[answered.capturesField] = args.answerText.trim().slice(0, MAX_CAPTURED_ANSWER_LENGTH);
     }
     const declined = new Set(args.earlier.declined);
-    const upcoming = selectQuestions(facts, args.answeredIds, args.questionBank, args.courtArea, "initial")
+    const upcoming = selectQuestions(facts, args.answeredIds, args.questionBank, args.courtArea, "initial", { held: args.held })
       .filter((id) => !declined.has(id))
       .map((id) => args.questionBank.find((question) => question.id === id))
       .filter((question): question is IntakeQuestion => Boolean(question));
@@ -576,6 +595,7 @@ type FinishTurnArgs = {
   courtArea: CourtArea;
   apiKey: string;
   composeVoice: typeof composeVoiceTurn;
+  held?: CaseFile | null;
   base: Pick<
     OrchestrateIntakeTurnResult,
     | "safetyClassification"
@@ -598,6 +618,7 @@ async function finishTurn({
   courtArea,
   apiKey,
   composeVoice,
+  held,
   base,
 }: FinishTurnArgs): Promise<OrchestrateIntakeTurnResult> {
   const {
@@ -608,10 +629,13 @@ async function finishTurn({
     evidenceGuidance,
     claimGuidance,
     possibleCorrections,
-    storyProposals,
     requestsLegalAdvice,
   } = base;
-  const remainingIds = selectQuestions(facts, answeredIds, questionBank, courtArea, "initial");
+  // A story suggestion is offered only when it fits its question's fact (factTypes.ts; decision 1, 18 Nov 2026): a
+  // sentence is never offered as a yes or no (real readings S6 r2, r3: "The contractor's work was bad..." offered for
+  // "Do you believe the plaintiff ... owes you money?"), never words as an amount.
+  const storyProposals = base.storyProposals.filter((proposal) => suggestionFits(proposal.questionId, proposal.answer));
+  const remainingIds = selectQuestions(facts, answeredIds, questionBank, courtArea, "initial", { held });
   const nextQuestion = remainingIds.length > 0 ? questionBank.find((q) => q.id === remainingIds[0]) : undefined;
 
   if (!nextQuestion) {
@@ -677,7 +701,7 @@ export async function applyConfirmedStoryAnswers(
   apiKey: string,
   questionBank: readonly IntakeQuestion[] = QUESTION_BANK,
   courtArea: CourtArea = "small-claims",
-  overrides: Pick<OrchestrateIntakeTurnOverrides, "extractFacts" | "composeVoice" | "proposeAnswers" | "intakeOnly"> = {},
+  overrides: Pick<OrchestrateIntakeTurnOverrides, "extractFacts" | "composeVoice" | "proposeAnswers" | "intakeOnly" | "held" | "reading"> = {},
   /**
    * 2026-09-28. One more read of the opening story, for questions the
    * confirmations just made applicable. The story review battery: a dog-bite
@@ -731,7 +755,7 @@ export async function applyConfirmedStoryAnswers(
   let storyProposals: StoryAnswerProposal[] = [];
   if (repropose && repropose.story.trim()) {
     const excluded = new Set([...repropose.alreadyOffered, ...nextAnsweredIds]);
-    const upcoming = selectQuestions(facts, nextAnsweredIds, questionBank, courtArea, "initial")
+    const upcoming = selectQuestions(facts, nextAnsweredIds, questionBank, courtArea, "initial", { held: overrides.held })
       .filter((id) => !excluded.has(id))
       .map((id) => questionBank.find((question) => question.id === id))
       .filter((question): question is IntakeQuestion => Boolean(question));
@@ -743,6 +767,7 @@ export async function applyConfirmedStoryAnswers(
         storyProposals = [];
       }
     }
+    storyProposals = withStatedProposals(repropose.story, upcoming, storyProposals, overrides.reading ?? []);
   }
 
   return finishTurn({
@@ -752,6 +777,7 @@ export async function applyConfirmedStoryAnswers(
     courtArea,
     apiKey,
     composeVoice,
+    held: overrides.held,
     base: {
       matchedClaimTypes: [],
       possibleCorrections,

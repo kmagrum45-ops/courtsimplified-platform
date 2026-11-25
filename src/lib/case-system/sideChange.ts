@@ -30,7 +30,7 @@ type Sections = Checkpoint["sections"];
 /** The facts that belong to one side of the case. */
 // When it happened is the old claim's day too (26 Oct re-test, case 19: the repair's "July 2026" was
 // carried over to the defamation claim against him).
-export const SIDE_FACTS = new Set(["amount", "filed", "defenceFiled", "wants", "claimKind", "outcome", "claimServed", "whenHappened"]);
+export const SIDE_FACTS = new Set(["amount", "filed", "defenceFiled", "defendantsClaim", "wants", "claimKind", "outcome", "claimServed", "whenHappened"]);
 
 const object = (value: unknown): Record<string, unknown> => (value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {});
 /** Whether an answer to this question (or field) is about one side. */

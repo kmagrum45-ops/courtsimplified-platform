@@ -22,10 +22,12 @@ import { factsAskedTwice, factsOfAsk, heldInRows, heldViolations, recordAsks, re
 import { splitKnown } from "./harness/knownRepeats";
 import { serveFromThisCommit } from "./harness/thisCommitServer";
 import { appendRecord } from "./harness/packRecords";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { homeQuestionsFor } from "../../src/lib/case-system/caseFile/factQuestions";
 
 const STORY = "I built a deck for my neighbour in Sudbury in August 2026. He agreed to pay $2,400 when it was done and never paid. I have the texts where he agreed.";
-const WANTS = "What would you like the court to order?";
-const WHEN = "When did this happen?";
+// The site's own home questions, by id (factQuestions.ts; no model-written question reaches the card since 19 Nov 2026).
+const [AMOUNT, WHEN, WANTS] = homeQuestionsFor("small-claims", "starting");
 const ANSWER = "Order him to pay the $2,400 he owes me.";
 
 test("home reading: its questions are recorded, an answer counts as given, and nothing given there is asked again", async ({ page }) => {
@@ -41,17 +43,20 @@ test("home reading: its questions are recorded, an answer counts as given, and n
   // A fixed reading in place of the model's (registered last, so it answers first).
   await page.route("**/api/case/understand", (route) => route.fulfill({ json: {
     ok: true,
-    understanding: { summary: "Your neighbour did not pay for the deck you built.", facts: [], matters: [], mainCourt: "small-claims", side: "starting", stage: "Deciding whether to sue", step: "before-filing:deciding-whether-to-sue", questions: [{ question: WANTS, why: "It shapes the claim." }, { question: WHEN, why: "Dates matter." }], asksForPrediction: false, regime: null },
+    understanding: { summary: "Your neighbour did not pay for the deck you built.", facts: [], matters: [], mainCourt: "small-claims", side: "starting", stage: "Deciding whether to sue", step: "before-filing:deciding-whether-to-sue", questions: [AMOUNT, WHEN, WANTS].map((item) => ({ id: item.id, question: item.question })), asksForPrediction: false, regime: null },
     answer: { status: "answered", statements: [], notConfirmed: [], declinedToJudge: false },
   } }));
 
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(STORY);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(STORY);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await expect(page.getByTestId("case-understanding-questions")).toBeVisible({ timeout: 60_000 });
-  await page.getByLabel(WANTS).fill(ANSWER);
+  // The story states the amount ($2,400) and when (August 2026), so only what the person wants is asked (homeAsks).
+  await expect(page.getByTestId(`case-understanding-answer-${AMOUNT.id}`), "the amount the story states is not asked").toHaveCount(0);
+  await expect(page.getByTestId(`case-understanding-answer-${WHEN.id}`), "the date the story states is not asked").toHaveCount(0);
+  await page.getByTestId(`case-understanding-answer-${WANTS.id}`).fill(ANSWER);
   await page.waitForTimeout(600);
   const onward = page.getByTestId("case-understanding-continue-suggested").or(page.getByTestId("case-understanding-continue-chosen")).or(page.getByRole("button", { name: /Continue/ })).first();
   await onward.click();
@@ -63,9 +68,11 @@ test("home reading: its questions are recorded, an answer counts as given, and n
   await page.waitForTimeout(3_000);
 
   const reading = asked.filter((item) => item.kind === "ask" && item.surface === "home-reading");
-  expect(reading.map((item) => item.id), "the reading's questions are recorded").toEqual(expect.arrayContaining([WANTS, WHEN]));
-  expect(factsOfAsk({ surface: "home-reading", id: WANTS, text: WANTS }), "by the fact their words ask for").toContain("wants");
-  expect(asked.some((item) => item.kind === "answer" && item.surface === "home-reading" && item.id === WANTS), "the answer typed is recorded as given").toBe(true);
+  expect(reading.map((item) => item.id), "the reading's question is recorded").toContain(WANTS.question);
+  expect(reading.map((item) => item.id), "no question whose answer the story states is asked").not.toEqual(expect.arrayContaining([AMOUNT.question]));
+  expect(reading.map((item) => item.id), "no question whose answer the story states is asked").not.toEqual(expect.arrayContaining([WHEN.question]));
+  expect(factsOfAsk({ surface: "home-reading", id: WANTS.question, text: WANTS.question }), "by the fact their words ask for").toContain("wants");
+  expect(asked.some((item) => item.kind === "answer" && item.surface === "home-reading" && item.id === WANTS.question), "the answer typed is recorded as given").toBe(true);
 
   const violations = [...repeatViolations(factsAskedTwice(asked, STARTING_NOTHING_FILED)), ...heldViolations(asked)];
   const { known, unknown } = splitKnown(violations, run);

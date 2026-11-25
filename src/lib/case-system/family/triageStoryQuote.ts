@@ -1,4 +1,5 @@
 import { sentences as splitSentences } from "../sentences";
+import { NO_CHILDREN } from "../copy/askCopy";
 /**
  * Page review, 2026-10-07: the family triage asked "Were you and the other
  * person married to each other?" of a mother whose story said "we were never
@@ -28,7 +29,7 @@ const STORY_CUES: Record<string, RegExp> = {
     `\\b(?:never (?:got |been )?married|(?:were|was)n'?t married|not married|(?:got |were |are |we're )married|my (?:husband|wife|ex-?husband|ex-?wife)|common[- ]law)\\b|${EX_PARTNER}`,
     "i",
   ),
-  "child-together": /\b(?:our (?:son|daughter|kids?|child(?:ren)?|baby)|my (?:son|daughter)'?s? (?:father|mother|dad|mom)|(?:son|daughter|kids?|child(?:ren)?) (?:together|with (?:him|her)))\b/i,
+  "child-together": /\b(?:our (?:son|daughter|kids?|child(?:ren)?|baby)|my (?:son|daughter)'?s? (?:father|mother|dad|mom)|(?:son|daughter|kids?|child(?:ren)?) (?:together|with (?:him|her))|we have (?:a|an|one|two|three|four|\d+) (?:\d+[- ]?(?:year|yr|month)s?[- ]?olds?|sons?|daughters?|kids?|child(?:ren)?|baby|babies|boys?|girls?))\b/i,
   "case-involves-children": /\b(?:son|daughter|kids?|child(?:ren)?|baby|custody|parenting|child support)\b/i,
 };
 
@@ -56,19 +57,28 @@ const STORY_ANSWERS: Record<string, { yes?: RegExp; no?: RegExp }> = {
     // "my former partner and I were married 10 years" (review of 70b717b) --
     // only the other party before "and I": "my sister and I were married the
     // same year" is someone else's marriage (re-review of 7f2868f).
-    yes: /\b(?:(?:she|he|(?:my )?(?:(?:ex|former)[- ]?)?(?:partner|spouse|wife|husband)) and i (?:were|got) married|(?:we|(?:him|her) and i|i and (?:him|her)|(?:my )?(?:husband|wife) and i) got married|i got married to (?:him|her)|(?:we were|we're|we are) married|married (?:him|her) in|my (?:husband|wife|ex-?husband|ex-?wife)\b)/i,
+    // "My spouse and I married in June 2015" (C9, Chrome check of #560, 4b: asked "Were you ... married?" after it).
+    yes: /\b(?:(?:she|he|(?:my )?(?:(?:ex|former)[- ]?)?(?:partner|spouse|wife|husband)) and i (?:(?:were|got) )?married|(?:we|(?:him|her) and i|i and (?:him|her)|(?:my )?(?:husband|wife) and i) got married|i got married to (?:him|her)|(?:we were|we're|we are) married|married (?:him|her) in|my (?:husband|wife|ex-?husband|ex-?wife)\b)/i,
   },
   "child-together": {
-    yes: /\b(?:our (?:(?:two|three|four|2|3|4|little|youngest|oldest) )?(?:son|daughter|sons|daughters|kids?|child(?:ren)?|baby|boys|girls)|my (?:son|daughter)'?s? (?:father|mother|dad|mom))\b/i,
+    // "We have a 6-year-old" (Chrome milestone pass 2, finding 7, S7: the triage asked cold after it was confirmed).
+    yes: /\b(?:our (?:(?:two|three|four|2|3|4|little|youngest|oldest) )?(?:son|daughter|sons|daughters|kids?|child(?:ren)?|baby|boys|girls)|my (?:son|daughter)'?s? (?:father|mother|dad|mom)|we have (?:a|an|one|two|three|four|\d+) (?:\d+[- ]?(?:year|yr|month)s?[- ]?olds?|sons?|daughters?|kids?|child(?:ren)?|baby|babies|boys?|girls?))\b/i,
   },
   "case-involves-children": {
-    yes: /\b(?:son|daughter|sons|daughters|kids?|child(?:ren)?|baby|boys|girls|custody|parenting time|child support)\b/i,
+    yes: /\b(?:son|daughter|sons|daughters|kids?|child(?:ren)?|baby|boys|girls|custody|parenting time|child support|\d+[- ]?(?:year|yr)s?[- ]?olds?)\b/i,
   },
 };
 
-export function storyAnswerFor(questionId: string, story: string | undefined): "yes" | "no" | null {
+/**
+ * `stated`: what the one story reader states (intakeReview.ts statedInStory), passed in by the screen: this module is
+ * imported by marriedOnly.ts, which is in an import loop with intakeReview.ts, so it never imports the reader itself.
+ */
+export function storyAnswerFor(questionId: string, story: string | undefined, stated?: { children?: string }): "yes" | "no" | null {
   const cues = STORY_ANSWERS[questionId];
   if (!cues || !story) return null;
+  // "We have no children" (the one children reader, storyAnswers.ts childrenFromStory): No, never a Yes from the word
+  // "children" (C9, Chrome check of #560, 4a: "Is this right: the case involves children?" after "We have no children.").
+  if ((questionId === "case-involves-children" || questionId === "child-together") && stated?.children === NO_CHILDREN) return "no";
   const no = cues.no?.test(story) ?? false;
   const yes = cues.yes?.test(story) ?? false;
   // Both (e.g. "my ex-husband ... we were never married" is contradictory): offer nothing.
@@ -84,12 +94,12 @@ export function storyAnswerFor(questionId: string, story: string | undefined): "
  */
 const SUGGESTION_WORDS: Record<string, { yes?: string; no?: string }> = {
   "married-to-other-party": { yes: "you were married to each other", no: "not married" },
-  "child-together": { yes: "you have a child together" },
-  "case-involves-children": { yes: "the case involves children" },
+  "child-together": { yes: "you have a child together", no: NO_CHILDREN },
+  "case-involves-children": { yes: "the case involves children", no: NO_CHILDREN },
 };
 
-export function storySuggestionFor(questionId: string, story: string | undefined): { value: "yes" | "no"; say: string } | null {
-  const value = storyAnswerFor(questionId, story);
+export function storySuggestionFor(questionId: string, story: string | undefined, stated?: { children?: string }): { value: "yes" | "no"; say: string } | null {
+  const value = storyAnswerFor(questionId, story, stated);
   const say = value ? SUGGESTION_WORDS[questionId]?.[value] : undefined;
   return value && say ? { value, say } : null;
 }

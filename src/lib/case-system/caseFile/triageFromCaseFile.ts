@@ -1,5 +1,6 @@
 /** The Family triage and the case file (caseFile.ts): a triage question another question already answered is skipped. Pure. */
-import { alreadyAsked, type CaseFile, type Slot } from "./caseFile";
+import { type CaseFile, type Slot } from "./caseFile";
+import { isHeld } from "./heldAnswer";
 import type { FamilyStatusRecord } from "../family/statusTriage";
 
 // Only "does this involve children" shares the children slot: "a child together" is a different
@@ -22,11 +23,14 @@ function yesOrNoOf(slot: Slot): "yes" | "no" | null {
 export function withCaseFileAnswers(record: FamilyStatusRecord, file: CaseFile): FamilyStatusRecord {
   const out = { ...record } as Record<string, unknown>;
   for (const [id, field] of Object.entries(TRIAGE_FIELD)) {
-    if (out[field] !== "not-yet" || !alreadyAsked(file, id)) continue;
+    if (out[field] !== "not-yet" || !isHeld(file, id)) continue;
     const slot = file.children;
     // Held by the triage itself counts through its own field; only another question's answer fills it.
     if (slot.source?.kind === "answer" && Object.keys(TRIAGE_FIELD).includes(slot.source.question)) continue;
     out[field] = yesOrNoOf(slot) ?? "not-asked";
   }
+  // "I'm not sure" whether married, said anywhere (the review, the triage's story offer): never asked here again (site
+  // owner, 14 Nov 2026, decision A). Only "not sure" is carried; a Yes or No is still asked here first (reviewer 7).
+  if (out.marriedToOtherParty === "not-yet" && file.married.state === "unsure") out.marriedToOtherParty = "unsure";
   return out as FamilyStatusRecord;
 }

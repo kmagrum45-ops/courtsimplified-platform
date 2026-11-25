@@ -1,6 +1,7 @@
 "use client";
 
 import FormsWorkspace from "./FormsWorkspace";
+import NoticeGate from "../_components/NoticeGate";
 
 /**
  * /forms: the official forms catalogue. With ?caseId= the request is sent to
@@ -8,5 +9,6 @@ import FormsWorkspace from "./FormsWorkspace";
  * renders inside the case.
  */
 export default function FormsPage() {
-  return <FormsWorkspace />;
+  // The notice first when no acceptance is recorded: form generation is work (site owner, 16 Nov 2026; NoticeGate.tsx).
+  return <NoticeGate><FormsWorkspace /></NoticeGate>;
 }

@@ -22,6 +22,7 @@
 import { readCheckpoint, record, type IntakeSession } from "./intakeCheckpoint";
 import { migrateStory, storyOf } from "./intakeStory";
 import { GUEST_CARRY_KEY, GUEST_INTAKE_SESSION_KEY } from "./storage/intakeStorageKeys";
+import { openCaseFromAddress } from "./openCase";
 
 export const GUEST_CARRY_MAX_AGE_MS = 30 * 60 * 1000;
 type Store = Pick<Storage, "getItem" | "setItem" | "removeItem">;
@@ -53,7 +54,7 @@ export function signInAddress(storage: Store, pathname: string, search: string, 
   const guest = openGuestIntake(storage);
   const here = `${pathname}${search}`;
   const onBuilder = pathname === "/builder";
-  if (guest && onBuilder && new URLSearchParams(search).get("intake") === guest.flowId) {
+  if (guest && onBuilder && openCaseFromAddress(new URLSearchParams(search)).intake === guest.flowId) {
     markGuestCarry(storage, guest.flowId, now);
     return here;
   }
@@ -75,11 +76,11 @@ export function carryGuestIntake(storage: Store, destination: string, userId: st
     storage.removeItem(GUEST_CARRY_KEY);
     const address = new URL(destination, "http://local");
     const params = address.searchParams;
-    const flow = params.get("intake");
+    const flow = openCaseFromAddress(params).intake;
     if (!flow || mark.flowId !== flow || typeof mark.at !== "number" || now < mark.at || now - mark.at > GUEST_CARRY_MAX_AGE_MS) return null;
     const value = record(JSON.parse(storage.getItem(GUEST_INTAKE_SESSION_KEY) || "null"));
     const court = record(value.checkpoint).courtPath;
-    if (value.version !== 2 || value.ownerId !== null || (court !== "small-claims" && court !== "family" && court !== "civil") || params.get("path") !== court) return null;
+    if (value.version !== 2 || value.ownerId !== null || (court !== "small-claims" && court !== "family" && court !== "civil") || openCaseFromAddress(params).court !== court) return null;
     const checkpoint = readCheckpoint(value.checkpoint, court, flow);
     if (!checkpoint || newFlowId === flow) return null;
     params.set("intake", newFlowId);

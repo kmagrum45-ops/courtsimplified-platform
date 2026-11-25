@@ -20,7 +20,8 @@
 
 import { MONTH_WORDS_EN, WEEKDAY_NAMES_PATTERN } from "../dates";
 
-export type NameLabel = { name: string; label: string };
+/** `whole`: an address, phone number or email: matched whole, never by its parts ("Crescent" is not a name). */
+export type NameLabel = { name: string; label: string; whole?: true };
 
 
 const object = (value: unknown): Record<string, unknown> => (value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {});
@@ -82,7 +83,7 @@ const escape = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 export function withNameLabels(input: string, labels: readonly NameLabel[]): string {
   let out = input;
   // Longest first, so "Ottoline Brackenbury" is replaced before "Ottoline".
-  const pairs = labels.flatMap((item) => partsOf(item.name).map((part) => ({ part, label: item.label }))).sort((a, b) => b.part.length - a.part.length);
+  const pairs = labels.flatMap((item) => (item.whole ? [item.name] : partsOf(item.name)).map((part) => ({ part, label: item.label }))).sort((a, b) => b.part.length - a.part.length);
   for (const { part, label } of pairs) out = out.replace(new RegExp(`(?<![\\p{L}\\d])${escape(part)}(?![\\p{L}\\d])`, "gu"), label);
   return out;
 }

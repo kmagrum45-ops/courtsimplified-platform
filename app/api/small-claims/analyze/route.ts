@@ -1,6 +1,7 @@
 import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { NextRequest, NextResponse } from "next/server";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
+import { parseResearchCaseContext } from "@/src/lib/case-system/caseFile/aiCaseContext";
 import { withAiCallIdentity } from "../../../../src/lib/audit/aiCallLog";
 
 import {
@@ -18,6 +19,12 @@ import {
 } from "@/src/lib/case-system/events/caseEventAdapter";
 import { UUID_PATTERN } from "@/src/lib/case-system/events/caseEventRequest";
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
+import {
+  analysisCaseId,
+  analysisStoryText,
+  checkStoryBeforeAnalysis,
+  type AnalysisSafetyDependencies,
+} from "@/src/lib/case-system/intake/analysisSafetyGate";
 
 export const runtime = "nodejs";
 // The analysis researches before it writes; give it Vercel's full 300 s rather than the
@@ -148,6 +155,7 @@ const allowedInputFields = new Set<keyof SmallClaimsIntelligenceInput>([
   "filedDocuments",
   "uploadedEvidenceFiles",
   "confirmedClaimTypeId",
+  "caseContext",
   "elementStates",
   ...requiredStringFields,
 ]);
@@ -231,6 +239,8 @@ export function isSmallClaimsInput(
   }
 
   if (!isValidCatalogueClaim(value)) return false;
+  // The case file's kind of case in words, for the AI research (aiCaseContext.ts): its own shape only.
+  if (parseResearchCaseContext(value.caseContext) === false) return false;
   if (!isStringArray(value.issues, 20)) return false;
   if (!isStringArray(value.filedDocuments, 20)) return false;
   if (!allowedStages.has(String(value.caseStage))) return false;
@@ -268,6 +278,8 @@ type SmallClaimsRouteDependencies = {
   analyze: typeof analyzeSmallClaimsWithBrain;
   hasExternalAiKey: () => boolean;
   loadCaseEvents: typeof getAuthenticatedOwnedCaseEvents;
+  /** The safety check's steps (analysisSafetyGate.ts); the real ones unless a test stands one in. */
+  safety: Partial<AnalysisSafetyDependencies>;
 };
 
 export function createSmallClaimsAnalyzePost(
@@ -278,6 +290,7 @@ export function createSmallClaimsAnalyzePost(
     analyze: analyzeSmallClaimsWithBrain,
     hasExternalAiKey: hasConfiguredServerAi,
     loadCaseEvents: getAuthenticatedOwnedCaseEvents,
+    safety: {},
     ...overrides,
   };
 
@@ -369,6 +382,18 @@ export function createSmallClaimsAnalyzePost(
      * Both may legitimately be null: this route serves unauthenticated callers
      * (they just get the deterministic path), and a case id is optional.
      */
+    // The safety check, on the exact text this analysis reads, before it
+    // starts -- whichever door the person came through (analysisSafetyGate.ts).
+    const safety = await withAiCallIdentity({ userId: user?.id ?? null, caseId }, () =>
+      checkStoryBeforeAnalysis(request, {
+        court: "small-claims",
+        storyText: analysisStoryText(validatedInput, longTextFields),
+        userId: user?.id ?? null,
+        caseId: analysisCaseId(request, caseId),
+        aiAvailable: allowExternalCognition,
+      }, dependencies.safety),
+    );
+
     const internalResult = await withAiCallIdentity(
       { userId: user?.id ?? null, caseId },
       () =>
@@ -393,6 +418,7 @@ export function createSmallClaimsAnalyzePost(
         : "deterministic-fallback",
       analysisAvailable: structuredReasoningUsed,
       authenticated,
+      safety,
     });
   } catch {
     console.error("Small Claims analysis route failed.");

@@ -80,12 +80,6 @@ export const KNOWN_PROBLEMS_29OCT_FLOW: readonly KnownProblem[] = [
     test: "OWNER-1: a month and year in an event's own sentence fills \"When, in your words\"",
   },
   {
-    id: "OWNER-2-overview-keeps-story-month",
-    reason:
-      "The case overview's \"Case snapshot\" row \"When (your words)\" shows the story's \"March 2026\" after the exact day is recorded: it reads intake.timeline only (IntelligenceOverviewPanel.tsx:341,348), while the step page's day goes to position.dateAnswers (read by caseFileOf) and an event's exact day goes to case_events (read by neither).",
-    test: "OWNER-2: the case overview's \"When\" row reads the recorded day, not only the story's words",
-  },
-  {
     id: "OWNER-3-topic-cut-mid-word",
     reason:
       "A chat answer ended \"...Ottawa Small Claims Co.\": a statement that is not confirmed is listed by its first 80 characters (checkedAnswer.ts:478, 616-617, 624-625, statement.text.slice(0, 80)) and the list is closed with a full stop (CheckedAnswerPanel.tsx:129).",
@@ -96,12 +90,6 @@ export const KNOWN_PROBLEMS_29OCT_FLOW: readonly KnownProblem[] = [
     reason:
       "The follow-up chat has no close (app/builder/page.tsx:374 showFollowUp is only ever set true, line 2767), and after a reload nothing on the case page opens it; the only way back is \"Update your story\" and \"Show my next step\", which runs the analysis again (OWNER-5).",
     test: "OWNER-4: the follow-up chat can be closed, and the case page opens it again",
-  },
-  {
-    id: "OWNER-5-next-step-reanalysed",
-    reason:
-      "Back to the questions with nothing changed, \"Show my next step\" runs the whole analysis again (about 2 minutes with the model): the guided continue handler (app/builder/page.tsx:502-516) always calls handleGuidedComplete, never checking guidanceIsCurrent (intakeReview.ts:233) on the saved case.",
-    test: "OWNER-5: back to the questions with nothing changed, the next step shows without a new analysis -- small-claims",
   },
   {
     id: "OWNER-7-ask-button-wraps",

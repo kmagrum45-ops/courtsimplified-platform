@@ -27,10 +27,12 @@ import {
   type KnownFactField,
   type QuestionPhase,
 } from "./questionBank";
+import { mayShowQuestion } from "../caseFile/factStatus";
+import type { CaseFile } from "../caseFile/caseFile";
 
 export type IntakeFacts = Partial<Record<KnownFactField, string | number | boolean>>;
 
-const PHASE_ORDER: Record<QuestionPhase, number> = {
+export const PHASE_ORDER: Record<QuestionPhase, number> = {
   orientation: 0,
   substance: 1,
   sensitive: 2,
@@ -94,6 +96,13 @@ export function selectQuestions(
   bank: readonly IntakeQuestion[] = QUESTION_BANK,
   courtArea: CourtArea = "small-claims",
   purpose: "all" | "initial" = "all",
+  /**
+   * THE ONE ASKER (founder's plan step 5, 1 Nov): the case file (caseFileOf). A question whose fact
+   * the person already holds -- answered, "not sure", or removed -- is never returned (caseFile/heldAnswer.ts heldAnswer);
+   * a story guess holds nothing. Absent or null: nothing is held (a harness, a guest before any save).
+   * Held questions are not answered ids: callers never record them as answered.
+   */
+  options: { held?: CaseFile | null } = {},
 ): string[] {
   const answered = new Set(answeredIds);
 
@@ -103,6 +112,7 @@ export function selectQuestions(
     .filter((question) => purpose === "all" || initialQuestion(question))
     .filter((question) => !answered.has(question.id))
     .filter((question) => questionApplies(question, facts))
+    .filter((question) => mayShowQuestion(options.held, question.id))
     .sort((a, b) => PHASE_ORDER[a.phase] - PHASE_ORDER[b.phase]) // stable: preserves bank order within a phase
     .map((question) => question.id);
 }

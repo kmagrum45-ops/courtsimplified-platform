@@ -146,13 +146,19 @@ Established 2026-09-29, after work from several chats sat on seven unmerged
 branches: each passed its own tests, they conflicted with each other, and the
 live site ran none of it.
 
+- **TEMPORARY (site owner, 2026-11-22), until the owner says otherwise: the
+  owner merges.** Open the PR into `main` and leave auto-merge OFF: do not turn
+  it on, and do not merge. Never push to `main` directly. The owner merges after
+  every CI check is green and the changed pages have been checked. Fast-forward
+  `case-workspace` after the owner's merge. While this stands, it replaces
+  "merge" in the next bullet and the auto-merge bullet below.
 - **Start every session from the latest `main`** (`git fetch origin main` and
   branch from `origin/main`), never from an old branch or another chat's branch.
 - **Finish every session with the work in `main`:** open a PR into `main`, let
   CI run (it runs on PRs into `main`, with the real OpenAI key), fix what fails,
   merge. Do not end a session with work only on a side branch, and do not tell
   the user something is fixed until it is merged and Vercel has deployed it.
-- **Everything goes into `main` through auto-merge (site owner, 2026-10-08;
+- **Suspended while the TEMPORARY rule above stands.** **Everything goes into `main` through auto-merge (site owner, 2026-10-08;
   replaces "merge immediately, don't wait for CI" of 2026-09-29).** Open the PR
   and switch on auto-merge straight away, method SQUASH (in a Claude session
   the GitHub proxy has no GraphQL: use `gh api -X PUT
@@ -173,7 +179,8 @@ live site ran none of it.
   publishes reports or data to its own branch puts a `vercel.json` with
   `{"git": {"deploymentEnabled": false}}` in that branch (see
   `courtsimplified-story-review.yml`). Each failed preview emails the site owner.
-- **`case-workspace` follows `main`:** after a merge, fast-forward it to `main`.
+- **`case-workspace` follows `main`:** after a merge, fast-forward it to `main`
+  (while the TEMPORARY rule above stands: after the owner's merge).
 - If a PR cannot be merged yet (it needs a decision), say so plainly and list it,
   so the user always knows what is not live.
 

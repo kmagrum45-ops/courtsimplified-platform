@@ -14,7 +14,6 @@
 export type KnownProblem = { id: string; test: string; reason: string };
 
 export const KNOWN_PROBLEMS_29OCT_FORMS: KnownProblem[] = [
-  { id: "A1a", test: "A1a small-claims chat: the Plaintiff's Claim facts hold none of the site's questions", reason: "The chat's follow-up questions and answers are added to the saved story (guidedIntakeToSmallClaimsInput.ts facts), and the claim draft numbers every sentence of it as a fact (claimDraftEngine.ts buildNumberedFacts)." },
   { id: "A1b", test: "A1b responding and family drafts do not paste the whole story in", reason: "respondingDocumentDraft.ts and startingDocumentDraft.ts (civil, family) put userStory() into the facts section whole." },
   { id: "A1c", test: "A1c generate-form facts hold none of the site's questions or record labels", reason: "getCaseValues (app/api/generate-form/route.ts) deep-searches the whole saved case for a key named facts and finds intakeData.facts: the story plus Q/A lines (Small Claims) or the labelled record (Family)." },
   { id: "A2a", test: "A2a small-claims Plaintiff's Claim holds no analysis notes", reason: "claimDraftEngine.ts writes analysis.detectedIssues ('This claim appears to involve: contract, debt.') and analysis.damagesIssues ('Amount was captured...') into the draft." },
@@ -26,6 +25,5 @@ export const KNOWN_PROBLEMS_29OCT_FORMS: KnownProblem[] = [
   { id: "B2", test: "B2 family drafts carry the dates the story gives", reason: "The family chat asks no timeline; marriage and separation dates are not case-file facts; the drafts read only intake.timeline." },
   { id: "B3", test: "B3 small-claims form starting values carry what the case file holds", reason: "The form's starting values come from storedIntakeValues (intakeData only), never caseFileOf, so the chat's and home reading's answers do not pre-fill it." },
   { id: "B4", test: "B4 small-claims chat defence evidence carries 'I have pictures'", reason: "The case file has no evidence fact; the Defence draft reads only intake.evidence, set only by the chat's evidence question." },
-  { id: "B5", test: "B5 family issues offered from the story cover each issue it names", reason: "familyIssuesFromStory (storyAnswers.ts) knows a few exact phrases; 'time with the kids' and 'split the house' are not among them." },
   { id: "B6", test: "B6 small-claims optional details come back when the case is reopened", reason: "Saved in intakeData.extra, but storedIntakeValues (caseRecord.ts) does not carry agreementDetails, paymentHistory, deadlineDetails or defenceResponse back to the form." },
 ];

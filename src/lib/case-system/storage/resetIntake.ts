@@ -77,6 +77,13 @@ export type ResetIntakeArgs = {
    * anonymous and everything shared.
    */
   includeUserScoped?: boolean;
+  /**
+   * The login page's clear, after a successful sign-in or sign-up: keys the registry
+   * marks `keptAtSignIn` (the safety notice's fingerprints, never case content) stay, so
+   * "shown once" holds when a guest case moves into the account (owner's Chrome check,
+   * 2026-10-30). Sign-out never passes it, so everything is cleared there.
+   */
+  signingIn?: boolean;
 };
 
 export type ResetIntakeResult = {
@@ -123,7 +130,8 @@ export function resetIntake(args: ResetIntakeArgs = {}): ResetIntakeResult {
       (entry) =>
         entry.area === area &&
         (includeShared || entry.scope !== "shared") &&
-        (includeUserScoped || entry.scope !== "user"),
+        (includeUserScoped || entry.scope !== "user") &&
+        !(args.signingIn && entry.keptAtSignIn),
     );
 
     let present: string[];
@@ -215,6 +223,7 @@ export function resetIntakeInBrowser(
     userId?: string | null;
     includeShared?: boolean;
     includeUserScoped?: boolean;
+    signingIn?: boolean;
   } = {},
 ): ResetIntakeResult {
   if (typeof window === "undefined") return { removed: [] };
@@ -224,5 +233,6 @@ export function resetIntakeInBrowser(
     userId: options.userId ?? null,
     includeShared: options.includeShared,
     includeUserScoped: options.includeUserScoped,
+    signingIn: options.signingIn,
   });
 }

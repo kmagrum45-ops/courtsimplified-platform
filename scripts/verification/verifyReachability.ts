@@ -64,6 +64,18 @@ const DELIBERATELY_DORMANT: DormantEntry[] = [
   // served returns only ids of pre-written, checked blocks, which is the design
   // CLAUDE.md s. 2a wants for the assistant; the page uses a different chat.
   {
+    file: "src/lib/case-system/caseFile/factMeanings.ts",
+    reason:
+      "Each fact id's one declared meaning (site owner, 19 Nov 2026): a build-time declaration read by " +
+      "test:fact-meanings, which fails when two fact ids declare the same meaning. No screen shows it.",
+  },
+  {
+    file: "src/lib/case-system/caseFile/factPlaces.ts",
+    reason:
+      "The when-and-where table (C9, 23 Nov 2026): every place a fact is asked, offered or shown back, " +
+      "a build-time declaration read by test:fact-places, which counts the repeats. No screen shows it.",
+  },
+  {
     file: "src/lib/case-system/chat/libraryChat.ts",
     reason:
       "The ids-only assistant (every word shown is a published block). Its route had no caller and " +

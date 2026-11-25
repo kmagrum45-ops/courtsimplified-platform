@@ -16,10 +16,15 @@
  */
 
 import { useEffect, useState } from "react";
+import { partyNames } from "@/src/lib/case-system/parties/parties";
 import { recordedDateAnswers } from "@/src/lib/case-system/caseRecord";
 import { DecisionAttribution, DecisionCaution } from "@/app/cases/_components/CourtDecisionPanel";
 import { DeadlineStandingNote } from "@/app/cases/_components/CaseWorkspace";
 import type { TimelineStanding } from "@/src/lib/case-workspace/timeline";
+import { caseDeadlines } from "@/src/lib/case-system/caseFile/stepDeadlines";
+import { caseFileOfMaster } from "@/src/lib/case-system/caseFile/caseFileOfMaster";
+import { slotText } from "@/src/lib/case-system/caseFile/caseFile";
+import { formatForCourt } from "@/src/lib/case-system/dates";
 import type { DecisionDetails } from "@/src/lib/case-workspace/courtDecision";
 
 import { getStageLabel } from "../../../builder/_components/builderTypes";
@@ -28,6 +33,7 @@ import { findStage, type StagePathway } from "@/src/lib/case-system/stage-map/st
 import { caseStageWords } from "@/src/lib/case-system/caseStep";
 import { COURT_LABELS, authHeaders, caseTitle, formatDate, useCaseHome } from "../../_components/CaseHomeContext";
 import { userStory } from "@/src/lib/case-system/userStory";
+import { answerWords } from "@/src/lib/case-system/caseFile/unsureAnswer";
 
 type EventRow = {
   id: string;
@@ -57,6 +63,7 @@ type DecisionRow = {
 };
 
 type TimelineItem = {
+  date?: string;
   displayDate: string;
   title: string;
   source: { kind: string; description: string; rule?: string | null };
@@ -72,17 +79,26 @@ function whenText(event: EventRow): string {
 }
 
 export default function CaseFileSection() {
-  const { caseRecord, position, stepId, record } = useCaseHome();
+  const { caseRecord, position, stepId, record, courtPath } = useCaseHome();
   const master = (caseRecord.master_result ?? {}) as Record<string, unknown>;
   const intake = (master.intakeData ?? {}) as { facts?: string; goal?: string; yourName?: string; otherParty?: string };
   const drafts = readCaseDrafts(master);
+  // The amount and the other party, read from the case file (the one reader "What we have so far" uses): shown when
+  // recorded, nothing when not (Chrome check of #545 at 7bce410, 1.6c: no amount line here after three changes).
+  const file = caseFileOfMaster(caseRecord.master_result, courtPath);
+  const fileWords = (fact: "amount" | "otherParty") => (file[fact].state === "answered" && !file[fact].removed ? slotText(file[fact], formatForCourt) : "");
+  const names = partyNames(file.parties.recorded ? file.parties.list : [], { you: record.yourName, other: fileWords("otherParty") });
   // The chosen step, or the one the confirmed stage points to (Phase 1).
   const step = stepId ? findStage(stepId) : undefined;
 
   const [events, setEvents] = useState<EventRow[] | null>(null);
   const [documents, setDocuments] = useState<DocumentRow[] | null>(null);
   const [decisions, setDecisions] = useState<DecisionRow[]>([]);
+  // The timeline route's counted items: read only for a deadline's standing (passed, a closed day), in the card's words.
   const [deadlines, setDeadlines] = useState<TimelineItem[] | null>(null);
+  // The deadlines themselves: the one source the case page shows too (stepDeadlines.ts caseDeadlines; Chrome check of
+  // #544, F4: the next-step card said 3 March 2028, this page "None yet"). The count is the card's; nothing is counted here.
+  const counted = caseDeadlines(master, courtPath, stepId || null);
   // Civil and family: the step's deadline section counted from the dates the
   // user gave on the Overview (page review, 2026-10-06: the printed file said
   // deadlines were only shown as periods, even after a date was given).
@@ -105,6 +121,8 @@ export default function CaseFileSection() {
           courtPath: caseRecord.court_path,
           confirmedFacts: {},
           dateAnswers: givenDates,
+          // The dates the step page kept from the story (casePosition datesFromStory): the deadline says so (B6).
+          datesFromStory: position.datesFromStory ?? [],
         }),
       }).catch(() => null);
       const body = response?.ok ? await response.json() : null;
@@ -170,17 +188,18 @@ export default function CaseFileSection() {
         </FileSection>
 
         <FileSection title="Deadlines worked out from your dates">
-          {deadlines?.length ? (
-            <ul className="space-y-2">
-              {deadlines.map((item) => (
-                <li key={`${item.title}-${item.displayDate}`}>
-                  <strong>{item.displayDate}</strong>: {item.title}
-                  {item.source.rule ? ` (${item.source.rule})` : ""}
-                  {item.notes?.[0]?.startsWith("Counted from the date in your story") ? <em> {item.notes[0]}</em> : null}
-                  {/* The same words as the Overview card and the Timeline (walkthrough 2026-10-14, SW). */}
-                  {item.standing ? <DeadlineStandingNote standing={item.standing} /> : null}
-                </li>
-              ))}
+          {counted.length && deadlines !== null ? (
+            <ul className="space-y-2" data-testid="case-file-deadlines">
+              {counted.map((counted) => {
+                const item = deadlines.find((entry) => entry.date === counted.date);
+                return (
+                  <li key={counted.id} data-testid="case-file-deadline">
+                    <strong>{formatForCourt(counted.date)}</strong>: {counted.what}
+                    {/* The same words as the Overview card and the Timeline (walkthrough 2026-10-14, SW). */}
+                    {item?.standing ? <DeadlineStandingNote standing={item.standing} /> : null}
+                  </li>
+                );
+              })}
             </ul>
           ) : stepDeadline ? (
             <p className="whitespace-pre-line">{stepDeadline}</p>
@@ -200,15 +219,19 @@ export default function CaseFileSection() {
         <FileSection title="What happened, in your words">
           {/* Names from the one case record (Step 2A, 2026-10-12): civil keeps
               them in civilInput, so reading intakeData alone left them blank. */}
-          {record.yourName || record.otherParty ? (
-            <p className="mb-2">
-              {[record.yourName && `You: ${record.yourName}`, record.otherParty && `Other side: ${record.otherParty}`].filter(Boolean).join(" · ")}
+          {/* The parties from the one function (parties.ts partyNames): each party its own name (Chrome milestone test of
+              #550, row 21: "Other side" named only the first defendant). */}
+          {names.you || names.others.length ? (
+            <p className="mb-2" data-testid="case-file-parties">
+              {[names.you && `You: ${names.you}`, names.others.length && `Other side: ${names.others.join("; ")}`].filter(Boolean).join(" · ")}
             </p>
           ) : null}
+          {fileWords("amount") ? <p className="mb-2" data-testid="case-file-amount">Amount: {fileWords("amount")}</p> : null}
           <p className="whitespace-pre-line">{userStory(intake) || "Not recorded."}</p>
-          {intake.goal?.trim() ? (
+          {/* "I do not know yet" is never shown as what the person wants (unsureAnswer.ts answerWords). */}
+          {answerWords(intake.goal) ? (
             <p className="mt-3 whitespace-pre-line">
-              <strong>What you want:</strong> {intake.goal.trim()}
+              <strong>What you want:</strong> {answerWords(intake.goal)}
             </p>
           ) : null}
         </FileSection>

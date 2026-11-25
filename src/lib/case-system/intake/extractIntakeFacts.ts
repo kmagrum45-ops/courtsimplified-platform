@@ -23,7 +23,7 @@ import { modelParams } from "../aiModels";
 import { withAiCallContext } from "../../audit/aiCallLog";
 import { KNOWN_FACT_FIELDS, type KnownFactField } from "./questionBank";
 import type { IntakeFacts } from "./selectQuestions";
-import { describesLoan } from "./claimKind";
+import { describesLoan, LENT_MONEY } from "./claimKind";
 
 /*
  * 2026-09-28: disputeCategory is now a fixed list, not a free slug. The old
@@ -51,8 +51,18 @@ function isKnownField(key: string): key is KnownFactField {
   return (KNOWN_FACT_FIELDS as readonly string[]).includes(key);
 }
 
+/**
+ * The AI reading's category, with one code rule over it: money the person lent is "loan-or-debt", never "work-or-services"
+ * because of what it was for (Chrome check of #547, G1; claimKind.ts LENT_MONEY). Any other category is kept as read.
+ */
+export function categoryForStory(category: unknown, storyText: string): unknown {
+  return category === "work-or-services" && LENT_MONEY.test(storyText) ? "loan-or-debt" : category;
+}
+
 /** "loan-or-debt" only when the person's words describe a loan; never a fallback (step 2b). */
 function withoutLoanFallback(facts: IntakeFacts, storyText: string): IntakeFacts {
+  const category = categoryForStory(facts.disputeCategory, storyText);
+  if (category !== facts.disputeCategory) return { ...facts, disputeCategory: category as IntakeFacts["disputeCategory"] };
   if (facts.disputeCategory !== "loan-or-debt" || describesLoan(storyText)) return facts;
   const rest = { ...facts };
   delete rest.disputeCategory;

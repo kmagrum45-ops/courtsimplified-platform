@@ -1,6 +1,7 @@
 import { FactPatternAnalysisResult } from "../facts/factPatternTypes";
 import type { ProceduralEvent } from "../procedure/proceduralStateArchitecture";
 import { EvidenceIntelligenceResult } from "../evidence/evidenceIntelligenceTypes";
+import type { ResearchCaseContext } from "../caseFile/aiCaseContext";
 
 export type CourtSimplifiedIntelligenceVersion =
   | "1.0.0"
@@ -915,6 +916,12 @@ export type CourtSimplifiedBrainInput = {
    * pack as material that may apply. Added 2026-09-30.
    */
   libraryMatterIds?: string[];
+  /**
+   * The kind of case the case file holds, in words (the person's, else a suggestion marked as one),
+   * from the shared builder caseFile/aiCaseContext.ts researchCaseContext (rule 8; site owner, 31 Oct).
+   * Told to the AI research only (retrieval/storyRetrieval.ts queryPrompt); it decides nothing.
+   */
+  caseContext?: ResearchCaseContext;
   catalogueClaim?: {
     claimTypeId: string;
     elementStates?: Record<string, "provided" | "cannot-provide" | "not-yet">;

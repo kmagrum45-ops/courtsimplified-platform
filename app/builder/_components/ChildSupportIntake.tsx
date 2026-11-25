@@ -157,6 +157,7 @@ const NO_PREFILL: ChildSupportPrefill = {
   childrenDescribed: "",
   parentingTimeDescribed: "",
   incomeDocumentsHeld: "",
+  respondentResidence: "",
 };
 
 export default function ChildSupportIntake({ recorded = NO_PREFILL }: { recorded?: ChildSupportPrefill } = {}) {
@@ -166,7 +167,8 @@ export default function ChildSupportIntake({ recorded = NO_PREFILL }: { recorded
   const [applicantName, setApplicantName, applicantNameFromIntake] = useSuggestedField(recorded.applicantName);
   const [applicantAddress, setApplicantAddress] = useState("");
   const [respondentName, setRespondentName, respondentNameFromIntake] = useSuggestedField(recorded.respondentName);
-  const [respondentAddress, setRespondentAddress] = useState("");
+  // Where the other parent lives, from the case file when the person already said (C9): filled with Change, never asked cold.
+  const [respondentAddress, setRespondentAddress] = useSuggestedField(recorded.respondentResidence);
   const [childrenDescribed, setChildrenDescribed, childrenFromIntake] = useSuggestedField(recorded.childrenDescribed);
   const [parentingTimeDescribed, setParentingTimeDescribed, parentingTimeFromIntake] = useSuggestedField(
     recorded.parentingTimeDescribed,

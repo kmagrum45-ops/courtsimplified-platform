@@ -37,7 +37,9 @@
  * served on PLAYWRIGHT_BASE_URL, with SITE_ACCESS_PASSWORD in the environment).
  */
 import { expect, test, type Page } from "@playwright/test";
+import { chooseOffers } from "./harness/offers";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
+import { factOfField } from "../../src/lib/case-system/caseFile/fieldFacts";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { serveFromThisCommit, serveModelStandIns } from "./harness/thisCommitServer";
@@ -46,9 +48,10 @@ import { deleteHarnessUser } from "./harness/realTestSession";
 import { createClient } from "@supabase/supabase-js";
 import { isKnownProblem } from "./harness/knownProblems29oct-flow";
 import { openBuilder } from "./harness/builderGate";
-import { recordInitialUnknowns, saveCaseStory } from "./harness/intakeReview";
+import { recordInitialUnknowns, saveCaseStory, tickIfAsked } from "./harness/intakeReview";
 import { countedStepDeadlines } from "../../src/lib/case-system/caseFile/stepDeadlines";
 import { formatForCourt } from "../../src/lib/case-system/dates";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
@@ -73,10 +76,10 @@ async function confirmHere(page: Page) {
   const kind = q("sc-orient-dispute-category").getByRole("button").first();
   if (await kind.count()) await kind.click();
   if (await q("sc-claim-filed").count()) await q("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
-  const use = q("sc-amount-claimed").getByRole("button", { name: /^Use “.*” \(from your story\)$/ });
+  const use = q("sc-amount-claimed").getByRole("button", { name: /^Yes: .*$/ });
   if (await use.count()) await use.first().click();
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
 }
@@ -86,7 +89,7 @@ async function smallClaimsGuided(page: Page) {
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Kingston");
-  await page.getByLabel("Tell us what happened in your own words").fill(STORY);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(STORY);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
@@ -100,7 +103,7 @@ async function smallClaimsGuided(page: Page) {
   const question = page.locator("[data-testid=guided-message][data-from=assistant]").last();
   const proposals = page.getByTestId("story-proposals");
   await expect(proposals.or(question).first()).toBeVisible({ timeout: 60_000 });
-  if (await proposals.isVisible().catch(() => false)) await proposals.getByRole("button").last().click();
+  if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await proposals.getByRole("button").last().click(); }
   await expect(page.locator("textarea").last()).toBeVisible({ timeout: 60_000 });
 
   await confirmHere(page);
@@ -125,45 +128,62 @@ async function confirmedForm(page: Page) {
   await confirmHere(page);
 }
 
+/**
+ * The form's timeline box, opened by the person. Confirmed with "I don't know yet" for when it happened, it
+ * shows "Not answered yet: add it when you know" in its place (site owner, 31 Oct: never asked again); the
+ * person adds it with "Add it", the same answer the box takes.
+ */
+async function openTimeline(page: Page) {
+  const add = page.locator("[data-testid=not-answered-yet][data-field=timeline] [data-testid=not-answered-yet-add]");
+  await expect(add.or(page.getByTestId("sc-intake-timeline")).first()).toBeVisible({ timeout: 60_000 });
+  if (await add.isVisible().catch(() => false)) await add.click();
+}
+
 /** The Small Claims form: confirm, then fill a box that was empty (a first value). */
 async function smallClaimsForm(page: Page) {
   await confirmedForm(page);
+  await openTimeline(page);
   const box = page.getByTestId("sc-intake-timeline");
   await expect(box, "the box answered after Confirm was empty: this adds a fact, it changes none").toHaveValue("");
   await box.fill("March 2026: hired them. April 2026: paid $2,000. May 2026: deck finished, $6,000 not paid.");
   await box.blur();
 }
 
-/** Civil or Family questions one at a time: stop early, confirm, answer the next question. */
-async function guidedForm(page: Page, court: "civil" | "family") {
+/**
+ * Civil or Family questions one at a time: stop early, confirm, then add one fact the case does not hold.
+ *
+ * Before #515 the added answer was the next question of the chat. That question was always one the
+ * review had just recorded "I do not know yet" for, offered again from the story -- which the owner's
+ * rule now forbids (site owner, 31 Oct: an unsure fact is never offered again, not in the review and
+ * not as the story's suggestion), so after Confirm the chat rightly has nothing left to
+ * ask. A fact neither the story, the start answers nor the review gives is "Evidence still missing":
+ * no question of the chat or the review asks it, and its box on this area's own form is empty. It is
+ * answered there, on the same area's intake (CivilIntake.tsx / FamilyIntake.tsx), so Continue is still
+ * that area's Continue: the D1 property is unchanged -- a first value added after Confirm keeps the
+ * confirmation, and Continue goes to the next step.
+ */
+async function guidedForm(page: Page, court: "civil" | "family", rows: Map<string, Record<string, unknown>>) {
   await openBuilder(page, court, { city: "Kingston", story: court === "civil" ? CIVIL_STORY : FAMILY_STORY });
   const question = page.getByTestId("guided-form-question");
   await expect(question).toBeVisible({ timeout: 60_000 });
   await confirmHere(page);
 
-  // One more answer to the question on screen: whatever it asks, a first answer to it.
-  await expect(question, "a question is still open to answer after Confirm").toBeVisible({ timeout: 30_000 });
-  const key = await question.getAttribute("data-key");
-  const textbox = question.getByRole("textbox");
-  // The question may offer what the story says ("Is that right?"): "Yes, that's right" is the answer.
-  const fromStory = page.getByTestId("guided-form-from-story-yes");
-  if (await fromStory.isVisible().catch(() => false)) await fromStory.click();
-  else {
-    if (await textbox.count()) {
-      await expect(textbox.first(), `the "${key}" answer was empty: this adds a fact`).toHaveValue("");
-      await textbox.first().fill(court === "civil" ? "Synthetic: Test Builder Ltd., a contractor in Kingston." : "Synthetic: one daughter, age 6.");
-    } else await question.locator("[data-testid^=guided-option-], [data-testid^=guided-check-]").first().click();
-    const next = question.getByTestId("guided-form-next");
-    if (await next.count()) await next.click();
-  }
-  await expect(page.getByTestId("guided-form-question").and(page.locator(`[data-key="${key}"]`)), "the answer was taken").toHaveCount(0, { timeout: 30_000 });
+  // One more answer, after Confirm: a fact nothing has given yet, in a box that was empty.
+  await page.getByTestId("guided-form-show-form").click();
+  const box = page.locator("label").filter({ has: page.locator("span.font-semibold", { hasText: /^Evidence still missing$/ }) }).locator("textarea");
+  await expect(box, "the box answered after Confirm was empty: this adds a fact, it changes none").toHaveValue("");
+  const added = court === "civil" ? "Synthetic: the signed change order from April 2026." : "Synthetic: our daughter's school attendance record.";
+  await box.fill(added);
+  await box.blur();
+  // The answer was taken: saved with the case.
+  await expect.poll(() => JSON.stringify([...rows.values()].map((row) => (row.master_result as Record<string, unknown> | undefined)?.intakeCheckpoint ?? null)), { timeout: 30_000 }).toContain(added.slice(11, 40));
 }
 
-const ROUTES: Record<Route, { court: "small-claims" | "civil" | "family"; run: (page: Page) => Promise<void> }> = {
+const ROUTES: Record<Route, { court: "small-claims" | "civil" | "family"; run: (page: Page, rows: Map<string, Record<string, unknown>>) => Promise<void> }> = {
   guided: { court: "small-claims", run: smallClaimsGuided },
   form: { court: "small-claims", run: smallClaimsForm },
-  civil: { court: "civil", run: (page) => guidedForm(page, "civil") },
-  family: { court: "family", run: (page) => guidedForm(page, "family") },
+  civil: { court: "civil", run: (page, rows) => guidedForm(page, "civil", rows) },
+  family: { court: "family", run: (page, rows) => guidedForm(page, "family", rows) },
 };
 
 for (const route of Object.keys(NAMES) as Route[]) {
@@ -177,7 +197,7 @@ for (const route of Object.keys(NAMES) as Route[]) {
     const account = await fakeAccount(page);
     await serveFromThisCommit(page, ROUTES[route].court, account.rows as unknown as Map<string, Record<string, unknown>>);
 
-    await ROUTES[route].run(page);
+    await ROUTES[route].run(page, account.rows as unknown as Map<string, Record<string, unknown>>);
     await page.waitForTimeout(3_000);
 
     // The wanted property: still confirmed, and the next step loads with no "needs confirming" line.
@@ -233,6 +253,7 @@ test("retest-29oct D1: next steps made before an added answer are offered for up
   await page.goto(`/builder?path=small-claims&caseId=${caseId}&step=form`);
   const panel = page.getByTestId("intake-review");
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+  await openTimeline(page);
   const box = page.getByTestId("sc-intake-timeline");
   await expect(box).toHaveValue("");
   await box.fill("March 2026: hired them. May 2026: deck finished, $6,000 not paid.");
@@ -246,7 +267,7 @@ test("retest-29oct D1: next steps made before an added answer are offered for up
   await page.getByTestId("case-update-next-steps").click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
-  await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
+  // The case page's one click makes them again, with no second click here (item 1, 6 Nov: case-page-next-step.spec.ts).
   await expect(page.getByTestId("completed-case-overview"), "the next steps are made again").toBeVisible({ timeout: 120_000 });
   await page.goto(`/cases/${caseId}`);
   await expect(page.getByTestId("case-guidance-outdated")).toHaveCount(0, { timeout: 60_000 });
@@ -265,7 +286,7 @@ async function reachNextStep(page: import("@playwright/test").Page) {
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Ottawa");
-  await page.getByLabel("Tell us what happened in your own words").fill(STORY);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(STORY);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
@@ -277,7 +298,7 @@ async function reachNextStep(page: import("@playwright/test").Page) {
   const question = page.locator("[data-testid=guided-message][data-from=assistant]").last();
   const proposals = page.getByTestId("story-proposals");
   await expect(proposals.or(question).first()).toBeVisible({ timeout: 60_000 });
-  if (await proposals.isVisible().catch(() => false)) await proposals.getByRole("button").last().click();
+  if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await proposals.getByRole("button").last().click(); }
   await expect(page.locator("textarea").last()).toBeVisible({ timeout: 60_000 });
   await page.getByTestId("intake-start-review").click();
   const panel = page.getByTestId("intake-review");
@@ -288,7 +309,7 @@ async function reachNextStep(page: import("@playwright/test").Page) {
   if (await q("sc-claim-filed").count()) await q("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
   while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
   await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
@@ -359,7 +380,24 @@ test("retest-29oct D1: a date added on the next-step page keeps the next steps c
   await page.getByTestId("stage-answer-dates-save").click();
   const position = () => ((row.master_result as Record<string, unknown>).position ?? {}) as { stepId?: string; dateAnswers?: Record<string, string> };
   await expect.poll(() => position().dateAnswers?.[id], { timeout: 30_000 }).toBe("2026-09-01");
-  expect(JSON.stringify((row.master_result as Record<string, unknown>).intakeCheckpoint), "the step-page date changed the intake facts").toBe(facts);
+  // G2 (one writer): the step-page date is also recorded as its fact in the case file's fact record, numbered by the server,
+  // under the step's own place ("position:<question id>"), so no screen asks for it again. The browser saves the date to the
+  // position first and then sends the fact, so the record is waited for. Nothing else in the intake changes.
+  const checkpointNow = () => (row.master_result as Record<string, unknown>).intakeCheckpoint as { sections: Record<string, Record<string, unknown>> };
+  const fact = factOfField("position", "dateAnswers", id);
+  expect("fact" in fact, `the step's date question ${id} answers a fact`).toBe(true);
+  const factId = "fact" in fact ? fact.fact : "";
+  const recordOf = () => ((checkpointNow().sections.caseFile?.facts ?? {}) as Record<string, { value?: unknown; question?: unknown; state?: unknown; seq?: unknown }>)[factId];
+  await expect.poll(() => { const added = recordOf(); return added && { state: added.state, value: added.value, question: added.question, numbered: typeof added.seq === "number" }; }, { timeout: 30_000, message: "the step-page date is recorded as its fact, from the step page" }).toEqual({ state: "answered", value: "2026-09-01", question: `position:${id}`, numbered: true });
+  const saved = checkpointNow();
+  const before = JSON.parse(facts) as { sections: Record<string, Record<string, unknown>> };
+  const recorded = { ...((saved.sections.caseFile?.facts ?? {}) as Record<string, unknown>) };
+  delete recorded[factId];
+  const rest = { ...saved, sections: { ...saved.sections, caseFile: { ...saved.sections.caseFile, facts: recorded } } };
+  const was = { ...before, sections: { ...before.sections, caseFile: { ...before.sections.caseFile, facts: before.sections.caseFile?.facts ?? {} } } };
+  // Compared key-order free: the database returns objects with their keys reordered (jsonb).
+  const canonical = (value: unknown): unknown => (Array.isArray(value) ? value.map(canonical) : value && typeof value === "object" ? Object.fromEntries(Object.keys(value as Record<string, unknown>).sort().map((key) => [key, canonical((value as Record<string, unknown>)[key])])) : value);
+  expect(JSON.stringify(canonical(rest)), "the step-page date changed nothing else in the intake").toBe(JSON.stringify(canonical(was)));
 
   await page.reload();
   await expect(page.getByTestId("case-file").or(page.getByTestId("case-guidance-outdated")).first()).toBeVisible({ timeout: 90_000 });
@@ -372,7 +410,7 @@ test("retest-29oct D1: a date added on the next-step page keeps the next steps c
 
 /*
  * The owner's Chrome check of #514's preview (29 Oct, third round). Questions one at a time,
- * "Stop initial questions and review", the review answered (with "Use “$6,000” (from your
+ * "Stop initial questions and review", the review answered (with "Use the suggestion: $6,000" (from your
  * story)"), Confirm, "Show my next step"; then, on the form, TYPING into "Important dates /
  * timeline". Each key press is its own write: the first adds a fact, the second used to count
  * as changing that fact (existingFactChanged against the previous key press, in the browser
@@ -398,7 +436,7 @@ test("retest-29oct D1: typing into the form's timeline after Confirm keeps the c
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Kingston");
-  await page.getByLabel("Tell us what happened in your own words").fill(STORY);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(STORY);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?.*intake=/, { timeout: 60_000 });
   const intake = new URL(page.url()).searchParams.get("intake");
@@ -411,7 +449,7 @@ test("retest-29oct D1: typing into the form's timeline after Confirm keeps the c
   const question = page.locator("[data-testid=guided-message][data-from=assistant]").last();
   const proposals = page.getByTestId("story-proposals");
   await expect(proposals.or(question).first()).toBeVisible({ timeout: 60_000 });
-  if (await proposals.isVisible().catch(() => false)) await proposals.getByRole("button").last().click();
+  if (await proposals.isVisible().catch(() => false)) { await chooseOffers(proposals, "no"); await proposals.getByRole("button").last().click(); }
   await expect(page.locator("textarea").last()).toBeVisible({ timeout: 60_000 });
   await page.getByRole("button", { name: "Stop initial questions and review" }).click();
   const panel = page.getByTestId("intake-review");
@@ -420,10 +458,10 @@ test("retest-29oct D1: typing into the form's timeline after Confirm keeps the c
   const kind = q("sc-orient-dispute-category").getByRole("button").first();
   if (await kind.count()) await kind.click();
   if (await q("sc-claim-filed").count()) await q("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
-  const use = panel.getByRole("button", { name: /^Use “\$6,000” \(from your story\)$/ });
+  const use = panel.getByRole("button", { name: /^Yes: \$6,000$/ });
   if (await use.count()) await use.first().click();
   await recordInitialUnknowns(page);
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
   await page.getByRole("button", { name: "Show my next step", exact: true }).first().click();
@@ -436,6 +474,7 @@ test("retest-29oct D1: typing into the form's timeline after Confirm keeps the c
   // The form, by the intake address; typed key by key, as a person types.
   await page.goto(`/builder?path=small-claims&intake=${intake}&step=form`);
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+  await openTimeline(page);
   const timeline = page.getByLabel("Important dates / timeline");
   await expect(timeline).toHaveValue("");
   await timeline.pressSequentially("March 2026 hired them", { delay: 60 });

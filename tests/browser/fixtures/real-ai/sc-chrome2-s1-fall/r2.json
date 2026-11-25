@@ -1,0 +1,172 @@
+{
+  "story": "sc-chrome2-s1-fall",
+  "reading": "r2",
+  "recorded": "2026-11-18",
+  "note": "Real model outputs for a made-up story (AI_FIXTURES=record).",
+  "entries": [
+    {
+      "step": "story-reading",
+      "input": "2a9b5a2f25726600",
+      "said": "{\"sent\":\"On Oct 4, 2026 at about 6:40 pm I slipped on a wet floor near the milk fridge at a Circle K in Ottawa. There was no wet-floor sign. I fell on my right hip. A shopper, Sam Patel, saw it. The manager wrote notes. I went to the hospital that night; X-rays showed a bad bruise, no break. I missed 3 days of work (Oct 5 to 7) at $150 a day and bought Tylenol and an ice pack for $18.45. I want to claim $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\",\"chosen\":null}",
+      "output": "{\n  \"summary\": \"You slipped on a wet floor near the milk fridge at a Circle K in Ottawa on October 4, 2026, and fell on your right hip; you say there was no wet-floor sign. A shopper saw your fall, and the manager wrote notes. You went to the hospital that night, where X-rays showed a bad bruise but no fracture, and you missed three days of work. You want to claim $5,468.45 in total, and nothing has been filed with a court.\",\n  \"facts\": [\n    {\n      \"label\": \"Your role\",\n      \"value\": \"Person bringing the claim\"\n    },\n    {\n      \"label\": \"Incident\",\n      \"value\": \"October 4, 2026, about 6:40 p.m., at a Circle K in Ottawa\"\n    },\n    {\n      \"label\": \"Floor condition\",\n      \"value\": \"Wet floor near the milk fridge; no wet-floor sign\"\n    },\n    {\n      \"label\": \"Injury and treatment\",\n      \"value\": \"Fell on right hip; hospital visit that night; X-rays showed a bad bruise and no fracture\"\n    },\n    {\n      \"label\": \"Witness and manager\",\n      \"value\": \"Shopper Sam Patel saw the fall; manager wrote notes\"\n    },\n    {\n      \"label\": \"Pain and suffering claimed\",\n      \"value\": \"$5,000\"\n    },\n    {\n      \"label\": \"Lost wages claimed\",\n      \"value\": \"$450 for October 5–7, 2026, at $150 per day\"\n    },\n    {\n      \"label\": \"Expenses claimed\",\n      \"value\": \"$18.45 for Tylenol and an ice pack\"\n    },\n    {\n      \"label\": \"Total claim and filing status\",\n      \"value\": \"$5,468.45; nothing filed with a court\"\n    },\n    {\n      \"label\": \"Store operator's legal identity\",\n      \"value\": \"Not given\"\n    }\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Slip-and-fall personal injury claim\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court, Ottawa\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You are considering a claim for your fall, and no court case has been started.\",\n  \"questions\": [\n    {\n      \"question\": \"What is the street address of the Circle K where you fell?\",\n      \"why\": \"This identifies the particular store involved.\"\n    },\n    {\n      \"question\": \"Do you know the legal name of the business that operates that Circle K?\",\n      \"why\": \"The Circle K brand name may differ from the business responsible for that location.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
+    },
+    {
+      "step": "story-reading",
+      "input": "39f6becd11a7fb19",
+      "said": "{\"sent\":\"On Oct 4, 2026 at about 6:40 pm I slipped on a wet floor near the milk fridge at a Circle K in Ottawa. There was no wet-floor sign. I fell on my right hip. A shopper, Sam Patel, saw it. The manager wrote notes. I went to the hospital that night; X-rays showed a bad bruise, no break. I missed 3 days of work (Oct 5 to 7) at $150 a day and bought Tylenol and an ice pack for $18.45. I want to claim $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\\n\\nQ: What is the total dollar amount you",
+      "output": "{\n  \"summary\": \"You slipped on a wet floor near the milk fridge at a Circle K in Ottawa on October 4, 2026, and say there was no wet-floor sign. You landed on your right hip, and hospital X-rays that night showed a bad bruise but no fracture. You want to claim $5,468.45 for pain and suffering, lost wages, and purchases of Tylenol and an ice pack. You are bringing the claim, and nothing has been filed with a court.\",\n  \"facts\": [\n    {\n      \"label\": \"Incident\",\n      \"value\": \"October 4, 2026, at about 6:40 p.m.\"\n    },\n    {\n      \"label\": \"Location\",\n      \"value\": \"Near the milk fridge at a Circle K in Ottawa.\"\n    },\n    {\n      \"label\": \"Floor condition\",\n      \"value\": \"Wet floor with no wet-floor sign.\"\n    },\n    {\n      \"label\": \"Injury and treatment\",\n      \"value\": \"Fell on right hip; hospital visit that night; X-rays showed a bad bruise and no fracture.\"\n    },\n    {\n      \"label\": \"Witness and manager\",\n      \"value\": \"Shopper Sam Patel witnessed the fall; the manager wrote notes.\"\n    },\n    {\n      \"label\": \"Lost wages\",\n      \"value\": \"$450 for October 5–7, at $150 per day.\"\n    },\n    {\n      \"label\": \"Purchases\",\n      \"value\": \"$18.45 for Tylenol and an ice pack.\"\n    },\n    {\n      \"label\": \"Total claim\",\n      \"value\": \"$5,468.45, including $5,000 for pain and suffering.\"\n    },\n    {\n      \"label\": \"Proposed defendant\",\n      \"value\": \"The business responsible for the Circle K location; its legal identity was not given.\"\n    },\n    {\n      \"label\": \"Court status\",\n      \"value\": \"You are bringing the claim; nothing has been filed.\"\n    }\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Claim for injuries and losses from a slip and fall\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You are considering a claim for your slip-and-fall injuries and losses, and no court proceeding has been started.\",\n  \"questions\": [\n    {\n      \"question\": \"What is the street address of the Circle K where you fell?\",\n      \"why\": \"This identifies the particular store involved.\"\n    },\n    {\n      \"question\": \"Do you know the legal name of the business that operates that store?\",\n      \"why\": \"This helps identify the proposed defendant.\"\n    },\n    {\n      \"question\": \"What do you know about how the floor became wet and how long it had been wet?\",\n      \"why\": \"These circumstances help clarify responsibility for the fall.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
+    },
+    {
+      "step": "safety",
+      "input": "cb403ab177304a90",
+      "said": "{\"said\":\"On Oct 4, 2026 at about 6:40 pm I slipped on a wet floor near the milk fridge at a Circle K in Ottawa. There was no wet-floor sign. I fell on my right hip. A shopper, Sam Patel, saw it. The manager wrote notes. I went to the hospital that night; X-rays showed a bad bruise, no break. I missed 3 days of work (Oct 5 to 7) at $150 a day and bought Tylenol and an ice pack for $18.45. I want to claim $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine.\"}",
+      "output": {
+        "classification": "clear",
+        "requestsLegalAdvice": false
+      }
+    },
+    {
+      "step": "fact-reading",
+      "input": "cb403ab177304a90",
+      "said": "{\"said\":\"On Oct 4, 2026 at about 6:40 pm I slipped on a wet floor near the milk fridge at a Circle K in Ottawa. There was no wet-floor sign. I fell on my right hip. A shopper, Sam Patel, saw it. The manager wrote notes. I went to the hospital that night; X-rays showed a bad bruise, no break. I missed 3 days of work (Oct 5 to 7) at $150 a day and bought Tylenol and an ice pack for $18.45. I want to claim $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine.\"}",
+      "output": {
+        "facts": {
+          "role": "plaintiff",
+          "disputeCategory": "personal-injury"
+        },
+        "directFields": [
+          "role",
+          "disputeCategory"
+        ]
+      }
+    },
+    {
+      "step": "story-suggestions",
+      "input": "c5412357cc579cbc",
+      "said": "{\"story\":\"On Oct 4, 2026 at about 6:40 pm I slipped on a wet floor near the milk fridge at a Circle K in Ottawa. There was no wet-floor sign. I fell on my right hip. A shopper, Sam Patel, saw it. The manager wrote notes. I went to the hospital that night; X-rays showed a bad bruise, no break. I missed 3 days of work (Oct 5 to 7) at $150 a day and bought Tylenol and an ice pack for $18.45. I want to claim $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine.\",\"questions\":[\"sc-orient-when-happened\",\"sc-orient-dispute-category\",\"sc-remedy-sought\",\"sc-date-injury\"],\"quoteFrom\":nu",
+      "output": [
+        {
+          "questionId": "sc-orient-when-happened",
+          "questionText": "Roughly when did the situation that led to this claim happen?",
+          "answer": "October 4, 2026",
+          "storyQuote": "On Oct 4, 2026 at about 6:40 pm I slipped on a wet floor",
+          "dateQuestion": true
+        },
+        {
+          "questionId": "sc-orient-dispute-category",
+          "questionText": "What kind of dispute is this?",
+          "answer": "A personal injury (a fall, an animal bite, or similar)",
+          "storyQuote": "I fell on my right hip.",
+          "choices": [
+            "Unpaid money owed to you",
+            "A contract or agreement dispute",
+            "Property damage",
+            "A loan or debt",
+            "Work or a service you paid for (e.g. a contractor)",
+            "A deposit that wasn't returned",
+            "A consumer purchase problem",
+            "A vehicle-related dispute",
+            "Something said about you (defamation)",
+            "A personal injury (a fall, an animal bite, or similar)",
+            "Something else"
+          ]
+        },
+        {
+          "questionId": "sc-remedy-sought",
+          "questionText": "What outcome are you asking the court to order?",
+          "answer": "$5,000 for pain and suffering, $450 in lost wages, and $18.45 for medicine.",
+          "storyQuote": "I want to claim $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine."
+        },
+        {
+          "questionId": "sc-date-injury",
+          "questionText": "If this involves an injury, what date did it happen?",
+          "answer": "October 4, 2026",
+          "storyQuote": "On Oct 4, 2026 at about 6:40 pm I slipped on a wet floor",
+          "dateQuestion": true
+        }
+      ]
+    },
+    {
+      "step": "fact-reading",
+      "input": "0b8a29e2a7619583",
+      "said": "{\"said\":\"Q: Roughly when did the situation that led to this claim happen?\\nA: October 4, 2026\\n\\nQ: What kind of dispute is this?\\nA: A personal injury (a fall, an animal bite, or similar)\\n\\nQ: What outcome are you asking the court to order?\\nA: $5,000 for pain and suffering, $450 in lost wages, and $18.45 for medicine.\\n\\nQ: If this involves an injury, what date did it happen?\\nA: October 4, 2026\"}",
+      "output": {
+        "facts": {
+          "role": "plaintiff",
+          "disputeCategory": "personal-injury"
+        },
+        "directFields": [
+          "role",
+          "disputeCategory"
+        ]
+      }
+    },
+    {
+      "step": "story-suggestions",
+      "input": "9a4da4c998ca7052",
+      "said": "{\"story\":\"On Oct 4, 2026 at about 6:40 pm I slipped on a wet floor near the milk fridge at a Circle K in Ottawa. There was no wet-floor sign. I fell on my right hip. A shopper, Sam Patel, saw it. The manager wrote notes. I went to the hospital that night; X-rays showed a bad bruise, no break. I missed 3 days of work (Oct 5 to 7) at $150 a day and bought Tylenol and an ice pack for $18.45. I want to claim $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine.\",\"questions\":[\"sc-orient-when-happened\",\"sc-orient-dispute-category\",\"sc-amount-claimed\",\"sc-remedy-sought\",\"sc-date-inj",
+      "output": [
+        {
+          "questionId": "sc-orient-when-happened",
+          "questionText": "Roughly when did the situation that led to this claim happen?",
+          "answer": "2026-10-04",
+          "storyQuote": "On Oct 4, 2026 at about 6:40 pm I slipped on a wet floor",
+          "dateQuestion": true
+        },
+        {
+          "questionId": "sc-orient-dispute-category",
+          "questionText": "What kind of dispute is this?",
+          "answer": "A personal injury (a fall, an animal bite, or similar)",
+          "storyQuote": "I fell on my right hip.",
+          "choices": [
+            "Unpaid money owed to you",
+            "A contract or agreement dispute",
+            "Property damage",
+            "A loan or debt",
+            "Work or a service you paid for (e.g. a contractor)",
+            "A deposit that wasn't returned",
+            "A consumer purchase problem",
+            "A vehicle-related dispute",
+            "Something said about you (defamation)",
+            "A personal injury (a fall, an animal bite, or similar)",
+            "Something else"
+          ]
+        },
+        {
+          "questionId": "sc-amount-claimed",
+          "questionText": "What is the total dollar amount you are claiming?",
+          "answer": "5468.45",
+          "storyQuote": "I want to claim $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine."
+        },
+        {
+          "questionId": "sc-remedy-sought",
+          "questionText": "What outcome are you asking the court to order?",
+          "answer": "$5,000 for pain and suffering, $450 lost wages and $18.45 for medicine.",
+          "storyQuote": "I want to claim $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine."
+        },
+        {
+          "questionId": "sc-date-injury",
+          "questionText": "If this involves an injury, what date did it happen?",
+          "answer": "2026-10-04",
+          "storyQuote": "On Oct 4, 2026 at about 6:40 pm I slipped on a wet floor",
+          "dateQuestion": true
+        }
+      ]
+    },
+    {
+      "step": "fact-reading",
+      "input": "94a1066f2925898b",
+      "said": "{\"said\":\"Q: Roughly when did the situation that led to this claim happen?\\nA: 2026-10-04\\n\\nQ: What kind of dispute is this?\\nA: A personal injury (a fall, an animal bite, or similar)\\n\\nQ: What is the total dollar amount you are claiming?\\nA: $5,468.45\\n\\nQ: What outcome are you asking the court to order?\\nA: $5,000 for pain and suffering, $450 lost wages and $18.45 for medicine.\\n\\nQ: If this involves an injury, what date did it happen?\\nA: 2026-10-04\"}",
+      "output": {
+        "facts": {
+          "role": "plaintiff",
+          "disputeCategory": "personal-injury"
+        },
+        "directFields": [
+          "role",
+          "disputeCategory"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "story": "sc-chrome2-s3-fence",
+  "reading": "r3",
+  "recorded": "2026-11-18",
+  "note": "Real model outputs for a made-up story (AI_FIXTURES=record).",
+  "entries": [
+    {
+      "step": "story-reading",
+      "input": "f702029b88e7ea3d",
+      "said": "{\"sent\":\"Pat Testfield lives next door to me at 47 Maple Crescent in Ottawa. In July 2026 Pat hired a crew to put up a new wooden fence between our yards without talking to me first. The crew took down my old chain-link fence, which was on my side of the line, and threw it away. They also dug up part of my garden bed along the fence and drove a small machine over my lawn, which left deep ruts. When I asked Pat about it, Pat said the old fence was ugly and that the new fence was a favour to me. I had a surveyor confirm in August 2026 that the old fence stood on my land. I got two quotes to repl",
+      "output": "{\n  \"summary\": \"You say your neighbour, Pat Testfield, hired a crew in July 2026 that removed and discarded your chain-link fence and damaged your garden and lawn while installing a new wooden fence. A surveyor confirmed in August 2026 that your old fence stood on your land, and your lower repair quote is $2,400. Pat has not answered or paid following your September 1, 2026 letter, and you want $2,400 plus costs. You have not started a court case.\",\n  \"facts\": [\n    {\n      \"label\": \"Location\",\n      \"value\": \"Neighbouring properties in Ottawa; Pat lives at 47 Maple Crescent.\"\n    },\n    {\n      \"label\": \"Other party\",\n      \"value\": \"Pat Testfield, your next-door neighbour.\"\n    },\n    {\n      \"label\": \"Your role\",\n      \"value\": \"Person bringing the proposed claim.\"\n    },\n    {\n      \"label\": \"Incident\",\n      \"value\": \"In July 2026, Pat's crew removed your chain-link fence, disturbed your garden and left deep ruts in your lawn.\"\n    },\n    {\n      \"label\": \"Pat's response\",\n      \"value\": \"Pat said the old fence was ugly and the new fence was a favour to you.\"\n    },\n    {\n      \"label\": \"Boundary confirmation\",\n      \"value\": \"A surveyor confirmed in August 2026 that the old fence stood on your land.\"\n    },\n    {\n      \"label\": \"Amount sought\",\n      \"value\": \"$2,400 plus costs, based on the lower of two repair quotes.\"\n    },\n    {\n      \"label\": \"Payment request\",\n      \"value\": \"Letter sent September 1, 2026 requesting payment by September 30, 2026; no payment or answer.\"\n    },\n    {\n      \"label\": \"Court status\",\n      \"value\": \"Nothing has been filed.\"\n    },\n    {\n      \"label\": \"Property ownership\",\n      \"value\": \"Not given.\"\n    }\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Claim against neighbour for removal of a fence and damage to lawn and garden\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court — Ottawa\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You have requested payment from Pat, but no court case has been started.\",\n  \"questions\": [\n    {\n      \"question\": \"Do you own the property where the fence, lawn and garden were damaged?\",\n      \"why\": \"Ownership helps identify who is claiming the property loss.\"\n    },\n    {\n      \"question\": \"Did you give Pat or the crew any permission to enter your yard or remove the old fence?\",\n      \"why\": \"Whether you consented affects the nature of the dispute.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}"
+    },
+    {
+      "step": "fact-reading",
+      "input": "a512b32aeab5a731",
+      "said": "{\"said\":\"Q: Roughly when did the situation that led to this claim happen?\\nA: July 2026\\n\\nQ: What is the total dollar amount you are claiming?\\nA: $2,400 plus my costs\\n\\nQ: What outcome are you asking the court to order?\\nA: I want Pat to pay me $2,400 plus my costs.\"}",
+      "output": {
+        "facts": {
+          "role": "plaintiff"
+        },
+        "directFields": [
+          "role"
+        ]
+      }
+    },
+    {
+      "step": "safety",
+      "input": "0aee41cd4f51cdc2",
+      "said": "{\"said\":\"Pat Testfield lives next door to me at 47 Maple Crescent in Ottawa. In July 2026 Pat hired a crew to put up a new wooden fence between our yards without talking to me first. The crew took down my old chain-link fence, which was on my side of the line, and threw it away. They also dug up part of my garden bed along the fence and drove a small machine over my lawn, which left deep ruts. When I asked Pat about it, Pat said the old fence was ugly and that the new fence was a favour to me. I had a surveyor confirm in August 2026 that the old fence stood on my land. I got two quotes to repl",
+      "output": {
+        "classification": "clear",
+        "requestsLegalAdvice": false
+      }
+    },
+    {
+      "step": "fact-reading",
+      "input": "0aee41cd4f51cdc2",
+      "said": "{\"said\":\"Pat Testfield lives next door to me at 47 Maple Crescent in Ottawa. In July 2026 Pat hired a crew to put up a new wooden fence between our yards without talking to me first. The crew took down my old chain-link fence, which was on my side of the line, and threw it away. They also dug up part of my garden bed along the fence and drove a small machine over my lawn, which left deep ruts. When I asked Pat about it, Pat said the old fence was ugly and that the new fence was a favour to me. I had a surveyor confirm in August 2026 that the old fence stood on my land. I got two quotes to repl",
+      "output": {
+        "facts": {
+          "role": "plaintiff",
+          "disputeCategory": "property-damage"
+        },
+        "directFields": [
+          "role",
+          "disputeCategory"
+        ]
+      }
+    },
+    {
+      "step": "claim-kind",
+      "input": "2bd46ec07d01b01b",
+      "said": "{\"said\":\"Pat Testfield lives next door to me at 47 Maple Crescent in Ottawa. In July 2026 Pat hired a crew to put up a new wooden fence between our yards without talking to me first. The crew took down my old chain-link fence, which was on my side of the line, and threw it away. They also dug up part of my garden bed along the fence and drove a small machine over my lawn, which left deep ruts. When I asked Pat about it, Pat said the old fence was ugly and that the new fence was a favour to me. I had a surveyor confirm in August 2026 that the old fence stood on my land. I got two quotes to repl",
+      "output": {
+        "claimTypeId": "sc-claim-construction-or-excavation-next-door",
+        "claimTypeName": "Damage from building work next door",
+        "quote": "They also dug up part of my garden bed along the fence"
+      }
+    },
+    {
+      "step": "story-suggestions",
+      "input": "412ea937e87a26d5",
+      "said": "{\"story\":\"Pat Testfield lives next door to me at 47 Maple Crescent in Ottawa. In July 2026 Pat hired a crew to put up a new wooden fence between our yards without talking to me first. The crew took down my old chain-link fence, which was on my side of the line, and threw it away. They also dug up part of my garden bed along the fence and drove a small machine over my lawn, which left deep ruts. When I asked Pat about it, Pat said the old fence was ugly and that the new fence was a favour to me. I had a surveyor confirm in August 2026 that the old fence stood on my land. I got two quotes to rep",
+      "output": [
+        {
+          "questionId": "sc-orient-when-happened",
+          "questionText": "Roughly when did the situation that led to this claim happen?",
+          "answer": "July 2026",
+          "storyQuote": "In July 2026 Pat hired a crew",
+          "dateQuestion": true
+        },
+        {
+          "questionId": "sc-orient-dispute-category",
+          "questionText": "What kind of dispute is this?",
+          "answer": "Property damage",
+          "storyQuote": "They also dug up part of my garden bed along the fence and drove a small machine over my lawn, which left deep ruts.",
+          "choices": [
+            "Unpaid money owed to you",
+            "A contract or agreement dispute",
+            "Property damage",
+            "A loan or debt",
+            "Work or a service you paid for (e.g. a contractor)",
+            "A deposit that wasn't returned",
+            "A consumer purchase problem",
+            "A vehicle-related dispute",
+            "Something said about you (defamation)",
+            "A personal injury (a fall, an animal bite, or similar)",
+            "Something else"
+          ]
+        },
+        {
+          "questionId": "sc-amount-claimed",
+          "questionText": "What is the total dollar amount you are claiming?",
+          "answer": "$2,400 plus my costs",
+          "storyQuote": "I want $2,400 plus my costs."
+        },
+        {
+          "questionId": "sc-remedy-sought",
+          "questionText": "What outcome are you asking the court to order?",
+          "answer": "I want Pat to pay me $2,400 plus my costs.",
+          "storyQuote": "I want $2,400 plus my costs."
+        }
+      ]
+    },
+    {
+      "step": "claim-kind-confirm",
+      "input": "2d0a066ca48b9863",
+      "said": "{\"action\":\"confirm\",\"said\":\"Pat Testfield lives next door to me at 47 Maple Crescent in Ottawa. In July 2026 Pat hired a crew to put up a new wooden fence between our yards without talking to me first. The crew took down my old chain-link fence, which was on my side of the line, and threw it away. They also dug up part of my garden bed along the fence and drove a small machine over my lawn, which left deep ruts. When I asked Pat about it, Pat said the old fence was ugly and that the new fence was a favour to me. I had a surveyor confirm in August 2026 that the old fence stood on my land. I got",
+      "output": {
+        "outcome": "confirmed",
+        "claimType": {
+          "claimTypeId": "sc-claim-construction-or-excavation-next-door",
+          "claimTypeName": "Damage from building work next door"
+        }
+      }
+    }
+  ]
+}

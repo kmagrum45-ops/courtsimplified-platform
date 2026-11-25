@@ -21,11 +21,14 @@ export default function NextStepsCard({
   pathway,
   stage,
   userWords = "",
+  notMarried = false,
 }: {
   pathway: "family" | "civil";
   stage: string;
   /** The user's own story and answers; see FormsNamedHere. */
   userWords?: string;
+  /** Never married, from the record (caseFile.ts neverMarried). */
+  notMarried?: boolean;
 }) {
   const block = nextStepBlockFor(pathway, stage);
   if (!block || isPlaceholder(block)) return null;
@@ -39,7 +42,7 @@ export default function NextStepsCard({
       <h3 className="text-lg font-bold text-[#10231f]">{block.title}</h3>
       <p className="mt-3 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{block.text}</p>
       <div className="mt-3">
-        <FormsNamedHere texts={[block.text]} court={pathway} userWords={userWords} />
+        <FormsNamedHere texts={[block.text]} court={pathway} userWords={userWords} notMarried={notMarried} />
       </div>
       {source && (
         <p className="mt-3 text-sm text-[#2b4640]">

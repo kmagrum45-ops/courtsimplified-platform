@@ -1,0 +1,1094 @@
+[
+  {
+    "kind": "decider",
+    "file": "src/lib/case-system/caseFile/factQuestions.ts",
+    "name": "homeAsks",
+    "count": 1,
+    "status": "one",
+    "facts": "the home page's fixed questions (made by factStatus with the story reader's values)"
+  },
+  {
+    "kind": "decider",
+    "file": "src/lib/case-system/caseFile/factStatus.ts",
+    "name": "chatMayAsk",
+    "count": 1,
+    "status": "one",
+    "facts": "every case-file fact (the chats' gate, calls mayShowQuestion)"
+  },
+  {
+    "kind": "decider",
+    "file": "src/lib/case-system/caseFile/factStatus.ts",
+    "name": "factStatus",
+    "count": 1,
+    "status": "one",
+    "facts": "every case-file fact"
+  },
+  {
+    "kind": "decider",
+    "file": "src/lib/case-system/caseFile/factStatus.ts",
+    "name": "mayAskWords",
+    "count": 1,
+    "status": "one",
+    "facts": "an AI-worded question's fact, by its words"
+  },
+  {
+    "kind": "decider",
+    "file": "src/lib/case-system/caseFile/factStatus.ts",
+    "name": "mayShowQuestion",
+    "count": 1,
+    "status": "one",
+    "facts": "every case-file fact"
+  },
+  {
+    "kind": "decider",
+    "file": "src/lib/case-system/caseFile/factStatus.ts",
+    "name": "questionStatus",
+    "count": 1,
+    "status": "one",
+    "facts": "every case-file fact"
+  },
+  {
+    "kind": "decider",
+    "file": "src/lib/case-system/family/statusTriage.ts",
+    "name": "selectNextTriageQuestion",
+    "count": 1,
+    "status": "one",
+    "facts": "the Family triage questions (calls mayShowQuestion)"
+  },
+  {
+    "kind": "decider",
+    "file": "src/lib/case-system/parties/parties.ts",
+    "name": "detailStatus",
+    "count": 1,
+    "status": "one",
+    "facts": "party details (the parties record, not case-file facts)"
+  },
+  {
+    "kind": "decider",
+    "file": "src/lib/case-system/parties/parties.ts",
+    "name": "detailsToAsk",
+    "count": 1,
+    "status": "one",
+    "facts": "party details"
+  },
+  {
+    "kind": "decider",
+    "file": "src/lib/case-system/parties/parties.ts",
+    "name": "kindToAsk",
+    "count": 1,
+    "status": "one",
+    "facts": "party kind (person or business)"
+  },
+  {
+    "kind": "question-text",
+    "file": "app/_components/ChangeAnswer.tsx",
+    "name": "sc-orient-dispute-category",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of sc-orient-dispute-category",
+    "moveTo": "src/lib/case-system/intake/questionBank.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "name": "sc-orient-dispute-category",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of sc-orient-dispute-category",
+    "moveTo": "src/lib/case-system/intake/questionBank.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+    "name": "sc-remedy-sought",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of sc-remedy-sought",
+    "moveTo": "src/lib/case-system/intake/questionBank.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "app/builder/_components/StageAnswerPanel.tsx",
+    "name": "sc-date-defendants-claim-served",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of sc-date-defendants-claim-served",
+    "moveTo": "src/lib/case-system/intake/questionBank.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "app/builder/_components/storyAnswers.ts",
+    "name": "family:filedDocuments",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of family:filedDocuments",
+    "moveTo": "app/builder/_components/guidedFields.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "app/builder/_components/storyAnswers.ts",
+    "name": "sc-orient-dispute-category",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of sc-orient-dispute-category",
+    "moveTo": "src/lib/case-system/intake/questionBank.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "app/builder/page.tsx",
+    "name": "family:married",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of family:married",
+    "moveTo": "app/builder/_components/guidedFields.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "src/lib/case-system/caseFile/caseFile.ts",
+    "name": "sc-defendant-defence-filed",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of sc-defendant-defence-filed",
+    "moveTo": "src/lib/case-system/intake/questionBank.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "src/lib/case-system/caseFile/caseFile.ts",
+    "name": "sc-orient-dispute-category",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of sc-orient-dispute-category",
+    "moveTo": "src/lib/case-system/intake/questionBank.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "src/lib/case-system/deadlines/deadlineEvents.ts",
+    "name": "sc-date-claim-issued",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of sc-date-claim-issued",
+    "moveTo": "src/lib/case-system/intake/questionBank.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "src/lib/case-system/deadlines/deadlineEvents.ts",
+    "name": "sc-date-claim-served",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of sc-date-claim-served",
+    "moveTo": "src/lib/case-system/intake/questionBank.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "src/lib/case-system/deadlines/deadlineEvents.ts",
+    "name": "sc-date-defence-filed",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of sc-date-defence-filed",
+    "moveTo": "src/lib/case-system/intake/questionBank.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "src/lib/case-system/deadlines/deadlineEvents.ts",
+    "name": "sc-date-defendants-claim-served",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of sc-date-defendants-claim-served",
+    "moveTo": "src/lib/case-system/intake/questionBank.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "src/lib/case-system/deadlines/deadlineEvents.ts",
+    "name": "sc-date-injury",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of sc-date-injury",
+    "moveTo": "src/lib/case-system/intake/questionBank.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "src/lib/case-system/deadlines/deadlineEvents.ts",
+    "name": "sc-date-learned-of-default",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of sc-date-learned-of-default",
+    "moveTo": "src/lib/case-system/intake/questionBank.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "src/lib/case-system/deadlines/deadlineEvents.ts",
+    "name": "sc-date-learned-of-judgment",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of sc-date-learned-of-judgment",
+    "moveTo": "src/lib/case-system/intake/questionBank.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "src/lib/case-system/deadlines/deadlineEvents.ts",
+    "name": "sc-date-settlement-conference",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of sc-date-settlement-conference",
+    "moveTo": "src/lib/case-system/intake/questionBank.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "src/lib/case-system/family/marriedOnly.ts",
+    "name": "family:married",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of family:married",
+    "moveTo": "app/builder/_components/guidedFields.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "src/lib/case-system/family/statusTriage.ts",
+    "name": "family:married",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of family:married",
+    "moveTo": "app/builder/_components/guidedFields.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "src/lib/case-system/intakeReview.ts",
+    "name": "civil:legalRemedy",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of civil:legalRemedy",
+    "moveTo": "app/builder/_components/guidedFields.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "src/lib/case-system/intakeReview.ts",
+    "name": "sc-orient-dispute-category",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of sc-orient-dispute-category",
+    "moveTo": "src/lib/case-system/intake/questionBank.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "question-text",
+    "file": "src/lib/content-library/nextStepPractical.ts",
+    "name": "family:married",
+    "count": 1,
+    "status": "second",
+    "facts": "question words of family:married",
+    "moveTo": "app/builder/_components/guidedFields.ts",
+    "why": "The same words written beside the owner's: a second copy of the question's text. Moving each to read the owner's text changes the screen's source-text checks, so it is its own change (sweep of 19 Nov 2026)."
+  },
+  {
+    "kind": "source-label",
+    "file": "app/builder/_components/CivilIntake.tsx",
+    "name": "label",
+    "count": 2,
+    "status": "second",
+    "facts": "where a value came from",
+    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
+    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
+  },
+  {
+    "kind": "source-label",
+    "file": "app/builder/_components/FamilyIntake.tsx",
+    "name": "label",
+    "count": 2,
+    "status": "second",
+    "facts": "where a value came from",
+    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
+    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
+  },
+  {
+    "kind": "source-label",
+    "file": "app/builder/_components/FamilyStatusTriage.tsx",
+    "name": "label",
+    "count": 2,
+    "status": "second",
+    "facts": "where a value came from",
+    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
+    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
+  },
+  {
+    "kind": "source-label",
+    "file": "app/builder/_components/GuidedFormChat.tsx",
+    "name": "label",
+    "count": 2,
+    "status": "second",
+    "facts": "where a value came from",
+    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
+    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
+  },
+  {
+    "kind": "source-label",
+    "file": "app/builder/_components/IntelligenceOverviewPanel.tsx",
+    "name": "label",
+    "count": 1,
+    "status": "second",
+    "facts": "where a value came from",
+    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
+    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
+  },
+  {
+    "kind": "source-label",
+    "file": "app/builder/_components/MotionToChangeRoute.tsx",
+    "name": "label",
+    "count": 1,
+    "status": "second",
+    "facts": "where a value came from",
+    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
+    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
+  },
+  {
+    "kind": "source-label",
+    "file": "app/builder/_components/StageAnswerPanel.tsx",
+    "name": "label",
+    "count": 3,
+    "status": "second",
+    "facts": "where a value came from",
+    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
+    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
+  },
+  {
+    "kind": "source-label",
+    "file": "app/builder/_components/StageConfirmation.tsx",
+    "name": "label",
+    "count": 1,
+    "status": "second",
+    "facts": "where a value came from",
+    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
+    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
+  },
+  {
+    "kind": "source-label",
+    "file": "app/cases/_components/CaseFilePanel.tsx",
+    "name": "label",
+    "count": 2,
+    "status": "second",
+    "facts": "where a value came from",
+    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
+    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
+  },
+  {
+    "kind": "source-label",
+    "file": "app/cases/[id]/drafts/page.tsx",
+    "name": "label",
+    "count": 2,
+    "status": "second",
+    "facts": "where a value came from",
+    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
+    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
+  },
+  {
+    "kind": "source-label",
+    "file": "src/lib/case-system/forms/maps/familyForm10.ts",
+    "name": "label",
+    "count": 2,
+    "status": "second",
+    "facts": "where a value came from",
+    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
+    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
+  },
+  {
+    "kind": "source-label",
+    "file": "src/lib/case-system/forms/maps/familyForm8.ts",
+    "name": "label",
+    "count": 1,
+    "status": "second",
+    "facts": "where a value came from",
+    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
+    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
+  },
+  {
+    "kind": "source-label",
+    "file": "src/lib/content-library/assistantBlocks.ts",
+    "name": "label",
+    "count": 1,
+    "status": "second",
+    "facts": "where a value came from",
+    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts StoryOffer",
+    "why": "Each quotes a sentence a non-AI story reader found, a code-checked quote (storyAnswerProposals.ts) or the person's answer (sweep of 19 Nov 2026: none shows an AI-read value as \"From your story\"); moving them onto one label function changes the source-text checks of test:a2i-guard and test:fact-sources, so it is its own change."
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/_components/TribunalNotice.tsx",
+    "name": "useTribunalFirst",
+    "count": 1,
+    "status": "rule",
+    "facts": "an exclusive tribunal"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/motionToChange.ts",
+    "name": "asksToChangeOrder",
+    "count": 1,
+    "status": "one",
+    "facts": "motion to change"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/motionToChange.ts",
+    "name": "chatClosingFor",
+    "count": 1,
+    "status": "text",
+    "facts": "the chat's closing words"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/motionToChange.ts",
+    "name": "otherSideAsksToChange",
+    "count": 1,
+    "status": "one",
+    "facts": "motion to change"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/motionToChange.ts",
+    "name": "servedWithMotionToChange",
+    "count": 1,
+    "status": "one",
+    "facts": "motion to change"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/sourcedAnswers.ts",
+    "name": "withSourcedAnswerList",
+    "count": 1,
+    "status": "text",
+    "facts": "follow-up answers list"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/SourcedQuestions.tsx",
+    "name": "withSourcedAnswers",
+    "count": 1,
+    "status": "text",
+    "facts": "follow-up answers"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/storyAnswers.ts",
+    "name": "amountFromStory",
+    "count": 1,
+    "status": "part",
+    "facts": "amount (under offeredAmount)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/storyAnswers.ts",
+    "name": "amountOfferFromStory",
+    "count": 1,
+    "status": "part",
+    "facts": "amount (under offeredAmount)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/storyAnswers.ts",
+    "name": "childrenFromStory",
+    "count": 1,
+    "status": "part",
+    "facts": "children (under intakeReview.ts statedInStory, the one story reader, 21 Nov 2026)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/storyAnswers.ts",
+    "name": "childrenPartialFromStory",
+    "count": 1,
+    "status": "part",
+    "facts": "children"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/storyAnswers.ts",
+    "name": "civilFiledFromStory",
+    "count": 1,
+    "status": "part",
+    "facts": "filed (Civil) (under intakeReview.ts statedInStory, the one story reader, 21 Nov 2026)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/storyAnswers.ts",
+    "name": "civilIssuesFromStory",
+    "count": 1,
+    "status": "part",
+    "facts": "issues (Civil) (under intakeReview.ts statedInStory, the one story reader, 21 Nov 2026)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/storyAnswers.ts",
+    "name": "civilRoleFromStory",
+    "count": 1,
+    "status": "part",
+    "facts": "side (Civil) (under intakeReview.ts statedInStory, the one story reader, 21 Nov 2026)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/storyAnswers.ts",
+    "name": "courtDateFromStory",
+    "count": 1,
+    "status": "part",
+    "facts": "courtDate (under intakeReview.ts statedInStory, the one story reader, 21 Nov 2026)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/storyAnswers.ts",
+    "name": "familyFiledFromStory",
+    "count": 1,
+    "status": "part",
+    "facts": "filed (Family) (under intakeReview.ts statedInStory, the one story reader, 21 Nov 2026)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/storyAnswers.ts",
+    "name": "familyIssuesFromStory",
+    "count": 1,
+    "status": "part",
+    "facts": "issues (Family) (under intakeReview.ts statedInStory, the one story reader, 21 Nov 2026)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/storyAnswers.ts",
+    "name": "familyRoleFromStory",
+    "count": 1,
+    "status": "part",
+    "facts": "side (Family) (under intakeReview.ts statedInStory, the one story reader, 21 Nov 2026)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/storyAnswers.ts",
+    "name": "goalFromStory",
+    "count": 1,
+    "status": "part",
+    "facts": "wants (under statedInStory)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/storyAnswers.ts",
+    "name": "kindsFromStory",
+    "count": 1,
+    "status": "one",
+    "facts": "claimKind"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/storyAnswers.ts",
+    "name": "oneClickQuote",
+    "count": 1,
+    "status": "part",
+    "facts": "amount (under offeredAmount)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/storyAnswers.ts",
+    "name": "otherPartyFromStory",
+    "count": 1,
+    "status": "second",
+    "facts": "otherParty",
+    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts offeredOtherParty",
+    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/storyAnswers.ts",
+    "name": "otherPartyNameFromStory",
+    "count": 1,
+    "status": "second",
+    "facts": "otherParty",
+    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts offeredOtherParty",
+    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
+  },
+  {
+    "kind": "story-reader",
+    "file": "app/builder/_components/storyAnswers.ts",
+    "name": "servedDateFromStory",
+    "count": 1,
+    "status": "part",
+    "facts": "servedDate (under intakeReview.ts statedInStory, the one story reader, 21 Nov 2026)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/caseFile.ts",
+    "name": "marriedWhereIn",
+    "count": 1,
+    "status": "one",
+    "facts": "marriedWhere"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/storyFacts.ts",
+    "name": "acknowledgedIn",
+    "count": 1,
+    "status": "one",
+    "facts": "acknowledged debt"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/storyFacts.ts",
+    "name": "againstThemIn",
+    "count": 1,
+    "status": "one",
+    "facts": "the claim against the person (responding)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/storyFacts.ts",
+    "name": "businessOtherSideIn",
+    "count": 1,
+    "status": "second",
+    "facts": "otherParty",
+    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts offeredOtherParty",
+    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/storyFacts.ts",
+    "name": "complaintIn",
+    "count": 1,
+    "status": "one",
+    "facts": "complaint"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/storyFacts.ts",
+    "name": "costsIn",
+    "count": 1,
+    "status": "one",
+    "facts": "costs"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/storyFacts.ts",
+    "name": "evidenceIn",
+    "count": 1,
+    "status": "one",
+    "facts": "evidence"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/storyFacts.ts",
+    "name": "injuryIn",
+    "count": 1,
+    "status": "one",
+    "facts": "injury"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/storyFacts.ts",
+    "name": "lastPaymentIn",
+    "count": 1,
+    "status": "one",
+    "facts": "last payment"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/storyFacts.ts",
+    "name": "lossesIn",
+    "count": 1,
+    "status": "one",
+    "facts": "losses"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/storyFacts.ts",
+    "name": "lostPayIn",
+    "count": 1,
+    "status": "one",
+    "facts": "lost pay"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/storyFacts.ts",
+    "name": "otherSideIn",
+    "count": 1,
+    "status": "second",
+    "facts": "otherParty",
+    "moveTo": "src/lib/case-system/caseFile/storyOffers.ts offeredOtherParty",
+    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/storyFacts.ts",
+    "name": "otherSideSaysIn",
+    "count": 1,
+    "status": "one",
+    "facts": "what the other side says"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/storyFacts.ts",
+    "name": "propertyIn",
+    "count": 1,
+    "status": "one",
+    "facts": "property"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/storyFacts.ts",
+    "name": "publicBodyIn",
+    "count": 1,
+    "status": "one",
+    "facts": "public body"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/storyFacts.ts",
+    "name": "timelineIn",
+    "count": 1,
+    "status": "one",
+    "facts": "timeline (the story's dated events)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/storyFacts.ts",
+    "name": "witnessIn",
+    "count": 1,
+    "status": "one",
+    "facts": "witness"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/storyLines.ts",
+    "name": "storyLines",
+    "count": 1,
+    "status": "text",
+    "facts": "the case page's story lines (calls the readers above)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/storyOffers.ts",
+    "name": "offeredAmount",
+    "count": 1,
+    "status": "one",
+    "facts": "amount (the one offer reader)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/caseFile/storyOffers.ts",
+    "name": "offeredOtherParty",
+    "count": 1,
+    "status": "one",
+    "facts": "otherParty (the one offer reader)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/casePosition.ts",
+    "name": "storyHintsForDates",
+    "count": 1,
+    "status": "second",
+    "facts": "whenHappened and other dates",
+    "moveTo": "src/lib/case-system/intakeReview.ts statedInStory",
+    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/casePosition.ts",
+    "name": "storyWithTimeline",
+    "count": 1,
+    "status": "text",
+    "facts": "the story with its timeline"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/claimAmount.ts",
+    "name": "claimAmountFromStory",
+    "count": 1,
+    "status": "part",
+    "facts": "amount (under offeredAmount)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/claimAmount.ts",
+    "name": "moneyMentions",
+    "count": 1,
+    "status": "part",
+    "facts": "amount (under offeredAmount)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/family/statusTriage.ts",
+    "name": "livedTogetherFromStory",
+    "count": 1,
+    "status": "one",
+    "facts": "Family triage: lived together"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/family/statusTriage.ts",
+    "name": "separatedFromStory",
+    "count": 1,
+    "status": "one",
+    "facts": "Family triage: separated"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/familyStoryReading.ts",
+    "name": "existingFamilyOrder",
+    "count": 1,
+    "status": "one",
+    "facts": "existing Family order"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/familyStoryReading.ts",
+    "name": "existingFamilyOrderQuote",
+    "count": 1,
+    "status": "part",
+    "facts": "existing Family order"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/familyStoryReading.ts",
+    "name": "respondingInFamilyStory",
+    "count": 1,
+    "status": "second",
+    "facts": "side (Family)",
+    "moveTo": "src/lib/case-system/intakeReview.ts statedInStory",
+    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/intake/claimKind.ts",
+    "name": "settledKindMatch",
+    "count": 1,
+    "status": "part",
+    "facts": "claimKind"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/intake/claimKind.ts",
+    "name": "storyQuoteFor",
+    "count": 1,
+    "status": "part",
+    "facts": "claimKind quote"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/intake/claimKind.ts",
+    "name": "wordsInStory",
+    "count": 1,
+    "status": "part",
+    "facts": "claimKind quote"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/intakeReview.ts",
+    "name": "statedInStory",
+    "count": 1,
+    "status": "one",
+    "facts": "whenHappened, amount, wants (STORY_STATED_FACTS)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/intelligence/courtPathClassifier.ts",
+    "name": "statedDollarAmounts",
+    "count": 1,
+    "status": "rule",
+    "facts": "the $50,000 Small Claims limit (court path)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/intelligence/fixedRegimes.ts",
+    "name": "claimedAmounts",
+    "count": 1,
+    "status": "rule",
+    "facts": "amounts for the fixed regimes"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/intelligence/fixedRegimes.ts",
+    "name": "detectsConstructionLien",
+    "count": 1,
+    "status": "rule",
+    "facts": "construction lien"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/intelligence/fixedRegimes.ts",
+    "name": "exclusiveTribunalFor",
+    "count": 1,
+    "status": "rule",
+    "facts": "exclusive tribunals"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/intelligence/fixedRegimes.ts",
+    "name": "fixedRegimeFor",
+    "count": 1,
+    "status": "rule",
+    "facts": "fixed regimes"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/intelligence/fixedRegimes.ts",
+    "name": "lienStepFor",
+    "count": 1,
+    "status": "rule",
+    "facts": "construction lien"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/intelligence/tenancyWords.ts",
+    "name": "hasTenancyDisputeSignal",
+    "count": 1,
+    "status": "rule",
+    "facts": "tenancy (LTB)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/intelligence/tribunalSignals.ts",
+    "name": "hasTenancyEndedSignal",
+    "count": 1,
+    "status": "rule",
+    "facts": "tenancy ended"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/intelligence/tribunalSignals.ts",
+    "name": "isCommercialTenancyOnly",
+    "count": 1,
+    "status": "rule",
+    "facts": "commercial tenancy"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/intelligence/tribunalSignals.ts",
+    "name": "keywordCourtArea",
+    "count": 1,
+    "status": "rule",
+    "facts": "court area"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/intelligence/tribunalSignals.ts",
+    "name": "namesExistingSmallClaimsCase",
+    "count": 1,
+    "status": "rule",
+    "facts": "an existing case"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/parties/parties.ts",
+    "name": "storyPartyOffers",
+    "count": 1,
+    "status": "one",
+    "facts": "party details (address, kind)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/parties/parties.ts",
+    "name": "storySentences",
+    "count": 1,
+    "status": "text",
+    "facts": "sentences"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/parties/parties.ts",
+    "name": "storyWithoutPartyDetails",
+    "count": 1,
+    "status": "text",
+    "facts": "the story without party details"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/personWords.ts",
+    "name": "frontDoorStory",
+    "count": 1,
+    "status": "one",
+    "facts": "the story (the home page's one writer)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/personWords.ts",
+    "name": "withoutGluedAnswers",
+    "count": 1,
+    "status": "one",
+    "facts": "the story of a case saved before 19 Nov 2026 (old shape)"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/retrieval/passagesForStory.ts",
+    "name": "storyShowsNoOrder",
+    "count": 1,
+    "status": "second",
+    "facts": "existing Family order",
+    "moveTo": "src/lib/case-system/familyStoryReading.ts existingFamilyOrder",
+    "why": "Moving it changes what a screen asks or shows, so it needs its own failing-first change and a re-record of the readings it touches; listed in the Rule 0 sweep of 19 Nov 2026 to move after this push."
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/retrieval/sourcedQuestions.ts",
+    "name": "storyRejection",
+    "count": 1,
+    "status": "text",
+    "facts": "retrieval: a story the research step cannot use"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/case-system/understanding/understandInput.ts",
+    "name": "understandingInputError",
+    "count": 1,
+    "status": "text",
+    "facts": "input validation"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/content-library/municipalNoticeFirst.ts",
+    "name": "noticeAnswerKey",
+    "count": 1,
+    "status": "one",
+    "facts": "municipal notice"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/content-library/nextStepPractical.ts",
+    "name": "vagueEmployerSentence",
+    "count": 1,
+    "status": "text",
+    "facts": "a sentence's wording"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/content-library/structureStory.ts",
+    "name": "gapsInStory",
+    "count": 1,
+    "status": "text",
+    "facts": "content gaps"
+  },
+  {
+    "kind": "story-reader",
+    "file": "src/lib/security/requestNames.ts",
+    "name": "storyNames",
+    "count": 1,
+    "status": "rule",
+    "facts": "names to keep out of requests (security)"
+  },
+  {
+    "kind": "source-label",
+    "file": "src/lib/case-system/caseFile/storyOffers.ts",
+    "name": "label",
+    "count": 4,
+    "status": "one",
+    "facts": "where a value came from: the one home of these labels (site owner, 23 Nov 2026); the second copies move here"
+  }
+]

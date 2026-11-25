@@ -528,6 +528,31 @@ export function askedEvents(): DeadlineEvent[] {
  * the reader is not told off: they get the period, which is what they would have
  * got without answering at all.
  */
+/** Which of a dates object's events were read from the person's story, not given by them (Chrome check of #545, 5). */
+const STORY_EVENTS = new WeakMap<CaseDates, ReadonlySet<string>>();
+
+/**
+ * caseDatesFrom, with the date questions whose answer came from the person's story (`fromStory`: question ids) marked,
+ * so the counted deadline says "Based on the date in your story" for those and "the date you gave us" for the rest.
+ * The dates themselves, and how a deadline is counted from them, are exactly caseDatesFrom's.
+ */
+export function caseDatesWithStory(answers: Record<string, string | undefined>, fromStory: readonly string[] = []): CaseDates {
+  return markStoryDates(caseDatesFrom(answers), answers, fromStory);
+}
+
+/** Marks, on dates caseDatesFrom built from `answers`, which came from the story (`fromStory`: question ids). */
+export function markStoryDates(dates: CaseDates, answers: Record<string, string | undefined>, fromStory: readonly string[] = []): CaseDates {
+  const picked = Object.fromEntries(fromStory.filter((id) => answers[id]).map((id) => [id, answers[id]]));
+  const events = Object.keys(caseDatesFrom(picked));
+  if (events.length) STORY_EVENTS.set(dates, new Set(events));
+  return dates;
+}
+
+/** The events of `dates` that came from the person's story (caseDatesWithStory); none when unmarked. */
+export function storyEventsOf(dates: CaseDates): ReadonlySet<string> {
+  return STORY_EVENTS.get(dates) ?? new Set();
+}
+
 export function caseDatesFrom(answers: Record<string, string | undefined>): CaseDates {
   const dates: CaseDates = {};
 

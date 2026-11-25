@@ -20,8 +20,8 @@
 
 import {
   filingFactsFromDocuments,
-  withoutAnsweredQuestions,
 } from "@/src/lib/case-system/intelligence/answeredQuestions";
+import { missingWords } from "@/src/lib/case-system/caseFile/heldAnswer";
 
 import { cleanList } from "./builderTypes";
 
@@ -65,8 +65,5 @@ export function buildCivilGeneratedQuestions(
     (intelligence.missingInformation || []).map((item) => item.question || ""),
   ).filter(isQuestion);
 
-  return withoutAnsweredQuestions(
-    cleanList([...proceduralQuestions, ...engineQuestions]),
-    filingFactsFromDocuments(documents),
-  );
+  return missingWords(null, cleanList([...proceduralQuestions, ...engineQuestions]), { filing: filingFactsFromDocuments(documents) });
 }

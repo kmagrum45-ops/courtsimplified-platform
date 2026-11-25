@@ -73,7 +73,7 @@ type DepthTurnRequestBody = {
   confirmedAnswers?: { questionId: string; answerText: string }[];
 };
 
-function isDepthTurnRequestBody(value: unknown): value is DepthTurnRequestBody {
+export function isDepthTurnRequestBody(value: unknown): value is DepthTurnRequestBody {
   if (!isRecord(value)) return false;
 
   const allowed = new Set([
@@ -153,11 +153,19 @@ export function createDepthTurnPost(
     if (!claimType) return errorResponse("Unknown claim type.", 400);
 
     // Pure, and re-run here so the server chooses the question, not the client.
-    const selection = selectDepthQuestions({
+    // Every question is found among all of them (the one being answered, the ones confirmed); the questions shown leave
+    // out an element the person already answered or said they cannot provide (asked once; selectDepthQuestions `held`).
+    const all = selectDepthQuestions({
       elements: claimType.plaintiffElements,
       userTexts: body.userTexts,
       slotValues: body.slotValues,
     });
+    const selection = body.stateMap ? selectDepthQuestions({
+      elements: claimType.plaintiffElements,
+      userTexts: body.userTexts,
+      slotValues: body.slotValues,
+      held: body.stateMap,
+    }) : all;
 
     // The state map the client holds wins if present — it carries answers from
     // earlier turns. Otherwise start from the selection's map, which already
@@ -165,7 +173,7 @@ export function createDepthTurnPost(
     const stateMap = body.stateMap || selection.stateMap;
 
     const answered: SelectedDepthQuestion | undefined = body.answeredQuestionId
-      ? selection.asked.find((item) => item.question.id === body.answeredQuestionId)
+      ? all.asked.find((item) => item.question.id === body.answeredQuestionId)
       : undefined;
 
     // The user confirmed answers their story already gave. Record each as
@@ -173,7 +181,7 @@ export function createDepthTurnPost(
     if (body.confirmedAnswers && body.confirmedAnswers.length > 0) {
       let confirmedMap = stateMap;
       for (const item of body.confirmedAnswers) {
-        const asked = selection.asked.find((candidate) => candidate.question.id === item.questionId);
+        const asked = all.asked.find((candidate) => candidate.question.id === item.questionId);
         if (!asked) continue;
         confirmedMap = recordDepthAnswer(confirmedMap, {
           elementId: asked.elementId,

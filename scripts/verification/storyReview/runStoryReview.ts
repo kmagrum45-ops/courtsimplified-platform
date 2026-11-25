@@ -161,7 +161,7 @@ function caseFileFrom(story: string, facts: IntakeFacts, claimTypeId: string | n
     timelineText: str(facts.timelineText),
     evidenceText: str(facts.evidenceText),
     goalText: str(facts.remedySoughtText),
-    confirmedClaimTypeId: claimTypeId,
+    claimTypeId,
     filedDocuments: facts.claimFiled === true ? ["plaintiffs-claim"] : [],
   };
 }

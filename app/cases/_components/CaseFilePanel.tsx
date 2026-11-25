@@ -3,20 +3,27 @@
 /**
  * "WHAT WE HAVE SO FAR" (Jason, 2026-10-24): the case file, one line per fact the person
  * has answered or said "not sure" to, each with where it came from and a Change link.
- * A fact they were not sure of is offered once more here, at the end ("Answer it now").
+ * A fact they were not sure of is never asked again (site owner, 31 Oct): it shows the quiet line
+ * "Not answered yet: add it when you know" (askCopy.ts NOT_ANSWERED_YET), with "Add it".
  *
  * Restates the person's own answers; states no law.
  */
 import Link from "next/link";
 import { formatForCourt } from "@/src/lib/case-system/dates";
-import { SLOT_FACTS, conferenceKind, courtDateIsConference, slotText, type CaseFile, type SlotFact } from "@/src/lib/case-system/caseFile/caseFile";
+import { claimKindOf, conferenceKind, courtDateIsConference, isUnsureAnswer, slotText, type CaseFile, type SlotFact } from "@/src/lib/case-system/caseFile/caseFile";
+import { partyNames } from "../../../src/lib/case-system/parties/parties";
+import { factStatus } from "@/src/lib/case-system/caseFile/factStatus";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
-import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { inWords, optionWords } from "@/src/lib/case-system/copy/rawKeys";
-import { storyLines } from "@/src/lib/case-system/caseFile/storyLines";
+import { listedSlotFacts, storyLines } from "@/src/lib/case-system/caseFile/storyLines";
+import { ADD_IT_LATER, AGREEMENT_TERMS_LABEL, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
 import type { CountedDeadline } from "@/src/lib/case-system/caseFile/stepDeadlines";
 
+/** A rough time the person gave for a day ("July 2026"): kept and shown, the day still to add. */
+const roughTime = (value: unknown) => typeof value === "string" && Boolean(value.trim()) && !isUnsureAnswer(value);
+
 const LABEL: Record<SlotFact, string> = {
+  story: "Your story",
   side: "Your side",
   court: "Court",
   stage: "Where the case is",
@@ -34,11 +41,16 @@ const LABEL: Record<SlotFact, string> = {
   conferenceDate: "Conference date",
   defenceFiled: "Defence or answer filed",
   outcome: "Outcome you want",
+  defendantsClaim: "A claim of your own against them",
   urgent: "Anything urgent",
+  safety: "Safety concerns",
   courtDate: "Next court date",
+  serviceMethod: "How the papers were served",
+  evidence: "Evidence you have",
+  agreementTerms: AGREEMENT_TERMS_LABEL,
 };
 
-/** The days the step page itself asks for: their one offer at the end is there. */
+/** The days the step page itself asks for: a day not known yet is added there (folded, never asked again). */
 const STEP_PAGE_DATES = new Set<SlotFact>(["servedDate", "whenHappened", "conferenceDate", "courtDate"]);
 
 const COURT: Record<string, string> = { "small-claims": "Small Claims Court", civil: "Superior Court of Justice", family: "Family court" };
@@ -47,6 +59,11 @@ const BROAD: Record<string, string> = { "starting-case": "Starting a case", resp
 
 function shownValue(fact: SlotFact, file: CaseFile): string {
   const slot = file[fact];
+  // The other side, from the parties record: each party its own name, never two merged into one (rule 2).
+  if (fact === "otherParty" && file.parties.recorded) {
+    const names = partyNames(file.parties.list).others;
+    if (names.length) return names.join("; ");
+  }
   // What is filed, by name, where the person said (case 16: "the filed application and answer").
   if (fact === "filed" && slot.state === "answered" && slot.value === true && file.documents?.length) return `Yes: ${inWords(file.documents)}`;
   if (slot.state === "answered" && typeof slot.value === "string") {
@@ -54,21 +71,26 @@ function shownValue(fact: SlotFact, file: CaseFile): string {
     if (fact === "side") return file.sideWords ?? SIDE[slot.value] ?? slot.value.replace(/-/g, " ");
     // The step picked, by its own title ("Case conference scheduled"), never its code.
     if (fact === "stage") return findStage(slot.value)?.title ?? BROAD[slot.value] ?? optionWords(slot.value) ?? slot.value.replace(/-/g, " ");
-    if (fact === "claimKind") return CLAIM_TYPES.find((type) => type.id === slot.value)?.name ?? (slot.value === "not-sure" ? "Not sure yet" : optionWords(slot.value) ?? slot.value);
-    if (optionWords(slot.value)) return optionWords(slot.value)!;
+    if (optionWords(slot.value) && fact !== "claimKind") return optionWords(slot.value)!;
   }
+  // The kind of claim in the words every screen shows for it (caseFile.ts claimKindOf, site owner 29 Oct).
+  if (fact === "claimKind" && slot.state === "answered") return claimKindOf(file, inWords).words ?? "";
   // A list of choices ("decision-making-responsibility, parenting-time" on case 14): each in its words.
   if (slot.state === "answered" && Array.isArray(slot.value)) return inWords(slot.value.filter((item) => item !== "not-sure"));
   return slotText(slot, formatForCourt);
 }
 
 export default function CaseFilePanel({ file, changeHref, situationHref, stepHref, deadlines = [] }: { file: CaseFile; changeHref: string; situationHref: string; stepHref: string; deadlines?: CountedDeadline[] }) {
-  // The conference is the next court date: one day is listed once (26 Oct re-test, case 16 showed it twice).
-  const sameDay = courtDateIsConference(file);
-  const fromStory = storyLines(file.story ?? "", file, file.side.state === "answered" && file.side.value === "responding");
+  const fromStory = storyLines(file.storyText ?? "", file, file.side.state === "answered" && file.side.value === "responding");
   // A fact answered "not sure" that the story gives is listed once, in the story's words (from your story).
   const toldInStory = new Set<string>(fromStory.map((line) => (line.fact === "amountAgainst" ? "amount" : line.fact)));
-  const lines = SLOT_FACTS.filter((fact) => file[fact].state !== "not-asked" && shownValue(fact, file) && !(fact === "courtDate" && sameDay) && !(file[fact].state === "unsure" && toldInStory.has(fact)));
+  // The story is shown as the story, not as a line of its own (it is a fact so nothing asks it again).
+  // Which facts are listed, and which say "Not answered yet", from the one function (caseFile/factStatus.ts): known or offered
+  // from the story is listed with its value; settled ("I'm not sure" confirmed) is the quiet line; one still to ask is not
+  // listed (an unconfirmed "not sure" was shown as settled: Chrome milestone pass 2, S1 case page).
+  const status = (fact: SlotFact) => factStatus(file, fact);
+  // The conference is the next court date: one day is listed once (26 Oct re-test, case 16 showed it twice).
+  const lines = listedSlotFacts(file, toldInStory, (fact) => Boolean(shownValue(fact, file)), courtDateIsConference(file));
   if (!lines.length && !fromStory.length && !deadlines.length) return null;
   return (
     <section aria-labelledby="case-file-heading" data-testid="case-file" className="rounded-3xl border border-[#d8e6df] bg-white p-5">
@@ -78,18 +100,31 @@ export default function CaseFilePanel({ file, changeHref, situationHref, stepHre
         {lines.map((fact) => {
           const slot = file[fact];
           const question = slot.source?.kind === "answer" ? slot.source.question : "";
-          const href = question.startsWith("situation:") ? situationHref : /date|^step$/.test(question) ? stepHref : changeHref;
+          // "Change" opens that fact's own choices in the review (?change=<fact>, ChangeAnswer.tsx, the one
+          // write path; rule 6, 31 Oct). Side, court, stage and papers choose the court and its steps:
+          // they are changed with the start questions; a day picked on the step page, there.
+          const viaChange = !question.startsWith("situation:") && !/date|^step$/.test(question) && !["side", "court", "stage", "papers"].includes(fact);
+          const href = question.startsWith("situation:") ? situationHref : /date|^step$/.test(question) ? stepHref : viaChange ? `${changeHref}${changeHref.includes("?") ? "&" : "?"}change=${fact}` : changeHref;
           return (
             <div key={fact} className="contents" data-testid="case-file-line" data-fact={fact} data-state={slot.state} data-question={fact} data-source={question}>
               <dt className="font-semibold text-[#10231f]">{(fact === "conferenceDate" ? conferenceKind(slot) : null) ?? LABEL[fact]}</dt>
               <dd>
+                {status(fact) === "settled" && slot.state === "unsure" && !roughTime(slot.value) ? (
+                  // Said "not sure": never asked again (site owner, 31 Oct). The quiet line, and "Add it": a day on
+                  // the step page below (folded there too), a start answer at the top, anything else in the review.
+                  <>
+                    <span data-testid="not-answered-yet" data-fact={fact}>{NOT_ANSWERED_YET}.</span>{" "}
+                    <Link data-testid="case-file-change" href={STEP_PAGE_DATES.has(fact) ? stepHref : ["side", "court", "stage", "papers"].includes(fact) ? situationHref : `${changeHref}${changeHref.includes("?") ? "&" : "?"}change=${fact}`} className="font-semibold text-[#2f7d67] underline">{ADD_IT_LATER}</Link>
+                  </>
+                ) : <>
                 {shownValue(fact, file)}{" "}
                 {slot.state === "unsure" && STEP_PAGE_DATES.has(fact) ? (
-                  // A day not known yet is offered once at the end on the step page below, not here as well.
+                  // A rough time given ("July 2026"), the day not known: added on the step page below, where it is folded.
                   <Link data-testid="case-file-change" href={stepHref} className="font-semibold text-[#2f7d67] underline">Add it with your next step</Link>
                 ) : (
                   <Link data-testid="case-file-change" href={href} className="font-semibold text-[#2f7d67] underline">Change</Link>
                 )}
+                </>}
               </dd>
             </div>
           );

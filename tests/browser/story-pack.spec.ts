@@ -28,7 +28,7 @@
  * preview's SITE_ACCESS_PASSWORD in the environment.
  */
 import fs from "node:fs";
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { deleteHarnessUser, signInHarnessUser } from "./harness/smallClaimsDriver";
@@ -40,12 +40,56 @@ import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { asksForDate } from "../../src/lib/case-system/dates";
 import { internalWordingIn, rawKeysIn } from "../../src/lib/case-system/copy/rawKeys";
-import { CHARTER_STORIES, MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, type Route } from "./storyPackMore";
+import { UNSURE_SHOWN_SKIP, unsureShownAsAnswer } from "./harness/unsureShown";
+import { CHARTER_STORIES, FORMS_STORIES, MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, type Route } from "./storyPackMore";
 import { appendRecord } from "./harness/packRecords";
+import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
+import { homeQuestionsFor } from "../../src/lib/case-system/caseFile/factQuestions";
+import { chooseOffers } from "./harness/offers";
+import { tickIfAsked } from "./harness/intakeReview";
 
 // Actions wait up to 60 s: on a slow runner the story is read, and a guided turn answered,
 // in more than 20 s, and a button still disabled then is waiting, not broken.
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
+
+/**
+ * ONE TICK SETTLES EXACTLY ONE BOX, EXCEPT THE NAMED PAIRS HERE (site owner, 14 Nov 2026, decision 1 on the batch report:
+ * "keep exactly the ticked box goes, with ONE named allowed pair"). The loops below tick "I do not know yet" on each
+ * open review question in turn; the ticked box must go and every other open box must stay, and no new one may appear.
+ *
+ * The one pair: "sc-defendant-outcome" ("...an outcome of your own?") and "sc-defendant-counterclaim" both record the
+ * same fact, `outcome` (src/lib/case-system/caseFile/factsOfQuestion.ts), so settling the first settles the second
+ * (5b: a fact is never asked twice). Any other box going with a tick is still a failure. Add a pair only for two
+ * questions that record one fact, with that reason beside it.
+ */
+const SETTLED_TOGETHER: Readonly<Record<string, readonly string[]>> = {
+  "sc-defendant-outcome": ["sc-defendant-counterclaim"],
+};
+
+/** The review question id of each open "I do not know yet" box, in order (null where a box has none). */
+async function openUnknownIds(unknowns: Locator): Promise<(string | null)[]> {
+  return unknowns.evaluateAll((boxes) => boxes.map((box) => box.closest('[data-testid="intake-initial-question"]')?.getAttribute("data-question") ?? null));
+}
+
+/** Tick each open "I do not know yet" box in turn; each tick settles exactly that box (and only its named pair). */
+async function tickEachUnknown(unknowns: Locator, options: { timeout?: number } = {}) {
+  while (await unknowns.count()) {
+    const before = await openUnknownIds(unknowns);
+    const ticked = before[0];
+    await unknowns.first().check();
+    if (ticked === null || before.some((id) => id === null)) {
+      // A box with no question id cannot be told apart: exactly one box goes.
+      await expect(unknowns).toHaveCount(before.length - 1, options);
+      continue;
+    }
+    const allowed = new Set<string>([ticked, ...(SETTLED_TOGETHER[ticked] ?? [])]);
+    const mustStay = before.filter((id) => !allowed.has(id!));
+    await expect.poll(async () => {
+      const now = await openUnknownIds(unknowns);
+      return { tickedGone: !now.includes(ticked), wentWithIt: mustStay.filter((id) => !now.includes(id)), appeared: now.filter((id) => !before.includes(id)) };
+    }, { ...options, message: `ticking "${ticked}" settles exactly that box (and only its named pair)` }).toEqual({ tickedGone: true, wentWithIt: [], appeared: [] });
+  }
+}
 
 /** A story: civil documents / Family filed documents as option values; Small Claims' amount the story's own words claim (storyPackMore.ts). */
 type Story = PackStory;
@@ -124,6 +168,7 @@ const STORIES: Story[] = [
   ...MESSY_STORIES,
   ...WALKTHROUGH_STORIES,
   ...CHARTER_STORIES,
+  ...FORMS_STORIES,
 ];
 
 const INTERNAL = /Court path:|Stage: Stage unclear|Main story:|Case story:|Reasoning domain|privilege \/ recipient|procedural stage is uncertain|Important limitation|Knowledge retrieval warning|\bundefined\b|\[object Object\]|\bNaN\b/;
@@ -153,6 +198,25 @@ function checkText(run: string, where: string, text: string) {
   note(run, where, "no doubled full stop", !double, double ? text.slice(Math.max(0, double.index - 60), double.index + 20) : "");
   const repeated = text.split("\n").map((line) => line.split(/;\s*/).map((part) => part.trim()).filter((part) => part.length >= 6)).find((parts) => new Set(parts).size !== parts.length);
   note(run, where, "no citation or phrase repeated within a line", !repeated, repeated?.join(" ; ") ?? "");
+}
+
+/**
+ * "I do not know yet" is never shown as an answer, on any screen (Chrome check of #541, 2 Nov): the visible text
+ * outside the page's controls and the person's own chat messages, read by the one screen check (harness/unsureShown.ts).
+ */
+async function checkUnsureShown(run: string, where: string, page: Page) {
+  const texts = await page.evaluate((skip) => {
+    const out: string[] = [];
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+      const parent = node.parentElement;
+      if (!parent || parent.closest(skip) || parent.closest("script, style, noscript") || !parent.getClientRects().length) continue;
+      if ((node.textContent ?? "").trim()) out.push((node.textContent ?? "").trim());
+    }
+    return out;
+  }, UNSURE_SHOWN_SKIP).catch(() => [] as string[]);
+  const shown = unsureShownAsAnswer(texts);
+  note(run, where, "no \"I do not know yet\" shown as an answer", shown.length === 0, shown.join(" | "));
 }
 
 /** No toggle on the page without a label or without anything in it (an empty sources toggle under a chat line, Charter re-test 27 Oct). */
@@ -218,6 +282,7 @@ async function guidedQuestions(page: Page, story: Story, viaReview: boolean) {
     await question.getByTestId("guided-form-skip").click();
   }
   checkText(story.id, "questions", await page.getByTestId("guided-form-chat").innerText().catch(() => ""));
+  await checkUnsureShown(story.id, "questions", page);
   await page.getByTestId("guided-form-done").click();
   await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing", { timeout: 60_000 });
 }
@@ -260,7 +325,7 @@ async function smallClaims(page: Page, story: Story, viaReview: boolean): Promis
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(story.story);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(story.story);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
@@ -270,8 +335,8 @@ async function smallClaims(page: Page, story: Story, viaReview: boolean): Promis
     // The questions one at a time (the guided route), answered as the person would.
     await smallClaimsGuided(page, story);
     // The review then offers nothing it has not been told, or the amount the story claims.
-    const use = page.locator('[data-question="sc-amount-claimed"]').getByRole("button", { name: /^Use “.*” \(from your story\)$/ });
-    return (await use.count()) ? (/“(.*)”/.exec((await use.first().innerText()) ?? "")?.[1] ?? null) : null;
+    const use = page.locator('[data-question="sc-amount-claimed"]').getByRole("button", { name: /^Yes: .*$/ });
+    return (await use.count()) ? (/^Yes: (.*)$/.exec((await use.first().getAttribute("aria-label")) ?? "")?.[1] ?? null) : null;
   }
   return answerSmallClaimsReview(page, story);
 }
@@ -287,8 +352,8 @@ async function answerSmallClaimsReview(page: Page, story: Story): Promise<string
   if (await kind.count()) await kind.click();
   const filedQuestion = story.side === "defendant" ? "sc-defendant-defence-filed" : "sc-claim-filed";
   if (await q(filedQuestion).count()) await q(filedQuestion).getByRole("button", { name: "No", exact: true }).click();
-  const use = q("sc-amount-claimed").getByRole("button", { name: /^Use “.*” \(from your story\)$/ });
-  const offered = (await use.count()) ? (/“(.*)”/.exec((await use.first().innerText()) ?? "")?.[1] ?? null) : null;
+  const use = q("sc-amount-claimed").getByRole("button", { name: /^Yes: .*$/ });
+  const offered = (await use.count()) ? (/^Yes: (.*)$/.exec((await use.first().getAttribute("aria-label")) ?? "")?.[1] ?? null) : null;
   if (offered) await use.first().click();
   await reviewDates(page, story.id);
   return offered;
@@ -324,7 +389,7 @@ async function smallClaimsGuided(page: Page, story: Story): Promise<number> {
       }
       // Pressed once, then waited for: while the next turn runs the card says it is working and its
       // button is held (owner, 28 Oct); pressing again then waited on a held button (#488 at real speed).
-      await proposals.getByTestId("story-proposals-continue").click();
+      await chooseOffers(proposals, "no"); await proposals.getByTestId("story-proposals-continue").click();
       await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 });
       continue;
     }
@@ -334,7 +399,7 @@ async function smallClaimsGuided(page: Page, story: Story): Promise<number> {
     const answer = /add the year/i.test(text) ? "October 6, 2026"
       : asksForDate(text) ? "October 6"
       : /bringing this claim|responding to a claim/i.test(text) ? (story.side === "defendant" ? "Responding to a claim (defendant)" : "Bringing the claim (plaintiff)")
-      : /kind of dispute/i.test(text) ? "A contract or agreement dispute"
+      : /kind of dispute/i.test(text) ? (story.dispute ?? "A contract or agreement dispute")
       : /filed|served/i.test(text) ? "No"
       : "I don't know";
     const before = await page.locator("[data-testid=guided-message]").count();
@@ -349,10 +414,15 @@ async function smallClaimsGuided(page: Page, story: Story): Promise<number> {
   }
   note(story.id, "questions (Small Claims)", "a claim of their own, unticked, is not offered again", counterclaimOffers <= 1, `offered ${counterclaimOffers} times`);
   checkText(story.id, "questions", await page.locator("[data-testid=guided-message]").allInnerTexts().then((all) => all.join("\n")));
+  await checkUnsureShown(story.id, "questions", page);
   if ((await page.getByTestId("intake-review").getAttribute("data-phase")) !== "reviewing") {
     await page.getByTestId("intake-start-review").click().catch(() => {});
   }
-  await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing");
+  // 10 s, not the default 5 (site owner's rule, 7 Nov 2026): at this pack's simulated live speed (each database call
+  // 1.5 s slower) the press makes about three round trips before the review opens, measured at 4.9-5.0 s on both
+  // 89012784 (part 5 passed in CI) and a8c8cf57 (failed), 5 runs each, so the default 5 s fails by chance. No commit
+  // added a round trip; the save path is unchanged.
+  await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing", { timeout: 10_000 });
   return counterclaimOffers;
 }
 
@@ -361,7 +431,7 @@ async function smallClaimsForm(page: Page, story: Story): Promise<string | null>
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(story.story);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(story.story);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
@@ -401,8 +471,8 @@ async function notSurePath(page: Page, story: Story) {
 async function confirmAndContinue(page: Page) {
   const panel = page.getByTestId("intake-review");
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
-  while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickEachUnknown(unknowns);
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
   await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
@@ -466,6 +536,34 @@ function checkClaimKind(run: string, where: string, text: string, story: Story) 
   }
 }
 
+/**
+ * Claim type, one value (site owner, 29 Oct): when the page shows a kind of claim the case file holds
+ * (the overview's line, data-claim-kind-held="yes"), every other place on the page that shows or asks
+ * it -- the Form 7A section, "Check my case file", "What we have so far", the overview's own chooser --
+ * shows the same words and none asks it. Read from the page itself, after the real save path.
+ * Checked without a browser by scripts/verification/verifyClaimKindOneValue.ts.
+ */
+async function checkOneClaimKind(run: string, where: string, page: Page, story: Story, route: Route) {
+  const kind = page.locator('[data-testid="claim-kind"][data-claim-kind-held="yes"]').first();
+  const held = (await kind.count()) > 0;
+  const words = held ? (await kind.innerText()).split("\n")[0].trim() : "";
+  // The person's own answer to "What kind of dispute is this?" on the guided route is the kind shown.
+  if (story.court === "small-claims" && story.dispute && route === "questions" && where === "results") {
+    note(run, where, "the kind of dispute the person gave is the kind shown", held && words === story.dispute, words || "(no kind held)");
+  }
+  if (!held) return;
+  note(run, where, "a kind of claim held is not asked again on this page", (await page.getByTestId("claim-kind-chooser").count()) === 0);
+  const form7A = page.getByTestId("statement-of-claim-surface");
+  if (await form7A.count()) {
+    const shown = await form7A.innerText();
+    note(run, where, "the Form 7A section shows the same kind of claim", shown.includes(words) && !/has not been confirmed/i.test(shown), shown.slice(0, 240));
+  }
+  const body = await page.locator("body").innerText();
+  note(run, where, "\"Check my case file\" never says the kind of claim is not confirmed beside it", !/haven't confirmed what kind of claim/i.test(body));
+  const line = page.locator('[data-testid="case-file-line"][data-fact="claimKind"]');
+  if (await line.count()) note(run, where, "\"What we have so far\" shows the same kind of claim", (await line.first().innerText()).includes(words), await line.first().innerText());
+}
+
 for (const story of STORIES) {
   for (const route of story.routes ?? (["questions", "review"] as Route[])) {
     test(`${story.id} (${route})`, async ({ page }) => {
@@ -505,14 +603,15 @@ for (const story of STORIES) {
         await guidedQuestions(page, story, route === "review");
         if (route === "review") await answerInReview(page, story);
       }
-      checkText(run, "review", await page.getByTestId("intake-review").innerText()); await checkToggles(run, "review", page);
+      checkText(run, "review", await page.getByTestId("intake-review").innerText()); await checkToggles(run, "review", page); await checkUnsureShown(run, "review", page);
 
       // 3. Confirm, and the next step.
       await confirmAndContinue(page);
       await page.waitForTimeout(1_500);
       const results = await page.locator("body").innerText();
-      checkText(run, "results", results); await checkToggles(run, "results", page);
+      checkText(run, "results", results); await checkToggles(run, "results", page); await checkUnsureShown(run, "results", page);
       checkClaimKind(run, "results", results, story);
+      await checkOneClaimKind(run, "results", page, story, route);
       if (settles(story)) {
         note(run, "results", "a stage the answers settle is not asked again", !results.includes("Which of these fits your case best?"));
       }
@@ -526,12 +625,12 @@ for (const story of STORIES) {
       if (await ask.isVisible().catch(() => false)) {
         await ask.click();
         const gather = await lastReply(page, "What should I gather first?");
-        checkText(run, "chat", gather);
+        checkText(run, "chat", gather); await checkUnsureShown(run, "chat", page);
         const quotes = [...gather.matchAll(/“([^”]+)”/g)].map((match) => match[1]);
         // Only when the story names some evidence: then there are the person's own words to quote.
         if (EVIDENCE.test(story.story)) note(run, "chat", "the evidence reply quotes the person's own words", quotes.some((quote) => story.story.includes(quote)), gather.slice(0, 200));
         const asked = await lastReply(page, "How long do I have to respond?");
-        checkText(run, "chat", asked); await checkToggles(run, "chat", page);
+        checkText(run, "chat", asked); await checkToggles(run, "chat", page); await checkUnsureShown(run, "chat", page);
         note(run, "chat", "no line ends on its lead-in with nothing after it", !/To keep your case record complete:\s*$/m.test(gather + "\n" + asked), asked.slice(-160));
         if (/served/i.test(story.story) && /October \d/.test(story.story)) {
           note(run, "chat", "does not ask for the main dates once a served date is recorded", !/main dates/i.test(gather + asked), (gather + asked).slice(Math.max(0, (gather + asked).search(/main dates/i) - 200), (gather + asked).search(/main dates/i) + 80));
@@ -546,10 +645,11 @@ for (const story of STORIES) {
         await page.waitForLoadState("networkidle").catch(() => {});
         await page.waitForTimeout(4_000);
         const casePage = await page.locator("body").innerText();
-        checkText(run, "case page", casePage); await checkToggles(run, "case page", page);
+        checkText(run, "case page", casePage); await checkToggles(run, "case page", page); await checkUnsureShown(run, "case page", page);
         // The header's own side line, for either side (only the responding side had one).
         note(run, "case page", "names the person's side", SIDE_LINE[story.side].test(casePage));
         checkClaimKind(run, "case page", casePage, story);
+        await checkOneClaimKind(run, "case page", page, story, route);
         if (settles(story)) note(run, "case page", "a stage the answers settle is not asked again", !casePage.includes("Which of these fits your case best?"));
       } else note(run, "case page", "the case was saved", false);
 
@@ -693,8 +793,8 @@ for (const [id, court] of [["civil-deposit", "civil"], ["family-spousal", "famil
       await answerAgain(page, story);
       note(run, "review", "every answer given again: nothing is left from the earlier story", (await page.getByTestId("intake-answer-stale").count()) === 0 && (await panel.getByTestId("intake-hidden-keep").count()) === 0);
       const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
-      while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-      await page.getByTestId("intake-review-acknowledgement").check();
+      await tickEachUnknown(unknowns);
+      await tickIfAsked(page);
       const needs = await page.getByTestId("intake-confirm-needs").innerText().catch(() => "");
       note(run, "review", "confirm is not blocked by answers already given again", !/earlier version/.test(needs) && (await page.getByTestId("intake-confirm").isEnabled()), needs);
     });
@@ -738,7 +838,7 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       await page.goto("/?path=small-claims");
       await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
       await page.getByLabel("City or municipality").fill("Sudbury");
-      await page.getByLabel("Tell us what happened in your own words").fill(story.story);
+      await page.getByLabel(STORY_LABEL, { exact: true }).fill(story.story);
       await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
       await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
       const acknowledgement = page.getByTestId("acknowledgement-checkbox");
@@ -796,8 +896,8 @@ for (const court of ["civil", "family", "small-claims"] as const) {
     }
     const panel = page.getByTestId("intake-review");
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
-    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickEachUnknown(unknowns);
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
     // The notice is owed again, as after signing in on this device.
@@ -846,8 +946,8 @@ for (const court of ["civil", "family", "small-claims"] as const) {
     }
     const panel = page.getByTestId("intake-review");
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
-    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickEachUnknown(unknowns);
+    await tickIfAsked(page);
     await page.getByTestId("intake-confirm").click();
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
     // The notice is owed again, as after signing in on this device.
@@ -900,8 +1000,8 @@ test("retest-477 case 11: a confirmed case with no next step yet opens it from t
   await answerInReview(page, story);
   const panel = page.getByTestId("intake-review");
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
-  while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
-  await page.getByTestId("intake-review-acknowledgement").check();
+  await tickEachUnknown(unknowns);
+  await tickIfAsked(page);
   await page.getByTestId("intake-confirm").click();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
   await page.waitForLoadState("networkidle").catch(() => {});
@@ -911,7 +1011,7 @@ test("retest-477 case 11: a confirmed case with no next step yet opens it from t
   await expect(page.getByText("Review your initial information before receiving case guidance")).toHaveCount(0);
   await page.getByTestId("case-show-next-step").click();
   await expect(page.getByTestId("intake-review"), "the confirmation stands").toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
-  await page.getByTestId("intake-continue-guidance").click();
+  // The case page's one click starts the next step, with no second click here (item 1, 6 Nov: case-page-next-step.spec.ts).
   await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 90_000 });
 });
 
@@ -943,6 +1043,14 @@ for (const [label, damage] of [
   });
 }
 
+/**
+ * An offer's Yes is named with what it offers ("Yes: $70,000"; UseSuggestion.tsx, 14 Nov 2026: the button itself reads
+ * "Yes", the offer shown beside it). The same value, read from the name the button carries.
+ */
+function offerName(words: string | RegExp): RegExp {
+  return words instanceof RegExp ? new RegExp(`^Yes: .*(?:${words.source})`, words.flags) : new RegExp(`^Yes: .*${words.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`);
+}
+
 // Case 19: Marcus started as the one suing ($1,650), then changed his answer: Circuit Doctors'
 // owner served him with a claim on October 20. "Amount claimed: $1,650 (your answer already
 // given; it is not asked again)" stayed on the claim against him. The old side's facts are
@@ -956,7 +1064,7 @@ test("retest-477 case 19: after changing side, the old side's amount is not carr
   await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
   await smallClaims(page, story, true);
   const amount = page.locator('[data-question="sc-amount-claimed"]');
-  if (!(await amount.getByRole("button", { name: /from your story/ }).count())) {
+  if (!(await amount.getByRole("button", { name: /^Yes: / }).count())) {
     // No amount offered: the person types the total they want back.
     await amount.getByRole("textbox").fill("$1,650");
     await amount.getByRole("textbox").press("Enter");
@@ -998,8 +1106,8 @@ test("retest-477 repeat: the story reading is told that nothing is filed yet and
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Ottawa");
-  await page.getByLabel("Tell us what happened in your own words").fill(story.story);
-  await page.getByLabel("Tell us what happened in your own words").blur();
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(story.story);
+  await page.getByLabel(STORY_LABEL, { exact: true }).blur();
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   expect(sent.length, "the story was sent to be read").toBeGreaterThan(0);
@@ -1026,7 +1134,7 @@ for (const id of ["m14-served-divorce", "m16-conference-safety"]) {
       const box = panel.locator(`[data-testid=intake-initial-question][data-question="${question}"]`);
       if (!(await box.count())) continue; // answered already, from the story, in the questions
       const offer = box.getByTestId("intake-field-from-story");
-      await expect(offer, `${question}: offered from the story`).toContainText(words);
+      await expect(offer, `${question}: offered from the story`).toHaveAttribute("aria-label", offerName(words));
       await offer.click();
       await expect(box).toHaveAttribute("data-answered", "true");
     }
@@ -1072,8 +1180,15 @@ test("retest-477 repeat: the amount the story wants is offered for one click -- 
   await autoAnswerSituation(page, STARTING_NOTHING_FILED);
   const account = await fakeAccount(page);
   await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
-  await smallClaims(page, story, true);
-  await expect(page.locator('[data-question="sc-amount-claimed"]').getByRole("button", { name: "Use “$1,650” (from your story)" })).toBeVisible();
+  // The review helper reads the offer and uses it with one click (answerSmallClaimsReview). Once used it is the
+  // person's answer, and a used suggestion is not offered again (founder's Chrome check of #536, 1 Nov, item 8),
+  // so the offer is checked as read before the click, then the answer it gave.
+  const offered = await smallClaims(page, story, true);
+  expect(offered, "the story's amount was offered for one click").toBe("$1,650");
+  const amount = page.locator('[data-question="sc-amount-claimed"]');
+  await expect(amount, "one click answered it").toHaveAttribute("data-answered", "true");
+  await expect(amount.getByTestId("intake-question-answered"), "the answer is the amount offered").toContainText("$1,650");
+  await expect(amount.getByRole("button", { name: /^Yes: / }), "a used suggestion is not offered again").toHaveCount(0);
 });
 test("retest-477 repeat: the amount the story claims is offered for one click -- civil", async ({ page }) => {
   test.setTimeout(240_000);
@@ -1086,7 +1201,7 @@ test("retest-477 repeat: the amount the story claims is offered for one click --
   await guidedQuestions(page, story, true);
   await answerInReview(page, story);
   const box = page.getByTestId("intake-review").locator('[data-testid=intake-initial-question][data-question="amountClaimed"]');
-  if (await box.count()) await expect(box.getByTestId("intake-field-from-story")).toContainText("$70,000");
+  if (await box.count()) await expect(box.getByTestId("intake-field-from-story")).toHaveAttribute("aria-label", offerName("$70,000"));
   else expect(await page.getByTestId("intake-review").innerText(), "the amount is held from the story").toContain("70,000");
 });
 
@@ -1135,7 +1250,10 @@ test("conference audit case 16 as a respondent: asked what happened since servic
   await page.goto(`/cases/${row.id}`);
   const file = page.getByTestId("case-file");
   await expect(file).toBeVisible({ timeout: 60_000 });
-  await expect(file.locator('[data-testid=case-file-line][data-fact="conferenceDate"]'), "What we have so far: the case conference and its day").toContainText(/Case conference[\s\S]*November 16, 2026/);
+  // The review answered the court date "not sure": "not sure" is a state, never refilled from the story (contract rule 4;
+  // site owner, 9 Nov 2026), so the conference line says so. Before 9 Nov this expected the story's November 16, 2026, which
+  // only a date kept from the story overriding "not sure" could show (Chrome check of production c38e69fd, B2).
+  await expect(file.locator('[data-testid=case-file-line][data-fact="conferenceDate"]'), "What we have so far: the conference date the review said is not known yet").toContainText("Not answered yet: add it when you know");
   // The conference's day is not shown a second time as a court date (the harness may answer the court date question with another day).
   await expect(file.locator('[data-testid=case-file-line][data-fact="courtDate"]').filter({ hasText: /November 16, 2026/ }), "the conference day is not also a court date").toHaveCount(0);
 
@@ -1145,10 +1263,12 @@ test("conference audit case 16 as a respondent: asked what happened since servic
   await expect(page.getByText("Your step", { exact: true }).locator(".."), "the timeline: the step").toContainText("Case conference scheduled", { timeout: 60_000 });
 });
 
-// Item 7: the safety help box is open on the results page, in every area, for any story (it was
-// folded unless the story used words of danger; the danger notice itself still shows only then).
+// Item 7, as the site owner reset it on 2026-10-29: no safety box is open, or shown, on a Small
+// Claims or civil case whose story names no danger; every page carries the footer line "If you
+// feel you are in immediate danger, call 911" with its link to the support lines. Family keeps
+// its own safety questions; its who-to-contact box is there, closed unless the story names present danger (owner, 30 Oct).
 for (const [court, id] of [["small-claims", "sc-loan-friend"], ["civil", "civil-deposit"], ["family", "family-spousal"]] as const) {
-  test(`retest-477 item 7: the safety help box is open on the results page -- ${court}`, async ({ page }) => {
+  test(`retest-477 item 7: no safety box on a case with no danger; the 911 footer line on every screen -- ${court}`, async ({ page }) => {
     test.setTimeout(240_000);
     const story = byId(id);
     await grantSiteAccess(page);
@@ -1157,10 +1277,14 @@ for (const [court, id] of [["small-claims", "sc-loan-friend"], ["civil", "civil-
     await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
     if (court === "small-claims") await smallClaims(page, story, true);
     else { await openBuilder(page, court, { story: story.story }); await guidedQuestions(page, story, true); await answerInReview(page, story); }
-    await expect(page.getByTestId("intake-safety-resources"), "folded while answering").not.toHaveAttribute("open", "");
+    await expect(page.getByTestId("safety-footer-line"), "the footer line while answering").toContainText("If you feel you are in immediate danger, call 911");
+    await expect(page.getByTestId("safety-notice"), "no safety box while answering").toHaveCount(0);
     await confirmAndContinue(page);
-    await expect(page.getByTestId("intake-safety-resources"), "open on the results page").toHaveAttribute("open", "");
-    if (court === "family") await expect(page.getByTestId("family-safety-resources"), "Family's who-to-contact box is open too").toHaveAttribute("open", "");
+    if (court !== "family") await expect(page.locator("details[open]").filter({ hasText: /911|Helpline|Victim Support/ }), "no safety box open on the results page").toHaveCount(0);
+    await expect(page.getByTestId("safety-notice"), "no safety notice on the results page").toHaveCount(0);
+    await expect(page.getByTestId("safety-footer-line").getByRole("link", { name: "Other support lines" }), "the footer links to the support lines").toHaveAttribute("href", "/support");
+    // Owner, 30 Oct: closed on a Family case with no danger; it opens only when the story says the person is in danger now.
+    if (court === "family") await expect(page.getByTestId("family-safety-resources"), "Family's who-to-contact box is there, closed").not.toHaveAttribute("open", /.*/);
   });
 }
 
@@ -1237,19 +1361,23 @@ test("retest Charter: the review fits the claim, the story answers in one click,
   expect(review, "a plaintiff is not asked when and how they were served").not.toContain("When and how you were served");
   for (const label of ["Human rights grounds", "Discrimination facts", "Accommodation requests", "Institutional facts", "Privacy records facts", "Government actor"]) expect(review, `no raw label "${label}"`).not.toContain(label);
   expect(rawKeysIn(review), "no raw code in the review").toEqual([]);
-  // The kind of claim, suggested from the story's own words, ticked for the person to confirm.
+  // The kind of claim, suggested from the story's own words, offered for the person to confirm in one click.
+  // Never shown ticked before they tick it (owner's Chrome check, 31 Oct: a pre-ticked suggestion read as an
+  // answer, so the first click unticked it).
   const issues = panel.locator('[data-testid=intake-initial-question][data-question="issues"]');
   if (await issues.count()) {
-    await expect(issues.locator('input[data-testid=intake-field-pick][value="charter"]')).toBeChecked();
-    await expect(issues.locator('input[data-testid=intake-field-pick][value="police-conduct"]')).toBeChecked();
+    await expect(issues.locator('input[data-testid=intake-field-pick][value="charter"]')).not.toBeChecked();
+    await expect(issues.getByTestId("intake-field-use-suggestion")).toHaveAttribute("aria-label", offerName("Charter"));
+    await expect(issues.getByTestId("intake-field-use-suggestion")).toHaveAttribute("aria-label", offerName("Police"));
     await expect(issues.getByTestId("intake-field-pick-quote")).toContainText("Charter");
-    await issues.getByTestId("intake-field-save").click();
+    await issues.getByTestId("intake-field-use-suggestion").click();
+    await expect(issues).toHaveAttribute("data-answered", "true");
   }
   // The amount and what they want, one click each from the story.
   for (const [question, words] of [["amountClaimed", "$75,000"], ["legalRemedy", "violating my Charter rights"]] as const) {
     const box = panel.locator(`[data-testid=intake-initial-question][data-question="${question}"]`);
     if (!(await box.count())) continue;
-    await expect(box.getByTestId("intake-field-from-story"), `${question}: offered from the story`).toContainText(words);
+    await expect(box.getByTestId("intake-field-from-story"), `${question}: offered from the story`).toHaveAttribute("aria-label", offerName(words));
     await box.getByTestId("intake-field-from-story").click();
     await expect(box).toHaveAttribute("data-answered", "true");
   }
@@ -1308,8 +1436,8 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
     await page.route(`**/api/${court}/analyze`, async (route) => { await new Promise((done) => setTimeout(done, 20_000)); await route.fallback(); });
     const panel = page.getByTestId("intake-review");
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
-    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickEachUnknown(unknowns, { timeout: 20_000 });
+    await tickIfAsked(page);
     const confirm = page.getByTestId("intake-confirm");
     await confirm.scrollIntoViewIfNeeded();
     const box = await confirm.boundingBox();
@@ -1348,9 +1476,9 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
     await expect(panel).toBeVisible({ timeout: 120_000 });
     // Anything the review still needs is answered "I don't know yet" (Chrome had nothing left).
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
-    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
+    await tickEachUnknown(unknowns, { timeout: 20_000 });
     await page.waitForTimeout(6_000);
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     const confirm = page.getByTestId("intake-confirm");
     await confirm.scrollIntoViewIfNeeded();
     const box = await confirm.boundingBox();
@@ -1378,12 +1506,10 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["family", "family-sp
     await autoAnswerSituation(page, situationForStory(story));
     const account = await fakeAccount(page);
     await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
-    const QUESTIONS = ["Who exactly do you want to name in the claim?", "What records do you have?"];
-    let round = 0;
+    // The site's own home questions, by id (factQuestions.ts): a model-written question never reaches the card (19 Nov 2026).
+    const QUESTIONS = homeQuestionsFor(court, "starting").map((item) => ({ id: item.id, question: item.question, why: "Synthetic." }));
     await page.route("**/api/case/understand", async (route) => {
-      const question = QUESTIONS[Math.min(round, QUESTIONS.length - 1)];
-      round += 1;
-      await route.fulfill({ json: { ok: true, understanding: { summary: "Synthetic summary of your story.", facts: [], matters: [], mainCourt: court, side: "starting", stage: "Deciding whether to start a case", step: null, questions: [{ question, why: "Synthetic." }], asksForPrediction: false, regime: null }, answer: { status: "answered", statements: [], notConfirmed: [], declinedToJudge: false } } });
+      await route.fulfill({ json: { ok: true, understanding: { summary: "Synthetic summary of your story.", facts: [], matters: [], mainCourt: court, side: "starting", stage: "Deciding whether to start a case", step: null, questions: QUESTIONS, asksForPrediction: false, regime: null }, answer: { status: "answered", statements: [], notConfirmed: [], declinedToJudge: false } } });
     });
     for (const host of ["**/auth/v1/**", "**/rest/v1/**"]) await page.route(host, async (route) => { await new Promise((done) => setTimeout(done, 1_500)); await route.fallback(); });
     for (const api of [`**/api/${court}/analyze`, "**/api/intake/sourced-questions", "**/api/intake/guided-turn"]) await page.route(api, async (route) => { await new Promise((done) => setTimeout(done, 20_000)); await route.fallback(); });
@@ -1391,14 +1517,22 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["family", "family-sp
     page.on("console", (message) => { if (/Confirm refused/.test(message.text())) warnings.push(message.text()); });
     await page.goto(`/?path=${court}`, { waitUntil: "domcontentloaded" });
     await page.getByLabel("City or municipality").fill("Ottawa");
-    await page.getByLabel("Tell us what happened in your own words").fill(story.story);
+    await page.getByLabel(STORY_LABEL, { exact: true }).fill(story.story);
     await page.getByRole("button", { name: `Continue to ${PATH_WORDS[court]} intake` }).click();
     const card = page.getByTestId("case-understanding");
     await expect(card).toBeVisible({ timeout: 120_000 });
-    for (const [question, answer] of [[QUESTIONS[0], "Synthetic Organization Ltd. I don't know the names."], [QUESTIONS[1], "The receipt just says investigation."]]) {
-      await page.getByLabel(question).fill(answer);
+    // Rounds of "Update with my answers": each round answers the first question the card still asks (one the story
+    // does not state), in words of its own type, until none is left.
+    const answerOf = (id: string) => /amount/i.test(id) ? "$1,000" : /when/i.test(id) ? "March 2026" : /urgent/i.test(id) ? "No" : "The receipt just says investigation.";
+    const shown = card.locator("[data-fact-question]");
+    await expect(shown.first(), "the card asks at least one question, so there is a round to update").toBeVisible({ timeout: 60_000 });
+    for (let rounds = 0; rounds < QUESTIONS.length && await shown.count(); rounds++) {
+      const id = (await shown.first().getAttribute("data-fact-question"))!;
+      await card.getByTestId(`case-understanding-answer-${id}`).fill(answerOf(id));
       await page.getByTestId("case-understanding-update").click();
-      await expect(page.getByTestId("case-understanding-update")).not.toHaveText(/Updating/, { timeout: 120_000 });
+      // The update finishes: nothing is left saying "Updating…" (after the last round the button goes with the questions).
+      await expect(page.getByTestId("case-understanding-update").filter({ hasText: /Updating/ })).toHaveCount(0, { timeout: 120_000 });
+      await expect(card.getByTestId(`case-understanding-answer-${id}`), "an answered question is not asked again").toHaveCount(0);
     }
     await page.getByTestId("case-understanding-continue-suggested").click();
     await page.waitForURL(/\/builder\?/, { timeout: 120_000 });
@@ -1413,9 +1547,9 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["family", "family-sp
     const panel = page.getByTestId("intake-review");
     await expect(panel).toBeVisible({ timeout: 120_000 });
     const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
-    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
+    await tickEachUnknown(unknowns, { timeout: 20_000 });
     await page.waitForTimeout(6_000);
-    await page.getByTestId("intake-review-acknowledgement").check();
+    await tickIfAsked(page);
     const confirm = page.getByTestId("intake-confirm");
     await confirm.scrollIntoViewIfNeeded();
     const box = await confirm.boundingBox();
@@ -1472,7 +1606,7 @@ for (const [court, id] of [["civil", "civil-deposit"], ["family", "family-spousa
 // saves when the box is left), and the next press is Confirm. That press both saves the answer and
 // confirms: it must confirm what is now on screen, at once, in every area.
 for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-deck-owed"], ["civil", "civil-deposit"], ["family", "family-spousal"]] as const) {
-  test(`retest-27oct root cause 3: an answer typed after the tick clears it and says so beside the button; one more tick confirms -- ${court} (${id})`, async ({ page }) => {
+  test(`retest-27oct root cause 3: an answer typed in the review is saved before one Continue press confirms it -- ${court} (${id})`, async ({ page }) => {
     test.setTimeout(480_000);
     const story = byId(id);
     await grantSiteAccess(page);
@@ -1486,30 +1620,44 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
       await answerInReview(page, story);
     }
     const panel = page.getByTestId("intake-review");
-    const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
-    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
-    await page.getByTestId("intake-review-acknowledgement").check();
+    // The question this test types into is chosen BEFORE the rest are marked "I do not know yet": a question ticked
+    // "I do not know yet" now shows the quiet line with no box (founder's rule of 31 Oct, "not sure is never asked
+    // again"; before it, the ticked question kept its box as its one more offer, which this test relied on).
+    const boxes = panel.locator('input[aria-label^="Answer: "]');
+    expect(await boxes.count(), "the review has a question still open to type in").toBeGreaterThan(0);
+    const openId = await boxes.first().evaluate((node) => node.closest("[data-testid=intake-initial-question]")?.getAttribute("data-question") ?? "");
+    const unknowns = panel.locator(`[data-testid=intake-initial-question]:not([data-question="${openId}"]) input[data-testid="intake-unknown"]:not(:checked)`);
+    await tickEachUnknown(unknowns, { timeout: 20_000 });
+    await tickIfAsked(page);
     // From here at the live site's speed.
     for (const host of ["**/auth/v1/**", "**/rest/v1/**"]) await page.route(host, async (route) => { await new Promise((done) => setTimeout(done, 1_500)); await route.fallback(); });
     // An answer typed to a question still open in the review, the box not left (it saves when left).
-    const boxes = panel.locator('input[aria-label^="Answer: "]');
-    expect(await boxes.count(), "the review has a question still open to type in").toBeGreaterThan(0);
-    const box = boxes.first();
+    const box = panel.locator(`[data-testid=intake-initial-question][data-question="${openId}"] input[aria-label^="Answer: "]`).first();
     const label = (await box.getAttribute("aria-label")) ?? "";
     const answer = /when|date|day/i.test(label) ? "March 2026" : /amount|money|much/i.test(label) ? "$6,000" : "Payment of what is owed";
     await box.fill(answer);
-    // Pressed straight from the box: the press leaves the box, which saves the typed answer.
+    // The saved case, read as the review reads it (site owner, 12 Nov: a change is not confirmed until Continue is
+    // pressed, on the page or in the saved case; one Continue press confirms it, the new value saved first).
+    const savedMaster = () => ([...account.rows.values()][0] as { master_result?: { intakeCheckpoint?: unknown; workflowStatus?: unknown } } | undefined)?.master_result ?? {};
+    const { reviewPhase } = await import("../../src/lib/case-system/intakeReview");
+    const savedPhase = () => { const master = savedMaster(); return master.intakeCheckpoint ? reviewPhase((master.workflowStatus ?? {}) as Record<string, unknown>, master.intakeCheckpoint as never) : "none"; };
+    const savedHolds = () => JSON.stringify(savedMaster().intakeCheckpoint ?? {}).includes(answer);
+    // Not confirmed after typing, before Continue: held five seconds, looked at every half second, not read once.
+    for (let look = 0; look < 10; look++) {
+      expect(await panel.getAttribute("data-phase"), "not confirmed after typing, before Continue").toBe("reviewing");
+      await page.waitForTimeout(500);
+    }
+    expect(savedPhase(), "the saved case is not confirmed after typing, before Continue").not.toBe("user-confirmed");
+    // Pressed straight from the box: the press leaves the box, which saves the typed answer, then confirms.
     await page.getByTestId("intake-confirm").click({ force: true });
-    // The press saved the typed answer (it saves when its box is left): the tick covered the answers
-    // as they were, so it is cleared, and the reason is said beside the button.
-    await expect(page.getByTestId("intake-review-acknowledgement")).not.toBeChecked({ timeout: 20_000 });
-    await expect(page.getByTestId("intake-tick-again"), "the reason, beside the button").toHaveText("You changed an answer. Please tick to confirm again.");
+    await expect.poll(savedHolds, { timeout: 30_000, message: "the typed answer is saved once Continue is pressed" }).toBe(true);
     await expect(panel, "the typed answer was kept").toContainText(answer);
-    await expect(panel).toHaveAttribute("data-phase", "reviewing");
-    await page.getByTestId("intake-review-acknowledgement").click();
-    await expect(page.getByTestId("intake-tick-again"), "gone once ticked again").toHaveCount(0);
-    await page.getByTestId("intake-confirm").click();
-    await expect(panel, "one more press confirms").toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+    await expect(panel, "one Continue press confirms").toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+    // In place of the tick's own message (site owner, 12 Nov): no tick, and nothing asking for one, can quietly return.
+    await expect(page.getByTestId("intake-review-acknowledgement"), "the review has no tick").toHaveCount(0);
+    expect(await panel.innerText(), "the review asks for no tick").not.toMatch(/\btick/i);
+    await expect.poll(savedPhase, { timeout: 30_000, message: "the saved case is confirmed by that one press" }).toBe("user-confirmed");
+    expect(savedHolds(), "what was confirmed holds the typed answer, not the old one").toBe(true);
     await expect(page.getByText(/Your initial facts changed|Initial information changed while saving/), "never bounced back").toHaveCount(0);
  });
 }
@@ -1539,13 +1687,15 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
     // The review's first answer from the story, where it offers one (not every story gives one).
     const keep = (await oneClick.count()) ? await oneClick.first().locator("xpath=ancestor::*[@data-testid='intake-initial-question'][1]").getAttribute("data-question") : null;
     const unknowns = panel.locator(`[data-testid=intake-initial-question]${keep ? `:not([data-question="${keep}"])` : ""} input[data-testid="intake-unknown"]:not(:checked)`);
-    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
+    await tickEachUnknown(unknowns, { timeout: 20_000 });
     // From here at the live site's speed, and each press at once, with the mouse.
     for (const host of ["**/auth/v1/**", "**/rest/v1/**"]) await page.route(host, async (route) => { await new Promise((done) => setTimeout(done, 1_500)); await route.fallback(); });
     // A real mouse press where the element is (Playwright's own click: it waits until nothing covers it, as a person would).
     const press = (target: ReturnType<typeof page.locator>) => target.click();
     if (keep) await press(panel.locator(`[data-testid=intake-initial-question][data-question="${keep}"]`).locator('[data-testid="intake-field-from-story"], [data-testid="intake-use-suggestion"]').first());
-    await press(page.getByTestId("intake-review-acknowledgement"));
+    // Since 12 Nov there is no tick, and Continue waits for a choice on each story offer ("three choices, no tick"):
+    // the shared helper chooses "No, that's not right" on each offer still undecided, and ticks where a tick is shown.
+    await tickIfAsked(page);
     // The late reading lands between the tick and the press, as it can for a person.
     await page.waitForTimeout(10_000);
     await press(page.getByTestId("intake-confirm"));
@@ -1574,9 +1724,9 @@ test("retest-27oct root cause 3 on staging: the Charter review, a one-click answ
     const oneClick = panel.locator('[data-testid="intake-field-from-story"], [data-testid="intake-use-suggestion"]');
     const keep = (await oneClick.count()) ? await oneClick.first().locator("xpath=ancestor::*[@data-testid='intake-initial-question'][1]").getAttribute("data-question") : null;
     const unknowns = panel.locator(`[data-testid=intake-initial-question]${keep ? `:not([data-question="${keep}"])` : ""} input[data-testid="intake-unknown"]:not(:checked)`);
-    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 30_000 }); }
+    await tickEachUnknown(unknowns, { timeout: 30_000 });
     if (keep) await panel.locator(`[data-testid=intake-initial-question][data-question="${keep}"]`).locator('[data-testid="intake-field-from-story"], [data-testid="intake-use-suggestion"]').first().click();
-    await page.getByTestId("intake-review-acknowledgement").click();
+    if (await page.getByTestId("intake-review-acknowledgement").count()) await page.getByTestId("intake-review-acknowledgement").click();
     await page.getByTestId("intake-confirm").click();
     const bounced = page.getByText(/Your initial facts changed|Initial information changed while saving/);
     await expect(panel.or(bounced).first()).toBeVisible();
@@ -1824,7 +1974,7 @@ for (const [court, id, question, pick, value] of [
 }
 
 // Owner, 28 Oct: a card that does slow work says so, and a second press does nothing. The story's
-// next turn is held 6 s, as at the live site's speed: after "Looks right, continue" the card says it
+// next turn is held 6 s, as at the live site's speed: after "Continue" the card says it
 // is working within a second, the button says so too, a second press sends no second request, and
 // the card moves on once the turn is back.
 test("28oct working states: the story-suggestions card says it is working, and a second press sends nothing -- small-claims (m02-landscaper)", async ({ page }) => {
@@ -1837,7 +1987,7 @@ test("28oct working states: the story-suggestions card says it is working, and a
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(story.story);
+  await page.getByLabel(STORY_LABEL, { exact: true }).fill(story.story);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
@@ -1856,6 +2006,7 @@ test("28oct working states: the story-suggestions card says it is working, and a
   });
   // Found by its place (the card's last button), so on a build without the fix the test fails on what it checks.
   const button = proposals.getByRole("button").last();
+  await chooseOffers(proposals, "no");
   await button.click();
   await expect(proposals.getByTestId("working-note"), "the card says it is working").toBeVisible({ timeout: 1_000 });
   await expect(proposals.getByTestId("working-note")).toContainText(/[A-Za-z]{4,}.*…/);
@@ -1866,4 +2017,48 @@ test("28oct working states: the story-suggestions card says it is working, and a
     await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 60_000 });
   });
   expect(turns, "a second press sent no second request").toBe(1);
+});
+
+// Chrome's forms test on #550 (14 Nov 2026): the site never asked the person's name, address, phone or email or the
+// defendant's address, details typed in the story became numbered facts, and a second defendant was merged into the first
+// ("Circle K Convenience Stores Ltd. (Test Manager)"). The Parties step offers each detail the story gives, once, with the
+// three choices; answered, both defendants are their own entries; after a reload nothing is offered or asked again.
+test("forms test of #550: the Parties step offers each story detail once; the two defendants stay separate -- small-claims", async ({ page }) => {
+  test.setTimeout(300_000);
+  const story = FORMS_STORIES.find((item) => item.id === "f1-chrome-forms")!;
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
+  await smallClaims(page, story, true);
+  const step = page.getByTestId("parties-step").first();
+  await expect(step, "the Parties step is in the review").toBeVisible({ timeout: 60_000 });
+  const offered: string[] = [];
+  for (let round = 0; round < 60; round += 1) {
+    for (const what of await step.locator("[data-testid=parties-offer-yes-what], [data-testid=parties-name-split-yes-what]").allInnerTexts()) if (!offered.includes(what)) offered.push(what);
+    const yes = step.locator("[data-testid=parties-offer-yes], [data-testid=parties-name-split-yes]").first();
+    const person = step.locator("[data-testid=parties-kind-person]").first();
+    if (await yes.isVisible().catch(() => false)) await yes.click();
+    else if (await person.isVisible().catch(() => false)) await person.click();
+    else break;
+    await page.waitForTimeout(300);
+  }
+  for (const detail of ["Name: Test Plaintiff", "Street address (number, street, apartment or unit): 12 Example Street", "Phone number: 613-555-0100", "Email address: test.plaintiff@example.com", "Company's full legal name: Circle K Convenience Stores Ltd."]) {
+    expect.soft(offered, `offered from the story: ${detail}`).toContain(detail);
+  }
+  const headings = await step.locator("[data-testid=parties-party] h3").allInnerTexts();
+  expect(headings.some((text) => /Circle K Convenience Stores Ltd\./.test(text) && !/Test Manager/.test(text)), `Circle K is its own party: ${headings.join(" | ")}`).toBe(true);
+  expect(headings.some((text) => /Test Manager/.test(text) && !/Circle K/.test(text)), `Test Manager is its own party: ${headings.join(" | ")}`).toBe(true);
+  await expect(step.locator("[data-testid=parties-detail-ask]"), "every detail the story gives is held: nothing left to ask").toHaveCount(0);
+  // After a reload: nothing offered again, nothing asked again, every detail still held.
+  await page.reload();
+  await page.waitForLoadState("networkidle").catch(() => {});
+  const panel = page.getByTestId("intake-review");
+  if ((await panel.getAttribute("data-phase").catch(() => null)) === "collecting") await page.getByTestId("intake-start-review").filter({ visible: true }).first().click().catch(() => {});
+  const again = page.getByTestId("parties-step").first();
+  await expect(again).toBeVisible({ timeout: 60_000 });
+  await expect(again.locator("[data-testid=parties-offer-yes]"), "no detail offered again after a reload").toHaveCount(0);
+  await expect(again.locator("[data-testid=parties-detail-ask], [data-testid=parties-kind]"), "no detail asked again after a reload").toHaveCount(0);
+  await expect(again).toContainText("100 Sample Road");
+  await expect(again).toContainText("613-555-0100");
 });

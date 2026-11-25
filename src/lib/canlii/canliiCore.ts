@@ -117,7 +117,9 @@ export function caseRefFromCitation(citation: string): CaseRef | null {
   const text = citation.replace(/\s+/g, " ").trim();
   const canlii = /\b(\d{4}) CanLII (\d+) \(([A-Za-z][A-Za-z ]*[A-Za-z])\)/i.exec(text);
   if (canlii) {
-    return { databaseId: canlii[3].replace(/\s+/g, "").toLowerCase(), caseId: `${canlii[1]}canlii${canlii[2]}` };
+    const database = canlii[3].replace(/\s+/g, "").toLowerCase();
+    // "1994 CanLII 117 (SCC)": the Supreme Court's database is csc-scc, as for a neutral citation below.
+    return { databaseId: database === "scc" ? "csc-scc" : database, caseId: `${canlii[1]}canlii${canlii[2]}` };
   }
   const neutral = /\b((?:19|20)\d{2}) ([A-Z]{2,10}) (\d{1,6})\b/.exec(text);
   if (!neutral || neutral[2] === "CANLII") return null;

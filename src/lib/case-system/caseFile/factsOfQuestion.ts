@@ -12,10 +12,19 @@
  * still caught. Pure.
  */
 export type CaseFact =
-  | "situation" | "side" | "court" | "stage" | "filed" | "defenceFiled" | "claimServed" | "papers"
+  | "situation" | "side" | "court" | "stage" | "filed" | "defenceFiled" | "defendantsClaim" | "claimServed" | "papers"
   | "servedDate" | "serviceMethod" | "amount" | "otherParty" | "children" | "married" | "claimKind"
-  | "wants" | "whenHappened" | "evidence" | "story" | "urgent" | "courtFileNumber" | "courtDate"
-  | "conferenceDate" | "claimIssuedDate" | "defenceFiledDate" | "marriedWhere" | "outcome" | "filedDocuments";
+  | "wants" | "whenHappened" | "evidence" | "agreementTerms" | "story" | "urgent" | "courtFileNumber" | "courtDate"
+  | "conferenceDate" | "claimIssuedDate" | "defenceFiledDate" | "marriedWhere" | "outcome" | "filedDocuments" | "safety"
+  // Every question asked by id has a fact (site owner, 17 Nov 2026; test:every-question-has-fact). These are asked in one
+  // place each and are not case-file slots: the one function reads slots, so they are never decided by it yet.
+  // The Small Claims review's own boxes (one asker, 23 Nov 2026: every question names its fact; the question logs of #563).
+  // Each side's last name, a fact of its own (site owner, 23 Nov 2026): a one-word name gives the first name only.
+  | "yourLastName" | "otherPartyLastName"
+  | "courtLocation" | "paymentHistory" | "damagesBreakdown" | "deadlineDetails" | "settlementEfforts"
+  | "publication" | "twentyDaysPassed" | "notedInDefault" | "responseFacts" | "admission" | "completionDate" | "noticeToContractor"
+  | "timeline" | "livingSituation" | "livingHistory" | "property" | "adoption" | "missingEvidence" | "yourName"
+  | "divorceSought" | "cohabitation" | "municipality" | "otherPartyMunicipality";
 
 const FACTS: Record<string, readonly CaseFact[]> = {
   // The situation questions (situation.ts).
@@ -45,7 +54,16 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   urgent: ["urgent"],
   amountClaimed: ["amount"],
   courtFileNumber: ["courtFileNumber"],
-  defendantOutcomeText: ["outcome"],
+  // The person being sued says whether they want anything of their own in the same words as their outcome, so the two
+  // questions ask the same two facts (Chrome check of #550, 5b: offered again after "I only want to defend the claim"):
+  // their outcome in their words, and whether they claim money back, a yes/no fact a sentence never fills (decision 1,
+  // 18 Nov 2026; factTypes.ts). Either answered, neither question is asked again.
+  defendantOutcomeText: ["outcome", "defendantsClaim"],
+  "sc-defendant-outcome": ["outcome", "defendantsClaim"],
+  "sc-defendant-counterclaim": ["defendantsClaim", "outcome"],
+  counterclaimIntentText: ["defendantsClaim", "outcome"],
+  // Family's safety box, and the home page's safety question (5c).
+  safetyConcerns: ["safety"],
   remedySought: ["wants"],
   placeOfMarriage: ["marriedWhere"],
   "case-date-case-conference-date": ["conferenceDate"],
@@ -53,12 +71,17 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   "case-date-family-settlement-conference-date": ["conferenceDate"],
   "case-date-trial-management-conference-date": ["conferenceDate"],
   "case-date-pre-trial-conference-date": ["conferenceDate"],
+  // The first day of trial fills "the next court date" only when nothing else holds it (caseFile.ts STEP_DATE_NEVER_REPLACES).
   "case-date-trial-date": ["courtDate"],
   caseStage: ["stage"],
   // Small Claims guided questions and the review's.
   "sc-orient-role": ["side"],
   "sc-orient-dispute-category": ["claimKind"],
   "sc-orient-when-happened": ["whenHappened"],
+  // The injury's date is when it happened, for an injury claim: the deadline engine already treats them as one moment
+  // (casePosition.ts copies it to case-date-act-or-omission). Chrome milestone test of #550, row 9: asked again after the
+  // date was confirmed.
+  "sc-date-injury": ["whenHappened"],
   "sc-amount-claimed": ["amount"],
   "sc-claim-filed": ["filed"],
   "sc-defendant-served": ["claimServed"],
@@ -67,18 +90,28 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   "sc-defendant-defence-filed": ["defenceFiled"],
   "sc-defence-filed": ["defenceFiled"],
   "sc-evidence-available": ["evidence"],
+  // What was agreed, in the person's words: the Small Claims depth questions about the agreement (elementQuestionRegistry.ts),
+  // one fact with the AI's "What are the specific terms of the contract...?" (C9, 23 Nov 2026: that question was dropped
+  // for naming no fact; it now carries this one, so it is asked once and never again once held or stated in the story).
+  "depth-contractor-agreement": ["agreementTerms"],
+  "depth-services-agreement": ["agreementTerms"],
+  "depth-goods-contract-agreement": ["agreementTerms"],
+  "depth-goods-agreement": ["agreementTerms"],
+  "depth-commercial-terms": ["agreementTerms"],
+  "depth-debt-agreement": ["agreementTerms"],
+  "depth-loan-agreement": ["agreementTerms"],
   "sc-remedy-sought": ["wants"],
   // The step page's date questions (casePosition.ts) for the same moments.
+  // The day served ("Day you got the papers") is the day the person got the papers that started their case: never a later
+  // service (a defendant's claim, a crossclaim, a third party claim), each kept as its own step-page date only (question-
+  // to-fact audit, 11 Nov: a later service replaced the first, and pre-filled the defence deadline's question).
   "sc-date-claim-served": ["servedDate"],
-  "sc-date-defendants-claim-served": ["servedDate"],
   "case-date-served-with-application": ["servedDate"],
   "case-date-served-with-motion-to-change": ["servedDate"],
   "sc-date-settlement-conference": ["conferenceDate"],
-  "case-date-served-with-crossclaim": ["servedDate"],
-  "case-date-served-with-third-party-claim": ["servedDate"],
   "sc-date-claim-issued": ["claimIssuedDate"],
+  // A defence FILED with the court; a defence served on the other side is another moment (its own step-page date only).
   "sc-date-defence-filed": ["defenceFiledDate"],
-  "case-date-defence-served": ["defenceFiledDate"],
   "case-date-own-defence-delivered": ["defenceFiledDate"],
   "case-date-act-or-omission": ["whenHappened"],
   // The Family triage.
@@ -102,6 +135,45 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   serviceDetailsText: ["claimServed"],
   evidenceText: ["evidence"],
   disputeCategory: ["claimKind"],
+  // The follow-up chat's own questions, by the fact each asks for ENTIRELY (never ask twice, row 1,
+  // 29 Oct): the chat asks by fact, through the one gate, never by comparing its own wording. Which
+  // chat sentence asks by which id is CHAT_QUESTIONS below.
+  "chat:main-dates": ["whenHappened"],
+  "chat:anything-filed": ["filed"],
+  "chat:outcome": ["wants"],
+  "chat:other-party": ["otherParty"],
+  "chat:court-date": ["courtDate"],
+  "chat:amount": ["amount"],
+  "chat:served-date": ["servedDate"],
+  "chat:proof": ["evidence"],
+  // Questions asked in one place each, by id (test:every-question-has-fact; Chrome milestone pass 2).
+  "sc-defamation-publication-details": ["publication"],
+  "sc-defence-time-elapsed": ["twentyDaysPassed"],
+  "sc-defendant-noted-in-default": ["notedInDefault"],
+  "sc-defendant-response-facts": ["responseFacts"],
+  // The Small Claims review's boxes by their field (the question logs of #563: each was a fact of its own): the claim number
+  // is the court file number, the agreement details what was agreed, the defence response the facts in response.
+  claimNumber: ["courtFileNumber"],
+  agreementDetails: ["agreementTerms"],
+  defenceResponse: ["responseFacts"],
+  "sc-defendant-response-evidence": ["evidence"],
+  "sc-defendant-admission-payment": ["admission"],
+  "sc-contractor-completion-date": ["completionDate"],
+  "sc-contractor-notice-before-replacement": ["noticeToContractor"],
+  "sc-safety-check": ["safety"],
+  // The Family form's own boxes (the Small Claims form's "timeline" box asks when it happened: asker.ts FORM_FIELD_FACTS).
+  timeline: ["timeline"],
+  currentLivingSituation: ["livingSituation"],
+  pastLivingHistory: ["livingHistory"],
+  propertyHomeDetails: ["property"],
+  adoptionDetails: ["adoption"],
+  missingEvidence: ["missingEvidence"],
+  yourName: ["yourName"],
+  // The Family triage's own questions.
+  "divorce-sought": ["divorceSought"],
+  "cohabitation-dates": ["cohabitation"],
+  municipalities: ["municipality"],
+  "other-party-municipality": ["otherPartyMunicipality"],
 };
 
 /** The facts a question asks for: its listed facts, or a fact of its own (its id). */
@@ -113,16 +185,145 @@ const FACTS: Record<string, readonly CaseFact[]> = {
  * "what outcome are you seeking?" again). Null when the words name none of these.
  */
 const ASKS_FOR: [RegExp, CaseFact][] = [
-  [/\bwhat (?:outcome|result|remedy|remedies)\b|\boutcome (?:are|do) you (?:seeking|want)\b|\bwhat (?:do|would) you (?:want|like)(?: (?:to happen|the court to (?:order|do)))?\b|\bwhat are you (?:asking|seeking)\b|\bwhat (?:would you like|do you want) the court\b/i, "wants"],
-  [/\bhow much\b|\bwhat (?:is the )?amount\b/i, "amount"],
-  [/\bwhen were you served\b|\bwhat (?:date|day) were you served\b|\bhow were (?:the papers|you) served\b/i, "servedDate"],
+  // Each pattern names only what the person wants, claims, was served on, filed or sues: never a question that asks
+  // something else in similar words (question-to-fact audit, 11 Nov: "What would you like to know?", "What outcome did the
+  // tribunal reach?", "How much time has passed?", "How were you served?", "Have you filed a Defence?" and "Who is the
+  // defendant's insurer?" each wrote a fact they do not ask about). test:question-meanings.
+  [/\bwhat (?:outcome|result|remedy|remedies) (?:are|do|would) you\b|\boutcome (?:are|do) you (?:seeking|want)\b|\bwhat (?:do|would) you (?:want|like) (?:to happen|the court to (?:order|do))\b|\bwhat are you (?:asking|seeking)\b|\bwhat (?:would you like|do you want) the court\b/i, "wants"],
+  [/\bhow much (?:money )?(?:\w+\s+){0,4}?(?:owe[sd]?|owing|claim\w*|asking for|seeking|su(?:e|ing) for|in dispute)\b|\bwhat (?:is the )?amount (?:\w+\s+){0,3}?(?:claim\w*|owed|owing|in dispute|you are (?:asking|seeking))\b/i, "amount"],
+  [/\bwhen were you served\b|\bwhat (?:date|day) were you served\b/i, "servedDate"],
+  [/\b(?:have|has) (?:you|the defendant|they|he|she) (?:already )?filed (?:a |an |your |their |his |her )?defen[cs]e\b/i, "defenceFiled"],
+  // The same question in the home reading's other words (Chrome milestone pass 2, finding 4, S6: "Have you responded to the
+  // claim or received any further court papers since October 20?" and "Have you submitted a defence or received any
+  // further court papers since you were served?" after "Nothing else yet. I was just served").
+  [/\b(?:have|has) (?:you|the defendant|they|he|she) (?:already )?(?:submitted|served|sent|delivered|filed or served) (?:a |an |your |their |his |her )?defen[cs]e\b|\b(?:have|has) (?:you|the defendant) (?:already )?(?:responded|replied) to (?:the|this|their|that) (?:plaintiff'?s )?claim\b/i, "defenceFiled"],
+  [/\b(?:received|been served with|gotten|got) any (?:further|more|other|new) (?:court )?(?:papers|documents)\b|\banything (?:else )?(?:happened|changed) since you were served\b/i, "stage"],
   [/\b(?:have you|has anyone|has anything been) (?:already )?(?:started|filed)\b|\bstarted a court case\b/i, "filed"],
-  [/\bwho (?:is|are) the (?:other party|other side|defendants?|respondents?)\b|\bwho (?:exactly )?(?:are you|do you want to|will you|would you like to) su(?:e|ing)\b|\bwho (?:exactly )?(?:do|would) you (?:name|sue)\b/i, "otherParty"],
+  [/\bwho (?:is|are) the (?:other party|other side|defendants?|respondents?)\b(?!'s|s')|\bwho (?:exactly )?(?:are you|do you want to|will you|would you like to) su(?:e|ing)\b|\bwho (?:exactly )?(?:do|would) you (?:name|sue)\b/i, "otherParty"],
+  // The other side named by their part in the story, in the words the home page's questions use for it (Chrome check of
+  // #550, 5d: "Who is the other side?" was asked after the home page's question about who bought the goods).
+  [/\bwho (?:bought|purchased|hired|owes|is suing)\b|\bwho did you (?:sell|lend|rent|pay|hire|buy)\b[^?]*\b(?:to|from)?\b|\bwho (?:is|was|are|were) the (?:buyers?|sellers?|purchasers?|landlords?|tenants?|contractors?|lenders?|borrowers?|employers?|customers?|clients?)\b(?!'s|s')|\bname of the (?:company|business|buyers?|sellers?|store|landlord|contractor|employer|person|customer|client)\b|\b(?:full|legal|exact) (?:legal )?name of (?:the )?(?:business|company|store|other)\b|\bwhat (?:company|business|legal) name\b|\b(?:company|business|legal) name (?:appears|is shown|is written|is listed|is on|on the)\b/i, "otherParty"],
   [/\bwhen did (?:this|it|the [a-z]+) happen\b|\bwhat (?:date|day) did (?:this|it) happen\b/i, "whenHappened"],
+  // The AI's dates question ("What are the exact dates of the agreement, completion of work, and any communications...?"):
+  // when things happened, so it is never asked once the case file holds that (C9, 23 Nov 2026: every AI-written question
+  // carries a fact; the 20 recorded in the journey battery were all of this kind or the next).
+  [/\bwhat (?:are|were) the (?:exact |specific |key |main |important )?dates? (?:of|for|when)\b/i, "whenHappened"],
+  // The AI's filing question in its own words ("Has the claim been officially filed with the court?", the only fixture
+  // question still dropped for naming no fact; C9, 23 Nov 2026): whether anything is filed.
+  [/\bhas (?:the|your) (?:claim|case|application) (?:already |officially |actually )*been (?:already |officially |actually )*(?:filed|issued|started)\b/i, "filed"],
+  // Its costs question ("What are the exact costs incurred due to the contractor's incomplete work?"): the amount claimed.
+  [/\bwhat (?:are|were|is|was) the (?:exact |total |specific )?(?:costs?|losses|damages)\b(?! of (?:filing|the court|court))/i, "amount"],
+  // A worry about safety, asked on its own (Chrome check of #550, 5c: "Is anything urgent ... a safety worry" after
+  // "No safety concerns"). Only a question about the person's or the child's safety, never "what safety rules".
+  [/\b(?:any|immediate|current|ongoing) (?:immediate )?safety (?:concerns?|worr(?:y|ies)|issues?|risks?)\b|\b(?:are|do) you (?:feel )?(?:safe|unsafe)\b|\bworried about (?:your|the child'?s|your child'?s|your children'?s) safety\b/i, "safety"],
+  // The same worry in the real AI's other words (Chrome pass 2, S7a reading r2: "Are there any concerns about violence,
+  // your child's safety, or your child being taken away without agreement?", answered "No safety concerns", then the
+  // urgent question named a safety worry again).
+  [/\bconcerns? about [^?]{0,40}?\b(?:violence|safety|abuse)\b|\b(?:family|domestic|intimate partner) violence\b|\bat risk of (?:harm|being harmed)\b|\b(?:your|the) (?:child'?s|children'?s) safety\b/i, "safety"],
+  // A claim of the person's own against the one suing them: the person's outcome (5b: "A claim of your own against them"
+  // was offered after "I only want to defend the claim").
+  [/\bclaim of your own\b|\bcounter-?claim\b|\bdefendant'?s claim\b/i, "defendantsClaim"],
+  // Whether they were married to each other, in the words the home page's reading and the case page's "What to confirm
+  // next" use (Chrome milestone test of #550, rows 39 and 45: "Are you and your partner legally married?" on the home page,
+  // the triage's own question, and "Were you married, is a divorce proceeding underway..." after "No"). Never "married
+  // where" (marriedWhere) or "when did you marry".
+  // What was agreed (C9, 23 Nov 2026): "What are the specific terms of the contract with the contractor?", "What payment
+  // due date or payment terms did you agree on?", "What did you agree to?". Never an order or a parenting agreement in
+  // place ("Is there already a court order or agreement?"), the proof of one, or its dates (read above).
+  [/\bwhat (?:are|were) the (?:exact |specific |key |main |agreed |payment )?terms\b|\bterms of (?:the|your) (?:contract|agreement|deal|arrangement|loan|lease)\b|\bwhat (?:[\w-]+ ){0,5}?terms did you (?:agree|set)\b|\bwhat (?:exactly )?(?:was|were you|had you) (?:agreed|promised)\b|\bwhat did (?:you|you both|the two of you|you and [\w .'-]{1,40}?) agree\b/i, "agreementTerms"],
+  [/(?<!\b(?:where|when|how) )\b(?:are|were) you(?: and (?:your|the) [a-z ]+?)? (?:legally |ever )?married\b(?! (?:in|where|at)\b)/i, "married"],
 ];
 
-export function factOfAskedText(question: string): CaseFact | null {
-  return ASKS_FOR.find(([asks]) => asks.test(question))?.[1] ?? null;
+/** Read only for a person being sued: the same words asked of a person suing name another fact (or none). */
+const ASKS_FOR_RESPONDING: [RegExp, CaseFact][] = [
+  [/\b(?:do|does) you (?:believe|think) (?:that )?(?:the )?[\w' ]{1,40}? owes? you (?:any )?money\b/i, "defendantsClaim"],
+];
+
+/**
+ * A question that names the person themself as one of its answers ("you personally, a business you operate, or a
+ * corporation?") asks about their own side, never the other party (real reading S8 r2, 18 Nov 2026: "Who was the seller
+ * under the agreement" read as the other party, and the buyer's name was offered as the seller).
+ */
+const ABOUT_YOUR_OWN_SIDE = /\byou personally\b|\b(?:a|the) business you (?:operate|own|run)\b|\byourself\b/i;
+
+const IF_YOU_WANT_MONEY = /\bif you (?:also )?want (?:any )?(?:money|to be paid|compensation)\b/i;
+
+export function factOfAskedText(question: string, options: { responding?: boolean } = {}): CaseFact | null {
+  const fact = ASKS_FOR.find(([asks]) => asks.test(question))?.[1] ?? (options.responding ? ASKS_FOR_RESPONDING.find(([asks]) => asks.test(question))?.[1] : undefined) ?? null;
+  if (fact === "otherParty" && ABOUT_YOUR_OWN_SIDE.test(question)) return null;
+  // "If you want money from the contractor, how much are you seeking?" asks the amount of a claim of the person's own,
+  // not the claim's amount (real reading S6 r1, 18 Nov 2026: a defendant was asked it after the start gave $4,200).
+  if (fact === "amount" && IF_YOU_WANT_MONEY.test(question)) return null;
+  return fact;
+}
+
+/**
+ * EVERY CHAT QUESTION THAT ASKS A CASE-FILE FACT, BY ITS EXACT WORDS (row 1 review, 29 Oct). A
+ * question is given an id only for facts it asks about ENTIRELY. A compound question (the fact and
+ * something the case file does not hold: when they first found out, the order in place now, how an
+ * amount was worked out, what was done) names its `open` part, asked instead once the fact is held,
+ * so the rest is never lost. A sentence that asks about a fact only in part, and has no part the
+ * case file holds whole, is not listed: it is asked as before ("Is there already a court order or
+ * agreement?" -- an order or agreement in place is not "anything filed": a new case and a motion to
+ * change are different steps). Words not listed are read by the one word reader (factOfAskedText),
+ * and a dynamic sentence by CHAT_ASKS. Checked both ways by test:chat-asks-by-fact.
+ */
+export type ChatQuestion = { asks: string; open?: string };
+const CHAT_QUESTIONS: Record<string, ChatQuestion> = {
+  // conversationIntelligenceEngine.ts buildQuestions.
+  "What are the main dates, including when the problem happened and when you first found out about it?": { asks: "chat:main-dates", open: "When did you first find out about the problem, and are there other important dates?" },
+  "Has anything already been filed, served, ordered, scheduled, or decided by a court or tribunal?": { asks: "chat:anything-filed", open: "Has a court or tribunal already ordered, scheduled or decided anything?" },
+  "What are you trying to get or fix through the legal process?": { asks: "chat:outcome" },
+  // Its issue frameworks.
+  "What order or arrangement exists right now, and what are you trying to change?": { asks: "chat:outcome", open: "What order or arrangement exists right now?" },
+  "Is there already a court order, agreement, upcoming conference, motion, or court date?": { asks: "chat:court-date", open: "Is there already a court order or agreement?" },
+  "Which public actor is involved, and what exactly did they do or fail to do?": { asks: "chat:other-party", open: "What exactly did they do or fail to do?" },
+  "Has anything already been filed, ordered, appealed, reviewed, or decided by a court or tribunal?": { asks: "chat:anything-filed", open: "Has a court or tribunal already ordered, reviewed or decided anything, or has anything been appealed?" },
+  // The reasoning profiles' first questions (legalReasoningProfiles.ts).
+  "How much money are you claiming and how did you calculate it?": { asks: "chat:amount", open: "How did you work out the amount you are claiming?" },
+  "What are you asking the court to change?": { asks: "chat:outcome" },
+  "Which public actor is involved?": { asks: "chat:other-party" },
+  // The general question's parts (assistantBlocks.ts).
+  "What are the main dates?": { asks: "chat:main-dates", open: "Are there other important dates?" },
+  "What outcome are you seeking?": { asks: "chat:outcome" },
+  // What proof they have (buildQuestions; the general question's part; the issue frameworks' and the reasoning profiles'
+  // proof questions): the evidence, a case-file slot since C9 (23 Nov 2026), so held evidence is never asked again.
+  "What proof do you already have, such as messages, emails, screenshots, witnesses, court papers, recordings, receipts, or transcripts?": { asks: "chat:proof" },
+  "What proof do you currently have?": { asks: "chat:proof" },
+  "Do you have a screenshot, message, email, letter, post, recording, or witness who can prove the statement was sent?": { asks: "chat:proof" },
+  "What proof do you have of the agreement, such as messages, invoices, receipts, or emails?": { asks: "chat:proof" },
+  "Do you have photos, repair estimates, invoices, messages, or witnesses?": { asks: "chat:proof" },
+  "What records do you have: transcript, audio, disclosure, order, endorsement, police records, Crown correspondence, or court file documents?": { asks: "chat:proof" },
+  "Do you have photos or repair estimates?": { asks: "chat:proof" },
+};
+/** A chat sentence built with names in it: the parties it names, to confirm (asks only who the other party is). */
+const CHAT_ASKS: [RegExp, string][] = [
+  [/^From what you described, it sounds like this may involve [^?]*\. Is that right, or is the main concern with someone else\?$/, "chat:other-party"],
+];
+const CHAT_ID_OF_FACT: Partial<Record<CaseFact, string>> = {
+  wants: "chat:outcome", amount: "chat:amount", servedDate: "chat:served-date", filed: "chat:anything-filed",
+  otherParty: "chat:other-party", whenHappened: "chat:main-dates",
+};
+
+/** How a chat sentence asks: its listed id and open part; else by CHAT_ASKS; else the one word reader; else a fact of its own (its words). */
+export function chatQuestionOf(words: string): ChatQuestion {
+  const text = words.trim();
+  const listed = CHAT_QUESTIONS[text];
+  if (listed) return listed;
+  const own = CHAT_ASKS.find(([asks]) => asks.test(text))?.[1];
+  if (own) return { asks: own };
+  const fact = factOfAskedText(text);
+  return { asks: (fact && CHAT_ID_OF_FACT[fact]) || text };
+}
+
+/** The chat's own sentences that ask by this id (or are this open part): how a conversation shows it was asked. */
+export function chatSentencesFor(key: string): string[] {
+  return Object.entries(CHAT_QUESTIONS).flatMap(([words, question]) => [...(question.asks === key ? [words] : []), ...(question.open === key ? [question.open] : [])]);
+}
+
+/** The chat question id a chat sentence asks by. */
+export function chatQuestionId(words: string): string {
+  return chatQuestionOf(words).asks;
 }
 
 export function factsOfQuestion(id: string, surface?: string): string[] {
