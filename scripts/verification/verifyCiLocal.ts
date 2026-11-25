@@ -28,7 +28,7 @@ function check(name: string, ok: boolean, detail = "") {
 }
 
 async function main() {
-  const runner = (await import("../ci/runCiSteps.mjs")) as {
+  const runner = (await import("../ci/runCiSteps.mjs")) as unknown as {
     planSteps: (text: string) => { name: string; run: string | null; skipped: string | null }[];
     jobEnv: (text: string, from: Record<string, string | undefined>) => Record<string, string>;
   };
