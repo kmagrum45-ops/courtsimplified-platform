@@ -31,7 +31,14 @@ export function readRecords(folders: readonly string[]): RecordFile[] {
     if (!fs.existsSync(folder)) continue;
     for (const file of fs.readdirSync(folder, { recursive: true }) as string[]) {
       if (!file.endsWith(".json")) continue;
-      try { out.push(JSON.parse(fs.readFileSync(path.join(folder, file), "utf8")) as RecordFile); } catch { /* not a record */ }
+      try {
+        const record = JSON.parse(fs.readFileSync(path.join(folder, file), "utf8")) as RecordFile;
+        // Check 3's list is the story's as written now (matrixStories.ts), so a run recorded before a list was written is
+        // judged by the same list as one recorded after: before and after compare like with like.
+        const story = MATRIX_STORIES.find((item) => item.id === record.story?.id);
+        if (story && record.story) record.story = { ...record.story, mustNotAsk: story.mustNotAsk };
+        out.push(record);
+      } catch { /* not a record */ }
     }
   }
   return out;
