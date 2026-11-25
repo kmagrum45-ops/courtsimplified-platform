@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-327 documented, 26 without a header.
+330 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -169,6 +169,9 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:loan-stories-kind` | **A STORY WHERE THE PERSON LENT MONEY IS A LOAN, WHATEVER THE MONEY WAS FOR (Chrome check of #547 at 0e0f7e9, G1: "In**<br>March 2026 I lent my friend Alex Testwood $4,500 for a car repair" was suggested as "Work or a service you paid for (e.g. a contractor)"). |
 | `npm run test:lso-demo-cases` | **The demo test cases from docs/lso-ai-audit.md section 13, as a suite.**<br>WHY. That table was written as a list of things to try by hand, and five of its twenty rows were marked "expected to fail today" — cases 3, 4, 12, 13 and 19, the honest edges of the demo. Those five are the point of the LSO rewrite, so they cannot stay as a li |
 | `npm run test:married-only-topics` | **A PERSON WHO WAS NOT MARRIED TO THE OTHER PERSON IS NOT OFFERED MARRIED-ONLY FAMILY TOPICS (Chrome check of #545,**<br>9 Nov 2026, item 7: an unmarried couple's case-type boxes offered "Divorce", "Dividing property (equalization)" and "Who lives in the family home (matrimonial home...)"). |
+| `npm run test:matrix-checks` | **test:matrix-checks -- each of the journey matrix's eleven checks can fail, and passes a clean journey.**<br>WHAT IT CHECKS. For every check in tests/browser/matrix/matrixChecks.ts: a planted journey record holding exactly the fault that check exists for must produce a failure naming the check, the screen and the fact; a clean record must produce none. Also the repor |
+| `npm run test:matrix-counters` | **test:matrix-counters -- the journey matrix's per-file counter may only go down (site owner, Round 6: "a counter file**<br>recording failures per screen that later PRs may only lower"). |
+| `npm run test:matrix-stories` | **test:matrix-stories -- the journey matrix has one story for every starting point of the stage map, and each story is**<br>honest about what it states. |
 | `npm run test:milestone-ask-once` | **NOTHING CHROME FOUND ASKED TWICE IN THE MILESTONE TEST OF #550 IS ASKED AGAIN (site owner, 16 Nov 2026).**<br>Chrome's milestone test (head 49487513) found 11 facts asked twice. Each asker is now on the one function (caseFile/factStatus.ts) or reads the one record. This runs each finding through the real function that decides it: (1)  the reading card's court: held fr |
 | `npm run test:mount-conditions` | **Surfaces that mount independently of the analysis pipeline are not gated on**<br>it. |
 | `npm run test:municipal-notice-first` | **The right municipality's law for an injury on a municipal way, and the**<br>10-day notice shown first in the intake (round 4 senior-lawyer review, 2026-10-14, persona civil-plaintiff-municipal-slip). |

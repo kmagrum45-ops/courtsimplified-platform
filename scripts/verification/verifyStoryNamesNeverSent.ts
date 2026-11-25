@@ -21,6 +21,8 @@
  *  3. For a wording that names the other side, the one story reader offers that name (a Yes / No / Not sure offer,
  *     never asked cold): the reader has no guest or signed-in input, so both get the same offer.
  *  4. Every name hidden before this change is still hidden (the "before" list).
+ *  5. A guest reaches no AI on any route: every route, every wording, called as a guest, sends nothing to the model
+ *     (site owner, 25 Nov 2026: a guest's story is read by the rule-based reader only).
  *
  * No real model call, no database, no network: a request to any other host throws.
  *
@@ -295,6 +297,9 @@ async function callRoute(route: string, handler: Handler, story: string, court: 
   }
 
   const reachedBy = new Map<string, number>();
+  /** Routes that reached the model for a GUEST (site owner, 25 Nov 2026: a guest's story is read by the rule-based reader only). */
+  const guestReached = new Set<string>();
+  let guestCalls = 0;
   const leaks: string[] = [];
   const unreachedWordings: string[] = [];
   /** Per wording: the routes that sent a listed name, guest and signed in (the report's before / after table). */
@@ -311,6 +316,7 @@ async function callRoute(route: string, handler: Handler, story: string, court: 
         master = await savedMaster(wording.story, court);
         sent.length = 0;
         await withAiAskerForTests({ userId: signedIn ? USER.id : null, visitor: "stand-in-visitor" } as never, () => callRoute(name, handler, wording.story, court, signedIn));
+        if (!signedIn) { guestCalls += 1; if (sent.length) guestReached.add(name); }
         if (sent.length) { reachedThis += 1; reachedBy.set(name, (reachedBy.get(name) ?? 0) + 1); }
         for (const body of sent) for (const person of wording.names) {
           const found = holdsName(body, person);
@@ -328,6 +334,9 @@ async function callRoute(route: string, handler: Handler, story: string, court: 
   const declaredButCalling = [...NO_PERSON_TEXT.keys()].filter((name) => reachedBy.has(name));
   check("A route declared as making no model call makes none (else delete its entry: the leak check covers it)", declaredButCalling.length === 0, declaredButCalling.join(", "));
   for (const [name, reason] of NO_PERSON_TEXT) console.log(`  declared, no model call: ${name} (${reason})`);
+  // A guest never reaches the AI, on any route (site owner, 25 Nov 2026: guests use the rule-based reader; the minimal guest
+  // page gives them one description and no AI step). Measured on every AI route, every wording, as a guest.
+  check(`A guest reaches no AI on any route (${guestCalls} guest calls)`, guestCalls > 0 && guestReached.size === 0, [...guestReached].join(", "));
   check("At least one route reached the stand-in for every wording (the check below is not passing by sending nothing)", unreachedWordings.length === 0, unreachedWordings.join(" | "));
   console.log("\nPer wording: routes that sent a listed name (guest | signed in)");
   for (const row of leakTable) console.log(`  ${row.guest.size} | ${row.signedIn.size}  ${row.story}${row.signedIn.size ? `  -> ${[...row.signedIn].slice(0, 3).join(", ")}${row.signedIn.size > 3 ? ", ..." : ""}` : ""}`);

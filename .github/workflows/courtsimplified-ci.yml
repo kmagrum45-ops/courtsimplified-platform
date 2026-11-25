@@ -787,6 +787,17 @@ jobs:
       - name: OpenAI spending stays under control (no cache writes, daily limit, no repeat runs)
         run: npm run test:openai-cost
 
+      - name: The journey matrix's eleven checks can each fail, and pass a clean journey
+        run: npm run test:matrix-checks
+
+      - name: The journey matrix has a story for every starting point, each honest about what it states, each in one shard
+        run: npm run test:matrix-stories
+
+      - name: The journey matrix's per-file counter may only go down
+        run: |
+          git fetch --no-tags --depth=1 origin main:refs/remotes/origin/main
+          npm run test:matrix-counters
+
       # This suite makes real, billed OpenAI calls, so it needs the
       # OPENAI_API_KEY repository secret. Without the secret it cannot run at
       # all -- it failed in one second on 2026-09-28, the first time any CI run

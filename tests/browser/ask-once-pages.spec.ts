@@ -30,16 +30,19 @@ import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 import { pdfBoxes } from "../../src/lib/case-system/forms/officialPdf";
 import { asksForDate } from "../../src/lib/case-system/dates";
 import { authenticateRealTestUser } from "./harness/intakeDriver";
-import { deleteHarnessUser } from "./harness/realTestSession";
+import { createRealTestAccount, deleteHarnessUser } from "./harness/realTestSession";
 import { autoAnswerSituation, answerSituation, situationAnswersFor, STARTING_NOTHING_FILED, type SituationAnswers } from "./harness/situation";
 import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns, type Court } from "./harness/thisCommitServer";
-import { realAiReadings, replayMisses } from "./harness/aiFixtures";
-import { factsAskedTwice, factsOfAsk, firstOfferExcused, heldViolations, recordAsks, repeatViolations, type Asked } from "./harness/askOnce";
+import { namesNeverSent, realAiReadings, replayMisses, RECORDING, verifyDrift } from "./harness/aiFixtures";
+import { blindBoxes, factsAskedTwice, factsOfAsk, firstOfferExcused, heldViolations, recordAsks, repeatViolations, type Asked } from "./harness/askOnce";
 import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { chooseOffers } from "./harness/offers";
 import { MARRIED_ONLY_SCREEN_TEXT } from "../../src/lib/case-system/family/marriedOnly";
-import { expectThisRunsServer } from "./harness/siteAccess";
+import { expectThisRunsServer, grantSiteAccess } from "./harness/siteAccess";
+import { MATRIX_STORIES, type MatrixStoryWithStart } from "./matrix/matrixStories";
+import { fileOf, type Mode } from "./matrix/matrixChecks";
+import { guestDescribesThenSignsUp, probeNotSureAndRemoved, recordFacts, reviewEntries, sampleScreens, savedStart, writeJourney } from "./matrix/matrixJourney";
 import { HOME_QUESTIONS } from "../../src/lib/case-system/caseFile/factQuestions";
 import { answerTriage } from "./harness/triageAnswer";
 import { writeQuestionLog } from "./harness/questionLog";
@@ -462,7 +465,10 @@ async function giveStory(page: Page, story: Story) {
     if (story.realAi) homeAnswers.push(`home-reading: ${((await page.getByTestId("case-understanding-facts").textContent().catch(() => "")) ?? "").replace(/\s+/g, " ").trim()}`);
     // The court was chosen at the start (situationOf: every story's start names its court): the reading's same court is
     // not asked again with Yes / No / I'm not sure (Chrome milestone test of #550, row 6, every story).
-    await expect(page.getByTestId("case-understanding").getByRole("button", { name: /^(No, that.s not right|I.m not sure)$/ }), "the court chosen at the start is not asked again").toHaveCount(0);
+    const courtAgain = page.getByTestId("case-understanding").getByRole("button", { name: /^(No, that.s not right|I.m not sure)$/ });
+    // The matrix records it (check 2, asked twice) and goes on; the ordinary run fails on it, as before.
+    if (process.env.MATRIX === "1") { if (await courtAgain.count()) homeAnswers.push("court-asked-again: the reading asked where the case belongs after the court was chosen at the start"); }
+    else await expect(courtAgain, "the court chosen at the start is not asked again").toHaveCount(0);
     // The reading's court is the chosen one ("Continue with ..."), or, when the reading is not clear, the chosen court's own button.
     if (story.realAi) homeAnswers.push(`court-question: ${(await page.getByTestId("case-understanding-court-question").isVisible().catch(() => false)) ? "shown" : "hidden"}`);
     await page.getByTestId("case-understanding-continue-suggested").or(page.getByTestId("case-understanding-continue-chosen")).first().click();
@@ -781,11 +787,14 @@ async function readLabels(page: Page, story: Story, id: string, known: Set<strin
 // A story read by the real AI runs once per recorded reading (harness/aiFixtures.ts): the model does not read the same
 // story the same way every time, so each distinct reading must give a flow that asks nothing twice (site owner, 17 Nov).
 // Named "sc-" so CI's Small Claims ask-once part runs it (its grep is "ask once on every page -- sc-"); it covers every court.
+/** MATRIX=1: the journey matrix (Round 6, PR 1) runs instead of the ordinary stories; a report, never a gate (matrixReport.ts). */
+const MATRIX = process.env.MATRIX === "1";
 test("ask once on every page -- sc-chrome2-readings-recorded (every court)", () => {
+  test.skip(MATRIX, "the matrix run");
   const missing = STORIES.filter((story) => story.realAi && realAiReadings(story.name).length === 0).map((story) => story.name);
   expect(missing, "record them with AI_FIXTURES=record").toEqual([]);
 });
-for (const story of STORIES) for (const reading of story.realAi ? realAiReadings(story.name) : [null]) {
+for (const story of MATRIX ? [] : STORIES) for (const reading of story.realAi ? realAiReadings(story.name) : [null]) {
   test(`ask once on every page -- ${story.name}${reading ? ` (reading ${reading})` : ""}`, async ({ page }) => {
     test.setTimeout(900_000);
     const found: Violation[] = [];
@@ -913,5 +922,120 @@ for (const story of STORIES) for (const reading of story.realAi ? realAiReadings
       // Every AI step replayed as recorded: the site swallows a failed step, so a miss would otherwise pass silently.
       if (story.realAi) expect(replayMisses, "every AI step of this reading was recorded").toEqual([]);
     }
+  });
+}
+
+/**
+ * THE JOURNEY MATRIX (site owner, Round 6, PR 1; MATRIX=1). Every story of matrix/matrixStories.ts (one per starting point
+ * of the stage map, and Chrome's two), each driven twice: signed in from the start, and as a guest who gives the start,
+ * the city and the story, then signs up through the site's own link. The journey is this suite's own (giveStory, the
+ * chat or the questions, reviewAndNextStep), every AI step answered by the story's recorded real-model reading
+ * (aiFixtures.ts; AI_REPLAY_REAL_SPEED=1 replays it at the speed the model took, so a screen that waits on the model is
+ * seen waiting). Nothing is asserted here: each journey writes its record (matrix/matrixJourney.ts writeJourney), and
+ * scripts/browser/matrixReport.ts runs the eleven checks (matrix/matrixChecks.ts) over all of them into one table.
+ */
+function matrixAsStory(ms: MatrixStoryWithStart): Story {
+  const amount = ms.facts.amount?.replace(/[^\d.]/g, "");
+  return {
+    name: `matrix-${ms.id}`, court: ms.court, side: ms.side === "plaintiff" || ms.side === "applicant" ? "bringing" : "responding", text: ms.text,
+    ...(ms.situation.receivedOn && ms.situation.receivedOn !== "unknown" ? { served: ms.situation.receivedOn } : {}),
+    stated: { ...(amount ? { amount } : {}), ...(ms.facts.whenHappened ? { when: ms.facts.whenHappened } : {}), ...(ms.facts.otherParty ? { otherParty: ms.facts.otherParty } : {}) },
+    situation: ms.situation, realAi: true, city: ms.city,
+  };
+}
+if (MATRIX) for (const ms of MATRIX_STORIES) namesNeverSent(`matrix-${ms.id}`, ms.names);
+const MODES: Mode[] = ["signed-in", "guest-then-signup"];
+for (const ms of MATRIX ? MATRIX_STORIES : []) for (const mode of MODES) {
+  test(`matrix -- ${ms.id} ${mode}`, async ({ page }) => {
+    test.setTimeout(1_200_000);
+    const story = matrixAsStory(ms);
+    const readings = realAiReadings(story.name);
+    const reading = readings[0] ?? null;
+    const journey = `${ms.id} ${mode}`;
+    const record: Record<string, unknown> = { journey, story: ms, mode, reading, events: [], held: [], twice: [], blind: [], screens: [], ended: false, notFilled: [], notes: [] };
+    const notes = record.notes as string[];
+    if (!reading) { record.notRun = "no recorded reading (record once with AI_FIXTURES=record)"; writeJourney(journey, record); test.skip(true, String(record.notRun)); return; }
+    replayMisses.length = 0;
+    const typed = new Map<string, string>();
+    const found: Violation[] = [];
+    const seen: string[] = [];
+    let userId = "";
+    let events: Asked[] = [];
+    let sampler: ReturnType<typeof sampleScreens> | null = null;
+    let guestCase = "";
+    try {
+      if (mode === "signed-in") {
+        userId = await authenticateRealTestUser(page, { realCases: true });
+      } else {
+        await grantSiteAccess(page);
+        await expectThisRunsServer(page);
+        const account = await createRealTestAccount();
+        userId = account.userId;
+        await autoAnswerSituation(page, ms.situation);
+        await serveModelStandIns(page, story.court, userId, { realAi: `${story.name}/${reading}` });
+        events = await recordAsks(page);
+        sampler = sampleScreens(page, fileOf);
+        const landed = await guestDescribesThenSignsUp(page, ms, account);
+        guestCase = landed.caseId;
+        // What the account's case holds of what the guest gave (check 7), read from the saved row.
+        record.carried = { before: landed.before, after: guestCase ? await savedStart(guestCase) : { municipality: "(no case opened)", story: "(no case opened)" } };
+      }
+      if (mode === "signed-in") {
+        await expectThisRunsServer(page);
+        await autoAnswerSituation(page, ms.situation);
+        await serveModelStandIns(page, story.court, userId, { realAi: `${story.name}/${reading}` });
+        events = await recordAsks(page);
+        sampler = sampleScreens(page, fileOf);
+      }
+      // Signed up from the home page, the site took the person to their case: the journey goes on from there (the story is
+      // already given). Otherwise the story is given as the suite gives it.
+      if (guestCase && /\/builder/.test(page.url())) {
+        for (let round = 0; round < 5; round += 1) {
+          await page.waitForTimeout(1_500);
+          const notice = page.getByTestId("acknowledgement-checkbox");
+          if (await notice.isVisible().catch(() => false)) { await notice.check().catch(() => {}); await page.getByTestId("acknowledgement-continue").click().catch(() => {}); continue; }
+          if (await page.getByTestId("situation-questions").isVisible().catch(() => false)) { await answerSituation(page, ms.situation); continue; }
+          break;
+        }
+      } else await giveStory(page, story);
+      seen.push(...homeAnswers.splice(0));
+      const id = new URL(page.url()).searchParams.get("intake") ?? "";
+      record.caseId = Boolean(id);
+      if (story.court === "small-claims") await smallClaimsChat(page, story, typed);
+      else await guidedForm(page, story, typed);
+      const nextStep = await reviewAndNextStep(page, story, typed, found, seen);
+      if (story.court === "family") await answerTriageAsChrome(page, story, seen);
+      record.ended = Boolean(nextStep);
+      if (!nextStep) notes.push("the next step's overview did not show");
+      if (id) {
+        const entries = await reviewEntries(page, story.court, id).catch(() => ({ notFilled: [], shown: [] }));
+        record.notFilled = entries.notFilled;
+        record.shown = entries.shown.map((item: { surface: string; id: string; text: string }) => ({ ...item, facts: factsOfAsk(item) }));
+        record.persisted = await probeNotSureAndRemoved(page, story.court, id).catch((error: unknown) => { notes.push(`not-sure / removed probe: ${String(error).slice(0, 160)}`); return undefined; });
+        if (story.court === "small-claims" && story.side === "bringing") {
+          const fields = await filledForm(page, id, "small-claims/7A").catch(() => null);
+          if (fields) record.form7a = { fields: Object.fromEntries([...fields].map(([name, value]) => [name, String(value ?? "")])), record: await recordFacts(id) };
+          else notes.push("Form 7A did not download");
+        }
+      }
+    } catch (error) {
+      notes.push(`the journey stopped: ${String(error).split("\n").filter((line) => /Error|Locator|waiting for/.test(line)).slice(0, 3).join(" / ").slice(0, 400)} (at ${page.url()})`);
+      await page.screenshot({ path: `${process.env.MATRIX_RECORDS ?? "matrix-records"}/${journey.replace(/[^a-z0-9.-]+/gi, "-")}.stopped.png`, fullPage: true }).catch(() => {});
+    } finally {
+      record.screens = sampler?.stop() ?? [];
+      const situation = ms.situation;
+      const excused = (item: { fact: string; surface: string; screen: string; text: string }) => firstOfferExcused(item as never, events, OFFER_SURFACES);
+      record.held = heldViolations(events).filter((item) => !excused(item)).map((item) => ({ fact: item.fact, screen: `${item.surface}@${item.screen}`, text: item.text.slice(0, 200) }));
+      record.twice = repeatViolations(factsAskedTwice(events, situation)).filter((item) => !excused(item)).map((item) => ({ fact: item.fact, screen: `${item.surface}@${item.screen}`, text: item.text.slice(0, 200) }));
+      // The court asked again on the home reading after it was chosen at the start (giveStory notes it in the matrix run).
+      if (seen.some((line) => line.startsWith("court-asked-again"))) (record.twice as unknown[]).push({ fact: "court", screen: "home-reading@/", text: "the reading asked where the case belongs after the court was chosen at the start" });
+      record.blind = blindBoxes(events);
+      record.events = events.map(({ kind, surface, id, screen, text, at }) => ({ kind, surface, id, screen, text: text.slice(0, 200), at, facts: factsOfAsk({ surface, id, text }) }));
+      record.replayMisses = [...replayMisses];
+      if (process.env.AI_FIXTURES === "verify") record.drift = verifyDrift.splice(0);
+      writeJourney(journey, record);
+      await deleteHarnessUser(userId).catch(() => {});
+    }
+    console.log(`MATRIX ${journey}: ended ${record.ended}; ${(record.events as unknown[]).length} events; notes: ${notes.join(" | ") || "none"}`);
   });
 }
