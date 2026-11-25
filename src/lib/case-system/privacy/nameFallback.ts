@@ -15,6 +15,8 @@
  * nothing on the allowlist is hidden).
  */
 
+import { MONTH_NAMES_PATTERN, WEEKDAY_NAMES_PATTERN } from "../dates";
+
 /** Words that make a capitalised run not a person's name. Lower case; matched whole, one word at a time. */
 export const FALLBACK_ALLOWLIST: Readonly<Record<string, readonly string[]>> = {
   "courts and tribunals": [
@@ -41,11 +43,10 @@ export const FALLBACK_ALLOWLIST: Readonly<Record<string, readonly string[]>> = {
     "county", "city", "town", "township", "village", "street", "road", "avenue", "drive", "crescent", "boulevard", "lane", "way",
     "place", "square", "park", "highway", "parkway", "trail", "united", "states", "usa", "america", "americas",
   ],
+  // The month and weekday names are dates.ts's own (the one place a month list may live: test:shared-behaviour).
   "months and days": [
-    "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december",
-    "jan", "feb", "mar", "apr", "jun", "jul", "aug", "sep", "sept", "oct", "nov", "dec",
-    "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday", "christmas", "easter", "thanksgiving", "boxing",
-    "day", "year", "eve", "holiday",
+    ...MONTH_NAMES_PATTERN.split("|"), ...WEEKDAY_NAMES_PATTERN.split("|"),
+    "christmas", "easter", "thanksgiving", "boxing", "day", "year", "eve", "holiday",
   ],
   "titles": ["mr", "mrs", "ms", "miss", "mx", "dr", "sir", "madam", "honourable", "hon"],
   "words that start a sentence": [
