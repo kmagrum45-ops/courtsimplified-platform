@@ -417,6 +417,8 @@
     "test:legal-changes-20261121": "node --import tsx scripts/verification/verifyLegalChanges20261121.ts",
     "test:wording-20261122": "node --import tsx scripts/verification/verifyWording20261122.ts",
     "test:wording-leftovers-20261122": "node --import tsx scripts/verification/verifyWordingLeftovers20261122.ts",
+    "ci:local": "bash scripts/ci/ciLocal.sh",
+    "test:ci-local": "node --import tsx scripts/verification/verifyCiLocal.ts",
     "test:matrix-checks": "node --import tsx scripts/verification/verifyMatrixChecks.ts",
     "test:matrix-stories": "node --import tsx scripts/verification/verifyMatrixStories.ts",
     "matrix:report": "node --import tsx scripts/browser/matrixReport.ts",

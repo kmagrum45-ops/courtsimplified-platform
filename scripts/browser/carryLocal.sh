@@ -108,6 +108,15 @@ if [ "$CFL" != 723 ] || [ "$CF" != 113 ] || [ "$FO" != 104 ]; then
   exit 3
 fi
 
+# Stack only (npm run ci:local, scripts/ci/ciLocal.sh): the checked stack's URL and keys go to a file readable by
+# this user only, never printed, and the run stops here (no build, no server, no browser).
+if [ -n "${CARRY_STACK_ENV_FILE:-}" ]; then
+  ( umask 077; printf 'NEXT_PUBLIC_SUPABASE_URL=%s\nNEXT_PUBLIC_SUPABASE_ANON_KEY=%s\nNEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=%s\nSUPABASE_SERVICE_ROLE_KEY=%s\n' \
+      "$NEXT_PUBLIC_SUPABASE_URL" "$NEXT_PUBLIC_SUPABASE_ANON_KEY" "$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY" "$SUPABASE_SERVICE_ROLE_KEY" > "$CARRY_STACK_ENV_FILE" )
+  echo "carry-local: stack ${PROJECT} checked; its settings are in the file ci:local asked for"
+  exit 0
+fi
+
 # 4. This run's port and this worktree's build: one run per port, and no build while another run serves this one
 # (portGuard.sh: on 12 Nov an older run on the same port stopped a newer run's server, then served its own).
 # shellcheck source=portGuard.sh
