@@ -61,7 +61,8 @@ export type MatrixStory = {
 };
 
 /** One screen as the spec found it after each step. */
-export type ScreenState = { screen: string; file?: string; box: boolean; question: boolean; forward: boolean; working: boolean; idleWords: boolean };
+/** `at`: when it was seen (ms); a screen seen after the journey ended (the matrix's own reads: probesFrom) is not the person's. */
+export type ScreenState = { screen: string; file?: string; box: boolean; question: boolean; forward: boolean; working: boolean; idleWords: boolean; at?: number };
 
 export type JourneyRecord = {
   journey: string;
@@ -75,6 +76,8 @@ export type JourneyRecord = {
   blind: string[];
   screens: ScreenState[];
   ended: boolean;
+  /** When the matrix began its own reads after the journey (review entries, the reload probe, Form 7A). */
+  probesFrom?: number;
   /** Before signing up -> after (guest-then-signup only): fact -> value. */
   carried?: { before: Record<string, string>; after: Record<string, string> };
   /** After a reload: the words shown where "not sure" was chosen, and where a value was removed. */
@@ -267,9 +270,13 @@ export function check9Same(a: JourneyRecord, b: JourneyRecord, factsOfEvent: (ev
   return out;
 }
 
+/** The pages only the matrix's own reads open (records written before `at` and probesFrom were kept). */
+const PROBE_PAGES = /[?&](change=amount|step=form)/;
 export function check10Forward(r: JourneyRecord): Failure[] {
   const out: Failure[] = [];
-  for (const s of r.screens) {
+  // The person's own journey only: not the pages the matrix opens afterwards to read the review and probe the Parties step.
+  const own = r.screens.filter((s) => (r.probesFrom && s.at ? s.at < r.probesFrom : !PROBE_PAGES.test(s.screen)));
+  for (const s of own) {
     const file = s.file && !s.file.startsWith("(surface") ? s.file : screenFile(s.screen, r.story.court);
     if (s.idleWords && !s.working) out.push(fail(r, 10, s.screen, file, "", "shows an idle \"Send your story below\" while the story is being read, with no question and no working sign"));
     else if (!s.box && !s.question && !s.forward && !s.working) out.push(fail(r, 10, s.screen, file, "", "no box, no question and no way forward"));

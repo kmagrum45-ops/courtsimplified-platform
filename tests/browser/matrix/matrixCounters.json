@@ -1,0 +1,18 @@
+{
+ "measuredOn": "bac22654",
+ "note": "Matrix failures per file, measured by a full run (scripts/browser/matrixReport.ts --write-counters). May only go down (test:matrix-counters).",
+ "perFile": {
+  "(none)": 10,
+  "(not logged)": 18,
+  "app/_components/HomeLocationGate.tsx": 3,
+  "app/_components/IntakeReviewPanel.tsx": 21,
+  "app/_components/PartiesStep.tsx": 10,
+  "app/_components/SituationQuestions.tsx": 25,
+  "app/builder/_components/EventCandidateSurface.tsx": 12,
+  "app/builder/_components/FamilyStatusTriage.tsx": 4,
+  "app/builder/_components/GuidedFormChat.tsx": 13,
+  "app/builder/_components/GuidedSmallClaimsIntake.tsx": 16,
+  "app/builder/_components/SmallClaimsIntake.tsx": 17,
+  "src/lib/case-system/caseFile/storyOffers.ts": 9
+ }
+}

@@ -56,7 +56,7 @@ export function sampleScreens(page: Page, file: (screen: string) => string): { s
         const key = dead(s) ? `${s.screen}|${s.idleWords}` : "";
         const streak = run.streak;
         if (key && streak && streak.key === key) streak.count += 1; else run.streak = key ? { key, count: 1, state: s } : null;
-        if (run.streak && run.streak.count === 3) kept.push({ ...run.streak.state, file: file(run.streak.state.screen) });
+        if (run.streak && run.streak.count === 3) kept.push({ ...run.streak.state, file: file(run.streak.state.screen), at: Date.now() });
       }
       await new Promise((done) => setTimeout(done, 1_000));
     }

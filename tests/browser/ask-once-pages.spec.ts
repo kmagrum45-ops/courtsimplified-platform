@@ -1012,6 +1012,7 @@ for (const ms of MATRIX ? MATRIX_STORIES : []) for (const mode of MODES) {
       if (story.court === "family") await answerTriageAsChrome(page, story, seen);
       record.ended = Boolean(nextStep);
       if (!nextStep) notes.push("the next step's overview did not show");
+      record.probesFrom = Date.now();
       if (id) {
         const entries = await reviewEntries(page, story.court, id).catch(() => ({ notFilled: [], shown: [] }));
         record.notFilled = entries.notFilled;
