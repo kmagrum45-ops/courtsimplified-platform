@@ -39,18 +39,20 @@ export function recordSeq(facts: Record<string, unknown>): number {
  * The tab's sections with the stored fact record in place of the tab's copy: the stored record when there
  * is one, and no record at all when nothing is stored (a tab never creates one).
  */
-export function withStoredFacts(tab: Sections, stored: unknown): Sections {
+export function withStoredFacts(tab: Sections, stored: unknown, inTheTab = false): Sections {
   const facts = storedFacts(stored);
   const caseFile = { ...object(tab[RECORD_SECTION]) };
   delete caseFile.facts;
   if (Object.keys(facts).length) caseFile.facts = facts;
   // The Parties record, once the server has numbered it, is the server's too (the same rule): the stored record is kept,
   // whatever the tab's copy holds; the tab's edits reach it only through POST /api/cases/facts. A case whose record the
-  // server never numbered (saved before 24 Nov 2026, or a guest's) keeps the tab's copy, as before. An edit the tab has
-  // not sent yet (`partiesPending`) is the person's newest word and stays, with its mark, until it is sent (the tab sends
-  // before it saves its checkpoint: IntakeRecovery.tsx sendFacts).
+  // server never numbered (saved before 24 Nov 2026, or a guest's) keeps the tab's copy, as before. `inTheTab`: the tab
+  // reading the saved case keeps an edit it has not sent yet (`partiesPending`), with its mark, until it is sent. A SAVE
+  // never writes it: the server keeps its numbered record and the edit arrives by its own send, which also saves the
+  // case's title from it (factSave.ts). Written by a whole save, the record and the title disagreed (local run of
+  // chrome-545-round, 24 Nov 2026: the record "Morgan Testtitle", the title still "Morgan Testwood").
   const storedFile = object(object(stored)[RECORD_SECTION]);
-  if (typeof storedFile[PARTIES_SEQ] === "number" && caseFile[PARTIES_PENDING] !== true) {
+  if (typeof storedFile[PARTIES_SEQ] === "number" && !(inTheTab && caseFile[PARTIES_PENDING] === true)) {
     caseFile.parties = storedFile.parties;
     caseFile[PARTIES_SEQ] = storedFile[PARTIES_SEQ];
   }

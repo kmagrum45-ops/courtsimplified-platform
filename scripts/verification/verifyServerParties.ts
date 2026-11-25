@@ -23,7 +23,7 @@
 import { CASE_FILE_SECTION } from "../../src/lib/case-system/caseFile/caseFile";
 import { afterPartiesSent, PARTIES_PENDING, PARTIES_SEQ, sectionWithSavedParties, withStoredFacts } from "../../src/lib/case-system/caseFile/serverFacts";
 import { saveFactWrites } from "../../src/lib/case-system/caseFile/factSave";
-import type { PartiesRecord } from "../../src/lib/case-system/parties/parties";
+import { partyName, type PartiesRecord } from "../../src/lib/case-system/parties/parties";
 
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
@@ -49,8 +49,10 @@ const nameIn = (sections: Sections): string => String(((sections[CASE_FILE_SECTI
   const guest = withStoredFacts(tabOld, {});
   check("2. a guest's first save (nothing stored): the tab's copy is kept", nameIn(guest) === "Acme Movers Ltd.");
   const pendingTab: Sections = { [CASE_FILE_SECTION]: { parties: ACME, [PARTIES_SEQ]: 1, [PARTIES_PENDING]: true } };
-  const pending = withStoredFacts(pendingTab, stored);
-  check("3. an edit not sent yet stays the tab's, with its mark", nameIn(pending) === "Acme Movers Ltd." && pending[CASE_FILE_SECTION][PARTIES_PENDING] === true, JSON.stringify(pending));
+  const pending = withStoredFacts(pendingTab, stored, true);
+  check("3. in the tab, an edit not sent yet stays the tab's, with its mark", nameIn(pending) === "Acme Movers Ltd." && pending[CASE_FILE_SECTION][PARTIES_PENDING] === true, JSON.stringify(pending));
+  const savedOver = withStoredFacts(pendingTab, stored);
+  check("3. a SAVE keeps the server's numbered record even over a tab's unsent edit (the edit arrives by its own send, with the title)", nameIn(savedOver) === "Beta Movers Ltd.", JSON.stringify(savedOver));
   // Mutation: the tab's copy always kept (the rule before this change) -- check 1 must catch it.
   const always = (tab: Sections) => tab;
   mutant("a whole save that keeps the tab's copy (the old rule) puts the older name back", nameIn(always(tabOld)) !== "Beta Movers Ltd.");
@@ -103,8 +105,9 @@ async function throughTheRoute() {
   await saveFactWrites(client as never, { caseId: CASE_ID, userId: "u1", court: "small-claims" }, [], undefined, [], unnamed);
   check("7. a record naming no one leaves the saved title as it was", String(db.row.master_result.caseTitle ?? "").includes("Acme Movers Ltd."), String(db.row.master_result.caseTitle));
 
-  // 8. A name changed on the Parties step where the case holds another from another place is the newest answer to that
-  // fact (caseWrite.ts writeParties, the form boxes' rule); a first name with none held records nothing more.
+  // 8. THE RECORD IS THE NAME'S HOME (rule 1, 14 Nov 2026; caseWrite.ts writeParties): a name shown from another place,
+  // edited here part by part, is saved WHOLE in the record (never half a name); a first name with none held is the record's
+  // alone; a held name emptied here is removed so it is not shown again.
   const { writeParties } = await import("../../app/_components/caseWrite");
   const tab = (facts: Record<string, unknown>) => {
     const sections: Record<string, Record<string, unknown>> = { story: { text: "A moving company broke my table." }, [CASE_FILE_SECTION]: { facts } };
@@ -118,19 +121,22 @@ async function throughTheRoute() {
       },
     };
   };
-  const held = tab({ otherParty: { state: "answered", value: "Alex Testwood", source: "person", at: "2026-11-24T10:00:00.000Z", seq: 1, question: "chat:other-party" } });
-  writeParties(held.recovery as never, BETA);
-  const changed = (held.sections[CASE_FILE_SECTION].changes ?? {}) as Record<string, { state?: string; value?: unknown }>;
-  check("8. a name changed on the Parties step over one held from the chat is recorded as the newest answer", changed.otherParty?.state === "answered" && changed.otherParty.value === "Beta Movers Ltd.", JSON.stringify(changed));
-  // The name held through the fact record under the Parties step's own question (an older case: the case file names its
-  // other party "from the parties"), so heldOtherName reads nothing: the record's copy is still the one every page shows.
-  const viaRecord = tab({ otherParty: { state: "answered", value: "Alex Testwood", source: "person", at: "2026-11-24T10:00:00.000Z", seq: 1, question: "parties" } });
-  writeParties(viaRecord.recovery as never, BETA);
-  const recorded = (viaRecord.sections[CASE_FILE_SECTION].changes ?? {}) as Record<string, { state?: string; value?: unknown }>;
-  check("8. a name changed over one the fact record holds (under the Parties step's question) is recorded as the newest answer", recorded.otherParty?.state === "answered" && recorded.otherParty.value === "Beta Movers Ltd.", JSON.stringify(recorded));
+  const named = (t: ReturnType<typeof tab>) => { const other = (t.sections[CASE_FILE_SECTION].parties as PartiesRecord | undefined)?.list.find((party) => party.side === "other"); return other ? partyName(other) : ""; };
+  const chat = { otherParty: { state: "answered", value: "Alex Testwood", source: "person", at: "2026-11-24T10:00:00.000Z", seq: 1, question: "chat:other-party" } };
+  // As the step shows a name held from the chat: the whole name and its parts, all held elsewhere; then the first name typed.
+  const shownFrom = (details: Record<string, string>, heldElsewhere: string[]) => ({ version: 1, list: [{ id: "p-other", side: "other", kind: "person", details, unsure: [], heldElsewhere }], declined: [] }) as unknown as PartiesRecord;
+  const held = tab(chat);
+  writeParties(held.recovery as never, shownFrom({ fullName: "Alex Testwood", firstName: "Morgan", lastName: "Testwood" }, ["fullName", "lastName"]));
+  check("8. the first name changed over a name held from the chat: the record holds the whole name, not half of it", named(held) === "Morgan Testwood", named(held));
+  writeParties(held.recovery as never, shownFrom({ firstName: "Morgan", lastName: "Testtitle" }, []));
+  check("8. then the last name changed: the record holds the whole new name", named(held) === "Morgan Testtitle", named(held));
+  check("8. a name typed here records no second copy as a fact change (the record is its home)", (held.sections[CASE_FILE_SECTION].changes as Record<string, unknown> | undefined)?.otherParty === undefined, JSON.stringify(held.sections[CASE_FILE_SECTION].changes));
+  const emptied = tab(chat);
+  writeParties(emptied.recovery as never, { version: 1, list: [{ id: "p-other", side: "other", kind: "person", details: {}, unsure: ["firstName", "lastName"] }], declined: [] } as unknown as PartiesRecord);
+  check("8. a name held from the chat, emptied here, is removed", ((emptied.sections[CASE_FILE_SECTION].changes ?? {}) as Record<string, { state?: string }>).otherParty?.state === "removed", JSON.stringify(emptied.sections[CASE_FILE_SECTION].changes));
   const fresh = tab({});
   writeParties(fresh.recovery as never, BETA);
-  check("8. a first name, with none held, records nothing more than the Parties record", fresh.sections[CASE_FILE_SECTION].changes === undefined && fresh.sections[CASE_FILE_SECTION][PARTIES_PENDING] === true, JSON.stringify(fresh.sections[CASE_FILE_SECTION]));
+  check("8. a first name, with none held, is the record's alone: no fact change", fresh.sections[CASE_FILE_SECTION].changes === undefined && named(fresh) === "Beta Movers Ltd." && fresh.sections[CASE_FILE_SECTION][PARTIES_PENDING] === true, JSON.stringify(fresh.sections[CASE_FILE_SECTION]));
 }
 
 void throughTheRoute().then(() => {

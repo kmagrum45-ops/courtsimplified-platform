@@ -129,7 +129,14 @@ async function changeOnCasePage(page: Page, id: string, fact: string, words: str
   // (23 Nov 2026); the change of a name held elsewhere is recorded as its newest answer (caseWrite.ts writeParties).
   if (fact === "otherParty" && court === "small-claims" && await otherPartyEntry(page).waitFor({ state: "visible", timeout: 60_000 }).then(() => true, () => false)) {
     await giveOtherPartyName(page, words);
-    await expect.poll(async () => String((await savedRow(id)).facts[fact]?.value ?? ""), { timeout: 45_000, message: `the change of ${fact} was saved` }).toBe(words);
+    // Saved in its home, the Parties record (rule 1, 14 Nov 2026: every screen reads the other party from it), whole.
+    await expect.poll(async () => {
+      const sections = (((await savedRow(id)).master.intakeCheckpoint as Record<string, unknown> | undefined)?.sections ?? {}) as Record<string, Record<string, unknown>>;
+      const list = ((sections.caseFile?.parties as { list?: { side?: string; kind?: string; details?: Record<string, string> }[] } | undefined)?.list ?? []);
+      const other = list.find((party) => party.side === "other");
+      const d = other?.details ?? {};
+      return other?.kind === "company" ? d.companyName ?? "" : [d.firstName, d.secondName, d.lastName].filter(Boolean).join(" ") || d.fullName || "";
+    }, { timeout: 45_000, message: `the change of ${fact} was saved in the Parties record` }).toBe(words);
     return;
   }
   // Small Claims' lines open the whole form, whose own boxes hold its answers (typed there, saved as they are held).

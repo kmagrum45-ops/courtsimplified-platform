@@ -252,7 +252,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         let snapshot: Checkpoint = session?.checkpoint ?? saved ?? { version: 1, flowId, courtPath: court, revision: crypto.randomUUID(), sections: {} };
         snapshot = JSON.parse(JSON.stringify(snapshot)) as Checkpoint;
         // The saved fact record is shown, never the tab's older copy of it (G2(c), serverFacts.ts).
-        if (saved) snapshot = { ...snapshot, sections: withStoredFacts(snapshot.sections, saved.sections) };
+        if (saved) snapshot = { ...snapshot, sections: withStoredFacts(snapshot.sections, saved.sections, true) };
         snapshot.inputRevision ??= snapshot.revision;
         // One copy of the story: older checkpoints move theirs into sections.story once, here.
         const unmigrated = snapshot;
@@ -390,7 +390,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
                 const committed = readCheckpoint(outcome.master.intakeCheckpoint, court, caseId);
                 if (committed) savedInput = inputRevision(committed);
                 // The server kept its fact record over this tab's copy: adopt it, so the screens show it (G2(c)).
-                if (committed && JSON.stringify(storedFacts(committed.sections)) !== JSON.stringify(storedFacts(snapshot.sections))) snapshot = { ...snapshot, sections: withStoredFacts(snapshot.sections, committed.sections) };
+                if (committed && JSON.stringify(storedFacts(committed.sections)) !== JSON.stringify(storedFacts(snapshot.sections))) snapshot = { ...snapshot, sections: withStoredFacts(snapshot.sections, committed.sections, true) };
                 if (committed && inputRevision(snapshot) === inputRevision(sent) && inputRevision(committed) !== inputRevision(sent)) { snapshot = { ...snapshot, inputRevision: inputRevision(committed) }; remember(snapshot); }
               }
             }
