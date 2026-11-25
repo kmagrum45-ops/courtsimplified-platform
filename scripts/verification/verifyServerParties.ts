@@ -49,10 +49,8 @@ const nameIn = (sections: Sections): string => String(((sections[CASE_FILE_SECTI
   const guest = withStoredFacts(tabOld, {});
   check("2. a guest's first save (nothing stored): the tab's copy is kept", nameIn(guest) === "Acme Movers Ltd.");
   const pendingTab: Sections = { [CASE_FILE_SECTION]: { parties: ACME, [PARTIES_SEQ]: 1, [PARTIES_PENDING]: true } };
-  const pending = withStoredFacts(pendingTab, stored, true);
-  check("3. in the tab, an edit not sent yet stays the tab's, with its mark", nameIn(pending) === "Acme Movers Ltd." && pending[CASE_FILE_SECTION][PARTIES_PENDING] === true, JSON.stringify(pending));
-  const savedOver = withStoredFacts(pendingTab, stored);
-  check("3. a SAVE keeps the server's numbered record even over a tab's unsent edit (the edit arrives by its own send, with the title)", nameIn(savedOver) === "Beta Movers Ltd.", JSON.stringify(savedOver));
+  const pending = withStoredFacts(pendingTab, stored);
+  check("3. an edit not sent yet is the person's newest word: kept, with its mark, in the tab and in a save (never lost)", nameIn(pending) === "Acme Movers Ltd." && pending[CASE_FILE_SECTION][PARTIES_PENDING] === true, JSON.stringify(pending));
   // Mutation: the tab's copy always kept (the rule before this change) -- check 1 must catch it.
   const always = (tab: Sections) => tab;
   mutant("a whole save that keeps the tab's copy (the old rule) puts the older name back", nameIn(always(tabOld)) !== "Beta Movers Ltd.");
@@ -139,7 +137,38 @@ async function throughTheRoute() {
   check("8. a first name, with none held, is the record's alone: no fact change", fresh.sections[CASE_FILE_SECTION].changes === undefined && named(fresh) === "Beta Movers Ltd." && fresh.sections[CASE_FILE_SECTION][PARTIES_PENDING] === true, JSON.stringify(fresh.sections[CASE_FILE_SECTION]));
 }
 
-void throughTheRoute().then(() => {
+// 9. THE TAB'S WHOLE SAVE SAVES THE TITLE FROM THE RECORD IT WRITES (intakeCheckpoint.ts saveCheckpoint, parties.ts
+// partiesTitle): the record and the title never disagree, whichever save wrote the record (chrome-545-round).
+async function wholeSaveTitle() {
+  const { saveCheckpoint } = await import("../../src/lib/case-system/intakeCheckpoint");
+  const CASE_ID = "33333333-3333-4333-8333-333333333333";
+  const OLD_REV = "44444444-4444-4444-8444-444444444444";
+  const NEW_REV = "55555555-5555-4555-8555-555555555555";
+  type Row = { master_result: Record<string, unknown>; updated_at: string; user_id: string; court_path: string };
+  const db = { row: { master_result: { caseTitle: "Your case with Acme Movers Ltd.", intakeCheckpoint: { version: 1, flowId: CASE_ID, courtPath: "small-claims", revision: OLD_REV, sections: { story: { text: "A moving company broke my table." }, [CASE_FILE_SECTION]: { parties: ACME, [PARTIES_SEQ]: 1 } } } }, updated_at: "t1", user_id: "u1", court_path: "small-claims" } as Row };
+  const chain = (kind: "select" | "update", values?: Record<string, unknown>) => {
+    const filters: Record<string, string> = {};
+    const self = {
+      eq(column: string, value: string) { filters[column] = value; return self; },
+      abortSignal() { return self; },
+      async maybeSingle() { return { data: { ...db.row }, error: null }; },
+      async select() {
+        if (kind !== "update" || filters.updated_at !== db.row.updated_at) return { data: [], error: null };
+        db.row = { ...db.row, master_result: values!.master_result as Record<string, unknown>, updated_at: String(values!.updated_at) };
+        return { data: [{ id: CASE_ID }], error: null };
+      },
+    };
+    return self;
+  };
+  const client = { from: () => ({ select: () => chain("select"), update: (values: Record<string, unknown>) => chain("update", values) }) };
+  // The tab's unsent edit (Beta) saved by its whole save.
+  const snapshot = { version: 1, flowId: CASE_ID, courtPath: "small-claims", revision: NEW_REV, sections: { story: { text: "A moving company broke my table." }, [CASE_FILE_SECTION]: { parties: BETA, [PARTIES_SEQ]: 1, [PARTIES_PENDING]: true } } };
+  const outcome = await saveCheckpoint(client as never, "u1", CASE_ID, snapshot as never, OLD_REV, () => true);
+  const written = ((db.row.master_result.intakeCheckpoint as { sections: Sections }).sections[CASE_FILE_SECTION]);
+  check("9. a whole save writes the tab's unsent Parties edit (the name typed is never lost)", outcome.ok === true && String(((written.parties as PartiesRecord).list[0].details as Record<string, string>).companyName) === "Beta Movers Ltd.", JSON.stringify(outcome));
+  check("9. and saves the case's title from the record it writes", db.row.master_result.caseTitle === "Your case with Beta Movers Ltd.", String(db.row.master_result.caseTitle));
+}
+void throughTheRoute().then(wholeSaveTitle).then(() => {
 if (failures) { console.error(`\n${failures} check(s) failed.`); process.exit(1); }
 console.log("\nThe Parties record is the server's once numbered; a tab's whole save never puts an older one back; an unsent edit is kept.");
 });

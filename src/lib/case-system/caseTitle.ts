@@ -7,6 +7,7 @@
  * walkthrough). A title should tell the user which case this is at a glance;
  * the other party's name does that, and it is something they typed.
  */
+import { partyName, readParties } from "./parties/parties";
 
 const COURT_NAMES: Record<string, string> = {
   "small-claims": "Small Claims case",
@@ -37,4 +38,16 @@ export function caseTitleFromIntake(otherParty: unknown, courtPath: string | nul
   const other = typeof otherParty === "string" ? otherParty.trim().replace(/\s+/g, " ") : "";
   if (other && other.length <= 60) return `Your case with ${other}`;
   return (courtPath && COURT_NAMES[courtPath]) || "Your case";
+}
+
+/**
+ * The case's title from a saved Parties record ("Your case with <name>"), the name of its first other party; null when the
+ * record names no other party, so a save that names no one never takes a good title away. The one rule, read by the
+ * server's Parties save (factSave.ts) and by the tab's whole save (intakeCheckpoint.ts), so the title follows the record
+ * whichever saves it (the record is the name's home: rule 1, 14 Nov 2026).
+ */
+export function partiesTitle(raw: unknown, court: string | null | undefined): string | null {
+  const record = readParties(raw);
+  const other = record?.list.find((party) => party.side === "other" && partyName(party));
+  return other ? caseTitleFromIntake(partyName(other), court) : null;
 }

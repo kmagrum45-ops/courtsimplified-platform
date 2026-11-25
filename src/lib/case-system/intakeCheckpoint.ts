@@ -5,6 +5,7 @@ import { updateMasterResult } from "./updateCaseRecord";
 import { CASE_REQUEST_TIMEOUT_MS, runCaseWrite } from "../../../app/builder/_components/positionSave";
 import { GUEST_INTAKE_SESSION_KEY } from "./storage/intakeStorageKeys";
 import { withStoredFacts } from "./caseFile/serverFacts";
+import { partiesTitle } from "./caseTitle";
 
 export type IntakeCourt = "small-claims" | "family" | "civil";
 export type Checkpoint = {
@@ -117,7 +118,9 @@ export async function saveCheckpoint(db: Db, ownerId: string, caseId: string, sn
     const mustRenew = Boolean(previous && (proof.reviewedRevision || proof.confirmedRevision) && inputRevision(previous) === inputRevision(tab) && (confirmedNow ? confirmedAnswerChanged(workflow, previous!, tab) : existingFactChanged(previous!, tab)));
     const committed = mustRenew ? { ...tab, inputRevision: tab.revision } : tab;
     const changed = materialEdited || Boolean(previous && inputRevision(previous) !== inputRevision(committed));
-    return { ...master, intakeCheckpoint: committed, ...(changed ? { workflowStatus: reconcileReview(workflow, previous ?? snapshot, committed, fromReview) } : {}) };
+    // The title follows the Parties record this save writes (caseTitle.ts partiesTitle), as the server's Parties save does.
+    const title = partiesTitle((committed.sections as Record<string, Record<string, unknown>>).caseFile?.parties, snapshot.courtPath);
+    return { ...master, intakeCheckpoint: committed, ...(title ? { caseTitle: title } : {}), ...(changed ? { workflowStatus: reconcileReview(workflow, previous ?? snapshot, committed, fromReview) } : {}) };
   }, 2, { requestTimeoutMs: CASE_REQUEST_TIMEOUT_MS }));
 }
 

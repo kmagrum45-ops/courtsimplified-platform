@@ -18,8 +18,8 @@ import { readCheckpoint, type IntakeCourt } from "../intakeCheckpoint";
 import { CASE_FILE_SECTION } from "./caseFile";
 import { OFFER_UNSURE_PLACE, sectionWithOfferChoices, type OfferChoice } from "./offerChoice";
 import { PARTIES_SEQ, sectionWithSavedParties } from "./serverFacts";
-import { partyName, type PartiesRecord } from "../parties/parties";
-import { caseTitleFromIntake } from "../caseTitle";
+import type { PartiesRecord } from "../parties/parties";
+import { partiesTitle } from "../caseTitle";
 
 const NOTHING_TO_SAVE = "nothing-to-save";
 
@@ -58,11 +58,10 @@ export async function saveFactWrites(
       // The list of cases reads a saved title (factRecord.ts applyFactWrites saves it with an otherParty fact): a Parties
       // record saves it too, from the other party it names, so the dashboard is titled with the newest name given on the
       // Parties step (chrome-545-round B8, CI on d8cba8f5; the form's own name box was removed 23 Nov 2026).
-      const other = parties?.list.find((party) => party.side === "other");
-      // Only a name the record holds: a name held elsewhere (the chat, the review) is never saved in the record, and an
-      // address-only save must not take the title back to the court's name.
-      const named = other ? partyName(other).trim() : "";
-      const titled = named ? { caseTitle: caseTitleFromIntake(named, ids.court) } : {};
+      // The one title rule (caseTitle.ts partiesTitle): from the record's named other party, never emptied by a record that
+      // names no one (an address-only save).
+      const title = parties ? partiesTitle(parties, ids.court) : null;
+      const titled = title ? { caseTitle: title } : {};
       return { ...last.master, intakeCheckpoint: next, ...titled };
     }
     // Nothing new written (every write a conflict, or an answer the record already holds): the row is left as it is.
