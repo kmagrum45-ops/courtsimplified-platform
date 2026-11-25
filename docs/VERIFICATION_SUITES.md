@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-331 documented, 26 without a header.
+332 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -116,6 +116,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:fact-meanings` | **NO TWO FACTS DECLARE THE SAME MEANING (site owner, 19 Nov 2026).**<br>The same real-world fact under two ids is how a fact gets asked twice (S1: "If this involves an injury, what date did it happen?" after the story gave the date, because the injury date and the event date were asked as two). Every fact id declares one plain mea |
 | `npm run test:fact-places` | **C9: NO FACT IS ASKED OR OFFERED IN TWO PLACES (site owner, 23 Nov 2026: "for every fact in the fact list, in every**<br>court, if the fact can be answered or confirmed in one place, then NO other place may ask or offer it again. The check fails, naming the fact and the two places, whenever two places can. Freeze today's list of known violations on a shrink-only list (like test: |
 | `npm run test:fact-rails` | **THE RAILS OF THE ONE CASE RECORD (case core G0; docs CASE_CORE_DESIGN.md §1, §10, §12).**<br>What it checks, with no network and no AI: 1. `give` is exported from caseFile.ts and records an answer the way caseFileOf does. 2. The server alone orders saves (§12): a write naming `seq` or `at` is refused; each accepted write gets seq = the highest stored  |
+| `npm run test:fact-registry` | **test:fact-registry -- one registry entry per fact, and applicability decided in one place (site owner, Round 6, PR 2).**<br>WHAT IT CHECKS. 1. Every fact the site asks for (factsOfQuestion.ts CaseFact) has exactly one registry entry, and no entry names a fact that does not exist; every fact a question id asks (factsOfQuestion) is in the registry. 2. Each entry's home is where the f |
 | `npm run test:fact-sources` | **No fact about the person's case is shown without its source.**<br>What it checks: 1. Every place in app/ that states something about the person's case ("you told us", "from what you told us", "from your story", "you said", "you wrote", "we understood") renders the source beside it -- the person's words quoted, or their confi |
 | `npm run test:fact-status` | **THE ONE FUNCTION THAT SAYS WHETHER A FACT IS KNOWN (site owner, 11 Nov 2026, design slice 1; caseFile/factStatus.ts).**<br>Every fact is one of: known (the person's answer, typed or a story value they said Yes to), offer (stated in the story, not yet decided: shown once with Yes / No, that's not right / I'm not sure), ask (unknown, or the person said the story's value was not righ |
 | `npm run test:fact-types` | **EVERY FACT HAS A TYPE, AND THE ONE WRITER KEEPS ONLY A VALUE OF THAT TYPE (site owner, 18 Nov 2026, decision 1 on**<br>2d0ebd53). Lists every fact and every party detail with its type, and fails when one has none (a planted fact with no type is caught). Then, on the real AI's recorded readings and Chrome's own words, that a value of the wrong type is not kept and not offered:  |

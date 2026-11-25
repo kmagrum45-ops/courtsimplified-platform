@@ -22,6 +22,7 @@ import type { ReadingFact } from "./storyOffers";
 import { civilGuidedFields, familyGuidedFields } from "../../../../app/builder/_components/guidedFields";
 import { factsOfQuestion } from "./factsOfQuestion";
 import { factStatus } from "./factStatus";
+import { contextOfFile, questionApplies } from "./factRegistry";
 import type { CaseFile, SlotFact } from "./caseFile";
 
 export type QuestionCourt = "small-claims" | "civil" | "family";
@@ -85,7 +86,9 @@ export function homeAsks(file: CaseFile | null | undefined, questionId: string, 
   // The one story reader (storyReader.ts), with the reading the card shows: what it reads here is what the intake offers
   // (S1, Chrome check of ad67c3f7: the total the reading showed; S7: the child the story names), so it is not asked here.
   const stated = statedInStory(story ?? "", reading);
-  return factsOfQuestion(questionId).every((fact) => factStatus(file, fact as SlotFact, stated) === "ask");
+  // And only a question whose facts apply to this person (the fact registry, factRegistry.ts): none is asked that does not.
+  const facts = factsOfQuestion(questionId);
+  return questionApplies(facts, contextOfFile(file)) && facts.every((fact) => factStatus(file, fact as SlotFact, stated) === "ask");
 }
 
 /** The home page's fixed questions for this court and side (an unclear side: the starting side's), before the decision. */

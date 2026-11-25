@@ -12,7 +12,7 @@
  *
  *   1 held         a question whose fact the record already held
  *   2 twice        a question asked again after the person gave it
- *   3 applies      a question that does not apply to this side and stage (APPLICABILITY, below)
+ *   3 applies      a question that does not apply to this side and stage (the fact registry's rule, factRegistry.ts)
  *   4 logged       a visible box or question neither logged nor on the recorder's exempt list
  *   5 one-place    a fact that can be typed in more than one place across the journey
  *   6 offered      a fact the story gives that is not offered from the story exactly once (or is asked cold)
@@ -23,6 +23,7 @@
  *  11 form7a       Form 7A's fill values missing or contradicting a fact the record holds (Small Claims claims)
  */
 import type { Asked } from "../harness/askOnce";
+import { FACT_REGISTRY, factApplies, type FactContext } from "../../../src/lib/case-system/caseFile/factRegistry";
 
 export type Court = "small-claims" | "civil" | "family";
 export type Side = "plaintiff" | "defendant" | "applicant" | "respondent";
@@ -145,22 +146,12 @@ export const fileOf = (surface: string) => SURFACE_FILES[surface] ?? SURFACE_FIL
 export const OFFER_SURFACES = new Set(["sc-proposal", "story-proposal-row", "chat-story", "claim-kind", "sc-claim-kind", "parties-offer", "forms-offer", "form7a-found", "sc-form-offer"]);
 
 /**
- * CHECK 3's RULES: where a fact applies, from the owner's own examples (Chrome test of #563, 25 Nov 2026). Each has its
- * reason. Test-side and deliberately short: PR 2's fact registry (each fact's court, side and stage from the stage map)
- * replaces this table, and this check then reads the registry.
+ * CHECK 3 READS THE FACT REGISTRY (src/lib/case-system/caseFile/factRegistry.ts, Round 6 PR 2): the site's one rule of
+ * whom each fact applies to, with its reason. The matrix keeps no copy of its own (until PR 2 it had a short test-side
+ * table, now gone).
  */
-export type Context = { court: Court; side: Side; nothingFiled: boolean };
-const responding = (c: Context) => c.side === "defendant" || c.side === "respondent";
-export const APPLICABILITY: { fact: string; applies: (c: Context) => boolean; why: string }[] = [
-  { fact: "responseFacts", applies: responding, why: "a defence response is for the person responding to someone else's claim (Chrome: \"Defence response\" shown to someone suing)" },
-  { fact: "defenceFiled", applies: responding, why: "whether a defence was filed is the responding side's question" },
-  { fact: "defendantsClaim", applies: responding, why: "a claim of the defendant's own is asked of the defendant" },
-  { fact: "servedDate", applies: responding, why: "the day they were served is asked of the person served" },
-  { fact: "claimServed", applies: (c) => !c.nothingFiled, why: "a claim cannot have been served when nothing was filed (Chrome: \"Claim served\" on a case where nothing was filed)" },
-  { fact: "claimIssuedDate", applies: (c) => !c.nothingFiled || responding(c), why: "a claim issued date exists only once a claim was filed" },
-  { fact: "courtFileNumber", applies: (c) => !c.nothingFiled || responding(c), why: "a court file number exists only once something was filed" },
-  { fact: "filed", applies: (c) => !(c.nothingFiled && !responding(c)), why: "\"Has anything been filed\" after the person said they want to start a case and nothing is filed (Chrome, 25 Nov)" },
-];
+export type Context = FactContext;
+const contextOf = (story: MatrixStory): Context => ({ court: story.court, side: story.side === "defendant" || story.side === "respondent" ? "responding" : "bringing", nothingFiled: story.nothingFiled });
 
 const fail = (r: JourneyRecord, check: CheckId, screen: string, file: string, fact: string, text: string): Failure => ({ journey: r.journey, check, screen, file, fact, text: text.replace(/\s+/g, " ").trim().slice(0, 240) });
 
@@ -173,13 +164,13 @@ export function check2Twice(r: JourneyRecord): Failure[] {
 }
 
 export function check3Applies(r: JourneyRecord, factsOfEvent: (event: Asked) => string[]): Failure[] {
-  const context: Context = { court: r.story.court, side: r.story.side, nothingFiled: r.story.nothingFiled };
+  const context = contextOf(r.story);
   const out: Failure[] = [];
   for (const event of [...r.events, ...(r.shown ?? [])]) {
     if (event.kind !== "ask") continue;
     for (const fact of factsOfEvent(event)) {
-      const rule = APPLICABILITY.find((item) => item.fact === fact);
-      if (rule && !rule.applies(context)) out.push(fail(r, 3, event.screen, fileOf(event.surface), fact, `${event.text} -- ${rule.why}`));
+      const rule = FACT_REGISTRY.find((item) => item.fact === fact)?.applies;
+      if (rule && !factApplies(fact, context)) out.push(fail(r, 3, event.screen, fileOf(event.surface), fact, `${event.text} -- ${rule.why}`));
     }
   }
   return dedupe(out);

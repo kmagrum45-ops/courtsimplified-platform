@@ -36,7 +36,7 @@ import { freshSections } from "../storyBasis";
 import { isTypedUnsure, isUnsureAnswer } from "./unsureAnswer";
 import { locationOf, storyOfMaster } from "../intakeStory";
 import { withoutGluedAnswers } from "../personWords";
-import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation, SERVED_DATE_QUESTION, JUST_SERVED } from "../situation/situation";
+import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation, SERVED_DATE_QUESTION, JUST_SERVED, nothingFiled, somethingFiled } from "../situation/situation";
 import { isKindOfClaim, kindFromStory, storyQuoteFor, wordsInStory } from "../intake/claimKind";
 import { CLAIM_TYPES } from "../intake/claimTypes";
 import { kindForSide } from "../intake/roleView";
@@ -327,12 +327,13 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   const servedStep = situation.where === "served" ? stepFromSituation(situation, situation.court ?? court) : null;
   if (servedStep) give(file, "stage", servedStep, "situation:stage");
   else if (situation.where === "served") give(file, "stage", "responding", "situation:where");
-  if (situation.where === "starting" && situation.filed === "nothing") give(file, "stage", "starting-case", "situation:filed");
+  if (nothingFiled(situation)) give(file, "stage", "starting-case", "situation:filed");
   if (situation.where === "going" && situation.stage === "not-sure") give(file, "stage", "not-sure", "situation:stage");
   else if (situation.where === "going" && stepFromSituation(situation, situation.court ?? court)) give(file, "stage", situation.stage, "situation:stage");
   // An older record: "something filed" when starting is a case that has started (stageFromSituation agrees).
-  if (situation.where === "starting" && situation.filed === "something") give(file, "stage", "already-started", "situation:filed");
-  if (situation.where === "starting" && situation.filed) give(file, "filed", situation.filed === "something", "situation:filed");
+  if (somethingFiled(situation)) give(file, "stage", "already-started", "situation:filed");
+  // "I want to start a case" says nothing is filed (an older start's "something has been filed" is kept).
+  if (situation.where === "starting") give(file, "filed", somethingFiled(situation), "situation:filed");
   if (situation.where === "going" || situation.where === "served") give(file, "filed", true, "situation:where");
   if (situation.papers) give(file, "papers", situation.papers === "not-sure" ? "not-sure" : firstPageOf(situation.papers)?.title ?? situation.papers, "situation:papers");
   if (situation.receivedOn) give(file, "servedDate", situation.receivedOn === "unknown" ? "unknown" : situation.receivedOn, "situation:received");

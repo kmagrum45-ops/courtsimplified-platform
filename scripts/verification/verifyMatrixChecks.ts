@@ -11,9 +11,10 @@
  * Pure and fast: no browser, no page, no network.
  */
 import { existsSync } from "node:fs";
+import { FACT_REGISTRY } from "../../src/lib/case-system/caseFile/factRegistry";
 import type { Asked } from "../../tests/browser/harness/askOnce";
 import {
-  APPLICABILITY, CHECK_NAMES, OFFERS_HOME, SURFACE_FILES, screenFile, check1Held, check2Twice, check3Applies, check4Logged, check5OnePlace, check6Offered, check7Carried,
+  CHECK_NAMES, OFFERS_HOME, SURFACE_FILES, screenFile, check1Held, check2Twice, check3Applies, check4Logged, check5OnePlace, check6Offered, check7Carried,
   check8Persists, check9Same, check10Forward, check11Form7A, counts, table, type JourneyRecord, type MatrixStory,
 } from "../../tests/browser/matrix/matrixChecks";
 
@@ -51,7 +52,7 @@ check("3 \"Claim served\" when nothing was filed", one(check3Applies(clean({ eve
 check("3 \"Has anything been filed\" after \"I want to start a case\"", one(check3Applies(clean({ events: [ev("situation", "filed", "Has anything been filed with the court yet?"), ...clean().events] }), factsOf), 3, "filed"));
 check("3 \"Claim served\" merely shown on the review (already answered No) when nothing was filed", one(check3Applies(clean({ shown: [ev("review-entry", "claimServed", "Claim served Yes No")] }), factsOf), 3, "claimServed"));
 check("3 a defendant may be asked for their defence response", check3Applies(clean({ story: { ...story, side: "defendant", nothingFiled: false }, events: [ev("form-field", "responseFacts", "Defence response")] }), factsOf).length === 0);
-check("3 every applicability rule has its reason", APPLICABILITY.every((rule) => rule.why.trim().length > 20));
+check("3 reads the fact registry's rules, each with its reason", FACT_REGISTRY.filter((entry) => entry.applies).length >= 5 && FACT_REGISTRY.every((entry) => !entry.applies || entry.applies.why.trim().length > 20));
 check("4 a box neither logged nor exempt", one(check4Logged(clean({ blind: ["/builder | input[name=city]"] })), 4, ""));
 check("5 the other side's name typed on the Parties step and in the review", one(check5OnePlace(clean({ events: [ev("parties", "otherParty", "Company's full legal name"), ev("review-entry", "otherParty", "The other party: Not filled in yet")] }), factsOf), 5, "otherParty"));
 check("5 an offer above its own box is one place", check5OnePlace(clean({ events: [ev("parties-offer", "otherParty", "From your story: X"), ev("parties", "otherParty", "Company's full legal name")] }), factsOf).length === 0);
