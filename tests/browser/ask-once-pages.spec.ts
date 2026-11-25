@@ -41,6 +41,7 @@ import { chooseOffers } from "./harness/offers";
 import { MARRIED_ONLY_SCREEN_TEXT } from "../../src/lib/case-system/family/marriedOnly";
 import { expectThisRunsServer, grantSiteAccess } from "./harness/siteAccess";
 import { MATRIX_STORIES, type MatrixStoryWithStart } from "./matrix/matrixStories";
+import { bodyNameLabels } from "../../src/lib/security/requestNames";
 import { fileOf, type Mode } from "./matrix/matrixChecks";
 import { guestDescribesThenSignsUp, probeNotSureAndRemoved, recordFacts, reviewEntries, sampleScreens, savedStart, writeJourney } from "./matrix/matrixJourney";
 import { HOME_QUESTIONS } from "../../src/lib/case-system/caseFile/factQuestions";
@@ -954,6 +955,10 @@ for (const ms of MATRIX ? MATRIX_STORIES : []) for (const mode of MODES) {
     const journey = `${ms.id} ${mode}`;
     const record: Record<string, unknown> = { journey, story: ms, mode, reading, events: [], held: [], twice: [], blind: [], screens: [], ended: false, notFilled: [], notes: [] };
     const notes = record.notes as string[];
+    // A name the site's own labels do not hide would reach the model as typed: the recorder refuses it, so the story
+    // cannot be recorded or replayed until the site hides it (a finding of its own, in the report).
+    const unhidden = ms.names.filter((name) => !JSON.stringify(bodyNameLabels({ story: ms.text })).includes(name));
+    if (unhidden.length && !RECORDING) { record.notRun = `the site's name labels do not hide ${unhidden.map((name) => `"${name}"`).join(", ")}: it would reach the AI as typed, so the story cannot be recorded`; writeJourney(journey, record); test.skip(true, String(record.notRun)); return; }
     if (!reading) { record.notRun = "no recorded reading (record once with AI_FIXTURES=record)"; writeJourney(journey, record); test.skip(true, String(record.notRun)); return; }
     replayMisses.length = 0;
     const typed = new Map<string, string>();

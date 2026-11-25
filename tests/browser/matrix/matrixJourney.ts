@@ -111,12 +111,26 @@ async function openReview(page: Page, court: string, id: string) {
 }
 
 /** One detail of the other side "I'm not sure", another typed then emptied (removed); a reload; what each shows. */
-export async function probeNotSureAndRemoved(page: Page, court: string, id: string) {
-  await openReview(page, court, id);
+/** Where the other side's details can be changed once the case is confirmed: the Small Claims whole form (the review shows
+ * no Parties step after Confirm). Civil and Family: none found yet, so check 8 is "not measured" there, never zero. */
+async function openParties(page: Page, court: string, id: string): Promise<boolean> {
+  if (court !== "small-claims") return false;
+  await page.goto(`/builder?path=${court}&intake=${id}&step=form`);
+  const form = page.getByRole("button", { name: "Fill in the form yourself" });
+  if (await form.isVisible({ timeout: 15_000 }).catch(() => false)) await form.click();
+  return page.locator("[data-testid=parties-party][data-party=other]").first().waitFor({ timeout: 60_000 }).then(() => true, () => false);
+}
+
+export async function probeNotSureAndRemoved(page: Page, court: string, id: string): Promise<{ notMeasured: string } | { notSure: { fact: string; shown: string; askedAgain: boolean }; removed: { fact: string; shown: string; askedAgain: boolean } } | undefined> {
+  if (!(await openParties(page, court, id))) return { notMeasured: court === "small-claims" ? "the whole form showed no Parties step" : "no place to change the other side's details after Confirm" };
   const party = page.locator("[data-testid=parties-party][data-party=other]").first();
-  if (!(await party.isVisible().catch(() => false))) return undefined;
+  const shot = async (why: string) => { await page.screenshot({ path: `${MATRIX_RECORDS}/probe-${id}.png`, fullPage: true }).catch(() => {}); console.log(`MATRIX probe: ${why} (${page.url()})`); return undefined; };
+  if (!(await party.isVisible().catch(() => false))) return shot("no other party on the review");
+  // The other side's details show once "A person or a company?" is answered: answered "A person", as a person would.
+  const person = party.getByTestId("parties-kind-person");
+  if (await person.isVisible().catch(() => false)) { await person.click(); await page.waitForTimeout(1_500); }
   const asks = party.locator("label[data-testid=parties-detail-ask]");
-  if ((await asks.count()) < 2) return undefined;
+  if ((await asks.count()) < 2) return shot(`${await asks.count()} detail boxes to ask`);
   const notSureDetail = (await asks.nth(0).getAttribute("data-detail")) ?? "";
   const removedDetail = (await asks.nth(1).getAttribute("data-detail")) ?? "";
   await asks.nth(0).getByTestId("parties-detail-not-sure").click().catch(() => {});
@@ -131,7 +145,7 @@ export async function probeNotSureAndRemoved(page: Page, court: string, id: stri
   await typing.blur();
   await page.waitForTimeout(3_000);
   await page.reload();
-  await page.getByTestId("intake-review").waitFor({ timeout: 120_000 }).catch(() => {});
+  await page.locator("[data-testid=parties-party][data-party=other]").first().waitFor({ timeout: 120_000 }).catch(() => {});
   await page.waitForTimeout(3_000);
   const read = async (detail: string) => {
     const where = page.locator(`[data-testid=parties-party][data-party=other] [data-detail="${detail}"]`).first();

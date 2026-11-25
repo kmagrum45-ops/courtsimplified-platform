@@ -78,7 +78,7 @@ export type JourneyRecord = {
   /** Before signing up -> after (guest-then-signup only): fact -> value. */
   carried?: { before: Record<string, string>; after: Record<string, string> };
   /** After a reload: the words shown where "not sure" was chosen, and where a value was removed. */
-  persisted?: { notSure?: { fact: string; shown: string; askedAgain: boolean }; removed?: { fact: string; shown: string; askedAgain: boolean } };
+  persisted?: { notSure?: { fact: string; shown: string; askedAgain: boolean }; removed?: { fact: string; shown: string; askedAgain: boolean }; notMeasured?: string };
   /** The review's "Not filled in yet" items. */
   notFilled: string[];
   /** Every field the review shows, answered or not (a field that does not apply must not be shown at all: check 3). */
@@ -94,8 +94,18 @@ export const SURFACE_FILES: Record<string, string> = {
   situation: "app/_components/SituationQuestions.tsx",
   "home-location": "app/_components/HomeLocationGate.tsx",
   "home-reading": "app/_components/HomeLocationGate.tsx",
-  "guided-form": "app/builder/_components/GuidedFormChat.tsx",
-  "guided-form-from-story": "app/builder/_components/GuidedFormChat.tsx",
+  // The recorder's own surface names (harness/askOnce.ts SURFACES).
+  chat: "app/builder/_components/GuidedFormChat.tsx",
+  "chat-story": "app/builder/_components/GuidedFormChat.tsx",
+  "sc-chat": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+  "sc-claim-kind": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+  "sc-form": "app/builder/_components/SmallClaimsIntake.tsx",
+  "sc-form-offer": "app/builder/_components/SmallClaimsIntake.tsx",
+  date: "app/builder/_components/StageAnswerPanel.tsx",
+  "event-candidate": "app/builder/_components/EventCandidateSurface.tsx",
+  end: "app/cases/_components/CaseFilePanel.tsx",
+  story: "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+  "home-story": "app/_components/HomeLocationGate.tsx",
   "sc-guided": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
   "sc-proposal": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
   "story-proposal-row": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
@@ -129,7 +139,7 @@ export const OFFERS_HOME = "src/lib/case-system/caseFile/storyOffers.ts";
 export const fileOf = (surface: string) => SURFACE_FILES[surface] ?? SURFACE_FILES[surface.replace(/-.*$/, "")] ?? `(surface ${surface})`;
 
 /** The surfaces that offer a value from the story for one confirmation (harness/questionLog.ts OFFER_SURFACES). */
-export const OFFER_SURFACES = new Set(["sc-proposal", "story-proposal-row", "guided-form-from-story", "claim-kind", "parties-offer", "forms-offer", "form7a-found", "sc-form-offer"]);
+export const OFFER_SURFACES = new Set(["sc-proposal", "story-proposal-row", "chat-story", "claim-kind", "sc-claim-kind", "parties-offer", "forms-offer", "form7a-found", "sc-form-offer"]);
 
 /**
  * CHECK 3's RULES: where a fact applies, from the owner's own examples (Chrome test of #563, 25 Nov 2026). Each has its
@@ -152,11 +162,11 @@ export const APPLICABILITY: { fact: string; applies: (c: Context) => boolean; wh
 const fail = (r: JourneyRecord, check: CheckId, screen: string, file: string, fact: string, text: string): Failure => ({ journey: r.journey, check, screen, file, fact, text: text.replace(/\s+/g, " ").trim().slice(0, 240) });
 
 export function check1Held(r: JourneyRecord): Failure[] {
-  return r.held.map((item) => fail(r, 1, item.screen, fileOf(item.screen), item.fact, item.text));
+  return r.held.map((item) => fail(r, 1, item.screen, fileOf(item.screen.split("@")[0]), item.fact, item.text));
 }
 
 export function check2Twice(r: JourneyRecord): Failure[] {
-  return r.twice.map((item) => fail(r, 2, item.screen, fileOf(item.screen), item.fact, item.text));
+  return r.twice.map((item) => fail(r, 2, item.screen, fileOf(item.screen.split("@")[0]), item.fact, item.text));
 }
 
 export function check3Applies(r: JourneyRecord, factsOfEvent: (event: Asked) => string[]): Failure[] {
@@ -173,7 +183,8 @@ export function check3Applies(r: JourneyRecord, factsOfEvent: (event: Asked) => 
 }
 
 export function check4Logged(r: JourneyRecord): Failure[] {
-  return r.blind.map((box) => fail(r, 4, box.split(" | ")[0] ?? box, "(not logged)", "", box));
+  // The sign-in page's email and password are the account, not a question about the case.
+  return r.blind.filter((box) => !box.includes("@ /login")).map((box) => fail(r, 4, box.split(" | ")[0] ?? box, "(not logged)", "", box));
 }
 
 /** A place to type: an ask event on a box-bearing surface (not an offer, which shows above its own box). */
@@ -236,13 +247,20 @@ export function check8Persists(r: JourneyRecord): Failure[] {
 }
 
 /** The same story, signed in and guest-then-signup: the same facts asked and the same "Not filled in yet" items. */
+/** A recorder fact id, not a question's own words standing in for one ("home-reading:Is anything urgent..."). */
+export const hasFactId = (fact: string) => Boolean(fact) && !fact.includes(":");
+
 export function check9Same(a: JourneyRecord, b: JourneyRecord, factsOfEvent: (event: Asked) => string[]): Failure[] {
-  const asked = (r: JourneyRecord) => new Set(r.events.filter((e) => e.kind === "ask").flatMap(factsOfEvent));
+  // Only questions that name a real fact: a question with no fact id is listed by the report on its own (its words differ
+  // from path to path, so comparing them would only compare wording).
+  const asked = (r: JourneyRecord) => new Set(r.events.filter((e) => e.kind === "ask").flatMap(factsOfEvent).filter(hasFactId));
   const [x, y] = [asked(a), asked(b)];
   const out: Failure[] = [];
   const onlyIn = (s: Set<string>, t: Set<string>) => [...s].filter((f) => !t.has(f)).sort();
-  for (const fact of onlyIn(x, y)) out.push(fail(b, 9, "(whole journey)", "", fact, `asked ${a.mode}, not ${b.mode}`));
-  for (const fact of onlyIn(y, x)) out.push(fail(b, 9, "(whole journey)", "", fact, `asked ${b.mode}, not ${a.mode}`));
+  // The file where the one journey asked it.
+  const where = (r: JourneyRecord, fact: string) => { const e = r.events.find((item) => item.kind === "ask" && factsOfEvent(item).includes(fact)); return e ? [e.screen, fileOf(e.surface)] as const : ["(whole journey)", ""] as const; };
+  for (const fact of onlyIn(x, y)) out.push(fail(b, 9, ...where(a, fact), fact, `asked ${a.mode}, not ${b.mode}`));
+  for (const fact of onlyIn(y, x)) out.push(fail(b, 9, ...where(b, fact), fact, `asked ${b.mode}, not ${a.mode}`));
   const nf = (r: JourneyRecord) => new Set(r.notFilled);
   for (const item of onlyIn(nf(a), nf(b))) out.push(fail(b, 9, "review", "app/_components/IntakeReviewPanel.tsx", item, `"Not filled in yet" ${a.mode}, missing ${b.mode}`));
   for (const item of onlyIn(nf(b), nf(a))) out.push(fail(b, 9, "review", "app/_components/IntakeReviewPanel.tsx", item, `"Not filled in yet" ${b.mode}, missing ${a.mode}`));

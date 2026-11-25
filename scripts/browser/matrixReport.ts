@@ -15,7 +15,7 @@ import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import type { Asked } from "../../tests/browser/harness/askOnce";
-import { check9Same, counts, journeyFailures, table, type Failure, type JourneyRecord } from "../../tests/browser/matrix/matrixChecks";
+import { check9Same, counts, fileOf, hasFactId, journeyFailures, table, type Failure, type JourneyRecord } from "../../tests/browser/matrix/matrixChecks";
 import { bodyNameLabels } from "../../src/lib/security/requestNames";
 import { MATRIX_STORIES } from "../../tests/browser/matrix/matrixStories";
 
@@ -62,12 +62,17 @@ function main() {
   const rose = Object.entries(result.perFile).filter(([file, n]) => n > (committed[file] ?? 0)).map(([file, n]) => `${file}: ${committed[file] ?? 0} -> ${n}`);
   const missed = MATRIX_STORIES.flatMap((story) => story.names.filter((name) => !JSON.stringify(bodyNameLabels({ story: story.text })).includes(name)).map((name) => `${story.id}: "${name}"`));
   const drift = records.flatMap((r) => r.drift ?? []);
+  // Questions that name no fact (the Round 4 problem type "no fact id"): each distinct one, where it was shown.
+  const noFact = new Map<string, string>();
+  for (const r of records.filter((x) => !x.notRun)) for (const e of r.events) if (e.kind === "ask" && !factsOfEvent(e).some(hasFactId)) noFact.set(`${fileOf(e.surface)} | ${e.text.replace(/\s+/g, " ").slice(0, 120)}`, r.journey);
   const lines = [
     `# Journey matrix: ${records.length} journeys, ${records.length - result.notRun.length} run, ${result.failures.length} failures`,
     "",
     "## Counts per check", "", "| Check | Failures |", "|---|---|", ...Object.entries(result.perCheck).sort().map(([k, v]) => `| ${k} | ${v} |`),
     "", "## Counts per file", "", "| File | Failures |", "|---|---|", ...Object.entries(result.perFile).sort((a, b) => b[1] - a[1]).map(([k, v]) => `| ${k} | ${v} |`),
     "", "## Every failure", "", table(result.failures),
+    "", `## Questions that name no fact (${noFact.size})`, "", ...(noFact.size ? [...noFact].map(([what, journey]) => `- ${what} (first in ${journey})`) : ["- none"]),
+    "", "## Checks not measured on a journey (never counted as zero)", "", ...(() => { const ran = records.filter((r) => !r.notRun); const lines = [...ran.filter((r) => !r.persisted || r.persisted.notMeasured).map((r) => `- check 8 on ${r.journey}: ${r.persisted?.notMeasured ?? "the reload probe did not run"}`), ...ran.filter((r) => r.story.court === "small-claims" && r.story.side === "plaintiff" && !r.form7a).map((r) => `- check 11 on ${r.journey}: Form 7A was not read`)]; return lines.length ? lines : ["- none"]; })(),
     "", "## Journeys that did not run", "", ...(result.notRun.length ? result.notRun.map((x) => `- ${x}`) : ["- none"]),
     "", "## Journeys that stopped before their end", "", ...(result.stopped.length ? result.stopped.map((x) => `- ${x}`) : ["- none"]),
     "", "## Counter: files whose count went up against the committed counter", "", ...(rose.length ? rose.map((x) => `- ${x}`) : ["- none"]),
