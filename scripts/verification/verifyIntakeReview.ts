@@ -6,7 +6,7 @@
  */
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { canReview, reviewQuestionField, existingFactChanged, panelAnswerFacts, materialInitialFacts, reconcileReview, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, transitionReview } from "../../src/lib/case-system/intakeReview";
+import { renewsInputRevision, canReview, reviewQuestionField, existingFactChanged, panelAnswerFacts, materialInitialFacts, reconcileReview, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, transitionReview } from "../../src/lib/case-system/intakeReview";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { selectQuestions } from "../../src/lib/case-system/intake/selectQuestions";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
@@ -40,7 +40,20 @@ for (const courtPath of ["small-claims", "family", "civil"] as const) {
   const optional = structuredClone(checkpoint);
   if (courtPath === "family") optional.sections.family.evidence = ["Later document"];
   else (optional.sections[courtPath].input as Record<string, unknown>).evidence = ["Later document"];
-  assert.equal(materialInitialFacts(optional), materialInitialFacts(checkpoint), "later evidence does not invalidate initial review");
+  // What the confirm screen shows is what was confirmed (Chrome check of #514's preview, 29 Oct):
+  // the evidence shown there, changed, is a changed fact; added where none was, a new one, which
+  // after Confirm keeps the confirmation (renewsInputRevision). A field the screen never shows
+  // (the open view, `mode`) is no fact at all.
+  assert.notEqual(materialInitialFacts(optional), materialInitialFacts(checkpoint), "evidence shown on the confirm screen, changed, is a changed fact");
+  const viewOnly = structuredClone(checkpoint);
+  if (courtPath === "family") viewOnly.sections.family.mode = "form";
+  else (viewOnly.sections[courtPath].input as Record<string, unknown>).mode = "form";
+  assert.equal(materialInitialFacts(viewOnly), materialInitialFacts(checkpoint), "what the confirm screen never shows is no fact");
+  const withoutEvidence = structuredClone(checkpoint);
+  if (courtPath === "family") delete withoutEvidence.sections.family.evidence;
+  else delete (withoutEvidence.sections[courtPath].input as Record<string, unknown>).evidence;
+  const confirmedWithout = transitionReview(transitionReview(workflow, withoutEvidence, "review", withoutEvidence.revision, "now"), withoutEvidence, "confirm", withoutEvidence.revision, "now");
+  assert.equal(renewsInputRevision(confirmedWithout, withoutEvidence, optional), false, "evidence added after Confirm keeps the confirmation");
   const missing = structuredClone(checkpoint); delete missing.sections.story.location;
   assert.equal(canReview(missing), false);
   console.log(`PASS ${courtPath}: explicit review, revisions, legacy compatibility, optional evidence and preservation`);
