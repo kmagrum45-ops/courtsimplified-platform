@@ -52,7 +52,7 @@ jobs:
       matrix:
         include:
           - shard: 1
-            stories: chrome-kitchen chrome-alex
+            stories: chrome-kitchen chrome-alex chrome-defamation
           - shard: 2
             stories: sc-deciding-to-sue sc-served-defendant
           - shard: 3

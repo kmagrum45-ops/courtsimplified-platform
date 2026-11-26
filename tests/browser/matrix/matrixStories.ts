@@ -86,6 +86,14 @@ export const MATRIX_STORIES: (MatrixStoryWithStart & { mustNotAsk: readonly Must
     facts: { otherParty: "Alex", amount: "2,000", whenHappened: "January 2026", wants: "$2,000 back" },
     names: ["Alex"],
   },
+  // Jason's live-site test (signed in, Small Claims, 26 Nov 2026), word for word but the surname, which is made up: the
+  // home card showed the amount, the kind and the date, and the later screens asked them again, with "Claim served/filed".
+  {
+    id: "chrome-defamation", mustNotAsk: [...SC_BEFORE_FILING, ...SC_DEFENDANT_STEPS], court: "small-claims", side: "plaintiff", startingPoint: "chrome", city: "Ottawa", nothingFiled: true, situation: starting("small-claims"),
+    text: "My uncles ex girlfriend Rebecca Testsurname has been telling people I stole from her. She said it on sept 14 2025. I want 10000 dollars. nothing filed.",
+    facts: { otherParty: "Rebecca Testsurname", amount: "10000", whenHappened: "sept 14 2025", wants: "10000 dollars" },
+    names: ["Rebecca Testsurname"],
+  },
   // Small Claims.
   {
     id: "sc-deciding-to-sue", mustNotAsk: [...SC_BEFORE_FILING, ...SC_DEFENDANT_STEPS], court: "small-claims", side: "plaintiff", startingPoint: "before-filing:deciding-whether-to-sue", city: "Kingston", nothingFiled: true, situation: starting("small-claims"),

@@ -1,0 +1,127 @@
+{
+  "story": "matrix-chrome-defamation",
+  "reading": "r1",
+  "recorded": "2026-11-26",
+  "note": "Real model outputs for a made-up story (AI_FIXTURES=record).",
+  "entries": [
+    {
+      "step": "story-reading",
+      "input": "f08a97e93ba62b6b",
+      "said": "{\"sent\":\"My uncles ex girlfriend Rebecca Testsurname has been telling people I stole from her. She said it on sept 14 2025. I want 10000 dollars. nothing filed.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\",\"chosen\":null}",
+      "output": "{\n  \"summary\": \"Your uncle’s ex-girlfriend has been telling people that you stole from her, including on September 14, 2025. You want to bring a claim against her for $10,000. Nothing has been filed with a court.\",\n  \"facts\": [\n    {\n      \"label\": \"Other party\",\n      \"value\": \"Your uncle’s ex-girlfriend\"\n    },\n    {\n      \"label\": \"Your role\",\n      \"value\": \"Person bringing the claim\"\n    },\n    {\n      \"label\": \"Alleged statement\",\n      \"value\": \"She told people you stole from her\"\n    },\n    {\n      \"label\": \"Date of statement\",\n      \"value\": \"September 14, 2025\"\n    },\n    {\n      \"label\": \"Amount sought\",\n      \"value\": \"$10,000\"\n    },\n    {\n      \"label\": \"Court filing\",\n      \"value\": \"Nothing filed\"\n    },\n    {\n      \"label\": \"Location\",\n      \"value\": \"Not given\"\n    }\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Defamation claim concerning an accusation of theft\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You are considering bringing a claim, and nothing has been filed with a court.\",\n  \"questions\": [\n    {\n      \"question\": \"What exact words did she use about you?\",\n      \"why\": \"The wording determines the nature of the alleged defamatory statement.\"\n    },\n    {\n      \"question\": \"Who did she say this to?\",\n      \"why\": \"It matters whether the accusation was communicated to someone other than you.\"\n    },\n    {\n      \"question\": \"How did she communicate the accusation—for example, in conversation, in messages, or in a public post?\",\n      \"why\": \"The type of communication affects how the claim is assessed.\"\n    },\n    {\n      \"question\": \"Where were you, she, and the people receiving the accusation located when it was communicated?\",\n      \"why\": \"The locations help determine whether Ontario is the appropriate place for the claim.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}",
+      "ms": 12116
+    },
+    {
+      "step": "safety",
+      "input": "4e74058abce21f11",
+      "said": "{\"said\":\"My uncles ex girlfriend Rebecca Testsurname has been telling people I stole from her. She said it on sept 14 2025. I want 10000 dollars. nothing filed.\"}",
+      "output": {
+        "classification": "clear",
+        "requestsLegalAdvice": false
+      },
+      "ms": 2532
+    },
+    {
+      "step": "fact-reading",
+      "input": "4e74058abce21f11",
+      "said": "{\"said\":\"My uncles ex girlfriend Rebecca Testsurname has been telling people I stole from her. She said it on sept 14 2025. I want 10000 dollars. nothing filed.\"}",
+      "output": {
+        "facts": {
+          "role": "plaintiff",
+          "disputeCategory": "defamation",
+          "claimFiled": false
+        },
+        "directFields": [
+          "role",
+          "disputeCategory",
+          "claimFiled"
+        ]
+      },
+      "ms": 2486
+    },
+    {
+      "step": "claim-kind",
+      "input": "85a08a2a3c0ea246",
+      "said": "{\"said\":\"My uncles ex girlfriend Rebecca Testsurname has been telling people I stole from her. She said it on sept 14 2025. I want 10000 dollars. nothing filed.\",\"exclude\":[],\"responding\":false}",
+      "output": {
+        "claimTypeId": "sc-claim-defamation-libel-slander",
+        "claimTypeName": "Defamation (libel or slander)",
+        "quote": "has been telling people I stole from her"
+      },
+      "ms": 2576
+    },
+    {
+      "step": "story-suggestions",
+      "input": "f61dd4840709a7bd",
+      "said": "{\"story\":\"My uncles ex girlfriend Rebecca Testsurname has been telling people I stole from her. She said it on sept 14 2025. I want 10000 dollars. nothing filed.\",\"questions\":[\"sc-orient-when-happened\",\"sc-orient-dispute-category\",\"sc-amount-claimed\",\"sc-remedy-sought\"],\"quoteFrom\":null}",
+      "output": [
+        {
+          "questionId": "sc-orient-when-happened",
+          "questionText": "Roughly when did the situation that led to this claim happen?",
+          "answer": "September 14, 2025",
+          "storyQuote": "She said it on sept 14 2025.",
+          "dateQuestion": true
+        },
+        {
+          "questionId": "sc-orient-dispute-category",
+          "questionText": "What kind of dispute is this?",
+          "answer": "Something said about you (defamation)",
+          "storyQuote": "has been telling people I stole from her.",
+          "choices": [
+            "Unpaid money owed to you",
+            "A contract or agreement dispute",
+            "Property damage",
+            "A loan or debt",
+            "Work or a service you paid for (e.g. a contractor)",
+            "A deposit that wasn't returned",
+            "A consumer purchase problem",
+            "A vehicle-related dispute",
+            "Something said about you (defamation)",
+            "A personal injury (a fall, an animal bite, or similar)",
+            "Something else"
+          ]
+        },
+        {
+          "questionId": "sc-amount-claimed",
+          "questionText": "What is the total dollar amount you are claiming?",
+          "answer": "10000",
+          "storyQuote": "I want 10000 dollars."
+        },
+        {
+          "questionId": "sc-remedy-sought",
+          "questionText": "What outcome are you asking the court to order?",
+          "answer": "I want 10000 dollars.",
+          "storyQuote": "I want 10000 dollars."
+        }
+      ],
+      "ms": 4024
+    },
+    {
+      "step": "claim-kind-confirm",
+      "input": "359763486ce0aa0c",
+      "said": "{\"action\":\"confirm\",\"said\":\"My uncles ex girlfriend Rebecca Testsurname has been telling people I stole from her. She said it on sept 14 2025. I want 10000 dollars. nothing filed.\",\"claimTypeId\":\"sc-claim-defamation-libel-slander\",\"prior\":[]}",
+      "output": {
+        "outcome": "confirmed",
+        "claimType": {
+          "claimTypeId": "sc-claim-defamation-libel-slander",
+          "claimTypeName": "Defamation (libel or slander)"
+        }
+      },
+      "ms": 1
+    },
+    {
+      "step": "fact-reading",
+      "input": "c2ea418ded61a29a",
+      "said": "{\"said\":\"Q: Roughly when did the situation that led to this claim happen?\\nA: September 14, 2025\\n\\nQ: What is the total dollar amount you are claiming?\\nA: $10,000.00\\n\\nQ: What outcome are you asking the court to order?\\nA: I want 10000 dollars.\"}",
+      "output": {
+        "facts": {
+          "role": "plaintiff"
+        },
+        "directFields": [
+          "role"
+        ]
+      },
+      "ms": 2373
+    }
+  ]
+}
