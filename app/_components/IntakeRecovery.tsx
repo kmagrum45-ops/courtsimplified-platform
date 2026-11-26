@@ -717,6 +717,11 @@ function SituationGate({ court, ownerId, children }: { court: IntakeCourt; owner
   const file = view && recovery ? caseFileOf(view.checkpoint, recovery.getSavedMaster() ?? undefined) : null;
   const held = situationWithHeld(known, file);
   const incomplete = nextSituationQuestion(held, court) !== null;
+  // The finder's story waiting for this intake on arrival (read before the hand-off below is rewritten): the builder takes
+  // it when it mounts, so it stays unmounted until the notice is accepted.
+  const [finderStoryWaiting] = useState(() => {
+    try { const handed = JSON.parse(typeof window === "undefined" ? "null" : sessionStorage.getItem(COURT_PATH_FINDER_KEY) ?? "null") as Record<string, unknown> | null; return typeof handed?.facts === "string" && handed.facts.trim() !== ""; } catch { return false; }
+  });
   // The court-path finder asked "Has a case already started?": that answer is the first one here.
   useEffect(() => {
     try {
@@ -747,11 +752,12 @@ function SituationGate({ court, ownerId, children }: { court: IntakeCourt; owner
   };
   // On the builder, as before; the home page has always taken the city and story before it.
   const onBuilder = typeof window !== "undefined" && window.location.pathname.startsWith("/builder");
-  // Held here while the notice is outstanding, even when the start is already answered (a finder hand-off of "no case
-  // started" with the court chosen answers it all, now that "Has anything been filed?" is not asked after "I want to
-  // start a case"): the builder below takes the finder's story when it mounts, and it is taken only after "Before you
-  // start" (finder-story-leak.spec.ts; PR 2 CI, 25 Nov 2026).
-  if (onBuilder && notice !== false) {
+  // Also held while the notice is outstanding when the finder's story waits, even with the start already answered (a
+  // finder hand-off of "no case started" with the court chosen answers it all, now that "Has anything been filed?" is
+  // not asked after "I want to start a case"): the builder below takes that story when it mounts, and it is taken only
+  // after "Before you start" (finder-story-leak.spec.ts; PR 2 CI, 25 Nov 2026). Any other answered start keeps the
+  // review above the builder's own notice (notice-before-work.spec.ts).
+  if ((incomplete || changing || finderStoryWaiting) && onBuilder && notice !== false) {
     return <div className="mx-auto max-w-3xl space-y-4 px-6 py-6">
       <FirstUseAcknowledgement onStatus={setNotice} />
       {notice === null && <p className="text-sm text-[#4d675f]" aria-live="polite">Loading…</p>}
