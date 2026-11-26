@@ -26,7 +26,8 @@
  *                   livingHistory, safety (Family);
  *   by side         twentyDaysPassed and notedInDefault (the person bringing the
  *                   case, once the claim is served);
- *   by stage        defenceFiled and serviceMethod (once something is filed, as the court papers' dates already are),
+ *   by stage        serviceMethod (once something is filed, as the court papers' dates already are; defenceFiled got
+ *                   that rule on 26 Nov 2026, with the new Small Claims flow asking it),
  *                   settlementEfforts and deadlineDetails (the steps of the stage map that ask them).
  */
 import { SLOT_FACTS } from "./slotFacts";
@@ -62,13 +63,15 @@ const FROM_STORY: Partial<Record<CaseFact, string>> = { amount: "amount", whenHa
 /** Whom a fact applies to, when not everyone (each with its reason). */
 const RULES: Partial<Record<CaseFact, { who: string; when: (context: FactContext) => boolean; why: string }>> = {
   filed: { who: "anyone except a person who said they want to start a case", when: (context) => !(context.nothingFiled && context.side !== "responding"), why: "the person said they want to start a case, which says nothing has been filed yet (a case already filed is \"A case is already going\")" },
-  claimServed: { who: "once something is filed, or the person is responding", when: papersExist, why: NO_PAPERS_YET },
+  claimServed: { who: "the person bringing the case, once something is filed", when: (context) => papersExist(context) && context.side !== "responding", why: "before anything is filed there are no court papers to serve; the person responding was served, and said so at the start (\"I was served\"), so whether the claim was served is not asked of them" },
   servedDate: { who: "once something is filed, or the person is responding", when: papersExist, why: NO_PAPERS_YET },
   claimIssuedDate: { who: "once something is filed, or the person is responding", when: papersExist, why: NO_PAPERS_YET },
   courtFileNumber: { who: "once something is filed, or the person is responding", when: papersExist, why: NO_PAPERS_YET },
   courtDate: { who: "once something is filed, or the person is responding", when: papersExist, why: NO_PAPERS_YET },
   conferenceDate: { who: "once something is filed, or the person is responding", when: papersExist, why: NO_PAPERS_YET },
   defenceFiledDate: { who: "once something is filed, or the person is responding", when: papersExist, why: NO_PAPERS_YET },
+  // Whether a defence is filed: the new Small Claims flow asks it (the review's Confirm needs it once papers exist; 26 Nov 2026).
+  defenceFiled: { who: "once something is filed, or the person is responding", when: papersExist, why: NO_PAPERS_YET },
   responseFacts: { who: "the person responding", when: respondingOnly, why: "a defence response is written by the person responding to someone else's claim" },
   defendantsClaim: { who: "the person responding", when: respondingOnly, why: "a claim of the defendant's own is the responding side's" },
   wants: { who: "anyone except the person responding in Small Claims", when: (context) => !(context.court === "small-claims" && context.side === "responding"), why: "in Small Claims the person responding says what they want in the defence's own question (what outcome they want, and any claim of their own), not as the claim's order" },

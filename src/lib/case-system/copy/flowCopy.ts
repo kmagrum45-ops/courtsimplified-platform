@@ -23,6 +23,8 @@ export const FLOW_CONTINUE = "Continue";
 export const QUESTIONS_LEFT = (count: number) => (count === 1 ? "1 question left" : `${count} questions left`);
 export const QUESTIONS_NONE_LEFT = "Nothing is left to ask for now.";
 export const QUESTIONS_SAVE = "Save my answers";
+/** A yes-or-no question's two answers, saved as these words (the old review's own values, IntakeReviewPanel.tsx). */
+export const FLOW_YES_NO = ["Yes", "No"] as const;
 
 /** The Review step. */
 export const REVIEW_INTRO = "This is everything your case holds now. Change anything that is not right.";

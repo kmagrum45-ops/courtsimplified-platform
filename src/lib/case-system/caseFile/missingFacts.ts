@@ -182,6 +182,11 @@ export const FLOW_QUESTIONS: readonly { fact: CaseFact; question: string }[] = [
   { fact: "whenHappened", question: "sc-orient-when-happened" },
   { fact: "amount", question: "sc-amount-claimed" },
   { fact: "wants", question: "sc-remedy-sought" },
+  // The court papers, once something is filed (factRegistry papersExist): the review's Confirm needs them answered or
+  // "not sure" (intakeReview.ts remainingEssentialQuestions), so the Questions page asks them (26 Nov 2026).
+  { fact: "claimServed", question: "sc-defendant-served" },
+  { fact: "claimIssuedDate", question: "sc-date-claim-issued" },
+  { fact: "defenceFiled", question: "sc-defendant-defence-filed" },
   { fact: "publication", question: "sc-defamation-publication-details" },
   { fact: "completionDate", question: "sc-contractor-completion-date" },
   { fact: "noticeToContractor", question: "sc-contractor-notice-before-replacement" },

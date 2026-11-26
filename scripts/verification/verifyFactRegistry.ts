@@ -64,6 +64,7 @@ for (const fact of ["claimServed", "servedDate", "claimIssuedDate", "courtFileNu
   check(`"${fact}" does not apply with nothing filed, bringing the case`, !factApplies(fact, starting));
 }
 for (const fact of ["claimServed", "servedDate", "claimIssuedDate", "courtFileNumber"]) check(`"${fact}" applies once something is filed`, factApplies(fact, filedCase));
+check("whether the claim was served is not asked of the person responding (they were served)", !factApplies("claimServed", responding));
 check("a defence response applies only to the person responding", !factApplies("responseFacts", filedCase) && factApplies("responseFacts", responding));
 check("a fact with no rule applies to everyone", factApplies("amount", starting) && factApplies("amount", responding));
 

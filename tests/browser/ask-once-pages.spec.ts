@@ -528,7 +528,12 @@ async function smallClaimsFlowJourney(page: Page, seen: string[]): Promise<boole
   await page.getByTestId("questions-continue").click();
   await expect(page.locator("[data-flow-step=review]")).toBeVisible({ timeout: 30_000 });
   await page.getByTestId("flow-review-confirm").click();
-  return visible(page.locator("[data-flow-step=forms]"), 120_000);
+  if (await visible(page.locator("[data-flow-step=forms]"), 120_000)) return true;
+  // Why it stopped, in the record: the review's own message and the address (never a value the person typed).
+  const said = await page.locator("[data-step=review] [role=alert]").first().textContent({ timeout: 2_000 }).catch(() => null);
+  const step = await page.getByTestId("sc-flow").getAttribute("data-flow-step", { timeout: 2_000 }).catch(() => null);
+  seen.push(`sc-flow: the forms step did not show after the review's Continue (step ${step ?? "(no flow)"}; ${new URL(page.url()).pathname}${new URL(page.url()).search.replace(/intake=[^&]*/, "intake=…")}; message: ${said ?? "(none)"})`);
+  return false;
 }
 
 async function smallClaimsChat(page: Page, story: Story, typed: Map<string, string>) {
@@ -1054,7 +1059,7 @@ for (const ms of MATRIX ? MATRIX_STORIES : []) for (const mode of MODES) {
       const nextStep = flowEnded ?? await reviewAndNextStep(page, story, typed, found, seen);
       if (story.court === "family") await answerTriageAsChrome(page, story, seen);
       record.ended = Boolean(nextStep);
-      if (!nextStep) notes.push("the next step's overview did not show");
+      if (!nextStep) notes.push("the next step's overview did not show", ...seen.filter((line) => line.startsWith("sc-flow:")));
       record.probesFrom = Date.now();
       if (id) {
         const entries = await reviewEntries(page, story.court, id).catch(() => ({ notFilled: [], shown: [] }));

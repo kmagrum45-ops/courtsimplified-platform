@@ -15,6 +15,10 @@
  *      the person responding; a kind's own question (who heard the words) only once that kind is the person's;
  *   5. the Questions page's words come from the question bank, and every question asks the fact it is listed for
  *      (factsOfQuestion.ts), so the wording table cannot drift from the facts;
+ *   7. the flow's questions are all the review's Confirm needs: Yes to every Understood line and "not sure" to every
+ *      question on the Questions page leaves nothing in intakeReview.ts remainingEssentialQuestions, so its Confirm is
+ *      never refused (the matrix's served-defendant and wrong-place journeys, 26 Nov 2026: "Review was not saved",
+ *      because the papers' questions were asked by the Confirm's gate and not by the Questions page);
  *   6. withStoryStated never changes the record it is given (the old screens read the record as before) and never
  *      replaces the person's own answer, "not sure", or a story value they said was not right.
  *
@@ -29,6 +33,7 @@ import { withStoryStated, STATED_FACTS, understoodOfferKey, type FlowReading, ty
 import { factsOfQuestion } from "../../src/lib/case-system/caseFile/factsOfQuestion";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
+import { remainingEssentialQuestions } from "../../src/lib/case-system/intakeReview";
 import { MATRIX_STORIES } from "../../tests/browser/matrix/matrixStories";
 
 let failures = 0;
@@ -127,6 +132,25 @@ for (const story of SMALL_CLAIMS) {
   const wrong = FLOW_QUESTIONS.filter((item) => !factsOfQuestion(item.question).includes(item.fact));
   check("every question asks the fact it is listed for", wrong.length === 0, JSON.stringify(wrong));
   check("no fact is listed twice", new Set(FLOW_QUESTIONS.map((item) => item.fact)).size === FLOW_QUESTIONS.length);
+}
+
+// 7. The Questions page asks all the Confirm needs.
+for (const story of SMALL_CLAIMS) {
+  for (const signedIn of [true, false]) {
+    const who = `${story.id} ${signedIn ? "signed in" : "guest"}`;
+    const builder: Record<string, unknown> = {};
+    const checkpoint = { version: 1, flowId: ID, courtPath: "small-claims", revision: ID, sections: { story: { text: story.text }, situation: { record: { ...story.situation, courtFrom: "choice" } }, builder } } as unknown as Checkpoint;
+    const read = () => withStoryStated(caseFileOf(checkpoint), { story: story.text, reading: readingOf(story.id), signedIn });
+    const answers: Record<string, string> = {};
+    for (const item of missingFacts(read(), "reading")) {
+      const question = FLOW_QUESTIONS.find((entry) => entry.fact === item.field)?.question;
+      if (question && item.value) answers[question] = item.value;
+    }
+    builder.initialAnswers = answers;
+    builder.initialUnknowns = missingFacts(read(), "questions").map((item) => item.field);
+    const left = remainingEssentialQuestions(checkpoint).map((question) => question.id);
+    check(`${who}: after the flow's questions, the review's Confirm needs nothing more`, left.length === 0, left.join(", "));
+  }
 }
 
 if (failures) { console.log(`\n${failures} check(s) failed.`); process.exit(1); }

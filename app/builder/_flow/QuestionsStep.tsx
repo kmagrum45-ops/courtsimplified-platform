@@ -15,7 +15,7 @@ import { writeAnswer } from "../../_components/caseWrite";
 import { missingFacts } from "../../../src/lib/case-system/caseFile/missingFacts";
 import { smallClaimsKinds } from "../../../src/lib/case-system/flow/storyStated";
 import { QUESTION_BANK } from "../../../src/lib/case-system/intake/questionBank";
-import { FLOW_CONTINUE, FLOW_STEP_HEADINGS, QUESTIONS_LEFT, QUESTIONS_NONE_LEFT, QUESTIONS_SAVE } from "../../../src/lib/case-system/copy/flowCopy";
+import { FLOW_CONTINUE, FLOW_STEP_HEADINGS, QUESTIONS_LEFT, QUESTIONS_NONE_LEFT, QUESTIONS_SAVE, FLOW_YES_NO } from "../../../src/lib/case-system/copy/flowCopy";
 import { OFFER_CHOICES } from "../../../src/lib/case-system/copy/suggestionCopy";
 
 const KIND_QUESTION = "sc-orient-dispute-category";
@@ -52,6 +52,11 @@ export function QuestionsStep({ onDone }: { onDone: () => void }) {
                   <select data-testid={`flow-answer-${item.field}`} value={value} onChange={(event) => set(event.target.value)} className="mt-2 w-full rounded-xl border border-[#d8e6df] px-3 py-2">
                     <option value="" />
                     {smallClaimsKinds().map((kind) => <option key={kind.id} value={kind.id}>{kind.name}</option>)}
+                  </select>
+                ) : bank.answerType === "yes-no" ? (
+                  <select data-testid={`flow-answer-${item.field}`} value={value} onChange={(event) => set(event.target.value)} className="mt-2 w-full rounded-xl border border-[#d8e6df] px-3 py-2">
+                    <option value="" />
+                    {FLOW_YES_NO.map((choice) => <option key={choice} value={choice}>{choice}</option>)}
                   </select>
                 ) : bank.answerType === "date" ? (
                   <input type="date" data-testid={`flow-answer-${item.field}`} value={value} onChange={(event) => set(event.target.value)} className="mt-2 rounded-xl border border-[#d8e6df] px-3 py-2" />
