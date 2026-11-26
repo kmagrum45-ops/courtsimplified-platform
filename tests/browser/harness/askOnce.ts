@@ -222,6 +222,9 @@ const SCAN = `(() => {
     }],
     // Never ask twice (28 Oct): the places that ask in words. The id is the question's own words.
     ["home-reading", "[data-testid=case-understanding-questions] li", (el) => [words(el.querySelector("label > span"))]],
+    // The new Small Claims flow (SC_FLOW_V2): each Understood line offers its fact; each Questions page item asks its question.
+    ["understood-offer", "[data-testid=understood-line]", (el) => [el.getAttribute("data-fact")]],
+    ["flow-question", "[data-testid=flow-question]", (el) => [el.getAttribute("data-question-id")]],
     // The home page's city box: the municipality fact, asked while it stays empty (found by the blind-spot check, 24 Nov 2026:
     // no surface logged it).
     ["home-location", "input[aria-label='City or municipality']", (el) => steadyEmpty("home-city", !el.value.trim()) ? ["municipality"] : []],
@@ -377,6 +380,14 @@ const SCAN = `(() => {
       const key = "show|home-understood|" + id + "|" + screen();
       if (id && !seen.has(key)) { seen.add(key); emit("show", "home-understood", id, words(line)); }
     }
+    // The new Small Claims flow (SC_FLOW_V2): an Understood line or a Questions page item that goes away was answered
+    // (Yes, No, not sure, or saved). Lines still on the page are asked by the table above.
+    window.__flowSeen = window.__flowSeen || { "understood-offer": new Set(), "flow-question": new Set() };
+    for (const [surface, selector, attr] of [["understood-offer", "[data-testid=understood-line]", "data-fact"], ["flow-question", "[data-testid=flow-question]", "data-question-id"]]) {
+      const now = new Set([...document.querySelectorAll(selector)].filter(visible).map((el) => el.getAttribute(attr)));
+      for (const id of window.__flowSeen[surface]) if (!now.has(id)) answer(surface, id);
+      window.__flowSeen[surface] = new Set([...window.__flowSeen[surface], ...now].filter((id) => now.has(id)));
+    }
     // The story reading: a question with words typed in its box is answered.
     for (const li of document.querySelectorAll("[data-testid=case-understanding-questions] li")) { const box = li.querySelector("input"); if (box && box.value.trim()) answer("home-reading", words(li.querySelector("label > span"))); }
     // The law's questions: one moved on from is answered (with words), or skipped ("Skip this one": unsure).
@@ -523,6 +534,8 @@ export function factsOfAsk(item: Pick<Asked, "surface" | "id" | "text">): string
   // A date box beside the person's own sentence that already gives that date (SCAN's event-candidate).
   if (item.surface === "event-candidate") return ["dateInOwnSentence"];
   if (item.surface === "home-understood") return understoodLineFacts(item.id);
+  // The new Small Claims flow: an Understood line is its fact's offer (data-fact); a Questions page item asks its question's facts.
+  if (item.surface === "understood-offer") return [item.id];
   if (WORDED.has(item.surface)) { const facts = factsOfWords(item.id); return facts.length ? facts : [`${item.surface}:${item.id}`]; }
   if (item.surface === "service-method") return ["serviceMethod"];
   // The story: the Small Claims chat's story box asks for it; the home page's or the chat's story sent gives it.

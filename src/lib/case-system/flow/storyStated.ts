@@ -20,7 +20,7 @@
  */
 import type { CaseFile, Slot, SlotFact } from "../caseFile/caseFile";
 import { slotStatus } from "../caseFile/factStatus";
-import type { ReadingFact } from "../caseFile/storyOffers";
+import { readingFactsOf, type ReadingFact } from "../caseFile/storyOffers";
 import { quotesOf, statedInStory } from "../intakeReview";
 import { CLAIM_TYPES, type ClaimType } from "../intake/claimTypes";
 import { kindFromStory, kindsOfClaim, storyQuoteFor } from "../intake/claimKind";
@@ -63,6 +63,17 @@ export function kindNamedByReading(titles: readonly string[], kinds: readonly Cl
   return null;
 }
 
+/**
+ * The story's own words for a value: the reader's quote when the story holds it; else (a date the story writes its own way,
+ * "sept 14 2025", read as 2025-09-14) the story's sentence that holds the value's year, or its first sentence.
+ */
+function storyWords(story: string, quote: string, value: string): string {
+  if (quote && story.includes(quote)) return quote;
+  const year = /(?:^|\D)(\d{4})(?:\D|$)/.exec(value)?.[1];
+  const all = sentences(story).map((item) => item.trim()).filter(Boolean);
+  return (year ? all.find((sentence) => sentence.includes(year)) : undefined) ?? all[0] ?? story;
+}
+
 /** The story's sentence a kind named by the reading rests on: its own signal phrase, else the story's first sentence. */
 function quoteForKind(story: string, kind: ClaimType): string {
   return storyQuoteFor(story, kind) ?? sentences(story).map((item) => item.trim()).find(Boolean) ?? story.trim();
@@ -84,7 +95,7 @@ export function withStoryStated(record: CaseFile, input: { story: string; readin
   for (const fact of ["amount", "whenHappened", "wants", "otherParty"] as const) {
     const found = read[fact];
     if (!found || !words(found.value) || !open(record[fact]) || saidNo.has(fact)) continue;
-    next[fact] = { state: "answered", value: words(found.value), source: { kind: "story", quote: found.quote }, confirmed: false };
+    next[fact] = { state: "answered", value: words(found.value), source: { kind: "story", quote: storyWords(story, found.quote, words(found.value)) }, confirmed: false };
   }
   if (open(record.claimKind) && !saidNo.has("claimKind")) {
     const kinds = smallClaimsKinds();
@@ -94,4 +105,19 @@ export function withStoryStated(record: CaseFile, input: { story: string; readin
     if (kind) next.claimKind = { state: "answered", value: kind.id, source: { kind: "story", quote: byStory?.quote ?? quoteForKind(story, kind) }, confirmed: false };
   }
   return next;
+}
+
+/**
+ * The home page's AI reading kept with the case (home.understood), only when it is the reading of this story (the same
+ * rule as storyOffers.ts readingFactsOf: home.readFrom is the story the person wrote). Null otherwise.
+ */
+export function readingOfSections(sections: Record<string, unknown> | undefined, story: string): FlowReading | null {
+  const object = (value: unknown): Record<string, unknown> => (value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {});
+  const facts = readingFactsOf(sections, story);
+  const home = object(object(sections).home);
+  const readFrom = typeof home.readFrom === "string" ? home.readFrom.trim() : "";
+  if (!readFrom || !story.trim().startsWith(readFrom)) return null;
+  const matters = object(object(home.understood).understanding).matters;
+  const matterTitles = (Array.isArray(matters) ? matters : []).flatMap((matter) => { const title = object(matter).title; return typeof title === "string" ? [title] : []; });
+  return { facts, matterTitles };
 }

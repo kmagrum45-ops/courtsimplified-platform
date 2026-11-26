@@ -73,6 +73,9 @@ export type Slot = { state: SlotState; value?: string | number | boolean | strin
 /** `answers`: every answer given to a named question (its id and words), for the step page's dates. */
 export type CaseFile = Record<SlotFact, Slot> & {
   answers?: Record<string, string>;
+  /** Questions answered "I'm not sure" in the review's or the new flow's questions (builder.initialUnknowns), by id: a
+   * question whose fact has no slot of its own is settled by this (missingFacts "questions"). Additive. */
+  unknownQuestions?: string[];
   /** The papers the person said are filed, as stored (shown in words with "Anything filed yet"). */
   documents?: string[];
   /**
@@ -446,6 +449,7 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
     for (const fact of slotsOf(id)) give(file, fact, answer, `review:${id}`);
   }
   for (const id of strings(builder.initialUnknowns)) for (const fact of slotsOf(id)) unsure(file, fact, `review:${id}`);
+  if (strings(builder.initialUnknowns).length) file.unknownQuestions = [...new Set(strings(builder.initialUnknowns))];
   // Skipped in the questions one at a time (civil, Family).
   for (const key of strings(object(sections["form-chat"]).skipped)) for (const fact of slotsOf(key)) unsure(file, fact, `chat:${key}`);
 

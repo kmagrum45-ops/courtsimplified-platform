@@ -113,6 +113,9 @@ export const SURFACE_FILES: Record<string, string> = {
   "home-story": "app/_components/HomeLocationGate.tsx",
   "sc-guided": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
   "sc-proposal": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
+  // The new Small Claims flow (SC_FLOW_V2, 26 Nov 2026).
+  "understood-offer": "app/builder/_flow/UnderstoodStep.tsx",
+  "flow-question": "app/builder/_flow/QuestionsStep.tsx",
   "story-proposal-row": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
   "story-box": "app/builder/_components/GuidedSmallClaimsIntake.tsx",
   review: "app/_components/IntakeReviewPanel.tsx",
@@ -144,7 +147,7 @@ export const OFFERS_HOME = "src/lib/case-system/caseFile/storyOffers.ts";
 export const fileOf = (surface: string) => SURFACE_FILES[surface] ?? SURFACE_FILES[surface.replace(/-.*$/, "")] ?? `(surface ${surface})`;
 
 /** The surfaces that offer a value from the story for one confirmation (harness/questionLog.ts OFFER_SURFACES). */
-export const OFFER_SURFACES = new Set(["sc-proposal", "story-proposal-row", "chat-story", "claim-kind", "sc-claim-kind", "parties-offer", "forms-offer", "form7a-found", "sc-form-offer"]);
+export const OFFER_SURFACES = new Set(["understood-offer", "sc-proposal", "story-proposal-row", "chat-story", "claim-kind", "sc-claim-kind", "parties-offer", "forms-offer", "form7a-found", "sc-form-offer"]);
 
 /**
  * CHECK 3 COMPARES WITH THE STORY'S OWN LIST (site owner, 25 Nov 2026): what must not be asked of this person, written in

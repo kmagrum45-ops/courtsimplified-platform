@@ -1,6 +1,7 @@
 "use client";
 
 import { useIntakeState } from "./IntakeRecovery";
+import { SC_FLOW_V2 } from "../../src/lib/case-system/flow/scFlowSwitch";
 
 import type { CheckedAnswerView } from "@/src/lib/case-system/intelligence/intelligenceTypes";
 import type { CaseUnderstanding, UnderstoodCourt } from "@/src/lib/case-system/understanding/understandCase";
@@ -120,7 +121,8 @@ export default function CaseUnderstandingCard({
             {understanding.summary}
           </p>
         ) : null}
-        {understanding.facts.length > 0 && (
+        {/* The new Small Claims flow shows the story's facts once, on its Understood step, to confirm (SC_FLOW_V2). */}
+        {understanding.facts.length > 0 && !(SC_FLOW_V2 && chosenPath === "small-claims") && (
           <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-2" data-testid="case-understanding-facts">
             {understanding.facts.map((fact, index) => (
               <div key={`${fact.label}-${index}`} className="rounded-2xl border border-[#d8e6df] bg-white px-4 py-2">
@@ -159,7 +161,7 @@ export default function CaseUnderstandingCard({
         </section>
       ) : null}
 
-      {asks.some(Boolean) && (
+      {asks.some(Boolean) && !(SC_FLOW_V2 && chosenPath === "small-claims") && (
         <section data-testid="case-understanding-questions">
           <h3 className="font-bold text-[#10231f]">What we still need to know</h3>
           <ol className="mt-2 space-y-3">

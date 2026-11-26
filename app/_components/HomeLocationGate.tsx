@@ -1,6 +1,7 @@
 "use client";
 
 import { STORY_SECTION } from "../../src/lib/case-system/intakeStory";
+import { SC_FLOW_V2 } from "../../src/lib/case-system/flow/scFlowSwitch";
 import { frontDoorStory } from "../../src/lib/case-system/personWords";
 import { courtOfPapers, situationFromRaw, situationSection, SITUATION_FIELD, SITUATION_SECTION, withKnownCourt } from "../../src/lib/case-system/situation/situation";
 import { writeIntakeSession } from "../../src/lib/case-system/intakeCheckpoint";
@@ -290,11 +291,14 @@ function HomeLocationGateContent() {
         // An explicit court change starts a distinct case; the user's story and their
         // situation answers travel (step 2), the court now the one they chose.
         const flowId = crypto.randomUUID();
+        // The new Small Claims flow (SC_FLOW_V2) reads the story's reading on its Understood step: it travels with the story
+        // to the new case, as it does on the same case (only the reading of this story: readIsCurrent).
+        const carryReading = SC_FLOW_V2 && chosenPath === "small-claims" && readIsCurrent && storedUnderstood ? true : false;
         const situation = situationFromRaw(recovery?.read(SITUATION_SECTION, SITUATION_FIELD));
         const carried = withKnownCourt({ ...situation, court: chosenPath, courtFrom: courtOfPapers(situation) === chosenPath ? "papers" : "asked" }, chosenPath);
         const next = { version: 2 as const, ownerId: recovery?.ownerId ?? userId, caseId: null, serverRevision: null,
           checkpoint: { version: 1 as const, flowId, courtPath: chosenPath, revision: crypto.randomUUID(),
-            sections: { [STORY_SECTION]: { text: story, location: { province: "Ontario", city: city.trim() } }, ...situationSection(carried), ...(acceptedOtherParty || answers.length ? { home: { ...(acceptedOtherParty ? { otherParty: acceptedOtherParty } : {}), ...(answers.length ? { understoodAnswers: answers } : {}) } } : {}) } } };
+            sections: { [STORY_SECTION]: { text: story, location: { province: "Ontario", city: city.trim() } }, ...situationSection(carried), ...(acceptedOtherParty || answers.length || carryReading ? { home: { ...(acceptedOtherParty ? { otherParty: acceptedOtherParty } : {}), ...(answers.length ? { understoodAnswers: answers } : {}), ...(carryReading ? { understood: storedUnderstood, readFrom } : {}) } } : {}) } } };
         if (!writeIntakeSession(sessionStorage, next)) throw new Error("Your text could not be retained. Please copy it before leaving and retry.");
         router.push(`/builder?path=${chosenPath}&intake=${flowId}`);
       }

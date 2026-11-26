@@ -106,11 +106,16 @@ for (const story of SMALL_CLAIMS) {
   const guest = withStoryStated(recordOf(story), { story: story.text, reading: readingOf(story.id), signedIn: false });
   check("Jason's story: the amount is offered from the story", /10,?000/.test(String(signedIn.amount.value)) && signedIn.amount.source?.kind === "story", JSON.stringify(signedIn.amount));
   check("Jason's story: the date is offered from the story", /2025-09-14|September 14, 2025/.test(String(signedIn.whenHappened.value)), JSON.stringify(signedIn.whenHappened));
+  check("Jason's story: the date's words are the story's own sentence", signedIn.whenHappened.source?.kind === "story" && signedIn.whenHappened.source.quote === "She said it on sept 14 2025.", JSON.stringify(signedIn.whenHappened.source));
+  check("every story value's words are in the story", SMALL_CLAIMS.every((item) => { const r = withStoryStated(recordOf(item), { story: item.text, reading: readingOf(item.id), signedIn: true }); return STATED_FACTS.every((fact) => r[fact].source?.kind !== "story" || item.text.includes(r[fact].source.quote)); }));
   check("Jason's story: a guest is offered the same from the story alone", guest.amount.value === signedIn.amount.value && guest.whenHappened.value === signedIn.whenHappened.value);
   const kind = String(signedIn.claimKind.value ?? "");
   check("Jason's story: the kind is offered only when one kind fits, else asked on the Questions page", signedIn.claimKind.source?.kind === "story" ? /defamation/.test(kind) : asked(signedIn).includes("claimKind"), JSON.stringify(signedIn.claimKind));
   const withPublication = { ...confirmed(signedIn, "amount"), claimKind: { state: "answered", value: "sc-claim-defamation-libel-slander", source: { kind: "answer", question: "understood" }, confirmed: true } } as CaseFile;
   check("Jason's story: once the kind is defamation, who heard the words is asked", missingFacts(withPublication, "questions").some((item) => item.field === "sc-defamation-publication-details"));
+  check("Jason's story: said not sure, who heard the words is not asked again", !missingFacts({ ...withPublication, unknownQuestions: ["sc-defamation-publication-details"] }, "questions").some((item) => item.field === "sc-defamation-publication-details"));
+  const viaRecord = caseFileOf({ version: 1, flowId: ID, courtPath: "small-claims", revision: ID, sections: { story: { text: story.text }, builder: { initialUnknowns: ["sc-defamation-publication-details"] } } } as Checkpoint);
+  check("the record reads the questions said not sure (builder.initialUnknowns)", viaRecord.unknownQuestions?.includes("sc-defamation-publication-details") === true, JSON.stringify(viaRecord.unknownQuestions));
   check("Jason's story: once answered, who heard the words is not asked again", !missingFacts({ ...withPublication, answers: { "sc-defamation-publication-details": "Her friends, at a party" } }, "questions").some((item) => item.field === "sc-defamation-publication-details"));
 }
 

@@ -291,7 +291,7 @@ const TYPED_NOT_SURE = "I do not know yet";
 /** Surfaces that offer a value from the story for one confirmation (allowed once), not a cold ask. */
 // The Forms tab offer (forms-offer) too: a fact is offered once, then never offered or asked again (site owner, 17 Nov;
 // a SECOND offer of a fact counts as asked again, the first does not: askOnce.ts firstOfferExcused).
-const OFFER_SURFACES = new Set(["sc-proposal", "story-proposal-row", "guided-form-from-story", "claim-kind", "parties-offer", "forms-offer"]);
+const OFFER_SURFACES = new Set(["understood-offer", "sc-proposal", "story-proposal-row", "guided-form-from-story", "claim-kind", "parties-offer", "forms-offer"]);
 
 function situationOf(story: Story): SituationAnswers {
   if (story.situation) return story.situation;
@@ -501,6 +501,36 @@ async function giveStory(page: Page, story: Story) {
 }
 
 /** Small Claims: the chat, one question at a time; the story offers left unticked and "Continue" pressed (the live case). */
+/** The new Small Claims flow is built into the site under test (SC_FLOW_V2; the same switch the build reads). */
+const SC_FLOW = process.env.NEXT_PUBLIC_SC_FLOW_V2 === "on";
+
+/**
+ * THE NEW SMALL CLAIMS FLOW, AS A PERSON WOULD GO THROUGH IT (site owner, 26 Nov 2026): Yes to what the Understood step
+ * read from their story, the Parties step answered as answerParties does, every question left said "I'm not sure" (the
+ * journey types nothing the story does not give), the review confirmed, the forms shown. True when the forms step shows.
+ */
+async function smallClaimsFlowJourney(page: Page, seen: string[]): Promise<boolean> {
+  const flow = page.getByTestId("sc-flow");
+  if (!(await visible(flow, 60_000))) { seen.push("sc-flow: the new flow did not show"); return false; }
+  const yesAll = page.getByTestId("understood-yes-all");
+  const onward = page.getByTestId("understood-continue");
+  await expect(yesAll.or(onward).first()).toBeVisible({ timeout: 30_000 });
+  await (await yesAll.isVisible().catch(() => false) ? yesAll : onward).click();
+  await expect(page.locator("[data-flow-step=questions]")).toBeVisible({ timeout: 30_000 });
+  await answerParties(page, seen);
+  for (let round = 0; round < 20; round += 1) {
+    const item = page.getByTestId("flow-question").first();
+    if (!(await item.isVisible().catch(() => false))) break;
+    const id = (await item.getAttribute("data-question-id")) ?? "";
+    await page.getByTestId(`flow-unsure-${id}`).click();
+    await expect(page.locator(`[data-testid=flow-question][data-question-id="${id}"]`)).toHaveCount(0, { timeout: 30_000 });
+  }
+  await page.getByTestId("questions-continue").click();
+  await expect(page.locator("[data-flow-step=review]")).toBeVisible({ timeout: 30_000 });
+  await page.getByTestId("flow-review-confirm").click();
+  return visible(page.locator("[data-flow-step=forms]"), 120_000);
+}
+
 async function smallClaimsChat(page: Page, story: Story, typed: Map<string, string>) {
   const choose = page.getByRole("button", { name: /Answer questions one at a time/ });
   if (await visible(choose, 20_000)) await choose.click();
@@ -1015,9 +1045,13 @@ for (const ms of MATRIX ? MATRIX_STORIES : []) for (const mode of MODES) {
       seen.push(...homeAnswers.splice(0));
       const id = new URL(page.url()).searchParams.get("intake") ?? "";
       record.caseId = Boolean(id);
-      if (story.court === "small-claims") await smallClaimsChat(page, story, typed);
-      else await guidedForm(page, story, typed);
-      const nextStep = await reviewAndNextStep(page, story, typed, found, seen);
+      // The new Small Claims flow (SC_FLOW_V2) has its own questions, review and forms; the old route otherwise.
+      const flowEnded = SC_FLOW && story.court === "small-claims" ? await smallClaimsFlowJourney(page, seen) : null;
+      if (flowEnded === null) {
+        if (story.court === "small-claims") await smallClaimsChat(page, story, typed);
+        else await guidedForm(page, story, typed);
+      }
+      const nextStep = flowEnded ?? await reviewAndNextStep(page, story, typed, found, seen);
       if (story.court === "family") await answerTriageAsChrome(page, story, seen);
       record.ended = Boolean(nextStep);
       if (!nextStep) notes.push("the next step's overview did not show");

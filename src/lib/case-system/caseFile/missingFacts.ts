@@ -204,7 +204,7 @@ function flowQuestions(record: CaseFile | null | undefined): MissingFact[] {
     if (!factApplies(fact, context)) return [];
     // A fact with no slot of its own (what was published, the defence's facts) is held by its question's answer, or its
     // "not sure", in the record's answers (caseFile.ts file.answers, by question id).
-    if (!(SLOT_FACTS as readonly string[]).includes(fact)) return record.answers?.[question]?.trim() ? [] : [{ field: question, facts: [], status: "ask" as const }];
+    if (!(SLOT_FACTS as readonly string[]).includes(fact)) return record.answers?.[question]?.trim() || record.unknownQuestions?.includes(question) ? [] : [{ field: question, facts: [], status: "ask" as const }];
     const slotFact = fact as SlotFact;
     const slot = record[slotFact];
     const status = slotStatus(slot);

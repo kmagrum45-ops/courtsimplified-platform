@@ -34,6 +34,7 @@ import NotSavedYet from "./NotSavedYet";
 import { GUEST_ACCOUNT_NOTICE } from "../../src/lib/auth/signUpConfirmation";
 import { afterSend, pendingWrites, type SendResponse } from "../../src/lib/case-system/caseFile/pendingFacts";
 import { CASE_REQUEST_TIMEOUT_MS } from "../builder/_components/positionSave";
+import { SC_FLOW_V2 } from "../../src/lib/case-system/flow/scFlowSwitch";
 
 async function readAuthSession() {
   const request = new IntakeRequest();
@@ -688,7 +689,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         the builder, every court). Words only. */}
     {recovery && !recovery.ownerId && !signedIn ? <p className="mx-auto max-w-6xl px-6 pb-2 text-sm text-[#4d675f]" data-testid="guest-account-notice">{GUEST_ACCOUNT_NOTICE}</p> : null}
     {recovery ? <NotSavedYet /> : null}
-    {recovery ? <SituationGate court={court} ownerId={recovery.ownerId ?? null}><IntakeReviewPanel />{children}</SituationGate> : null}
+    {recovery ? <SituationGate court={court} ownerId={recovery.ownerId ?? null}>{/* The new Small Claims flow has its own one review (SC_FLOW_V2). */}{SC_FLOW_V2 && court === "small-claims" ? null : <IntakeReviewPanel />}{children}</SituationGate> : null}
   </Context.Provider>;
 }
 
