@@ -382,6 +382,13 @@ const SCAN = `(() => {
     for (const el of formLabels()) if (el.querySelector(":scope > textarea:not([data-testid])").value) { const id = "label:" + words(el.querySelector(":scope > span.font-semibold")); if (seen.has("form-field|" + id + "|" + screen())) answer("form-field", id); }
   };
   setInterval(scan, 200);
+  // Also once per frame in which the page changed: a question shown and answered within 200 ms (the start's questions,
+  // answered by the test's own handler) was missed in some runs and seen in others (matrix stability, 25 Nov 2026: "Has
+  // anything been filed?" logged in one run of three on the same code). A question painted for one frame is now seen.
+  let frame = false;
+  const kick = () => { if (frame) return; frame = true; requestAnimationFrame(() => { frame = false; scan(); }); };
+  const watch = () => new MutationObserver(kick).observe(document.documentElement, { subtree: true, childList: true, attributes: true, characterData: true });
+  if (document.documentElement) watch(); else document.addEventListener("DOMContentLoaded", watch);
 })()`;
 
 /**

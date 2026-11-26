@@ -28,8 +28,21 @@ export function situationForSide(side: "plaintiff" | "defendant" | "applicant" |
     : STARTING_NOTHING_FILED;
 }
 
+/**
+ * One answerer at a time per page. A spec's own call clicks an option; Playwright first runs the locator handler
+ * (autoAnswerSituation), which answered that question and the next ones, and then the click went on, by the same value,
+ * to whichever question now showed it ("not-sure" is a value of more than one question): the same story was given
+ * different start answers in different runs (matrix stability, 25 Nov 2026, civil-lien-on-title: "Did you start the
+ * case?" then the stage in one run, the papers and their day in another). The handler now does nothing while a call is
+ * answering.
+ */
+const ANSWERING = new WeakSet<Page>();
 /** Answers each situation question shown until there are none. Does nothing when none is shown. */
 export async function answerSituation(page: Page, answers: SituationAnswers = STARTING_NOTHING_FILED): Promise<void> {
+  ANSWERING.add(page);
+  try { await answerSituationNow(page, answers); } finally { ANSWERING.delete(page); }
+}
+async function answerSituationNow(page: Page, answers: SituationAnswers): Promise<void> {
   const gate = page.getByTestId("situation-questions");
   for (let turn = 0; turn < 12; turn += 1) {
     if (!(await gate.isVisible().catch(() => false))) return;
@@ -79,7 +92,7 @@ export async function autoAnswerSituation(page: Page, answers: SituationAnswers 
   await acceptHomeNoticeAsAPerson(page);
   await page.addLocatorHandler(page.getByTestId("situation-questions"), async () => {
     const chosen = ANSWERS.get(page);
-    if (chosen) await answerSituation(page, chosen);
+    if (chosen && !ANSWERING.has(page)) await answerSituation(page, chosen);
   }, { noWaitAfter: true });
 }
 
