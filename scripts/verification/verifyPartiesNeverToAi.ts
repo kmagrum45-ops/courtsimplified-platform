@@ -28,7 +28,7 @@ import { withConfirmedGuidance } from "../../src/lib/security/intakeGuidanceGate
 import { remainingEssentialQuestions, transitionReview } from "../../src/lib/case-system/intakeReview";
 import { fillForm, pdfValues } from "../../src/lib/case-system/forms/formMap";
 import { FORM_7A } from "../../src/lib/case-system/forms/maps/form7A";
-import { FORM_MAPS } from "../../src/lib/case-system/forms/maps";
+import { FILED_BY, FORM_MAPS } from "../../src/lib/case-system/forms/maps";
 import { formContextOf } from "../../src/lib/case-system/forms/formContext";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import type { PartiesRecord } from "../../src/lib/case-system/parties/parties";
@@ -157,8 +157,11 @@ async function main() {
       check("3. negative control: the filled form holds the details (the server puts them in, from the record)", Object.values(values).some((value) => value === FAKE.street) && Object.values(values).some((value) => value === FAKE.company), JSON.stringify(values).slice(0, 200));
     }
     // Every other form of this court (Form 1A is filled per copy, from the parties after the first: checked in test:form-maps).
+    // A form the responding side files is filled from the same record with that side stated (26 Nov 2026: Form 10A fills
+    // the person's own details only when the record says the person is the defendant, so a record with no side holds none).
     for (const map of FORM_MAPS.filter((item) => item.court === court && item.id !== "small-claims/1A" && item.id !== "small-claims/7A")) {
-      const text = JSON.stringify(Object.values(pdfValues(fillForm(map, formContextOf(cp, master)))));
+      const record = FILED_BY[map.id] === "responds" ? ({ ...cp, sections: { ...cp.sections, situation: { record: { where: "served", court } } } } as Checkpoint) : cp;
+      const text = JSON.stringify(Object.values(pdfValues(fillForm(map, formContextOf(record, master)))));
       check(`3. negative control, ${map.id}: the filled form holds the fake party's details (put in on the server, from the record)`, SECRETS.some((secret) => text.includes(secret)), text.slice(0, 200));
     }
   }
