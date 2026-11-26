@@ -16,6 +16,7 @@ import { businessOtherSideIn } from "../case-system/caseFile/storyFacts";
 import { partyName, readParties } from "../case-system/parties/parties";
 import { CASE_FILE_SECTION } from "../case-system/caseFile/caseFile";
 import { getAuthenticatedOwnedCase, getAuthenticatedUser } from "../supabase/serverAuth";
+import { fallbackNames } from "../case-system/privacy/nameFallback";
 
 /**
  * Every name the one name reader's patterns (storyAnswers.ts STORY_NAME_PATTERNS, the same the Family offer reads) find
@@ -75,7 +76,15 @@ export function allText(value: unknown, depth = 0): string {
 export function bodyNameLabels(body: Record<string, unknown>): NameLabel[] {
   const intake = { ...object(body.fields), ...object(body.input), ...object(body.intake), ...object(body.intakeData), ...object(body.caseData) };
   const words = allText(body);
-  return mergeNameLabels(knownNameLabels(intake, storyNames(words)), peopleLabels(words));
+  return mergeNameLabels(knownNameLabels(intake, storyNames(words)), peopleLabels(words), fallbackLabels(words));
+}
+
+/**
+ * The conservative fallback (privacy/nameFallback.ts): every stretch of capitalised words the patterns did not find and the
+ * allowlist does not cover, as "[name N]". Merged last, so a name the patterns found keeps its own label.
+ */
+export function fallbackLabels(words: string): NameLabel[] {
+  return fallbackNames(words).map((name, index) => ({ name, label: `[name ${index + 1}]` }));
 }
 
 /** Two lists of names as one, each name once (the first label wins). */
@@ -90,7 +99,7 @@ export function savedCaseNameLabels(master: unknown): NameLabel[] {
   const intake = object(object(master).intakeData);
   const story = text(object(object(object(master).intakeCheckpoint).sections).story && object(object(object(object(master).intakeCheckpoint).sections).story).text) || text(intake.facts);
   const words = [story, allText(intake), allText(object(object(master).intakeCheckpoint).sections)].filter((item) => item.trim()).join("\n");
-  return mergeNameLabels(partyNameLabels(object(object(master).intakeCheckpoint).sections), knownNameLabels(intake, storyNames(words)), peopleLabels(words));
+  return mergeNameLabels(partyNameLabels(object(object(master).intakeCheckpoint).sections), knownNameLabels(intake, storyNames(words)), peopleLabels(words), fallbackLabels(words));
 }
 
 /** For routes outside the confirmed-guidance gate: the request's names (and its saved case's, when it names one). */
