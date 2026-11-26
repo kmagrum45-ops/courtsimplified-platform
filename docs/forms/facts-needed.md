@@ -235,3 +235,20 @@ Not a fact to collect: a gap in what has been tested.
 - To close it: save the Civil form PDFs a Civil screen will offer (with their source URL and date, as for the others),
   then run them through the same checks (`verifyFormCharacters.ts`, `buildFontMaps.ts` if a box font has no character
   map).
+
+## Form 10A, Defendant's Claim (mapped 26 Nov 2026)
+
+The map (`src/lib/case-system/forms/maps/form10A.ts`) fills only the person's own details, in the form's "Plaintiff by
+Defendant's Claim" boxes, and only when the case record says the person is the defendant. Every other box is blank until
+the record holds its fact (site owner, 26 Nov 2026: leave unheld boxes blank and list each needed fact):
+
+- **Who the defendant's claim is against** (the plaintiff, or another person), and that party's details: the 18
+  "Defendant by Defendant's Claim" boxes and their Form 1A tick. Filling them with the other side would be right only
+  when the claim is against the plaintiff, so they stay blank until the record says.
+- **Whether anyone else on the person's side makes the claim with them**: the "Additional plaintiff(s)" Form 1A tick.
+- **The reasons for the person's own claim**, in their own words, held apart from their defence: the two reasons boxes
+  (pages 2 and 3). The story the record holds is the plaintiff's claim and the person's answer to it, not this claim.
+- **The principal amount of the person's own claim**. The amount the record holds is the plaintiff's claim.
+- **The claim number** and **the court office** the claim is filed at (as for Form 9A, section (a)).
+- Not facts but wording: the interest boxes (date, which Act or agreement, the rate), as on Form 7A
+  (`wording-needed.md` section 11).

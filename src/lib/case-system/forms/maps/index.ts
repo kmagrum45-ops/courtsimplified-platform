@@ -7,12 +7,13 @@ import { FORM_1A } from "./form1A";
 import { FORM_7A } from "./form7A";
 import { FORM_8A } from "./form8A";
 import { FORM_9A } from "./form9A";
+import { FORM_10A } from "./form10A";
 import { FAMILY_FORM_8 } from "./familyForm8";
 import { FAMILY_FORM_10 } from "./familyForm10";
 import { FAMILY_FORM_13 } from "./familyForm13";
 import { FAMILY_FORM_13_1 } from "./familyForm13_1";
 
-export const FORM_MAPS: readonly FormMapDefinition[] = [FORM_7A, FORM_1A, FORM_9A, FORM_8A, FAMILY_FORM_8, FAMILY_FORM_10, FAMILY_FORM_13, FAMILY_FORM_13_1];
+export const FORM_MAPS: readonly FormMapDefinition[] = [FORM_7A, FORM_1A, FORM_9A, FORM_10A, FORM_8A, FAMILY_FORM_8, FAMILY_FORM_10, FAMILY_FORM_13, FAMILY_FORM_13_1];
 
 /** Every box left blank because the case record does not hold its fact yet, by form: the request to the record's owners. */
 export function neededFacts(maps: readonly FormMapDefinition[] = FORM_MAPS): { form: string; box: string; fact: string }[] {
@@ -33,6 +34,7 @@ export const FILED_BY: Readonly<Record<string, "starts" | "responds" | "either" 
   "small-claims/7A": "starts",
   "small-claims/1A": "with-7A",
   "small-claims/9A": "responds",
+  "small-claims/10A": "responds",
   "small-claims/8A": "either",
   "family/8": "starts",
   "family/10": "responds",
