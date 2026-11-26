@@ -528,6 +528,15 @@ async function smallClaimsChat(page: Page, story: Story, typed: Map<string, stri
       await suggestion.getByRole("button").first().click();
       continue;
     }
+    // A reply that asks nothing ("Got it: Personal loan between individuals…", said when a kind of claim is chosen) can be
+    // the last message for a moment while the next question is read at the model's recorded speed: wait for a message that
+    // carries a question id, or another state, instead of a fixed pause (matrix stability, 25 Nov 2026: chrome-alex
+    // stopped here in one run of three). None within the wait: the chat has nothing more to ask; the page checks decide,
+    // and a screen left with nothing to do is the sampler's (check 10).
+    const asking = page.locator("[data-testid=guided-message][data-from=assistant][data-question-id]").last();
+    const settled = await expect.poll(async () => (await finished.isVisible().catch(() => false)) || (await proposals.isVisible().catch(() => false)) || (await suggestion.isVisible().catch(() => false)) || ((await question.getAttribute("data-question-id").catch(() => null)) !== null && (await asking.isVisible().catch(() => false))), { timeout: 90_000 }).toBe(true).then(() => true, () => false);
+    if (!settled) break;
+    if (!(await question.getAttribute("data-question-id").catch(() => null))) continue;
     const text = (await question.innerText()).replace(/\s+/g, " ");
     if (text === last) break;
     last = text;
