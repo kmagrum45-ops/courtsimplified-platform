@@ -79,7 +79,7 @@ export type HeldState = "answered" | "unsure";
  * `occurrence`: which of the follow-up chat's replies a question was in (and which reply a person's
  * answer answers), so the same words in a later reply are a new question; absent on every other surface.
  */
-export type Asked = { kind: "ask" | "answer" | "blind"; surface: string; id: string; screen: string; text: string; at: number; held?: Record<string, HeldState>;
+export type Asked = { kind: "ask" | "answer" | "blind" | "show"; surface: string; id: string; screen: string; text: string; at: number; held?: Record<string, HeldState>;
   /** Small Claims guided only: the person's reply shown under the question (an ask) or given to it (an answer). */
   reply?: string; occurrence?: string;
   /**
@@ -369,6 +369,14 @@ const SCAN = `(() => {
     if (document.querySelector("[data-testid=stage-confirmed]")) answer("stage", "stage-confirmation");
     // Review questions marked "I don't know yet": answered as unsure.
     for (const el of document.querySelectorAll("[data-testid=intake-initial-question][data-unknown=true]")) { skipped.add("review|" + el.getAttribute("data-question")); answer("review", el.getAttribute("data-question")); }
+    // "Here is what we understood": each line the card shows, once (kind "show", never an ask). Its fact is the line's own
+    // data-fact when it has one, else read from the label (factsOfAsk, home-understood). Jason's live test, 26 Nov 2026.
+    for (const line of document.querySelectorAll("[data-testid=case-understanding-facts] > div")) {
+      if (!visible(line)) continue;
+      const id = line.getAttribute("data-fact") || words(line.querySelector("dt"));
+      const key = "show|home-understood|" + id + "|" + screen();
+      if (id && !seen.has(key)) { seen.add(key); emit("show", "home-understood", id, words(line)); }
+    }
     // The story reading: a question with words typed in its box is answered.
     for (const li of document.querySelectorAll("[data-testid=case-understanding-questions] li")) { const box = li.querySelector("input"); if (box && box.value.trim()) answer("home-reading", words(li.querySelector("label > span"))); }
     // The law's questions: one moved on from is answered (with words), or skipped ("Skip this one": unsure).
@@ -474,9 +482,47 @@ export function namesAFact(fact: string): boolean {
   return (FACT_IDS as readonly string[]).includes(fact) || /^party:/.test(fact) || /^element:/.test(fact) || /^(?:case|sc)-date-/.test(fact);
 }
 
+/**
+ * A line of "Here is what we understood": its fact, from its data-fact (a fact id) or else from the reading's own label
+ * (written by the model, so read by its words): the amount, when it happened, the other party, whether anything is filed,
+ * the kind of claim, what they want. A line with none of these (the person's role, a place) gives no fact.
+ */
+const UNDERSTOOD_LABELS: readonly (readonly [RegExp, string])[] = [
+  [/\b(?:amount|sum|how much)\b/i, "amount"],
+  [/\b(?:date|when)\b/i, "whenHappened"],
+  [/\bother (?:party|side)\b|\bdefendant\b|\bagainst\b/i, "otherParty"],
+  [/\bfil(?:ed|ing)\b/i, "filed"],
+  [/\b(?:kind|type) of (?:claim|case)\b|\bclaim (?:kind|type)\b/i, "claimKind"],
+  [/\b(?:want|wants|outcome|remedy|asking for)\b/i, "wants"],
+];
+function understoodLineFacts(id: string): string[] {
+  if (/^[a-z][A-Za-z]+$/.test(id)) return [id];
+  const hit = UNDERSTOOD_LABELS.find(([words]) => words.test(id));
+  return hit ? [hit[1]] : [];
+}
+
+/**
+ * THE UNDERSTOOD CARD, THEN ASKED AGAIN (Jason's live test, 26 Nov 2026; matrix check 2): every later offer or question for
+ * a fact "Here is what we understood" showed. The card is where the person sees the story read; asking or offering the
+ * same fact on a later screen is asking it twice. The start's own questions are not counted (they come first, by design).
+ */
+export function shownThenAsked(events: readonly Asked[]): Violation[] {
+  const shown = new Map<string, Asked>();
+  for (const item of [...events].filter((event) => event.kind === "show").sort((a, b) => a.at - b.at)) for (const fact of factsOfAsk(item)) if (!shown.has(fact)) shown.set(fact, item);
+  const out: Violation[] = [];
+  for (const ask of events.filter((item) => item.kind === "ask" && item.surface !== "situation" && !restoredAsk(item, events))) {
+    for (const fact of factsOfAsk(ask)) {
+      const card = shown.get(fact);
+      if (card && card.at < ask.at) out.push({ rule: "twice", fact, surface: ask.surface, id: ask.id, screen: ask.screen, text: ask.text, detail: `shown on the understood card: "${card.text.slice(0, 80)}"`, diag: diagnosticOf(ask) });
+    }
+  }
+  return out;
+}
+
 export function factsOfAsk(item: Pick<Asked, "surface" | "id" | "text">): string[] {
   // A date box beside the person's own sentence that already gives that date (SCAN's event-candidate).
   if (item.surface === "event-candidate") return ["dateInOwnSentence"];
+  if (item.surface === "home-understood") return understoodLineFacts(item.id);
   if (WORDED.has(item.surface)) { const facts = factsOfWords(item.id); return facts.length ? facts : [`${item.surface}:${item.id}`]; }
   if (item.surface === "service-method") return ["serviceMethod"];
   // The story: the Small Claims chat's story box asks for it; the home page's or the chat's story sent gives it.

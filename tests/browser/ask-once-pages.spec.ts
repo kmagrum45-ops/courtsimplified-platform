@@ -35,7 +35,7 @@ import { autoAnswerSituation, answerSituation, situationAnswersFor, STARTING_NOT
 import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns, type Court } from "./harness/thisCommitServer";
 import { namesNeverSent, realAiReadings, replayMisses, RECORDING, verifyDrift } from "./harness/aiFixtures";
-import { blindBoxes, factsAskedTwice, factsOfAsk, firstOfferExcused, heldViolations, recordAsks, repeatViolations, type Asked } from "./harness/askOnce";
+import { blindBoxes, factsAskedTwice, factsOfAsk, firstOfferExcused, heldViolations, recordAsks, repeatViolations, shownThenAsked, type Asked } from "./harness/askOnce";
 import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { chooseOffers } from "./harness/offers";
 import { MARRIED_ONLY_SCREEN_TEXT } from "../../src/lib/case-system/family/marriedOnly";
@@ -1042,6 +1042,13 @@ for (const ms of MATRIX ? MATRIX_STORIES : []) for (const mode of MODES) {
       const excused = (item: { fact: string; surface: string; screen: string; text: string }) => firstOfferExcused(item as never, events, OFFER_SURFACES);
       record.held = heldViolations(events).filter((item) => !excused(item)).map((item) => ({ fact: item.fact, screen: `${item.surface}@${item.screen}`, text: item.text.slice(0, 200) }));
       record.twice = repeatViolations(factsAskedTwice(events, situation)).filter((item) => !excused(item)).map((item) => ({ fact: item.fact, screen: `${item.surface}@${item.screen}`, text: item.text.slice(0, 200) }));
+      // A fact "Here is what we understood" showed, then offered or asked on a later screen (askOnce.ts shownThenAsked;
+      // Jason's live test, 26 Nov 2026). Once per question, never doubling a repeat already counted above.
+      for (const item of shownThenAsked(events)) {
+        const row = { fact: item.fact, screen: `${item.surface}@${item.screen}`, text: item.text.slice(0, 200) };
+        const rows = record.twice as (typeof row)[];
+        if (!rows.some((held) => held.fact === row.fact && held.screen === row.screen && held.text === row.text)) rows.push(row);
+      }
       // The court asked again on the home reading after it was chosen at the start (giveStory notes it in the matrix run).
       if (seen.some((line) => line.startsWith("court-asked-again"))) (record.twice as unknown[]).push({ fact: "court", screen: "home-reading@/", text: "the reading asked where the case belongs after the court was chosen at the start" });
       record.blind = blindBoxes(events);
