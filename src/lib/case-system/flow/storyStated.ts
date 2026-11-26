@@ -10,7 +10,7 @@
  *   readers       the one story reader (intakeReview.ts statedInStory), for everyone. Signed in, it also reads the AI
  *                 reading's own facts (the amount the reading wrote, checked against the story's words by the reader);
  *                 a guest's reading is never used (guests get no AI, and no name is sent: privacy/nameLabels.ts).
- *   kind          the kind of claim the story shows by its own words (claimKind.ts kindFromStory); signed in, else the
+ *   kind          the kind of claim the story shows by its own words (caseFile.ts claimKindOf, the story proposal); signed in, else the
  *                 one kind whose name the reading's matter names, when exactly one does. Otherwise none: it is asked on
  *                 the Questions page (owner's change B, 26 Nov 2026).
  *   never         a slot the person already answered, said "not sure" to, removed, or said "not right" to is left alone.
@@ -23,7 +23,8 @@ import { slotStatus } from "../caseFile/factStatus";
 import { readingFactsOf, type ReadingFact } from "../caseFile/storyOffers";
 import { quotesOf, statedInStory } from "../intakeReview";
 import { CLAIM_TYPES, type ClaimType } from "../intake/claimTypes";
-import { kindFromStory, kindsOfClaim, storyQuoteFor } from "../intake/claimKind";
+import { kindsOfClaim, storyQuoteFor } from "../intake/claimKind";
+import { claimKindOf } from "../caseFile/caseFile";
 import { sentences } from "../sentences";
 
 /** The facts the Understood step can hold from the story, in the order it shows them. */
@@ -99,10 +100,13 @@ export function withStoryStated(record: CaseFile, input: { story: string; readin
   }
   if (open(record.claimKind) && !saidNo.has("claimKind")) {
     const kinds = smallClaimsKinds();
-    const byStory = kindFromStory(story, kinds);
-    const byReading = !byStory && reading ? kindNamedByReading(reading.matterTitles, kinds) : null;
+    // The kind the story shows by its own words, as the case file reads it (caseFile.ts claimKindOf: never a kind the
+    // person turned down or removed).
+    const proposed = claimKindOf(record).proposal;
+    const byStory = proposed ? { claimType: kinds.find((type) => type.id === proposed.claimTypeId) ?? null, quote: proposed.quote } : null;
+    const byReading = !byStory?.claimType && reading ? kindNamedByReading(reading.matterTitles, kinds) : null;
     const kind = byStory?.claimType ?? byReading;
-    if (kind) next.claimKind = { state: "answered", value: kind.id, source: { kind: "story", quote: byStory?.quote ?? quoteForKind(story, kind) }, confirmed: false };
+    if (kind) next.claimKind = { state: "answered", value: kind.id, source: { kind: "story", quote: (byStory?.claimType ? byStory.quote : null) ?? quoteForKind(story, kind) }, confirmed: false };
   }
   return next;
 }

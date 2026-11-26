@@ -11,6 +11,7 @@ import { StepFrame } from "./StepFrame";
 import { useFlowRecord } from "./useFlowRecord";
 import ChangeAnswer, { FACT_LABEL } from "../../_components/ChangeAnswer";
 import { WorkingButton } from "../../_components/Working";
+import { saveOpenEditsBeforeConfirm } from "../../_components/openEdits";
 import { useIntakeReviewView } from "../../_components/IntakeRecovery";
 import { inputRevision } from "../../../src/lib/case-system/intakeReview";
 import { slotStatus } from "../../../src/lib/case-system/caseFile/factStatus";
@@ -30,6 +31,8 @@ export function ReviewStep({ onDone }: { onDone: () => void }) {
   const [error, setError] = useState("");
   const confirm = async () => {
     if (!recovery || !view) return;
+    // Anything still typed in an open box (a Change left open) is saved first, through the one path (openEdits.ts).
+    if (!saveOpenEditsBeforeConfirm(setError)) return;
     setBusy(true);
     setError("");
     try {

@@ -13,13 +13,13 @@ import { QuestionsStep } from "./QuestionsStep";
 import { ReviewStep } from "./ReviewStep";
 import { FormsStep } from "./FormsStep";
 
-export const FLOW_STEPS = ["understood", "questions", "review", "forms"] as const;
+export const FLOW_STEPS = ["reading", "questions", "review", "forms"] as const;
 export type FlowStep = (typeof FLOW_STEPS)[number];
 
 const stepOfAddress = (): FlowStep => {
-  if (typeof window === "undefined") return "understood";
+  if (typeof window === "undefined") return "reading";
   const step = new URL(window.location.href).searchParams.get("step");
-  return (FLOW_STEPS as readonly string[]).includes(step ?? "") ? (step as FlowStep) : "understood";
+  return (FLOW_STEPS as readonly string[]).includes(step ?? "") ? (step as FlowStep) : "reading";
 };
 
 export function SmallClaimsFlow() {
@@ -37,7 +37,7 @@ export function SmallClaimsFlow() {
   };
   return (
     <div data-testid="sc-flow" data-flow-step={step}>
-      {step === "understood" ? <UnderstoodStep onDone={() => go("questions")} /> : null}
+      {step === "reading" ? <UnderstoodStep onDone={() => go("questions")} /> : null}
       {step === "questions" ? <QuestionsStep onDone={() => go("review")} /> : null}
       {step === "review" ? <ReviewStep onDone={() => go("forms")} /> : null}
       {step === "forms" ? <FormsStep /> : null}

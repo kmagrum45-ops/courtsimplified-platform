@@ -47,7 +47,7 @@ test("every step of the Small Claims flow starts at the top, with its heading fo
     const notice = page.getByTestId("acknowledgement-checkbox");
     if (await notice.waitFor({ state: "visible", timeout: 20_000 }).then(() => true, () => false)) { await notice.check(); await page.getByTestId("acknowledgement-continue").click(); }
 
-    await atTopWithHeading(page, "understood");
+    await atTopWithHeading(page, "reading");
     // Scrolled down before going on, so "at the top" is the step's doing.
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
     const yesAll = page.getByTestId("understood-yes-all");

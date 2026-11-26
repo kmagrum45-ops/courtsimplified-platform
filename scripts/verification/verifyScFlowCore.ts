@@ -4,10 +4,10 @@
  * Checks, as properties, over every Small Claims story of the journey matrix (tests/browser/matrix/matrixStories.ts),
  * signed in (with the story's recorded AI reading, tests/browser/fixtures/real-ai) and as a guest (no reading):
  *   1. the story's facts become record slots "stated in the story" (flow/storyStated.ts withStoryStated), never the
- *      person's own answer, and the Understood step offers exactly those, once (missingFacts "understood");
+ *      person's own answer, and the Understood step offers exactly those, once (missingFacts "reading");
  *   2. Jason's story (chrome-defamation): the amount and the date are offered from the story; a guest's offers come from
  *      the story alone (the reading is never read for a guest);
- *   3. confirmed on the Understood step, a fact is never offered or asked again (missingFacts "understood" and
+ *   3. confirmed on the Understood step, a fact is never offered or asked again (missingFacts "reading" and
  *      "questions"); said "not right", it is asked on the Questions page, once, and never offered again; "not sure"
  *      settles it;
  *   4. with nothing filed, no fact about court papers (claimServed, filed, servedDate, claimIssuedDate, courtFileNumber,
@@ -56,12 +56,12 @@ function readingOf(id: string): FlowReading | null {
 }
 
 /** A fact confirmed on the Understood step: the person's own answer (the slot the record keeps for it). */
-const confirmed = (record: CaseFile, fact: SlotFact): CaseFile => ({ ...record, [fact]: { ...record[fact], confirmed: true, source: { kind: "answer", question: "understood" } } });
+const confirmed = (record: CaseFile, fact: SlotFact): CaseFile => ({ ...record, [fact]: { ...record[fact], confirmed: true, source: { kind: "answer", question: "reading" } } });
 /** "No, that's not right" on the Understood step, as the page keeps it (its offer choice), read again through the core. */
 const notRight = (before: CaseFile, story: (typeof MATRIX_STORIES)[number], signedIn: boolean, fact: StatedFact): CaseFile => withStoryStated(before, { story: story.text, reading: readingOf(story.id), signedIn, choices: { [understoodOfferKey(fact)]: "no" } });
-const notSure = (record: CaseFile, fact: SlotFact): CaseFile => ({ ...record, [fact]: { state: "unsure", source: { kind: "answer", question: "understood" }, confirmed: true } });
+const notSure = (record: CaseFile, fact: SlotFact): CaseFile => ({ ...record, [fact]: { state: "unsure", source: { kind: "answer", question: "reading" }, confirmed: true } });
 const asked = (record: CaseFile) => missingFacts(record, "questions").flatMap((item) => item.facts as string[]);
-const offered = (record: CaseFile) => missingFacts(record, "understood").map((item) => item.field);
+const offered = (record: CaseFile) => missingFacts(record, "reading").map((item) => item.field);
 
 const SMALL_CLAIMS = MATRIX_STORIES.filter((story) => story.court === "small-claims");
 check("the matrix has Small Claims stories, Jason's among them", SMALL_CLAIMS.length >= 6 && SMALL_CLAIMS.some((story) => story.id === "chrome-defamation"), SMALL_CLAIMS.map((s) => s.id).join(", "));
@@ -111,7 +111,7 @@ for (const story of SMALL_CLAIMS) {
   check("Jason's story: a guest is offered the same from the story alone", guest.amount.value === signedIn.amount.value && guest.whenHappened.value === signedIn.whenHappened.value);
   const kind = String(signedIn.claimKind.value ?? "");
   check("Jason's story: the kind is offered only when one kind fits, else asked on the Questions page", signedIn.claimKind.source?.kind === "story" ? /defamation/.test(kind) : asked(signedIn).includes("claimKind"), JSON.stringify(signedIn.claimKind));
-  const withPublication = { ...confirmed(signedIn, "amount"), claimKind: { state: "answered", value: "sc-claim-defamation-libel-slander", source: { kind: "answer", question: "understood" }, confirmed: true } } as CaseFile;
+  const withPublication = { ...confirmed(signedIn, "amount"), claimKind: { state: "answered", value: "sc-claim-defamation-libel-slander", source: { kind: "answer", question: "reading" }, confirmed: true } } as CaseFile;
   check("Jason's story: once the kind is defamation, who heard the words is asked", missingFacts(withPublication, "questions").some((item) => item.field === "sc-defamation-publication-details"));
   check("Jason's story: said not sure, who heard the words is not asked again", !missingFacts({ ...withPublication, unknownQuestions: ["sc-defamation-publication-details"] }, "questions").some((item) => item.field === "sc-defamation-publication-details"));
   const viaRecord = caseFileOf({ version: 1, flowId: ID, courtPath: "small-claims", revision: ID, sections: { story: { text: story.text }, builder: { initialUnknowns: ["sc-defamation-publication-details"] } } } as Checkpoint);

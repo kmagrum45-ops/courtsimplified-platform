@@ -61,8 +61,8 @@ const empty = (value: unknown) => !(typeof value === "string" ? value.trim() : A
  * each box the story gives, offered while the box is empty and the record holds none of its facts (the person's own name:
  * while the parties hold none). Read from the record's story, so a story from the home page is offered on arrival.
  */
-export function missingFacts(record: CaseFile | null | undefined, place: "sc-form" | "understood" | "questions", options: { boxes?: Record<string, unknown>; choices?: Readonly<Record<string, string>> } = {}): MissingFact[] {
-  if (place === "understood") return understoodOffers(record);
+export function missingFacts(record: CaseFile | null | undefined, place: "sc-form" | "reading" | "questions", options: { boxes?: Record<string, unknown>; choices?: Readonly<Record<string, string>> } = {}): MissingFact[] {
+  if (place === "reading") return understoodOffers(record);
   if (place === "questions") return flowQuestions(record);
   if (place !== "sc-form") return [];
   const boxes = options.boxes ?? {};
@@ -157,7 +157,7 @@ export function form7aFromRecord(record: CaseFile | null | undefined, elements: 
 // ---- The new Small Claims flow (SC_FLOW_V2; site owner, 26 Nov 2026) ----------------------------------------------------
 
 /**
- * "understood": the story's facts the Understood step offers once (flow/storyStated.ts wrote them as stated in the story),
+ * "reading": the story's facts the Understood step offers once (flow/storyStated.ts wrote them as stated in the story),
  * in its order, each with its value and the story's words. A fact the person confirmed, said "not sure" to, removed or
  * said "not right" to is not offered again.
  */

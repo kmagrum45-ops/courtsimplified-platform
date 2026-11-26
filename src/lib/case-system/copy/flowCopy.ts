@@ -4,11 +4,11 @@
  * The screens of app/builder/_flow/ read their words from here only. Plain words; states no law. A form's number is the
  * form the owner named (Form 10A), shown as not covered yet; no other statement is made about it.
  */
-import type { StatedFact } from "../flow/storyStated";
+import { QUESTIONS_PAGE_HEADING } from "./askCopy";
 
 export const FLOW_STEP_HEADINGS = {
-  understood: "Here is what we understood",
-  questions: "What we still need to know",
+  reading: "Here is what we understood",
+  questions: QUESTIONS_PAGE_HEADING,
   review: "Check everything before you continue",
   forms: "Your forms",
 } as const;
@@ -16,18 +16,8 @@ export const FLOW_STEP_HEADINGS = {
 /** The Understood step. */
 export const UNDERSTOOD_INTRO = "We read your story. Check each line: say Yes if it is right, or tell us it is not.";
 export const UNDERSTOOD_YES_ALL = "Yes, all of this is right";
-export const UNDERSTOOD_FROM_STORY = "From your story:";
 export const UNDERSTOOD_NOTHING = "We did not find anything in your story to check here.";
 export const FLOW_CONTINUE = "Continue";
-
-/** The name of each fact the Understood step can show. */
-export const STATED_FACT_LABELS: Record<StatedFact, string> = {
-  claimKind: "Kind of claim",
-  amount: "Amount",
-  whenHappened: "When it happened",
-  wants: "What you want",
-  otherParty: "The other party",
-};
 
 /** The Questions page. */
 export const QUESTIONS_LEFT = (count: number) => (count === 1 ? "1 question left" : `${count} questions left`);
