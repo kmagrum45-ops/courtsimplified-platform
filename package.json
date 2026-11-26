@@ -423,7 +423,8 @@
     "test:matrix-stories": "node --import tsx scripts/verification/verifyMatrixStories.ts",
     "matrix:report": "node --import tsx scripts/browser/matrixReport.ts",
     "test:matrix-counters": "node --import tsx scripts/verification/verifyMatrixCounters.ts",
-    "test:fact-registry": "node --import tsx scripts/verification/verifyFactRegistry.ts"
+    "test:fact-registry": "node --import tsx scripts/verification/verifyFactRegistry.ts",
+    "test:sc-flow-core": "node --import tsx scripts/verification/verifyScFlowCore.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

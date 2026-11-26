@@ -76,7 +76,7 @@ check("the Change review of the start keeps no second copy of which question app
 console.log("\n5. The home page's questions read the registry");
 const suing = { court: { state: "answered", value: "small-claims" }, side: { state: "answered", value: "bringing" }, filed: { state: "answered", value: false } };
 const sued = { court: { state: "answered", value: "small-claims" }, side: { state: "answered", value: "responding" }, filed: { state: "answered", value: true } };
-check("the case file gives the context: court, side, nothing filed", JSON.stringify(contextOfFile(suing)) === JSON.stringify({ court: "small-claims", side: "bringing", nothingFiled: true }));
+check("the case file gives the context: court, side, nothing filed", JSON.stringify(contextOfFile(suing)) === JSON.stringify({ court: "small-claims", side: "bringing", nothingFiled: true, claimKind: null }));
 check("an unknown side rules nothing out", contextOfFile({}).side === null && !contextOfFile({}).nothingFiled);
 check("a defendant's own claim is not asked on the home page of a person suing", !homeAsks(suing as never, "sc-defendant-counterclaim", "My neighbour owes me $900."));
 check("it is asked of the person sued", homeAsks(sued as never, "sc-defendant-counterclaim", "I was served with a claim for $900."));

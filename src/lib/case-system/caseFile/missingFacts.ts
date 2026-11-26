@@ -15,12 +15,16 @@
  *
  * Pure: no React, no network. States no law.
  */
-import { heldYourName, type CaseFile, type SlotFact } from "./caseFile";
+import { heldYourName, SLOT_FACTS, type CaseFile, type SlotFact } from "./caseFile";
 import { askedFacts, heldAnswer } from "./heldAnswer";
 import { extractNarrativePrefill } from "../intelligence/narrativePrefill";
 import { quotesOf, statedInStory } from "../intakeReview";
 import { formatForCourt, isRealIsoDate } from "../dates";
 import { sentences } from "../sentences";
+import { slotStatus } from "./factStatus";
+import { contextOfFile, factApplies } from "./factRegistry";
+import { STATED_FACTS } from "../flow/storyStated";
+import type { CaseFact } from "./factsOfQuestion";
 
 export { askedFacts, heldAnswer, type Held } from "./heldAnswer";
 
@@ -57,7 +61,9 @@ const empty = (value: unknown) => !(typeof value === "string" ? value.trim() : A
  * each box the story gives, offered while the box is empty and the record holds none of its facts (the person's own name:
  * while the parties hold none). Read from the record's story, so a story from the home page is offered on arrival.
  */
-export function missingFacts(record: CaseFile | null | undefined, place: "sc-form", options: { boxes?: Record<string, unknown>; choices?: Readonly<Record<string, string>> } = {}): MissingFact[] {
+export function missingFacts(record: CaseFile | null | undefined, place: "sc-form" | "understood" | "questions", options: { boxes?: Record<string, unknown>; choices?: Readonly<Record<string, string>> } = {}): MissingFact[] {
+  if (place === "understood") return understoodOffers(record);
+  if (place === "questions") return flowQuestions(record);
   if (place !== "sc-form") return [];
   const boxes = options.boxes ?? {};
   // An offer the person already answered ("No, that's not right", "I'm not sure"; caseFile/offerChoice.ts, kept under the
@@ -146,4 +152,64 @@ export function form7aFromRecord(record: CaseFile | null | undefined, elements: 
     if (quote) found.push({ elementId: element.id, name: element.name, quote });
   }
   return { held, found };
+}
+
+// ---- The new Small Claims flow (SC_FLOW_V2; site owner, 26 Nov 2026) ----------------------------------------------------
+
+/**
+ * "understood": the story's facts the Understood step offers once (flow/storyStated.ts wrote them as stated in the story),
+ * in its order, each with its value and the story's words. A fact the person confirmed, said "not sure" to, removed or
+ * said "not right" to is not offered again.
+ */
+function understoodOffers(record: CaseFile | null | undefined): MissingFact[] {
+  if (!record) return [];
+  return STATED_FACTS.flatMap((fact) => {
+    const slot = record[fact];
+    if (slotStatus(slot) !== "offer" || slot?.declined || slot?.source?.kind !== "story") return [];
+    const value = Array.isArray(slot.value) ? slot.value.join(", ") : String(slot.value ?? "");
+    return value.trim() ? [{ field: fact, facts: [fact], status: "offer" as const, value, quote: slot.source.quote }] : [];
+  });
+}
+
+/**
+ * THE QUESTIONS PAGE'S ORDER (Small Claims): each fact, with the question whose words ask it (questionBank.ts keeps the
+ * wording only: whether a question is shown is decided here, by the record and the registry). The person bringing the case
+ * and the person responding each get their own; a fact that is the other side's does not apply (factRegistry.ts rules).
+ * The names and addresses are the Parties step's (parties.ts), on the same page.
+ */
+export const FLOW_QUESTIONS: readonly { fact: CaseFact; question: string }[] = [
+  { fact: "claimKind", question: "sc-orient-dispute-category" },
+  { fact: "whenHappened", question: "sc-orient-when-happened" },
+  { fact: "amount", question: "sc-amount-claimed" },
+  { fact: "wants", question: "sc-remedy-sought" },
+  { fact: "publication", question: "sc-defamation-publication-details" },
+  { fact: "completionDate", question: "sc-contractor-completion-date" },
+  { fact: "noticeToContractor", question: "sc-contractor-notice-before-replacement" },
+  { fact: "responseFacts", question: "sc-defendant-response-facts" },
+  { fact: "admission", question: "sc-defendant-admission-payment" },
+  { fact: "defendantsClaim", question: "sc-defendant-counterclaim" },
+  { fact: "evidence", question: "sc-evidence-available" },
+];
+
+/**
+ * "questions": every fact still unknown, on ONE page, in FLOW_QUESTIONS' order (owner's change A, 26 Nov 2026): not held
+ * (answered, "not sure", removed), not waiting on the Understood step's confirm (an offer), and applying to this case
+ * (factRegistry.ts factApplies: nothing about court papers when nothing is filed; the defence only for the person
+ * responding; a kind's own questions only for that kind). A story value said "not right" is asked here.
+ */
+function flowQuestions(record: CaseFile | null | undefined): MissingFact[] {
+  if (!record) return [];
+  const context = contextOfFile(record);
+  return FLOW_QUESTIONS.flatMap(({ fact, question }) => {
+    if (!factApplies(fact, context)) return [];
+    // A fact with no slot of its own (what was published, the defence's facts) is held by its question's answer, or its
+    // "not sure", in the record's answers (caseFile.ts file.answers, by question id).
+    if (!(SLOT_FACTS as readonly string[]).includes(fact)) return record.answers?.[question]?.trim() ? [] : [{ field: question, facts: [], status: "ask" as const }];
+    const slotFact = fact as SlotFact;
+    const slot = record[slotFact];
+    const status = slotStatus(slot);
+    if (status === "known" || status === "settled") return [];
+    if (status === "offer" && !slot?.declined) return [];
+    return [{ field: question, facts: [slotFact], status: "ask" as const }];
+  });
 }

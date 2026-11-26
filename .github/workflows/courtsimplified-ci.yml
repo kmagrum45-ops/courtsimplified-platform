@@ -796,6 +796,9 @@ jobs:
       - name: The fact registry -- one entry per fact, applicability decided in one place, read by the start and the home page
         run: npm run test:fact-registry
 
+      - name: The new Small Claims flow -- the story's facts offered once on the Understood step, then never asked again; nothing about court papers when nothing is filed
+        run: npm run test:sc-flow-core
+
       - name: The journey matrix has a story for every starting point, each honest about what it states, each in one shard
         run: npm run test:matrix-stories
 

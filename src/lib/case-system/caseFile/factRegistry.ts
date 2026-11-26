@@ -19,11 +19,12 @@
  * NEXT REGISTRY STEP (not done yet: these facts still have no rule, so they apply to everyone). Each should depend on
  * the claim kind, the court or the stage, and gets its rule, with its reason, in its own PR with the matrix row that
  * shows it asked where it does not apply:
- *   by claim kind   paymentHistory (a debt or loan), agreementTerms (a contract or agreement), publication (defamation),
- *                   completionDate and noticeToContractor (a contractor's work), damagesBreakdown (a claim for money);
+ *   by claim kind   paymentHistory (a debt or loan), agreementTerms (a contract or agreement), damagesBreakdown (a claim
+ *                   for money); (publication, completionDate and noticeToContractor got their rules on 26 Nov 2026, with
+ *                   the kind in the context: the new Small Claims flow asks them);
  *   by court        children, married, marriedWhere, divorceSought, cohabitation, property, adoption, livingSituation,
  *                   livingHistory, safety (Family);
- *   by side         admission (the person responding), twentyDaysPassed and notedInDefault (the person bringing the
+ *   by side         twentyDaysPassed and notedInDefault (the person bringing the
  *                   case, once the claim is served);
  *   by stage        defenceFiled and serviceMethod (once something is filed, as the court papers' dates already are),
  *                   settlementEfforts and deadlineDetails (the steps of the stage map that ask them).
@@ -38,6 +39,8 @@ export type FactContext = {
   side: "bringing" | "responding" | null;
   /** Nothing has been filed with a court yet (the person said they are starting a case). */
   nothingFiled: boolean;
+  /** The kind of claim the person gave or confirmed (a claim type id), or null while it is not known. */
+  claimKind?: string | null;
 };
 
 export type FactHome = "case-file slot" | "parties record" | "start answers" | "intake answer" | "step dates" | "uploaded documents";
@@ -45,6 +48,8 @@ export type FactEntry = { fact: CaseFact | string; home: FactHome; fromStory: st
 
 const papersExist = (context: FactContext) => !context.nothingFiled || context.side === "responding";
 const respondingOnly = (context: FactContext) => context.side === "responding";
+/** A kind's own question: only once the person's kind is known and is that kind (never on a guess). */
+const kindIs = (words: RegExp) => (context: FactContext) => typeof context.claimKind === "string" && words.test(context.claimKind);
 const NO_PAPERS_YET = "nothing has been filed with a court yet, so there are no court papers for this to be about";
 
 /** Facts kept in the Parties record (parties/parties.ts), not as case-file slots. */
@@ -66,6 +71,11 @@ const RULES: Partial<Record<CaseFact, { who: string; when: (context: FactContext
   defenceFiledDate: { who: "once something is filed, or the person is responding", when: papersExist, why: NO_PAPERS_YET },
   responseFacts: { who: "the person responding", when: respondingOnly, why: "a defence response is written by the person responding to someone else's claim" },
   defendantsClaim: { who: "the person responding", when: respondingOnly, why: "a claim of the defendant's own is the responding side's" },
+  wants: { who: "anyone except the person responding in Small Claims", when: (context) => !(context.court === "small-claims" && context.side === "responding"), why: "in Small Claims the person responding says what they want in the defence's own question (what outcome they want, and any claim of their own), not as the claim's order" },
+  admission: { who: "the person responding", when: respondingOnly, why: "admitting or paying part of a claim is for the person a claim is made against" },
+  publication: { who: "a defamation claim", when: kindIs(/defamation/), why: "who heard or read the words is about a defamation claim only" },
+  completionDate: { who: "a claim about a contractor's work", when: kindIs(/contractor/), why: "when the work was finished is about a contractor's work only" },
+  noticeToContractor: { who: "a claim about a contractor's work", when: kindIs(/contractor/), why: "telling the contractor before hiring someone else is about a contractor's work only" },
 };
 
 const ALL_FACTS: readonly CaseFact[] = [
@@ -152,5 +162,7 @@ export function contextOfFile(file: unknown): FactContext {
     court: court === "small-claims" || court === "civil" || court === "family" ? court : null,
     side: side === "bringing" || side === "responding" ? side : null,
     nothingFiled: held("filed") === false && side !== "responding",
+    // The kind only as the person's own (answered or confirmed): a story value waiting on its confirm is a guess.
+    claimKind: slots.claimKind?.state === "answered" && (slots.claimKind as { confirmed?: boolean }).confirmed === true && typeof slots.claimKind.value === "string" ? slots.claimKind.value : null,
   };
 }
