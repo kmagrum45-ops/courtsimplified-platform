@@ -19,6 +19,10 @@
  *      question on the Questions page leaves nothing in intakeReview.ts remainingEssentialQuestions, so its Confirm is
  *      never refused (the matrix's served-defendant and wrong-place journeys, 26 Nov 2026: "Review was not saved",
  *      because the papers' questions were asked by the Confirm's gate and not by the Questions page);
+ *   8. the other side's name the story gives is offered on the Parties step from the story's own words, with no AI
+ *      (storyOffers.ts offeredOtherParty, its Small Claims part): every SC matrix story's own other side; two people named, nothing; the
+ *      person's own name, never (the new flow's matrix, 26 Nov 2026: asked cold in 6 of 7 stories, because names are
+ *      hidden from the AI reading);
  *   6. withStoryStated never changes the record it is given (the old screens read the record as before) and never
  *      replaces the person's own answer, "not sure", or a story value they said was not right.
  *
@@ -34,6 +38,8 @@ import { factsOfQuestion } from "../../src/lib/case-system/caseFile/factsOfQuest
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { remainingEssentialQuestions } from "../../src/lib/case-system/intakeReview";
+import { offeredOtherParty } from "../../src/lib/case-system/caseFile/storyOffers";
+const smallClaimsOtherSide = (story: string) => offeredOtherParty(story, [], { court: "small-claims" });
 import { MATRIX_STORIES } from "../../tests/browser/matrix/matrixStories";
 
 let failures = 0;
@@ -152,6 +158,15 @@ for (const story of SMALL_CLAIMS) {
     check(`${who}: after the flow's questions, the review's Confirm needs nothing more`, left.length === 0, left.join(", "));
   }
 }
+
+// 8. The other side's name, from the story's own words.
+for (const story of SMALL_CLAIMS) {
+  const expected = (story as { facts?: { otherParty?: string } }).facts?.otherParty ?? null;
+  const offer = smallClaimsOtherSide(story.text);
+  check(`${story.id}: the other side the story names is offered from its words`, offer?.value === expected && Boolean(offer && story.text.includes(offer.quote)), JSON.stringify(offer));
+}
+check("two people named: no other side is offered", smallClaimsOtherSide("Synthetic: my friend Sam Testone and my neighbour Pat Testtwo both owe me $500.") === null);
+check("the person's own name is never the other side", smallClaimsOtherSide("Synthetic: My name is Lee Testself. I am owed $800 for work I did.") === null);
 
 if (failures) { console.log(`\n${failures} check(s) failed.`); process.exit(1); }
 console.log("\nThe new Small Claims flow's core: every check passed.");

@@ -9,7 +9,7 @@
  * (intakeGuidanceGate.ts); `withRequestNames` does it for the rest.
  */
 import { knownNameLabels, type NameLabel } from "../case-system/privacy/nameLabels";
-import { isStoryName, otherPartyFromStory, otherPartyNameFromStory, STORY_NAME_PATTERNS, type NameRole } from "../../../app/builder/_components/storyAnswers";
+import { namesInStory as namesIn, otherPartyFromStory, otherPartyNameFromStory } from "../../../app/builder/_components/storyAnswers";
 import { sentences } from "../case-system/sentences";
 import { withNameLabelsFor } from "../case-system/privacy/modelNameContext";
 import { businessOtherSideIn } from "../case-system/caseFile/storyFacts";
@@ -17,24 +17,6 @@ import { partyName, readParties } from "../case-system/parties/parties";
 import { CASE_FILE_SECTION } from "../case-system/caseFile/caseFile";
 import { getAuthenticatedOwnedCase, getAuthenticatedUser } from "../supabase/serverAuth";
 import { fallbackNames } from "../case-system/privacy/nameFallback";
-
-/**
- * Every name the one name reader's patterns (storyAnswers.ts STORY_NAME_PATTERNS, the same the Family offer reads) find
- * in the person's words, each once, with how the words relate them (site owner, 22 Nov 2026, batch (a3)). Read here, in
- * the place that keeps names out of requests; a name written in a way no pattern knows is not found.
- */
-function namesIn(words: string): { name: string; role: NameRole }[] {
-  const out: { name: string; role: NameRole }[] = [];
-  for (const sentence of sentences(words)) {
-    for (const { role, pattern } of STORY_NAME_PATTERNS) {
-      for (const match of sentence.matchAll(new RegExp(pattern.source, `${pattern.flags}g`))) {
-        const name = match[1].trim();
-        if (isStoryName(name) && !out.some((held) => held.name.toLowerCase() === name.toLowerCase())) out.push({ name, role });
-      }
-    }
-  }
-  return out;
-}
 
 /**
  * The other side's names in the person's words: first as the story readers pick it out ("my ex, Sarah Jones,", "my
