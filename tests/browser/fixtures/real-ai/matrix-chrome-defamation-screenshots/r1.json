@@ -1,0 +1,127 @@
+{
+  "story": "matrix-chrome-defamation-screenshots",
+  "reading": "r1",
+  "recorded": "2026-11-26",
+  "note": "Real model outputs for a made-up story (AI_FIXTURES=record).",
+  "entries": [
+    {
+      "step": "story-reading",
+      "input": "24cad08d50ad928f",
+      "said": "{\"sent\":\"On October 3, 2025 my former coworker Morgan Testwriter sent messages to three of my friends saying I stole money from the office. She wrote: \\\"He stole from the cash drawer and got fired for it.\\\" That is not true. I have screenshots of the messages my friends forwarded to me. I want $5,000. Nothing has been filed yet.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\",\"chosen\":null}",
+      "output": "{\n  \"summary\": \"You want to sue your former coworker for $5,000 over messages she sent to three of your friends on October 3, 2025. She wrote, \\\"He stole from the cash drawer and got fired for it,\\\" which you say is false. You have screenshots forwarded by your friends, and nothing has been filed with a court.\",\n  \"facts\": [\n    {\n      \"label\": \"Your role\",\n      \"value\": \"Person bringing the claim\"\n    },\n    {\n      \"label\": \"Other party\",\n      \"value\": \"Your former coworker\"\n    },\n    {\n      \"label\": \"Date of messages\",\n      \"value\": \"October 3, 2025\"\n    },\n    {\n      \"label\": \"Recipients\",\n      \"value\": \"Three of your friends\"\n    },\n    {\n      \"label\": \"Statement\",\n      \"value\": \"\\\"He stole from the cash drawer and got fired for it.\\\"\"\n    },\n    {\n      \"label\": \"Your position\",\n      \"value\": \"The statement is false\"\n    },\n    {\n      \"label\": \"Screenshots\",\n      \"value\": \"Your friends forwarded screenshots of the messages\"\n    },\n    {\n      \"label\": \"Amount sought\",\n      \"value\": \"$5,000\"\n    },\n    {\n      \"label\": \"Court status\",\n      \"value\": \"Nothing has been filed\"\n    },\n    {\n      \"label\": \"Location\",\n      \"value\": \"Not given\"\n    }\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Defamation claim against your former coworker\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You are considering a claim, and nothing has been filed with a court.\",\n  \"questions\": [\n    {\n      \"question\": \"Where do you and your former coworker live, and where were your friends when they received the messages?\",\n      \"why\": \"This helps identify whether Ontario is the appropriate place for the claim.\"\n    },\n    {\n      \"question\": \"When did you first learn about these messages?\",\n      \"why\": \"The date you learned about them may affect the time available to bring a claim.\"\n    },\n    {\n      \"question\": \"Were these private messages sent directly to your friends, or were they also published somewhere else?\",\n      \"why\": \"The way the statements were communicated can affect how the claim is categorized.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}",
+      "ms": 10581
+    },
+    {
+      "step": "safety",
+      "input": "0583d4950adbaa43",
+      "said": "{\"said\":\"On October 3, 2025 my former coworker Morgan Testwriter sent messages to three of my friends saying I stole money from the office. She wrote: \\\"He stole from the cash drawer and got fired for it.\\\" That is not true. I have screenshots of the messages my friends forwarded to me. I want $5,000. Nothing has been filed yet.\"}",
+      "output": {
+        "classification": "clear",
+        "requestsLegalAdvice": false
+      },
+      "ms": 2276
+    },
+    {
+      "step": "fact-reading",
+      "input": "0583d4950adbaa43",
+      "said": "{\"said\":\"On October 3, 2025 my former coworker Morgan Testwriter sent messages to three of my friends saying I stole money from the office. She wrote: \\\"He stole from the cash drawer and got fired for it.\\\" That is not true. I have screenshots of the messages my friends forwarded to me. I want $5,000. Nothing has been filed yet.\"}",
+      "output": {
+        "facts": {
+          "role": "plaintiff",
+          "disputeCategory": "defamation",
+          "claimFiled": false
+        },
+        "directFields": [
+          "role",
+          "disputeCategory",
+          "claimFiled"
+        ]
+      },
+      "ms": 2731
+    },
+    {
+      "step": "claim-kind",
+      "input": "e0c65e7807948afa",
+      "said": "{\"said\":\"On October 3, 2025 my former coworker Morgan Testwriter sent messages to three of my friends saying I stole money from the office. She wrote: \\\"He stole from the cash drawer and got fired for it.\\\" That is not true. I have screenshots of the messages my friends forwarded to me. I want $5,000. Nothing has been filed yet.\",\"exclude\":[],\"responding\":false}",
+      "output": {
+        "claimTypeId": "sc-claim-defamation-libel-slander",
+        "claimTypeName": "Defamation (libel or slander)",
+        "quote": "sent messages to three of my friends saying I stole money from the office"
+      },
+      "ms": 3468
+    },
+    {
+      "step": "story-suggestions",
+      "input": "d8bdcc216cfdc7dc",
+      "said": "{\"story\":\"On October 3, 2025 my former coworker Morgan Testwriter sent messages to three of my friends saying I stole money from the office. She wrote: \\\"He stole from the cash drawer and got fired for it.\\\" That is not true. I have screenshots of the messages my friends forwarded to me. I want $5,000. Nothing has been filed yet.\",\"questions\":[\"sc-orient-when-happened\",\"sc-orient-dispute-category\",\"sc-amount-claimed\",\"sc-remedy-sought\"],\"quoteFrom\":null}",
+      "output": [
+        {
+          "questionId": "sc-orient-when-happened",
+          "questionText": "Roughly when did the situation that led to this claim happen?",
+          "answer": "October 3, 2025",
+          "storyQuote": "On October 3, 2025",
+          "dateQuestion": true
+        },
+        {
+          "questionId": "sc-orient-dispute-category",
+          "questionText": "What kind of dispute is this?",
+          "answer": "Something said about you (defamation)",
+          "storyQuote": "sent messages to three of my friends saying I stole money from the office.",
+          "choices": [
+            "Unpaid money owed to you",
+            "A contract or agreement dispute",
+            "Property damage",
+            "A loan or debt",
+            "Work or a service you paid for (e.g. a contractor)",
+            "A deposit that wasn't returned",
+            "A consumer purchase problem",
+            "A vehicle-related dispute",
+            "Something said about you (defamation)",
+            "A personal injury (a fall, an animal bite, or similar)",
+            "Something else"
+          ]
+        },
+        {
+          "questionId": "sc-amount-claimed",
+          "questionText": "What is the total dollar amount you are claiming?",
+          "answer": "$5,000",
+          "storyQuote": "I want $5,000."
+        },
+        {
+          "questionId": "sc-remedy-sought",
+          "questionText": "What outcome are you asking the court to order?",
+          "answer": "I want $5,000.",
+          "storyQuote": "I want $5,000."
+        }
+      ],
+      "ms": 3282
+    },
+    {
+      "step": "claim-kind-confirm",
+      "input": "68713450aa580ac6",
+      "said": "{\"action\":\"confirm\",\"said\":\"On October 3, 2025 my former coworker Morgan Testwriter sent messages to three of my friends saying I stole money from the office. She wrote: \\\"He stole from the cash drawer and got fired for it.\\\" That is not true. I have screenshots of the messages my friends forwarded to me. I want $5,000. Nothing has been filed yet.\",\"claimTypeId\":\"sc-claim-defamation-libel-slander\",\"prior\":[]}",
+      "output": {
+        "outcome": "confirmed",
+        "claimType": {
+          "claimTypeId": "sc-claim-defamation-libel-slander",
+          "claimTypeName": "Defamation (libel or slander)"
+        }
+      },
+      "ms": 0
+    },
+    {
+      "step": "fact-reading",
+      "input": "2d035f656da7028c",
+      "said": "{\"said\":\"Q: Roughly when did the situation that led to this claim happen?\\nA: October 3, 2025\\n\\nQ: What is the total dollar amount you are claiming?\\nA: $5,000.00\\n\\nQ: What outcome are you asking the court to order?\\nA: I want $5,000.\"}",
+      "output": {
+        "facts": {
+          "role": "plaintiff"
+        },
+        "directFields": [
+          "role"
+        ]
+      },
+      "ms": 2276
+    }
+  ]
+}

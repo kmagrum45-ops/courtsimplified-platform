@@ -30,6 +30,9 @@ import { sentences } from "../sentences";
 export const STATED_FACTS = ["claimKind", "amount", "whenHappened", "wants", "otherParty"] as const satisfies readonly SlotFact[];
 export type StatedFact = (typeof STATED_FACTS)[number];
 
+/** The key the Understood step keeps a person's "No, that's not right" or "I'm not sure" under (caseFile/offerChoice.ts). */
+export const understoodOfferKey = (fact: StatedFact) => `understood:${fact}`;
+
 /** What the home page's AI reading gave (signed in only): its facts and its matters' titles. */
 export type FlowReading = { facts: readonly ReadingFact[]; matterTitles: readonly string[] };
 
@@ -69,18 +72,21 @@ function quoteForKind(story: string, kind: ClaimType): string {
  * The record with the story's facts added as stated in the story (offers), where the record holds nothing from the person.
  * `signedIn`: whether the AI reading may be used (never for a guest).
  */
-export function withStoryStated(record: CaseFile, input: { story: string; reading?: FlowReading | null; signedIn: boolean }): CaseFile {
+export function withStoryStated(record: CaseFile, input: { story: string; reading?: FlowReading | null; signedIn: boolean; choices?: Readonly<Record<string, string>> }): CaseFile {
   const story = input.story.trim();
   if (!story) return record;
   const reading = input.signedIn ? input.reading ?? null : null;
   const next: CaseFile = { ...record };
+  // "No, that's not right" on the Understood step: the story's value is never offered again; the Questions page asks it.
+  const saidNo = new Set(STATED_FACTS.filter((fact) => input.choices?.[understoodOfferKey(fact)] === "no"));
+  for (const fact of saidNo) if (open(record[fact])) next[fact] = { ...(record[fact] ?? { state: "not-asked", confirmed: false }), declined: true };
   const read = quotesOf(statedInStory(story, reading?.facts ?? [], "small-claims")) as Partial<Record<SlotFact, { value: string | string[]; quote: string }>>;
   for (const fact of ["amount", "whenHappened", "wants", "otherParty"] as const) {
     const found = read[fact];
-    if (!found || !words(found.value) || !open(record[fact])) continue;
+    if (!found || !words(found.value) || !open(record[fact]) || saidNo.has(fact)) continue;
     next[fact] = { state: "answered", value: words(found.value), source: { kind: "story", quote: found.quote }, confirmed: false };
   }
-  if (open(record.claimKind)) {
+  if (open(record.claimKind) && !saidNo.has("claimKind")) {
     const kinds = smallClaimsKinds();
     const byStory = kindFromStory(story, kinds);
     const byReading = !byStory && reading ? kindNamedByReading(reading.matterTitles, kinds) : null;

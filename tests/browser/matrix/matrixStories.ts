@@ -94,6 +94,14 @@ export const MATRIX_STORIES: (MatrixStoryWithStart & { mustNotAsk: readonly Must
     facts: { otherParty: "Rebecca Testsurname", amount: "10000", whenHappened: "sept 14 2025", wants: "10000 dollars" },
     names: ["Rebecca Testsurname"],
   },
+  // The owner's evidence story (26 Nov 2026, change D): defamation with screenshots of the messages sent to others, and the
+  // words quoted, so the evidence area of the new flow is covered. Made up.
+  {
+    id: "chrome-defamation-screenshots", mustNotAsk: [...SC_BEFORE_FILING, ...SC_DEFENDANT_STEPS], court: "small-claims", side: "plaintiff", startingPoint: "chrome", city: "Ottawa", nothingFiled: true, situation: starting("small-claims"),
+    text: "On October 3, 2025 my former coworker Morgan Testwriter sent messages to three of my friends saying I stole money from the office. She wrote: \"He stole from the cash drawer and got fired for it.\" That is not true. I have screenshots of the messages my friends forwarded to me. I want $5,000. Nothing has been filed yet.",
+    facts: { otherParty: "Morgan Testwriter", amount: "5,000", whenHappened: "October 3, 2025", wants: "$5,000" },
+    names: ["Morgan Testwriter"],
+  },
   // Small Claims.
   {
     id: "sc-deciding-to-sue", mustNotAsk: [...SC_BEFORE_FILING, ...SC_DEFENDANT_STEPS], court: "small-claims", side: "plaintiff", startingPoint: "before-filing:deciding-whether-to-sue", city: "Kingston", nothingFiled: true, situation: starting("small-claims"),

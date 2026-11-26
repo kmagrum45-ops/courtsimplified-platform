@@ -54,7 +54,7 @@ jobs:
           - shard: 1
             stories: chrome-kitchen chrome-alex chrome-defamation
           - shard: 2
-            stories: sc-deciding-to-sue sc-served-defendant
+            stories: sc-deciding-to-sue sc-served-defendant chrome-defamation-screenshots
           - shard: 3
             stories: sc-wrong-place civil-deciding-to-sue
           - shard: 4

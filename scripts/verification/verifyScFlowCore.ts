@@ -25,7 +25,7 @@ import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 import { caseFileOf, type CaseFile, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import { missingFacts, FLOW_QUESTIONS } from "../../src/lib/case-system/caseFile/missingFacts";
-import { withStoryStated, STATED_FACTS, type FlowReading } from "../../src/lib/case-system/flow/storyStated";
+import { withStoryStated, STATED_FACTS, understoodOfferKey, type FlowReading, type StatedFact } from "../../src/lib/case-system/flow/storyStated";
 import { factsOfQuestion } from "../../src/lib/case-system/caseFile/factsOfQuestion";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
@@ -57,7 +57,8 @@ function readingOf(id: string): FlowReading | null {
 
 /** A fact confirmed on the Understood step: the person's own answer (the slot the record keeps for it). */
 const confirmed = (record: CaseFile, fact: SlotFact): CaseFile => ({ ...record, [fact]: { ...record[fact], confirmed: true, source: { kind: "answer", question: "understood" } } });
-const notRight = (record: CaseFile, fact: SlotFact): CaseFile => ({ ...record, [fact]: { ...record[fact], declined: true } });
+/** "No, that's not right" on the Understood step, as the page keeps it (its offer choice), read again through the core. */
+const notRight = (before: CaseFile, story: (typeof MATRIX_STORIES)[number], signedIn: boolean, fact: StatedFact): CaseFile => withStoryStated(before, { story: story.text, reading: readingOf(story.id), signedIn, choices: { [understoodOfferKey(fact)]: "no" } });
 const notSure = (record: CaseFile, fact: SlotFact): CaseFile => ({ ...record, [fact]: { state: "unsure", source: { kind: "answer", question: "understood" }, confirmed: true } });
 const asked = (record: CaseFile) => missingFacts(record, "questions").flatMap((item) => item.facts as string[]);
 const offered = (record: CaseFile) => missingFacts(record, "understood").map((item) => item.field);
@@ -83,10 +84,10 @@ for (const story of SMALL_CLAIMS) {
     check(`${who}: confirmed once, never offered or asked again`, offered(all).length === 0 && !stated.some((fact) => asked(all).includes(fact)), `${offered(all)} / ${asked(all)}`);
     if (stated.length) {
       const first = stated[0];
-      const wrong = notRight(record, first);
+      const wrong = notRight(before, story, signedIn, first);
       check(`${who}: "${first}" said not right is asked on the Questions page and not offered again`, asked(wrong).includes(first) && !offered(wrong).includes(first), `${asked(wrong)} / ${offered(wrong)}`);
       check(`${who}: "${first}" said not sure is never asked or offered`, !asked(notSure(record, first)).includes(first) && !offered(notSure(record, first)).includes(first));
-      check(`${who}: a second reading never replaces a value said not right`, withStoryStated(wrong, { story: story.text, reading: readingOf(story.id), signedIn })[first].declined === true);
+      check(`${who}: a second reading never replaces a value said not right`, withStoryStated(wrong, { story: story.text, reading: readingOf(story.id), signedIn, choices: { [understoodOfferKey(first)]: "no" } })[first].declined === true);
     }
     // 4. Nothing about court papers when nothing is filed; the defence's facts only when responding.
     const everything = [...offered(record), ...asked(record), ...asked(all)];
