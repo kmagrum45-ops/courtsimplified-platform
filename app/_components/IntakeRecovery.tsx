@@ -747,7 +747,11 @@ function SituationGate({ court, ownerId, children }: { court: IntakeCourt; owner
   };
   // On the builder, as before; the home page has always taken the city and story before it.
   const onBuilder = typeof window !== "undefined" && window.location.pathname.startsWith("/builder");
-  if ((incomplete || changing) && onBuilder && notice !== false) {
+  // Held here while the notice is outstanding, even when the start is already answered (a finder hand-off of "no case
+  // started" with the court chosen answers it all, now that "Has anything been filed?" is not asked after "I want to
+  // start a case"): the builder below takes the finder's story when it mounts, and it is taken only after "Before you
+  // start" (finder-story-leak.spec.ts; PR 2 CI, 25 Nov 2026).
+  if (onBuilder && notice !== false) {
     return <div className="mx-auto max-w-3xl space-y-4 px-6 py-6">
       <FirstUseAcknowledgement onStatus={setNotice} />
       {notice === null && <p className="text-sm text-[#4d675f]" aria-live="polite">Loading…</p>}

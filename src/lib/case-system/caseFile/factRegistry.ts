@@ -13,7 +13,20 @@
  *                defence to write. A rule states no law and decides no procedure (that is the stage map's).
  *
  * Pure: no React, no network. Checked by test:fact-registry (every fact has an entry, every question id it names asks
- * it, every rule has its reason) and by the journey matrix's check 3, which reads these rules.
+ * it, every rule has its reason, every fact any screen can ask is registered). The journey matrix's check 3 does NOT
+ * read these rules: it compares with each story's own list, written from the stage map (matrixStories.ts mustNotAsk).
+ *
+ * NEXT REGISTRY STEP (not done yet: these facts still have no rule, so they apply to everyone). Each should depend on
+ * the claim kind, the court or the stage, and gets its rule, with its reason, in its own PR with the matrix row that
+ * shows it asked where it does not apply:
+ *   by claim kind   paymentHistory (a debt or loan), agreementTerms (a contract or agreement), publication (defamation),
+ *                   completionDate and noticeToContractor (a contractor's work), damagesBreakdown (a claim for money);
+ *   by court        children, married, marriedWhere, divorceSought, cohabitation, property, adoption, livingSituation,
+ *                   livingHistory, safety (Family);
+ *   by side         admission (the person responding), twentyDaysPassed and notedInDefault (the person bringing the
+ *                   case, once the claim is served);
+ *   by stage        defenceFiled and serviceMethod (once something is filed, as the court papers' dates already are),
+ *                   settlementEfforts and deadlineDetails (the steps of the stage map that ask them).
  */
 import { SLOT_FACTS } from "./slotFacts";
 import type { CaseFact } from "./factsOfQuestion";
@@ -30,7 +43,7 @@ export type FactContext = {
 export type FactHome = "case-file slot" | "parties record" | "start answers" | "intake answer" | "step dates" | "uploaded documents";
 export type FactEntry = { fact: CaseFact | string; home: FactHome; fromStory: string | null; applies?: { who: string; when: (context: FactContext) => boolean; why: string } };
 
-const noPapersYet = (context: FactContext) => !context.nothingFiled || context.side === "responding";
+const papersExist = (context: FactContext) => !context.nothingFiled || context.side === "responding";
 const respondingOnly = (context: FactContext) => context.side === "responding";
 const NO_PAPERS_YET = "nothing has been filed with a court yet, so there are no court papers for this to be about";
 
@@ -44,13 +57,13 @@ const FROM_STORY: Partial<Record<CaseFact, string>> = { amount: "amount", whenHa
 /** Whom a fact applies to, when not everyone (each with its reason). */
 const RULES: Partial<Record<CaseFact, { who: string; when: (context: FactContext) => boolean; why: string }>> = {
   filed: { who: "anyone except a person who said they want to start a case", when: (context) => !(context.nothingFiled && context.side !== "responding"), why: "the person said they want to start a case, which says nothing has been filed yet (a case already filed is \"A case is already going\")" },
-  claimServed: { who: "once something is filed, or the person is responding", when: noPapersYet, why: NO_PAPERS_YET },
-  servedDate: { who: "once something is filed, or the person is responding", when: noPapersYet, why: NO_PAPERS_YET },
-  claimIssuedDate: { who: "once something is filed, or the person is responding", when: noPapersYet, why: NO_PAPERS_YET },
-  courtFileNumber: { who: "once something is filed, or the person is responding", when: noPapersYet, why: NO_PAPERS_YET },
-  courtDate: { who: "once something is filed, or the person is responding", when: noPapersYet, why: NO_PAPERS_YET },
-  conferenceDate: { who: "once something is filed, or the person is responding", when: noPapersYet, why: NO_PAPERS_YET },
-  defenceFiledDate: { who: "once something is filed, or the person is responding", when: noPapersYet, why: NO_PAPERS_YET },
+  claimServed: { who: "once something is filed, or the person is responding", when: papersExist, why: NO_PAPERS_YET },
+  servedDate: { who: "once something is filed, or the person is responding", when: papersExist, why: NO_PAPERS_YET },
+  claimIssuedDate: { who: "once something is filed, or the person is responding", when: papersExist, why: NO_PAPERS_YET },
+  courtFileNumber: { who: "once something is filed, or the person is responding", when: papersExist, why: NO_PAPERS_YET },
+  courtDate: { who: "once something is filed, or the person is responding", when: papersExist, why: NO_PAPERS_YET },
+  conferenceDate: { who: "once something is filed, or the person is responding", when: papersExist, why: NO_PAPERS_YET },
+  defenceFiledDate: { who: "once something is filed, or the person is responding", when: papersExist, why: NO_PAPERS_YET },
   responseFacts: { who: "the person responding", when: respondingOnly, why: "a defence response is written by the person responding to someone else's claim" },
   defendantsClaim: { who: "the person responding", when: respondingOnly, why: "a claim of the defendant's own is the responding side's" },
 };
