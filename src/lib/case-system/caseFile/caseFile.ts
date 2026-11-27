@@ -506,7 +506,13 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   if (!checkpoint && (savedArea === "civil" || savedArea === "family") && strings(extra.issues).length) give(file, "claimKind", strings(extra.issues), `${savedArea}:issues`);
   // The element record the analysis saved with the case (the depth phase's answers), for the Form 7A section.
   const savedElementStates = object(extra.elementStateMap);
-  if (Object.keys(savedElementStates).length) file.elementStates = savedElementStates;
+  // The element map: the analysis copy, then the checkpoint's own over it, element by element: the chat's depth record
+  // (guided.depthStateMap) and the new flow's map built when the kind is confirmed (flow.elementStates,
+  // flow/elementMapForKind.ts). The checkpoint's was read only for its answers, so a map built or answered there never
+  // reached the Form 7A checklist (site owner, 27 Nov 2026, decision 1: a contractor case with no map saved, every "I have
+  // this" threw). The new flow's is its own field: a "guided" section means the chat ran (chatRecorded below).
+  const elementStates = { ...savedElementStates, ...object(object(sections.guided).depthStateMap), ...object(object(sections.flow).elementStates) };
+  if (Object.keys(elementStates).length) file.elementStates = elementStates;
   depthAnswers(file, savedElementStates);
   // The checkpoint keeps the Small Claims chat's own record (its "guided" section, which "Start the questions again" resets).
   const chatRecorded = Boolean(checkpoint && checkpoint.sections.guided);

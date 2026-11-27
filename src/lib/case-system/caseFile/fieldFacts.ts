@@ -104,6 +104,7 @@ export const FIELD_ROWS: readonly FieldRow[] = [
   none("guided", "rejectedSuggestionIds", "kinds turned down: the case file's turnedDown, not a fact value"),
   none("guided", "declinedIds", "questions the person declined: kept by the gate, not a fact value"),
   none("guided", "depthStateMap", "each element's recorded state (the design's elementStates / evidence): no fact id yet"),
+  none("flow", "elementStates", "the new flow's element map for the confirmed kind (flow/elementMapForKind.ts): each element's recorded state, built not yet; no fact id yet"),
   ...["asksForAdvice", "claimGuidance", "completionPayload", "currentQuestion", "depthActive", "depthIndex", "depthQuestions", "evidenceGuidance",
     "halted", "heldPayload", "inputText", "intakeComplete", "messages", "noClaimTypeMatch", "proposalDrafts", "proposalMode", "readFrom", "reproposed", "started"]
     .map((field) => none("guided", field, field === "messages" || field.endsWith("Guidance") || field.endsWith("Payload") ? AI_COPY : PAGE_STATE)),

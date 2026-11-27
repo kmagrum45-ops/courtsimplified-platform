@@ -26,6 +26,9 @@
  *   9. every fact a story gives (the matrix story's own list) that the Understood step holds is offered there, signed
  *      in and as a guest: the other side's name is the Parties step's (check 8). The kitchen story's deposit, demand
  *      letter and job (26 Nov 2026) were never offered;
+ *  10. the element map is built once when a catalogue kind is confirmed (flow/elementMapForKind.ts), with every element of
+ *      the kind not yet, saved in flow.elementStates (which the case file reads), and never built again; a held record
+ *      is kept (the contractor case with no map saved, 27 Nov 2026, whose "I have this" threw);
  *   6. withStoryStated never changes the record it is given (the old screens read the record as before) and never
  *      replaces the person's own answer, "not sure", or a story value they said was not right.
  *
@@ -42,6 +45,10 @@ import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { remainingEssentialQuestions } from "../../src/lib/case-system/intakeReview";
 import { offeredOtherParty } from "../../src/lib/case-system/caseFile/storyOffers";
+import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
+import { elementMapForKind } from "../../src/lib/case-system/flow/elementMapForKind";
+
+const ROOT = process.cwd();
 const smallClaimsOtherSide = (story: string) => offeredOtherParty(story, [], { court: "small-claims" });
 import { MATRIX_STORIES } from "../../tests/browser/matrix/matrixStories";
 
@@ -188,6 +195,30 @@ for (const story of SMALL_CLAIMS) {
     const missed = given.filter((fact) => !shown.includes(fact));
     check(`${story.id} ${signedIn ? "signed in" : "guest"}: every fact the story gives is offered on the Understood step`, missed.length === 0, missed.join(", "));
   }
+}
+
+// 10. The element map, built once when the kind is confirmed (site owner, 27 Nov 2026, decision 1): the contractor case
+// with no map saved (staging 91f708d3), whose "I have this" threw on every element.
+{
+  const KIND_QUESTION = FLOW_QUESTIONS.find((item) => item.fact === "claimKind")?.question ?? "";
+  const withKind = (kindId: string | null, depthStateMap?: Record<string, unknown>) => caseFileOf({ version: 1, flowId: ID, courtPath: "small-claims", revision: ID,
+    sections: { story: { text: "Synthetic: the kitchen was left half done." }, builder: { initialAnswers: kindId ? { [KIND_QUESTION]: kindId } : {} }, ...(depthStateMap ? { flow: { elementStates: depthStateMap } } : {}) } } as unknown as Checkpoint);
+  for (const kind of CLAIM_TYPES) {
+    const ids = kind.plaintiffElements.map((element) => element.id);
+    const built = elementMapForKind(withKind(kind.id));
+    check(`${kind.id}: confirmed with no map saved, a map is built with every element, each not yet`, Boolean(built) && ids.every((id) => built![id]?.state === "not-yet"), built ? ids.filter((id) => !built[id]).join(", ") : "nothing built");
+    check(`${kind.id}: the built map, saved in the checkpoint, is the case file's own (and nothing is built again)`, built !== null && elementMapForKind(withKind(kind.id, built)) === null);
+  }
+  const contractor = CLAIM_TYPES.find((type) => type.id === "sc-claim-contractor-poor-or-incomplete-work")!;
+  const first = contractor.plaintiffElements[0];
+  const held = { [first.id]: { elementId: first.id, elementName: first.name, state: "provided", providedVia: "depth-answer", userText: "The signed contract", questionId: "attestation:x" } };
+  const partial = elementMapForKind(withKind(contractor.id, held));
+  check("a map that holds some of the kind's elements keeps each record as it is and adds the rest", partial !== null && partial[first.id]?.state === "provided" && partial[first.id]?.userText === "The signed contract" && contractor.plaintiffElements.every((element) => partial[element.id]));
+  check("the checkpoint's map is read as the case file's element map", withKind(null, held).elementStates?.[first.id] !== undefined);
+  check("no kind confirmed: nothing is built", elementMapForKind(withKind(null)) === null);
+  check("a category word is not a catalogue kind: nothing is built", elementMapForKind(withKind("Work or a service you paid for (e.g. a contractor)")) === null);
+  const shell = readFileSync(path.join(ROOT, "app/builder/_flow/SmallClaimsFlow.tsx"), "utf8");
+  check("the flow saves the built map once, through the one writer, into flow.elementStates", /elementMapForKind\(record\)/.test(shell) && /writeAnswer\(recovery,\s*"flow",\s*"elementStates"/.test(shell));
 }
 
 if (failures) { console.log(`\n${failures} check(s) failed.`); process.exit(1); }
