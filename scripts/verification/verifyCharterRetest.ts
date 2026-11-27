@@ -147,10 +147,11 @@ async function main() {
 
   // Chrome, 28 Oct: "The law behind this" differed between two cases. It must come from the case's own
   // analysis (its research, one line per provision with the question it answers), never from whichever
-  // chat question was asked last.
+  // chat question was asked last. (2026-10-29: the research is read through the server-decided research
+  // switch, so it is `research`, which is analysis.research or nothing; test:research-display-switch.)
   const overview = fs.readFileSync(path.join(ROOT, "app/builder/_components/IntelligenceOverviewPanel.tsx"), "utf8");
   const lawRoute = fs.readFileSync(path.join(ROOT, "app/api/assistant/law/route.ts"), "utf8");
-  check("the law box is the analysis's research, and the chat's law lookup never writes the case", /lawBehindThis\(analysis\.research\?\.findings \?\? \[\], analysis\.appliedLaw \?\? \[\]\)/.test(overview) && !/\.update\(|updateMasterResult|\.upsert\(|\.insert\(/.test(lawRoute));
+  check("the law box is the analysis's research, and the chat's law lookup never writes the case", (/lawBehindThis\(analysis\.research\?\.findings \?\? \[\], analysis\.appliedLaw \?\? \[\]\)/.test(overview) || (/const research = researchStep \? analysis\.research : undefined;/.test(overview) && /lawBehindThis\(research\?\.findings \?\? \[\], analysis\.appliedLaw \?\? \[\]\)/.test(overview))) && !/\.update\(|updateMasterResult|\.upsert\(|\.insert\(/.test(lawRoute));
 
   // Chrome, 28 Oct (owner): every leave sentence on the next-step screen is the Act's or the rule's own
   // words with its citation, or it goes; "A claim above it needs no such leave." is ours and goes.
