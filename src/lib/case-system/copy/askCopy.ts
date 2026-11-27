@@ -46,5 +46,7 @@ export const FORM7A_FOUND_YES = "Yes, that's right";
 export const FORM7A_FOUND_NOT_RIGHT = "Not right";
 /** Elements the case already holds (the amount, what was agreed): shown with their value, never "Still to add". */
 export const FORM7A_HELD_HEADING = "Already in your case:";
+/** Under a Form 7A checklist item whose "I have this" / "I don't have this" could not be recorded: the words typed stay in the box. */
+export const ELEMENT_NOT_RECORDED = "That was not recorded. What you typed is still in the box: please try again.";
 /** The case file's "what was agreed" fact, as "What we have so far", the review and Change name it (C9, 23 Nov 2026). */
 export const AGREEMENT_TERMS_LABEL = "What was agreed";

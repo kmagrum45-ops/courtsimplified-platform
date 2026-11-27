@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-328 documented, 26 without a header.
+329 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -109,6 +109,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:described-evidence` | **"No evidence identified" must only be said when it is true.**<br>evidenceIntelligenceEngine raises a high-severity "No evidence identified" gap when the normalized intake holds no evidence items. The keyword extractor that fills that list knows seven categories, so a user who listed invoices, contracts, photos, a bill of sa |
 | `npm run test:document-link` | **OPEN, SAVE AND DELETE AN UPLOADED FILE (Charter re-test 2026-10-26).**<br>Checks, as properties, through the route itself (app/api/workspace/documents/link) with the database and storage stood in: - a link is made only for the signed-in owner's own file that is not being deleted: no sign-in, a bad id, someone else's file and a file  |
 | `npm run test:drafts-from-record` | **THE FOUR DRAFTS READ THE PARTIES AND FACTS FROM THE CASE RECORD (site owner, 14 Nov 2026, rules 7 and 8; Chrome forms**<br>test on #550, rows 5 and 11 to 13: the Plaintiff's Claim draft said "Plaintiff name not entered" and "Defendant name not entered" and listed the site's questions as numbered facts; "Your story" held the site's questions; the affidavit outline and the chronolog |
+| `npm run test:element-attestation` | **"I have this" and "I don't have this" work on every element of every claim type, from any saved element map.**<br>WHAT IT CATCHES: the Form 7A checklist lists every element of the kind the case record holds, but the element map saved with the case holds only what the question step built -- for the kind it matched, or nothing at all when that step never ran. The two button |
 | `npm run test:elided-quote` | **Does a quote that skips material with "..." get found wherever it really is,**<br>and only there? |
 | `npm run test:every-question-has-fact` | **Every question the site can ask, by its id, asks for a fact of the case (site owner, 17 Nov 2026: "a build check that**<br>fails if any question is not mapped to a fact"). |
 | `npm run test:evidence-guidance` | **Pins the removal of the false "already mentioned" claim.**<br>COSTS NOTHING. Pure functions and a source-order check. |

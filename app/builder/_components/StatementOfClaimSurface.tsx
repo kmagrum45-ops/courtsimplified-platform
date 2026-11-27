@@ -8,8 +8,7 @@ import {
   type OutstandingElement,
 } from "@/src/lib/case-system/readiness/readinessGate";
 import {
-  recordCannotProvide,
-  recordDepthAnswer,
+  attestElement,
   type ElementStateMap,
 } from "@/src/lib/case-system/intake/depth/elementStateMap";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
@@ -24,7 +23,7 @@ import { formatForCourt } from "@/src/lib/case-system/dates";
 import { factStatus } from "@/src/lib/case-system/caseFile/factStatus";
 import { elementFact, form7aFromRecord } from "@/src/lib/case-system/caseFile/missingFacts";
 import { FROM_YOUR_STORY_WE_FOUND } from "@/src/lib/case-system/caseFile/storyOffers";
-import { FORM7A_FOUND_NOT_RIGHT, FORM7A_FOUND_QUESTION, FORM7A_FOUND_YES, FORM7A_HELD_HEADING } from "@/src/lib/case-system/copy/askCopy";
+import { ELEMENT_NOT_RECORDED, FORM7A_FOUND_NOT_RIGHT, FORM7A_FOUND_QUESTION, FORM7A_FOUND_YES, FORM7A_HELD_HEADING } from "@/src/lib/case-system/copy/askCopy";
 import {
   draftStatementOfClaimParticulars,
   type StatementOfClaimDraft,
@@ -197,26 +196,28 @@ export default function StatementOfClaimSurface({
     onStateMapChange?.(next);
   }
 
+  // "I have this" / "I don't have this": one path (attestElement), which first gives the map a record for each of the
+  // kind's elements it lacks (browser test, 27 Nov 2026: no map was saved, every click threw "unknown element id" and did
+  // nothing). If recording still fails, a plain message shows and the words typed stay in the box.
+  const [attestFailed, setAttestFailed] = useState<string | null>(null);
+  function attest(element: OutstandingElement, args: { have: true; answerText: string } | { have: false }) {
+    try {
+      applyStateMap(attestElement(stateMap, claimType?.plaintiffElements ?? [], { elementId: element.elementId, ...args }));
+      setAttestFailed(null);
+    } catch (error) {
+      console.warn("[form7a-checklist] could not record", element.elementId, error instanceof Error ? error.message : error);
+      setAttestFailed(element.elementId);
+    }
+  }
+
   function handleHaveThis(element: OutstandingElement) {
     const text = (answerDrafts[element.elementId] || "").trim();
     if (!text) return;
-
-    applyStateMap(
-      recordDepthAnswer(stateMap, {
-        elementId: element.elementId,
-        questionId: `attestation:${element.elementId}`,
-        answerText: text,
-      }),
-    );
+    attest(element, { have: true, answerText: text });
   }
 
   function handleDontHaveThis(element: OutstandingElement) {
-    applyStateMap(
-      recordCannotProvide(stateMap, {
-        elementId: element.elementId,
-        questionId: `attestation:${element.elementId}`,
-      }),
-    );
+    attest(element, { have: false });
   }
 
   // The parties and the filled Form 7A, shown whatever the kind of claim: a kind with no checklist must never hide the
@@ -406,6 +407,12 @@ export default function StatementOfClaimSurface({
                     I don&apos;t have this
                   </button>
                 </div>
+
+                {attestFailed === element.elementId ? (
+                  <p role="alert" data-testid="element-attest-failed" className="mt-2 text-sm text-[#8a3b12]">
+                    {ELEMENT_NOT_RECORDED}
+                  </p>
+                ) : null}
 
                 {/* Never presented as a lesser answer (readiness design section 4). */}
                 <p className="mt-2 text-xs text-[#6b8078]">

@@ -921,6 +921,9 @@ jobs:
       - name: The statement-of-claim gate shows only sourced, neutral content
         run: npm run test:readiness-gate
 
+      - name: "\"I have this\" and \"I don't have this\" work on every element of every claim type, from any saved map"
+        run: npm run test:element-attestation
+
       - name: Every provision a published answer was proved from is in its source list
         run: npm run test:verdict-sources
 
