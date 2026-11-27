@@ -2321,3 +2321,32 @@ each glyph's width), now `scripts/verification/pdfDrawnText.ts`, the judge in `v
 - `test:canlii` failed three checks on Windows for every file: its walker built paths with "\" and its declarations use
   "/". Fixed in the suite (paths always "/"); the CanLII guard itself was unchanged. Proved by removing
   `refuseCanliiContent` from the new fetch script: the check then fails and names it.
+
+### Form 10A, and what the forms library says about it (2026-11-26)
+
+- **The current official 10A is the one the library records.** https://ontariocourtforms.on.ca/en/rules-of-the-small-claims-court-forms/10a/
+  read on 2026-11-26: "Version Date: Aug. 1, 2022", "Effective From: Jan. 30, 2023". The PDF it links
+  (`scr-10a-aug22-fil-en.pdf`, 749,357 bytes, sha256 `246e6d4a…5437f87`) is saved under `docs/sources/forms/`.
+- **The library's own stored copy could not be compared.** Staging (`icpvzwxyjsdgyqfkwycw`) has **no `court-forms`
+  storage bucket**: its only bucket is `case-evidence` (listed 2026-11-26 through the Storage API). So every
+  `court_form_library.file_path` resolves only in production, and the older form filler (`/api/generate-form`) cannot
+  load any form on a staging preview. Not fixed (site owner, 26 Nov 2026). The maps never use that bucket: they read
+  the PDFs saved here.
+- **A wrong lookup row:** `small_claims_form_lookup` row 23 (in `supabase/snapshots/20260822_catalogue_data_snapshot.sql`)
+  calls Form 10A "Acknowledgment of Service", "Used to acknowledge service". The form's own title is "Defendant's
+  Claim". Left as is (site owner, 26 Nov 2026); do not read form titles from that table.
+- **The library's scan was wrong about 10A:** `court_form_fields` marks its PDF `scanned_no_fields`, and
+  `pdf_form_inventory` has no 10A row; the PDF has 63 boxes. The old scan most likely used pdf-lib, which cannot read
+  the court's protected PDFs (above). Read the boxes with pdf.js (`officialPdf.ts` `pdfBoxes`), not from those tables.
+- **Boxes that are not what they look like on 10A:** "Additonal pages are attached because more room was needed" (sic)
+  is a text box 8 points square, not a check box; "Claim Number, page 1", "Name of Small Claims Court" and "Address of
+  Small Claims Court" each appear twice on page 1 under one name (one value fills both); the PDF's own box names
+  misspell "Province - Paintiff" and "Law Society Of Ontraio Number"; the party boxes are named "- Plaintiff" and
+  "- Defendant" while the form prints "Plaintiff by Defendant's Claim" and "Defendant by Defendant's Claim".
+- **Civil starting forms have no boxes to fill.** The official Civil 14A (`rcp-14a-e.pdf`, 523,796 bytes) and 18A
+  (`rcp-18a-e.pdf`, 512,875 bytes), downloaded 2026-11-26, are protected and have one box each and no text box; the
+  library's inventory says the same of 18B and 27C ("acroform_fake_fields_only", 0 boxes). Filling a Civil form needs
+  another method (text drawn on the official page, or the official Word file); the site owner chose a one-form trial
+  of drawing on 14A (26 Nov 2026).
+- **MuPDF** for `npm run forms:font-maps` is installed outside the project (AGPL, build time only): `npm install
+  mupdf@1.28.6` in a scratch folder, then `MUPDF_MODULE=<that folder>/node_modules/mupdf/dist/mupdf.js`.

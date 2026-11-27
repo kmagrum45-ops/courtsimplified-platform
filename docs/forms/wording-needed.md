@@ -217,3 +217,16 @@ parties' names, the case title and each document's title in pdf-lib's Helvetica.
 
 The person sees it in the exhibit book panel, where the book's index is built: the preview goes through the same check,
 and "Build the book" stays unavailable until the index loads. Tested in `verifyPrintableEverywhere.ts` (checks 7-9).
+
+## 11. Form 10A, Defendant's Claim (added 26 Nov 2026)
+
+**Status: needs review.**
+
+- **The interest boxes (4):** "Date", "the Courts of Justice Act", "an agreement at the rate of" and "percent". The same
+  question as Form 7A's interest boxes (section 1): whether to claim prejudgment interest, from when, and under what.
+  Blank, marked `needsWording`, until that is worded.
+- **The words shown beside each blank 10A box** are product words, not legal wording, and are new or reworded for 10A.
+  They are in one place by id, `src/lib/case-system/copy/formBoxCopy.ts` (`FORM_BOX_WHY`). Please confirm none reads as
+  a statement of law. The new ones: `claimNumberNotHeld`, `courtOfficeNotHeld`, `othersOnYourSideNotHeld`,
+  `onlyWhenYouAreTheDefendant`, `againstWhomNotHeld`, `ownClaimReasonsNotHeld`, `ownClaimAmountNotHeld`,
+  `pagesAttachedByHand`. The rest repeat Form 7A's words.
