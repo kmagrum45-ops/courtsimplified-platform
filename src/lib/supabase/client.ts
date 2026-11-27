@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { fetchRetryingFutureToken } from "./futureTokenRetry";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -18,6 +19,9 @@ export const supabase = createClient(
       autoRefreshToken: true,
       detectSessionInUrl: true,
     },
+    // A good token refused once for "JWT issued at future" (two servers' clocks a moment apart, just after a sign-in)
+    // is sent again after a short wait, never shown as "could not be loaded" (futureTokenRetry.ts).
+    global: { fetch: fetchRetryingFutureToken },
   },
 );
 

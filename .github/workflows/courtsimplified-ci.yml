@@ -799,6 +799,9 @@ jobs:
       - name: The new Small Claims flow -- the story's facts offered once on the Understood step, then never asked again; nothing about court papers when nothing is filed
         run: npm run test:sc-flow-core
 
+      - name: A signed-in read is never lost to one "JWT issued at future" -- sent again after a short wait, other refusals at once
+        run: npm run test:future-token-retry
+
       - name: The journey matrix has a story for every starting point, each honest about what it states, each in one shard
         run: npm run test:matrix-stories
 

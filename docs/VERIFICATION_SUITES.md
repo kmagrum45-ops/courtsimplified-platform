@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-333 documented, 26 without a header.
+334 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -138,6 +138,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:form-explanations` | **Every official form is in the guide, explained from the rules that name it,**<br>and the rule quotes are still the regulation's own words. |
 | `npm run test:form-maps` | **EVERY BOX OF EVERY FORM THE SITE FILLS IS MAPPED, AND FILLS FROM THE CASE RECORD (site owner, 14 Nov 2026, rules 2, 4,**<br>5, 8; Chrome forms test on #550: no filled PDF existed, the parties were "not entered", a second defendant was merged). |
 | `npm run test:forms-from-case-file` | **What reaches a draft form is the person's own case-file facts, under the**<br>right labels, and every fact they gave reaches it (site owner's Chrome re-test, 29 Oct 2026, items A and B). |
+| `npm run test:future-token-retry` | **A SIGNED-IN READ IS NEVER LOST TO ONE "JWT ISSUED AT FUTURE" (27 Nov 2026, the new Small Claims flow's matrix).**<br>The database's API (PostgREST) refuses a sign-in token whose issue time is ahead of its own clock, with 401 and code PGRST303 ("JWT issued at future"). Just after a sign-in, the clock of the sign-in server and the clock of the database's API can disagree by a  |
 | `npm run test:generic-library` | **Stage-independent content rests on quoted sources, renders the same whatever stage**<br>the case is in, and renders NOTHING while nothing is verified. |
 | `npm run test:glossary` | **Every glossary entry says what a word means wherever it is used, rests on**<br>sources whose quoted words are really in the saved copy, and keeps the law's own definitions verbatim. |
 | `npm run test:grounded-analysis` | **The analysis cannot show a user a legal statement no verified source makes.**<br>WHAT IT PROTECTS. The AI analysis is live, and it used to write law from the model's general knowledge with no sources and no check. Since 2026-09-29 it is given a per-case pack of verified material (the confirmed claim type's catalogue entries and the stage m |

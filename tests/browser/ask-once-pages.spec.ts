@@ -511,7 +511,13 @@ const SC_FLOW = process.env.NEXT_PUBLIC_SC_FLOW_V2 === "on";
  */
 async function smallClaimsFlowJourney(page: Page, seen: string[]): Promise<boolean> {
   const flow = page.getByTestId("sc-flow");
-  if (!(await visible(flow, 60_000))) { seen.push("sc-flow: the new flow did not show"); return false; }
+  if (!(await visible(flow, 60_000))) {
+    // What showed instead, for the report: the address and a picture (27 Nov 2026: a guest's case after sign-up).
+    const where = new URL(page.url());
+    if (process.env.MATRIX_RECORDS) await page.screenshot({ path: `${process.env.MATRIX_RECORDS}/no-flow-${Date.now()}.png`, fullPage: true }).catch(() => {});
+    seen.push(`sc-flow: the new flow did not show (${where.pathname}?${[...where.searchParams.keys()].join("&")})`);
+    return false;
+  }
   const yesAll = page.getByTestId("understood-yes-all");
   const onward = page.getByTestId("understood-continue");
   await expect(yesAll.or(onward).first()).toBeVisible({ timeout: 30_000 });
