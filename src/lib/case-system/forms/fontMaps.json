@@ -56,6 +56,23 @@
    }
   ]
  },
+ "docs/sources/forms/scr-10a-aug22-fil-en.pdf": {
+  "sha256": "246e6d4a398f36302a80254078e6d8245cfa0e6bed1ba40aae016c15f5437f87",
+  "fonts": [
+   {
+    "object": 204,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "91 0 R"
+   },
+   {
+    "object": 310,
+    "name": "Helv",
+    "dict": "<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Name/Helv>>",
+    "encoding": "91 0 R"
+   }
+  ]
+ },
  "docs/sources/forms/scr-8a-aug22-en-fil.pdf": {
   "sha256": "303bfa9e9f9ddb0d9c09d766c24a683dcf6be767fd85c32cbe5857fde0874738",
   "fonts": [

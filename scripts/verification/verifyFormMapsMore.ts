@@ -1,5 +1,5 @@
 /**
- * THE FORMS AFTER 7A: SMALL CLAIMS 9A (DEFENCE) AND 8A (AFFIDAVIT OF SERVICE), FAMILY 8 (APPLICATION), 10 (ANSWER), 13
+ * THE FORMS AFTER 7A: SMALL CLAIMS 9A (DEFENCE), 10A (DEFENDANT'S CLAIM) AND 8A (AFFIDAVIT OF SERVICE), FAMILY 8 (APPLICATION), 10 (ANSWER), 13
  * AND 13.1 (FINANCIAL STATEMENTS), each filled from the case record and read back box by box (Lane B, 15 Nov 2026; the
  * same method and strength as Form 7A in verifyFormMaps.ts). Runs as the second half of test:form-maps.
  *
@@ -17,7 +17,10 @@
  *   4. every filled text value comes from the record: each piece of it is in the test record's own words (no site
  *      wording, no model); a box that needs wording or a fact the record lacks is blank, with a reason;
  *   5. with nothing recorded, every box to fill says what is missing and where to add it; none says "not entered";
- *   6. the defence's reasons are the person's own words: no site question, no party-detail sentence.
+ *   6. the defence's reasons are the person's own words: no site question, no party-detail sentence;
+ *   10. Form 10A (26 Nov 2026): the person's own details only when the record says they are the defendant, and no value
+ *      of the other side's in any box (the record does not say who the claim is against). Negative control: a 10A map
+ *      that fills a "Defendant" box from the other side is caught by the table.
  *
  * WHAT FAILURE THIS CATCHES: a saved official form with no map, a box filled from anything but the record, a party on the
  * wrong side of a form, or a map whose box names drifted from the PDF.
@@ -28,6 +31,7 @@ import assert from "node:assert/strict";
 import { readdirSync } from "node:fs";
 import { FORM_MAPS } from "../../src/lib/case-system/forms/maps";
 import { FORM_9A } from "../../src/lib/case-system/forms/maps/form9A";
+import { FORM_10A } from "../../src/lib/case-system/forms/maps/form10A";
 import { FORM_8A } from "../../src/lib/case-system/forms/maps/form8A";
 import { FORM_1A, additionalParties, form1ACopies } from "../../src/lib/case-system/forms/maps/form1A";
 import { FAMILY_FORM_8 } from "../../src/lib/case-system/forms/maps/familyForm8";
@@ -99,6 +103,15 @@ const EXPECTED_9A: Record<string, BoxValue> = {
   "Name(s) of defendant(s)": "Test Avery Defendant; Second Defendant Ltd.",
   "Reasons for disputing the claim and details": "I hired Example Renovations Inc. in June 2026 to redo my kitchen. They left in August 2026 with the cabinets unfinished and the sink not connected. I paid $2,000 up front and I do not agree that I owe the $3,200 they claim.",
 };
+/**
+ * Form 10A for the same defence (26 Nov 2026): only the person's own details, in the "Plaintiff by Defendant's Claim"
+ * boxes. The record names the other side, but not who a defendant's claim is against, so every "Defendant" box stays
+ * empty; and it holds no reasons or amount for the person's own claim (the story and amount are the plaintiff's claim).
+ */
+const EXPECTED_10A: Record<string, BoxValue> = {
+  "Last name, or name of company - Plaintiff": "Defendant", "First name - Plaintiff": "Test", "Second name - Plaintiff": "Avery", "Also known as - Plaintiff": "T. A. Defendant",
+  "Address (street number, apt., unit) - Plaintiff": "7 Sample Crescent", "City/Town - Plaintiff": "Kingston", "Province - Paintiff": "ON", "Phone number - Plaintiff": "613-555-0142", "Postal code  - Plaintiff": "K7L 1A1", "Email address  - Plaintiff": "test.defendant@example.com",
+};
 /** Form 1A for the defence (one copy): entry 1 the plaintiffs' second party, entry 2 the person's co-defendant; entry 3 empty. */
 const EXPECTED_1A_DEFENCE: Record<string, BoxValue> = {
   "Plaintiff 1": true, "Plaintiff number 1": "2",
@@ -144,6 +157,7 @@ const EXPECTED_F13_1: Record<string, BoxValue> = {
 
 const CASES: { map: FormMapDefinition; record: Checkpoint; expected: Record<string, BoxValue>; label: string }[] = [
   { map: FORM_9A, record: DEFENCE, expected: EXPECTED_9A, label: "Small Claims 9A, the person defending (two parties a side)" },
+  { map: FORM_10A, record: DEFENCE, expected: EXPECTED_10A, label: "Small Claims 10A, the same defendant making their own claim" },
   { map: FORM_8A, record: DEFENCE, expected: EXPECTED_8A, label: "Small Claims 8A, the same case" },
   { map: FAMILY_FORM_8, record: FAMILY_APPLICANT, expected: EXPECTED_F8, label: "Family 8, the person applying (married, children)" },
   { map: FAMILY_FORM_10, record: FAMILY_RESPONDENT, expected: EXPECTED_F10, label: "Family 10, the person answering" },
@@ -312,6 +326,25 @@ async function main() {
     const swapped = form1ACopies(additionalParties(defenceCtx.defendants, defenceCtx.plaintiffs));
     const wrong = differences(await readBack(await filledPdf(FORM_1A, { ...defenceCtx, additional: swapped[0] })), EXPECTED_1A_DEFENCE);
     assert.ok(wrong.length >= 8, `only ${wrong.length} difference(s): ${wrong.join(" | ")}`);
+  });
+
+  // 10. Form 10A: the person's details only when the record says they are the defendant; never the other side's, in
+  // either of the form's parties, since the record does not say who the claim is against (site owner, 26 Nov 2026).
+  for (const [label, record] of [["the person is bringing the case", withSide("starting")], ["the record does not say which side the person is on", withSide(null)]] as const) {
+    await check(`10. 10A when ${label}: nothing is filled (the person is the plaintiff by defendant's claim only as the defendant)`, () => {
+      assert.deepEqual(Object.keys(pdfValues(fillForm(FORM_10A, formContextOf(record)))), []);
+    });
+  }
+  await check("10. 10A: no value of the other side's reaches any box (the record does not say who the claim is against)", () => {
+    const values = Object.values(pdfValues(fillForm(FORM_10A, formContextOf(DEFENCE)))).map(String);
+    for (const theirs of ["Example Renovations", "Pat", "Owner", "50 Example Road", "Ottawa", "K2P 0A5", "613-555-0190", "office@example.com", "Rowan Paralegal", "Second Defendant"]) {
+      assert.ok(!values.some((value) => value.includes(theirs)), `${theirs} is on Form 10A`);
+    }
+  });
+  await check("10. negative control: a 10A map that fills the Defendant name box from the other side is caught by the table", async () => {
+    const leaky: FormMapDefinition = { ...FORM_10A, boxes: { ...FORM_10A.boxes, "Last name, or name of company - Defendant": { kind: "fill", fact: "plaintiffs[0].companyName", read: (ctx) => ctx.plaintiffs[0]?.details.companyName, missing: { what: "x", addAt: "parties" } } } };
+    const wrong = differences(await readBack(await filledPdf(leaky, formContextOf(DEFENCE))), EXPECTED_10A);
+    assert.deepEqual(wrong, [`Last name, or name of company - Defendant: "Example Renovations Inc." (expected "")`]);
   });
 
   await check("9. Family 10: an address too long for the one-line applicant box is left blank, and the screen gives the whole address to write by hand", () => {
