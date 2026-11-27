@@ -18,6 +18,18 @@
  * published answers are not touched. A quote that cannot be placed in exactly
  * one provision is left out, never guessed.
  *
+ * EXACT WORDS (2026-10-29, site owner: every legal statement shown has its
+ * plain sentence plus the source's exact words one click away, with the
+ * citation). The same placing is done for every part of every checked quote
+ * and written to src/lib/content-library/published/quotePinpoints.generated.json,
+ * keyed by quoteKey(sourceId, quote): the provision each part sits in, or null
+ * where it cannot be placed in exactly one. These pinpoints are DERIVED from
+ * the saved text at build time, never at request time; the published answers
+ * carry only the quote and its source. A part that opens with a lettered
+ * clause ("(h.1) a proceeding based on ...") is narrowed to that clause
+ * (clauseNarrowed); a roman-numeral subclause is not, because the saved text
+ * does not say which clause it belongs to (its indentation is antiword's).
+ *
  * Run: npx tsx scripts/content/buildVerdictSources.ts           (writes)
  *      npx tsx scripts/content/buildVerdictSources.ts --check   (CI: fails if stale)
  */
@@ -27,10 +39,12 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 import { chunkSource, collapse, type ChunkSource } from "../../src/lib/case-system/retrieval/corpusChunker";
+import { quoteKey, quoteParts } from "../../src/lib/content-library/quoteKey";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const PUBLISHED = path.join(ROOT, "src/lib/content-library/published/stageAnswers.published.json");
 const OUT = path.join(ROOT, "src/lib/content-library/published/verdictSources.generated.json");
+const PINPOINTS_OUT = path.join(ROOT, "src/lib/content-library/published/quotePinpoints.generated.json");
 const CORPUS = path.join(ROOT, "docs/sources/corpus");
 
 type Verdict = { sentence: string; supported: boolean; quote?: string; sourceId?: string; quoteFound?: boolean };
@@ -150,26 +164,100 @@ export function buildVerdictSources(): VerdictSources {
   return out;
 }
 
-function main() {
-  const built = `${JSON.stringify(buildVerdictSources(), null, 2)}\n`;
-  if (process.argv.includes("--check")) {
-    let current = "";
-    try {
-      current = readFileSync(OUT, "utf8");
-    } catch {
-      current = "";
+/**
+ * A lettered clause a quote part opens with, added to the provision it sits
+ * in: "s. 16 (1)" + "(h.1) a proceeding based on ..." -> "s. 16 (1) (h.1)".
+ * Only a clause the part itself names (a letter, or a letter with a number
+ * such as h.1), never i, v or x, which could be a roman-numeral subclause;
+ * and only onto one section or subsection, never a range. Otherwise the
+ * provision is kept as placed.
+ */
+const LETTERED_CLAUSE = /^\(((?:[a-z](?:\.\d+)+)|[a-hj-uwyz])\)\s/;
+export function clauseNarrowed(pinpoint: string, part: string): string {
+  const clause = LETTERED_CLAUSE.exec(part.trim());
+  if (!clause) return pinpoint;
+  if (!/^[rs]\.\s*[\d.]+(?:\s*\(\d+(?:\.\d+)?\))?$/.test(pinpoint)) return pinpoint;
+  return `${pinpoint} (${clause[1]})`;
+}
+
+/** The provision each part of a quote sits in (null where it cannot be placed in exactly one). */
+export function pinpointsForQuote(sourceId: string, quote: string): (string | null)[] {
+  return quoteParts(quote).map((part) => {
+    const placed = pinpointForQuote(sourceId, part);
+    if (!placed) return null;
+    const narrowedToClause = clauseNarrowed(placed, part);
+    return narrowedToClause === placed || clauseDirectlyUnder(rawText(sourceId), part) ? narrowedToClause : placed;
+  });
+}
+
+/**
+ * Whether the clause a part opens with sits directly under its section or
+ * subsection in the saved text: found there, as a line of its own, with no
+ * numbered paragraph ("2. ...") between the last section or subsection
+ * opener and it. A clause under a numbered paragraph is that paragraph's
+ * clause, and "s. 6 (1) (b)" would then name the wrong thing.
+ */
+function clauseDirectlyUnder(raw: string, part: string): boolean {
+  // Horizontal space includes the no-break spaces some saved texts carry (the Family Law Rules: "5.  (1)").
+  const words = part.trim().split(/\s+/).slice(0, 12).map(escape).join("\\s+");
+  const located = new RegExp(`^[^\\S\\r\\n]*${words}`, "m").exec(raw);
+  if (!located) return false;
+  const before = raw.slice(0, located.index);
+  // A section or subsection opener: "16 (1)  ...", "(2)  ...", " 5.  (1)  ..." (the Family Law Rules' style), "34  ...".
+  const opener = [...before.matchAll(/^[^\S\r\n]*(?:\d+(?:\.\d+)*\.?[^\S\r\n]+)?\(\d+(?:\.\d+)?\)[^\S\r\n]|^[^\S\r\n]*\d+(?:\.\d+)*[^\S\r\n]{2,}\S/gm)].at(-1);
+  const since = before.slice(opener?.index ?? 0);
+  // A numbered paragraph ("2. The ..."), not a rule number followed by its subrule ("5.  (1)").
+  return !/^[^\S\r\n]*\d+\.[^\S\r\n]+(?!\()/m.test(since.split("\n").slice(1).join("\n"));
+}
+
+export type QuotePinpoints = Record<string, (string | null)[]>;
+
+/** Every checked quote of every published answer, by quoteKey, with its parts' provisions. A quote none of whose parts can be placed is left out. */
+export function buildQuotePinpoints(): QuotePinpoints {
+  const published = JSON.parse(readFileSync(PUBLISHED, "utf8")) as { blocks: Block[] };
+  const out: QuotePinpoints = {};
+  const owner = new Map<string, string>();
+  for (const block of published.blocks) {
+    for (const verdict of block.verification?.verdicts ?? []) {
+      if (!verdict.supported || !verdict.quoteFound || !verdict.quote || !verdict.sourceId) continue;
+      const key = quoteKey(verdict.sourceId, verdict.quote);
+      const identity = `${verdict.sourceId}\u0000${verdict.quote}`;
+      if (owner.has(key) && owner.get(key) !== identity) throw new Error(`quoteKey collision on ${key}: two different quotes; widen the key`);
+      owner.set(key, identity);
+      if (key in out) continue;
+      const pinpoints = pinpointsForQuote(verdict.sourceId, verdict.quote);
+      if (pinpoints.some(Boolean)) out[key] = pinpoints;
     }
-    if (current !== built) {
-      console.log("verdictSources.generated.json is stale: run npx tsx scripts/content/buildVerdictSources.ts");
-      process.exitCode = 1;
-    } else {
-      console.log("verdictSources.generated.json is current.");
+  }
+  return Object.fromEntries(Object.entries(out).sort(([a], [b]) => a.localeCompare(b)));
+}
+
+function main() {
+  const outputs: [string, string][] = [
+    [OUT, `${JSON.stringify(buildVerdictSources(), null, 2)}\n`],
+    [PINPOINTS_OUT, `${JSON.stringify(buildQuotePinpoints(), null, 1)}\n`],
+  ];
+  if (process.argv.includes("--check")) {
+    for (const [file, built] of outputs) {
+      let current = "";
+      try {
+        current = readFileSync(file, "utf8");
+      } catch {
+        current = "";
+      }
+      if (current !== built) {
+        console.log(`${path.basename(file)} is stale: run npx tsx scripts/content/buildVerdictSources.ts`);
+        process.exitCode = 1;
+      } else {
+        console.log(`${path.basename(file)} is current.`);
+      }
     }
     return;
   }
-  writeFileSync(OUT, built);
-  const count = Object.values(JSON.parse(built) as VerdictSources).reduce((sum, list) => sum + list.length, 0);
-  console.log(`Wrote ${count} provisions across ${Object.keys(JSON.parse(built)).length} answers.`);
+  for (const [file, built] of outputs) writeFileSync(file, built);
+  const count = Object.values(JSON.parse(outputs[0][1]) as VerdictSources).reduce((sum, list) => sum + list.length, 0);
+  console.log(`Wrote ${count} provisions across ${Object.keys(JSON.parse(outputs[0][1])).length} answers.`);
+  console.log(`Wrote the provisions of ${Object.keys(JSON.parse(outputs[1][1])).length} checked quotes.`);
 }
 
 /*

@@ -29,6 +29,8 @@
 import { assertApprovedUserContent } from "./outputGuard";
 import { publishedBlockFor, PUBLISHED_RELEASE } from "./publishedLibrary";
 import VERDICT_SOURCES from "./published/verdictSources.generated.json";
+import QUOTE_PINPOINTS from "./published/quotePinpoints.generated.json";
+import { quoteKey, quoteParts } from "./quoteKey";
 import { fillSlots, slotsUsed, type StageAnswer } from "./stageAnswers";
 import { sourceDisplayFor } from "./sourceDisplay";
 import { sentenceRulesIn } from "./sentenceRules";
@@ -51,6 +53,28 @@ export type RenderedSource = {
   /** The day the source's text was saved and checked (CLAUDE.md s. 2), YYYY-MM-DD. */
   checkedOn: string;
 };
+
+/**
+ * A published sentence's exact words: the checked quote it was proved from,
+ * part by part, each with the provision it sits in, and the source's name,
+ * page and checked date (site owner, 2026-10-29: every legal statement shown
+ * has the plain sentence plus the source's exact words one click away, with
+ * the citation).
+ *
+ * `pinpoint` is DERIVED, not published: the release stored only the quote
+ * and its source, so scripts/content/buildVerdictSources.ts places each part
+ * in the saved official text at build time (quotePinpoints.generated.json).
+ * Null where it cannot be placed in exactly one provision; the citation is
+ * then shown without one, never with a guessed number.
+ */
+export type ExactWordsQuote = {
+  sourceId: string;
+  name: string;
+  url: string;
+  checkedOn: string;
+  parts: { text: string; pinpoint: string | null }[];
+};
+export type ExactWords = { sentence: string; quotes: ExactWordsQuote[] };
 
 export type RenderedStageAnswer = {
   stageId: string;
@@ -80,6 +104,8 @@ export type RenderedStageAnswer = {
    * date. Its sources are in `sources` too.
    */
   sentenceRules: { sentence: string; rules: (RuleCitation & RenderedSource)[] }[];
+  /** Every shown sentence the release proved from a quote, with that quote and its citation (ExactWords). */
+  exactWords: ExactWords[];
   /** Provenance, for the footer a regulator or a curious user can read. */
   release: { runId: string; promotedAt: string };
 };
@@ -310,6 +336,7 @@ function renderPublishedBlock(
   if (sections.length === 0) return null;
 
   const sentenceRules = sentenceRulesShown(sections);
+  const exactWords = exactWordsShown(block.verification.verdicts ?? [], sections);
   return {
     stageId,
     question: block.userQuestion,
@@ -318,6 +345,13 @@ function renderPublishedBlock(
       [
         ...block.citations,
         ...sentenceRules.flatMap((entry) => entry.rules),
+        // Every section or rule a shown sentence's quote sits in (2026-10-29: s. 16 (1) (h.1), (h.2)
+        // and s. 15 (2) were proved but not listed, because a source already listed was skipped).
+        ...exactWords.flatMap((entry) =>
+          entry.quotes.flatMap((quote) =>
+            quote.parts.flatMap((part) => (part.pinpoint && /^[rs]\.\s/.test(part.pinpoint) ? [{ sourceId: quote.sourceId, pinpoint: part.pinpoint }] : [])),
+          ),
+        ),
         // Any source a sentence was proved from that the generated list could
         // not place in one provision: listed by name, so none goes unshown.
         ...(block.verification.verdicts ?? []).flatMap((verdict) => (verdict.sourceId ? [{ sourceId: verdict.sourceId, pinpoint: "" }] : [])),
@@ -327,6 +361,7 @@ function renderPublishedBlock(
     status: status as RenderedStageAnswer["status"],
     computed,
     sentenceRules,
+    exactWords,
     release: { runId: PUBLISHED_RELEASE.runId, promotedAt: PUBLISHED_RELEASE.promotedAt },
   };
 }
@@ -382,6 +417,41 @@ function withDeadlineSources(
   return out;
 }
 
+/**
+ * The exact words behind each rendered sentence: every verdict the release
+ * found its quote for, whose sentence is in a section shown and whose source
+ * has a name, page and checked date (sourceDisplay.ts; "stage-premise" is not
+ * a source and has none). A sentence with no such verdict gets nothing.
+ */
+function exactWordsShown(
+  verdicts: ReadonlyArray<{ sentence: string; supported: boolean; quote?: string; sourceId?: string; quoteFound?: boolean }>,
+  sections: RenderedSection[],
+): ExactWords[] {
+  const text = sections.map((section) => section.text).join("\n");
+  const bySentence = new Map<string, ExactWordsQuote[]>();
+  for (const verdict of verdicts) {
+    if (!verdict.supported || !verdict.quoteFound || !verdict.quote || !verdict.sourceId) continue;
+    if (!text.includes(verdict.sentence)) continue;
+    const shown = sourceDisplayFor(verdict.sourceId);
+    if (!shown) continue;
+    const quotes = bySentence.get(verdict.sentence) ?? [];
+    if (quotes.some((quote) => quote.sourceId === verdict.sourceId && quote.parts.map((part) => part.text).join(" | ") === verdict.quote)) continue;
+    const parts = quoteParts(verdict.quote);
+    const placed = (QUOTE_PINPOINTS as Record<string, (string | null)[]>)[quoteKey(verdict.sourceId, verdict.quote)];
+    // A placing for a different number of parts is stale: shown without pinpoints rather than misaligned.
+    const pinpoints = placed && placed.length === parts.length ? placed : parts.map(() => null);
+    quotes.push({
+      sourceId: verdict.sourceId,
+      name: shown.name,
+      url: shown.url,
+      checkedOn: shown.checkedOn,
+      parts: parts.map((part, index) => ({ text: part, pinpoint: pinpoints[index] ?? null })),
+    });
+    bySentence.set(verdict.sentence, quotes);
+  }
+  return [...bySentence].map(([sentence, quotes]) => ({ sentence, quotes }));
+}
+
 /** The rules beside the rendered sentences that have them (sentenceRules.ts), each with its source and checked date. */
 function sentenceRulesShown(sections: RenderedSection[]): RenderedStageAnswer["sentenceRules"] {
   const text = sections.map((section) => section.text).join("\n");
@@ -425,6 +495,7 @@ export function renderStageRulesOnly(stageId: string, dates: CaseDates = {}): Re
     status: "rules-only",
     computed,
     sentenceRules: [],
+    exactWords: [],
     release: { runId: "stage-map", promotedAt: "" },
   };
 }

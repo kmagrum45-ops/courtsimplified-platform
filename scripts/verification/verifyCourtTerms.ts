@@ -94,6 +94,9 @@ for (const root of ROOTS) {
         if (rule.name.startsWith("\"lawsuit\"") && /stage-map[\\/]stageMap\.ts$/.test(file) && /qualifier|^\s*"/.test(line)) continue;
         // The published library is never edited by hand: it is checked as it is shown, below.
         if (rule.name.startsWith("\"lawsuit\"") && /published[\\/]stageAnswers\.published\.json$/.test(file)) continue;
+        // Generated placings of checked quotes: each entry is a section number or a guide's own
+        // heading, verbatim ("what happened that led to the lawsuit"), like a "pinpoint" line above.
+        if (rule.name.startsWith("\"lawsuit\"") && /published[\\/]quotePinpoints\.generated\.json$/.test(file)) continue;
         (found[rule.name] ??= []).push(`${file}:${index + 1}: ${line.trim().slice(0, 140)}`);
       }
     });
