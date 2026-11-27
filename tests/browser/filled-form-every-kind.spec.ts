@@ -66,14 +66,17 @@ async function type(article: Locator, detail: string, value: string | undefined)
 }
 
 async function fillParty(page: Page, article: Locator, party: PartyIn) {
-  const kindButton = article.getByTestId(party.kind === "person" ? "parties-kind-person" : "parties-kind-company");
-  if (await visible(kindButton, 3_000)) { await kindButton.click(); await expect(kindButton).toHaveCount(0, { timeout: 15_000 }); }
-  // A name the story gave is offered: declined here, so the typed name is the one kept.
+  // A name the story gave is offered: declined here, so the typed name is the one kept. Declined first, as a person
+  // would: while the story's name is offered with its kind, "A person or a company?" is not asked; after "No" it is,
+  // and the name boxes follow it (27 Nov 2026: "my friend Alex Testwood" is now offered, and the kind was looked for
+  // before the "No", so no name was typed).
   for (let i = 0; i < 10; i++) {
     const no = article.locator("[data-testid=parties-offer-no], [data-testid=parties-name-split-no]").first();
     if (!(await no.isVisible().catch(() => false))) break;
     await no.click(); await page.waitForTimeout(300);
   }
+  const kindButton = article.getByTestId(party.kind === "person" ? "parties-kind-person" : "parties-kind-company");
+  if (await visible(kindButton, 3_000)) { await kindButton.click(); await expect(kindButton).toHaveCount(0, { timeout: 15_000 }); }
   if (party.kind === "company") await type(article, "companyName", party.company);
   else { await type(article, "firstName", party.first); await type(article, "lastName", party.last); }
   for (const [detail, value] of [["street", party.street], ["city", party.city], ["province", party.province], ["postalCode", party.postal], ["phone", party.phone], ["email", party.email]] as const) await type(article, detail, value);
