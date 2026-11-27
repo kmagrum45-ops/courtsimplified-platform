@@ -28,8 +28,11 @@ import { claimKindOf } from "../caseFile/caseFile";
 import { sentences } from "../sentences";
 
 /** The facts the Understood step can hold from the story, in the order it shows them. */
-export const STATED_FACTS = ["claimKind", "amount", "whenHappened", "wants", "otherParty"] as const satisfies readonly SlotFact[];
-export type StatedFact = (typeof STATED_FACTS)[number];
+export const STATED_FACTS = ["claimKind", "amount", "whenHappened", "wants", "otherParty", "agreementTerms"] as const satisfies readonly SlotFact[];
+/** Facts with no slot of their own the Understood step also offers from the story (the kitchen story's deposit and demand
+ * letter, 26 Nov 2026), held as the person's answer under the fact's own id (caseFile.ts file.answers). */
+export const STATED_EXTRAS = ["paymentHistory", "settlementEfforts"] as const;
+export type StatedFact = (typeof STATED_FACTS)[number] | (typeof STATED_EXTRAS)[number];
 
 /** The key the Understood step keeps a person's "No, that's not right" or "I'm not sure" under (caseFile/offerChoice.ts). */
 export const understoodOfferKey = (fact: StatedFact) => `understood:${fact}`;
@@ -93,11 +96,19 @@ export function withStoryStated(record: CaseFile, input: { story: string; readin
   const saidNo = new Set(STATED_FACTS.filter((fact) => input.choices?.[understoodOfferKey(fact)] === "no"));
   for (const fact of saidNo) if (open(record[fact])) next[fact] = { ...(record[fact] ?? { state: "not-asked", confirmed: false }), declined: true };
   const read = quotesOf(statedInStory(story, reading?.facts ?? [], "small-claims")) as Partial<Record<SlotFact, { value: string | string[]; quote: string }>>;
-  for (const fact of ["amount", "whenHappened", "wants", "otherParty"] as const) {
+  for (const fact of ["amount", "whenHappened", "wants", "otherParty", "agreementTerms"] as const) {
     const found = read[fact];
     if (!found || !words(found.value) || !open(record[fact]) || saidNo.has(fact)) continue;
     next[fact] = { state: "answered", value: words(found.value), source: { kind: "story", quote: storyWords(story, found.quote, words(found.value)) }, confirmed: false };
   }
+  // The facts with no slot: offered until the person answers, says "not sure" or says it is not right (any choice made).
+  const extras: NonNullable<CaseFile["storyStated"]> = {};
+  for (const fact of STATED_EXTRAS) {
+    const found = (read as Partial<Record<string, { value: string | string[]; quote: string }>>)[fact];
+    if (!found || !words(found.value) || record.answers?.[fact]?.trim() || record.unknownQuestions?.includes(fact) || input.choices?.[understoodOfferKey(fact)]) continue;
+    extras[fact] = { value: words(found.value), quote: storyWords(story, found.quote, words(found.value)) };
+  }
+  if (Object.keys(extras).length) next.storyStated = extras;
   if (open(record.claimKind) && !saidNo.has("claimKind")) {
     const kinds = smallClaimsKinds();
     // The kind the story shows by its own words, as the case file reads it (caseFile.ts claimKindOf: never a kind the

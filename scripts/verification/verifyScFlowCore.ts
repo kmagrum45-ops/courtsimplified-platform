@@ -23,6 +23,9 @@
  *      (storyOffers.ts offeredOtherParty, its Small Claims part): every SC matrix story's own other side; two people named, nothing; the
  *      person's own name, never (the new flow's matrix, 26 Nov 2026: asked cold in 6 of 7 stories, because names are
  *      hidden from the AI reading);
+ *   9. every fact a story gives (the matrix story's own list) that the Understood step holds is offered there, signed
+ *      in and as a guest: the other side's name is the Parties step's (check 8). The kitchen story's deposit, demand
+ *      letter and job (26 Nov 2026) were never offered;
  *   6. withStoryStated never changes the record it is given (the old screens read the record as before) and never
  *      replaces the person's own answer, "not sure", or a story value they said was not right.
  *
@@ -33,7 +36,7 @@ import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 import { caseFileOf, type CaseFile, type SlotFact } from "../../src/lib/case-system/caseFile/caseFile";
 import { missingFacts, FLOW_QUESTIONS } from "../../src/lib/case-system/caseFile/missingFacts";
-import { withStoryStated, STATED_FACTS, understoodOfferKey, type FlowReading, type StatedFact } from "../../src/lib/case-system/flow/storyStated";
+import { withStoryStated, STATED_EXTRAS, STATED_FACTS, understoodOfferKey, type FlowReading, type StatedFact } from "../../src/lib/case-system/flow/storyStated";
 import { factsOfQuestion } from "../../src/lib/case-system/caseFile/factsOfQuestion";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
@@ -86,12 +89,21 @@ for (const story of SMALL_CLAIMS) {
     check(`${who}: the record it was given is unchanged`, JSON.stringify(before) === frozen);
     // 1. Stated, never the person's own; offered exactly once each.
     const stated = STATED_FACTS.filter((fact) => record[fact]?.source?.kind === "story");
+    // The facts with no slot the story states (what was paid, what was tried to settle it), offered after the slots.
+    const extras = STATED_EXTRAS.filter((fact) => record.storyStated?.[fact]);
     check(`${who}: every story value is stated in the story, not confirmed`, stated.every((fact) => record[fact].confirmed === false), stated.join(","));
-    check(`${who}: the Understood step offers exactly the stated facts`, JSON.stringify(offered(record)) === JSON.stringify(stated), `${offered(record)} vs ${stated}`);
+    check(`${who}: the Understood step offers exactly the stated facts`, JSON.stringify(offered(record)) === JSON.stringify([...stated, ...extras]), `${offered(record)} vs ${[...stated, ...extras]}`);
+    for (const fact of extras) {
+      // A fact with no slot: the person's Yes is their answer under its own id; any choice ("no", "not sure") ends the offer.
+      const answered = withStoryStated({ ...before, answers: { ...before.answers, [fact]: record.storyStated?.[fact]?.value ?? "" } }, { story: story.text, reading: readingOf(story.id), signedIn });
+      check(`${who}: "${fact}" confirmed is not offered again`, !offered(answered).includes(fact));
+      for (const choice of ["no", "unsure"]) check(`${who}: "${fact}" answered "${choice}" is not offered again`, !offered(withStoryStated(before, { story: story.text, reading: readingOf(story.id), signedIn, choices: { [understoodOfferKey(fact)]: choice } })).includes(fact));
+    }
     check(`${who}: nothing offered is also asked`, !offered(record).some((fact) => asked(record).includes(fact)), `${offered(record)} / ${asked(record)}`);
     // 3. Confirm everything offered: nothing of it is offered or asked again.
     let all = record;
     for (const fact of stated) all = confirmed(all, fact);
+    if (extras.length) all = { ...all, answers: { ...all.answers, ...Object.fromEntries(extras.map((fact) => [fact, record.storyStated?.[fact]?.value ?? ""])) }, storyStated: undefined };
     check(`${who}: confirmed once, never offered or asked again`, offered(all).length === 0 && !stated.some((fact) => asked(all).includes(fact)), `${offered(all)} / ${asked(all)}`);
     if (stated.length) {
       const first = stated[0];
@@ -167,6 +179,16 @@ for (const story of SMALL_CLAIMS) {
 }
 check("two people named: no other side is offered", smallClaimsOtherSide("Synthetic: my friend Sam Testone and my neighbour Pat Testtwo both owe me $500.") === null);
 check("the person's own name is never the other side", smallClaimsOtherSide("Synthetic: My name is Lee Testself. I am owed $800 for work I did.") === null);
+
+// 9. Every fact the story gives, that the Understood step holds, is offered there.
+for (const story of SMALL_CLAIMS) {
+  const given = Object.keys((story as { facts?: Record<string, string> }).facts ?? {}).filter((fact) => fact !== "otherParty" && ([...STATED_FACTS, ...STATED_EXTRAS] as readonly string[]).includes(fact));
+  for (const signedIn of [true, false]) {
+    const shown = offered(withStoryStated(recordOf(story), { story: story.text, reading: readingOf(story.id), signedIn }));
+    const missed = given.filter((fact) => !shown.includes(fact));
+    check(`${story.id} ${signedIn ? "signed in" : "guest"}: every fact the story gives is offered on the Understood step`, missed.length === 0, missed.join(", "));
+  }
+}
 
 if (failures) { console.log(`\n${failures} check(s) failed.`); process.exit(1); }
 console.log("\nThe new Small Claims flow's core: every check passed.");

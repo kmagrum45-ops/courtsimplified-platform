@@ -23,7 +23,7 @@ import { formatForCourt, isRealIsoDate } from "../dates";
 import { sentences } from "../sentences";
 import { slotStatus } from "./factStatus";
 import { contextOfFile, factApplies } from "./factRegistry";
-import { STATED_FACTS } from "../flow/storyStated";
+import { STATED_EXTRAS, STATED_FACTS } from "../flow/storyStated";
 import type { CaseFact } from "./factsOfQuestion";
 
 export { askedFacts, heldAnswer, type Held } from "./heldAnswer";
@@ -163,12 +163,18 @@ export function form7aFromRecord(record: CaseFile | null | undefined, elements: 
  */
 function understoodOffers(record: CaseFile | null | undefined): MissingFact[] {
   if (!record) return [];
-  return STATED_FACTS.flatMap((fact) => {
+  const slots: MissingFact[] = STATED_FACTS.flatMap((fact) => {
     const slot = record[fact];
     if (slotStatus(slot) !== "offer" || slot?.declined || slot?.source?.kind !== "story") return [];
     const value = Array.isArray(slot.value) ? slot.value.join(", ") : String(slot.value ?? "");
     return value.trim() ? [{ field: fact, facts: [fact], status: "offer" as const, value, quote: slot.source.quote }] : [];
   });
+  // The facts with no slot the story states (what was paid, what was tried to settle it), after the slots.
+  const extras: MissingFact[] = STATED_EXTRAS.flatMap((fact) => {
+    const found = record.storyStated?.[fact];
+    return found?.value.trim() ? [{ field: fact, facts: [], status: "offer" as const, value: found.value, quote: found.quote }] : [];
+  });
+  return [...slots, ...extras];
 }
 
 /**

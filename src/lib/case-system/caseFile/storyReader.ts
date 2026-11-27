@@ -37,7 +37,7 @@ import type { SlotFact } from "./slotFacts";
 export type StoryCourt = "small-claims" | "civil" | "family";
 export type StoryValue = { value: string | string[]; quote: string };
 /** What the story states, by fact; `filedDocuments` is the papers filed (a list), `childrenPartial` the children half-told. */
-export type StoryReading = Partial<Record<SlotFact | "filedDocuments", StoryValue>> & { childrenPartial?: PartialStoryAnswer };
+export type StoryReading = Partial<Record<SlotFact | "filedDocuments" | "paymentHistory" | "settlementEfforts", StoryValue>> & { childrenPartial?: PartialStoryAnswer };
 export type StoryReadInput = { story: string; reading?: readonly ReadingFact[]; court?: StoryCourt; oneClick?: boolean };
 
 const MONTH_AND_YEAR = new RegExp(`^(?:${MONTH_WORDS_EN.join("|")}) \\d{4}$`);
@@ -77,7 +77,7 @@ const AGREED = /\b(?:we|i|they|he|she|the (?:contractor|seller|buyer|landlord|te
 const NOT_THEIR_AGREEMENT = /\b(?:never|did ?n[o']t|didn't|not) (?:agree|promise)|\b(?:court order|parenting|custody|separation agreement|access schedule)\b/i;
 // The job the other side was hired or paid to do ("hired TEST Fakebuild Contracting Inc. ... to renovate a kitchen";
 // Chrome, test of #561, 1.14: "What the contractor agreed to do" was "Still to add" though the story said it).
-const HIRED_TO = /\b(?:hired|paid|contracted|retained|engaged)\b(?:[^.]|\.(?=\s*,))*?\bto (?:renovate|build|fix|repair|install|replace|paint|redo|finish|do|clean|move|remodel|deliver|supply|make|design|landscape|re-?roof|pave|refinish|tile|plumb|wire)\b/i;
+const HIRED_TO = /\b(?:hired|paid|contracted|retained|engaged)\b(?:[^.]|\.(?=\s*,)|(?<=\b(?:Inc|Ltd|Corp|Co|Ltée))\.)*?\bto\s(?:renovate|build|fix|repair|install|replace|paint|redo|finish|do|clean|move|remodel|deliver|supply|make|design|landscape|re-?roof|pave|refinish|tile|plumb|wire)\b/i;
 function agreementTermsOf(story: string): StoryValue | null {
   for (const sentence of sentences(story)) {
     if (!(AGREED.test(sentence) || HIRED_TO.test(sentence)) || NOT_THEIR_AGREEMENT.test(sentence)) continue;
@@ -86,6 +86,28 @@ function agreementTermsOf(story: string): StoryValue | null {
   return null;
 }
 
+
+// ---- what was paid, and what was tried to settle it ----------------------------------------------------------------
+/**
+ * The story's sentence that says what the person paid the other side, or what the other side has (not) paid back ("In
+ * March 2026 I paid them a $12,500 deposit by e-transfer."; "He has not paid back anything"), in their words (the new
+ * Small Claims flow's matrix, 26 Nov 2026: the kitchen story's deposit was never offered). Only for the new flow's
+ * Understood step: not one of STORY_STATED_FACTS, so no other screen reads it.
+ */
+const PAID = /\b(?:i|we)\s+(?:(?:had|have)\s+)?(?:paid|gave|sent|transferred|e-?transferred|lent|loaned)\b(?:[^.]|(?<=\b(?:Inc|Ltd|Corp|Co|Ltée))\.)*\$\s?\d|\b(?:has|have|had)\s+(?:not|never)\s+paid\b|\b(?:paid|repaid)\s+(?:me\s+)?(?:back\s+)?(?:nothing|only|part|half|some)\b/i;
+function paymentHistoryOf(story: string): StoryValue | null {
+  const sentence = sentences(story).map((line) => line.trim()).find((line) => PAID.test(line));
+  return sentence ? { value: sentence, quote: sentence } : null;
+}
+/**
+ * The story's sentence that says what the person tried to settle it: a demand letter, asking for the money back, an
+ * offer to settle ("On April 20, 2026 I sent them a demand letter by email ..."). Only for the new flow's Understood step.
+ */
+const SETTLE = /\b(?:demand letter|letter of demand|offered to settle|settlement offer|tried to settle|asked (?:him|her|them|it) (?:to (?:pay|return|refund|give)|for (?:the|my) (?:money|deposit|refund)))\b/i;
+function settlementEffortsOf(story: string): StoryValue | null {
+  const sentence = sentences(story).map((line) => line.trim()).find((line) => SETTLE.test(line));
+  return sentence ? { value: sentence, quote: sentence } : null;
+}
 
 /** Everything the story states, by fact, with the story's words for each. */
 export function readStoryFacts({ story, reading = [], court, oneClick = false }: StoryReadInput): StoryReading {
@@ -123,5 +145,9 @@ export function readStoryFacts({ story, reading = [], court, oneClick = false }:
   // What was agreed, for a place that asks it in words only (never offered: not one of STORY_STATED_FACTS; C9).
   const agreed = agreementTermsOf(story);
   if (agreed) out.agreementTerms = agreed;
+  const paid = paymentHistoryOf(story);
+  if (paid) out.paymentHistory = paid;
+  const settle = settlementEffortsOf(story);
+  if (settle) out.settlementEfforts = settle;
   return out;
 }

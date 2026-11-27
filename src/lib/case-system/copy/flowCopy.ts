@@ -18,6 +18,8 @@ export const UNDERSTOOD_INTRO = "We read your story. Check each line: say Yes if
 export const UNDERSTOOD_YES_ALL = "Yes, all of this is right";
 export const UNDERSTOOD_NOTHING = "We did not find anything in your story to check here.";
 export const FLOW_CONTINUE = "Continue";
+/** The Understood step's lines for facts with no slot of their own (flow/storyStated.ts STATED_EXTRAS). */
+export const UNDERSTOOD_EXTRA_LABELS = { paymentHistory: "What was paid", settlementEfforts: "What you have tried to settle it" } as const;
 
 /** The Questions page. */
 export const QUESTIONS_LEFT = (count: number) => (count === 1 ? "1 question left" : `${count} questions left`);

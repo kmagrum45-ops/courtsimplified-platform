@@ -76,6 +76,9 @@ export type CaseFile = Record<SlotFact, Slot> & {
   /** Questions answered "I'm not sure" in the review's or the new flow's questions (builder.initialUnknowns), by id: a
    * question whose fact has no slot of its own is settled by this (missingFacts "questions"). Additive. */
   unknownQuestions?: string[];
+  /** The new Small Claims flow only (flow/storyStated.ts): a fact with no slot of its own that the story states, not yet
+   * confirmed (what was paid, what was tried to settle it). Never set by caseFileOf. Additive. */
+  storyStated?: Partial<Record<"paymentHistory" | "settlementEfforts", { value: string; quote: string }>>;
   /** The papers the person said are filed, as stored (shown in words with "Anything filed yet"). */
   documents?: string[];
   /**
