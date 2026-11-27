@@ -34,6 +34,8 @@ import NotSavedYet from "./NotSavedYet";
 import { GUEST_ACCOUNT_NOTICE } from "../../src/lib/auth/signUpConfirmation";
 import { afterSend, pendingWrites, type SendResponse } from "../../src/lib/case-system/caseFile/pendingFacts";
 import { CASE_REQUEST_TIMEOUT_MS } from "../builder/_components/positionSave";
+import { checkpointSaveResult, SaveNoAnswer, saveFailureWords, saveWithOneRetry } from "../../src/lib/case-system/intake/saveFailure";
+import { SAVE_NOT_CONFIRMED, SAVE_TRYING_AGAIN } from "../../src/lib/case-system/copy/askCopy";
 
 async function readAuthSession() {
   const request = new IntakeRequest();
@@ -380,10 +382,12 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             } else {
               // The saved record follows this tab: an edit made while reviewing stays in review.
               const outcome = await saveCheckpoint(supabase, ownerId, caseId, sent, serverRevision, current, inputRevision(sent) !== acknowledgedInput, reviewPhase(workflowStatus, sent) === "reviewing");
-              if (!outcome.ok && !(outcome.reason === "rejected" && outcome.error === "intake-unchanged")) {
-                if (!outcome.ok && outcome.error === "intake-conflict") { setConflict(true); throw new Error("Another tab changed this intake. Your pending text is retained here; open the saved case in a new tab before resolving the difference."); }
-                throw new Error("Your intake could not be saved. Your pending text remains in this tab. Please retry before continuing.");
-              }
+              // What the save's answer means (saveFailure.ts checkpointSaveResult): saved (or already saved: a retry whose
+              // first try landed although its answer was lost), another tab, no answer (tried once more), or not saved.
+              const result = checkpointSaveResult(outcome);
+              if (result === "conflict") { setConflict(true); throw new Error("Another tab changed this intake. Your pending text is retained here; open the saved case in a new tab before resolving the difference."); }
+              if (result === "no-answer") throw new SaveNoAnswer();
+              if (result === "failed") throw new Error("Your intake could not be saved. Your pending text remains in this tab. Please retry before continuing.");
               if (outcome.ok) {
                 workflowStatus = record(outcome.master.workflowStatus);
                 savedMaster = record(outcome.master);
@@ -404,7 +408,11 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             setFailed(false);
             setNotice(dirty ? "Newer answers are waiting to save…" : "Intake saved to your account.");
           };
-          flight = work().catch((error: unknown) => { failure(error instanceof Error && !["TypeError", "SyntaxError"].includes(error.name) ? error.message : "Your intake could not be saved. Please retry."); throw error; }).finally(() => { flight = null; });
+          // Item D (site owner, 27 Nov 2026): a save that timed out or got no answer is tried once more by itself (the
+          // text is already kept in this tab, above); a save's own error never reaches the screen (saveFailure.ts).
+          flight = saveWithOneRetry(work, { cancelled: () => !current() || Boolean(signal?.aborted), onRetry: () => setNotice(SAVE_TRYING_AGAIN) })
+            .catch((error: unknown) => { failure(saveFailureWords(error, SAVE_NOT_CONFIRMED)); throw error; })
+            .finally(() => { flight = null; });
           await flight;
           signal?.throwIfAborted();
           if (dirty) await flush(signal);
@@ -645,7 +653,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         setRecovery(store);
         if (initialConflict) { setConflict(true); failure("Another tab changed this intake. Your pending text is shown here for you to copy. Open the saved case separately before resolving the difference."); }
         else if (dirty && ownerId) void flush().catch(() => {});
-      } catch (error) { if (current()) { setFailed(true); setNotice(error instanceof Error && !["TypeError", "SyntaxError"].includes(error.name) ? error.message : "Your intake could not be opened. Please retry."); } }
+      } catch (error) { if (current()) { setFailed(true); setNotice(saveFailureWords(error, "Your intake could not be opened. Please retry.")); } }
     }
     void readAuthSession().then(({ data, error }) => {
       if (!active || identity !== undefined) return; // A newer auth event already chose this account.

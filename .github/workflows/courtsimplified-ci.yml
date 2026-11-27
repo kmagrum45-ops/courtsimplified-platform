@@ -921,6 +921,9 @@ jobs:
       - name: The statement-of-claim gate shows only sourced, neutral content
         run: npm run test:readiness-gate
 
+      - name: A save that did not go through never shows its raw error, and is tried once more (item D)
+        run: npm run test:save-failure-words
+
       - name: Every provision a published answer was proved from is in its source list
         run: npm run test:verdict-sources
 

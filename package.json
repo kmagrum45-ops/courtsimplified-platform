@@ -143,6 +143,7 @@
     "test:address-wins": "node --import tsx scripts/verification/verifyAddressWins.ts",
     "test:open-case": "node --import tsx scripts/verification/verifyOpenCase.ts",
     "test:readiness-gate": "node --import tsx scripts/verification/verifyReadinessGate.ts",
+    "test:save-failure-words": "node --import tsx scripts/verification/verifySaveFailureWords.ts",
     "test:reasoning-contract": "node --import tsx scripts/verification/verifyReasoningContract.ts",
     "test:safety-regression": "node --import tsx scripts/verification/verifySafetyPassRegression.ts",
     "test:scenario": "node --import tsx scripts/verification/runScenario.ts",

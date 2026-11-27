@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-328 documented, 26 without a header.
+329 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -250,6 +250,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:safety-coverage` | **Every court path that accepts a free-text narrative runs the safety pass**<br>before extraction. |
 | `npm run test:safety-footer` | **THE SAFETY NOTICE, AS THE SITE OWNER SET IT ON 2026-10-29 (verbatim): "always one**<br>small-print line in the footer, 'If you feel you are in immediate danger, call 911', with a link to the other support lines. No open box and no 'available without an AI safety check' wording for anyone. The fuller support information shows only when what the p |
 | `npm run test:safety-regression` | **Permanent regression suite for safetyPass.ts -- the 11 cases from**<br>Sessions 4 and 5 plus three from the 2026-09-28 story review, wired into CI (npm run test:safety-regression), same pattern as test:intake-coverage. |
+| `npm run test:save-failure-words` | **A SAVE THAT DID NOT GO THROUGH NEVER SHOWS ITS RAW ERROR, AND IS TRIED ONCE MORE BY ITSELF (site owner, 27 Nov 2026,**<br>item D). |
 | `npm run test:sc-asker` | **THE SMALL CLAIMS ASKER (founder's plan, step 5, "the memory fix", 1 Nov): one saved record per case,**<br>one writer, one reader (caseFileOf), ONE ASKER -- the question engine (intake/asker.ts, used by selectQuestions.ts). Before any Small Claims question is shown, the engine asks the case file whether that question's fact is already held (answered, "not sure", or |
 | `npm run test:sc-one-asker` | **ONE ASKER FOR EVERY SMALL CLAIMS SCREEN (founder's plan step 5, 1 Nov: "the one asker, not per screen:**<br>check caseFileOf before any question is shown"). The permanent check that keeps it so. |
 | `npm run test:screens-read-record` | **THE SMALL CLAIMS DEMO SCREENS READ ANSWERS FROM THE CASE RECORD, NOT FROM A COPY (site owner, 6 Nov 2026; Chrome**<br>check of #544 and the sweep that followed it). |

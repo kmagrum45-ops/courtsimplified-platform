@@ -40,7 +40,8 @@ import { inWords } from "@/src/lib/case-system/copy/rawKeys";
 import { WorkingButton } from "@/app/_components/Working";
 import { UseSuggestion } from "@/app/_components/UseSuggestion";
 import { useOfferChoices } from "@/app/_components/offerChoiceSave";
-import { ADD_IT_LATER, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
+import { ADD_IT_LATER, CHOICE_NOT_SAVED, NOT_ANSWERED_YET } from "@/src/lib/case-system/copy/askCopy";
+import { saveOnceMore } from "@/src/lib/case-system/intake/saveFailure";
 import { answerWords } from "../../../src/lib/case-system/caseFile/unsureAnswer";
 import { missingWords } from "../../../src/lib/case-system/caseFile/heldAnswer";
 import { quotesOf, statedInStory } from "../../../src/lib/case-system/intakeReview";
@@ -591,7 +592,7 @@ function ClaimKindOffer({ caseId, claimTypeId, words, onChosen, onUnsure }: { ca
     if (saving) return;
     setFailed(false);
     setSaving(true);
-    const saved = !caseId || (await savePositionQueued(caseId, claimKindAnswer(claimTypeId)));
+    const saved = !caseId || (await saveOnceMore(() => savePositionQueued(caseId, claimKindAnswer(claimTypeId))));
     setSaving(false);
     if (!saved) { setFailed(true); return; }
     onChosen(claimTypeId);
@@ -599,7 +600,7 @@ function ClaimKindOffer({ caseId, claimTypeId, words, onChosen, onUnsure }: { ca
   return (
     <span className="mt-2 block">
       <UseSuggestion offer={{ key: `claim-kind:${claimTypeId}`, fact: "claimKind" }} testId="claim-kind-use-suggestion" what={words} working={saving} onUse={() => void use()} onUnsure={onUnsure} />
-      {failed ? <span className="mt-1 block text-sm text-[#8a4b12]">That could not be saved just now. Please try again.</span> : null}
+      {failed ? <span className="mt-1 block text-sm text-[#8a4b12]">{CHOICE_NOT_SAVED}</span> : null}
     </span>
   );
 }
@@ -621,7 +622,7 @@ function ClaimKindChooser({ caseId, chosen, onChosen, saidNotSure = false }: { c
     if (saving) return;
     setFailed(false);
     setSaving(value === "not-sure" ? "not-sure" : "pick");
-    const saved = !caseId || (await savePositionQueued(caseId, claimKindAnswer(value)));
+    const saved = !caseId || (await saveOnceMore(() => savePositionQueued(caseId, claimKindAnswer(value))));
     setSaving(null);
     if (!saved) { setFailed(true); return; }
     onChosen(value);
@@ -641,7 +642,7 @@ function ClaimKindChooser({ caseId, chosen, onChosen, saidNotSure = false }: { c
         <WorkingButton data-testid="claim-kind-use" disabled={!pick || saving !== null} working={saving === "pick"} workingLabel="Saving…" onClick={() => void save(pick)} className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white disabled:opacity-50">Use this</WorkingButton>
         <WorkingButton data-testid="claim-kind-not-sure" disabled={saving !== null} working={saving === "not-sure"} workingLabel="Saving…" onClick={() => void save("not-sure")} className="rounded-xl border border-[#d8e6df] px-4 py-2 text-sm font-semibold text-[#2f7d67]">I&apos;m not sure</WorkingButton>
       </span>
-      {failed ? <span className="mt-1 block text-sm text-[#8a4b12]">That could not be saved just now. Please try again.</span> : null}
+      {failed ? <span className="mt-1 block text-sm text-[#8a4b12]">{CHOICE_NOT_SAVED}</span> : null}
     </span>
   );
 }

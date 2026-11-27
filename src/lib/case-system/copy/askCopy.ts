@@ -48,3 +48,14 @@ export const FORM7A_FOUND_NOT_RIGHT = "Not right";
 export const FORM7A_HELD_HEADING = "Already in your case:";
 /** The case file's "what was agreed" fact, as "What we have so far", the review and Change name it (C9, 23 Nov 2026). */
 export const AGREEMENT_TERMS_LABEL = "What was agreed";
+
+/**
+ * WHAT A SAVE THAT DID NOT GO THROUGH SAYS (site owner, 27 Nov 2026, item D). A browser test of #567 showed the raw
+ * "signal timed out" on the page. A save's own error never reaches the screen: a timeout or a save with no answer is
+ * tried again once by itself (SAVE_TRYING_AGAIN while it runs), and if that fails too, SAVE_NOT_CONFIRMED says so in
+ * plain words. What the person typed stays on the page either way. "Saved" shows only once the save has come back.
+ * CHOICE_NOT_SAVED is the same, for one choice (the kind of claim, the stage). Plain words. States no law.
+ */
+export const SAVE_TRYING_AGAIN = "Saving is taking longer than usual. Trying again…";
+export const SAVE_NOT_CONFIRMED = "Your case could not be saved just now. What you typed is still here. Try again.";
+export const CHOICE_NOT_SAVED = "That could not be saved just now. Please try again.";
