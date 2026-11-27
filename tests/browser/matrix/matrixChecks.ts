@@ -284,6 +284,13 @@ export const FORM7A_FACTS: { fact: string; field: RegExp; label: string }[] = [
   { fact: "courtLocation", field: /court (office|location)|small claims court$/i, label: "Small Claims Court office" },
 ];
 const digits = (value: string) => value.replace(/[^\d.]/g, "").replace(/\.0+$/, "");
+/**
+ * The defendant's own name boxes (last name or company, first, second; never the representative's), read together
+ * (site owner, 27 Nov 2026, option (a)): the record's name is on the form when every word of it is in one of them. A
+ * one-word name the story gives ("Alex") is a first name; the last name box was compared alone before, and called
+ * that blank.
+ */
+const DEFENDANT_NAME_BOX = /^defendant's (last name or company's name|first name|second name)$/i;
 export function check11Form7A(r: JourneyRecord): Failure[] {
   if (!r.form7a) return [];
   const out: Failure[] = [];
@@ -291,8 +298,10 @@ export function check11Form7A(r: JourneyRecord): Failure[] {
     const held = r.form7a.record[fact];
     if (!held) continue;
     const entry = Object.entries(r.form7a.fields).find(([name]) => field.test(name));
-    const value = entry?.[1] ?? "";
-    const same = fact === "amount" ? digits(value) === digits(held) : value.toLowerCase().includes(held.toLowerCase().split(/\s+/).slice(-1)[0] ?? "");
+    const nameBoxes = Object.entries(r.form7a.fields).filter(([name]) => DEFENDANT_NAME_BOX.test(name)).map(([, value]) => String(value ?? "").trim()).filter(Boolean);
+    const value = fact === "otherParty" ? nameBoxes.join(" ") : entry?.[1] ?? "";
+    const words = (text: string) => text.toLowerCase().split(/\s+/).filter(Boolean);
+    const same = fact === "amount" ? digits(value) === digits(held) : fact === "otherParty" ? words(held).every((word) => words(value).includes(word)) : value.toLowerCase().includes(held.toLowerCase().split(/\s+/).slice(-1)[0] ?? "");
     if (!value.trim()) out.push(fail(r, 11, "Form 7A", "src/lib/case-system/forms", fact, `${label} is blank; the record holds "${held}"`));
     else if (!same) out.push(fail(r, 11, "Form 7A", "src/lib/case-system/forms", fact, `${label} is "${value}"; the record holds "${held}"`));
   }

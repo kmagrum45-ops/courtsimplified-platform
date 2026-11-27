@@ -72,6 +72,15 @@ check("10 a page the matrix opens after the journey (to read the review) is not 
 check("10 a dead end during the journey still counts when probes came later", one(check10Forward(clean({ probesFrom: 300, screens: [{ screen: "/builder", box: false, question: false, forward: false, working: false, idleWords: false, at: 200 }] })), 10, ""));
 check("10 a journey that never reached its end", one(check10Forward(clean({ ended: false })), 10, ""));
 check("11 Form 7A's defendant blank though the record holds the name", one(check11Form7A(clean({ form7a: { fields: { "Defendant's last name or company's name": "" }, record: { otherParty: "TEST Fakebuild Contracting Inc." } } })), 11, "otherParty"));
+// The defendant's name is read from all its name boxes together (site owner, 27 Nov 2026, option (a)): a one-word name
+// the record holds ("Alex", the story's only word for him) is in the first-name box, and that is the name the record holds.
+const NAME_BOXES = (last: string, first: string, second = "") => ({ "Defendant's last name or company's name": last, "Defendant's first name": first, "Defendant's second name": second, "Defendant's representative's name": "" });
+check("11 a one-word name the record holds, in the first-name box, passes", check11Form7A(clean({ form7a: { fields: NAME_BOXES("", "Alex"), record: { otherParty: "Alex" } } })).length === 0);
+check("11 a full name the record holds, split across the first and last name boxes, passes", check11Form7A(clean({ form7a: { fields: NAME_BOXES("Testwood", "Alex"), record: { otherParty: "Alex Testwood" } } })).length === 0);
+check("11 a full name the record holds with the last-name box blank still fails", one(check11Form7A(clean({ form7a: { fields: NAME_BOXES("", "Alex"), record: { otherParty: "Alex Testwood" } } })), 11, "otherParty"));
+check("11 another person's name in the boxes fails", one(check11Form7A(clean({ form7a: { fields: NAME_BOXES("Other", "Sam"), record: { otherParty: "Alex Testwood" } } })), 11, "otherParty"));
+check("11 every name box blank fails", one(check11Form7A(clean({ form7a: { fields: NAME_BOXES("", ""), record: { otherParty: "Alex" } } })), 11, "otherParty"));
+check("11 the representative's name is never read as the defendant's", one(check11Form7A(clean({ form7a: { fields: { ...NAME_BOXES("", ""), "Defendant's representative's name": "Alex" }, record: { otherParty: "Alex" } } })), 11, "otherParty"));
 check("11 Form 7A's amount contradicting the record", one(check11Form7A(clean({ form7a: { fields: { "Principal amount claimed": "$1,250.00" }, record: { amount: "12500" } } })), 11, "amount"));
 check("11 Form 7A holding the record's values passes", check11Form7A(clean({ form7a: { fields: { "Defendant's last name or company's name": "TEST Fakebuild Contracting Inc.", "Principal amount claimed": "$12,500.00" }, record: { otherParty: "TEST Fakebuild Contracting Inc.", amount: "12500" } } })).length === 0);
 
