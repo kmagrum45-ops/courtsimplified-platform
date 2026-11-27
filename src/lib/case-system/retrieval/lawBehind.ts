@@ -26,7 +26,9 @@ export function lawBehindThis(findings: readonly ResearchFindingView[] = [], app
   };
   // Each question's first provision, then the rest: every question is represented before any repeats.
   for (const finding of answered) add(finding.provisions[0], finding.question);
-  for (const finding of answered) for (const provision of finding.provisions.slice(1)) add(provision, finding.question);
+  // A question is named once, on its first line (27 Nov 2026: the same "For: …" showed 2 to 4 times on one screen, once per
+  // provision). Its other provisions follow with no "For:" of their own.
+  for (const finding of answered) for (const provision of finding.provisions.slice(1)) add(provision, "");
   const shown = new Set(answered.flatMap((finding) => finding.provisions.map((provision) => provision.id)));
   return { lines, quoted: appliedLaw.filter((item) => !shown.has(item.id)) };
 }

@@ -81,7 +81,6 @@ export default function FilledForm({ map, ctx, caseId, addHref, extra = [], test
       <span className="font-semibold">{label(result.box)}: </span>
       {result.state === "filled" ? <span data-testid="form-box-value">{typeof result.value === "boolean" ? (result.value ? "Ticked" : "Not ticked") : result.value}</span>
         : result.state === "missing" ? <span className="text-[#8a4b12]">Missing: {result.what}. <a data-testid="form-box-add" href={addHref(result.addAt)} className="font-semibold underline">{ADD_WORDS[result.addAt]}</a></span>
-        : result.state === "not-given" ? <span className="text-[#4d675f]">Not given (only if you have it). <a href={addHref(result.addAt)} className="underline">{ADD_WORDS[result.addAt]}</a></span>
         : <span className="text-[#4d675f]">Left blank: {result.why}</span>}
     </li>
   );
@@ -103,7 +102,8 @@ export default function FilledForm({ map, ctx, caseId, addHref, extra = [], test
       </div>
       {!caseId ? <p className="text-sm text-[#4d675f]">Save your case (sign in) to download the filled form.</p> : null}
       {error ? <p role="alert" className="text-sm text-[#8a4b12]">{error}</p> : null}
-      <ul className="space-y-1">{results.map(row)}</ul>
+      {/* A box left empty because it is optional is not a row (R4: a row with no data is not shown; 27 Nov 2026, "Not given"). */}
+      <ul className="space-y-1">{results.filter((result) => result.state !== "not-given").map(row)}</ul>
     </section>
   );
 }

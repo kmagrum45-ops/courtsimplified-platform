@@ -131,6 +131,8 @@ export type UnderstandInput = {
 
 const MAX_QUESTIONS = 4;
 const MAX_FACTS = 10;
+/** A value that says there is no value: the row is dropped (R4). */
+export const NO_DATA = /^\s*(?:not given|not stated|not provided|not specified|not mentioned|unknown|none given|n\/a|not known|not sure)\s*\.?\s*$/i;
 const MAX_POINTS = 12;
 /**
  * The reasoning call. At "high" effort it ran past 110 s on 2 of 5 stories
@@ -162,7 +164,7 @@ Return JSON:
 
 summary: two to four plain sentences restating what the person told you, in the second person ("You are suing..."). Only their facts. No law, no rules, no advice, no opinion on their case.
 
-facts: up to ${MAX_FACTS} short label/value pairs of facts they gave or that follow plainly from what they said (who the other party is, by role; their side; dates; amounts; what has been filed or served; where they are). Write "Not given" for an important fact they did not give. No law.
+facts: up to ${MAX_FACTS} short label/value pairs of facts they gave or that follow plainly from what they said (who the other party is, by role; their side; dates; amounts; what has been filed or served; where they are). Leave out a fact they did not give: never write a row whose value is "Not given", "unknown" or similar. No law.
 
 matters: usually ONE. List more than one only when the law would need separate proceedings in different places (for example, wages owed and a human rights complaint). A procedural event inside one case (default, a motion, a judgment, an appeal) is NOT a separate matter. court:
 - "small-claims": a claim for money or property up to $50,000 in the Small Claims Court, including defamation (libel or slander) claims for money.
@@ -262,7 +264,8 @@ export function parseUnderstanding(raw: string): ParsedUnderstanding | null {
       const value = (item ?? {}) as Record<string, unknown>;
       return { label: str(value.label, 60), value: withoutLaw(str(value.value, 240)) };
     })
-    .filter((fact) => fact.label && fact.value)
+    // A row with no data is not shown (R4; 27 Nov 2026: "BORROWER'S LOCATION / Not given" on the home card).
+    .filter((fact) => fact.label && fact.value && !NO_DATA.test(fact.value))
     .slice(0, MAX_FACTS);
   const matters = (Array.isArray(record.matters) ? record.matters : [])
     .map((item) => {
