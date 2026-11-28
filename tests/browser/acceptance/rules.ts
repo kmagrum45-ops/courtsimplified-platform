@@ -176,9 +176,19 @@ export function screenRows(journey: Journey, saved: SavedScreen): Row[] {
   // A Yes / No / I'm not sure card is a question too, wherever it shows (cardsOn: a script defect in the baseline read
   // the chat's cards as an empty list, so I1a and I1b were never checked).
   // A card is judged by its label (what it asks), not the value it offers ("Return of my $12,500 deposit" asks the outcome).
-  const cards = cardsOn(saved.text);
+  // In the new flow (SC_FLOW_V2) a Yes / No / I'm not sure card is only ever the ONE offer of a stated fact: the
+  // Understood step's lines ("Here is what we understood", where rule (b) says a stated fact is shown) and the Parties
+  // step's offered name. A review line ("KIND OF CLAIM / A deposit nobody gave back / Change") shows what is held and
+  // asks nothing. Neither is a question (site owner, 27 Nov 2026, item 4: a script defect, 22 + 22 rows on #568's
+  // switch-on run). The Questions page's own questions are still counted.
+  const cards = saved.flow === "v2" ? [] : cardsOn(saved.text);
+  const shownNotAsked = (q: string) => saved.flow === "v2" && REVIEW_LINE.test(q);
   // A card's whole text passed as a question is the same card cardsOn reads: counted once (a script defect, 27 Nov).
-  const asked = [...saved.questions.filter((q) => !BUTTON_LINE.test(q)).map(askedPart), ...cards].filter(Boolean);
+  // A new-flow question is its first line, the question bank's words: the rest of its box is the "why we ask" line and,
+  // for the kind, every kind's name as an option ("What kind of dispute is this?" read as asking the date and the other
+  // side: a script defect, 7 rows on the same run).
+  const ownWords = (q: string) => (saved.flow === "v2" ? q.split("\n")[0] : q);
+  const asked = [...saved.questions.filter((q) => !BUTTON_LINE.test(q) && !shownNotAsked(q)).map(ownWords).map(askedPart), ...cards].filter(Boolean);
   const asks = (q: string) => (cards.includes(q) ? q.split(": ")[0] : q);
   if (asked.length) rows.push(row("(b) never asked", asked.flatMap((q) => Object.entries(ASKS).filter(([fact, words]) => journey.stated[fact] && words.test(asks(q))).map(([fact]) => `asks ${fact} (the story says it): "${q.replace(/\s+/g, " ").slice(0, 140)}"`))));
   if (asked.length) rows.push(row("(a) once", askedTwice(ASKS, asked, asks)));
@@ -308,3 +318,5 @@ export function understoodLabels(text: string): string[] {
 const BUTTON_ONLY = /^(?:Yes|No|No, that's not right|I'm not sure|Change|Yes, that's right|Not right)$/i;
 /** A question's text that is a whole card (its buttons inside it). */
 const BUTTON_LINE = /\bNo, that's not right\b|\nYes\n/;
+/** A new-flow review line: a label, what is held, and its Change or Add it control (ReviewStep.tsx). */
+export const REVIEW_LINE = /\n(?:Change|Add it)\s*$/;

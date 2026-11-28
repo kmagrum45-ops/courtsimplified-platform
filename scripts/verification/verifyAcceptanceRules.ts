@@ -114,5 +114,18 @@ check("(g) a goal in the site's words fails even when the story states one (stor
 check("(g) \"What it's about: A deposit that wasn't returned\" fails as a kind", split("What it's about: A deposit that wasn't returned", journeys.find((j) => j.id === "1")!.story).invented.length === 1);
 check("(g) a question shown as a fact fails (story 5)", split("In your own words, which facts in the Plaintiff's Claim do you agree with?", journeys.find((j) => j.id === "5")!.story).invented.length === 1);
 
+// 10. Rule (b) in the new flow (site owner, 27 Nov 2026, item 4): the Understood step's once-offer of a stated fact and a
+// review line are not questions; a Questions-page question asking a stated fact still fails, and so does the old flow's card.
+const kitchen = journeys.find((j) => j.id === "1")!;
+const bRow = (saved: SavedScreen) => screenRows(kitchen, saved).find((row) => row.rule === "(b) never asked");
+const understoodText = "Here is what we understood\nAMOUNT\n$12,500\nFrom your story: “x”\nYes\nNo, that's not right\nI'm not sure\nWHEN IT HAPPENED\nMarch 2026\nYes\nNo, that's not right\nI'm not sure\n";
+const v2 = (screen: string, text: string, questions: string[]): SavedScreen => ({ step: "T1-03", screen, text, bodyWithoutFooter: text, questions, emptyFields: [], console: [], flow: "v2" });
+check("(b) new flow: the Understood step's lines are not questions", bRow(v2("New flow: Understood", understoodText, ["AMOUNT\n$12,500\nFrom your story: “x”\nYes\nNo, that's not right\nI'm not sure"]))?.pass !== false, JSON.stringify(bRow(v2("New flow: Understood", understoodText, []))));
+check("(b) new flow: a review line is not a question", bRow(v2("Review", "WHEN IT HAPPENED\nMarch 2026 (day not given yet)\nChange\n", ["WHEN IT HAPPENED\nMarch 2026 (day not given yet)\nChange", "AMOUNT\n$12,500.00\nChange"]))?.pass !== false);
+check("(b) new flow: a Questions-page question asking a stated date still fails", bRow(v2("New flow: Questions", "", ["Roughly when did the situation that led to this claim happen?\nI'm not sure"]))?.pass === false);
+check("(b) new flow: the kind question is not read as asking the date through its options", bRow(v2("New flow: Questions", "", ["What kind of dispute is this?\nThe kind of dispute decides which follow-up questions we show you.\nA loan the other party did not pay back when promised\nI'm not sure"]))?.pass !== false);
+check("(b) new flow: the defamation question asking when it happened still fails", bRow(v2("New flow: Questions", "", ["What exact words were said or written, who received or saw them, and when did that happen?\nI'm not sure"]))?.pass === false);
+check("(b) old flow: a card offering a stated amount still fails", bRow({ ...v2("Chat: from your story", understoodText, []), flow: undefined })?.pass === false);
+
 if (failures) { console.log(`\n${failures} check(s) failed.`); process.exit(1); }
 console.log("\nThe acceptance script's rules: every check passed.");
