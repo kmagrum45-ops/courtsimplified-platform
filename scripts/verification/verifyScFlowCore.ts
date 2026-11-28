@@ -29,6 +29,10 @@
  *  10. the element map is built once when a catalogue kind is confirmed (flow/elementMapForKind.ts), with every element of
  *      the kind not yet, saved in flow.elementStates (which the case file reads), and never built again; a held record
  *      is kept (the contractor case with no map saved, 27 Nov 2026, whose "I have this" threw);
+ *  11. "Yes, all" through the real write path (each value under its question's id in builder.initialAnswers, the case
+ *      file read again), signed in and as a guest: nothing confirmed is offered or asked again, and the review
+ *      (flow/reviewLines.ts) shows every confirmed fact once, in the words confirmed, never "Not answered yet" (#568's
+ *      switch-on acceptance run, 27 Nov 2026: "March 2026" confirmed, then "When it happened: Not answered yet");
  *   6. withStoryStated never changes the record it is given (the old screens read the record as before) and never
  *      replaces the person's own answer, "not sure", or a story value they said was not right.
  *
@@ -47,6 +51,8 @@ import { remainingEssentialQuestions } from "../../src/lib/case-system/intakeRev
 import { offeredOtherParty } from "../../src/lib/case-system/caseFile/storyOffers";
 import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import { elementMapForKind } from "../../src/lib/case-system/flow/elementMapForKind";
+import { reviewLines } from "../../src/lib/case-system/flow/reviewLines";
+import { formatForCourt, isRealIsoDate } from "../../src/lib/case-system/dates";
 
 const ROOT = process.cwd();
 const smallClaimsOtherSide = (story: string) => offeredOtherParty(story, [], { court: "small-claims" });
@@ -219,6 +225,40 @@ for (const story of SMALL_CLAIMS) {
   check("a category word is not a catalogue kind: nothing is built", elementMapForKind(withKind("Work or a service you paid for (e.g. a contractor)")) === null);
   const shell = readFileSync(path.join(ROOT, "app/builder/_flow/SmallClaimsFlow.tsx"), "utf8");
   check("the flow saves the built map once, through the one writer, into flow.elementStates", /elementMapForKind\(record\)/.test(shell) && /writeAnswer\(recovery,\s*"flow",\s*"elementStates"/.test(shell));
+}
+
+// 11. "Yes, all" through the REAL write path (UnderstoodStep accept: each line's value under its question's id in
+// builder.initialAnswers, then the case file read again), not a slot set by hand: every fact confirmed there is never
+// asked again, and the review shows it in the words the person confirmed, never "Not answered yet" (acceptance run of
+// #568 with the switch on, 27 Nov 2026: "March 2026" confirmed, then "When it happened: Not answered yet"; what was
+// agreed, paid and tried to settle it confirmed, then not on the review).
+const questionIdOf = (fact: string) => FLOW_QUESTIONS.find((item) => item.fact === fact)?.question ?? fact;
+const afterYesAll = (story: (typeof MATRIX_STORIES)[number], signedIn: boolean): { offers: ReturnType<typeof missingFacts>; record: CaseFile } => {
+  const make = (answers: Record<string, string>) => {
+    const checkpoint: Checkpoint = { version: 1, flowId: ID, courtPath: "small-claims", revision: ID, sections: { story: { text: story.text }, situation: { record: { ...story.situation, courtFrom: "choice" } }, builder: { initialAnswers: answers } } } as Checkpoint;
+    const base = caseFileOf(checkpoint);
+    return withStoryStated(base, { story: story.text, reading: readingOf(story.id), signedIn, choices: {} });
+  };
+  const offers = missingFacts(make({}), "reading");
+  return { offers, record: make(Object.fromEntries(offers.filter((item) => item.value).map((item) => [questionIdOf(item.field), item.value as string]))) };
+};
+const norm11 = (words: string) => words.toLowerCase().replace(/[$,]|\.00\b/g, "").replace(/\s+/g, " ").trim();
+for (const story of SMALL_CLAIMS) for (const signedIn of [true, false]) {
+  const { offers, record } = afterYesAll(story, signedIn);
+  const lines = reviewLines(record);
+  const who = `${story.id} (${signedIn ? "signed in" : "guest"})`;
+  const again = [...new Set([...offered(record), ...asked(record).filter((fact) => offers.some((item) => item.field === fact))])];
+  check(`11 ${who}: nothing confirmed on Understood is offered or asked again`, again.length === 0, again.join(", "));
+  const missing = offers.filter((item) => item.field !== "otherParty").filter((item) => {
+    const line = lines.find((each) => each.fact === item.field);
+    if (!line || (line.kind === "slot" && line.notAnswered)) return true;
+    // A full day is shown as the court writes it ("September 14, 2025"); anything else as given.
+    const given = isRealIsoDate(item.value ?? "") ? formatForCourt(item.value as string) : item.value ?? "";
+    return item.field !== "claimKind" && !norm11(line.words).includes(norm11(given));
+  });
+  check(`11 ${who}: every confirmed fact is on the review, in its own words`, missing.length === 0, missing.map((item) => `${item.field}="${item.value}" -> ${JSON.stringify(lines.find((each) => each.fact === item.field) ?? "not listed")}`).join("; "));
+  const facts = lines.map((line) => line.fact);
+  check(`11 ${who}: each review line once`, facts.length === new Set(facts).size, facts.join(", "));
 }
 
 if (failures) { console.log(`\n${failures} check(s) failed.`); process.exit(1); }

@@ -2026,8 +2026,10 @@ function BuilderPageContent() {
           acknowledgement is outstanding, nothing below this block renders.
         */}
         <div className="mb-8 space-y-4">
-          <LegalInformationNotice />
-          <AiUseNotice activity="read what you write, pull out dates and names, and suggest which court path and stage fit" />
+          {/* One notice in the new Small Claims flow and its results step (site owner, 27 Nov 2026, block table row Z): the
+              AI notice as stored, with the disclaimer's "Read more" link; both said "not a law firm" (acceptance rule (j)). */}
+          {SC_FLOW_V2 && courtPath === "small-claims" ? null : <LegalInformationNotice />}
+          <AiUseNotice activity="read what you write, pull out dates and names, and suggest which court path and stage fit" readMore={SC_FLOW_V2 && courtPath === "small-claims"} />
         </div>
 
         
