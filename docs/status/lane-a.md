@@ -3,7 +3,7 @@
 Updated after every step (site owner's working agreement, 27 Nov 2026). Every claim is labelled PROVEN (shown by a run,
 a check or a command) or NOT PROVEN.
 
-**Updated:** 27 Nov 2026, evening (Toronto), after the review of `feat/catalogue-conditions`.
+**Updated:** 27 Nov 2026, late evening (Toronto), after the #568 switch-off and switch-on runs.
 
 ## For review now
 
@@ -22,8 +22,12 @@ The shared acceptance script's rules (a) to (s) (`docs/acceptance/small-claims-j
 |---|---|---|---|---|
 | main 9c714ec9 (before #568) | all 10 | 1,387 | **428** | rerun of 27 Nov, saved screens, current rules. PROVEN |
 | main 9c714ec9, first baseline | all 10 | 131 failing (old rule set, no saved text) | 131 | not comparable to the row above: fewer rules, and no saved screens to re-check. PROVEN as recorded |
-| #568 (main 65a3424a), switch off | all 10 | | not run yet | next |
-| #568 (main 65a3424a), switch on (new flow) | all 10 | | not run yet | next, through the new-flow click path |
+| #568 (main 65a3424a), switch off | all 10 + 8b second route | 1,540 | **509** (478 of 1,438 without the second route) | 27 Nov run. PROVEN |
+| #568 (main 65a3424a), switch on (new flow) | all 10 + 8b second route | 846 | **239** (215 of 769) | 27 Nov run; every story stops at Forms, results never reached. PROVEN |
+
+Main's saved screens have no field values, so (p), (q), (k) are under-counted there. Without those three rules: main
+403 / 1,132, switch off 413 / 1,179, switch on 200 / 628. PROVEN. Full report, with every switch-on failing row split
+front half / results side: https://github.com/kmagrum45-ops/courtsimplified-platform/pull/568#issuecomment-7232708828
 
 Failing rows on main by rule (428): (a) 0, (b) 13, (c) 127, (d) 0, (e) 4, (f) 53, (g) 19, (h) 4, (i) 12, (j) 97,
 (k) 0, (l) 1, (m) 10, (n) 0, (o) 63, (p) 16, (q) 9, reached 0. Rule (r) and (s) come from the two-run and sign-up runs
@@ -31,6 +35,13 @@ below.
 
 ## Finished
 
+- **The one table (main / #568 off / #568 on), counted the same way** (above; report on #568). With the switch on,
+  `?step=results` never shows the next step: nothing in the new flow runs the analysis (11 AI calls in the whole run,
+  one per story). PROVEN. That is the results step (step 3), not built yet. Biggest front-half cause after the double
+  notice: confirming on Understood does not record the stated facts, so Questions asks them again and Review shows
+  them missing. PROVEN by the rows; the exact line NOT PROVEN. Cost $2.05 + $0.09; today about $7.59 visible.
+- **Sign-up check (rule (s)) fixed and run:** on staging the site promises an email link and signs in at once. PROVEN.
+  Staging skips confirmation by design; production requires it (not run there). 0 test accounts left. PROVEN.
 - **#568 merged** (65a3424a). CI was green on 3de6c63a (35 of 35). PROVEN. `case-workspace` fast-forwarded. #565 and
   #567 closed as inside it; every file they changed is on main. PROVEN.
 - **Step 2: a showing condition for every Small Claims catalogue item**, branch `feat/catalogue-conditions` (pushed,
@@ -57,15 +68,13 @@ below.
 
 ## In progress
 
-- One table counted the same way: #568 with the switch off (running since 19:51) and on (next), all 10 stories,
-  against main above.
 - Step 3 table written and pushed (above), waiting on review; no results-step code until it is reviewed.
 
 ## Pushed, waiting
 
 | Branch | Commit | What | Next |
 |---|---|---|---|
-| `test/acceptance-script` | cc316ab5 | the acceptance script (tests only), with the new-flow click path | PR after the #568 runs |
+| `test/acceptance-script` | 86d48ed5 | the acceptance script (tests only), with the new-flow click path | PR after the #568 runs |
 | `feat/catalogue-conditions` | 75f7023e | step 2, conditions (reviewed once, corrected) | Cowork Claude's review, then a PR |
 | `feat/sc-results-step` | 11c040f6 | step 3 block table (doc only) | review, then the results step |
 | `fix/save-plain-words` | 2d0b4e78 | item D: no raw save errors, one retry; terminal test of a lost reply PROVEN | rebase on main, then a PR in its turn |
@@ -74,7 +83,5 @@ below.
 
 ## Blocked
 
-- The sign-up check's result (rule (s)) is NOT PROVEN: its first run read the page before the form answered. Fixed; it
-  reruns with the next run.
 - Seeing the new flow on a Vercel preview needs `NEXT_PUBLIC_SC_FLOW_V2=on` on Preview (a Vercel setting; not changed
   by me). The local runs build it with the switch on instead.
