@@ -1391,6 +1391,7 @@ export default function StageAnswerPanel({
   picture = null,
   motionToChange = null,
   suggestedStepId = null,
+  fromOwnAnswers = false,
   laterDates = [],
   file = null,
   stepNotSure = false,
@@ -1447,6 +1448,9 @@ export default function StageAnswerPanel({
    * suggestion, with "Not right? Choose another step"; never saved as theirs.
    */
   suggestedStepId?: string | null;
+  /** The step comes from the person's own answers (the new Small Claims flow, by rules): shown as theirs ("Your step:"), never
+   * as a suggestion with Yes / No (site owner, 27 Nov 2026, block table row 5b dropped). */
+  fromOwnAnswers?: boolean;
   /**
    * Date questions whose day the person said they do not know (caseFile.ts unsureDateQuestions):
    * never asked again (site owner, 31 Oct), shown folded as "Not answered yet: add it when you know"
@@ -1857,7 +1861,7 @@ export default function StageAnswerPanel({
         </p>
       ) : <>
       <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-        {noticeFirst && suggested === stageId
+        {fromOwnAnswers && stageId ? null : noticeFirst && suggested === stageId
           ? "Before filing: this step may apply to the kind of claim you described. It shows a written-notice deadline counted from the day of the injury, with the rule it comes from. If it does not fit, choose the question closest to where your case is."
           : suggested
           ? "This step is suggested for your case. If it is not right, choose the question closest to where your case is."
@@ -1871,13 +1875,13 @@ export default function StageAnswerPanel({
           one click away. */}
       {stageId && !choosingStep ? (
         <p className="mt-4 text-sm text-[#16302b]" data-testid="stage-answer-current">
-          <span className="font-semibold">{stageId === suggested && stageId !== savedStep && stageId !== chosenHere ? "Suggested step: " : "Your step: "}</span>
+          <span className="font-semibold">{stageId === suggested && stageId !== savedStep && stageId !== chosenHere && !fromOwnAnswers ? "Suggested step: " : "Your step: "}</span>
           {/* Fitted to the one notice the person's words keep (walkthrough run
               38500825561, SW), else the step's own question. */}
           {(result?.outcome === "rendered" && result.nextStep ? stepTitleFor(result.nextStep, userWords, city) : null) ??
             options.find((option) => option.id === stageId)?.label ??
             ""}{" "}
-          {stageId === suggested && stageId !== savedStep && stageId !== chosenHere ? (
+          {stageId === suggested && stageId !== savedStep && stageId !== chosenHere && !fromOwnAnswers ? (
             <UseSuggestion
               offer={{ key: `step:${stageId}`, fact: "stage" }}
               testId="stage-answer-use-suggestion"

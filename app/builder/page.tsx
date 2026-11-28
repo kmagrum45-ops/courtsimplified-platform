@@ -2246,6 +2246,7 @@ function BuilderPageContent() {
                   <StageAnswerPanel
                     courtPath={courtPath}
                     confirmedStage={scV2Stage}
+                    fromOwnAnswers
                     responding={respondingSide}
                     sideFromRecord={sideOf(situation) !== null}
                     caseId={savedCaseId()}

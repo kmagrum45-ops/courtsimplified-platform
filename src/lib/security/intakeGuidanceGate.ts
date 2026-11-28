@@ -18,7 +18,7 @@ const object = (value: unknown): Record<string, unknown> => value && typeof valu
 const NEEDS_UPDATE = "Your next steps were made before your latest answer. Update them from your confirmed information first; nothing needs to be confirmed again.";
 const refusal = (error: string, status: number) => NextResponse.json({ ok: false, error, code: "INTAKE_CONFIRMATION_REQUIRED" }, { status, headers: { "Cache-Control": "private, no-store" } });
 
-export function withConfirmedGuidance<T extends Request>(handler: (request: T) => Promise<Response>, options: { court?: string; currentAnalysis?: boolean; requireRevision?: boolean } = {}, overrides: Partial<Dependencies> = {}) {
+export function withConfirmedGuidance<T extends Request>(handler: (request: T) => Promise<Response>, options: { court?: string; currentAnalysis?: boolean; requireRevision?: boolean; /** A court whose guidance here needs no saved AI analysis (the new Small Claims flow: its results are built from the record by rules, site owner 27 Nov 2026). The confirmed-intake and revision checks still apply. */ noAnalysisFor?: (court: string | null) => boolean } = {}, overrides: Partial<Dependencies> = {}) {
   const deps: Dependencies = {
     authenticate: getAuthenticatedUser,
     owned: (request, user, id) => getAuthenticatedOwnedCase(request, user as never, id, { masterKeys: ["workflowStatus", "guidanceInputRevision", "guidanceFactsRevision", "intakeCheckpoint"], intakeIdentityOnly: true }),
@@ -44,18 +44,19 @@ export function withConfirmedGuidance<T extends Request>(handler: (request: T) =
     const court = options.court ?? body.courtPath;
     if (court && court !== owned.court_path) return refusal("The selected case belongs to a different court area.", 409);
     const revision = confirmedIntakeRevision(owned.master_result, owned.court_path, caseId);
+    const needsAnalysis = Boolean(options.currentAnalysis) && !options.noAnalysisFor?.(owned.court_path);
     const expected = request.headers.get("x-courtsimplified-input-revision");
     // Confirmed, but an answer was added after the next steps were made: they are made again, nothing is re-confirmed.
-    if (revision && options.currentAnalysis && (!expected || expected === revision) && guidanceNeedsUpdate(owned.master_result, owned.court_path, caseId)) return refusal(NEEDS_UPDATE, 409);
-    if (!revision || (options.requireRevision && !expected) || (expected && expected !== revision) || (options.currentAnalysis && !guidanceIsCurrent(owned.master_result, owned.court_path, caseId))) return refusal("Answer the initial questions, review your information and confirm it before receiving case guidance.", 409);
+    if (revision && needsAnalysis && (!expected || expected === revision) && guidanceNeedsUpdate(owned.master_result, owned.court_path, caseId)) return refusal(NEEDS_UPDATE, 409);
+    if (!revision || (options.requireRevision && !expected) || (expected && expected !== revision) || (needsAnalysis && !guidanceIsCurrent(owned.master_result, owned.court_path, caseId))) return refusal("Answer the initial questions, review your information and confirm it before receiving case guidance.", 409);
     // Names never go to the model: every model call this route makes labels the case's names
     // and puts them back in its reply (privacy/modelNameContext.ts, site owner 2026-10-25).
     const saved = await deps.names(request, user, caseId).catch(() => null);
     const response = await withNameLabelsFor(mergeNameLabels(saved ? savedCaseNameLabels(saved.master_result) : [], bodyNameLabels(body)), () => handler(request));
     // No late model result may escape after another tab edits or reopens review.
     const latest = await deps.owned(request, user, caseId);
-    if (latest && options.currentAnalysis && confirmedIntakeRevision(latest.master_result, latest.court_path, caseId) === revision && guidanceNeedsUpdate(latest.master_result, latest.court_path, caseId)) return refusal(NEEDS_UPDATE, 409);
-    if (!latest || latest.court_path !== owned.court_path || confirmedIntakeRevision(latest.master_result, latest.court_path, caseId) !== revision || options.currentAnalysis && !guidanceIsCurrent(latest.master_result, latest.court_path, caseId)) return refusal("Your initial information changed. Review and confirm it again; the older guidance was discarded.", 409);
+    if (latest && needsAnalysis && confirmedIntakeRevision(latest.master_result, latest.court_path, caseId) === revision && guidanceNeedsUpdate(latest.master_result, latest.court_path, caseId)) return refusal(NEEDS_UPDATE, 409);
+    if (!latest || latest.court_path !== owned.court_path || confirmedIntakeRevision(latest.master_result, latest.court_path, caseId) !== revision || needsAnalysis && !guidanceIsCurrent(latest.master_result, latest.court_path, caseId)) return refusal("Your initial information changed. Review and confirm it again; the older guidance was discarded.", 409);
     response.headers.set("Cache-Control", "private, no-store");
     return response;
   };

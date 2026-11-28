@@ -1,3 +1,4 @@
+import { SC_FLOW_V2 } from "@/src/lib/case-system/flow/scFlowSwitch";
 import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 /**
  * The published "what happens next" answer for a stage THE USER CHOSE.
@@ -193,4 +194,6 @@ function nextStepSummary(stageId: string, dates: ReturnType<typeof caseDatesFrom
 
 /** Offline contract tests reuse the renderer; HTTP always enforces confirmation. */
 export function createStageAnswerPost() { return postGuidance; }
-export const POST = withConfirmedGuidance(createStageAnswerPost(), { currentAnalysis: true });
+// The new Small Claims flow has no AI analysis: its next-step card is the library's, at the stage the person's own
+// answers settle, so only the confirmed intake is required there (site owner, 27 Nov 2026).
+export const POST = withConfirmedGuidance(createStageAnswerPost(), { currentAnalysis: true, noAnalysisFor: (court) => SC_FLOW_V2 && court === "small-claims" });

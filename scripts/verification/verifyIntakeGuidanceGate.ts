@@ -61,6 +61,20 @@ async function main() {
     assert.deepEqual(safe.evidence, { retained: true });
     assert(master.analysis, "withholding guidance never destroys the saved record");
     console.log(`PASS ${court}: server confirmation, ownership, revision leases, legacy and stale guidance`);
+    // The new Small Claims flow (27 Nov 2026): a court named in noAnalysisFor needs no saved analysis, but still a confirmed
+    // intake at this revision; any other court keeps needing the analysis.
+    mutateDuringWork = false;
+    cp.inputRevision = revision;
+    master.guidanceInputRevision = newer;
+    const noAnalysis = withConfirmedGuidance(handler, { court, currentAnalysis: true, noAnalysisFor: (each) => each === court }, deps);
+    const otherCourt = withConfirmedGuidance(handler, { court, currentAnalysis: true, noAnalysisFor: (each) => each !== court }, deps);
+    assert.equal((await otherCourt(request())).status, 409, "a court not named still needs a current analysis");
+    assert.equal((await noAnalysis(request())).status, 200, "the court named needs no saved analysis");
+    master.workflowStatus = transitionReview({}, cp, "review", revision, "now");
+    assert.equal((await noAnalysis(request())).status, 409, "the court named still needs a confirmed intake");
+    master.workflowStatus = workflow;
+    master.guidanceInputRevision = revision;
+    console.log(`PASS ${court}: a court with no analysis needed still needs its confirmed intake`);
   }
   for (const [name, post] of [["small-claims", smallClaimsPost], ["family", familyPost], ["civil", civilPost], ["stage-answer", stagePost], ["safety-check", safetyPost]] as const) {
     const response = await post(new Request(`http://localhost/api/${name}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ input: {}, caseId: id, intakeCompleted: true }) }) as never);

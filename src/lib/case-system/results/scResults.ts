@@ -29,6 +29,7 @@ import { periodLine } from "../../content-library/periodWords";
 import { caseDatesFrom } from "../deadlines/deadlineEvents";
 import { withCaseFileDates } from "../caseFile/caseFile";
 import { fullDayIn } from "../casePosition";
+import { sentences } from "../sentences";
 
 export type SourcedLine = { key: string; name: string; text: string; sourceUrl: string | null; verifiedAt: string | null };
 export type ScResults = {
@@ -55,7 +56,7 @@ export function limitationLine(record: CaseFile): (SourcedLine & { days: number 
   const deadline = CASE_STAGES.flatMap((stage) => stage.deadlines as readonly StageDeadline[]).find((item) => item.id === LIMITATION_KEY);
   if (!deadline) return null;
   const counted = computedDeadlinesFor([deadline], caseDatesFrom(withCaseFileDates({}, record, fullDayIn)), "scResults")[0];
-  const words = counted ? counted.statement : periodLine({ what: deadline.what, count: deadline.length.count, unit: deadline.length.unit, countFrom: deadline.countFrom });
+  const words = counted ? `${deadline.what}. ${counted.statement}` : periodLine({ what: deadline.what, count: deadline.length.count, unit: deadline.length.unit, countFrom: deadline.countFrom });
   return { key: LIMITATION_KEY, name: words, text: words, sourceUrl: officialUrl(deadline.rule), verifiedAt: null, days: 730 };
 }
 
@@ -104,6 +105,14 @@ export function scResults(record: CaseFile | null | undefined, answers: Applicab
   const limitation = limitationLine(record);
   if (limitation) deadlines.push(limitation);
   const drawn = deadlines.sort((a, b) => a.days - b.days);
+  // Each sentence once on the page (acceptance rule (f), story 8 on this step, 28 Nov 2026: every "What the other side may
+  // raise" item of a loan claim opens with the same two rule 9.01 / 9.02 sentences). A sentence already shown above is
+  // left out of a later item; nothing is reworded. A line left with no text keeps its name.
+  const shownSentences = new Set<string>();
+  for (const line of [...drawn, ...elements, ...considerations, ...notes]) {
+    const kept = sentences(line.text).filter((sentence) => { const key = sentence.replace(/\s+/g, " ").trim().toLowerCase(); if (shownSentences.has(key)) return false; shownSentences.add(key); return true; });
+    line.text = kept.join(" ");
+  }
   const seen = new Map<string, string | null>();
   for (const line of [...drawn, ...elements, ...considerations, ...notes]) if (line.sourceUrl && !seen.has(line.sourceUrl)) seen.set(line.sourceUrl, line.verifiedAt);
   return { claimTypeId: type.id, deadlines: drawn, elements, considerations, notes, sources: [...seen].map(([url, verifiedAt]) => ({ url, verifiedAt })), asks: [...asks] };
