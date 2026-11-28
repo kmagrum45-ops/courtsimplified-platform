@@ -352,6 +352,14 @@
       "reason": "uses a database or a real test account; no workflow runs it; not run in this audit"
     },
     {
+      "file": "tests/browser/acceptance/signup.spec.ts",
+      "reason": "the acceptance script's rule (s): makes one real staging account per run (removed at the end), so it is run by hand with the acceptance run, never on every pull request (site owner, 27 Nov 2026)"
+    },
+    {
+      "file": "tests/browser/acceptance/small-claims-journeys.spec.ts",
+      "reason": "the acceptance script: ten stories through the real site with the AI, billed, so it runs only by the manual workflow courtsimplified-acceptance.yml or by hand against a build (CLAUDE.md s. 7; site owner, 27 Nov 2026)"
+    },
+    {
       "file": "tests/browser/answer-echo-current.spec.ts",
       "reason": "no reason recorded; passed locally on this branch (6 Nov 2026, 6 of 6): candidate to add to CI (owner to decide)"
     },
