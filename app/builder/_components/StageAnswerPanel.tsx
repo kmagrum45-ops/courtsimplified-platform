@@ -1,6 +1,7 @@
 "use client";
 
 import { periodUnit } from "../../../src/lib/content-library/periodWords";
+import { limitationWhat } from "../../../src/lib/case-system/results/scResults";
 import { questionStatus } from "../../../src/lib/case-system/caseFile/factStatus";
 import { slotText, type CaseFile, type SlotFact } from "../../../src/lib/case-system/caseFile/caseFile";
 import { factsOfQuestion } from "../../../src/lib/case-system/caseFile/factsOfQuestion";
@@ -123,6 +124,14 @@ type NextStepSummary = {
   deadlines: ({ what: string; date: string; statement: string } & LimitSource)[];
   periods: ({ what: string; count: number; unit: string; countFrom: string } & LimitSource)[];
 };
+
+/** The card's step without the stage map's two-year limitation (known by the map's own words for it), for the new Small
+ * Claims flow, whose results step shows it once in its deadlines block. */
+export function withoutLimitation<T extends Pick<NextStepSummary, "deadlines" | "periods">>(summary: T | null | undefined): T | null | undefined {
+  if (!summary) return summary;
+  const what = limitationWhat();
+  return { ...summary, deadlines: summary.deadlines.filter((item) => item.what !== what), periods: summary.periods.filter((item) => item.what !== what) };
+}
 
 type Response =
   | { outcome: "rendered"; answer: RenderedAnswer; dateQuestions?: DateQuestion[]; nextStep?: NextStepSummary | null }
@@ -537,7 +546,11 @@ export function NextStepCard({
   noticeStepId = "",
   recordedAmount = "",
   notMarried = false,
+  withoutSourcesLine = false,
 }: {
+  /** The new Small Claims flow: the results step has ONE source list at its foot (block table row 5f merged), so the card's own
+   * "Sources: …" line is left out; each line keeps its own citation. */
+  withoutSourcesLine?: boolean;
   /** The person recorded that they were never married to the other person (the forms list leaves out Form 8A; B4). */
   notMarried?: boolean;
   /** The amount the record holds, so text about a claim of another size is left out (forThisPerson; B4). */
@@ -858,7 +871,7 @@ export function NextStepCard({
           </p>
         );
       })()}
-      {answer.sources.length > 0 ? (
+      {answer.sources.length > 0 && !withoutSourcesLine ? (
         <p className="mt-3 text-xs leading-5 text-[#4d675f]">
           {answer.sources.slice(0, 4).map((source, index) => (
             <span key={`${source.name}-${source.pinpoint}`}>
@@ -1953,7 +1966,10 @@ export default function StageAnswerPanel({
       {result?.outcome === "rendered" && result.nextStep ? (
         <NextStepCard
           onChooseStep={chooseStep}
-          summary={result.nextStep}
+          withoutSourcesLine={fromOwnAnswers}
+          // The new Small Claims flow: the two-year limitation is the results step's deadlines block's, shown there once
+          // (block table row D; site owner 27 Nov 2026), so the card leaves that one line out.
+          summary={fromOwnAnswers ? withoutLimitation(result.nextStep)! : result.nextStep}
           answer={result.answer}
           court={courtPath}
           userWords={userWords}
@@ -2284,7 +2300,8 @@ export default function StageAnswerPanel({
       ) : null}
 
       {result?.outcome === "rendered" && result.nextStep ? (
-        <details data-testid="stage-answer-full" className="mt-5 rounded-2xl border border-[#d8e6df] p-4">
+        // The new Small Claims flow drops the full answer (block table row 5j): it repeats the card and its sources.
+        fromOwnAnswers ? null : <details data-testid="stage-answer-full" className="mt-5 rounded-2xl border border-[#d8e6df] p-4">
           <summary className="cursor-pointer text-sm font-semibold text-[#2f7d67]">
             The full answer for this step, with every rule and source
           </summary>

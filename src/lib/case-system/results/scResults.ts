@@ -52,6 +52,8 @@ export function confirmedKindOf(record: CaseFile | null | undefined): string | n
 
 /** The stage map's basic two-year limitation deadline (Small Claims), as one deadlines line. */
 export const LIMITATION_KEY = "deadline:basic-limitation";
+/** The stage map's own words for the two-year limitation ("The general deadline to start a court case"). */
+export const limitationWhat = (): string | null => CASE_STAGES.flatMap((stage) => stage.deadlines as readonly StageDeadline[]).find((item) => item.id === LIMITATION_KEY)?.what ?? null;
 export function limitationLine(record: CaseFile): (SourcedLine & { days: number }) | null {
   const deadline = CASE_STAGES.flatMap((stage) => stage.deadlines as readonly StageDeadline[]).find((item) => item.id === LIMITATION_KEY);
   if (!deadline) return null;
