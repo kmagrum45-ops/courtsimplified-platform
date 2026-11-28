@@ -940,6 +940,8 @@ jobs:
 
       - name: The statement-of-claim gate shows only sourced, neutral content
         run: npm run test:readiness-gate
+      - name: Every Small Claims catalogue item has a showing condition, hidden by default (step 2)
+        run: npm run test:catalogue-conditions
 
       - name: Every provision a published answer was proved from is in its source list
         run: npm run test:verdict-sources

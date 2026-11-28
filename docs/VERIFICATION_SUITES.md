@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-334 documented, 26 without a header.
+335 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -62,6 +62,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:case-understanding` | **The front door understands the story, and shows only law that is checked.**<br>WHAT THIS CATCHES: the reasoning step's words reaching a person without the official-text check. understandCase (understanding/understandCase.ts) lets the strongest model read the whole story and reason about it; this suite drives it with a fake reasoner and a |
 | `npm run test:case-words` | **WHERE THE CASE IS, WHO THE PERSON IS IN IT, WHAT IS FILED: WORDS, NEVER CODES (26 Oct re-test, item 2).**<br>Checks, as properties, through the one place each screen gets these words (copy/caseWords.ts) and the review's entries (intakeReview.ts): - every stage the site stores reads as words, never its code ("responding", "starting case"); - every document a person ca |
 | `npm run test:case-write-queue` | **No two writes to the same case's row are in flight at once from the builder,**<br>the case pages and the Forms page, and nothing can stall their one queue. |
+| `npm run test:catalogue-conditions` | **EVERY SMALL CLAIMS CATALOGUE ITEM HAS A SHOWING CONDITION, HIDDEN BY DEFAULT (site owner, 27 Nov 2026, step 2).**<br>What it checks: 1. catalogueConditions.generated.ts is exactly what scripts/content/generateCatalogueConditions.ts writes (no hand edit, no drift from the catalogue); 2. every plaintiff element, defendant consideration and procedural note of every Small Claims |
 | `npm run test:catalogue-verified` | **A catalogue entry's verifiedAt vouches for the text that was verified, and**<br>for nothing else. |
 | `npm run test:change-path` | **ONE CHANGE PATH, LATEST CHANGE WINS (site owner, 31 Oct; rule 6 of the fact conversion).**<br>The owner's Chrome check: a wrong answer (the kind of claim) showed in the review as "your answer already given; it is not asked again", with no way to change it, and the case page's "Change" only went to the builder. The decision: one write path for a change, |
 | `npm run test:charter-retest` | **THE CHARTER CLAIM AGAINST POLICE, RE-TESTED (Chrome on the live site, 2026-10-26).**<br>Each fix sits in one shared piece; each check asserts its property, so a screen or path that goes around the piece fails here: - the review shows only what fits the side and the claim, every field in written words (intakeReview.ts: ISSUE_ONLY, a field's own `w |
