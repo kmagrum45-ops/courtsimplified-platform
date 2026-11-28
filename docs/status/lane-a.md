@@ -3,8 +3,24 @@
 Updated after every step (site owner's working agreement, 27 Nov 2026). Every claim is labelled PROVEN (shown by a run,
 a check or a command) or NOT PROVEN.
 
-**Updated:** 27 Nov 2026, night (Toronto), after the block table approval: build order step 1 done, step 2 built,
-step 3 (the rerun) next.
+**Updated:** 28 Nov 2026, early morning (Toronto), after the build order's three steps.
+
+## Now
+
+- **The three-column table (all ten stories, current rules):** main 9c714ec9 **428** failing of 1,387; #568 switch on
+  **190** of 760; `feat/sc-results` switch on **121** of 1,203. The results step is reached in 11 of 11, under 20
+  seconds in 11 of 11, Forms leads on in 11 of 11, one notice on every screen. PROVEN. Report, with every failing row
+  by component: https://github.com/kmagrum45-ops/courtsimplified-platform/pull/570#issuecomment-7235105708
+- **Open PR:** #570, the acceptance script, tests only. For Jason to merge.
+- **Held for review, no PR:** `fix/understood-saves`, `feat/catalogue-conditions`, `feat/sc-results` (which carries
+  both). It includes a security-gate change: the stage-answer route needs no saved AI analysis for Small Claims when
+  SC_FLOW_V2 is on; a confirmed intake still is (`test:intake-guidance-gate`).
+- **Deadlines block:** the owner's three changes are done: snow-and-ice lines open with "If snow or ice was involved:"
+  (8); the two-year limitation once for every confirmed kind; the condo encumbrancer notice stays cut under the
+  owner's test (no stated period of its own), with a one-line change if the owner wants it kept.
+- **Largest causes left:** " -- " in stored text (33 rows, every court); "Intake saved to your account" on the first
+  screen (22); "Not given" on Form 7A (11); the story shown more than once (17 + 12); the case page missing what was
+  paid and what was tried (12).
 
 ## For review now
 
@@ -75,10 +91,10 @@ rows were the script reading the kind question's option list.
 
 | Branch | Commit | What | Next |
 |---|---|---|---|
-| `test/acceptance-script` | 97907028 | the acceptance script (tests only) | PR now (owner's item 5) |
+| `test/acceptance-script` | 23984342 | the acceptance script (tests only) | PR #570 open |
 | `fix/understood-saves` | ef3c8c0d | step 1: review keeps confirmed facts; one notice | held for the owner's review |
 | `feat/catalogue-conditions` | 75f7023e | conditions | held for the owner's review |
-| `feat/sc-results` | 07ab1796 | step 2: the results step (+ the two above) | held; the rerun first |
+| `feat/sc-results` | (head) | the results step (+ the two above); all ten rerun | held for review |
 | `feat/sc-results-step` | 11c040f6 | the block table before approval (superseded by `feat/sc-results`) | none |
 | `fix/save-plain-words` | 2d0b4e78 | item D: no raw save errors, one retry | held |
 | `fix/have-this-every-element` | fdcfdb9f | the "I have this" crash fix (WIP) | step 4 |
