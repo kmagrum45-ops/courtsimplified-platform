@@ -343,6 +343,7 @@ async function main() {
       [".github/workflows/courtsimplified-ci.yml", "the local site under test (browser-regression job polls http://localhost:3100)"],
       [".github/workflows/courtsimplified-story-pack.yml", "the local site under test (the story pack polls http://localhost:3100)"],
       [".github/workflows/courtsimplified-carry.yml", "the local site under test (the carry test polls http://localhost:3100)"],
+      [".github/workflows/courtsimplified-acceptance.yml", "the site under test (the acceptance run polls http://localhost:3100, or the preview it is given)"],
       ["scripts/browser/carryLocal.sh", "the local site under test (polls http://localhost:<port>)"],
       ["scripts/browser/portGuard.sh", "the local site under test (checks http://localhost:<port> and http://[::1]:<port>)"],
       ["scripts/ai/spendGuard.mjs", "OpenAI's Costs API (api.openai.com)"],

@@ -941,6 +941,9 @@ jobs:
       - name: The statement-of-claim gate shows only sourced, neutral content
         run: npm run test:readiness-gate
 
+      - name: The acceptance script's rules catch what the person saw (the invented goal, duplicates, a stated fact asked)
+        run: npm run test:acceptance-rules
+
       - name: Every provision a published answer was proved from is in its source list
         run: npm run test:verdict-sources
 
