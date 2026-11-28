@@ -164,7 +164,11 @@ for (const court of COURTS) {
   check("a case already going: Nothing filed yet is ruled out and a Small Claims claim counts as filed", (situationAnswers("small-claims", filed).excludeDocuments ?? []).includes("nothing") && situationAnswers("small-claims", { ...filed, court: "small-claims" }).claimFiled === true);
   const changed = answerSituation(s, "where", "starting");
   check("changing to starting clears the papers and the day", !changed.papers && !changed.receivedOn && !changed.started);
-  check("starting asks whether anything was filed, once", nextSituationQuestion(changed, "small-claims") === "filed");
+  // Changed 25 Nov 2026 (site owner, Round 6 PR 2: the fact registry): "I want to start a case" already says nothing is
+  // filed, so "Has anything been filed?" is not asked after it (Chrome test of #563); a case already filed is "A case is
+  // already going". Before: this asserted the question was asked once.
+  check("starting does not ask whether anything was filed (the fact registry)", nextSituationQuestion(changed, "small-claims") !== "filed" && nextSituationQuestion({ where: "starting" }, "small-claims") !== "filed");
+  check("starting counts as nothing filed: the top line says so and no court papers are asked about", (situationLine({ where: "starting", court: "small-claims" }) ?? "").includes("nothing filed yet") && situationAnswers("small-claims", { where: "starting", court: "small-claims" }).claimServed === false);
   const otherCourt = withKnownCourt(answerSituation({ where: "served" }, "papers", "civil-14A"), "small-claims");
   check("papers from another court: the court is asked, never switched", nextSituationQuestion({ ...otherCourt, receivedOn: "2026-10-06" }, "small-claims") === "court" && !otherCourt.court, JSON.stringify(otherCourt));
   check("the chosen area answers the court when nothing else says", withKnownCourt({ where: "starting", filed: "nothing" }, "family").court === "family");

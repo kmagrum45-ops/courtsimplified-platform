@@ -82,6 +82,22 @@ export function createElementStateMap(
   return map;
 }
 
+/**
+ * The map with a not-yet record for each of these elements it does not hold yet; every record it holds is kept as it is.
+ *
+ * The Form 7A checklist lists every element of the kind the case record holds, but the saved map holds only what the
+ * question step built, for the kind it matched, or nothing at all when that step never ran. Recording "I have this" on an
+ * element the map did not hold threw "unknown element id" and the button did nothing (browser test, 27 Nov 2026: staging
+ * case 91f708d3, contractor kind, no map saved). A record that starts here is not-yet: nothing is inferred.
+ */
+export function withElements(
+  map: ElementStateMap,
+  elements: { id: string; name: string }[],
+): ElementStateMap {
+  const missing = elements.filter((element) => !map[element.id]);
+  return missing.length ? { ...createElementStateMap(missing), ...map } : map;
+}
+
 /** The user answered a depth question. */
 export function recordDepthAnswer(
   map: ElementStateMap,

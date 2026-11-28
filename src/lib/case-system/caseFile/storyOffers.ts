@@ -14,7 +14,9 @@
  *
  * Pure. States no law. No model (the reading was made earlier, and is only read here).
  */
-import { amountOfferFromStory, oneClickQuote } from "../../../../app/builder/_components/storyAnswers";
+import { amountOfferFromStory, namesInStory, oneClickQuote } from "../../../../app/builder/_components/storyAnswers";
+import { businessOtherSideIn } from "./storyFacts";
+import { sentences } from "../sentences";
 import { otherPartyFromUnderstanding } from "./understoodOtherParty";
 import { fitsFactType } from "./factTypes";
 
@@ -98,8 +100,27 @@ export function offeredAmount(story: string, reading: readonly ReadingFact[], op
 }
 
 /** The other party's name to offer: the reading's, when the story writes it and it is not a witness (understoodOtherParty.ts). */
-export function offeredOtherParty(story: string, reading: readonly ReadingFact[]): StoryOffer | null {
+/**
+ * SMALL CLAIMS: THE OTHER SIDE AS THE STORY NAMES IT, READ WITH NO AI (journey matrix of the new flow, 26 Nov 2026:
+ * the other side's name was asked cold in 6 of 7 stories, because names are hidden before the story reaches the AI, so
+ * the reading says "Your former landlord" and never the name). A business named as the other side first; else the one
+ * person the name reader finds (never the person's own name). Two people named, or none: nothing is offered (the
+ * Parties step asks). Always an offer the person confirms, says is not right, or is not sure of. A part of
+ * offeredOtherParty (the one offer reader of the other side), read only when its court is Small Claims.
+ */
+function smallClaimsOtherSideIn(words: string): StoryOffer | null {
+  const business = businessOtherSideIn(words);
+  if (business && fitsFactType("otherParty", business.value).ok) return { value: business.value, quote: business.quote, from: "story" };
+  const people = namesInStory(words).filter((person) => person.role !== "you");
+  if (people.length !== 1 || !fitsFactType("otherParty", people[0].name).ok) return null;
+  const name = people[0].name;
+  return { value: name, quote: sentences(words).find((line) => line.includes(name)) ?? name, from: "story" };
+}
+
+export function offeredOtherParty(story: string, reading: readonly ReadingFact[], options: { court?: string | null } = {}): StoryOffer | null {
   const name = otherPartyFromUnderstanding(reading, story);
   // Only a name: never a place (factTypes.ts; decision 1, 18 Nov 2026).
-  return name && fitsFactType("otherParty", name).ok ? { value: name, quote: reading.find((fact) => fact.value.includes(name))?.value ?? name, from: "reading" } : null;
+  if (name && fitsFactType("otherParty", name).ok) return { value: name, quote: reading.find((fact) => fact.value.includes(name))?.value ?? name, from: "reading" };
+  // Small Claims: the reading names no one (names are hidden from the AI), so the story's own words, read with no AI.
+  return options.court === "small-claims" ? smallClaimsOtherSideIn(story) : null;
 }

@@ -790,6 +790,26 @@ jobs:
       - name: npm run ci:local runs this job as written (every step run or skipped for a reason)
         run: npm run test:ci-local
 
+      - name: The journey matrix's eleven checks can each fail, and pass a clean journey
+        run: npm run test:matrix-checks
+
+      - name: The fact registry -- one entry per fact, applicability decided in one place, read by the start and the home page
+        run: npm run test:fact-registry
+
+      - name: The new Small Claims flow -- the story's facts offered once on the Understood step, then never asked again; nothing about court papers when nothing is filed
+        run: npm run test:sc-flow-core
+
+      - name: A signed-in read is never lost to one "JWT issued at future" -- sent again after a short wait, other refusals at once
+        run: npm run test:future-token-retry
+
+      - name: The journey matrix has a story for every starting point, each honest about what it states, each in one shard
+        run: npm run test:matrix-stories
+
+      - name: The journey matrix's per-file counter may only go down
+        run: |
+          git fetch --no-tags --depth=1 origin main:refs/remotes/origin/main
+          npm run test:matrix-counters
+
       # This suite makes real, billed OpenAI calls, so it needs the
       # OPENAI_API_KEY repository secret. Without the secret it cannot run at
       # all -- it failed in one second on 2026-09-28, the first time any CI run

@@ -418,7 +418,14 @@
     "test:wording-20261122": "node --import tsx scripts/verification/verifyWording20261122.ts",
     "test:wording-leftovers-20261122": "node --import tsx scripts/verification/verifyWordingLeftovers20261122.ts",
     "ci:local": "bash scripts/ci/ciLocal.sh",
-    "test:ci-local": "node --import tsx scripts/verification/verifyCiLocal.ts"
+    "test:ci-local": "node --import tsx scripts/verification/verifyCiLocal.ts",
+    "test:matrix-checks": "node --import tsx scripts/verification/verifyMatrixChecks.ts",
+    "test:matrix-stories": "node --import tsx scripts/verification/verifyMatrixStories.ts",
+    "matrix:report": "node --import tsx scripts/browser/matrixReport.ts",
+    "test:matrix-counters": "node --import tsx scripts/verification/verifyMatrixCounters.ts",
+    "test:fact-registry": "node --import tsx scripts/verification/verifyFactRegistry.ts",
+    "test:sc-flow-core": "node --import tsx scripts/verification/verifyScFlowCore.ts",
+    "test:future-token-retry": "node --import tsx scripts/verification/verifyFutureTokenRetry.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

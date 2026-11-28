@@ -30,16 +30,20 @@ import { STORY_LABEL } from "../../src/lib/case-system/copy/storyGuidance";
 import { pdfBoxes } from "../../src/lib/case-system/forms/officialPdf";
 import { asksForDate } from "../../src/lib/case-system/dates";
 import { authenticateRealTestUser } from "./harness/intakeDriver";
-import { deleteHarnessUser } from "./harness/realTestSession";
+import { createRealTestAccount, deleteHarnessUser } from "./harness/realTestSession";
 import { autoAnswerSituation, answerSituation, situationAnswersFor, STARTING_NOTHING_FILED, type SituationAnswers } from "./harness/situation";
 import { openBuilder } from "./harness/builderGate";
 import { serveModelStandIns, type Court } from "./harness/thisCommitServer";
-import { realAiReadings, replayMisses } from "./harness/aiFixtures";
-import { factsAskedTwice, factsOfAsk, firstOfferExcused, heldViolations, recordAsks, repeatViolations, type Asked } from "./harness/askOnce";
+import { namesNeverSent, realAiReadings, replayMisses, RECORDING, verifyDrift } from "./harness/aiFixtures";
+import { blindBoxes, factsAskedTwice, factsOfAsk, firstOfferExcused, heldViolations, recordAsks, repeatViolations, shownThenAsked, type Asked } from "./harness/askOnce";
 import { recordInitialUnknowns, tickIfAsked } from "./harness/intakeReview";
 import { chooseOffers } from "./harness/offers";
 import { MARRIED_ONLY_SCREEN_TEXT } from "../../src/lib/case-system/family/marriedOnly";
-import { expectThisRunsServer } from "./harness/siteAccess";
+import { expectThisRunsServer, grantSiteAccess } from "./harness/siteAccess";
+import { MATRIX_STORIES, type MatrixStoryWithStart } from "./matrix/matrixStories";
+import { bodyNameLabels } from "../../src/lib/security/requestNames";
+import { fileOf, type Mode } from "./matrix/matrixChecks";
+import { guestDescribesThenSignsUp, probeNotSureAndRemoved, recordFacts, reviewEntries, sampleScreens, savedStart, writeJourney } from "./matrix/matrixJourney";
 import { HOME_QUESTIONS } from "../../src/lib/case-system/caseFile/factQuestions";
 import { answerTriage } from "./harness/triageAnswer";
 import { writeQuestionLog } from "./harness/questionLog";
@@ -287,7 +291,7 @@ const TYPED_NOT_SURE = "I do not know yet";
 /** Surfaces that offer a value from the story for one confirmation (allowed once), not a cold ask. */
 // The Forms tab offer (forms-offer) too: a fact is offered once, then never offered or asked again (site owner, 17 Nov;
 // a SECOND offer of a fact counts as asked again, the first does not: askOnce.ts firstOfferExcused).
-const OFFER_SURFACES = new Set(["sc-proposal", "story-proposal-row", "guided-form-from-story", "claim-kind", "parties-offer", "forms-offer"]);
+const OFFER_SURFACES = new Set(["understood-offer", "sc-proposal", "story-proposal-row", "guided-form-from-story", "claim-kind", "parties-offer", "forms-offer"]);
 
 function situationOf(story: Story): SituationAnswers {
   if (story.situation) return story.situation;
@@ -462,7 +466,10 @@ async function giveStory(page: Page, story: Story) {
     if (story.realAi) homeAnswers.push(`home-reading: ${((await page.getByTestId("case-understanding-facts").textContent().catch(() => "")) ?? "").replace(/\s+/g, " ").trim()}`);
     // The court was chosen at the start (situationOf: every story's start names its court): the reading's same court is
     // not asked again with Yes / No / I'm not sure (Chrome milestone test of #550, row 6, every story).
-    await expect(page.getByTestId("case-understanding").getByRole("button", { name: /^(No, that.s not right|I.m not sure)$/ }), "the court chosen at the start is not asked again").toHaveCount(0);
+    const courtAgain = page.getByTestId("case-understanding").getByRole("button", { name: /^(No, that.s not right|I.m not sure)$/ });
+    // The matrix records it (check 2, asked twice) and goes on; the ordinary run fails on it, as before.
+    if (process.env.MATRIX === "1") { if (await courtAgain.count()) homeAnswers.push("court-asked-again: the reading asked where the case belongs after the court was chosen at the start"); }
+    else await expect(courtAgain, "the court chosen at the start is not asked again").toHaveCount(0);
     // The reading's court is the chosen one ("Continue with ..."), or, when the reading is not clear, the chosen court's own button.
     if (story.realAi) homeAnswers.push(`court-question: ${(await page.getByTestId("case-understanding-court-question").isVisible().catch(() => false)) ? "shown" : "hidden"}`);
     await page.getByTestId("case-understanding-continue-suggested").or(page.getByTestId("case-understanding-continue-chosen")).first().click();
@@ -494,6 +501,47 @@ async function giveStory(page: Page, story: Story) {
 }
 
 /** Small Claims: the chat, one question at a time; the story offers left unticked and "Continue" pressed (the live case). */
+/** The new Small Claims flow is built into the site under test (SC_FLOW_V2; the same switch the build reads). */
+const SC_FLOW = process.env.NEXT_PUBLIC_SC_FLOW_V2 === "on";
+
+/**
+ * THE NEW SMALL CLAIMS FLOW, AS A PERSON WOULD GO THROUGH IT (site owner, 26 Nov 2026): Yes to what the Understood step
+ * read from their story, the Parties step answered as answerParties does, every question left said "I'm not sure" (the
+ * journey types nothing the story does not give), the review confirmed, the forms shown. True when the forms step shows.
+ */
+async function smallClaimsFlowJourney(page: Page, seen: string[]): Promise<boolean> {
+  const flow = page.getByTestId("sc-flow");
+  if (!(await visible(flow, 60_000))) {
+    // What showed instead, for the report: the address and a picture (27 Nov 2026: a guest's case after sign-up).
+    const where = new URL(page.url());
+    if (process.env.MATRIX_RECORDS) await page.screenshot({ path: `${process.env.MATRIX_RECORDS}/no-flow-${Date.now()}.png`, fullPage: true }).catch(() => {});
+    seen.push(`sc-flow: the new flow did not show (${where.pathname}?${[...where.searchParams.keys()].join("&")})`);
+    return false;
+  }
+  const yesAll = page.getByTestId("understood-yes-all");
+  const onward = page.getByTestId("understood-continue");
+  await expect(yesAll.or(onward).first()).toBeVisible({ timeout: 30_000 });
+  await (await yesAll.isVisible().catch(() => false) ? yesAll : onward).click();
+  await expect(page.locator("[data-flow-step=questions]")).toBeVisible({ timeout: 30_000 });
+  await answerParties(page, seen);
+  for (let round = 0; round < 20; round += 1) {
+    const item = page.getByTestId("flow-question").first();
+    if (!(await item.isVisible().catch(() => false))) break;
+    const id = (await item.getAttribute("data-question-id")) ?? "";
+    await page.getByTestId(`flow-unsure-${id}`).click();
+    await expect(page.locator(`[data-testid=flow-question][data-question-id="${id}"]`)).toHaveCount(0, { timeout: 30_000 });
+  }
+  await page.getByTestId("questions-continue").click();
+  await expect(page.locator("[data-flow-step=review]")).toBeVisible({ timeout: 30_000 });
+  await page.getByTestId("flow-review-confirm").click();
+  if (await visible(page.locator("[data-flow-step=forms]"), 120_000)) return true;
+  // Why it stopped, in the record: the review's own message and the address (never a value the person typed).
+  const said = await page.locator("[data-step=review] [role=alert]").first().textContent({ timeout: 2_000 }).catch(() => null);
+  const step = await page.getByTestId("sc-flow").getAttribute("data-flow-step", { timeout: 2_000 }).catch(() => null);
+  seen.push(`sc-flow: the forms step did not show after the review's Continue (step ${step ?? "(no flow)"}; ${new URL(page.url()).pathname}${new URL(page.url()).search.replace(/intake=[^&]*/, "intake=…")}; message: ${said ?? "(none)"})`);
+  return false;
+}
+
 async function smallClaimsChat(page: Page, story: Story, typed: Map<string, string>) {
   const choose = page.getByRole("button", { name: /Answer questions one at a time/ });
   if (await visible(choose, 20_000)) await choose.click();
@@ -521,6 +569,15 @@ async function smallClaimsChat(page: Page, story: Story, typed: Map<string, stri
       await suggestion.getByRole("button").first().click();
       continue;
     }
+    // A reply that asks nothing ("Got it: Personal loan between individuals…", said when a kind of claim is chosen) can be
+    // the last message for a moment while the next question is read at the model's recorded speed: wait for a message that
+    // carries a question id, or another state, instead of a fixed pause (matrix stability, 25 Nov 2026: chrome-alex
+    // stopped here in one run of three). None within the wait: the chat has nothing more to ask; the page checks decide,
+    // and a screen left with nothing to do is the sampler's (check 10).
+    const asking = page.locator("[data-testid=guided-message][data-from=assistant][data-question-id]").last();
+    const settled = await expect.poll(async () => (await finished.isVisible().catch(() => false)) || (await proposals.isVisible().catch(() => false)) || (await suggestion.isVisible().catch(() => false)) || ((await question.getAttribute("data-question-id").catch(() => null)) !== null && (await asking.isVisible().catch(() => false))), { timeout: 90_000 }).toBe(true).then(() => true, () => false);
+    if (!settled) break;
+    if (!(await question.getAttribute("data-question-id").catch(() => null))) continue;
     const text = (await question.innerText()).replace(/\s+/g, " ");
     if (text === last) break;
     last = text;
@@ -781,11 +838,14 @@ async function readLabels(page: Page, story: Story, id: string, known: Set<strin
 // A story read by the real AI runs once per recorded reading (harness/aiFixtures.ts): the model does not read the same
 // story the same way every time, so each distinct reading must give a flow that asks nothing twice (site owner, 17 Nov).
 // Named "sc-" so CI's Small Claims ask-once part runs it (its grep is "ask once on every page -- sc-"); it covers every court.
+/** MATRIX=1: the journey matrix (Round 6, PR 1) runs instead of the ordinary stories; a report, never a gate (matrixReport.ts). */
+const MATRIX = process.env.MATRIX === "1";
 test("ask once on every page -- sc-chrome2-readings-recorded (every court)", () => {
+  test.skip(MATRIX, "the matrix run");
   const missing = STORIES.filter((story) => story.realAi && realAiReadings(story.name).length === 0).map((story) => story.name);
   expect(missing, "record them with AI_FIXTURES=record").toEqual([]);
 });
-for (const story of STORIES) for (const reading of story.realAi ? realAiReadings(story.name) : [null]) {
+for (const story of MATRIX ? [] : STORIES) for (const reading of story.realAi ? realAiReadings(story.name) : [null]) {
   test(`ask once on every page -- ${story.name}${reading ? ` (reading ${reading})` : ""}`, async ({ page }) => {
     test.setTimeout(900_000);
     const found: Violation[] = [];
@@ -913,5 +973,136 @@ for (const story of STORIES) for (const reading of story.realAi ? realAiReadings
       // Every AI step replayed as recorded: the site swallows a failed step, so a miss would otherwise pass silently.
       if (story.realAi) expect(replayMisses, "every AI step of this reading was recorded").toEqual([]);
     }
+  });
+}
+
+/**
+ * THE JOURNEY MATRIX (site owner, Round 6, PR 1; MATRIX=1). Every story of matrix/matrixStories.ts (one per starting point
+ * of the stage map, and Chrome's two), each driven twice: signed in from the start, and as a guest who gives the start,
+ * the city and the story, then signs up through the site's own link. The journey is this suite's own (giveStory, the
+ * chat or the questions, reviewAndNextStep), every AI step answered by the story's recorded real-model reading
+ * (aiFixtures.ts; AI_REPLAY_REAL_SPEED=1 replays it at the speed the model took, so a screen that waits on the model is
+ * seen waiting). Nothing is asserted here: each journey writes its record (matrix/matrixJourney.ts writeJourney), and
+ * scripts/browser/matrixReport.ts runs the eleven checks (matrix/matrixChecks.ts) over all of them into one table.
+ */
+function matrixAsStory(ms: MatrixStoryWithStart): Story {
+  const amount = ms.facts.amount?.replace(/[^\d.]/g, "");
+  return {
+    name: `matrix-${ms.id}`, court: ms.court, side: ms.side === "plaintiff" || ms.side === "applicant" ? "bringing" : "responding", text: ms.text,
+    ...(ms.situation.receivedOn && ms.situation.receivedOn !== "unknown" ? { served: ms.situation.receivedOn } : {}),
+    stated: { ...(amount ? { amount } : {}), ...(ms.facts.whenHappened ? { when: ms.facts.whenHappened } : {}), ...(ms.facts.otherParty ? { otherParty: ms.facts.otherParty } : {}) },
+    situation: ms.situation, realAi: true, city: ms.city,
+  };
+}
+if (MATRIX) for (const ms of MATRIX_STORIES) namesNeverSent(`matrix-${ms.id}`, ms.names);
+const MODES: Mode[] = ["signed-in", "guest-then-signup"];
+for (const ms of MATRIX ? MATRIX_STORIES : []) for (const mode of MODES) {
+  test(`matrix -- ${ms.id} ${mode}`, async ({ page }) => {
+    test.setTimeout(1_200_000);
+    const story = matrixAsStory(ms);
+    const readings = realAiReadings(story.name);
+    const reading = readings[0] ?? null;
+    const journey = `${ms.id} ${mode}`;
+    const record: Record<string, unknown> = { journey, story: ms, mode, reading, events: [], held: [], twice: [], blind: [], screens: [], ended: false, notFilled: [], notes: [] };
+    const notes = record.notes as string[];
+    // A name the site's own labels do not hide would reach the model as typed: the recorder refuses it, so the story
+    // cannot be recorded or replayed until the site hides it (a finding of its own, in the report).
+    const unhidden = ms.names.filter((name) => !JSON.stringify(bodyNameLabels({ story: ms.text })).includes(name));
+    if (unhidden.length && !RECORDING) { record.notRun = `the site's name labels do not hide ${unhidden.map((name) => `"${name}"`).join(", ")}: it would reach the AI as typed, so the story cannot be recorded`; writeJourney(journey, record); test.skip(true, String(record.notRun)); return; }
+    if (!reading) { record.notRun = "no recorded reading (record once with AI_FIXTURES=record)"; writeJourney(journey, record); test.skip(true, String(record.notRun)); return; }
+    replayMisses.length = 0;
+    const typed = new Map<string, string>();
+    const found: Violation[] = [];
+    const seen: string[] = [];
+    let userId = "";
+    let events: Asked[] = [];
+    let sampler: ReturnType<typeof sampleScreens> | null = null;
+    let guestCase = "";
+    try {
+      if (mode === "signed-in") {
+        userId = await authenticateRealTestUser(page, { realCases: true });
+      } else {
+        await grantSiteAccess(page);
+        await expectThisRunsServer(page);
+        const account = await createRealTestAccount();
+        userId = account.userId;
+        await autoAnswerSituation(page, ms.situation);
+        await serveModelStandIns(page, story.court, userId, { realAi: `${story.name}/${reading}` });
+        events = await recordAsks(page);
+        sampler = sampleScreens(page, fileOf);
+        const landed = await guestDescribesThenSignsUp(page, ms, account);
+        guestCase = landed.caseId;
+        // What the account's case holds of what the guest gave (check 7), read from the saved row.
+        record.carried = { before: landed.before, after: guestCase ? await savedStart(guestCase) : { municipality: "(no case opened)", story: "(no case opened)" } };
+      }
+      if (mode === "signed-in") {
+        await expectThisRunsServer(page);
+        await autoAnswerSituation(page, ms.situation);
+        await serveModelStandIns(page, story.court, userId, { realAi: `${story.name}/${reading}` });
+        events = await recordAsks(page);
+        sampler = sampleScreens(page, fileOf);
+      }
+      // Signed up from the home page, the site took the person to their case: the journey goes on from there (the story is
+      // already given). Otherwise the story is given as the suite gives it.
+      if (guestCase && /\/builder/.test(page.url())) {
+        for (let round = 0; round < 5; round += 1) {
+          await page.waitForTimeout(1_500);
+          const notice = page.getByTestId("acknowledgement-checkbox");
+          if (await notice.isVisible().catch(() => false)) { await notice.check().catch(() => {}); await page.getByTestId("acknowledgement-continue").click().catch(() => {}); continue; }
+          if (await page.getByTestId("situation-questions").isVisible().catch(() => false)) { await answerSituation(page, ms.situation); continue; }
+          break;
+        }
+      } else await giveStory(page, story);
+      seen.push(...homeAnswers.splice(0));
+      const id = new URL(page.url()).searchParams.get("intake") ?? "";
+      record.caseId = Boolean(id);
+      // The new Small Claims flow (SC_FLOW_V2) has its own questions, review and forms; the old route otherwise.
+      const flowEnded = SC_FLOW && story.court === "small-claims" ? await smallClaimsFlowJourney(page, seen) : null;
+      if (flowEnded === null) {
+        if (story.court === "small-claims") await smallClaimsChat(page, story, typed);
+        else await guidedForm(page, story, typed);
+      }
+      const nextStep = flowEnded ?? await reviewAndNextStep(page, story, typed, found, seen);
+      if (story.court === "family") await answerTriageAsChrome(page, story, seen);
+      record.ended = Boolean(nextStep);
+      if (!nextStep) notes.push("the next step's overview did not show", ...seen.filter((line) => line.startsWith("sc-flow:")));
+      record.probesFrom = Date.now();
+      if (id) {
+        const entries = await reviewEntries(page, story.court, id).catch(() => ({ notFilled: [], shown: [] }));
+        record.notFilled = entries.notFilled;
+        record.shown = entries.shown.map((item: { surface: string; id: string; text: string }) => ({ ...item, facts: factsOfAsk(item) }));
+        record.persisted = await probeNotSureAndRemoved(page, story.court, id).catch((error: unknown) => { notes.push(`not-sure / removed probe: ${String(error).slice(0, 160)}`); return undefined; });
+        if (story.court === "small-claims" && story.side === "bringing") {
+          const fields = await filledForm(page, id, "small-claims/7A").catch(() => null);
+          if (fields) record.form7a = { fields: Object.fromEntries([...fields].map(([name, value]) => [name, String(value ?? "")])), record: await recordFacts(id) };
+          else notes.push("Form 7A did not download");
+        }
+      }
+    } catch (error) {
+      notes.push(`the journey stopped: ${String(error).split("\n").filter((line) => /Error|Locator|waiting for/.test(line)).slice(0, 3).join(" / ").slice(0, 400)} (at ${page.url()})`);
+      await page.screenshot({ path: `${process.env.MATRIX_RECORDS ?? "matrix-records"}/${journey.replace(/[^a-z0-9.-]+/gi, "-")}.stopped.png`, fullPage: true }).catch(() => {});
+    } finally {
+      record.screens = sampler?.stop() ?? [];
+      const situation = ms.situation;
+      const excused = (item: { fact: string; surface: string; screen: string; text: string }) => firstOfferExcused(item as never, events, OFFER_SURFACES);
+      record.held = heldViolations(events).filter((item) => !excused(item)).map((item) => ({ fact: item.fact, screen: `${item.surface}@${item.screen}`, text: item.text.slice(0, 200) }));
+      record.twice = repeatViolations(factsAskedTwice(events, situation)).filter((item) => !excused(item)).map((item) => ({ fact: item.fact, screen: `${item.surface}@${item.screen}`, text: item.text.slice(0, 200) }));
+      // A fact "Here is what we understood" showed, then offered or asked on a later screen (askOnce.ts shownThenAsked;
+      // Jason's live test, 26 Nov 2026). Once per question, never doubling a repeat already counted above.
+      for (const item of shownThenAsked(events)) {
+        const row = { fact: item.fact, screen: `${item.surface}@${item.screen}`, text: item.text.slice(0, 200) };
+        const rows = record.twice as (typeof row)[];
+        if (!rows.some((held) => held.fact === row.fact && held.screen === row.screen && held.text === row.text)) rows.push(row);
+      }
+      // The court asked again on the home reading after it was chosen at the start (giveStory notes it in the matrix run).
+      if (seen.some((line) => line.startsWith("court-asked-again"))) (record.twice as unknown[]).push({ fact: "court", screen: "home-reading@/", text: "the reading asked where the case belongs after the court was chosen at the start" });
+      record.blind = blindBoxes(events);
+      record.events = events.map(({ kind, surface, id, screen, text, at }) => ({ kind, surface, id, screen, text: text.slice(0, 200), at, facts: factsOfAsk({ surface, id, text }) }));
+      record.replayMisses = [...replayMisses];
+      if (process.env.AI_FIXTURES === "verify") record.drift = verifyDrift.splice(0);
+      writeJourney(journey, record);
+      await deleteHarnessUser(userId).catch(() => {});
+    }
+    console.log(`MATRIX ${journey}: ended ${record.ended}; ${(record.events as unknown[]).length} events; notes: ${notes.join(" | ") || "none"}`);
   });
 }

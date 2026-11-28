@@ -20,6 +20,7 @@ import {
   courtOfPapers,
   FIRST_PAGES,
   nextSituationQuestion,
+  situationQuestionApplies,
   paperId,
   situationLine,
   stageChoices,
@@ -146,13 +147,8 @@ export default function SituationQuestions({ situation, onChange, chosenCourt, h
 /** After an answer while reviewing every answer (the Change link): the next one that applies, in order. */
 function nextReviewStep(after: SituationQuestion, situation: Situation, chosenCourt: SituationCourt | null): SituationQuestion | null {
   const order: SituationQuestion[] = ["where", "started", "papers", "received", "filed", "court", "stage"];
-  const applies = (question: SituationQuestion) =>
-    question === "where" ||
-    (question === "stage" && (situation.where === "going" || situation.where === "served")) ||
-    (question === "started" && situation.where === "going") ||
-    ((question === "papers" || question === "received") && (situation.where === "served" || (situation.where === "going" && situation.started === "them"))) ||
-    (question === "filed" && situation.where === "starting") ||
-    (question === "court" && (!situation.court || situation.courtFrom === "asked" || (courtOfPapers(situation) !== null && courtOfPapers(situation) !== situation.court)));
+  // Which question applies: the one rule (situation.ts situationQuestionApplies, reading the fact registry).
+  const applies = (question: SituationQuestion) => situationQuestionApplies(question, situation);
   const rest = order.slice(order.indexOf(after) + 1).find(applies) ?? null;
   return rest ?? nextSituationQuestion(situation, chosenCourt);
 }

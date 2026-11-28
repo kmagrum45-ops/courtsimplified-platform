@@ -1,0 +1,125 @@
+{
+  "story": "matrix-chrome-alex",
+  "reading": "r1",
+  "recorded": "2026-11-25",
+  "note": "Real model outputs for a made-up story (AI_FIXTURES=record).",
+  "entries": [
+    {
+      "step": "story-reading",
+      "input": "1da25c9107f73b2a",
+      "said": "{\"sent\":\"In January 2026 I lent my friend Alex $2,000 so he could fix his car. He promised to pay me back by the end of March 2026. He has not paid back anything and now he ignores my texts. I want my $2,000 back.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\",\"chosen\":null}",
+      "output": "{\n  \"summary\": \"You lent your friend $2,000 in January 2026 so he could fix his car. He promised to repay you by the end of March 2026, but he has paid nothing and now ignores your texts. You want your money back, and you have not started a court case.\",\n  \"facts\": [\n    {\n      \"label\": \"Your role\",\n      \"value\": \"Proposed plaintiff and lender\"\n    },\n    {\n      \"label\": \"Other party\",\n      \"value\": \"Your friend, the borrower\"\n    },\n    {\n      \"label\": \"Amount lent\",\n      \"value\": \"$2,000\"\n    },\n    {\n      \"label\": \"Loan date\",\n      \"value\": \"January 2026\"\n    },\n    {\n      \"label\": \"Purpose\",\n      \"value\": \"Car repairs\"\n    },\n    {\n      \"label\": \"Promised repayment\",\n      \"value\": \"End of March 2026\"\n    },\n    {\n      \"label\": \"Repayments received\",\n      \"value\": \"None\"\n    },\n    {\n      \"label\": \"Current contact\",\n      \"value\": \"Your friend ignores your texts\"\n    },\n    {\n      \"label\": \"Court filing\",\n      \"value\": \"Nothing filed\"\n    },\n    {\n      \"label\": \"Location\",\n      \"value\": \"Not given\"\n    }\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Recovery of an unpaid $2,000 personal loan\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You are seeking repayment of the loan and have not started a court case.\",\n  \"questions\": [\n    {\n      \"question\": \"Where do you and your friend live?\",\n      \"why\": \"This helps identify whether the dispute belongs in Ontario.\"\n    },\n    {\n      \"question\": \"Was the loan and the promise to repay by the end of March agreed in writing, in texts, or only verbally?\",\n      \"why\": \"This clarifies how the repayment agreement was made.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}",
+      "ms": 15826
+    },
+    {
+      "step": "safety",
+      "input": "3a1db9d2a63ad524",
+      "said": "{\"said\":\"In January 2026 I lent my friend Alex $2,000 so he could fix his car. He promised to pay me back by the end of March 2026. He has not paid back anything and now he ignores my texts. I want my $2,000 back.\"}",
+      "output": {
+        "classification": "clear",
+        "requestsLegalAdvice": false
+      },
+      "ms": 7857
+    },
+    {
+      "step": "fact-reading",
+      "input": "3a1db9d2a63ad524",
+      "said": "{\"said\":\"In January 2026 I lent my friend Alex $2,000 so he could fix his car. He promised to pay me back by the end of March 2026. He has not paid back anything and now he ignores my texts. I want my $2,000 back.\"}",
+      "output": {
+        "facts": {
+          "role": "plaintiff",
+          "disputeCategory": "loan-or-debt"
+        },
+        "directFields": [
+          "role",
+          "disputeCategory"
+        ]
+      },
+      "ms": 3261
+    },
+    {
+      "step": "claim-kind",
+      "input": "fba22416e320a3fb",
+      "said": "{\"said\":\"In January 2026 I lent my friend Alex $2,000 so he could fix his car. He promised to pay me back by the end of March 2026. He has not paid back anything and now he ignores my texts. I want my $2,000 back.\",\"exclude\":[],\"responding\":false}",
+      "output": {
+        "claimTypeId": "sc-claim-personal-loan-between-individuals",
+        "claimTypeName": "Personal loan between individuals -- borrower hasn't repaid",
+        "quote": "I lent my friend Alex $2,000 so he could fix his car"
+      },
+      "ms": 3842
+    },
+    {
+      "step": "story-suggestions",
+      "input": "b2f68f6f3d789e81",
+      "said": "{\"story\":\"In January 2026 I lent my friend Alex $2,000 so he could fix his car. He promised to pay me back by the end of March 2026. He has not paid back anything and now he ignores my texts. I want my $2,000 back.\",\"questions\":[\"sc-orient-when-happened\",\"sc-orient-dispute-category\",\"sc-amount-claimed\",\"sc-remedy-sought\"],\"quoteFrom\":null}",
+      "output": [
+        {
+          "questionId": "sc-orient-when-happened",
+          "questionText": "Roughly when did the situation that led to this claim happen?",
+          "answer": "January 2026",
+          "storyQuote": "In January 2026 I lent my friend Alex $2,000",
+          "dateQuestion": true
+        },
+        {
+          "questionId": "sc-orient-dispute-category",
+          "questionText": "What kind of dispute is this?",
+          "answer": "A loan or debt",
+          "storyQuote": "I lent my friend Alex $2,000",
+          "choices": [
+            "Unpaid money owed to you",
+            "A contract or agreement dispute",
+            "Property damage",
+            "A loan or debt",
+            "Work or a service you paid for (e.g. a contractor)",
+            "A deposit that wasn't returned",
+            "A consumer purchase problem",
+            "A vehicle-related dispute",
+            "Something said about you (defamation)",
+            "A personal injury (a fall, an animal bite, or similar)",
+            "Something else"
+          ]
+        },
+        {
+          "questionId": "sc-amount-claimed",
+          "questionText": "What is the total dollar amount you are claiming?",
+          "answer": "$2,000",
+          "storyQuote": "I want my $2,000 back."
+        },
+        {
+          "questionId": "sc-remedy-sought",
+          "questionText": "What outcome are you asking the court to order?",
+          "answer": "I want my $2,000 back.",
+          "storyQuote": "I want my $2,000 back."
+        }
+      ],
+      "ms": 12064
+    },
+    {
+      "step": "claim-kind-confirm",
+      "input": "7abd58f62b18f199",
+      "said": "{\"action\":\"confirm\",\"said\":\"In January 2026 I lent my friend Alex $2,000 so he could fix his car. He promised to pay me back by the end of March 2026. He has not paid back anything and now he ignores my texts. I want my $2,000 back.\",\"claimTypeId\":\"sc-claim-personal-loan-between-individuals\",\"prior\":[]}",
+      "output": {
+        "outcome": "confirmed",
+        "claimType": {
+          "claimTypeId": "sc-claim-personal-loan-between-individuals",
+          "claimTypeName": "Personal loan between individuals -- borrower hasn't repaid"
+        }
+      },
+      "ms": 0
+    },
+    {
+      "step": "fact-reading",
+      "input": "49aaf836114bb89e",
+      "said": "{\"said\":\"Q: Roughly when did the situation that led to this claim happen?\\nA: January 2026\\n\\nQ: What is the total dollar amount you are claiming?\\nA: $2,000.00\\n\\nQ: What outcome are you asking the court to order?\\nA: I want my $2,000 back.\"}",
+      "output": {
+        "facts": {
+          "role": "plaintiff"
+        },
+        "directFields": [
+          "role"
+        ]
+      },
+      "ms": 4093
+    }
+  ]
+}

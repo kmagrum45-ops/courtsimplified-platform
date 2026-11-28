@@ -181,11 +181,11 @@ export STORY_PACK_RUN_ID="carry-local-${STAMP}-p${PORT}"
 START=$(date +%s)
 set +e
 if [ -n "${CARRY_REAL_AI:-}" ]; then
-  # Recording real-AI fixtures (tests/browser/harness/aiFixtures.ts): the key goes to the TEST process only, read from
+  # Recording (or, AI_FIXTURES=verify, checking) real-AI fixtures (tests/browser/harness/aiFixtures.ts): the key goes to the TEST process only, read from
   # the main checkout's .env.local inside this command and never printed; the site's server above was started without it.
   REAL_ENV="${CARRY_REAL_AI_ENV:-$(git rev-parse --path-format=absolute --git-common-dir)/../.env.local}"
   OPENAI_API_KEY="$(node -e 'const m=/^OPENAI_API_KEY=(.*)$/m.exec(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(m?m[1].trim().replace(/^["\x27]|["\x27]$/g,""):"")' "$REAL_ENV")" \
-    AI_FIXTURES=record npx playwright test "${CARRY_SPEC:-tests/browser/carry-end-to-end.spec.ts}" --grep "$GREP" --reporter=line --workers=1 --output "$OUT/test-results" 2>&1 | tee "$OUT/spec.log"
+    AI_FIXTURES="${AI_FIXTURES:-record}" npx playwright test "${CARRY_SPEC:-tests/browser/carry-end-to-end.spec.ts}" --grep "$GREP" --reporter=line --workers=1 --output "$OUT/test-results" 2>&1 | tee "$OUT/spec.log"
 else
   npx playwright test "${CARRY_SPEC:-tests/browser/carry-end-to-end.spec.ts}" --grep "$GREP" --reporter=line --workers=1 --output "$OUT/test-results" 2>&1 | tee "$OUT/spec.log"
 fi

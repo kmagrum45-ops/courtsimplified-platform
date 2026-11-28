@@ -434,6 +434,11 @@
     {
       "file": "tests/browser/ai-spend-limit.spec.ts",
       "reason": "needs its own server started with a fake OpenAI (OPENAI_BASE_URL) and AI_USER_DAILY_USD=0.01; CI's browser job shares one server with no OpenAI key across every spec. The limit's rules are checked in CI by test:ai-spend-limit and test:ai-routes-limited; run this spec locally as its header says."
+    },
+    {
+      "file": "tests/browser/flow-step-top.spec.ts",
+      "script": "npx playwright test tests/browser/flow-step-top.spec.ts (a build with NEXT_PUBLIC_SC_FLOW_V2=on)",
+      "reason": "checks the new Small Claims flow, which is behind SC_FLOW_V2 and off in every CI build: it fails by design with the switch off (proven 26 Nov 2026) and passes with it on; it joins browser-regression in the PR that switches the flow on"
     }
   ]
 }

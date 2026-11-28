@@ -4,6 +4,8 @@ import { factStatus } from "../../src/lib/case-system/caseFile/factStatus";
 import { OPEN_WHOLE_FORM_EVENT } from "./_components/openWholeForm";
 import { partyNames } from "../../src/lib/case-system/parties/parties";
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
+import { SC_FLOW_V2 } from "../../src/lib/case-system/flow/scFlowSwitch";
+import { SmallClaimsFlow } from "./_flow/SmallClaimsFlow";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
 import { caseFileOf, childSupportStartFrom, claimKindOf, heldServiceWords, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
 import { stageHeldElsewhere } from "../../src/lib/case-system/caseFile/stageHeld";
@@ -2220,7 +2222,8 @@ function BuilderPageContent() {
             )}
 
             {/* Not on the overview once confirmed: the case page's next-step buttons open it, and the step is worked out there (F6). */}
-            {courtPath === "small-claims" && smallClaimsMode === "choose" && !(stepParam === "results" && intakeConfirmed) && (
+            {SC_FLOW_V2 && courtPath === "small-claims" && !(stepParam === "results" && intakeConfirmed) ? <SmallClaimsFlow /> : null}
+            {!SC_FLOW_V2 && courtPath === "small-claims" && smallClaimsMode === "choose" && !(stepParam === "results" && intakeConfirmed) && (
               <div className="grid gap-4 md:grid-cols-2">
                 <button
                   type="button"
@@ -2246,7 +2249,7 @@ function BuilderPageContent() {
               </div>
             )}
 
-            {courtPath === "small-claims" && startedModes.form && (
+            {!SC_FLOW_V2 && courtPath === "small-claims" && startedModes.form && (
               <div hidden={visibleMode !== "form"}>
                 <div ref={setChatNoticeSlot} data-testid="sc-chat-notice-slot" />
                 <SmallClaimsIntake
@@ -2258,7 +2261,7 @@ function BuilderPageContent() {
               </div>
             )}
 
-            {courtPath === "small-claims" && startedModes.guided && (
+            {!SC_FLOW_V2 && courtPath === "small-claims" && startedModes.guided && (
               <div hidden={visibleMode !== "guided"}>
                 <GuidedSmallClaimsIntake
                   noticeSlot={visibleMode === "form" ? chatNoticeSlot : null}

@@ -1,0 +1,211 @@
+{
+  "story": "matrix-sc-served-defendant",
+  "reading": "r1",
+  "recorded": "2026-11-25",
+  "note": "Real model outputs for a made-up story (AI_FIXTURES=record).",
+  "entries": [
+    {
+      "step": "story-reading",
+      "input": "ae799e24648e84ea",
+      "said": "{\"sent\":\"On November 10, 2026 I was served with a Plaintiff's Claim. My former landlord, Robin Testlandlord, says I owe $3,200 for damage to the apartment. I left it clean and have photos.\\n\\nI am responding to this case: the other side started it.\\n\\nI was served on 2026-11-10.\\n\\nA court case has already been started.\",\"chosen\":null}",
+      "output": "{\n  \"summary\": \"You were served with a Plaintiff’s Claim on November 10, 2026. Your former landlord is claiming $3,200 for damage to the apartment. You say you left the apartment clean and have photos.\",\n  \"facts\": [\n    {\"label\": \"Your role\", \"value\": \"Defendant responding to a claim\"},\n    {\"label\": \"Other party\", \"value\": \"Your former landlord\"},\n    {\"label\": \"Amount claimed\", \"value\": \"$3,200\"},\n    {\"label\": \"Reason for claim\", \"value\": \"Alleged damage to the apartment\"},\n    {\"label\": \"Document received\", \"value\": \"Plaintiff’s Claim\"},\n    {\"label\": \"Date served\", \"value\": \"November 10, 2026\"},\n    {\"label\": \"Your account\", \"value\": \"You left the apartment clean and have photos\"},\n    {\"label\": \"Court named on the claim\", \"value\": \"Not given\"},\n    {\"label\": \"Apartment location\", \"value\": \"Not given\"},\n    {\"label\": \"Date you moved out\", \"value\": \"Not given\"}\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Former landlord’s claim for apartment damage\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court, subject to confirming the court named on the claim\"\n    }\n  ],\n  \"side\": \"responding\",\n  \"stage\": \"Your former landlord has started a court case, and you have been served with the Plaintiff’s Claim.\",\n  \"questions\": [\n    {\n      \"question\": \"What court name and location appear at the top of the Plaintiff’s Claim?\",\n      \"why\": \"This confirms where the existing case was started.\"\n    },\n    {\n      \"question\": \"How were you served—for example, were the papers handed to you, mailed, left at your home, or emailed?\",\n      \"why\": \"The method of service matters to the timing of the case.\"\n    },\n    {\n      \"question\": \"When did you move out of the apartment?\",\n      \"why\": \"This helps determine whether the dispute belongs in court or before the Landlord and Tenant Board.\"\n    },\n    {\n      \"question\": \"In what city and province is the apartment?\",\n      \"why\": \"This confirms which jurisdiction applies to the rental dispute.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}",
+      "ms": 14885
+    },
+    {
+      "step": "story-reading",
+      "input": "5c0b04169e82e786",
+      "said": "{\"sent\":\"On November 10, 2026 I was served with a Plaintiff's Claim. My former landlord, Robin Testlandlord, says I owe $3,200 for damage to the apartment. I left it clean and have photos.\\n\\nI am responding to this case: the other side started it.\\n\\nI was served on 2026-11-10.\\n\\nA court case has already been started.\\n\\nQ: Do you believe the plaintiff, or someone else, owes you money or is responsible for part of what happened? (If you have already started your own claim about it, say so.)\\nA: I do not know yet\\n\\nQ: Roughly when did the situation that led to this claim happen?\\nA: I do not",
+      "output": "{\n  \"summary\": \"You were served with a Plaintiff’s Claim on November 10, 2026. Your former landlord is claiming $3,200 for damage to the apartment. You say you left it clean and have photos.\",\n  \"facts\": [\n    {\n      \"label\": \"Your role\",\n      \"value\": \"Defendant responding to a claim\"\n    },\n    {\n      \"label\": \"Plaintiff\",\n      \"value\": \"Your former landlord\"\n    },\n    {\n      \"label\": \"Amount claimed\",\n      \"value\": \"$3,200\"\n    },\n    {\n      \"label\": \"Reason for claim\",\n      \"value\": \"Alleged damage to the apartment\"\n    },\n    {\n      \"label\": \"Date served\",\n      \"value\": \"November 10, 2026\"\n    },\n    {\n      \"label\": \"Your account\",\n      \"value\": \"You left the apartment clean and have photos\"\n    },\n    {\n      \"label\": \"Move-out date\",\n      \"value\": \"Not given\"\n    },\n    {\n      \"label\": \"Court named on the claim\",\n      \"value\": \"Not given\"\n    }\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Former landlord’s claim for apartment damage\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court (to be confirmed from the claim)\"\n    }\n  ],\n  \"side\": \"responding\",\n  \"stage\": \"Your former landlord has started a court claim against you, and you have been served.\",\n  \"questions\": [\n    {\n      \"question\": \"What court name appears at the top of the Plaintiff’s Claim?\",\n      \"why\": \"This confirms where the existing case was started.\"\n    },\n    {\n      \"question\": \"How were the papers given to you—for example, handed to you, mailed, left at your home, or emailed?\",\n      \"why\": \"The method of service can affect when service is legally effective.\"\n    },\n    {\n      \"question\": \"When did you move out of the apartment?\",\n      \"why\": \"The move-out date helps determine whether the dispute belongs before the Landlord and Tenant Board.\"\n    },\n    {\n      \"question\": \"What specific damage does your former landlord say you caused?\",\n      \"why\": \"This identifies the factual dispute behind the $3,200 claim.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}",
+      "ms": 15136
+    },
+    {
+      "step": "safety",
+      "input": "9812d1c04fd3f86c",
+      "said": "{\"said\":\"On November 10, 2026 I was served with a Plaintiff's Claim. My former landlord, Robin Testlandlord, says I owe $3,200 for damage to the apartment. I left it clean and have photos.\"}",
+      "output": {
+        "classification": "clear",
+        "requestsLegalAdvice": false
+      },
+      "ms": 3832
+    },
+    {
+      "step": "fact-reading",
+      "input": "9812d1c04fd3f86c",
+      "said": "{\"said\":\"On November 10, 2026 I was served with a Plaintiff's Claim. My former landlord, Robin Testlandlord, says I owe $3,200 for damage to the apartment. I left it clean and have photos.\"}",
+      "output": {
+        "facts": {
+          "role": "defendant",
+          "disputeCategory": "property-damage",
+          "claimServed": true
+        },
+        "directFields": [
+          "role",
+          "disputeCategory",
+          "claimServed"
+        ]
+      },
+      "ms": 6480
+    },
+    {
+      "step": "claim-kind",
+      "input": "716ddc3674942f19",
+      "said": "{\"said\":\"On November 10, 2026 I was served with a Plaintiff's Claim. My former landlord, Robin Testlandlord, says I owe $3,200 for damage to the apartment. I left it clean and have photos.\",\"exclude\":[],\"responding\":true}",
+      "output": {
+        "claimTypeId": "sc-claim-landlord-against-former-tenant",
+        "claimTypeName": "A landlord claiming against a former tenant",
+        "quote": "My former landlord, Robin Testlandlord, says I owe $3,200 for damage to the apartment"
+      },
+      "ms": 3820
+    },
+    {
+      "step": "story-suggestions",
+      "input": "7771c818e41968fa",
+      "said": "{\"story\":\"On November 10, 2026 I was served with a Plaintiff's Claim. My former landlord, Robin Testlandlord, says I owe $3,200 for damage to the apartment. I left it clean and have photos.\",\"questions\":[\"sc-orient-dispute-category\",\"sc-defendant-response-facts\",\"sc-date-claim-issued\"],\"quoteFrom\":null}",
+      "output": [
+        {
+          "questionId": "sc-orient-dispute-category",
+          "questionText": "What kind of dispute is this?",
+          "answer": "Property damage",
+          "storyQuote": "says I owe $3,200 for damage to the apartment",
+          "choices": [
+            "Unpaid money owed to you",
+            "A contract or agreement dispute",
+            "Property damage",
+            "A loan or debt",
+            "Work or a service you paid for (e.g. a contractor)",
+            "A deposit that wasn't returned",
+            "A consumer purchase problem",
+            "A vehicle-related dispute",
+            "Something said about you (defamation)",
+            "A personal injury (a fall, an animal bite, or similar)",
+            "Something else"
+          ]
+        },
+        {
+          "questionId": "sc-defendant-response-facts",
+          "questionText": "In your own words, which facts in the Plaintiff's Claim do you agree with, and which facts do you disagree with?",
+          "answer": "My former landlord says I owe $3,200 for damage to the apartment. I left it clean and have photos.",
+          "storyQuote": "My former landlord, Robin Testlandlord, says I owe $3,200 for damage to the apartment. I left it clean and have photos."
+        }
+      ],
+      "ms": 4765
+    },
+    {
+      "step": "claim-kind-confirm",
+      "input": "a9abeaa718c56cf7",
+      "said": "{\"action\":\"confirm\",\"said\":\"On November 10, 2026 I was served with a Plaintiff's Claim. My former landlord, Robin Testlandlord, says I owe $3,200 for damage to the apartment. I left it clean and have photos.\",\"claimTypeId\":\"sc-claim-landlord-against-former-tenant\",\"prior\":[]}",
+      "output": {
+        "outcome": "confirmed",
+        "claimType": {
+          "claimTypeId": "sc-claim-landlord-against-former-tenant",
+          "claimTypeName": "Being served and not understanding the papers"
+        }
+      },
+      "ms": 1
+    },
+    {
+      "step": "fact-reading",
+      "input": "c5620b0e74878674",
+      "said": "{\"said\":\"Q: In your own words, which facts in the Plaintiff's Claim do you agree with, and which facts do you disagree with?\\nA: My former landlord says I owe $3,200 for damage to the apartment. I left it clean and have photos.\"}",
+      "output": {
+        "facts": {
+          "role": "defendant",
+          "disputeCategory": "property-damage"
+        },
+        "directFields": [
+          "role",
+          "disputeCategory"
+        ]
+      },
+      "ms": 2874
+    },
+    {
+      "step": "story-suggestions",
+      "input": "05783bafe4c70a0b",
+      "said": "{\"story\":\"On November 10, 2026 I was served with a Plaintiff's Claim. My former landlord, Robin Testlandlord, says I owe $3,200 for damage to the apartment. I left it clean and have photos.\",\"questions\":[\"sc-date-claim-issued\"],\"quoteFrom\":null}",
+      "output": [],
+      "ms": 2509
+    },
+    {
+      "step": "safety",
+      "input": "c5a605c8c3acd793",
+      "said": "{\"said\":\"I do not know yet\"}",
+      "output": {
+        "classification": "clear",
+        "requestsLegalAdvice": false
+      },
+      "ms": 3179
+    },
+    {
+      "step": "fact-reading",
+      "input": "c5a605c8c3acd793",
+      "said": "{\"said\":\"I do not know yet\"}",
+      "output": {
+        "facts": {},
+        "directFields": []
+      },
+      "ms": 2844
+    },
+    {
+      "step": "story-suggestions",
+      "input": "942d417687d82891",
+      "said": "{\"story\":\"On November 10, 2026 I was served with a Plaintiff's Claim. My former landlord, Robin Testlandlord, says I owe $3,200 for damage to the apartment. I left it clean and have photos.\",\"questions\":[\"sc-orient-when-happened\",\"sc-orient-dispute-category\",\"sc-defendant-response-facts\",\"sc-defendant-outcome\",\"sc-defendant-counterclaim\",\"sc-date-claim-issued\"],\"quoteFrom\":null}",
+      "output": [
+        {
+          "questionId": "sc-orient-dispute-category",
+          "questionText": "What kind of dispute is this?",
+          "answer": "Property damage",
+          "storyQuote": "says I owe $3,200 for damage to the apartment",
+          "choices": [
+            "Unpaid money owed to you",
+            "A contract or agreement dispute",
+            "Property damage",
+            "A loan or debt",
+            "Work or a service you paid for (e.g. a contractor)",
+            "A deposit that wasn't returned",
+            "A consumer purchase problem",
+            "A vehicle-related dispute",
+            "Something said about you (defamation)",
+            "A personal injury (a fall, an animal bite, or similar)",
+            "Something else"
+          ]
+        },
+        {
+          "questionId": "sc-defendant-response-facts",
+          "questionText": "In your own words, which facts in the Plaintiff's Claim do you agree with, and which facts do you disagree with?",
+          "answer": "My former landlord says I owe $3,200 for damage to the apartment. I left it clean and have photos.",
+          "storyQuote": "says I owe $3,200 for damage to the apartment. I left it clean and have photos."
+        }
+      ],
+      "ms": 11025
+    },
+    {
+      "step": "story-suggestions",
+      "input": "701989cd16ce385c",
+      "said": "{\"story\":\"On November 10, 2026 I was served with a Plaintiff's Claim. My former landlord, Robin Testlandlord, says I owe $3,200 for damage to the apartment. I left it clean and have photos.\",\"questions\":[\"sc-orient-when-happened\",\"sc-defendant-outcome\",\"sc-defendant-counterclaim\",\"sc-date-claim-issued\"],\"quoteFrom\":null}",
+      "output": [],
+      "ms": 10685
+    },
+    {
+      "step": "story-suggestions",
+      "input": "3c8ea5b09f4d53a3",
+      "said": "{\"story\":\"The person's story:\\nOn November 10, 2026 I was served with a Plaintiff's Claim. My former landlord, Robin Testlandlord, says I owe $3,200 for damage to the apartment. I left it clean and have photos.\\n\\nQ: Roughly when did the situation that led to this claim happen?\\nA: I do not know yet\",\"questions\":[\"sc-defendant-outcome\",\"sc-defendant-counterclaim\",\"sc-date-claim-issued\"],\"quoteFrom\":\"On November 10, 2026 I was served with a Plaintiff's Claim. My former landlord, Robin Testlandlord, says I owe $3,200 for damage to the apartment. I left it clean and have photos.\\nI do not know ye",
+      "output": [],
+      "ms": 9502
+    },
+    {
+      "step": "story-suggestions",
+      "input": "6e73372b23714ebd",
+      "said": "{\"story\":\"The person's story:\\nOn November 10, 2026 I was served with a Plaintiff's Claim. My former landlord, Robin Testlandlord, says I owe $3,200 for damage to the apartment. I left it clean and have photos.\\n\\nQ: Roughly when did the situation that led to this claim happen?\\nA: I do not know yet\\n\\nQ: Are you only responding to the Plaintiff's Claim, or are you asking the court for an outcome of your own? Describe it in your own words.\\nA: I do not know yet\",\"questions\":[\"sc-defendant-counterclaim\",\"sc-date-claim-issued\"],\"quoteFrom\":\"On November 10, 2026 I was served with a Plaintiff's Cl",
+      "output": [],
+      "ms": 7336
+    },
+    {
+      "step": "story-suggestions",
+      "input": "4d19d6f9d1281423",
+      "said": "{\"story\":\"The person's story:\\nOn November 10, 2026 I was served with a Plaintiff's Claim. My former landlord, Robin Testlandlord, says I owe $3,200 for damage to the apartment. I left it clean and have photos.\\n\\nQ: Roughly when did the situation that led to this claim happen?\\nA: I do not know yet\\n\\nQ: Are you only responding to the Plaintiff's Claim, or are you asking the court for an outcome of your own? Describe it in your own words.\\nA: I do not know yet\\n\\nQ: Do you believe the plaintiff, or someone else, owes you money or is responsible for part of what happened? (If you have already ",
+      "output": [],
+      "ms": 7347
+    }
+  ]
+}

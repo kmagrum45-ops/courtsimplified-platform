@@ -27,7 +27,7 @@
  */
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { firstOfferExcused } from "../../tests/browser/harness/askOnce";
+import { firstOfferExcused, shownThenAsked } from "../../tests/browser/harness/askOnce";
 import { answerTriage, type TriageLocator } from "../../tests/browser/harness/triageAnswer";
 import { ASK_ONCE_SCAN, chatQuestionAnswered, chatReplyReader, diagnosticOf, withPageHeld, factsAskedTwice, factsOfAsk, heldFacts, heldInRows, heldViolations, repeatViolations, withHeldFacts, type Asked } from "../../tests/browser/harness/askOnce";
 import { KNOWN_REPEATS, knownRepeatFor, splitKnown, type KnownRepeat, type Violation } from "../../tests/browser/harness/knownRepeats";
@@ -294,6 +294,28 @@ const ask = (surface: string, id: string, text = id): Asked => ({ kind: "ask", s
 // repeat it exists to stop. Run on stand-in pages built here: for a story that answers the question ("never married"), it
 // FAILS when (a) the offer is missing (the question asked cold) and (b) the offer is the opposite ("married"); it passes,
 // taking the offer, when the offer is the story's answer.
+// The understood card (Jason's live test, 26 Nov 2026): "Here is what we understood" showed $10,000 and the date, then the
+// chat offered both again. The card's lines are recorded as shown (kind "show"), and the matrix counts any later offer or
+// question for a fact the card showed as asked twice (askOnce.ts shownThenAsked). A card line with no fact gives nothing.
+{
+  const shown = (label: string, value: string, fact?: string): Asked => ({ kind: "show", surface: "home-understood", id: fact ?? label, screen: "/", text: `${label} ${value}`, at: ++at });
+  const factsOf = (item: Asked) => factsOfAsk(item).join();
+  check("the card's \"Amount sought\" line is the amount", factsOf(shown("Amount sought", "$10,000")) === "amount", factsOf(shown("Amount sought", "$10,000")));
+  check("the card's \"Date of statement\" line is when it happened", factsOf(shown("Date of statement", "September 14, 2025")) === "whenHappened", factsOf(shown("Date of statement", "September 14, 2025")));
+  check("the card's \"Court filing\" line is whether anything is filed", factsOf(shown("Court filing", "Nothing filed")) === "filed", factsOf(shown("Court filing", "Nothing filed")));
+  check("the card's \"Other party\" line is the other party", factsOf(shown("Other party", "Your uncle's ex-girlfriend")) === "otherParty", factsOf(shown("Other party", "x")));
+  check("a card line marked with its fact is that fact", factsOf(shown("Kind of claim", "Defamation", "claimKind")) === "claimKind", factsOf(shown("Kind of claim", "Defamation", "claimKind")));
+  check("a card line with no fact gives none", factsOfAsk(shown("Location", "Not given")).length === 0, factsOf(shown("Location", "Not given")));
+  const card = shown("Amount sought", "$10,000");
+  const offer = ask("sc-proposal", "sc-amount-claimed", "The amount $10,000.00 Yes No, that's not right I'm not sure");
+  const counted = shownThenAsked([card, offer]);
+  check("shown on the understood card, then offered in the chat: asked twice", counted.length === 1 && counted[0].fact === "amount", JSON.stringify(counted));
+  check("offered in the chat with no card line for it: not a repeat", shownThenAsked([offer]).length === 0);
+  check("asked BEFORE the card showed it: not a repeat", shownThenAsked([{ ...offer, at: 0 }, card]).length === 0);
+  check("the start's own questions are not repeats of the card", shownThenAsked([shown("Court filing", "Nothing filed"), ask("situation", "filed")]).length === 0);
+  check("a shown line is not an ask: the ask-once page test's repeats are unchanged", repeatViolations(factsAskedTwice([card, offer], false)).length === 0);
+}
+
 async function triageHelperChecks(): Promise<void> {
   const page = (offer: { shown: boolean; value?: string }) => {
     const clicks: string[] = [];

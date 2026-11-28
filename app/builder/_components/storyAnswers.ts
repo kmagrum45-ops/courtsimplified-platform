@@ -512,7 +512,7 @@ const OTHER_SIDE =
   "[Mm]y (?:ex(?:[- ]?(?:wife|husband|gf|bf|girlfriend|boyfriend|partner|spouse|fianc[eé]e?))?|wife|husband|partner|spouse|fianc[eé]e?|girlfriend|boyfriend|common[- ]law(?: (?:wife|husband|partner|spouse))?|(?:sons?|daughters?|kids?|child|children|baby|boy|girl)(?:'s|’s|')? (?:mom|mum|mother|dad|father))";
 /** Anyone else the person names by how they know them: labelled for the model, never offered as the other side. */
 const OTHER_PEOPLE =
-  "[Mm]y (?:(?:old|former|new|previous|current|late|step|younger|older|little|big)[- ]?)?(?:sons?|daughters?|child|kids?|baby|stepson|stepdaughter|mother|father|mom|mum|dad|brothers?|sisters?|grandmother|grandfather|grandma|grandpa|aunt|uncle|cousin|friend|roommate|landlord|landlady|boss|manager|supervisor|employer|neighbou?r|tenant|contractor|lawyer|doctor|business partner|client|customer|co-?worker|colleague|employee|supplier)";
+  "[Mm]y (?:(?:old|former|new|previous|current|late|step|younger|older|little|big)[- ]?)?(?:sons?|daughters?|child|kids?|baby|stepson|stepdaughter|mother|father|mom|mum|dad|brothers?|sisters?|grandmother|grandfather|grandma|grandpa|aunt|uncle|cousin|friend|roommate|landlord|landlady|boss|manager|supervisor|employer|neighbou?r|tenant|contractor|lawyer|doctor|business partner|client|customer|co-?worker|colleague|employee|supplier)(?:(?:'s|’s|s)\\s+ex[- ]?(?:girlfriend|boyfriend|wife|husband|partner|gf|bf))?";
 /**
  * A full name (first and last) that is not a court or a place ("Superior Court", "Small Claims", "Ottawa Ontario"): for
  * the two patterns below that find a name with no relationship word before it (journey matrix, 25 Nov 2026: "Jordan
@@ -541,6 +541,24 @@ export const STORY_NAME_PATTERNS: readonly { role: NameRole; pattern: RegExp }[]
   // A title, anywhere: "Dr. Kenwyn Opie", "Ms. Locryn Tregear", "Mrs Morvoren Hocking".
   { role: "person", pattern: new RegExp(`${LEAD}(?:Mr|Mrs|Ms|Miss|Mx|Dr)\\.?\\s+(${NAME_WORD}(?:\\s+${NAME_WORD}){0,2})`, "u") },
 ];
+
+/**
+ * Every name the patterns above find in the person's words, each once, with how the words relate them (site owner,
+ * 22 Nov 2026, batch (a3); moved here from security/requestNames.ts on 26 Nov 2026 so the screens read the same finder
+ * the label layer does, without its server code). A name written in a way no pattern knows is not found.
+ */
+export function namesInStory(words: string): { name: string; role: NameRole }[] {
+  const out: { name: string; role: NameRole }[] = [];
+  for (const sentence of sentences(words)) {
+    for (const { role, pattern } of STORY_NAME_PATTERNS) {
+      for (const match of sentence.matchAll(new RegExp(pattern.source, `${pattern.flags}g`))) {
+        const name = match[1].trim();
+        if (isStoryName(name) && !out.some((held) => held.name.toLowerCase() === name.toLowerCase())) out.push({ name, role });
+      }
+    }
+  }
+  return out;
+}
 
 export function isStoryName(name: string): boolean {
   return !NOT_A_NAME.test(name) && !MONTH_NAMES.test(name) && !Object.keys(CITIES).includes(name.toLowerCase());

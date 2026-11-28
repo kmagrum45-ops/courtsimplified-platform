@@ -20,6 +20,7 @@
  * Pure: no React, no network.
  */
 import { formatForCourt, isRealIsoDate } from "../dates";
+import { factApplies } from "../caseFile/factRegistry";
 import TOPS from "./firstPageTops.json";
 import { findStage, pathwayOf, stagesForPathway, type CaseStage } from "../stage-map/stageMap";
 import { movesFrom, STARTING_POINTS } from "../stage-map/stageSequence";
@@ -112,6 +113,33 @@ export function courtOfPapers(situation: Situation): SituationCourt | null {
  * area the person picked (the landing page's ?path): their own choice answers (e) unless
  * their papers say another court, which is then asked about (never switched for them).
  */
+/**
+ * Nothing filed yet: the person said they want to start a case, and did not answer, in an older version of the start,
+ * that something was already filed. "I want to start a case" says nothing is filed; a case already filed is "A case is
+ * already going" (site owner, Round 6, 25 Nov 2026).
+ */
+export function nothingFiled(situation: Situation): boolean {
+  return situation.where === "starting" && situation.filed !== "something";
+}
+/** Something already filed, said by an older start that still asked it after "I want to start a case". */
+export function somethingFiled(situation: Situation): boolean {
+  return situation.where === "starting" && situation.filed === "something";
+}
+
+/**
+ * Whether a start question applies to these answers: the one rule, read by the order below and by the Change review of
+ * the start (SituationQuestions.tsx kept its own copy until 25 Nov 2026). "filed" reads the registry (factRegistry.ts).
+ */
+export function situationQuestionApplies(question: SituationQuestion, situation: Situation): boolean {
+  if (question === "where") return true;
+  if (question === "stage") return situation.where === "going" || situation.where === "served";
+  if (question === "started") return situation.where === "going";
+  if (question === "papers" || question === "received") return situation.where === "served" || (situation.where === "going" && situation.started === "them");
+  if (question === "filed") return situation.where === "starting" && factApplies("filed", { court: situation.court ?? null, side: "bringing", nothingFiled: nothingFiled(situation) });
+  if (question === "court") { const papers = courtOfPapers(situation); return !situation.court || situation.courtFrom === "asked" || (papers !== null && papers !== situation.court); }
+  return false;
+}
+
 export function nextSituationQuestion(situation: Situation, chosenCourt: SituationCourt | null): SituationQuestion | null {
   if (!situation.where) return "where";
   if (situation.where === "going" && !situation.started) return "started";
@@ -119,7 +147,9 @@ export function nextSituationQuestion(situation: Situation, chosenCourt: Situati
     if (!situation.papers) return "papers";
     if (!situation.receivedOn) return "received";
   }
-  if (situation.where === "starting" && !situation.filed) return "filed";
+  // "Has anything been filed?" only where the registry says it applies (factRegistry.ts): never after "I want to start a
+  // case", which already says nothing is filed (Chrome test of #563, 25 Nov 2026). An older answer is kept as it is.
+  if (situation.where === "starting" && !situation.filed && factApplies("filed", { court: situation.court ?? null, side: "bringing", nothingFiled: nothingFiled(situation) })) return "filed";
   if (!situation.court) return "court";
   const papersCourt = courtOfPapers(situation);
   if (papersCourt && papersCourt !== situation.court) return "court";
@@ -235,7 +265,7 @@ export function situationLine(situation: Situation): string | null {
   const page = firstPageOf(situation.papers);
   if (page) parts.push(`${page.title} (Form ${page.number})`);
   if (situation.receivedOn && situation.receivedOn !== "unknown") parts.push(`${situation.where === "served" ? "served" : "received"} ${formatForCourt(situation.receivedOn)}`);
-  if (situation.where === "starting" && situation.filed === "nothing") parts.push("nothing filed yet");
+  if (nothingFiled(situation)) parts.push("nothing filed yet");
   const step = stepFromSituation(situation, situation.court);
   if (step) parts.push(`now: “${findStage(step)!.userQuestion}”`);
   return parts.join(" · ");
@@ -304,14 +334,14 @@ export function situationAnswers(court: SituationCourt, situation: Situation): S
   if (!side) return out;
   out.role = court === "family" ? (side === "bringing" ? "applicant" : "respondent") : side === "bringing" ? "plaintiff" : "defendant";
   if (court === "small-claims") out.questionIds.push("sc-orient-role");
-  if (situation.where === "starting" && situation.filed === "nothing") out.documents = ["nothing"];
+  if (nothingFiled(situation)) out.documents = ["nothing"];
   // Papers exist when something was filed, or they were served: "Nothing filed yet" is not an answer then.
   // A case already going has papers filed too (finding 1).
-  if ((situation.where === "starting" && situation.filed === "something") || side === "responding" || situation.where === "going") out.excludeDocuments = ["nothing"];
+  if (somethingFiled(situation) || side === "responding" || situation.where === "going") out.excludeDocuments = ["nothing"];
   const step = stepFromSituation(situation, court);
   out.caseStage =
     situation.where === "starting"
-      ? situation.filed === "something" ? "already-started" : "starting-case"
+      ? somethingFiled(situation) ? "already-started" : "starting-case"
       : situation.where === "served"
         ? step ? broadStageOfStep(step) : "responding"
         : situation.where === "going" && situation.stage
@@ -324,11 +354,11 @@ export function situationAnswers(court: SituationCourt, situation: Situation): S
   const document = situation.papers ? DOCUMENT_OF_PAPERS[situation.papers] : undefined;
   if (document && courtOfPapers(situation) === court) out.documents = [document];
   if (court === "small-claims") {
-    if (situation.where === "starting" && situation.filed) out.claimFiled = situation.filed === "something";
+    if (situation.where === "starting") out.claimFiled = somethingFiled(situation);
     // Nothing filed means nothing served: a story that mentions some other claim ("serves him with a
     // claim", the other side's) must not open "Has the other party filed a Defence?" or "what date was
     // it served?" (26 Oct re-test, case 19 with "No, nothing yet").
-    if (situation.where === "starting" && situation.filed === "nothing") out.claimServed = false;
+    if (nothingFiled(situation)) out.claimServed = false;
     // They started a case already going: their claim is filed.
     if (situation.where === "going" && situation.started === "me") out.claimFiled = true;
     if (side === "responding" && situation.papers === "small-claims-7A") { out.claimFiled = true; out.claimServed = true; }
@@ -417,7 +447,7 @@ export function withoutSituationDates(answers: Record<string, string>, court: st
  */
 export function stageFromSituation(situation: Situation): { stage: "starting-case" | "responding"; because: string } | null {
   if (situation.where === "served") return { stage: "responding", because: "You told us you were served with court papers" };
-  if (situation.where === "starting" && situation.filed === "nothing") return { stage: "starting-case", because: "You told us nothing has been filed yet" };
+  if (nothingFiled(situation)) return { stage: "starting-case", because: "You told us nothing has been filed yet" };
   return null;
 }
 
@@ -472,6 +502,6 @@ export function sideContradiction(situation: Situation, storySide: "bringing" | 
 /** Whether a case is started, as the situation answers say: undefined when they do not say yet. */
 export function filedFromSituation(situation: Situation): boolean | undefined {
   if (situation.where === "going" || situation.where === "served") return true;
-  if (situation.where === "starting" && situation.filed) return situation.filed === "something";
+  if (situation.where === "starting") return somethingFiled(situation);
   return undefined;
 }

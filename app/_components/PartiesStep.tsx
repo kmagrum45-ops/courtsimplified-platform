@@ -122,7 +122,8 @@ export default function PartiesStep({ heading = "The parties" }: { heading?: str
 
   // The other party's name: the answer the case holds (not from this step), else the story reading's (storyOffers.ts).
   const heldOther = heldOtherName(file);
-  const named = heldOther ? { value: heldOther, quote: heldOther } : offeredOtherParty(storyOfFile(file), readingFactsOf(view?.checkpoint.sections as Record<string, unknown> | undefined, storyOfFile(file)));
+  // Small Claims: when the reading names no one (names are hidden from the AI), the story's own words, read with no AI.
+  const named = heldOther ? { value: heldOther, quote: heldOther } : offeredOtherParty(storyOfFile(file), readingFactsOf(view?.checkpoint.sections as Record<string, unknown> | undefined, storyOfFile(file)), { court });
   // What the person gave outside the story too: the city at the start, and an address typed as an answer (findings 2, 3).
   const sections = view?.checkpoint.sections as Record<string, unknown> | undefined;
   const offers = storyPartyOffers(storyOfFile(file), record, named, { location: locationOf((sections ?? {}) as never), answered: answeredInIntake(sections) });

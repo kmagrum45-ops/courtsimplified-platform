@@ -1,0 +1,15 @@
+{
+  "story": "matrix-family-starting",
+  "reading": "r1",
+  "recorded": "2026-11-25",
+  "note": "Real model outputs for a made-up story (AI_FIXTURES=record).",
+  "entries": [
+    {
+      "step": "story-reading",
+      "input": "ec22054866433ca5",
+      "said": "{\"sent\":\"Taylor Testparent and I separated in June 2026 after living together for six years. We were never married. Our son is 5 and lives with me. I want a parenting schedule and child support.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\",\"chosen\":null}",
+      "output": "{\n  \"summary\": \"You separated from your former partner in June 2026 after living together for six years, and you were never married. Your five-year-old son lives with you, and you want a parenting schedule and child support. You are bringing the case, but nothing has been filed with a court yet.\",\n  \"facts\": [\n    {\"label\": \"Relationship\", \"value\": \"Lived together for six years; never married\"},\n    {\"label\": \"Separation\", \"value\": \"June 2026\"},\n    {\"label\": \"Child\", \"value\": \"One son, age five\"},\n    {\"label\": \"Child's home\", \"value\": \"Lives with you\"},\n    {\"label\": \"Your role\", \"value\": \"Person bringing the case\"},\n    {\"label\": \"What you want\", \"value\": \"A parenting schedule and child support\"},\n    {\"label\": \"Court status\", \"value\": \"Nothing filed\"},\n    {\"label\": \"Location\", \"value\": \"Not given\"}\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Parenting arrangements and child support\",\n      \"court\": \"family\",\n      \"forum\": \"Ontario Court of Justice or Superior Court of Justice (Family Court), depending on location\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You have not started a court case and want parenting arrangements and child support.\",\n  \"questions\": [\n    {\n      \"question\": \"In which municipality and province does your son live?\",\n      \"why\": \"His location helps identify the appropriate court.\"\n    },\n    {\n      \"question\": \"What parenting arrangement do you and your former partner currently follow?\",\n      \"why\": \"This identifies the current arrangement and what remains unresolved.\"\n    },\n    {\n      \"question\": \"Are there any concerns about violence, threats, or your son's safety with either parent?\",\n      \"why\": \"Safety concerns can affect the parenting arrangements being sought.\"\n    },\n    {\n      \"question\": \"What is your former partner's approximate annual income, if you know?\",\n      \"why\": \"Their income is important to understanding the child support issue.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}",
+      "ms": 15940
+    }
+  ]
+}

@@ -27,6 +27,8 @@ import { extractIntakeFactsWithConfidence } from "../../../src/lib/case-system/i
 import { classifyClaimTypeWithAi } from "../../../src/lib/case-system/intake/claimTypeAiClassifier";
 import { proposeAnswersFromStory } from "../../../src/lib/case-system/intake/storyAnswerProposals";
 import { realStep } from "./aiFixtures";
+import { bodyNameLabels, withRequestNames } from "../../../src/lib/security/requestNames";
+import { withNameLabelsFor } from "../../../src/lib/case-system/privacy/modelNameContext";
 import { createClassifyClaimTypePost } from "../../../app/api/intake/classify-claim-type/route";
 import { resolveClaimTypeSuggestion } from "../../../src/lib/case-system/intake/claimTypeSuggestionResolution";
 import { checkedAnswerView } from "../../../src/lib/case-system/retrieval/checkedAnswer";
@@ -61,7 +63,9 @@ function visitorFor(page: Page): string {
 async function viaHandler(route: Route, handler: (request: never) => Promise<Response>, page?: Page) {
   const request = route.request();
   const headers: Record<string, string> = { "content-type": "application/json", ...(page ? { "x-forwarded-for": visitorFor(page) } : {}) };
-  const response = await handler(new Request(request.url(), { method: request.method(), headers, body: request.postData() ?? undefined }) as never);
+  // Through the site's own name labels, as the live route is (security/requestNames.ts): a recording sends the model
+  // what the live site would, never a name the labels hide (site owner, 25 Nov 2026; aiFixtures.ts installSendGuard).
+  const response = await withRequestNames(handler as (request: Request) => Promise<Response>)(new Request(request.url(), { method: request.method(), headers, body: request.postData() ?? undefined }));
   return route.fulfill({ status: response.status, contentType: "application/json", body: await response.text() });
 }
 
@@ -143,7 +147,7 @@ async function serveHomeReading(page: Page, court: Court, questions: readonly st
     const body = route.request().postDataJSON() as { story: string; answers?: { question: string; answer: string }[]; situation?: { side?: string } };
     const asked = body.answers?.length ? [] : questions;
     // A real-AI fixture: the model's own reading of what understandCase sends it (aiFixtures.ts).
-    const reason = realAi ? (sent: string, chosen?: unknown) => realStep(realAi, "story-reading", { sent, chosen: chosen ?? null }, () => reasonWithModel(sent, (chosen ?? null) as never, undefined, undefined, true)) : async () => JSON.stringify({ summary: "Synthetic reading.", facts, matters: [{ title: "Your matter", court }], mainCourt: court, side: body.situation?.side ?? "unclear", stage: "", questions: asked.map((question) => ({ question, why: "Synthetic." })), asksForPrediction: false, step: null, points: [] });
+    const reason = realAi ? (sent: string, chosen?: unknown) => realStep(realAi, "story-reading", { sent, chosen: chosen ?? null }, () => withNameLabelsFor(bodyNameLabels(body as Record<string, unknown>), () => reasonWithModel(sent, (chosen ?? null) as never, undefined, undefined, true))) : async () => JSON.stringify({ summary: "Synthetic reading.", facts, matters: [{ title: "Your matter", court }], mainCourt: court, side: body.situation?.side ?? "unclear", stage: "", questions: asked.map((question) => ({ question, why: "Synthetic." })), asksForPrediction: false, step: null, points: [] });
     const result = await understandCase({ story: body.story, ...(body.answers ? { answers: body.answers } : {}), ...(body.situation ? { situation: body.situation } : {}) } as never, { reason, intakeOnly: true, check: { answer: async () => ({ status: "unavailable", statements: [], notConfirmed: [], declinedToJudge: false, missingLaw: [] }) } as never });
     if (result.status !== "understood") return route.fulfill({ json: { ok: true, skipped: "unavailable" } });
     return route.fulfill({ json: { ok: true, understanding: result.understanding, answer: checkedAnswerView(result.answer) } });
@@ -174,7 +178,8 @@ export async function serveModelStandIns(page: Page, court: Court, ownerId: stri
     if (!real) return route.fulfill({ json: { primaryPath: court, confidence: 0.95 } });
     const body = route.request().postDataJSON() as { story?: string; declaredCourtPath?: string | null };
     const input = { story: String(body.story ?? "").slice(0, 4_000).trim(), declaredCourtPath: body.declaredCourtPath ?? null };
-    return route.fulfill({ json: await realStep(real, "court-suggestion", input, () => classifyCourtPath(input)) });
+    // Through the site's name labels, as the live route is (withRequestNames on /api/classify-court-path).
+    return route.fulfill({ json: await realStep(real, "court-suggestion", input, () => withNameLabelsFor(bodyNameLabels(body as Record<string, unknown>), () => classifyCourtPath(input))) });
   });
   await page.route("**/api/assistant/law", (route) => refusedByRoute(route, "assistant/law") ?? route.fulfill({ json: { findings: [] } }));
   await page.route("**/api/intake/guided-turn", (route) => {

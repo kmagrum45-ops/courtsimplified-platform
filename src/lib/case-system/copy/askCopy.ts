@@ -10,6 +10,9 @@
  */
 export const NOTHING_LEFT_TO_ASK = "Everything we need for now is already answered.";
 
+/** The new Small Claims flow's Questions page heading (SC_FLOW_V2, 26 Nov 2026): every question still unknown, on one page. */
+export const QUESTIONS_PAGE_HEADING = "What we still need to know";
+
 /**
  * WHAT EVERY SCREEN SAYS FOR A FACT THE PERSON SAID THEY DO NOT KNOW (site owner, 31 Oct).
  *

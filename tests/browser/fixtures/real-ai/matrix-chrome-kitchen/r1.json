@@ -1,0 +1,103 @@
+{
+  "story": "matrix-chrome-kitchen",
+  "reading": "r1",
+  "recorded": "2026-11-25",
+  "note": "Real model outputs for a made-up story (AI_FIXTURES=record).",
+  "entries": [
+    {
+      "step": "story-reading",
+      "input": "d812004fcc9b0e5e",
+      "said": "{\"sent\":\"I hired TEST Fakebuild Contracting Inc. to renovate my kitchen in Ottawa. In March 2026 I paid them a $12,500 deposit by e-transfer. They never started the work and stopped answering my calls and emails. On April 20, 2026 I sent them a demand letter by email asking for the deposit back within 14 days, and they never replied. I want my $12,500 deposit back, plus interest and my court costs.\\n\\nI am the one bringing this case.\\n\\nNothing has been filed with a court yet.\",\"chosen\":null}",
+      "output": "{\n  \"summary\": \"You hired a contractor to renovate your kitchen in Ottawa and paid a $12,500 deposit by e-transfer in March 2026. They never started the work and stopped answering your calls and emails. You emailed a demand letter on April 20, 2026 asking for your deposit back within 14 days, but received no reply. You want your deposit back, plus interest and court costs, and nothing has been filed with a court.\",\n  \"facts\": [\n    {\n      \"label\": \"Your role\",\n      \"value\": \"Person bringing the claim\"\n    },\n    {\n      \"label\": \"Other party\",\n      \"value\": \"Contractor hired to renovate your kitchen\"\n    },\n    {\n      \"label\": \"Location\",\n      \"value\": \"Ottawa, Ontario\"\n    },\n    {\n      \"label\": \"Deposit\",\n      \"value\": \"$12,500 paid by e-transfer in March 2026\"\n    },\n    {\n      \"label\": \"Work performed\",\n      \"value\": \"None\"\n    },\n    {\n      \"label\": \"Communication\",\n      \"value\": \"Contractor stopped answering calls and emails\"\n    },\n    {\n      \"label\": \"Demand letter\",\n      \"value\": \"Emailed April 20, 2026, requesting repayment within 14 days; no reply\"\n    },\n    {\n      \"label\": \"Amount sought\",\n      \"value\": \"$12,500 plus interest and court costs\"\n    },\n    {\n      \"label\": \"Court filing\",\n      \"value\": \"Nothing filed\"\n    },\n    {\n      \"label\": \"Contracting party's legal identity\",\n      \"value\": \"Not given\"\n    }\n  ],\n  \"matters\": [\n    {\n      \"title\": \"Return of kitchen renovation deposit\",\n      \"court\": \"small-claims\",\n      \"forum\": \"Small Claims Court\"\n    }\n  ],\n  \"side\": \"starting\",\n  \"stage\": \"You have demanded repayment of your deposit, but have not started a court case.\",\n  \"questions\": [\n    {\n      \"question\": \"Who did you make the renovation agreement with: an individual, a corporation, or someone using a business name?\",\n      \"why\": \"This identifies who your claim is against.\"\n    },\n    {\n      \"question\": \"What did you and the contractor agree about when the work would start?\",\n      \"why\": \"The agreed timing helps clarify the dispute over work that never began.\"\n    },\n    {\n      \"question\": \"What did your agreement say about cancellation or returning the deposit?\",\n      \"why\": \"Those terms may affect your request for repayment.\"\n    }\n  ],\n  \"asksForPrediction\": false,\n  \"step\": null,\n  \"points\": []\n}",
+      "ms": 14581
+    },
+    {
+      "step": "safety",
+      "input": "64206488cca9cca8",
+      "said": "{\"said\":\"I hired TEST Fakebuild Contracting Inc. to renovate my kitchen in Ottawa. In March 2026 I paid them a $12,500 deposit by e-transfer. They never started the work and stopped answering my calls and emails. On April 20, 2026 I sent them a demand letter by email asking for the deposit back within 14 days, and they never replied. I want my $12,500 deposit back, plus interest and my court costs.\"}",
+      "output": {
+        "classification": "clear",
+        "requestsLegalAdvice": false
+      },
+      "ms": 4488
+    },
+    {
+      "step": "fact-reading",
+      "input": "64206488cca9cca8",
+      "said": "{\"said\":\"I hired TEST Fakebuild Contracting Inc. to renovate my kitchen in Ottawa. In March 2026 I paid them a $12,500 deposit by e-transfer. They never started the work and stopped answering my calls and emails. On April 20, 2026 I sent them a demand letter by email asking for the deposit back within 14 days, and they never replied. I want my $12,500 deposit back, plus interest and my court costs.\"}",
+      "output": {
+        "facts": {
+          "role": "plaintiff",
+          "disputeCategory": "work-or-services"
+        },
+        "directFields": [
+          "role",
+          "disputeCategory"
+        ]
+      },
+      "ms": 12341
+    },
+    {
+      "step": "story-suggestions",
+      "input": "6c8b87d92dd4d073",
+      "said": "{\"story\":\"I hired TEST Fakebuild Contracting Inc. to renovate my kitchen in Ottawa. In March 2026 I paid them a $12,500 deposit by e-transfer. They never started the work and stopped answering my calls and emails. On April 20, 2026 I sent them a demand letter by email asking for the deposit back within 14 days, and they never replied. I want my $12,500 deposit back, plus interest and my court costs.\",\"questions\":[\"sc-orient-when-happened\",\"sc-orient-dispute-category\",\"sc-amount-claimed\",\"sc-remedy-sought\"],\"quoteFrom\":null}",
+      "output": [
+        {
+          "questionId": "sc-orient-when-happened",
+          "questionText": "Roughly when did the situation that led to this claim happen?",
+          "answer": "March 2026",
+          "storyQuote": "In March 2026 I paid them a $12,500 deposit by e-transfer.",
+          "dateQuestion": true
+        },
+        {
+          "questionId": "sc-orient-dispute-category",
+          "questionText": "What kind of dispute is this?",
+          "answer": "A deposit that wasn't returned",
+          "storyQuote": "I want my $12,500 deposit back",
+          "choices": [
+            "Unpaid money owed to you",
+            "A contract or agreement dispute",
+            "Property damage",
+            "A loan or debt",
+            "Work or a service you paid for (e.g. a contractor)",
+            "A deposit that wasn't returned",
+            "A consumer purchase problem",
+            "A vehicle-related dispute",
+            "Something said about you (defamation)",
+            "A personal injury (a fall, an animal bite, or similar)",
+            "Something else"
+          ]
+        },
+        {
+          "questionId": "sc-amount-claimed",
+          "questionText": "What is the total dollar amount you are claiming?",
+          "answer": "$12,500 plus interest and court costs",
+          "storyQuote": "I want my $12,500 deposit back, plus interest and my court costs."
+        },
+        {
+          "questionId": "sc-remedy-sought",
+          "questionText": "What outcome are you asking the court to order?",
+          "answer": "Return of my $12,500 deposit, plus interest and my court costs.",
+          "storyQuote": "I want my $12,500 deposit back, plus interest and my court costs."
+        }
+      ],
+      "ms": 8356
+    },
+    {
+      "step": "fact-reading",
+      "input": "4a568799d0a48d2f",
+      "said": "{\"said\":\"Q: Roughly when did the situation that led to this claim happen?\\nA: March 2026\\n\\nQ: What kind of dispute is this?\\nA: A deposit that wasn't returned\\n\\nQ: What is the total dollar amount you are claiming?\\nA: $12,500 plus interest and court costs\\n\\nQ: What outcome are you asking the court to order?\\nA: Return of my $12,500 deposit, plus interest and my court costs.\"}",
+      "output": {
+        "facts": {
+          "role": "plaintiff",
+          "disputeCategory": "deposit-refund"
+        },
+        "directFields": [
+          "role",
+          "disputeCategory"
+        ]
+      },
+      "ms": 12083
+    }
+  ]
+}

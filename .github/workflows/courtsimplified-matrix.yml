@@ -1,0 +1,164 @@
+name: CourtSimplified journey matrix
+
+# THE JOURNEY MATRIX (site owner, Round 6, PR 1; 25 Nov 2026). Every story of tests/browser/matrix/matrixStories.ts
+# (one per starting point of the stage map, and Chrome's two from its test of #563), each driven signed in and as a
+# guest who describes their case then signs up, through the whole journey (ask-once-pages.spec.ts with MATRIX=1), on a
+# local Supabase stack per machine (scripts/browser/carryLocal.sh: never staging or production). The eleven checks run
+# over the records (scripts/browser/matrixReport.ts) into one table, uploaded as matrix-report.
+#
+# Three modes:
+#   report  (every pull request into main, every push to main; the default by hand): every AI step replayed from the
+#           story's recording (tests/browser/fixtures/real-ai/matrix-*), at the speed the model took when recorded.
+#           No AI call, no OpenAI secret, no cost, the same result every run. REPORT ONLY: it never turns main red
+#           (the last step of Round 6 makes it a required check, MATRIX_GATE=1).
+#   record  (by hand only): the real model answers each story once and its readings are saved, uploaded as an artifact
+#           to be committed. Spends OpenAI money once per story.
+#   verify  (nightly, and by hand): the real model answers the same inputs; each answer is compared with its recording
+#           by what the site acts on (aiFixtures.ts driftOf) and every difference is listed in the report.
+# In record and verify, no request to OpenAI may hold a name a story lists (aiFixtures.ts installSendGuard): it is
+# stopped before it is sent.
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  schedule:
+    # 07:30 UTC, 02:30 or 03:30 in Toronto.
+    - cron: "30 7 * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "report (recordings only, free), record (real model once, saves readings), verify (real model, compares)"
+        required: true
+        default: report
+        type: choice
+        options: [report, record, verify]
+
+permissions:
+  contents: read
+
+jobs:
+  matrix-shard:
+    name: matrix (${{ matrix.shard }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    # Report only: a shard that fails or times out never turns the run red (Round 6, PR 1).
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - shard: 1
+            stories: chrome-kitchen chrome-alex chrome-defamation
+          - shard: 2
+            stories: sc-deciding-to-sue sc-served-defendant chrome-defamation-screenshots
+          - shard: 3
+            stories: sc-wrong-place civil-deciding-to-sue
+          - shard: 4
+            stories: civil-served-defendant civil-third-party
+          - shard: 5
+            stories: civil-counterclaim-new-party civil-case-management
+          - shard: 6
+            stories: civil-lawyer-removed civil-lien-on-title
+          - shard: 7
+            stories: civil-lien-claimant family-starting
+          - shard: 8
+            stories: family-served-respondent family-motion-to-change
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
+      NEXT_TELEMETRY_DISABLED: 1
+      AI_RATE_LIMITS: local
+      MATRIX: "1"
+      MODE: ${{ github.event_name == 'schedule' && 'verify' || inputs.mode || 'report' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # Record and verify call the real model: today's spend is shown first (scripts/ai/spendGuard.mjs, 2026-10-08).
+      - name: Check today's OpenAI spend
+        if: env.MODE != 'report'
+        env:
+          OPENAI_ADMIN_KEY: ${{ secrets.OPENAI_ADMIN_KEY }}
+        run: node scripts/ai/spendGuard.mjs
+
+      - run: npm ci
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 2.109.0
+      - run: npx playwright install --with-deps chromium
+
+      - name: The model's key, for the test process only (record and verify)
+        if: env.MODE != 'report'
+        env:
+          KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          umask 077
+          printf 'OPENAI_API_KEY=%s\n' "$KEY" > "$RUNNER_TEMP/ai.env"
+
+      - name: The matrix, shard ${{ matrix.shard }} (${{ env.MODE }})
+        env:
+          CARRY_SPEC: tests/browser/ask-once-pages.spec.ts
+          CARRY_PORT: "3100"
+          CARRY_OUT: ${{ github.workspace }}/matrix-out
+        run: |
+          export CARRY_GREP="matrix -- ($(echo ${{ matrix.stories }} | tr ' ' '|')) "
+          if [ "$MODE" = record ]; then export AI_FIXTURES=record CARRY_REAL_AI=1 CARRY_REAL_AI_ENV="$RUNNER_TEMP/ai.env"; fi
+          if [ "$MODE" = verify ]; then export AI_FIXTURES=verify CARRY_REAL_AI=1 CARRY_REAL_AI_ENV="$RUNNER_TEMP/ai.env"; fi
+          if [ "$MODE" = report ]; then export AI_REPLAY_REAL_SPEED=1; fi
+          echo "mode: $MODE  grep: $CARRY_GREP"
+          bash scripts/browser/carryLocal.sh || echo "the shard's spec exited non-zero; the report reads its records"
+          rm -f "$RUNNER_TEMP/ai.env"
+
+      - name: Keep the records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: matrix-records-${{ github.run_id }}-${{ github.run_attempt }}-shard${{ matrix.shard }}
+          path: |
+            matrix-records/**
+            matrix-out/*.log
+          retention-days: 14
+          if-no-files-found: ignore
+
+      - name: Keep the recordings (record mode)
+        if: always() && env.MODE == 'record'
+        uses: actions/upload-artifact@v4
+        with:
+          name: matrix-recordings-${{ github.run_id }}-shard${{ matrix.shard }}
+          path: tests/browser/fixtures/real-ai/matrix-*/**
+          retention-days: 14
+          if-no-files-found: ignore
+
+  # The one table: every shard's records through the eleven checks. Report only (never fails) until MATRIX_GATE=1.
+  matrix-report:
+    name: matrix report
+    needs: matrix-shard
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: matrix-records-${{ github.run_id }}-*
+          path: all-records
+      - name: The report
+        run: |
+          node --import tsx scripts/browser/matrixReport.ts all-records --out matrix-report
+          cat matrix-report/table.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: matrix-report-${{ github.run_id }}-${{ github.run_attempt }}
+          path: matrix-report/**
+          retention-days: 30

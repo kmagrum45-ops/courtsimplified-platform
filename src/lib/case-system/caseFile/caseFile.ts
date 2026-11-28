@@ -36,7 +36,7 @@ import { freshSections } from "../storyBasis";
 import { isTypedUnsure, isUnsureAnswer } from "./unsureAnswer";
 import { locationOf, storyOfMaster } from "../intakeStory";
 import { withoutGluedAnswers } from "../personWords";
-import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation, SERVED_DATE_QUESTION, JUST_SERVED } from "../situation/situation";
+import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation, SERVED_DATE_QUESTION, JUST_SERVED, nothingFiled, somethingFiled } from "../situation/situation";
 import { isKindOfClaim, kindFromStory, storyQuoteFor, wordsInStory } from "../intake/claimKind";
 import { CLAIM_TYPES } from "../intake/claimTypes";
 import { kindForSide } from "../intake/roleView";
@@ -73,6 +73,12 @@ export type Slot = { state: SlotState; value?: string | number | boolean | strin
 /** `answers`: every answer given to a named question (its id and words), for the step page's dates. */
 export type CaseFile = Record<SlotFact, Slot> & {
   answers?: Record<string, string>;
+  /** Questions answered "I'm not sure" in the review's or the new flow's questions (builder.initialUnknowns), by id: a
+   * question whose fact has no slot of its own is settled by this (missingFacts "questions"). Additive. */
+  unknownQuestions?: string[];
+  /** The new Small Claims flow only (flow/storyStated.ts): a fact with no slot of its own that the story states, not yet
+   * confirmed (what was paid, what was tried to settle it). Never set by caseFileOf. Additive. */
+  storyStated?: Partial<Record<"paymentHistory" | "settlementEfforts", { value: string; quote: string }>>;
   /** The papers the person said are filed, as stored (shown in words with "Anything filed yet"). */
   documents?: string[];
   /**
@@ -327,12 +333,13 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   const servedStep = situation.where === "served" ? stepFromSituation(situation, situation.court ?? court) : null;
   if (servedStep) give(file, "stage", servedStep, "situation:stage");
   else if (situation.where === "served") give(file, "stage", "responding", "situation:where");
-  if (situation.where === "starting" && situation.filed === "nothing") give(file, "stage", "starting-case", "situation:filed");
+  if (nothingFiled(situation)) give(file, "stage", "starting-case", "situation:filed");
   if (situation.where === "going" && situation.stage === "not-sure") give(file, "stage", "not-sure", "situation:stage");
   else if (situation.where === "going" && stepFromSituation(situation, situation.court ?? court)) give(file, "stage", situation.stage, "situation:stage");
   // An older record: "something filed" when starting is a case that has started (stageFromSituation agrees).
-  if (situation.where === "starting" && situation.filed === "something") give(file, "stage", "already-started", "situation:filed");
-  if (situation.where === "starting" && situation.filed) give(file, "filed", situation.filed === "something", "situation:filed");
+  if (somethingFiled(situation)) give(file, "stage", "already-started", "situation:filed");
+  // "I want to start a case" says nothing is filed (an older start's "something has been filed" is kept).
+  if (situation.where === "starting") give(file, "filed", somethingFiled(situation), "situation:filed");
   if (situation.where === "going" || situation.where === "served") give(file, "filed", true, "situation:where");
   if (situation.papers) give(file, "papers", situation.papers === "not-sure" ? "not-sure" : firstPageOf(situation.papers)?.title ?? situation.papers, "situation:papers");
   if (situation.receivedOn) give(file, "servedDate", situation.receivedOn === "unknown" ? "unknown" : situation.receivedOn, "situation:received");
@@ -445,6 +452,7 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
     for (const fact of slotsOf(id)) give(file, fact, answer, `review:${id}`);
   }
   for (const id of strings(builder.initialUnknowns)) for (const fact of slotsOf(id)) unsure(file, fact, `review:${id}`);
+  if (strings(builder.initialUnknowns).length) file.unknownQuestions = [...new Set(strings(builder.initialUnknowns))];
   // Skipped in the questions one at a time (civil, Family).
   for (const key of strings(object(sections["form-chat"]).skipped)) for (const fact of slotsOf(key)) unsure(file, fact, `chat:${key}`);
 
@@ -498,7 +506,13 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   if (!checkpoint && (savedArea === "civil" || savedArea === "family") && strings(extra.issues).length) give(file, "claimKind", strings(extra.issues), `${savedArea}:issues`);
   // The element record the analysis saved with the case (the depth phase's answers), for the Form 7A section.
   const savedElementStates = object(extra.elementStateMap);
-  if (Object.keys(savedElementStates).length) file.elementStates = savedElementStates;
+  // The element map: the analysis copy, then the checkpoint's own over it, element by element: the chat's depth record
+  // (guided.depthStateMap) and the new flow's map built when the kind is confirmed (flow.elementStates,
+  // flow/elementMapForKind.ts). The checkpoint's was read only for its answers, so a map built or answered there never
+  // reached the Form 7A checklist (site owner, 27 Nov 2026, decision 1: a contractor case with no map saved, every "I have
+  // this" threw). The new flow's is its own field: a "guided" section means the chat ran (chatRecorded below).
+  const elementStates = { ...savedElementStates, ...object(object(sections.guided).depthStateMap), ...object(object(sections.flow).elementStates) };
+  if (Object.keys(elementStates).length) file.elementStates = elementStates;
   depthAnswers(file, savedElementStates);
   // The checkpoint keeps the Small Claims chat's own record (its "guided" section, which "Start the questions again" resets).
   const chatRecorded = Boolean(checkpoint && checkpoint.sections.guided);

@@ -70,6 +70,8 @@ const source = (file: string) => readFileSync(file, "utf8").replace(/\r\n/g, "\n
 const CONFIRM_CONTROLS: { file: string; control: string; how: RegExp }[] = [
   { file: "app/_components/IntakeReviewPanel.tsx", control: "intake-confirm", how: /onClick=\{\(\) => void act\("confirm"\)\}/ },
   { file: "app/builder/_components/StageConfirmation.tsx", control: "stage-confirm", how: /if \(!saveOpenEditsBeforeConfirm\(setUnsaved\)\) return;/ },
+  // The new Small Claims flow's one review (SC_FLOW_V2, 26 Nov 2026).
+  { file: "app/builder/_flow/ReviewStep.tsx", control: "flow-review-confirm", how: /if \(!saveOpenEditsBeforeConfirm\(setError\)\) return;\n\s*setBusy\(true\);/ },
   { file: "app/builder/_components/EventCandidateSurface.tsx", control: "event-candidate-confirm", how: /async function confirm\(candidate: ResolvedCandidate\) \{\n\s*\/\/[^\n]*\n\s*if \(!saveOpenEditsBeforeConfirm\(setError\)\) return;/ },
   { file: "app/cases/_components/CaseWorkspace.tsx", control: "Confirm", how: /if \(!saveOpenEditsBeforeConfirm\(setUnsaved\)\) return;\n\s*setUnsaved\(""\);\n\s*void onSave\(document\.id, \{\n\s*userDate: document\.date,/ },
 ];
