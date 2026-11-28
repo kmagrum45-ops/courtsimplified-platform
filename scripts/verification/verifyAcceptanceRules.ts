@@ -60,6 +60,8 @@ const paragraph = "Initial questions establish your situation, side, what has ha
 check("a 60+ character sentence twice on one screen is flagged", duplicatesOn(`${paragraph}\nHere is what we have\n${paragraph}`).length > 0);
 check("the same sentence once is not", duplicatesOn(`${paragraph}\nHere is what we have`).length === 0);
 check("a citation twice on one screen is flagged", duplicatesOn("Rules of the Small Claims Court, O. Reg. 258/98, r. 7.01 (1). The law behind this: O. Reg. 258/98, r. 7.01 (1).").length > 0);
+check("(f) two clauses or paragraphs of one rule are two citations, not a duplicate", duplicatesOn("O. Reg. 258/98, r. 8.02 (a). O. Reg. 258/98, r. 8.02 (b). O. Reg. 332/16 (Small Claims Court fees), s. 1 (2), para. 1. O. Reg. 332/16 (Small Claims Court fees), s. 1 (2), para. 2.").length === 0, JSON.stringify(duplicatesOn("O. Reg. 258/98, r. 8.02 (a). O. Reg. 258/98, r. 8.02 (b). O. Reg. 332/16 (Small Claims Court fees), s. 1 (2), para. 1. O. Reg. 332/16 (Small Claims Court fees), s. 1 (2), para. 2.")));
+check("(f) the same clause twice is still a duplicate", duplicatesOn("O. Reg. 258/98, r. 8.02 (a). Again: O. Reg. 258/98, r. 8.02 (a).").length > 0);
 check("a citation once is not", duplicatesOn("Rules of the Small Claims Court, O. Reg. 258/98, r. 7.01 (1).").length === 0);
 
 // 4. Rule (b): the contractor story's date asked as a card (browser test of 27 Nov 2026, Test 3).

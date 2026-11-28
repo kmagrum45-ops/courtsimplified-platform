@@ -95,7 +95,11 @@ export function duplicatesOn(text: string): string[] {
   const counts = new Map<string, number>();
   for (const sentence of sentences) counts.set(sentence, (counts.get(sentence) ?? 0) + 1);
   for (const [sentence, n] of counts) if (n > 1) out.push(`${n}x sentence: "${sentence.slice(0, 120)}"`);
-  const CITATION = /\bO\. Reg\. \d+\/\d+(?:,? r(?:ule)?s?\.? ?\d+(?:\.\d+)*(?:\s?\(\d+(?:\.\d+)?\))*)?|\b\d{4} (?:SCC|ONCA|ONSC) \d+\b|\b(?:R\.S\.O\.|S\.O\.) \d{4}, c\. [A-Z]?\.?\s?\d+(?:\.\d+)?|\bs(?:ection)?s?\. \d+(?:\.\d+)?(?:\s?\(\d+(?:\.\d+)?\))+(?: of the [A-Z][A-Za-z ,]+Act)?/g;
+  // A citation is read whole, with its clause and paragraph: r. 8.02 (a) and r. 8.02 (b) are two rules, and
+  // "O. Reg. 332/16 (…fees), s. 1 (2), para. 1" and "… para. 2" are two (a script defect on the new results step's card,
+  // 28 Nov 2026: each was counted as the same citation twice).
+  const PIN = String.raw`\d+(?:\.\d+)*(?:\s?\(\d+(?:\.\d+)?\))*(?:\s?\([a-z]\))?(?:,? para\. \d+)?`;
+  const CITATION = new RegExp(String.raw`\bO\. Reg\. \d+\/\d+(?: \([^)]{1,60}\))?(?:,? (?:r(?:ule)?s?\.?|s\.) ?${PIN})?|\b\d{4} (?:SCC|ONCA|ONSC) \d+\b|\b(?:R\.S\.O\.|S\.O\.) \d{4}, c\. [A-Z]?\.?\s?\d+(?:\.\d+)?(?:, Sched\. [A-Z])?(?:, s\. ${PIN})?|\bs(?:ection)?s?\. \d+(?:\.\d+)?(?:\s?\(\d+(?:\.\d+)?\))+(?:\s?\([a-z]\))?(?:,? para\. \d+)?(?: of the [A-Z][A-Za-z ,]+Act)?`, "g");
   const cites = new Map<string, number>();
   for (const cite of text.match(CITATION) ?? []) cites.set(cite, (cites.get(cite) ?? 0) + 1);
   for (const [cite, n] of cites) if (n > 1) out.push(`${n}x citation: ${cite}`);
