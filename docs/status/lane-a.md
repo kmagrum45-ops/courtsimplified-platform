@@ -3,7 +3,14 @@
 Updated after every step (site owner's working agreement, 27 Nov 2026). Every claim is labelled PROVEN (shown by a run,
 a check or a command) or NOT PROVEN.
 
-**Updated:** 27 Nov 2026, evening (Toronto).
+**Updated:** 27 Nov 2026, evening (Toronto), after the review of `feat/catalogue-conditions`.
+
+## For review now
+
+- **Catalogue conditions, reviewed and corrected:** `docs/acceptance/catalogue-conditions-review.md` on `feat/catalogue-conditions` (75f7023e):
+  https://github.com/kmagrum45-ops/courtsimplified-platform/blob/feat/catalogue-conditions/docs/acceptance/catalogue-conditions-review.md
+- **The block table (step 3), KEEP / MERGE / DROP with appliesWhen:** `docs/acceptance/sc-results-blocks.md` on `feat/sc-results-step` (11c040f6):
+  https://github.com/kmagrum45-ops/courtsimplified-platform/blob/feat/sc-results-step/docs/acceptance/sc-results-blocks.md
 
 ## The one counting method
 
@@ -27,9 +34,13 @@ below.
 - **#568 merged** (65a3424a). CI was green on 3de6c63a (35 of 35). PROVEN. `case-workspace` fast-forwarded. #565 and
   #567 closed as inside it; every file they changed is on main. PROVEN.
 - **Step 2: a showing condition for every Small Claims catalogue item**, branch `feat/catalogue-conditions` (pushed,
-  21fe7d4d, no PR yet). All 1,496 items (642 elements, 358 considerations, 496 notes, 196 claim types) have a
-  condition, hidden by default; 152 wait on a fact, asked once; 34 notice or time-limit items show as one deadline
-  line whenever the kind is confirmed; set-off shows only for money owed. PROVEN by `test:catalogue-conditions` (red
+  75f7023e, no PR yet). All 1,496 items (642 elements, 358 considerations, 496 notes, 196 claim types) have a
+  condition, hidden by default; 138 wait on a fact, asked once; 35 notice or time-limit items show as one deadline
+  line whenever the kind is confirmed; set-off shows only for money owed. After the owner's review of 21fe7d4d: a
+  plaintiff element waits on a fact only from a hand-written list of 7 that quotes each element's own name; every other
+  element (635) shows whenever its kind is confirmed (PROVEN by `test:catalogue-conditions` 4e, red on 21fe7d4d with the
+  four reviewed elements, green now); the government fact needs a claim against a public body (the Line Fences Act
+  fence notes no longer wait on it); every note is named by its first sentence in the review file. PROVEN by `test:catalogue-conditions` (red
   with no conditions, green now). Review file: `docs/acceptance/catalogue-conditions-review.md` on that branch. Whether
   each generated condition is right is NOT PROVEN: it is for Cowork Claude's review.
 - **The acceptance script**, branch `test/acceptance-script` (pushed, 56e49c2e, tests only, no PR yet): rules (a) to
@@ -46,15 +57,17 @@ below.
 
 ## In progress
 
-- One table counted the same way: #568 with the switch off and on (all 10 stories), against main above.
-- Then step 3: the KEEP/MERGE/DROP table of the old results page, for Cowork Claude.
+- One table counted the same way: #568 with the switch off (running since 19:51) and on (next), all 10 stories,
+  against main above.
+- Step 3 table written and pushed (above), waiting on review; no results-step code until it is reviewed.
 
 ## Pushed, waiting
 
 | Branch | Commit | What | Next |
 |---|---|---|---|
-| `test/acceptance-script` | 56e49c2e | the acceptance script (tests only) | PR after the #568 runs |
-| `feat/catalogue-conditions` | 21fe7d4d | step 2, conditions | Cowork Claude's review, then a PR |
+| `test/acceptance-script` | cc316ab5 | the acceptance script (tests only), with the new-flow click path | PR after the #568 runs |
+| `feat/catalogue-conditions` | 75f7023e | step 2, conditions (reviewed once, corrected) | Cowork Claude's review, then a PR |
+| `feat/sc-results-step` | 11c040f6 | step 3 block table (doc only) | review, then the results step |
 | `fix/save-plain-words` | 2d0b4e78 | item D: no raw save errors, one retry; terminal test of a lost reply PROVEN | rebase on main, then a PR in its turn |
 | `fix/have-this-every-element` | fdcfdb9f | the "I have this" crash fix (WIP) | with the save-to-case change and the reload check (step 4) |
 | `fix/shared-causes` | 3b36e6c1 | "For:" once; "Not given" dropped (WIP, paused) | after the block table |
