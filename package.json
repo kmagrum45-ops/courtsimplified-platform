@@ -144,6 +144,7 @@
     "test:open-case": "node --import tsx scripts/verification/verifyOpenCase.ts",
     "test:readiness-gate": "node --import tsx scripts/verification/verifyReadinessGate.ts",
     "test:catalogue-conditions": "node --import tsx scripts/verification/verifyCatalogueConditions.ts",
+    "test:sc-results": "node --import tsx scripts/verification/verifyScResults.ts",
     "test:reasoning-contract": "node --import tsx scripts/verification/verifyReasoningContract.ts",
     "test:safety-regression": "node --import tsx scripts/verification/verifySafetyPassRegression.ts",
     "test:scenario": "node --import tsx scripts/verification/runScenario.ts",

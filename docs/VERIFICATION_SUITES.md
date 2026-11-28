@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-335 documented, 26 without a header.
+336 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -259,6 +259,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:sc-asker` | **THE SMALL CLAIMS ASKER (founder's plan, step 5, "the memory fix", 1 Nov): one saved record per case,**<br>one writer, one reader (caseFileOf), ONE ASKER -- the question engine (intake/asker.ts, used by selectQuestions.ts). Before any Small Claims question is shown, the engine asks the case file whether that question's fact is already held (answered, "not sure", or |
 | `npm run test:sc-flow-core` | **THE NEW SMALL CLAIMS FLOW'S CORE, WITHOUT A BROWSER (site owner, 26 Nov 2026, rebuild step 2).**<br>Checks, as properties, over every Small Claims story of the journey matrix (tests/browser/matrix/matrixStories.ts), signed in (with the story's recorded AI reading, tests/browser/fixtures/real-ai) and as a guest (no reading): 1. the story's facts become record |
 | `npm run test:sc-one-asker` | **ONE ASKER FOR EVERY SMALL CLAIMS SCREEN (founder's plan step 5, 1 Nov: "the one asker, not per screen:**<br>check caseFileOf before any question is shown"). The permanent check that keeps it so. |
+| `npm run test:sc-results` | **THE NEW SMALL CLAIMS RESULTS STEP, WITHOUT A BROWSER (site owner, 27 Nov 2026; block table approved with changes).**<br>Checks, as properties, over every Small Claims claim type in the catalogue: 1. every notice/time-limit item the generator marks (DEADLINE_LINE_ITEMS) is decided, kept or cut, exactly once (results/deadlineLines.ts), and every decision is for such an item; a ke |
 | `npm run test:screens-read-record` | **THE SMALL CLAIMS DEMO SCREENS READ ANSWERS FROM THE CASE RECORD, NOT FROM A COPY (site owner, 6 Nov 2026; Chrome**<br>check of #544 and the sweep that followed it). |
 | `npm run test:served-date-not-when` | **THE DAY A PERSON WAS SERVED IS NEVER SUGGESTED AS THE DAY THE DISPUTE HAPPENED (Chrome check of #547 at 0e0f7e9, G3a:**<br>"On October 28, 2026 I was served with a Plaintiff's Claim..." offered October 28, 2026 for "When it happened"). |
 | `npm run test:server-error-log` | **test:server-error-log -- the built-in error log records a server error**<br>without anything that identifies a person (src/lib/monitoring/ serverErrorLog.ts, instrumentation.ts; 2026-10-14 audit). |
