@@ -38,14 +38,18 @@ test("acceptance (s): the sign-up confirmation words are true", async ({ page },
   await page.locator("input[type=email]").fill(email);
   await page.locator("input[type=password]").fill(password);
   await page.getByRole("button", { name: "Create Secure Account" }).click();
-  const signedIn = page.getByTestId("signup-confirmed");
+  // The form's three answers (app/login/page.tsx): a session means signed in at once, and the page LEAVES /login
+  // (router.push); none means "Check your email" (signup-check-email); an error is the red box. (27 Nov 2026, second
+  // run: this waited for signup-confirmed, which only shows after the email link is clicked, and so read nothing.)
   const checkEmail = page.getByTestId("signup-check-email");
-  // A real answer: signed in, asked to confirm, or an alert with words in it (the page always has an empty alert box,
-  // which the first run took as the answer before the form had replied).
-  const spoken = page.getByRole("alert").filter({ hasText: /\S/ });
-  await expect(signedIn.or(checkEmail).or(spoken).first()).toBeVisible({ timeout: 60_000 }).catch(() => {});
-  const alertWords = (await spoken.first().innerText().catch(() => "")).replace(/\s+/g, " ").slice(0, 200);
-  const answer = (await signedIn.isVisible().catch(() => false)) ? "signed in at once" : (await checkEmail.isVisible().catch(() => false)) ? "asked to confirm by email" : `neither (the page said: "${alertWords}")`;
+  const refused = page.locator("div.text-red-300");
+  const left = () => !new URL(page.url()).pathname.startsWith("/login");
+  for (let waited = 0; waited < 60_000; waited += 500) {
+    if (left() || (await checkEmail.isVisible().catch(() => false)) || (await refused.first().isVisible().catch(() => false))) break;
+    await page.waitForTimeout(500);
+  }
+  const refusedWords = (await refused.first().innerText().catch(() => "")).replace(/\s+/g, " ").slice(0, 200);
+  const answer = left() ? "signed in at once" : (await checkEmail.isVisible().catch(() => false)) ? "asked to confirm by email" : `neither (the page said: "${refusedWords}")`;
   const pass = !promised || answer === "asked to confirm by email";
   const seen = promised ? `the site says "${PROMISE}"; the sign-up ${answer}` : `the site makes no email promise; the sign-up ${answer}`;
   fs.writeFileSync(info.outputPath("signup-result.json"), JSON.stringify({ rule: "(s) sign-up words true", pass, seen }, null, 1));
