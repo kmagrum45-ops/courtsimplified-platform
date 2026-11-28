@@ -33,7 +33,9 @@ const FACTS: { fact: ApplicabilityFact; names: RegExp; implied: RegExp; elements
   { fact: "consumerAgreement", names: /Consumer Protection Act|consumer agreement/i, implied: /consumer|purchase|bought|warranty|contractor|renovat|repair|service|goods|product|vehicle|car\b/i, elements: false },
   { fact: "employment", names: /Employment Standards|\bemployer\b|\bemployee\b/i, implied: /employ|wage|salary|pay ?cheque|dismiss|severance|vacation pay|overtime/i, elements: false },
   { fact: "residentialTenancy", names: /Landlord and Tenant Board|residential tenanc|Residential Tenancies Act/i, implied: /tenan|landlord|rent|lease/i, elements: false },
-  { fact: "governmentParty", names: /\bmunicipal|\bthe Crown\b|notice to the (?:city|municipality)/i, implied: /municipal|city|town|government|crown|road|sidewalk/i, elements: false },
+  // The claim is AGAINST a municipality or the Crown; a municipality that only runs a process (the Line Fences Act's
+  // fence-viewers) is not a party (owner's review, 27 Nov 2026: the fence-dispute notes waited on this wrongly).
+  { fact: "governmentParty", names: /\b(?:against|sue|suing|sued)\b[^.]{0,30}\b(?:a|the)?\s?(?:municipality|city|town|township|Crown)\b|Crown Liability and Proceedings Act|Proceedings Against the Crown|notice to the (?:city|municipality)|\bs\. ?44\b[^.]{0,40}Municipal Act/i, implied: /municipal|city|town|government|crown|road|sidewalk|school|board|hospital|police|transit/i, elements: false },
   { fact: "insurerInvolved", names: /\binsur(?:er|ance)\b/i, implied: /insur/i, elements: false },
 ];
 /** A procedural note about going OVER the Small Claims limit: shown only when the amount is over it. */
@@ -43,6 +45,21 @@ const SET_OFF = /set-off|\bs\. ?111\b/i;
 const MONEY_OWED = /loan|debt|invoice|unpaid|owed|owing|cheque|promissory|account|refund|deposit|wage|rent|not paying|payment/i;
 /** A deadline counted from a notice or a discovery, with no fact above to hang it on: written by hand. */
 const NOTICE_DEADLINE = /written notice|within (?:six|6) weeks|three months|ten days/i;
+
+/**
+ * THE PLAINTIFF ELEMENTS THAT MAY WAIT ON A FACT: written by hand, each justified by the element's own words (its name
+ * says it is conditional, and an existing fact decides it). Every other element shows whenever its kind is confirmed;
+ * test:catalogue-conditions fails for any element hidden outside this list.
+ */
+const ELEMENT_FACTS: Record<string, { fact: ApplicabilityFact; quote: string }> = {
+  "sc-claim-defamation-libel-slander|element|notice-if-newspaper-or-broadcast": { fact: "publishedInNewspaperOrBroadcast", quote: "If this involved a newspaper or broadcast specifically, written notice was given within 6 weeks" },
+  "sc-claim-defamation-libel-slander|element|limitation-if-newspaper-or-broadcast": { fact: "publishedInNewspaperOrBroadcast", quote: "If this involved a newspaper or broadcast specifically, the action was started within 3 months" },
+  "sc-defence-sued-as-parent-owner-or-employer|element|parent-child-took-or-damaged-property": { fact: "partyIsMinor", quote: "If you are sued as a parent: the Parental Responsibility Act" },
+  "sc-claim-defective-product|element|consumer-implied-terms-defp": { fact: "consumerAgreement", quote: "If bought from a business for personal use: the implied terms cannot be signed away" },
+  "sc-claim-warranty-refused|element|consumer-terms-cannot-be-waived-wr": { fact: "consumerAgreement", quote: "For a consumer: the implied terms apply and cannot be signed away" },
+  "sc-claim-website-app-or-software-build|element|work-not-acceptable-web": { fact: "consumerAgreement", quote: "For a consumer: the work was not of reasonably acceptable quality" },
+  "sc-claim-website-app-or-software-build|element|work-never-started-web": { fact: "consumerAgreement", quote: "For a consumer: the work did not start, the agreement was cancelled, and no refund came" },
+};
 
 type Item = { list: "element" | "consideration" | "note"; key: string; text: string };
 const itemsOf = (type: (typeof SMALL_CLAIMS)[number]): Item[] => [
@@ -59,7 +76,10 @@ for (const type of SMALL_CLAIMS) {
   for (const item of itemsOf(type)) {
     const key = itemKey(type.id, item.list, item.key);
     const parts: ItemCondition[] = [{ kind: "claim-type", id: type.id }];
-    for (const { fact, names, implied, elements } of FACTS) if ((elements || item.list !== "element") && names.test(item.text) && !implied.test(typeWords)) parts.push({ kind: "fact", fact, is: true });
+    // A plaintiff element waits on a fact ONLY if it is on the hand-written list (site owner's review, 27 Nov 2026):
+    // matching words in an element's text gated four elements on the wrong fact. Notes and considerations still match.
+    if (item.list === "element") { const allowed = ELEMENT_FACTS[key]; if (allowed) parts.push({ kind: "fact", fact: allowed.fact, is: true }); }
+    else for (const { fact, names, implied } of FACTS) if (names.test(item.text) && !implied.test(typeWords)) parts.push({ kind: "fact", fact, is: true });
     if (item.list === "note" && OVER_LIMIT.test(item.text)) parts.push({ kind: "amount-over", dollars: 50_000 });
     // Set-off shows only when the claim is for money owed (site owner, 27 Nov 2026): implied by a money-owed claim type,
     // otherwise asked once.
@@ -81,6 +101,9 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = ${JSON.string
 
 /** Items no pattern could place safely: each keeps the default until its own rule is written. */
 export const NEEDS_OWN_RULE: { key: string; why: string }[] = ${JSON.stringify(needsOwnRule, null, 1)};
+
+/** The plaintiff elements that may wait on a fact (hand-written in the generator, each with its own words). */
+export const ELEMENT_FACTS: Record<string, { fact: string; quote: string }> = ${JSON.stringify(ELEMENT_FACTS, null, 1)};
 
 /** Notices and time limits: shown whenever the kind is confirmed, as one plain deadline line (site owner, 27 Nov 2026). */
 export const DEADLINE_LINE_ITEMS: string[] = ${JSON.stringify(deadlineLines, null, 1)};

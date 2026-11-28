@@ -14,6 +14,10 @@ import type { ItemCondition } from "../../src/lib/case-system/applicability/cata
 const OUT = "docs/acceptance/catalogue-conditions-review.md";
 const SC = CLAIM_TYPES.filter((type) => type.courtArea === "small-claims");
 type Found = { name: string; text: string; sourceUrl?: string; verifiedAt?: string };
+/** The first sentence of a note's stored text (up to its first full stop followed by a space), whole. */
+// Not after a legal or common abbreviation ("Under s. 6.1", "O. Reg. 258/98", "c. L.12", "e.g."): the first cut was
+// "Under s." (owner's review, 27 Nov 2026).
+const firstSentence = (text: string): string => (text.match(/^[\s\S]*?(?<!\b(?:s|ss|r|rr|c|cl|no|O|Reg|e\.g|i\.e|Inc|Ltd|para|subs|St|Mr|Ms|Dr|v|vs|S\.O|R\.S\.O))[.!?](?=\s+[A-Z("“]|$)/)?.[0] ?? text).trim();
 function find(key: string): Found | null {
   const [typeId, list, id] = key.split("|");
   const type = SC.find((t) => t.id === typeId);
@@ -21,7 +25,8 @@ function find(key: string): Found | null {
   if (list === "element") { const e = type.plaintiffElements.find((x) => x.id === id); return e ? { name: e.name, text: e.plainExplanation, sourceUrl: e.sourceUrl, verifiedAt: e.verifiedAt } : null; }
   if (list === "consideration") { const c = type.defendantConsiderations.find((x) => x.id === id); return c ? { name: c.name, text: `${c.plainExplanation} ${c.whenThisComesUp}`, sourceUrl: c.sourceUrl, verifiedAt: c.verifiedAt } : null; }
   const n = type.proceduralNotes[Number(id)];
-  return n ? { name: `Procedural note ${Number(id) + 1}`, text: n.note, sourceUrl: n.sourceUrl, verifiedAt: n.verifiedAt } : null;
+  // A note has no name: its first sentence of stored text stands in, so each one can be judged (owner's review, 27 Nov).
+  return n ? { name: `Note ${Number(id) + 1}: ${firstSentence(n.note)}`, text: n.note, sourceUrl: n.sourceUrl, verifiedAt: n.verifiedAt } : null;
 }
 const words = (c: ItemCondition): string => ("all" in c ? c.all.map(words).join(" AND ") : "any" in c ? `(${c.any.map(words).join(" OR ") || "never"})` : c.kind === "claim-type" ? `kind confirmed is ${c.id}` : c.kind === "amount-over" ? `amount over $${c.dollars.toLocaleString("en-CA")}` : `${c.fact} is ${c.is ? "yes" : "no"}`);
 const facts = (c: ItemCondition): string[] => ("all" in c ? c.all.flatMap(facts) : "any" in c ? c.any.flatMap(facts) : c.kind === "fact" ? [c.fact] : c.kind === "amount-over" ? ["amount (already asked)"] : []);

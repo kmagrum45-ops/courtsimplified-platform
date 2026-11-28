@@ -5,19 +5,6 @@
 import type { ItemCondition } from "./catalogueConditions";
 
 export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
- "sc-claim-consumer-protection-act-issue|element|false-misleading-representation": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-consumer-protection-act-issue"
-   },
-   {
-    "kind": "fact",
-    "fact": "publishedInNewspaperOrBroadcast",
-    "is": true
-   }
-  ]
- },
  "sc-claim-wrongful-dismissal|note|0": {
   "all": [
    {
@@ -30,19 +17,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-dog-bite-animal-injury|element|defendant-is-owner": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-dog-bite-animal-injury"
-   },
-   {
-    "kind": "fact",
-    "fact": "partyIsMinor",
-    "is": true
-   }
-  ]
- },
  "sc-claim-unpaid-overtime-vacation-pay|note|0": {
   "all": [
    {
@@ -52,19 +26,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    {
     "kind": "amount-over",
     "dollars": 50000
-   }
-  ]
- },
- "sc-claim-unpaid-condo-common-expenses|note|0": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-unpaid-condo-common-expenses"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
    }
   ]
  },
@@ -198,19 +159,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-promissory-note-unpaid|element|payment-due-promnote": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-promissory-note-unpaid"
-   },
-   {
-    "kind": "fact",
-    "fact": "loanRepayableOnDemand",
-    "is": true
-   }
-  ]
- },
  "sc-claim-group-prize-dispute|note|0": {
   "all": [
    {
@@ -279,6 +227,19 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    {
     "kind": "claim-type",
     "id": "sc-claim-club-or-association-dues"
+   },
+   {
+    "kind": "fact",
+    "fact": "consumerAgreement",
+    "is": true
+   }
+  ]
+ },
+ "sc-claim-defective-product|element|consumer-implied-terms-defp": {
+  "all": [
+   {
+    "kind": "claim-type",
+    "id": "sc-claim-defective-product"
    },
    {
     "kind": "fact",
@@ -357,6 +318,19 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    {
     "kind": "claim-type",
     "id": "sc-claim-subscription-cancellation"
+   },
+   {
+    "kind": "fact",
+    "fact": "consumerAgreement",
+    "is": true
+   }
+  ]
+ },
+ "sc-claim-warranty-refused|element|consumer-terms-cannot-be-waived-wr": {
+  "all": [
+   {
+    "kind": "claim-type",
+    "id": "sc-claim-warranty-refused"
    },
    {
     "kind": "fact",
@@ -547,6 +521,32 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
+ "sc-claim-website-app-or-software-build|element|work-not-acceptable-web": {
+  "all": [
+   {
+    "kind": "claim-type",
+    "id": "sc-claim-website-app-or-software-build"
+   },
+   {
+    "kind": "fact",
+    "fact": "consumerAgreement",
+    "is": true
+   }
+  ]
+ },
+ "sc-claim-website-app-or-software-build|element|work-never-started-web": {
+  "all": [
+   {
+    "kind": "claim-type",
+    "id": "sc-claim-website-app-or-software-build"
+   },
+   {
+    "kind": "fact",
+    "fact": "consumerAgreement",
+    "is": true
+   }
+  ]
+ },
  "sc-claim-website-app-or-software-build|consideration|extra-work-web": {
   "all": [
    {
@@ -608,84 +608,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    {
     "kind": "fact",
     "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-neighbours-tree-fell|note|1": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-neighbours-tree-fell"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
-   }
-  ]
- },
- "sc-claim-fence-dispute|consideration|appeal-of-award-fd": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-fence-dispute"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
-   }
-  ]
- },
- "sc-claim-fence-dispute|note|0": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-fence-dispute"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
-   }
-  ]
- },
- "sc-claim-fence-dispute|note|1": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-fence-dispute"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
-   }
-  ]
- },
- "sc-claim-damage-caused-by-a-dog|element|attack-on-a-domestic-animal-dg": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-damage-caused-by-a-dog"
-   },
-   {
-    "kind": "fact",
-    "fact": "partyIsMinor",
-    "is": true
-   }
-  ]
- },
- "sc-claim-livestock-or-animals-at-large|note|1": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-livestock-or-animals-at-large"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
     "is": true
    }
   ]
@@ -851,19 +773,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-injury-on-public-transit|consideration|sidewalk-or-road-sctransit": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-injury-on-public-transit"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
-   }
-  ]
- },
  "sc-claim-injury-on-public-transit|note|1": {
   "all": [
    {
@@ -948,19 +857,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    {
     "kind": "amount-over",
     "dollars": 50000
-   }
-  ]
- },
- "sc-claim-construction-noise-and-debris|note|1": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-construction-noise-and-debris"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
    }
   ]
  },
@@ -1513,19 +1409,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-against-a-school-board|note|1": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-against-a-school-board"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
-   }
-  ]
- },
  "sc-claim-against-a-school-board|note|2": {
   "all": [
    {
@@ -1548,19 +1431,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    {
     "kind": "amount-over",
     "dollars": 50000
-   }
-  ]
- },
- "sc-claim-against-police|note|0": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-against-police"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
    }
   ]
  },
@@ -1597,19 +1467,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    {
     "kind": "fact",
     "fact": "employment",
-    "is": true
-   }
-  ]
- },
- "sc-claim-against-a-hospital-or-clinic|note|1": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-against-a-hospital-or-clinic"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
     "is": true
    }
   ]
@@ -1754,19 +1611,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-new-home-defects|consideration|exclusions-nhd": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-new-home-defects"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
-   }
-  ]
- },
  "sc-claim-real-estate-agent-conduct|note|0": {
   "all": [
    {
@@ -1815,32 +1659,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    {
     "kind": "amount-over",
     "dollars": 50000
-   }
-  ]
- },
- "sc-claim-noise-and-nuisance|note|1": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-noise-and-nuisance"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
-   }
-  ]
- },
- "sc-claim-smoke-odours-or-cannabis|note|1": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-smoke-odours-or-cannabis"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
    }
   ]
  },
@@ -1962,6 +1780,38 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
 /** Items no pattern could place safely: each keeps the default until its own rule is written. */
 export const NEEDS_OWN_RULE: { key: string; why: string }[] = [];
 
+/** The plaintiff elements that may wait on a fact (hand-written in the generator, each with its own words). */
+export const ELEMENT_FACTS: Record<string, { fact: string; quote: string }> = {
+ "sc-claim-defamation-libel-slander|element|notice-if-newspaper-or-broadcast": {
+  "fact": "publishedInNewspaperOrBroadcast",
+  "quote": "If this involved a newspaper or broadcast specifically, written notice was given within 6 weeks"
+ },
+ "sc-claim-defamation-libel-slander|element|limitation-if-newspaper-or-broadcast": {
+  "fact": "publishedInNewspaperOrBroadcast",
+  "quote": "If this involved a newspaper or broadcast specifically, the action was started within 3 months"
+ },
+ "sc-defence-sued-as-parent-owner-or-employer|element|parent-child-took-or-damaged-property": {
+  "fact": "partyIsMinor",
+  "quote": "If you are sued as a parent: the Parental Responsibility Act"
+ },
+ "sc-claim-defective-product|element|consumer-implied-terms-defp": {
+  "fact": "consumerAgreement",
+  "quote": "If bought from a business for personal use: the implied terms cannot be signed away"
+ },
+ "sc-claim-warranty-refused|element|consumer-terms-cannot-be-waived-wr": {
+  "fact": "consumerAgreement",
+  "quote": "For a consumer: the implied terms apply and cannot be signed away"
+ },
+ "sc-claim-website-app-or-software-build|element|work-not-acceptable-web": {
+  "fact": "consumerAgreement",
+  "quote": "For a consumer: the work was not of reasonably acceptable quality"
+ },
+ "sc-claim-website-app-or-software-build|element|work-never-started-web": {
+  "fact": "consumerAgreement",
+  "quote": "For a consumer: the work did not start, the agreement was cancelled, and no refund came"
+ }
+};
+
 /** Notices and time limits: shown whenever the kind is confirmed, as one plain deadline line (site owner, 27 Nov 2026). */
 export const DEADLINE_LINE_ITEMS: string[] = [
  "sc-claim-slip-and-fall-occupier-liability|element|notice-if-snow-or-ice",
@@ -1986,6 +1836,7 @@ export const DEADLINE_LINE_ITEMS: string[] = [
  "sc-claim-fall-at-a-municipal-facility|note|0",
  "sc-claim-injury-at-a-business-or-event|note|0",
  "sc-claim-injury-from-a-falling-object|note|0",
+ "sc-claim-injury-on-public-transit|consideration|sidewalk-or-road-sctransit",
  "sc-claim-injury-on-public-transit|note|0",
  "sc-claim-unpaid-severance|element|notice-or-pay-owed-severance",
  "sc-claim-unpaid-severance|consideration|exempt-from-notice-severance",

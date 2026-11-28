@@ -21,7 +21,7 @@ import { execFileSync } from "node:child_process";
 import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import type { CaseFile } from "../../src/lib/case-system/caseFile/caseFile";
 import { conditionFor, itemApplies } from "../../src/lib/case-system/applicability/itemApplies";
-import { DEADLINE_LINE_ITEMS, NEEDS_OWN_RULE } from "../../src/lib/case-system/applicability/catalogueConditions.generated";
+import { DEADLINE_LINE_ITEMS, ELEMENT_FACTS, NEEDS_OWN_RULE } from "../../src/lib/case-system/applicability/catalogueConditions.generated";
 
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
@@ -65,7 +65,16 @@ check("4b. answered \"no\" they stay hidden and ask nothing; \"yes\" they show",
 // An element may name the limit (what the person must show for their own claim is never hidden by a pattern); a NOTE
 // about going over it may not show for $10,000.
 check("4c. story 7: no set-off item, and no note about going over $50,000, shows", shown(story7, defamation).every((item) => !/set-off|\bs\. ?111\b/i.test(item.text) && !(item.list === "note" && /(?:over|more than|exceed\w*|above|waiv\w*|abandon\w*)[^.]{0,60}\$\s?50,000/i.test(item.text))));
-check("4e. no plaintiff element waits on a broad fact (consumer, employment, tenancy, government, insurer) or on the amount", items.filter((item) => item.list === "element").every((item) => !/consumerAgreement|employment|residentialTenancy|governmentParty|insurerInvolved|amount-over/.test(JSON.stringify(conditionFor(item.type, item.list, item.key)))));
+// 4e-4h. The owner's review of 21fe7d4d (27 Nov 2026): a plaintiff element waits on a fact only if it is on the
+// hand-written list, justified by its own words.
+const elements = items.filter((item) => item.list === "element");
+const hiddenOnKindAlone = elements.filter((item) => !itemApplies(record(item.type, 1_000), item.type, item.list, item.key).shows);
+const offList = hiddenOnKindAlone.filter((item) => !ELEMENT_FACTS[`${item.type}|element|${item.key}`]);
+check(`4e. every plaintiff element (${elements.length}) shows when only its kind is confirmed, except the hand-written list`, elements.length > 600 && offList.length === 0, offList.map((item) => `${item.type}|${item.key}`).join(", "));
+check("4f. each hand-written entry quotes its element's own name, word for word", Object.entries(ELEMENT_FACTS).every(([key, entry]) => { const [type, , id] = key.split("|"); return SC.find((t) => t.id === type)?.plaintiffElements.find((e) => e.id === id)?.name === entry.quote; }));
+const reviewed = [["sc-claim-consumer-protection-act-issue", "false-misleading-representation"], ["sc-claim-dog-bite-animal-injury", "defendant-is-owner"], ["sc-claim-damage-caused-by-a-dog", "attack-on-a-domestic-animal-dg"], ["sc-claim-promissory-note-unpaid", "payment-due-promnote"]];
+check("4g. the four elements the review found gated on the wrong fact show whenever their kind is confirmed", reviewed.every(([type, id]) => itemApplies(record(type, 1_000), type, "element", id).shows));
+check("4h. the two defamation newspaper elements and the parent-liability element still wait on their fact", ["sc-claim-defamation-libel-slander|element|notice-if-newspaper-or-broadcast", "sc-claim-defamation-libel-slander|element|limitation-if-newspaper-or-broadcast", "sc-defence-sued-as-parent-owner-or-employer|element|parent-child-took-or-damaged-property"].every((key) => { const [type, , id] = key.split("|"); const v = itemApplies(record(type, 1_000), type, "element", id); return !v.shows && v.ask.length === 1; }));
 check("4d. story 7: the defamation items with no further condition show", shown(story7, defamation).length > 0);
 
 // 5. Story 8.
