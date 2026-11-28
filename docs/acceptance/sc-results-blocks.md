@@ -86,24 +86,25 @@ Side: P plaintiff, D defendant, B both.
 | Row | Block | Made from | appliesWhen |
 |---|---|---|---|
 | A | The next-step card: the step, its form, fee, where and how to file, how to serve, what can come next | old 5, 5c, 5d, 5g, 5e (narrowed) | `stage` confirmed |
-| D | ONE deadline line, inside the card | old 5c deadlines, the passed-limit alert, the papers-arrived note, 5h (as its "add the date" control), 5j's "Your deadline", 13, and the catalogue's notice/time-limit items (the 35 deadline lines on `feat/catalogue-conditions`) | the step has a deadline; a computed date when the record holds its count-from date, else the line with its "add the date" control |
-| E | ONE evidence checklist: each element the person must show, with its evidence, "I have this" / "I don't have this", held items shown as held | old 6f, 9c, 9e, 9f, 7 | kind confirmed; each item by its element's condition |
-| L | The law for this claim, chosen by rules: the elements' explanations, "What the other side may raise" (defence concepts and defendant considerations), the procedural notes, each with its own source | old 6k, 6l, and the catalogue fields no Small Claims screen shows today (`defendantConsiderations`, `proceduralNotes`) | kind confirmed; each item by its condition (hidden by default; a fact it waits on is asked once on the Questions step) |
+| D | ONE deadlines block (approved 27 Nov): each distinct deadline on its own line, each once, soonest first | the step's own deadline (old 5c, the passed-limit alert, the papers-arrived note, 5h as its "add the date" control, 5j's "Your deadline", 13), and the 23 KEPT catalogue notice/time-limit items (`docs/acceptance/sc-deadline-items.md`; 12 cut) | the step's line when the step has a deadline (a computed date when the record holds its count-from date, else the line with its "add the date" control); each kept item when the kind is confirmed as its claim type |
+| E | ONE evidence checklist: OWNS the elements, each with its plain explanation inline, its evidence, "I have this" / "I don't have this", held items shown as held | old 6f, 9c, 9e, 9f, 7, and 6k's element explanations | kind confirmed; each item by its element's condition. A kept deadline element is drawn in D only, never twice |
+| L | The law for this claim, chosen by rules: defendant considerations and procedural notes ONLY (approved 27 Nov: elements are not repeated here), each with its own source | old 6l, and the catalogue fields no Small Claims screen shows today (`defendantConsiderations`, `proceduralNotes`) | kind confirmed; each item by its condition (hidden by default; a fact it waits on is asked once on the Questions step). An item drawn in D is not drawn here |
 | M | Amount note | old 5i | `amountNoteFor(record.amount)` |
 | N | The jurisdiction rule and the rule 11 routes | old 6n, 6m | each route's own condition |
 | S | Case strategy (beta) | old 6h | `STRATEGY` on |
 | W | "What you can do next": drafts, case page, add documents, official forms, ask follow-up questions | old 11, 12, 15 | each action's own switch |
 | F | ONE source list, each source once | old 5f, 5j | any source shown above |
-| Z | ONE notice block | old 1, 6o, 11c, the chat's notices, SAP:1008 | always, once |
+| Z | ONE notice block: the `AiUseNotice` wording as stored, with its "Read more" link to /privacy (approved 27 Nov); `LegalInformationNotice` is not rendered in the new flow or the results step | old 1, 6o, 11c, the chat's notices, SAP:1008 | always, once |
 
 ## Open points for the reviewer
 
-1. **Row L shows catalogue text no Small Claims screen shows today:** `defendantConsiderations` (358 items) and
-   `proceduralNotes` (496 items). Each is stored sourced text, shown only when its condition matches. Confirm this is
-   wanted, since it is new on screen even though the wording is unchanged.
-2. **Row D merges the catalogue's notice/time-limit items into the one deadline line.** Some of the 35 are not deadlines
-   (for example "Who is suing: the original creditor, an agency, or a debt buyer"); the review of
-   `catalogue-conditions-review.md` should cut those before the line uses them.
+Approved 27 Nov 2026 with changes to L, D and Z (above). Points 1 and 2 are settled by those changes: L shows the
+considerations and notes, by condition; D uses only the 23 kept items (`docs/acceptance/sc-deadline-items.md`, for
+review). Chosen, reversible: a kept deadline that is a plaintiff element (6 of the 23) is drawn once, in D, and left
+out of E, so it is not shown twice.
+
+1. (settled) Row L's new catalogue text.
+2. (settled) Row D's deadline items.
 3. **Dropping 8 ("Check my case file") and 6e from results** leaves them on the case page only.
 4. **The chat (16)** keeps its own law lookup (`/api/assistant/law`), which is AI research on the person's question, not
    the page's law. Say whether it stays.
