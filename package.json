@@ -425,7 +425,8 @@
     "test:matrix-counters": "node --import tsx scripts/verification/verifyMatrixCounters.ts",
     "test:fact-registry": "node --import tsx scripts/verification/verifyFactRegistry.ts",
     "test:sc-flow-core": "node --import tsx scripts/verification/verifyScFlowCore.ts",
-    "test:future-token-retry": "node --import tsx scripts/verification/verifyFutureTokenRetry.ts"
+    "test:future-token-retry": "node --import tsx scripts/verification/verifyFutureTokenRetry.ts",
+    "test:acceptance-rules": "node --import tsx scripts/verification/verifyAcceptanceRules.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

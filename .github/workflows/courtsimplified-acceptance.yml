@@ -1,0 +1,141 @@
+name: CourtSimplified Acceptance Script
+
+# THE SHARED ACCEPTANCE SCRIPT (site owner, 27 Nov 2026, item J): docs/acceptance/small-claims-journeys.md, run by
+# tests/browser/acceptance/small-claims-journeys.spec.ts, the way the Chrome tester follows it, with the real AI.
+# Saves a screenshot per step (T<story>-<nn>.png) and the PASS/FAIL table (table.md) as artifacts.
+#
+# Two targets:
+#   preview  the Vercel preview of the PR (preview_url input). Needs the repository secret PREVIEW_SITE_ACCESS_PASSWORD
+#            (the preview's site password), and VERCEL_AUTOMATION_BYPASS_SECRET if the preview is protected. Neither
+#            exists yet: the site owner adds them.
+#   build    this commit built here against staging (the same code as its preview), with a site password made up for
+#            the run. Works today.
+# Manual only: it spends the OpenAI balance (CLAUDE.md section 7); the spend check runs first and never stops it.
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "preview (the PR's Vercel preview) or build (this commit, built here against staging)"
+        required: true
+        default: "build"
+      preview_url:
+        description: "The preview's URL (target=preview only)"
+        required: false
+        default: ""
+      stories:
+        description: "Only these story ids, comma-separated (blank = all)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: acceptance-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
+      NEXT_TELEMETRY_DISABLED: 1
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.STAGING_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.STAGING_SUPABASE_PUBLISHABLE_KEY }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.STAGING_SUPABASE_PUBLISHABLE_KEY }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.STAGING_SUPABASE_SERVICE_ROLE_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      STORIES: ${{ inputs.stories }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Check today's OpenAI spend
+        env:
+          OPENAI_ADMIN_KEY: ${{ secrets.OPENAI_ADMIN_KEY }}
+        run: node scripts/ai/spendGuard.mjs
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Refuse a production database
+        run: node --import tsx scripts/walkthrough/guard.ts
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: The target
+        env:
+          PREVIEW_PASSWORD: ${{ secrets.PREVIEW_SITE_ACCESS_PASSWORD }}
+          BYPASS: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+        run: |
+          if [ "${{ inputs.target }}" = "preview" ]; then
+            if [ -z "${{ inputs.preview_url }}" ] || [ -z "$PREVIEW_PASSWORD" ]; then
+              echo "::error::target=preview needs preview_url and the secret PREVIEW_SITE_ACCESS_PASSWORD"; exit 1
+            fi
+            echo "::add-mask::$PREVIEW_PASSWORD"
+            echo "SITE_ACCESS_PASSWORD=$PREVIEW_PASSWORD" >> "$GITHUB_ENV"
+            echo "PLAYWRIGHT_BASE_URL=${{ inputs.preview_url }}" >> "$GITHUB_ENV"
+            if [ -n "$BYPASS" ]; then echo "::add-mask::$BYPASS"; echo "VERCEL_AUTOMATION_BYPASS_SECRET=$BYPASS" >> "$GITHUB_ENV"; fi
+          else
+            pw="$(openssl rand -hex 24)"
+            echo "::add-mask::$pw"
+            echo "SITE_ACCESS_PASSWORD=$pw" >> "$GITHUB_ENV"
+            echo "PLAYWRIGHT_BASE_URL=http://localhost:3100" >> "$GITHUB_ENV"
+          fi
+
+      - name: Build and start the site (target=build)
+        if: inputs.target != 'preview'
+        run: |
+          npm run build
+          nohup npx next start -p 3100 > server.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -s -o /dev/null http://localhost:3100; then echo "up"; exit 0; fi
+            sleep 2
+          done
+          echo "server did not start"; tail -50 server.log; exit 1
+
+      - name: Follow the acceptance script
+        id: script
+        continue-on-error: true
+        run: |
+          echo "Commit: $GITHUB_SHA; target: ${{ inputs.target }} ${{ inputs.preview_url }}"
+          npx playwright test tests/browser/acceptance/small-claims-journeys.spec.ts --reporter=line --workers=1 --output acceptance-results
+
+      - name: The PASS/FAIL table
+        if: always()
+        run: |
+          {
+            echo "## Acceptance script: commit $GITHUB_SHA (${{ inputs.target }} ${{ inputs.preview_url }})"
+            echo
+            first=1
+            for table in $(find acceptance-results -name 'table-*.md' | sort); do
+              if [ $first = 1 ]; then cat "$table"; first=0; else tail -n +3 "$table"; fi
+            done
+          } | tee -a "$GITHUB_STEP_SUMMARY" > acceptance-table.md
+
+      - name: Keep the screenshots and the table
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: acceptance-${{ github.sha }}
+          path: |
+            acceptance-results/**/*.png
+            acceptance-results/**/table-*.md
+            acceptance-results/**/screens-*.json
+            acceptance-results/**/run-*.json
+            acceptance-results/**/saves-*.json
+            acceptance-table.md
+          if-no-files-found: warn
+
+      - name: Fail if any step failed
+        if: steps.script.outcome != 'success'
+        run: exit 1
