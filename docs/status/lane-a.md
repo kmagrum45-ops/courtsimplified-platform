@@ -3,83 +3,86 @@
 Updated after every step (site owner's working agreement, 27 Nov 2026). Every claim is labelled PROVEN (shown by a run,
 a check or a command) or NOT PROVEN.
 
-**Updated:** 27 Nov 2026, late evening (Toronto), after the #568 switch-off and switch-on runs.
+**Updated:** 27 Nov 2026, night (Toronto), after the block table approval: build order step 1 done, step 2 built,
+step 3 (the rerun) next.
 
 ## For review now
 
-- **Catalogue conditions, reviewed and corrected:** `docs/acceptance/catalogue-conditions-review.md` on `feat/catalogue-conditions` (75f7023e):
-  https://github.com/kmagrum45-ops/courtsimplified-platform/blob/feat/catalogue-conditions/docs/acceptance/catalogue-conditions-review.md
-- **The block table (step 3), KEEP / MERGE / DROP with appliesWhen:** `docs/acceptance/sc-results-blocks.md` on `feat/sc-results-step` (11c040f6):
-  https://github.com/kmagrum45-ops/courtsimplified-platform/blob/feat/sc-results-step/docs/acceptance/sc-results-blocks.md
+- **The 35 deadline items, kept or cut with the reason (row D):** `docs/acceptance/sc-deadline-items.md` on
+  `feat/sc-results` (23 kept, 12 cut):
+  https://github.com/kmagrum45-ops/courtsimplified-platform/blob/feat/sc-results/docs/acceptance/sc-deadline-items.md
+- **The block table, with the approved changes to L, D and Z:** `docs/acceptance/sc-results-blocks.md` on `feat/sc-results`:
+  https://github.com/kmagrum45-ops/courtsimplified-platform/blob/feat/sc-results/docs/acceptance/sc-results-blocks.md
+- **Catalogue conditions:** `docs/acceptance/catalogue-conditions-review.md` on `feat/catalogue-conditions` (75f7023e).
 
 ## The one counting method
 
-The shared acceptance script's rules (a) to (s) (`docs/acceptance/small-claims-journeys.md` on
-`test/acceptance-script`), applied to the saved visible text of every screen by
-`tests/browser/acceptance/reevaluate.ts`, so every column is counted the same way.
+The shared acceptance script's rules (`docs/acceptance/small-claims-journeys.md` on `test/acceptance-script`), applied
+to the saved visible text of every screen by `tests/browser/acceptance/reevaluate.ts`, so every column is counted the
+same way.
 
 | Code | Stories | Rows | Failing rows | How |
 |---|---|---|---|---|
-| main 9c714ec9 (before #568) | all 10 | 1,387 | **428** | rerun of 27 Nov, saved screens, current rules. PROVEN |
-| main 9c714ec9, first baseline | all 10 | 131 failing (old rule set, no saved text) | 131 | not comparable to the row above: fewer rules, and no saved screens to re-check. PROVEN as recorded |
-| #568 (main 65a3424a), switch off | all 10 + 8b second route | 1,540 | **509** (478 of 1,438 without the second route) | 27 Nov run. PROVEN |
-| #568 (main 65a3424a), switch on (new flow) | all 10 + 8b second route | 846 | **239** (215 of 769) | 27 Nov run; every story stops at Forms, results never reached. PROVEN |
+| main 9c714ec9 (before #568) | all 10 | 1,387 | **428** | rerun of 27 Nov, saved screens. PROVEN |
+| #568, switch off | all 10 + 8b second route | 1,540 | **509** | 27 Nov run. PROVEN |
+| #568, switch on, first count | all 10 + 8b second route | 846 | 239 | 27 Nov run; every story stops at Forms. PROVEN |
+| #568, switch on, recounted with the rule (b) fix | same saved screens | 760 | **190** | 49 rows were the script's, not the site's (below). PROVEN |
 
 Main's saved screens have no field values, so (p), (q), (k) are under-counted there. Without those three rules: main
-403 / 1,132, switch off 413 / 1,179, switch on 200 / 628. PROVEN. Full report, with every switch-on failing row split
-front half / results side: https://github.com/kmagrum45-ops/courtsimplified-platform/pull/568#issuecomment-7232708828
+403 / 1,132, switch off 413 / 1,179. PROVEN. Report: https://github.com/kmagrum45-ops/courtsimplified-platform/pull/568#issuecomment-7232708828
 
-Failing rows on main by rule (428): (a) 0, (b) 13, (c) 127, (d) 0, (e) 4, (f) 53, (g) 19, (h) 4, (i) 12, (j) 97,
-(k) 0, (l) 1, (m) 10, (n) 0, (o) 63, (p) 16, (q) 9, reached 0. Rule (r) and (s) come from the two-run and sign-up runs
-below.
+## Correction
+
+I said the biggest front-half cause was that confirming on Understood does not record the stated facts, so Questions
+asks them again. **That was wrong.** A probe through the real write path and story 1's saved screens show the facts are
+recorded and Questions does not ask them again (PROVEN). The real fault: the review showed a confirmed month and year
+("March 2026") as "Not answered yet", and left out what was agreed, paid and tried to settle it. Most Questions (b)
+rows were the script reading the kind question's option list.
 
 ## Finished
 
-- **The one table (main / #568 off / #568 on), counted the same way** (above; report on #568). With the switch on,
-  `?step=results` never shows the next step: nothing in the new flow runs the analysis (11 AI calls in the whole run,
-  one per story). PROVEN. That is the results step (step 3), not built yet. Biggest front-half cause after the double
-  notice: confirming on Understood does not record the stated facts, so Questions asks them again and Review shows
-  them missing. PROVEN by the rows; the exact line NOT PROVEN. Cost $2.05 + $0.09; today about $7.59 visible.
-- **Sign-up check (rule (s)) fixed and run:** on staging the site promises an email link and signs in at once. PROVEN.
-  Staging skips confirmation by design; production requires it (not run there). 0 test accounts left. PROVEN.
-- **#568 merged** (65a3424a). CI was green on 3de6c63a (35 of 35). PROVEN. `case-workspace` fast-forwarded. #565 and
-  #567 closed as inside it; every file they changed is on main. PROVEN.
-- **Step 2: a showing condition for every Small Claims catalogue item**, branch `feat/catalogue-conditions` (pushed,
-  75f7023e, no PR yet). All 1,496 items (642 elements, 358 considerations, 496 notes, 196 claim types) have a
-  condition, hidden by default; 138 wait on a fact, asked once; 35 notice or time-limit items show as one deadline
-  line whenever the kind is confirmed; set-off shows only for money owed. After the owner's review of 21fe7d4d: a
-  plaintiff element waits on a fact only from a hand-written list of 7 that quotes each element's own name; every other
-  element (635) shows whenever its kind is confirmed (PROVEN by `test:catalogue-conditions` 4e, red on 21fe7d4d with the
-  four reviewed elements, green now); the government fact needs a claim against a public body (the Line Fences Act
-  fence notes no longer wait on it); every note is named by its first sentence in the review file. PROVEN by `test:catalogue-conditions` (red
-  with no conditions, green now). Review file: `docs/acceptance/catalogue-conditions-review.md` on that branch. Whether
-  each generated condition is right is NOT PROVEN: it is for Cowork Claude's review.
-- **The acceptance script**, branch `test/acceptance-script` (pushed, 56e49c2e, tests only, no PR yet): rules (a) to
-  (s), saved screen text, offline re-check, sign-up check. PROVEN by `test:acceptance-rules`.
-- **Runs on main 9c714ec9** (stories 8 then 8b in one account, 9, 8b by Chrome's route, then 8b and 9 again):
-  276 failing rows of 836. PROVEN. Real findings: cards ask stated facts (b); story 8's typed outcome missing from the
-  review and its own details from the case page (i); 8b asks the person's own address, phone and email again (k, Chrome
-  I1d); the "Here is what we understood" labels differ between two runs of 8b and of 9 (r, Chrome I2d).
-- **Loan deadline report (Chrome I2b)**: the deadline counts two years from "when it happened" for every claim type
-  (computedDeadline.ts:166); the story reader drops a date after "by" or "due" (storyReader.ts:46), so story 8 counted
-  from the loan date. PROVEN by reading the code. No rule changed.
-- **AI spend today (Toronto day), visible to us:** about $5.45 (staging's own count $0.46 before the runs, plus the
-  runs' ledgers $1.94, $1.90, $1.15). The real OpenAI total is NOT PROVEN (no admin key).
+- **Build order step 1 (front half)**, branch `fix/understood-saves` (ef3c8c0d, from main, pushed, no PR):
+  - the review shows every fact confirmed on Understood, in the words confirmed, through one function
+    (`flow/reviewLines.ts`, the shared `slotText`): "March 2026 (day not given yet)", the amount as "$12,500.00",
+    what was agreed, what was paid, what was tried. PROVEN by `test:sc-flow-core` 11, red on the old review (6 fails),
+    green now (664 checks);
+  - one notice in the new flow: the AI notice as stored, with the "Read more" link to /privacy; the legal information
+    notice is not drawn when the switch is on for Small Claims. NOT PROVEN until the rerun.
+- **Rule (b) checked and fixed** (`test/acceptance-script` 1c66e3f5): it counted the Understood step's once-offer lines,
+  the review's lines and the kind question's option list as questions. Fixed; real re-asks still fail. PROVEN by
+  `test:acceptance-rules` 10 (red on the old rules). Still real on the saved run: the defamation question "What exact
+  words…, who received or saw them, and when did that happen?" asks a date and audience the story gives (stories 3, 7);
+  "What evidence do you have" for 8b. Left as they are: story 5 "accept you owe … the amount" and the (a) date-word
+  matches (stories 5, 6), likely script, NOT PROVEN.
+- **Build order step 2 (results step)**, branch `feat/sc-results` (07ab1796, pushed, no PR; on top of
+  `feat/catalogue-conditions` and with `fix/understood-saves` merged in): Forms has "See your next step"; `?step=results`
+  draws the stage map's next-step card at the stage the situation answers settle, then the deadlines, the checklist,
+  the law (considerations and notes), what you can do next and the sources, from the record by rules. No AI call
+  (PROVEN by `test:sc-results` 5, red on an added AI import); each item once, deadlines soonest first, nothing without
+  a confirmed kind (PROVEN by `test:sc-results`, red on a duplicate). That it works in the browser: NOT PROVEN until the
+  rerun.
+- **Deadline items:** 23 kept, 12 cut, each with its reason (`results/deadlineLines.ts`). A kept deadline that is an
+  element (6) is drawn once, in the deadlines, not in the checklist (chosen, reversible).
+- **Sign-up check (rule (s))**: on staging the site promises an email link and signs in at once. PROVEN. Staging skips
+  confirmation by design; production requires it (not run there).
 
 ## In progress
 
-- Step 3 table written and pushed (above), waiting on review; no results-step code until it is reviewed.
+- `ci:local` on `test/acceptance-script`, then the tests-only PR (owner's item 5).
+- Then build order step 3: story 8 on the new build first, then all ten, and the three-column table.
 
 ## Pushed, waiting
 
 | Branch | Commit | What | Next |
 |---|---|---|---|
-| `test/acceptance-script` | 86d48ed5 | the acceptance script (tests only), with the new-flow click path | PR after the #568 runs |
-| `feat/catalogue-conditions` | 75f7023e | step 2, conditions (reviewed once, corrected) | Cowork Claude's review, then a PR |
-| `feat/sc-results-step` | 11c040f6 | step 3 block table (doc only) | review, then the results step |
-| `fix/save-plain-words` | 2d0b4e78 | item D: no raw save errors, one retry; terminal test of a lost reply PROVEN | rebase on main, then a PR in its turn |
-| `fix/have-this-every-element` | fdcfdb9f | the "I have this" crash fix (WIP) | with the save-to-case change and the reload check (step 4) |
-| `fix/shared-causes` | 3b36e6c1 | "For:" once; "Not given" dropped (WIP, paused) | after the block table |
+| `test/acceptance-script` | 97907028 | the acceptance script (tests only) | PR now (owner's item 5) |
+| `fix/understood-saves` | ef3c8c0d | step 1: review keeps confirmed facts; one notice | held for the owner's review |
+| `feat/catalogue-conditions` | 75f7023e | conditions | held for the owner's review |
+| `feat/sc-results` | 07ab1796 | step 2: the results step (+ the two above) | held; the rerun first |
+| `feat/sc-results-step` | 11c040f6 | the block table before approval (superseded by `feat/sc-results`) | none |
+| `fix/save-plain-words` | 2d0b4e78 | item D: no raw save errors, one retry | held |
+| `fix/have-this-every-element` | fdcfdb9f | the "I have this" crash fix (WIP) | step 4 |
+| `fix/shared-causes` | 3b36e6c1 | "For:" once; "Not given" dropped (WIP, paused) | paused |
 
 ## Blocked
 
