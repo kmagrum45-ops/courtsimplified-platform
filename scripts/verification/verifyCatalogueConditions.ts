@@ -21,7 +21,7 @@ import { execFileSync } from "node:child_process";
 import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import type { CaseFile } from "../../src/lib/case-system/caseFile/caseFile";
 import { conditionFor, itemApplies } from "../../src/lib/case-system/applicability/itemApplies";
-import { NEEDS_OWN_RULE } from "../../src/lib/case-system/applicability/catalogueConditions.generated";
+import { DEADLINE_LINE_ITEMS, NEEDS_OWN_RULE } from "../../src/lib/case-system/applicability/catalogueConditions.generated";
 
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
@@ -62,7 +62,10 @@ const story7 = record(DEFAMATION, 10_000);
 const paper = defamation.filter((item) => /\bnewspaper|\bbroadcast/i.test(item.text));
 check("4a. story 7: no newspaper/broadcast item shows; each asks its one fact", paper.length > 0 && paper.every((item) => { const v = itemApplies(story7, item.type, item.list, item.key); return !v.shows && v.ask.includes("publishedInNewspaperOrBroadcast"); }), String(paper.length));
 check("4b. answered \"no\" they stay hidden and ask nothing; \"yes\" they show", paper.every((item) => { const no = itemApplies(story7, item.type, item.list, item.key, { publishedInNewspaperOrBroadcast: false }); const yes = itemApplies(story7, item.type, item.list, item.key, { publishedInNewspaperOrBroadcast: true }); return !no.shows && no.ask.length === 0 && yes.shows; }));
-check("4c. story 7: no set-off or over-$50,000 item shows", shown(story7, defamation).every((item) => !/set-off|\bs\. ?111\b|\$\s?50,000/i.test(item.text)));
+// An element may name the limit (what the person must show for their own claim is never hidden by a pattern); a NOTE
+// about going over it may not show for $10,000.
+check("4c. story 7: no set-off item, and no note about going over $50,000, shows", shown(story7, defamation).every((item) => !/set-off|\bs\. ?111\b/i.test(item.text) && !(item.list === "note" && /(?:over|more than|exceed\w*|above|waiv\w*|abandon\w*)[^.]{0,60}\$\s?50,000/i.test(item.text))));
+check("4e. no plaintiff element waits on a broad fact (consumer, employment, tenancy, government, insurer) or on the amount", items.filter((item) => item.list === "element").every((item) => !/consumerAgreement|employment|residentialTenancy|governmentParty|insurerInvolved|amount-over/.test(JSON.stringify(conditionFor(item.type, item.list, item.key)))));
 check("4d. story 7: the defamation items with no further condition show", shown(story7, defamation).length > 0);
 
 // 5. Story 8.
@@ -74,6 +77,15 @@ check("5b. story 8: the loan's own items show by default", loanItems.filter((ite
 // 6. Over the limit.
 const overLimit = items.filter((item) => /\$\s?50,000|monetary jurisdiction/i.test(item.text) && "all" in conditionFor(item.type, item.list, item.key) && JSON.stringify(conditionFor(item.type, item.list, item.key)).includes("amount-over") && !JSON.stringify(conditionFor(item.type, item.list, item.key)).includes("\"fact\""));
 check("6. the over-$50,000 text shows only over $50,000", overLimit.length > 0 && overLimit.every((item) => !itemApplies(record(item.type, 50_000), item.type, item.list, item.key).shows && itemApplies(record(item.type, 60_000), item.type, item.list, item.key).shows), String(overLimit.length));
+
+// 7. The owner's two rules of 27 Nov 2026.
+const deadline = items.filter((item) => DEADLINE_LINE_ITEMS.includes(`${item.type}|${item.list}|${item.key}`));
+check("7a. every notice or time-limit deadline line shows whenever its kind is confirmed (never hidden, asks nothing)", deadline.length >= 30 && deadline.every((item) => itemApplies(record(item.type, 1_000), item.type, item.list, item.key).shows), String(deadline.length));
+const setOff = items.filter((item) => /set-off|\bs\. ?111\b/i.test(item.text) && !/loan|debt|invoice|unpaid|owed|owing|cheque|promissory|account|refund|deposit|wage|rent|not paying|payment/i.test(`${item.type} ${SC.find((t) => t.id === item.type)!.name}`));
+check("7b. set-off on a claim type not about money owed is hidden and asks once whether the claim is for money owed; \"yes\" shows it", setOff.length > 0 && setOff.every((item) => { const v = itemApplies(record(item.type, 1_000), item.type, item.list, item.key); const yes = itemApplies(record(item.type, 1_000), item.type, item.list, item.key, { moneyOwed: true }); return !v.shows && v.ask.includes("moneyOwed") && yes.shows; }), String(setOff.length));
+const sublet = items.filter((item) => item.type === "sc-claim-subletter-not-paying" && /set-off|\bs\. ?111\b/i.test(item.text));
+check("7c. set-off on \"subletter not paying\" (money owed) shows with no question", sublet.length > 0 && sublet.every((item) => itemApplies(record(item.type, 1_000), item.type, item.list, item.key).shows));
+check("7d. no item is left needing its own rule", NEEDS_OWN_RULE.length === 0, NEEDS_OWN_RULE.map((n) => n.key).join(", "));
 
 console.log(`\n${NEEDS_OWN_RULE.length} items need their own rule (kept on the default until written).`);
 if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }

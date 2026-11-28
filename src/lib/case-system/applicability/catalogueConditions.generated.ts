@@ -5,54 +5,6 @@
 import type { ItemCondition } from "./catalogueConditions";
 
 export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
- "sc-claim-unpaid-debt-services|element|services-or-money-provided": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-unpaid-debt-services"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-unpaid-debt-services|element|amount-unpaid": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-unpaid-debt-services"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-breach-of-contract-goods|element|loss-amount-goods": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-breach-of-contract-goods"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-non-payment-goods-sold|element|amount-within-jurisdiction-goods-sold": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-non-payment-goods-sold"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-consumer-protection-act-issue|element|false-misleading-representation": {
   "all": [
    {
@@ -63,42 +15,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "publishedInNewspaperOrBroadcast",
     "is": true
-   }
-  ]
- },
- "sc-claim-consumer-protection-act-issue|element|amount-within-jurisdiction-cpa": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-consumer-protection-act-issue"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-contractor-damage|element|amount-within-jurisdiction-contractor": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-contractor-damage"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-wrongful-dismissal|element|amount-within-jurisdiction": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-wrongful-dismissal"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -127,119 +43,11 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-dog-bite-animal-injury|element|loss-amount-dog-bite": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-dog-bite-animal-injury"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-breach-of-contract-services|element|loss-amount-services": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-breach-of-contract-services"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-recovery-of-personal-property|element|defendant-possesses-and-wont-return": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-recovery-of-personal-property"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-recovery-of-personal-property|element|value-within-jurisdiction-property": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-recovery-of-personal-property"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-commercial-tenancy-dispute|element|amount-owing-commercial": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-commercial-tenancy-dispute"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-unpaid-overtime-vacation-pay|element|amount-within-jurisdiction-wages": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-unpaid-overtime-vacation-pay"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-unpaid-overtime-vacation-pay|note|0": {
   "all": [
    {
     "kind": "claim-type",
     "id": "sc-claim-unpaid-overtime-vacation-pay"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-vehicle-repair-dispute|element|amount-claimed-repair": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-vehicle-repair-dispute"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-used-vehicle-nondisclosure|element|amount-within-jurisdiction-vehicle": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-used-vehicle-nondisclosure"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-unpaid-condo-common-expenses|element|amount-within-jurisdiction-condo": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-unpaid-condo-common-expenses"
    },
    {
     "kind": "amount-over",
@@ -257,18 +65,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "governmentParty",
     "is": true
-   }
-  ]
- },
- "sc-claim-defamation-libel-slander|element|amount-within-jurisdiction-defamation": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-defamation-libel-slander"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -324,30 +120,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-vehicle-accident-uninsured-driver-property-damage|element|amount-within-jurisdiction-vehicle-accident": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-vehicle-accident-uninsured-driver-property-damage"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-personal-loan-between-individuals|element|amount-within-jurisdiction-personal-loan": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-personal-loan-between-individuals"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-personal-loan-between-individuals|note|1": {
   "all": [
    {
@@ -358,30 +130,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "loanRepayableOnDemand",
     "is": true
-   }
-  ]
- },
- "sc-claim-property-damaged-lost-in-business-care|element|amount-within-jurisdiction-property-in-care": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-property-damaged-lost-in-business-care"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-damage-caused-by-a-child|element|amount-within-jurisdiction-parental": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-damage-caused-by-a-child"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -398,103 +146,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-online-purchase-not-delivered|element|amount-within-jurisdiction-remote": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-online-purchase-not-delivered"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-online-purchase-not-delivered|note|1": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-online-purchase-not-delivered"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-repairer-or-storer-holding-property|element|business-holding-under-lien-repairlien": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-repairer-or-storer-holding-property"
-   },
-   {
-    "kind": "fact",
-    "fact": "insurerInvolved",
-    "is": true
-   }
-  ]
- },
- "sc-claim-repairer-or-storer-holding-property|element|amount-within-jurisdiction-repairlien": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-repairer-or-storer-holding-property"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-repairer-or-storer-holding-property|note|0": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-repairer-or-storer-holding-property"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-unpaid-wages|element|amount-within-jurisdiction-unpaidwages": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-unpaid-wages"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-guarantor-or-cosigner-pursued|element|amount-paid-unpaid-cosign": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-guarantor-or-cosigner-pursued"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-deposit-not-returned|element|deposit-amount-unpaid-deposit": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-deposit-not-returned"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-deposit-not-returned|note|0": {
   "all": [
    {
@@ -505,36 +156,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "residentialTenancy",
     "is": true
-   }
-  ]
- },
- "sc-claim-unpaid-commission-or-expenses|element|payment-owed-under-agreement-commission": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-unpaid-commission-or-expenses"
-   },
-   {
-    "kind": "fact",
-    "fact": "employment",
-    "is": true
-   }
-  ]
- },
- "sc-claim-unpaid-commission-or-expenses|element|amount-unpaid-commission": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-unpaid-commission-or-expenses"
-   },
-   {
-    "kind": "fact",
-    "fact": "employment",
-    "is": true
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -577,18 +198,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-settlement-agreement-unpaid|element|payments-missed-settlement": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-settlement-agreement-unpaid"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-promissory-note-unpaid|element|payment-due-promnote": {
   "all": [
    {
@@ -599,30 +208,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "loanRepayableOnDemand",
     "is": true
-   }
-  ]
- },
- "sc-claim-promissory-note-unpaid|element|amount-unpaid-promnote": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-promissory-note-unpaid"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-joint-expense-share|element|amount-of-share-jointexp": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-joint-expense-share"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -663,19 +248,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-unpaid-clinic-invoice|element|invoice-unpaid-amount": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-unpaid-clinic-invoice"
-   },
-   {
-    "kind": "fact",
-    "fact": "insurerInvolved",
-    "is": true
-   }
-  ]
- },
  "sc-claim-unpaid-clinic-invoice|consideration|consumer-protection-act-exemption-health-and-vet": {
   "all": [
    {
@@ -702,18 +274,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-unpaid-commercial-rent|note|0": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-unpaid-commercial-rent"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-club-or-association-dues|consideration|personal-development-services-and-member-clubs": {
   "all": [
    {
@@ -724,91 +284,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "consumerAgreement",
     "is": true
-   }
-  ]
- },
- "sc-claim-contractor-poor-or-incomplete-work|element|amount-cpw": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-contractor-poor-or-incomplete-work"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-contractor-took-deposit-and-left|element|amount-dtl": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-contractor-took-deposit-and-left"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-homeowner-wont-pay-contractor|element|amount-hwp": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-homeowner-wont-pay-contractor"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-used-vehicle-private-sale|element|amount-uvp": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-used-vehicle-private-sale"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-new-vehicle-defects|element|amount-nvd": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-new-vehicle-defects"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-home-inspector-missed-defects|element|reasonably-acceptable-quality-hid": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-home-inspector-missed-defects"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-home-inspector-missed-defects|element|amount-hid": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-home-inspector-missed-defects"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -838,18 +313,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-real-estate-deposit-dispute|element|amount-red": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-real-estate-deposit-dispute"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-real-estate-deposit-dispute|note|1": {
   "all": [
    {
@@ -860,175 +323,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "consumerAgreement",
     "is": true
-   }
-  ]
- },
- "sc-claim-moving-company-damage-or-loss|element|service-quality-mcd": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-moving-company-damage-or-loss"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-moving-company-damage-or-loss|element|goods-held-for-more-money-mcd": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-moving-company-damage-or-loss"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-moving-company-damage-or-loss|element|amount-mcd": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-moving-company-damage-or-loss"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-storage-company-dispute|element|service-quality-scd": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-storage-company-dispute"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-storage-company-dispute|element|amount-scd": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-storage-company-dispute"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-storage-company-dispute|note|1": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-storage-company-dispute"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-wedding-or-event-vendor-failure|element|service-quality-wev": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-wedding-or-event-vendor-failure"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-wedding-or-event-vendor-failure|element|cancelled-not-started-wev": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-wedding-or-event-vendor-failure"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-wedding-or-event-vendor-failure|element|amount-wev": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-wedding-or-event-vendor-failure"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-gym-or-personal-development-contract|element|personal-development-agreement-gym": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-gym-or-personal-development-contract"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
-   }
-  ]
- },
- "sc-claim-gym-or-personal-development-contract|element|cancellation-gym": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-gym-or-personal-development-contract"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-gym-or-personal-development-contract|element|refund-gym": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-gym-or-personal-development-contract"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-gym-or-personal-development-contract|element|amount-gym": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-gym-or-personal-development-contract"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -1058,44 +352,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-subscription-cancellation|element|internet-agreement-rules-sub": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-subscription-cancellation"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-subscription-cancellation|element|unsolicited-or-changed-sub": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-subscription-cancellation"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-subscription-cancellation|element|amount-sub": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-subscription-cancellation"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-subscription-cancellation|note|0": {
   "all": [
    {
@@ -1106,93 +362,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "consumerAgreement",
     "is": true
-   }
-  ]
- },
- "sc-claim-marketplace-private-sale|element|amount-mps": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-marketplace-private-sale"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-warranty-refused|element|loss-wr": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-warranty-refused"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-private-career-college-refund|element|amount-pcc": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-private-career-college-refund"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-driving-school|element|lessons-quality-drv": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-driving-school"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-driving-school|element|lessons-not-started-drv": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-driving-school"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-driving-school|element|licence-misrepresented-drv": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-driving-school"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-driving-school|element|amount-drv": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-driving-school"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -1219,81 +388,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "consumerAgreement",
     "is": true
-   }
-  ]
- },
- "sc-claim-item-damaged-by-a-service|element|amount-dmg": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-item-damaged-by-a-service"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-item-damaged-by-a-service|consideration|repairer-keeps-item-dmg": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-item-damaged-by-a-service"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-water-heater-or-hvac-rental|element|contract-and-payments-whr": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-water-heater-or-hvac-rental"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-water-heater-or-hvac-rental|element|door-to-door-void-whr": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-water-heater-or-hvac-rental"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-water-heater-or-hvac-rental|element|payments-refund-whr": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-water-heater-or-hvac-rental"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-water-heater-or-hvac-rental|element|amount-whr": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-water-heater-or-hvac-rental"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -1333,62 +427,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "consumerAgreement",
     "is": true
-   }
-  ]
- },
- "sc-claim-solar-or-energy-efficiency-contract|element|consumer-agreement-sol": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-solar-or-energy-efficiency-contract"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-solar-or-energy-efficiency-contract|element|cancelled-direct-agreement-sol": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-solar-or-energy-efficiency-contract"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-solar-or-energy-efficiency-contract|element|unfair-practice-sol": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-solar-or-energy-efficiency-contract"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-solar-or-energy-efficiency-contract|element|refund-not-made-sol": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-solar-or-energy-efficiency-contract"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -1444,44 +482,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-furniture-or-appliance-delivery|element|never-delivered-fad": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-furniture-or-appliance-delivery"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-furniture-or-appliance-delivery|element|damaged-or-defective-fad": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-furniture-or-appliance-delivery"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-furniture-or-appliance-delivery|element|amount-fad": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-furniture-or-appliance-delivery"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-furniture-or-appliance-delivery|note|1": {
   "all": [
    {
@@ -1492,68 +492,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "consumerAgreement",
     "is": true
-   }
-  ]
- },
- "sc-claim-home-services-not-performed|element|amount-hsn": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-home-services-not-performed"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-salon-spa-or-tattoo-result|element|service-quality-sst": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-salon-spa-or-tattoo-result"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-salon-spa-or-tattoo-result|element|amount-sst": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-salon-spa-or-tattoo-result"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-pet-grooming-or-boarding|element|service-quality-pgb": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-pet-grooming-or-boarding"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-pet-grooming-or-boarding|element|amount-pgb": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-pet-grooming-or-boarding"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -1570,126 +508,11 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-daycare-or-camp-fees|element|written-agreement-dcf": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-daycare-or-camp-fees"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-daycare-or-camp-fees|element|never-started-or-refund-dcf": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-daycare-or-camp-fees"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-daycare-or-camp-fees|element|amount-dcf": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-daycare-or-camp-fees"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-gift-card-refused|element|gift-card-covered-gcr": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-gift-card-refused"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-gift-card-refused|element|amount-gcr": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-gift-card-refused"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-gift-card-refused|note|0": {
   "all": [
    {
     "kind": "claim-type",
     "id": "sc-claim-gift-card-refused"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-timeshare-or-vacation-club|element|time-share-agreement-tsv": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-timeshare-or-vacation-club"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-timeshare-or-vacation-club|element|cancelled-in-time-tsv": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-timeshare-or-vacation-club"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-timeshare-or-vacation-club|element|sales-pitch-tsv": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-timeshare-or-vacation-club"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-timeshare-or-vacation-club|element|refund-tsv": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-timeshare-or-vacation-club"
    },
    {
     "kind": "fact",
@@ -1724,44 +547,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-website-app-or-software-build|element|work-not-acceptable-web": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-website-app-or-software-build"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-website-app-or-software-build|element|work-never-started-web": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-website-app-or-software-build"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-website-app-or-software-build|element|amount-web": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-website-app-or-software-build"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-website-app-or-software-build|consideration|extra-work-web": {
   "all": [
    {
@@ -1785,57 +570,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "consumerAgreement",
     "is": true
-   }
-  ]
- },
- "sc-claim-hosting-or-saas-billing|element|subscription-hst": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-hosting-or-saas-billing"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-hosting-or-saas-billing|element|material-change-hst": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-hosting-or-saas-billing"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-hosting-or-saas-billing|element|internet-agreement-hst": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-hosting-or-saas-billing"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-hosting-or-saas-billing|element|amount-hst": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-hosting-or-saas-billing"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -1878,123 +612,11 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-influencer-or-brand-deal-unpaid|element|amount-inf": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-influencer-or-brand-deal-unpaid"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-insurance-claim-denied|element|amount-ins": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-insurance-claim-denied"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-bank-error-or-unauthorized-transaction|element|lost-or-stolen-card-bnk": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-bank-error-or-unauthorized-transaction"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-bank-error-or-unauthorized-transaction|element|statement-error-bnk": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-bank-error-or-unauthorized-transaction"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-credit-report-error|element|damages-crd": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-credit-report-error"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-neighbours-tree-fell|element|amount-tf": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-neighbours-tree-fell"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-neighbours-tree-fell|note|1": {
   "all": [
    {
     "kind": "claim-type",
     "id": "sc-claim-neighbours-tree-fell"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
-   }
-  ]
- },
- "sc-claim-water-from-neighbouring-property|element|amount-wn": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-water-from-neighbouring-property"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-fence-dispute|element|award-or-agreement-fd": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-fence-dispute"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
-   }
-  ]
- },
- "sc-claim-fence-dispute|element|neighbour-did-not-obey-fd": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-fence-dispute"
    },
    {
     "kind": "fact",
@@ -2042,18 +664,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-retaining-wall-failure|element|amount-rw": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-retaining-wall-failure"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-damage-caused-by-a-dog|element|attack-on-a-domestic-animal-dg": {
   "all": [
    {
@@ -2064,69 +674,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "partyIsMinor",
     "is": true
-   }
-  ]
- },
- "sc-claim-damage-caused-by-a-dog|element|other-damage-by-a-dog-at-large-dg": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-damage-caused-by-a-dog"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
-   }
-  ]
- },
- "sc-claim-damage-caused-by-a-dog|element|amount-dg": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-damage-caused-by-a-dog"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-livestock-or-animals-at-large|element|animal-at-large-did-damage-la": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-livestock-or-animals-at-large"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
-   }
-  ]
- },
- "sc-claim-livestock-or-animals-at-large|element|outside-a-municipality-la": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-livestock-or-animals-at-large"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
-   }
-  ]
- },
- "sc-claim-livestock-or-animals-at-large|element|amount-la": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-livestock-or-animals-at-large"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -2143,71 +690,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-damage-to-a-parked-vehicle|element|amount-pv": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-damage-to-a-parked-vehicle"
-   },
-   {
-    "kind": "fact",
-    "fact": "insurerInvolved",
-    "is": true
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-damage-by-tenant-guest-or-roommate|element|amount-tg": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-damage-by-tenant-guest-or-roommate"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-damage-by-tenant-guest-or-roommate|note|0": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-damage-by-tenant-guest-or-roommate"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-construction-or-excavation-next-door|element|amount-cn": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-construction-or-excavation-next-door"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-vandalism-known-person|element|amount-vk": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-vandalism-known-person"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-vandalism-known-person|consideration|child-did-it-vk": {
   "all": [
    {
@@ -2218,83 +700,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "partyIsMinor",
     "is": true
-   }
-  ]
- },
- "sc-claim-borrowed-item-not-returned|element|amount-bi": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-borrowed-item-not-returned"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-landlord-disposed-of-belongings|note|0": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-landlord-disposed-of-belongings"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-towing-damage|element|amount-tw": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-towing-damage"
-   },
-   {
-    "kind": "fact",
-    "fact": "insurerInvolved",
-    "is": true
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-snow-plow-or-municipal-works-damage|element|amount-mw": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-snow-plow-or-municipal-works-damage"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-utility-work-damage|element|amount-uw": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-utility-work-damage"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-fire-or-smoke-from-next-door|element|amount-fs": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-fire-or-smoke-from-next-door"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -2311,18 +716,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-drone-ball-or-sports-equipment|element|amount-ds": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-drone-ball-or-sports-equipment"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-drone-ball-or-sports-equipment|consideration|child-was-playing-ds": {
   "all": [
    {
@@ -2336,35 +729,11 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-short-term-rental-guest-damage|element|amount-sr": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-short-term-rental-guest-damage"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-fall-in-a-parking-lot-or-plaza|note|1": {
   "all": [
    {
     "kind": "claim-type",
     "id": "sc-claim-fall-in-a-parking-lot-or-plaza"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-fall-at-a-rental-property|note|0": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-fall-at-a-rental-property"
    },
    {
     "kind": "amount-over",
@@ -2393,19 +762,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    {
     "kind": "amount-over",
     "dollars": 50000
-   }
-  ]
- },
- "sc-claim-food-poisoning|element|sale-of-goods-scfood": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-food-poisoning"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
    }
   ]
  },
@@ -2532,19 +888,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-injury-from-a-cosmetic-procedure|element|services-quality-sccos": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-injury-from-a-cosmetic-procedure"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
  "sc-claim-injury-from-a-cosmetic-procedure|consideration|regulated-professional-sccos": {
   "all": [
    {
@@ -2608,66 +951,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-cameras-or-lights-aimed-at-you|element|amount-cam": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-cameras-or-lights-aimed-at-you"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-snow-or-leaves-dumped|element|amount-sd": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-snow-or-leaves-dumped"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-drainage-and-grading|element|amount-dg": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-drainage-and-grading"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-shared-well-or-septic|element|not-done-and-amount-sw": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-shared-well-or-septic"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-construction-noise-and-debris|element|amount-cd": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-construction-noise-and-debris"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-construction-noise-and-debris|note|1": {
   "all": [
    {
@@ -2678,44 +961,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "governmentParty",
     "is": true
-   }
-  ]
- },
- "sc-claim-unpaid-tips|element|money-was-a-tip-tips": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-unpaid-tips"
-   },
-   {
-    "kind": "fact",
-    "fact": "employment",
-    "is": true
-   }
-  ]
- },
- "sc-claim-unpaid-tips|element|tips-withheld-tips": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-unpaid-tips"
-   },
-   {
-    "kind": "fact",
-    "fact": "employment",
-    "is": true
-   }
-  ]
- },
- "sc-claim-unpaid-tips|element|amount-tips": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-unpaid-tips"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -2758,56 +1003,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-unpaid-severance|element|amount-severance": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-unpaid-severance"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-unpaid-bonus-after-termination|element|earned-under-terms-bonus": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-unpaid-bonus-after-termination"
-   },
-   {
-    "kind": "fact",
-    "fact": "employment",
-    "is": true
-   }
-  ]
- },
- "sc-claim-unpaid-bonus-after-termination|element|unpaid-at-end-bonus": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-unpaid-bonus-after-termination"
-   },
-   {
-    "kind": "fact",
-    "fact": "employment",
-    "is": true
-   }
-  ]
- },
- "sc-claim-unpaid-bonus-after-termination|element|amount-bonus": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-unpaid-bonus-after-termination"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-unpaid-bonus-after-termination|consideration|discretionary-or-conditions-bonus": {
   "all": [
    {
@@ -2844,44 +1039,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "employment",
     "is": true
-   }
-  ]
- },
- "sc-claim-contractor-misclassification|element|was-an-employee-misclass": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-contractor-misclassification"
-   },
-   {
-    "kind": "fact",
-    "fact": "employment",
-    "is": true
-   }
-  ]
- },
- "sc-claim-contractor-misclassification|element|standard-not-given-misclass": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-contractor-misclassification"
-   },
-   {
-    "kind": "fact",
-    "fact": "employment",
-    "is": true
-   }
-  ]
- },
- "sc-claim-contractor-misclassification|element|amount-misclass": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-contractor-misclassification"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -2924,87 +1081,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-gig-platform-payment|element|work-done-unpaid-gig": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-gig-platform-payment"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-gig-platform-payment|element|minimum-pay-gig": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-gig-platform-payment"
-   },
-   {
-    "kind": "fact",
-    "fact": "employment",
-    "is": true
-   }
-  ]
- },
- "sc-claim-gig-platform-payment|element|employee-status-gig": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-gig-platform-payment"
-   },
-   {
-    "kind": "fact",
-    "fact": "employment",
-    "is": true
-   }
-  ]
- },
- "sc-claim-caregiver-or-domestic-worker-unpaid|element|hired-by-household-caregiver": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-caregiver-or-domestic-worker-unpaid"
-   },
-   {
-    "kind": "fact",
-    "fact": "employment",
-    "is": true
-   }
-  ]
- },
- "sc-claim-caregiver-or-domestic-worker-unpaid|element|wages-not-paid-caregiver": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-caregiver-or-domestic-worker-unpaid"
-   },
-   {
-    "kind": "fact",
-    "fact": "employment",
-    "is": true
-   }
-  ]
- },
- "sc-claim-caregiver-or-domestic-worker-unpaid|element|hours-and-amount-caregiver": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-caregiver-or-domestic-worker-unpaid"
-   },
-   {
-    "kind": "fact",
-    "fact": "employment",
-    "is": true
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-caregiver-or-domestic-worker-unpaid|consideration|room-and-board-caregiver": {
   "all": [
    {
@@ -3044,56 +1120,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-employer-suing-former-employee|element|money-or-property-employer": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-employer-suing-former-employee"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-non-compete-or-non-solicit|element|the-clause-noncompete": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-non-compete-or-non-solicit"
-   },
-   {
-    "kind": "fact",
-    "fact": "employment",
-    "is": true
-   }
-  ]
- },
- "sc-claim-non-compete-or-non-solicit|element|esa-non-compete-rule-noncompete": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-non-compete-or-non-solicit"
-   },
-   {
-    "kind": "fact",
-    "fact": "employment",
-    "is": true
-   }
-  ]
- },
- "sc-claim-non-compete-or-non-solicit|element|money-lost-noncompete": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-non-compete-or-non-solicit"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-non-compete-or-non-solicit|consideration|clause-void-noncompete": {
   "all": [
    {
@@ -3119,67 +1145,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-landlord-against-former-tenant|note|1": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-landlord-against-former-tenant"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-landlord-against-former-tenant|note|2": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-landlord-against-former-tenant"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-tenant-against-former-landlord|note|2": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-tenant-against-former-landlord"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-roommate-or-shared-house|element|who-the-arrangement-was-with": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-roommate-or-shared-house"
-   },
-   {
-    "kind": "fact",
-    "fact": "residentialTenancy",
-    "is": true
-   }
-  ]
- },
- "sc-claim-roommate-or-shared-house|element|money-owed-or-property-kept": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-roommate-or-shared-house"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-roommate-or-shared-house|consideration|roommate-set-off": {
   "all": [
    {
@@ -3187,7 +1152,9 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "id": "sc-claim-roommate-or-shared-house"
    },
    {
-    "any": []
+    "kind": "fact",
+    "fact": "moneyOwed",
+    "is": true
    }
   ]
  },
@@ -3201,60 +1168,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "residentialTenancy",
     "is": true
-   }
-  ]
- },
- "sc-claim-subletter-not-paying|element|was-it-a-sublet": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-subletter-not-paying"
-   },
-   {
-    "kind": "fact",
-    "fact": "residentialTenancy",
-    "is": true
-   }
-  ]
- },
- "sc-claim-subletter-not-paying|element|subtenant-liable-to-tenant": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-subletter-not-paying"
-   },
-   {
-    "kind": "fact",
-    "fact": "residentialTenancy",
-    "is": true
-   }
-  ]
- },
- "sc-claim-subletter-not-paying|element|share-of-costs-not-a-sublet": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-subletter-not-paying"
-   },
-   {
-    "kind": "fact",
-    "fact": "residentialTenancy",
-    "is": true
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-subletter-not-paying|consideration|subletter-set-off": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-subletter-not-paying"
-   },
-   {
-    "any": []
    }
   ]
  },
@@ -3284,18 +1197,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-condo-owner-against-corporation|element|loss-from-failure-to-perform-duty": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-condo-owner-against-corporation"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-condo-water-or-noise-damage|consideration|corporation-repairs-and-deductible": {
   "all": [
    {
@@ -3309,30 +1210,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-condo-water-or-noise-damage|note|1": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-condo-water-or-noise-damage"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-co-owner-dispute|element|co-owner-amount-within-limit": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-co-owner-dispute"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-co-owner-dispute|consideration|co-owner-set-off": {
   "all": [
    {
@@ -3340,7 +1217,9 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "id": "sc-claim-co-owner-dispute"
    },
    {
-    "any": []
+    "kind": "fact",
+    "fact": "moneyOwed",
+    "is": true
    }
   ]
  },
@@ -3349,69 +1228,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    {
     "kind": "claim-type",
     "id": "sc-claim-co-owner-dispute"
-   },
-   {
-    "kind": "fact",
-    "fact": "residentialTenancy",
-    "is": true
-   }
-  ]
- },
- "sc-claim-short-term-rental-dispute|element|short-stay-money-owed": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-short-term-rental-dispute"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-short-term-rental-dispute|note|0": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-short-term-rental-dispute"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-rooming-or-boarding-house|element|room-is-a-rental-unit": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-rooming-or-boarding-house"
-   },
-   {
-    "kind": "fact",
-    "fact": "residentialTenancy",
-    "is": true
-   }
-  ]
- },
- "sc-claim-rooming-or-boarding-house|element|rooming-house-landlord-obligations": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-rooming-or-boarding-house"
-   },
-   {
-    "kind": "fact",
-    "fact": "residentialTenancy",
-    "is": true
-   }
-  ]
- },
- "sc-claim-rooming-or-boarding-house|element|rooming-house-money-collected": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-rooming-or-boarding-house"
    },
    {
     "kind": "fact",
@@ -3440,7 +1256,9 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "id": "sc-claim-rooming-or-boarding-house"
    },
    {
-    "any": []
+    "kind": "fact",
+    "fact": "moneyOwed",
+    "is": true
    }
   ]
  },
@@ -3454,10 +1272,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "residentialTenancy",
     "is": true
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -3474,44 +1288,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-student-residence|element|residence-exempt-or-covered": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-student-residence"
-   },
-   {
-    "kind": "fact",
-    "fact": "residentialTenancy",
-    "is": true
-   }
-  ]
- },
- "sc-claim-student-residence|element|student-housing-money-owed": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-student-residence"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-student-residence|element|student-housing-covered-by-act": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-student-residence"
-   },
-   {
-    "kind": "fact",
-    "fact": "residentialTenancy",
-    "is": true
-   }
-  ]
- },
  "sc-claim-student-residence|consideration|student-housing-set-off": {
   "all": [
    {
@@ -3519,7 +1295,9 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "id": "sc-claim-student-residence"
    },
    {
-    "any": []
+    "kind": "fact",
+    "fact": "moneyOwed",
+    "is": true
    }
   ]
  },
@@ -3533,10 +1311,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "residentialTenancy",
     "is": true
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -3545,45 +1319,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    {
     "kind": "claim-type",
     "id": "sc-claim-student-residence"
-   },
-   {
-    "kind": "fact",
-    "fact": "residentialTenancy",
-    "is": true
-   }
-  ]
- },
- "sc-claim-mobile-home-park|element|rented-site-is-a-rental-unit": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-mobile-home-park"
-   },
-   {
-    "kind": "fact",
-    "fact": "residentialTenancy",
-    "is": true
-   }
-  ]
- },
- "sc-claim-mobile-home-park|element|park-landlord-responsibilities": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-mobile-home-park"
-   },
-   {
-    "kind": "fact",
-    "fact": "residentialTenancy",
-    "is": true
-   }
-  ]
- },
- "sc-claim-mobile-home-park|element|park-charges-limited": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-mobile-home-park"
    },
    {
     "kind": "fact",
@@ -3628,10 +1363,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "residentialTenancy",
     "is": true
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -3666,168 +1397,11 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-home-purchase-closing-dispute|element|home-purchase-amount-within-limit": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-home-purchase-closing-dispute"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-home-purchase-closing-dispute|note|0": {
   "all": [
    {
     "kind": "claim-type",
     "id": "sc-claim-home-purchase-closing-dispute"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-contractor-lien-on-a-home|element|unpaid-price-as-money-claim": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-contractor-lien-on-a-home"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-contractor-lien-on-a-home|note|0": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-contractor-lien-on-a-home"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-gift-or-loan-between-former-partners|element|amount-owing-loan": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-gift-or-loan-between-former-partners"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-gift-or-loan-between-former-partners|note|1": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-gift-or-loan-between-former-partners"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-engagement-ring-and-wedding-gifts|element|gift-value-ring": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-engagement-ring-and-wedding-gifts"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-engagement-ring-and-wedding-gifts|note|1": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-engagement-ring-and-wedding-gifts"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-return-of-belongings-after-breakup|element|value-of-items-belongings": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-return-of-belongings-after-breakup"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-return-of-belongings-after-breakup|note|0": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-return-of-belongings-after-breakup"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-jointly-bought-items-on-breakup|element|share-claimed-joint": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-jointly-bought-items-on-breakup"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-jointly-bought-items-on-breakup|note|1": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-jointly-bought-items-on-breakup"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-sick-or-misrepresented-pet|element|false-representation-pet": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-sick-or-misrepresented-pet"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-sick-or-misrepresented-pet|element|amount-pet": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-sick-or-misrepresented-pet"
    },
    {
     "kind": "amount-over",
@@ -3874,42 +1448,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-vet-negligence|element|amount-vet": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-vet-negligence"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-scam-or-fraud-recovery|element|amount-scam": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-scam-or-fraud-recovery"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-romance-or-investment-scam|element|amount-romance": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-romance-or-investment-scam"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-romance-or-investment-scam|note|1": {
   "all": [
    {
@@ -3920,18 +1458,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "consumerAgreement",
     "is": true
-   }
-  ]
- },
- "sc-claim-cryptocurrency-or-exchange-loss|element|amount-crypto": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-cryptocurrency-or-exchange-loss"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -4013,19 +1539,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-against-a-municipality-other|element|staff-tort-munother": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-against-a-municipality-other"
-   },
-   {
-    "kind": "fact",
-    "fact": "employment",
-    "is": true
-   }
-  ]
- },
  "sc-claim-against-a-municipality-other|note|1": {
   "all": [
    {
@@ -4035,19 +1548,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    {
     "kind": "amount-over",
     "dollars": 50000
-   }
-  ]
- },
- "sc-claim-against-police|element|who-answers-police": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-against-police"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
    }
   ]
  },
@@ -4064,35 +1564,11 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-against-a-lawyer-or-paralegal|element|amount-lawyer": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-against-a-lawyer-or-paralegal"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-against-a-lawyer-or-paralegal|note|1": {
   "all": [
    {
     "kind": "claim-type",
     "id": "sc-claim-against-a-lawyer-or-paralegal"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-against-another-professional|element|amount-prof": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-against-another-professional"
    },
    {
     "kind": "amount-over",
@@ -4138,83 +1614,11 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-over-the-monetary-limit|element|money-or-property-overlimit": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-over-the-monetary-limit"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-over-the-monetary-limit|element|waive-overlimit": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-over-the-monetary-limit"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-over-the-monetary-limit|element|amount-overlimit": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-over-the-monetary-limit"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-over-the-monetary-limit|consideration|claim-divided-overlimit": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-over-the-monetary-limit"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-over-the-monetary-limit|note|0": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-over-the-monetary-limit"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-over-the-monetary-limit|note|1": {
   "all": [
    {
     "kind": "claim-type",
     "id": "sc-claim-over-the-monetary-limit"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-franchise-dispute|element|amount-franchise": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-franchise-dispute"
    },
    {
     "kind": "amount-over",
@@ -4242,7 +1646,9 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "id": "sc-claim-franchise-dispute"
    },
    {
-    "any": []
+    "kind": "fact",
+    "fact": "moneyOwed",
+    "is": true
    }
   ]
  },
@@ -4283,60 +1689,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-sports-league-or-camp-fees|element|consumer-protection-camp": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-sports-league-or-camp-fees"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
-   }
-  ]
- },
- "sc-claim-sports-league-or-camp-fees|element|amount-camp": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-sports-league-or-camp-fees"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-charity-or-fundraising-dispute|element|amount-charity": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-charity-or-fundraising-dispute"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-elder-financial-abuse|element|amount-elder": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-elder-financial-abuse"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-elder-financial-abuse|note|0": {
   "all": [
    {
@@ -4359,68 +1711,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    {
     "kind": "fact",
     "fact": "partyIsMinor",
-    "is": true
-   }
-  ]
- },
- "sc-claim-parking-traffic-or-bylaw-charge|element|administrative-penalty-parking": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-parking-traffic-or-bylaw-charge"
-   },
-   {
-    "kind": "fact",
-    "fact": "governmentParty",
-    "is": true
-   }
-  ]
- },
- "sc-claim-hit-and-run-or-uninsured-driver|element|amount-hitrun": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-hit-and-run-or-uninsured-driver"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-defence-want-to-claim-back|consideration|claim-back-over-limit-back": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-defence-want-to-claim-back"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-defence-sued-in-the-wrong-place|element|amount-over-limit-place": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-defence-sued-in-the-wrong-place"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-defence-wages-or-bank-account-garnished|element|what-cannot-be-taken-garnish": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-defence-wages-or-bank-account-garnished"
-   },
-   {
-    "kind": "fact",
-    "fact": "insurerInvolved",
     "is": true
    }
   ]
@@ -4528,42 +1818,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-college-or-university-fee-dispute|element|amount-uni": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-college-or-university-fee-dispute"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-tree-roots-damage|element|amount-tr": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-tree-roots-damage"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-noise-and-nuisance|element|amount-nn": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-noise-and-nuisance"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-noise-and-nuisance|note|1": {
   "all": [
    {
@@ -4574,18 +1828,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "governmentParty",
     "is": true
-   }
-  ]
- },
- "sc-claim-smoke-odours-or-cannabis|element|amount-so": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-smoke-odours-or-cannabis"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -4602,18 +1844,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-overhanging-branches|element|amount-ob": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-overhanging-branches"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-overhanging-branches|consideration|dispute-ob": {
   "all": [
    {
@@ -4627,30 +1857,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-harassment-by-a-neighbour|element|amount-hn": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-harassment-by-a-neighbour"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
- "sc-claim-minor-assault-or-battery|note|1": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-minor-assault-or-battery"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
-   }
-  ]
- },
  "sc-claim-harassment-or-cyberbullying|note|0": {
   "all": [
    {
@@ -4661,18 +1867,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
     "kind": "fact",
     "fact": "employment",
     "is": true
-   }
-  ]
- },
- "sc-claim-harassment-or-cyberbullying|note|1": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-harassment-or-cyberbullying"
-   },
-   {
-    "kind": "amount-over",
-    "dollars": 50000
    }
   ]
  },
@@ -4697,45 +1891,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    {
     "kind": "amount-over",
     "dollars": 50000
-   }
-  ]
- },
- "sc-claim-electricity-or-gas-billing|element|retail-contract-ecb": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-electricity-or-gas-billing"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-electricity-or-gas-billing|element|cancelled-or-void-ecb": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-electricity-or-gas-billing"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
-   }
-  ]
- },
- "sc-claim-electricity-or-gas-billing|element|refund-not-received-ecb": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-electricity-or-gas-billing"
-   },
-   {
-    "kind": "fact",
-    "fact": "consumerAgreement",
-    "is": true
    }
   ]
  },
@@ -4778,19 +1933,6 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
    }
   ]
  },
- "sc-claim-copyright-or-intellectual-property|element|copyright-owned-cop": {
-  "all": [
-   {
-    "kind": "claim-type",
-    "id": "sc-claim-copyright-or-intellectual-property"
-   },
-   {
-    "kind": "fact",
-    "fact": "employment",
-    "is": true
-   }
-  ]
- },
  "sc-claim-copyright-or-intellectual-property|note|0": {
   "all": [
    {
@@ -4818,157 +1960,42 @@ export const GENERATED_CONDITIONS: Record<string, ItemCondition> = {
 };
 
 /** Items no pattern could place safely: each keeps the default until its own rule is written. */
-export const NEEDS_OWN_RULE: { key: string; why: string }[] = [
- {
-  "key": "sc-claim-slip-and-fall-occupier-liability|element|notice-if-snow-or-ice",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-slip-and-fall-occupier-liability|note|1",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-wrongful-dismissal|element|minimum-employment-length",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-wrongful-dismissal|element|notice-or-pay-not-given",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-used-vehicle-nondisclosure|note|0",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-unpaid-condo-common-expenses|note|1",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-unpaid-condo-common-expenses|note|2",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-online-purchase-not-delivered|element|cancellation-right-and-notice-remote",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-online-purchase-not-delivered|note|0",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-repairer-or-storer-holding-property|element|limits-on-lien-repairlien",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-repairer-or-storer-holding-property|note|1",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-real-estate-deposit-dispute|element|condo-rescission-red",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-private-career-college-refund|element|two-day-rescission-pcc",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-insurance-claim-denied|consideration|condition-not-met-ins",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-snow-plow-or-municipal-works-damage|note|0",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-fall-in-a-parking-lot-or-plaza|note|0",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-fall-at-a-rental-property|note|1",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-fall-at-a-municipal-facility|consideration|sidewalk-or-road-scmuni",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-fall-at-a-municipal-facility|note|0",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-injury-at-a-business-or-event|note|0",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-injury-from-a-falling-object|note|0",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-injury-on-public-transit|note|0",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-unpaid-severance|element|notice-or-pay-owed-severance",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-unpaid-severance|consideration|exempt-from-notice-severance",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-roommate-or-shared-house|consideration|roommate-set-off",
-  "why": "set-off (CJA s. 111) on a claim type that is not about money owed: hidden until a rule is written"
- },
- {
-  "key": "sc-claim-subletter-not-paying|consideration|subletter-set-off",
-  "why": "set-off (CJA s. 111) on a claim type that is not about money owed: hidden until a rule is written"
- },
- {
-  "key": "sc-claim-co-owner-dispute|consideration|co-owner-set-off",
-  "why": "set-off (CJA s. 111) on a claim type that is not about money owed: hidden until a rule is written"
- },
- {
-  "key": "sc-claim-rooming-or-boarding-house|consideration|rooming-house-set-off",
-  "why": "set-off (CJA s. 111) on a claim type that is not about money owed: hidden until a rule is written"
- },
- {
-  "key": "sc-claim-student-residence|consideration|student-housing-set-off",
-  "why": "set-off (CJA s. 111) on a claim type that is not about money owed: hidden until a rule is written"
- },
- {
-  "key": "sc-claim-against-a-municipality-other|note|0",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-franchise-dispute|consideration|set-off-franchise",
-  "why": "set-off (CJA s. 111) on a claim type that is not about money owed: hidden until a rule is written"
- },
- {
-  "key": "sc-claim-hit-and-run-or-uninsured-driver|note|1",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-defence-sued-by-a-collection-agency|element|who-the-agency-is",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-defence-sued-as-parent-owner-or-employer|note|1",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-funeral-or-cemetery-dispute|element|contract-requirements-fun",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-funeral-or-cemetery-dispute|element|cooling-off-fun",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-funeral-or-cemetery-dispute|element|later-cancellation-fun",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- },
- {
-  "key": "sc-claim-financial-advisor-or-mortgage-broker|note|1",
-  "why": "names a notice or time limit with no fact to decide it: default (its claim type) until a rule is written"
- }
+export const NEEDS_OWN_RULE: { key: string; why: string }[] = [];
+
+/** Notices and time limits: shown whenever the kind is confirmed, as one plain deadline line (site owner, 27 Nov 2026). */
+export const DEADLINE_LINE_ITEMS: string[] = [
+ "sc-claim-slip-and-fall-occupier-liability|element|notice-if-snow-or-ice",
+ "sc-claim-slip-and-fall-occupier-liability|note|1",
+ "sc-claim-wrongful-dismissal|element|minimum-employment-length",
+ "sc-claim-wrongful-dismissal|element|notice-or-pay-not-given",
+ "sc-claim-used-vehicle-nondisclosure|note|0",
+ "sc-claim-unpaid-condo-common-expenses|note|1",
+ "sc-claim-unpaid-condo-common-expenses|note|2",
+ "sc-claim-online-purchase-not-delivered|element|cancellation-right-and-notice-remote",
+ "sc-claim-online-purchase-not-delivered|note|0",
+ "sc-claim-repairer-or-storer-holding-property|element|limits-on-lien-repairlien",
+ "sc-claim-repairer-or-storer-holding-property|note|1",
+ "sc-claim-real-estate-deposit-dispute|element|condo-rescission-red",
+ "sc-claim-private-career-college-refund|element|two-day-rescission-pcc",
+ "sc-claim-insurance-claim-denied|consideration|condition-not-met-ins",
+ "sc-claim-bank-error-or-unauthorized-transaction|element|lost-or-stolen-card-bnk",
+ "sc-claim-snow-plow-or-municipal-works-damage|note|0",
+ "sc-claim-fall-in-a-parking-lot-or-plaza|note|0",
+ "sc-claim-fall-at-a-rental-property|note|1",
+ "sc-claim-fall-at-a-municipal-facility|consideration|sidewalk-or-road-scmuni",
+ "sc-claim-fall-at-a-municipal-facility|note|0",
+ "sc-claim-injury-at-a-business-or-event|note|0",
+ "sc-claim-injury-from-a-falling-object|note|0",
+ "sc-claim-injury-on-public-transit|note|0",
+ "sc-claim-unpaid-severance|element|notice-or-pay-owed-severance",
+ "sc-claim-unpaid-severance|consideration|exempt-from-notice-severance",
+ "sc-claim-contractor-misclassification|element|standard-not-given-misclass",
+ "sc-claim-against-a-municipality-other|note|0",
+ "sc-claim-hit-and-run-or-uninsured-driver|note|1",
+ "sc-defence-sued-by-a-collection-agency|element|who-the-agency-is",
+ "sc-defence-sued-as-parent-owner-or-employer|note|1",
+ "sc-claim-funeral-or-cemetery-dispute|element|contract-requirements-fun",
+ "sc-claim-funeral-or-cemetery-dispute|element|cooling-off-fun",
+ "sc-claim-funeral-or-cemetery-dispute|element|later-cancellation-fun",
+ "sc-claim-financial-advisor-or-mortgage-broker|note|1"
 ];

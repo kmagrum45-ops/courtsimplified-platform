@@ -27,6 +27,7 @@ export const APPLICABILITY_FACTS = [
   "governmentParty", // a municipality, the Crown or a government body is a party
   "insurerInvolved", // an insurer is involved
   "loanRepayableOnDemand", // the loan had no fixed repayment date (repayable on demand)
+  "moneyOwed", // the claim is for money the other side owes (a debt), which is when set-off (CJA s. 111) can come up
 ] as const;
 export type ApplicabilityFact = (typeof APPLICABILITY_FACTS)[number];
 
