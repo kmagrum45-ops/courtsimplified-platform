@@ -304,9 +304,12 @@ async function follow(page: Page, run: Run, route: Route = "chat") {
   const next = page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first();
   const clicked = v2 || (await next.isVisible({ timeout: 10_000 }).catch(() => false));
   const pressedAt = Date.now();
-  if (v2) { const url = new URL(page.url()); url.searchParams.set("step", "results"); await page.goto(url.toString()); }
+  // The new flow: the Forms step's own "See your next step" when it has one, else the results address (before it had one).
+  const onward = page.getByTestId("flow-see-next-step");
+  if (v2 && (await onward.isVisible().catch(() => false))) await onward.click();
+  else if (v2) { const url = new URL(page.url()); url.searchParams.set("step", "results"); await page.goto(url.toString()); }
   else if (clicked) await next.click();
-  const reached = await visible(page, "completed-case-overview", 300_000);
+  const reached = v2 ? await visible(page, "sc-results", 300_000) : await visible(page, "completed-case-overview", 300_000);
   run.seen.nextSeconds = Math.round((Date.now() - pressedAt) / 1000);
   run.add(`T${id}-next`, "Next step", "reached", reached ? [] : ["the next-step overview never showed"]);
   run.add(`T${id}-next`, "Next step", "(m) quick", !clicked ? ["\"Show my next step\" was not shown"] : !reached ? ["never reached"] : run.seen.nextSeconds > QUICK_SECONDS ? [`${run.seen.nextSeconds} seconds (over ${QUICK_SECONDS})`] : []);
@@ -315,7 +318,7 @@ async function follow(page: Page, run: Run, route: Route = "chat") {
   const overviewUrl = page.url();
   // 6. Form 7A: (d) the count, (l) what the story covers, (h) the two buttons on every item.
   const section = page.getByTestId("statement-of-claim-surface").first();
-  if (await section.isVisible({ timeout: 60_000 }).catch(() => false)) {
+  if (!v2 && (await section.isVisible({ timeout: 60_000 }).catch(() => false))) {
     const items = section.getByTestId("form7a-still-to-add");
     const count = await items.count();
     const checklist = await section.innerText();
@@ -358,7 +361,7 @@ async function follow(page: Page, run: Run, route: Route = "chat") {
   const reloaded = await run.screen("Case page after a reload");
   run.add(reloaded.step, "Case page after a reload", "(i) kept", keptProblems(run.given, reloaded.text));
   await page.goto(overviewUrl);
-  if (await visible(page, "completed-case-overview", 120_000)) {
+  if (await visible(page, v2 ? "sc-results" : "completed-case-overview", 120_000)) {
     const back = await page.getByTestId("statement-of-claim-surface").first().getByTestId("form7a-still-to-add").allInnerTexts().catch(() => []);
     const answered = run.given.filter((g) => g.where !== "chat-yes").map((g) => g.what.replace(/^I (?:have|don't have) this: /, ""));
     const reloadedOverview = await run.screen("Next step after a reload");
