@@ -21,7 +21,7 @@ function item(key: string): { name: string; text: string; sourceUrl?: string; ve
 }
 const kept = DEADLINE_LINE_ITEMS.filter((k) => DEADLINE_DECISIONS[k]?.keep);
 const cut = DEADLINE_LINE_ITEMS.filter((k) => DEADLINE_DECISIONS[k] && !DEADLINE_DECISIONS[k].keep);
-const entry = (k: string) => { const d = DEADLINE_DECISIONS[k]; const i = item(k); return [`- **${k}** (${cell(i.name)})`, `  - ${d.keep ? "KEPT" : "CUT"}: ${cell(d.why)}`, `  - Passage: "${cell(i.text)}"`, `  - Source: ${i.sourceUrl ?? "none"} (verified ${i.verifiedAt ?? "?"})`]; };
+const entry = (k: string) => { const d = DEADLINE_DECISIONS[k]; const i = item(k); return [`- **${k}** (${cell(i.name)})`, `  - ${d.keep ? (d.snowIce ? "KEPT, its line opening with \"If snow or ice was involved:\"" : "KEPT") : "CUT"}: ${cell(d.why)}`, `  - Passage: "${cell(i.text)}"`, `  - Source: ${i.sourceUrl ?? "none"} (verified ${i.verifiedAt ?? "?"})`]; };
 const body = [
   "# Small Claims deadlines block: the 35 notice and time-limit items, kept or cut",
   "",

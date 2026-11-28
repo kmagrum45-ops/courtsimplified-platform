@@ -21,6 +21,14 @@ import { confirmedKind, itemKey, type ApplicabilityAnswers, type ApplicabilityFa
 import { itemApplies } from "../applicability/itemApplies";
 import { DEADLINE_LINE_ITEMS } from "../applicability/catalogueConditions.generated";
 import { DEADLINE_DECISIONS } from "./deadlineLines";
+import { SNOW_ICE_OPENING } from "../copy/flowCopy";
+import { CASE_STAGES, type StageDeadline } from "../stage-map/stageMap";
+import { officialUrl } from "../stage-map/citations";
+import { computedDeadlinesFor } from "../../content-library/computedDeadline";
+import { periodLine } from "../../content-library/periodWords";
+import { caseDatesFrom } from "../deadlines/deadlineEvents";
+import { withCaseFileDates } from "../caseFile/caseFile";
+import { fullDayIn } from "../casePosition";
 
 export type SourcedLine = { key: string; name: string; text: string; sourceUrl: string | null; verifiedAt: string | null };
 export type ScResults = {
@@ -39,6 +47,16 @@ const EMPTY: ScResults = { claimTypeId: null, deadlines: [], elements: [], consi
 export function confirmedKindOf(record: CaseFile | null | undefined): string | null {
   const id = confirmedKind(record ?? null);
   return id && CLAIM_TYPES.some((type) => type.id === id && type.courtArea === "small-claims") ? id : null;
+}
+
+/** The stage map's basic two-year limitation deadline (Small Claims), as one deadlines line. */
+export const LIMITATION_KEY = "deadline:basic-limitation";
+export function limitationLine(record: CaseFile): (SourcedLine & { days: number }) | null {
+  const deadline = CASE_STAGES.flatMap((stage) => stage.deadlines as readonly StageDeadline[]).find((item) => item.id === LIMITATION_KEY);
+  if (!deadline) return null;
+  const counted = computedDeadlinesFor([deadline], caseDatesFrom(withCaseFileDates({}, record, fullDayIn)), "scResults")[0];
+  const words = counted ? counted.statement : periodLine({ what: deadline.what, count: deadline.length.count, unit: deadline.length.unit, countFrom: deadline.countFrom });
+  return { key: LIMITATION_KEY, name: words, text: words, sourceUrl: officialUrl(deadline.rule), verifiedAt: null, days: 730 };
 }
 
 export function scResults(record: CaseFile | null | undefined, answers: ApplicabilityAnswers = {}, claimTypeId: string | null = confirmedKindOf(record)): ScResults {
@@ -78,8 +96,14 @@ export function scResults(record: CaseFile | null | undefined, answers: Applicab
     const line = lineOf(key, "", note.note, note.sourceUrl, note.verifiedAt);
     return route(key, line) === "other" ? [line] : [];
   });
-  // Each distinct deadline once: an item the decisions mark as the same deadline as another is not drawn again.
-  const drawn = deadlines.filter((line) => { const decision = DEADLINE_DECISIONS[line.key]; return !(decision && !decision.keep && decision.sameAs); }).sort((a, b) => a.days - b.days);
+  // A snow-and-ice notice opens with the owner's words (27 Nov 2026), then the item's own.
+  for (const line of deadlines) { const decision = DEADLINE_DECISIONS[line.key]; if (decision?.keep && decision.snowIce) line.name = `${SNOW_ICE_OPENING} ${line.name || line.text}`; }
+  // The two-year limitation period, once, for every confirmed kind (site owner, 27 Nov 2026): the stage map's own
+  // deadline (Limitations Act, 2002, s. 4), counted by the deadline engine when the record holds the day it runs from,
+  // else in the card's own period words (periodWords.ts).
+  const limitation = limitationLine(record);
+  if (limitation) deadlines.push(limitation);
+  const drawn = deadlines.sort((a, b) => a.days - b.days);
   const seen = new Map<string, string | null>();
   for (const line of [...drawn, ...elements, ...considerations, ...notes]) if (line.sourceUrl && !seen.has(line.sourceUrl)) seen.set(line.sourceUrl, line.verifiedAt);
   return { claimTypeId: type.id, deadlines: drawn, elements, considerations, notes, sources: [...seen].map(([url, verifiedAt]) => ({ url, verifiedAt })), asks: [...asks] };

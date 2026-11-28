@@ -9,6 +9,9 @@
  *      deadlines soonest first, and each source once;
  *   3. with no confirmed kind (nothing, a proposal only), nothing from the catalogue shows (hidden by default);
  *   4. a cut deadline item never shows in the deadlines;
+ *   6. the deadlines hold the stage map's two-year limitation period once for every confirmed kind (in the card's own
+ *      period words, or the engine's counted date), and every snow-and-ice notice opens with "If snow or ice was
+ *      involved:" (site owner, 27 Nov 2026);
  *   5. the results step makes no AI call: none of its own files, nor anything they import, reaches the OpenAI client
  *      (the import closure of ResultsBlocks.tsx and scResults.ts), so ?step=results draws from the record alone.
  *
@@ -23,7 +26,8 @@ import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { DEADLINE_LINE_ITEMS } from "../../src/lib/case-system/applicability/catalogueConditions.generated";
 import { DEADLINE_DECISIONS } from "../../src/lib/case-system/results/deadlineLines";
-import { scResults } from "../../src/lib/case-system/results/scResults";
+import { LIMITATION_KEY, limitationLine, scResults } from "../../src/lib/case-system/results/scResults";
+import { SNOW_ICE_OPENING } from "../../src/lib/case-system/copy/flowCopy";
 
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
@@ -47,6 +51,8 @@ const unsorted: string[] = [];
 const cutShown: string[] = [];
 const sourceTwice: string[] = [];
 const elementInLaw: string[] = [];
+const noLimitation: string[] = [];
+const snowUnopened: string[] = [];
 let withDeadlines = 0;
 for (const type of SC) {
   const results = scResults(recordWith({ "sc-orient-dispute-category": type.id }));
@@ -54,7 +60,13 @@ for (const type of SC) {
   const keys = [...results.deadlines, ...results.elements, ...results.considerations, ...results.notes].map((line) => line.key);
   if (keys.length !== new Set(keys).size) twice.push(type.id);
   if (results.deadlines.some((line, i) => i > 0 && results.deadlines[i - 1].days > line.days)) unsorted.push(type.id);
-  if (results.deadlines.some((line) => !DEADLINE_DECISIONS[line.key]?.keep)) cutShown.push(type.id);
+  if (results.deadlines.some((line) => line.key !== LIMITATION_KEY && !DEADLINE_DECISIONS[line.key]?.keep)) cutShown.push(type.id);
+  if (results.deadlines.filter((line) => line.key === LIMITATION_KEY).length !== 1) noLimitation.push(type.id);
+  for (const line of results.deadlines) {
+    const decision = DEADLINE_DECISIONS[line.key];
+    if (decision?.keep && decision.snowIce && !line.name.startsWith(SNOW_ICE_OPENING)) snowUnopened.push(line.key);
+    if (decision?.keep && !decision.snowIce && line.name.startsWith(SNOW_ICE_OPENING)) snowUnopened.push(`${line.key} (not snow and ice)`);
+  }
   if (results.sources.length !== new Set(results.sources.map((s) => s.url)).size) sourceTwice.push(type.id);
   if ([...results.considerations, ...results.notes].some((line) => line.key.includes("|element|"))) elementInLaw.push(type.id);
   if (results.deadlines.length) withDeadlines += 1;
@@ -65,6 +77,11 @@ check("2 each source once", sourceTwice.length === 0, sourceTwice.join(", "));
 check("2 the law block holds no element (the checklist owns them)", elementInLaw.length === 0, elementInLaw.join(", "));
 check("2 kinds with a kept deadline draw it (some do)", withDeadlines > 0, String(withDeadlines));
 check("4 a cut deadline item never shows in the deadlines", cutShown.length === 0, cutShown.join(", "));
+check("6 the two-year limitation period shows once, for every confirmed kind", noLimitation.length === 0, noLimitation.join(", "));
+check("6 every snow-and-ice notice line opens with \"If snow or ice was involved:\", and no other line does", snowUnopened.length === 0, snowUnopened.join(", "));
+check("6 eight kept items are snow-and-ice notices", Object.values(DEADLINE_DECISIONS).filter((d) => d.keep && d.snowIce).length === 8);
+const limitationOnly = limitationLine(recordWith({ "sc-orient-dispute-category": "sc-claim-deposit-not-returned" }));
+check("6 with no date held, the limitation line is the card's own period words", Boolean(limitationOnly && /^The general deadline to start a court case\. 2 years after the day the claim was discovered\.$/.test(limitationOnly.name)), limitationOnly?.name);
 const none = scResults(recordWith({}));
 check("3 no confirmed kind: nothing from the catalogue shows", none.claimTypeId === null && none.deadlines.length + none.elements.length + none.considerations.length + none.notes.length === 0);
 

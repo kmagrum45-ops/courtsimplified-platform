@@ -11,11 +11,11 @@
  * test:sc-results checks that every DEADLINE_LINE_ITEMS key is decided here exactly once.
  */
 export type DeadlineDecision =
-  | { keep: true; days: number; why: string }
+  | { keep: true; days: number; why: string; /** A snow-and-ice notice (Occupiers' Liability Act s. 6.1): its line opens with SNOW_ICE_OPENING (owner, 27 Nov 2026). */ snowIce?: boolean }
   | { keep: false; why: string; sameAs?: string };
 
 export const DEADLINE_DECISIONS: Record<string, DeadlineDecision> = {
-  "sc-claim-slip-and-fall-occupier-liability|element|notice-if-snow-or-ice": { keep: true, days: 60, why: "written notice of the claim within 60 days after the injury (Occupiers' Liability Act s. 6.1 (1))" },
+  "sc-claim-slip-and-fall-occupier-liability|element|notice-if-snow-or-ice": { keep: true, days: 60, snowIce: true, why: "written notice of the claim within 60 days after the injury (Occupiers' Liability Act s. 6.1 (1))" },
   "sc-claim-slip-and-fall-occupier-liability|note|1": { keep: false, why: "the same 60-day snow-and-ice notice as the element above, for the same claim type", sameAs: "sc-claim-slip-and-fall-occupier-liability|element|notice-if-snow-or-ice" },
   "sc-claim-wrongful-dismissal|element|minimum-employment-length": { keep: false, why: "a three-month length of employment the Act's standard applies from; no notice anyone must give by a date" },
   "sc-claim-wrongful-dismissal|element|notice-or-pay-not-given": { keep: false, why: "the termination notice the employer owed is what the claim is about (the entitlement), not a deadline anyone must still meet" },
@@ -31,21 +31,21 @@ export const DEADLINE_DECISIONS: Record<string, DeadlineDecision> = {
   "sc-claim-insurance-claim-denied|consideration|condition-not-met-ins": { keep: false, why: "no stated period" },
   "sc-claim-bank-error-or-unauthorized-transaction|element|lost-or-stolen-card-bnk": { keep: false, why: "no stated period" },
   "sc-claim-snow-plow-or-municipal-works-damage|note|0": { keep: true, days: 10, why: "written notice of the claim to the municipality within 10 days after the injury (Municipal Act, 2001, s. 44 (10))" },
-  "sc-claim-fall-in-a-parking-lot-or-plaza|note|0": { keep: true, days: 60, why: "the 60-day snow-and-ice written notice (Occupiers' Liability Act s. 6.1 (1))" },
-  "sc-claim-fall-at-a-rental-property|note|1": { keep: true, days: 60, why: "the 60-day snow-and-ice written notice (Occupiers' Liability Act s. 6.1 (1))" },
+  "sc-claim-fall-in-a-parking-lot-or-plaza|note|0": { keep: true, days: 60, snowIce: true, why: "the 60-day snow-and-ice written notice (Occupiers' Liability Act s. 6.1 (1))" },
+  "sc-claim-fall-at-a-rental-property|note|1": { keep: true, days: 60, snowIce: true, why: "the 60-day snow-and-ice written notice (Occupiers' Liability Act s. 6.1 (1))" },
   "sc-claim-fall-at-a-municipal-facility|consideration|sidewalk-or-road-scmuni": { keep: true, days: 10, why: "written notice to the municipality within 10 days after the injury, for a fall on a public sidewalk or road (Municipal Act, 2001, s. 44 (10))" },
-  "sc-claim-fall-at-a-municipal-facility|note|0": { keep: true, days: 60, why: "the 60-day snow-and-ice written notice (Occupiers' Liability Act s. 6.1 (1))" },
-  "sc-claim-injury-at-a-business-or-event|note|0": { keep: true, days: 60, why: "the 60-day snow-and-ice written notice (Occupiers' Liability Act s. 6.1 (1))" },
-  "sc-claim-injury-from-a-falling-object|note|0": { keep: true, days: 60, why: "the 60-day snow-and-ice written notice (Occupiers' Liability Act s. 6.1 (1))" },
+  "sc-claim-fall-at-a-municipal-facility|note|0": { keep: true, days: 60, snowIce: true, why: "the 60-day snow-and-ice written notice (Occupiers' Liability Act s. 6.1 (1))" },
+  "sc-claim-injury-at-a-business-or-event|note|0": { keep: true, days: 60, snowIce: true, why: "the 60-day snow-and-ice written notice (Occupiers' Liability Act s. 6.1 (1))" },
+  "sc-claim-injury-from-a-falling-object|note|0": { keep: true, days: 60, snowIce: true, why: "the 60-day snow-and-ice written notice (Occupiers' Liability Act s. 6.1 (1))" },
   "sc-claim-injury-on-public-transit|consideration|sidewalk-or-road-sctransit": { keep: true, days: 10, why: "written notice to the municipality within 10 days after the injury, for an injury at a stop on a public sidewalk or road (Municipal Act, 2001, s. 44 (10))" },
-  "sc-claim-injury-on-public-transit|note|0": { keep: true, days: 60, why: "the 60-day snow-and-ice written notice (Occupiers' Liability Act s. 6.1 (1))" },
+  "sc-claim-injury-on-public-transit|note|0": { keep: true, days: 60, snowIce: true, why: "the 60-day snow-and-ice written notice (Occupiers' Liability Act s. 6.1 (1))" },
   "sc-claim-unpaid-severance|element|notice-or-pay-owed-severance": { keep: false, why: "the notice and severance the employer owed are what the claim is about; \"within six months\" is part of a severance condition, not a deadline" },
   "sc-claim-unpaid-severance|consideration|exempt-from-notice-severance": { keep: false, why: "a three-month length of employment, not a notice anyone must give by a date" },
   "sc-claim-contractor-misclassification|element|standard-not-given-misclass": { keep: false, why: "a three-month length of employment, not a notice anyone must give by a date" },
   "sc-claim-against-a-municipality-other|note|0": { keep: true, days: 10, why: "written notice of the claim to the municipality within 10 days after the injury (Municipal Act, 2001, s. 44 (10))" },
   "sc-claim-hit-and-run-or-uninsured-driver|note|1": { keep: true, days: 120, why: "notice within 120 days after the incident (Insurance Act s. 258.3 (1))" },
   "sc-defence-sued-by-a-collection-agency|element|who-the-agency-is": { keep: false, why: "no stated period" },
-  "sc-defence-sued-as-parent-owner-or-employer|note|1": { keep: true, days: 60, why: "the 60-day snow-and-ice written notice (Occupiers' Liability Act s. 6.1 (1)); on the defence side it is the other side's notice" },
+  "sc-defence-sued-as-parent-owner-or-employer|note|1": { keep: true, days: 60, snowIce: true, why: "the 60-day snow-and-ice written notice (Occupiers' Liability Act s. 6.1 (1)); on the defence side it is the other side's notice" },
   "sc-claim-funeral-or-cemetery-dispute|element|contract-requirements-fun": { keep: false, why: "the cancellation may be given at any time; the 30 days is the operator's refund, not a notice by a date" },
   "sc-claim-funeral-or-cemetery-dispute|element|cooling-off-fun": { keep: true, days: 30, why: "cancellation by written notice within 30 days" },
   "sc-claim-funeral-or-cemetery-dispute|element|later-cancellation-fun": { keep: false, why: "a later cancellation has no stated period; the 30 days is the operator's refund, not a notice by a date" },

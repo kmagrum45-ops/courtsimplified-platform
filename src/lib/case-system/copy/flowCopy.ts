@@ -57,3 +57,5 @@ export const RESULTS_VERIFIED = (date: string) => `verified ${date}`;
 export const RESULTS_ACTIONS = { casePage: "Open your case page", documents: "Add documents and evidence", forms: "Check official forms", change: "Change your answers" } as const;
 /** Before the kind of claim is confirmed nothing from the catalogue shows (hidden by default). */
 export const RESULTS_NO_KIND = "Confirm the kind of claim on the review to see what applies to it.";
+/** Opens every snow-and-ice notice line in the deadlines block (site owner, 27 Nov 2026), before the item's own words. */
+export const SNOW_ICE_OPENING = "If snow or ice was involved:";

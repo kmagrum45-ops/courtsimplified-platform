@@ -1,5 +1,6 @@
 "use client";
 
+import { periodUnit } from "../../../src/lib/content-library/periodWords";
 import { questionStatus } from "../../../src/lib/case-system/caseFile/factStatus";
 import { slotText, type CaseFile, type SlotFact } from "../../../src/lib/case-system/caseFile/caseFile";
 import { factsOfQuestion } from "../../../src/lib/case-system/caseFile/factsOfQuestion";
@@ -581,7 +582,7 @@ export function NextStepCard({
         amount: parseRecordedAmount(recordedAmount),
       })
     : "";
-  const unit = (count: number, word: string) => `${count} ${count === 1 ? word.replace(/s$/, "") : word}`;
+  const unit = periodUnit; // the one copy of a period's words (periodWords.ts), shared with the results step
   const { main, conditional, notClaimed, mipNote, changeMip, kept } = cardLimits(summary, responding, userWords, city, stepId);
   const mayApply = {
     deadlines: conditional.deadlines.filter((item) => !notClaimed.deadlines.includes(item) && !changeMip.deadlines.includes(item)),
