@@ -35,13 +35,18 @@
  * user-facing copy and is in the review packet as a system message.
  */
 
+import Link from "next/link";
+
 export type AiUseNoticeProps = {
   /** What this particular screen uses AI for. Keep it to a short phrase. */
   activity?: string;
   className?: string;
+  /** Where this is the screen's only notice (the new Small Claims flow, site owner 27 Nov 2026): the "Read more" link to
+   * /privacy that LegalInformationNotice carries, so the one notice still leads to the full terms. */
+  readMore?: boolean;
 };
 
-export default function AiUseNotice({ activity, className }: AiUseNoticeProps) {
+export default function AiUseNotice({ activity, className, readMore = false }: AiUseNoticeProps) {
   return (
     <aside
       data-testid="ai-use-notice"
@@ -60,6 +65,14 @@ export default function AiUseNotice({ activity, className }: AiUseNoticeProps) {
         a licensed Ontario lawyer or paralegal</strong>. Please check anything here against the official
         source before relying on it. CourtSimplified guides you through the process; it is not a
         law firm and is not your lawyer.
+        {readMore ? (
+          <>
+            {" "}
+            <Link href="/privacy" data-testid="ai-use-notice-read-more" className="font-semibold text-[#2f7d67] underline">
+              Read more
+            </Link>
+          </>
+        ) : null}
       </p>
     </aside>
   );
