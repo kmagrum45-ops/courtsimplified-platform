@@ -295,7 +295,10 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         }
         const address = new URL(window.location.href);
         const step = snapshot.sections.builder?.step;
-        if (address.pathname === "/builder" && address.searchParams.get("step") === "results") {
+        // The new Small Claims flow's results step is built from the record, with no saved step (site owner, 27 Nov
+        // 2026): its address is kept as it is, never sent to the case page or rewritten back into the flow (the
+        // acceptance runs of #568 and of the results step: "See your next step" landed on "Here is what we understood").
+        if (address.pathname === "/builder" && address.searchParams.get("step") === "results" && !(SC_FLOW_V2 && court === "small-claims")) {
           // Preserve the existing completed-case route; an interrupted unsaved analysis resumes intake.
           const pending = Boolean(session && session.checkpoint.revision !== serverRevision);
           // A saved, current next step is shown here at once, from the saved case (savedStep.ts; Chrome check of #544 on
