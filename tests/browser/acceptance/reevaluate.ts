@@ -56,7 +56,8 @@ for (const one of all.sort((a, b) => a.key.localeCompare(b.key, "en", { numeric:
     }
   }
   if (run) {
-    for (const recorded of run.rows) if (/^(reached|finished|\(d\)|\(h\))/.test(recorded.rule) || (recorded.rule === "(i) kept" && recorded.screen === "Next step after a reload")) rows.push(recorded);
+    // Also the new flow's own recorded rows: (t), and its (i) on the review (made live before the person confirmed).
+    for (const recorded of run.rows) if (/^(reached|finished|\(d\)|\(h\)|\(t\))/.test(recorded.rule) || (recorded.rule === "(i) kept" && recorded.screen === "Next step after a reload")) rows.push(recorded);
     if (run.seen.nextSeconds !== undefined) row(`T${journey.id}-next`, "Next step", "(m) quick", run.seen.nextSeconds > QUICK_SECONDS ? [`${run.seen.nextSeconds} seconds (over ${QUICK_SECONDS})`] : []);
     if (journey.notStillToAdd?.length && run.seen.checklist !== undefined) row(`T${journey.id}-7a`, "Form 7A", "(l) checklist prefilled", prefilledProblems(journey, run.seen.stillToAdd ?? [], run.seen.checklist));
   }

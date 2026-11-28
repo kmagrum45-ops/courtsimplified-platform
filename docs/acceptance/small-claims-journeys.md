@@ -45,6 +45,7 @@ Each numbered step is one screen, read **as the person sees it** (the visible te
 | **(q) One control** | A card with an "Is this right? Yes, that's right" control also has a separate "Not right" button (I1j). |
 | **(r) Labels stable** | Stories 8b and 9, each run twice: the "Here is what we understood" labels differ between the two runs (I2d). |
 | **(s) Sign-up words true** | The page says an email link confirms the address, and one real sign-up through the form is signed in at once (I2h). Run once per run. |
+| **(t) Next step reachable** | In the new Small Claims flow, the Forms step has no button or link that leads on to the next step (site owner, 27 Nov 2026: "Forms leads nowhere" is a failing row). |
 | **(m) Quick** | More than 20 seconds from pressing "Show my next step" to the overview showing. (About 1 to 1.5 minutes on 27 Nov 2026, so this fails today; it is tightened later.) |
 
 ## The click path (every story)

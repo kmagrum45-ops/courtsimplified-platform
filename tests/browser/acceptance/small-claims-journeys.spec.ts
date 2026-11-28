@@ -125,6 +125,62 @@ class Run {
   }
 }
 
+/** The person's own boxes, filled with made-up values where a screen asks them (rule (k)); only a story that says so. */
+async function fillOwnDetails(page: Page, run: Run) {
+  for (const [detail, value] of Object.entries(OWN_TEST_DETAILS)) {
+    const box = page.locator(`input[data-testid="parties-input-${detail}"][aria-label*="(you):"]`).first();
+    if (!(await box.isVisible().catch(() => false)) || (await box.inputValue().catch(() => "x"))) continue;
+    await box.fill(value);
+    await box.press("Tab");
+    await page.waitForTimeout(600);
+    if (!run.given.some((g) => g.where === "own" && g.what === `Your ${detail}`)) run.given.push({ what: `Your ${detail}`, value, where: "own" });
+  }
+  await page.waitForLoadState("networkidle", { timeout: 30_000 }).catch(() => {});
+}
+
+/** The new Small Claims flow's front half: Understood, Questions, Review, Forms (the doc's click path, new-flow version). */
+async function newFlowFront(page: Page, run: Run) {
+  const { journey } = run;
+  const outcome = journey.answers?.outcome;
+  const outcomeAsked = (q: string) => /\boutcome\b|asking the court|want the court|what do you want/i.test(q);
+  // Understood: every line offered from the story; "Yes, all" for what the story states.
+  if (await visible(page, "understood-lines", 120_000)) {
+    const lines = await page.getByTestId("understood-line").allInnerTexts().catch(() => []);
+    await run.screen("New flow: Understood", lines);
+    for (const line of lines) { const offered = offeredValue(line); if (offered.value) run.given.push({ what: offered.what, value: offered.value, where: "chat-yes" }); }
+    const all = page.getByTestId("understood-yes-all");
+    if (await all.isVisible().catch(() => false)) await all.click();
+    else await page.getByTestId("understood-continue").click().catch(() => {});
+  } else await run.screen("New flow: Understood (not shown)");
+  // Questions: every unknown on one page; the outcome in the story's own words, "I'm not sure" for the rest.
+  await page.getByTestId("questions-left").waitFor({ timeout: 60_000 }).catch(() => {});
+  await run.screen("New flow: Questions", await page.getByTestId("flow-question").allInnerTexts().catch(() => []));
+  if (journey.answers?.ownDetails) await fillOwnDetails(page, run);
+  const fields = await page.getByTestId("flow-question").evaluateAll((rows) => rows.map((row) => ({ field: row.getAttribute("data-question-id") ?? "", text: (row as HTMLElement).innerText }))).catch(() => [] as { field: string; text: string }[]);
+  for (const { field, text } of fields) {
+    if (outcome && outcomeAsked(text)) {
+      await page.getByTestId(`flow-answer-${field}`).fill(outcome).catch(() => {});
+      if (!run.given.some((g) => g.where === "typed")) run.given.push({ what: "Outcome", value: outcome, where: "typed" });
+    } else await page.getByTestId(`flow-unsure-${field}`).click().catch(() => {});
+    await page.waitForTimeout(400);
+  }
+  if (await page.getByTestId("questions-save").isVisible().catch(() => false)) await page.getByTestId("questions-save").click().catch(() => {});
+  await page.waitForLoadState("networkidle", { timeout: 30_000 }).catch(() => {});
+  await run.screen("New flow: Questions answered", await page.getByTestId("flow-question").allInnerTexts().catch(() => []));
+  await page.getByTestId("questions-continue").click({ timeout: 30_000 }).catch(() => {});
+  // Review: (i) what was given is in it; then confirm.
+  if (await visible(page, "flow-review", 60_000)) {
+    const review = await run.screen("Review", await page.getByTestId("flow-review-line").allInnerTexts().catch(() => []));
+    run.add(review.step, "Review", "(i) kept", keptProblems(run.given.filter((g) => g.where === "chat-yes" || g.where === "typed"), review.text));
+    await page.getByTestId("flow-review-confirm").click().catch(() => {});
+  }
+  // Forms: (t) it must lead on to the next step (site owner, 27 Nov 2026: "Forms leads nowhere" is a failing row).
+  await page.locator("[data-testid=sc-flow][data-flow-step=forms]").waitFor({ timeout: 60_000 }).catch(() => {});
+  const forms = await run.screen("New flow: Forms");
+  const onward = page.getByRole("button", { name: /next step/i }).or(page.getByRole("link", { name: /next step/i }));
+  run.add(forms.step, "New flow: Forms", "(t) next step reachable", (await onward.first().isVisible().catch(() => false)) ? [] : ["Forms leads nowhere: no button or link to the next step"]);
+}
+
 /** One story, start to end, in the signed-in account the page already has. */
 async function follow(page: Page, run: Run, route: Route = "chat") {
   const { journey } = run;
@@ -164,6 +220,10 @@ async function follow(page: Page, run: Run, route: Route = "chat") {
     await page.getByTestId("acknowledgement-continue").click().catch(() => {});
   }
   await run.screen("Builder: start");
+  // The new Small Claims flow (SC_FLOW_V2 on): Understood, Questions, Review, Forms, instead of the chat and its review.
+  const v2 = FLOW === "v2" && (await page.getByTestId("sc-flow").isVisible({ timeout: 30_000 }).catch(() => false));
+  if (v2) await newFlowFront(page, run);
+  if (!v2) {
   // Chrome's second route (I1c): straight to "Stop initial questions and review".
   if (route === "stop-and-review") await page.getByTestId("intake-start-review").filter({ visible: true }).first().click({ timeout: 30_000 }).catch(() => {});
   // 3. The chat, one screen per card or question.
@@ -238,11 +298,14 @@ async function follow(page: Page, run: Run, route: Route = "chat") {
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 }).catch(() => {});
     await run.screen("Confirmed");
   }
-  // 5. The next step: (m) how long it takes.
+  }
+  // 5. The next step: (m) how long it takes. The new flow's Forms step leads nowhere yet (row (t)), so the results page is
+  // opened by its address, timed from there, until the new results step replaces it.
   const next = page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first();
-  const clicked = await next.isVisible({ timeout: 10_000 }).catch(() => false);
+  const clicked = v2 || (await next.isVisible({ timeout: 10_000 }).catch(() => false));
   const pressedAt = Date.now();
-  if (clicked) await next.click();
+  if (v2) { const url = new URL(page.url()); url.searchParams.set("step", "results"); await page.goto(url.toString()); }
+  else if (clicked) await next.click();
   const reached = await visible(page, "completed-case-overview", 300_000);
   run.seen.nextSeconds = Math.round((Date.now() - pressedAt) / 1000);
   run.add(`T${id}-next`, "Next step", "reached", reached ? [] : ["the next-step overview never showed"]);
