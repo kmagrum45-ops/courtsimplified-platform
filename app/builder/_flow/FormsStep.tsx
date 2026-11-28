@@ -14,7 +14,7 @@ import FilledForm7A from "../../_components/FilledForm7A";
 import { askedQuestionsOf } from "../../../src/lib/case-system/caseFile/caseFile";
 import { formContextOfFile } from "../../../src/lib/case-system/forms/formContext";
 import { CLAIM_TYPES, type EvidenceCategory } from "../../../src/lib/case-system/intake/claimTypes";
-import { EVIDENCE_GENERAL, EVIDENCE_HEADING, FLOW_STEP_HEADINGS, FORM_NOT_COVERED } from "../../../src/lib/case-system/copy/flowCopy";
+import { EVIDENCE_GENERAL, EVIDENCE_HEADING, FLOW_SEE_NEXT_STEP, FLOW_STEP_HEADINGS, FORM_NOT_COVERED } from "../../../src/lib/case-system/copy/flowCopy";
 
 /** A kind's evidence categories across its elements, each category once (by name), in the order the elements give them. */
 export function evidenceOfKind(kindId: string | null): EvidenceCategory[] {
@@ -28,7 +28,7 @@ export function evidenceOfKind(kindId: string | null): EvidenceCategory[] {
   });
 }
 
-export function FormsStep() {
+export function FormsStep({ onNext }: { onNext: () => void }) {
   const { record, recovery } = useFlowRecord();
   const ctx = useMemo(() => (record ? formContextOfFile(record, askedQuestionsOf(recovery?.getReview().checkpoint)) : null), [record, recovery]);
   const kindId = record?.claimKind.state === "answered" && record.claimKind.confirmed && typeof record.claimKind.value === "string" ? record.claimKind.value : null;
@@ -51,6 +51,10 @@ export function FormsStep() {
           </ul>
         </section>
       ) : null}
+      {/* The way on to the results step (site owner, 27 Nov 2026: "Forms leads nowhere"). */}
+      <div>
+        <button type="button" data-testid="flow-see-next-step" onClick={onNext} className="rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white">{FLOW_SEE_NEXT_STEP}</button>
+      </div>
     </StepFrame>
   );
 }

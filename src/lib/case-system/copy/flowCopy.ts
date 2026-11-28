@@ -36,3 +36,24 @@ export const REVIEW_CONFIRM = "Continue";
 export const FORM_NOT_COVERED = (form: string) => `${form}: not covered yet.`;
 export const EVIDENCE_HEADING = "Evidence people often gather for this kind of claim";
 export const EVIDENCE_GENERAL = "General information for this kind of claim. It does not look at your own facts.";
+
+/** The Forms step's way on to the results step (site owner, 27 Nov 2026: "Forms leads nowhere", acceptance rule (t)). */
+export const FLOW_SEE_NEXT_STEP = "See your next step";
+
+/** The results step (block table, approved 27 Nov 2026). Headings only: every line under them is the catalogue's or the
+ * stage map's own stored text. */
+export const RESULTS_HEADINGS = {
+  deadlines: "Deadlines",
+  checklist: "What you will need to show",
+  law: "The law for this kind of claim",
+  considerations: "What the other side may raise",
+  notes: "Rules about this kind of claim",
+  next: "What you can do next",
+  sources: "Sources",
+} as const;
+/** A source's verified date, as the site writes it elsewhere ("verified 2026-10-06"). */
+export const RESULTS_VERIFIED = (date: string) => `verified ${date}`;
+/** "What you can do next": the old results page's own button words (builder page, old block 12), plus the way back to Review. */
+export const RESULTS_ACTIONS = { casePage: "Open your case page", documents: "Add documents and evidence", forms: "Check official forms", change: "Change your answers" } as const;
+/** Before the kind of claim is confirmed nothing from the catalogue shows (hidden by default). */
+export const RESULTS_NO_KIND = "Confirm the kind of claim on the review to see what applies to it.";

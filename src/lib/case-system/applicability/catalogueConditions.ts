@@ -47,7 +47,8 @@ export type ApplicabilityAnswers = Partial<Record<ApplicabilityFact, boolean>>;
 
 export type Verdict = { shows: true } | { shows: false; ask: ApplicabilityFact[] };
 
-const confirmedKind = (record: CaseFile | null): string | null => {
+/** The kind of claim the person confirmed (answered and confirmed), or null: the one reader conditions and the results step use. */
+export const confirmedKind = (record: CaseFile | null): string | null => {
   const kind = record?.claimKind;
   return kind && kind.state === "answered" && kind.confirmed && typeof kind.value === "string" ? kind.value : null;
 };

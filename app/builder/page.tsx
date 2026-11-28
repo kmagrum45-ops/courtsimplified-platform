@@ -6,6 +6,7 @@ import { partyNames } from "../../src/lib/case-system/parties/parties";
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { SC_FLOW_V2 } from "../../src/lib/case-system/flow/scFlowSwitch";
 import { SmallClaimsFlow } from "./_flow/SmallClaimsFlow";
+import { ResultsBlocks } from "./_flow/ResultsBlocks";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
 import { caseFileOf, childSupportStartFrom, claimKindOf, heldServiceWords, kindForAnalysis, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
 import { stageHeldElsewhere } from "../../src/lib/case-system/caseFile/stageHeld";
@@ -1538,7 +1539,14 @@ function BuilderPageContent() {
    * address, or "Show my next step" in the review panel) shows it as saved, with no new AI run and nothing written.
    * It goes through the same handleComplete a fresh run uses, so the overview is drawn the same way.
    */
+  // The new Small Claims flow (SC_FLOW_V2) and its results step: the stage from the person's own situation answers, by
+  // rules (stageFromAnswers.ts), never from an AI reading; "not sure" leaves the card out (the blocks still show).
+  const scV2 = SC_FLOW_V2 && courtPath === "small-claims";
+  const scV2Results = scV2 && stepParam === "results";
+  const scV2Stage = scV2Results ? stageRecordedFromAnswers(courtPath, null, "not-sure", situation)?.stage ?? null : null;
   useEffect(() => {
+    // The new Small Claims flow never adopts an old analysis: its results step is built from the record (site owner, 27 Nov 2026).
+    if (scV2) return;
     if (stepParam !== "results" || analysis || !intakeConfirmed || !reviewView || !recovery || loadingExistingCase) return;
     const saved = savedStepOf(recovery.getSavedMaster(), reviewView, courtPath, recovery.getCaseId());
     if (!saved) return;
@@ -1546,9 +1554,10 @@ function BuilderPageContent() {
     setCasePicture(readStoredPicture(asRecord(recovery.getSavedMaster()).casePicture));
     handleComplete(saved.analysis as unknown as AnalysisResult, saved.data as unknown as StoredCaseData);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- handleComplete is this page's own, run once per adoption
-  }, [stepParam, analysis, intakeConfirmed, reviewView, recovery, loadingExistingCase, courtPath]);
+  }, [scV2, stepParam, analysis, intakeConfirmed, reviewView, recovery, loadingExistingCase, courtPath]);
 
-  const resultsVisible = intakeConfirmed && Boolean(analysis) && analysisInputRevision.current === reviewView?.checkpoint.inputRevision && Boolean(reviewView && analysisFactsRevision.current === factsRevision(reviewView.checkpoint)) && stepParam === "results";
+  // The old results (the AI analysis, the overview, the Form 7A section) are never drawn for Small Claims in the new flow.
+  const resultsVisible = !scV2 && intakeConfirmed && Boolean(analysis) && analysisInputRevision.current === reviewView?.checkpoint.inputRevision && Boolean(reviewView && analysisFactsRevision.current === factsRevision(reviewView.checkpoint)) && stepParam === "results";
 
   /*
    * NO REMEMBERED LAST CASE (site owner's rule 1, 30 Oct 2026).
@@ -2222,7 +2231,42 @@ function BuilderPageContent() {
             )}
 
             {/* Not on the overview once confirmed: the case page's next-step buttons open it, and the step is worked out there (F6). */}
-            {SC_FLOW_V2 && courtPath === "small-claims" && !(stepParam === "results" && intakeConfirmed) ? <SmallClaimsFlow /> : null}
+            {scV2 && !scV2Results ? <SmallClaimsFlow /> : null}
+            {/*
+              THE NEW SMALL CLAIMS RESULTS STEP (site owner, 27 Nov 2026; block table approved with changes): built from the
+              record and the stage by rules, with no AI call and no saved analysis. Row A, the next-step card, is the stage
+              map's (StageAnswerPanel, rendered from the library by /api/case/stage-answer), at the stage the person's own
+              situation answers settle (stageFromAnswers.ts); rows D, E, L, F and W are the catalogue's (ResultsBlocks).
+            */}
+            {scV2Results ? (
+              <section data-testid="sc-results" className="space-y-6">
+                {scV2Stage ? (
+                  <StageAnswerPanel
+                    courtPath={courtPath}
+                    confirmedStage={scV2Stage}
+                    responding={respondingSide}
+                    sideFromRecord={sideOf(situation) !== null}
+                    caseId={savedCaseId()}
+                    initialStepId={savedPosition.stepId ?? stepFromSituation(situation, courtPath)}
+                    laterDates={unsureDateQuestions(builderCaseFile)}
+                    file={builderCaseFile}
+                    stepNotSure={factStatus(builderCaseFile, "stage") === "settled"}
+                    heldServiceWords={heldServiceWords(builderCaseFile)}
+                    initialDateAnswers={savedPosition.dateAnswers}
+                    initialService={savedPosition.service}
+                    city={confirmedLocation?.city ?? ""}
+                    onSaved={(saved) => {
+                      setPositionThisVisit((current) => ({
+                        stepId: saved.stepId !== undefined ? saved.stepId : current.stepId,
+                        dateAnswers: saved.dateAnswers ? { ...(current.dateAnswers ?? {}), ...saved.dateAnswers } : current.dateAnswers,
+                        service: saved.service ? { ...(current.service ?? {}), ...saved.service } : current.service,
+                      }));
+                    }}
+                  />
+                ) : null}
+                <ResultsBlocks onCasePage={goToDashboardCase} onCaseSection={goToCaseSection} />
+              </section>
+            ) : null}
             {!SC_FLOW_V2 && courtPath === "small-claims" && smallClaimsMode === "choose" && !(stepParam === "results" && intakeConfirmed) && (
               <div className="grid gap-4 md:grid-cols-2">
                 <button

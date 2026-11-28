@@ -50,7 +50,9 @@ export function SmallClaimsFlow() {
       {step === "reading" ? <UnderstoodStep onDone={() => go("questions")} /> : null}
       {step === "questions" ? <QuestionsStep onDone={() => go("review")} /> : null}
       {step === "review" ? <ReviewStep onDone={() => go("forms")} /> : null}
-      {step === "forms" ? <FormsStep /> : null}
+      {/* The results step is the builder page's (?step=results), drawn in this flow's place. A full load of that
+          address, so the page reads it as any reload does. */}
+      {step === "forms" ? <FormsStep onNext={() => { const url = new URL(window.location.href); url.searchParams.set("step", "results"); window.location.assign(url.toString()); }} /> : null}
     </div>
   );
 }
